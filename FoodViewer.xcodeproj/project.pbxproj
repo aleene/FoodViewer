@@ -7,21 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A330205486064151D59B5B0 /* Pods_FoodViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF4ACF2982F575976B35403 /* Pods_FoodViewer.framework */; };
+		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
 		5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B9071C5D3B57002DBD21 /* AppDelegate.swift */; };
-		5180B90A1C5D3B57002DBD21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B9091C5D3B57002DBD21 /* ViewController.swift */; };
 		5180B90D1C5D3B57002DBD21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5180B90B1C5D3B57002DBD21 /* Main.storyboard */; };
 		5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5180B90E1C5D3B57002DBD21 /* Assets.xcassets */; };
 		5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */; };
+		5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91A1C5D3B9E002DBD21 /* Product.swift */; };
+		5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */; };
+		51A1B4871C64E5BB00641ED2 /* TracesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A1B4861C64E5BB00641ED2 /* TracesTableViewCell.swift */; };
+		51DAD36E1C5F639900895513 /* AllergensTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36D1C5F639900895513 /* AllergensTableViewCell.swift */; };
+		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
+		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
+		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
+		51DAD3761C5F649A00895513 /* NutritionFactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3751C5F649A00895513 /* NutritionFactsTableViewCell.swift */; };
+		51DAD3791C60A6A200895513 /* 737628064502.json in Resources */ = {isa = PBXBuildFile; fileRef = 51DAD3781C60A6A200895513 /* 737628064502.json */; };
+		51EA98B61C64A3C3000A503D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 51EA98B51C64A3C3000A503D /* Podfile */; };
+		51EA98B81C64A3DD000A503D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA98B71C64A3DD000A503D /* JSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0AF4ACF2982F575976B35403 /* Pods_FoodViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
 		5180B9041C5D3B57002DBD21 /* FoodViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5180B9071C5D3B57002DBD21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5180B9091C5D3B57002DBD21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5180B90C1C5D3B57002DBD21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5180B90E1C5D3B57002DBD21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5180B9111C5D3B57002DBD21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5180B9131C5D3B57002DBD21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5180B91A1C5D3B9E002DBD21 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
+		51A1B4861C64E5BB00641ED2 /* TracesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TracesTableViewCell.swift; sourceTree = "<group>"; };
+		51DAD36D1C5F639900895513 /* AllergensTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllergensTableViewCell.swift; sourceTree = "<group>"; };
+		51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
+		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
+		51DAD3751C5F649A00895513 /* NutritionFactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactsTableViewCell.swift; sourceTree = "<group>"; };
+		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
+		51EA98B51C64A3C3000A503D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		51EA98B71C64A3DD000A503D /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		6A65ECC9AF4BA52E5D18C421 /* Pods-FoodViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodViewer/Pods-FoodViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		839CE63262EFE2BDE707E941 /* Pods-FoodViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoodViewer/Pods-FoodViewer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A330205486064151D59B5B0 /* Pods_FoodViewer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,8 +65,11 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
+				51EA98B51C64A3C3000A503D /* Podfile */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				5180B9051C5D3B57002DBD21 /* Products */,
+				562F38C310DD28D5988445B4 /* Pods */,
+				8D5BF8EB34E389A8CBCBBD1A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +84,57 @@
 		5180B9061C5D3B57002DBD21 /* FoodViewer */ = {
 			isa = PBXGroup;
 			children = (
-				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
-				5180B9091C5D3B57002DBD21 /* ViewController.swift */,
+				51EA98B71C64A3DD000A503D /* JSON.swift */,
+				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
+				5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */,
+				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
+				51DAD3771C5F757A00895513 /* ProductTableCells */,
 				5180B90B1C5D3B57002DBD21 /* Main.storyboard */,
+				5180B9191C5D3B75002DBD21 /* Support files */,
+			);
+			path = FoodViewer;
+			sourceTree = "<group>";
+		};
+		5180B9191C5D3B75002DBD21 /* Support files */ = {
+			isa = PBXGroup;
+			children = (
+				51DAD3781C60A6A200895513 /* 737628064502.json */,
+				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
 				5180B90E1C5D3B57002DBD21 /* Assets.xcassets */,
 				5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */,
 				5180B9131C5D3B57002DBD21 /* Info.plist */,
 			);
-			path = FoodViewer;
+			name = "Support files";
+			sourceTree = "<group>";
+		};
+		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
+			isa = PBXGroup;
+			children = (
+				51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */,
+				51DAD36D1C5F639900895513 /* AllergensTableViewCell.swift */,
+				51DAD3751C5F649A00895513 /* NutritionFactsTableViewCell.swift */,
+				51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */,
+				51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */,
+				51A1B4861C64E5BB00641ED2 /* TracesTableViewCell.swift */,
+			);
+			name = ProductTableCells;
+			sourceTree = "<group>";
+		};
+		562F38C310DD28D5988445B4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6A65ECC9AF4BA52E5D18C421 /* Pods-FoodViewer.debug.xcconfig */,
+				839CE63262EFE2BDE707E941 /* Pods-FoodViewer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		8D5BF8EB34E389A8CBCBBD1A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0AF4ACF2982F575976B35403 /* Pods_FoodViewer.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +144,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5180B9161C5D3B57002DBD21 /* Build configuration list for PBXNativeTarget "FoodViewer" */;
 			buildPhases = (
+				49EE6C82AB0D5499B4312E4A /* Check Pods Manifest.lock */,
 				5180B9001C5D3B57002DBD21 /* Sources */,
 				5180B9011C5D3B57002DBD21 /* Frameworks */,
 				5180B9021C5D3B57002DBD21 /* Resources */,
+				8835C103BEFB071CC03EC9F3 /* Embed Pods Frameworks */,
+				FF32977D62A90EEECDA0E8D1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -122,21 +198,80 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51EA98B61C64A3C3000A503D /* Podfile in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				5180B90D1C5D3B57002DBD21 /* Main.storyboard in Resources */,
+				51DAD3791C60A6A200895513 /* 737628064502.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		49EE6C82AB0D5499B4312E4A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8835C103BEFB071CC03EC9F3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodViewer/Pods-FoodViewer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF32977D62A90EEECDA0E8D1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FoodViewer/Pods-FoodViewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5180B9001C5D3B57002DBD21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5180B90A1C5D3B57002DBD21 /* ViewController.swift in Sources */,
+				51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */,
+				51EA98B81C64A3DD000A503D /* JSON.swift in Sources */,
+				51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
+				5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */,
+				51DAD3761C5F649A00895513 /* NutritionFactsTableViewCell.swift in Sources */,
+				516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */,
+				51A1B4871C64E5BB00641ED2 /* TracesTableViewCell.swift in Sources */,
+				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
+				51DAD36E1C5F639900895513 /* AllergensTableViewCell.swift in Sources */,
+				51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +382,7 @@
 		};
 		5180B9171C5D3B57002DBD21 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6A65ECC9AF4BA52E5D18C421 /* Pods-FoodViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
@@ -258,6 +394,7 @@
 		};
 		5180B9181C5D3B57002DBD21 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 839CE63262EFE2BDE707E941 /* Pods-FoodViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FoodViewer/Info.plist;
@@ -286,6 +423,7 @@
 				5180B9181C5D3B57002DBD21 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
