@@ -14,12 +14,14 @@ class NutritionFactsTableViewCell: UITableViewCell {
         static let UnknownValue = " "
     }
     
+    var product: FoodProduct? = nil
+    
     var nutritionFactItem: FoodProduct.NutritionFactItem? = nil {
         didSet {
             if let item = nutritionFactItem {
-                itemLabel.text = item.itemName != nil ? item.itemName! : Constants.UnknownValue
-                standardValueLabel.text = item.standardValue != nil ? item.standardValue! : Constants.UnknownValue
-                standardUnitLabel.text = item.standardValueUnit != nil ? item.standardValueUnit! : Constants.UnknownValue
+                    itemLabel.text = item.itemName != nil ? item.itemName! : Constants.UnknownValue
+                    standardValueLabel.text = item.standardValue != nil ? item.standardValue! : Constants.UnknownValue
+                    standardUnitLabel.text = item.standardValueUnit != nil ? item.standardValueUnit! : Constants.UnknownValue
             }
         }
     
@@ -28,5 +30,6 @@ class NutritionFactsTableViewCell: UITableViewCell {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var standardValueLabel: UILabel!
     @IBOutlet weak var standardUnitLabel: UILabel!
+    @IBOutlet weak var imageNutritionSmallUIImage: UIImageView!
     
 }

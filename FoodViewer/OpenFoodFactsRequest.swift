@@ -421,7 +421,7 @@ class OpenFoodFactsRequest {
             product.barcode.string(jsonObject?[OFFJson.CodeKey]?.string)
 //         jsonProduct.lastEditDatesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.LastEditDatesTagsKey]?.stringArray
 //         jsonProduct.labelsHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsHierarchyKey]?.stringArray
-//         jsonProduct.imageFrontSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontSmallUrlKey]?.nsurl
+         product.mainUrlThumb = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontSmallUrlKey]?.nsurl
 //         jsonProduct.iid = jsonObject?[OFFJson.ProductKey]?[OFFJson.IIdKey]?.string
         // jsonProduct.labelsDebugTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsDebugTagsKey]?.stringArray
         // jsonProduct.categoriesHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesHierarchyKey]?.stringArray
@@ -453,7 +453,7 @@ class OpenFoodFactsRequest {
         // jsonProduct.pnnsGroups2Tags = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2TagsKey]?.stringArray
         // jsonProduct.unknownNutrientsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.UnknownNutrientsTagsKey]?.stringArray
         // jsonProduct.categoriesPrevTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesPrevTagsKey]?.stringArray
-            product.container = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingTagsKey]?.stringArray
+            product.packagingArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingTagsKey]?.stringArray
             jsonProduct.sodium = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SodiumKey]?.string
             jsonProduct.sugars = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SugarsKey]?.string
             jsonProduct.carbohydratesUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.CarbohydratesUnitKey]?.string
@@ -497,7 +497,7 @@ class OpenFoodFactsRequest {
 //        jsonProduct.ingredientsFromPalmOilTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
             product.purchaseLocation = jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray
 //        jsonProduct.embCodesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
-        product.brand = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsTagsKey]?.stringArray
+        product.brandsArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsTagsKey]?.stringArray
 //        jsonProduct.purchasePlaces = jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string
 //        jsonProduct.pnnsGroups2 = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2Key]?.string
 //        jsonProduct.countriesHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesHierarchyKey]?.stringArray
@@ -515,7 +515,7 @@ class OpenFoodFactsRequest {
             product.name = jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductNameKey]?.string
 //        jsonProduct.ingredientsFromOrThatMayBeFromPalmOilN = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromOrThatMayBeFromPalmOilNKey]?.int
             product.additionUser = jsonObject?[OFFJson.ProductKey]?[OFFJson.CreatorKey]?.string
-//        jsonProduct.imageFrontUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontUrlKey]?.nsurl
+        product.mainUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontUrlKey]?.nsurl
             product.servingSize = jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingSizeKey]?.string
 //        jsonProduct.completedT = jsonObject?[OFFJson.ProductKey]?[OFFJson.CompletedTKey]?.time
 //        jsonProduct.lastModifiedBy = jsonObject?[OFFJson.ProductKey]?[OFFJson.LastModifiedByKey]?.string
@@ -546,9 +546,9 @@ class OpenFoodFactsRequest {
 //        jsonProduct.sortkey = jsonObject?[OFFJson.ProductKey]?[OFFJson.SortkeyKey]?.date
 //        jsonProduct.imageNutritionThumbUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionThumbUrlKey]?.nsurl
 //        jsonProduct.lastModifiedT = jsonObject?[OFFJson.ProductKey]?[OFFJson.LastModifiedTKey]?.time
-//        jsonProduct.imageIngredientsUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsUrlKey]?.nsurl
+        product.imageIngredientsUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsUrlKey]?.nsurl
         jsonProduct.nutritionScoreDebug = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionScoreDebugKey]?.string
-        jsonProduct.imageNutritionSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionSmallUrlKey]?.nsurl
+        product.imageNutritionSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionSmallUrlKey]?.nsurl
 //        jsonProduct.correctorsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsTagsKey]?.stringArray
 //        jsonProduct.correctors = jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsKey]?.stringArray
 //        jsonProduct.categoriesDebugTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesDebugTagsKey]?.stringArray
@@ -558,7 +558,7 @@ class OpenFoodFactsRequest {
 //        jsonProduct.states = jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesKey]?.string
 //        jsonProduct.informers = jsonObject?[OFFJson.ProductKey]?[OFFJson.InformersKey]?.stringArray
 //        jsonProduct.entryDatesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.EntryDatesTagsKey]?.stringArray
-//        jsonProduct.imageIngredientsSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsSmallUrlKey]?.nsurl
+        product.imageIngredientsSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsSmallUrlKey]?.nsurl
         jsonProduct.nutritionGradesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradesTagsKey]?.stringArray
 //        jsonProduct.packaging = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingKey]?.string
 //        jsonProduct.servingQuantity = jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingQuantityKey]?.double

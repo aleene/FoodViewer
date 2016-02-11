@@ -13,30 +13,43 @@ class FoodProduct {
     // A very flat datastructure has been used for this class
     
     // identification parameters
-    var barcode: BarcodeType = .Undefined("")
+    var barcode = BarcodeType.Undefined("")
     var name: String? = nil
     var commonName: String? = nil
-    var brand: [String]? = nil
+    var brandsArray: [String]? = nil
+    var mainUrlThumb: NSURL? = nil
+    var mainUrl: NSURL? = nil
+    
     // packaging parameters
     var quantity: String? = nil
-    var container: [String]? = nil
+    var packagingArray: [String]? = nil
+    
     // ingredients parameters
     var ingredients: String? = nil
-    // usage parameters
-    var servingSize: String? = nil
+    var imageIngredientsSmallUrl: NSURL? = nil
+    var imageIngredientsUrl: NSURL? = nil
     var allergens: [String]? = nil
     var traces: [String]? = nil
     var additives: [String]? = nil
+
+    // usage parameters
+    var servingSize: String? = nil
+    
+    // content parameters
     var nutritionFacts: [NutritionFactItem]? = nil
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
+    var imageNutritionSmallUrl: NSURL? = nil
+    
     // purchase parameters
     var nutritionGrade: NutritionalGradeLevel? = nil
     var purchaseLocation: [String]? = nil //or a set?
     var stores: [String]? = nil //or a set?
     var countries: [String]? = nil //or a set?
+    
     // contributor parameters
     var additionDate: NSDate? = nil
     var additionUser: String? = nil
+    
     // group parameters
     var categories: [String]? = nil
     
@@ -46,6 +59,14 @@ class FoodProduct {
         var standardValueUnit: String? = nil
         var servingValue: String? = nil
         var servingValueUnit: String? = nil
+        
+        func valid() -> Bool {
+            if standardValue != nil && !standardValue!.isEmpty {
+                return true
+            } else {
+                return false
+            }
+        }
     }
     
     enum NutritionalGradeLevel {
@@ -137,6 +158,15 @@ class FoodProduct {
                 self = .Undefined(newString)
             }
         }
+        
+        func asString() -> String {
+            switch self {
+            case .EAN13(let s):
+                return s
+            case .Undefined(let s):
+                return s
+            }
+        }
     }
     
     func setTestProduct() {
@@ -148,7 +178,7 @@ class FoodProduct {
         name = "Vinaigrette huile d'olive 13% & Citron 26% MG"
         commonName = "Vinaigrette à l'huile d'olive et au jus de citron allégée en matières grasses"
         quantity = "50 cl"
-        container = ["Bouteille", "Plastique"]
+        packagingArray = ["Bouteille", "Plastique"]
         categories = ["Groceries", "Sauces", "Salad dressings", "Vinaigrettes", "fr:Vinaigrettes allégées en matières grasses"]
         purchaseLocation = ["Castelnau-le-lez", "France"]
         stores = ["Super U"]

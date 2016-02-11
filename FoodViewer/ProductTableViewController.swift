@@ -60,7 +60,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             searchTextField.text = searchText
         }
     }
-
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
@@ -82,10 +82,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let NutritionScoreCellIdentifier = "Product Nutrition Score Cell"
         static let CategoriesCellIdentifier = "Product Categories Cell"
         static let TracesCellIdentifier = "Product Traces Cell"
-    }
-    
-    private struct Constants {
-        static let NameUndefinedText = "No product name"
+        static let ShowIdentificationSegueIdentifier = "Show Product Identification"
+        static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
+
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -95,9 +94,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         // we assume that product exists
         switch currentProductSection {
         case .Name:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product?.name != nil ? product!.name! : Constants.NameUndefinedText
-            cell.detailTextLabel?.text = product?.brand?[0] != nil ? product!.brand![0] : Constants.NameUndefinedText
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath) as! NameTableViewCell
+            cell.product = product!
             return cell
         case .Ingredients:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
@@ -108,9 +106,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             cell?.product = product!
             return cell!
         case .NutritionFacts:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath) as? NutritionFactsTableViewCell
-            cell?.nutritionFactItem = product!.nutritionFacts?[indexPath.row]
-            return cell!
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath) as? NutritionFactsTableViewCell
+                cell?.product = indexPath.row == 0 ? product! : nil
+                cell?.nutritionFactItem = product!.nutritionFacts?[indexPath.row]
+                return cell!
         case .NutritionScore:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell
             cell?.product = product!
@@ -166,6 +165,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         return header
     }
     
+    //
+    // Thanks to http://www.elicere.com/mobile/swift-blog-2-uitableview-section-header-color/
+    //
     override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView //recast your view as a UITableViewHeaderFooterView
 
@@ -265,6 +267,24 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         return sectionsAndRows
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.ShowIdentificationSegueIdentifier:
+                if let vc = segue.destinationViewController as? IdentificationViewController {
+                    vc.product = product
+                }
+            case Storyboard.ShowIngredientsSegueIdentifier:
+                if let vc = segue.destinationViewController as? IngredientsViewController {
+                    vc.product = product
+                }
+
+            default: break
+            }
+        }
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -274,11 +294,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        title = "Product"
     }
 }
-
-
-
 
 
 

@@ -1,22 +1,20 @@
 //
-//  IngredientsTableViewCell.swift
+//  NameTableViewCell.swift
 //  FoodViewer
 //
-//  Created by arnaud on 01/02/16.
+//  Created by arnaud on 06/02/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
 
 import UIKit
 
-class IngredientsTableViewCell: UITableViewCell {
-    
+class NameTableViewCell: UITableViewCell {
+
     var product: FoodProduct? = nil {
         didSet {
-            if let ingredients = product?.ingredients {
-                // TBD what about allergen ingredients?
-                ingredientsLabel.text = ingredients
-            }
-            if let imageURL = product?.imageIngredientsSmallUrl {
+            productNameLabel.text = product?.name != nil ? product!.name : "No product name"
+            brandLabel.text = product?.brandsArray?[0] != nil ? product!.brandsArray![0] : "No brand"
+            if let imageURL = product?.mainUrlThumb {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
                     do {
                         // This only works if you add a line to your Info.plist
@@ -26,9 +24,9 @@ class IngredientsTableViewCell: UITableViewCell {
                         if imageData.length > 0 {
                             // if we have the image data we can go back to the main thread
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                if imageURL == self.product!.imageIngredientsSmallUrl! {
+                                if imageURL == self.product!.mainUrlThumb! {
                                     // set the received image
-                                    self.ingredientsSmallImageView.image = UIImage(data: imageData)
+                                    self.productImageView.image = UIImage(data: imageData)
                                 }
                             })
                         }
@@ -37,12 +35,22 @@ class IngredientsTableViewCell: UITableViewCell {
                         print(error)
                     }
                 })
-
             }
         }
     }
 
-    @IBOutlet weak var ingredientsLabel: UILabel!
-    @IBOutlet weak var ingredientsSmallImageView: UIImageView!
-    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var brandLabel: UILabel!
+    @IBOutlet weak var productImageView: UIImageView!
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
 }
