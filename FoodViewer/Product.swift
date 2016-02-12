@@ -48,10 +48,113 @@ class FoodProduct {
     
     // contributor parameters
     var additionDate: NSDate? = nil
-    var additionUser: String? = nil
+    var additionUser: String? = nil {
+        didSet {
+            if let user = additionUser {
+                uniqueContributors.insert(user)
+            }
+        }
+    }
+    var state = completionState()
+
+    // completion states parameters
+    struct completionState {
+        // Photos uploaded	64390
+        // Photos to be uploaded	4101
+        // Photos validated	42778
+        // Photos to be validated	21612
+        var photosComplete : Bool = false
+        // Product-name-completed	61312
+        // Product name to be completed	5960
+        var productNameComplete : Bool = false
+        // Brands-completed	57320
+        // Brands to be completed	9997
+        var brandsComplete: Bool = false
+        // Quantity-completed	57301
+        // Quantity to be completed	10034
+        var quantityComplete: Bool = false
+        // Packaging-completed	50959
+        // Packaging to be completed	16465
+        var packagingComplete: Bool = false
+        // Categories-completed	50865
+        // Categories to be completed	16553
+        var categoriesComplete: Bool = false
+        // Nutrition facts completed	47757
+        // Nutrition facts to be completed	20734
+        var nutritionFactsComplete: Bool = false
+        // Characteristics completed	46803
+        // Characteristics to be completed	21688
+        var characteristicsComplete: Bool = false
+        // Ingredients completed	45516
+        // Ingredients to be completed	22975
+        var ingredientsComplete: Bool = false
+        // Expiration date completed	27065
+        // Expiration date to be completed	41426
+        var expirationDateComplete: Bool = false
+        // Complete	38544
+        // To be checked	38544
+        // To be completed	29947
+        // Empty	322
+        
+        func completionPercentage() -> Int {
+            return Int(photosComplete) * 10 +
+                Int(productNameComplete) * 10 +
+                Int(brandsComplete) * 10 +
+                Int(quantityComplete) * 10 +
+                Int(packagingComplete) * 10 +
+                Int(categoriesComplete) * 10 +
+                Int(nutritionFactsComplete) * 10 +
+                Int(characteristicsComplete) * 10 +
+                Int(ingredientsComplete) * 10 +
+                Int(expirationDateComplete) * 10
+        }
+    }
+
     
     // group parameters
     var categories: [String]? = nil
+    
+    // community parameters
+    var photographers: [String]? = nil {
+        didSet {
+            if let users = photographers {
+                for user in users {
+                    uniqueContributors.insert(user)
+                }
+            }
+        }
+    }
+    var editors: [String]? = nil {
+        didSet {
+            if let users = editors {
+                for user in users {
+                    uniqueContributors.insert(user)
+                }
+            }
+        }
+    }
+
+    var informers: [String]? = nil {
+        didSet {
+            if let users = informers {
+                for user in users {
+                    uniqueContributors.insert(user)
+                }
+            }
+        }
+    }
+
+    var checkers: [String]? = nil {
+        didSet {
+            if let users = checkers {
+                for user in users {
+                    uniqueContributors.insert(user)
+                }
+            }
+        }
+    }
+
+    var uniqueContributors = Set<String>()
     
     struct NutritionFactItem {
         var itemName: String? = nil

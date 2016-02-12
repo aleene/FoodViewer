@@ -20,6 +20,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         case NutritionFacts
         case NutritionScore
         case Categories
+        case Community
+        case Completion
     }
     
     private var product: FoodProduct? {
@@ -82,9 +84,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let NutritionScoreCellIdentifier = "Product Nutrition Score Cell"
         static let CategoriesCellIdentifier = "Product Categories Cell"
         static let TracesCellIdentifier = "Product Traces Cell"
+        static let CommunityCellIdentifier = "Product Community Cell"
+        static let CompletionCellIdentifier = "Product Completion State Cell"
         static let ShowIdentificationSegueIdentifier = "Show Product Identification"
         static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
-
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -120,6 +123,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             return cell!
         case .Traces:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TracesCellIdentifier, forIndexPath: indexPath) as? TracesTableViewCell
+            cell?.product = product!
+            return cell!
+        case .Community:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CommunityCellIdentifier, forIndexPath: indexPath) as? CommunityTableViewCell
+            cell?.product = product!
+            return cell!
+        case .Completion:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
             cell?.product = product!
             return cell!
         }
@@ -192,7 +203,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 }
             }
         default:
-            header.contentView.backgroundColor = UIColor.lightGrayColor()
+            header.contentView.backgroundColor = UIColor.grayColor()
         }
     }
     
@@ -204,6 +215,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let NutritionScoreSectionSize = 1
         static let CategoriesSectionSize = 1
         static let TracesSectionSize = 1
+        static let CommunitySectionSize = 1
+        static let CompletionSectionSize = 1
         static let NameSectionHeader = ""
         static let IngredientsSectionHeader = "Ingredients"
         static let AllergensSectionHeader = "Allergens"
@@ -211,7 +224,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let NutritionScoreSectionHeader = "Nutritional score"
         static let NutritionFactsSectionHeader = "Nutrition Facts (100g)"
         static let CategoriesSectionHeader = "Categories"
+        static let CommunitySectionHeader = "Community Involvement"
+        static let CompletionSectionHeader = "Completion State"
     }
+    
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
@@ -263,6 +279,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 TableStructure.TracesSectionSize,
                 TableStructure.TracesSectionHeader))
         }
+        // community section
+        if product.uniqueContributors.count > 0 {
+            sectionsAndRows.append((
+                SectionType.Community,
+                TableStructure.CommunitySectionSize,
+                TableStructure.CommunitySectionHeader))
+        }
+        sectionsAndRows.append((
+            SectionType.Completion,
+            TableStructure.CompletionSectionSize,
+            TableStructure.CompletionSectionHeader))
+
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
