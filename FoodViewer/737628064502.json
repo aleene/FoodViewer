@@ -279,39 +279,15 @@
             "image_ingredients_thumb_url":"http://static.openfoodfacts.org/images/products/073/762/806/4502/ingredients.10.100.jpg",
             "ingredients_from_palm_oil_n":0,
             "image_url":"http://static.openfoodfacts.org/images/products/073/762/806/4502/front.6.400.jpg",
-            "ingredients":[ {
-                           "text":"RICE NOODLES",
-                           "id":"rice-noodles",
-                           "rank":1
-                           },
-                           {
-                           "text":"SEASONING PACKET",
-                           "id":"seasoning-packet",
-                           "rank":2
-                           },
-                           {"text":".",
-                           "id":"",
-                           "rank":3
-                           },
-                           {
-                           "text":"RICE",
-                           "id":"rice"
-                           },
-                           {"text":"WATER",
-                           "id":"water"
-                           },
-                           {"text":"PEANUT",
-                           "id":"peanut"
-                           },
-                           {
-                           "text":"SUGAR",
-                           "id":"sugar"
-                           },
-                           {"text":"SALT",
-                           "id":"salt"
-                           },
-                           {
-                           "text":"CORN STARCH","id":"corn-starch"},
+            "ingredients":[ {"text":"RICE NOODLES","id":"rice-noodles","rank":1},
+                           {"text":"SEASONING PACKET","id":"seasoning-packet","rank":2},
+                           {"text":".","id":"","rank":3},
+                           {"text":"RICE","id":"rice"},
+                           {"text":"WATER","id":"water"},
+                           {"text":"PEANUT","id":"peanut"},
+                           {"text":"SUGAR","id":"sugar"},
+                           {"text":"SALT","id":"salt"},
+                           {"text":"CORN STARCH","id":"corn-starch"},
                            {"text":"SPICES","id":"spices"},
                            {"text":"CHILI","id":"chili"},
                            {"text":"CINNAMON","id":"cinnamon"},

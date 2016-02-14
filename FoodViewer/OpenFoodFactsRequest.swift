@@ -17,7 +17,7 @@ class OpenFoodFactsRequest {
     private struct OpenFoodFacts {
         static let JSONExtension = ".json"
         static let APIURLPrefixForProduct = "http://world.openfoodfacts.org/api/v0/product/"
-        static let testProductBarcode = "737628064502"
+        static let testProductBarcode = "3608580744184"
     }
     
     func fetchProductForBarcode(search: String) -> FoodProduct? {
@@ -27,7 +27,8 @@ class OpenFoodFactsRequest {
             do {
                 let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions.DataReadingMappedIfSafe)
                 let jsonObject = JSON.parse(data)
-                let product = unpackProductJSON(jsonObject)
+                product.clearVariables()
+                product = unpackProductJSON(jsonObject)
                 return product
             } catch let error as NSError {
                 print(error);
@@ -212,6 +213,7 @@ class OpenFoodFactsRequest {
         var labelsPrevHierarchy: [String]? = nil
         var expirationDate: NSDate? = nil
         var statesHierarchy: [String]? = nil
+        var allergensTags: [String]? = nil
         var ingredientsThatMayBeFromPalmOilN: Int? = nil
         var imageIngredientsThumbUrl: NSURL? = nil
         var ingredientsFromPalmOilN: Int? = nil
@@ -391,6 +393,7 @@ class OpenFoodFactsRequest {
         static let LabelsPrevHierarchyKey = "labels_prev_hierarchy"
         static let ExpirationDateKey = "expiration_date"
         static let StatesHierarchyKey = "states_hierarchy"
+        static let AllergensTagsKey = "allergens_tags"
         static let IngredientsThatMayBeFromPalmOilNKey = "ingredients_that_may_be_from_palm_oil_n"
         static let ImageIngredientsThumbUrlKey = "image_ingredients_thumb_url"
         static let IngredientsFromPalmOilNKey = "ingredients_from_palm_oil_n"
@@ -425,13 +428,13 @@ class OpenFoodFactsRequest {
         // jsonProduct.categoriesHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesHierarchyKey]?.stringArray
         // jsonProduct.pnnsGroups1 = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups1Key]?.string
         jsonProduct.statesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray
-        decodeStates()
+        decodeCompletionStates()
         product.checkers = jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
-        // jsonProduct.labelsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray
+        product.labelArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray
         // jsonProduct.imageSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
         // jsonProduct.productCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
         product.traces = jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray
-        product.allergens = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
+        // jsonProduct.allergens = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
         // jsonProduct.lang = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
         // product.photographers = jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
         product.commonName = jsonObject?[OFFJson.ProductKey]?[OFFJson.GenericNameKey]?.string
@@ -439,7 +442,7 @@ class OpenFoodFactsRequest {
         // jsonProduct.additivesPrevN = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesPrevNKey]?.int
         // jsonProduct.keywords = jsonObject?[OFFJson.ProductKey]?[OFFJson.KeywordsKey]?.stringArray
         // jsonProduct.rev = jsonObject?[OFFJson.ProductKey]?[OFFJson.RevKey]?.int
-        product.editors = jsonObject?[OFFJson.ProductKey]?[OFFJson.EditorsKey]?.stringArray
+        // jsonProduct.editors = jsonObject?[OFFJson.ProductKey]?[OFFJson.EditorsKey]?.stringArray
         // jsonProduct.interfaceVersionCreated = jsonObject?[OFFJson.ProductKey]?[OFFJson.InterfaceVersionCreatedKey]?.date
         // jsonProduct.embCodes = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesKey]?.string
         // jsonProduct.maxImgid = jsonObject?[OFFJson.ProductKey]?[OFFJson.MaxImgidKey]?.string
@@ -506,14 +509,14 @@ class OpenFoodFactsRequest {
 //        jsonProduct.categories = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesKey]?.string
 //        jsonProduct.ingredientsTextDebug = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsTextDebugKey]?.string
         product.ingredients = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsTextKey]?.string
-//        jsonProduct.editorsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.EditorsTagsKey]?.stringArray
+        product.editors = jsonObject?[OFFJson.ProductKey]?[OFFJson.EditorsTagsKey]?.stringArray
 //        jsonProduct.labelsPrevTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevTagsKey]?.stringArray
 //        jsonProduct.additivesOldN = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesOldNKey]?.int
 //        jsonProduct.categoriesPrevHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesPrevHierarchyKey]?.stringArray
         product.additionDate = jsonObject?[OFFJson.ProductKey]?[OFFJson.CreatedTKey]?.time
         product.name = jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductNameKey]?.string
 //        jsonProduct.ingredientsFromOrThatMayBeFromPalmOilN = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromOrThatMayBeFromPalmOilNKey]?.int
-        product.additionUser = jsonObject?[OFFJson.ProductKey]?[OFFJson.CreatorKey]?.string
+        product.creator = jsonObject?[OFFJson.ProductKey]?[OFFJson.CreatorKey]?.string
         product.mainUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontUrlKey]?.nsurl
         product.servingSize = jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingSizeKey]?.string
 //        jsonProduct.completedT = jsonObject?[OFFJson.ProductKey]?[OFFJson.CompletedTKey]?.time
@@ -571,6 +574,7 @@ class OpenFoodFactsRequest {
 //        jsonProduct.labelsPrevHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevHierarchyKey]?.stringArray
 //        jsonProduct.expirationDate = jsonObject?[OFFJson.ProductKey]?[OFFJson.ExpirationDateKey]?.date
 //        jsonProduct.statesHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesHierarchyKey]?.stringArray
+        product.allergens = jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray
 //        jsonProduct.ingredientsThatMayBeFromPalmOilN = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilNKey]?.int
 //        jsonProduct.imageIngredientsThumbUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsThumbUrlKey]?.nsurl
 //        jsonProduct.ingredientsFromPalmOilN = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilNKey]?.int
@@ -698,7 +702,30 @@ class OpenFoodFactsRequest {
         }
         salt.standardValueUnit = "g"
         
-        product.nutritionFacts = [energie, fat, saturatedFat, carbohydrate, sugars, fiber, protein, salt]
+        if energie.standardValue != nil {
+            product.nutritionFacts.append(energie)
+        }
+        if fat.standardValue != nil {
+            product.nutritionFacts.append(fat)
+        }
+        if saturatedFat.standardValue != nil {
+            product.nutritionFacts.append(saturatedFat)
+        }
+        if carbohydrate.standardValue != nil {
+            product.nutritionFacts.append(carbohydrate)
+        }
+        if sugars.standardValue != nil {
+            product.nutritionFacts.append(sugars)
+        }
+        if fiber.standardValue != nil {
+            product.nutritionFacts.append(fiber)
+        }
+        if protein.standardValue != nil {
+            product.nutritionFacts.append(protein)
+        }
+        if salt.standardValue != nil {
+            product.nutritionFacts.append(salt)
+        }
         
         return product
     }
@@ -707,20 +734,20 @@ class OpenFoodFactsRequest {
         static let NutritionFacts = "en:nutrition-facts-completed"
         static let Ingredients = "en:ingredients-completed"
         static let ExpirationDate = "en:expiration-date-completed"
-        static let Characteristics = "en:characteristics-completed"
+        static let PhotosValidated = "en:photos-validated"
         static let Categories = "en:categories-completed"
         static let Brands = "en:brands-completed"
         static let Packaging = "en:packaging-completed"
         static let Quantity = "en:quantity-completed"
         static let ProductName = "en:product-name-completed"
-        static let Photos = "en:photos-uploaded"
+        static let PhotosUploaded = "en:photos-uploaded"
     }
     
-    private func decodeStates() {
+    private func decodeCompletionStates() {
         if let statesArray = jsonProduct.statesTags {
             for currentState in statesArray {
-                if currentState.containsString(StateCompleteKey.Photos) {
-                    product.state.photosComplete = true
+                if currentState.containsString(StateCompleteKey.PhotosUploaded) {
+                    product.state.photosUploadedComplete = true
                 } else if currentState.containsString(StateCompleteKey.ProductName) {
                     product.state.productNameComplete =  true
                 } else if currentState.containsString(StateCompleteKey.Brands) {
@@ -733,8 +760,8 @@ class OpenFoodFactsRequest {
                     product.state.categoriesComplete = true
                 } else if currentState.containsString(StateCompleteKey.NutritionFacts) {
                     product.state.nutritionFactsComplete = true
-                } else if currentState.containsString(StateCompleteKey.Characteristics) {
-                    product.state.characteristicsComplete = true
+                } else if currentState.containsString(StateCompleteKey.PhotosValidated) {
+                    product.state.photosValidatedComplete = true
                 } else if currentState.containsString(StateCompleteKey.Ingredients) {
                     product.state.ingredientsComplete = true
                 } else if currentState.containsString(StateCompleteKey.ExpirationDate) {

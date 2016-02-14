@@ -16,7 +16,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         case Name
         case Ingredients
         case Traces
-        case Allergens
+        case Countries
         case NutritionFacts
         case NutritionScore
         case Categories
@@ -33,7 +33,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
-    var searchText: String? = "3178530402674" {
+    var searchText: String? = "3608580744184" {
         didSet {
             product = nil
             refresh()
@@ -79,7 +79,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private struct Storyboard {
         static let NameCellIdentifier = "Product Name Cell"
         static let IngredientsCellIdentifier = "Product Ingredients Cell"
-        static let AllergensCellIdentifier = "Product Allergens Cell"
+        static let CountriesCellIdentifier = "Countries Cell"
         static let NutritionFactsCellIdentifier = "Product Nutrition Facts Name Cell"
         static let NutritionScoreCellIdentifier = "Product Nutrition Score Cell"
         static let CategoriesCellIdentifier = "Product Categories Cell"
@@ -88,6 +88,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let CompletionCellIdentifier = "Product Completion State Cell"
         static let ShowIdentificationSegueIdentifier = "Show Product Identification"
         static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
+        static let ShowCompletionStatesSegueIdentifier = "Show Completion States"
+        static let ShowContributorsSegueIdentifier = "Show Contributors"
+        static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -104,14 +107,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
             cell.product = product!
             return cell
-        case .Allergens:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergensCellIdentifier, forIndexPath: indexPath) as? AllergensTableViewCell
+        case .Countries:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CountriesCellIdentifier, forIndexPath: indexPath) as? CountriesTableViewCell
             cell?.product = product!
             return cell!
         case .NutritionFacts:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath) as? NutritionFactsTableViewCell
                 cell?.product = indexPath.row == 0 ? product! : nil
-                cell?.nutritionFactItem = product!.nutritionFacts?[indexPath.row]
+                cell?.nutritionFactItem = product!.nutritionFacts[indexPath.row]
                 return cell!
         case .NutritionScore:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell
@@ -199,11 +202,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 case .E:
                     header.contentView.backgroundColor = UIColor.redColor()
                 default:
-                    break
+                    header.contentView.backgroundColor = nil
                 }
             }
         default:
-            header.contentView.backgroundColor = UIColor.grayColor()
+            header.contentView.backgroundColor = nil
         }
     }
     
@@ -211,7 +214,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     struct TableStructure {
         static let NameSectionSize = 1
         static let IngredientsSectionSize = 1
-        static let AllergensSectionSize = 1
+        static let CountriesSectionSize = 1
         static let NutritionScoreSectionSize = 1
         static let CategoriesSectionSize = 1
         static let TracesSectionSize = 1
@@ -219,7 +222,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let CompletionSectionSize = 1
         static let NameSectionHeader = ""
         static let IngredientsSectionHeader = "Ingredients"
-        static let AllergensSectionHeader = "Allergens"
+        static let CountriesSectionHeader = "Countries"
         static let TracesSectionHeader = "Traces"
         static let NutritionScoreSectionHeader = "Nutritional score"
         static let NutritionFactsSectionHeader = "Nutrition Facts (100g)"
@@ -245,17 +248,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 TableStructure.IngredientsSectionHeader))
         }
         // allergens section
-        if product.allergens != nil {
+        if product.countries != nil {
             sectionsAndRows.append((
-                SectionType.Allergens,
-                TableStructure.AllergensSectionSize,
-                TableStructure.AllergensSectionHeader))
+                SectionType.Countries,
+                TableStructure.CountriesSectionSize,
+                TableStructure.CountriesSectionHeader))
         }
         // nutritionFacts section
-        if product.nutritionFacts != nil {
+        if product.nutritionFacts.count > 0 {
             sectionsAndRows.append((
                 SectionType.NutritionFacts,
-                product.nutritionFacts!.count,
+                product.nutritionFacts.count,
                 TableStructure.NutritionFactsSectionHeader))
         }
         // nutritionScore section
@@ -306,11 +309,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 if let vc = segue.destinationViewController as? IngredientsViewController {
                     vc.product = product
                 }
-
+            case Storyboard.ShowCompletionStatesSegueIdentifier:
+                if let vc = segue.destinationViewController as? CompletionStatesTableViewController {
+                    vc.product = product
+                }
+            case Storyboard.ShowContributorsSegueIdentifier:
+                if let vc = segue.destinationViewController as? ContributorsTableViewController {
+                    vc.product = product
+                }
+            case Storyboard.ShowPurchaseLocationSegueIdentifier:
+                if let vc = segue.destinationViewController as? PurchaseLocationTableViewController {
+                    vc.product = product
+                }
             default: break
             }
         }
-
     }
     
     override func viewDidLoad() {

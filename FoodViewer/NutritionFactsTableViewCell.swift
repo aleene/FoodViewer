@@ -30,6 +30,5 @@ class NutritionFactsTableViewCell: UITableViewCell {
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var standardValueLabel: UILabel!
     @IBOutlet weak var standardUnitLabel: UILabel!
-    @IBOutlet weak var imageNutritionSmallUIImage: UIImageView!
     
 }

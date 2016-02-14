@@ -31,12 +31,13 @@ class FoodProduct {
     var allergens: [String]? = nil
     var traces: [String]? = nil
     var additives: [String]? = nil
+    var labelArray: [String]? = nil
 
     // usage parameters
     var servingSize: String? = nil
     
     // content parameters
-    var nutritionFacts: [NutritionFactItem]? = nil
+    var nutritionFacts: [NutritionFactItem] = []
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
     var imageNutritionSmallUrl: NSURL? = nil
     
@@ -48,69 +49,16 @@ class FoodProduct {
     
     // contributor parameters
     var additionDate: NSDate? = nil
-    var additionUser: String? = nil {
+    var creator: String? = nil {
         didSet {
-            if let user = additionUser {
+            if let user = creator {
                 uniqueContributors.insert(user)
+                contributorsArray.append((ContributorTypes.CreatorKey, [user]))
             }
         }
     }
     var state = completionState()
 
-    // completion states parameters
-    struct completionState {
-        // Photos uploaded	64390
-        // Photos to be uploaded	4101
-        // Photos validated	42778
-        // Photos to be validated	21612
-        var photosComplete : Bool = false
-        // Product-name-completed	61312
-        // Product name to be completed	5960
-        var productNameComplete : Bool = false
-        // Brands-completed	57320
-        // Brands to be completed	9997
-        var brandsComplete: Bool = false
-        // Quantity-completed	57301
-        // Quantity to be completed	10034
-        var quantityComplete: Bool = false
-        // Packaging-completed	50959
-        // Packaging to be completed	16465
-        var packagingComplete: Bool = false
-        // Categories-completed	50865
-        // Categories to be completed	16553
-        var categoriesComplete: Bool = false
-        // Nutrition facts completed	47757
-        // Nutrition facts to be completed	20734
-        var nutritionFactsComplete: Bool = false
-        // Characteristics completed	46803
-        // Characteristics to be completed	21688
-        var characteristicsComplete: Bool = false
-        // Ingredients completed	45516
-        // Ingredients to be completed	22975
-        var ingredientsComplete: Bool = false
-        // Expiration date completed	27065
-        // Expiration date to be completed	41426
-        var expirationDateComplete: Bool = false
-        // Complete	38544
-        // To be checked	38544
-        // To be completed	29947
-        // Empty	322
-        
-        func completionPercentage() -> Int {
-            return Int(photosComplete) * 10 +
-                Int(productNameComplete) * 10 +
-                Int(brandsComplete) * 10 +
-                Int(quantityComplete) * 10 +
-                Int(packagingComplete) * 10 +
-                Int(categoriesComplete) * 10 +
-                Int(nutritionFactsComplete) * 10 +
-                Int(characteristicsComplete) * 10 +
-                Int(ingredientsComplete) * 10 +
-                Int(expirationDateComplete) * 10
-        }
-    }
-
-    
     // group parameters
     var categories: [String]? = nil
     
@@ -121,6 +69,7 @@ class FoodProduct {
                 for user in users {
                     uniqueContributors.insert(user)
                 }
+                contributorsArray.append((ContributorTypes.PhotographersKey, users))
             }
         }
     }
@@ -130,6 +79,7 @@ class FoodProduct {
                 for user in users {
                     uniqueContributors.insert(user)
                 }
+                contributorsArray.append((ContributorTypes.EditorsKey, users))
             }
         }
     }
@@ -140,6 +90,7 @@ class FoodProduct {
                 for user in users {
                     uniqueContributors.insert(user)
                 }
+                contributorsArray.append((ContributorTypes.InformersKey, users))
             }
         }
     }
@@ -150,11 +101,15 @@ class FoodProduct {
                 for user in users {
                     uniqueContributors.insert(user)
                 }
+                contributorsArray.append((ContributorTypes.CheckersKey, users))
             }
+            
         }
     }
 
     var uniqueContributors = Set<String>()
+    
+    var contributorsArray: [(String,[String]?)] = []
     
     struct NutritionFactItem {
         var itemName: String? = nil
@@ -169,6 +124,41 @@ class FoodProduct {
             } else {
                 return false
             }
+        }
+    }
+    
+    struct ContributorTypes {
+        static let CheckersKey = "Checkers"
+        static let InformersKey = "Informers"
+        static let EditorsKey = "Editors"
+        static let PhotographersKey = "Photographers"
+        static let CreatorKey = "Creator"
+    }
+
+    // completion states parameters
+    struct completionState {
+        var photosValidatedComplete : Bool = false
+        var productNameComplete : Bool = false
+        var brandsComplete: Bool = false
+        var quantityComplete: Bool = false
+        var packagingComplete: Bool = false
+        var categoriesComplete: Bool = false
+        var nutritionFactsComplete: Bool = false
+        var photosUploadedComplete: Bool = false
+        var ingredientsComplete: Bool = false
+        var expirationDateComplete: Bool = false
+        
+        func completionPercentage() -> Int {
+            return Int(photosValidatedComplete) * 10 +
+                Int(productNameComplete) * 10 +
+                Int(brandsComplete) * 10 +
+                Int(quantityComplete) * 10 +
+                Int(packagingComplete) * 10 +
+                Int(categoriesComplete) * 10 +
+                Int(nutritionFactsComplete) * 10 +
+                Int(photosUploadedComplete) * 10 +
+                Int(ingredientsComplete) * 10 +
+                Int(expirationDateComplete) * 10
         }
     }
     
@@ -272,6 +262,61 @@ class FoodProduct {
         }
     }
     
+    func clearVariables() {
+        // A very flat datastructure has been used for this class
+        
+        // identification parameters
+        barcode = BarcodeType.Undefined("")
+        name = nil
+        commonName = nil
+        brandsArray = nil
+        mainUrlThumb = nil
+        mainUrl = nil
+        
+        // packaging parameters
+        quantity = nil
+        packagingArray = nil
+        
+        // ingredients parameters
+        ingredients = nil
+        imageIngredientsSmallUrl = nil
+        imageIngredientsUrl = nil
+        allergens = nil
+        traces = nil
+        additives = nil
+        labelArray = nil
+        
+        // usage parameters
+        servingSize = nil
+        
+        // content parameters
+        nutritionFacts = []
+        nutritionScore = nil
+        imageNutritionSmallUrl = nil
+        
+        // purchase parameters
+        nutritionGrade = nil
+        purchaseLocation = nil //or a set?
+        stores = nil //or a set?
+        countries = nil //or a set?
+        
+        // contributor parameters
+        additionDate = nil
+        creator = nil
+        state = completionState()
+        
+        // group parameters
+        categories = nil
+        
+        // community parameters
+        photographers = nil
+        editors = nil
+        informers = nil
+        checkers = nil
+        uniqueContributors = []
+        contributorsArray = []
+
+    }
     func setTestProduct() {
         //
         // using http://fr-en.openfoodfacts.org/product/3256221510287/vinaigrette-huile-d-olive-13-citron-26-mg-u
@@ -344,7 +389,7 @@ class FoodProduct {
         nutritionFacts = [energie, fat, saturatedFat, carbohydrate, sugars, protein, salt]
 
         additionDate = NSDate()
-        additionUser = "princesseb612"
+        creator = "princesseb612"
     }
         
 // TBD what about the languages?

@@ -20,17 +20,31 @@ class IngredientsViewController: UIViewController {
     private func refresh() {
         if let newProduct = product {
             ingredientsLabel?.text = newProduct.ingredients != nil ? newProduct.ingredients! : Storyboard.IngredientsTextDefault
+            
+            if let labelsArray = newProduct.labelArray {
+                labelsTagListView?.removeAllTags()
+                for label in labelsArray {
+                    labelsTagListView?.addTag(label)
+                }
+            }
             if let allergensArray = newProduct.allergens {
                 allergensTagListView?.removeAllTags()
                 for allergen in allergensArray {
                     allergensTagListView?.addTag(allergen)
                 }
             }
-            
+
             if let tracesArray = newProduct.traces {
                 tracesTagListView?.removeAllTags()
                 for trace in tracesArray {
                     tracesTagListView?.addTag(trace)
+                }
+            }
+            
+            if let additivesArray = newProduct.additives {
+                additivesTagListView?.removeAllTags()
+                for additive in additivesArray {
+                    additivesTagListView?.addTag(additive)
                 }
             }
 
@@ -64,6 +78,7 @@ class IngredientsViewController: UIViewController {
     
     
     @IBOutlet weak var ingredientsLabel: UILabel!
+    
     @IBOutlet weak var allergensTagListView: TagListView! {
         didSet {
             allergensTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
@@ -76,6 +91,21 @@ class IngredientsViewController: UIViewController {
             tracesTagListView.alignment = .Center
         }
     }
+    @IBOutlet weak var labelsTagListView: TagListView! {
+        didSet {
+            labelsTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            labelsTagListView.alignment = .Center
+        }
+    }
+
+    
+    @IBOutlet weak var additivesTagListView: TagListView! {
+        didSet {
+            additivesTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            additivesTagListView.alignment = .Center
+        }
+    }
+    
     @IBOutlet weak var imageView: UIImageView! {
         didSet {
             imageView.addGestureRecognizer(singleTapGestureRecognizer)
@@ -83,7 +113,6 @@ class IngredientsViewController: UIViewController {
         }
     }
 
-    
     @IBOutlet var singleTapGestureRecognizer: UITapGestureRecognizer! {
         didSet {
             singleTapGestureRecognizer.addTarget(self, action: "imageTapped")
