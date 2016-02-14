@@ -22,6 +22,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         case Categories
         case Community
         case Completion
+        case Producer
     }
     
     private var product: FoodProduct? {
@@ -56,6 +57,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
+    // MARK: - TextField
+
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
@@ -70,6 +73,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
         return true
     }
+
+    // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // number of section depends on the existence of the data
@@ -86,11 +91,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let TracesCellIdentifier = "Product Traces Cell"
         static let CommunityCellIdentifier = "Product Community Cell"
         static let CompletionCellIdentifier = "Product Completion State Cell"
+        static let ProducerCellIdentifier = "Product Producer Cell"
         static let ShowIdentificationSegueIdentifier = "Show Product Identification"
         static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
         static let ShowCompletionStatesSegueIdentifier = "Show Completion States"
         static let ShowContributorsSegueIdentifier = "Show Contributors"
         static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
+        static let ShowProductionSegueIdentifier = "Show Production"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -136,6 +143,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
             cell?.product = product!
             return cell!
+        case .Producer:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCellIdentifier, forIndexPath: indexPath) as? ProducerTableViewCell
+            cell?.tagList = product!.producerCode!
+            return cell!
+
         }
     }
     
@@ -143,17 +155,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         let (_, numberOfRows, _) = tableStructureForProduct[section]
         return numberOfRows
     }
-    
-    /*
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    */
-    
+        
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var (sectionType, _, header) = tableStructureForProduct[section]
         switch sectionType {
@@ -220,6 +222,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let TracesSectionSize = 1
         static let CommunitySectionSize = 1
         static let CompletionSectionSize = 1
+        static let ProducerSectionSize = 1
         static let NameSectionHeader = ""
         static let IngredientsSectionHeader = "Ingredients"
         static let CountriesSectionHeader = "Countries"
@@ -229,6 +232,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let CategoriesSectionHeader = "Categories"
         static let CommunitySectionHeader = "Community Involvement"
         static let CompletionSectionHeader = "Completion State"
+        static let ProducerSectionHeader = "Producer Code"
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -236,59 +240,78 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         // the required number of sections and rows per section
         // The returnValue is an array with sections 
         // And each element is a tuple with the section type and number of rows
-        //
+        // 
+        //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType,Int, String?)] = []
-        // identification section always exists
+        
+        // 1: name section always exists
         sectionsAndRows.append((SectionType.Name, TableStructure.NameSectionSize, nil))
-        // ingredients section
+        
+        // 2:  ingredients section
         if product.ingredients != nil {
             sectionsAndRows.append((
                 SectionType.Ingredients,
                 TableStructure.IngredientsSectionSize,
                 TableStructure.IngredientsSectionHeader))
         }
-        // allergens section
-        if product.countries != nil {
-            sectionsAndRows.append((
-                SectionType.Countries,
-                TableStructure.CountriesSectionSize,
-                TableStructure.CountriesSectionHeader))
-        }
-        // nutritionFacts section
+        
+        // 3: nutritionFacts section
         if product.nutritionFacts.count > 0 {
             sectionsAndRows.append((
                 SectionType.NutritionFacts,
                 product.nutritionFacts.count,
                 TableStructure.NutritionFactsSectionHeader))
         }
-        // nutritionScore section
+        
+        // 4: nutritionScore section
         if product.nutritionScore != nil {
             sectionsAndRows.append((
                 SectionType.NutritionScore,
                 TableStructure.NutritionScoreSectionSize,
                 TableStructure.NutritionScoreSectionHeader))
         }
-        // categories section
+        
+        // 5: categories section
         if product.categories != nil {
             sectionsAndRows.append((
                 SectionType.Categories,
                 TableStructure.CategoriesSectionSize,
                 TableStructure.CategoriesSectionHeader))
         }
-        // traces section
+        
+        // 6: allergens section
+        if product.countries != nil {
+            sectionsAndRows.append((
+                SectionType.Countries,
+                TableStructure.CountriesSectionSize,
+                TableStructure.CountriesSectionHeader))
+        }
+
+        // 7: traces section
         if product.traces != nil {
             sectionsAndRows.append((
                 SectionType.Traces,
                 TableStructure.TracesSectionSize,
                 TableStructure.TracesSectionHeader))
         }
-        // community section
+        
+        // 8: producer section
+        if product.producerCode != nil {
+            sectionsAndRows.append((
+                SectionType.Producer,
+                TableStructure.ProducerSectionSize,
+                TableStructure.ProducerSectionHeader))
+        }
+
+        // 9: community section
         if product.uniqueContributors.count > 0 {
             sectionsAndRows.append((
                 SectionType.Community,
                 TableStructure.CommunitySectionSize,
                 TableStructure.CommunitySectionHeader))
         }
+        
+        // 10: completion status section
         sectionsAndRows.append((
             SectionType.Completion,
             TableStructure.CompletionSectionSize,
@@ -298,6 +321,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         return sectionsAndRows
     }
     
+    // MARK: - Segues
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -321,11 +346,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 if let vc = segue.destinationViewController as? PurchaseLocationTableViewController {
                     vc.product = product
                 }
+            case Storyboard.ShowProductionSegueIdentifier:
+                if let vc = segue.destinationViewController as? ProductionTableViewController {
+                    vc.product = product
+                }
             default: break
             }
         }
     }
     
+    @IBAction func unwindForCancel(segue:UIStoryboardSegue) {
+        if let _ = segue.sourceViewController as? BarcodeScanViewController {
+                // what to do here?
+        }
+    }
+    
+    @IBAction func unwindNewSearch(segue:UIStoryboardSegue) {
+        if let vc = segue.sourceViewController as? BarcodeScanViewController {
+            searchText = vc.barcode
+            // what to do here?
+        }
+    }
+
+    // MARK: - Viewcontroller lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension

@@ -18,7 +18,7 @@ class ContributorsTableViewController: UITableViewController {
         }
     }
 
-    struct Constants {
+    private struct Constants {
         static let ContributorsCellIdentifier = "Contributor Cell"
         static let DefaultHeader = "No Header"
         static let ViewControllerTitle = "Contributors"
@@ -60,6 +60,8 @@ class ContributorsTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Viewcontroller lifecycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()

@@ -204,6 +204,7 @@ class OpenFoodFactsRequest {
         var packaging: String? = nil
         var servingQuantity: Double? = nil
         var originsTags: [String]? = nil
+        var manufacturingPlacesTags: [String]? = nil
         var nutritionDataPer: String? = nil
         var labels: String? = nil
         var citiesTags: [String]? = nil
@@ -384,6 +385,7 @@ class OpenFoodFactsRequest {
         static let PackagingKey = "packaging"
         static let ServingQuantityKey = "serving_quantity"
         static let OriginsTagsKey = "origins_tags"
+        static let ManufacturingPlacesTags = "manufacturing_places_tags"
         static let NutritionDataPerKey = "nutrition_data_per"
         static let LabelsKey = "labels"
         static let CitiesTagsKey = "cities_tags"
@@ -498,7 +500,7 @@ class OpenFoodFactsRequest {
         product.countries = jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray
 //        jsonProduct.ingredientsFromPalmOilTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
         product.purchaseLocation = jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray
-//        jsonProduct.embCodesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
+        product.producerCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
         product.brandsArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsTagsKey]?.stringArray
 //        jsonProduct.purchasePlaces = jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string
 //        jsonProduct.pnnsGroups2 = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2Key]?.string
@@ -551,7 +553,7 @@ class OpenFoodFactsRequest {
         product.imageIngredientsUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsUrlKey]?.nsurl
         jsonProduct.nutritionScoreDebug = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionScoreDebugKey]?.string
         product.imageNutritionSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionSmallUrlKey]?.nsurl
-//        jsonProduct.correctorsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsTagsKey]?.stringArray
+        product.correctors = jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsTagsKey]?.stringArray
 //        jsonProduct.correctors = jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsKey]?.stringArray
 //        jsonProduct.categoriesDebugTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesDebugTagsKey]?.stringArray
 //        jsonProduct.brands = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsKey]?.string
@@ -564,7 +566,8 @@ class OpenFoodFactsRequest {
         jsonProduct.nutritionGradesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradesTagsKey]?.stringArray
 //        jsonProduct.packaging = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingKey]?.string
 //        jsonProduct.servingQuantity = jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingQuantityKey]?.double
-//        jsonProduct.originsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.OriginsTagsKey]?.stringArray
+        product.ingredientsOrigin = jsonObject?[OFFJson.ProductKey]?[OFFJson.OriginsTagsKey]?.stringArray
+        product.producer = jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesTags]?.stringArray
 //        jsonProduct.nutritionDataPer = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionDataPerKey]?.string
 //        jsonProduct.labels = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsKey]?.string
 //        jsonProduct.citiesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CitiesTagsKey]?.stringArray

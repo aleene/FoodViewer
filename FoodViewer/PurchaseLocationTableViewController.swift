@@ -12,9 +12,7 @@ class PurchaseLocationTableViewController: UITableViewController {
 
     var product: FoodProduct? {
         didSet {
-            if product != nil {
-                refresh()
-            }
+            refresh()
         }
     }
 
@@ -36,9 +34,10 @@ class PurchaseLocationTableViewController: UITableViewController {
     }
 
     func refresh() {
-        tableStructureForProduct = analyseProductForTable(product!)
-        tableView.reloadData()
-
+        if product != nil {
+            tableStructureForProduct = analyseProductForTable(product!)
+            tableView.reloadData()
+        }
     }
     
     // MARK: - Table view data source

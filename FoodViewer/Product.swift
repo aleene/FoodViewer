@@ -33,6 +33,11 @@ class FoodProduct {
     var additives: [String]? = nil
     var labelArray: [String]? = nil
 
+    // production parameters
+    var producer: [String]? = nil
+    var ingredientsOrigin: [String]? = nil
+    var producerCode: [String]? = nil
+    
     // usage parameters
     var servingSize: String? = nil
     
@@ -73,6 +78,19 @@ class FoodProduct {
             }
         }
     }
+    
+    // community parameters
+    var correctors: [String]? = nil {
+        didSet {
+            if let users = correctors {
+                for user in users {
+                    uniqueContributors.insert(user)
+                }
+                contributorsArray.append((ContributorTypes.CorrectorKey, users))
+            }
+        }
+    }
+
     var editors: [String]? = nil {
         didSet {
             if let users = editors {
@@ -133,6 +151,7 @@ class FoodProduct {
         static let EditorsKey = "Editors"
         static let PhotographersKey = "Photographers"
         static let CreatorKey = "Creator"
+        static let CorrectorKey = "Correctors"
     }
 
     // completion states parameters

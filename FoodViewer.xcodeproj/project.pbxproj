@@ -22,6 +22,10 @@
 		51C29E3E1C6F89E800271708 /* 3608580744184.json in Resources */ = {isa = PBXBuildFile; fileRef = 51C29E3D1C6F89E800271708 /* 3608580744184.json */; };
 		51C29E421C708BAA00271708 /* PurchaseLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E411C708BAA00271708 /* PurchaseLocationTableViewController.swift */; };
 		51C29E441C708D7A00271708 /* PurchaseLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */; };
+		51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */; };
+		51C29E481C70A96900271708 /* ProductionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E471C70A96900271708 /* ProductionTableViewController.swift */; };
+		51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */; };
+		51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */; };
 		51C86B5D1C6DE901002B7566 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5C1C6DE901002B7566 /* CommunityTableViewCell.swift */; };
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
@@ -57,6 +61,10 @@
 		51C29E3D1C6F89E800271708 /* 3608580744184.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3608580744184.json; sourceTree = "<group>"; };
 		51C29E411C708BAA00271708 /* PurchaseLocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseLocationTableViewController.swift; sourceTree = "<group>"; };
 		51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseLocationTableViewCell.swift; sourceTree = "<group>"; };
+		51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerTableViewCell.swift; sourceTree = "<group>"; };
+		51C29E471C70A96900271708 /* ProductionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductionTableViewController.swift; sourceTree = "<group>"; };
+		51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewTableViewCell.swift; sourceTree = "<group>"; };
+		51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanViewController.swift; sourceTree = "<group>"; };
 		51C86B5C1C6DE901002B7566 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
@@ -110,8 +118,8 @@
 		5180B9061C5D3B57002DBD21 /* FoodViewer */ = {
 			isa = PBXGroup;
 			children = (
-				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */,
+				51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */,
 				51E925ED1C678FAC009C52E8 /* Model */,
 				51DCD3C91C6A110900D39898 /* Specifics */,
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
@@ -137,6 +145,8 @@
 		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
 			isa = PBXGroup;
 			children = (
+				51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */,
+				51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */,
 				51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */,
 				51C29E3B1C6F861D00271708 /* CountriesTableViewCell.swift */,
 				51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */,
@@ -155,6 +165,7 @@
 		51DCD3C91C6A110900D39898 /* Specifics */ = {
 			isa = PBXGroup;
 			children = (
+				51C29E471C70A96900271708 /* ProductionTableViewController.swift */,
 				51C29E411C708BAA00271708 /* PurchaseLocationTableViewController.swift */,
 				51C29E371C6F48B900271708 /* ContributorsTableViewController.swift */,
 				51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */,
@@ -169,6 +180,7 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
 			);
@@ -227,6 +239,7 @@
 				TargetAttributes = {
 					5180B9031C5D3B57002DBD21 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = Q4FXMVWJ7V;
 					};
 				};
 			};
@@ -319,13 +332,17 @@
 			files = (
 				51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */,
 				51C29E381C6F48B900271708 /* ContributorsTableViewController.swift in Sources */,
+				51C29E481C70A96900271708 /* ProductionTableViewController.swift in Sources */,
+				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
 				51EA98B81C64A3DD000A503D /* JSON.swift in Sources */,
 				51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
+				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
 				512499A11C6CD0100061A083 /* imageViewController.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
 				51C29E3C1C6F861D00271708 /* CountriesTableViewCell.swift in Sources */,
+				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
 				51C29E421C708BAA00271708 /* PurchaseLocationTableViewController.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
@@ -453,10 +470,13 @@
 			baseConfigurationReference = 6A65ECC9AF4BA52E5D18C421 /* Pods-FoodViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -465,10 +485,13 @@
 			baseConfigurationReference = 839CE63262EFE2BDE707E941 /* Pods-FoodViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FoodViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
