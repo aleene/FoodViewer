@@ -27,6 +27,8 @@ class NameTableViewCell: UITableViewCell {
                                 if imageURL == self.product!.mainUrlThumb! {
                                     // set the received image
                                     self.productImageView.image = UIImage(data: imageData)
+                                    // Note the image is set to Aspect Fit in the storyboard, so one can see the entire image
+                                    // print("image bounds \(self.productImageView.image?.size)")
                                 }
                             })
                         }

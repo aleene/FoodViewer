@@ -29,14 +29,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         didSet {
             if product != nil {
                 tableStructureForProduct = analyseProductForTable(product!)
-                tableView.reloadData()
             }
         }
     }
     
-    var searchText: String? = "3608580744184" {
+    private var searchText: String? = "3608580744184" {
         didSet {
             product = nil
+            tableStructureForProduct = []
             refresh()
         }
     }
@@ -47,9 +47,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         if searchText != nil {
             // loading the product from internet will be done off the main queue
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                self.product =  self.request.fetchProductForBarcode(self.searchText!)
-                if self.product != nil {
+                let newProduct =  self.request.fetchProductForBarcode(self.searchText!)
+                if newProduct != nil {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.product = newProduct
                         self.tableView.reloadData()
                     })
                 }
@@ -147,7 +148,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCellIdentifier, forIndexPath: indexPath) as? ProducerTableViewCell
             cell?.tagList = product!.producerCode!
             return cell!
-
         }
     }
     
@@ -357,14 +357,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func unwindForCancel(segue:UIStoryboardSegue) {
         if let _ = segue.sourceViewController as? BarcodeScanViewController {
-                // what to do here?
+            if product != nil {
+                tableView.reloadData()
+            }
         }
     }
     
     @IBAction func unwindNewSearch(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? BarcodeScanViewController {
             searchText = vc.barcode
-            // what to do here?
+            searchTextField.text = vc.barcode
         }
     }
 
@@ -378,12 +380,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
-        title = "Product"
+        if product != nil {
+            tableView.reloadData()
+        }
+        title = "Summary"
     }
 }
-
-
 
 
 

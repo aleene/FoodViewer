@@ -11,7 +11,13 @@ import TagListView
 
 class AllergensTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var allergensTagListView: TagListView!
+    @IBOutlet weak var allergensTagListView: TagListView! {
+        didSet {
+            allergensTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            allergensTagListView.alignment = .Center
+        }
+    }
+
     
     var product: FoodProduct? = nil {
         didSet {
