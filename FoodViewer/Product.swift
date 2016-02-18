@@ -10,23 +10,23 @@ import Foundation
 
 class FoodProduct {
     
-    // A very flat datastructure has been used for this class
+    // Primary variables
     
     // identification parameters
-    var barcode = BarcodeType.Undefined("")
-    var name: String? = nil
-    var commonName: String? = nil
-    var brandsArray: [String]? = nil
-    var mainUrlThumb: NSURL? = nil
-    var mainUrl: NSURL? = nil
+    var barcode: BarcodeType
+    var name: String?
+    var commonName: String?
+    var brandsArray: [String]?
+    var mainUrlThumb: NSURL?
+    var mainUrl: NSURL?
     
     // packaging parameters
-    var quantity: String? = nil
-    var packagingArray: [String]? = nil
+    var quantity: String?
+    var packagingArray: [String]?
     
     // ingredients parameters
-    var ingredients: String? = nil
-    var imageIngredientsSmallUrl: NSURL? = nil
+    var ingredients: String?
+    var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil
     var allergens: [String]? = nil
     var traces: [String]? = nil
@@ -87,7 +87,20 @@ class FoodProduct {
     }
     
     // community parameters
-    var correctors: [String]? = nil
+    var correctors: [String]? = nil {
+        didSet {
+            if let users = correctors {
+                for user in users {
+                    if !productContributors.contains(user) {
+                        productContributors.add(user)
+                    }
+                    productContributors.contributors[productContributors.indexOf(user)!].role.isCorrector = true
+                }
+                contributorsArray.append((ContributorTypes.PhotographersKey, users))
+            }
+        }
+    }
+
     
     var editors: [String]? = nil {
         didSet {
@@ -119,6 +132,10 @@ class FoodProduct {
     
     var productContributors = UniqueContributors()
     
+    
+    var contributorsArray: [(String,[String]?)] = []
+
+    
     struct UniqueContributors {
         var contributors: [Contributor] = []
         
@@ -140,6 +157,7 @@ class FoodProduct {
         }
     }
 
+    
     struct Contributor {
         var name: String
         var role: ContributorRole
@@ -151,10 +169,7 @@ class FoodProduct {
         var isCorrector: Bool = false
         var isEditor: Bool = false
         var isInformer: Bool = false
-        var isChecker: Bool = false
     }
-    
-    var contributorsArray: [(String,[String]?)] = []
     
     struct NutritionFactItem {
         var itemName: String? = nil
@@ -291,6 +306,7 @@ class FoodProduct {
         }
     }
     
+    /*
     enum BarcodeType {
         case EAN13(String)
         case Undefined(String)
@@ -309,6 +325,46 @@ class FoodProduct {
                 return s
             }
         }
+    }
+    */
+    init() {
+        barcode = BarcodeType.Undefined("")
+        name = nil
+        commonName = nil
+        brandsArray = nil
+        mainUrlThumb = nil
+        mainUrl = nil
+        packagingArray = nil
+        ingredients = nil
+        imageIngredientsSmallUrl = nil
+        imageIngredientsUrl = nil
+        allergens = nil
+        traces = nil
+        additives = nil
+        labelArray = nil
+        producer = nil
+        ingredientsOrigin = nil
+        producerCode = nil
+        servingSize = nil
+        nutritionFacts = []
+        nutritionScore = nil
+        imageNutritionSmallUrl = nil
+        nutritionGrade = nil
+        purchaseLocation = nil
+        stores = nil
+        countries = nil
+        additionDate = nil
+        creator = nil
+        state = completionState()
+        primaryLanguage = nil
+        categories = nil
+        photographers = nil
+        correctors = nil
+        editors = nil
+        informers = nil
+        productContributors = UniqueContributors()
+        contributorsArray = []
+
     }
 // End product
 }

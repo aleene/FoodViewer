@@ -27,6 +27,7 @@ class OpenFoodFactsRequest {
             do {
                 let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions.DataReadingMappedIfSafe)
                 let jsonObject = JSON.parse(data)
+                product = FoodProduct()
                 product = unpackProductJSON(jsonObject)
                 return product
             } catch let error as NSError {

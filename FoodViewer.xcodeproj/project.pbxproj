@@ -12,6 +12,7 @@
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
 		516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B327E1C74D9560031EF80 /* EditProductViewController.swift */; };
+		516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32801C75F2430031EF80 /* BarcodeType.swift */; };
 		5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B9071C5D3B57002DBD21 /* AppDelegate.swift */; };
 		5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5180B90E1C5D3B57002DBD21 /* Assets.xcassets */; };
 		5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */; };
@@ -55,6 +56,7 @@
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
 		516B327E1C74D9560031EF80 /* EditProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
+		516B32801C75F2430031EF80 /* BarcodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeType.swift; sourceTree = "<group>"; };
 		5180B9041C5D3B57002DBD21 /* FoodViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5180B9071C5D3B57002DBD21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5180B90E1C5D3B57002DBD21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
+				516B32801C75F2430031EF80 /* BarcodeType.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
 				512499A11C6CD0100061A083 /* imageViewController.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
+				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
 				51C29E3C1C6F861D00271708 /* CountriesTableViewCell.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
