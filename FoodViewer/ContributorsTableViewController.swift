@@ -20,44 +20,49 @@ class ContributorsTableViewController: UITableViewController {
 
     private struct Constants {
         static let ContributorsCellIdentifier = "Contributor Cell"
-        static let DefaultHeader = "No Header"
+        static let DefaultHeader = "Contributors"
         static let ViewControllerTitle = "Contributors"
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return product?.contributorsArray.count != nil ? (product?.contributorsArray.count)! : 0
+        return 1
+        // return product?.contributorsArray.count != nil ? (product?.contributorsArray.count)! : 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        /*
         if product?.contributorsArray[section] != nil {
             let (_, currentArray) = (product?.contributorsArray[section])!
             return currentArray != nil ? currentArray!.count  : 0
         } else {
             return 0
         }
+*/
+        return (product?.productContributors.contributors.count)!
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ContributorsCellIdentifier, forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(Constants.ContributorsCellIdentifier, forIndexPath: indexPath) as? ContributorTableViewCell
 
-        let (_, currentArray) = (product?.contributorsArray[indexPath.section])!
-
-        cell.textLabel!.text = currentArray![indexPath.row]
+        cell?.contributor = product!.productContributors.contributors[indexPath.row]
         
-        return cell
+        return cell!
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
+        /*
         if product?.contributorsArray[section] != nil {
             let (currentKey, _) = (product?.contributorsArray[section])!
             return currentKey
         } else {
             return Constants.DefaultHeader
         }
+*/
+        return nil
     }
     
     // MARK: - Viewcontroller lifecycle

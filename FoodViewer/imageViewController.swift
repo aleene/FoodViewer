@@ -23,6 +23,7 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.delegate = self

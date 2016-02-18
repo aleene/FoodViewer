@@ -58,6 +58,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
+    private struct Constants {
+        static let ViewControllerTitle = "Summary"
+    }
     // MARK: - TextField
 
     @IBOutlet weak var searchTextField: UITextField! {
@@ -99,6 +102,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let ShowContributorsSegueIdentifier = "Show Contributors"
         static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
         static let ShowProductionSegueIdentifier = "Show Production"
+        static let ShowEditSegueIdentifier = "Show Edit Product"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -212,6 +216,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
+    override func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 44
+    }
+    
     
     struct TableStructure {
         static let NameSectionSize = 1
@@ -304,7 +313,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
 
         // 9: community section
-        if product.uniqueContributors.count > 0 {
+        if product.productContributors.contributors.count > 0 {
             sectionsAndRows.append((
                 SectionType.Community,
                 TableStructure.CommunitySectionSize,
@@ -327,7 +336,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
-                if let vc = segue.destinationViewController as? IdentificationViewController {
+                if let vc = segue.destinationViewController as? IdentificationTableViewController {
                     vc.product = product
                 }
             case Storyboard.ShowIngredientsSegueIdentifier:
@@ -349,6 +358,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             case Storyboard.ShowProductionSegueIdentifier:
                 if let vc = segue.destinationViewController as? ProductionTableViewController {
                     vc.product = product
+                }
+            case Storyboard.ShowEditSegueIdentifier:
+                if let vc = segue.destinationViewController as? EditProductViewController {
+                    vc.barcode = product?.barcode.asString()
                 }
             default: break
             }
@@ -376,15 +389,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 108.0
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         if product != nil {
             tableView.reloadData()
         }
-        title = "Summary"
+        title = Constants.ViewControllerTitle
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
+        if product != nil {
+            tableView.reloadData()
+        }
+        
+    }
+
 }
 
 

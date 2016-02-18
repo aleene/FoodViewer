@@ -27,7 +27,6 @@ class OpenFoodFactsRequest {
             do {
                 let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions.DataReadingMappedIfSafe)
                 let jsonObject = JSON.parse(data)
-                product.clearVariables()
                 product = unpackProductJSON(jsonObject)
                 return product
             } catch let error as NSError {
@@ -437,7 +436,7 @@ class OpenFoodFactsRequest {
         // jsonProduct.productCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
         product.traces = jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray
         // jsonProduct.allergens = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
-        // jsonProduct.lang = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
+        product.primaryLanguage = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
         // product.photographers = jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
         product.commonName = jsonObject?[OFFJson.ProductKey]?[OFFJson.GenericNameKey]?.string
         // jsonProduct.ingredientsThatMayBeFromPalmOilTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilTagsKey]?.stringArray
@@ -452,7 +451,8 @@ class OpenFoodFactsRequest {
         // jsonProduct.embCodesOrig = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesOrigKey]?.string
         product.informers = jsonObject?[OFFJson.ProductKey]?[OFFJson.InformersTagsKey]?.stringArray
         // jsonProduct.nutrientLevelsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrientLevelsTagsKey]?.stringArray
-        product.photographers = jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
+        jsonProduct.photographersTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersTagsKey]?.stringArray
+        product.photographers = jsonProduct.photographersTags
         // jsonProduct.additivesN = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesNKey]?.int
         // jsonProduct.pnnsGroups2Tags = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2TagsKey]?.stringArray
         // jsonProduct.unknownNutrientsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.UnknownNutrientsTagsKey]?.stringArray

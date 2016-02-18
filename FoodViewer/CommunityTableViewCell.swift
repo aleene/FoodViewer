@@ -12,7 +12,7 @@ class CommunityTableViewCell: UITableViewCell {
 
     var product: FoodProduct? = nil {
         didSet {
-            if let users = product?.uniqueContributors {
+            if let users = product?.productContributors.contributors {
                 communityLabel?.text = "\(users.count) unique users involved"
             }
         }
