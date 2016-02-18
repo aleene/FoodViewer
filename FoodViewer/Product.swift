@@ -57,14 +57,10 @@ class FoodProduct {
     var creator: String? = nil {
         didSet {
             if let user = creator {
-                if let index = productContributors.indexOf(user) {
-                    productContributors.contributors[index].role.isCreator = true
-                } else {
-                    var newRole = ContributorRole()
-                    newRole.isCreator = true
-                    let newContributor = Contributor(name: user, role: newRole)
-                    productContributors.contributors.append(newContributor)
+                if !productContributors.contains(user) {
+                    productContributors.add(user)
                 }
+                productContributors.contributors[productContributors.indexOf(user)!].role.isCreator = true
                 contributorsArray.append((ContributorTypes.CreatorKey, [user]))
             }
         }
@@ -80,14 +76,10 @@ class FoodProduct {
         didSet {
             if let users = photographers {
                 for user in users {
-                    if let index = productContributors.indexOf(user) {
-                        productContributors.contributors[index].role.isPhotographer = true
-                    } else {
-                        var newRole = ContributorRole()
-                        newRole.isPhotographer = true
-                        let newContributor = Contributor(name: user, role: newRole)
-                        productContributors.contributors.append(newContributor)
+                    if !productContributors.contains(user) {
+                        productContributors.add(user)
                     }
+                    productContributors.contributors[productContributors.indexOf(user)!].role.isPhotographer = true
                 }
                 contributorsArray.append((ContributorTypes.PhotographersKey, users))
             }
@@ -95,36 +87,16 @@ class FoodProduct {
     }
     
     // community parameters
-    var correctors: [String]? = nil {
-        didSet {
-            if let users = correctors {
-                for user in users {
-                    if let index = productContributors.indexOf(user) {
-                        productContributors.contributors[index].role.isCorrector = true
-                    } else {
-                        var newRole = ContributorRole()
-                        newRole.isCorrector = true
-                        let newContributor = Contributor(name: user, role: newRole)
-                        productContributors.contributors.append(newContributor)
-                    }
-                }
-                contributorsArray.append((ContributorTypes.CorrectorKey, users))
-            }
-        }
-    }
-
+    var correctors: [String]? = nil
+    
     var editors: [String]? = nil {
         didSet {
             if let users = editors {
                 for user in users {
-                    if let index = productContributors.indexOf(user) {
-                        productContributors.contributors[index].role.isEditor = true
-                    } else {
-                        var newRole = ContributorRole()
-                        newRole.isEditor = true
-                        let newContributor = Contributor(name: user, role: newRole)
-                        productContributors.contributors.append(newContributor)
+                    if !productContributors.contains(user) {
+                        productContributors.add(user)
                     }
+                    productContributors.contributors[productContributors.indexOf(user)!].role.isEditor = true
                 }
                 contributorsArray.append((ContributorTypes.EditorsKey, users))
             }
@@ -135,30 +107,12 @@ class FoodProduct {
         didSet {
             if let users = informers {
                 for user in users {
-                    if let index = productContributors.indexOf(user) {
-                        productContributors.contributors[index].role.isInformer = true
-                    } else {
-                        var newRole = ContributorRole()
-                        newRole.isInformer = true
-                        let newContributor = Contributor(name: user, role: newRole)
-                        productContributors.contributors.append(newContributor)
-                    }
-                }
-                contributorsArray.append((ContributorTypes.InformersKey, users))
-            }
-        }
-    }
-
-    var checkers: [String]? = nil {
-        didSet {
-            if let users = checkers {
-                for user in users {
                     if !productContributors.contains(user) {
                         productContributors.add(user)
                     }
-                    productContributors.contributors[productContributors.indexOf(user)!].role.isPhotographer = true
+                    productContributors.contributors[productContributors.indexOf(user)!].role.isInformer = true
                 }
-                contributorsArray.append((ContributorTypes.CheckersKey, users))
+                contributorsArray.append((ContributorTypes.InformersKey, users))
             }
         }
     }

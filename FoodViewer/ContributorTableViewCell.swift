@@ -16,7 +16,6 @@ class ContributorTableViewCell: UITableViewCell {
                 nameLabel.text = existingContributor.name
                 photographerLabel.hidden = !existingContributor.role.isPhotographer
                 correctorLabel.hidden = !existingContributor.role.isCorrector
-                checkerLabel.hidden = !existingContributor.role.isChecker
                 editorLabel.hidden = !existingContributor.role.isEditor
                 informerLabel.hidden = !existingContributor.role.isInformer
                 creatorLabel.hidden = !existingContributor.role.isCreator
@@ -34,11 +33,6 @@ class ContributorTableViewCell: UITableViewCell {
     @IBOutlet weak var correctorLabel: UILabel! {
         didSet {
             correctorLabel.text = "🔦"
-        }
-    }
-    @IBOutlet weak var checkerLabel: UILabel! {
-        didSet {
-            checkerLabel.text = "🔍"
         }
     }
     @IBOutlet weak var editorLabel: UILabel! {

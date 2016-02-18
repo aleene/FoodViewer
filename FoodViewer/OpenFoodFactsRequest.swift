@@ -430,7 +430,7 @@ class OpenFoodFactsRequest {
         // jsonProduct.pnnsGroups1 = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups1Key]?.string
         jsonProduct.statesTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray
         decodeCompletionStates()
-        product.checkers = jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
+        // product.checkers = jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
         product.labelArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray
         // jsonProduct.imageSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
         // jsonProduct.productCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
