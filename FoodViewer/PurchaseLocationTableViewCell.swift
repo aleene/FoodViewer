@@ -10,14 +10,23 @@ import UIKit
 import TagListView
 
 class PurchaseLocationTableViewCell: UITableViewCell {
+    
+    private struct Constants {
+        static let NoInformation = "No purchase location available"
+    }
+    
 
 var tagList: [String]? = nil {
     didSet {
+        locationTagListView.removeAllTags()
         if let list = tagList {
-            locationTagListView.removeAllTags()
+            locationTagListView.tagBackgroundColor = UIColor.greenColor()
             for listItem in list {
                 locationTagListView.addTag(listItem)
             }
+        } else {
+            locationTagListView.tagBackgroundColor = UIColor.orangeColor()
+            locationTagListView.addTag(Constants.NoInformation)
         }
     }
 }
@@ -28,7 +37,6 @@ var tagList: [String]? = nil {
         didSet {
             locationTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             locationTagListView.alignment = .Center
-            locationTagListView.tagBackgroundColor = UIColor.greenColor()
             locationTagListView.cornerRadius = 10
         }
     }

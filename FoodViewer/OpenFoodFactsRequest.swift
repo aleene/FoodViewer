@@ -508,7 +508,7 @@ class OpenFoodFactsRequest {
 //        jsonProduct.countriesHierarchy = jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesHierarchyKey]?.stringArray
 //        jsonProduct.traces = jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesKey]?.string
 //        jsonProduct.additivesOldTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesOldTagsKey]?.stringArray
-//        jsonProduct.imageNutritionUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionUrlKey]?.nsurl
+        product.nutritionFactsImageUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionUrlKey]?.nsurl
 //        jsonProduct.categories = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesKey]?.string
 //        jsonProduct.ingredientsTextDebug = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsTextDebugKey]?.string
         product.ingredients = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsTextKey]?.string
@@ -530,7 +530,7 @@ class OpenFoodFactsRequest {
 //        jsonProduct.nutritionGrades = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradesKey]?.string
         
         jsonProduct.nutritionGradeFr = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradeFrKey]?.string
-        var grade: FoodProduct.NutritionalGradeLevel = .Undefined
+        var grade: NutritionalGradeLevel = .Undefined
         grade.string(jsonProduct.nutritionGradeFr)
         product.nutritionGrade = grade
         
@@ -605,15 +605,15 @@ class OpenFoodFactsRequest {
 //        jsonProduct.additivesDebugTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesDebugTagsKey]?.stringArray
 //        jsonProduct.ingredientsIdsDebug = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsIdsDebugKey]?.stringArray
         
-        var nutritionLevelQuantity = FoodProduct.NutritionLevelQuantity.Undefined
+        var nutritionLevelQuantity = NutritionLevelQuantity.Undefined
         nutritionLevelQuantity.string(jsonProduct.nutrientLevelsFat)
-        let fatNutritionScore = (FoodProduct.NutritionItem.Fat, nutritionLevelQuantity)
+        let fatNutritionScore = (NutritionItem.Fat, nutritionLevelQuantity)
         nutritionLevelQuantity.string(jsonProduct.nutrientLevelsSaturatedFat)
-        let saturatedFatNutritionScore = (FoodProduct.NutritionItem.SaturatedFat,nutritionLevelQuantity)
+        let saturatedFatNutritionScore = (NutritionItem.SaturatedFat,nutritionLevelQuantity)
         nutritionLevelQuantity.string(jsonProduct.nutrientLevelsSugars)
-        let sugarNutritionScore = (FoodProduct.NutritionItem.Sugar, nutritionLevelQuantity)
+        let sugarNutritionScore = (NutritionItem.Sugar, nutritionLevelQuantity)
         nutritionLevelQuantity.string(jsonProduct.nutrientLevelsSalt)
-        let saltNutritionScore = (FoodProduct.NutritionItem.Salt, nutritionLevelQuantity)
+        let saltNutritionScore = (NutritionItem.Salt, nutritionLevelQuantity)
         product.nutritionScore = [fatNutritionScore, saturatedFatNutritionScore, sugarNutritionScore, saltNutritionScore]
         
         var energie = FoodProduct.NutritionFactItem()

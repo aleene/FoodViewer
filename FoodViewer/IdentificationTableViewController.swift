@@ -48,7 +48,7 @@ class IdentificationTableViewController: UITableViewController {
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Identification Image"
-        static let ShowIdentificationTitle = "Identification Image"
+        static let ShowIdentificationTitle = "Image"
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -200,7 +200,6 @@ class IdentificationTableViewController: UITableViewController {
                             if imageURL == self.cellURL! {
                                 // set the received image
                                 self.identificationImage = UIImage(data: imageData)
-                                // Note the image is set to Aspect Fit in the storyboard, so one can see the entire image
                                 // print("image bounds \(self.productImageView.image?.size)")
                             }
                         })

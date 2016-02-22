@@ -11,12 +11,7 @@ import RSBarcodes_Swift
 import AVFoundation
 
 class BarcodeScanViewController: RSCodeReaderViewController {
-    
-    @IBAction func cancelButtonPressed(sender: UIButton) {
-        // should revert to main screen
-        print("cancel pressed.")
-    }
-    
+        
     var barcode: String = ""
     var dispatched: Bool = false
     
@@ -70,14 +65,4 @@ class BarcodeScanViewController: RSCodeReaderViewController {
         // self.navigationController?.navigationBarHidden = true
         
     }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        self.navigationController?.navigationBarHidden = false
-        
-        if segue.identifier == "nextView" {
-            // let destinationVC = segue.destinationViewController as! BarcodeDisplayViewController
-            // destinationVC.contents = self.barcode
-        }
-    }
-
 }

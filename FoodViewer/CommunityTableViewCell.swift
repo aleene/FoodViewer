@@ -7,18 +7,29 @@
 //
 
 import UIKit
+import TagListView
 
 class CommunityTableViewCell: UITableViewCell {
 
     var product: FoodProduct? = nil {
         didSet {
             if let users = product?.productContributors.contributors {
-                communityLabel?.text = "\(users.count) unique users involved"
+            communityTagListView.removeAllTags()
+                for user in users {
+                    communityTagListView.addTag(user.name)
+                }
             }
         }
     }
-
-    @IBOutlet weak var communityLabel: UILabel!
     
+    @IBOutlet weak var communityTagListView: TagListView! {
+        didSet {
+            communityTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            communityTagListView.alignment = .Center
+            communityTagListView.tagBackgroundColor = UIColor.greenColor()
+            communityTagListView.cornerRadius = 10
+        }
+    }
+
 
 }

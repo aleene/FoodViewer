@@ -11,20 +11,29 @@ import TagListView
 
 class CategoriesTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var categoriesTagListView: TagListView! {
+    private struct Constants {
+        static let NoInformation = "No categories specified"
+    }
+
+    @IBOutlet weak var listTagListView: TagListView! {
         didSet {
-            categoriesTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            categoriesTagListView.alignment = .Center
+            listTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            listTagListView.alignment = .Center
+            listTagListView.cornerRadius = 10
         }
     }
     
     var product: FoodProduct? = nil {
         didSet {
-            if let categories = product?.categories {
-                categoriesTagListView.removeAllTags()
-                for category in categories {
-                    categoriesTagListView.addTag(category)
+            listTagListView.removeAllTags()
+            if let list = product?.categories {
+                listTagListView.tagBackgroundColor = UIColor.greenColor()
+                for listItem in list {
+                    listTagListView.addTag(listItem)
                 }
+            } else {
+                listTagListView.tagBackgroundColor = UIColor.orangeColor()
+                listTagListView.addTag(Constants.NoInformation)
             }
         }
     }

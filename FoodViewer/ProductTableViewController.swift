@@ -61,6 +61,20 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private struct Constants {
         static let ViewControllerTitle = "Summary"
     }
+    
+    // MARK: - Actions
+    
+    @IBAction func openSafari(sender: UIBarButtonItem) {
+        
+        if let barcode = product?.barcode.asString() {
+            let urlString = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code=" + barcode
+            if let requestUrl = NSURL(string: urlString) {
+                UIApplication.sharedApplication().openURL(requestUrl)
+            }
+        }
+    }
+    
+    
     // MARK: - TextField
 
     @IBOutlet weak var searchTextField: UITextField! {
@@ -102,7 +116,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let ShowContributorsSegueIdentifier = "Show Contributors"
         static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
         static let ShowProductionSegueIdentifier = "Show Production"
-        static let ShowEditSegueIdentifier = "Show Edit Product"
+        static let ShowNutritionFactsSegueIdentifier = "Show Nutrition Facts"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -124,10 +138,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             cell?.product = product!
             return cell!
         case .NutritionFacts:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath) as? NutritionFactsTableViewCell
-                cell?.product = indexPath.row == 0 ? product! : nil
-                cell?.nutritionFactItem = product!.nutritionFacts[indexPath.row]
-                return cell!
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath)
+                cell.textLabel!.text = "\(product!.nutritionFacts.count) nutritional facts noted"
+                return cell
         case .NutritionScore:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell
             cell?.product = product!
@@ -227,6 +240,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let IngredientsSectionSize = 1
         static let CountriesSectionSize = 1
         static let NutritionScoreSectionSize = 1
+        static let NutritionFactsSectionSize = 1
         static let CategoriesSectionSize = 1
         static let TracesSectionSize = 1
         static let CommunitySectionSize = 1
@@ -234,14 +248,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let ProducerSectionSize = 1
         static let NameSectionHeader = ""
         static let IngredientsSectionHeader = "Ingredients"
-        static let CountriesSectionHeader = "Countries"
+        static let CountriesSectionHeader = "Sales info"
         static let TracesSectionHeader = "Traces"
         static let NutritionScoreSectionHeader = "Nutritional score"
-        static let NutritionFactsSectionHeader = "Nutrition Facts (100g)"
+        static let NutritionFactsSectionHeader = "Nutrition Facts (100g; 100ml)"
         static let CategoriesSectionHeader = "Categories"
         static let CommunitySectionHeader = "Community Involvement"
         static let CompletionSectionHeader = "Completion State"
-        static let ProducerSectionHeader = "Producer Code"
+        static let ProducerSectionHeader = "Producer"
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -268,7 +282,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         if product.nutritionFacts.count > 0 {
             sectionsAndRows.append((
                 SectionType.NutritionFacts,
-                product.nutritionFacts.count,
+                TableStructure.NutritionFactsSectionSize,
                 TableStructure.NutritionFactsSectionHeader))
         }
         
@@ -288,37 +302,29 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 TableStructure.CategoriesSectionHeader))
         }
         
-        // 6: allergens section
-        if product.countries != nil {
+        // 6: purchase location section
             sectionsAndRows.append((
                 SectionType.Countries,
                 TableStructure.CountriesSectionSize,
                 TableStructure.CountriesSectionHeader))
-        }
 
         // 7: traces section
-        if product.traces != nil {
-            sectionsAndRows.append((
-                SectionType.Traces,
-                TableStructure.TracesSectionSize,
-                TableStructure.TracesSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.Traces,
+            TableStructure.TracesSectionSize,
+            TableStructure.TracesSectionHeader))
         
         // 8: producer section
-        if product.producerCode != nil {
-            sectionsAndRows.append((
-                SectionType.Producer,
-                TableStructure.ProducerSectionSize,
-                TableStructure.ProducerSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.Producer,
+            TableStructure.ProducerSectionSize,
+            TableStructure.ProducerSectionHeader))
 
         // 9: community section
-        if product.productContributors.contributors.count > 0 {
-            sectionsAndRows.append((
-                SectionType.Community,
-                TableStructure.CommunitySectionSize,
-                TableStructure.CommunitySectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.Community,
+            TableStructure.CommunitySectionSize,
+            TableStructure.CommunitySectionHeader))
         
         // 10: completion status section
         sectionsAndRows.append((
@@ -359,9 +365,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 if let vc = segue.destinationViewController as? ProductionTableViewController {
                     vc.product = product
                 }
-            case Storyboard.ShowEditSegueIdentifier:
-                if let vc = segue.destinationViewController as? EditProductViewController {
-                    vc.barcode = product?.barcode.asString()
+            case Storyboard.ShowNutritionFactsSegueIdentifier:
+                if let vc = segue.destinationViewController as? NutrientsTableViewController {
+                    vc.product = product
                 }
             default: break
             }

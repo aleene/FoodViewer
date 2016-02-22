@@ -10,24 +10,30 @@ import UIKit
 
 class imageViewController: UIViewController, UIScrollViewDelegate {
 
-    var image: UIImage? = nil {
+    var image: UIImage? {
         didSet {
-            refresh()
+            if image != nil {
+                refresh()
+            }
         }
     }
     
     var imageTitle: String? = nil {
         didSet {
-            refresh()
+            title = imageTitle != nil ? imageTitle! : Constants.DefaultImageTitle
         }
     }
     
     @IBOutlet weak var imageView: UIImageView!
-    
+        
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.delegate = self
         }
+    }
+    
+    struct Constants {
+        static let DefaultImageTitle = "no title"
     }
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
@@ -35,15 +41,13 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
     }
 
     private func refresh() {
-        if let newImage = image {
-            imageView?.image = newImage
+        if let existingImage = image {
+            imageView?.image = existingImage
             imageView?.sizeToFit()
+            scrollView?.contentSize = imageView.frame.size
             
-            title = imageTitle != nil ? imageTitle! : "?"
-            
-            scrollView?.contentSize = newImage.size
             scrollView?.minimumZoomScale = scrollView.minScale();
-            scrollView?.maximumZoomScale = 1.0
+            scrollView?.maximumZoomScale = 5.0
             scrollView?.zoomScale = scrollView.minScale();
             
             if scrollView != nil {
@@ -87,7 +91,15 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
 
 }
 
-extension UIScrollView  {
+private extension UIImage {
+    
+    // return the aspectRatio of the image
+    var aspectRatio: CGFloat {
+        return self.size.height != 0 ? self.size.width / self.size.height : 0
+    }
+}
+
+private extension UIScrollView  {
     
     func minScale()-> CGFloat {
         return  min(self.frame.size.width / self.contentSize.width, self.frame.size.height / self.contentSize.height);

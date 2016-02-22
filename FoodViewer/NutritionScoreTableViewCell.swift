@@ -40,7 +40,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
     @IBOutlet weak var saltLabel: UILabel!
     
     
-    private func colorForLevel(level: FoodProduct.NutritionLevelQuantity) -> UIColor {
+    private func colorForLevel(level: NutritionLevelQuantity) -> UIColor {
         switch level {
         case .Low:
             return UIColor.greenColor()

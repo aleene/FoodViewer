@@ -44,7 +44,8 @@ class FoodProduct {
     // content parameters
     var nutritionFacts: [NutritionFactItem] = []
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
-    var imageNutritionSmallUrl: NSURL? = nil
+    var imageNutritionSmallUrl: NSURL?
+    var nutritionFactsImageUrl: NSURL?
     
     // purchase parameters
     var nutritionGrade: NutritionalGradeLevel? = nil
@@ -65,7 +66,7 @@ class FoodProduct {
             }
         }
     }
-    var state = completionState()
+    var state = CompletionState()
     var primaryLanguage: String? = nil
 
     // group parameters
@@ -180,13 +181,6 @@ class FoodProduct {
         
         func valid() -> Bool {
             return standardValue != nil && !standardValue!.isEmpty
-            /*
-            if standardValue != nil && !standardValue!.isEmpty {
-                return true
-            } else {
-                return false
-            }
-            */
         }
     }
     
@@ -198,9 +192,9 @@ class FoodProduct {
         static let CreatorKey = "Creator"
         static let CorrectorKey = "Correctors"
     }
-
+    /*
     // completion states parameters
-    struct completionState {
+    struct CompletionState {
         var photosValidatedComplete : Bool = false
         var productNameComplete : Bool = false
         var brandsComplete: Bool = false
@@ -225,7 +219,6 @@ class FoodProduct {
                 Int(expirationDateComplete) * 10
         }
     }
-    
     enum NutritionalGradeLevel {
         case A
         case B
@@ -273,7 +266,6 @@ class FoodProduct {
         }
 
     }
-    
     enum NutritionItem {
         case Fat
         case SaturatedFat
@@ -281,7 +273,8 @@ class FoodProduct {
         case Salt
         case Undefined
     }
-        
+
+
     enum NutritionLevelQuantity {
         case Low
         case Moderate
@@ -306,7 +299,6 @@ class FoodProduct {
         }
     }
     
-    /*
     enum BarcodeType {
         case EAN13(String)
         case Undefined(String)
@@ -349,13 +341,14 @@ class FoodProduct {
         nutritionFacts = []
         nutritionScore = nil
         imageNutritionSmallUrl = nil
+        nutritionFactsImageUrl = nil
         nutritionGrade = nil
         purchaseLocation = nil
         stores = nil
         countries = nil
         additionDate = nil
         creator = nil
-        state = completionState()
+        state = CompletionState()
         primaryLanguage = nil
         categories = nil
         photographers = nil
