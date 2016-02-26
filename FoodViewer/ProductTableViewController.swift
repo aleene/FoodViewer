@@ -10,17 +10,15 @@ import UIKit
 
 class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
-    private var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    private var tableStructureForProduct: [(RowType, Int, String?)] = []
     
-    private enum SectionType {
+    private enum RowType {
         case Name
         case Ingredients
-        case Traces
         case Countries
         case NutritionFacts
         case NutritionScore
         case Categories
-        case Community
         case Completion
         case Producer
     }
@@ -29,10 +27,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         didSet {
             if product != nil {
                 tableStructureForProduct = analyseProductForTable(product!)
+                if product!.mainUrl != nil {
+                    retrieveImage(product!.mainUrl!)
+                }
             }
         }
     }
     
+    private var mainProductImage: UIImage? = nil {
+        didSet {
+            if mainProductImage != nil {
+                tableView.reloadData()
+            }
+        }
+    }
+
     private var searchText: String? = "3608580744184" {
         didSet {
             product = nil
@@ -59,7 +68,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     }
 
     private struct Constants {
-        static let ViewControllerTitle = "Summary"
+        static let ViewControllerTitle = "Products"
+        static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
     }
     
     // MARK: - Actions
@@ -67,7 +77,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func openSafari(sender: UIBarButtonItem) {
         
         if let barcode = product?.barcode.asString() {
-            let urlString = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code=" + barcode
+            let urlString = Constants.OpenFoodFactsWebEditURL + barcode
             if let requestUrl = NSURL(string: urlString) {
                 UIApplication.sharedApplication().openURL(requestUrl)
             }
@@ -96,7 +106,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // number of section depends on the existence of the data
-        return tableStructureForProduct.count
+        return 1
     }
     
     private struct Storyboard {
@@ -106,28 +116,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let NutritionFactsCellIdentifier = "Product Nutrition Facts Name Cell"
         static let NutritionScoreCellIdentifier = "Product Nutrition Score Cell"
         static let CategoriesCellIdentifier = "Product Categories Cell"
-        static let TracesCellIdentifier = "Product Traces Cell"
-        static let CommunityCellIdentifier = "Product Community Cell"
         static let CompletionCellIdentifier = "Product Completion State Cell"
         static let ProducerCellIdentifier = "Product Producer Cell"
-        static let ShowIdentificationSegueIdentifier = "Show Product Identification"
-        static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
-        static let ShowCompletionStatesSegueIdentifier = "Show Completion States"
-        static let ShowContributorsSegueIdentifier = "Show Contributors"
-        static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
-        static let ShowProductionSegueIdentifier = "Show Production"
-        static let ShowNutritionFactsSegueIdentifier = "Show Nutrition Facts"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.row]
         
         // we assume that product exists
         switch currentProductSection {
         case .Name:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath) as! NameTableViewCell
-            cell.product = product!
+            // cell.productName = product!.name
+            cell.productBrand = product!.brandsArray
+            cell.productImage = mainProductImage
             return cell
         case .Ingredients:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
@@ -149,14 +152,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CategoriesCellIdentifier, forIndexPath: indexPath) as? CategoriesTableViewCell
             cell?.product = product!
             return cell!
-        case .Traces:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TracesCellIdentifier, forIndexPath: indexPath) as? TracesTableViewCell
-            cell?.product = product!
-            return cell!
-        case .Community:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CommunityCellIdentifier, forIndexPath: indexPath) as? CommunityTableViewCell
-            cell?.product = product!
-            return cell!
         case .Completion:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
             cell?.product = product!
@@ -169,35 +164,44 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (_, numberOfRows, _) = tableStructureForProduct[section]
-        return numberOfRows
+        return tableStructureForProduct.count
     }
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var (sectionType, _, header) = tableStructureForProduct[section]
-        switch sectionType {
-        case .NutritionScore:
-            if let score = product?.nutritionGrade {
-                switch  score {
-                case .A:
-                    header = header != nil ? header! + "  A" : header
-                case .B:
-                    header = header != nil ? header! + "  B" : header
-                case .C:
-                    header = header != nil ? header! + "  C" : header
-                case .D:
-                    header = header != nil ? header! + "  D" : header
-                case .E:
-                    header = header != nil ? header! + "  E" : header
-                default:
-                    break
-                }
-            }
-        default: break
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.row]
+        
+        // we assume that product exists
+        switch currentProductSection {
+        case .Name:
+            performSegueWithIdentifier(Segues.ShowIdentificationSegueIdentifier, sender: self)
+        case .Ingredients:
+            performSegueWithIdentifier(Segues.ShowIngredientsSegueIdentifier, sender: self)
+        case .Countries:
+            performSegueWithIdentifier(Segues.ShowPurchaseLocationSegueIdentifier, sender: self)
+        case .NutritionFacts:
+            performSegueWithIdentifier(Segues.ShowNutritionFactsSegueIdentifier, sender: self)
+        //case .Categories:
+        //    performSegueWithIdentifier(Storyboard.ShowC, sender: self)
+        case .Completion:
+            performSegueWithIdentifier(Segues.ShowCompletionStatesSegueIdentifier, sender: self)
+        case .Producer:
+            performSegueWithIdentifier(Segues.ShowProductionSegueIdentifier, sender: self)
+        default:
+            break
         }
-        return header
     }
-    
+   
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if tableStructureForProduct.isEmpty {
+            return "No products listed"
+        } else {
+            let (_, _, header) = tableStructureForProduct[0]
+            // print("section: \(section) with header \(header)")
+            return header
+        }
+    }
+     /*
     //
     // Thanks to http://www.elicere.com/mobile/swift-blog-2-uitableview-section-header-color/
     //
@@ -228,12 +232,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             header.contentView.backgroundColor = nil
         }
     }
-    
+     */
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
     
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+
     
     struct TableStructure {
         static let NameSectionSize = 1
@@ -258,22 +266,26 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let ProducerSectionHeader = "Producer"
     }
     
-    private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
+    private func analyseProductForTable(product: FoodProduct) -> [(RowType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections 
         // And each element is a tuple with the section type and number of rows
         // 
         //  The order of each element determines the order in the table
-        var sectionsAndRows: [(SectionType,Int, String?)] = []
+        var sectionsAndRows: [(RowType,Int, String?)] = []
         
         // 1: name section always exists
-        sectionsAndRows.append((SectionType.Name, TableStructure.NameSectionSize, nil))
+        if let productName = product.name {
+            sectionsAndRows.append((RowType.Name, TableStructure.NameSectionSize, productName))
+        } else {
+            sectionsAndRows.append((RowType.Name, TableStructure.NameSectionSize, nil))
+        }
         
         // 2:  ingredients section
         if product.ingredients != nil {
             sectionsAndRows.append((
-                SectionType.Ingredients,
+                RowType.Ingredients,
                 TableStructure.IngredientsSectionSize,
                 TableStructure.IngredientsSectionHeader))
         }
@@ -281,7 +293,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         // 3: nutritionFacts section
         if product.nutritionFacts.count > 0 {
             sectionsAndRows.append((
-                SectionType.NutritionFacts,
+                RowType.NutritionFacts,
                 TableStructure.NutritionFactsSectionSize,
                 TableStructure.NutritionFactsSectionHeader))
         }
@@ -289,7 +301,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         // 4: nutritionScore section
         if product.nutritionScore != nil {
             sectionsAndRows.append((
-                SectionType.NutritionScore,
+                RowType.NutritionScore,
                 TableStructure.NutritionScoreSectionSize,
                 TableStructure.NutritionScoreSectionHeader))
         }
@@ -297,38 +309,26 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         // 5: categories section
         if product.categories != nil {
             sectionsAndRows.append((
-                SectionType.Categories,
+                RowType.Categories,
                 TableStructure.CategoriesSectionSize,
                 TableStructure.CategoriesSectionHeader))
         }
         
         // 6: purchase location section
             sectionsAndRows.append((
-                SectionType.Countries,
+                RowType.Countries,
                 TableStructure.CountriesSectionSize,
                 TableStructure.CountriesSectionHeader))
-
-        // 7: traces section
-        sectionsAndRows.append((
-            SectionType.Traces,
-            TableStructure.TracesSectionSize,
-            TableStructure.TracesSectionHeader))
         
-        // 8: producer section
+        // 7: producer section
         sectionsAndRows.append((
-            SectionType.Producer,
+            RowType.Producer,
             TableStructure.ProducerSectionSize,
             TableStructure.ProducerSectionHeader))
-
-        // 9: community section
-        sectionsAndRows.append((
-            SectionType.Community,
-            TableStructure.CommunitySectionSize,
-            TableStructure.CommunitySectionHeader))
         
-        // 10: completion status section
+        // 8: completion status section
         sectionsAndRows.append((
-            SectionType.Completion,
+            RowType.Completion,
             TableStructure.CompletionSectionSize,
             TableStructure.CompletionSectionHeader))
 
@@ -336,37 +336,72 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         return sectionsAndRows
     }
     
+    
+    private func retrieveImage(url: NSURL?) {
+        if let imageURL = url {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                do {
+                    // This only works if you add a line to your Info.plist
+                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
+                    //
+                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    if imageData.length > 0 {
+                        // if we have the image data we can go back to the main thread
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image
+                            self.mainProductImage = UIImage(data: imageData)
+                        })
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            })
+        }
+    }
+
     // MARK: - Segues
+    
+    private struct Segues {
+        static let ShowIdentificationSegueIdentifier = "Show Product Identification"
+        static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
+        static let ShowCompletionStatesSegueIdentifier = "Show Completion States"
+        static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
+        static let ShowProductionSegueIdentifier = "Show Production"
+        static let ShowNutritionFactsSegueIdentifier = "Show Nutrition Facts"
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destination = segue.destinationViewController
+        if let navCon = destination as? UINavigationController {
+            // note that the destinationViewController can be a NavigationViewController,
+            // so we should look what is inside it
+            destination = navCon.topViewController!
+        }
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowIdentificationSegueIdentifier:
-                if let vc = segue.destinationViewController as? IdentificationTableViewController {
+            case Segues.ShowIdentificationSegueIdentifier:
+                if let vc = destination as? IdentificationTableViewController {
                     vc.product = product
                 }
-            case Storyboard.ShowIngredientsSegueIdentifier:
-                if let vc = segue.destinationViewController as? IngredientsViewController {
+            case Segues.ShowIngredientsSegueIdentifier:
+                if let vc = destination as? IngredientsTableViewController {
                     vc.product = product
                 }
-            case Storyboard.ShowCompletionStatesSegueIdentifier:
-                if let vc = segue.destinationViewController as? CompletionStatesTableViewController {
+            case Segues.ShowCompletionStatesSegueIdentifier:
+                if let vc = destination as? CompletionStatesTableViewController {
                     vc.product = product
                 }
-            case Storyboard.ShowContributorsSegueIdentifier:
-                if let vc = segue.destinationViewController as? ContributorsTableViewController {
+            case Segues.ShowPurchaseLocationSegueIdentifier:
+                if let vc = destination as? PurchaseLocationTableViewController {
                     vc.product = product
                 }
-            case Storyboard.ShowPurchaseLocationSegueIdentifier:
-                if let vc = segue.destinationViewController as? PurchaseLocationTableViewController {
+            case Segues.ShowProductionSegueIdentifier:
+                if let vc = destination as? ProductionTableViewController {
                     vc.product = product
                 }
-            case Storyboard.ShowProductionSegueIdentifier:
-                if let vc = segue.destinationViewController as? ProductionTableViewController {
-                    vc.product = product
-                }
-            case Storyboard.ShowNutritionFactsSegueIdentifier:
-                if let vc = segue.destinationViewController as? NutrientsTableViewController {
+            case Segues.ShowNutritionFactsSegueIdentifier:
+                if let vc = destination as? NutrientsTableViewController {
                     vc.product = product
                 }
             default: break
@@ -394,7 +429,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 108.0
+        self.tableView.estimatedRowHeight = 300.0
         if product != nil {
             tableView.reloadData()
         }
@@ -409,7 +444,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
         
     }
-
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
 }
 
 

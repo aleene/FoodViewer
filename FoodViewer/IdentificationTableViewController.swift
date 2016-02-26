@@ -10,11 +10,17 @@ import UIKit
 
 class IdentificationTableViewController: UITableViewController {
 
+    struct TextConstants {
+        static let ShowIdentificationTitle = "Image"
+        static let ViewControllerTitle = "Identification"
+    }
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    private var cellURL: NSURL? = nil
-    
-    private var identificationImage: UIImage? = nil
+    private var identificationImage: UIImage? = nil {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     private enum SectionType {
         case Barcode
@@ -29,7 +35,6 @@ class IdentificationTableViewController: UITableViewController {
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                cellURL = nil
                 identificationImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
                 if product!.mainUrl != nil {
@@ -48,7 +53,8 @@ class IdentificationTableViewController: UITableViewController {
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Identification Image"
-        static let ShowIdentificationTitle = "Image"
+        static let ShowNextSegueIdentifier = "Show Next Ingredients"
+        static let ShowPreviousUnwindSegueIdentifier = "Show Previous Completion State"
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -94,8 +100,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
         case .Image:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
-            cellURL = product!.mainUrl
-            cell!.cellUrl = product!.mainUrl
+            cell!.identificationImage = identificationImage
             return cell!
         }
     }
@@ -197,11 +202,9 @@ class IdentificationTableViewController: UITableViewController {
                     if imageData.length > 0 {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            if imageURL == self.cellURL! {
-                                // set the received image
-                                self.identificationImage = UIImage(data: imageData)
-                                // print("image bounds \(self.productImageView.image?.size)")
-                            }
+                            // set the received image
+                            self.identificationImage = UIImage(data: imageData)
+                            // print("image bounds \(self.productImageView.image?.size)")
                         })
                     }
                 }
@@ -225,7 +228,7 @@ class IdentificationTableViewController: UITableViewController {
         if product != nil {
             tableView.reloadData()
         }
-        title = "Identification"
+        title = TextConstants.ViewControllerTitle
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -236,8 +239,32 @@ class IdentificationTableViewController: UITableViewController {
         }
 
     }
-
+    
+    // MARK: Gestures
+    
+    @IBAction func leftSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
+        // left swipe should move to the completion state VC
+        if (sender.direction == .Left) {
+            performSegueWithIdentifier(Storyboard.ShowPreviousUnwindSegueIdentifier, sender: self)
+        }
+    }
+    
+    @IBAction func rightSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
+        // right swipe should move to the Ingredients VC
+        if (sender.direction == .Right) {
+            performSegueWithIdentifier(Storyboard.ShowNextSegueIdentifier, sender: self)
+        }
+    }
+    
     // MARK: - Navigation
+
+    @IBAction func returnToIdentificationVC(segue:UIStoryboardSegue) {
+        if let _ = segue.sourceViewController as? IngredientsTableViewController {
+            if product != nil {
+                tableView.reloadData()
+            }
+        }
+    }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
@@ -245,7 +272,11 @@ class IdentificationTableViewController: UITableViewController {
             case Storyboard.ShowIdentificationSegueIdentifier:
                 if let vc = segue.destinationViewController as? imageViewController {
                     vc.image = identificationImage
-                    vc.imageTitle = Storyboard.ShowIdentificationTitle
+                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                }
+            case Storyboard.ShowNextSegueIdentifier:
+                if let vc = segue.destinationViewController as? IngredientsTableViewController {
+                    vc.product = product
                 }
             default: break
             }

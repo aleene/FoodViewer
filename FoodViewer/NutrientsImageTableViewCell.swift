@@ -10,34 +10,21 @@ import UIKit
 
 class NutrientsImageTableViewCell: UITableViewCell {
 
-    var cellUrl: NSURL? = nil {
+    var nutritionFactsImage: UIImage? = nil {
         didSet {
-            if let imageURL = cellUrl {
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                    do {
-                        // This only works if you add a line to your Info.plist
-                        // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                        //
-                        let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                        if imageData.length > 0 {
-                            // if we have the image data we can go back to the main thread
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                if imageURL == self.cellUrl! {
-                                    // set the received image
-                                    self.imageView!.image = UIImage(data: imageData)
-                                    // Note the image is set to Aspect Fit in the storyboard, so one can see the entire image
-                                    // print("image bounds \(self.productImageView.image?.size)")
-                                }
-                            })
-                        }
-                    }
-                    catch {
-                        print(error)
-                    }
-                })
+            if let newImage = nutritionFactsImage {
+                nutrientsImageView?.image = newImage
+                // print("nutrients image size \(newImage.size)")
+                nutrientsImageView?.sizeToFit()
+                // print("nutrients imageView size \(nutrientsImageView?.bounds.size)")
+
             }
         }
     }
 
-    @IBOutlet weak var ImageView: UIImageView!
+    @IBOutlet weak var nutrientsImageView: UIImageView! {
+        didSet {
+            nutrientsImageView.contentMode = .Center
+        }
+    }
 }

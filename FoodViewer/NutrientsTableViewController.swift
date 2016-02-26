@@ -12,9 +12,13 @@ class NutrientsTableViewController: UITableViewController {
 
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    private var cellURL: NSURL? = nil
-    
-    private var nutritionFactsImage: UIImage? = nil
+    private var nutritionFactsImage: UIImage? = nil {
+        didSet {
+            if nutritionFactsImage != nil {
+                tableView.reloadData()
+            }
+        }
+    }
     
     private enum SectionType {
         case NutritionFacts
@@ -25,10 +29,9 @@ class NutrientsTableViewController: UITableViewController {
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                cellURL = nil
                 nutritionFactsImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
-                if product!.mainUrl != nil {
+                if product!.nutritionFactsImageUrl != nil {
                     retrieveImage(product!.nutritionFactsImageUrl!)
                 }
                 tableView.reloadData()
@@ -44,6 +47,7 @@ class NutrientsTableViewController: UITableViewController {
         static let NutritionFactsImageCellIdentifier = "Nutrition Facts Image Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
         static let ShowNutritionFactsImageTitle = "Image"
+        static let ViewControllerTitle = "Nutrition Facts"
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -69,12 +73,11 @@ class NutrientsTableViewController: UITableViewController {
         case .ServingSize:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ServingSizeCellIdentifier, forIndexPath: indexPath) as? ServingSizeTableViewCell
             cell?.servingSize = product!.servingSize!
-            cell?.unit = "g"
             return cell!
         case .NutritionImage:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
-            cellURL = product!.nutritionFactsImageUrl!
-            cell!.cellUrl = product!.nutritionFactsImageUrl!
+            cell!.nutritionFactsImage = nutritionFactsImage
+            // print("image cell size \(cell?.bounds.size)")
             return cell!
         }
     }
@@ -85,7 +88,7 @@ class NutrientsTableViewController: UITableViewController {
     }
     
     private struct TableStructure {
-        static let NutritionFactsImageSize = 1
+        static let NutritionFactsImageSectionSize = 1
         static let ServingSizeSectionSize = 1
         static let NutritionFactItemsSectionHeader = "Nutrition Facts (100g; 100ml)"
         static let NutritionFactsImageSectionHeader = "Nutrition Facts Image"
@@ -102,28 +105,22 @@ class NutrientsTableViewController: UITableViewController {
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
         // 1 : nutrition facts
-        if product.nutritionFacts.count > 0 {
-            sectionsAndRows.append((
-                SectionType.NutritionFacts,
-                product.nutritionFacts.count,
-                TableStructure.NutritionFactItemsSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.NutritionFacts,
+            product.nutritionFacts.count,
+            TableStructure.NutritionFactItemsSectionHeader))
         
         // 2:  serving size
-        if product.servingSize != nil {
-            sectionsAndRows.append((
-                SectionType.ServingSize,
-                TableStructure.ServingSizeSectionSize,
-                TableStructure.ServingSizeSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.ServingSize,
+            TableStructure.ServingSizeSectionSize,
+            TableStructure.ServingSizeSectionHeader))
         
         // 3: image section
-        if product.nutritionFactsImageUrl != nil {
             sectionsAndRows.append((
                 SectionType.NutritionImage,
-                TableStructure.NutritionFactsImageSize,
+                TableStructure.NutritionFactsImageSectionSize,
                 TableStructure.NutritionFactsImageSectionHeader))
-        }
         
         // print("\(sectionsAndRows)")
         return sectionsAndRows
@@ -140,10 +137,8 @@ class NutrientsTableViewController: UITableViewController {
                     if imageData.length > 0 {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            if imageURL == self.cellURL! {
-                                // set the received image
-                                self.nutritionFactsImage = UIImage(data: imageData)
-                            }
+                            // set the received image
+                            self.nutritionFactsImage = UIImage(data: imageData)
                         })
                     }
                 }
@@ -167,12 +162,11 @@ class NutrientsTableViewController: UITableViewController {
         if product != nil {
             tableView.reloadData()
         }
-        title = "Identification"
+        title = Storyboard.ViewControllerTitle
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
         if product != nil {
             tableView.reloadData()
         }

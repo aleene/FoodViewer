@@ -17,7 +17,7 @@ class FoodProduct {
     var name: String?
     var commonName: String?
     var brandsArray: [String]?
-    var mainUrlThumb: NSURL?
+    var mainUrlThumb: NSURL?    
     var mainUrl: NSURL?
     
     // packaging parameters
@@ -26,6 +26,7 @@ class FoodProduct {
     
     // ingredients parameters
     var ingredients: String?
+    var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil
     var allergens: [String]? = nil

@@ -10,11 +10,14 @@ import UIKit
 
 class CompletionTableViewCell: UITableViewCell {
 
+    private struct Constants {
+        static let CompletePostText = "% complete"
+    }
     var product: FoodProduct? = nil {
         didSet {
             if let percentage = product?.state.completionPercentage() {
                 let percentageString = String(format: "%02d", arguments: [percentage])
-                completionLabel?.text = "\(percentageString)% complete"
+                completionLabel?.text = "\(percentageString)" + Constants.CompletePostText
             }
         }
     }

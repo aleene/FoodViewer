@@ -98,6 +98,8 @@ class OpenFoodFactsRequest {
         var unknownNutrientsTags: [String]? = nil
         var categoriesPrevTags: [String]? = nil
         var packagingTags: [String]? = nil
+        var manufacturingPlaces: [String]? = nil
+        var ingredientsN: String? = nil
         var nutriments: NSDictionary? = nil
         var sodium: String? = nil
         var sugars: String? = nil
@@ -278,6 +280,8 @@ class OpenFoodFactsRequest {
         static let UnknownNutrientsTagsKey = "unknown_nutrients_tags"
         static let CategoriesPrevTagsKey = "categories_prev_tags"
         static let PackagingTagsKey = "packaging_tags"
+        static let ManufacturingPlacesKey = "manufacturing_places"
+        static let IngredientsNKey = "ingredients_n"
         static let NutrimentsKey = "nutriments"
         static let SodiumKey = "sodium"
         static let SugarsKey = "sugars"
@@ -459,6 +463,8 @@ class OpenFoodFactsRequest {
         // jsonProduct.unknownNutrientsTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.UnknownNutrientsTagsKey]?.stringArray
         // jsonProduct.categoriesPrevTags = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesPrevTagsKey]?.stringArray
         product.packagingArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingTagsKey]?.stringArray
+        // jsonProduct.manufacturingPlaces = jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesKey]?.stringArray
+        product.numberOfIngredients = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsNKey]?.string
         jsonProduct.sodium = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SodiumKey]?.string
         jsonProduct.sugars = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SugarsKey]?.string
         jsonProduct.carbohydratesUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.CarbohydratesUnitKey]?.string

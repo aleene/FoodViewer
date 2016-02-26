@@ -18,8 +18,6 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
             tagListView.alignment = .Center
             tagListView.tagBackgroundColor = UIColor.greenColor()
             tagListView.cornerRadius = 10
-            print("tagListView before bounds \(tagListView.bounds)")
-            print("tagListView.super before bounds \(tagListView.superview!.bounds)")
         }
     }
     
@@ -31,10 +29,6 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
                     tagListView.addTag(listItem)
                 }
             }
-            //tagListView.sizeToFit()
-            //tagListView.superview!.sizeToFit()
-            print("tagListView after bounds \(tagListView.bounds)")
-            print("tagListView.super after bounds \(tagListView.superview!.bounds)")
         }
     }
 

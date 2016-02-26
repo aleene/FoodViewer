@@ -31,6 +31,22 @@ class NutritionScoreTableViewCell: UITableViewCell {
                     }
                 }
             }
+            if let score = product?.nutritionGrade {
+                switch  score {
+                case .A:
+                    self.backgroundColor = UIColor.greenColor()
+                case .B:
+                    self.backgroundColor = UIColor.yellowColor()
+                case .C:
+                    self.backgroundColor = UIColor.orangeColor()
+                case .D:
+                    self.backgroundColor = UIColor.magentaColor()
+                case .E:
+                    self.backgroundColor = UIColor.redColor()
+                default:
+                    self.backgroundColor = nil
+                }
+            }
         }
     }
     

@@ -18,14 +18,5 @@ class ServingSizeTableViewCell: UITableViewCell {
         }
     }
     
-    var unit: String? = nil {
-        didSet {
-            if let un = unit {
-                unitTextField.text = un
-            }
-        }
-    }
-
     @IBOutlet weak var servingSizeTextField: UITextField!
-    @IBOutlet weak var unitTextField: UITextField!
 }
