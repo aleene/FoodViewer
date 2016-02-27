@@ -11,11 +11,14 @@ import TagListView
 
 class TagListViewTableViewCell: UITableViewCell {
 
+    struct Constants {
+        static let NoTag = "no info available"
+    }
+    
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             tagListView.alignment = .Center
-            tagListView.tagBackgroundColor = UIColor.greenColor()
             tagListView.cornerRadius = 10
         }
     }
@@ -24,10 +27,34 @@ class TagListViewTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 tagListView.removeAllTags()
-                for listItem in list {
-                    tagListView.addTag(listItem)
+                let newList = clean(list)
+                if !newList.isEmpty {
+                    for listItem in newList {
+                        tagListView.addTag(listItem)
+                    }
+                    tagListView.tagBackgroundColor = UIColor.greenColor()
+                } else {
+                    tagListView.addTag(Constants.NoTag)
+                    tagListView.tagBackgroundColor = UIColor.orangeColor()
+                }
+            } else {
+                tagListView.removeAllTags()
+                tagListView.addTag(Constants.NoTag)
+                tagListView.tagBackgroundColor = UIColor.orangeColor()
+
+            }
+        }
+    }
+    
+    func clean(list: [String]) -> [String] {
+        var newList: [String] = []
+        if !list.isEmpty {
+            for listItem in list {
+                if listItem.characters.count > 0 {
+                    newList.append(listItem)
                 }
             }
         }
+        return newList
     }
 }

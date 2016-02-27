@@ -1,5 +1,5 @@
 //
-//  PurchaseLocationTableViewController.swift
+//  CategoriesTableViewController.swift
 //  FoodViewer
 //
 //  Created by arnaud on 14/02/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PurchaseLocationTableViewController: UITableViewController {
+class CategoriesTableViewController: UITableViewController {
 
     var product: FoodProduct? {
         didSet {
@@ -19,18 +19,16 @@ class PurchaseLocationTableViewController: UITableViewController {
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     private enum SectionType {
-        case Location
-        case Store
-        case Country
+        case Categories
     }
 
     struct Constants {
         static let DefaultHeader = "No Header"
-        static let ViewControllerTitle = "Purchase"
+        static let ViewControllerTitle = "Categories"
     }
     
     private struct Storyboard {
-        static let CellIdentifier = "Purchase Location Cell Identifier"
+        static let CellIdentifier = "Categories Cell Identifier"
     }
 
     func refresh() {
@@ -52,22 +50,9 @@ class PurchaseLocationTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! PurchaseLocationTableViewCell
-
-        // we assume that product exists
-        switch currentProductSection {
-        case .Store:
-            cell.tagList = product!.stores!
-            return cell
-        case .Location:
-            cell.tagList = product!.purchaseLocation!
-            return cell
-        case .Country:
-            cell.tagList = product!.countries!
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! CategoriesExtendedTableViewCell
+        cell.tagList = product!.categories
+        return cell
     }
 
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -76,9 +61,8 @@ class PurchaseLocationTableViewController: UITableViewController {
     }
 
     struct TableStructure {
-        static let LocationSectionHeader = "Locations"
-        static let CountriesSectionHeader = "Countries"
-        static let StoresSectionHeader = "Stores"
+        static let CategoriesSectionHeader = "Categories"
+        static let CategoriesSectionSize = 1
     }
 
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -89,26 +73,10 @@ class PurchaseLocationTableViewController: UITableViewController {
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         // nutritionFacts section
-        if product.purchaseLocation != nil {
-            sectionsAndRows.append((
-                SectionType.Location,
-                product.purchaseLocation!.count,
-                TableStructure.LocationSectionHeader))
-        }
-        // stores section
-        if product.stores != nil {
-            sectionsAndRows.append((
-                SectionType.Store,
-                product.stores!.count,
-                TableStructure.StoresSectionHeader))
-        }
-        // countries section
-        if product.countries != nil {
-            sectionsAndRows.append((
-                SectionType.Country,
-                product.countries!.count,
-                TableStructure.CountriesSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.Categories,
+            TableStructure.CategoriesSectionSize,
+            TableStructure.CategoriesSectionHeader))
         return sectionsAndRows
     }
    

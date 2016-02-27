@@ -19,14 +19,17 @@ class ProductionTableViewController: UITableViewController {
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     private enum SectionType {
+        case IngredientOrigin
         case Producer
         case ProducerCode
-        case IngredientOrigin
+        case Location
+        case Store
+        case Country
     }
     
     private struct Constants {
         static let DefaultHeader = "No Header"
-        static let ViewControllerTitle = "Production"
+        static let ViewControllerTitle = "Supply Chain"
     }
     
     private struct Storyboard {
@@ -43,7 +46,17 @@ class ProductionTableViewController: UITableViewController {
     private struct TableStructure {
         static let ProducerSectionHeader = "Producers"
         static let ProducerCodeSectionHeader = "Producer Codes"
-        static let IngredientOriginSectionHeader = "Ingredients Origins"
+        static let IngredientOriginSectionHeader = "Origin ingredient"
+        static let LocationSectionHeader = "Purchase Locations"
+        static let CountriesSectionHeader = "Sales Countries"
+        static let StoresSectionHeader = "Sale Stores"
+        static let ProducerSectionSize = 1
+        static let ProducerCodeSectionSize = 1
+        static let IngredientOriginSectionSize = 1
+        static let LocationSectionSize = 1
+        static let CountriesSectionSize = 1
+        static let StoresSectionSize = 1
+
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -54,27 +67,36 @@ class ProductionTableViewController: UITableViewController {
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        // producer section
-        if product.producer != nil {
-            sectionsAndRows.append((
-                SectionType.Producer,
-                product.producer!.count,
-                TableStructure.ProducerSectionHeader))
-        }
-        // producer codes section
-        if product.producerCode != nil {
-            sectionsAndRows.append((
-                SectionType.ProducerCode,
-                product.producerCode!.count,
-                TableStructure.ProducerCodeSectionHeader))
-        }
         // ingredient origin section
-        if product.ingredientsOrigin != nil {
-            sectionsAndRows.append((
-                SectionType.IngredientOrigin,
-                product.ingredientsOrigin!.count,
-                TableStructure.IngredientOriginSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.IngredientOrigin,
+            TableStructure.IngredientOriginSectionSize,
+            TableStructure.IngredientOriginSectionHeader))
+        // producer section
+        sectionsAndRows.append((
+            SectionType.Producer,
+            TableStructure.ProducerSectionSize,
+            TableStructure.ProducerSectionHeader))
+        // producer codes section
+        sectionsAndRows.append((
+            SectionType.ProducerCode,
+            TableStructure.ProducerCodeSectionSize,
+            TableStructure.ProducerCodeSectionHeader))
+        // countries section
+        sectionsAndRows.append((
+            SectionType.Country,
+            TableStructure.CountriesSectionSize,
+            TableStructure.CountriesSectionHeader))
+        // purchase Location section
+        sectionsAndRows.append((
+            SectionType.Location,
+            TableStructure.LocationSectionSize,
+            TableStructure.LocationSectionHeader))
+        // stores section
+        sectionsAndRows.append((
+            SectionType.Store,
+            TableStructure.StoresSectionSize,
+            TableStructure.StoresSectionHeader))
         return sectionsAndRows
     }
 
@@ -97,13 +119,22 @@ class ProductionTableViewController: UITableViewController {
         // we assume that product exists
         switch currentProductSection {
         case .Producer:
-            cell.tagList = product!.producer!
+            cell.tagList = product!.producer
             return cell
         case .ProducerCode:
-            cell.tagList = product!.producerCode!
+            cell.tagList = product!.producerCode
             return cell
         case .IngredientOrigin:
-            cell.tagList = product!.ingredientsOrigin!
+            cell.tagList = product!.ingredientsOrigin
+            return cell
+        case .Store:
+            cell.tagList = product!.stores
+            return cell
+        case .Location:
+            cell.tagList = product!.purchaseLocation
+            return cell
+        case .Country:
+            cell.tagList = product!.countries
             return cell
         }
     }

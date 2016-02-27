@@ -13,27 +13,24 @@ class CategoriesTableViewCell: UITableViewCell {
 
     private struct Constants {
         static let NoInformation = "No categories specified"
+        static let PreText = "Assigned to "
+        static let PostText = " categories."
     }
 
-    @IBOutlet weak var listTagListView: TagListView! {
-        didSet {
-            listTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            listTagListView.alignment = .Center
-            listTagListView.cornerRadius = 10
-        }
-    }
+    @IBOutlet weak var categorySummaryLabel: UILabel!
     
     var product: FoodProduct? = nil {
         didSet {
-            listTagListView.removeAllTags()
-            if let list = product?.categories {
-                listTagListView.tagBackgroundColor = UIColor.greenColor()
-                for listItem in list {
-                    listTagListView.addTag(listItem)
+            if let categories = product?.categories {
+                if !categories.isEmpty {
+                    categorySummaryLabel.text = Constants.PreText + "\(categories.count)" + Constants.PostText
+                } else {
+                    categorySummaryLabel.text = Constants.NoInformation
+
                 }
+                
             } else {
-                listTagListView.tagBackgroundColor = UIColor.orangeColor()
-                listTagListView.addTag(Constants.NoInformation)
+                categorySummaryLabel.text = Constants.NoInformation
             }
         }
     }

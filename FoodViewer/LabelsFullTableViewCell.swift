@@ -11,14 +11,28 @@ import TagListView
 
 class LabelsFullTableViewCell: UITableViewCell {
 
+    private struct Constants {
+        static let NoInformation = "No labels specified"
+    }
+
     
     var tagList: [String]? = nil {
         didSet {
+            labelsTagListView.removeAllTags()
             if let list = tagList {
-                labelsTagListView.removeAllTags()
-                for listItem in list {
-                    labelsTagListView.addTag(listItem)
+                let newList = clean(list)
+                if !newList.isEmpty {
+                    for listItem in newList {
+                        labelsTagListView.addTag(listItem)
+                    }
+                    labelsTagListView.tagBackgroundColor = UIColor.greenColor()
+                } else {
+                    labelsTagListView.addTag(Constants.NoInformation)
+                    labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
                 }
+            } else {
+                labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
+                labelsTagListView.addTag(Constants.NoInformation)
             }
         }
     }
@@ -29,9 +43,21 @@ class LabelsFullTableViewCell: UITableViewCell {
         didSet {
             labelsTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             labelsTagListView.alignment = .Center
-            labelsTagListView.tagBackgroundColor = UIColor.greenColor()
             labelsTagListView.cornerRadius = 10
         }
+    }
+
+    
+    func clean(list: [String]) -> [String] {
+        var newList: [String] = []
+        if !list.isEmpty {
+            for listItem in list {
+                if listItem.characters.count > 0 {
+                    newList.append(listItem)
+                }
+            }
+        }
+        return newList
     }
 
 }

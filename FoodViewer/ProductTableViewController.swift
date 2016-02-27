@@ -15,12 +15,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private enum RowType {
         case Name
         case Ingredients
-        case Countries
         case NutritionFacts
         case NutritionScore
         case Categories
         case Completion
-        case Producer
+        case SupplyChain
     }
     
     private var product: FoodProduct? {
@@ -136,10 +135,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
             cell.product = product!
             return cell
-        case .Countries:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CountriesCellIdentifier, forIndexPath: indexPath) as? CountriesTableViewCell
-            cell?.product = product!
-            return cell!
         case .NutritionFacts:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath)
                 cell.textLabel!.text = "\(product!.nutritionFacts.count) nutritional facts noted"
@@ -156,9 +151,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
             cell?.product = product!
             return cell!
-        case .Producer:
+        case .SupplyChain:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCellIdentifier, forIndexPath: indexPath) as? ProducerTableViewCell
-            cell?.tagList = product!.producerCode!
+            cell?.product = product!
             return cell!
         }
     }
@@ -177,16 +172,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             performSegueWithIdentifier(Segues.ShowIdentificationSegueIdentifier, sender: self)
         case .Ingredients:
             performSegueWithIdentifier(Segues.ShowIngredientsSegueIdentifier, sender: self)
-        case .Countries:
-            performSegueWithIdentifier(Segues.ShowPurchaseLocationSegueIdentifier, sender: self)
         case .NutritionFacts:
             performSegueWithIdentifier(Segues.ShowNutritionFactsSegueIdentifier, sender: self)
-        //case .Categories:
-        //    performSegueWithIdentifier(Storyboard.ShowC, sender: self)
+        case .Categories:
+            performSegueWithIdentifier(Segues.ShowCategoriesSegueIdentifier, sender: self)
         case .Completion:
-            performSegueWithIdentifier(Segues.ShowCompletionStatesSegueIdentifier, sender: self)
-        case .Producer:
-            performSegueWithIdentifier(Segues.ShowProductionSegueIdentifier, sender: self)
+            performSegueWithIdentifier(Segues.ShowCommunityEffortSegueIdentifier, sender: self)
+        case .SupplyChain:
+            performSegueWithIdentifier(Segues.ShowSupplyChainSegueIdentifier, sender: self)
         default:
             break
         }
@@ -253,7 +246,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let TracesSectionSize = 1
         static let CommunitySectionSize = 1
         static let CompletionSectionSize = 1
-        static let ProducerSectionSize = 1
+        static let SupplyChainSectionSize = 1
         static let NameSectionHeader = ""
         static let IngredientsSectionHeader = "Ingredients"
         static let CountriesSectionHeader = "Sales info"
@@ -263,7 +256,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let CategoriesSectionHeader = "Categories"
         static let CommunitySectionHeader = "Community Involvement"
         static let CompletionSectionHeader = "Completion State"
-        static let ProducerSectionHeader = "Producer"
+        static let SupplyChainSectionHeader = "Producer"
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(RowType,Int, String?)] {
@@ -314,17 +307,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 TableStructure.CategoriesSectionHeader))
         }
         
-        // 6: purchase location section
+        /* 6: purchase location section
             sectionsAndRows.append((
                 RowType.Countries,
                 TableStructure.CountriesSectionSize,
                 TableStructure.CountriesSectionHeader))
-        
+        */
         // 7: producer section
         sectionsAndRows.append((
-            RowType.Producer,
-            TableStructure.ProducerSectionSize,
-            TableStructure.ProducerSectionHeader))
+            RowType.SupplyChain,
+            TableStructure.SupplyChainSectionSize,
+            TableStructure.SupplyChainSectionHeader))
         
         // 8: completion status section
         sectionsAndRows.append((
@@ -365,9 +358,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private struct Segues {
         static let ShowIdentificationSegueIdentifier = "Show Product Identification"
         static let ShowIngredientsSegueIdentifier = "Show Product Ingredients"
-        static let ShowCompletionStatesSegueIdentifier = "Show Completion States"
-        static let ShowPurchaseLocationSegueIdentifier = "Show Purchase Location"
-        static let ShowProductionSegueIdentifier = "Show Production"
+        static let ShowCommunityEffortSegueIdentifier = "Show Community Effort"
+        static let ShowSupplyChainSegueIdentifier = "Show Supply Chain"
+        static let ShowCategoriesSegueIdentifier = "Show Categories"
         static let ShowNutritionFactsSegueIdentifier = "Show Nutrition Facts"
     }
 
@@ -388,15 +381,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 if let vc = destination as? IngredientsTableViewController {
                     vc.product = product
                 }
-            case Segues.ShowCompletionStatesSegueIdentifier:
+            case Segues.ShowCommunityEffortSegueIdentifier:
                 if let vc = destination as? CompletionStatesTableViewController {
                     vc.product = product
                 }
-            case Segues.ShowPurchaseLocationSegueIdentifier:
-                if let vc = destination as? PurchaseLocationTableViewController {
+            case Segues.ShowCategoriesSegueIdentifier:
+                if let vc = destination as? CategoriesTableViewController {
                     vc.product = product
                 }
-            case Segues.ShowProductionSegueIdentifier:
+            case Segues.ShowSupplyChainSegueIdentifier:
                 if let vc = destination as? ProductionTableViewController {
                     vc.product = product
                 }
