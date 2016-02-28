@@ -58,6 +58,8 @@
 		51DAD3761C5F649A00895513 /* NutritionFactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3751C5F649A00895513 /* NutritionFactsTableViewCell.swift */; };
 		51DAD3791C60A6A200895513 /* 737628064502.json in Resources */ = {isa = PBXBuildFile; fileRef = 51DAD3781C60A6A200895513 /* 737628064502.json */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
+		51E614921C821EFE00DAEE6C /* 6524654176.json in Resources */ = {isa = PBXBuildFile; fileRef = 51E614911C821EFE00DAEE6C /* 6524654176.json */; };
+		51E614941C8349AD00DAEE6C /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E614931C8349AD00DAEE6C /* History.swift */; };
 		51EA98B61C64A3C3000A503D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 51EA98B51C64A3C3000A503D /* Podfile */; };
 		51EA98B81C64A3DD000A503D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA98B71C64A3DD000A503D /* JSON.swift */; };
 /* End PBXBuildFile section */
@@ -116,6 +118,8 @@
 		51DAD3751C5F649A00895513 /* NutritionFactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactsTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		51E614911C821EFE00DAEE6C /* 6524654176.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 6524654176.json; sourceTree = "<group>"; };
+		51E614931C8349AD00DAEE6C /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		51EA98B51C64A3C3000A503D /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		51EA98B71C64A3DD000A503D /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		6A65ECC9AF4BA52E5D18C421 /* Pods-FoodViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoodViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoodViewer/Pods-FoodViewer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 		5180B9191C5D3B75002DBD21 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
+				51E614911C821EFE00DAEE6C /* 6524654176.json */,
 				51DAD3781C60A6A200895513 /* 737628064502.json */,
 				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
 				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
@@ -272,6 +277,7 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				51E614931C8349AD00DAEE6C /* History.swift */,
 				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
@@ -364,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51EA98B61C64A3C3000A503D /* Podfile in Resources */,
+				51E614921C821EFE00DAEE6C /* 6524654176.json in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
 				51C29E3E1C6F89E800271708 /* 3608580744184.json in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
@@ -446,6 +453,7 @@
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
 				517AAD511C7DB62700B12F3C /* AdditivesFullTableViewCell.swift in Sources */,
 				51C29E3C1C6F861D00271708 /* CountriesTableViewCell.swift in Sources */,
+				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
 				517AAD551C7DB65400B12F3C /* LabelsFullTableViewCell.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,

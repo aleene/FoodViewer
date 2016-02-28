@@ -13,6 +13,7 @@ import AVFoundation
 class BarcodeScanViewController: RSCodeReaderViewController {
         
     var barcode: String = ""
+    var type: String = ""
     var dispatched: Bool = false
     
     override func viewDidLoad() {
@@ -45,6 +46,7 @@ class BarcodeScanViewController: RSCodeReaderViewController {
                 self.dispatched = true
                 for barcode in barcodes {
                     self.barcode = barcode.stringValue
+                    self.type = barcode.type
                     print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
                     
                     dispatch_async(dispatch_get_main_queue(), {

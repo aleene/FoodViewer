@@ -22,13 +22,27 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         case SupplyChain
     }
     
+    private var barcode: BarcodeType? = BarcodeType.EAN13("3608580744184") {
+        didSet {
+            product = nil
+            tableStructureForProduct = []
+            refresh()
+        }
+    }
+    
     private var product: FoodProduct? {
         didSet {
             if product != nil {
+                if let inputBarcode = barcode {
+                    // update the json data in order to add the barcode type
+                    product?.barcode = inputBarcode
+                }
                 tableStructureForProduct = analyseProductForTable(product!)
-                if product!.mainUrl != nil {
+                if product?.mainUrl != nil {
                     retrieveImage(product!.mainUrl!)
                 }
+                performSegueWithIdentifier(Segues.ShowIdentificationSegueIdentifier, sender: self)
+                // add product to history
             }
         }
     }
@@ -41,27 +55,36 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
-    private var searchText: String? = "3608580744184" {
+    /*private var searchText: String? = "3608580744184" {
         didSet {
             product = nil
             tableStructureForProduct = []
             refresh()
         }
-    }
+    }*/
     
     private var request = OpenFoodFactsRequest()
     
     private func refresh() {
-        if searchText != nil {
+        if barcode != nil {
             // loading the product from internet will be done off the main queue
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                let newProduct =  self.request.fetchProductForBarcode(self.searchText!)
-                if newProduct != nil {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let fetchResult =  self.request.fetchProductForBarcode(self.barcode!)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    switch fetchResult {
+                    case .Success(let newProduct):
                         self.product = newProduct
                         self.tableView.reloadData()
-                    })
-                }
+                    case .Error(let error):
+                        let alert = UIAlertController(
+                            title: Constants.AlertSheetMessage,
+                            message: error, preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitle, style: .Cancel) { (action: UIAlertAction) -> Void in // do nothing )
+                            }
+                        )
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                })
             })
         }
     }
@@ -69,6 +92,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private struct Constants {
         static let ViewControllerTitle = "Products"
         static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
+        static let AlertSheetMessage = "Error retrieving product"
+        static let AlertSheetActionTitle = "Pity"
     }
     
     // MARK: - Actions
@@ -89,14 +114,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            searchTextField.text = searchText
+            if let searchText = barcode?.asString() {
+                searchTextField.text = searchText
+            }
         }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
-            searchText = textField.text
+            if let searchText = textField.text {
+                barcode = BarcodeType(value:searchText)
+            }
         }
         return true
     }
@@ -412,7 +441,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func unwindNewSearch(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? BarcodeScanViewController {
-            searchText = vc.barcode
+            // searchText = vc.barcode
+            barcode = BarcodeType(typeCode:vc.type, value:vc.barcode)
             searchTextField.text = vc.barcode
         }
     }
@@ -441,9 +471,5 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         super.viewDidDisappear(animated)
     }
 }
-
-
-
-
 
 

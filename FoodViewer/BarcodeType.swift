@@ -12,6 +12,18 @@ enum BarcodeType {
     case EAN13(String)
     case Undefined(String)
     
+    init(typeCode: String, value: String) {
+        if typeCode == "org.gs1.EAN-13" {
+            self = .EAN13(value)
+        } else {
+            self = .Undefined(value)
+        }
+    }
+    
+    init(value: String) {
+        self = .Undefined(value)
+    }
+    
     mutating func string(s: String?) {
         if let newString = s {
             self = .Undefined(newString)
