@@ -12,18 +12,29 @@ class NameTableViewCell: UITableViewCell {
     
     private struct Constants {
         static let NoBrandsIndicated = "No brands indicated"
+        static let CellContentViewMargin = CGFloat(8)
     }
     
     var productImage : UIImage? = nil {
         didSet {
             
             if let newImage = productImage {
-                productImageView?.image = newImage
-                // print("product image size \(newImage.size)")
-                productImageView?.sizeToFit()
+                // print("\(brandLabel): product image size \(newImage.size)")
+                // what to do if the image is wider than the contentView area of the cell's contentView?
+                let widthScale = (newImage.size.width) / (self.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
+                if widthScale > 0 {
+                    let newSize = CGSize(width: newImage.size.width / widthScale, height: newImage.size.height / widthScale)
+                    let scaledImage = newImage.imageResize(newSize)
+                    productImageView?.image = scaledImage
+                } else {
+                    productImageView?.image = newImage
+                }
+                // still need to solved what happens when the image is very high
+                
+                productImageView.contentMode = .Center
 
                 // print("product imageView size \(productImageView?.bounds.size)")
-                
+                // print("cell: \(self.contentView.bounds.size)")
                 /*productImageView.image = newImage.squareCropImageToSideLength(productImageView) */
             }
         }
@@ -38,7 +49,6 @@ class NameTableViewCell: UITableViewCell {
     @IBOutlet weak var brandLabel: UILabel!
     @IBOutlet weak var productImageView: UIImageView! {
         didSet {
-            productImageView.contentMode = .ScaleAspectFit
 
         }
     }
@@ -96,4 +106,15 @@ extension UIImage {
         return outImage
     }
     
+    func imageResize (sizeChange:CGSize)-> UIImage {
+        
+        let hasAlpha = false
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
+        self.drawInRect(CGRect(origin: CGPointZero, size: sizeChange))
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        return scaledImage
+    }
 }

@@ -27,7 +27,7 @@ class TagListViewTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 tagListView.removeAllTags()
-                let newList = clean(list)
+                let newList = removeEmptyTags(list)
                 if !newList.isEmpty {
                     for listItem in newList {
                         tagListView.addTag(listItem)
@@ -41,12 +41,11 @@ class TagListViewTableViewCell: UITableViewCell {
                 tagListView.removeAllTags()
                 tagListView.addTag(Constants.NoTag)
                 tagListView.tagBackgroundColor = UIColor.orangeColor()
-
             }
         }
     }
     
-    func clean(list: [String]) -> [String] {
+    func removeEmptyTags(list: [String]) -> [String] {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {

@@ -13,11 +13,18 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     @IBOutlet weak var ingredientsLabel: UILabel!
     
+    struct Constants {
+        static let NoIngredientsText = "no ingredients specified"
+    }
     
     var ingredients: String? = nil {
         didSet {
             if let text = ingredients {
-                ingredientsLabel.text = text
+                if !text.isEmpty {
+                    ingredientsLabel.text = text
+                } else {
+                    ingredientsLabel.text = Constants.NoIngredientsText
+                }
             }
         }
     }

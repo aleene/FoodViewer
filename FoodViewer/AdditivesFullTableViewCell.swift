@@ -11,11 +11,14 @@ import TagListView
 
 class AdditivesFullTableViewCell: UITableViewCell {
 
+    struct Constants {
+        static let NoTag = "no additives detected"
+    }
+
     @IBOutlet weak var additivesTagListView: TagListView! {
         didSet {
             additivesTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             additivesTagListView.alignment = .Center
-            additivesTagListView.tagBackgroundColor = UIColor.greenColor()
             additivesTagListView.cornerRadius = 10
         }
     }
@@ -24,9 +27,19 @@ class AdditivesFullTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 additivesTagListView.removeAllTags()
-                for listItem in list {
-                    additivesTagListView.addTag(listItem)
+                if !list.isEmpty {
+                    for listItem in list {
+                        additivesTagListView.addTag(listItem)
+                    }
+                    additivesTagListView.tagBackgroundColor = UIColor.greenColor()
+                } else {
+                    additivesTagListView.addTag(Constants.NoTag)
+                    additivesTagListView.tagBackgroundColor = UIColor.orangeColor()
                 }
+            } else {
+                additivesTagListView.removeAllTags()
+                additivesTagListView.addTag(Constants.NoTag)
+                additivesTagListView.tagBackgroundColor = UIColor.orangeColor()
             }
         }
     }

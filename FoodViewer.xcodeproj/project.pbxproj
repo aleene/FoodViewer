@@ -151,10 +151,10 @@
 		517AAD261C7B4D0700B12F3C /* Product Cells */ = {
 			isa = PBXGroup;
 			children = (
+				5159D8A61C6666C60082C60E /* NameTableViewCell.swift */,
 				51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */,
 				51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */,
 				51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */,
-				5159D8A61C6666C60082C60E /* NameTableViewCell.swift */,
 				51C29E3B1C6F861D00271708 /* CountriesTableViewCell.swift */,
 				51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */,
 				51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */,

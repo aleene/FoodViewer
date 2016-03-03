@@ -12,6 +12,10 @@ import TagListView
 
 class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
 
+    private struct Constants {
+        static let NoInformation = "no packing info specified"
+    }
+
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
@@ -25,9 +29,19 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 tagListView.removeAllTags()
-                for listItem in list {
-                    tagListView.addTag(listItem)
+                if !list.isEmpty {
+                    for listItem in list {
+                        tagListView.addTag(listItem)
+                    }
+                    tagListView.tagBackgroundColor = UIColor.greenColor()
+                } else {
+                    tagListView.addTag(Constants.NoInformation)
+                    tagListView.tagBackgroundColor = UIColor.orangeColor()
                 }
+            } else {
+                tagListView.removeAllTags()
+                tagListView.addTag(Constants.NoInformation)
+                tagListView.tagBackgroundColor = UIColor.orangeColor()
             }
         }
     }

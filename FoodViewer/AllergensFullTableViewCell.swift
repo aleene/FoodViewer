@@ -11,11 +11,14 @@ import TagListView
 
 class AllergensFullTableViewCell: UITableViewCell {
 
+    struct Constants {
+        static let NoTag = "no allergens detected"
+    }
+
     @IBOutlet weak var allergensTagList: TagListView! {
         didSet {
             allergensTagList.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             allergensTagList.alignment = .Center
-            allergensTagList.tagBackgroundColor = UIColor.greenColor()
             allergensTagList.cornerRadius = 10
         }
     }
@@ -24,9 +27,19 @@ class AllergensFullTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 allergensTagList.removeAllTags()
-                for listItem in list {
-                    allergensTagList.addTag(listItem)
+                if !list.isEmpty {
+                    for listItem in list {
+                        allergensTagList.addTag(listItem)
+                    }
+                    allergensTagList.tagBackgroundColor = UIColor.greenColor()
+                } else {
+                    allergensTagList.addTag(Constants.NoTag)
+                    allergensTagList.tagBackgroundColor = UIColor.orangeColor()
                 }
+            } else {
+                allergensTagList.removeAllTags()
+                allergensTagList.addTag(Constants.NoTag)
+                allergensTagList.tagBackgroundColor = UIColor.orangeColor()
             }
         }
     }

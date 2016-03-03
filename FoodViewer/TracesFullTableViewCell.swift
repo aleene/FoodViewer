@@ -11,11 +11,14 @@ import TagListView
 
 class TracesFullTableViewCell: UITableViewCell {
 
+    struct Constants {
+        static let NoTag = "no traces specified"
+    }
+
     @IBOutlet weak var tracesTagList: TagListView! {
         didSet {
             tracesTagList.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             tracesTagList.alignment = .Center
-            tracesTagList.tagBackgroundColor = UIColor.greenColor()
             tracesTagList.cornerRadius = 10
         }
     }
@@ -24,12 +27,21 @@ class TracesFullTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 tracesTagList.removeAllTags()
-                for listItem in list {
-                    tracesTagList.addTag(listItem)
+                if !list.isEmpty {
+                    for listItem in list {
+                        tracesTagList.addTag(listItem)
+                    }
+                    tracesTagList.tagBackgroundColor = UIColor.greenColor()
+                } else {
+                    tracesTagList.addTag(Constants.NoTag)
+                    tracesTagList.tagBackgroundColor = UIColor.orangeColor()
                 }
+            } else {
+                tracesTagList.removeAllTags()
+                tracesTagList.addTag(Constants.NoTag)
+                tracesTagList.tagBackgroundColor = UIColor.orangeColor()
             }
         }
     }
-
 
 }
