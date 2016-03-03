@@ -14,15 +14,16 @@ class FoodProduct {
     
     // identification parameters
     var barcode: BarcodeType
-    var name: String?
-    var commonName: String?
-    var brandsArray: [String]?
+    var name: String? = nil
+    var commonName: String? = nil
+    var brandsArray: [String]? = nil
     var mainUrlThumb: NSURL?    
-    var mainUrl: NSURL?
+    var mainUrl: NSURL? = nil
+    var mainImageData: NSData? = nil
     
     // packaging parameters
-    var quantity: String?
-    var packagingArray: [String]?
+    var quantity: String? = nil
+    var packagingArray: [String]? = nil
     
     // ingredients parameters
     var ingredients: String?
@@ -267,58 +268,6 @@ class FoodProduct {
         }
 
     }
-    enum NutritionItem {
-        case Fat
-        case SaturatedFat
-        case Sugar
-        case Salt
-        case Undefined
-    }
-
-
-    enum NutritionLevelQuantity {
-        case Low
-        case Moderate
-        case High
-        case Undefined
-        
-        mutating func string(s:String?) {
-            if let newString = s {
-                if newString == "high" {
-                    self = .High
-                } else if newString == "moderate" {
-                    self = .Moderate
-                } else if newString == "low" {
-                    self = .Low
-                } else {
-                    self = .Undefined
-                }
-            } else {
-                self = .Undefined
-            }
-
-        }
-    }
-    
-    enum BarcodeType {
-        case EAN13(String)
-        case Undefined(String)
-        
-        mutating func string(s: String?) {
-            if let newString = s {
-                self = .Undefined(newString)
-            }
-        }
-        
-        func asString() -> String {
-            switch self {
-            case .EAN13(let s):
-                return s
-            case .Undefined(let s):
-                return s
-            }
-        }
-    }
     */
     init() {
         barcode = BarcodeType.Undefined("")
@@ -327,6 +276,7 @@ class FoodProduct {
         brandsArray = nil
         mainUrlThumb = nil
         mainUrl = nil
+        mainImageData = nil
         packagingArray = nil
         ingredients = nil
         imageIngredientsSmallUrl = nil
@@ -358,7 +308,11 @@ class FoodProduct {
         informers = nil
         productContributors = UniqueContributors()
         contributorsArray = []
-
     }
+    
+    init(withBarcode: BarcodeType) {
+        self.barcode = withBarcode
+    }
+    
 // End product
 }

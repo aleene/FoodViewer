@@ -60,7 +60,7 @@ class CompletionStatesTableViewController: UITableViewController {
         case 0:
             return product != nil ? 10 : 0
         case 1:
-            return product != nil ? product!.productContributors.contributors.count : 0
+            return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
         default:
             return 0
         }
