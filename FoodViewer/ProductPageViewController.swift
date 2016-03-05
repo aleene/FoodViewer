@@ -1,0 +1,172 @@
+//
+//  ProductPageViewController.swift
+//  FoodViewer
+//
+//  Created by arnaud on 03/03/16.
+//  Copyright © 2016 Hovering Above. All rights reserved.
+//
+
+import UIKit
+
+class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+
+    var pageIndex = 0 {
+        didSet {
+            if product != nil {
+                if pageIndex < 0 || pageIndex > pages.count {
+                    self.pageIndex = 0
+                }
+            }
+            // open de corresponding page
+            setViewControllers(
+                [pages[pageIndex]],
+                direction: .Forward,
+                animated: true, completion: nil)
+            title = titles[pageIndex]
+        }
+    }
+    
+    private var pages: [UIViewController] = []
+    
+    private var titles = ["Identification", "Ingredients", "Nutrients", "Supply Chain", "Categories", "Community Effort"]
+    
+    var page1: UIViewController {
+        get {
+            return storyboard!.instantiateViewControllerWithIdentifier("IdentificationTableViewController")
+        }
+    }
+    var page2: UIViewController {
+        get {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("IngredientsTableViewController")
+        }
+    }
+    var page3: UIViewController {
+        get {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NutrientsTableViewController")
+        }
+    }
+    var page4: UIViewController {
+        get {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SupplyChainTableViewController")
+        }
+    }
+    var page5: UIViewController {
+        get {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CategoriesTableViewController")
+        }
+    }
+    var page6: UIViewController {
+        get {
+            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CommunityEffortTableViewController")
+        }
+    }
+
+    var product: FoodProduct? = nil {
+        didSet {
+            if let vc = pages[0] as? IdentificationTableViewController {
+                vc.product = product
+                title = titles[0]
+            }
+            if let vc = pages[1] as? IngredientsTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[2] as? NutrientsTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[3] as? ProductionTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[4] as? CategoriesTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[5] as? CompletionStatesTableViewController {
+                vc.product = product
+            }
+        }
+    }
+    
+    // MARK: - Pageview Controller data source
+    
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+
+        guard let viewControllerIndex = pages.indexOf(viewController) else {
+            return nil
+        }
+        
+        let nextIndex = viewControllerIndex + 1
+        let orderedViewControllersCount = pages.count
+        
+        guard orderedViewControllersCount != nextIndex else {
+            return nil
+        }
+        
+        guard orderedViewControllersCount > nextIndex else {
+            return nil
+        }
+        return pages[nextIndex]
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+     
+        guard let viewControllerIndex = pages.indexOf(viewController) else {
+            return nil
+        }
+        
+        let previousIndex = viewControllerIndex - 1
+        
+        guard previousIndex >= 0 else {
+            return nil
+        }
+        
+        guard pages.count > previousIndex else {
+            return nil
+        }
+        
+
+        return pages[previousIndex]
+
+    }
+    
+    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+        return pages.count
+    }
+    
+    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+        guard let firstViewController = viewControllers?.first,
+            firstViewControllerIndex = pages.indexOf(firstViewController) else {
+                return 0
+        }
+        
+        return firstViewControllerIndex
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let current = viewControllers?.first,
+            let viewControllerIndex = pages.indexOf(current) {
+                title = titles[viewControllerIndex]
+        }
+    }
+
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
+        navigationItem.leftItemsSupplementBackButton = true
+
+        dataSource = self
+        delegate = self
+
+        // set up pages
+        pages.append(page1)
+        pages.append(page2)
+        pages.append(page3)
+        pages.append(page4)
+        pages.append(page5)
+        pages.append(page6)
+        
+        // start out with the first page of the current product if available
+        pageIndex = 0
+    }
+}

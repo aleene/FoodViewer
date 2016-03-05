@@ -14,6 +14,7 @@ class IdentificationTableViewController: UITableViewController {
         static let ShowIdentificationTitle = "Image"
         static let ViewControllerTitle = "Identification"
     }
+    
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     private var identificationImage: UIImage? = nil {
@@ -44,6 +45,7 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
+    
 
     // MARK: - Table view data source
 
@@ -219,6 +221,8 @@ class IdentificationTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+            
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
     }
@@ -228,7 +232,7 @@ class IdentificationTableViewController: UITableViewController {
         if product != nil {
             tableView.reloadData()
         }
-        title = TextConstants.ViewControllerTitle
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -240,47 +244,5 @@ class IdentificationTableViewController: UITableViewController {
 
     }
     
-    // MARK: Gestures
-    
-    @IBAction func leftSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
-        // left swipe should move to the completion state VC
-        if (sender.direction == .Left) {
-            performSegueWithIdentifier(Storyboard.ShowPreviousUnwindSegueIdentifier, sender: self)
-        }
-    }
-    
-    @IBAction func rightSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
-        // right swipe should move to the Ingredients VC
-        if (sender.direction == .Right) {
-            performSegueWithIdentifier(Storyboard.ShowNextSegueIdentifier, sender: self)
-        }
-    }
-    
-    // MARK: - Navigation
-
-    @IBAction func returnToIdentificationVC(segue:UIStoryboardSegue) {
-        if let _ = segue.sourceViewController as? IngredientsTableViewController {
-            if product != nil {
-                tableView.reloadData()
-            }
-        }
-    }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case Storyboard.ShowIdentificationSegueIdentifier:
-                if let vc = segue.destinationViewController as? imageViewController {
-                    vc.image = identificationImage
-                    vc.imageTitle = TextConstants.ShowIdentificationTitle
-                }
-            case Storyboard.ShowNextSegueIdentifier:
-                if let vc = segue.destinationViewController as? IngredientsTableViewController {
-                    vc.product = product
-                }
-            default: break
-            }
-        }
-    }
 
 }
