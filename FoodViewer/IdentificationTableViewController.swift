@@ -17,11 +17,13 @@ class IdentificationTableViewController: UITableViewController {
     
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
+    /*
     private var identificationImage: UIImage? = nil {
         didSet {
             tableView.reloadData()
         }
     }
+*/
     
     private enum SectionType {
         case Barcode
@@ -36,11 +38,13 @@ class IdentificationTableViewController: UITableViewController {
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                identificationImage = nil
+                // identificationImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
+                /*
                 if product!.mainUrl != nil {
                     retrieveImage(product!.mainUrl!)
                 }
+                */
                 tableView.reloadData()
             }
         }
@@ -55,8 +59,6 @@ class IdentificationTableViewController: UITableViewController {
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Identification Image"
-        static let ShowNextSegueIdentifier = "Show Next Ingredients"
-        static let ShowPreviousUnwindSegueIdentifier = "Show Previous Completion State"
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -102,7 +104,9 @@ class IdentificationTableViewController: UITableViewController {
             return cell
         case .Image:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
-            cell!.identificationImage = identificationImage
+            if let data = product?.mainImageData {
+                cell!.identificationImage = UIImage(data:data)
+            }
             return cell!
         }
     }
@@ -192,7 +196,7 @@ class IdentificationTableViewController: UITableViewController {
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
-    
+    /*
     private func retrieveImage(url: NSURL?) {
         if let imageURL = url {
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
@@ -215,6 +219,23 @@ class IdentificationTableViewController: UITableViewController {
                 }
             })
         }
+    }
+    */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.ShowIdentificationSegueIdentifier:
+                if let vc = segue.destinationViewController as? imageViewController {
+                    if let data = product?.mainImageData {
+                        vc.image = UIImage(data:data)
+                    }
+                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                }
+            default: break
+            }
+        }
+
     }
     
     // MARK: - ViewController Lifecycle

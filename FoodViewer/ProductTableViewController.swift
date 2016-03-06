@@ -56,6 +56,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     private var selectedProduct: FoodProduct? = nil
     
+    private var selectedIndex = 0
+    
     private enum RowType {
         case Name
         case Ingredients
@@ -106,10 +108,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private func refreshInterface() {
         if products.count > 0 {
             tableView.reloadData()
-            if let ppvc = productPageViewController {
-                ppvc.product = products.first
-                ppvc.pageIndex = 0
-            }
+            selectedProduct = products.first
+            selectedIndex = 0
+            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
     }
     
@@ -206,6 +207,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let CategoriesCellIdentifier = "Product Categories Cell"
         static let CompletionCellIdentifier = "Product Completion State Cell"
         static let ProducerCellIdentifier = "Product Producer Cell"
+        static let ToPageViewControllerSegue = "Show Page Controller"
     }
     
     
@@ -263,27 +265,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let currentProductSection = tableStructure[indexPath.row]
-        // we assume that product exists
-        if let ppvc = productPageViewController {
-            ppvc.product = products[indexPath.section]
-            switch currentProductSection {
-            case .Name:
-                ppvc.pageIndex = 0
-            case .Ingredients:
-                ppvc.pageIndex = 1
-            case .NutritionFacts:
-                ppvc.pageIndex = 2
-            case .Categories:
-                ppvc.pageIndex = 4
-            case .Completion:
-                ppvc.pageIndex = 5
-            case .SupplyChain:
-                ppvc.pageIndex = 3
-            default:
-                break
-            }
-        }
+        selectedIndex = indexPath.row
+        selectedProduct = products[indexPath.section]
+        performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+
     }
    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -301,6 +286,39 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
+    }
+    
+    // MARK: - Scene changes
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.ToPageViewControllerSegue:
+                if let vc = segue.destinationViewController as? UINavigationController {
+                    if let ppvc = vc.topViewController as? ProductPageViewController {
+                        ppvc.product = selectedProduct
+                        ppvc.pageIndex = selectedIndex
+                    }
+                }
+            default: break
+            }
+        }
+    }
+
+    @IBAction func unwindForCancel(segue:UIStoryboardSegue) {
+        if let _ = segue.sourceViewController as? BarcodeScanViewController {
+            if products.count > 0 {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func unwindNewSearch(segue:UIStoryboardSegue) {
+        if let vc = segue.sourceViewController as? BarcodeScanViewController {
+            // searchText = vc.barcode
+            barcode = BarcodeType(typeCode:vc.type, value:vc.barcode)
+            searchTextField.text = vc.barcode
+        }
     }
 
     // MARK: - Viewcontroller lifecycle

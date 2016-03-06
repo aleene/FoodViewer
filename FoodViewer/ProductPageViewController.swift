@@ -10,77 +10,104 @@ import UIKit
 
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
+    struct Constants {
+        static let StoryBoardIdentifier = "Main"
+        static let IdentificationVCIdentifier = "IdentificationTableViewController"
+        static let IngredientsVCIdentifier = "IngredientsTableViewController"
+        static let NutrientsVCIdentifier = "NutrientsTableViewController"
+        static let SupplyChainVCIdentifier = "SupplyChainTableViewController"
+        static let CategoriesVCIdentifier = "CategoriesTableViewController"
+        static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
+    }
     var pageIndex = 0 {
         didSet {
             if product != nil {
+                if pages.isEmpty {
+                    initPages()
+                }
                 if pageIndex < 0 || pageIndex > pages.count {
                     self.pageIndex = 0
                 }
+                // open de corresponding page
+                setViewControllers(
+                    [pages[pageIndex]],
+                    direction: .Forward,
+                    animated: true, completion: nil)
+                title = titles[pageIndex]
             }
-            // open de corresponding page
-            setViewControllers(
-                [pages[pageIndex]],
-                direction: .Forward,
-                animated: true, completion: nil)
-            title = titles[pageIndex]
         }
     }
     
     private var pages: [UIViewController] = []
     
+    func initPages () {
+        // set up pages
+        if pages.isEmpty {
+            pages.append(page1)
+            pages.append(page2)
+            pages.append(page3)
+            pages.append(page4)
+            pages.append(page5)
+            pages.append(page6)
+        }
+    }
+    
     private var titles = ["Identification", "Ingredients", "Nutrients", "Supply Chain", "Categories", "Community Effort"]
     
     var page1: UIViewController {
         get {
-            return storyboard!.instantiateViewControllerWithIdentifier("IdentificationTableViewController")
+            return storyboard!.instantiateViewControllerWithIdentifier(Constants.IdentificationVCIdentifier)
         }
     }
     var page2: UIViewController {
         get {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("IngredientsTableViewController")
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.IngredientsVCIdentifier)
         }
     }
     var page3: UIViewController {
         get {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("NutrientsTableViewController")
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.NutrientsVCIdentifier)
         }
     }
     var page4: UIViewController {
         get {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("SupplyChainTableViewController")
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.SupplyChainVCIdentifier)
         }
     }
     var page5: UIViewController {
         get {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CategoriesTableViewController")
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.CategoriesVCIdentifier)
         }
     }
     var page6: UIViewController {
         get {
-            return UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CommunityEffortTableViewController")
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.CommunityEffortVCIdentifier)
         }
     }
 
     var product: FoodProduct? = nil {
         didSet {
-            if let vc = pages[0] as? IdentificationTableViewController {
-                vc.product = product
-                title = titles[0]
-            }
-            if let vc = pages[1] as? IngredientsTableViewController {
-                vc.product = product
-            }
-            if let vc = pages[2] as? NutrientsTableViewController {
-                vc.product = product
-            }
-            if let vc = pages[3] as? ProductionTableViewController {
-                vc.product = product
-            }
-            if let vc = pages[4] as? CategoriesTableViewController {
-                vc.product = product
-            }
-            if let vc = pages[5] as? CompletionStatesTableViewController {
-                vc.product = product
+            if pages.isEmpty {
+                initPages()
+                if let vc = pages[0] as? IdentificationTableViewController {
+                    vc.product = product
+                    title = titles[0]
+                }
+                if let vc = pages[1] as? IngredientsTableViewController {
+                    vc.product = product
+                }
+                if let vc = pages[2] as? NutrientsTableViewController {
+                    vc.product = product
+                }
+                if let vc = pages[3] as? ProductionTableViewController {
+                    vc.product = product
+                }
+                if let vc = pages[4] as? CategoriesTableViewController {
+                    vc.product = product
+                }
+                if let vc = pages[5] as? CompletionStatesTableViewController {
+                    vc.product = product
+                }
             }
         }
     }
@@ -157,16 +184,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
         dataSource = self
         delegate = self
-
-        // set up pages
-        pages.append(page1)
-        pages.append(page2)
-        pages.append(page3)
-        pages.append(page4)
-        pages.append(page5)
-        pages.append(page6)
         
-        // start out with the first page of the current product if available
-        pageIndex = 0
+        initPages()
     }
 }

@@ -9,12 +9,16 @@
 import UIKit
 
 class imageViewController: UIViewController, UIScrollViewDelegate {
-
+    
+    struct Constants {
+        static let DefaultImageTitle = "no title"
+        static let MinimumZoomScale = CGFloat(50) //%
+        static let MaximumZoomScale = CGFloat(500) // %
+    }
+    
     var image: UIImage? {
         didSet {
-            if image != nil {
-                refresh()
-            }
+            refresh()
         }
     }
     
@@ -24,34 +28,48 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    // .Center in the Storyboard
+    
     @IBOutlet weak var imageView: UIImageView!
         
-    @IBOutlet weak var scrollView: UIScrollView! {
-        didSet {
-            scrollView.delegate = self
-        }
-    }
-    
-    struct Constants {
-        static let DefaultImageTitle = "no title"
-    }
+    @IBOutlet weak var scrollView: UIScrollView!
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
 
     private func refresh() {
-        if let existingImage = image {
-            imageView?.image = existingImage
-            imageView?.sizeToFit()
-            scrollView?.contentSize = imageView.frame.size
-            
-            scrollView?.minimumZoomScale = scrollView.minScale();
-            scrollView?.maximumZoomScale = 5.0
-            scrollView?.zoomScale = scrollView.minScale();
-            
-            if scrollView != nil {
-                centerScrollViewContents()
+        if let newImage = image {
+            if imageView != nil {
+                if scrollView != nil {
+                    imageView?.image = newImage
+                    // The scrollView contentSize should have the size of the image
+                    scrollView!.contentSize = newImage.size
+                    // The scrollView should be scaled such that the image fits just in the view
+                    // either in height or in width
+                    print("scrollView: frame size \(scrollView!.frame.size); bounds size \(scrollView!.bounds.size)")
+                    print("image size: \(newImage.size)")
+                    // width image larger than width scrollView
+                    let widthScale = image!.size.width / scrollView!.frame.size.width
+                    let heightScale = image!.size.height / scrollView!.frame.size.height
+                    if (widthScale > 1.0) || (heightScale > 1.0) {
+                        if widthScale > heightScale {
+                            // fit the width
+                            scrollView!.zoomScale = 1 / widthScale
+                        } else {
+                            // fit the height
+                            scrollView!.zoomScale = 1 / heightScale
+                        }
+                    } else {
+                        // no zoom needed
+                        scrollView!.zoomScale = 1.0
+                    }
+                    scrollView!.minimumZoomScale = scrollView!.zoomScale * Constants.MinimumZoomScale / 100
+                    scrollView!.maximumZoomScale = scrollView!.zoomScale * Constants.MaximumZoomScale / 100
+
+                    // height image larger than height scrollView
+                    // centerScrollViewContents()
+                }
             }
         }
     }
@@ -79,12 +97,9 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
         imageView.frame = contentsFrame
     }
     
-    private func pinchImage() {
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
 
         refresh()
     }

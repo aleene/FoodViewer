@@ -50,8 +50,6 @@ class IngredientsTableViewController: UITableViewController {
         static let LabelsCellIdentifier = "Labels TagList Cell"
         static let IngredientsImageCellIdentifier = "Ingredients Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Ingredients Image"
-        static let ShowNextSegueIdentifier = "Show Next Nutrients"
-        static let ShowPreviousUnwindSegueIdentifier = "Show Previous Ingredients"
     }
     
     private struct TextConstants {
@@ -194,32 +192,8 @@ class IngredientsTableViewController: UITableViewController {
         }
     }
     
-    // MARK: Gestures
-    
-    @IBAction func leftSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
-        // left swipe should move to the completion state VC
-        if (sender.direction == .Left) {
-            performSegueWithIdentifier(Storyboard.ShowPreviousUnwindSegueIdentifier, sender: self)
-        }
-    }
-    
-    @IBAction func rightSwipeGestureRecognizer(sender: UISwipeGestureRecognizer) {
-        // right swipe should move to the Ingredients VC
-        if (sender.direction == .Right) {
-            performSegueWithIdentifier(Storyboard.ShowNextSegueIdentifier, sender: self)
-        }
-    }
-
     // MARK: - Navigation
     
-    @IBAction func returnToIngredientsVC(segue:UIStoryboardSegue) {
-        if let _ = segue.sourceViewController as? NutrientsTableViewController {
-            if product != nil {
-                tableView.reloadData()
-            }
-        }
-    }
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -228,11 +202,6 @@ class IngredientsTableViewController: UITableViewController {
                     vc.image = ingredientsImage
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                 }
-            case Storyboard.ShowNextSegueIdentifier:
-                if let vc = segue.destinationViewController as? NutrientsTableViewController {
-                    vc.product = product
-                }
-
             default: break
             }
         }
