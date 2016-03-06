@@ -18,7 +18,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             if !products.isEmpty {
                 // look at all products
                 var indexExistingProduct: Int? = nil
-                for var index = 0; index < [products].count; ++index {
+                for var index = 0; index < products.count; ++index {
                     print("products \(products[index].barcode.asString()); update \(productToUpdate.barcode.asString())")
                     if products[index].barcode.asString() == productToUpdate.barcode.asString() {
                         indexExistingProduct = index
@@ -26,13 +26,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 }
                 if indexExistingProduct == nil {
                     // new product not yet in products array
+                    print("ADD product \(productToUpdate.barcode.asString())")
                     self.products.insert(productToUpdate, atIndex: 0)
-                    self.products[0].barcode = self.barcode!
+                    // self.products[0].barcode = self.barcode!
                 } else {
+                    print("UPDATE product \(productToUpdate.barcode.asString())")
                     // reset product information to the retrieved one
                     self.products[indexExistingProduct!] = productToUpdate
                 }
             } else {
+                print("FIRST product \(productToUpdate.barcode.asString())")
+
                 // new product not yet in products array
                 products.insert(productToUpdate, atIndex: 0)
             }
@@ -52,7 +56,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private var storedHistory = History()
 
     // defines the order of the rows
-    private var tableStructure: [RowType] = [.Name, .Ingredients, .NutritionFacts, .NutritionScore, .SupplyChain, .Categories, .Completion]
+    private var tableStructure: [RowType] = [.Name, .Ingredients, .NutritionFacts, .SupplyChain, .Categories, .Completion, .NutritionScore]
     
     private var selectedProduct: FoodProduct? = nil
     
@@ -265,10 +269,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        selectedIndex = indexPath.row
-        selectedProduct = products[indexPath.section]
-        performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
-
+        if indexPath.row < 6 {
+            // row 6 is the nutritional score, which has no correponding page
+            selectedIndex = indexPath.row
+            selectedProduct = products[indexPath.section]
+            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+        }
     }
    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
