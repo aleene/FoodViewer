@@ -14,12 +14,13 @@ class ProducerTableViewCell: UITableViewCell {
     private struct Constants {
         static let NoProduct = "No product Defined"
         static let EmptyString = ""
-        static let SoldBy = "sold by "
+        static let SoldBy = " sold by "
         static let By = " by "
         static let ProducedBy = "Produced by "
         static let At = " at "
-        static let SoldIn = "Sold in "
+        static let SoldIn = " Sold in "
         static let NoInformation = "No supply chain info."
+        static let Comma = ", "
     }
 
     @IBOutlet weak var supplyChainLabel: UILabel!
@@ -35,7 +36,14 @@ class ProducerTableViewCell: UITableViewCell {
                     textToDisplay += !producerArray.isEmpty ? Constants.ProducedBy + producerArray[0] : Constants.EmptyString
                 }
                 if let countries = newProduct.countries {
-                    textToDisplay += !countries.isEmpty ? Constants.SoldIn + countries[0] : Constants.EmptyString
+                    if !countries.isEmpty {
+                        textToDisplay += Constants.SoldIn
+                        for listItem in countries {
+                            for (_, listItemValue) in listItem {
+                                 textToDisplay += listItemValue + Constants.Comma
+                            }
+                        }
+                    }
                 }
                 if let stores = newProduct.stores {
                     textToDisplay += !stores.isEmpty ? Constants.By + stores[0] : Constants.EmptyString

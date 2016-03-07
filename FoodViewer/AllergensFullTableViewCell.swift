@@ -23,13 +23,15 @@ class AllergensFullTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [String]? = nil {
+    var tagList: [[String: String]]? = nil {
         didSet {
             if let list = tagList {
                 allergensTagList.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        allergensTagList.addTag(listItem)
+                        for (_, listItemValue) in listItem {
+                                allergensTagList.addTag(listItemValue)
+                            }
                     }
                     allergensTagList.tagBackgroundColor = UIColor.greenColor()
                 } else {

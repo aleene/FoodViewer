@@ -263,10 +263,12 @@ class OpenFoodFactsRequest {
                 decodeCompletionStates(jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray, forProduct:product)
                 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
-                product.labelArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray
+                product.labelArray = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
-                product.traces = jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray
+
+                product.traces = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray)
+
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
                 product.primaryLanguage = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
@@ -279,7 +281,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.InterfaceVersionCreatedKey]?.date
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.MaxImgidKey]?.string
-                product.additives = jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsKey]?.stringArray
+                product.additives = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesOrigKey]?.string
                 product.informers = jsonObject?[OFFJson.ProductKey]?[OFFJson.InformersTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrientLevelsTagsKey]?.stringArray
@@ -305,7 +307,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Fiber100gKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Energy100gKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.saturatedFatKey]?.string
-                product.countries = jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray
+                product.countries = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
                 product.purchaseLocation = jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray
                 product.producerCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
@@ -379,12 +381,19 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CitiesTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodes20141016Key]?.string
-                product.categories = jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesTagsKey]?.stringArray
+                product.categories = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesTagsKey]?.stringArray)
                 product.quantity = jsonObject?[OFFJson.ProductKey]?[OFFJson.QuantityKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevHierarchyKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ExpirationDateKey]?.date
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesHierarchyKey]?.stringArray
-                product.allergens = jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray
+//                if let allergenArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray {
+//                    product.allergens = [[:]]
+//                    for allergen in allergenArray {
+//                        let elementsArray = allergen.characters.split{$0 == ":"}.map(String.init)
+//                        product.allergens!.append([elementsArray[0]:elementsArray[1]])
+//                    }
+//                }
+                    product.allergens = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilNKey]?.int
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsThumbUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilNKey]?.int
@@ -485,7 +494,7 @@ class OpenFoodFactsRequest {
                 } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.ProteinsKey]?.string {
                     protein.standardValue = value
                 }
-                protein.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.ProteinsKey]?.string
+                protein.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.ProteinsUnitKey]?.string
     
                 var salt = FoodProduct.NutritionFactItem()
                 salt.itemName = NutritionFacts.SaltText
@@ -570,4 +579,23 @@ class OpenFoodFactsRequest {
             }
         }
     }
+
+    // This function splits an element in an array in a language and value part
+    func splitLanguageElements(inputArray: [String]?) -> [[String: String]]? {
+        if let allergenArray = inputArray {
+            var outputArray: [[String:String]] = [[:]]
+            for allergen in allergenArray {
+                let elementsArray = allergen.characters.split{$0 == ":"}.map(String.init)
+                outputArray.append([elementsArray[0]:elementsArray[1]])
+            }
+            return outputArray
+        } else {
+            return nil
+        }
+    }
 }
+
+
+
+
+

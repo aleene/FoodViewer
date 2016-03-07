@@ -23,14 +23,16 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
         }
     }
         
-    var tagList: [String]? = nil {
+    var tagList: [[String:String]]? = nil {
         didSet {
             listTagListView.removeAllTags()
             if let list = tagList {
                 if !list.isEmpty {
                     listTagListView.tagBackgroundColor = UIColor.greenColor()
                     for listItem in list {
-                        listTagListView.addTag(listItem)
+                        for (_, listItemValue) in listItem {
+                            listTagListView.addTag(listItemValue)
+                        }
                     }
                 } else {
                     listTagListView.tagBackgroundColor = UIColor.orangeColor()

@@ -18,6 +18,7 @@ class CountriesTableViewCell: UITableViewCell {
         static let At = " at "
         static let In = " in "
         static let NoInformation = "No sales information available."
+        static let Comma = ", "
     }
 
 
@@ -35,7 +36,13 @@ class CountriesTableViewCell: UITableViewCell {
                     textToDisplay += !locations.isEmpty ? Constants.At + locations[0] : Constants.EmptyString
                 }
                 if let countries = newProduct.countries {
-                    textToDisplay += !countries.isEmpty ? Constants.In + countries[0] : Constants.EmptyString
+                    if !countries.isEmpty {
+                        for listItem in countries {
+                            for (_, listItemValue) in listItem {
+                                textToDisplay += !countries.isEmpty ? Constants.In + listItemValue + Constants.Comma : Constants.EmptyString
+                            }
+                        }
+                    }
                 }
             } else {
                 textToDisplay = Constants.NoInformation

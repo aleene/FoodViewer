@@ -16,14 +16,15 @@ class LabelsFullTableViewCell: UITableViewCell {
     }
 
     
-    var tagList: [String]? = nil {
+    var tagList: [[String: String]]? = nil {
         didSet {
-            labelsTagListView.removeAllTags()
             if let list = tagList {
-                let newList = clean(list)
-                if !newList.isEmpty {
-                    for listItem in newList {
-                        labelsTagListView.addTag(listItem)
+                labelsTagListView.removeAllTags()
+                if !list.isEmpty {
+                    for listItem in list {
+                        for (_, listItemValue) in listItem {
+                            labelsTagListView.addTag(listItemValue)
+                        }
                     }
                     labelsTagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {
@@ -31,8 +32,9 @@ class LabelsFullTableViewCell: UITableViewCell {
                     labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
                 }
             } else {
-                labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
+                labelsTagListView.removeAllTags()
                 labelsTagListView.addTag(Constants.NoInformation)
+                labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
             }
         }
     }

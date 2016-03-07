@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductionTableViewController: UITableViewController {
+class SupplyChainTableViewController: UITableViewController {
     
     var product: FoodProduct? {
         didSet {
@@ -34,6 +34,7 @@ class ProductionTableViewController: UITableViewController {
     
     private struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
+        static let CountriesCellIdentifier = "Countries TagListView Cell"
     }
     
     func refresh() {
@@ -114,26 +115,31 @@ class ProductionTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
         
         // we assume that product exists
         switch currentProductSection {
         case .Producer:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.producer
             return cell
         case .ProducerCode:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.producerCode
             return cell
         case .IngredientOrigin:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.ingredientsOrigin
             return cell
         case .Store:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.stores
             return cell
         case .Location:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.purchaseLocation
             return cell
         case .Country:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CountriesCellIdentifier, forIndexPath: indexPath) as! CountriesTagListViewTableViewCell
             cell.tagList = product!.countries
             return cell
         }
@@ -149,9 +155,18 @@ class ProductionTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 80.0
+
         refresh()
         title = Constants.ViewControllerTitle
     }
+    
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        tableView.reloadData()
+//    }
     
     
 }

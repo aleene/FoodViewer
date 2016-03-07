@@ -45,6 +45,7 @@ class NutrientsTableViewController: UITableViewController {
         static let NutritionFactCellIdentifier = "Nutrition Fact Cell"
         static let ServingSizeCellIdentifier = "Serving Size Cell"
         static let NutritionFactsImageCellIdentifier = "Nutrition Facts Image Cell"
+        static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
         static let ShowNutritionFactsImageTitle = "Image"
         static let ViewControllerTitle = "Nutrition Facts"
@@ -67,18 +68,39 @@ class NutrientsTableViewController: UITableViewController {
         // we assume that product exists
         switch currentProductSection {
         case .NutritionFacts:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactCellIdentifier, forIndexPath: indexPath) as? NutrientsTableViewCell
-            cell?.nutritionFactItem = product!.nutritionFacts[indexPath.row]
-            return cell!
+            if product!.nutritionFacts.isEmpty {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.EmptyNutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? EmptyNutrientsTableViewCell
+
+                cell?.tagList = []
+                return cell!
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactCellIdentifier, forIndexPath: indexPath) as? NutrientsTableViewCell
+                cell?.nutritionFactItem = product!.nutritionFacts[indexPath.row]
+                return cell!
+            }
         case .ServingSize:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ServingSizeCellIdentifier, forIndexPath: indexPath) as? ServingSizeTableViewCell
-            cell?.servingSize = product!.servingSize!
-            return cell!
+            if product!.servingSize == nil {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.EmptyNutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? EmptyNutrientsTableViewCell
+                
+                cell?.tagList = []
+                return cell!
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ServingSizeCellIdentifier, forIndexPath: indexPath) as? ServingSizeTableViewCell
+                cell?.servingSize = product!.servingSize!
+                return cell!
+            }
+
         case .NutritionImage:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
-            cell!.nutritionFactsImage = nutritionFactsImage
-            // print("image cell size \(cell?.bounds.size)")
-            return cell!
+            if nutritionFactsImage == nil {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.EmptyNutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? EmptyNutrientsTableViewCell
+                
+                cell?.tagList = []
+                return cell!
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
+                cell!.nutritionFactsImage = nutritionFactsImage
+                return cell!
+            }
         }
     }
     
@@ -90,6 +112,7 @@ class NutrientsTableViewController: UITableViewController {
     private struct TableStructure {
         static let NutritionFactsImageSectionSize = 1
         static let ServingSizeSectionSize = 1
+        static let NutritionFactsEmpytSectionSize = 1
         static let NutritionFactItemsSectionHeader = "Nutrition Facts (100g; 100ml)"
         static let NutritionFactsImageSectionHeader = "Nutrition Facts Image"
         static let ServingSizeSectionHeader = "Serving Size"
@@ -105,11 +128,19 @@ class NutrientsTableViewController: UITableViewController {
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
         // 1 : nutrition facts
-        sectionsAndRows.append((
-            SectionType.NutritionFacts,
-            product.nutritionFacts.count,
-            TableStructure.NutritionFactItemsSectionHeader))
-        
+        if product.nutritionFacts.isEmpty {
+            
+            sectionsAndRows.append((
+                SectionType.NutritionFacts,
+                TableStructure.NutritionFactsEmpytSectionSize,
+                TableStructure.NutritionFactItemsSectionHeader))
+        } else {
+            sectionsAndRows.append((
+                SectionType.NutritionFacts,
+                product.nutritionFacts.count,
+                TableStructure.NutritionFactItemsSectionHeader))
+        }
+    
         // 2:  serving size
         sectionsAndRows.append((
             SectionType.ServingSize,

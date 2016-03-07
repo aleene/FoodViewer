@@ -12,79 +12,34 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
     private var products: [FoodProduct] = []
     
-    private func updateProduct(product: FoodProduct?) {
-        if let productToUpdate = product {
-            // should check if the product is not already available
-            if !products.isEmpty {
-                // look at all products
-                var indexExistingProduct: Int? = nil
-                for var index = 0; index < products.count; ++index {
-                    print("products \(products[index].barcode.asString()); update \(productToUpdate.barcode.asString())")
-                    if products[index].barcode.asString() == productToUpdate.barcode.asString() {
-                        indexExistingProduct = index
-                    }
-                }
-                if indexExistingProduct == nil {
-                    // new product not yet in products array
-                    print("ADD product \(productToUpdate.barcode.asString())")
-                    self.products.insert(productToUpdate, atIndex: 0)
-                    // self.products[0].barcode = self.barcode!
-                } else {
-                    print("UPDATE product \(productToUpdate.barcode.asString())")
-                    // reset product information to the retrieved one
-                    self.products[indexExistingProduct!] = productToUpdate
-                }
-            } else {
-                print("FIRST product \(productToUpdate.barcode.asString())")
-
-                // new product not yet in products array
-                products.insert(productToUpdate, atIndex: 0)
-            }
-            // add product barcode to history
-            self.storedHistory.addBarcode(barcode: productToUpdate.barcode.asString())
-            // launch image retrieval if needed
-            if (productToUpdate.mainUrl != nil) {
-                if (productToUpdate.mainImageData == nil) {
-                // get image only if the data is not there yet
-                    self.retrieveImage(productToUpdate.mainUrl!)
+    private var storedHistory = History()
+    
+    // This variable is needed to keep track of the asynchrnous interet retrievals
+    private var historyHasBeenLoaded: Int? = nil {
+        didSet {
+            if let currentLoadHistory = historyHasBeenLoaded {
+                if currentLoadHistory == storedHistory.barcodes.count {
+                    // all products have been loaded from history
+                    historyHasBeenLoaded = nil
+                    refreshInterface()
+                    // This should happen only once?
+                    // It is possible that at this stage the relevant product data has not been loaded yet
+                    performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+                    // scroll to the top product in the tableview
+                    tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
                 }
             }
-            refreshInterface()
         }
     }
-
-    private var storedHistory = History()
-
-    // defines the order of the rows
-    private var tableStructure: [RowType] = [.Name, .Ingredients, .NutritionFacts, .SupplyChain, .Categories, .Completion, .NutritionScore]
     
-    private var selectedProduct: FoodProduct? = nil
-    
-    private var selectedIndex = 0
-    
-    private enum RowType {
-        case Name
-        case Ingredients
-        case NutritionFacts
-        case NutritionScore
-        case Categories
-        case Completion
-        case SupplyChain
-    }
-    
-    private var barcode: BarcodeType? = BarcodeType.EAN13("3608580744184") {
+    private var barcode: BarcodeType? = nil {
         didSet {
             // get the corresponding data from OFF
-            refresh(barcode)
+            fetchProduct(barcode)
         }
     }
     
-    
-    private func refreshProduct(product: FoodProduct) {
-        refresh(product.barcode)
-    }
-    
-    private func refresh(barcode: BarcodeType?) {
+    private func fetchProduct(barcode: BarcodeType?) {
         if barcode != nil {
             let request = OpenFoodFactsRequest()
             // loading the product from internet will be done off the main queue
@@ -111,10 +66,55 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
     private func refreshInterface() {
         if products.count > 0 {
-            tableView.reloadData()
             selectedProduct = products.first
             selectedIndex = 0
-            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+            tableView.reloadData()
+        }
+    }
+    
+    private func updateProduct(product: FoodProduct?) {
+        if let productToUpdate = product {
+            // should check if the product is not already available
+            if !products.isEmpty {
+                // look at all products
+                var indexExistingProduct: Int? = nil
+                for var index = 0; index < products.count; ++index {
+                    // print("products \(products[index].barcode.asString()); update \(productToUpdate.barcode.asString())")
+                    if products[index].barcode.asString() == productToUpdate.barcode.asString() {
+                        indexExistingProduct = index
+                    }
+                }
+                if indexExistingProduct == nil {
+                    // new product not yet in products array
+                    // print("ADD product \(productToUpdate.barcode.asString())")
+                    self.products.insert(productToUpdate, atIndex: 0)
+                    refreshInterface()
+                    tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+                    // add product barcode to history
+                    self.storedHistory.addBarcode(barcode: productToUpdate.barcode.asString())
+                } else {
+                    // print("UPDATE product \(productToUpdate.barcode.asString())")
+                    // reset product information to the retrieved one
+                    self.products[indexExistingProduct!] = productToUpdate
+                    if historyHasBeenLoaded != nil {
+                        ++historyHasBeenLoaded!
+                    }
+                }
+            } else {
+                // print("FIRST product \(productToUpdate.barcode.asString())")
+                
+                // this is the first product of the array
+                products.append(productToUpdate)
+                // add product barcode to history
+                self.storedHistory.addBarcode(barcode: productToUpdate.barcode.asString())
+            }
+            // launch image retrieval if needed
+            if (productToUpdate.mainUrl != nil) {
+                if (productToUpdate.mainImageData == nil) {
+                    // get image only if the data is not there yet
+                    self.retrieveImage(productToUpdate.mainUrl!)
+                }
+            }
         }
     }
     
@@ -179,7 +179,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     
-    // MARK: - TextField
+    // MARK: - TextField Methods
 
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
@@ -200,8 +200,25 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view methods and vars
     
+    private var selectedProduct: FoodProduct? = nil
+    
+    private var selectedIndex = 0
+
+    private enum RowType {
+        case Name
+        case Ingredients
+        case NutritionFacts
+        case NutritionScore
+        case Categories
+        case Completion
+        case SupplyChain
+    }
+
+    // defines the order of the rows
+    private var tableStructure: [RowType] = [.Name, .Ingredients, .NutritionFacts, .SupplyChain, .Categories, .Completion, .NutritionScore]
+
     private struct Storyboard {
         static let NameCellIdentifier = "Product Name Cell"
         static let IngredientsCellIdentifier = "Product Ingredients Cell"
@@ -321,7 +338,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func unwindNewSearch(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? BarcodeScanViewController {
-            // searchText = vc.barcode
             barcode = BarcodeType(typeCode:vc.type, value:vc.barcode)
             searchTextField.text = vc.barcode
         }
@@ -332,38 +348,33 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // need to find out the detail controller of the splitview controller, which should be a navigationcontroller with a pageviewcontroller
-        
-        if let navigationMasterViewController = self.parentViewController as? UINavigationController {
-            if let splitViewController = navigationMasterViewController.parentViewController as? UISplitViewController {
-                if let unv = splitViewController.viewControllers[splitViewController.viewControllers.count - 1] as? UINavigationController {
-                    if let ppvc = unv.topViewController as? ProductPageViewController {
-                        productPageViewController = ppvc
-                    }
-                }
-            }
-        }
-
-
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80.0
         
         if products.isEmpty {
-        // check if there is history available
-        // and init products with History
-            for storedBarcode in storedHistory.barcodes {
-                // this fills the database of products
-                let newProduct = FoodProduct(withBarcode: BarcodeType(value: storedBarcode))
-                refreshProduct((newProduct))
+            // check if there is history available
+            // and init products with History
+            if !storedHistory.barcodes.isEmpty {
+                historyHasBeenLoaded = 0
+                for storedBarcode in storedHistory.barcodes {
+                    // this fills the database of products
+                    let newProduct = FoodProduct(withBarcode: BarcodeType(value: storedBarcode))
+                    // create empty products for each barcode in history
+                    products.append(newProduct)
+                    // fetch the corresponding data from internet
+                    fetchProduct(newProduct.barcode)
+                }
+            } else {
+                historyHasBeenLoaded = nil
             }
+            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
-
-
-        title = Constants.ViewControllerTitle
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+
+        title = Constants.ViewControllerTitle
     }
     
     override func viewDidDisappear(animated: Bool) {

@@ -99,7 +99,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let vc = pages[2] as? NutrientsTableViewController {
                     vc.product = product
                 }
-                if let vc = pages[3] as? ProductionTableViewController {
+                if let vc = pages[3] as? SupplyChainTableViewController {
                     vc.product = product
                 }
                 if let vc = pages[4] as? CategoriesTableViewController {
@@ -184,6 +184,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
         dataSource = self
         delegate = self
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         initPages()
     }

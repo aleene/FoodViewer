@@ -30,10 +30,10 @@ class FoodProduct {
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil
-    var allergens: [String]? = nil
-    var traces: [String]? = nil
-    var additives: [String]? = nil
-    var labelArray: [String]? = nil
+    var allergens: [[String: String]]? = nil
+    var traces: [[String: String]]? = nil
+    var additives: [[String: String]]? = nil
+    var labelArray: [[String: String]]? = nil
 
     // production parameters
     var producer: [String]? = nil
@@ -49,11 +49,11 @@ class FoodProduct {
     var imageNutritionSmallUrl: NSURL?
     var nutritionFactsImageUrl: NSURL?
     
-    // purchase parameters
+    // supply chain parameters
     var nutritionGrade: NutritionalGradeLevel? = nil
     var purchaseLocation: [String]? = nil //or a set?
     var stores: [String]? = nil //or a set?
-    var countries: [String]? = nil //or a set?
+    var countries: [[String: String]]? = nil //or a set?
     
     // contributor parameters
     var additionDate: NSDate? = nil
@@ -72,7 +72,7 @@ class FoodProduct {
     var primaryLanguage: String? = nil
 
     // group parameters
-    var categories: [String]? = nil
+    var categories: [[String: String]]? = nil
     
     // community parameters
     var photographers: [String]? = nil {
@@ -194,6 +194,8 @@ class FoodProduct {
         static let CreatorKey = "Creator"
         static let CorrectorKey = "Correctors"
     }
+    
+    
     /*
     // completion states parameters
     struct CompletionState {

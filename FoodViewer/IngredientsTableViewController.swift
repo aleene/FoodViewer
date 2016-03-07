@@ -32,7 +32,7 @@ class IngredientsTableViewController: UITableViewController {
             if product != nil {
                 ingredientsImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
-                if product!.mainUrl != nil {
+                if product!.imageIngredientsUrl != nil {
                     retrieveImage(product!.imageIngredientsUrl!)
                 }
                 tableView.reloadData()

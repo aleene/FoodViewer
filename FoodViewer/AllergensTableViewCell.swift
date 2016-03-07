@@ -24,7 +24,9 @@ class AllergensTableViewCell: UITableViewCell {
             if let allergens = product?.allergens {
                 allergensTagListView.removeAllTags()
                 for allergen in allergens {
-                    allergensTagListView.addTag(allergen)
+                    for (_, allergenValue) in allergen {
+                        allergensTagListView.addTag(allergenValue)
+                    }
                 }
             }
         }
