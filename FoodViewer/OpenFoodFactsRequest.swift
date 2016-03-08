@@ -582,13 +582,17 @@ class OpenFoodFactsRequest {
 
     // This function splits an element in an array in a language and value part
     func splitLanguageElements(inputArray: [String]?) -> [[String: String]]? {
-        if let allergenArray = inputArray {
-            var outputArray: [[String:String]] = [[:]]
-            for allergen in allergenArray {
-                let elementsArray = allergen.characters.split{$0 == ":"}.map(String.init)
-                outputArray.append([elementsArray[0]:elementsArray[1]])
+        if let elementsArray = inputArray {
+            if !elementsArray.isEmpty {
+                var outputArray: [[String:String]] = [[:]]
+                for element in elementsArray {
+                    let elementsPair = element.characters.split{$0 == ":"}.map(String.init)
+                    outputArray.append([elementsPair[0]:elementsPair[1]])
+                }
+                return outputArray
+            } else {
+                return nil
             }
-            return outputArray
         } else {
             return nil
         }
