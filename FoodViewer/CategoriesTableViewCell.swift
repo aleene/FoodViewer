@@ -12,7 +12,7 @@ import TagListView
 class CategoriesTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoInformation = NSLocalizedString("No categories specified", comment: "Text to indicate that No categories have been specified in the product data.") 
+        static let NoInformation = NSLocalizedString("No categories specified.", comment: "Text to indicate that No categories have been specified in the product data.") 
         static let CategoryText = NSLocalizedString("Assigned to %@ categories.", comment: "Text to indicate the number of categories the product belongs to.")
     }
 

@@ -2,7 +2,7 @@
 "%@ nutritional facts specified" = "%@ voedingswaarden aangegeven.";
 
 /* Just a comma to separate items. */
-"%@, " = "%@,";
+"%@, " = "%@, ";
 
 /* A sepator between sentence parts. */
 "; " = ";";
@@ -50,7 +50,7 @@
 "Contributors" = "Bijdragers";
 
 /* Text to indicate how much the product data is filled in (available). */
-"Data is %@ complete" = "Gegevens zijn %@ volledig.";
+"Data is %@ complete." = "Gegevens zijn %@ volledig.";
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Bewerk";
@@ -106,13 +106,13 @@
 "Name" = "Productnaam";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
-"No brands indicated" = "Geen merk beschikbaar.";
+"No brands indicated." = "Geen merken aangegeven.";
 
 /* Text to indicate that No categories have been specified in the product data. */
-"No categories specified" = "Geen categorieën beschikbaar.";
+"No categories specified." = "Geen categoriën aangegeven.";
 
 /* Text in a TagListView, when no information have been specified in the product data. */
-"No info available" = "Geen informatie beschikbaar.";
+"No info available." = "Geen informatie beschikbaar.";
 
 /* Text to indicate that no ingredients are present in the product data. */
 "No ingredients listed." = "Geen ingrediënten beschikbaar.";
@@ -128,9 +128,6 @@
 
 /* Text to indicate that no supply chain infor (origin, producer, etc.) are available. */
 "No supply chain info." = "Geen productie-/ verkoopketen info.";
-
-/* Text to indicate that no information on the supply chain (origin of ingredients, producer, shops, sales location) is present in the data. */
-"No supply chain information available." = "Geen productie-/verkoop keten informatie beschikbaar";
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Geen titel";
@@ -151,7 +148,7 @@
 "Nutritional facts" = "Voedingswaarden";
 
 /* Header for section of tableView with location(s) of ingredients. */
-"Origin ingredient" = "Oorsprong ingrediëntrn";
+"Origin ingredient" = "Oorsprong ingrediënten";
 
 /* Tableview sectionheader for packaging. */
 "Packaging" = "Verpakking";
@@ -169,7 +166,7 @@
 "Pity" = "Jammer";
 
 /* Text to indicate the producer of the product. */
-"Produced in/by %@; " = "Geproduceerd in/door %@;";
+"Produced in/by %@; " = "Geproduceerd in/door %@; ";
 
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Producentcodes";
@@ -202,10 +199,10 @@
 "Serving Size" = "Portiegrootte";
 
 /* Text to indicate the first shop the product is sold in. */
-"Sold by %@" = "Verkocht door %@";
+"Sold by %@" = "Verkocht door %@; ";
 
 /* Text to introduce where the product is sold. */
-"Sold in " = "Verkocht in";
+"Sold in " = "Verkocht in ";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
    Viewcontroller title for page with supply chain for product. */
