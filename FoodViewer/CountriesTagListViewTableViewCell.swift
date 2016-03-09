@@ -12,7 +12,7 @@ import TagListView
 class CountriesTagListViewTableViewCell: UITableViewCell {
     
     struct Constants {
-        static let NoTag = "no countries specified"
+        static let NoTag = NSLocalizedString("no countries specified", comment: "Text in a TagListView, when no countries are available in the product data.") 
     }
     
     @IBOutlet weak var countriesTagListView: TagListView! {

@@ -53,8 +53,8 @@ class IngredientsTableViewController: UITableViewController {
     }
     
     private struct TextConstants {
-        static let ShowIdentificationTitle = "Image"
-        static let ViewControllerTitle = "Ingredients"
+        static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the ViewController with the image of the product ingredients.")
+        static let ViewControllerTitle = NSLocalizedString("Ingredients", comment: "Title for the ViewController with the product ingredients.")
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -111,12 +111,12 @@ class IngredientsTableViewController: UITableViewController {
         static let AdditivesSectionSize = 1
         static let LabelsSectionSize = 1
         static let ImageSectionSize = 1
-        static let IngredientsSectionHeader = "Ingredients"
-        static let AllergensSectionHeader = "Allergens"
-        static let TracesSectionHeader = "Traces"
-        static let AdditivesSectionHeader = "Additives"
-        static let LabelsSectionHeader = "Labels"
-        static let ImageSectionHeader = "Ingredients Image"
+        static let IngredientsSectionHeader = NSLocalizedString("Ingredients", comment: "Header title for the product ingredients section.")
+        static let AllergensSectionHeader = NSLocalizedString("Allergens", comment: "Header title for the product allergens section, i.e. the allergens derived from the ingredients.")
+        static let TracesSectionHeader = NSLocalizedString("Traces", comment: "Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.")
+        static let AdditivesSectionHeader = NSLocalizedString("Additives", comment: "Header title for the product additives section, i.e. the additives are derived from the ingredients list.")
+        static let LabelsSectionHeader = NSLocalizedString("Labels", comment: "Header title for the product labels section, i.e. images, logos, etc.")
+        static let ImageSectionHeader = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {

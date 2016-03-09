@@ -24,6 +24,8 @@
 		516B32921C76043D0031EF80 /* NutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32911C76043D0031EF80 /* NutrientsTableViewCell.swift */; };
 		516D0C211C8D91EF00C1C789 /* Allergens in Resources */ = {isa = PBXBuildFile; fileRef = 516D0C201C8D91EF00C1C789 /* Allergens */; };
 		516D0C231C8DD30400C1C789 /* CountriesTagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C221C8DD30300C1C789 /* CountriesTagListViewTableViewCell.swift */; };
+		516D0C281C8F4CC300C1C789 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 516D0C2A1C8F4CC300C1C789 /* InfoPlist.strings */; };
+		516D0C2D1C8F4CC400C1C789 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 516D0C2F1C8F4CC400C1C789 /* Localizable.strings */; };
 		517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */; };
 		517AAD4A1C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */; };
 		517AAD4D1C7DB60700B12F3C /* AllergensFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD4C1C7DB60700B12F3C /* AllergensFullTableViewCell.swift */; };
@@ -45,7 +47,6 @@
 		51C29E3C1C6F861D00271708 /* CountriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E3B1C6F861D00271708 /* CountriesTableViewCell.swift */; };
 		51C29E3E1C6F89E800271708 /* 3608580744184.json in Resources */ = {isa = PBXBuildFile; fileRef = 51C29E3D1C6F89E800271708 /* 3608580744184.json */; };
 		51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */; };
-		51C29E441C708D7A00271708 /* PurchaseLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */; };
 		51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */; };
 		51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */; };
 		51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */; };
@@ -86,6 +87,10 @@
 		516B32911C76043D0031EF80 /* NutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		516D0C201C8D91EF00C1C789 /* Allergens */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Allergens; sourceTree = "<group>"; };
 		516D0C221C8DD30300C1C789 /* CountriesTagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesTagListViewTableViewCell.swift; sourceTree = "<group>"; };
+		516D0C241C8EE8DE00C1C789 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		516D0C251C8EE8DF00C1C789 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		516D0C291C8F4CC300C1C789 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		516D0C2E1C8F4CC400C1C789 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewController.swift; sourceTree = "<group>"; };
 		517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsFullTableViewCell.swift; sourceTree = "<group>"; };
 		517AAD4C1C7DB60700B12F3C /* AllergensFullTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllergensFullTableViewCell.swift; sourceTree = "<group>"; };
@@ -109,7 +114,6 @@
 		51C29E3B1C6F861D00271708 /* CountriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesTableViewCell.swift; sourceTree = "<group>"; };
 		51C29E3D1C6F89E800271708 /* 3608580744184.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3608580744184.json; sourceTree = "<group>"; };
 		51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
-		51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseLocationTableViewCell.swift; sourceTree = "<group>"; };
 		51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerTableViewCell.swift; sourceTree = "<group>"; };
 		51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainTableViewController.swift; sourceTree = "<group>"; };
 		51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewTableViewCell.swift; sourceTree = "<group>"; };
@@ -178,7 +182,6 @@
 				51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */,
 				51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */,
 				51C29E3B1C6F861D00271708 /* CountriesTableViewCell.swift */,
-				51C29E431C708D7A00271708 /* PurchaseLocationTableViewCell.swift */,
 				51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */,
 				51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */,
 				51C86B5C1C6DE901002B7566 /* CommunityTableViewCell.swift */,
@@ -235,6 +238,8 @@
 		5180B9191C5D3B75002DBD21 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
+				516D0C2F1C8F4CC400C1C789 /* Localizable.strings */,
+				516D0C2A1C8F4CC300C1C789 /* InfoPlist.strings */,
 				516D0C201C8D91EF00C1C789 /* Allergens */,
 				51E614911C821EFE00DAEE6C /* 6524654176.json */,
 				51DAD3781C60A6A200895513 /* 737628064502.json */,
@@ -394,8 +399,10 @@
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
 				51C29E3E1C6F89E800271708 /* 3608580744184.json in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
+				516D0C2D1C8F4CC400C1C789 /* Localizable.strings in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				516D0C211C8D91EF00C1C789 /* Allergens in Resources */,
+				516D0C281C8F4CC300C1C789 /* InfoPlist.strings in Resources */,
 				51DAD3791C60A6A200895513 /* 737628064502.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,7 +501,6 @@
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
-				51C29E441C708D7A00271708 /* PurchaseLocationTableViewCell.swift in Sources */,
 				51C611A81C88B2A3007A9BC5 /* ProductPageViewController.swift in Sources */,
 				516B32891C75F74F0031EF80 /* CompletionState.swift in Sources */,
 				51DAD36E1C5F639900895513 /* AllergensTableViewCell.swift in Sources */,
@@ -511,10 +517,27 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		516D0C2A1C8F4CC300C1C789 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				516D0C291C8F4CC300C1C789 /* nl */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		516D0C2F1C8F4CC400C1C789 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				516D0C2E1C8F4CC400C1C789 /* nl */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				5180B9111C5D3B57002DBD21 /* Base */,
+				516D0C251C8EE8DF00C1C789 /* nl */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -523,6 +546,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				51E3069F1C68E0B900485A8D /* Base */,
+				516D0C241C8EE8DE00C1C789 /* nl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

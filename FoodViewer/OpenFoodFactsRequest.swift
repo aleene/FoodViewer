@@ -34,7 +34,7 @@ class OpenFoodFactsRequest {
                 return FetchResult.Error(error.description)
             }
         } else {
-            return FetchResult.Error("URL not matched")
+            return FetchResult.Error(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
         }
     }
 
@@ -44,7 +44,7 @@ class OpenFoodFactsRequest {
         if let validData = data {
             return unpackJSONObject(JSON.parse(validData))
         } else {
-            return FetchResult.Error("No valid data")
+            return FetchResult.Error(NSLocalizedString("Error: No valid data", comment: "No valid data has been received"))
         }
     }
     
@@ -246,7 +246,7 @@ class OpenFoodFactsRequest {
                 if let statusVerbose = jsonObject?[OFFJson.StatusVerboseKey]?.string {
                     return FetchResult.Error(statusVerbose)
                 } else {
-                    return FetchResult.Error("No verbose status")
+                    return FetchResult.Error(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
                 }
                 
             } else if resultStatus == 1 {
@@ -532,10 +532,10 @@ class OpenFoodFactsRequest {
                 }
                 return FetchResult.Success(product)
             } else {
-                return FetchResult.Error("Other (>1) result status")
+                return FetchResult.Error(NSLocalizedString("Error: Other (>1) result status", comment: "A JSON status which is not supported."))
             }
         } else {
-            return FetchResult.Error("No result status in JSON")
+            return FetchResult.Error(NSLocalizedString("Error: No result status in JSON", comment: "Error message when the json input file does not contain any information") )
         }
     }
     

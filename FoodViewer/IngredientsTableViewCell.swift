@@ -11,15 +11,17 @@ import UIKit
 class IngredientsTableViewCell: UITableViewCell {
     
     private struct Constants {
-        static let NoIngredientsText = "No ingredients listed."
-        static let IngredientsPreText = "There are "
-        static let IngredientsPostText = " ingredients."
+        static let NoIngredientsText = NSLocalizedString("No ingredients listed.", comment: "Text to indicate that no ingredients are present in the product data.") 
+        static let IngredientsText = NSLocalizedString("There are %@ ingredients.", comment: "Text to indicate the number of ingredients in the product.")
     }
 
     var product: FoodProduct? = nil {
         didSet {
             if let number = product?.numberOfIngredients  {
-                ingredientsLabel.text = Constants.IngredientsPreText + number + Constants.IngredientsPostText
+                let formatter = NSNumberFormatter()
+                formatter.numberStyle = .DecimalStyle
+                
+                ingredientsLabel.text = String(format:Constants.IngredientsText, formatter.stringFromNumber(Int(number)!)! )
             } else {
                 ingredientsLabel.text = Constants.NoIngredientsText
             }

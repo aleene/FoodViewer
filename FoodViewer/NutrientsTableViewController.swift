@@ -47,8 +47,8 @@ class NutrientsTableViewController: UITableViewController {
         static let NutritionFactsImageCellIdentifier = "Nutrition Facts Image Cell"
         static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
-        static let ShowNutritionFactsImageTitle = "Image"
-        static let ViewControllerTitle = "Nutrition Facts"
+        static let ShowNutritionFactsImageTitle = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
+        static let ViewControllerTitle = NSLocalizedString("Nutrition Facts", comment: "Title of the ViewController with the nutritional values")
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -113,9 +113,9 @@ class NutrientsTableViewController: UITableViewController {
         static let NutritionFactsImageSectionSize = 1
         static let ServingSizeSectionSize = 1
         static let NutritionFactsEmpytSectionSize = 1
-        static let NutritionFactItemsSectionHeader = "Nutrition Facts (100g; 100ml)"
-        static let NutritionFactsImageSectionHeader = "Nutrition Facts Image"
-        static let ServingSizeSectionHeader = "Serving Size"
+        static let NutritionFactItemsSectionHeader = NSLocalizedString("Nutrition Facts (100g; 100ml)", comment: "Tableview header section for the list of nutritional facts")
+        static let NutritionFactsImageSectionHeader = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
+        static let ServingSizeSectionHeader = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.") 
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {

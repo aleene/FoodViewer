@@ -52,7 +52,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    private var titles = ["Identification", "Ingredients", "Nutrients", "Supply Chain", "Categories", "Community Effort"]
+    private var titles = [NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info."),
+        NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product."),
+        NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product."),
+        NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product."),
+        NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product."),
+        NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")]
     
     var page1: UIViewController {
         get {

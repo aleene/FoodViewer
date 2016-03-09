@@ -12,7 +12,7 @@ import TagListView
 class TracesFullTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "no traces specified"
+        static let NoTag = NSLocalizedString("no traces specified", comment: "Text in a TagListView, when no traces have been specified in the product data.")
     }
 
     @IBOutlet weak var tracesTagList: TagListView! {

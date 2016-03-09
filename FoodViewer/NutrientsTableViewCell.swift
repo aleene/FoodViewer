@@ -12,7 +12,7 @@ class NutrientsTableViewCell: UITableViewCell {
 
     
     private struct Constants {
-        static let UnknownValue = " "
+        static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specifidied.") 
     }
     
     var nutritionFactItem: FoodProduct.NutritionFactItem? = nil {

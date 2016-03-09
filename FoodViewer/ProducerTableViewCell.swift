@@ -12,15 +12,14 @@ import TagListView
 class ProducerTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoProduct = "No product Defined"
+        static let NoProduct = NSLocalizedString("No product Defined.", comment: "Text to indicate that no product is defined/setup.")
         static let EmptyString = ""
-        static let SoldBy = " sold by "
-        static let By = " by "
-        static let ProducedBy = "Produced by "
-        static let At = " at "
-        static let SoldIn = " Sold in "
-        static let NoInformation = "No supply chain info."
-        static let Comma = ", "
+        static let SoldBy = NSLocalizedString("Sold by %@", comment: "Text to indicate the first shop the product is sold in.")
+        static let ProducedBy = NSLocalizedString("Produced in/by %@; ", comment: "Text to indicate the producer of the product.")
+        static let SoldIn = NSLocalizedString("Sold in ", comment: "Text to introduce where the product is sold.")
+        static let NoInformation = NSLocalizedString("No supply chain info.", comment: "Text to indicate that no supply chain infor (origin, producer, etc.) are available.")
+        static let Comma = NSLocalizedString("%@, ", comment: "Just a comma to separate items.")
+        static let Separator = NSLocalizedString("; ", comment: "A sepator between sentence parts.")
     }
 
     @IBOutlet weak var supplyChainLabel: UILabel!
@@ -33,20 +32,21 @@ class ProducerTableViewCell: UITableViewCell {
                 // "Produced by France, Sold in France by Shop"
                 
                 if let producerArray = newProduct.producer {
-                    textToDisplay += !producerArray.isEmpty ? Constants.ProducedBy + producerArray[0] : Constants.EmptyString
+                    textToDisplay += !producerArray.isEmpty ? String(format: Constants.ProducedBy ,producerArray[0]) : Constants.EmptyString
                 }
                 if let countries = newProduct.countries {
                     if !countries.isEmpty {
                         textToDisplay += Constants.SoldIn
                         for listItem in countries {
                             for (_, listItemValue) in listItem {
-                                 textToDisplay += listItemValue + Constants.Comma
+                                textToDisplay += String(format:Constants.Comma, listItemValue)
                             }
                         }
+                        textToDisplay += Constants.Separator
                     }
                 }
                 if let stores = newProduct.stores {
-                    textToDisplay += !stores.isEmpty ? Constants.By + stores[0] : Constants.EmptyString
+                    textToDisplay += !stores.isEmpty ? String(format:Constants.SoldBy, stores[0]) : Constants.EmptyString
                 }
 
             } else {

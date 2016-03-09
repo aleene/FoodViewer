@@ -12,7 +12,7 @@ import TagListView
 class LabelsFullTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoInformation = "no labels specified"
+        static let NoInformation = NSLocalizedString("no labels specified", comment: "Text in a TagListView, when no labels have been specified in the product data.")
     }
 
     

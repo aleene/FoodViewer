@@ -34,19 +34,19 @@ class CompletionStatesTableViewController: UITableViewController {
     }
     
     struct Constants {
-        static let NameCompletionCellTitle = "Productname complete?"
-        static let BrandsCompletionCellTitle = "Brand(s) complete?"
-        static let QuantityCompletionCellTitle = "Quantity complete?"
-        static let PackagingCompletionCellTitle = "Packaging complete?"
-        static let IngredientsCompletionCellTitle = "Ingredients complete?"
-        static let CategoriesCompletionCellTitle = "Categories complete?"
-        static let ExpirationDateCompletionCellTitle = "Expiration date complete?"
-        static let NutritionFactsCompletionCellTitle = "Nutrition facts complete?"
-        static let PhotosUploadedCompletionCellTitle = "Photos uploaded complete?"
-        static let PhotosValidatedCompletionCellTitle = "Photos validated complete?"
-        static let ContributorsHeaderTitle = "Contributors"
-        static let CompletenessHeaderTitle = "Completeness"
-        static let ViewControllerTitle = "Effort"
+        static let NameCompletionCellTitle = NSLocalizedString("Productname complete?", comment: "Title of tableview cell, indicateding whether the productname has been completed.")
+        static let BrandsCompletionCellTitle = NSLocalizedString("Brand(s) complete?", comment: "Title of tableview cell, indicateding whether the product brand field has been filled in.")
+        static let QuantityCompletionCellTitle = NSLocalizedString("Quantity complete?", comment: "Title of tableview cell, indicating whether the product quantity field has been filled in.")
+        static let PackagingCompletionCellTitle = NSLocalizedString("Packaging complete?", comment: "Title of tableview cell, indicating whether the product packaging field has been filled in.")
+        static let IngredientsCompletionCellTitle = NSLocalizedString("Ingredients complete?", comment: "Title of tableview cell, indicating whether the product ingredients field have been filled in")
+        static let CategoriesCompletionCellTitle = NSLocalizedString("Categories complete?", comment: "Title of tableview cell, indicating whether the product categories have been filled in.")
+        static let ExpirationDateCompletionCellTitle = NSLocalizedString("Expiration date complete?", comment: "Title of tableview cell, indicating whether the product expiration date has been filled in.")
+        static let NutritionFactsCompletionCellTitle = NSLocalizedString("Nutrition facts complete?", comment: "Title of tableview cell, indicating whether nutritional facts have been filled in.")
+        static let PhotosUploadedCompletionCellTitle = NSLocalizedString("Photos uploaded complete?", comment: "Title of tableview cell, indicating whether prduct photos have been uploaded.")
+        static let PhotosValidatedCompletionCellTitle = NSLocalizedString("Photos validated complete?", comment: "Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info.")
+        static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
+        static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
+        static let ViewControllerTitle = NSLocalizedString("Community Effort", comment: "Title of view controller, with information on the community that has contributed to the product data.")
     }
 
     // MARK: - Table view data source

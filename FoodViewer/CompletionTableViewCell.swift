@@ -11,13 +11,15 @@ import UIKit
 class CompletionTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let CompletePostText = "% complete"
+        static let CompletePostText = NSLocalizedString("Data is %@ complete", comment: "Text to indicate how much the product data is filled in (available).")
     }
     var product: FoodProduct? = nil {
         didSet {
             if let percentage = product?.state.completionPercentage() {
-                let percentageString = String(format: "%02d", arguments: [percentage])
-                completionLabel?.text = "\(percentageString)" + Constants.CompletePostText
+                let formatter = NSNumberFormatter()
+                formatter.numberStyle = .PercentStyle
+                formatter.maximumFractionDigits = 0
+                completionLabel?.text = String(format:Constants.CompletePostText , formatter.stringFromNumber(percentage/100)!)
             }
         }
     }

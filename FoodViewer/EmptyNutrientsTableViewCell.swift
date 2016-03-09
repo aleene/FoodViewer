@@ -13,7 +13,7 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
 
     
     struct Constants {
-        static let NoTag = "No info available"
+        static let NoTag = NSLocalizedString("No info available", comment: "Text in a TagListView, when no information have been specified in the product data.")
     }
     
     @IBOutlet weak var tagListView: TagListView! {

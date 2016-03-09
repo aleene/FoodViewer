@@ -11,7 +11,7 @@ import UIKit
 class imageViewController: UIViewController, UIScrollViewDelegate {
     
     struct Constants {
-        static let DefaultImageTitle = "no title"
+        static let DefaultImageTitle = NSLocalizedString("No title", comment: "Title for viewcontroller with detailed product images, when no title is given. ")
         static let MinimumZoomScale = CGFloat(50) //%
         static let MaximumZoomScale = CGFloat(500) // %
     }
@@ -47,8 +47,8 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
                     scrollView!.contentSize = newImage.size
                     // The scrollView should be scaled such that the image fits just in the view
                     // either in height or in width
-                    print("scrollView: frame size \(scrollView!.frame.size); bounds size \(scrollView!.bounds.size)")
-                    print("image size: \(newImage.size)")
+                    // print("scrollView: frame size \(scrollView!.frame.size); bounds size \(scrollView!.bounds.size)")
+                    // print("image size: \(newImage.size)")
                     // width image larger than width scrollView
                     let widthScale = image!.size.width / scrollView!.frame.size.width
                     let heightScale = image!.size.height / scrollView!.frame.size.height

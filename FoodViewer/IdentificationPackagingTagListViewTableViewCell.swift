@@ -13,7 +13,7 @@ import TagListView
 class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoInformation = "no packing info specified"
+        static let NoInformation = NSLocalizedString("no packing info specified", comment: "Text for tag in a separate colour, when no packaging infor is available in the product data.") 
     }
 
     @IBOutlet weak var tagListView: TagListView! {

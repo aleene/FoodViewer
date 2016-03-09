@@ -155,13 +155,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     private struct Constants {
-        static let ViewControllerTitle = "Products"
+        static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
         static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
-        static let AlertSheetMessage = "Error retrieving product"
-        static let AlertSheetActionTitle = "Pity"
-        static let NoProductsInHistory = "No products listed"
-        static let ProductNameMissing = "No product name"
-        static let NutritionalText = " nutritional facts noted"
+        static let AlertSheetMessage = NSLocalizedString("Error retrieving product", comment: "Alert message, when the product could not be retrieved from Internet.")
+        static let AlertSheetActionTitle = NSLocalizedString("Pity", comment: "Alert title, to indicate retrieving product did not work")
+        static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
+        static let ProductNameMissing = NSLocalizedString("No product name", comment: "Text in header of section, indicating that the product name is missing.")
+        static let NumberOfNutritionalFactsText = NSLocalizedString("%@ nutritional facts specified", comment: "Cell text for the total number of nutritional facts available.")
     }
     
     var productPageViewController: ProductPageViewController? = nil
@@ -259,7 +259,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             return cell
         case .NutritionFacts:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel!.text = "\(currentProduct.nutritionFacts.count)" + Constants.NutritionalText
+                let formatter = NSNumberFormatter()
+                formatter.numberStyle = .DecimalStyle
+                let formattedCount = formatter.stringFromNumber(currentProduct.nutritionFacts.count)
+                
+                cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
                 return cell
         case .NutritionScore:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell

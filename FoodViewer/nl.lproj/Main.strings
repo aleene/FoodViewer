@@ -1,0 +1,81 @@
+/* Class = "UILabel"; text = "Sat. Fat"; ObjectID = "2PK-oc-6OO"; */
+"2PK-oc-6OO.text" = "Verz. Vetten";
+
+/* Class = "UILabel"; text = "Category summary"; ObjectID = "3Xm-aT-3Hv"; */
+"3Xm-aT-3Hv.text" = "Samenvatting categorie";
+
+/* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
+"5jY-ES-pZe.text" = "eenh.";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
+"8TO-NA-Iaz.title" = "Cancel";
+
+/* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
+"BBX-6q-F2L.text" = "Cr";
+
+/* Class = "UILabel"; text = "Salt"; ObjectID = "DFK-3b-hb1"; */
+"DFK-3b-hb1.text" = "Salt";
+
+/* Class = "UILabel"; text = "Co"; ObjectID = "Dm8-yq-w79"; */
+"Dm8-yq-w79.text" = "Co";
+
+/* Class = "UILabel"; text = "Main product brand"; ObjectID = "Hyf-DH-VMK"; */
+"Hyf-DH-VMK.text" = "Hoofdmerk";
+
+/* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
+"InB-zo-D4X.text" = "I";
+
+/* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
+"PY2-Eu-268.text" = "Voedingswaarde";
+
+/* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
+"R0A-Wg-8tw.text" = "Gemeenschapsinzet";
+
+/* Class = "UILabel"; text = "Value"; ObjectID = "RoF-y0-Tn8"; */
+"RoF-y0-Tn8.text" = "Waarde";
+
+/* Class = "UILabel"; text = "Sugar"; ObjectID = "TUb-j1-7sk"; */
+"TUb-j1-7sk.text" = "Suiker";
+
+/* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
+"XeQ-CI-ELW.text" = "Hoeveelheid";
+
+/* Class = "UILabel"; text = "Ingredients"; ObjectID = "bVH-wU-k1N"; */
+"bVH-wU-k1N.text" = "Ingrediënten";
+
+/* Class = "UILabel"; text = "P"; ObjectID = "eIG-Cg-S6u"; */
+"eIG-Cg-S6u.text" = "P";
+
+/* Class = "UILabel"; text = "Nutritional Facts"; ObjectID = "eWS-0h-9I9"; */
+"eWS-0h-9I9.text" = "Voedingswaarden";
+
+/* Class = "UITableViewController"; title = "Product"; ObjectID = "gMe-4s-6cz"; */
+"gMe-4s-6cz.title" = "Product";
+
+/* Class = "UITextField"; placeholder = "Enter barcode"; ObjectID = "gZ8-Lt-wU3"; */
+"gZ8-Lt-wU3.placeholder" = "Voer streepjescode in";
+
+/* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
+"ihd-JM-WfS.title" = "Barcode";
+
+/* Class = "UILabel"; text = "Fat"; ObjectID = "k7M-yZ-ax3"; */
+"k7M-yZ-ax3.text" = "Vet";
+
+/* Class = "UILabel"; text = "Ingredients summary"; ObjectID = "nF2-es-Hkz"; */
+"nF2-es-Hkz.text" = "Samenvatting ingrediënten";
+
+/* Class = "UILabel"; text = "E"; ObjectID = "oIt-jg-rzb"; */
+"oIt-jg-rzb.text" = "E";
+
+/* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
+"syW-t8-eaP.text" = "Keteninformatie";
+
+/* Class = "UILabel"; text = "State category text"; ObjectID = "wvW-mK-iiF"; */
+"wvW-mK-iiF.text" = "Categorie status tekst";
+
+/* Class = "UILabel"; text = "Contributor name"; ObjectID = "xR6-oy-1vL"; */
+"xR6-oy-1vL.text" = "Naam bijdrager";
+
+/* Class = "UILabel"; text = "Product name"; ObjectID = "zI1-0r-9KS"; */
+"zI1-0r-9KS.text" = "Productnaam";
+

@@ -12,9 +12,8 @@ import TagListView
 class CategoriesTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoInformation = "No categories specified"
-        static let PreText = "Assigned to "
-        static let PostText = " categories."
+        static let NoInformation = NSLocalizedString("No categories specified", comment: "Text to indicate that No categories have been specified in the product data.") 
+        static let CategoryText = NSLocalizedString("Assigned to %@ categories.", comment: "Text to indicate the number of categories the product belongs to.")
     }
 
     @IBOutlet weak var categorySummaryLabel: UILabel!
@@ -23,7 +22,10 @@ class CategoriesTableViewCell: UITableViewCell {
         didSet {
             if let categories = product?.categories {
                 if !categories.isEmpty {
-                    categorySummaryLabel.text = Constants.PreText + "\(categories.count)" + Constants.PostText
+                    let formatter = NSNumberFormatter()
+                    formatter.numberStyle = .DecimalStyle
+                    
+                    categorySummaryLabel.text = String(format: Constants.CategoryText, formatter.stringFromNumber(categories.count)!)
                 } else {
                     categorySummaryLabel.text = Constants.NoInformation
 

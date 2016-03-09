@@ -23,8 +23,8 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     struct Constants {
-        static let DefaultHeader = "No Header"
-        static let ViewControllerTitle = "Categories"
+        // static let DefaultHeader = "No Header"
+        static let ViewControllerTitle = NSLocalizedString("Categories", comment: "Title of ViewController with the categories the product belongs to.")
     }
     
     private struct Storyboard {
@@ -61,7 +61,7 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     struct TableStructure {
-        static let CategoriesSectionHeader = "Categories"
+        static let CategoriesSectionHeader = NSLocalizedString("Categories", comment: "Header title for table section with product Categories") 
         static let CategoriesSectionSize = 1
     }
 

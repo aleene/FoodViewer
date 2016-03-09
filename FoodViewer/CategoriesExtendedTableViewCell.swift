@@ -12,7 +12,7 @@ import TagListView
 class CategoriesExtendedTableViewCell: UITableViewCell {
     
     private struct Constants {
-        static let NoInformation = "No categories specified"
+        static let NoInformation = NSLocalizedString("no categories specified", comment: "Text in a TagListView, when no categories are available in the product data.") 
     }
         
     @IBOutlet weak var listTagListView: TagListView! {

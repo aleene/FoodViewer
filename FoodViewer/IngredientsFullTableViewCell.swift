@@ -14,7 +14,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     @IBOutlet weak var ingredientsLabel: UILabel!
     
     struct Constants {
-        static let NoIngredientsText = "no ingredients specified"
+        static let NoIngredientsText = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.") 
     }
     
     var ingredients: String? = nil {

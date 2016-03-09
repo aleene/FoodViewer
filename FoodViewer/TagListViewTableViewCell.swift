@@ -12,7 +12,7 @@ import TagListView
 class TagListViewTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "no info available"
+        static let NoTag = NSLocalizedString("no info available", comment: "Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour.") 
     }
     
     @IBOutlet weak var tagListView: TagListView! {

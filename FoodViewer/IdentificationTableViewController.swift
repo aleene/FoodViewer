@@ -11,8 +11,8 @@ import UIKit
 class IdentificationTableViewController: UITableViewController {
 
     struct TextConstants {
-        static let ShowIdentificationTitle = "Image"
-        static let ViewControllerTitle = "Identification"
+        static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
+        static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
     }
     
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
@@ -124,13 +124,13 @@ class IdentificationTableViewController: UITableViewController {
         static let PackagingSectionSize = 1
         static let QuantitySectionSize = 1
         static let ImageSectionSize = 1
-        static let BarcodeSectionHeader = "Barcode"
-        static let NameSectionHeader = "Name"
-        static let CommonNameSectionHeader = "Common Name"
-        static let BrandsSectionHeader = "Brands"
-        static let PackagingSectionHeader = "Packaging"
-        static let QuantitySectionHeader = "Quantity"
-        static let ImageSectionHeader = "Main Image"
+        static let BarcodeSectionHeader = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
+        static let NameSectionHeader = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
+        static let CommonNameSectionHeader = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
+        static let BrandsSectionHeader = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
+        static let PackagingSectionHeader = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
+        static let QuantitySectionHeader = NSLocalizedString("Quantity", comment: "Tableview sectionheader for size of package.")
+        static let ImageSectionHeader = NSLocalizedString("Main Image", comment: "Tableview sectionheader for main image of package.")
     }
 
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {

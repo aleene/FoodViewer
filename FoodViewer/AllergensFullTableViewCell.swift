@@ -12,7 +12,7 @@ import TagListView
 class AllergensFullTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "no allergens detected"
+        static let NoTag = NSLocalizedString("no allergens detected", comment: "Text in a TagListView, when no allerges have been detected in the product ingredients.") 
     }
 
     @IBOutlet weak var allergensTagList: TagListView! {

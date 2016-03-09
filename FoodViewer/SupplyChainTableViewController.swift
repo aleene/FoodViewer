@@ -28,8 +28,8 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     private struct Constants {
-        static let DefaultHeader = "No Header"
-        static let ViewControllerTitle = "Supply Chain"
+        // static let DefaultHeader = "No Header"
+        static let ViewControllerTitle = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
     }
     
     private struct Storyboard {
@@ -45,12 +45,12 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     private struct TableStructure {
-        static let ProducerSectionHeader = "Producers"
-        static let ProducerCodeSectionHeader = "Producer Codes"
-        static let IngredientOriginSectionHeader = "Origin ingredient"
-        static let LocationSectionHeader = "Purchase Locations"
-        static let CountriesSectionHeader = "Sales Countries"
-        static let StoresSectionHeader = "Sale Stores"
+        static let ProducerSectionHeader = NSLocalizedString("Producers", comment: "Header for section of tableView with information of the producer (name, geographic location).")
+        static let ProducerCodeSectionHeader = NSLocalizedString("Producer Codes", comment: "Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666).")
+        static let IngredientOriginSectionHeader = NSLocalizedString("Origin ingredient", comment: "Header for section of tableView with location(s) of ingredients.")
+        static let LocationSectionHeader = NSLocalizedString("Purchase Locations", comment: "Header for section of tableView with Locations where the product was bought.")
+        static let CountriesSectionHeader = NSLocalizedString("Sales Countries", comment: "Header for section of tableView with Countries where the product is sold.")
+        static let StoresSectionHeader = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1

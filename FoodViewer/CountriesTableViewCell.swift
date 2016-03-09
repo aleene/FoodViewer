@@ -17,7 +17,7 @@ class CountriesTableViewCell: UITableViewCell {
         static let SoldBy = "sold by "
         static let At = " at "
         static let In = " in "
-        static let NoInformation = "No sales information available."
+        static let NoInformation = NSLocalizedString("No supply chain information available.", comment: "Text to indicate that no information on the supply chain (origin of ingredients, producer, shops, sales location) is present in the data.") 
         static let Comma = ", "
     }
 

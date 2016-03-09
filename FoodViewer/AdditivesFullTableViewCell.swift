@@ -12,7 +12,7 @@ import TagListView
 class AdditivesFullTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "no additives detected"
+        static let NoTag = NSLocalizedString("no additives detected", comment: "Text in a TagListView, when no additives (E-numbers) have been detected in the product ingredients.")
     }
 
     @IBOutlet weak var additivesTagListView: TagListView! {
