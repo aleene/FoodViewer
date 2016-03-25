@@ -31,16 +31,14 @@ class ProducerTableViewCell: UITableViewCell {
                 textToDisplay = Constants.EmptyString
                 // "Produced by France, Sold in France by Shop"
                 
-                if let producerArray = newProduct.producer {
+                if let producerArray = newProduct.producer?.elements {
                     textToDisplay += !producerArray.isEmpty ? String(format: Constants.ProducedBy ,producerArray[0]) : Constants.EmptyString
                 }
                 if let countries = newProduct.countries {
                     if !countries.isEmpty {
                         textToDisplay += Constants.SoldIn
                         for listItem in countries {
-                            for (_, listItemValue) in listItem {
-                                textToDisplay += String(format:Constants.Comma, listItemValue)
-                            }
+                            textToDisplay += String(format:Constants.Comma, listItem.country)
                         }
                         textToDisplay += Constants.Separator
                     }

@@ -25,6 +25,7 @@ class SupplyChainTableViewController: UITableViewController {
         case Location
         case Store
         case Country
+        case Map
     }
     
     private struct Constants {
@@ -35,6 +36,7 @@ class SupplyChainTableViewController: UITableViewController {
     private struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
         static let CountriesCellIdentifier = "Countries TagListView Cell"
+        static let MapCellIdentifier = "Map Cell"
     }
     
     func refresh() {
@@ -51,13 +53,14 @@ class SupplyChainTableViewController: UITableViewController {
         static let LocationSectionHeader = NSLocalizedString("Purchase Locations", comment: "Header for section of tableView with Locations where the product was bought.")
         static let CountriesSectionHeader = NSLocalizedString("Sales Countries", comment: "Header for section of tableView with Countries where the product is sold.")
         static let StoresSectionHeader = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
+        static let MapSectionHeader = NSLocalizedString("Map", comment: "Header for section of tableView with a map of producer, origin and shop locations.")
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1
         static let LocationSectionSize = 1
         static let CountriesSectionSize = 1
         static let StoresSectionSize = 1
-
+        static let MapSectionSize = 1
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -98,6 +101,11 @@ class SupplyChainTableViewController: UITableViewController {
             SectionType.Store,
             TableStructure.StoresSectionSize,
             TableStructure.StoresSectionHeader))
+        sectionsAndRows.append((
+            SectionType.Map,
+            TableStructure.MapSectionSize,
+            TableStructure.MapSectionHeader))
+
         return sectionsAndRows
     }
 
@@ -120,7 +128,7 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .Producer:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.producer
+            cell.tagList = product!.producer?.elements
             return cell
         case .ProducerCode:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
@@ -128,7 +136,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
         case .IngredientOrigin:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.ingredientsOrigin
+            cell.tagList = product!.ingredientsOrigin?.elements
             return cell
         case .Store:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
@@ -136,11 +144,15 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
         case .Location:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.purchaseLocation
+            cell.tagList = product!.purchaseLocation?.elements
             return cell
         case .Country:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CountriesCellIdentifier, forIndexPath: indexPath) as! CountriesTagListViewTableViewCell
             cell.tagList = product!.countries
+            return cell
+        case .Map:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.MapCellIdentifier, forIndexPath: indexPath) as! MapTableViewCell
+            cell.product = product!
             return cell
         }
     }
@@ -150,7 +162,13 @@ class SupplyChainTableViewController: UITableViewController {
         return header
     }
     
+    // MARK: - Notification handler
     
+    func reloadMapSection(notification: NSNotification) {
+        
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+
     // MARK: - Controller Lifecycle
     
     override func viewDidLoad() {
@@ -160,13 +178,15 @@ class SupplyChainTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 80.0
 
         refresh()
+        
+        // NSNotificationCenter.defaultCenter().addObserver(self, selector:"reloadMapSection:", name:SupplyChainLocation.Notification.CoordinateSet, object: nil)
+
         title = Constants.ViewControllerTitle
     }
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        tableView.reloadData()
-//    }
-    
+    override func viewDidDisappear(animated: Bool) {
+        // NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
     
 }

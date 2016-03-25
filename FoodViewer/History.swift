@@ -51,4 +51,10 @@ public struct History {
         }
     }
     
+    mutating func removeAll() {
+        barcodes.removeAll()
+        defaults.setObject(barcodes, forKey: Constants.HistoryKey)
+        defaults.synchronize()
+    }
+    
 }

@@ -261,7 +261,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesHierarchyKey]?.stringArray
                     // = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups1Key]?.string
                 decodeCompletionStates(jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray, forProduct:product)
-                
+                decodeLastEditDates(jsonObject?[OFFJson.ProductKey]?[OFFJson.LastEditDatesTagsKey]?.stringArray, forProduct:product)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
                 product.labelArray = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
@@ -307,9 +307,9 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Fiber100gKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Energy100gKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.saturatedFatKey]?.string
-                product.countries = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray)
+                product.languageCountryArray(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
-                product.purchaseLocation = jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray
+                product.purchaseLocationElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray)
                 product.producerCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
                 product.brandsArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string
@@ -375,8 +375,8 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradesTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingQuantityKey]?.double
-                product.ingredientsOrigin = jsonObject?[OFFJson.ProductKey]?[OFFJson.OriginsTagsKey]?.stringArray
-                product.producer = jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesTags]?.stringArray
+                product.ingredientsOriginElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.OriginsTagsKey]?.stringArray)
+                product.producerElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesTags]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionDataPerKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CitiesTagsKey]?.stringArray
@@ -579,15 +579,37 @@ class OpenFoodFactsRequest {
             }
         }
     }
+    
+    private func decodeLastEditDates(editDates: [String]?, forProduct:FoodProduct) {
+        if let dates = editDates {
+            var uniqueDates = Set<NSDate>()
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            dateFormatter.locale = NSLocale(localeIdentifier: "EN_en")
+            // use only valid dates
+            for date in dates {
+                // a valid date format is 2014-07-20
+                if date.rangeOfString( "...-..-..", options: .RegularExpressionSearch) != nil {
+                    if let newDate = dateFormatter.dateFromString(date) {
+                        uniqueDates.insert(newDate)
+                    }
+                }
+            }
+            
+            forProduct.lastEditDates = uniqueDates.sort { $0.compare($1) == .OrderedAscending }
+        }
+    }
+
 
     // This function splits an element in an array in a language and value part
     func splitLanguageElements(inputArray: [String]?) -> [[String: String]]? {
         if let elementsArray = inputArray {
             if !elementsArray.isEmpty {
-                var outputArray: [[String:String]] = [[:]]
+                var outputArray: [[String:String]] = []
                 for element in elementsArray {
                     let elementsPair = element.characters.split{$0 == ":"}.map(String.init)
-                    outputArray.append([elementsPair[0]:elementsPair[1]])
+                    let dict = Dictionary(dictionaryLiteral: (elementsPair[0], elementsPair[1]))
+                    outputArray.insert(dict, atIndex: 0)
                 }
                 return outputArray
             } else {

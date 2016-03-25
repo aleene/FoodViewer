@@ -94,7 +94,9 @@ class IngredientsTableViewController: UITableViewController {
             return cell!
         case .Image:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
-            cell!.ingredientsImage = ingredientsImage
+            if let data = product?.ingredientsImageData {
+                cell!.ingredientsImage = UIImage(data:data)
+            }
             return cell!
         }
     }
@@ -128,37 +130,37 @@ class IngredientsTableViewController: UITableViewController {
         //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        // 1: ingredients
+        // 0: ingredients
         sectionsAndRows.append((SectionType.Ingredients,
             TableStructure.IngredientsSectionSize,
             TableStructure.IngredientsSectionHeader))
         
-        // 2:  allergens section
+        // 1:  allergens section
         sectionsAndRows.append((
             SectionType.Allergens,
             TableStructure.AllergensSectionSize,
             TableStructure.AllergensSectionHeader))
         
-        // 3: traces section
+        // 2: traces section
         sectionsAndRows.append((
             SectionType.Traces,
             TableStructure.TracesSectionSize,
             TableStructure.TracesSectionHeader))
     
-        // 4: additives section
+        // 3: additives section
         sectionsAndRows.append((
             SectionType.Additives,
             TableStructure.AdditivesSectionSize,
             TableStructure.AdditivesSectionHeader))
         
-        // 5: labels section
+        // 4: labels section
         sectionsAndRows.append((
             SectionType.Labels,
             TableStructure.LabelsSectionSize,
             TableStructure.LabelsSectionHeader))
         
         
-        // 6: image section
+        // 5: image section
         sectionsAndRows.append((
             SectionType.Image,
             TableStructure.ImageSectionSize,
@@ -179,9 +181,10 @@ class IngredientsTableViewController: UITableViewController {
                     if imageData.length > 0 {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image
-                            self.ingredientsImage = UIImage(data: imageData)
-                            // print("image bounds \(self.productImageView.image?.size)")
+                            // set the received image data to the current product if valid
+                            if self.product?.imageIngredientsUrl == imageURL  {
+                                self.product?.ingredientsImageData = imageData
+                            } // else bad luck corresponding product is no longer there
                         })
                     }
                 }
@@ -207,6 +210,14 @@ class IngredientsTableViewController: UITableViewController {
         }
     }
 
+    // MARK: - Notification handler
+    
+    func reloadImageSection(notification: NSNotification) {
+        
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+    
+
     // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
@@ -221,6 +232,8 @@ class IngredientsTableViewController: UITableViewController {
             tableView.reloadData()
         }
         title = TextConstants.ViewControllerTitle
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"reloadImageSection:", name:FoodProduct.Notification.IngredientsImageSet, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -228,9 +241,12 @@ class IngredientsTableViewController: UITableViewController {
         if product != nil {
             tableView.reloadData()
         }
-        
     }
     
-    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
+
 
 }

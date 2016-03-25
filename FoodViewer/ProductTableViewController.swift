@@ -229,6 +229,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         static let CompletionCellIdentifier = "Product Completion State Cell"
         static let ProducerCellIdentifier = "Product Producer Cell"
         static let ToPageViewControllerSegue = "Show Page Controller"
+        static let ShowSettingsSegueIdentifier = "Show Settings"
     }
     
     
@@ -327,6 +328,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                         ppvc.pageIndex = selectedIndex
                     }
                 }
+            case Storyboard.ShowSettingsSegueIdentifier:
+                if let vc = segue.destinationViewController as? SettingsTableViewController {
+                        vc.storedHistory = storedHistory
+                }
+
             default: break
             }
         }
@@ -346,6 +352,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             searchTextField.text = vc.barcode
         }
     }
+    
+    @IBAction func settingsDone(segue:UIStoryboardSegue) {
+        if let _ = segue.sourceViewController as? SettingsTableViewController {
+            storedHistory = History()
+            products = []
+        }
+    }
+
 
     // MARK: - Viewcontroller lifecycle
 

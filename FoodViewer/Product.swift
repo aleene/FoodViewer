@@ -7,8 +7,14 @@
 //
 
 import Foundation
+import MapKit
 
 class FoodProduct {
+    
+    internal struct Notification {
+        static let MainImageSet = "FoodProduct.Notification.MainImageSet"
+        static let IngredientsImageSet = "FoodProduct.Notification.IngredientsImageSet"
+    }
     
     // Primary variables
     
@@ -19,7 +25,13 @@ class FoodProduct {
     var brandsArray: [String]? = nil
     var mainUrlThumb: NSURL?    
     var mainUrl: NSURL? = nil
-    var mainImageData: NSData? = nil
+    var mainImageData: NSData? = nil {
+        didSet {
+            if mainImageData != nil {
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object: nil)
+            }
+        }
+    }
     
     // packaging parameters
     var quantity: String? = nil
@@ -30,15 +42,18 @@ class FoodProduct {
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil
+    var ingredientsImageData: NSData? = nil {
+        didSet {
+            if mainImageData != nil {
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object: nil)
+            }
+        }
+    }
+
     var allergens: [[String: String]]? = nil
     var traces: [[String: String]]? = nil
     var additives: [[String: String]]? = nil
     var labelArray: [[String: String]]? = nil
-
-    // production parameters
-    var producer: [String]? = nil
-    var ingredientsOrigin: [String]? = nil
-    var producerCode: [String]? = nil
     
     // usage parameters
     var servingSize: String? = nil
@@ -51,12 +66,56 @@ class FoodProduct {
     
     // supply chain parameters
     var nutritionGrade: NutritionalGradeLevel? = nil
-    var purchaseLocation: [String]? = nil //or a set?
-    var stores: [String]? = nil //or a set?
-    var countries: [[String: String]]? = nil //or a set?
+    var purchaseLocation: Address? = nil //or a set?
     
+    func purchaseLocationElements(elements: [String]?) {
+        if elements != nil && !elements!.isEmpty {
+            self.purchaseLocation = Address()
+            self.purchaseLocation!.elements = elements
+        }
+    }
+    
+    var stores: [String]? = nil //or a set?
+    var countries: [Address]? = nil //or a set?
+    
+    func languageCountryArray(countries:[String]?) {
+        if let array = countries {
+            for element in array {
+                if !element.isEmpty {
+                    if self.countries == nil {
+                        self.countries = []
+                    }
+                    let newAddress = Address()
+                    newAddress.languageCountry = element
+                    self.countries!.append(newAddress)
+                }
+            }
+        }
+    }
+
+    var producer: Address? = nil
+    
+    func producerElements(elements: [String]?) {
+        if elements != nil && !elements!.isEmpty {
+            self.producer = Address()
+            self.producer!.elements = elements
+        }
+    }
+    
+    var ingredientsOrigin: Address? = nil
+    
+    func ingredientsOriginElements(elements: [String]?) {
+        if elements != nil && !elements!.isEmpty {
+            self.ingredientsOrigin = Address()
+            self.ingredientsOrigin!.elements = elements
+        }
+    }
+
+    var producerCode: [String]? = nil
+
     // contributor parameters
     var additionDate: NSDate? = nil
+    var lastEditDates: [NSDate]? = nil
     var creator: String? = nil {
         didSet {
             if let user = creator {

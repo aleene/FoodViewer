@@ -40,11 +40,7 @@ class IdentificationTableViewController: UITableViewController {
             if product != nil {
                 // identificationImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
-                /*
-                if product!.mainUrl != nil {
-                    retrieveImage(product!.mainUrl!)
-                }
-                */
+
                 tableView.reloadData()
             }
         }
@@ -142,10 +138,10 @@ class IdentificationTableViewController: UITableViewController {
         //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        // 1: barcode section always exists
+        // 0: barcode section always exists
         sectionsAndRows.append((SectionType.Barcode, TableStructure.BarcodeSectionSize, TableStructure.BarcodeSectionHeader))
         
-        // 2:  name section
+        // 1:  name section
         if product.name != nil {
             sectionsAndRows.append((
                 SectionType.Name,
@@ -153,7 +149,7 @@ class IdentificationTableViewController: UITableViewController {
                 TableStructure.NameSectionHeader))
         }
         
-        // 3: common name section
+        // 2: common name section
         if product.commonName != nil {
             sectionsAndRows.append((
                 SectionType.CommonName,
@@ -161,7 +157,7 @@ class IdentificationTableViewController: UITableViewController {
                 TableStructure.CommonNameSectionHeader))
         }
         
-        // 4: brands section
+        // 3: brands section
         if product.nutritionScore != nil {
             sectionsAndRows.append((
                 SectionType.Brands,
@@ -169,7 +165,7 @@ class IdentificationTableViewController: UITableViewController {
                 TableStructure.BrandsSectionHeader))
         }
         
-        // 5: packaging section
+        // 4: packaging section
         if product.categories != nil {
             sectionsAndRows.append((
                 SectionType.Packaging,
@@ -177,7 +173,7 @@ class IdentificationTableViewController: UITableViewController {
                 TableStructure.PackagingSectionHeader))
         }
         
-        // 6: quantity section
+        // 5: quantity section
         if product.countries != nil {
             sectionsAndRows.append((
                 SectionType.Quantity,
@@ -185,7 +181,7 @@ class IdentificationTableViewController: UITableViewController {
                 TableStructure.QuantitySectionHeader))
         }
         
-        // 7: image section
+        // 6: image section
         if product.mainUrl != nil {
             sectionsAndRows.append((
                 SectionType.Image,
@@ -238,6 +234,13 @@ class IdentificationTableViewController: UITableViewController {
 
     }
     
+    // MARK: - Notification handler
+    
+    func reloadImageSection(notification: NSNotification) {
+        
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+    }
+    
     // MARK: - ViewController Lifecycle
 
     override func viewDidLoad() {
@@ -246,6 +249,8 @@ class IdentificationTableViewController: UITableViewController {
             
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
+        
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -254,6 +259,8 @@ class IdentificationTableViewController: UITableViewController {
             tableView.reloadData()
         }
         navigationController?.setNavigationBarHidden(false, animated: false)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"reloadImageSection:", name:FoodProduct.Notification.MainImageSet, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -262,8 +269,11 @@ class IdentificationTableViewController: UITableViewController {
         if product != nil {
             tableView.reloadData()
         }
-
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
 
 }

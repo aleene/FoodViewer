@@ -23,15 +23,13 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [[String: String]]? = nil {
+    var tagList: [Address]? = nil {
         didSet {
             if let list = tagList {
                 countriesTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        for (_, listItemValue) in listItem {
-                            countriesTagListView.addTag(listItemValue)
-                        }
+                        countriesTagListView.addTag(listItem.country)
                     }
                     countriesTagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {

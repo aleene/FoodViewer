@@ -31,6 +31,7 @@ class CompletionStatesTableViewController: UITableViewController {
     struct Storyboard {
         static let CompletionStateCellIdentifier = "Completion State Cell"
         static let ContributorsCellIdentifier = "Contributor Cell"
+        static let LastEditDateCellIdentifier = "Edit Date Cell"
     }
     
     struct Constants {
@@ -46,13 +47,14 @@ class CompletionStatesTableViewController: UITableViewController {
         static let PhotosValidatedCompletionCellTitle = NSLocalizedString("Photos validated complete?", comment: "Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info.")
         static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
         static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
+        static let LastEditDateHeaderTitle = NSLocalizedString("Edit Dates", comment: "Header title of the tableview section, indicating when the product data was edited.")
         static let ViewControllerTitle = NSLocalizedString("Community Effort", comment: "Title of view controller, with information on the community that has contributed to the product data.")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return product != nil ? 2 : 0
+        return product != nil ? 3 : 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,6 +63,8 @@ class CompletionStatesTableViewController: UITableViewController {
             return product != nil ? 10 : 0
         case 1:
             return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
+        case 2:
+            return product?.lastEditDates != nil ? product!.lastEditDates!.count : 0
         default:
             return 0
         }
@@ -86,8 +90,8 @@ class CompletionStatesTableViewController: UITableViewController {
                 return cell
             case 3:
                 cell.state = product!.state.packagingComplete
-            cell.stateTitle = Constants.PackagingCompletionCellTitle
-            return cell
+                cell.stateTitle = Constants.PackagingCompletionCellTitle
+                return cell
             case 4:
                 cell.state = product!.state.ingredientsComplete
                 cell.stateTitle = Constants.IngredientsCompletionCellTitle
@@ -113,11 +117,18 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.stateTitle = Constants.PhotosValidatedCompletionCellTitle
                 return cell
             }
-        } else {
+        } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ContributorsCellIdentifier, forIndexPath: indexPath) as? ContributorTableViewCell
                 
             cell?.contributor = product!.productContributors.contributors[indexPath.row]
             return cell!
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LastEditDateCellIdentifier, forIndexPath: indexPath)
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .NoStyle
+            cell.textLabel!.text = formatter.stringFromDate(product!.lastEditDates![indexPath.row])
+            return cell
         }
     }
     
@@ -128,6 +139,8 @@ class CompletionStatesTableViewController: UITableViewController {
             return Constants.CompletenessHeaderTitle
         case 1:
             return product?.contributorsArray[section] != nil ? Constants.ContributorsHeaderTitle : nil
+        case 2:
+            return Constants.LastEditDateHeaderTitle
         default:
             return nil
         }
