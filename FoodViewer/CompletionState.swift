@@ -22,7 +22,7 @@ struct CompletionState {
     var expirationDateComplete: Bool = false
     
     func completionPercentage() -> Int {
-        return Int(photosValidatedComplete) * 10 +
+        let val = Int(photosValidatedComplete) * 10 +
             Int(productNameComplete) * 10 +
             Int(brandsComplete) * 10 +
             Int(quantityComplete) * 10 +
@@ -32,5 +32,10 @@ struct CompletionState {
             Int(photosUploadedComplete) * 10 +
             Int(ingredientsComplete) * 10 +
             Int(expirationDateComplete) * 10
+        return val
+    }
+    
+    func completionPercentageAsDouble() -> Double {
+        return Double(completionPercentage()) / 100.0
     }
 }

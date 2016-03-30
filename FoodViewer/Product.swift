@@ -128,6 +128,7 @@ class FoodProduct {
         }
     }
     var state = CompletionState()
+    
     var primaryLanguage: String? = nil
 
     // group parameters
@@ -202,7 +203,7 @@ class FoodProduct {
         var contributors: [Contributor] = []
         
         func indexOf(name: String) -> Int? {
-            for var index = 0; index < contributors.count; ++index {
+            for index in 0 ..< contributors.count {
                 if contributors[index].name == name {
                     return index
                 }
@@ -255,81 +256,6 @@ class FoodProduct {
     }
     
     
-    /*
-    // completion states parameters
-    struct CompletionState {
-        var photosValidatedComplete : Bool = false
-        var productNameComplete : Bool = false
-        var brandsComplete: Bool = false
-        var quantityComplete: Bool = false
-        var packagingComplete: Bool = false
-        var categoriesComplete: Bool = false
-        var nutritionFactsComplete: Bool = false
-        var photosUploadedComplete: Bool = false
-        var ingredientsComplete: Bool = false
-        var expirationDateComplete: Bool = false
-        
-        func completionPercentage() -> Int {
-            return Int(photosValidatedComplete) * 10 +
-                Int(productNameComplete) * 10 +
-                Int(brandsComplete) * 10 +
-                Int(quantityComplete) * 10 +
-                Int(packagingComplete) * 10 +
-                Int(categoriesComplete) * 10 +
-                Int(nutritionFactsComplete) * 10 +
-                Int(photosUploadedComplete) * 10 +
-                Int(ingredientsComplete) * 10 +
-                Int(expirationDateComplete) * 10
-        }
-    }
-    enum NutritionalGradeLevel {
-        case A
-        case B
-        case C
-        case D
-        case E
-        case Undefined
-        
-        mutating func int(value: Int?) {
-            if let existingValue = value {
-                if existingValue <= -1 {
-                    self = .A
-                } else if existingValue <= 2 {
-                    self = .B
-                } else if existingValue <= 10 {
-                    self = .C
-                } else if existingValue <= 18 {
-                    self = .D
-                } else if existingValue > 18 {
-                    self = .E
-                }
-            } else {
-                self = .Undefined
-            }
-        }
-        
-        mutating func string(value: String?) {
-            if let existingValue = value {
-                if existingValue == "a" {
-                    self = .A
-                } else if existingValue == "b" {
-                    self = .B
-                } else if existingValue == "c" {
-                    self = .C
-                } else if existingValue == "d" {
-                    self = .D
-                } else if existingValue == "e" {
-                    self = .E
-                } else {
-                    self = .Undefined
-                }
-            } else {
-                self = .Undefined
-            }
-        }
-
-    }
-    */
     init() {
         barcode = BarcodeType.Undefined("")
         name = nil

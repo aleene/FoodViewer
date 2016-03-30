@@ -19,7 +19,7 @@ class CompletionTableViewCell: UITableViewCell {
                 let formatter = NSNumberFormatter()
                 formatter.numberStyle = .PercentStyle
                 formatter.maximumFractionDigits = 0
-                completionLabel?.text = String(format:Constants.CompletePostText , formatter.stringFromNumber(percentage/100)!)
+                completionLabel?.text = String(format:Constants.CompletePostText, formatter.stringFromNumber(Double(percentage) / 100.0)!)
             }
         }
     }

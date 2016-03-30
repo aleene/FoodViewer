@@ -233,7 +233,7 @@ class IngredientsTableViewController: UITableViewController {
         }
         title = TextConstants.ViewControllerTitle
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"reloadImageSection:", name:FoodProduct.Notification.IngredientsImageSet, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.IngredientsImageSet, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {

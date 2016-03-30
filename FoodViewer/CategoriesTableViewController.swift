@@ -92,5 +92,9 @@ class CategoriesTableViewController: UITableViewController {
         title = Constants.ViewControllerTitle
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
 
+    }
 }

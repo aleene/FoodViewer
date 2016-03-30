@@ -96,7 +96,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
     func zoomMapViewToFitAnnotations(mapView: MKMapView, animated: Bool)
     {
         struct MapkitConstants {
-            static let MINIMUM_ZOOM_ARC = CLLocationDegrees(5)  //approximately 1 miles (1 degree of arc ~= 69 miles)
+            static let MINIMUM_ZOOM_ARC = CLLocationDegrees(5)  // (1 degree of arc ~= 110 km)
             static let ANNOTATION_REGION_PAD_FACTOR = 1.15
             static let MAX_DEGREES_ARC = CLLocationDegrees(360)
             static let MaxDegreesLatitude = CLLocationDegrees(180)
@@ -111,9 +111,6 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         center.latitude = (max.latitude - min.latitude) / 2 + min.latitude
         center.longitude = (max.longitude - min.longitude) / 2 + min.longitude
         
-        //create MKMapRect from array of MKMapPoint
-        // let mapRect = MKMapRect( ) // [[MKPolygon polygonWithPoints:points count:count] boundingMapRect];MKMapRect
-        //convert MKCoordinateRegion from MKMapRect
         var region = MKCoordinateRegion(center: center, span: span)
     
         //add padding so pins aren't scrunched on the edges

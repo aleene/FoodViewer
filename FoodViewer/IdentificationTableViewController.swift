@@ -238,7 +238,9 @@ class IdentificationTableViewController: UITableViewController {
     
     func reloadImageSection(notification: NSNotification) {
         
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+        if numberOfSectionsInTableView(tableView) > 5 {
+            tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
     }
     
     // MARK: - ViewController Lifecycle
@@ -260,7 +262,7 @@ class IdentificationTableViewController: UITableViewController {
         }
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:"reloadImageSection:", name:FoodProduct.Notification.MainImageSet, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.MainImageSet, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {

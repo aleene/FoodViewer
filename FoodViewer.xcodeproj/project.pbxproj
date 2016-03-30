@@ -48,7 +48,6 @@
 		51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0091C734D6900598444 /* IdentificationImageTableViewCell.swift */; };
 		51AFB00C1C73965800598444 /* IdentificationPackagingTagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB00B1C73965800598444 /* IdentificationPackagingTagListViewTableViewCell.swift */; };
 		51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB00D1C74876D00598444 /* ContributorTableViewCell.swift */; };
-		51C29E3E1C6F89E800271708 /* 3608580744184.json in Resources */ = {isa = PBXBuildFile; fileRef = 51C29E3D1C6F89E800271708 /* 3608580744184.json */; };
 		51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */; };
 		51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */; };
 		51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */; };
@@ -62,9 +61,7 @@
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
-		51DAD3791C60A6A200895513 /* 737628064502.json in Resources */ = {isa = PBXBuildFile; fileRef = 51DAD3781C60A6A200895513 /* 737628064502.json */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
-		51E614921C821EFE00DAEE6C /* 6524654176.json in Resources */ = {isa = PBXBuildFile; fileRef = 51E614911C821EFE00DAEE6C /* 6524654176.json */; };
 		51E614941C8349AD00DAEE6C /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E614931C8349AD00DAEE6C /* History.swift */; };
 		51EA98B61C64A3C3000A503D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 51EA98B51C64A3C3000A503D /* Podfile */; };
 		51EA98B81C64A3DD000A503D /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EA98B71C64A3DD000A503D /* JSON.swift */; };
@@ -72,6 +69,8 @@
 
 /* Begin PBXFileReference section */
 		0AF4ACF2982F575976B35403 /* Pods_FoodViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		51243AA41CA92906003F6D88 /* 20454456.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 20454456.json; sourceTree = "<group>"; };
+		51243AA51CA93DCB003F6D88 /* APIDataFields.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = APIDataFields.txt; path = ../APIDataFields.txt; sourceTree = "<group>"; };
 		512499A01C6CD0100061A083 /* imageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
@@ -116,6 +115,7 @@
 		51AFB0091C734D6900598444 /* IdentificationImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationImageTableViewCell.swift; sourceTree = "<group>"; };
 		51AFB00B1C73965800598444 /* IdentificationPackagingTagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationPackagingTagListViewTableViewCell.swift; sourceTree = "<group>"; };
 		51AFB00D1C74876D00598444 /* ContributorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributorTableViewCell.swift; sourceTree = "<group>"; };
+		51B63CFE1CA80C4000391C34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		51C29E3D1C6F89E800271708 /* 3608580744184.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3608580744184.json; sourceTree = "<group>"; };
 		51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
 		51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProducerTableViewCell.swift; sourceTree = "<group>"; };
@@ -207,6 +207,7 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
+				51B63CFE1CA80C4000391C34 /* README.md */,
 				51EA98B51C64A3C3000A503D /* Podfile */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				5180B9051C5D3B57002DBD21 /* Products */,
@@ -243,6 +244,7 @@
 			children = (
 				516D0C2F1C8F4CC400C1C789 /* Localizable.strings */,
 				516D0C2A1C8F4CC300C1C789 /* InfoPlist.strings */,
+				51243AA51CA93DCB003F6D88 /* APIDataFields.txt */,
 				51E614911C821EFE00DAEE6C /* 6524654176.json */,
 				51DAD3781C60A6A200895513 /* 737628064502.json */,
 				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
@@ -250,6 +252,7 @@
 				5180B90E1C5D3B57002DBD21 /* Assets.xcassets */,
 				5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */,
 				5180B9131C5D3B57002DBD21 /* Info.plist */,
+				51243AA41CA92906003F6D88 /* 20454456.json */,
 			);
 			name = "Support files";
 			sourceTree = "<group>";
@@ -398,14 +401,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				51EA98B61C64A3C3000A503D /* Podfile in Resources */,
-				51E614921C821EFE00DAEE6C /* 6524654176.json in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
-				51C29E3E1C6F89E800271708 /* 3608580744184.json in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				516D0C2D1C8F4CC400C1C789 /* Localizable.strings in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				516D0C281C8F4CC300C1C789 /* InfoPlist.strings in Resources */,
-				51DAD3791C60A6A200895513 /* 737628064502.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

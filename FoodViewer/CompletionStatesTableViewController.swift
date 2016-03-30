@@ -138,7 +138,11 @@ class CompletionStatesTableViewController: UITableViewController {
         case 0:
             return Constants.CompletenessHeaderTitle
         case 1:
-            return product?.contributorsArray[section] != nil ? Constants.ContributorsHeaderTitle : nil
+            if section <= product?.contributorsArray.count {
+                return product?.contributorsArray[section] != nil ? Constants.ContributorsHeaderTitle : nil
+            } else {
+                return nil
+            }
         case 2:
             return Constants.LastEditDateHeaderTitle
         default:

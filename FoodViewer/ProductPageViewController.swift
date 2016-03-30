@@ -12,6 +12,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     struct Constants {
         static let StoryBoardIdentifier = "Main"
+        static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
         static let IdentificationVCIdentifier = "IdentificationTableViewController"
         static let IngredientsVCIdentifier = "IngredientsTableViewController"
         static let NutrientsVCIdentifier = "NutrientsTableViewController"
@@ -19,6 +20,17 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let CategoriesVCIdentifier = "CategoriesTableViewController"
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
     }
+    
+    @IBAction func actionButtonTapped(sender: UIBarButtonItem) {
+        if let barcode = product?.barcode.asString() {
+            let urlString = Constants.OpenFoodFactsWebEditURL + barcode
+            if let requestUrl = NSURL(string: urlString) {
+                UIApplication.sharedApplication().openURL(requestUrl)
+            }
+        }
+
+    }
+    
     var pageIndex = 0 {
         didSet {
             if product != nil {

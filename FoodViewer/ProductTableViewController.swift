@@ -1,4 +1,4 @@
-//
+ //
 //  ProductTableViewController.swift
 //  FoodViewer
 //
@@ -24,9 +24,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                     refreshInterface()
                     // This should happen only once?
                     // It is possible that at this stage the relevant product data has not been loaded yet
-                    performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+                    // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
                     // scroll to the top product in the tableview
-                    tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
                 }
             }
         }
@@ -49,7 +48,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                     switch fetchResult {
                     case .Success(let newProduct):
                         self.updateProduct(newProduct)
-                        self.tableView.reloadData()
+                        self.refreshInterface()
                     case .Error(let error):
                         let alert = UIAlertController(
                             title: Constants.AlertSheetMessage,
@@ -67,8 +66,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     private func refreshInterface() {
         if products.count > 0 {
             selectedProduct = products.first
-            selectedIndex = 0
             tableView.reloadData()
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
         }
     }
     
@@ -78,7 +77,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             if !products.isEmpty {
                 // look at all products
                 var indexExistingProduct: Int? = nil
-                for var index = 0; index < products.count; ++index {
+                for index in 0 ..< products.count {
                     // print("products \(products[index].barcode.asString()); update \(productToUpdate.barcode.asString())")
                     if products[index].barcode.asString() == productToUpdate.barcode.asString() {
                         indexExistingProduct = index
@@ -97,7 +96,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                     // reset product information to the retrieved one
                     self.products[indexExistingProduct!] = productToUpdate
                     if historyHasBeenLoaded != nil {
-                        ++historyHasBeenLoaded!
+                        historyHasBeenLoaded! += 1
                     }
                 }
             } else {
@@ -134,7 +133,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                             if !self.products.isEmpty {
                                 // look at all products
                                 var indexExistingProduct: Int? = nil
-                                for var index = 0; index < self.products.count; ++index {
+                                for index in 0 ..< self.products.count {
                                     if self.products[index].mainUrl == imageURL {
                                         indexExistingProduct = index
                                     }
@@ -156,7 +155,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     private struct Constants {
         static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
-        static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
         static let AlertSheetMessage = NSLocalizedString("Error retrieving product", comment: "Alert message, when the product could not be retrieved from Internet.")
         static let AlertSheetActionTitle = NSLocalizedString("Pity", comment: "Alert title, to indicate retrieving product did not work")
         static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
@@ -167,17 +165,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     var productPageViewController: ProductPageViewController? = nil
     
     // MARK: - Actions
-    
-    @IBAction func openSafari(sender: UIBarButtonItem) {
-        
-        if let barcode = selectedProduct?.barcode.asString() {
-            let urlString = Constants.OpenFoodFactsWebEditURL + barcode
-            if let requestUrl = NSURL(string: urlString) {
-                UIApplication.sharedApplication().openURL(requestUrl)
-            }
-        }
-    }
-    
     
     // MARK: - TextField Methods
 
@@ -202,9 +189,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
 
     // MARK: - Table view methods and vars
     
-    private var selectedProduct: FoodProduct? = nil
+    private var selectedProduct: FoodProduct? = nil {
+        didSet {
+            if selectedIndex == nil {
+                selectedIndex = 0
+            }
+            showSelectedProduct()
+        }
+    }
     
-    private var selectedIndex = 0
+    private var previousProduct: FoodProduct? = nil
+    
+    private var selectedIndex: Int? = nil // this indicates which part of the product must be shown
+    
+    private func showSelectedProduct() {
+        // prevent that to many changes are pushed on the view stack
+        // check the current presented controller
+        // only segue if we are at the top of the stack
+        // i.e. only segue once
+        if let parentVC = self.parentViewController as? UINavigationController {
+            if let _ = parentVC.visibleViewController as? ProductTableViewController {
+                performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+            }
+        }
+    }
 
     private enum RowType {
         case Name
@@ -295,7 +303,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             // row 6 is the nutritional score, which has no correponding page
             selectedIndex = indexPath.row
             selectedProduct = products[indexPath.section]
-            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+            // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
     }
    
@@ -325,7 +333,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
                 if let vc = segue.destinationViewController as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
-                        ppvc.pageIndex = selectedIndex
+                        if let index = selectedIndex {
+                            ppvc.pageIndex = index
+                        }
                     }
                 }
             case Storyboard.ShowSettingsSegueIdentifier:
@@ -385,7 +395,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             } else {
                 historyHasBeenLoaded = nil
             }
-            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+            // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
     }
     
