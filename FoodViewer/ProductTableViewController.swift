@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProductTableViewController: UITableViewController, UITextFieldDelegate {
+class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
 
     private var products: [FoodProduct] = []
     
@@ -168,28 +168,36 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - TextField Methods
 
-    let button = UIButton(type: UIButtonType.Custom)
-
+    // let button = UIButton(type: UIButtonType.Custom)
+    
+    var activeTextField = UITextField()
+    
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            searchTextField.keyboardType = .NumberPad
             if let searchText = barcode?.asString() {
                 searchTextField.text = searchText
             }
         }
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == searchTextField {
-            textField.resignFirstResponder()
-            if let searchText = textField.text {
-                barcode = BarcodeType(value:searchText)
-            }
-        }
-        return true
-    }
     
+    func textFieldDidBeginEditing(textFieldUser: UITextField) {
+        activeTextField = textFieldUser
+    }
+
+    /*
+     
+     func textFieldShouldReturn(textField: UITextField) -> Bool {
+     if textField == searchTextField {
+     textField.resignFirstResponder()
+     if let searchText = textField.text {
+     barcode = BarcodeType(value:searchText)
+     }
+     }
+     return true
+     }
+
     func keyboardReturnButton() {
     
         button.setTitle("Return", forState: UIControlState.Normal)
@@ -208,8 +216,35 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProductTableViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
     }
+    */
+    
+    func initializeCustomKeyboard() {
+        // initialize custom keyboard
+        let keyboardView = Keyboard(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
+        
+        searchTextField.inputView = keyboardView
+
+        // the view controller will be notified by the keyboard whenever a key is tapped
+        keyboardView.delegate = self
+    }
+
+    func keyWasTapped(character: String) {
+        activeTextField.insertText(character)
+    }
+    
+    func backspace() {
+        activeTextField.deleteBackward()
+    }
+
+    func enter() {
+        view.endEditing(true)
+        if !searchTextField.text!.isEmpty {
+            barcode = BarcodeType(value:searchTextField.text!)
+        }
+    }
 
     
+    /*
     // http://iosdevcenters.blogspot.com/2016/01/how-to-adding-return-key-in-number.html
     //
     func keyboardWillShow(note : NSNotification) -> Void{
@@ -227,7 +262,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             })
         }
     }
-
+    */
 
     // MARK: - Table view methods and vars
     
@@ -440,7 +475,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
         
-        keyboardReturnButton()
+        initializeCustomKeyboard()
+        // keyboardReturnButton()
         
     }
     
