@@ -17,14 +17,6 @@ class IdentificationTableViewController: UITableViewController {
     
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    /*
-    private var identificationImage: UIImage? = nil {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-*/
-    
     private enum SectionType {
         case Barcode
         case Name
@@ -35,12 +27,12 @@ class IdentificationTableViewController: UITableViewController {
         case Image
     }
     
+    var imageHasBeenSet = false
+    
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                // identificationImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
-
                 tableView.reloadData()
             }
         }
@@ -96,17 +88,55 @@ class IdentificationTableViewController: UITableViewController {
             return cell!
         case .Quantity:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product!.quantity!
+            cell.textLabel?.text = product!.quantity != nil ? product!.quantity! : ""
             return cell
         case .Image:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
             if let data = product?.mainImageData {
                 cell!.identificationImage = UIImage(data:data)
+                imageHasBeenSet = true
+            } else {
+                cell!.identificationImage = nil
             }
             return cell!
         }
     }
     
+    private struct Constants {
+        static let CellContentViewMargin = CGFloat(8)
+    }
+
+    /*
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if let currentCell = cell as? IdentificationImageTableViewCell {
+            let currentImage = currentCell.identificationImageView.image
+            if let image =  currentImage {
+                print("product image size \(image.size)")
+                print("product cell size \(cell.contentView.frame.size)")
+
+                // what to do if the image is wider than the contentView area of the cell's contentView?
+                let widthScale = (image.size.width) / (currentCell.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
+                // the height may not be larger than the width of the frame
+                let heightScale =  (image.size.height) / (currentCell.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
+                if (widthScale > 1) || (heightScale > 1) {
+                    if widthScale > heightScale {
+                    // width is the determining factor
+                        let newSize = CGSize(width: image.size.width / widthScale, height: image.size.height / widthScale)
+                        let scaledImage = image.imageResize(newSize)
+                        cell.identificationImageView.image = scaledImage
+                    } else {
+                        // height is the determining factor
+                        let newSize = CGSize(width: image.size.width / heightScale, height: image.size.height / heightScale)
+                        let scaledImage = image.imageResize(newSize)
+                        cell.identificationImageView.image = scaledImage
+                    }
+                }
+            }
+            
+        }
+    }
+ */
+
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
         return header
@@ -192,32 +222,7 @@ class IdentificationTableViewController: UITableViewController {
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
-    /*
-    private func retrieveImage(url: NSURL?) {
-        if let imageURL = url {
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image
-                            self.identificationImage = UIImage(data: imageData)
-                            // print("image bounds \(self.productImageView.image?.size)")
-                        })
-                    }
-                }
-                catch {
-                    print(error)
-                }
-            })
-        }
-    }
-    */
-    
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -237,32 +242,32 @@ class IdentificationTableViewController: UITableViewController {
     // MARK: - Notification handler
     
     func reloadImageSection(notification: NSNotification) {
-        
+        // check if the tableview has been loaded correctly yet
         if numberOfSectionsInTableView(tableView) > 5 {
-            tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+            let userInfo = notification.userInfo
+            let imageURL = userInfo!["imageURL"] as? NSURL
+            // only reload the section of image if it is meant for the current product
+            if imageURL == product?.mainUrl {
+                tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+            }
         }
     }
     
     // MARK: - ViewController Lifecycle
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
-        
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.MainImageSet, object:nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        if product != nil {
-            tableView.reloadData()
-        }
+
         navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.MainImageSet, object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -270,6 +275,8 @@ class IdentificationTableViewController: UITableViewController {
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
         if product != nil {
             tableView.reloadData()
+
+            // print("in viewDidAppear")
         }
     }
     

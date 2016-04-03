@@ -819,8 +819,14 @@ class OpenFoodFactsRequest {
         nutritionItem.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.UnitKey]?.string
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string {
             if let unit = nutritionItem.standardValueUnit {
+                // print("value \(value) ; unit \(unit)")
                 if unit == "mg" {
-                    nutritionItem.standardValue = "\(Double(value)! * 1000)"
+                    // is the value translatable to a number?
+                    if let doubleValue = Double(value) {
+                        nutritionItem.standardValue = "\( doubleValue * 1000)"
+                    } else {
+                        nutritionItem.standardValue = value
+                    }
                 } else {
                     nutritionItem.standardValue = value
                 }

@@ -168,9 +168,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - TextField Methods
 
+    let button = UIButton(type: UIButtonType.Custom)
+
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
+            searchTextField.keyboardType = .NumberPad
             if let searchText = barcode?.asString() {
                 searchTextField.text = searchText
             }
@@ -186,6 +189,45 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
         }
         return true
     }
+    
+    func keyboardReturnButton() {
+    
+        button.setTitle("Return", forState: UIControlState.Normal)
+        button.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        button.frame = CGRectMake(0, 163, 106, 53)
+        button.adjustsImageWhenHighlighted = false
+        button.addTarget(self, action: #selector(ProductTableViewController.Done(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    }
+
+    func Done(sender : UIButton){
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.searchTextField.resignFirstResponder()
+        }
+    }
+
+    func textFieldDidBeginEditing(textField: UITextField) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ProductTableViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+    }
+
+    
+    // http://iosdevcenters.blogspot.com/2016/01/how-to-adding-return-key-in-number.html
+    //
+    func keyboardWillShow(note : NSNotification) -> Void{
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            self.button.hidden = false
+            let keyBoardWindow = UIApplication.sharedApplication().windows.last
+            let doneButtonXCoordinates = (keyBoardWindow?.frame.size.width)! * CGFloat(0.33125)
+            self.button.frame = CGRectMake(0, (keyBoardWindow?.frame.size.height)!-53, doneButtonXCoordinates, 53)
+            keyBoardWindow?.addSubview(self.button)
+            keyBoardWindow?.bringSubviewToFront(self.button)
+            UIView.animateWithDuration(((note.userInfo! as NSDictionary).objectForKey(UIKeyboardAnimationCurveUserInfoKey)?.doubleValue)!, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+                self.view.frame = CGRectOffset(self.view.frame, 0, 0)
+                }, completion: { (complete) -> Void in
+                    // print("Complete")
+            })
+        }
+    }
+
 
     // MARK: - Table view methods and vars
     
@@ -397,6 +439,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
             }
             // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
+        
+        keyboardReturnButton()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -406,6 +451,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewDidDisappear(animated)
     }
 }

@@ -14,6 +14,7 @@ class FoodProduct {
     internal struct Notification {
         static let MainImageSet = "FoodProduct.Notification.MainImageSet"
         static let IngredientsImageSet = "FoodProduct.Notification.IngredientsImageSet"
+        static let NutritionImageSet = "FoodProduct.Notification.NutritionImageSet"
     }
     
     // Primary variables
@@ -28,7 +29,8 @@ class FoodProduct {
     var mainImageData: NSData? = nil {
         didSet {
             if mainImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object: nil)
+                let userInfo = ["imageURL":mainUrl!]
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object:nil, userInfo: userInfo)
             }
         }
     }
@@ -44,8 +46,8 @@ class FoodProduct {
     var imageIngredientsUrl: NSURL? = nil
     var ingredientsImageData: NSData? = nil {
         didSet {
-            if mainImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object: nil)
+            if ingredientsImageData != nil {
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.IngredientsImageSet, object: nil)
             }
         }
     }
@@ -61,8 +63,16 @@ class FoodProduct {
     // content parameters
     var nutritionFacts: [NutritionFactItem] = []
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
-    var imageNutritionSmallUrl: NSURL?
-    var nutritionFactsImageUrl: NSURL?
+    var imageNutritionSmallUrl: NSURL? = nil
+    var nutritionFactsImageUrl: NSURL? = nil
+    var nutritionImageData: NSData? = nil {
+        didSet {
+            if nutritionImageData != nil {
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.NutritionImageSet, object: nil)
+            }
+        }
+    }
+
     
     // supply chain parameters
     var nutritionGrade: NutritionalGradeLevel? = nil

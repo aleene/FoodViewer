@@ -82,10 +82,12 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 // 3
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: 5)
+                // view.calloutOffset = CGPoint(x: -5, y: 5)
                 view.pinTintColor = annotation.pinColor()
-                view.detailCalloutAccessoryView?.backgroundColor = UIColor.whiteColor()
-                // view.rightCalloutAccessoryView = UIButton.buttonWithType(.DetailDisclosure) as UIView
+                // view.detailCalloutAccessoryView = UIView(frame: CGRectMake(0.0,0.0,200.0,50.0))
+                // view.detailCalloutAccessoryView!.backgroundColor = UIColor.redColor()
+                // view.detailCalloutAccessoryView!.intrinsicContentSize()
+                // view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure) as UIView
             }
             return view
         }
