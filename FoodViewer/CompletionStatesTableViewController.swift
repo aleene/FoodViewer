@@ -77,44 +77,44 @@ class CompletionStatesTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionStateCellIdentifier, forIndexPath: indexPath) as! StateTableViewCell
             switch indexPath.row {
             case 0:
-                cell.state = product!.state.productNameComplete
-                cell.stateTitle = Constants.NameCompletionCellTitle
+                cell.state = product!.state.productNameComplete.value
+                cell.stateTitle = product!.state.productNameComplete.text
                 return cell
             case 1:
-                cell.state = product!.state.brandsComplete
-                cell.stateTitle = Constants.BrandsCompletionCellTitle
+                cell.state = product!.state.brandsComplete.value
+                cell.stateTitle = product!.state.brandsComplete.text
                 return cell
             case 2:
-                cell.state = product!.state.quantityComplete
-                cell.stateTitle = Constants.QuantityCompletionCellTitle
+                cell.state = product!.state.quantityComplete.value
+                cell.stateTitle = product!.state.quantityComplete.text
                 return cell
             case 3:
-                cell.state = product!.state.packagingComplete
-                cell.stateTitle = Constants.PackagingCompletionCellTitle
+                cell.state = product!.state.packagingComplete.value
+                cell.stateTitle = product!.state.packagingComplete.text
                 return cell
             case 4:
-                cell.state = product!.state.ingredientsComplete
-                cell.stateTitle = Constants.IngredientsCompletionCellTitle
+                cell.state = product!.state.ingredientsComplete.value
+                cell.stateTitle = product!.state.ingredientsComplete.text
                 return cell
             case 5:
-                cell.state = product!.state.categoriesComplete
-                cell.stateTitle = Constants.CategoriesCompletionCellTitle
+                cell.state = product!.state.categoriesComplete.value
+                cell.stateTitle = product!.state.categoriesComplete.text
                 return cell
             case 6:
-                cell.state = product!.state.expirationDateComplete
-                cell.stateTitle = Constants.ExpirationDateCompletionCellTitle
+                cell.state = product!.state.expirationDateComplete.value
+                cell.stateTitle = product!.state.expirationDateComplete.text
                 return cell
             case 7:
-                cell.state = product!.state.nutritionFactsComplete
-                cell.stateTitle = Constants.NutritionFactsCompletionCellTitle
+                cell.state = product!.state.nutritionFactsComplete.value
+                cell.stateTitle = product!.state.nutritionFactsComplete.text
                 return cell
             case 8:
-                cell.state = product!.state.photosUploadedComplete
-                cell.stateTitle = Constants.PhotosUploadedCompletionCellTitle
+                cell.state = product!.state.photosUploadedComplete.value
+                cell.stateTitle = product!.state.photosUploadedComplete.text
                 return cell
             default:
-                cell.state = product!.state.photosValidatedComplete
-                cell.stateTitle = Constants.PhotosValidatedCompletionCellTitle
+                cell.state = product!.state.photosValidatedComplete.value
+                cell.stateTitle = product!.state.photosValidatedComplete.text
                 return cell
             }
         } else if indexPath.section == 1 {

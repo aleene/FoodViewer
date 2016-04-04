@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0A330205486064151D59B5B0 /* Pods_FoodViewer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF4ACF2982F575976B35403 /* Pods_FoodViewer.framework */; };
+		5114592B1CB1368F00D25116 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* Status.swift */; };
+		5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592C1CB1385100D25116 /* Taxonomy.swift */; };
+		5114592F1CB1389400D25116 /* OFFTaxonomies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFTaxonomies.swift */; };
+		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
+		511459361CB1391300D25116 /* VertexNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459351CB1391300D25116 /* VertexNew.swift */; };
 		512499A11C6CD0100061A083 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512499A01C6CD0100061A083 /* imageViewController.swift */; };
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
@@ -41,6 +46,7 @@
 		5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */; };
 		5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91A1C5D3B9E002DBD21 /* Product.swift */; };
 		5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */; };
+		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */; };
 		51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */; };
 		51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */; };
@@ -58,12 +64,13 @@
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
 		51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */; };
+		51CE77321CB14F17000D8353 /* States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51CE77311CB14F17000D8353 /* States.plist */; };
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
 		51E5CC961CAD13A600216868 /* 54004207.json in Resources */ = {isa = PBXBuildFile; fileRef = 51E5CC951CAD13A400216868 /* 54004207.json */; };
-		51E5CC981CB10A7E00216868 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC971CB10A7A00216868 /* ViewController.swift */; };
+		51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */; };
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
 		51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51E5CC9A1CB1105E00216868 /* Keyboard.xib */; };
 		51E614941C8349AD00DAEE6C /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E614931C8349AD00DAEE6C /* History.swift */; };
@@ -73,6 +80,11 @@
 
 /* Begin PBXFileReference section */
 		0AF4ACF2982F575976B35403 /* Pods_FoodViewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoodViewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5114592A1CB1368E00D25116 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		5114592C1CB1385100D25116 /* Taxonomy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Taxonomy.swift; sourceTree = "<group>"; };
+		5114592E1CB1389400D25116 /* OFFTaxonomies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFTaxonomies.swift; sourceTree = "<group>"; };
+		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		511459351CB1391300D25116 /* VertexNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertexNew.swift; sourceTree = "<group>"; };
 		51243AA41CA92906003F6D88 /* 20454456.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 20454456.json; sourceTree = "<group>"; };
 		51243AA51CA93DCB003F6D88 /* APIDataFields.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = APIDataFields.txt; path = ../APIDataFields.txt; sourceTree = "<group>"; };
 		512499A01C6CD0100061A083 /* imageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +124,7 @@
 		5180B9131C5D3B57002DBD21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5180B91A1C5D3B9E002DBD21 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
+		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainLocation.swift; sourceTree = "<group>"; };
 		51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationTableViewController.swift; sourceTree = "<group>"; };
@@ -131,13 +144,14 @@
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
 		51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
+		51CE77311CB14F17000D8353 /* States.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = States.plist; sourceTree = "<group>"; };
 		51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51E5CC951CAD13A400216868 /* 54004207.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 54004207.json; sourceTree = "<group>"; };
-		51E5CC971CB10A7A00216868 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		51E5CC991CB1105E00216868 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		51E5CC9A1CB1105E00216868 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Keyboard.xib; sourceTree = "<group>"; };
 		51E614911C821EFE00DAEE6C /* 6524654176.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 6524654176.json; sourceTree = "<group>"; };
@@ -160,6 +174,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		511459301CB1389C00D25116 /* Taxonomy */ = {
+			isa = PBXGroup;
+			children = (
+				511459331CB138DC00D25116 /* Node.swift */,
+				5114592E1CB1389400D25116 /* OFFTaxonomies.swift */,
+				518B2FAB1CB13BB5007D8AB9 /* Section.swift */,
+				511459351CB1391300D25116 /* VertexNew.swift */,
+				5114592C1CB1385100D25116 /* Taxonomy.swift */,
+			);
+			name = Taxonomy;
+			sourceTree = "<group>";
+		};
+		511459371CB1398F00D25116 /* Test files */ = {
+			isa = PBXGroup;
+			children = (
+				51243AA51CA93DCB003F6D88 /* APIDataFields.txt */,
+				51E614911C821EFE00DAEE6C /* 6524654176.json */,
+				51243AA41CA92906003F6D88 /* 20454456.json */,
+				51E5CC951CAD13A400216868 /* 54004207.json */,
+				51DAD3781C60A6A200895513 /* 737628064502.json */,
+				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
+			);
+			name = "Test files";
+			sourceTree = "<group>";
+		};
 		513982481C89CEB800250FB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +282,7 @@
 				51DCD3C91C6A110900D39898 /* Specifics */,
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
 				51DAD3771C5F757A00895513 /* ProductTableCells */,
+				511459371CB1398F00D25116 /* Test files */,
 				5180B9191C5D3B75002DBD21 /* Support files */,
 			);
 			path = FoodViewer;
@@ -251,18 +291,13 @@
 		5180B9191C5D3B75002DBD21 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
+				51CE77311CB14F17000D8353 /* States.plist */,
 				516D0C2F1C8F4CC400C1C789 /* Localizable.strings */,
 				516D0C2A1C8F4CC300C1C789 /* InfoPlist.strings */,
-				51243AA51CA93DCB003F6D88 /* APIDataFields.txt */,
-				51E614911C821EFE00DAEE6C /* 6524654176.json */,
-				51DAD3781C60A6A200895513 /* 737628064502.json */,
-				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
 				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
 				5180B90E1C5D3B57002DBD21 /* Assets.xcassets */,
 				5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */,
 				5180B9131C5D3B57002DBD21 /* Info.plist */,
-				51243AA41CA92906003F6D88 /* 20454456.json */,
-				51E5CC951CAD13A400216868 /* 54004207.json */,
 			);
 			name = "Support files";
 			sourceTree = "<group>";
@@ -316,7 +351,7 @@
 		51E5CC9D1CB1106900216868 /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				51E5CC971CB10A7A00216868 /* ViewController.swift */,
+				51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */,
 				51E5CC991CB1105E00216868 /* Keyboard.swift */,
 				51E5CC9A1CB1105E00216868 /* Keyboard.xib */,
 			);
@@ -330,6 +365,7 @@
 				51E614931C8349AD00DAEE6C /* History.swift */,
 				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
+				5114592A1CB1368E00D25116 /* Status.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
 				5176AAEA1CA44F5A00B0494A /* Address.swift */,
 				516B32881C75F74F0031EF80 /* CompletionState.swift */,
@@ -337,6 +373,7 @@
 				516B32841C75F5120031EF80 /* NutritionItem.swift */,
 				516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */,
 				516B32801C75F2430031EF80 /* BarcodeType.swift */,
+				511459301CB1389C00D25116 /* Taxonomy */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -425,6 +462,7 @@
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				516D0C2D1C8F4CC400C1C789 /* Localizable.strings in Resources */,
+				51CE77321CB14F17000D8353 /* States.plist in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
 				516D0C281C8F4CC300C1C789 /* InfoPlist.strings in Resources */,
@@ -507,8 +545,10 @@
 				517AAD511C7DB62700B12F3C /* AdditivesFullTableViewCell.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
+				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
 				517AAD551C7DB65400B12F3C /* LabelsFullTableViewCell.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
+				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
 				516B328D1C75FF100031EF80 /* NutrientsImageTableViewCell.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
@@ -520,16 +560,20 @@
 				5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */,
 				516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */,
 				51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */,
-				51E5CC981CB10A7E00216868 /* ViewController.swift in Sources */,
+				51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */,
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
+				511459341CB138DC00D25116 /* Node.swift in Sources */,
 				516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */,
 				517AAD4F1C7DB61700B12F3C /* TracesFullTableViewCell.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
+				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
+				5114592B1CB1368F00D25116 /* Status.swift in Sources */,
 				51C611A81C88B2A3007A9BC5 /* ProductPageViewController.swift in Sources */,
 				516B32891C75F74F0031EF80 /* CompletionState.swift in Sources */,
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
+				5114592F1CB1389400D25116 /* OFFTaxonomies.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */,
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,

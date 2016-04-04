@@ -22,6 +22,7 @@ class OpenFoodFactsRequest {
     }
     
     var fetched: FetchResult = .Error("Initialised")
+    
     func fetchProductForBarcode(barcode: BarcodeType) -> FetchResult {
         let fetchUrl = NSURL(string: "\(OpenFoodFacts.APIURLPrefixForProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
         // print("\(fetchUrl)")
@@ -350,7 +351,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsDebugTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesHierarchyKey]?.stringArray
                     // = jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups1Key]?.string
-                decodeCompletionStates(jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray, forProduct:product)
+                decodeCompletionStates(jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray, product:product)
                 decodeLastEditDates(jsonObject?[OFFJson.ProductKey]?[OFFJson.LastEditDatesTagsKey]?.stringArray, forProduct:product)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
                 product.labelArray = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray)
@@ -484,6 +485,7 @@ class OpenFoodFactsRequest {
 //                    }
 //                }
                     product.allergens = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray)
+                
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilNKey]?.int
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsThumbUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilNKey]?.int
@@ -616,94 +618,7 @@ class OpenFoodFactsRequest {
                     
                     static let PhKey = "ph"
                 }
-                /*
-                
-                var energie = FoodProduct.NutritionFactItem()
-                energie.itemName = NutritionFacts.EnergyText
-                energie.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.EnergyServingKey]?.string
-                energie.standardValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.EnergyKey]?.string
-                energie.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.EnergyUnitKey]?.string
-                
-                if energie.standardValue != nil {
-                    product.nutritionFacts.append(energie)
-                }
-
-                
-                var fat = FoodProduct.NutritionFactItem()
-                fat.itemName = NutritionFacts.FatText
-                fat.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.FatServingKey]?.string
-                if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Fat100gKey]?.string {
-                    fat.standardValue = value
-                } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.FatKey]?.string {
-                    fat.standardValue = value
-                }
-                fat.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.FatUnitKey]?.string
-                if fat.standardValue != nil {
-                    product.nutritionFacts.append(fat)
-                }
-
-                var saturatedFat = FoodProduct.NutritionFactItem()
-                saturatedFat.itemName = NutritionFacts.SaturatedFatText
-                saturatedFat.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SaturatedFatServingKey]?.string
-                saturatedFat.standardValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SaturatedFat100gKey]?.string
-                saturatedFat.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SaturatedFatUnitKey]?.string
-                if saturatedFat.standardValue != nil {
-                    product.nutritionFacts.append(saturatedFat)
-                }
-
-                var carbohydrate = FoodProduct.NutritionFactItem()
-                carbohydrate.itemName = NutritionFacts.CarbohydrateText
-                carbohydrate.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.CarbohydratesServingKey]?.string
-                carbohydrate.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.CarbohydratesUnitKey]?.string
-                if carbohydrate.standardValue != nil {
-                    product.nutritionFacts.append(carbohydrate)
-                }
-
-                var sugars = FoodProduct.NutritionFactItem()
-                sugars.itemName = NutritionFacts.SugarsText
-                sugars.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SugarsServingKey]?.string
-                if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Sugars100gKey]?.string {
-                    sugars.standardValue = value
-                } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SugarsKey]?.string {
-                    sugars.standardValue = value
-                }
-                sugars.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SugarsUnitKey]?.string
-                if sugars.standardValue != nil {
-                    product.nutritionFacts.append(sugars)
-                }
-
-                var fiber = FoodProduct.NutritionFactItem()
-                fiber.itemName = NutritionFacts.FiberText
-                fiber.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.FiberServingKey]?.string
-                fiber.standardValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.FiberKey]?.string
-                fiber.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.FiberUnitKey]?.string
-                if fiber.standardValue != nil {
-                    product.nutritionFacts.append(fiber)
-                }
-
-                var protein = FoodProduct.NutritionFactItem()
-                protein.itemName = NutritionFacts.ProteinText
-                protein.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.ProteinsServingKey]?.string
-                if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Proteins100gKey]?.string {
-                    protein.standardValue = value
-                } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.ProteinsKey]?.string {
-                    protein.standardValue = value
-                }
-                protein.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.ProteinsUnitKey]?.string
-                if protein.standardValue != nil {
-                    product.nutritionFacts.append(protein)
-                }
-                var salt = FoodProduct.NutritionFactItem()
-                salt.itemName = NutritionFacts.SaltText
-                salt.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SaltServingKey]?.string
-                if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Salt100gKey]?.string {
-                    salt.standardValue = value
-                } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.SaltKey]?.string {
-                    salt.standardValue = value
-                }
-                salt.standardValueUnit = NutritionFacts.SaltUnit
-                */
-                
+           
                 nutritionDecode(NutritionFacts.EnergyKey, key: OFFJson.EnergyKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.FatKey, key: OFFJson.FatKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.MonounsaturatedFatKey, key: OFFJson.MonounsaturatedFatKey, jsonObject: jsonObject, product: product)
@@ -854,29 +769,55 @@ class OpenFoodFactsRequest {
         static let PhotosUploaded = "en:photos-uploaded"
     }
     
-    private func decodeCompletionStates(states: [String]?, forProduct:FoodProduct) {
+    private var taxonomies = OFFTaxonomies()
+    
+    private func decodeAdditives(additives: [String]?, product:FoodProduct) {
+        
+    }
+    
+    private func decodeCompletionStates(states: [String]?, product:FoodProduct) {
         if let statesArray = states {
             for currentState in statesArray {
+                let preferredLanguage = NSLocale.preferredLanguages()[0]
                 if currentState.containsString(StateCompleteKey.PhotosUploaded) {
-                    forProduct.state.photosUploadedComplete = true
+                    product.state.photosUploadedComplete.value = true
+                    product.state.photosUploadedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosUploaded, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.ProductName) {
-                    forProduct.state.productNameComplete =  true
+                    product.state.productNameComplete.value =  true
+                    product.state.productNameComplete.text = taxonomies.translateStates(StateCompleteKey.ProductName, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.Brands) {
-                    forProduct.state.brandsComplete =  true
+                    product.state.brandsComplete.value =  true
+                    product.state.brandsComplete.text = taxonomies.translateStates(StateCompleteKey.Brands, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.Quantity) {
-                    forProduct.state.quantityComplete =  true
+                    product.state.quantityComplete.value =  true
+                    product.state.quantityComplete.text = taxonomies.translateStates(StateCompleteKey.Quantity, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.Packaging) {
-                    forProduct.state.packagingComplete = true
+                    product.state.packagingComplete.value = true
+                    product.state.packagingComplete.text = taxonomies.translateStates(StateCompleteKey.Packaging, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.Categories) {
-                    forProduct.state.categoriesComplete = true
+                    product.state.categoriesComplete.value = true
+                    product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.Categories, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.NutritionFacts) {
-                    forProduct.state.nutritionFactsComplete = true
+                    product.state.nutritionFactsComplete.value = true
+                    product.state.nutritionFactsComplete.text = taxonomies.translateStates(StateCompleteKey.NutritionFacts, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.PhotosValidated) {
-                    forProduct.state.photosValidatedComplete = true
+                    product.state.photosValidatedComplete.value = true
+                    product.state.photosValidatedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosValidated, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.Ingredients) {
-                    forProduct.state.ingredientsComplete = true
+                    product.state.ingredientsComplete.value = true
+                    product.state.ingredientsComplete.text = taxonomies.translateStates(StateCompleteKey.Ingredients, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.ExpirationDate) {
-                    forProduct.state.expirationDateComplete = true
+                    product.state.expirationDateComplete.value = true
+                    product.state.expirationDateComplete.text = taxonomies.translateStates(StateCompleteKey.ExpirationDate, language:preferredLanguage)
                 }
             }
         }
