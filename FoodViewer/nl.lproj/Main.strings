@@ -7,6 +7,9 @@
 /* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
 "5jY-ES-pZe.text" = "eenh.";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "5lw-Rp-bg8"; */
+"5lw-Rp-bg8.text" = "Titel";
+
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
 "8TO-NA-Iaz.title" = "Cancel";
 
@@ -24,6 +27,9 @@
 
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
+
+/* Class = "UIButton"; normalTitle = "Clear Product Search History"; ObjectID = "LUu-zu-IQr"; */
+"LUu-zu-IQr.normalTitle" = "Verwijder product historie";
 
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
 "PY2-Eu-268.text" = "Voedingswaarde";
@@ -43,17 +49,23 @@
 /* Class = "UILabel"; text = "Ingredients"; ObjectID = "bVH-wU-k1N"; */
 "bVH-wU-k1N.text" = "Ingrediënten";
 
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "byp-um-JcW"; */
+"byp-um-JcW.title" = "Instellingen";
+
 /* Class = "UILabel"; text = "P"; ObjectID = "eIG-Cg-S6u"; */
 "eIG-Cg-S6u.text" = "P";
 
 /* Class = "UILabel"; text = "Nutritional Facts"; ObjectID = "eWS-0h-9I9"; */
 "eWS-0h-9I9.text" = "Voedingswaarden";
 
-/* Class = "UITableViewController"; title = "Product"; ObjectID = "gMe-4s-6cz"; */
+/* Class = "UITableViewController"; title = "Products"; ObjectID = "gMe-4s-6cz"; */
 "gMe-4s-6cz.title" = "Product";
 
 /* Class = "UITextField"; placeholder = "Enter barcode"; ObjectID = "gZ8-Lt-wU3"; */
 "gZ8-Lt-wU3.placeholder" = "Voer streepjescode in";
+
+/* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
+"hYb-mr-zvw.title" = "Producten";
 
 /* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
 "ihd-JM-WfS.title" = "Barcode";
@@ -69,6 +81,9 @@
 
 /* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
 "syW-t8-eaP.text" = "Keteninformatie";
+
+/* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "t8L-1f-XIl"; */
+"t8L-1f-XIl.title" = "Gereed";
 
 /* Class = "UILabel"; text = "State category text"; ObjectID = "wvW-mK-iiF"; */
 "wvW-mK-iiF.text" = "Categorie status tekst";

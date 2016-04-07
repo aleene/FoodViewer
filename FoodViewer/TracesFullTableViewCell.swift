@@ -23,15 +23,13 @@ class TracesFullTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [[String: String]]? = nil {
+    var tagList: [String]? = nil {
         didSet {
             if let list = tagList {
                 tracesTagList.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        for (_, listItemValue) in listItem {
-                            tracesTagList.addTag(listItemValue)
-                        }
+                        tracesTagList.addTag(listItem)
                     }
                     tracesTagList.tagBackgroundColor = UIColor.greenColor()
                 } else {

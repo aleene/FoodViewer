@@ -23,15 +23,13 @@ class AdditivesFullTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [[String: String]]? = nil {
+    var tagList: [String]? = nil {
         didSet {
             if let list = tagList {
                 additivesTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        for (_, listItemValue) in listItem {
-                            additivesTagListView.addTag(listItemValue)
-                        }
+                        additivesTagListView.addTag(listItem)
                     }
                     additivesTagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {

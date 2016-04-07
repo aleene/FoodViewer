@@ -1,10 +1,13 @@
+/* a warning to check the brackets used, they are unbalanced */
+" (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haajes, niet in evenwicht)";
+
 /* Cell text for the total number of nutritional facts available. */
 "%@ nutritional facts specified" = "%@ voedingswaarden aangegeven.";
 
-/* Just a comma to separate items. */
+/* A list of countries seperated by a comma. ADD A TRAILING SPACE. */
 "%@, " = "%@, ";
 
-/* A sepator between sentence parts. */
+/* A sepator between sentence parts.  ADD A TRAILING SPACE. */
 "; " = ";";
 
 /* Text when no value for nutritional facts have been specifidied. */
@@ -55,6 +58,9 @@
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Bewerk";
 
+/* Header title of the tableview section, indicating when the product data was edited. */
+"Edit Dates" = "Bewerk datums";
+
 /* Alert message, when the product could not be retrieved from Internet. */
 "Error retrieving product" = "Probleem ophalen product.";
 
@@ -100,7 +106,10 @@
 "Labels" = "Keur- en kenmerken";
 
 /* Tableview sectionheader for main image of package. */
-"Main Image" = "Hoofdfoto";
+"Main Image" = "Productfoto";
+
+/* Header for section of tableView with a map of producer, origin and shop locations. */
+"Map" = "Kaart";
 
 /* Tableview sectionheader for product name */
 "Name" = "Productnaam";
@@ -165,7 +174,7 @@
 /* Alert title, to indicate retrieving product did not work */
 "Pity" = "Jammer";
 
-/* Text to indicate the producer of the product. */
+/* Text to indicate the producer of the product.  ADD A TRAILING SPACE. */
 "Produced in/by %@; " = "Geproduceerd in/door %@; ";
 
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
@@ -198,10 +207,13 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portiegrootte";
 
-/* Text to indicate the first shop the product is sold in. */
-"Sold by %@" = "Verkocht door %@; ";
+/* TableViewController title for the settings scene. */
+"Settings" = "Instellingen";
 
-/* Text to introduce where the product is sold. */
+/* Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE. */
+"Sold by %@ " = "Verkocht door %@ ";
+
+/* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
 "Sold in " = "Verkocht in ";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
@@ -243,6 +255,9 @@
 
 /* Text for a cell, when no status title has been provided, such as 'completed', etc. */
 "none" = "geen";
+
+/* TextField text to indicate the serving size is not available */
+"not available" = "niet beschikbaar";
 
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";

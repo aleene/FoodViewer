@@ -52,9 +52,9 @@ class FoodProduct {
         }
     }
 
-    var allergens: [[String: String]]? = nil
-    var traces: [[String: String]]? = nil
-    var additives: [[String: String]]? = nil
+    var allergens: [String]? = nil
+    var traces: [String]? = nil
+    var additives: [String]? = nil
     var labelArray: [[String: String]]? = nil
     
     // usage parameters
@@ -88,6 +88,22 @@ class FoodProduct {
     var stores: [String]? = nil //or a set?
     var countries: [Address]? = nil //or a set?
     
+    func countryArray(countries:[String]?) {
+        if let array = countries {
+            for element in array {
+                if !element.isEmpty {
+                    if self.countries == nil {
+                        self.countries = []
+                    }
+                    let newAddress = Address()
+                    newAddress.country = element
+                    self.countries!.append(newAddress)
+                }
+            }
+        }
+    }
+
+    
     func languageCountryArray(countries:[String]?) {
         if let array = countries {
             for element in array {
@@ -104,6 +120,7 @@ class FoodProduct {
     }
 
     var producer: Address? = nil
+    var expirationDate: NSDate? = nil
     
     func producerElements(elements: [String]?) {
         if elements != nil && !elements!.isEmpty {

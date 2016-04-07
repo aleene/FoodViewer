@@ -15,24 +15,60 @@ class IdentificationTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
     }
     
-    private var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    private var tableStructure: [SectionType] = []
+    
     
     private enum SectionType {
-        case Barcode
-        case Name
-        case CommonName
-        case Brands
-        case Packaging
-        case Quantity
-        case Image
+        case Barcode(Int, String)
+        case Name(Int, String)
+        case CommonName(Int, String)
+        case Brands(Int, String)
+        case Packaging(Int, String)
+        case Quantity(Int, String)
+        case Image(Int, String)
+        
+        func header() -> String {
+            switch self {
+            case .Barcode(_, let headerTitle):
+                return headerTitle
+            case .Name(_, let headerTitle):
+                return headerTitle
+            case .CommonName(_, let headerTitle):
+                return headerTitle
+            case .Brands(_, let headerTitle):
+                return headerTitle
+            case .Packaging(_, let headerTitle):
+                return headerTitle
+            case .Quantity(_, let headerTitle):
+                return headerTitle
+            case .Image(_, let headerTitle):
+                return headerTitle
+            }
+        }
+        
+        func numberOfRows() -> Int {
+            switch self {
+            case .Barcode(let numberOfRows, _):
+                return numberOfRows
+            case .Name(let numberOfRows, _):
+                return numberOfRows
+            case .CommonName(let numberOfRows, _):
+                return numberOfRows
+            case .Brands(let numberOfRows, _):
+                return numberOfRows
+            case .Packaging(let numberOfRows, _):
+                return numberOfRows
+            case .Quantity(let numberOfRows, _):
+                return numberOfRows
+            case .Image(let numberOfRows, _):
+                return numberOfRows
+            }
+        }
     }
-    
-    var imageHasBeenSet = false
     
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                tableStructureForProduct = analyseProductForTable(product!)
                 tableView.reloadData()
             }
         }
@@ -51,95 +87,59 @@ class IdentificationTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // should return all sections (7)
-        return tableStructureForProduct.count
+        return product == nil ? 0 : tableStructure.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            let (_, numberOfRows, _) = tableStructureForProduct[section]
-        return numberOfRows
+        return tableStructure[section].numberOfRows()
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+            let currentProductSection = tableStructure[indexPath.section]
         
-        // we assume that product exists
-        switch currentProductSection {
-        case .Barcode:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product!.barcode.asString()
-            return cell
-        case .Name:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product!.name!
-            return cell
-        case .CommonName:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product!.commonName!
-            return cell
-        case .Brands:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-            cell!.tagList = product!.brandsArray
-            return cell!
-        case .Packaging:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-            cell?.tagList = product!.packagingArray
-            cell?.layoutIfNeeded()
-            return cell!
-        case .Quantity:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product!.quantity != nil ? product!.quantity! : ""
-            return cell
-        case .Image:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
-            if let data = product?.mainImageData {
-                cell!.identificationImage = UIImage(data:data)
-                imageHasBeenSet = true
-            } else {
-                cell!.identificationImage = nil
+            switch currentProductSection {
+            case .Barcode:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+                cell.textLabel?.text = product?.barcode.asString()
+                return cell
+            case .Name:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+                cell.textLabel?.text = product?.name != nil ? product!.name! : nil
+                return cell
+            case .CommonName:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+                cell.textLabel?.text = product?.commonName != nil ? product!.commonName! : nil
+                return cell
+            case .Brands:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
+                cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
+                return cell!
+            case .Packaging:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
+                cell?.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
+                return cell!
+            case .Quantity:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+                cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : ""
+                return cell
+            case .Image:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
+                if let data = product?.mainImageData {
+                    cell!.identificationImage = UIImage(data:data)
+                } else {
+                    cell!.identificationImage = nil
+                }
+                return cell!
             }
-            return cell!
-        }
     }
     
     private struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
 
-    /*
-    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
-        if let currentCell = cell as? IdentificationImageTableViewCell {
-            let currentImage = currentCell.identificationImageView.image
-            if let image =  currentImage {
-                print("product image size \(image.size)")
-                print("product cell size \(cell.contentView.frame.size)")
-
-                // what to do if the image is wider than the contentView area of the cell's contentView?
-                let widthScale = (image.size.width) / (currentCell.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
-                // the height may not be larger than the width of the frame
-                let heightScale =  (image.size.height) / (currentCell.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
-                if (widthScale > 1) || (heightScale > 1) {
-                    if widthScale > heightScale {
-                    // width is the determining factor
-                        let newSize = CGSize(width: image.size.width / widthScale, height: image.size.height / widthScale)
-                        let scaledImage = image.imageResize(newSize)
-                        cell.identificationImageView.image = scaledImage
-                    } else {
-                        // height is the determining factor
-                        let newSize = CGSize(width: image.size.width / heightScale, height: image.size.height / heightScale)
-                        let scaledImage = image.imageResize(newSize)
-                        cell.identificationImageView.image = scaledImage
-                    }
-                }
-            }
-            
-        }
-    }
- */
-
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
-        return header
+        return tableStructure[section].header()
     }
 
     private struct TableStructure {
@@ -159,66 +159,35 @@ class IdentificationTableViewController: UITableViewController {
         static let ImageSectionHeader = NSLocalizedString("Main Image", comment: "Tableview sectionheader for main image of package.")
     }
 
-    private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
-        // This function analyses to product in order to determine
-        // the required number of sections and rows per section
+    private func setupSections() -> [SectionType] {
         // The returnValue is an array with sections
-        // And each element is a tuple with the section type and number of rows
+        // And each element is a  section type with the number of rows and the section title
         //
-        //  The order of each element determines the order in the table
-        var sectionsAndRows: [(SectionType,Int, String?)] = []
+        //  The order of each element determines the order in the presentation
+        var sectionsAndRows: [SectionType] = []
         
-        // 0: barcode section always exists
-        sectionsAndRows.append((SectionType.Barcode, TableStructure.BarcodeSectionSize, TableStructure.BarcodeSectionHeader))
+        // All sections are always presented
+        // 0: barcode section
+        sectionsAndRows.append(.Barcode(TableStructure.BarcodeSectionSize, TableStructure.BarcodeSectionHeader))
         
         // 1:  name section
-        if product.name != nil {
-            sectionsAndRows.append((
-                SectionType.Name,
-                TableStructure.NameSectionSize,
-                TableStructure.NameSectionHeader))
-        }
+        sectionsAndRows.append(.Name(TableStructure.NameSectionSize, TableStructure.NameSectionHeader))
         
         // 2: common name section
-        if product.commonName != nil {
-            sectionsAndRows.append((
-                SectionType.CommonName,
-                TableStructure.CommonNameSectionSize,
-                TableStructure.CommonNameSectionHeader))
-        }
+        sectionsAndRows.append(.CommonName(TableStructure.CommonNameSectionSize, TableStructure.CommonNameSectionHeader))
         
         // 3: brands section
-        if product.nutritionScore != nil {
-            sectionsAndRows.append((
-                SectionType.Brands,
-                TableStructure.BrandsSectionSize,
-                TableStructure.BrandsSectionHeader))
-        }
+        sectionsAndRows.append(.Brands(TableStructure.BrandsSectionSize, TableStructure.BrandsSectionHeader))
         
         // 4: packaging section
-        if product.categories != nil {
-            sectionsAndRows.append((
-                SectionType.Packaging,
-                TableStructure.PackagingSectionSize,
-                TableStructure.PackagingSectionHeader))
-        }
+        sectionsAndRows.append(.Packaging(TableStructure.PackagingSectionSize, TableStructure.PackagingSectionHeader))
         
         // 5: quantity section
-        if product.countries != nil {
-            sectionsAndRows.append((
-                SectionType.Quantity,
-                TableStructure.QuantitySectionSize,
-                TableStructure.QuantitySectionHeader))
-        }
+        sectionsAndRows.append(.Quantity(TableStructure.QuantitySectionSize, TableStructure.QuantitySectionHeader))
         
         // 6: image section
-        if product.mainUrl != nil {
-            sectionsAndRows.append((
-                SectionType.Image,
-                TableStructure.ImageSectionSize,
-                TableStructure.ImageSectionHeader))
-        }
-                
+        sectionsAndRows.append(.Image(TableStructure.ImageSectionSize,TableStructure.ImageSectionHeader))
+        
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
@@ -236,28 +205,40 @@ class IdentificationTableViewController: UITableViewController {
             default: break
             }
         }
-
     }
     
     // MARK: - Notification handler
     
     func reloadImageSection(notification: NSNotification) {
-        // check if the tableview has been loaded correctly yet
-        if numberOfSectionsInTableView(tableView) > 5 {
-            let userInfo = notification.userInfo
-            let imageURL = userInfo!["imageURL"] as? NSURL
-            // only reload the section of image if it is meant for the current product
-            if imageURL == product?.mainUrl {
-                tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+        let userInfo = notification.userInfo
+        let imageURL = userInfo!["imageURL"] as? NSURL
+        // only reload the section of image if it is meant for the current product
+        if imageURL == product?.mainUrl {
+            if product != nil {
+                if let index = imageSection(tableStructure) {
+                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: index)], withRowAnimation:UITableViewRowAnimation.Fade)
+                }
             }
         }
     }
     
+    private func imageSection(array: [SectionType]) -> Int? {
+        for (index, sectionType) in array.enumerate() {
+            switch sectionType {
+            case .Image:
+                return index
+            default:
+                continue
+            }
+        }
+        return nil
+    }
+    
     // MARK: - ViewController Lifecycle
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        tableStructure = setupSections()
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
 
@@ -275,8 +256,6 @@ class IdentificationTableViewController: UITableViewController {
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
         if product != nil {
             tableView.reloadData()
-
-            // print("in viewDidAppear")
         }
     }
     

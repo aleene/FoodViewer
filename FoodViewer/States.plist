@@ -14,10 +14,6 @@
 			<array>
 				<string>Brands completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Marcas completadas</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Marques complétées</string>
@@ -40,33 +36,13 @@
 			<array>
 				<string>Brands to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Marcas a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Marques à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>מותגים להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Marca da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Merken invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Marcas a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Mărci de completat</string>
 			</array>
 		</dict>
 	</dict>
@@ -81,10 +57,6 @@
 			<key>en</key>
 			<array>
 				<string>Categories completed</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Categorías completadas</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -108,33 +80,13 @@
 			<array>
 				<string>Categories to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Categorías a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Catégories à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>קטגוריות להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Categorie da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Categorieën invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Categorias a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Categorii de completat</string>
 			</array>
 		</dict>
 	</dict>
@@ -150,37 +102,13 @@
 			<array>
 				<string>Characteristics completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Características completadas</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Caractéristiques complétées</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>מאפיינים הושלמו</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Caratteristiche completate</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Eigenschappen klaar</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Eigenschappen ingevuld</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Características completadas</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Caracteristici completate</string>
 			</array>
 		</dict>
 	</dict>
@@ -196,37 +124,13 @@
 			<array>
 				<string>Characteristics to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Características a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Caractéristiques à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>מאפיינים להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Caratteristiche da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Eigenschappen invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Eigenschappen invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Características a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Caracteristici de completat</string>
 			</array>
 		</dict>
 	</dict>
@@ -242,37 +146,13 @@
 			<array>
 				<string>Checked</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Comprobado</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Vérifié</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>נבדק</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Verificato</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Gecontroleerd</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Geverifieerd</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Verificado</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Verificat</string>
 			</array>
 		</dict>
 	</dict>
@@ -288,37 +168,13 @@
 			<array>
 				<string>Complete</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Completado</string>
-			</array>
 			<key>fr</key>
-			<array>
-				<string>Complet</string>
-			</array>
-			<key>he</key>
-			<array>
-				<string>הושלם</string>
-			</array>
-			<key>it</key>
 			<array>
 				<string>Complet</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Volledig</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Volledig</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Completo</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Complet</string>
 			</array>
 		</dict>
 	</dict>
@@ -334,37 +190,13 @@
 			<array>
 				<string>Empty</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Vacío</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Vide</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>ריק</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Vuoto</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Leeg</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Leeg</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Vazio</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Gol</string>
 			</array>
 		</dict>
 	</dict>
@@ -380,37 +212,13 @@
 			<array>
 				<string>Expiration date completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Fecha límite de consumo agregada</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Date limite complétée</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>תאריך התפוגה הושלם</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Data di scadenza completata</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Houdbaarheidsdatum ingevuld</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Houdbaarheidsdatum ingevuld</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Data de validade completada</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Data de expirare completată</string>
 			</array>
 		</dict>
 	</dict>
@@ -426,37 +234,13 @@
 			<array>
 				<string>Expiration date to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Fecha límite de consumo a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Date limite à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>תאריך תפוגה להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Data di scadenza da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Houdbaarheidsdatum invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Houdbaarheidsdatum invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Data de validade a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>De completat data de expirare</string>
 			</array>
 		</dict>
 	</dict>
@@ -472,33 +256,13 @@
 			<array>
 				<string>Ingredients completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Ingredientes completados</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Ingrédients complétés</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>הרכיבים הושלמו</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Ingredienti completati</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Ingrediënten klaar</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Ingredientes completados</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Ingrediente completate</string>
 			</array>
 		</dict>
 	</dict>
@@ -514,37 +278,13 @@
 			<array>
 				<string>Ingredients to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Ingredientes a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Ingrédients à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>רכיבים להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Ingredienti da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Ingrediënten invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Ingrediënten invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Ingredientes completados</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Ingrediente completate</string>
 			</array>
 		</dict>
 	</dict>
@@ -560,37 +300,13 @@
 			<array>
 				<string>Nutrition facts completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Valores nutricionales completados</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Informations nutritionnelles complétées</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>מפרט תזונתי הושלם</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Valori nutrizionali completati</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Voedingswaarden klaar</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Nutritionele informatie ingevuld</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Valores nutricionais completados</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Valori nutriționale completate</string>
 			</array>
 		</dict>
 	</dict>
@@ -606,37 +322,13 @@
 			<array>
 				<string>Nutrition facts to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Valores nutricionales a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Informations nutritionnelles à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>מפרט תזונתי להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Valori nutrizionali da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Voedingswaarden invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Nutritionele informatie invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Valores nutricionais a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Valori nutriționale de completat</string>
 			</array>
 		</dict>
 	</dict>
@@ -651,10 +343,6 @@
 			<key>en</key>
 			<array>
 				<string>Packaging completed</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Paquetes completados</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -678,37 +366,13 @@
 			<array>
 				<string>Packaging to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Envase a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Emballage à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>אריזה להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Imballaggio da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Verpakking invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Verpakking invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Embalagem a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>De completat ambalarea</string>
 			</array>
 		</dict>
 	</dict>
@@ -724,37 +388,13 @@
 			<array>
 				<string>Photos to be uploaded</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Imágenes a agregar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Photos à envoyer</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>תמונות להעלאה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Foto da caricare</string>
-			</array>
 			<key>nl</key>
 			<array>
-				<string>Foto&apos;s uploaden</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Foto&apos;s uploaden</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Imagens a enviar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Fotografii de încărcat</string>
+				<string>Foto's uploaden</string>
 			</array>
 		</dict>
 	</dict>
@@ -770,37 +410,13 @@
 			<array>
 				<string>Photos to be validated</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Imágenes a validar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Photos à valider</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>תמונות לאימות</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Foto da validare</string>
-			</array>
 			<key>nl</key>
 			<array>
-				<string>Te controleren foto&apos;s</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Te controleren foto&apos;s</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Imagens a validar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Fotografii de validat</string>
+				<string>Te controleren foto's</string>
 			</array>
 		</dict>
 	</dict>
@@ -816,37 +432,13 @@
 			<array>
 				<string>Photos uploaded</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Imágenes agregadas</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Photos envoyées</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>התמונות הועלו</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Foto caricate</string>
-			</array>
 			<key>nl</key>
 			<array>
-				<string>Geüploade foto&apos;s</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Geüploade foto&apos;s</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Imagens enviadas</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Fotografii încărcate</string>
+				<string>Geüploade foto's</string>
 			</array>
 		</dict>
 	</dict>
@@ -862,37 +454,13 @@
 			<array>
 				<string>Photos validated</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Imágenes validadas</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Photos validées</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>התמונות אומתו</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Foto validate</string>
-			</array>
 			<key>nl</key>
 			<array>
-				<string>Foto&apos;s gecontroleerd</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Foto&apos;s gevalideerd</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Imagens validadas</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Fotografii validate</string>
+				<string>Foto's gecontroleerd</string>
 			</array>
 		</dict>
 	</dict>
@@ -907,10 +475,6 @@
 			<key>en</key>
 			<array>
 				<string>Product name completed</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Nombre de producto completado</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -934,37 +498,13 @@
 			<array>
 				<string>Product name to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Nombre de producto a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Nom du produit à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>שם המוצר להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Nome prodotto da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Productnaam invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Productnaam invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Nome do produto a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>De completat numele produsului</string>
 			</array>
 		</dict>
 	</dict>
@@ -979,10 +519,6 @@
 			<key>en</key>
 			<array>
 				<string>Quantity completed</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Cantidad Completada</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1006,37 +542,13 @@
 			<array>
 				<string>Quantity to be completed</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Cantidad a completar</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>Quantité à compléter</string>
 			</array>
-			<key>he</key>
-			<array>
-				<string>כמות להשלמה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Quantità da completare</string>
-			</array>
 			<key>nl</key>
 			<array>
 				<string>Hoeveelheid invullen</string>
-			</array>
-			<key>nl_be</key>
-			<array>
-				<string>Hoeveelheid invullen</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Quantidade a completar</string>
-			</array>
-			<key>ro</key>
-			<array>
-				<string>Cantitatea de completat</string>
 			</array>
 		</dict>
 	</dict>
@@ -1052,37 +564,35 @@
 			<array>
 				<string>To be checked</string>
 			</array>
-			<key>es</key>
-			<array>
-				<string>Pendiente de comprobación</string>
-			</array>
 			<key>fr</key>
 			<array>
 				<string>A vérifier</string>
-			</array>
-			<key>he</key>
-			<array>
-				<string>לבדיקה</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Da verificare</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Te controleren</string>
 			</array>
-			<key>nl_be</key>
+		</dict>
+	</dict>
+	<key>en:to-be-completed</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
 			<array>
-				<string>Nog te verifiëren</string>
+				<string>Auszufüllen</string>
 			</array>
-			<key>pt</key>
+			<key>en</key>
 			<array>
-				<string>Pendente de verificação</string>
+				<string>To be completed</string>
 			</array>
-			<key>ro</key>
+			<key>fr</key>
 			<array>
-				<string>De verificat</string>
+				<string>A compléter</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Aan te vullen</string>
 			</array>
 		</dict>
 	</dict>

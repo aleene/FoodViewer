@@ -358,7 +358,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
 
-                product.traces = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray)
+                product.traces = decodeAllergens(jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray)
 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
                 product.primaryLanguage = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
@@ -372,7 +372,9 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.InterfaceVersionCreatedKey]?.date
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.MaxImgidKey]?.string
-                product.additives = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsKey]?.stringArray)
+                
+                product.additives = decodeAdditives(jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsKey]?.stringArray)
+                
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesOrigKey]?.string
                 product.informers = jsonObject?[OFFJson.ProductKey]?[OFFJson.InformersTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrientLevelsTagsKey]?.stringArray
@@ -398,7 +400,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Fiber100gKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.Energy100gKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.saturatedFatKey]?.string
-                product.languageCountryArray(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray)
+                product.countryArray(decodeCountries(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray))
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
                 product.purchaseLocationElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray)
                 product.producerCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
@@ -475,7 +477,7 @@ class OpenFoodFactsRequest {
                 product.categories = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesTagsKey]?.stringArray)
                 product.quantity = jsonObject?[OFFJson.ProductKey]?[OFFJson.QuantityKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevHierarchyKey]?.stringArray
-                    // jsonObject?[OFFJson.ProductKey]?[OFFJson.ExpirationDateKey]?.date
+                product.expirationDate = decodeDate(jsonObject?[OFFJson.ProductKey]?[OFFJson.ExpirationDateKey]?.string)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesHierarchyKey]?.stringArray
 //                if let allergenArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray {
 //                    product.allergens = [[:]]
@@ -484,7 +486,7 @@ class OpenFoodFactsRequest {
 //                        product.allergens!.append([elementsArray[0]:elementsArray[1]])
 //                    }
 //                }
-                    product.allergens = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray)
+                product.allergens = decodeAllergens(jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray)
                 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilNKey]?.int
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsThumbUrlKey]?.nsurl
@@ -758,23 +760,65 @@ class OpenFoodFactsRequest {
     
     private struct StateCompleteKey {
         static let NutritionFacts = "en:nutrition-facts-completed"
+        static let NutritionFactsTBD = "en:nutrition-facts-to-be-completed"
         static let Ingredients = "en:ingredients-completed"
+        static let IngredientsTBD = "en:ingredients-to-be-completed"
         static let ExpirationDate = "en:expiration-date-completed"
+        static let ExpirationDateTBD = "en:expiration-date-to-be-completed"
         static let PhotosValidated = "en:photos-validated"
+        static let PhotosValidatedTBD = "en:photos-to-be-validated"
         static let Categories = "en:categories-completed"
+        static let CategoriesTBD = "en:categories-to-be-completed"
         static let Brands = "en:brands-completed"
+        static let BrandsTBD = "en:brands-to-be-completed"
         static let Packaging = "en:packaging-completed"
+        static let PackagingTBD = "en:packaging-to-be-completed"
         static let Quantity = "en:quantity-completed"
+        static let QuantityTBD = "en:quantity-to-be-completed"
         static let ProductName = "en:product-name-completed"
+        static let ProductNameTBD = "en:product-name-to-be-completed"
         static let PhotosUploaded = "en:photos-uploaded"
+        static let PhotosUploadedTBD = "en:photos-to-be-uploaded"
     }
     
     private var taxonomies = OFFTaxonomies()
     
-    private func decodeAdditives(additives: [String]?, product:FoodProduct) {
-        
+    private func decodeAdditives(additives: [String]?) -> [String]? {
+        if let adds = additives {
+            var translatedAdds:[String]? = []
+            let preferredLanguage = NSLocale.preferredLanguages()[0]
+            for add in adds {
+                translatedAdds!.append(taxonomies.translateAdditives(add, language:preferredLanguage))
+            }
+            return translatedAdds
+        }
+        return nil
     }
     
+    private func decodeAllergens(allergens: [String]?) -> [String]? {
+        if let allergensArray = allergens {
+            var translatedAllergens:[String]? = []
+            let preferredLanguage = NSLocale.preferredLanguages()[0]
+            for allergen in allergensArray {
+                translatedAllergens!.append(taxonomies.translateAllergens(allergen, language:preferredLanguage))
+            }
+            return translatedAllergens
+        }
+        return nil
+    }
+
+    private func decodeCountries(countries: [String]?) -> [String]? {
+        if let countriesArray = countries {
+            var translatedCountries:[String]? = []
+            let preferredLanguage = NSLocale.preferredLanguages()[0]
+            for country in countriesArray {
+                translatedCountries!.append(taxonomies.translateCountries(country, language:preferredLanguage))
+            }
+            return translatedCountries
+        }
+        return nil
+    }
+
     private func decodeCompletionStates(states: [String]?, product:FoodProduct) {
         if let statesArray = states {
             for currentState in statesArray {
@@ -783,41 +827,82 @@ class OpenFoodFactsRequest {
                     product.state.photosUploadedComplete.value = true
                     product.state.photosUploadedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosUploaded, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.PhotosUploadedTBD) {
+                    product.state.photosUploadedComplete.value =  false
+                    product.state.photosUploadedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosUploadedTBD, language:preferredLanguage)
+                    
+
                 } else if currentState.containsString(StateCompleteKey.ProductName) {
                     product.state.productNameComplete.value =  true
                     product.state.productNameComplete.text = taxonomies.translateStates(StateCompleteKey.ProductName, language:preferredLanguage)
+                    
+                } else if currentState.containsString(StateCompleteKey.ProductNameTBD) {
+                    product.state.productNameComplete.value =  false
+                    product.state.productNameComplete.text = taxonomies.translateStates(StateCompleteKey.ProductNameTBD, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.Brands) {
                     product.state.brandsComplete.value =  true
                     product.state.brandsComplete.text = taxonomies.translateStates(StateCompleteKey.Brands, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.BrandsTBD) {
+                    product.state.brandsComplete.value =  false
+                    product.state.brandsComplete.text = taxonomies.translateStates(StateCompleteKey.BrandsTBD, language:preferredLanguage)
+                    
                 } else if currentState.containsString(StateCompleteKey.Quantity) {
                     product.state.quantityComplete.value =  true
                     product.state.quantityComplete.text = taxonomies.translateStates(StateCompleteKey.Quantity, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.QuantityTBD) {
+                    product.state.quantityComplete.value =  false
+                    product.state.quantityComplete.text = taxonomies.translateStates(StateCompleteKey.QuantityTBD, language:preferredLanguage)
+
                 } else if currentState.containsString(StateCompleteKey.Packaging) {
                     product.state.packagingComplete.value = true
                     product.state.packagingComplete.text = taxonomies.translateStates(StateCompleteKey.Packaging, language:preferredLanguage)
+                    
+                } else if currentState.containsString(StateCompleteKey.PackagingTBD) {
+                    product.state.packagingComplete.value = false
+                    product.state.packagingComplete.text = taxonomies.translateStates(StateCompleteKey.PackagingTBD, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.Categories) {
                     product.state.categoriesComplete.value = true
                     product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.Categories, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.CategoriesTBD) {
+                    product.state.categoriesComplete.value = false
+                    product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
+
                 } else if currentState.containsString(StateCompleteKey.NutritionFacts) {
                     product.state.nutritionFactsComplete.value = true
                     product.state.nutritionFactsComplete.text = taxonomies.translateStates(StateCompleteKey.NutritionFacts, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.CategoriesTBD) {
+                    product.state.categoriesComplete.value = false
+                    product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
+
                 } else if currentState.containsString(StateCompleteKey.PhotosValidated) {
                     product.state.photosValidatedComplete.value = true
                     product.state.photosValidatedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosValidated, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.PhotosValidatedTBD) {
+                    product.state.photosValidatedComplete.value = false
+                    product.state.photosValidatedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosValidatedTBD, language:preferredLanguage)
+
                 } else if currentState.containsString(StateCompleteKey.Ingredients) {
                     product.state.ingredientsComplete.value = true
                     product.state.ingredientsComplete.text = taxonomies.translateStates(StateCompleteKey.Ingredients, language:preferredLanguage)
                     
+                } else if currentState.containsString(StateCompleteKey.IngredientsTBD) {
+                    product.state.ingredientsComplete.value = false
+                    product.state.ingredientsComplete.text = taxonomies.translateStates(StateCompleteKey.IngredientsTBD, language:preferredLanguage)
+
                 } else if currentState.containsString(StateCompleteKey.ExpirationDate) {
                     product.state.expirationDateComplete.value = true
                     product.state.expirationDateComplete.text = taxonomies.translateStates(StateCompleteKey.ExpirationDate, language:preferredLanguage)
+                    
+                } else if currentState.containsString(StateCompleteKey.ExpirationDateTBD) {
+                    product.state.expirationDateComplete.value = false
+                    product.state.expirationDateComplete.text = taxonomies.translateStates(StateCompleteKey.ExpirationDateTBD, language:preferredLanguage)
                 }
             }
         }
@@ -832,6 +917,7 @@ class OpenFoodFactsRequest {
             // use only valid dates
             for date in dates {
                 // a valid date format is 2014-07-20
+                // I do no want the shortened dates in the array
                 if date.rangeOfString( "...-..-..", options: .RegularExpressionSearch) != nil {
                     if let newDate = dateFormatter.dateFromString(date) {
                         uniqueDates.insert(newDate)
@@ -841,6 +927,36 @@ class OpenFoodFactsRequest {
             
             forProduct.lastEditDates = uniqueDates.sort { $0.compare($1) == .OrderedAscending }
         }
+    }
+
+    private func decodeDate(date: String?) -> NSDate? {
+        if let validDate = date {
+            let dateFormatter = NSDateFormatter()
+            // dateFormatter.locale = NSLocale(localeIdentifier: "EN_en")
+            // a valid date format is 20/07/2014
+            // but othe formats are possible
+            if validDate.rangeOfString( "../../....", options: .RegularExpressionSearch) != nil {
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                if let newDate = dateFormatter.dateFromString(validDate) {
+                    
+                    return newDate
+                }
+            }
+        }
+        return nil
+        /*
+ -(NSDate*)dateValue
+ {
+ __block NSDate *detectedDate;
+ NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeDate error:nil];
+ [detector enumerateMatchesInString:self
+ options:kNilOptions
+ range:NSMakeRange(0, [self length])
+ usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)
+ { detectedDate = result.date; }];
+ return detectedDate;
+ }
+ */
     }
 
 

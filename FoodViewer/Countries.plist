@@ -1,0 +1,7572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>en:afghanistan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Afghanistan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Afghanistan</string>
+				<string> Islamic Republic of Afghanistan</string>
+				<string> AF</string>
+				<string> AFG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Afghanistan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Afghanistan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:albania</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Albanien</string>
+				<string> Republik Albanien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Albania</string>
+				<string> Republic of Albania</string>
+				<string> AL</string>
+				<string> ALB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Albanie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Albanië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:alderney</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Alderney</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Alderney</string>
+				<string> Aurigny</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Aurigny</string>
+				<string> Alderney</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Alderney</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:algeria</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Algerien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Algeria</string>
+				<string> People’s Democratic Republic of Algeria</string>
+				<string> DZ</string>
+				<string> DZA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Algérie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Algerije</string>
+				<string> Democratische Volksrepubliek Algerije</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:american-samoa</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Amerikanisch-Samoa</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>American Samoa</string>
+				<string> AS</string>
+				<string> ASM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Samoa américaines</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Amerikaans-Samoa</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:andorra</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Andorra</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Andorra</string>
+				<string> Principality of Andorra</string>
+				<string> Principality of the Valleys of Andorra</string>
+				<string> AD</string>
+				<string> AND</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Andorre</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Andorra</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:angola</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Angola</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Angola</string>
+				<string> Republic of Angola</string>
+				<string> AO</string>
+				<string> AGO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Angola</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Angola</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:anguilla</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Anguilla</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Anguilla</string>
+				<string> AI</string>
+				<string> AIA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Anguilla</string>
+				<string> TQPF</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Anguilla</string>
+				<string> AIA</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:antarctic</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Antarktis</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Antarctic</string>
+				<string> AQ</string>
+				<string> ATA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Région antarctique</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:antarctica</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Antarktika</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Antarctica</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Antarctique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Antarctica</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:antigua-and-barbuda</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Antigua und Barbuda</string>
+				<string> Antigua &amp; Barbuda</string>
+				<string> Dulcina</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Antigua and Barbuda</string>
+				<string> AG</string>
+				<string> ATG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Antigua-et-Barbuda</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Antigua en Barbuda</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:argentina</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Argentinien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Argentina</string>
+				<string> Argentine Republic</string>
+				<string> AR</string>
+				<string> ARG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Argentine</string>
+				<string> République argentine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Argentinië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:armenia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Armenien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Armenia</string>
+				<string> Republic of Armenia</string>
+				<string> AM</string>
+				<string> ARM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Arménie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Armenië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:aruba</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Aruba</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Aruba</string>
+				<string> ISO 3166-1</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Aruba</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Aruba</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ascension-island</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ascension</string>
+				<string> Himmelfahrtsinsel</string>
+				<string> Ascension Island</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ascension Island</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Île de l'Ascension</string>
+				<string> Île d'Ascension</string>
+				<string> Ile d’Ascension</string>
+				<string> Ile de l'Ascension</string>
+				<string> Île de l’Ascension</string>
+				<string> Ascension</string>
+				<string> Ile de l’Ascension</string>
+				<string> Île d’Ascension</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ascension</string>
+				<string> Ascension Island</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:australia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Australien</string>
+				<string> Commonwealth von Australien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Australia</string>
+				<string> Commonwealth of Australia</string>
+				<string> AU</string>
+				<string> AU</string>
+				<string> AUS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Australie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Australië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:austria</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Österreich</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Austria</string>
+				<string> Österreich</string>
+				<string> Republic of Austria</string>
+				<string> Republik Österreich</string>
+				<string> AT</string>
+				<string> AUT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Autriche</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Oostenrijk</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:azerbaijan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Aserbaidschan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Azerbaijan</string>
+				<string> Republic of Azerbaijan</string>
+				<string> AZ</string>
+				<string> AZE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Azerbaïdjan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Azerbeidzjan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bahrain</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bahrain</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bahrain</string>
+				<string> BH</string>
+				<string> BHR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bahreïn</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bahrein</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bangladesh</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bangladesch</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bangladesh</string>
+				<string> East Pakistan</string>
+				<string> People's Republic of Bangladesh</string>
+				<string> East Bengal</string>
+				<string> BD</string>
+				<string> BGD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bangladesh</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bangladesh</string>
+				<string> Volksrepubliek Bangladesh</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:barbados</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Barbados</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Barbados</string>
+				<string> BB</string>
+				<string> BRB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Barbade</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Barbados</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:belarus</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Weißrussland</string>
+				<string> Belarus</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Belarus</string>
+				<string> White Russia</string>
+				<string> White Ruthenia</string>
+				<string> Republic of Belarus</string>
+				<string> BY</string>
+				<string> BLR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Biélorussie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Wit-Rusland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:belgium</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Belgien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Belgium</string>
+				<string> Kingdom of Belgium</string>
+				<string> BE</string>
+				<string> BEL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Belgique</string>
+				<string> Royaume de Belgique</string>
+				<string> belgium</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>België</string>
+				<string> Koninkrijk België</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:belize</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Belize</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Belize</string>
+				<string> BZ</string>
+				<string> BLZ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Belize</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Belize</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:benin</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Benin</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Benin</string>
+				<string> Republic of Benin</string>
+				<string> BJ</string>
+				<string> BEN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bénin</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Benin</string>
+				<string> Republiek Benin</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bermuda</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bermuda</string>
+				<string> Bermudainseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bermuda</string>
+				<string> Somers Isles</string>
+				<string> Bermuda Islands</string>
+				<string> Atlantic/Bermuda</string>
+				<string> ISO 3166-1</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bermudes</string>
+				<string> Les Bermudes</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bermuda</string>
+				<string> Bermuda-eilanden</string>
+				<string> BMU</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bhutan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bhutan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bhutan</string>
+				<string> Kingdom of Bhutan</string>
+				<string> BT</string>
+				<string> BTN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bhoutan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bhutan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bolivia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bolivien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bolivia</string>
+				<string> BO</string>
+				<string> BOL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bolivie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bolivia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bonaire</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bonaire</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bonaire</string>
+				<string> Boneiru</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bonaire</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bonaire</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bosnia-and-herzegovina</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bosnien und Herzegowina</string>
+				<string> Bosnien-Herzegowina</string>
+				<string> BiH</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bosnia and Herzegovina</string>
+				<string> Bosnia-Herzegovina</string>
+				<string> Bosnia</string>
+				<string> BiH</string>
+				<string> BA</string>
+				<string> BIH</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bosnie-Herzégovine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bosnië en Herzegovina</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:botswana</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Botswana</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Botswana</string>
+				<string> BW</string>
+				<string> BWA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Botswana</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Botswana</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bouvet-island</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bouvetinsel</string>
+				<string> Bouvetøya</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bouvet Island</string>
+				<string> BV</string>
+				<string> BVT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>île Bouvet</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bouveteiland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:brazil</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Brasilien</string>
+				<string> Föderative Republik Brasilien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Brazil</string>
+				<string> Federative Republic of Brazil</string>
+				<string> Brasil</string>
+				<string> República Federativa do Brasil</string>
+				<string> BR</string>
+				<string> BRA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Brésil</string>
+				<string> Bresil</string>
+				<string> République fédérative du Brésil</string>
+				<string> Brésilienne</string>
+				<string> Brésilien</string>
+				<string> Brézil</string>
+				<string> Amérique lusophone</string>
+				<string> Auriverde</string>
+				<string> République des États-Unis du Brésil</string>
+				<string> Brazil</string>
+				<string> Brasil</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Brazilië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:british-indian-ocean-territory</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Britisches Territorium im Indischen Ozean</string>
+				<string> British Indian Ocean Territory</string>
+				<string> Brit.Geb.Ind.Oz</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>British Indian Ocean Territory</string>
+				<string> IO</string>
+				<string> IOT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Territoire britannique de l'océan Indien</string>
+				<string> Territoire britannique de l’Océan indien</string>
+				<string> Territoire britannique de l'ocean Indien</string>
+				<string> British Indian Ocean Territory</string>
+				<string> Territoires britanniques de l'océan Indien</string>
+				<string> BIOT</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Brits Indische Oceaanterritorium</string>
+				<string> Brits Territorium in de Indische Oceaan</string>
+				<string> British Indian Ocean Territory</string>
+				<string> Brits Indische Oceaan Territorium</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:british-virgin-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Britische Jungferninseln</string>
+				<string> British Virgin Islands</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>British Virgin Islands</string>
+				<string> Virgin Islands</string>
+				<string> BVI</string>
+				<string> VG</string>
+				<string> VGB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Vierges britanniques</string>
+				<string> Iles Vierges britanniques</string>
+				<string> VGB</string>
+				<string> Vierges britanniques</string>
+				<string> British Virgin Islands</string>
+				<string> Îles-Vierges-Britanniques</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Britse Maagdeneilanden</string>
+				<string> VGB</string>
+				<string> British Virgin Eilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:brittany</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bretagne</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Brittany</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bretagne</string>
+				<string> région Bretagne</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bretagne</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:brunei</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Brunei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Brunei</string>
+				<string> Nation of Brunei</string>
+				<string> the Abode of Peace</string>
+				<string> BN</string>
+				<string> BRN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Brunei</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Brunei</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bulgaria</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bulgarien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Bulgaria</string>
+				<string> Republic of Bulgaria</string>
+				<string> BG</string>
+				<string> BGR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bulgarie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bulgarije</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:burkina-faso</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Burkina Faso</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Burkina Faso</string>
+				<string> BF</string>
+				<string> BFA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Burkina Faso</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Burkina Faso</string>
+				<string> land van de eerlijke mensen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:burundi</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Burundi</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Burundi</string>
+				<string> Republic of Burundi</string>
+				<string> BI</string>
+				<string> BDI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Burundi</string>
+				<string> République du Burundi</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Burundi</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cambodia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kambodscha</string>
+				<string> Königreich Kambodscha</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cambodia</string>
+				<string> Kingdom of Cambodia</string>
+				<string> KH</string>
+				<string> KHM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Cambodge</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Cambodja</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cameroon</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kamerun</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cameroon</string>
+				<string> CM</string>
+				<string> CMR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Cameroun</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kameroen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:canada</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kanada</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Canada</string>
+				<string> Dominion of Canada</string>
+				<string> British North America</string>
+				<string> CAN</string>
+				<string> CA</string>
+				<string> CA</string>
+				<string> CAN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Canada</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Canada</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cape-verde</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kap Verde</string>
+				<string> Kapverdisch</string>
+				<string> Republik Kap Verde</string>
+				<string> Kap Verden</string>
+				<string> República de Cabo Verde</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cape Verde</string>
+				<string> Republic of Cape Verde</string>
+				<string> Cabo Verde</string>
+				<string> CV</string>
+				<string> CV</string>
+				<string> CPV</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Cap-Vert</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kaapverdië</string>
+				<string> Kaapverdische eilanden</string>
+				<string> Republiek Kaapverdië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:caribbean-netherlands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Karibische Niederlande</string>
+				<string> BES-Inseln</string>
+				<string> Karibische Niederlande</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Caribbean Netherlands</string>
+				<string> BES islands</string>
+				<string> BQ</string>
+				<string> BES</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pays-Bas caribéens</string>
+				<string> Bonaire</string>
+				<string> Saint-Eustache et Saba</string>
+				<string> Îles BES</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Caribisch Nederland</string>
+				<string> Caraibisch Nederland</string>
+				<string> BES eilanden</string>
+				<string> BES-eilanden</string>
+				<string> Caraïbisch Nederland</string>
+				<string> Bijzondere gemeente</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cayman-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Cayman Islands</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cayman Islands</string>
+				<string> KY</string>
+				<string> CYM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Caïmans</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kaaimaneilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:central-african-republic</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Zentralafrikanische Republik</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Central African Republic</string>
+				<string> CF</string>
+				<string> CAF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République centrafricaine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Centraal-Afrikaanse Republiek</string>
+				<string> Centraal-Afrika</string>
+				<string> Centrafrika</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:chad</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tschad</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Chad</string>
+				<string> Republic of Chad</string>
+				<string> République du Tchad</string>
+				<string> جمهورية تشاد</string>
+				<string> Ǧumhūriyyat Tšād</string>
+				<string> Tchad</string>
+				<string> TD</string>
+				<string> TCD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tchad</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tsjaad</string>
+				<string> Republiek Tsjaad</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:chile</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Chile</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Chile</string>
+				<string> CL</string>
+				<string> CHL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Chili</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Chili</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:china</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>China</string>
+				<string> Volksrepublik China</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>China</string>
+				<string> PRC</string>
+				<string> People's Republic of China</string>
+				<string> CN</string>
+				<string> CHN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Chine</string>
+				<string> République populaire de Chine</string>
+				<string> Zhōnghuá Rénmín Gònghéguó</string>
+				<string> La République populaire de Chine</string>
+				<string> Chine communiste</string>
+				<string> ZhōngGuó</string>
+				<string> 中华人民共和国</string>
+				<string> 中華人民共和國</string>
+				<string> Chine populaire</string>
+				<string> Republique populaire de Chine</string>
+				<string> ZhongGuo</string>
+				<string> Zhong Guo</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Volksrepubliek China</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:christmas-island</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Weihnachtsinsel</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Christmas Island</string>
+				<string> CX</string>
+				<string> CXR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Île Christmas</string>
+				<string> Ile Christmas</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Christmaseiland</string>
+				<string> Christmas Island</string>
+				<string> Kersteiland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cocos-(keeling)-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kokosinseln</string>
+				<string> Keeling-Inseln</string>
+				<string> Keelinginseln</string>
+				<string> Cocos-Keeling-Islands</string>
+				<string> Cocos-Inseln</string>
+				<string> Cocos-Keeling-Inseln</string>
+				<string> Cocos Islands</string>
+				<string> Keeling Islands</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cocos (Keeling) Islands</string>
+				<string> Cocos Islands</string>
+				<string> Keeling Islands</string>
+				<string> Territory of the Cocos (Keeling) Islands</string>
+				<string> CC</string>
+				<string> CCK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Cocos</string>
+				<string> Iles Cocos</string>
+				<string> Îles Keeling</string>
+				<string> Îles Cocos ou Keeling</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Cocoseilanden</string>
+				<string> Cocos (Keeling) Eilanden</string>
+				<string> Keeling Eilanden</string>
+				<string> Cocos eilanden</string>
+				<string> Keelingeilanden</string>
+				<string> Keeling islands</string>
+				<string> Kokoseilanden</string>
+				<string> Cocos Islands</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:colombia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kolumbien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Colombia</string>
+				<string> Republic of Colombia</string>
+				<string> CO</string>
+				<string> COL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Colombie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Colombia</string>
+				<string> Republiek Colombia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:comoros</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Komoren</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Comoros</string>
+				<string> KM</string>
+				<string> COM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Comores</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Comoren</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cook-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Cookinseln</string>
+				<string> Cook Islands</string>
+				<string> Hervey-Inseln</string>
+				<string> Cook-Inseln</string>
+				<string> Cook Inseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cook Islands</string>
+				<string> CK</string>
+				<string> COK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Cook</string>
+				<string> Archipel Cook</string>
+				<string> Îles-Cook</string>
+				<string> Cook Islands</string>
+				<string> Kūki 'Āirani</string>
+				<string> Cook</string>
+				<string> Iles Cook</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Cookeilanden</string>
+				<string> Cook Islands</string>
+				<string> Cook Eilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:costa-rica</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Costa Rica</string>
+				<string> Kostarika</string>
+				<string> Kosta Rika</string>
+				<string> Republik Costa Rica</string>
+				<string> „Schweiz Mittelamerikas“</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Costa Rica</string>
+				<string> Republic of Costa Rica</string>
+				<string> CR</string>
+				<string> CRI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Costa Rica</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Costa Rica</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:croatia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kroatien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Croatia</string>
+				<string> Republic of Croatia</string>
+				<string> HR</string>
+				<string> HRV</string>
+				<string> HR</string>
+				<string> HRV</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Croatie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kroatië</string>
+				<string> Republiek Kroatië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cuba</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kuba</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cuba</string>
+				<string> Republic of Cuba</string>
+				<string> CU</string>
+				<string> CUB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Cuba</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Cuba</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:curaçao</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Curaçao</string>
+				<string> Kòrsou</string>
+				<string> Curacoa</string>
+				<string> Curacao</string>
+				<string> Korsou</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Curaçao</string>
+				<string> Island Territory of Curaçao</string>
+				<string> Curacau</string>
+				<string> Curaçoa</string>
+				<string> Curaςao</string>
+				<string> Kòrsou</string>
+				<string> Korsou</string>
+				<string> Curocao</string>
+				<string> ISO 3166-1</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Curaçao</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Curaçao</string>
+				<string> Curaçoa</string>
+				<string> Curacao</string>
+				<string> Land Curaçao</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cyprus</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Republik Zypern</string>
+				<string> Südzypern</string>
+				<string> Kıbrıs Cumhuriyeti</string>
+				<string> Kypriakí Dimokratía</string>
+				<string> Zypern</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Cyprus</string>
+				<string> Republic of Cyprus</string>
+				<string> CY</string>
+				<string> CYP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Chypre</string>
+				<string> Chypriotes</string>
+				<string> Chypre-Sud</string>
+				<string> Chypriote</string>
+				<string> République de Chypre</string>
+				<string> Kıbrıs Cumhuriyeti</string>
+				<string> Κυπριακή Δημοκρατία</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Cyprus</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:czech-republic</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tschechien</string>
+				<string> Tschechische Republik</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Czech Republic</string>
+				<string> Czechia</string>
+				<string> CZ</string>
+				<string> CZE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République tchèque</string>
+				<string> Tchéquie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tsjechië</string>
+				<string> Tsjechische Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:côte-d'ivoire</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Elfenbeinküste</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Côte d'Ivoire</string>
+				<string> Ivory Coast</string>
+				<string> Republic of Côte d'Ivoire</string>
+				<string> CI</string>
+				<string> CIV</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Côte d'Ivoire</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ivoorkust</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:democratic-republic-of-the-congo</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Demokratische Republik Kongo</string>
+				<string> DR Kongo</string>
+				<string> Dem. Rep. Kongo</string>
+				<string> Kongo-Léopoldville</string>
+				<string> Kongo-Kinshasa</string>
+				<string> Kongo</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Democratic Republic of the Congo</string>
+				<string> DRC</string>
+				<string> DR Congo</string>
+				<string> Congo-Kinshasa</string>
+				<string> Zaire</string>
+				<string> Congo</string>
+				<string> Democratic Republic of Congo</string>
+				<string> CD</string>
+				<string> COD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République démocratique du Congo</string>
+				<string> Congo-Kinshasa</string>
+				<string> RDC</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Congo-Kinshasa</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:denmark</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Dänemark</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Denmark</string>
+				<string> DK</string>
+				<string> Kingdom of Denmark</string>
+				<string> Danish Kingdom</string>
+				<string> Danmark</string>
+				<string> Kongeriget Danmark</string>
+				<string> DK</string>
+				<string> DNK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Danemark</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Denemarken</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:djibouti</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Dschibuti</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Djibouti</string>
+				<string> Republic of Djibouti</string>
+				<string> DJ</string>
+				<string> DJI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Djibouti</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Djibouti</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:dominica</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Dominica</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Dominica</string>
+				<string> DM</string>
+				<string> DMA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Dominique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Dominica</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:dominican-republic</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Dominikanische Republik</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Dominican Republic</string>
+				<string> DO</string>
+				<string> DOM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République dominicaine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Dominicaanse Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:east-germany</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Deutsche Demokratische Republik</string>
+				<string> DDR</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>East Germany</string>
+				<string> GDR</string>
+				<string> German Democratic Republic</string>
+				<string> G.D.R.</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République démocratique allemande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Duitse Democratische Republiek</string>
+				<string> Oost-Duitsland</string>
+				<string> DDR</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ecuador</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ecuador</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ecuador</string>
+				<string> EC</string>
+				<string> ECU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Équateur</string>
+				<string> Equateur</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ecuador</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:egypt</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ägypten</string>
+				<string> Arabische Republik Ägypten</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Egypt</string>
+				<string> Arab Republic of Egypt</string>
+				<string> مصر</string>
+				<string> EG</string>
+				<string> EGY</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Égypte</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Egypte</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:el-salvador</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>El Salvador</string>
+				<string> Republik El Salvador</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>El Salvador</string>
+				<string> SV</string>
+				<string> SLV</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Salvador</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>El Salvador</string>
+				<string> Republiek El Salvador</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:equatorial-guinea</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Äquatorialguinea</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Equatorial Guinea</string>
+				<string> Republic of Equatorial Guinea</string>
+				<string> GQ</string>
+				<string> GNQ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guinée équatoriale</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Equatoriaal-Guinea</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:eritrea</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Eritrea</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Eritrea</string>
+				<string> State of Eritrea</string>
+				<string> ER</string>
+				<string> ERI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Érythrée</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Eritrea</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:estonia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Estland</string>
+				<string> Republik Estland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Estonia</string>
+				<string> Republic of Estonia</string>
+				<string> Estland</string>
+				<string> Eesti</string>
+				<string> EE</string>
+				<string> EST</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Estonie</string>
+				<string> Esthonie</string>
+				<string> République d’Estonie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Estland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ethiopia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Äthiopien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ethiopia</string>
+				<string> ET</string>
+				<string> ETH</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Éthiopie</string>
+				<string> République fédérale démocratique d'Éthiopie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ethiopië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:european-union</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Europäische Union</string>
+				<string> EU</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>European Union</string>
+				<string> EU</string>
+				<string> E.U.</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Union européenne</string>
+				<string> UE</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Europese Unie</string>
+				<string> EU</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:falkland-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Falklandinseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Falkland Islands</string>
+				<string> Falklands</string>
+				<string> Malvinas</string>
+				<string> Islas Malvinas</string>
+				<string> FK</string>
+				<string> FLK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Malouines</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Falklandeilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:faroe-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Färöer</string>
+				<string> Färöer-Inseln</string>
+				<string> Schafsinseln</string>
+				<string> Färöische Vogelwelt</string>
+				<string> Faeröerne</string>
+				<string> Föroyar</string>
+				<string> Faroer</string>
+				<string> Suðuroyar sýsla</string>
+				<string> Färöische Inseln</string>
+				<string> Føroyar</string>
+				<string> Færøerne</string>
+				<string> Färöerinseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Faroe Islands</string>
+				<string> Faeroe Islands</string>
+				<string> Atlantic/Faroe</string>
+				<string> Fareo islands</string>
+				<string> Faeroyene</string>
+				<string> Far Oer</string>
+				<string> Faeroerne</string>
+				<string> Faer Oer</string>
+				<string> Faroe Isles</string>
+				<string> Faroer</string>
+				<string> Färöer</string>
+				<string> Faeroe Isles</string>
+				<string> Faroes</string>
+				<string> Faroese Islands</string>
+				<string> Foroyar</string>
+				<string> Faeroes</string>
+				<string> Faeroer</string>
+				<string> Føroyar</string>
+				<string> Faroe Island</string>
+				<string> The Faroe Islands</string>
+				<string> Færøer</string>
+				<string> Færeyjar</string>
+				<string> Fær Øer</string>
+				<string> Faeroe Is</string>
+				<string> The Faeroe Islands</string>
+				<string> Færøyene</string>
+				<string> Færøerne</string>
+				<string> Faröe Islands</string>
+				<string> Sheep Islands</string>
+				<string> Færoes</string>
+				<string> FO</string>
+				<string> FRO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Féroé</string>
+				<string> Iles Feroe</string>
+				<string> Féroé</string>
+				<string> Iles Féroé</string>
+				<string> Føroyar</string>
+				<string> Færøerne</string>
+				<string> Îles Feroé</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Faeröer</string>
+				<string> Faeröereilanden</string>
+				<string> Fareur</string>
+				<string> Faeröer eilanden</string>
+				<string> Faerøerne</string>
+				<string> Faeroër-eilanden</string>
+				<string> Far Oer</string>
+				<string> Faeroerne</string>
+				<string> Faroer</string>
+				<string> Färöer</string>
+				<string> Faeroer-eilanden</string>
+				<string> Foroyar</string>
+				<string> Faeroer</string>
+				<string> Faerøereilanden</string>
+				<string> Faeroer Eilanden</string>
+				<string> Faeröer-eilanden</string>
+				<string> Føroyar</string>
+				<string> Faerøer</string>
+				<string> Færøer</string>
+				<string> Faeroër</string>
+				<string> Faröer</string>
+				<string> Faroe Islands</string>
+				<string> Faerøer-eilanden</string>
+				<string> Faerøer Eilanden</string>
+				<string> Faeroereilanden</string>
+				<string> Færøerne</string>
+				<string> Faroer Eilanden</string>
+				<string> Færöer</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:federated-states-of-micronesia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mikronesien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Federated States of Micronesia</string>
+				<string> Micronesia</string>
+				<string> FSM</string>
+				<string> FM</string>
+				<string> FSM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Micronésie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Micronesia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fiji</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Fidschi</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Fiji</string>
+				<string> Republic of Fiji</string>
+				<string> FJ</string>
+				<string> FJI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Fidji</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Fiji</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:finland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Finnland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Finland</string>
+				<string> Republic of Finland</string>
+				<string> Finlande</string>
+				<string> Finlandia</string>
+				<string> Finnland</string>
+				<string> Finnia</string>
+				<string> Soome</string>
+				<string> Land of Thousand Lakes</string>
+				<string> FI</string>
+				<string> FIN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Finlande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Finland</string>
+				<string> Republiek Finland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:france</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Frankreich</string>
+				<string> Französische Republik</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>France</string>
+				<string> The Hexagon</string>
+				<string> French Republic</string>
+				<string> FR</string>
+				<string> FRA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>France</string>
+				<string> République française</string>
+				<string> L'Hexagone</string>
+				<string> Hexagone</string>
+				<string> fille aînée de l’Église</string>
+				<string> patrie des droits de l'Homme</string>
+				<string> pays des Lumières</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Frankrijk</string>
+				<string> Franse Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:french-guiana</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Französisch-Guayana</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>French Guiana</string>
+				<string> GF</string>
+				<string> GUF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guyane</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Frans-Guyana</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:french-polynesia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Französisch-Polynesien</string>
+				<string> Polynésie française</string>
+				<string> Französisch Ozeanien</string>
+				<string> Französisch-Ozeanien</string>
+				<string> PYF</string>
+				<string> Französisch Polynesien</string>
+				<string> Polynesie française</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>French Polynesia</string>
+				<string> PF</string>
+				<string> PYF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Polynésie française</string>
+				<string> Établissements français de l'Océanie</string>
+				<string> Polynésie Francaise</string>
+				<string> Établissements français de l’Océanie</string>
+				<string> F-OH</string>
+				<string> Polynesie francaise</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Frans-Polynesië</string>
+				<string> Frans Polynesie</string>
+				<string> Frans-Polynesie</string>
+				<string> Frans Polynesië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:french-southern-and-antarctic-lands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Französische Süd- und Antarktisgebiete</string>
+				<string> Französische Südgebiete</string>
+				<string> French Southern and Antarctic Lands</string>
+				<string> TAAF</string>
+				<string> Französische Antarktisgebiete</string>
+				<string> FR-TF</string>
+				<string> Französische Südpolarterritorien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>French Southern and Antarctic Lands</string>
+				<string> TF</string>
+				<string> ATF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Terres australes et antarctiques françaises</string>
+				<string> TAAF</string>
+				<string> Terres Australes Françaises</string>
+				<string> Terres australes et antarctiques francaises</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Franse Zuidelijke en Antarctische Gebieden</string>
+				<string> Franse Zuidelijke en Antarctische territoria</string>
+				<string> French Southern Territories</string>
+				<string> Franse Zuidelijke en Antactische Gebieden</string>
+				<string> Terres Australes et Antarctiques Francaises</string>
+				<string> Franse Zuidelijke en Zuidpoolgebieden</string>
+				<string> Terres Australes et Antarctiques Françaises</string>
+				<string> Franse Zuidelijke Gebieden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gabon</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Gabun</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Gabon</string>
+				<string> Gabonese Republic</string>
+				<string> République Gabonaise</string>
+				<string> GA</string>
+				<string> GAB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Gabon</string>
+				<string> République gabonaise</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gabon</string>
+				<string> Republiek Gabon</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:galmudug</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Galmudug</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Galmudug</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Galmudug</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Galmudug</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gambia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Gambia</string>
+				<string> Republik Gambia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Gambia</string>
+				<string> Republic of the Gambia</string>
+				<string> the Gambia</string>
+				<string> GM</string>
+				<string> GMB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Gambie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gambia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:georgia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Georgien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Georgia</string>
+				<string> Sakartvelo</string>
+				<string> gurz-ān</string>
+				<string> ĵurĵan</string>
+				<string> ĵurzan</string>
+				<string> gurğān</string>
+				<string> Gruzia</string>
+				<string> GE</string>
+				<string> GEO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Géorgie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Georgië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:germany</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Deutschland</string>
+				<string> Bundesrepublik Deutschland</string>
+				<string> BR Deutschland</string>
+				<string> BRD</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Germany</string>
+				<string> FRG</string>
+				<string> BRD</string>
+				<string> Bundesrepublik Deutschland</string>
+				<string> Federal Republic of Germany</string>
+				<string> DE</string>
+				<string> DEU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Allemagne</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Duitsland</string>
+				<string> Bondsrepubliek Duitsland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ghana</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ghana</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ghana</string>
+				<string> Republic of Ghana</string>
+				<string> GH</string>
+				<string> GHA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Ghana</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ghana</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gibraltar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Gibraltar</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Gibraltar</string>
+				<string> GI</string>
+				<string> GIB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Gibraltar</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gibraltar</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:greece</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Griechenland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Greece</string>
+				<string> Hellenic Republic</string>
+				<string> Hellas</string>
+				<string> GR</string>
+				<string> GRC</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Grèce</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Griekenland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:greenland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Grönland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Greenland</string>
+				<string> Greenland (country)</string>
+				<string> GL</string>
+				<string> GRL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Groenland</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Groenland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:grenada</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Grenada</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Grenada</string>
+				<string> GD</string>
+				<string> GRD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Grenade</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Grenada</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guadeloupe</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guadeloupe</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guadeloupe</string>
+				<string> GP</string>
+				<string> GLP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guadeloupe</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guadeloupe</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guam</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guam</string>
+				<string> US-GU</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guam</string>
+				<string> GU</string>
+				<string> GUM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guam</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guam</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guatemala</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guatemala</string>
+				<string> Republik Guatemala</string>
+				<string> República de Guatemala</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guatemala</string>
+				<string> GT</string>
+				<string> GTM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guatemala</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guatemala</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guernsey</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guernsey</string>
+				<string> Vogtei Guernsey</string>
+				<string> Bailiwick of Guernsey</string>
+				<string> Bailliage de Guernesey</string>
+				<string> Sarmia</string>
+				<string> GGY</string>
+				<string> Guernesey</string>
+				<string> GB-GSY</string>
+				<string> Vogtei Guernesey</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guernsey</string>
+				<string> Bailliage de Guernesey</string>
+				<string> Isle of Guernsey</string>
+				<string> Island of Guernsey</string>
+				<string> Guensey</string>
+				<string> Bailiwick of Guernsey</string>
+				<string> ISO 3166-1</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guernesey</string>
+				<string> Guernsey</string>
+				<string> Bailliage de Guernesey</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guernsey</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guinea</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guinea</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guinea</string>
+				<string> Guinea-Conakry</string>
+				<string> Republic of Guinea</string>
+				<string> GN</string>
+				<string> GIN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guinée</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guinee</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guinea-bissau</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guinea-Bissau</string>
+				<string> Republik Guinea-Bissau</string>
+				<string> Guiné-Bissau</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guinea-Bissau</string>
+				<string> Republic of Guinea-Bissau</string>
+				<string> GW</string>
+				<string> GNB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guinée-Bissau</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guinee-Bissau</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:guyana</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Guyana</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Guyana</string>
+				<string> Co-operative Republic of Guyana</string>
+				<string> GY</string>
+				<string> GUY</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Guyana</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Guyana</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:haiti</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Haiti</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Haiti</string>
+				<string> Republic of Haiti</string>
+				<string> HT</string>
+				<string> HTI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Haïti</string>
+				<string> République d'Haïti</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Haïti</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:heard-island-and-mcdonald-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Heard und McDonaldinseln</string>
+				<string> Heard und McDonald-Inseln</string>
+				<string> Territory of Heard Island and McDonald Islands</string>
+				<string> Heard-Insel und McDonald-Inseln</string>
+				<string> HIMI</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Heard Island and McDonald Islands</string>
+				<string> HM</string>
+				<string> HMD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Heard-et-MacDonald</string>
+				<string> Heard and McDonald Islands</string>
+				<string> Île Heard et îles McDonald</string>
+				<string> Île Heard et les îles McDonald</string>
+				<string> Île Heard et îles MacDonald</string>
+				<string> Îles Heard-et-McDonald</string>
+				<string> Heard-et-McDonald</string>
+				<string> Ile Heard et iles McDonald</string>
+				<string> Îles Heard et McDonald</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Heard en McDonaldeilanden</string>
+				<string> Heard and McDonald Islands</string>
+				<string> McDonaldeiland</string>
+				<string> Heard- en McDonaldeiland</string>
+				<string> Heard- en McDonaldeilanden</string>
+				<string> Heard-eiland</string>
+				<string> Heardeiland</string>
+				<string> McDonald-eiland</string>
+				<string> Heard Island and McDonald Islands</string>
+				<string> Heardeiland en McDonaldeilanden</string>
+				<string> HIMI</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:honduras</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Honduras</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Honduras</string>
+				<string> HN</string>
+				<string> HND</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Honduras</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Honduras</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hong-kong</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Hongkong</string>
+				<string> Hong Kong Special Administrative Region of the People's Republic of China</string>
+				<string> Hong Kong</string>
+				<string> CN-91</string>
+				<string> Sonderverwaltungszone Hongkong</string>
+				<string> Xiānggǎng</string>
+				<string> Xianggang</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Hong Kong</string>
+				<string> Hong Kong Special Administrative Region</string>
+				<string> HKSAR</string>
+				<string> HKG</string>
+				<string> HK</string>
+				<string> Hong Kong SAR</string>
+				<string> Xianggang</string>
+				<string> China Hong Kong</string>
+				<string> Hong Kong</string>
+				<string> China</string>
+				<string> HK</string>
+				<string> HKG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Hong Kong</string>
+				<string> région administrative spéciale de Hong Kong de la République populaire de Chine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Hongkong</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hungary</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ungarn</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Hungary</string>
+				<string> HU</string>
+				<string> HUN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Hongrie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Hongarije</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:iceland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Island</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Iceland</string>
+				<string> Republic of Iceland</string>
+				<string> IS</string>
+				<string> ISL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Islande</string>
+				<string> République d'Islande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>IJsland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:india</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Indien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>India</string>
+				<string> Bharat</string>
+				<string> Hindustan</string>
+				<string> IN</string>
+				<string> IND</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Inde</string>
+				<string> République d'Inde</string>
+				<string> Bharat</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>India</string>
+				<string> Republiek India</string>
+				<string> Bharat</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:indonesia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Indonesien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Indonesia</string>
+				<string> Republic of Indonesia</string>
+				<string> NKRI</string>
+				<string> Negara Kesatuan Republik Indonesia</string>
+				<string> Republik Indonesia</string>
+				<string> ID</string>
+				<string> IDN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Indonésie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Indonesië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:iran</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Iran</string>
+				<string> Islamische Republik Iran</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Iran</string>
+				<string> Islamic Republic of Iran</string>
+				<string> Persia</string>
+				<string> IR</string>
+				<string> IRN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Iran</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Iran</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:iraq</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Irak</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Iraq</string>
+				<string> IQ</string>
+				<string> IRQ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Irak</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Irak</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:iraqi-kurdistan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Autonome Region Kurdistan</string>
+				<string> Kurdische Autonome Region</string>
+				<string> Nordirak</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Iraqi Kurdistan</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Kurdistan irakien</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Koerdische Autonome Regio</string>
+				<string> Republiek Zuid-Koerdistan</string>
+				<string> Republiek Zuid Koerdistan</string>
+				<string> Iraaks-Koerdistan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:isle-of-man</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Isle of Man</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Isle of Man</string>
+				<string> Ellan Vannin</string>
+				<string> Mann</string>
+				<string> the Isle of Man</string>
+				<string> IM</string>
+				<string> IMN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Île de Man</string>
+				<string> Isle of Man</string>
+				<string> Ellan Vannin</string>
+				<string> Mann</string>
+				<string> Mannin</string>
+				<string> Insula Mona</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Man</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:israel</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Israel</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Israel</string>
+				<string> State of Israel</string>
+				<string> IL</string>
+				<string> ISR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Israël</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Israël</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:italy</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Italien</string>
+				<string> Italienische Republik</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Italy</string>
+				<string> Italia</string>
+				<string> Italian Republic</string>
+				<string> Italië</string>
+				<string> IT</string>
+				<string> ITA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Italie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Italië</string>
+				<string> Italiaanse Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:jamaica</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Jamaika</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Jamaica</string>
+				<string> JA</string>
+				<string> Commonwealth of Jamaica</string>
+				<string> Jamdung</string>
+				<string> JM</string>
+				<string> JAM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Jamaïque</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Jamaica</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:jan-mayen</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Jan Mayen</string>
+				<string> NO-22</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Jan Mayen</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Jan Mayen</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Jan Mayen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:japan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Japan</string>
+				<string> Nihon</string>
+				<string> Nippon</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Japan</string>
+				<string> State of Japan</string>
+				<string> Land of the Rising Sun</string>
+				<string> Nihon</string>
+				<string> Nippon</string>
+				<string> JP</string>
+				<string> Nippon-koku</string>
+				<string> Nihon-koku</string>
+				<string> JP</string>
+				<string> JPN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Japon</string>
+				<string> pays du soleil levant</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Japan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:jersey</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Jersey</string>
+				<string> Vogtei Jersey</string>
+				<string> JE</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Jersey</string>
+				<string> Balliwick of Jersey</string>
+				<string> Ile de Jersey</string>
+				<string> Jerry</string>
+				<string> JE</string>
+				<string> JEY</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Jersey</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Jersey</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:jordan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Jordanien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Jordan</string>
+				<string> Hashemite Kingdom of Jordan</string>
+				<string> JO</string>
+				<string> JOR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Jordanie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Jordanië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:kazakhstan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kasachstan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Kazakhstan</string>
+				<string> Republic of Kazakhstan</string>
+				<string> KZ</string>
+				<string> KAZ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Kazakhstan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kazachstan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:kenya</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kenia</string>
+				<string> Republik Kenia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Kenya</string>
+				<string> Republic of Kenya</string>
+				<string> KE</string>
+				<string> KEN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Kenya</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kenia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:kiribati</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kiribati</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Kiribati</string>
+				<string> KI</string>
+				<string> KIR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Kiribati</string>
+				<string> Îles Gilbert</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kiribati</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:kuwait</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kuwait</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Kuwait</string>
+				<string> State of Kuwait</string>
+				<string> Dawlat al-Kuwait</string>
+				<string> دولة الكويت</string>
+				<string> الكويت</string>
+				<string> KW</string>
+				<string> KWT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Koweït</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Koeweit</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:kyrgyzstan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Kirgisistan</string>
+				<string> Kirgisien</string>
+				<string> Kirgistan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Kyrgyzstan</string>
+				<string> Kyrgyz Republic</string>
+				<string> KG</string>
+				<string> KGZ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Kirghizistan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kirgizië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:laos</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Laos</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Laos</string>
+				<string> Lao People's Democratic Republic</string>
+				<string> LA</string>
+				<string> LAO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Laos</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Laos</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:latvia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Lettland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Latvia</string>
+				<string> Republic of Latvia</string>
+				<string> Latvian Republic</string>
+				<string> LV</string>
+				<string> LVA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lettonie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Letland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lebanon</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Libanon</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Lebanon</string>
+				<string> Lebanese Republic</string>
+				<string> LB</string>
+				<string> LBN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Liban</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Libanon</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lesotho</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Lesotho</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Lesotho</string>
+				<string> Kingdom of Lesotho</string>
+				<string> LS</string>
+				<string> LSO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lesotho</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Lesotho</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:liberia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Liberia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Liberia</string>
+				<string> LR</string>
+				<string> LBR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Liberia</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Liberia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:libya</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Libyen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Libya</string>
+				<string> State of Libya</string>
+				<string> LY</string>
+				<string> LBY</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Libye</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Libië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:liechtenstein</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Liechtenstein</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Liechtenstein</string>
+				<string> LI</string>
+				<string> Principality of Liechtenstein</string>
+				<string> FL</string>
+				<string> LI</string>
+				<string> LIE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Liechtenstein</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Liechtenstein</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lithuania</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Litauen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Lithuania</string>
+				<string> Republic of Lithuania</string>
+				<string> LT</string>
+				<string> LTU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lituanie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Litouwen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:luxembourg</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Luxemburg</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Luxembourg</string>
+				<string> Luxemburg</string>
+				<string> Grand Duchy of Luxembourg</string>
+				<string> LU</string>
+				<string> LU</string>
+				<string> LUX</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Luxembourg</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Luxemburg</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:macau</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Macao</string>
+				<string> CN-92</string>
+				<string> Macau</string>
+				<string> Makau</string>
+				<string> Makao</string>
+				<string> Sonderverwaltungszone Macao</string>
+				<string> Sonderverwaltungszone Macao der Volksrepublik China</string>
+				<string> Àomén</string>
+				<string> Aomen</string>
+				<string> Região Administrativa Especial de Macau da República Popular da China</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Macau</string>
+				<string> Macao</string>
+				<string> Macau Special Administrative Region</string>
+				<string> Macau Special Administrative Region of the People's Republic of China</string>
+				<string> Aomen</string>
+				<string> MO</string>
+				<string> MAC</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Macao</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Macau</string>
+				<string> Macao</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:madagascar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Madagaskar</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Madagascar</string>
+				<string> Republic of Madagascar</string>
+				<string> MG</string>
+				<string> MDG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Madagascar</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Madagaskar</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:malawi</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Malawi</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Malawi</string>
+				<string> Republic of Malawi</string>
+				<string> MW</string>
+				<string> MWI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Malawi</string>
+				<string> République du Malawi</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Malawi</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:malaysia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Malaysia</string>
+				<string> Malaysien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Malaysia</string>
+				<string> MY</string>
+				<string> MYS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Malaisie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Maleisië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:maldives</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Malediven</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Maldives</string>
+				<string> MV</string>
+				<string> MDV</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Maldives</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Maldiven</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mali</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mali</string>
+				<string> Republik Mali</string>
+				<string> Republique du Mali</string>
+				<string> République du Mali</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mali</string>
+				<string> ML</string>
+				<string> MLI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mali</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mali</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:malta</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Malta</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Malta</string>
+				<string> Republic of Malta</string>
+				<string> MT</string>
+				<string> MLT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Malte</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Malta</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:marshall-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Marshallinseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Marshall Islands</string>
+				<string> Republic of the Marshall Islands</string>
+				<string> Aolepān Aorōkin M̧ajeļ</string>
+				<string> MH</string>
+				<string> MHL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Marshall</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Marshalleilanden</string>
+				<string> Republiek der Marshalleilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:martinique</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Martinique</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Martinique</string>
+				<string> MQ</string>
+				<string> MTQ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Martinique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Martinique</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mauritania</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mauretanien</string>
+				<string> Mauritania</string>
+				<string> Islamische Republik Mauretanien</string>
+				<string> République islamique de Mauritanie</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mauritania</string>
+				<string> Islamic Republic of Mauritania</string>
+				<string> MR</string>
+				<string> MRT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mauritanie</string>
+				<string> République islamique de Mauritanie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mauritanië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mauritius</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mauritius</string>
+				<string> Republik Mauritius</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mauritius</string>
+				<string> Republic of Mauritius</string>
+				<string> Maurice</string>
+				<string> Île Maurice</string>
+				<string> Moris</string>
+				<string> MU</string>
+				<string> MUS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Maurice</string>
+				<string> République de Maurice</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mauritius</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mayotte</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mayotte</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mayotte</string>
+				<string> Department of Mayotte</string>
+				<string> YT</string>
+				<string> MYT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mayotte</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mayotte</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mexico</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mexiko</string>
+				<string> Vereinigte Mexikanische Staaten</string>
+				<string> México</string>
+				<string> Mexihco</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mexico</string>
+				<string> United Mexican States</string>
+				<string> Mexican Republic</string>
+				<string> República Mexicana</string>
+				<string> Estados Unidos Mexicanos</string>
+				<string> MX</string>
+				<string> MX</string>
+				<string> MEX</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mexique</string>
+				<string> États-Unis mexicains</string>
+				<string> Mexico</string>
+				<string> México</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mexico</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:moldova</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Moldawien</string>
+				<string> Republik Moldau</string>
+				<string> Moldau</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Moldova</string>
+				<string> Republic of Moldova</string>
+				<string> MD</string>
+				<string> MDA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Moldavie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Moldavië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:monaco</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Monaco</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Monaco</string>
+				<string> Principality of Monaco</string>
+				<string> MC</string>
+				<string> MCO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Monaco</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Monaco</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mongolia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mongolei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mongolia</string>
+				<string> MN</string>
+				<string> MNG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mongolie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mongolië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:montenegro</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Montenegro</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Montenegro</string>
+				<string> ME</string>
+				<string> MNE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Monténégro</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Montenegro</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:montserrat</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Montserrat</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Montserrat</string>
+				<string> MS</string>
+				<string> MSR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Montserrat</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Montserrat</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:morocco</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Marokko</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Morocco</string>
+				<string> Marocco</string>
+				<string> Kingdom of Morocco</string>
+				<string> MA</string>
+				<string> MAR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Maroc</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Marokko</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mozambique</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mosambik</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mozambique</string>
+				<string> Republic of Mozambique</string>
+				<string> MZ</string>
+				<string> MOZ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mozambique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Mozambique</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:myanmar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Myanmar</string>
+				<string> Republik der Union Myanmar</string>
+				<string> Pyidaunzu Thanmăda Myăma Nainngandaw</string>
+				<string> Burma</string>
+				<string> Mjanmar</string>
+				<string> Myanma</string>
+				<string> Myanma Naingngan</string>
+				<string> Pye Tawngsu Myanma Naingngan</string>
+				<string> Union Myanmar</string>
+				<string> Birma</string>
+				<string> Pyidaungsu Thamada Myanmar Naing-Ngan-Daw</string>
+				<string> Union von Myanmar</string>
+				<string> Myanmarischer Staat</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Myanmar</string>
+				<string> Burma</string>
+				<string> Republic of the Union of Myanmar</string>
+				<string> Union of Burma</string>
+				<string> MM</string>
+				<string> MMR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Birmanie</string>
+				<string> Myanmar</string>
+				<string> République de l'Union du Myanmar</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Myanmar</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nakhchivan-autonomous-republic</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Autonome Republik Nachitschewan</string>
+				<string> Autonome Republik Naxçıvan</string>
+				<string> Autonome Republik Naxçivan</string>
+				<string> Autonome Republik Naxcivan</string>
+				<string> AZ-NX</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Nakhchivan Autonomous Republic</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Nakhitchevan</string>
+				<string> Naxçıvan Muxtar Respublikası</string>
+				<string> Naxçıvan</string>
+				<string> Nakitchevan</string>
+				<string> Nakhchivan</string>
+				<string> Nakhichevan</string>
+				<string> Nakhidjevan</string>
+				<string> Nakhjavan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nachitsjevan</string>
+				<string> Naxçivan</string>
+				<string> Naxcivan</string>
+				<string> Naxçıvan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:namibia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Namibia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Namibia</string>
+				<string> Republic of Namibia</string>
+				<string> NA</string>
+				<string> NAM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Namibie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Namibië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nato</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>NATO</string>
+				<string> Organisation des Nordatlantikvertrags</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>NATO</string>
+				<string> North Atlantic Treaty Organization</string>
+				<string> Atlantic Alliance</string>
+				<string> OTAN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Organisation du traité de l'Atlantique Nord</string>
+				<string> OTAN</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Noord-Atlantische Verdragsorganisatie</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nauru</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nauru</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Nauru</string>
+				<string> Republic of Nauru</string>
+				<string> NR</string>
+				<string> NRU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Nauru</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nauru</string>
+				<string> Republiek Nauru</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nepal</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nepal</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Nepal</string>
+				<string> Federal Democratic Republic of Nepal</string>
+				<string> NP</string>
+				<string> NPL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Népal</string>
+				<string> République démocratique fédérale du Népal</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nepal</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:netherlands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Niederlande</string>
+				<string> Niederlanden</string>
+				<string> Holland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Netherlands</string>
+				<string> Holland</string>
+				<string> the Netherlands</string>
+				<string> NL</string>
+				<string> NED</string>
+				<string> NL</string>
+				<string> NLD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pays-Bas</string>
+				<string> Royaume des Pays-Bas</string>
+				<string> Hollande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nederland</string>
+				<string> Holland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:new-caledonia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Neukaledonien</string>
+				<string> Neu-Kaledonien</string>
+				<string> FR-PF</string>
+				<string> Neu Caledonien</string>
+				<string> Neu Kaledonien</string>
+				<string> Nouvelle-Calédonie</string>
+				<string> Kanaky</string>
+				<string> New Caledonia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>New Caledonia</string>
+				<string> NC</string>
+				<string> NCL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Nouvelle-Calédonie</string>
+				<string> La nouvelle caledonie</string>
+				<string> Nouvelle caledonie</string>
+				<string> Nouvelle Calédonie</string>
+				<string> Nouvelle-Caledonie</string>
+				<string> New Caledonia</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nieuw-Caledonië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:new-zealand</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Neuseeland</string>
+				<string> New Zealand</string>
+				<string> Aotearoa</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>New Zealand</string>
+				<string> NZ</string>
+				<string> NZL</string>
+				<string> Dominion of New Zealand</string>
+				<string> NZ</string>
+				<string> NZL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Nouvelle-Zélande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nieuw-Zeeland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nicaragua</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nicaragua</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Nicaragua</string>
+				<string> NI</string>
+				<string> NIC</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Nicaragua</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nicaragua</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:niger</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Niger</string>
+				<string> Republik Niger</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Niger</string>
+				<string> Republic of Niger</string>
+				<string> NE</string>
+				<string> NER</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Niger</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Niger</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nigeria</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nigeria</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Nigeria</string>
+				<string> Federal Republic of Nigeria</string>
+				<string> NG</string>
+				<string> NGA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Nigeria</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Nigeria</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:niue</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Niue</string>
+				<string> Niuē</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Niue</string>
+				<string> NU</string>
+				<string> NIU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Niue</string>
+				<string> Nioué</string>
+				<string> Nioue</string>
+				<string> Niué</string>
+				<string> Niuē</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Niue</string>
+				<string> NIU</string>
+				<string> Niuē</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:norfolk-island</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Norfolkinsel</string>
+				<string> Norfolk-Insel</string>
+				<string> Norfolkinseln</string>
+				<string> Norfolk Island</string>
+				<string> Norfolk Isle</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Norfolk Island</string>
+				<string> NF</string>
+				<string> NFK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Île Norfolk</string>
+				<string> Ile Norfolk</string>
+				<string> L'île Norfolk</string>
+				<string> Norfolk</string>
+				<string> Île de Norfolk</string>
+				<string> Norfolk Island</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Norfolk</string>
+				<string> Norfolk Island</string>
+				<string> Norfolkeiland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:north-korea</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nordkorea</string>
+				<string> Demokratische Volksrepublik Korea</string>
+				<string> DVRK</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>North Korea</string>
+				<string> Democratic People's Republic of Korea</string>
+				<string> DPRK</string>
+				<string> PRK</string>
+				<string> KP</string>
+				<string> PRK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Corée du Nord</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Noord-Korea</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:northern-mariana-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nördliche Marianen</string>
+				<string> US-MP</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Northern Mariana Islands</string>
+				<string> MP</string>
+				<string> MNP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Mariannes du Nord</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Noordelijke Marianen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:northland-state</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Northland State</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:norway</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Norwegen</string>
+				<string> Königreich Norwegen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Norway</string>
+				<string> Kingdom of Norway</string>
+				<string> NO</string>
+				<string> NOR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Norvège</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Noorwegen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:oman</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Oman</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Oman</string>
+				<string> OM</string>
+				<string> OMN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Oman</string>
+				<string> Sultanat d'Oman</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Oman</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pakistan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Pakistan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Pakistan</string>
+				<string> PK</string>
+				<string> PAK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pakistan</string>
+				<string> République islamique du Pakistan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Pakistan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:palau</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Palau</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Palau</string>
+				<string> Republic of Palau</string>
+				<string> Belau</string>
+				<string> Pelew</string>
+				<string> PW</string>
+				<string> PLW</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Palaos</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Palau</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:palestinian-territories</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Palästinensische Autonomiegebiete</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Palestinian territories</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Territoires palestiniens occupés</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Palestijnse Gebieden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:panama</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Panama</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Panama</string>
+				<string> Republic of Panama</string>
+				<string> PA</string>
+				<string> PAN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Panama</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Panama</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:papua-new-guinea</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Papua-Neuguinea</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Papua New Guinea</string>
+				<string> Independent State of Papua New Guinea</string>
+				<string> PG</string>
+				<string> PNG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Papouasie-Nouvelle-Guinée</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Papoea-Nieuw-Guinea</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:paraguay</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Paraguay</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Paraguay</string>
+				<string> Republic of Paraguay</string>
+				<string> PY</string>
+				<string> PRY</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Paraguay</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Paraguay</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:peru</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Peru</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Peru</string>
+				<string> PE</string>
+				<string> PER</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pérou</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Peru</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:philippines</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Philippinen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Philippines</string>
+				<string> Republic of the Philippines</string>
+				<string> PH</string>
+				<string> PHL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Philippines</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Filipijnen</string>
+				<string> Republiek der Filipijnen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pitcairn</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Pitcairninseln</string>
+				<string> Pitcairn-Inseln</string>
+				<string> Pitcairn Islands</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Pitcairn</string>
+				<string> Pitcairn Islands</string>
+				<string> PN</string>
+				<string> PCN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Pitcairn</string>
+				<string> Iles Pitcairn</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Pitcairneilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:poland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Polen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Poland</string>
+				<string> Republic of Poland</string>
+				<string> PL</string>
+				<string> POL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pologne</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Polen</string>
+				<string> Republiek Polen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:portugal</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Portugal</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Portugal</string>
+				<string> Portuguese Republic</string>
+				<string> PT</string>
+				<string> PT</string>
+				<string> PRT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Portugal</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Portugal</string>
+				<string> Portugese Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:puerto-rico</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Puerto Rico</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Puerto Rico</string>
+				<string> Commonwealth of Puerto Rico</string>
+				<string> PR</string>
+				<string> PRI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Porto Rico</string>
+				<string> Puerto Rico</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Puerto Rico</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:qatar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Katar</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Qatar</string>
+				<string> QA</string>
+				<string> QAT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Qatar</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Qatar</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:republic-of-ireland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Irland</string>
+				<string> Republik Irland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Republic of Ireland</string>
+				<string> Ireland</string>
+				<string> Éire</string>
+				<string> IE</string>
+				<string> IE</string>
+				<string> IRL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Irlande</string>
+				<string> République d'Irlande</string>
+				<string> Eire</string>
+				<string> Éire</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ierland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:republic-of-macedonia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Mazedonien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Republic of Macedonia</string>
+				<string> FYROM</string>
+				<string> Former Yugoslav Republic of Macedonia</string>
+				<string> Macedonia</string>
+				<string> MK</string>
+				<string> MKD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République de Macédoine</string>
+				<string> ARYM</string>
+				<string> FYROM</string>
+				<string> L'Ancienne République yougoslave de Macédoine</string>
+				<string> L'ex-République yougoslave de Macédoine</string>
+				<string> Macédoine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Macedonië</string>
+				<string> Voormalige Joegoslavische Republiek Macedonië</string>
+				<string> Republiek Macedonië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:republic-of-the-congo</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Republik Kongo</string>
+				<string> CGO</string>
+				<string> Französisch-Kongo</string>
+				<string> Kongo-Brazzaville</string>
+				<string> Departements der Republik Kongo</string>
+				<string> Kongo</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Republic of the Congo</string>
+				<string> Congo-Brazzaville</string>
+				<string> CG</string>
+				<string> COG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République du Congo</string>
+				<string> Congo</string>
+				<string> Congo-Brazzaville</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Congo-Brazzaville</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:republika-srpska</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Republika Srpska</string>
+				<string> Serbland</string>
+				<string> Serbische Republik</string>
+				<string> Serbenrepublik</string>
+				<string> Republik Srpska</string>
+				<string> Bosnische Serbenrepublik</string>
+				<string> Srpska</string>
+				<string> BA-SRP</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Republika Srpska</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>République serbe de Bosnie</string>
+				<string> Republika Srpska</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Servische Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:romania</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Rumänien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Romania</string>
+				<string> Roumania</string>
+				<string> Rumania</string>
+				<string> România</string>
+				<string> RO</string>
+				<string> ROU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Roumanie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Roemenië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:russia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Russland</string>
+				<string> Russische Föderation</string>
+				<string> Russländische Föderation</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Russia</string>
+				<string> Russian Federation</string>
+				<string> Russian federation</string>
+				<string> Rossiyskaya Federatsiya</string>
+				<string> Россия</string>
+				<string> Rossijskaja Federatsija</string>
+				<string> Российская Федерация</string>
+				<string> 🇷🇺</string>
+				<string> RU</string>
+				<string> RUS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Russie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Rusland</string>
+				<string> Russische Federatie</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:rwanda</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ruanda</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Rwanda</string>
+				<string> Republic of Rwanda</string>
+				<string> RW</string>
+				<string> RWA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Rwanda</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Rwanda</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:réunion</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Réunion</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Réunion</string>
+				<string> RE</string>
+				<string> REU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>La Réunion</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Réunion</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saba</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Saba</string>
+				<string> Isla de San Cristóbal</string>
+				<string> Isla de San Cristobal</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saba</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saba</string>
+				<string> TNCS</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saba</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-barthélemy</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Saint-Barthélemy</string>
+				<string> St Barth</string>
+				<string> St. Barthélemy</string>
+				<string> Saint Barts</string>
+				<string> St. Barth</string>
+				<string> St. Barths</string>
+				<string> Schwedisch-Westindien</string>
+				<string> Saint Barthelemy</string>
+				<string> Carénage</string>
+				<string> FR-BL</string>
+				<string> St. Barts</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint-Barthélemy</string>
+				<string> Saint Barthélemy</string>
+				<string> Ouanalao</string>
+				<string> Collectivité de Saint-Barthélemy</string>
+				<string> Saint Barths</string>
+				<string> Ile Saint-Barthélemy</string>
+				<string> Saint Barthélémy</string>
+				<string> St. Barthelemy</string>
+				<string> St barths</string>
+				<string> St. Barthélemy</string>
+				<string> Saint Barts</string>
+				<string> Saint-Barthélémy</string>
+				<string> St. Barths</string>
+				<string> ISO 3166-1</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Barthélemy</string>
+				<string> Saint Barthélemy</string>
+				<string> St Barth</string>
+				<string> Collectivite d'outre-mer de Saint-Barthelemy</string>
+				<string> Collectivité d'outre-mer de Saint-Barthélemy</string>
+				<string> Saint-Barthélémy</string>
+				<string> Saint-Barth</string>
+				<string> Saint Barth</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saint-Barthélemy</string>
+				<string> Collectivité d'outre-mer de Saint-Barthélemy</string>
+				<string> Saint Barthelemy</string>
+				<string> Collectivite d'outre-mer de Saint-Barthelemy</string>
+				<string> Saint Barthélemy</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-helena</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>St. Helena</string>
+				<string> Ascension und Tristan da Cunha</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint Helena</string>
+				<string> Ascension and Tristan da Cunha</string>
+				<string> Saint Helena and Dependencies</string>
+				<string> SH</string>
+				<string> SHN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sainte-Hélène</string>
+				<string> Ascension et Tristan da Cunha</string>
+				<string> Sainte-Hélène</string>
+				<string> Saint Helena and Dependencies</string>
+				<string> Sainte-Helene</string>
+				<string> Sainte-Hélène et ses dépendances</string>
+				<string> Saint Helena</string>
+				<string> Ascension and Tristan da Cunha</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sint-Helena</string>
+				<string> Ascension en Tristan da Cunha</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-kitts-and-nevis</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>St. Kitts und Nevis</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint Kitts and Nevis</string>
+				<string> Saint Christopher and Nevis</string>
+				<string> Federation of Saint Kitts and Nevis</string>
+				<string> KN</string>
+				<string> KNA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Christophe-et-Niévès</string>
+				<string> Fédération de Saint-Christophe-et-Niévès</string>
+				<string> Saint-Christophe-et-Nevis</string>
+				<string> Saint-Kitts-et-Nevis</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saint Kitts en Nevis</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-lucia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>St. Lucia</string>
+				<string> Saint Lucia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint Lucia</string>
+				<string> LC</string>
+				<string> LCA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sainte-Lucie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saint Lucia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-martin</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Saint-Martin</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint Martin</string>
+				<string> Saint Martin (France)</string>
+				<string> Collectivity of Saint Martin</string>
+				<string> MF</string>
+				<string> MAF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Martin</string>
+				<string> Grand Case</string>
+				<string> TFFG</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sint-Maarten</string>
+				<string> Saint-Martin</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-pierre-and-miquelon</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Saint-Pierre und Miquelon</string>
+				<string> FR-PM</string>
+				<string> St. Pierre et Miquelon</string>
+				<string> St.-Pierre und Miquelon</string>
+				<string> Saint-Pierre et Miquelon</string>
+				<string> Saint-Pierre-et-Miquelon</string>
+				<string> St. Pierre und Miquelon</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint Pierre and Miquelon</string>
+				<string> PM</string>
+				<string> SPM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Pierre-et-Miquelon</string>
+				<string> St Pierre et Miquelon</string>
+				<string> Îles Saint-Pierre-et-Miquelon</string>
+				<string> St. Pierre et Miquelon</string>
+				<string> Saint-Pierre et Miquelon</string>
+				<string> St-Pierre-et-Miquelon</string>
+				<string> Saint pierre et miquelon</string>
+				<string> St-Pierre et Miquelon</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saint-Pierre en Miquelon</string>
+				<string> Saint Pierre en Miquelon</string>
+				<string> Saint-Pierre-et-Miquelon</string>
+				<string> Saint-Pierre &amp; Miquelon</string>
+				<string> Iles Saint-Pierre et Miquelon</string>
+				<string> Îles Saint-Pierre et Miquelon</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saint-vincent-and-the-grenadines</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>St. Vincent und die Grenadinen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saint Vincent and the Grenadines</string>
+				<string> VC</string>
+				<string> VCT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Vincent-et-les-Grenadines</string>
+				<string> SVG</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saint Vincent en de Grenadines</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:samoa</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Samoa</string>
+				<string> Westsamoa</string>
+				<string> Unabhängiger Staat Samoa</string>
+				<string> West-Samoa</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Samoa</string>
+				<string> Western Samoa</string>
+				<string> Independent State of Samoa</string>
+				<string> WS</string>
+				<string> WSM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Samoa</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Samoa</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:san-marino</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>San Marino</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>San Marino</string>
+				<string> SM</string>
+				<string> SMR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Marin</string>
+				<string> République de Saint-Marin</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>San Marino</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sao-tomé-and-príncipe</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>São Tomé und Príncipe</string>
+				<string> Demokratische Republik São Tomé und Príncipe</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sao Tomé and Príncipe</string>
+				<string> Democratic Republic of São Tomé and Príncipe</string>
+				<string> São Tomé og Príncipe</string>
+				<string> ST</string>
+				<string> STP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sao Tomé-et-Principe</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sao Tomé en Principe</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:saudi-arabia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Saudi-Arabien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Saudi Arabia</string>
+				<string> The Kingdom of Saudi Arabia</string>
+				<string> SA</string>
+				<string> SAU</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Arabie saoudite</string>
+				<string> Royaume d’Arabie saoudite</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Saoedi-Arabië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:scotland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Schottland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Scotland</string>
+				<string> Alba</string>
+				<string> Scotland</string>
+				<string> United Kingdom</string>
+				<string> SCT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Écosse</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Schotland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:senegal</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Senegal</string>
+				<string> Republik Senegal</string>
+				<string> Sénégal</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Senegal</string>
+				<string> Republic of Senegal</string>
+				<string> SN</string>
+				<string> SEN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sénégal</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Senegal</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:serbia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Serbien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Serbia</string>
+				<string> RS</string>
+				<string> SRB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Serbie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Servië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:seychelles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Seychellen</string>
+				<string> SYC</string>
+				<string> Republik der Seychellen</string>
+				<string> Seschellen</string>
+				<string> Republik Seychellen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Seychelles</string>
+				<string> Republic of Seychelles</string>
+				<string> SC</string>
+				<string> SYC</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Seychelles</string>
+				<string> République des Seychelles</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Seychellen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sierra-leone</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sierra Leone</string>
+				<string> Republik Sierra Leone</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sierra Leone</string>
+				<string> Republic of Sierra Leone</string>
+				<string> SL</string>
+				<string> SLE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sierra Leone</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sierra Leone</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:singapore</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Singapur</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Singapore</string>
+				<string> Republic of Singapore</string>
+				<string> SG</string>
+				<string> SGP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Singapour</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Singapore</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sint-eustatius</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sint Eustatius</string>
+				<string> St. Eustasius</string>
+				<string> Statia</string>
+				<string> St. Eustatius</string>
+				<string> Sankt Eustaz</string>
+				<string> St. Eustaz</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sint Eustatius</string>
+				<string> Statia</string>
+				<string> Statius</string>
+				<string> St. Eustatius</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Eustache</string>
+				<string> Statia</string>
+				<string> TNCE</string>
+				<string> Sint-Eustatius</string>
+				<string> Sint Eustatius</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sint Eustatius</string>
+				<string> St Eustatius</string>
+				<string> Statia</string>
+				<string> St. Eustatius</string>
+				<string> Sint-Eustatius</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sint-maarten</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sint Maarten</string>
+				<string> St. Maarten</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sint Maarten</string>
+				<string> St. Maarten</string>
+				<string> Saint Martin (Dutch part)</string>
+				<string> SX</string>
+				<string> SXM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saint-Martin</string>
+				<string> St Maarten</string>
+				<string> Sint-Maarten</string>
+				<string> État de Sint Marteen</string>
+				<string> Land Sint Maarten</string>
+				<string> Country of Sint Maarten</string>
+				<string> Sint Maarten</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sint Maarten</string>
+				<string> Sint-Maarten</string>
+				<string> Eilandgebied sint maarten</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:slovakia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Slowakei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Slovakia</string>
+				<string> Slovak Republic</string>
+				<string> SK</string>
+				<string> SVK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Slovaquie</string>
+				<string> République slovaque</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Slowakije</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:slovenia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Slowenien</string>
+				<string> Republik Slowenien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Slovenia</string>
+				<string> Republic of Slovenia</string>
+				<string> Slovenija</string>
+				<string> Republika Slovenija</string>
+				<string> SI</string>
+				<string> SVN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Slovénie</string>
+				<string> République de Slovénie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Slovenië</string>
+				<string> Republiek Slovenië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:solomon-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Salomonen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Solomon Islands</string>
+				<string> SB</string>
+				<string> SLB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Salomon</string>
+				<string> îles Salomon</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Salomonseilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:somalia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Somalia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Somalia</string>
+				<string> Federal Republic of Somalia</string>
+				<string> SO</string>
+				<string> SOM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Somalie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Somalië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:south-africa</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Südafrika</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>South Africa</string>
+				<string> Republic of South Africa</string>
+				<string> RSA</string>
+				<string> SA</string>
+				<string> ZA</string>
+				<string> ZAF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Afrique du Sud</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zuid-Afrika</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:south-georgia-and-the-south-sandwich-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Südgeorgien und die Südlichen Sandwichinseln</string>
+				<string> Südgeorgien und die Südlichen Sandwich-Inseln</string>
+				<string> South Georgia and the South Sandwich Islands</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>South Georgia and the South Sandwich Islands</string>
+				<string> South Georgia</string>
+				<string> South Sandwich Islands</string>
+				<string> GS</string>
+				<string> SGS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Géorgie du Sud-et-les Îles Sandwich du Sud</string>
+				<string> Islas Georgias del Sur y Sandwich del Sur</string>
+				<string> Géorgie du Sud et les îles Sandwich du Sud</string>
+				<string> Géorgie du Sud-et-Îles Sandwich du Sud</string>
+				<string> Géorgie-du-Sud-et-Îles-Sandwich-du-Sud</string>
+				<string> South Georgia and the South Sandwich Islands</string>
+				<string> Géorgie du Sud et Îles Sandwich du Sud</string>
+				<string> Georgie du Sud-et-les Iles Sandwich du Sud</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zuid-Georgia en de Zuidelijke Sandwicheilanden</string>
+				<string> Zuid-Sandwicheilanden</string>
+				<string> South Georgia</string>
+				<string> Zuid-Georgie en de Zuidelijke Sandwicheilanden</string>
+				<string> Zuidelijke Sandwicheilanden</string>
+				<string> Zuid-Georgië en de Zuidelijke Sandwicheilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:south-korea</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Südkorea</string>
+				<string> Republik Korea</string>
+				<string> Süd-Korea</string>
+				<string> Hanguk</string>
+				<string> Suedkorea</string>
+				<string> 대한민국</string>
+				<string> 大韓民國</string>
+				<string> Daehan Minguk</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>South Korea</string>
+				<string> Republic of Korea</string>
+				<string> ROK</string>
+				<string> KR</string>
+				<string> KOR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Corée du Sud</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zuid-Korea</string>
+				<string> Republiek Korea</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:south-sudan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Südsudan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>South Sudan</string>
+				<string> Republic of South Sudan</string>
+				<string> Southern Sudan</string>
+				<string> SS</string>
+				<string> SSD</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Soudan du Sud</string>
+				<string> République du Soudan du Sud</string>
+				<string> Sud-Soudan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zuid-Soedan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:soviet-union</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sowjetunion</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Soviet Union</string>
+				<string> USSR</string>
+				<string> U.S.S.R.</string>
+				<string> Soviets</string>
+				<string> U.S.S.R</string>
+				<string> The Union of Soviet Socialist Republics</string>
+				<string> The Soviet Union</string>
+				<string> Union of soviet socialist republics</string>
+				<string> Union of Soviet Socialist Republics</string>
+				<string> The Soviets</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Union des républiques socialistes soviétiques</string>
+				<string> URSS</string>
+				<string> Union soviétique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sovjet-Unie</string>
+				<string> Unie van Socialistische Sovjetrepublieken</string>
+				<string> USSR</string>
+				<string> Sovjetunie</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:spain</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Spanien</string>
+				<string> Königreich Spanien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Spain</string>
+				<string> Kingdom of Spain</string>
+				<string> España</string>
+				<string> Reino de España</string>
+				<string> ES</string>
+				<string> ESP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Espagne</string>
+				<string> Royaume d'Espagne</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Spanje</string>
+				<string> Koninkrijk Spanje</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sri-lanka</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sri Lanka</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sri Lanka</string>
+				<string> Democratic Socialist Republic of Sri Lanka</string>
+				<string> LK</string>
+				<string> LKA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sri Lanka</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Sri Lanka</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:state-of-palestine</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Staat Palästina</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>State of Palestine</string>
+				<string> Palestine</string>
+				<string> PS</string>
+				<string> PSE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>État de Palestine</string>
+				<string> Palestine</string>
+				<string> Propositions pour la création d'un État palestinien</string>
+				<string> Etat palestinien</string>
+				<string> Etat de Palestine</string>
+				<string> État palestinien</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Palestina</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sudan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sudan</string>
+				<string> Republik Sudan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sudan</string>
+				<string> suca</string>
+				<string> SD</string>
+				<string> SDN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Soudan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Soedan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:suriname</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Suriname</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Suriname</string>
+				<string> Surinam</string>
+				<string> Republic of Suriname</string>
+				<string> Republic of Surinam</string>
+				<string> Dutch Guiana</string>
+				<string> SR</string>
+				<string> SUR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Suriname</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Suriname</string>
+				<string> Republiek Suriname</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:svalbard-and-jan-mayen</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Svalbard and Jan Mayen</string>
+				<string> SJ</string>
+				<string> SJM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Svalbard et Jan Mayen</string>
+				<string> Svalbard et île Jan Mayen</string>
+				<string> Svalbard et ile jan mayen</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Spitsbergen en Jan Mayen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:swaziland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Swasiland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Swaziland</string>
+				<string> Kingdom of Swaziland</string>
+				<string> SZ</string>
+				<string> SWZ</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Swaziland</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Swaziland</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sweden</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Schweden</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sweden</string>
+				<string> Kingdom of Sweden</string>
+				<string> SE</string>
+				<string> SE</string>
+				<string> SWE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Suède</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zweden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:switzerland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Schweiz</string>
+				<string> Schweizerische Eidgenossenschaft</string>
+				<string> Suisse</string>
+				<string> Svizzera</string>
+				<string> Svizra</string>
+				<string> Switzerland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Switzerland</string>
+				<string> Swiss Confederation</string>
+				<string> CH</string>
+				<string> CH</string>
+				<string> CHE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Suisse</string>
+				<string> confédération helvétique</string>
+				<string> confédération suisse</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zwitserland</string>
+				<string> Zwitserse Bondsstaat</string>
+				<string> Zwitsers Eedgenootschap</string>
+				<string> Zwitserse Confederatie</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:syria</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Syrien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Syria</string>
+				<string> Syrian Arab Republic</string>
+				<string> SY</string>
+				<string> SYR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Syrie</string>
+				<string> République arabe syrienne</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Syrië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:taiwan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Republik China</string>
+				<string> Nationalchina</string>
+				<string> Chinesische Republik</string>
+				<string> Republik China auf Taiwan</string>
+				<string> Taiwan</string>
+				<string> Zhōnghuá Mínguó</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Taiwan</string>
+				<string> Republic of China</string>
+				<string> ROC</string>
+				<string> Chinese Taipei</string>
+				<string> Taiwan</string>
+				<string> TW</string>
+				<string> TWN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Taiwan</string>
+				<string> République de Chine</string>
+				<string> Chine nationaliste</string>
+				<string> 中華民國</string>
+				<string> République de Chine-Taiwan</string>
+				<string> République nationaliste de Chine</string>
+				<string> Republique de Chine</string>
+				<string> Taïwan</string>
+				<string> État de Taïwan</string>
+				<string> République de Chine à Taiwan</string>
+				<string> République de Chine Taiwan</string>
+				<string> Taiwan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Taiwan</string>
+				<string> Chinees Republikeinse</string>
+				<string> Rep china</string>
+				<string> Geschiedenis van Republiek China</string>
+				<string> Chinese Republiek</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tajikistan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tadschikistan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tajikistan</string>
+				<string> Republic of Tajikistan</string>
+				<string> TJ</string>
+				<string> TJK</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tadjikistan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tadzjikistan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tanzania</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tansania</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tanzania</string>
+				<string> United Republic of Tanzania</string>
+				<string> TZ</string>
+				<string> TZA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tanzanie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tanzania</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:thailand</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Thailand</string>
+				<string> Königreich Thailand</string>
+				<string> Ratcha Anachak Thai</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Thailand</string>
+				<string> Kingdom of Thailand</string>
+				<string> TH</string>
+				<string> THA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Thaïlande</string>
+				<string> Royaume de Thaïlande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Thailand</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:the-bahamas</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bahamas</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>The Bahamas</string>
+				<string> Bahamas</string>
+				<string> Commonwealth of the Bahamas</string>
+				<string> BS</string>
+				<string> BHS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bahamas</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bahama's</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:timor-leste</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Osttimor</string>
+				<string> Timor-Leste</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Timor-Leste</string>
+				<string> East Timor</string>
+				<string> Democratic Republic of Timor-Leste</string>
+				<string> TL</string>
+				<string> TLS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Timor oriental</string>
+				<string> Timor-Oriental</string>
+				<string> Timor-Leste</string>
+				<string> République démocratique du Timor oriental</string>
+				<string> République démocratique du Timor-Oriental</string>
+				<string> République démocratique du Timor-Leste</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Oost-Timor</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:togo</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Togo</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Togo</string>
+				<string> Togolese Republic</string>
+				<string> TG</string>
+				<string> TGO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Togo</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Togo</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tokelau</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tokelau</string>
+				<string> Union Islands</string>
+				<string> Tokelau-Inseln</string>
+				<string> TKL</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tokelau</string>
+				<string> TK</string>
+				<string> TKL</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tokelau</string>
+				<string> Tokélao</string>
+				<string> TKL</string>
+				<string> Tokélaou</string>
+				<string> Tokelao</string>
+				<string> Îles de l'Union</string>
+				<string> Union Islands</string>
+				<string> Îles Tokélaou</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tokelau-eilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tonga</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tonga</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tonga</string>
+				<string> TO</string>
+				<string> TON</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tonga</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tonga</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:trinidad-and-tobago</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Trinidad und Tobago</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Trinidad and Tobago</string>
+				<string> Republic of Trinidad and Tobago</string>
+				<string> TT</string>
+				<string> TTO</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Trinité-et-Tobago</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Trinidad en Tobago</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tunisia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tunesien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tunisia</string>
+				<string> Republic of Tunisia</string>
+				<string> TN</string>
+				<string> TUN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tunisie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tunesië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:turkey</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Türkei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Turkey</string>
+				<string> Republic of Turkey</string>
+				<string> TR</string>
+				<string> TUR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Turquie</string>
+				<string> République de Turquie</string>
+				<string> République turque</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Turkije</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:turkmenistan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Turkmenistan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Turkmenistan</string>
+				<string> TM</string>
+				<string> TKM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Turkménistan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Turkmenistan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:turks-and-caicos-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Turks- und Caicosinseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Turks and Caicos Islands</string>
+				<string> TC</string>
+				<string> TCA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Turques-et-Caïques</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Turks- en Caicoseilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tuvalu</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Tuvalu</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tuvalu</string>
+				<string> Ellice Islands</string>
+				<string> TV</string>
+				<string> TUV</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Tuvalu</string>
+				<string> État des Tuvalu</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Tuvalu</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:uganda</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Uganda</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Uganda</string>
+				<string> Republic of Uganda</string>
+				<string> UG</string>
+				<string> UGA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Ouganda</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Oeganda</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ukraine</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ukraine</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ukraine</string>
+				<string> UA</string>
+				<string> UKR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Ukraine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Oekraïne</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:united-arab-emirates</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vereinigte Arabische Emirate</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>United Arab Emirates</string>
+				<string> UAE</string>
+				<string> AE</string>
+				<string> ARE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Émirats arabes unis</string>
+				<string> E.A.U.</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Verenigde Arabische Emiraten</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:united-kingdom</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vereinigtes Königreich</string>
+				<string> UK</string>
+				<string> Vereinigtes Königreich Großbritannien und Nordirland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>United Kingdom</string>
+				<string> United Kingdom of Great Britain and Northern Ireland</string>
+				<string> UK</string>
+				<string> GB</string>
+				<string> GBR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Royaume-Uni</string>
+				<string> UK</string>
+				<string> Royaume-Uni de Grande-Bretagne et d’Irlande du Nord</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Verenigd Koninkrijk</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:united-states-minor-outlying-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>United States Minor Outlying Islands</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>United States Minor Outlying Islands</string>
+				<string> UM</string>
+				<string> UMI</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles mineures éloignées des États-Unis</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kleine afgelegen eilanden van de Verenigde Staten</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:united-states-of-america</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vereinigte Staaten von Amerika</string>
+				<string> USA</string>
+				<string> Vereinigte Staaten</string>
+				<string> Amerika</string>
+				<string> Staaten</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>United States of America</string>
+				<string> USA</string>
+				<string> America</string>
+				<string> the States</string>
+				<string> U.S.</string>
+				<string> U.S.A.</string>
+				<string> United States</string>
+				<string> US</string>
+				<string> 🇺🇸</string>
+				<string> US</string>
+				<string> USA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>États-Unis</string>
+				<string> Pays de l'Oncle Sam</string>
+				<string> USA</string>
+				<string> États-Unis d'Amérique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Verenigde Staten van Amerika</string>
+				<string> VS</string>
+				<string> USA</string>
+				<string> US</string>
+				<string> U.S.A.</string>
+				<string> U.S.</string>
+				<string> the States</string>
+				<string> Verenigde Staten</string>
+				<string> V.S.</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:uruguay</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Uruguay</string>
+				<string> República Oriental del Uruguay</string>
+				<string> Republik Östlich des Uruguay</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Uruguay</string>
+				<string> Oriental Republic of Uruguay</string>
+				<string> Eastern Republic of Uruguay</string>
+				<string> República Oriental del Uruguay</string>
+				<string> UY</string>
+				<string> URY</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Uruguay</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Uruguay</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:uzbekistan</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Usbekistan</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Uzbekistan</string>
+				<string> Republic of Uzbekistan</string>
+				<string> UZ</string>
+				<string> UZB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Ouzbékistan</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Oezbekistan</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:vanuatu</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vanuatu</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Vanuatu</string>
+				<string> Republic of Vanuatu</string>
+				<string> VU</string>
+				<string> VUT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Vanuatu</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Vanuatu</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:vatican-city</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vatikanstadt</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Vatican City</string>
+				<string> Vatican City State</string>
+				<string> Papal State</string>
+				<string> Holy See</string>
+				<string> VA</string>
+				<string> VAT</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Vatican</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Vaticaanstad</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:venezuela</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Venezuela</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Venezuela</string>
+				<string> República Bolivariana de Venezuela</string>
+				<string> VE</string>
+				<string> VEN</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Venezuela</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Venezuela</string>
+				<string> Bolivariaanse Republiek Venezuela</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:vietnam</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vietnam</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Vietnam</string>
+				<string> Viet Nam</string>
+				<string> Socialist Republic of Vietnam</string>
+				<string> VN</string>
+				<string> VNM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Viêt Nam</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Vietnam</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:virgin-islands-of-the-united-states</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Amerikanische Jungferninseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Virgin Islands of the United States</string>
+				<string> United States Virgin Islands</string>
+				<string> U.S. Virgin Islands</string>
+				<string> VI</string>
+				<string> VIR</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Îles Vierges des États-Unis</string>
+				<string> Virgin Islands of the United States</string>
+				<string> îles Vierges américaines</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Amerikaanse Maagdeneilanden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:wallis-and-futuna</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Wallis und Futuna</string>
+				<string> Hoorne-Inseln</string>
+				<string> Wallis &amp; Futuna</string>
+				<string> Wallis et Futuna</string>
+				<string> FR-WF</string>
+				<string> Fotuna</string>
+				<string> Horne-Inseln</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Wallis and Futuna</string>
+				<string> WF</string>
+				<string> WLF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Wallis-et-Futuna</string>
+				<string> Wallis et Futuna</string>
+				<string> Emeni Simete</string>
+				<string> Îles Wallis et Futuna</string>
+				<string> Makape Papilio</string>
+				<string> Île de Futuna</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Wallis en Futuna</string>
+				<string> Wallis &amp; Futuna</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:western-sahara</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Westsahara</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Western Sahara</string>
+				<string> eh</string>
+				<string> West Sahara</string>
+				<string> Spanish Sahara</string>
+				<string> EH</string>
+				<string> ESH</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sahara occidental</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Westelijke Sahara</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:yemen</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Jemen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Yemen</string>
+				<string> Republic of Yemen</string>
+				<string> YE</string>
+				<string> YEM</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Yémen</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Jemen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:yugoslavia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Jugoslawien</string>
+				<string> Jugoslavija</string>
+				<string> Yugoslavien</string>
+				<string> Југославија</string>
+				<string> SHS-Königreich</string>
+				<string> Südslawien</string>
+				<string> Jugoszlávia</string>
+				<string> Jugosllavia</string>
+				<string> Ex-Jugoslawien</string>
+				<string> Yugoslawien</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Yugoslavia</string>
+				<string> YU</string>
+				<string> YUG</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Yougoslavie</string>
+				<string> Histoire de la Yougoslavie</string>
+				<string> Yougo</string>
+				<string> Ex-Yougoslavie</string>
+				<string> Yugoslavia</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Joegoslavië</string>
+				<string> Federatieve Republiek Joegoslavië</string>
+				<string> Yougoslavie</string>
+				<string> Federatieve Republiek Joegoslavie</string>
+				<string> Federatieve Republiek van Joegoslavië</string>
+				<string> Federatieve Republiek van Joegoslavie</string>
+				<string> Yougoslavië</string>
+				<string> Ex-Joegoslavië</string>
+				<string> Joegoeslavie</string>
+				<string> Joegoeslavië</string>
+				<string> Voormalig Joegoslavie</string>
+				<string> Ex-Joegoslavie</string>
+				<string> Joegoslavie</string>
+				<string> Voormalig Joegoslavië</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:zambia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sambia</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Zambia</string>
+				<string> Republic of Zambia</string>
+				<string> ZM</string>
+				<string> ZMB</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Zambie</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zambia</string>
+				<string> Zambië</string>
+				<string> Republiek Zambia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:zimbabwe</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Simbabwe</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Zimbabwe</string>
+				<string> Republic of Zimbabwe</string>
+				<string> ZW</string>
+				<string> ZWE</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Zimbabwe</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zimbabwe</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:åland-islands</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Åland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Åland Islands</string>
+				<string> Åland</string>
+				<string> Ahvenanmaa</string>
+				<string> Aaland</string>
+				<string> Aaland Islands</string>
+				<string> AX</string>
+				<string> ALA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Åland</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Åland</string>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>

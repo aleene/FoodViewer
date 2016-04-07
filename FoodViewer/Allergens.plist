@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>de:alaska-seelachsfilet</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Alaska-Seelachsfilet</string>
+				<string> Alaska-Seelachs-Filet</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:celery</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sellerie</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>celery</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>céleri</string>
+				<string> céleri-rave</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>selderij</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:crustaceans</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Krebstiere</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>crustaceans</string>
+				<string> crab</string>
+				<string> lobster</string>
+				<string> crayfish</string>
+				<string> prawn</string>
+				<string> shrimp</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>crustacés</string>
+				<string> crustacé</string>
+				<string> crabe</string>
+				<string> crabes</string>
+				<string> homard</string>
+				<string> homards</string>
+				<string> langouste</string>
+				<string> langoustine</string>
+				<string> gambas</string>
+				<string> crevettes</string>
+				<string> crevette</string>
+				<string> écrevisses</string>
+				<string> écrevisse</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>schaaldieren</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:eggs</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Eier</string>
+				<string> Ei</string>
+				<string> Eigelb Eigelbpulver</string>
+				<string> Eiklar</string>
+				<string> Eiklarpulver</string>
+				<string> Hünerei</string>
+				<string> Hühnereier</string>
+				<string> Hühnerei-Trockeneiweiß</string>
+				<string> Hühnereiweiß</string>
+				<string> Hühnervollei</string>
+				<string> Hühnervolleipulver</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>eggs</string>
+				<string> egg</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>œufs</string>
+				<string> œuf</string>
+				<string> oeufs</string>
+				<string> oeuf</string>
+				<string> blanc d'oeuf</string>
+				<string> jaune d'oeuf</string>
+				<string> blanc d'œuf</string>
+				<string> jaune d'œuf</string>
+				<string> blanc d'œufs</string>
+				<string> jaune d'œufs</string>
+				<string> oeuf frais</string>
+				<string> œuf frais</string>
+				<string> œufs frais</string>
+				<string> oeufs frais</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>eieren</string>
+				<string> ei</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fish</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Fische</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>fish</string>
+				<string> fishes</string>
+				<string> cod</string>
+				<string> mackerel</string>
+				<string> flounder</string>
+				<string> halibut</string>
+				<string> turbot</string>
+				<string> haddock</string>
+				<string> salmon</string>
+				<string> sole</string>
+				<string> trout</string>
+				<string> tuna</string>
+				<string> sardine</string>
+				<string> sardines</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>poisson</string>
+				<string> poissons</string>
+				<string> cabillaud</string>
+				<string> morue</string>
+				<string> maquereau</string>
+				<string> flétan</string>
+				<string> turbot</string>
+				<string> colin</string>
+				<string> haddock</string>
+				<string> aiglefin</string>
+				<string> saumon</string>
+				<string> sole</string>
+				<string> truite</string>
+				<string> thon</string>
+				<string> sardine</string>
+				<string> sardines</string>
+				<string> loup</string>
+				<string> colin d'Alaska</string>
+				<string> anchois</string>
+				<string> brochet</string>
+				<string> hareng</string>
+				<string> harengs</string>
+				<string> merlu</string>
+				<string> lieu</string>
+				<string> merlan</string>
+				<string> saumon fumé</string>
+				<string> rouget</string>
+				<string> limande</string>
+				<string> tacaud</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>vis</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gluten</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Gluten</string>
+				<string> Weizen</string>
+				<string> Roggen</string>
+				<string> Gerste</string>
+				<string> Hafer</string>
+				<string> Dinkel</string>
+				<string> Kamut</string>
+				<string> Hafer-Vollkornmehl</string>
+				<string> Haferflocken</string>
+				<string> Haferkleie</string>
+				<string> Hafervollkornflocken</string>
+				<string> Hafervollkornmehl</string>
+				<string> Vollkorn-Hafer</string>
+				<string> Vollkorn-Haferflocken</string>
+				<string> Vollkorn-Hafermehl</string>
+				<string> Vollkornhafer</string>
+				<string> Vollkornhaferflocken</string>
+				<string> Vollkornhaferschrot</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>gluten</string>
+				<string> wheat</string>
+				<string> rye</string>
+				<string> barley</string>
+				<string> oats</string>
+				<string> spelt</string>
+				<string> kamut</string>
+				<string> wheat semolina</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>gluten</string>
+				<string> blé</string>
+				<string> seigle</string>
+				<string> orge</string>
+				<string> avoine</string>
+				<string> épeautre</string>
+				<string> sarrasin</string>
+				<string> kamut</string>
+				<string> son de blé</string>
+				<string> blé complet</string>
+				<string> gluten de blé</string>
+				<string> fibre de blé</string>
+				<string> malt d'orge</string>
+				<string> malt</string>
+				<string> froment</string>
+				<string> farine de blé</string>
+				<string> farine de froment</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>gluten</string>
+				<string> tarwe</string>
+				<string> rogge</string>
+				<string> gerst</string>
+				<string> haver</string>
+				<string> spelt</string>
+				<string> kamut</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lupin</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Lupinen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>lupin</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>lupin</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>lupine</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:milk</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Milch</string>
+				<string> Kuhmilch</string>
+				<string> Kuhvollmilch</string>
+				<string> Laktose</string>
+				<string> Milchzucker</string>
+				<string> Milchpulver</string>
+				<string> Vollmilchpulver</string>
+				<string> Magermilchpulver</string>
+				<string> Butter</string>
+				<string> Sauermilch</string>
+				<string> Magermilch</string>
+				<string> Vollmilch</string>
+				<string> Sahne</string>
+				<string> Joghurt</string>
+				<string> Käse</string>
+				<string> Käsepulver</string>
+				<string> Frischkäse</string>
+				<string> Bergkäse</string>
+				<string> Edamer</string>
+				<string> Cheddar</string>
+				<string> Emmentaler</string>
+				<string> Gouda</string>
+				<string> Speisequark</string>
+				<string> Sauermilchquark</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>milk</string>
+				<string> lactose</string>
+				<string> whey</string>
+				<string> dairy</string>
+				<string> butter</string>
+				<string> cream</string>
+				<string> yogurt</string>
+				<string> cheese</string>
+				<string> yoghurt</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>lait</string>
+				<string> lactose</string>
+				<string> laitier</string>
+				<string> laitiere</string>
+				<string> laitiers</string>
+				<string> crème</string>
+				<string> beurre</string>
+				<string> bas-beurre</string>
+				<string> babeurre</string>
+				<string> beurre patissier</string>
+				<string> petit-lait</string>
+				<string> yaourt</string>
+				<string> fromage</string>
+				<string> méton</string>
+				<string> lait cru</string>
+				<string> Emmental</string>
+				<string> comte</string>
+				<string> bleu</string>
+				<string> edam</string>
+				<string> lactique</string>
+				<string> lactiques</string>
+				<string> ferments lactiques</string>
+				<string> cheddar</string>
+				<string> reblochon</string>
+				<string> parmesan</string>
+				<string> mimolette</string>
+				<string> crème de lait</string>
+				<string> fromage de vache</string>
+				<string> fromage de chèvre</string>
+				<string> gouda</string>
+				<string> lait écrémé</string>
+				<string> lait entier</string>
+				<string> lactoserum</string>
+				<string> lactosérum</string>
+				<string> mozzarella</string>
+				<string> protéines de lait</string>
+				<string> crème fraiche</string>
+				<string> ricotta</string>
+				<string> fromage blanc</string>
+				<string> mascarpone</string>
+				<string> caséinate</string>
+				<string> caséine</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>melk</string>
+				<string> melkpoeder</string>
+				<string> lactose</string>
+				<string> boter</string>
+				<string> karnemelk</string>
+				<string> room</string>
+				<string> jogurt</string>
+				<string> kaas</string>
+				<string> gouda</string>
+				<string> edam</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:molluscs</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Weichtiere</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>molluscs</string>
+				<string> mollusc</string>
+				<string> mollusks</string>
+				<string> mollusk</string>
+				<string> squid</string>
+				<string> cuttlefish</string>
+				<string> oysters</string>
+				<string> oyster</string>
+				<string> mussles</string>
+				<string> mussle</string>
+				<string> clams</string>
+				<string> clam</string>
+				<string> scallops</string>
+				<string> scallop</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>mollusques</string>
+				<string> mollusque</string>
+				<string> poulpe</string>
+				<string> seiche</string>
+				<string> encornet</string>
+				<string> calamar</string>
+				<string> calmar</string>
+				<string> huitres</string>
+				<string> huitre</string>
+				<string> moules</string>
+				<string> moule</string>
+				<string> noix de saint-jacques</string>
+				<string> noix de st-jacques</string>
+				<string> escargot</string>
+				<string> escargots</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>weekdieren</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mustard</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Senf</string>
+				<string> Senfkörner</string>
+				<string> Senfmehl</string>
+				<string> Senfsaat</string>
+				<string> Senfsaaten</string>
+				<string> Senfsamen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>mustard</string>
+				<string> brassica</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>moutarde</string>
+				<string> graines de moutarde</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>mosterd</string>
+				<string> mosterzaad</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:nuts</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Schalenfrüchte</string>
+				<string> Mandeln</string>
+				<string> Haselnüsse</string>
+				<string> Walnüsse</string>
+				<string> Kaschunüsse</string>
+				<string> Pecannüsse</string>
+				<string>  Paranüsse</string>
+				<string> Pistazien</string>
+				<string> Macadamianüsse</string>
+				<string> Queenslandnüsse</string>
+				<string> Cashewkerne</string>
+				<string> Cashewnusse</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>nuts</string>
+				<string> almonds</string>
+				<string> hazelnuts</string>
+				<string> walnuts</string>
+				<string> cashews</string>
+				<string> cashew</string>
+				<string> pecan nuts</string>
+				<string> pecan</string>
+				<string>  Brazil nuts</string>
+				<string> pistachio nuts</string>
+				<string> macadamia</string>
+				<string> Queensland nuts</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>fruits à coque</string>
+				<string> amandes</string>
+				<string> noisettes</string>
+				<string> noix</string>
+				<string> noix de cajou</string>
+				<string> noix de pécan</string>
+				<string> noix du Brésil</string>
+				<string> pistaches</string>
+				<string> noix de Macadamia</string>
+				<string> noix du Queensland</string>
+				<string> fruits secs</string>
+				<string> autres fruits secs</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>noten</string>
+				<string> amandelen</string>
+				<string> hazelnoten</string>
+				<string> walnoten</string>
+				<string> cashewnoten</string>
+				<string> pecannoten</string>
+				<string>  paranoten</string>
+				<string> pistachenoten</string>
+				<string> macadamianoten</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:peanuts</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Erdnüsse</string>
+				<string> Erdnuss</string>
+				<string> arachis hypogaea</string>
+				<string> Erdnusskerne</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>peanuts</string>
+				<string> peanut</string>
+				<string> arachis hypogaea</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>arachides</string>
+				<string> arachide</string>
+				<string> cacahuètes</string>
+				<string> cacahuète</string>
+				<string> cacahouètes</string>
+				<string> cacahouète</string>
+				<string> arachis hypogaea</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>aardnoten</string>
+				<string> pinda</string>
+				<string> pindas</string>
+				<string> arachis hypogaea</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sesame-seeds</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sesamsamen</string>
+				<string> Sesam</string>
+				<string> Sesambrötchen</string>
+				<string> Sesampaste</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>sesame seeds</string>
+				<string> sesame</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>graines de sésame</string>
+				<string> sésame</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>sesamzaad</string>
+				<string> sesam</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:soybeans</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sojabohnen</string>
+				<string> Soja</string>
+				<string> Sojamilch</string>
+				<string> Sojalecithin</string>
+				<string> Sojalecithine</string>
+				<string> Soja-Lecithine</string>
+				<string> Sojaprotein</string>
+				<string> Sojabohnenöl</string>
+				<string> Sojaeiweiß</string>
+				<string> Sojaerzeugnis</string>
+				<string> Sojafett</string>
+				<string> Sojaflocken</string>
+				<string> Sojakerne</string>
+				<string> Sojakleie</string>
+				<string> Sojamehl</string>
+				<string> Sojaöl</string>
+				<string> Sojaprotein</string>
+				<string> Sojaproteinhydrolysat</string>
+				<string> Sojaproteinisolat</string>
+				<string> Sojasauce</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>soybeans</string>
+				<string> soya</string>
+				<string> soja</string>
+				<string> soia</string>
+				<string> soy</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>soja</string>
+				<string> soya</string>
+				<string> soia</string>
+				<string> sojas</string>
+				<string> son de soja</string>
+				<string> lécithine de soja</string>
+				<string> tonyu</string>
+				<string> graines de soja</string>
+				<string> tofu</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>soja</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:substances-or-products-causing-allergies-or-intolerances</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Stoffe oder Erzeugnisse</string>
+				<string> die Allergien oder Unverträglichkeiten auslösen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>substances or products causing allergies or intolerances</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>substances ou produits provoquant des allergies ou intolérances</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>stoffen of producten die allergieën of intoleranties veroorzaken</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sulphur-dioxide-and-sulphites</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Schwefeldioxid und Sulphite</string>
+				<string> Schwefeldioxid</string>
+				<string> Sulphite</string>
+				<string> E150b</string>
+				<string> E150d</string>
+				<string> E220</string>
+				<string> E221</string>
+				<string> E222</string>
+				<string> E223</string>
+				<string> E224</string>
+				<string> E225</string>
+				<string> E226</string>
+				<string> E227</string>
+				<string> E228</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>sulphur dioxide and sulphites</string>
+				<string> sulphur dioxide</string>
+				<string> sulphites</string>
+				<string> sulfites</string>
+				<string> bisulfite</string>
+				<string> metabisulfite</string>
+				<string> E150b</string>
+				<string> E150d</string>
+				<string> E220</string>
+				<string> E221</string>
+				<string> E222</string>
+				<string> E223</string>
+				<string> E224</string>
+				<string> E225</string>
+				<string> E226</string>
+				<string> E227</string>
+				<string> E228</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>anhydride sulfureux et sulfites</string>
+				<string> anhydride sulfureux</string>
+				<string> sulfites</string>
+				<string> sulfite</string>
+				<string> sulphites</string>
+				<string> sulphite</string>
+				<string> bisulfite</string>
+				<string> metabisulfite</string>
+				<string> disulfite</string>
+				<string> disulfites</string>
+				<string> disulfite de sodium</string>
+				<string> disulfite de potassium</string>
+				<string> E150b</string>
+				<string> E150d</string>
+				<string> E220</string>
+				<string> E221</string>
+				<string> E222</string>
+				<string> E223</string>
+				<string> E224</string>
+				<string> E225</string>
+				<string> E226</string>
+				<string> E227</string>
+				<string> E228</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>zwaveldioxide en sulfieten</string>
+				<string> zwaveldioxide</string>
+				<string> sulfieten</string>
+				<string> E150b</string>
+				<string> E150d</string>
+				<string> E220</string>
+				<string> E221</string>
+				<string> E222</string>
+				<string> E223</string>
+				<string> E224</string>
+				<string> E225</string>
+				<string> E226</string>
+				<string> E227</string>
+				<string> E228</string>
+			</array>
+		</dict>
+	</dict>
+</dict>
+</plist>

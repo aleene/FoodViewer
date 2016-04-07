@@ -46,6 +46,8 @@ class NameTableViewCell: UITableViewCell {
                 // print("product imageView size \(productImageView?.bounds.size)")
                 // print("cell: \(self.contentView.bounds.size)")
                 /*productImageView.image = newImage.squareCropImageToSideLength(productImageView) */
+            } else {
+                productImageView?.image = UIImage(named: "NoImage")
             }
         }
     }

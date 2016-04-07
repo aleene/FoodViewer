@@ -41,11 +41,15 @@ class OFFTaxonomies {
     
     lazy var OFFstates: Set <VertexNew>? = nil
     lazy var OFFadditives: Set <VertexNew>? = nil
+    lazy var OFFallergens: Set <VertexNew>? = nil
+    lazy var OFFcountries: Set <VertexNew>? = nil
     
     init() {
         // read all necessary plists in the  background
         OFFstates = readPlist(Constants.StatesFileName)
         OFFadditives = readPlist(Constants.AdditivesFileName)
+        OFFallergens = readPlist(Constants.AllergensFileName)
+        OFFcountries = readPlist(Constants.CountriesFileName)
     }
     
     // MARK: Outlets and Actions
@@ -62,10 +66,10 @@ class OFFTaxonomies {
                 
                 let currentVertex = OFFstates![index!].leaves
                 let values = currentVertex[firstSplit[0]]
-                return  values != nil ? values![0] : "No translation available"
+                return  values != nil ? values![0] : key
             }
         }
-        return "No translation file available"
+        return NSLocalizedString("Error: file \(Constants.StatesFileName) not available", comment: "Error to indicate that a file can not be read.")
     }
     
     func translateAdditives(key: String, language:String) -> String {
@@ -74,15 +78,49 @@ class OFFTaxonomies {
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFstates!.indexOf(vertex)
+            let index = OFFadditives!.indexOf(vertex)
             if  index != nil {
                 
                 let currentVertex = OFFadditives![index!].leaves
                 let values = currentVertex[firstSplit[0]]
-                return  values != nil ? values![0] : "No translation available"
+                return  values != nil ? values![0] : key
             }
         }
-        return "No translation file available"
+        return NSLocalizedString("Error: file \(Constants.AdditivesFileName) not available", comment: "Error to indicate that a file can not be read.")
+    }
+
+    func translateAllergens(key: String, language:String) -> String {
+        if OFFallergens != nil {
+            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFallergens!.indexOf(vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFallergens![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0] : key
+            }
+        }
+        return NSLocalizedString("Error: file \(Constants.AllergensFileName) not available", comment: "Error to indicate that a file can not be read.")
+    }
+
+    func translateCountries(key: String, language:String) -> String {
+        if OFFcountries != nil {
+            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFcountries!.indexOf(vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFcountries![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0] : key
+            }
+        }
+        return NSLocalizedString("Error: file \(Constants.CountriesFileName) not available", comment: "Error to indicate that a file can not be read.")
     }
 
     private func readPlist(fileName: String) -> Set <VertexNew>? {

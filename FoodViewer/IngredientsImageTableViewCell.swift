@@ -40,6 +40,8 @@ class IngredientsImageTableViewCell: UITableViewCell {
                 // still need to solved what happens when the image is very high
                 
                 ingredientsImageView.contentMode = .Center
+            } else {
+                ingredientsImageView?.image = UIImage(named: "NoImage")
             }
         }
     }
