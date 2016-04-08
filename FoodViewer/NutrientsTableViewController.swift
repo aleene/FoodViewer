@@ -39,6 +39,8 @@ class NutrientsTableViewController: UITableViewController {
         }
     }
     
+    var showSaltOrSodium: NatriumChloride = .Salt
+    
     // MARK: - Table view data source
     
     private struct Storyboard {
@@ -75,6 +77,8 @@ class NutrientsTableViewController: UITableViewController {
                 return cell!
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactCellIdentifier, forIndexPath: indexPath) as? NutrientsTableViewCell
+                // warning set FIRST the saltOrSodium
+                cell?.showSaltOrSodium = showSaltOrSodium
                 cell?.nutritionFactItem = product!.nutritionFacts[indexPath.row]
                 return cell!
             }

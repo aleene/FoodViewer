@@ -179,8 +179,6 @@ class SupplyChainTableViewController: UITableViewController {
 
         refresh()
         
-        // NSNotificationCenter.defaultCenter().addObserver(self, selector:"reloadMapSection:", name:SupplyChainLocation.Notification.CoordinateSet, object: nil)
-
         title = Constants.ViewControllerTitle
     }
     

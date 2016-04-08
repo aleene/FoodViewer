@@ -100,6 +100,7 @@ class OpenFoodFactsRequest {
         //    static let Text = "Sodium"
         //}
         static let SodiumKey = "sodium"
+        static let SaltKey = "salt"
         static let SugarsKey = "sugars"
         static let EnergyKey = "energy"
         static let ProteinsKey = "proteins"
@@ -191,7 +192,6 @@ class OpenFoodFactsRequest {
         static let NutritionScoreFr100gKey = "nutrition-score-fr_100g"
         //static let FatKey = "fat"
         //static let SodiumServingKey = "sodium_serving"
-        //static let SaltKey = "salt"
         //static let ProteinsKey = "proteins"
         //static let ProteinsServingKey = "proteins_serving"
         //static let Proteins100gKey = "proteins_100g"
@@ -644,7 +644,7 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.ProteinsKey, key: OFFJson.ProteinsKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.AlcoholKey, key: OFFJson.AlcoholKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SodiumKey, key: OFFJson.SodiumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SaltKey, key: OFFJson.BiotinKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(NutritionFacts.SaltKey, key: OFFJson.SaltKey, jsonObject: jsonObject, product: product)
                 
                 nutritionDecode(NutritionFacts.BiotinKey, key: OFFJson.BiotinKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.CaseinKey, key: OFFJson.CaseinKey, jsonObject: jsonObject, product: product)

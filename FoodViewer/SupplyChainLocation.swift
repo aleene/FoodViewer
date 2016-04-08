@@ -18,19 +18,6 @@ class SupplyChainLocation: NSObject, MKAnnotation {
     let title: String?
     let discipline: String
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0.0, 0.0)
-        
-        /*{
-        didSet {
-            switch discipline {
-            case "Sales Country":
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.CoordinateSet, object: nil)
-            default:
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.CoordinateSet, object: nil)
-            }
-        }
-    } */
-    
-    
     var subtitle: String? {
         return discipline
     }
