@@ -34,6 +34,7 @@ class OFFplists {
         static let GlobalLabelsFileName = "GlobalLabels"
         static let BrandsFileName = "Brands"
         static let CategoriesFileName = "Categories"
+        static let NutrientsFileName = "Nutrients"
         static let TaxonomyKey = "Taxonomy"
         static let Language = "en"
         static let LanguageDivider = ":"
@@ -45,6 +46,7 @@ class OFFplists {
     lazy var OFFcountries: Set <VertexNew>? = nil
     lazy var OFFglobalLabels: Set <VertexNew>? = nil
     lazy var OFFcategories: Set <VertexNew>? = nil
+    lazy var OFFnutrients: Set <VertexNew>? = nil
     
     init() {
         // read all necessary plists in the background
@@ -54,6 +56,7 @@ class OFFplists {
         OFFcountries = readPlist(Constants.CountriesFileName)
         OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
         OFFcategories = readPlist(Constants.CategoriesFileName)
+        OFFnutrients = readPlist(Constants.NutrientsFileName)
     }
     
     // MARK: Outlets and Actions
@@ -159,6 +162,12 @@ class OFFplists {
         
         return translate(OFFcategories, file: Constants.CategoriesFileName, key: key, language: language)
     }
+    
+    func translateNutrients(key: String, language:String) -> String {
+        // remark that the key has been extended with a language for in order to be consistent with the other taxonomy keys.
+        return translate(OFFnutrients, file: Constants.NutrientsFileName, key: "en:" + key, language: language)
+    }
+
     
     func translate(taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
         if taxonomy != nil {

@@ -736,7 +736,8 @@ class OpenFoodFactsRequest {
             static let UnitKey = "_unit"
         }
         var nutritionItem = NutritionFactItem()
-        nutritionItem.itemName = fact
+        let preferredLanguage = NSLocale.preferredLanguages()[0]
+        nutritionItem.itemName = OFFplists.manager.translateNutrients(key, language:preferredLanguage)
         nutritionItem.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.UnitKey]?.string
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string {
             if let unit = nutritionItem.standardValueUnit {
