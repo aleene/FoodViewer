@@ -16,15 +16,13 @@ class LabelsFullTableViewCell: UITableViewCell {
     }
 
     
-    var tagList: [[String: String]]? = nil {
+    var tagList: [String]? = nil {
         didSet {
             if let list = tagList {
                 labelsTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        for (_, listItemValue) in listItem {
-                            labelsTagListView.addTag(listItemValue)
-                        }
+                        labelsTagListView.addTag(listItem)
                     }
                     labelsTagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {

@@ -12,7 +12,8 @@ class SupplyChainTableViewController: UITableViewController {
     
     var product: FoodProduct? {
         didSet {
-            refresh()
+            tableStructureForProduct = analyseProductForTable(product!)
+            refreshProduct()
         }
     }
     
@@ -33,19 +34,21 @@ class SupplyChainTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
     }
     
+    @IBAction func refresh(sender: UIRefreshControl) {
+        if refreshControl!.refreshing {
+            OFFProducts.manager.reload(product!)
+            refreshControl?.endRefreshing()
+        }
+    }
+    
+    
     private struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
         static let CountriesCellIdentifier = "Countries TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
     }
     
-    func refresh() {
-        if product != nil {
-            tableStructureForProduct = analyseProductForTable(product!)
-            tableView.reloadData()
-        }        
-    }
-    
+
     private struct TableStructure {
         static let ProducerSectionHeader = NSLocalizedString("Producers", comment: "Header for section of tableView with information of the producer (name, geographic location).")
         static let ProducerCodeSectionHeader = NSLocalizedString("Producer Codes", comment: "Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666).")
@@ -169,6 +172,15 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
 
+    func refreshProduct() {
+        tableView.reloadData()
+    }
+
+    func removeProduct() {
+        product = nil
+        tableView.reloadData()
+    }
+
     // MARK: - Controller Lifecycle
     
     override func viewDidLoad() {
@@ -177,13 +189,21 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80.0
 
-        refresh()
+        refreshProduct()
         
         title = Constants.ViewControllerTitle
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+
+    }
+
     override func viewDidDisappear(animated: Bool) {
-        // NSNotificationCenter.defaultCenter().removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewDidDisappear(animated)
     }
     

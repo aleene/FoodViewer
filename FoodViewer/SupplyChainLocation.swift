@@ -15,6 +15,7 @@ class SupplyChainLocation: NSObject, MKAnnotation {
         static let CoordinateSet = "FoodProduct.Notification.CoordinateSet"
         static let CountryCoordinateSet = "FoodProduct.Notification.CountryCoordinateSet"
     }
+    
     let title: String?
     let discipline: String
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2DMake(0.0, 0.0)
@@ -37,7 +38,7 @@ class SupplyChainLocation: NSObject, MKAnnotation {
         self.coordinate = coordinate
     }
 
-    // pinColor for disciplines: Sculpture, Plaque, Mural, Monument, other
+    // pinColor for supply chain location type: Ingredient Origin, Production Location, Sales Locations, Buy location, other
     func pinColor() -> UIColor  {
         switch discipline {
         case "Purchase":

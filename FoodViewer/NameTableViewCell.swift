@@ -54,7 +54,11 @@ class NameTableViewCell: UITableViewCell {
     
     var productBrand: [String]? = nil {
         didSet {
-            brandLabel.text = productBrand != nil ? productBrand![0] : Constants.NoBrandsIndicated
+            if let brand = productBrand?.first {
+                brandLabel.text = brand 
+            } else {
+                brandLabel.text = Constants.NoBrandsIndicated
+            }
         }
     }
 

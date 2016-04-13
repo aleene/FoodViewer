@@ -12,4 +12,20 @@ enum NatriumChloride {
     case Salt
     case Sodium
     case Both
+    
+    func description() -> String {
+        switch self {
+        case .Salt: return "Salt"
+        case .Both: return "Both"
+        case .Sodium: return "Sodium"
+        }
+    }
+    
+    func index() -> Int {
+        switch self {
+        case .Salt: return 0
+        case .Both: return 1
+        case .Sodium: return 2
+        }
+    }
 }

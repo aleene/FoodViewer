@@ -14,7 +14,14 @@ class Address {
     var street = ""
     var city = ""
     var postalcode = ""
-    var country = ""
+    var country = "" {
+        didSet {
+            if !country.isEmpty {
+                retrieveCoordinates(country)
+            }
+        }
+    }
+    
     var elements: [String]? = nil {
         didSet {
             if (elements != nil) && (!elements!.isEmpty) {
@@ -25,6 +32,7 @@ class Address {
     }
     var language: String = ""
     var coordinate: [CLLocationCoordinate2D]? = nil
+    /*
     var languageCountry = "" {
         didSet {
             if !languageCountry.isEmpty {
@@ -36,6 +44,7 @@ class Address {
 
         }
     }
+ */
     
     func joined() -> String? {
         return elements?.joinWithSeparator(" ")

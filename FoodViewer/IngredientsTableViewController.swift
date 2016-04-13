@@ -14,7 +14,7 @@ class IngredientsTableViewController: UITableViewController {
     
     private var ingredientsImage: UIImage? = nil {
         didSet {
-            tableView.reloadData()
+            refreshProduct()
         }
     }
     
@@ -35,8 +35,15 @@ class IngredientsTableViewController: UITableViewController {
                 if product!.imageIngredientsUrl != nil {
                     retrieveImage(product!.imageIngredientsUrl!)
                 }
-                tableView.reloadData()
+                refreshProduct()
             }
+        }
+    }
+    
+    @IBAction func refresh(sender: UIRefreshControl) {
+        if refreshControl!.refreshing {
+            OFFProducts.manager.reload(product!)
+            refreshControl?.endRefreshing()
         }
     }
     
@@ -49,6 +56,7 @@ class IngredientsTableViewController: UITableViewController {
         static let AdditivesCellIdentifier = "Additives TagList Cell"
         static let LabelsCellIdentifier = "Labels TagList Cell"
         static let IngredientsImageCellIdentifier = "Ingredients Image Cell"
+        static let NoImageCellIdentifier = "No Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Ingredients Image"
     }
     
@@ -93,11 +101,16 @@ class IngredientsTableViewController: UITableViewController {
             cell?.tagList = product!.labelArray
             return cell!
         case .Image:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
             if let data = product?.ingredientsImageData {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
                 cell!.ingredientsImage = UIImage(data:data)
+                return cell!
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoImageCellIdentifier, forIndexPath: indexPath) as? NoImageTableViewCell
+                
+                cell?.tagList = []
+                return cell!
             }
-            return cell!
         }
     }
     
@@ -217,6 +230,14 @@ class IngredientsTableViewController: UITableViewController {
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
+    func refreshProduct() {
+        tableView.reloadData()
+    }
+    
+    func removeProduct() {
+        product = nil
+        tableView.reloadData()
+    }
 
     // MARK: - ViewController Lifecycle
     
@@ -234,6 +255,9 @@ class IngredientsTableViewController: UITableViewController {
         title = TextConstants.ViewControllerTitle
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.IngredientsImageSet, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {

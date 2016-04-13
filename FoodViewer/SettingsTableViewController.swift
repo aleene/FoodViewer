@@ -10,16 +10,30 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
-    var storedHistory = History()
-
-    var showSaltOrSodium = NatriumChloride.Both
-    
     private struct Storyboard {
         static let ReturnToProductSegueIdentifier = "Settings Done"
     }
-
+    
     private struct Constants {
         static let ViewControllerTitle = NSLocalizedString("Settings", comment: "TableViewController title for the settings scene.")
+    }
+
+    var storedHistory = History()
+    
+    var historyHasBeenRemoved = false
+    
+    func refreshSaltOrSodiumSwitch() {
+        if saltOrSodiumOutlet != nil {
+            switch Preferences.manager.showSaltSodiumOrBoth {
+            case .Salt:
+                saltOrSodiumOutlet!.selectedSegmentIndex = 0
+            case .Both:
+                saltOrSodiumOutlet!.selectedSegmentIndex = 1
+            case .Sodium:
+                saltOrSodiumOutlet!.selectedSegmentIndex = 2
+            }
+        }
+
     }
     
     @IBOutlet weak var saltOrSodiumOutlet: UISegmentedControl! {
@@ -33,6 +47,7 @@ class SettingsTableViewController: UITableViewController {
     
     @IBAction func clearProductHistoryTapped(sender: UIButton) {
         storedHistory.removeAll()
+        historyHasBeenRemoved = true
     }
     
     @IBAction func doneButtonTapped(sender: UIBarButtonItem) {
@@ -43,11 +58,11 @@ class SettingsTableViewController: UITableViewController {
     @IBAction func saltOrSodiumSwitchTapped(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            showSaltOrSodium = .Salt
+            Preferences.manager.showSaltSodiumOrBoth = .Salt
         case 1:
-            showSaltOrSodium = .Both
+            Preferences.manager.showSaltSodiumOrBoth = .Both
         case 2:
-            showSaltOrSodium = .Sodium
+            Preferences.manager.showSaltSodiumOrBoth = .Sodium
         default:
             break
         }
@@ -80,6 +95,8 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        refreshSaltOrSodiumSwitch()
+
         title = Constants.ViewControllerTitle
     }
 

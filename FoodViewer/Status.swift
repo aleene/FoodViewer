@@ -10,7 +10,7 @@ import Foundation
 
 struct Status: CustomStringConvertible {
     var value = false
-    var text = ""
+    var text = "Missing state"
     
     var description: String {
         get {

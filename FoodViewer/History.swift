@@ -10,6 +10,10 @@ import Foundation
 
 public struct History {
 
+    struct Notification {
+        static let HistoryHasBeenDeleted = "History.Notification.HistoryHasBeenDeleted"
+    }
+
     public var barcodes = [String]()
     
     private var defaults = NSUserDefaults()
@@ -55,6 +59,7 @@ public struct History {
         barcodes.removeAll()
         defaults.setObject(barcodes, forKey: Constants.HistoryKey)
         defaults.synchronize()
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.HistoryHasBeenDeleted, object:nil)
     }
     
 }

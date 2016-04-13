@@ -55,7 +55,7 @@ class FoodProduct {
     var allergens: [String]? = nil
     var traces: [String]? = nil
     var additives: [String]? = nil
-    var labelArray: [[String: String]]? = nil
+    var labelArray: [String]? = nil
     
     // usage parameters
     var servingSize: String? = nil
@@ -103,7 +103,7 @@ class FoodProduct {
         }
     }
 
-    
+    /*
     func languageCountryArray(countries:[String]?) {
         if let array = countries {
             for element in array {
@@ -118,6 +118,7 @@ class FoodProduct {
             }
         }
     }
+ */
 
     var producer: Address? = nil
     var expirationDate: NSDate? = nil
@@ -260,19 +261,7 @@ class FoodProduct {
         var isEditor: Bool = false
         var isInformer: Bool = false
     }
-    
-    struct NutritionFactItem {
-        var itemName: String? = nil
-        var standardValue: String? = nil
-        var standardValueUnit: String? = nil
-        var servingValue: String? = nil
-        var servingValueUnit: String? = nil
         
-        func valid() -> Bool {
-            return standardValue != nil && !standardValue!.isEmpty
-        }
-    }
-    
     struct ContributorTypes {
         static let CheckersKey = "Checkers"
         static let InformersKey = "Informers"
@@ -326,6 +315,64 @@ class FoodProduct {
     
     init(withBarcode: BarcodeType) {
         self.barcode = withBarcode
+    }
+    
+    func nutritionFactsContain(nutritionFactToCheck: String) -> Bool {
+        for fact in nutritionFacts {
+            if fact.itemName == nutritionFactToCheck {
+                return true
+            }
+        }
+        return false
+    }
+    
+    // updates a product with new product data
+    func updateDataWith(product: FoodProduct?) {
+        // is it really the same product?
+        if barcode.asString() == product?.barcode.asString() {
+            name = product?.name
+            commonName = product?.name
+            brandsArray = product?.brandsArray
+            mainUrlThumb = product?.mainUrlThumb
+            mainUrl = product?.mainUrl
+            if mainUrl != product?.mainUrl {
+                // if the main url has changed, reset the mainImageData
+                mainUrl = product?.mainUrl
+                mainImageData = nil
+            }
+            packagingArray = product?.packagingArray
+            ingredients = product?.ingredients
+            imageIngredientsSmallUrl = product?.imageIngredientsSmallUrl
+            imageIngredientsUrl = product?.imageIngredientsUrl
+            allergens = product?.allergens
+            traces = product?.traces
+            additives = product?.additives
+            labelArray = product?.labelArray
+            producer = product?.producer
+            ingredientsOrigin = product?.ingredientsOrigin
+            producerCode = product?.producerCode
+            servingSize = product?.servingSize
+            nutritionFacts = (product?.nutritionFacts)!
+            nutritionScore = product?.nutritionScore
+            imageNutritionSmallUrl = product?.imageNutritionSmallUrl
+            nutritionFactsImageUrl = product?.nutritionFactsImageUrl
+            nutritionGrade = product?.nutritionGrade
+            purchaseLocation = product?.purchaseLocation
+            stores = product?.stores
+            countries = product?.countries
+            additionDate = product?.additionDate
+            creator = product?.creator
+            state = (product?.state)!
+            primaryLanguage = product?.primaryLanguage
+            categories = product?.categories
+            photographers = product?.photographers
+            correctors = product?.correctors
+            editors = product?.editors
+            informers = product?.informers
+            productContributors = (product?.productContributors)!
+            contributorsArray = (product?.contributorsArray)!
+            // did I miss something?
+        }
     }
     
 // End product

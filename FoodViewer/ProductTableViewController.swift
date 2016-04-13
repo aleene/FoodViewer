@@ -20,17 +20,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
 
-    private var product: ProductsArray? = nil
+    private let products = OFFProducts.manager
     
     private var barcode: BarcodeType? = nil {
         didSet {
-            product!.fetchProduct(barcode)
+            products.fetchProduct(barcode)
+
         }
     }
     
     private func refreshInterface() {
-        if product!.list.count > 0 {
-            selectedProduct = product!.list.first
+        if products.list.count > 0 {
+            selectedProduct = products.list.first
             tableView.reloadData()
             tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
         }
@@ -137,13 +138,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         //
-        return product != nil ? product!.list.count : 0
+        return products.list.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let currentProductSection = tableStructure[indexPath.row]
-        let currentProduct = product!.list[indexPath.section]
+        let currentProduct = products.list[indexPath.section]
         
         // we assume that product exists
         switch currentProductSection {
@@ -196,16 +197,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if indexPath.row < 6 {
             // row 6 is the nutritional score, which has no correponding page
             selectedIndex = indexPath.row
-            selectedProduct = product!.list[indexPath.section]
+            selectedProduct = products.list[indexPath.section]
             // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
     }
    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if product!.list.isEmpty {
+        if products.list.isEmpty {
             return Constants.NoProductsInHistory
         } else {
-            return product!.list[section].name != nil ? product!.list[section].name : Constants.ProductNameMissing
+            return products.list[section].name != nil ? products.list[section].name! : Constants.ProductNameMissing
         }
     }
 
@@ -227,7 +228,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 if let vc = segue.destinationViewController as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
-                        ppvc.showSaltOrSodium = showSaltOrSodium
                         if let index = selectedIndex {
                             ppvc.pageIndex = index
                         }
@@ -235,7 +235,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 }
             case Storyboard.ShowSettingsSegueIdentifier:
                 if let vc = segue.destinationViewController as? SettingsTableViewController {
-                        vc.storedHistory = product!.storedHistory
+                    vc.storedHistory = products.storedHistory
                 }
 
             default: break
@@ -245,7 +245,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     @IBAction func unwindForCancel(segue:UIStoryboardSegue) {
         if let _ = segue.sourceViewController as? BarcodeScanViewController {
-            if product!.list.count > 0 {
+            if products.list.count > 0 {
                 tableView.reloadData()
             }
         }
@@ -258,19 +258,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    private var showSaltOrSodium: NatriumChloride = .Salt
     
     @IBAction func settingsDone(segue:UIStoryboardSegue) {
-        if let settingsVC = segue.sourceViewController as? SettingsTableViewController {
-            product!.storedHistory = History()
-            product!.list = []
-            showSaltOrSodium = settingsVC.showSaltOrSodium
+        if let vc = segue.sourceViewController as? SettingsTableViewController {
+            if vc.historyHasBeenRemoved {
+                products.removeAll()
+                tableView.reloadData()
+            }
         }
     }
 
     // MARK: - Notification methods
     
-    func showAlertProducNotAvailable(notification: NSNotification) {
+    func showAlertProductNotAvailable(notification: NSNotification) {
         let userInfo = notification.userInfo
         let error = userInfo!["error"] as? String?
         let alert = UIAlertController(
@@ -287,9 +287,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     func firstProductLoaded(notification: NSNotification) {
+        selectedProduct = products.list.first
         tableView.reloadData()
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
-
     }
 
     // MARK: - Viewcontroller lifecycle
@@ -304,13 +304,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80.0
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.showAlertProducNotAvailable(_:)), name:ProductsArray.Notification.ProductNotAvailable, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:ProductsArray.Notification.ProductLoaded, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:ProductsArray.Notification.FirstProductLoaded, object:nil)
-
-        
         initializeCustomKeyboard()
-        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -319,7 +313,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         title = Constants.ViewControllerTitle
         
         // setup the products if not already done
-        product = ProductsArray()
+        // products = OFFProducts.manager
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:OFFProducts.Notification.ProductNotAvailable, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:OFFProducts.Notification.ProductLoaded, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:OFFProducts.Notification.FirstProductLoaded, object:nil)
     }
     
     override func viewDidDisappear(animated: Bool) {

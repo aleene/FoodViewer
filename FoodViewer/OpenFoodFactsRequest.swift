@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class OpenFoodFactsRequest {
     
@@ -24,7 +25,10 @@ class OpenFoodFactsRequest {
     var fetched: FetchResult = .Error("Initialised")
     
     func fetchProductForBarcode(barcode: BarcodeType) -> FetchResult {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         let fetchUrl = NSURL(string: "\(OpenFoodFacts.APIURLPrefixForProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+
         // print("\(fetchUrl)")
         if let url = fetchUrl {
             do {
@@ -354,7 +358,7 @@ class OpenFoodFactsRequest {
                 decodeCompletionStates(jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesTagsKey]?.stringArray, product:product)
                 decodeLastEditDates(jsonObject?[OFFJson.ProductKey]?[OFFJson.LastEditDatesTagsKey]?.stringArray, forProduct:product)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CheckersTagsKey]?.stringArray
-                product.labelArray = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray)
+                product.labelArray = decodeGlobalLabels(jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsTagsKey]?.stringArray)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
 
@@ -731,7 +735,7 @@ class OpenFoodFactsRequest {
             static let ServingKey = "_serving"
             static let UnitKey = "_unit"
         }
-        var nutritionItem = FoodProduct.NutritionFactItem()
+        var nutritionItem = NutritionFactItem()
         nutritionItem.itemName = fact
         nutritionItem.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.UnitKey]?.string
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string {
@@ -781,14 +785,12 @@ class OpenFoodFactsRequest {
         static let PhotosUploadedTBD = "en:photos-to-be-uploaded"
     }
     
-    private var taxonomies = OFFTaxonomies()
-    
     private func decodeAdditives(additives: [String]?) -> [String]? {
         if let adds = additives {
             var translatedAdds:[String]? = []
             let preferredLanguage = NSLocale.preferredLanguages()[0]
             for add in adds {
-                translatedAdds!.append(taxonomies.translateAdditives(add, language:preferredLanguage))
+                translatedAdds!.append(OFFplists.manager.translateAdditives(add, language:preferredLanguage))
             }
             return translatedAdds
         }
@@ -800,7 +802,7 @@ class OpenFoodFactsRequest {
             var translatedAllergens:[String]? = []
             let preferredLanguage = NSLocale.preferredLanguages()[0]
             for allergen in allergensArray {
-                translatedAllergens!.append(taxonomies.translateAllergens(allergen, language:preferredLanguage))
+                translatedAllergens!.append(OFFplists.manager.translateAllergens(allergen, language:preferredLanguage))
             }
             return translatedAllergens
         }
@@ -812,9 +814,21 @@ class OpenFoodFactsRequest {
             var translatedCountries:[String]? = []
             let preferredLanguage = NSLocale.preferredLanguages()[0]
             for country in countriesArray {
-                translatedCountries!.append(taxonomies.translateCountries(country, language:preferredLanguage))
+                translatedCountries!.append(OFFplists.manager.translateCountries(country, language:preferredLanguage))
             }
             return translatedCountries
+        }
+        return nil
+    }
+
+    private func decodeGlobalLabels(labels: [String]?) -> [String]? {
+        if let labelsArray = labels {
+            var translatedLabels:[String]? = []
+            let preferredLanguage = NSLocale.preferredLanguages()[0]
+            for label in labelsArray {
+                translatedLabels!.append(OFFplists.manager.translateGlobalLabels(label, language:preferredLanguage))
+            }
+            return translatedLabels
         }
         return nil
     }
@@ -825,84 +839,84 @@ class OpenFoodFactsRequest {
                 let preferredLanguage = NSLocale.preferredLanguages()[0]
                 if currentState.containsString(StateCompleteKey.PhotosUploaded) {
                     product.state.photosUploadedComplete.value = true
-                    product.state.photosUploadedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosUploaded, language:preferredLanguage)
+                    product.state.photosUploadedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosUploaded, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.PhotosUploadedTBD) {
                     product.state.photosUploadedComplete.value =  false
-                    product.state.photosUploadedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosUploadedTBD, language:preferredLanguage)
+                    product.state.photosUploadedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosUploadedTBD, language:preferredLanguage)
                     
 
                 } else if currentState.containsString(StateCompleteKey.ProductName) {
                     product.state.productNameComplete.value =  true
-                    product.state.productNameComplete.text = taxonomies.translateStates(StateCompleteKey.ProductName, language:preferredLanguage)
+                    product.state.productNameComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ProductName, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.ProductNameTBD) {
                     product.state.productNameComplete.value =  false
-                    product.state.productNameComplete.text = taxonomies.translateStates(StateCompleteKey.ProductNameTBD, language:preferredLanguage)
+                    product.state.productNameComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ProductNameTBD, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.Brands) {
                     product.state.brandsComplete.value =  true
-                    product.state.brandsComplete.text = taxonomies.translateStates(StateCompleteKey.Brands, language:preferredLanguage)
+                    product.state.brandsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Brands, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.BrandsTBD) {
                     product.state.brandsComplete.value =  false
-                    product.state.brandsComplete.text = taxonomies.translateStates(StateCompleteKey.BrandsTBD, language:preferredLanguage)
+                    product.state.brandsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.BrandsTBD, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.Quantity) {
                     product.state.quantityComplete.value =  true
-                    product.state.quantityComplete.text = taxonomies.translateStates(StateCompleteKey.Quantity, language:preferredLanguage)
+                    product.state.quantityComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Quantity, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.QuantityTBD) {
                     product.state.quantityComplete.value =  false
-                    product.state.quantityComplete.text = taxonomies.translateStates(StateCompleteKey.QuantityTBD, language:preferredLanguage)
+                    product.state.quantityComplete.text = OFFplists.manager.translateStates(StateCompleteKey.QuantityTBD, language:preferredLanguage)
 
                 } else if currentState.containsString(StateCompleteKey.Packaging) {
                     product.state.packagingComplete.value = true
-                    product.state.packagingComplete.text = taxonomies.translateStates(StateCompleteKey.Packaging, language:preferredLanguage)
+                    product.state.packagingComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Packaging, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.PackagingTBD) {
                     product.state.packagingComplete.value = false
-                    product.state.packagingComplete.text = taxonomies.translateStates(StateCompleteKey.PackagingTBD, language:preferredLanguage)
+                    product.state.packagingComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PackagingTBD, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.Categories) {
                     product.state.categoriesComplete.value = true
-                    product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.Categories, language:preferredLanguage)
+                    product.state.categoriesComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Categories, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.CategoriesTBD) {
                     product.state.categoriesComplete.value = false
-                    product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
+                    product.state.categoriesComplete.text = OFFplists.manager.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
 
                 } else if currentState.containsString(StateCompleteKey.NutritionFacts) {
                     product.state.nutritionFactsComplete.value = true
-                    product.state.nutritionFactsComplete.text = taxonomies.translateStates(StateCompleteKey.NutritionFacts, language:preferredLanguage)
+                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.NutritionFacts, language:preferredLanguage)
                     
-                } else if currentState.containsString(StateCompleteKey.CategoriesTBD) {
-                    product.state.categoriesComplete.value = false
-                    product.state.categoriesComplete.text = taxonomies.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
+                } else if currentState.containsString(StateCompleteKey.NutritionFactsTBD) {
+                    product.state.nutritionFactsComplete.value = false
+                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.NutritionFactsTBD, language:preferredLanguage)
 
                 } else if currentState.containsString(StateCompleteKey.PhotosValidated) {
                     product.state.photosValidatedComplete.value = true
-                    product.state.photosValidatedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosValidated, language:preferredLanguage)
+                    product.state.photosValidatedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosValidated, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.PhotosValidatedTBD) {
                     product.state.photosValidatedComplete.value = false
-                    product.state.photosValidatedComplete.text = taxonomies.translateStates(StateCompleteKey.PhotosValidatedTBD, language:preferredLanguage)
+                    product.state.photosValidatedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosValidatedTBD, language:preferredLanguage)
 
                 } else if currentState.containsString(StateCompleteKey.Ingredients) {
                     product.state.ingredientsComplete.value = true
-                    product.state.ingredientsComplete.text = taxonomies.translateStates(StateCompleteKey.Ingredients, language:preferredLanguage)
+                    product.state.ingredientsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Ingredients, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.IngredientsTBD) {
                     product.state.ingredientsComplete.value = false
-                    product.state.ingredientsComplete.text = taxonomies.translateStates(StateCompleteKey.IngredientsTBD, language:preferredLanguage)
+                    product.state.ingredientsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.IngredientsTBD, language:preferredLanguage)
 
                 } else if currentState.containsString(StateCompleteKey.ExpirationDate) {
                     product.state.expirationDateComplete.value = true
-                    product.state.expirationDateComplete.text = taxonomies.translateStates(StateCompleteKey.ExpirationDate, language:preferredLanguage)
+                    product.state.expirationDateComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ExpirationDate, language:preferredLanguage)
                     
                 } else if currentState.containsString(StateCompleteKey.ExpirationDateTBD) {
                     product.state.expirationDateComplete.value = false
-                    product.state.expirationDateComplete.text = taxonomies.translateStates(StateCompleteKey.ExpirationDateTBD, language:preferredLanguage)
+                    product.state.expirationDateComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ExpirationDateTBD, language:preferredLanguage)
                 }
             }
         }
@@ -944,19 +958,6 @@ class OpenFoodFactsRequest {
             }
         }
         return nil
-        /*
- -(NSDate*)dateValue
- {
- __block NSDate *detectedDate;
- NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeDate error:nil];
- [detector enumerateMatchesInString:self
- options:kNilOptions
- range:NSMakeRange(0, [self length])
- usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)
- { detectedDate = result.date; }];
- return detectedDate;
- }
- */
     }
 
 

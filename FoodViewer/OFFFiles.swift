@@ -16,13 +16,13 @@
 */
 import Foundation
 
-class OFFTaxonomies {
+class OFFplists {
 
     // This class is implemented as a singleton
     // It is only needed by OpenFoodFactRequests.
     // An instance could be loaded for each request
     // A singleton limits however the number of file loads
-    static let instance = OFFTaxonomies()
+    static let manager = OFFplists()
     
     private struct Constants {
         static let OpenFoodFactsExtension = "off"
@@ -43,13 +43,15 @@ class OFFTaxonomies {
     lazy var OFFadditives: Set <VertexNew>? = nil
     lazy var OFFallergens: Set <VertexNew>? = nil
     lazy var OFFcountries: Set <VertexNew>? = nil
+    lazy var OFFglobalLabels: Set <VertexNew>? = nil
     
     init() {
-        // read all necessary plists in the  background
+        // read all necessary plists in the background
         OFFstates = readPlist(Constants.StatesFileName)
         OFFadditives = readPlist(Constants.AdditivesFileName)
         OFFallergens = readPlist(Constants.AllergensFileName)
         OFFcountries = readPlist(Constants.CountriesFileName)
+        OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
     }
     
     // MARK: Outlets and Actions
@@ -67,6 +69,8 @@ class OFFTaxonomies {
                 let currentVertex = OFFstates![index!].leaves
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
+            } else {
+                return NSLocalizedString("Error: file \(Constants.StatesFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
             }
         }
         return NSLocalizedString("Error: file \(Constants.StatesFileName) not available", comment: "Error to indicate that a file can not be read.")
@@ -84,6 +88,8 @@ class OFFTaxonomies {
                 let currentVertex = OFFadditives![index!].leaves
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
+            } else {
+                return NSLocalizedString("Error: file \(Constants.AdditivesFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
             }
         }
         return NSLocalizedString("Error: file \(Constants.AdditivesFileName) not available", comment: "Error to indicate that a file can not be read.")
@@ -101,6 +107,8 @@ class OFFTaxonomies {
                 let currentVertex = OFFallergens![index!].leaves
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
+            } else {
+                return NSLocalizedString("Error: file \(Constants.AllergensFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
             }
         }
         return NSLocalizedString("Error: file \(Constants.AllergensFileName) not available", comment: "Error to indicate that a file can not be read.")
@@ -118,10 +126,33 @@ class OFFTaxonomies {
                 let currentVertex = OFFcountries![index!].leaves
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
+            } else {
+                return NSLocalizedString("Error: file \(Constants.CountriesFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
             }
         }
         return NSLocalizedString("Error: file \(Constants.CountriesFileName) not available", comment: "Error to indicate that a file can not be read.")
     }
+    
+    func translateGlobalLabels(key: String, language:String) -> String {
+        if OFFglobalLabels != nil {
+            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = OFFglobalLabels!.indexOf(vertex)
+            if  index != nil {
+                
+                let currentVertex = OFFglobalLabels![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0] : key
+            } else {
+                return key
+            }
+        } else {
+            return NSLocalizedString("Error: file \(Constants.GlobalLabelsFileName) not available", comment: "Error to indicate that a file can not be read.")
+        }
+    }
+
 
     private func readPlist(fileName: String) -> Set <VertexNew>? {
         // Copy the file from the Bundle and write it to the Device:

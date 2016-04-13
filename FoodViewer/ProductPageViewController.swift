@@ -20,15 +20,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let CategoriesVCIdentifier = "CategoriesTableViewController"
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
     }
-    
-    var showSaltOrSodium: NatriumChloride = .Salt {
-        didSet {
-            if let vc = pages[2] as? NutrientsTableViewController {
-                vc.showSaltOrSodium = showSaltOrSodium
-            }
-        }
-    }
-    
+        
     @IBAction func actionButtonTapped(sender: UIBarButtonItem) {
         if let barcode = product?.barcode.asString() {
             let urlString = Constants.OpenFoodFactsWebEditURL + barcode

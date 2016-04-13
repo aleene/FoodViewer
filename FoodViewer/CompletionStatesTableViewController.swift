@@ -13,19 +13,15 @@ class CompletionStatesTableViewController: UITableViewController {
     
     var product: FoodProduct? = nil {
         didSet {
-            refresh()
+            refreshProduct()
         }
     }
     
-    func refresh() {
-        if product != nil {
-            tableView.reloadData()
+    @IBAction func refresh(sender: UIRefreshControl) {
+        if refreshControl!.refreshing {
+            OFFProducts.manager.reload(product!)
+            refreshControl?.endRefreshing()
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     struct Storyboard {
@@ -69,7 +65,7 @@ class CompletionStatesTableViewController: UITableViewController {
         case 2:
             return 1
         case 3:
-            return 1
+            return product?.lastEditDates?.count != nil ? product!.lastEditDates!.count : 0
         default:
             return 0
         }
@@ -168,11 +164,38 @@ class CompletionStatesTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - Notification handler
+    
+    
+    func refreshProduct() {
+        tableView.reloadData()
+    }
+
+    func removeProduct() {
+        product = nil
+        tableView.reloadData()
+    }
+
     // MARK: - Viewcontroller lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         title = Constants.ViewControllerTitle
-        refresh()
+        refreshProduct()
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+
+    }
+
+    
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
+
 }

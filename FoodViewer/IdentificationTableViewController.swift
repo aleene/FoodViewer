@@ -13,6 +13,11 @@ class IdentificationTableViewController: UITableViewController {
     struct TextConstants {
         static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
+        static let NoCommonName = NSLocalizedString("No common name available", comment: "String if no common name is available")
+        static let NoName = NSLocalizedString("No name available", comment: "String if no name is available")
+        static let NoBrandsTags = NSLocalizedString("No brand tags available", comment: "String if no brands are available")
+        static let NoPackagingTags = NSLocalizedString("No packaging tags available", comment: "String if no packaging tags are available")
+        static let NoQuantity = NSLocalizedString("No packag quantity available", comment: "String if no packaging quantity are available")
     }
     
     private var tableStructure: [SectionType] = []
@@ -69,12 +74,21 @@ class IdentificationTableViewController: UITableViewController {
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                tableView.reloadData()
+                refreshProduct()
             }
         }
     }
     
-
+    // MARK: - Action methods
+    
+    // should redownload the current product and reload it in this scene
+    @IBAction func refresh(sender: UIRefreshControl) {
+        if refreshControl!.refreshing {
+            OFFProducts.manager.reload(product!)
+            refreshControl?.endRefreshing()
+        }
+    }
+    
     // MARK: - Table view data source
 
     private struct Storyboard {
@@ -82,6 +96,7 @@ class IdentificationTableViewController: UITableViewController {
         static let TagListCellIdentifier = "Identification TagList Cell"
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
+        static let NoIdentificationImageCellIdentifier = "No Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Identification Image"
     }
 
@@ -105,32 +120,35 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             case .Name:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.name != nil ? product!.name! : nil
+                cell.textLabel?.text = product?.name != nil ? product!.name! : TextConstants.NoName
                 return cell
             case .CommonName:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.commonName != nil ? product!.commonName! : nil
+                cell.textLabel?.text = product?.commonName != nil ? product!.commonName! : TextConstants.NoCommonName
                 return cell
             case .Brands:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-                cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
+                cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : [TextConstants.NoBrandsTags]
                 return cell!
             case .Packaging:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-                cell?.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
+                cell?.tagList = product?.packagingArray != nil ? product!.packagingArray! : [TextConstants.NoPackagingTags]
                 return cell!
             case .Quantity:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : ""
+                cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : TextConstants.NoQuantity
                 return cell
             case .Image:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
                 if let data = product?.mainImageData {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
                     cell!.identificationImage = UIImage(data:data)
+                    return cell!
                 } else {
-                    cell!.identificationImage = nil
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
+                    
+                    cell?.tagList = []
+                    return cell!
                 }
-                return cell!
             }
     }
     
@@ -234,6 +252,16 @@ class IdentificationTableViewController: UITableViewController {
         return nil
     }
     
+    func refreshProduct() {
+        tableView.reloadData()
+    }
+    
+    func removeProduct() {
+        product = nil
+        tableView.reloadData()
+    }
+
+    
     // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
@@ -242,14 +270,19 @@ class IdentificationTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44.0
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.MainImageSet, object:nil)
-    }
+}
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 
         navigationController?.setNavigationBarHidden(false, animated: false)
-    }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.MainImageSet, object:nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+}
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)

@@ -12,7 +12,8 @@ class CategoriesTableViewController: UITableViewController {
 
     var product: FoodProduct? {
         didSet {
-            refresh()
+            tableStructureForProduct = analyseProductForTable(product!)
+            refreshProduct()
         }
     }
 
@@ -27,18 +28,19 @@ class CategoriesTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Categories", comment: "Title of ViewController with the categories the product belongs to.")
     }
     
-    private struct Storyboard {
-        static let CellIdentifier = "Categories Cell Identifier"
-    }
-
-    func refresh() {
-        if product != nil {
-            tableStructureForProduct = analyseProductForTable(product!)
-            tableView.reloadData()
+    
+    @IBAction func refresh(sender: UIRefreshControl) {
+        if refreshControl!.refreshing {
+            OFFProducts.manager.reload(product!)
+            refreshControl?.endRefreshing()
         }
     }
     
     // MARK: - Table view data source
+    
+    private struct Storyboard {
+        static let CellIdentifier = "Categories Cell Identifier"
+    }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return tableStructureForProduct.count
@@ -80,6 +82,17 @@ class CategoriesTableViewController: UITableViewController {
         return sectionsAndRows
     }
    
+    // MARK: - Notification handler
+        
+    func refreshProduct() {
+        tableView.reloadData()
+    }
+
+    func removeProduct() {
+        product = nil
+        tableView.reloadData()
+    }
+
     // MARK: - Controller Lifecycle
 
     override func viewDidLoad() {
@@ -88,7 +101,7 @@ class CategoriesTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80.0
 
-        refresh()
+        refreshProduct()
         title = Constants.ViewControllerTitle
     }
 
@@ -97,4 +110,18 @@ class CategoriesTableViewController: UITableViewController {
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
 
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+                
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
+
 }
