@@ -19,6 +19,7 @@
 		5150C0661CBCD66F00161616 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0651CBCD66F00161616 /* Preferences.swift */; };
 		5150C0681CBD48BD00161616 /* NoImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0671CBD48BD00161616 /* NoImageTableViewCell.swift */; };
 		5150C06A1CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0691CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift */; };
+		5150C0701CBE779C00161616 /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5150C06F1CBE779C00161616 /* Categories.plist */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
 		516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B327E1C74D9560031EF80 /* EditProductViewController.swift */; };
@@ -103,6 +104,7 @@
 		5150C0651CBCD66F00161616 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5150C0671CBD48BD00161616 /* NoImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoImageTableViewCell.swift; sourceTree = "<group>"; };
 		5150C0691CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoIdentificationImageTableViewCell.swift; sourceTree = "<group>"; };
+		5150C06F1CBE779C00161616 /* Categories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
 		516B327E1C74D9560031EF80 /* EditProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				51F057F81CB6850100849532 /* GlobalLabels.plist */,
 				51B150021CB2DF9100A57D42 /* Allergens.plist */,
 				51B150041CB2DFA400A57D42 /* Countries.plist */,
+				5150C06F1CBE779C00161616 /* Categories.plist */,
 				516D0C2F1C8F4CC400C1C789 /* Localizable.strings */,
 				516D0C2A1C8F4CC300C1C789 /* InfoPlist.strings */,
 				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
@@ -489,6 +492,7 @@
 			files = (
 				51E5CC961CAD13A600216868 /* 54004207.json in Resources */,
 				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
+				5150C0701CBE779C00161616 /* Categories.plist in Resources */,
 				51EA98B61C64A3C3000A503D /* Podfile in Resources */,
 				51B150011CB2DF5D00A57D42 /* Additives.plist in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,

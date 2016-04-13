@@ -478,7 +478,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CitiesTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodes20141016Key]?.string
-                product.categories = splitLanguageElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesTagsKey]?.stringArray)
+                product.categories = decodeCategories(jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesTagsKey]?.stringArray)
                 product.quantity = jsonObject?[OFFJson.ProductKey]?[OFFJson.QuantityKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevHierarchyKey]?.stringArray
                 product.expirationDate = decodeDate(jsonObject?[OFFJson.ProductKey]?[OFFJson.ExpirationDateKey]?.string)
@@ -832,6 +832,19 @@ class OpenFoodFactsRequest {
         }
         return nil
     }
+    
+    private func decodeCategories(labels: [String]?) -> [String]? {
+        if let labelsArray = labels {
+            var translatedTags:[String]? = []
+            let preferredLanguage = NSLocale.preferredLanguages()[0]
+            for label in labelsArray {
+                translatedTags!.append(OFFplists.manager.translateCategories(label, language:preferredLanguage))
+            }
+            return translatedTags
+        }
+        return nil
+    }
+
 
     private func decodeCompletionStates(states: [String]?, product:FoodProduct) {
         if let statesArray = states {

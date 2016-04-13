@@ -160,7 +160,7 @@ class FoodProduct {
     var primaryLanguage: String? = nil
 
     // group parameters
-    var categories: [[String: String]]? = nil
+    var categories: [String]? = nil
     
     // community parameters
     var photographers: [String]? = nil {

@@ -44,6 +44,7 @@ class OFFplists {
     lazy var OFFallergens: Set <VertexNew>? = nil
     lazy var OFFcountries: Set <VertexNew>? = nil
     lazy var OFFglobalLabels: Set <VertexNew>? = nil
+    lazy var OFFcategories: Set <VertexNew>? = nil
     
     init() {
         // read all necessary plists in the background
@@ -52,6 +53,7 @@ class OFFplists {
         OFFallergens = readPlist(Constants.AllergensFileName)
         OFFcountries = readPlist(Constants.CountriesFileName)
         OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
+        OFFcategories = readPlist(Constants.CategoriesFileName)
     }
     
     // MARK: Outlets and Actions
@@ -152,6 +154,34 @@ class OFFplists {
             return NSLocalizedString("Error: file \(Constants.GlobalLabelsFileName) not available", comment: "Error to indicate that a file can not be read.")
         }
     }
+
+    func translateCategories(key: String, language:String) -> String {
+        
+        return translate(OFFcategories, file: Constants.CategoriesFileName, key: key, language: language)
+    }
+    
+    func translate(taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
+        if taxonomy != nil {
+            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            
+            let vertex = VertexNew(key:key)
+            // find the Vertex.Node with the key
+            let index = taxonomy!.indexOf(vertex)
+            if  index != nil {
+                
+                let currentVertex = taxonomy![index!].leaves
+                let values = currentVertex[firstSplit[0]]
+                return  values != nil ? values![0] : key
+            } else {
+                return key
+            }
+        } else {
+            return NSLocalizedString("Error: file \(file) not available", comment: "Error to indicate that a file can not be read.")
+        }
+    }
+
+    
+    
 
 
     private func readPlist(fileName: String) -> Set <VertexNew>? {
