@@ -10,28 +10,58 @@ import Foundation
 import MapKit
 
 class Address {
+    
+    internal struct Notification {
+        static let CoordinateHasBeenSet = "Address.Notification.CoordinateHasBeenSet"
+        static let CoordinateHasBeenSetForAddressKey = "Address.Notification.CoordinateHasBeenSet.Key"
+    }
+
     var title = ""
     var street = ""
     var city = ""
     var postalcode = ""
-    var country = "" {
+    var country = ""    
+    var elements: [String]? = nil
+        /*
+ {
         didSet {
-            if !country.isEmpty {
+            if (elements != nil) && (!elements!.isEmpty) {
+                elements = removeDashes(elements!)
+                // retrieveCoordinates(elements!.joinWithSeparator(" "))
+            }
+        }
+    }
+ */
+    var language: String = ""
+    var coordinates: [CLLocationCoordinate2D]? = nil {
+        didSet {
+            if coordinates != nil {
+                let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.CoordinateHasBeenSet, object:nil, userInfo: userInfo)
+            }
+        }
+    }
+    
+    func getCoordinates() -> [CLLocationCoordinate2D]? {
+        setCoordinates()
+        return coordinates
+    }
+    
+    
+    func setCoordinates() {
+        if coordinates == nil {
+            // launch the image retrieval
+            if (elements != nil) && (!elements!.isEmpty) {
+                elements = removeDashes(elements!)
+                retrieveCoordinates(elements!.joinWithSeparator(" "))
+            } else if !country.isEmpty {
                 retrieveCoordinates(country)
             }
         }
     }
     
-    var elements: [String]? = nil {
-        didSet {
-            if (elements != nil) && (!elements!.isEmpty) {
-                elements = removeDashes(elements!)
-                retrieveCoordinates(elements!.joinWithSeparator(" "))
-            }
-        }
-    }
-    var language: String = ""
-    var coordinate: [CLLocationCoordinate2D]? = nil
+
+    
     /*
     var languageCountry = "" {
         didSet {
@@ -66,7 +96,7 @@ class Address {
                                 coordinates!.append(validLocation.coordinate)
                             }
                         }
-                        self.coordinate = coordinates
+                        self.coordinates = coordinates
                     }
                 }
             }

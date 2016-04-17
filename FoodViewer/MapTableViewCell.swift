@@ -19,30 +19,30 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         static let SpaceDelimiter = " "
     }
 
-    private let initialLocation = CLLocation(latitude: 0.0, longitude: 0.0)
+    private let initialLocation = CLLocation.init(latitude: Preferences.manager.mapAddress.coordinates![0].latitude, longitude: Preferences.manager.mapAddress.coordinates![0].longitude)
     private let regionRadius: CLLocationDistance = 1000000
 
     var product: FoodProduct? = nil {
         didSet {
             if let currentProduct = product {
-                if let coordinates = currentProduct.purchaseLocation?.coordinate {
+                if let coordinates = currentProduct.purchaseLocation?.getCoordinates() {
                     let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapConstants.PurchaseLocation, coordinate: coordinates[0])
                     mapView.addAnnotation(annotation)
                 }
                 
-                if let coordinates = currentProduct.producer?.coordinate {
+                if let coordinates = currentProduct.producer?.getCoordinates() {
                     let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapConstants.ProducerLocation, coordinate: coordinates[0])
                     mapView.addAnnotation(annotation)
                 }
                 
-                if let coordinates = currentProduct.ingredientsOrigin?.coordinate {
+                if let coordinates = currentProduct.ingredientsOrigin?.getCoordinates() {
                     let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapConstants.IngredientOriginLocation, coordinate: coordinates[0])
                     mapView.addAnnotation(annotation)
                 }
                 
                 if let countries = currentProduct.countries {
                     for country in countries {
-                        if let coordinates = country.coordinate {
+                        if let coordinates = country.getCoordinates() {
                             if !coordinates.isEmpty {
                                 let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapConstants.SalesCountryLocation, coordinate: coordinates[0])
                                 mapView.addAnnotation(annotation)

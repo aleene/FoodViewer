@@ -3,79 +3,79 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "FoodViewer.58x58.png",
+      "filename" : "FoodViewer2.58x58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "FoodViewer.87x87.png",
+      "filename" : "FoodViewer2.87x87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "FoodViewer.80x80.png",
+      "filename" : "FoodViewer2.80x80-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "FoodViewer.120x120-1.png",
+      "filename" : "FoodViewer2.120x120.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "FoodViewer.120x120.png",
+      "filename" : "FoodViewer2.120x120-1.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "FoodViewer.180x180.png",
+      "filename" : "FoodViewer2.180x180.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.29.29.png",
+      "filename" : "FoodViewer2.29x29.png",
       "scale" : "1x"
     },
     {
       "size" : "29x29",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.58x58-1.png",
+      "filename" : "FoodViewer2.58x58-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.40x40.png",
+      "filename" : "FoodViewer2.40x40.png",
       "scale" : "1x"
     },
     {
       "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.80x80-1.png",
+      "filename" : "FoodViewer2.80x80.png",
       "scale" : "2x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.76x76.png",
+      "filename" : "FoodViewer2.76x76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.152x152.png",
+      "filename" : "FoodViewer2.152x152.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "FoodViewer.167x167.png",
+      "filename" : "FoodViewer2.167x167.png",
       "scale" : "2x"
     }
   ],

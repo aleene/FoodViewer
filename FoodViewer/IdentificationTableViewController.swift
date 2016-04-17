@@ -139,9 +139,13 @@ class IdentificationTableViewController: UITableViewController {
                 cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : TextConstants.NoQuantity
                 return cell
             case .Image:
-                if let data = product?.mainImageData {
+                if let data = product?.getMainImageData() {
                     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
                     cell!.identificationImage = UIImage(data:data)
+                    return cell!
+                } else if product?.mainUrl != nil {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
+                    cell!.identificationImage = nil
                     return cell!
                 } else {
                     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
@@ -295,6 +299,9 @@ class IdentificationTableViewController: UITableViewController {
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewDidDisappear(animated)
+    }
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
     }
 
 }

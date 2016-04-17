@@ -24,7 +24,24 @@ class FoodProduct {
     var name: String? = nil
     var commonName: String? = nil
     var brandsArray: [String]? = nil
-    var mainUrlThumb: NSURL?    
+    var mainUrlThumb: NSURL? {
+        didSet {
+            if let imageURL = mainUrlThumb {
+                do {
+                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    if imageData.length > 0 {
+                        mainImageSmallData = imageData
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
+     }
+
+     var mainImageSmallData: NSData? = nil
+
     var mainUrl: NSURL? = nil
     var mainImageData: NSData? = nil {
         didSet {
@@ -47,7 +64,8 @@ class FoodProduct {
     var ingredientsImageData: NSData? = nil {
         didSet {
             if ingredientsImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.IngredientsImageSet, object: nil)
+                let userInfo = ["imageURL":imageIngredientsUrl!]
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.IngredientsImageSet, object: nil, userInfo: userInfo)
             }
         }
     }
@@ -64,12 +82,64 @@ class FoodProduct {
     var nutritionFacts: [NutritionFactItem] = []
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
     var imageNutritionSmallUrl: NSURL? = nil
+        /*{
+        didSet {
+            if let imageURL = imageNutritionSmallUrl {
+                do {
+                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    if imageData.length > 0 {
+                            // if we have the image data we can go back to the main thread
+                                // set the received image data to the current product if valid
+                        self.nutritionImageSmallData = imageData
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            }
+        }
+    }
+ 
+    var nutritionImageSmallData: NSData? = nil
+     */
+
     var nutritionFactsImageUrl: NSURL? = nil
-    var nutritionImageData: NSData? = nil {
+    var nutritionImageData: NSData? {
         didSet {
             if nutritionImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.NutritionImageSet, object: nil)
+                let userInfo = ["imageURL":nutritionFactsImageUrl!]
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.NutritionImageSet, object: nil, userInfo: userInfo)
             }
+        }
+    }
+    
+    func getNutritionImageData() -> NSData? {
+        if nutritionImageData == nil {
+            // launch the image retrieval
+            retrieveNutritionImageData()
+            return nil
+        } else {
+            return nutritionImageData
+        }
+    }
+    
+    func getMainImageData() -> NSData? {
+        if mainImageData == nil {
+            // launch the image retrieval
+            retrieveMainImageData()
+            return nil
+        } else {
+            return mainImageData
+        }
+    }
+
+    func getIngredientsImageData() -> NSData? {
+        if ingredientsImageData == nil {
+            // launch the image retrieval
+            retrieveIngredientsImageData()
+            return nil
+        } else {
+            return ingredientsImageData
         }
     }
 
@@ -102,23 +172,6 @@ class FoodProduct {
             }
         }
     }
-
-    /*
-    func languageCountryArray(countries:[String]?) {
-        if let array = countries {
-            for element in array {
-                if !element.isEmpty {
-                    if self.countries == nil {
-                        self.countries = []
-                    }
-                    let newAddress = Address()
-                    newAddress.languageCountry = element
-                    self.countries!.append(newAddress)
-                }
-            }
-        }
-    }
- */
 
     var producer: Address? = nil
     var expirationDate: NSDate? = nil
@@ -271,7 +324,6 @@ class FoodProduct {
         static let CorrectorKey = "Correctors"
     }
     
-    
     init() {
         barcode = BarcodeType.Undefined("")
         name = nil
@@ -326,51 +378,120 @@ class FoodProduct {
         return false
     }
     
+    private func retrieveNutritionImageData() {
+        if let imageURL = nutritionFactsImageUrl {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                do {
+                    // This only works if you add a line to your Info.plist
+                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
+                    //
+                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    if imageData.length > 0 {
+                        // if we have the image data we can go back to the main thread
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image data to the current product if valid
+                            self.nutritionImageData = imageData
+                        })
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            })
+        }
+    }
+
+    private func retrieveMainImageData() {
+        if let imageURL = mainUrl {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                do {
+                    // This only works if you add a line to your Info.plist
+                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
+                    //
+                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    if imageData.length > 0 {
+                        // if we have the image data we can go back to the main thread
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image data to the current product if valid
+                            self.mainImageData = imageData
+                        })
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            })
+        }
+    }
+
+    private func retrieveIngredientsImageData() {
+        if let imageURL = imageIngredientsUrl {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                do {
+                    // This only works if you add a line to your Info.plist
+                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
+                    //
+                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                    if imageData.length > 0 {
+                        // if we have the image data we can go back to the main thread
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image data to the current product if valid
+                            self.ingredientsImageData = imageData
+                        })
+                    }
+                }
+                catch {
+                    print(error)
+                }
+            })
+        }
+    }
+
     // updates a product with new product data
-    func updateDataWith(product: FoodProduct?) {
+    func updateDataWith(product: FoodProduct) {
         // is it really the same product?
-        if barcode.asString() == product?.barcode.asString() {
-            name = product?.name
-            commonName = product?.name
-            brandsArray = product?.brandsArray
-            mainUrlThumb = product?.mainUrlThumb
-            mainUrl = product?.mainUrl
-            if mainUrl != product?.mainUrl {
+        if barcode.asString() == product.barcode.asString() {
+            name = product.name
+            commonName = product.name
+            brandsArray = product.brandsArray
+            mainUrlThumb = product.mainUrlThumb
+            mainUrl = product.mainUrl
+            if mainUrl != product.mainUrl {
                 // if the main url has changed, reset the mainImageData
-                mainUrl = product?.mainUrl
+                mainUrl = product.mainUrl
                 mainImageData = nil
             }
-            packagingArray = product?.packagingArray
-            ingredients = product?.ingredients
-            imageIngredientsSmallUrl = product?.imageIngredientsSmallUrl
-            imageIngredientsUrl = product?.imageIngredientsUrl
-            allergens = product?.allergens
-            traces = product?.traces
-            additives = product?.additives
-            labelArray = product?.labelArray
-            producer = product?.producer
-            ingredientsOrigin = product?.ingredientsOrigin
-            producerCode = product?.producerCode
-            servingSize = product?.servingSize
-            nutritionFacts = (product?.nutritionFacts)!
-            nutritionScore = product?.nutritionScore
-            imageNutritionSmallUrl = product?.imageNutritionSmallUrl
-            nutritionFactsImageUrl = product?.nutritionFactsImageUrl
-            nutritionGrade = product?.nutritionGrade
-            purchaseLocation = product?.purchaseLocation
-            stores = product?.stores
-            countries = product?.countries
-            additionDate = product?.additionDate
-            creator = product?.creator
-            state = (product?.state)!
-            primaryLanguage = product?.primaryLanguage
-            categories = product?.categories
-            photographers = product?.photographers
-            correctors = product?.correctors
-            editors = product?.editors
-            informers = product?.informers
-            productContributors = (product?.productContributors)!
-            contributorsArray = (product?.contributorsArray)!
+            packagingArray = product.packagingArray
+            ingredients = product.ingredients
+            imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
+            imageIngredientsUrl = product.imageIngredientsUrl
+            allergens = product.allergens
+            traces = product.traces
+            additives = product.additives
+            labelArray = product.labelArray
+            producer = product.producer
+            ingredientsOrigin = product.ingredientsOrigin
+            producerCode = product.producerCode
+            servingSize = product.servingSize
+            nutritionFacts = product.nutritionFacts
+            nutritionScore = product.nutritionScore
+            imageNutritionSmallUrl = product.imageNutritionSmallUrl
+            nutritionFactsImageUrl = product.nutritionFactsImageUrl
+            nutritionGrade = product.nutritionGrade
+            purchaseLocation = product.purchaseLocation
+            stores = product.stores
+            countries = product.countries
+            additionDate = product.additionDate
+            creator = product.creator
+            state = product.state
+            primaryLanguage = product.primaryLanguage
+            categories = product.categories
+            photographers = product.photographers
+            correctors = product.correctors
+            editors = product.editors
+            informers = product.informers
+            productContributors = product.productContributors
+            contributorsArray = product.contributorsArray
             // did I miss something?
         }
     }

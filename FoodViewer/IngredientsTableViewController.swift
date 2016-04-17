@@ -32,9 +32,11 @@ class IngredientsTableViewController: UITableViewController {
             if product != nil {
                 ingredientsImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
+                /*
                 if product!.imageIngredientsUrl != nil {
                     retrieveImage(product!.imageIngredientsUrl!)
                 }
+                 */
                 refreshProduct()
             }
         }
@@ -101,9 +103,14 @@ class IngredientsTableViewController: UITableViewController {
             cell?.tagList = product!.labelArray
             return cell!
         case .Image:
-            if let data = product?.ingredientsImageData {
+            if let data = product?.getIngredientsImageData() {
+                // try large image
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
                 cell!.ingredientsImage = UIImage(data:data)
+                return cell!
+            } else if product?.imageIngredientsUrl != nil {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
+                cell!.ingredientsImage = nil
                 return cell!
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoImageCellIdentifier, forIndexPath: indexPath) as? NoImageTableViewCell
@@ -183,6 +190,7 @@ class IngredientsTableViewController: UITableViewController {
         return sectionsAndRows
     }
     
+    /*
     private func retrieveImage(url: NSURL?) {
         if let imageURL = url {
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
@@ -207,6 +215,7 @@ class IngredientsTableViewController: UITableViewController {
             })
         }
     }
+ */
     
     // MARK: - Navigation
     
@@ -272,5 +281,8 @@ class IngredientsTableViewController: UITableViewController {
         super.viewDidDisappear(animated)
     }
 
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
+    }
 
 }

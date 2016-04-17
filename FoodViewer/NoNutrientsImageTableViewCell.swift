@@ -1,19 +1,21 @@
 //
-//  EmptyNutrientsTableViewCell.swift
+//  NoNutrientsImageTableViewCell.swift
 //  FoodViewer
 //
-//  Created by arnaud on 06/03/16.
+//  Created by arnaud on 13/04/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
+
 
 import UIKit
 import TagListView
 
-class EmptyNutrientsTableViewCell: UITableViewCell {
-
+class NoNutrientsImageTableViewCell: UITableViewCell {
+    
+    
     
     struct Constants {
-        static let NoTag = NSLocalizedString("no nutrition data available", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
+        static let NoTag = NSLocalizedString("no image available", comment: "Text in a TagListView, when no image has been specified in the product data.")
     }
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -57,5 +59,6 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
         }
         return newList
     }
-
+    
+    
 }

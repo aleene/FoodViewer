@@ -159,6 +159,14 @@ class OFFProducts {
         }
     }
     
+    func flushImages() {
+        for product in list {
+            product.mainImageData = nil
+            product.ingredientsImageData = nil
+            product.nutritionImageData = nil
+        }
+    }
+    
     /*
     private func updateProduct(product: FoodProduct?) {
         if let productToUpdate = product {

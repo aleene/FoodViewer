@@ -208,4 +208,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         initPages()
     }
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
+    }
+
 }

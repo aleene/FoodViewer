@@ -12,14 +12,6 @@ class NutrientsTableViewController: UITableViewController {
 
     private var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    private var nutritionFactsImage: UIImage? = nil {
-        didSet {
-            if nutritionFactsImage != nil {
-                refreshProduct()
-            }
-        }
-    }
-    
     private enum SectionType {
         case NutritionFacts
         case ServingSize
@@ -31,13 +23,7 @@ class NutrientsTableViewController: UITableViewController {
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                nutritionFactsImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
-                /*
-                if product!.nutritionFactsImageUrl != nil {
-                    retrieveImage(product!.nutritionFactsImageUrl!)
-                }
- */
                 tableView.reloadData()
             }
         }
@@ -79,6 +65,7 @@ class NutrientsTableViewController: UITableViewController {
         static let ServingSizeCellIdentifier = "Serving Size Cell"
         static let NutritionFactsImageCellIdentifier = "Nutrition Facts Image Cell"
         static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
+        static let NoNutrientsImageCellIdentifier = "No Nutrition Image Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
         static let ShowNutritionFactsImageTitle = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
         static let ViewControllerTitle = NSLocalizedString("Nutrition Facts", comment: "Title of the ViewController with the nutritional values")
@@ -125,12 +112,27 @@ class NutrientsTableViewController: UITableViewController {
             }
 
         case .NutritionImage:
-            if let data = product?.nutritionImageData {
+            if let data = product?.getNutritionImageData() {
+                // try large image
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
                 cell!.nutritionFactsImage = UIImage(data: data)
                 return cell!
+                /*
+            } else if let data = product?.nutritionImageSmallData {
+                // use small image
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
+                cell!.nutritionFactsImage = UIImage(data: data)
+                return cell!
+                 */
+            } else if product?.nutritionFactsImageUrl != nil {
+                // show not yet available image
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
+                // show not yet retrieved image
+                cell!.nutritionFactsImage = nil
+                return cell!
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.EmptyNutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? EmptyNutrientsTableViewCell
+                // show not available tag
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoNutrientsImageCellIdentifier, forIndexPath: indexPath) as? NoNutrientsImageTableViewCell
                 
                 cell!.tagList = []
                 return cell!
@@ -163,7 +165,7 @@ class NutrientsTableViewController: UITableViewController {
         
         adaptedNutritionFacts = adaptNutritionFacts(product.nutritionFacts)
 
-        // 1 : nutrition facts
+        // 0 : nutrition facts
         if product.nutritionFacts.isEmpty {
             sectionsAndRows.append((
                 SectionType.NutritionFacts,
@@ -176,13 +178,13 @@ class NutrientsTableViewController: UITableViewController {
                 TableStructure.NutritionFactItemsSectionHeader))
         }
     
-        // 2:  serving size
+        // 1:  serving size
         sectionsAndRows.append((
             SectionType.ServingSize,
             TableStructure.ServingSizeSectionSize,
             TableStructure.ServingSizeSectionHeader))
         
-        // 3: image section
+        // 2: image section
             sectionsAndRows.append((
                 SectionType.NutritionImage,
                 TableStructure.NutritionFactsImageSectionSize,
@@ -191,40 +193,16 @@ class NutrientsTableViewController: UITableViewController {
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
-    
-    /*
-    private func retrieveImage(url: NSURL?) {
-        if let imageURL = url {
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image
-                            self.nutritionFactsImage = UIImage(data: imageData)
-                        })
-                    }
-                }
-                catch {
-                    print(error)
-                }
-            })
-        }
-    }
- */
-    
+        
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ShowNutritionFactsImageSegueIdentifier:
-                if let vc = segue.destinationViewController as? imageViewController {
-                    vc.image = nutritionFactsImage
+                if  let vc = segue.destinationViewController as? imageViewController,
+                    let data = product?.nutritionImageData {
+                    vc.image = UIImage(data: data)
                     vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
                 }
             default: break
@@ -237,9 +215,21 @@ class NutrientsTableViewController: UITableViewController {
     func refreshProduct() {
         if product != nil {
             tableView.reloadData()
+            
         }
     }
     
+    func reloadImageSection(notification: NSNotification) {
+            let userInfo = notification.userInfo
+            let imageURL = userInfo!["imageURL"] as? NSURL
+            // only reload the section of image if it is meant for the current product
+            if imageURL == product?.nutritionFactsImageUrl {
+                if product != nil {
+                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation:UITableViewRowAnimation.Fade)
+                }
+            }
+    }
+
     func refreshProductWithNewNutritionFacts() {
         // recalculate the nutritionfacts that must be shown
         if product != nil {
@@ -275,6 +265,8 @@ class NutrientsTableViewController: UITableViewController {
             object:nil
         )
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.NutritionImageSet, object:nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -287,6 +279,10 @@ class NutrientsTableViewController: UITableViewController {
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewDidDisappear(animated)
+    }
+
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
     }
 
 }

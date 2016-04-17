@@ -151,6 +151,24 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case .Name:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath) as! NameTableViewCell
             cell.productBrand = currentProduct.brandsArray
+            
+            if let data = currentProduct.mainImageSmallData {
+                // try small image
+                cell.productImage = UIImage(data:data)
+                return cell
+            } else if currentProduct.mainUrl != nil {
+                // show small image icon
+                cell.productImage = nil
+                return cell
+            }
+            /*else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
+                
+                cell?.tagList = []
+                return cell!
+            }
+             */
+
             if currentProduct.mainImageData?.length > 0 {
                 cell.productImage = UIImage(data:currentProduct.mainImageData!)
             } else {
@@ -305,6 +323,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         self.tableView.estimatedRowHeight = 80.0
         
         initializeCustomKeyboard()
+        Preferences.manager
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -323,6 +342,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func viewDidDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
         super.viewDidDisappear(animated)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
     }
 }
 

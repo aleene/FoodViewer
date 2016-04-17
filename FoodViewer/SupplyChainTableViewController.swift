@@ -165,10 +165,18 @@ class SupplyChainTableViewController: UITableViewController {
         return header
     }
     
+    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 6:
+            return 300
+        default:
+            return 88
+        }
+    }
+    
     // MARK: - Notification handler
     
     func reloadMapSection(notification: NSNotification) {
-        
         tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
 
@@ -187,7 +195,7 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 80.0
+        // self.tableView.estimatedRowHeight = 80.0
 
         refreshProduct()
         
@@ -199,7 +207,7 @@ class SupplyChainTableViewController: UITableViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
-
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name:Address.Notification.CoordinateHasBeenSet, object:nil)
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -207,4 +215,8 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidDisappear(animated)
     }
     
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
+    }
+
 }

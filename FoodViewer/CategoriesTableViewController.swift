@@ -124,4 +124,8 @@ class CategoriesTableViewController: UITableViewController {
         super.viewDidDisappear(animated)
     }
 
+    override func didReceiveMemoryWarning() {
+        OFFProducts.manager.flushImages()
+    }
+
 }
