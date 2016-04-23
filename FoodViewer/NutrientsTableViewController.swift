@@ -33,15 +33,26 @@ class NutrientsTableViewController: UITableViewController {
         var newFacts: [NutritionFactItem] = []
         for fact in facts {
             if (fact.itemName == NatriumChloride.Salt.description()) {
-                switch Preferences.manager.showSaltSodiumOrBoth {
+                switch Preferences.manager.showSaltOrSodium {
                     // do not show sodium
                 case .Sodium: break
                 default: newFacts.append(fact)
                 }
             } else if (fact.itemName == NatriumChloride.Sodium.description()) {
-                switch Preferences.manager.showSaltSodiumOrBoth {
-                    // do not show salt
+                switch Preferences.manager.showSaltOrSodium {
+                // do not show salt
                 case .Salt: break
+                default: newFacts.append(fact)
+                }
+            } else if (fact.itemName == "energy") {
+                switch Preferences.manager.showCaloriesOrJoule {
+                // show energy as calories
+                case .Calories:
+                    var calorieFact = NutritionFactItem()
+                    calorieFact.standardValueUnit = "kcal"
+                    calorieFact.itemName = "Energy"
+                    calorieFact.standardValue = fact.standardValue != nil ? fact.standardValueInCalories() : ""
+                    newFacts.append(calorieFact)
                 default: newFacts.append(fact)
                 }
             } else {

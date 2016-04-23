@@ -24,27 +24,58 @@ class SettingsTableViewController: UITableViewController {
     
     func refreshSaltOrSodiumSwitch() {
         if saltOrSodiumOutlet != nil {
-            switch Preferences.manager.showSaltSodiumOrBoth {
+            switch Preferences.manager.showSaltOrSodium {
             case .Salt:
                 saltOrSodiumOutlet!.selectedSegmentIndex = 0
-            case .Both:
-                saltOrSodiumOutlet!.selectedSegmentIndex = 1
             case .Sodium:
-                saltOrSodiumOutlet!.selectedSegmentIndex = 2
+                saltOrSodiumOutlet!.selectedSegmentIndex = 1
             }
         }
 
     }
     
+    func refreshJouleOrCaloriesSwitch() {
+        if jouleOrCaloriesOutlet != nil {
+            switch Preferences.manager.showCaloriesOrJoule {
+            case .Joule:
+                jouleOrCaloriesOutlet!.selectedSegmentIndex = 0
+            case .Calories:
+                jouleOrCaloriesOutlet!.selectedSegmentIndex = 1
+            }
+        }
+        
+    }
+
+    
+    // MARK: - Outlet methods
+
     @IBOutlet weak var saltOrSodiumOutlet: UISegmentedControl! {
         didSet {
             saltOrSodiumOutlet.setTitle(NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAtIndex: 0)
-            saltOrSodiumOutlet.setTitle(NSLocalizedString("Both", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAtIndex: 1)
-            saltOrSodiumOutlet.setTitle(NSLocalizedString("Sodium", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAtIndex: 2)
+            saltOrSodiumOutlet.setTitle(NSLocalizedString("Sodium", comment: "Title of third segment in switch, which lets the user select between salt or sodium"), forSegmentAtIndex: 1)
         }
     }
+    
+    @IBOutlet weak var jouleOrCaloriesOutlet: UISegmentedControl! {
+        didSet {
+            jouleOrCaloriesOutlet.setTitle(NSLocalizedString("Joule", comment: "Title of first segment in switch, which lets the user select between joule or calories"), forSegmentAtIndex: 0)
+            jouleOrCaloriesOutlet.setTitle(NSLocalizedString("Calories", comment: "Title of second segment in switch, which lets the user select between joule or calories"), forSegmentAtIndex: 1)
+        }
+    }
+    
     // MARK: - Action methods
     
+    @IBAction func jouleOrCaloriesSwitchTapped(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.showCaloriesOrJoule = .Joule
+        case 1:
+            Preferences.manager.showCaloriesOrJoule = .Calories
+        default:
+            break
+        }
+    }
+
     @IBAction func clearProductHistoryTapped(sender: UIButton) {
         storedHistory.removeAll()
         historyHasBeenRemoved = true
@@ -58,11 +89,9 @@ class SettingsTableViewController: UITableViewController {
     @IBAction func saltOrSodiumSwitchTapped(sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            Preferences.manager.showSaltSodiumOrBoth = .Salt
+            Preferences.manager.showSaltOrSodium = .Salt
         case 1:
-            Preferences.manager.showSaltSodiumOrBoth = .Both
-        case 2:
-            Preferences.manager.showSaltSodiumOrBoth = .Sodium
+            Preferences.manager.showSaltOrSodium = .Sodium
         default:
             break
         }
@@ -75,7 +104,12 @@ class SettingsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 1:
+            return 2
+        default:
+            return 1
+        }
     }
 
     /*
@@ -96,6 +130,7 @@ class SettingsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         refreshSaltOrSodiumSwitch()
+        refreshJouleOrCaloriesSwitch()
 
         title = Constants.ViewControllerTitle
     }

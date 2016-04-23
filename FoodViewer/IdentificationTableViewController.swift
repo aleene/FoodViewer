@@ -15,9 +15,7 @@ class IdentificationTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
         static let NoCommonName = NSLocalizedString("No common name available", comment: "String if no common name is available")
         static let NoName = NSLocalizedString("No name available", comment: "String if no name is available")
-        static let NoBrandsTags = NSLocalizedString("No brand tags available", comment: "String if no brands are available")
-        static let NoPackagingTags = NSLocalizedString("No packaging tags available", comment: "String if no packaging tags are available")
-        static let NoQuantity = NSLocalizedString("No packag quantity available", comment: "String if no packaging quantity are available")
+        static let NoQuantity = NSLocalizedString("No quantity available", comment: "String if no quauntity is available")
     }
     
     private var tableStructure: [SectionType] = []
@@ -124,15 +122,15 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             case .CommonName:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.commonName != nil ? product!.commonName! : TextConstants.NoCommonName
+                cell.textLabel?.text = (product?.commonName != nil) && (!product!.commonName!.isEmpty) ? product!.commonName! : TextConstants.NoCommonName
                 return cell
             case .Brands:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-                cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : [TextConstants.NoBrandsTags]
+                cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
                 return cell!
             case .Packaging:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-                cell?.tagList = product?.packagingArray != nil ? product!.packagingArray! : [TextConstants.NoPackagingTags]
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.PackagingCellIdentifier, forIndexPath: indexPath) as? IdentificationPackagingTagListViewTableViewCell
+                cell!.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
                 return cell!
             case .Quantity:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
@@ -149,7 +147,6 @@ class IdentificationTableViewController: UITableViewController {
                     return cell!
                 } else {
                     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
-                    
                     cell?.tagList = []
                     return cell!
                 }
@@ -271,13 +268,17 @@ class IdentificationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableStructure = setupSections()
+        self.tableView.estimatedRowHeight = 88.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
 
 }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+
+        if product != nil {
+            refreshProduct()
+        }
 
         navigationController?.setNavigationBarHidden(false, animated: false)
         
@@ -292,7 +293,7 @@ class IdentificationTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
         if product != nil {
-            tableView.reloadData()
+            refreshProduct()
         }
     }
     

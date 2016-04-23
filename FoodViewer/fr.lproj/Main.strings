@@ -1,24 +1,23 @@
-
 /* Class = "UILabel"; text = "Sat. Fat"; ObjectID = "2PK-oc-6OO"; */
-"2PK-oc-6OO.text" = "Sat. Fat";
+"2PK-oc-6OO.text" = "Mat. Gr.";
 
 /* Class = "UILabel"; text = "Category summary"; ObjectID = "3Xm-aT-3Hv"; */
-"3Xm-aT-3Hv.text" = "Category summary";
+"3Xm-aT-3Hv.text" = "Résumé catégories";
 
 /* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
-"5jY-ES-pZe.text" = "unit";
+"5jY-ES-pZe.text" = "unité";
 
 /* Class = "UILabel"; text = "Expiration Date"; ObjectID = "5lw-Rp-bg8"; */
-"5lw-Rp-bg8.text" = "Expiration Date";
+"5lw-Rp-bg8.text" = "Date limite d'utilisation";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
-"8TO-NA-Iaz.title" = "Cancel";
+"8TO-NA-Iaz.title" = "Annuler";
 
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[0] = "Salt"; ObjectID = "9HQ-Hd-LCX"; */
-"9HQ-Hd-LCX.segmentTitles[0]" = "Salt";
+"9HQ-Hd-LCX.segmentTitles[0]" = "Sel";
 
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Both"; ObjectID = "9HQ-Hd-LCX"; */
-"9HQ-Hd-LCX.segmentTitles[1]" = "Both";
+"9HQ-Hd-LCX.segmentTitles[1]" = "Les deux";
 
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[2] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
 "9HQ-Hd-LCX.segmentTitles[2]" = "Sodium";
@@ -27,82 +26,83 @@
 "BBX-6q-F2L.text" = "Cr";
 
 /* Class = "UILabel"; text = "Salt"; ObjectID = "DFK-3b-hb1"; */
-"DFK-3b-hb1.text" = "Salt";
+"DFK-3b-hb1.text" = "Sel";
 
 /* Class = "UILabel"; text = "Co"; ObjectID = "Dm8-yq-w79"; */
 "Dm8-yq-w79.text" = "Co";
 
 /* Class = "UILabel"; text = "Main product brand"; ObjectID = "Hyf-DH-VMK"; */
-"Hyf-DH-VMK.text" = "Main product brand";
+"Hyf-DH-VMK.text" = "Marque principal du produit";
 
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
 
 /* Class = "UIButton"; normalTitle = "Clear Product Search History"; ObjectID = "LUu-zu-IQr"; */
-"LUu-zu-IQr.normalTitle" = "Clear Product Search History";
+"LUu-zu-IQr.normalTitle" = "Supprimer Histoire de Recherches";
 
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
-"PY2-Eu-268.text" = "Nutritional Fact";
+"PY2-Eu-268.text" = "Faits Nutritionelles";
 
 /* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
-"R0A-Wg-8tw.text" = "Community effort summary";
+"R0A-Wg-8tw.text" = "Résumé effort du communité";
 
 /* Class = "UILabel"; text = "Value"; ObjectID = "RoF-y0-Tn8"; */
-"RoF-y0-Tn8.text" = "Value";
+"RoF-y0-Tn8.text" = "Valeur";
 
 /* Class = "UILabel"; text = "Sugar"; ObjectID = "TUb-j1-7sk"; */
-"TUb-j1-7sk.text" = "Sugar";
+"TUb-j1-7sk.text" = "Sucre";
 
 /* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
-"XeQ-CI-ELW.text" = "Serving Size (value + unit)";
+"XeQ-CI-ELW.text" = "Portion (valeur + unité)";
 
 /* Class = "UILabel"; text = "Edit Date"; ObjectID = "ZjT-hs-fGX"; */
-"ZjT-hs-fGX.text" = "Edit Date";
+"ZjT-hs-fGX.text" = "Date d'édition";
 
 /* Class = "UILabel"; text = "No Ingredients Available"; ObjectID = "bVH-wU-k1N"; */
-"bVH-wU-k1N.text" = "No Ingredients Available";
+"bVH-wU-k1N.text" = "Pas d'ingrediënts disponible";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "byp-um-JcW"; */
-"byp-um-JcW.title" = "Settings";
+"byp-um-JcW.title" = "Réglages";
 
 /* Class = "UILabel"; text = "P"; ObjectID = "eIG-Cg-S6u"; */
 "eIG-Cg-S6u.text" = "P";
 
 /* Class = "UILabel"; text = "Nutritional Facts"; ObjectID = "eWS-0h-9I9"; */
-"eWS-0h-9I9.text" = "Nutritional Facts";
+"eWS-0h-9I9.text" = "Faits nutritionelles";
 
 /* Class = "UITableViewController"; title = "Products"; ObjectID = "gMe-4s-6cz"; */
-"gMe-4s-6cz.title" = "Products";
+"gMe-4s-6cz.title" = "Produits";
 
 /* Class = "UITextField"; placeholder = "Enter barcode"; ObjectID = "gZ8-Lt-wU3"; */
-"gZ8-Lt-wU3.placeholder" = "Enter barcode";
+"gZ8-Lt-wU3.placeholder" = "Entre code barre";
 
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
-"hYb-mr-zvw.title" = "Products";
+"hYb-mr-zvw.title" = "Produits";
 
 /* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
-"ihd-JM-WfS.title" = "Barcode";
+"ihd-JM-WfS.title" = "Code barre";
 
 /* Class = "UILabel"; text = "Fat"; ObjectID = "k7M-yZ-ax3"; */
-"k7M-yZ-ax3.text" = "Fat";
+"k7M-yZ-ax3.text" = "Mat. Grasses";
 
 /* Class = "UILabel"; text = "Ingredients summary"; ObjectID = "nF2-es-Hkz"; */
-"nF2-es-Hkz.text" = "Ingredients summary";
+"nF2-es-Hkz.text" = "Résumé d'ingrédients";
 
 /* Class = "UILabel"; text = "E"; ObjectID = "oIt-jg-rzb"; */
 "oIt-jg-rzb.text" = "E";
 
 /* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
-"syW-t8-eaP.text" = "Supply chain summary";
+"syW-t8-eaP.text" = "Résumé du circuit logistique";
 
 /* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "t8L-1f-XIl"; */
-"t8L-1f-XIl.title" = "Done";
+"t8L-1f-XIl.title" = "Fini";
 
 /* Class = "UILabel"; text = "State category text"; ObjectID = "wvW-mK-iiF"; */
-"wvW-mK-iiF.text" = "State category text";
+"wvW-mK-iiF.text" = "Texte état catégorie";
 
 /* Class = "UILabel"; text = "Contributor name"; ObjectID = "xR6-oy-1vL"; */
-"xR6-oy-1vL.text" = "Contributor name";
+"xR6-oy-1vL.text" = "Nom contributeur";
 
 /* Class = "UILabel"; text = "Product name"; ObjectID = "zI1-0r-9KS"; */
-"zI1-0r-9KS.text" = "Product name";
+"zI1-0r-9KS.text" = "Nom produit";
+

@@ -18,8 +18,8 @@ class IdentificationImageTableViewCell: UITableViewCell {
         didSet {
             
             if let newImage = identificationImage {
-                print("product image size \(newImage.size)")
-                print("product contentView size \(self.contentView.frame.size)")
+                // print("product image size \(newImage.size)")
+                // print("product contentView size \(self.contentView.frame.size)")
                 // what to do if the image is wider than the contentView area of the cell's contentView?
                 let widthScale = (newImage.size.width) / (self.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
                 // the height may not be larger than the width of the frame

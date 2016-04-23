@@ -40,6 +40,12 @@ class OFFplists {
         static let LanguageDivider = ":"
     }
     
+    private struct TextConstants {
+        static let FileDoesNotContainTranslation = NSLocalizedString("Error: file %@ does not contain translation for %@", comment: "Error to indicate that a file can not be read.")
+        static let FileNotAvailable = NSLocalizedString("Error: file %@ not available", comment: "Error to indicate that a file can not be read.")
+    }
+
+    
     lazy var OFFstates: Set <VertexNew>? = nil
     lazy var OFFadditives: Set <VertexNew>? = nil
     lazy var OFFallergens: Set <VertexNew>? = nil
@@ -75,10 +81,10 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return NSLocalizedString("Error: file \(Constants.StatesFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
+                return String(format:TextConstants.FileDoesNotContainTranslation, Constants.StatesFileName, key)
             }
         }
-        return NSLocalizedString("Error: file \(Constants.StatesFileName) not available", comment: "Error to indicate that a file can not be read.")
+        return String(format:TextConstants.FileNotAvailable, Constants.StatesFileName)
     }
     
     func translateAdditives(key: String, language:String) -> String {
@@ -94,10 +100,10 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return NSLocalizedString("Error: file \(Constants.AdditivesFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
+                return String(format:TextConstants.FileDoesNotContainTranslation, Constants.AdditivesFileName, key)
             }
         }
-        return NSLocalizedString("Error: file \(Constants.AdditivesFileName) not available", comment: "Error to indicate that a file can not be read.")
+        return String(format:TextConstants.FileNotAvailable, Constants.AdditivesFileName)
     }
 
     func translateAllergens(key: String, language:String) -> String {
@@ -113,10 +119,10 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return NSLocalizedString("Error: file \(Constants.AllergensFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
+                return String(format:TextConstants.FileDoesNotContainTranslation, Constants.AllergensFileName, key)
             }
         }
-        return NSLocalizedString("Error: file \(Constants.AllergensFileName) not available", comment: "Error to indicate that a file can not be read.")
+        return String(format:TextConstants.FileNotAvailable, Constants.AllergensFileName)
     }
 
     func translateCountries(key: String, language:String) -> String {
@@ -132,10 +138,11 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return NSLocalizedString("Error: file \(Constants.CountriesFileName) does not contain translation for \(key)", comment: "Error to indicate that a file can not be read.")
+                // translation did not succeed
+                return key
             }
         }
-        return NSLocalizedString("Error: file \(Constants.CountriesFileName) not available", comment: "Error to indicate that a file can not be read.")
+        return String(format:TextConstants.FileNotAvailable, Constants.CountriesFileName)
     }
     
     func translateGlobalLabels(key: String, language:String) -> String {
@@ -154,10 +161,10 @@ class OFFplists {
                 return key
             }
         } else {
-            return NSLocalizedString("Error: file \(Constants.GlobalLabelsFileName) not available", comment: "Error to indicate that a file can not be read.")
+            return String(format:TextConstants.FileNotAvailable, Constants.GlobalLabelsFileName)
         }
     }
-
+    
     func translateCategories(key: String, language:String) -> String {
         
         return translate(OFFcategories, file: Constants.CategoriesFileName, key: key, language: language)
@@ -185,7 +192,7 @@ class OFFplists {
                 return key
             }
         } else {
-            return NSLocalizedString("Error: file \(file) not available", comment: "Error to indicate that a file can not be read.")
+            return String(format:TextConstants.FileNotAvailable, file)
         }
     }
 

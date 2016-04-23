@@ -333,6 +333,7 @@ class FoodProduct {
         mainUrl = nil
         mainImageData = nil
         packagingArray = nil
+        quantity = nil
         ingredients = nil
         imageIngredientsSmallUrl = nil
         imageIngredientsUrl = nil
@@ -449,22 +450,22 @@ class FoodProduct {
 
     // updates a product with new product data
     func updateDataWith(product: FoodProduct) {
+        // all image data is set to nil, in order to force a reload
+        
         // is it really the same product?
         if barcode.asString() == product.barcode.asString() {
             name = product.name
-            commonName = product.name
+            commonName = product.commonName
             brandsArray = product.brandsArray
             mainUrlThumb = product.mainUrlThumb
             mainUrl = product.mainUrl
-            if mainUrl != product.mainUrl {
-                // if the main url has changed, reset the mainImageData
-                mainUrl = product.mainUrl
-                mainImageData = nil
-            }
+            mainImageData = nil
             packagingArray = product.packagingArray
+            quantity = product.quantity
             ingredients = product.ingredients
             imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
             imageIngredientsUrl = product.imageIngredientsUrl
+            ingredientsImageData = nil
             allergens = product.allergens
             traces = product.traces
             additives = product.additives
@@ -477,11 +478,13 @@ class FoodProduct {
             nutritionScore = product.nutritionScore
             imageNutritionSmallUrl = product.imageNutritionSmallUrl
             nutritionFactsImageUrl = product.nutritionFactsImageUrl
+            nutritionImageData = nil
             nutritionGrade = product.nutritionGrade
             purchaseLocation = product.purchaseLocation
             stores = product.stores
             countries = product.countries
             additionDate = product.additionDate
+            expirationDate = product.expirationDate
             creator = product.creator
             state = product.state
             primaryLanguage = product.primaryLanguage

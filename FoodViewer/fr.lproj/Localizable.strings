@@ -1,8 +1,8 @@
 /* a warning to check the brackets used, they are unbalanced */
-" (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haajes, niet in evenwicht)";
+" (WARNING: check brackets, they are unbalanced)" = "(Avertissement: contrôlez les accolades, il manque une)";
 
 /* Cell text for the total number of nutritional facts available. */
-"%@ nutritional facts specified" = "%@ voedingswaarden aangegeven.";
+"%@ nutritional facts specified" = "%@ faits nutritionnelles indiqués";
 
 /* A list of countries seperated by a comma. ADD A TRAILING SPACE. */
 "%@, " = "%@, ";
@@ -10,254 +10,296 @@
 /* A sepator between sentence parts.  ADD A TRAILING SPACE. */
 "; " = ";";
 
-/* Text when no value for nutritional facts have been specifidied. */
+/* Text when no value for nutritional facts have been specified. */
 "?" = "?";
 
 /* Header title for the product additives section, i.e. the additives are derived from the ingredients list. */
-"Additives" = "Additieven";
+"Additives" = "Additives";
 
 /* Header title for the product allergens section, i.e. the allergens derived from the ingredients. */
-"Allergens" = "Allergenen";
+"Allergens" = "Allergènes";
 
 /* Text to indicate the number of categories the product belongs to. */
-"Assigned to %@ categories." = "%@ categorieën toegekend.";
+"Assigned to %@ categories." = "Assigné à %@ catégories.";
 
 /* Tableview sectionheader for Barcode */
-"Barcode" = "Streepjescode";
+"Barcode" = "Code barre";
+
+/* Title of first segment in switch, which lets the user select between salt or sodium */
+"Both" = "Les deux";
 
 /* Title of tableview cell, indicateding whether the product brand field has been filled in. */
-"Brand(s) complete?" = "Merken(en) ingevuld?";
+"Brand(s) complete?" = "Marques complétés?";
 
 /* Tableview sectionheader for brands. */
-"Brands" = "Merken";
+"Brands" = "Marques";
 
 /* Header title for table section with product Categories
    Title of ViewController with the categories the product belongs to.
    Viewcontroller title for page with categories for product. */
-"Categories" = "Categorieën";
+"Categories" = "Catégories";
 
 /* Title of tableview cell, indicating whether the product categories have been filled in. */
-"Categories complete?" = "Categorieën ingevuld?";
+"Categories complete?" = "Catégories complétés?";
 
 /* Tableview sectionheader for long product name */
-"Common Name" = "Uitgebreide naam";
+"Common Name" = "Dénomination générique";
 
 /* Title of view controller, with information on the community that has contributed to the product data.
    Viewcontroller title for page with community effort for product. */
-"Community Effort" = "Inzet gemeenschap";
+"Community Effort" = "Effort de la communauté d'Open Food Facts";
 
 /* Header title of the tableview section, indicating whether the productdata is complete. */
-"Completeness" = "Volledigheid";
+"Completeness" = "Exhaustivité";
 
 /* Header title of the tableview section, indicating whether which users did contribute. */
-"Contributors" = "Bijdragers";
+"Contributors" = "Contributeurs";
 
 /* Text to indicate how much the product data is filled in (available). */
-"Data is %@ complete." = "Gegevens zijn %@ volledig.";
+"Data is %@ complete." = "Les données sont %@ complèt.";
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
-"Edit" = "Bewerk";
+"Edit" = "Edité";
 
 /* Header title of the tableview section, indicating when the product data was edited. */
-"Edit Dates" = "Bewerk datums";
+"Edit Dates" = "Dates d'éditions";
 
 /* Alert message, when the product could not be retrieved from Internet. */
-"Error retrieving product" = "Probleem ophalen product.";
+"Error retrieving product" = "Erreur: chargement produit";
 
 /* Error message when the json input file does not contain any information */
-"Error: No result status in JSON" = "Fout: geen resultaat status in JSON";
+"Error: No result status in JSON" = "Erreur: pas de result status in json";
 
 /* No valid data has been received */
-"Error: No valid data" = "Fout: geen valide data";
+"Error: No valid data" = "Erreur: pas de données valide";
 
 /* The JSON file is wrongly formatted. */
-"Error: No verbose status" = "Fout: verbose status mist";
+"Error: No verbose status" = "Erreur: pas de status verbose in json";
 
 /* A JSON status which is not supported. */
-"Error: Other (>1) result status" = "Fout: andere (>1) resultaat status";
+"Error: Other (>1) result status" = "Erreur: autre (>1) result status in json";
 
 /* Retrieved a json file that is no longer relevant for the app. */
-"Error: URL not matched" = "Fout: URL niet meer relevant";
+"Error: URL not matched" = "Erreur: URL n'est plus rélévant";
+
+/* Error to indicate that a file can not be read. */
+"Error: file %@ does not contain translation for %@" = "Erreur: fichier %1$@ ne contient pas une traduction pour %2$@";
+
+/* Error to indicate that a file can not be read. */
+"Error: file %@ not available" = "Erreur: fichier %@ pas disponible";
+
+/* Error to indicate that a file can not be read. */
+"Error: file (file) not available" = "Erreur: fichier (file) pas disponible";
+
+/* Header title of the tableview section, indicating the most recent expiration date. */
+"Expiration Date" = "Date limite d'utilisation";
 
 /* Title of tableview cell, indicating whether the product expiration date has been filled in. */
-"Expiration date complete?" = "Uiterste houdbaarheidsdatum ingevuld?";
+"Expiration date complete?" = "Date limite d'utilisation complété?";
 
 /* Title for the view controller with the product image, title, etc.
    Viewcontroller title for page with product identification info. */
-"Identification" = "Identificatie";
+"Identification" = "Identification";
 
 /* Title for the viewcontroller with an enlarged image
    Title for the ViewController with the image of the product ingredients.
    Title of the ViewController with package image of the nutritional values */
-"Image" = "Foto";
+"Image" = "Photo";
 
 /* Header title for the product ingredients section.
    Title for the ViewController with the product ingredients.
    Viewcontroller title for page with ingredients for product. */
-"Ingredients" = "Ingrediënten";
+"Ingredients" = "Ingrédients";
 
 /* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
-"Ingredients Image" = "Ingrediëntenfoto";
+"Ingredients Image" = "Photo de la liste des ingrédients";
 
 /* Title of tableview cell, indicating whether the product ingredients field have been filled in */
-"Ingredients complete?" = "Ingrediënten ingevuld";
+"Ingredients complete?" = "Ingrédients complétés?";
 
 /* Header title for the product labels section, i.e. images, logos, etc. */
-"Labels" = "Keur- en kenmerken";
+"Labels" = "Labels, certifications, récompenses";
 
 /* Tableview sectionheader for main image of package. */
-"Main Image" = "Productfoto";
+"Main Image" = "Photo du produit";
 
 /* Header for section of tableView with a map of producer, origin and shop locations. */
-"Map" = "Kaart";
+"Map" = "Carte";
 
 /* Tableview sectionheader for product name */
-"Name" = "Productnaam";
+"Name" = "Nom du produit";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
-"No brands indicated." = "Geen merken aangegeven.";
+"No brands indicated." = "Pas des marques disponible";
 
 /* Text to indicate that No categories have been specified in the product data. */
-"No categories specified." = "Geen categoriën aangegeven.";
+"No categories specified." = "Pas des catégories disponible";
 
-/* Text in a TagListView, when no information have been specified in the product data. */
-"No info available." = "Geen informatie beschikbaar.";
+/* String if no common name is available */
+"No common name available" = "Pas de dénomination générique disponible";
+
+/* Title of cell when no expiration date is avalable */
+"No expiration date" = "Pas de date limite d'utilisation disponible";
 
 /* Text to indicate that no ingredients are present in the product data. */
-"No ingredients listed." = "Geen ingrediënten beschikbaar.";
+"No ingredients listed." = "Pas des ingrédients disponible";
+
+/* String if no name is available */
+"No name available" = "Pas de nom disponible";
 
 /* Text to indicate that no product is defined/setup. */
-"No product Defined." = "Geen product gedefinieerd.";
+"No product Defined." = "Pas de produits spécifiés";
 
 /* Text in header of section, indicating that the product name is missing. */
-"No product name" = "Geen productnaam beschikbaar.";
+"No product name" = "Pas un nom du produit disponible";
 
 /* Text to indicate that the history of products is empty. */
-"No products listed" = "Geen producten beschikbaar";
+"No products listed" = "Pas de produits spécifiés";
+
+/* String if no quauntity is available */
+"No quantity available" = "Pas des quantités disponible";
 
 /* Text to indicate that no supply chain infor (origin, producer, etc.) are available. */
-"No supply chain info." = "Geen productie-/ verkoopketen info.";
+"No supply chain info." = "Pas d'information sur le circuit logistique";
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
-"No title" = "Geen titel";
+"No title" = "Pas de titre";
 
 /* Title of the ViewController with the nutritional values */
-"Nutrition Facts" = "Voedingswaarden";
+"Nutrition Facts" = "Composition nutritionnelle";
 
 /* Tableview header section for the list of nutritional facts */
-"Nutrition Facts (100g; 100ml)" = "Voedingswaarden (100g of 100 ml)";
+"Nutrition Facts (100g; 100ml)" = "Composition nutritionnelle (100g ou 100 ml)";
 
 /* Tableview header section for the image of the nutritional facts */
-"Nutrition Facts Image" = "Voedingswaardenfoto";
+"Nutrition Facts Image" = "Image des informations nutritionnelles";
 
 /* Title of tableview cell, indicating whether nutritional facts have been filled in. */
-"Nutrition facts complete?" = "Voedingswaarden ingevuld";
+"Nutrition facts complete?" = "Informations nutritionnelles completés?";
 
 /* Viewcontroller title for page with nutritional facts for product. */
-"Nutritional facts" = "Voedingswaarden";
+"Nutritional facts" = "Informations nutritionnelles";
 
 /* Header for section of tableView with location(s) of ingredients. */
-"Origin ingredient" = "Oorsprong ingrediënten";
+"Origin ingredient" = "Origine des ingrédients";
 
 /* Tableview sectionheader for packaging. */
-"Packaging" = "Verpakking";
+"Packaging" = "Emballage";
 
 /* Title of tableview cell, indicating whether the product packaging field has been filled in. */
-"Packaging complete?" = "Verpakkingsinformatie ingevuld?";
+"Packaging complete?" = "Données d'emballage completés?";
 
 /* Title of tableview cell, indicating whether prduct photos have been uploaded. */
-"Photos uploaded complete?" = "Foto's geupload?";
+"Photos uploaded complete?" = "Chargement d'images completés?";
 
 /* Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info. */
-"Photos validated complete?" = "Foto's gevalideerd?";
+"Photos validated complete?" = "Images validés?";
 
 /* Alert title, to indicate retrieving product did not work */
-"Pity" = "Jammer";
+"Pity" = "Dommage";
 
 /* Text to indicate the producer of the product.  ADD A TRAILING SPACE. */
-"Produced in/by %@; " = "Geproduceerd in/door %@; ";
+"Produced in/by %@; " = "Produit par/en %@; ";
 
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
-"Producer Codes" = "Producentcodes";
+"Producer Codes" = "Codes emballeurs";
 
 /* Header for section of tableView with information of the producer (name, geographic location). */
-"Producers" = "Producenten";
+"Producers" = "Produits";
 
 /* Title of tableview cell, indicateding whether the productname has been completed. */
-"Productname complete?" = "Productnaam ingevuld?";
+"Productname complete?" = "Nom produit completé?";
 
 /* Title of ViewController with a list of all products that has been viewed. */
-"Products" = "Producten";
+"Products" = "Produits";
 
 /* Header for section of tableView with Locations where the product was bought. */
-"Purchase Locations" = "Aankoopplaats";
+"Purchase Locations" = "Endroit d'achat";
 
 /* Tableview sectionheader for size of package. */
-"Quantity" = "Verpakkingsgrootte";
+"Quantity" = "Quantité";
 
 /* Title of tableview cell, indicating whether the product quantity field has been filled in. */
-"Quantity complete?" = "Hoeveelheid ingevuld?";
+"Quantity complete?" = "Quantité completé?";
 
 /* Header for section of tableView with names of the stores where the product is sold. */
-"Sale Stores" = "Verkoopwinkels";
+"Sale Stores" = "Magasins de vente";
 
 /* Header for section of tableView with Countries where the product is sold. */
-"Sales Countries" = "Verkooplanden";
+"Sales Countries" = "Pays de vente";
+
+/* Title of first segment in switch, which lets the user select between salt or sodium */
+"Salt" = "Sel";
 
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
-"Serving Size" = "Portiegrootte";
+"Serving Size" = "Portion";
 
 /* TableViewController title for the settings scene. */
-"Settings" = "Instellingen";
+"Settings" = "Réglages";
+
+/* Title of first segment in switch, which lets the user select between salt or sodium */
+"Sodium" = "Sodium";
 
 /* Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE. */
-"Sold by %@ " = "Verkocht door %@ ";
+"Sold by %@ " = "vendu par %@ ";
 
 /* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
-"Sold in " = "Verkocht in ";
+"Sold in " = "Vendu en";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
    Viewcontroller title for page with supply chain for product. */
-"Supply Chain" = "Aanvoerketen";
+"Supply Chain" = "Circuit logistique";
 
 /* Text to indicate the number of ingredients in the product. */
-"There are %@ ingredients." = "Er zijn %@ verschillende ingrediënten.";
+"There are %@ ingredients." = "Produit contient %@ ingrédients.";
 
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
-"Traces" = "Sporen";
+"Traces" = "traces";
 
 /* Text in a TagListView, when no additives (E-numbers) have been detected in the product ingredients. */
-"no additives detected" = "geen additieven gedetecteerd";
+"no additives detected" = "pas d'additives spécifiés";
 
 /* Text in a TagListView, when no allerges have been detected in the product ingredients. */
-"no allergens detected" = "geen allergenen gedetecteerd";
+"no allergens detected" = "pas d'allergènes détectés";
+
+/* Text for tag in a separate colour, when no brands information is available in the product data. */
+"no brands specified" = "pas de marques spécifiés";
 
 /* Text in a TagListView, when no categories are available in the product data. */
-"no categories specified" = "geen categoriën beschikbaar";
+"no categories specified" = "pas de catégories spécifiés";
 
 /* Text in a TagListView, when no countries are available in the product data. */
-"no countries specified" = "geen verkooplanden beschikbaar";
+"no countries specified" = "pas de pays de ventes spécifiés";
+
+/* Text in a TagListView, when no image has been specified in the product data. */
+"no image available" = "image pas disponible";
 
 /* Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour. */
-"no info available" = "geen informatie beschikbaar";
+"no info available" = "pas d'information disponible";
 
 /* Text in a TagListView, when no ingredients are available in the product data. */
-"no ingredients specified" = "geen ingrediënten beschikbaar";
+"no ingredients specified" = "pas d'ingrédients spécifiés";
 
 /* Text in a TagListView, when no labels have been specified in the product data. */
-"no labels specified" = "geen keurmerken beschikbaar";
+"no labels specified" = "pas de labels spécifiés";
+
+/* Text in a TagListView, when no nutrition data has been specified in the product data. */
+"no nutrition data available" = "pas d'informations nutritionnelles spécifiés";
 
 /* Text for tag in a separate colour, when no packaging infor is available in the product data. */
-"no packing info specified" = "geen verpakkingsinformatie beschikbaar";
+"no packing info specified" = "pas de données d'emballage spécifiés";
 
 /* Text in a TagListView, when no traces have been specified in the product data. */
-"no traces specified" = "geen sporen beschikbaar";
+"no traces specified" = "pas de traces specifiés";
 
 /* Text for a cell, when no status title has been provided, such as 'completed', etc. */
-"none" = "geen";
+"none" = "aucun";
 
 /* TextField text to indicate the serving size is not available */
-"not available" = "niet beschikbaar";
+"not available" = "pas disponible";
+
+/* Text in a TagListView, when to indicate the product is being loaded from Internet. */
+"product being loaded" = "En train de charger produit";
 
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";

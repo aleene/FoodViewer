@@ -18,4 +18,21 @@ struct NutritionFactItem {
     func valid() -> Bool {
         return standardValue != nil && !standardValue!.isEmpty
     }
+    
+    struct Constants {
+        static let CaloriesPerJoule = 4.2
+    }
+    
+    func standardValueInCalories() -> String {
+        if !standardValue!.isEmpty {
+            // convert standard value to a number
+            let value = Double(standardValue!)
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .DecimalStyle
+            return String(numberFormatter.stringFromNumber(value! * Constants.CaloriesPerJoule))
+
+        } else {
+            return ""
+        }
+    }
 }

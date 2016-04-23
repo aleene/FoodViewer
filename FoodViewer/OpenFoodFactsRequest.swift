@@ -14,7 +14,7 @@ class OpenFoodFactsRequest {
     private struct OpenFoodFacts {
         static let JSONExtension = ".json"
         static let APIURLPrefixForProduct = "http://world.openfoodfacts.org/api/v0/product/"
-        static let testProductBarcode = "3608580744184"
+        static let sampleProductBarcode = "40111490"
     }
     
     enum FetchResult {
@@ -22,7 +22,16 @@ class OpenFoodFactsRequest {
         case Success(FoodProduct)
     }
     
+    enum FetchJsonResult {
+        case Error(String)
+        case Success(NSData)
+    }
+
     var fetched: FetchResult = .Error("Initialised")
+    
+    func fetchStoredProduct(data: NSData) -> FetchResult {
+        return unpackJSONObject(JSON.parse(data))
+    }
     
     func fetchProductForBarcode(barcode: BarcodeType) -> FetchResult {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -43,8 +52,26 @@ class OpenFoodFactsRequest {
         }
     }
 
-    func testWithLocalfile() -> FetchResult {
-        let filePath  = NSBundle.mainBundle().pathForResource(OpenFoodFacts.testProductBarcode, ofType:OpenFoodFacts.JSONExtension)
+    func fetchJsonForBarcode(barcode: BarcodeType) -> FetchJsonResult {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        let fetchUrl = NSURL(string: "\(OpenFoodFacts.APIURLPrefixForProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        if let url = fetchUrl {
+            do {
+                let data = try NSData(contentsOfURL: url, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+                return FetchJsonResult.Success(data)
+            } catch let error as NSError {
+                print(error);
+                return FetchJsonResult.Error(error.description)
+            }
+        } else {
+            return FetchJsonResult.Error(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
+        }
+    }
+
+    func fetchSampleProduct() -> FetchResult {
+        let filePath  = NSBundle.mainBundle().pathForResource(OpenFoodFacts.sampleProductBarcode, ofType:OpenFoodFacts.JSONExtension)
         let data = NSData(contentsOfFile:filePath!)
         if let validData = data {
             return unpackJSONObject(JSON.parse(validData))

@@ -15,14 +15,10 @@ class ServingSizeTableViewCell: UITableViewCell {
     }
     var servingSize: String? = nil {
         didSet {
-            if let ss = servingSize {
-                servingSizeTextField.text = ss
-            } else {
-                servingSizeTextField.text = Constants.ServingSizeNotAvailable
-            }
-            
+            servingSizeTextField?.text = ((servingSize != nil) && (!servingSize!.isEmpty)) ? servingSize! : Constants.ServingSizeNotAvailable
         }
     }
     
     @IBOutlet weak var servingSizeTextField: UITextField!
+    
 }

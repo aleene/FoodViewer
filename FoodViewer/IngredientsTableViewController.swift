@@ -190,33 +190,6 @@ class IngredientsTableViewController: UITableViewController {
         return sectionsAndRows
     }
     
-    /*
-    private func retrieveImage(url: NSURL?) {
-        if let imageURL = url {
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            if self.product?.imageIngredientsUrl == imageURL  {
-                                self.product?.ingredientsImageData = imageData
-                            } // else bad luck corresponding product is no longer there
-                        })
-                    }
-                }
-                catch {
-                    print(error)
-                }
-            })
-        }
-    }
- */
-    
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -224,7 +197,10 @@ class IngredientsTableViewController: UITableViewController {
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
                 if let vc = segue.destinationViewController as? imageViewController {
-                    vc.image = ingredientsImage
+                    if let data = product?.getIngredientsImageData() {
+                        // try large image
+                        vc.image = UIImage(data:data)
+                    }
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                 }
             default: break
@@ -253,7 +229,7 @@ class IngredientsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
+        self.tableView.estimatedRowHeight = 88.0
     }
     
     override func viewWillAppear(animated: Bool) {

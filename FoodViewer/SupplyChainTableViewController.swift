@@ -12,8 +12,10 @@ class SupplyChainTableViewController: UITableViewController {
     
     var product: FoodProduct? {
         didSet {
-            tableStructureForProduct = analyseProductForTable(product!)
-            refreshProduct()
+            if product != nil {
+                tableStructureForProduct = analyseProductForTable(product!)
+                refreshProduct()
+            }
         }
     }
     

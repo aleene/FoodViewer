@@ -7,17 +7,26 @@
 /* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
 "5jY-ES-pZe.text" = "eenh.";
 
-/* Class = "UILabel"; text = "Title"; ObjectID = "5lw-Rp-bg8"; */
-"5lw-Rp-bg8.text" = "Titel";
+/* Class = "UILabel"; text = "Expiration Date"; ObjectID = "5lw-Rp-bg8"; */
+"5lw-Rp-bg8.text" = "Uiterste houdbaarheidsdatum";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
 "8TO-NA-Iaz.title" = "Cancel";
+
+/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[0] = "Salt"; ObjectID = "9HQ-Hd-LCX"; */
+"9HQ-Hd-LCX.segmentTitles[0]" = "Zout";
+
+/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Both"; ObjectID = "9HQ-Hd-LCX"; */
+"9HQ-Hd-LCX.segmentTitles[1]" = "Beide";
+
+/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[2] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
+"9HQ-Hd-LCX.segmentTitles[2]" = "Natrium";
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
 
 /* Class = "UILabel"; text = "Salt"; ObjectID = "DFK-3b-hb1"; */
-"DFK-3b-hb1.text" = "Salt";
+"DFK-3b-hb1.text" = "Zout";
 
 /* Class = "UILabel"; text = "Co"; ObjectID = "Dm8-yq-w79"; */
 "Dm8-yq-w79.text" = "Co";
@@ -46,7 +55,10 @@
 /* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
 "XeQ-CI-ELW.text" = "Hoeveelheid";
 
-/* Class = "UILabel"; text = "Ingredients"; ObjectID = "bVH-wU-k1N"; */
+/* Class = "UILabel"; text = "Edit Date"; ObjectID = "ZjT-hs-fGX"; */
+"ZjT-hs-fGX.text" = "Bewerkdatum";
+
+/* Class = "UILabel"; text = "No Ingredients Available"; ObjectID = "bVH-wU-k1N"; */
 "bVH-wU-k1N.text" = "Ingrediënten";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "byp-um-JcW"; */
@@ -59,7 +71,7 @@
 "eWS-0h-9I9.text" = "Voedingswaarden";
 
 /* Class = "UITableViewController"; title = "Products"; ObjectID = "gMe-4s-6cz"; */
-"gMe-4s-6cz.title" = "Product";
+"gMe-4s-6cz.title" = "Producten";
 
 /* Class = "UITextField"; placeholder = "Enter barcode"; ObjectID = "gZ8-Lt-wU3"; */
 "gZ8-Lt-wU3.placeholder" = "Voer streepjescode in";
@@ -68,7 +80,7 @@
 "hYb-mr-zvw.title" = "Producten";
 
 /* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
-"ihd-JM-WfS.title" = "Barcode";
+"ihd-JM-WfS.title" = "Streepjescode";
 
 /* Class = "UILabel"; text = "Fat"; ObjectID = "k7M-yZ-ax3"; */
 "k7M-yZ-ax3.text" = "Vet";
