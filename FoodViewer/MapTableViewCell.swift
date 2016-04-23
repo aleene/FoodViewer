@@ -99,7 +99,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
     {
         struct MapkitConstants {
             static let MINIMUM_ZOOM_ARC = CLLocationDegrees(5)  // (1 degree of arc ~= 110 km)
-            static let ANNOTATION_REGION_PAD_FACTOR = 1.15
+            static let ANNOTATION_REGION_PAD_FACTOR = 1.3
             static let MAX_DEGREES_ARC = CLLocationDegrees(360)
             static let MaxDegreesLatitude = CLLocationDegrees(180)
         }

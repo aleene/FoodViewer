@@ -214,13 +214,18 @@ class OFFProducts {
     
     private func update(updatedProduct: FoodProduct) {
         // where is product in the list?
+        var index = 0
         for product in list {
             if product!.barcode.asString() == updatedProduct.barcode.asString() {
                 // replace the existing product with the data of the new product
                 product!.updateDataWith(updatedProduct)
-                // (re-)load the main image if needed
-                // loadMainImage(product!)
+                // i sthis the first product in the list
+                if index == 0 {
+                    // then the stored version must also be updated with this new product
+                    saveMostRecentProduct(product!.barcode)
+                }
             }
+            index += 1
         }
     }
     
