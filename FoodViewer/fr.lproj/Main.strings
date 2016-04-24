@@ -16,11 +16,8 @@
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[0] = "Salt"; ObjectID = "9HQ-Hd-LCX"; */
 "9HQ-Hd-LCX.segmentTitles[0]" = "Sel";
 
-/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Both"; ObjectID = "9HQ-Hd-LCX"; */
+/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
 "9HQ-Hd-LCX.segmentTitles[1]" = "Les deux";
-
-/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[2] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
-"9HQ-Hd-LCX.segmentTitles[2]" = "Sodium";
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
@@ -57,6 +54,12 @@
 
 /* Class = "UILabel"; text = "Edit Date"; ObjectID = "ZjT-hs-fGX"; */
 "ZjT-hs-fGX.text" = "Date d'édition";
+
+/* Class = "UISegmentedControl"; b37-xu-DIS.segmentTitles[0] = "Joule"; ObjectID = "b37-xu-DIS"; */
+"b37-xu-DIS.segmentTitles[0]" = "Joule";
+
+/* Class = "UISegmentedControl"; b37-xu-DIS.segmentTitles[1] = "Calories"; ObjectID = "b37-xu-DIS"; */
+"b37-xu-DIS.segmentTitles[1]" = "Calories";
 
 /* Class = "UILabel"; text = "No Ingredients Available"; ObjectID = "bVH-wU-k1N"; */
 "bVH-wU-k1N.text" = "Pas d'ingrediënts disponible";

@@ -25,11 +25,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     private var barcode: BarcodeType? = nil {
         didSet {
             products.fetchProduct(barcode)
-
         }
     }
     
-    private func refreshInterface() {
+    private func startInterface() {
         if products.list.count > 0 {
             selectedProduct = products.list.first!
             tableView.reloadData()
@@ -37,6 +36,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
+    private func refreshInterface() {
+        if products.list.count > 0 {
+            tableView.reloadData()
+        }
+    }
+
     var productPageViewController: ProductPageViewController? = nil
      
     // MARK: - TextField Methods
@@ -307,10 +312,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     func firstProductLoaded(notification: NSNotification) {
-        selectedProduct = products.list.first!
-        tableView.reloadData()
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
-        performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+        startInterface()
     }
 
     // MARK: - Viewcontroller lifecycle
