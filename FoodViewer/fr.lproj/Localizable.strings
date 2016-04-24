@@ -169,13 +169,13 @@
 "Nutrition Facts (100g; 100ml)" = "Comp. nutritionnelle (100g/100ml)";
 
 /* Tableview header section for the image of the nutritional facts */
-"Nutrition Facts Image" = "Image des inform. nutritionnelles";
+"Nutrition Facts Image" = "Photo des inform. nutritionnelles";
 
 /* Title of tableview cell, indicating whether nutritional facts have been filled in. */
 "Nutrition facts complete?" = "Inform. nutritionnelles complétés?";
 
 /* Viewcontroller title for page with nutritional facts for product. */
-"Nutritional facts" = "Information nutritionnelles";
+"Nutritional facts" = "Inform. nutritionnelles";
 
 /* Header for section of tableView with location(s) of ingredients. */
 "Origin ingredient" = "Origine des ingrédients";

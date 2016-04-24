@@ -54,7 +54,7 @@ class NutrientsTableViewController: UITableViewController {
                     calorieFact.standardValueUnit = "kcal"
                     calorieFact.itemName = Energy.Calories.description()
                     calorieFact.standardValue = fact.standardValue != nil ? fact.standardValueInCalories() : ""
-                    newFacts.append(localizeFact(calorieFact))
+                    newFacts.append(calorieFact)
                 default: newFacts.append(fact)
                 }
             } else {
