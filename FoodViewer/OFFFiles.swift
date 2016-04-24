@@ -41,7 +41,6 @@ class OFFplists {
     }
     
     private struct TextConstants {
-        static let FileDoesNotContainTranslation = NSLocalizedString("Error: file %@ does not contain translation for %@", comment: "Error to indicate that a file can not be read.")
         static let FileNotAvailable = NSLocalizedString("Error: file %@ not available", comment: "Error to indicate that a file can not be read.")
     }
 
@@ -81,7 +80,7 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return String(format:TextConstants.FileDoesNotContainTranslation, Constants.StatesFileName, key)
+                return key
             }
         }
         return String(format:TextConstants.FileNotAvailable, Constants.StatesFileName)
@@ -100,7 +99,7 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return String(format:TextConstants.FileDoesNotContainTranslation, Constants.AdditivesFileName, key)
+                return key
             }
         }
         return String(format:TextConstants.FileNotAvailable, Constants.AdditivesFileName)
@@ -119,7 +118,7 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0] : key
             } else {
-                return String(format:TextConstants.FileDoesNotContainTranslation, Constants.AllergensFileName, key)
+                return key
             }
         }
         return String(format:TextConstants.FileNotAvailable, Constants.AllergensFileName)
