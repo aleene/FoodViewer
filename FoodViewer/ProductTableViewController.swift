@@ -329,6 +329,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         initializeCustomKeyboard()
         Preferences.manager
+        
+        startInterface()
     }
     
     override func viewWillAppear(animated: Bool) {

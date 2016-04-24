@@ -2,7 +2,7 @@
 " (WARNING: check brackets, they are unbalanced)" = "(Avertissement: contrôlez les accolades, il manque une)";
 
 /* Cell text for the total number of nutritional facts available. */
-"%@ nutritional facts specified" = "%@ faits nutritionnelles indiqués";
+"%@ nutritional facts specified" = "%@ faits nutritionnelles indiqués.";
 
 /* A list of countries seperated by a comma. ADD A TRAILING SPACE. */
 "%@, " = "%@, ";
@@ -56,7 +56,7 @@
 "Contributors" = "Contributeurs";
 
 /* Text to indicate how much the product data is filled in (available). */
-"Data is %@ complete." = "Les données sont %@ complèts.";
+"Data is %@ complete." = "Données sont %@ complèts.";
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Edité";
@@ -166,10 +166,10 @@
 "Nutrition Facts" = "Composition nutritionnelle";
 
 /* Tableview header section for the list of nutritional facts */
-"Nutrition Facts (100g; 100ml)" = "Composition nutritionnelle (100g ou 100 ml)";
+"Nutrition Facts (100g; 100ml)" = "Comp. nutritionnelle (100g/100ml)";
 
 /* Tableview header section for the image of the nutritional facts */
-"Nutrition Facts Image" = "Image des informations nutritionnelles";
+"Nutrition Facts Image" = "Image des inform. nutritionnelles";
 
 /* Title of tableview cell, indicating whether nutritional facts have been filled in. */
 "Nutrition facts complete?" = "Inform. nutritionnelles complétés?";
@@ -241,7 +241,7 @@
 "Sold by %@ " = "Vendu par %@ ";
 
 /* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
-"Sold in " = "Vendu en";
+"Sold in " = "Vendu en ";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
    Viewcontroller title for page with supply chain for product. */
