@@ -217,6 +217,7 @@ class OpenFoodFactsRequest {
         static let CaffeineKey = "caffeine"
         static let TaurineKey = "taurine"
         static let PhKey = "ph"
+        static let CacaoKey = "cocoa"
         
         //static let CarbohydratesUnitKey = "carbohydrates_unit"
         //static let FatUnitKey = "fat_unit"
@@ -650,6 +651,7 @@ class OpenFoodFactsRequest {
                     static let TaurineKey = "Taurine"
                     
                     static let PhKey = "ph"
+                    static let CacaoKey = "Cacao Min."
                 }
            
                 nutritionDecode(NutritionFacts.EnergyKey, key: OFFJson.EnergyKey, jsonObject: jsonObject, product: product)
@@ -745,6 +747,7 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.TaurineKey, key: OFFJson.TaurineKey, jsonObject: jsonObject, product: product)
                 
                 nutritionDecode(NutritionFacts.PhKey, key: OFFJson.PhKey, jsonObject: jsonObject, product:product)
+                nutritionDecode(NutritionFacts.CacaoKey, key: OFFJson.CacaoKey, jsonObject: jsonObject, product:product)
                 
                 return FetchResult.Success(product)
             } else {
