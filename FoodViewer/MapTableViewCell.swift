@@ -19,34 +19,68 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         static let SpaceDelimiter = " "
     }
 
-    private let initialLocation = CLLocation.init(latitude: Preferences.manager.mapAddress.coordinates![0].latitude, longitude: Preferences.manager.mapAddress.coordinates![0].longitude)
+    private var initialLocation: CLLocation {
+        get {
+            if let coordinates = Preferences.manager.mapAddress.coordinates {
+                switch coordinates {
+                case .Success(let coordinateValues):
+                    return CLLocation.init(latitude: coordinateValues[0].latitude, longitude: coordinateValues[0].longitude)
+                case .Error:
+                    return CLLocation.init(latitude: 0.0, longitude: 0.0)
+                }
+
+            } else {
+                return CLLocation.init(latitude: 0.0, longitude: 0.0)
+            }
+        }
+    }
+    
     private let regionRadius: CLLocationDistance = 1000000
 
     var product: FoodProduct? = nil {
         didSet {
             if let currentProduct = product {
                 if let coordinates = currentProduct.purchaseLocation?.getCoordinates() {
-                    let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapConstants.PurchaseLocation, coordinate: coordinates[0])
-                    mapView.addAnnotation(annotation)
+                    switch coordinates {
+                    case .Success(let coordinateValues):
+                        let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapConstants.PurchaseLocation, coordinate: coordinateValues[0])
+                        mapView.addAnnotation(annotation)
+                    case .Error:
+                        break
+                    }
                 }
                 
                 if let coordinates = currentProduct.producer?.getCoordinates() {
-                    let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapConstants.ProducerLocation, coordinate: coordinates[0])
-                    mapView.addAnnotation(annotation)
+                    switch coordinates {
+                    case .Success(let coordinateValues):
+                        let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapConstants.ProducerLocation, coordinate: coordinateValues[0])
+                        mapView.addAnnotation(annotation)
+                    case .Error:
+                        break
+                    }
                 }
                 
                 if let coordinates = currentProduct.ingredientsOrigin?.getCoordinates() {
-                    let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapConstants.IngredientOriginLocation, coordinate: coordinates[0])
-                    mapView.addAnnotation(annotation)
+                    switch coordinates {
+                    case .Success(let coordinateValues):
+                        let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapConstants.IngredientOriginLocation, coordinate: coordinateValues[0])
+                        mapView.addAnnotation(annotation)
+                    case .Error:
+                        break
+                    }
                 }
                 
                 if let countries = currentProduct.countries {
                     for country in countries {
                         if let coordinates = country.getCoordinates() {
-                            if !coordinates.isEmpty {
-                                let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapConstants.SalesCountryLocation, coordinate: coordinates[0])
-                                mapView.addAnnotation(annotation)
-                                // centerMapOnLocation(CLLocation(latitude: coordinates[0].latitude, longitude: coordinates[0].longitude))
+                            switch coordinates {
+                            case .Success(let coordinateValues):
+                                if !coordinateValues.isEmpty {
+                                    let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapConstants.SalesCountryLocation, coordinate: coordinateValues[0])
+                                    mapView.addAnnotation(annotation)
+                                }
+                            case .Error:
+                                break
                             }
                         }
                     }

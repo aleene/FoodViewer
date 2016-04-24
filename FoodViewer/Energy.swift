@@ -13,9 +13,12 @@ enum Energy {
     case Joule
     
     func description() -> String {
+        let preferredLanguage = NSLocale.preferredLanguages()[0]
         switch self {
-        case .Calories: return "calories"
-        case .Joule: return "joule"
+        case .Calories:
+            return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
+        case .Joule:
+            return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
         }
     }
     
@@ -32,5 +35,9 @@ enum Energy {
         case .Calories: return 1
         case .Joule: return 0
         }
+    }
+    
+    func key() -> String {
+        return "energy"
     }
 }

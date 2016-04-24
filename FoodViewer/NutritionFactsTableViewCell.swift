@@ -16,7 +16,7 @@ class NutritionFactsTableViewCell: UITableViewCell {
     
     var product: FoodProduct? = nil
     
-    var nutritionFactItem: FoodProduct.NutritionFactItem? = nil {
+    var nutritionFactItem: NutritionFactItem? = nil {
         didSet {
             if let item = nutritionFactItem {
                     itemLabel.text = item.itemName != nil ? item.itemName! : Constants.UnknownValue
@@ -24,7 +24,6 @@ class NutritionFactsTableViewCell: UITableViewCell {
                     standardUnitLabel.text = item.standardValueUnit != nil ? item.standardValueUnit! : Constants.UnknownValue
             }
         }
-    
     }
     
     @IBOutlet weak var itemLabel: UILabel!

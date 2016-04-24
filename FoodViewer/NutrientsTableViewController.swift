@@ -32,34 +32,44 @@ class NutrientsTableViewController: UITableViewController {
     func adaptNutritionFacts(facts: [NutritionFactItem]) -> [NutritionFactItem] {
         var newFacts: [NutritionFactItem] = []
         for fact in facts {
-            if (fact.itemName == NatriumChloride.Salt.description()) {
+            if (fact.key == NatriumChloride.Salt.key()) {
                 switch Preferences.manager.showSaltOrSodium {
                     // do not show sodium
                 case .Sodium: break
-                default: newFacts.append(fact)
+                default:
+                    newFacts.append(localizeFact(fact))
                 }
-            } else if (fact.itemName == NatriumChloride.Sodium.description()) {
+            } else if (fact.key == NatriumChloride.Sodium.key()) {
                 switch Preferences.manager.showSaltOrSodium {
                 // do not show salt
                 case .Salt: break
-                default: newFacts.append(fact)
+                default:
+                    newFacts.append(localizeFact(fact))
                 }
-            } else if (fact.itemName == "energy") {
+            } else if (fact.key == Energy.Joule.key()) {
                 switch Preferences.manager.showCaloriesOrJoule {
                 // show energy as calories
                 case .Calories:
                     var calorieFact = NutritionFactItem()
                     calorieFact.standardValueUnit = "kcal"
-                    calorieFact.itemName = "Energy"
+                    calorieFact.itemName = Energy.Calories.description()
                     calorieFact.standardValue = fact.standardValue != nil ? fact.standardValueInCalories() : ""
-                    newFacts.append(calorieFact)
+                    newFacts.append(localizeFact(calorieFact))
                 default: newFacts.append(fact)
                 }
             } else {
-                newFacts.append(fact)
+                newFacts.append(localizeFact(fact))
             }
         }
         return newFacts
+    }
+    
+    private func localizeFact(fact: NutritionFactItem) -> NutritionFactItem {
+        var localeFact = NutritionFactItem()
+        localeFact.standardValueUnit = fact.standardValueUnit
+        localeFact.itemName = fact.itemName
+        localeFact.standardValue = fact.standardValue != nil ? fact.localeValue() : ""
+        return localeFact
     }
     
     @IBAction func refresh(sender: UIRefreshControl) {

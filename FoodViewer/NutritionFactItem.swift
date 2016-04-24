@@ -14,6 +14,7 @@ struct NutritionFactItem {
     var standardValueUnit: String? = nil
     var servingValue: String? = nil
     var servingValueUnit: String? = nil
+    var key: String? = nil
     
     func valid() -> Bool {
         return standardValue != nil && !standardValue!.isEmpty
@@ -29,10 +30,23 @@ struct NutritionFactItem {
             let value = Double(standardValue!)
             let numberFormatter = NSNumberFormatter()
             numberFormatter.numberStyle = .DecimalStyle
-            return String(numberFormatter.stringFromNumber(value! * Constants.CaloriesPerJoule))
+            return String(numberFormatter.stringFromNumber(value! / Constants.CaloriesPerJoule)!)
 
         } else {
             return ""
         }
+    }
+    
+    func localeValue() -> String {
+        if !standardValue!.isEmpty {
+            // convert standard value to a number in the users locale
+            let value = Double(standardValue!)
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .DecimalStyle
+            return String(numberFormatter.stringFromNumber(value!)!)
+        } else {
+            return ""
+        }
+
     }
 }

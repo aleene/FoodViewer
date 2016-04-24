@@ -17,5 +17,17 @@ class Preferences {
     
     static let manager = Preferences()
     
-    var showSaltSodiumOrBoth = NatriumChloride.Both
+    var showSaltOrSodium: NatriumChloride
+    var showCaloriesOrJoule: Energy
+    var mapAddress: Address
+    
+    init() {
+        showSaltOrSodium = NatriumChloride.Salt
+        showCaloriesOrJoule = Energy.Joule
+        mapAddress = Address()
+        mapAddress.title = "Address used for center of map"
+        let locale = NSLocale.currentLocale()
+        mapAddress.country = locale.displayNameForKey(NSLocaleCountryCode, value: locale.objectForKey(NSLocaleCountryCode)!)!
+        mapAddress.setCoordinates()
+    }
 }

@@ -33,7 +33,14 @@ class Address {
     }
  */
     var language: String = ""
-    var coordinates: [CLLocationCoordinate2D]? = nil {
+    
+    enum CoordinateFetchResult {
+        case Error(String)
+        // case SearchStarted
+        case Success([CLLocationCoordinate2D])
+    }
+
+    var coordinates: CoordinateFetchResult? = nil {
         didSet {
             if coordinates != nil {
                 let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
@@ -42,7 +49,7 @@ class Address {
         }
     }
     
-    func getCoordinates() -> [CLLocationCoordinate2D]? {
+    func getCoordinates() -> CoordinateFetchResult? {
         setCoordinates()
         return coordinates
     }
@@ -82,12 +89,15 @@ class Address {
     
     func retrieveCoordinates(locationName: String) {
         var coordinates: [CLLocationCoordinate2D]? =  nil
-
+        
         if !locationName.isEmpty {
+            // self.coordinates = CoordinateFetchResult.SearchStarted
             let geoCoder = CLGeocoder()
             geoCoder.geocodeAddressString(locationName) { (placemarks, error) -> Void in
                 if error != nil {
-                    print("Geocode failed with error: \(error!.localizedDescription) for \(locationName)")
+                    let error = "Geocode failed with error: \(error!.localizedDescription) for \(locationName)"
+                    self.coordinates = CoordinateFetchResult.Error(error)
+                    print(error)
                 } else {
                     coordinates = []
                     if let validPlacemarks = placemarks {
@@ -96,7 +106,7 @@ class Address {
                                 coordinates!.append(validLocation.coordinate)
                             }
                         }
-                        self.coordinates = coordinates
+                        self.coordinates = CoordinateFetchResult.Success(coordinates!)
                     }
                 }
             }
