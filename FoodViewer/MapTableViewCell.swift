@@ -87,7 +87,8 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 }
             }
             mapView.delegate = self
-            zoomMapViewToFitAnnotations(self.mapView, animated:true);
+
+            zoomMapViewToFitAnnotations(mapView, animated:true)
         }
     }
     
@@ -199,5 +200,3 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
 
  }
  
-
-

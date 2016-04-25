@@ -158,6 +158,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .Map:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.MapCellIdentifier, forIndexPath: indexPath) as! MapTableViewCell
             cell.product = product!
+            print("Width in \(cell.bounds.width)")
             return cell
         }
     }
@@ -198,8 +199,8 @@ class SupplyChainTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         // self.tableView.estimatedRowHeight = 80.0
-
-        refreshProduct()
+        // tableView.translatesAutoresizingMaskIntoConstraints = false;
+        // refreshProduct()
         
         title = Constants.ViewControllerTitle
     }
@@ -210,6 +211,8 @@ class SupplyChainTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name:Address.Notification.CoordinateHasBeenSet, object:nil)
+        
+        // refreshProduct()
     }
 
     override func viewDidDisappear(animated: Bool) {

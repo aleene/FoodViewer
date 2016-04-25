@@ -16,7 +16,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         static let AlertSheetActionTitle = NSLocalizedString("Pity", comment: "Alert title, to indicate retrieving product did not work")
         static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
         static let ProductNameMissing = NSLocalizedString("No product name", comment: "Text in header of section, indicating that the product name is missing.")
-        static let NumberOfNutritionalFactsText = NSLocalizedString("%@ nutritional facts specified", comment: "Cell text for the total number of nutritional facts available.")
+        static let NumberOfNutritionalFactsText = NSLocalizedString("%@ nutritional facts specified.", comment: "Cell text for the total number of nutritional facts available.")
     }
     
 
