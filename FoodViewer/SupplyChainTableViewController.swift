@@ -29,11 +29,13 @@ class SupplyChainTableViewController: UITableViewController {
         case Store
         case Country
         case Map
+        case ExpirationDate
     }
     
     private struct Constants {
         // static let DefaultHeader = "No Header"
         static let ViewControllerTitle = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
+        static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
     
     @IBAction func refresh(sender: UIRefreshControl) {
@@ -47,6 +49,7 @@ class SupplyChainTableViewController: UITableViewController {
     private struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
         static let CountriesCellIdentifier = "Countries TagListView Cell"
+        static let ExpirationDateCellIdentifier = "Expiration Date Cell"
         static let MapCellIdentifier = "Map Cell"
     }
     
@@ -59,6 +62,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let CountriesSectionHeader = NSLocalizedString("Sales Countries", comment: "Header for section of tableView with Countries where the product is sold.")
         static let StoresSectionHeader = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
         static let MapSectionHeader = NSLocalizedString("Map", comment: "Header for section of tableView with a map of producer, origin and shop locations.")
+        static let ExpirationDateSectionHeader = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1
@@ -66,6 +70,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let CountriesSectionSize = 1
         static let StoresSectionSize = 1
         static let MapSectionSize = 1
+        static let ExpirationDateSectionSize = 1
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -91,16 +96,20 @@ class SupplyChainTableViewController: UITableViewController {
             SectionType.ProducerCode,
             TableStructure.ProducerCodeSectionSize,
             TableStructure.ProducerCodeSectionHeader))
-        // countries section
-        sectionsAndRows.append((
-            SectionType.Country,
-            TableStructure.CountriesSectionSize,
-            TableStructure.CountriesSectionHeader))
         // purchase Location section
         sectionsAndRows.append((
             SectionType.Location,
             TableStructure.LocationSectionSize,
             TableStructure.LocationSectionHeader))
+        sectionsAndRows.append((
+            SectionType.ExpirationDate,
+            TableStructure.ExpirationDateSectionSize,
+            TableStructure.ExpirationDateSectionHeader))
+        // countries section
+        sectionsAndRows.append((
+            SectionType.Country,
+            TableStructure.CountriesSectionSize,
+            TableStructure.CountriesSectionHeader))
         // stores section
         sectionsAndRows.append((
             SectionType.Store,
@@ -158,7 +167,17 @@ class SupplyChainTableViewController: UITableViewController {
         case .Map:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.MapCellIdentifier, forIndexPath: indexPath) as! MapTableViewCell
             cell.product = product!
-            print("Width in \(cell.bounds.width)")
+            return cell
+        case .ExpirationDate:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ExpirationDateCellIdentifier, forIndexPath: indexPath)
+            if let date = product!.expirationDate {
+                let formatter = NSDateFormatter()
+                formatter.dateStyle = .MediumStyle
+                formatter.timeStyle = .NoStyle
+                cell.textLabel!.text = formatter.stringFromDate(date)
+            } else {
+                cell.textLabel!.text = Constants.NoExpirationDate
+            }
             return cell
         }
     }
@@ -170,7 +189,7 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
-        case 6:
+        case 7:
             return 300
         default:
             return 88

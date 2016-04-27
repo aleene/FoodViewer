@@ -21,8 +21,11 @@ class IngredientsTableViewCell: UITableViewCell {
             if let number = product?.numberOfIngredients  {
                 let formatter = NSNumberFormatter()
                 formatter.numberStyle = .DecimalStyle
-                
-                ingredientsLabel.text = Int(number) == 1 ? Constants.IngredientsText : String(format:Constants.IngredientsText, formatter.stringFromNumber(Int(number)!)! )
+                if let intNumber = Int(number) {
+                    ingredientsLabel.text = (intNumber == 1) ? Constants.IngredientsOneText : String(format:Constants.IngredientsText, formatter.stringFromNumber(Int(number)!)! )
+                } else {
+                    ingredientsLabel.text = Constants.NoIngredientsText
+                }
             } else {
                 ingredientsLabel.text = Constants.NoIngredientsText
             }

@@ -257,6 +257,13 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func loadFirstProduct() {
+        let products = OFFProducts.manager
+        product = products.list.first!
+        tableView.reloadData()
+    }
+
+    
     func removeProduct() {
         product = nil
         tableView.reloadData()
@@ -287,6 +294,9 @@ class IdentificationTableViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:OFFProducts.Notification.FirstProductLoaded, object:nil)
+
 }
     
     override func viewDidAppear(animated: Bool) {

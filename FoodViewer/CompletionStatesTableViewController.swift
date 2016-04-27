@@ -28,7 +28,6 @@ class CompletionStatesTableViewController: UITableViewController {
         static let CompletionStateCellIdentifier = "Completion State Cell"
         static let ContributorsCellIdentifier = "Contributor Cell"
         static let LastEditDateCellIdentifier = "Edit Date Cell"
-        static let ExpirationDateCellIdentifier = "Expiration Date Cell"
     }
     
     struct Constants {
@@ -45,15 +44,13 @@ class CompletionStatesTableViewController: UITableViewController {
         static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
         static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
         static let LastEditDateHeaderTitle = NSLocalizedString("Edit Dates", comment: "Header title of the tableview section, indicating when the product data was edited.")
-        static let ExpirationDateHeaderTitle = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
         static let ViewControllerTitle = NSLocalizedString("Community Effort", comment: "Title of view controller, with information on the community that has contributed to the product data.")
-        static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return product != nil ? 4 : 0
+        return product != nil ? 3 : 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,8 +60,6 @@ class CompletionStatesTableViewController: UITableViewController {
         case 1:
             return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
         case 2:
-            return 1
-        case 3:
             return product?.lastEditDates?.count != nil ? product!.lastEditDates!.count : 0
         default:
             return 0
@@ -123,17 +118,6 @@ class CompletionStatesTableViewController: UITableViewController {
             
             cell?.contributor = product!.productContributors.contributors[indexPath.row]
             return cell!
-        } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ExpirationDateCellIdentifier, forIndexPath: indexPath)
-            if let date = product!.expirationDate {
-                let formatter = NSDateFormatter()
-                formatter.dateStyle = .MediumStyle
-                formatter.timeStyle = .NoStyle
-                cell.textLabel!.text = formatter.stringFromDate(date)
-            } else {
-                cell.textLabel!.text = Constants.NoExpirationDate
-            }
-            return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LastEditDateCellIdentifier, forIndexPath: indexPath)
             let formatter = NSDateFormatter()
@@ -156,8 +140,6 @@ class CompletionStatesTableViewController: UITableViewController {
                 return nil
             }
         case 2:
-            return Constants.ExpirationDateHeaderTitle
-        case 3:
             return Constants.LastEditDateHeaderTitle
         default:
             return nil

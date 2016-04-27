@@ -225,7 +225,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUu-zu-IQr">
                                                     <rect key="frame" x="8" y="8" width="584" height="49"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                    <state key="normal" title="Clear Product Search History"/>
+                                                    <state key="normal" title="Clear History"/>
                                                     <connections>
                                                         <action selector="clearProductHistoryTapped:" destination="wkb-2f-GaI" eventType="touchUpInside" id="aFh-4e-4lq"/>
                                                     </connections>
@@ -304,6 +304,7 @@
                     <toolbarItems/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="clearHistoryButton" destination="LUu-zu-IQr" id="aCc-5S-Uza"/>
                         <outlet property="jouleOrCaloriesOutlet" destination="b37-xu-DIS" id="BSR-qA-xAq"/>
                         <outlet property="saltOrSodiumOutlet" destination="9HQ-Hd-LCX" id="FFV-TI-qtX"/>
                         <segue destination="HFz-PM-YvU" kind="unwind" identifier="Settings Done" unwindAction="settingsDone:" id="ISY-Ed-Z4N"/>
@@ -638,7 +639,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="xIo-3N-Ski">
-                            <rect key="frame" x="0.0" y="372" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="416" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -666,8 +667,25 @@
                                     <outlet property="tagListView" destination="90p-cK-O58" id="dSY-88-nDC"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Countries TagListView Cell" id="icw-Tk-lKi" customClass="CountriesTagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Expiration Date Cell" textLabel="HdU-s8-lnp" style="IBUITableViewCellStyleDefault" id="czo-g1-vd4" userLabel="Expiration Date Cell" customClass="MapTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="czo-g1-vd4" id="PUf-5I-3PG">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HdU-s8-lnp">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Countries TagListView Cell" id="icw-Tk-lKi" customClass="CountriesTagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="116" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="icw-Tk-lKi" id="BcU-jz-K82">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -690,7 +708,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Map Cell" rowHeight="256" id="6zJ-kS-IMv" customClass="MapTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="116" width="600" height="256"/>
+                                <rect key="frame" x="0.0" y="160" width="600" height="256"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="6zJ-kS-IMv" id="OBN-Zw-JZX">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="256"/>
@@ -815,7 +833,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Yha-XE-NCI">
-                            <rect key="frame" x="0.0" y="204" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="160" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -941,25 +959,8 @@
                                     <outlet property="photographerLabel" destination="eIG-Cg-S6u" id="KOn-En-kW0"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Expiration Date Cell" textLabel="5lw-Rp-bg8" style="IBUITableViewCellStyleDefault" id="1Gb-SQ-XH5" customClass="ContributorTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="116" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1Gb-SQ-XH5" id="zm5-O7-fgU">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Expiration Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5lw-Rp-bg8">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Edit Date Cell" textLabel="ZjT-hs-fGX" style="IBUITableViewCellStyleDefault" id="mAU-Va-ulk" customClass="ContributorTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="160" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="116" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAU-Va-ulk" id="5aY-gw-3U9">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1451,7 +1452,7 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="54m-Vq-nRb"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="fRX-dv-BPz"/>
     </inferredMetricsTieBreakers>
 </document>

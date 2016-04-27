@@ -248,9 +248,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 if let vc = segue.destinationViewController as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
-                        if let index = selectedIndex {
-                            ppvc.pageIndex = index
-                        }
+                        ppvc.pageIndex = selectedIndex
                     }
                 }
             case Storyboard.ShowSettingsSegueIdentifier:
@@ -283,6 +281,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let vc = segue.sourceViewController as? SettingsTableViewController {
             if vc.historyHasBeenRemoved {
                 products.removeAll()
+                selectedProduct = nil
                 tableView.reloadData()
                 performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
             }

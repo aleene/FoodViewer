@@ -38,21 +38,26 @@ class OFFProducts {
             initList()
             
             if let data = mostRecentProduct.jsonData {
-                let fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-                switch fetchResult {
-                case .Success(let newProduct):
-                    list[0] = newProduct
-                    historyLoadCount! += 1
-                    for (index, storedBarcode) in storedHistory.barcodes.enumerate() {
-                        // skip the first in the history as it already has been loaded
-                        if index > 0 {
-                            fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedBarcode)), index:index)
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                    let fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        switch fetchResult {
+                        case .Success(let newProduct):
+                            self.list[0] = newProduct
+                            self.historyLoadCount! += 1
+                            NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
+                            for (index, storedBarcode) in self.storedHistory.barcodes.enumerate() {
+                                // skip the first in the history as it already has been loaded
+                                if index > 0 {
+                                    self.fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedBarcode)), index:index)
+                                }
+                            }
+                        case .Error(let error):
+                            let userInfo = ["error":error]
+                            self.handleError(userInfo)
                         }
-                    }
-                case .Error(let error):
-                    let userInfo = ["error":error]
-                    self.handleError(userInfo)
-                }
+                    })
+                })
                 
             } else {
                 for (index, storedBarcode) in storedHistory.barcodes.enumerate() {
@@ -62,16 +67,21 @@ class OFFProducts {
             }
         } else {
             historyLoadCount = nil
-            let fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
-            switch fetchResult {
-            case .Success(let newProduct):
-                list.append(newProduct)
-                loadSampleImages()
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-            case .Error(let error):
-                let userInfo = ["error":error]
-                self.handleError(userInfo)
-            }
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                let fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+
+                    switch fetchResult {
+                    case .Success(let newProduct):
+                        self.list.append(newProduct)
+                        self.loadSampleImages()
+                        NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
+                    case .Error(let error):
+                        let userInfo = ["error":error]
+                        self.handleError(userInfo)
+                    }
+                })
+            })
         }
     }
     
@@ -236,53 +246,7 @@ class OFFProducts {
             product!.nutritionImageData = nil
         }
     }
-    
-    /*
-    private func updateProduct(product: FoodProduct?) {
-        if let productToUpdate = product {
-            // should check if the product is not already available
-            if !list.isEmpty {
-                // look at all products
-                var indexExistingProduct: Int? = nil
-                for index in 0 ..< list.count {
-                    // print("products \(products[index].barcode.asString()); update \(productToUpdate.barcode.asString())")
-                    if list[index].barcode.asString() == productToUpdate.barcode.asString() {
-                        indexExistingProduct = index
-                    }
-                }
-                if indexExistingProduct == nil {
-                    // new product not yet in products array
-                    // print("ADD product \(productToUpdate.barcode.asString())")
-                    self.list.append(productToUpdate)
-                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
-                    // add product barcode to history
-                    self.storedHistory.addBarcode(barcode: productToUpdate.barcode.asString())
-                } else {
-                    // print("UPDATE product \(productToUpdate.barcode.asString())")
-                    // reset product information to the retrieved one
-                    self.list[indexExistingProduct!] = productToUpdate
-                    if historyLoadCount != nil {
-                        historyLoadCount! += 1
-                    }
-                }
-            } else {
-                // print("FIRST product \(productToUpdate.barcode.asString())")
-                
-                // this is the first product of the array
-                list.append(productToUpdate)
-                // add product barcode to history
-                self.storedHistory.addBarcode(barcode: productToUpdate.barcode.asString())
-            }
-            // launch image retrieval if needed
-            if (productToUpdate.mainUrl != nil) {
-                if (productToUpdate.mainImageData == nil) {
-                    // get image only if the data is not there yet
-                    retrieveImage(productToUpdate.mainUrl!)
-                }
-            }
-        }
-    }
-    */
+
     private func loadMainImage(product: FoodProduct) {
         if (product.mainUrl != nil) {
             if (product.mainImageData == nil) {

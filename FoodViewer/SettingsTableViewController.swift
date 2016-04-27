@@ -18,7 +18,23 @@ class SettingsTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Settings", comment: "TableViewController title for the settings scene.")
     }
 
-    var storedHistory = History()
+    var storedHistory = History() {
+        didSet {
+            enableClearHistoryButton()
+        }
+    }
+
+    var mostRecentProduct = MostRecentProduct()
+
+    private func enableClearHistoryButton() {
+        if clearHistoryButton != nil {
+            if storedHistory.barcodes.isEmpty {
+                clearHistoryButton.enabled = false
+            } else {
+                clearHistoryButton.enabled = true
+            }
+        }
+    }
     
     var historyHasBeenRemoved = false
     
@@ -49,6 +65,12 @@ class SettingsTableViewController: UITableViewController {
     
     // MARK: - Outlet methods
 
+    @IBOutlet weak var clearHistoryButton: UIButton! {
+        didSet {
+            enableClearHistoryButton()
+        }
+    }
+    
     @IBOutlet weak var saltOrSodiumOutlet: UISegmentedControl! {
         didSet {
             saltOrSodiumOutlet.setTitle(NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAtIndex: 0)
@@ -78,7 +100,9 @@ class SettingsTableViewController: UITableViewController {
 
     @IBAction func clearProductHistoryTapped(sender: UIButton) {
         storedHistory.removeAll()
+        mostRecentProduct.remove()
         historyHasBeenRemoved = true
+        enableClearHistoryButton()
     }
     
     @IBAction func doneButtonTapped(sender: UIBarButtonItem) {

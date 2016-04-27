@@ -4,7 +4,17 @@
 //
 //  Created by arnaud on 03/03/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
-//
+/*
+    This class implements a pageViewController structure for its 6 pages.
+    It implements the necessary PageViewController protocol functions
+    Class passes on the current Product to the viewControllers of the pages.
+    In this class the title of each page is defined and set.
+ 
+    Which page will be shown is determined by the pageIndex.
+    This pageIndex will be set by the parent viewController or changed by the pageViewController itself.
+    If the product is set, when this viewController is active, it will handle a notification.
+*/
+
 
 import UIKit
 
@@ -20,7 +30,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let CategoriesVCIdentifier = "CategoriesTableViewController"
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
     }
-        
+    
+    // MARK: - Storyboard Actions
+
     @IBAction func actionButtonTapped(sender: UIBarButtonItem) {
         if let barcode = product?.barcode.asString() {
             let urlString = Constants.OpenFoodFactsWebEditURL + barcode
@@ -28,32 +40,33 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 UIApplication.sharedApplication().openURL(requestUrl)
             }
         }
-
     }
     
-    var pageIndex = 0 {
+    var pageIndex: Int? = nil {
         didSet {
-            if product != nil {
-                if pages.isEmpty {
-                    initPages()
-                }
-                if pageIndex < 0 || pageIndex > pages.count {
-                    self.pageIndex = 0
-                }
-                // open de corresponding page
-                setViewControllers(
-                    [pages[pageIndex]],
-                    direction: .Forward,
-                    animated: true, completion: nil)
-                title = titles[pageIndex]
+            // has the initialisation been done?
+            if pages.isEmpty {
+                initPages()
             }
+            // do we have a valid pageIndex?
+            if pageIndex < 0 || pageIndex > pages.count || pageIndex == nil {
+                pageIndex = 0
+            }
+            // open de corresponding page
+            setViewControllers(
+                [pages[pageIndex!]],
+                direction: .Forward,
+                animated: true, completion: nil)
+            title = titles[pageIndex!]
         }
     }
     
+    // MARK: - Pages initialization
+    
     private var pages: [UIViewController] = []
     
-    func initPages () {
-        // set up pages
+    private func initPages () {
+        // initialise pages
         if pages.isEmpty {
             pages.append(page1)
             pages.append(page2)
@@ -64,6 +77,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+
     private var titles = [NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info."),
         NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product."),
         NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product."),
@@ -104,27 +118,26 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     var product: FoodProduct? = nil {
         didSet {
-            if pages.isEmpty {
-                initPages()
-                if let vc = pages[0] as? IdentificationTableViewController {
-                    vc.product = product
-                    title = titles[0]
-                }
-                if let vc = pages[1] as? IngredientsTableViewController {
-                    vc.product = product
-                }
-                if let vc = pages[2] as? NutrientsTableViewController {
-                    vc.product = product
-                }
-                if let vc = pages[3] as? SupplyChainTableViewController {
-                    vc.product = product
-                }
-                if let vc = pages[4] as? CategoriesTableViewController {
-                    vc.product = product
-                }
-                if let vc = pages[5] as? CompletionStatesTableViewController {
-                    vc.product = product
-                }
+            // initialise pages
+            initPages()
+            if let vc = pages[0] as? IdentificationTableViewController {
+                vc.product = product
+                title = titles[0]
+            }
+            if let vc = pages[1] as? IngredientsTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[2] as? NutrientsTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[3] as? SupplyChainTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[4] as? CategoriesTableViewController {
+                vc.product = product
+            }
+            if let vc = pages[5] as? CompletionStatesTableViewController {
+                vc.product = product
             }
         }
     }
@@ -191,7 +204,18 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 title = titles[viewControllerIndex]
         }
     }
+    
+    // MARK: - Notification actions
 
+    func loadFirstProduct() {
+        // handle a notification that the first product has been set
+        // this sets the current product and shows the first page
+        let products = OFFProducts.manager
+        product = products.list.first!
+        pageIndex = 0
+    }
+    
+    // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -201,15 +225,21 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
         dataSource = self
         delegate = self
+        
+        initPages()
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        initPages()
+        // listen if a product is set outside of the MasterViewController
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:OFFProducts.Notification.FirstProductLoaded, object:nil)         
     }
+    
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }
-
+    
+    
 }
+
