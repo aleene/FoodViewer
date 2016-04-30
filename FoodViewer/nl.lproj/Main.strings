@@ -7,20 +7,14 @@
 /* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
 "5jY-ES-pZe.text" = "eenh.";
 
-/* Class = "UILabel"; text = "Expiration Date"; ObjectID = "5lw-Rp-bg8"; */
-"5lw-Rp-bg8.text" = "Uiterste houdbaarheidsdatum";
-
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
-"8TO-NA-Iaz.title" = "Cancel";
+"8TO-NA-Iaz.title" = "Annuleer";
 
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[0] = "Salt"; ObjectID = "9HQ-Hd-LCX"; */
 "9HQ-Hd-LCX.segmentTitles[0]" = "Zout";
 
-/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Both"; ObjectID = "9HQ-Hd-LCX"; */
-"9HQ-Hd-LCX.segmentTitles[1]" = "Beide";
-
-/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[2] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
-"9HQ-Hd-LCX.segmentTitles[2]" = "Natrium";
+/* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
+"9HQ-Hd-LCX.segmentTitles[1]" = "Natrium";
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
@@ -31,20 +25,23 @@
 /* Class = "UILabel"; text = "Co"; ObjectID = "Dm8-yq-w79"; */
 "Dm8-yq-w79.text" = "Co";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "HdU-s8-lnp"; */
+"HdU-s8-lnp.text" = "Titel";
+
 /* Class = "UILabel"; text = "Main product brand"; ObjectID = "Hyf-DH-VMK"; */
 "Hyf-DH-VMK.text" = "Hoofdmerk";
 
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
 
-/* Class = "UIButton"; normalTitle = "Clear Product Search History"; ObjectID = "LUu-zu-IQr"; */
-"LUu-zu-IQr.normalTitle" = "Verwijder product historie";
+/* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "LUu-zu-IQr"; */
+"LUu-zu-IQr.normalTitle" = "Verwijder historie";
 
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
 "PY2-Eu-268.text" = "Voedingswaarde";
 
 /* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
-"R0A-Wg-8tw.text" = "Gemeenschapsinzet";
+"R0A-Wg-8tw.text" = "Overzicht gemeenschapsinzet";
 
 /* Class = "UILabel"; text = "Value"; ObjectID = "RoF-y0-Tn8"; */
 "RoF-y0-Tn8.text" = "Waarde";
@@ -53,13 +50,19 @@
 "TUb-j1-7sk.text" = "Suiker";
 
 /* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
-"XeQ-CI-ELW.text" = "Hoeveelheid";
+"XeQ-CI-ELW.text" = "Portie (waarde + eenheid)";
 
 /* Class = "UILabel"; text = "Edit Date"; ObjectID = "ZjT-hs-fGX"; */
-"ZjT-hs-fGX.text" = "Bewerkdatum";
+"ZjT-hs-fGX.text" = "Bewerkingsdatum";
+
+/* Class = "UISegmentedControl"; b37-xu-DIS.segmentTitles[0] = "Joule"; ObjectID = "b37-xu-DIS"; */
+"b37-xu-DIS.segmentTitles[0]" = "Joule";
+
+/* Class = "UISegmentedControl"; b37-xu-DIS.segmentTitles[1] = "Calories"; ObjectID = "b37-xu-DIS"; */
+"b37-xu-DIS.segmentTitles[1]" = "Calories";
 
 /* Class = "UILabel"; text = "No Ingredients Available"; ObjectID = "bVH-wU-k1N"; */
-"bVH-wU-k1N.text" = "Ingrediënten";
+"bVH-wU-k1N.text" = "Geen ingrediënten beschikbaar";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "byp-um-JcW"; */
 "byp-um-JcW.title" = "Instellingen";

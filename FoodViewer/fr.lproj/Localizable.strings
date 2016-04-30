@@ -1,14 +1,17 @@
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(Avertissement: contrôlez les accolades, il manque une)";
 
-/* Cell text for the total number of nutritional facts available. */
-"%@ nutritional facts specified" = "%@ faits nutritionnelles indiqués.";
+/* A list of countries seperated by a comma. */
+"%@" = "%@";
 
-/* A list of countries seperated by a comma. ADD A TRAILING SPACE. */
-"%@, " = "%@, ";
+/* Cell text for the total number of nutritional facts available. */
+"%@ nutritional facts specified." = "%@ faits nutritionnelles indiqués.";
+
+/* A separator of a list of countries. ADD A TRAILING SPACE */
+", " = ", ";
 
 /* A sepator between sentence parts.  ADD A TRAILING SPACE. */
-"; " = ";";
+"; " = "; ";
 
 /* Text when no value for nutritional facts have been specified. */
 "?" = "?";
@@ -21,6 +24,9 @@
 
 /* Text to indicate the number of categories the product belongs to. */
 "Assigned to %@ categories." = "Assigné à %@ catégories.";
+
+/* Text to indicate the product belongs to ONE category. */
+"Assigned to 1 category." = "Assigné à 1 catégorie.";
 
 /* Tableview sectionheader for Barcode */
 "Barcode" = "Code barre";
@@ -71,7 +77,7 @@
 "Error: No result status in JSON" = "Erreur: pas de result status in json";
 
 /* No valid data has been received */
-"Error: No valid data" = "Erreur: pas de données valide";
+"Error: No valid data" = "Erreur: pas de données valides";
 
 /* The JSON file is wrongly formatted. */
 "Error: No verbose status" = "Erreur: pas de status verbose in json";
@@ -187,10 +193,10 @@
 "Packaging complete?" = "Données d'emballage completés?";
 
 /* Title of tableview cell, indicating whether prduct photos have been uploaded. */
-"Photos uploaded complete?" = "Chargement d'images completés?";
+"Photos uploaded complete?" = "Chargement d'images completé?";
 
 /* Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info. */
-"Photos validated complete?" = "Images validés?";
+"Photos validated complete?" = "Validation des photos completé?";
 
 /* Alert title, to indicate retrieving product did not work */
 "Pity" = "Dommage";
@@ -202,7 +208,7 @@
 "Producer Codes" = "Codes emballeurs";
 
 /* Header for section of tableView with information of the producer (name, geographic location). */
-"Producers" = "Produits";
+"Producers" = "Producteurs";
 
 /* Title of tableview cell, indicateding whether the productname has been completed. */
 "Productname complete?" = "Nom produit completé?";
@@ -238,7 +244,7 @@
 "Sodium" = "Sodium";
 
 /* Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE. */
-"Sold by %@ " = "Vendu par %@ ";
+"Sold by %@." = "Vendu par %@ ";
 
 /* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
 "Sold in " = "Vendu en ";
@@ -250,8 +256,11 @@
 /* Text to indicate the number of ingredients in the product. */
 "There are %@ ingredients." = "Produit contient %@ ingrédients.";
 
+/* Text to indicate that there is one ingredient in the product. */
+"There is 1 ingredient." = "Produit contient 1 ingrédient.";
+
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
-"Traces" = "traces";
+"Traces" = "Traces";
 
 /* Text in a TagListView, when no additives (E-numbers) have been detected in the product ingredients. */
 "no additives detected" = "pas d'additives spécifiés";
@@ -269,7 +278,7 @@
 "no countries specified" = "pas de pays de ventes spécifiés";
 
 /* Text in a TagListView, when no image has been specified in the product data. */
-"no image available" = "image pas disponible";
+"no image available" = "photo pas disponible";
 
 /* Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour. */
 "no info available" = "pas d'information disponible";

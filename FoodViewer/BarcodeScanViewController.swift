@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import RSBarcodes_Swift
 import AVFoundation
 
 class BarcodeScanViewController: RSCodeReaderViewController {

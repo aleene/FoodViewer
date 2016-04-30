@@ -1,14 +1,11 @@
 /* Class = "UILabel"; text = "Sat. Fat"; ObjectID = "2PK-oc-6OO"; */
-"2PK-oc-6OO.text" = "Mat. Gr.";
+"2PK-oc-6OO.text" = "Mat.Gr.";
 
 /* Class = "UILabel"; text = "Category summary"; ObjectID = "3Xm-aT-3Hv"; */
 "3Xm-aT-3Hv.text" = "Résumé catégories";
 
 /* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
 "5jY-ES-pZe.text" = "unité";
-
-/* Class = "UILabel"; text = "Expiration Date"; ObjectID = "5lw-Rp-bg8"; */
-"5lw-Rp-bg8.text" = "Date limite d'utilisation";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
 "8TO-NA-Iaz.title" = "Annuler";
@@ -17,7 +14,7 @@
 "9HQ-Hd-LCX.segmentTitles[0]" = "Sel";
 
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[1] = "Sodium"; ObjectID = "9HQ-Hd-LCX"; */
-"9HQ-Hd-LCX.segmentTitles[1]" = "Les deux";
+"9HQ-Hd-LCX.segmentTitles[1]" = "Sodium";
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
@@ -28,17 +25,20 @@
 /* Class = "UILabel"; text = "Co"; ObjectID = "Dm8-yq-w79"; */
 "Dm8-yq-w79.text" = "Co";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "HdU-s8-lnp"; */
+"HdU-s8-lnp.text" = "Titre";
+
 /* Class = "UILabel"; text = "Main product brand"; ObjectID = "Hyf-DH-VMK"; */
 "Hyf-DH-VMK.text" = "Marque principal du produit";
 
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
 
-/* Class = "UIButton"; normalTitle = "Clear Product Search History"; ObjectID = "LUu-zu-IQr"; */
-"LUu-zu-IQr.normalTitle" = "Supprimer Histoire de Recherches";
+/* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "LUu-zu-IQr"; */
+"LUu-zu-IQr.normalTitle" = "Supprimer histoire";
 
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
-"PY2-Eu-268.text" = "Faits Nutritionelles";
+"PY2-Eu-268.text" = "Fait Nutritionelle";
 
 /* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
 "R0A-Wg-8tw.text" = "Résumé effort du communité";
@@ -95,7 +95,7 @@
 "oIt-jg-rzb.text" = "E";
 
 /* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
-"syW-t8-eaP.text" = "Résumé du circuit logistique";
+"syW-t8-eaP.text" = "Résumé circuit logistique";
 
 /* Class = "UIBarButtonItem"; title = "Done"; ObjectID = "t8L-1f-XIl"; */
 "t8L-1f-XIl.title" = "Fini";

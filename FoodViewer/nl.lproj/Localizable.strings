@@ -1,14 +1,17 @@
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haakjes, niet in evenwicht)";
 
-/* Cell text for the total number of nutritional facts available. */
-"%@ nutritional facts specified" = "%@ voedingswaarden aangegeven.";
+/* A list of countries seperated by a comma. */
+"%@" = "%@";
 
-/* A list of countries seperated by a comma. ADD A TRAILING SPACE. */
-"%@, " = "%@, ";
+/* Cell text for the total number of nutritional facts available. */
+"%@ nutritional facts specified." = "%@ voedingswaarden aangegeven.";
+
+/* A separator of a list of countries. ADD A TRAILING SPACE */
+", " = ", ";
 
 /* A sepator between sentence parts.  ADD A TRAILING SPACE. */
-"; " = ";";
+"; " = "; ";
 
 /* Text when no value for nutritional facts have been specified. */
 "?" = "?";
@@ -22,17 +25,20 @@
 /* Text to indicate the number of categories the product belongs to. */
 "Assigned to %@ categories." = "%@ categorieën toegekend.";
 
+/* Text to indicate the product belongs to ONE category. */
+"Assigned to 1 category." = "1 categorie toegekend.";
+
 /* Tableview sectionheader for Barcode */
 "Barcode" = "Streepjescode";
-
-/* Title of first segment in switch, which lets the user select between salt or sodium */
-"Both" = "Beide";
 
 /* Title of tableview cell, indicateding whether the product brand field has been filled in. */
 "Brand(s) complete?" = "Merken(en) ingevuld?";
 
 /* Tableview sectionheader for brands. */
 "Brands" = "Merken";
+
+/* Title of second segment in switch, which lets the user select between joule or calories */
+"Calories" = "Calorieën";
 
 /* Header title for table section with product Categories
    Title of ViewController with the categories the product belongs to.
@@ -43,7 +49,7 @@
 "Categories complete?" = "Categorieën ingevuld?";
 
 /* Tableview sectionheader for long product name */
-"Common Name" = "Uitgebreide naam";
+"Common Name" = "Generieke productnaam";
 
 /* Title of view controller, with information on the community that has contributed to the product data.
    Viewcontroller title for page with community effort for product. */
@@ -62,7 +68,7 @@
 "Edit" = "Bewerk";
 
 /* Header title of the tableview section, indicating when the product data was edited. */
-"Edit Dates" = "Bewerk datums";
+"Edit Dates" = "Bewerkdatums";
 
 /* Alert message, when the product could not be retrieved from Internet. */
 "Error retrieving product" = "Probleem ophalen product.";
@@ -83,13 +89,7 @@
 "Error: URL not matched" = "Fout: URL niet meer relevant";
 
 /* Error to indicate that a file can not be read. */
-"Error: file %@ does not contain translation for %@" = "Fout: bestand %1$@ bevat geen vertaling voor %2$@";
-
-/* Error to indicate that a file can not be read. */
 "Error: file %@ not available" = "Fout: bestand %@ niet vindbaar";
-
-/* Error to indicate that a file can not be read. */
-"Error: file (file) not available" = "Fout bestand (file) niet vindbaar";
 
 /* Header title of the tableview section, indicating the most recent expiration date. */
 "Expiration Date" = "Uiterste houdbaarheidsdatum";
@@ -115,7 +115,10 @@
 "Ingredients Image" = "Ingrediëntenfoto";
 
 /* Title of tableview cell, indicating whether the product ingredients field have been filled in */
-"Ingredients complete?" = "Ingrediënten ingevuld";
+"Ingredients complete?" = "Ingrediënten ingevuld?";
+
+/* Title of first segment in switch, which lets the user select between joule or calories */
+"Joule" = "Joule";
 
 /* Header title for the product labels section, i.e. images, logos, etc. */
 "Labels" = "Keur- en kenmerken";
@@ -136,10 +139,10 @@
 "No categories specified." = "Geen categoriën aangegeven.";
 
 /* String if no common name is available */
-"No common name available" = "Geen uitgebreide naam aangegeven.";
+"No common name available" = "Geen generieke naam aangegeven.";
 
 /* Title of cell when no expiration date is avalable */
-"No expiration date" = "Geen uiterste houdbaarheidsdatum aangegeven";
+"No expiration date" = "Geen uiterste houdbaarheidsdatum aangegeven.";
 
 /* Text to indicate that no ingredients are present in the product data. */
 "No ingredients listed." = "Geen ingrediënten aangegeven.";
@@ -154,7 +157,7 @@
 "No product name" = "Geen productnaam beschikbaar.";
 
 /* Text to indicate that the history of products is empty. */
-"No products listed" = "Geen producten beschikbaar";
+"No products listed" = "Geen producten beschikbaar.";
 
 /* String if no quauntity is available */
 "No quantity available" = "Geen verpakkingsgrootte aangegeven.";
@@ -237,11 +240,11 @@
 /* TableViewController title for the settings scene. */
 "Settings" = "Instellingen";
 
-/* Title of first segment in switch, which lets the user select between salt or sodium */
+/* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
 
 /* Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE. */
-"Sold by %@ " = "Verkocht door %@ ";
+"Sold by %@." = "Verkocht door %@ ";
 
 /* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
 "Sold in " = "Verkocht in ";
@@ -252,6 +255,9 @@
 
 /* Text to indicate the number of ingredients in the product. */
 "There are %@ ingredients." = "Er zijn %@ verschillende ingrediënten.";
+
+/* Text to indicate that there is one ingredient in the product. */
+"There is 1 ingredient." = "Er is 1 ingrediënt.";
 
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
 "Traces" = "Sporen";

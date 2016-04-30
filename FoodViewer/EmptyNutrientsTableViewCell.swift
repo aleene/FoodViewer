@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import TagListView
 
 class EmptyNutrientsTableViewCell: UITableViewCell {
 

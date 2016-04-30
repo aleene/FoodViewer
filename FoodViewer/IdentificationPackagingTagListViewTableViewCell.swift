@@ -8,7 +8,6 @@
 
 import UIKit
 
-import TagListView
 
 class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
 
