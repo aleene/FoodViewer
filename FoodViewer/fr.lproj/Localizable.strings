@@ -53,7 +53,7 @@
 
 /* Title of view controller, with information on the community that has contributed to the product data.
    Viewcontroller title for page with community effort for product. */
-"Community Effort" = "Effort de la communauté d'Open Food Facts";
+"Community Effort" = "Effort communauté";
 
 /* Header title of the tableview section, indicating whether the productdata is complete. */
 "Completeness" = "Exhaustivité";
@@ -139,10 +139,10 @@
 "No categories specified." = "Pas des catégories disponible";
 
 /* String if no common name is available */
-"No common name available" = "Pas de dénomination générique disponible";
+"No common name available" = "Pas disponible";
 
 /* Title of cell when no expiration date is avalable */
-"No expiration date" = "Pas de date limite d'utilisation disponible";
+"No expiration date" = "Pas disponible";
 
 /* Text to indicate that no ingredients are present in the product data. */
 "No ingredients listed." = "Pas des ingrédients disponible";
@@ -290,7 +290,7 @@
 "no labels specified" = "pas de labels spécifiés";
 
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
-"no nutrition data available" = "pas d'informations nutritionnelles spécifiés";
+"no nutrition data available" = "pas d'info nutritionnelles spécifiés";
 
 /* Text for tag in a separate colour, when no packaging infor is available in the product data. */
 "no packing info specified" = "pas de données d'emballage spécifiés";

@@ -18,7 +18,10 @@ class StateTableViewCell: UITableViewCell {
     
     var stateTitle: String? = nil {
         didSet {
-            stateLabel.text = stateTitle != nil ? stateTitle! : NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.") 
+            var stateLabelText = stateTitle != nil ? stateTitle! : NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
+            // add a question mark
+            stateLabelText += "?"
+            stateLabel.text = stateLabelText
         }
     }
     

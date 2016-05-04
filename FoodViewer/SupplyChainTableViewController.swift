@@ -199,7 +199,7 @@ class SupplyChainTableViewController: UITableViewController {
     // MARK: - Notification handler
     
     func reloadMapSection(notification: NSNotification) {
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 6)], withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
 
     func refreshProduct() {
