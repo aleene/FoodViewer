@@ -12,11 +12,6 @@ import UIKit
 class NoNutrientsImageTableViewCell: UITableViewCell {
     
     
-    
-    struct Constants {
-        static let NoTag = NSLocalizedString("no image available", comment: "Text in a TagListView, when no image has been specified in the product data.")
-    }
-    
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
@@ -25,39 +20,19 @@ class NoNutrientsImageTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [String]? = nil {
+    var imageFetchStatus: ImageFetchResult = .NoData {
         didSet {
-            if let list = tagList {
-                tagListView.removeAllTags()
-                let newList = removeEmptyTags(list)
-                if !newList.isEmpty {
-                    for listItem in newList {
-                        tagListView.addTag(listItem)
-                    }
-                    tagListView.tagBackgroundColor = UIColor.greenColor()
-                } else {
-                    tagListView.addTag(Constants.NoTag)
-                    tagListView.tagBackgroundColor = UIColor.orangeColor()
-                }
-            } else {
-                tagListView.removeAllTags()
-                tagListView.addTag(Constants.NoTag)
+            tagListView.removeAllTags()
+            switch imageFetchStatus {
+            case .Success:
+                tagListView.tagBackgroundColor = UIColor.greenColor()
+            case .NoImageAvailable, .NoData, .LoadingFailed:
+                tagListView.tagBackgroundColor = UIColor.redColor()
+            case .Loading:
                 tagListView.tagBackgroundColor = UIColor.orangeColor()
             }
+            tagListView.addTag(imageFetchStatus.description())
         }
     }
-    
-    func removeEmptyTags(list: [String]) -> [String] {
-        var newList: [String] = []
-        if !list.isEmpty {
-            for listItem in list {
-                if listItem.characters.count > 0 {
-                    newList.append(listItem)
-                }
-            }
-        }
-        return newList
-    }
-    
     
 }

@@ -28,9 +28,14 @@ class AllergensFullTableViewCell: UITableViewCell {
                 allergensTagList.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        allergensTagList.addTag(listItem)
+                        allergensTagList.tagBackgroundColor = UIColor.greenColor()
+                        if listItem.contains(":") {
+                            let tagView = allergensTagList.addTag(listItem)
+                            tagView.tagBackgroundColor = UIColor.blueColor()
+                        } else {
+                            allergensTagList.addTag(listItem)
+                        }
                     }
-                    allergensTagList.tagBackgroundColor = UIColor.greenColor()
                 } else {
                     allergensTagList.addTag(Constants.NoTag)
                     allergensTagList.tagBackgroundColor = UIColor.orangeColor()

@@ -21,9 +21,14 @@ class LabelsFullTableViewCell: UITableViewCell {
                 labelsTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        labelsTagListView.addTag(listItem)
+                        labelsTagListView.tagBackgroundColor = UIColor.greenColor()
+                        if listItem.contains(":") {
+                            let tagView = labelsTagListView.addTag(listItem)
+                            tagView.tagBackgroundColor = UIColor.blueColor()
+                        } else {
+                            labelsTagListView.addTag(listItem)
+                        }
                     }
-                    labelsTagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {
                     labelsTagListView.addTag(Constants.NoInformation)
                     labelsTagListView.tagBackgroundColor = UIColor.orangeColor()

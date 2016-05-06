@@ -156,6 +156,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             
                 cell.productBrand = currentProduct.brandsArray
             
+                // TBD I do not think the logic is right here
                 if let data = currentProduct.mainImageSmallData {
                     // try small image
                     cell.productImage = UIImage(data:data)
@@ -165,9 +166,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell.productImage = nil
                     return cell
                 }
-    
-                if currentProduct.mainImageData?.length > 0 {
-                    cell.productImage = UIImage(data:currentProduct.mainImageData!)
+                if let result = currentProduct.mainImageData {
+                    switch result {
+                    case .Success(let data):
+                        cell.productImage = UIImage(data:data)
+                    default:
+                        cell.productImage = nil
+                    }
                 } else {
                     cell.productImage = nil
                 }

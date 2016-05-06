@@ -15,6 +15,7 @@
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
 		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
 		511459361CB1391300D25116 /* VertexNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459351CB1391300D25116 /* VertexNew.swift */; };
+		512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */; };
 		512499A11C6CD0100061A083 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512499A01C6CD0100061A083 /* imageViewController.swift */; };
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0631CBAC3F800161616 /* NutritionFactItem.swift */; };
@@ -129,6 +130,7 @@
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
 		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		511459351CB1391300D25116 /* VertexNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertexNew.swift; sourceTree = "<group>"; };
+		5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetchResult.swift; sourceTree = "<group>"; };
 		51243AA41CA92906003F6D88 /* 20454456.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 20454456.json; sourceTree = "<group>"; };
 		51243AA51CA93DCB003F6D88 /* APIDataFields.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = APIDataFields.txt; path = ../APIDataFields.txt; sourceTree = "<group>"; };
 		512499A01C6CD0100061A083 /* imageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
@@ -286,6 +288,16 @@
 			name = "Test files";
 			sourceTree = "<group>";
 		};
+		5124013E1CDB84910051F120 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				510A38E51CD3B01B00BAEB61 /* TagListView */,
+				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
+				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		513982481C89CEB800250FB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,10 +403,9 @@
 				5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */,
 				516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */,
 				51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */,
-				510A38E51CD3B01B00BAEB61 /* TagListView */,
-				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
-				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
-				51DCD3C91C6A110900D39898 /* Specifics */,
+				5124013E1CDB84910051F120 /* Frameworks */,
+				51E925ED1C678FAC009C52E8 /* Model */,
+				51DCD3C91C6A110900D39898 /* ProductPages */,
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
 				516BA5871CC3ADFD008A094A /* Launch Screen.storyboard */,
 				51DAD3771C5F757A00895513 /* ProductTableCells */,
@@ -461,16 +472,15 @@
 			name = ProductTableCells;
 			sourceTree = "<group>";
 		};
-		51DCD3C91C6A110900D39898 /* Specifics */ = {
+		51DCD3C91C6A110900D39898 /* ProductPages */ = {
 			isa = PBXGroup;
 			children = (
-				51E925ED1C678FAC009C52E8 /* Model */,
 				51C611A71C88B2A2007A9BC5 /* ProductPageViewController.swift */,
 				513982481C89CEB800250FB1 /* Pages */,
 				512499A01C6CD0100061A083 /* imageViewController.swift */,
 				516B327E1C74D9560031EF80 /* EditProductViewController.swift */,
 			);
-			name = Specifics;
+			name = ProductPages;
 			sourceTree = "<group>";
 		};
 		51E5CC9D1CB1106900216868 /* CustomKeyboard */ = {
@@ -497,6 +507,7 @@
 				516B32861C75F6F30031EF80 /* NutritionalGradeLevel.swift */,
 				516B32841C75F5120031EF80 /* NutritionItem.swift */,
 				51F057FA1CB68A3000849532 /* NatriumChloride.swift */,
+				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				516BA5951CC769DD008A094A /* Energy.swift */,
 				516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */,
 				516B32801C75F2430031EF80 /* BarcodeType.swift */,
@@ -611,6 +622,7 @@
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
 				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
+				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
 				512499A11C6CD0100061A083 /* imageViewController.swift in Sources */,
 				517AAD571C81D1DE00B12F3C /* CategoriesExtendedTableViewCell.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,

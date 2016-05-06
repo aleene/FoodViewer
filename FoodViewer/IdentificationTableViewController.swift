@@ -109,48 +109,51 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-            let currentProductSection = tableStructure[indexPath.section]
+        let currentProductSection = tableStructure[indexPath.section]
         
-            switch currentProductSection {
-            case .Barcode:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.barcode.asString()
-                return cell
-            case .Name:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.name != nil ? product!.name! : TextConstants.NoName
-                return cell
-            case .CommonName:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = (product?.commonName != nil) && (!product!.commonName!.isEmpty) ? product!.commonName! : TextConstants.NoCommonName
-                return cell
-            case .Brands:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
-                cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
-                return cell!
-            case .Packaging:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.PackagingCellIdentifier, forIndexPath: indexPath) as? IdentificationPackagingTagListViewTableViewCell
-                cell!.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
-                return cell!
-            case .Quantity:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-                cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : TextConstants.NoQuantity
-                return cell
-            case .Image:
-                if let data = product?.getMainImageData() {
+        switch currentProductSection {
+        case .Barcode:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+            cell.textLabel?.text = product?.barcode.asString()
+            return cell
+        case .Name:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+            cell.textLabel?.text = product?.name != nil ? product!.name! : TextConstants.NoName
+            return cell
+        case .CommonName:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+            cell.textLabel?.text = (product?.commonName != nil) && (!product!.commonName!.isEmpty) ? product!.commonName! : TextConstants.NoCommonName
+            return cell
+        case .Brands:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
+            cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
+            return cell!
+        case .Packaging:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.PackagingCellIdentifier, forIndexPath: indexPath) as? IdentificationPackagingTagListViewTableViewCell
+            cell!.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
+            return cell!
+        case .Quantity:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+            cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : TextConstants.NoQuantity
+            return cell
+        case .Image:
+            if let result = product?.getMainImageData() {
+                switch result {
+                case .Success(let data):
                     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
-                    cell!.identificationImage = UIImage(data:data)
+                    cell?.identificationImage = UIImage(data:data)
                     return cell!
-                } else if product?.mainUrl != nil {
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
-                    cell!.identificationImage = nil
-                    return cell!
-                } else {
+                default:
                     let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
-                    cell?.tagList = []
+                    cell?.imageFetchStatus = result
                     return cell!
                 }
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
+                cell?.imageFetchStatus = ImageFetchResult.NoImageAvailable
+                return cell!
             }
+        }
     }
     
     private struct Constants {
@@ -216,10 +219,15 @@ class IdentificationTableViewController: UITableViewController {
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
                 if let vc = segue.destinationViewController as? imageViewController {
-                    if let data = product?.mainImageData {
-                        vc.image = UIImage(data:data)
+                    if let result = product?.mainImageData {
+                        switch result {
+                        case .Success(let data):
+                            vc.image = UIImage(data: data)
+                            vc.imageTitle = TextConstants.ShowIdentificationTitle
+                        default:
+                            vc.image = nil
+                        }
                     }
-                    vc.imageTitle = TextConstants.ShowIdentificationTitle
                 }
             default: break
             }
@@ -233,11 +241,10 @@ class IdentificationTableViewController: UITableViewController {
         let imageURL = userInfo!["imageURL"] as? NSURL
         // only reload the section of image if it is meant for the current product
         if imageURL == product?.mainUrl {
-            if product != nil {
-                if let index = imageSection(tableStructure) {
-                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: index)], withRowAnimation:UITableViewRowAnimation.Fade)
-                }
-            }
+            tableView.reloadData()
+            //if let index = imageSection(tableStructure) {
+            //    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: index)], withRowAnimation:UITableViewRowAnimation.Fade)
+            //}
         }
     }
     

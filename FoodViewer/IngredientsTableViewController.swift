@@ -32,11 +32,6 @@ class IngredientsTableViewController: UITableViewController {
             if product != nil {
                 ingredientsImage = nil
                 tableStructureForProduct = analyseProductForTable(product!)
-                /*
-                if product!.imageIngredientsUrl != nil {
-                    retrieveImage(product!.imageIngredientsUrl!)
-                }
-                 */
                 refreshProduct()
             }
         }
@@ -103,19 +98,20 @@ class IngredientsTableViewController: UITableViewController {
             cell?.tagList = product!.labelArray
             return cell!
         case .Image:
-            if let data = product?.getIngredientsImageData() {
-                // try large image
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
-                cell!.ingredientsImage = UIImage(data:data)
-                return cell!
-            } else if product?.imageIngredientsUrl != nil {
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
-                cell!.ingredientsImage = nil
-                return cell!
+            if let result = product?.getIngredientsImageData() {
+                switch result {
+                case .Success(let data):
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
+                    cell?.ingredientsImage = UIImage(data:data)
+                    return cell!
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoImageCellIdentifier, forIndexPath: indexPath) as? NoImageTableViewCell
+                    cell?.imageFetchStatus = result
+                    return cell!
+                }
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoImageCellIdentifier, forIndexPath: indexPath) as? NoImageTableViewCell
-                
-                cell?.tagList = []
+                cell?.imageFetchStatus = ImageFetchResult.NoImageAvailable
                 return cell!
             }
         }
@@ -197,11 +193,16 @@ class IngredientsTableViewController: UITableViewController {
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
                 if let vc = segue.destinationViewController as? imageViewController {
-                    if let data = product?.getIngredientsImageData() {
+                    if let result = product?.getIngredientsImageData() {
                         // try large image
-                        vc.image = UIImage(data:data)
+                        switch result {
+                        case .Success(let data):
+                            vc.image = UIImage(data: data)
+                            vc.imageTitle = TextConstants.ShowIdentificationTitle
+                        default:
+                            vc.image = nil
+                        }
                     }
-                    vc.imageTitle = TextConstants.ShowIdentificationTitle
                 }
             default: break
             }
@@ -211,8 +212,8 @@ class IngredientsTableViewController: UITableViewController {
     // MARK: - Notification handler
     
     func reloadImageSection(notification: NSNotification) {
-        
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadData()
+        // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
     func refreshProduct() {

@@ -43,7 +43,7 @@ class FoodProduct {
      var mainImageSmallData: NSData? = nil
 
     var mainUrl: NSURL? = nil
-    var mainImageData: NSData? = nil {
+    var mainImageData: ImageFetchResult? = nil {
         didSet {
             if mainImageData != nil {
                 let userInfo = ["imageURL":mainUrl!]
@@ -61,7 +61,7 @@ class FoodProduct {
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil
-    var ingredientsImageData: NSData? = nil {
+    var ingredientsImageData: ImageFetchResult? = nil {
         didSet {
             if ingredientsImageData != nil {
                 let userInfo = ["imageURL":imageIngredientsUrl!]
@@ -104,7 +104,7 @@ class FoodProduct {
      */
 
     var nutritionFactsImageUrl: NSURL? = nil
-    var nutritionImageData: NSData? {
+    var nutritionImageData: ImageFetchResult? {
         didSet {
             if nutritionImageData != nil {
                 let userInfo = ["imageURL":nutritionFactsImageUrl!]
@@ -113,34 +113,28 @@ class FoodProduct {
         }
     }
     
-    func getNutritionImageData() -> NSData? {
+    func getNutritionImageData() -> ImageFetchResult {
         if nutritionImageData == nil {
             // launch the image retrieval
             retrieveNutritionImageData()
-            return nil
-        } else {
-            return nutritionImageData
         }
+        return nutritionImageData!
     }
     
-    func getMainImageData() -> NSData? {
+    func getMainImageData() -> ImageFetchResult {
         if mainImageData == nil {
             // launch the image retrieval
             retrieveMainImageData()
-            return nil
-        } else {
-            return mainImageData
         }
+        return mainImageData!
     }
 
-    func getIngredientsImageData() -> NSData? {
+    func getIngredientsImageData() -> ImageFetchResult {
         if ingredientsImageData == nil {
             // launch the image retrieval
             retrieveIngredientsImageData()
-            return nil
-        } else {
-            return ingredientsImageData
         }
+        return ingredientsImageData!
     }
 
     
@@ -379,8 +373,15 @@ class FoodProduct {
         return false
     }
     
+    struct ImageFetchErrors {
+        static let NoData = "No Data"
+        static let Loading = "Loading"
+        static let LoadingFailed = "Loading Failed"
+    }
+
     private func retrieveNutritionImageData() {
         if let imageURL = nutritionFactsImageUrl {
+            self.nutritionImageData = .Loading
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
                 do {
                     // This only works if you add a line to your Info.plist
@@ -391,19 +392,30 @@ class FoodProduct {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             // set the received image data to the current product if valid
-                            self.nutritionImageData = imageData
+                            self.nutritionImageData = .Success(imageData)
+                        })
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image data to the current product if valid
+                            self.nutritionImageData = .NoData
                         })
                     }
                 }
                 catch {
-                    print(error)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        // set the received image data to the current product if valid
+                        self.nutritionImageData = .LoadingFailed(error)
+                    })
                 }
             })
+        } else {
+            self.nutritionImageData = .NoData
         }
     }
 
     private func retrieveMainImageData() {
         if let imageURL = mainUrl {
+            self.mainImageData = .Loading
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
                 do {
                     // This only works if you add a line to your Info.plist
@@ -414,19 +426,30 @@ class FoodProduct {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             // set the received image data to the current product if valid
-                            self.mainImageData = imageData
+                            self.mainImageData = .Success(imageData)
+                        })
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image data to the current product if valid
+                            self.mainImageData = .NoData
                         })
                     }
                 }
                 catch {
-                    print(error)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        // set the received image data to the current product if valid
+                        self.mainImageData = .LoadingFailed(error)
+                    })
                 }
             })
+        } else {
+            self.mainImageData = .NoData
         }
     }
 
     private func retrieveIngredientsImageData() {
         if let imageURL = imageIngredientsUrl {
+            self.ingredientsImageData = .Loading
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
                 do {
                     // This only works if you add a line to your Info.plist
@@ -437,14 +460,27 @@ class FoodProduct {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             // set the received image data to the current product if valid
-                            self.ingredientsImageData = imageData
+                            self.ingredientsImageData = .Success(imageData)
                         })
+                    } else {
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            // set the received image data to the current product if valid
+                            self.ingredientsImageData = .NoData
+                        })
+
                     }
+                    
                 }
                 catch {
-                    print(error)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        // set the received image data to the current product if valid
+                        self.ingredientsImageData = .LoadingFailed(error)
+                    })
                 }
             })
+        } else {
+            self.mainImageData = .NoData
+
         }
     }
 

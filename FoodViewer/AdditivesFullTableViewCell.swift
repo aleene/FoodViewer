@@ -28,9 +28,14 @@ class AdditivesFullTableViewCell: UITableViewCell {
                 additivesTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        additivesTagListView.addTag(listItem)
+                        additivesTagListView.tagBackgroundColor = UIColor.greenColor()
+                        if listItem.contains(":") {
+                            let tagView = additivesTagListView.addTag(listItem)
+                            tagView.tagBackgroundColor = UIColor.blueColor()
+                        } else {
+                            additivesTagListView.addTag(listItem)
+                        }
                     }
-                    additivesTagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {
                     additivesTagListView.addTag(Constants.NoTag)
                     additivesTagListView.tagBackgroundColor = UIColor.orangeColor()

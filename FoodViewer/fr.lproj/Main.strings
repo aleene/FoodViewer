@@ -38,7 +38,7 @@
 "LUu-zu-IQr.normalTitle" = "Supprimer histoire";
 
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
-"PY2-Eu-268.text" = "Fait Nutritionelle";
+"PY2-Eu-268.text" = "Valeur Nutritionnelle";
 
 /* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
 "R0A-Wg-8tw.text" = "Résumé effort du communité";
@@ -71,7 +71,7 @@
 "eIG-Cg-S6u.text" = "P";
 
 /* Class = "UILabel"; text = "Nutritional Facts"; ObjectID = "eWS-0h-9I9"; */
-"eWS-0h-9I9.text" = "Faits nutritionelles";
+"eWS-0h-9I9.text" = "Valeurs nutritionnelles";
 
 /* Class = "UITableViewController"; title = "Products"; ObjectID = "gMe-4s-6cz"; */
 "gMe-4s-6cz.title" = "Produits";

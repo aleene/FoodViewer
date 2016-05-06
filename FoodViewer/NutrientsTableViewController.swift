@@ -133,29 +133,20 @@ class NutrientsTableViewController: UITableViewController {
             }
 
         case .NutritionImage:
-            if let data = product?.getNutritionImageData() {
-                // try large image
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
-                cell!.nutritionFactsImage = UIImage(data: data)
-                return cell!
-                /*
-            } else if let data = product?.nutritionImageSmallData {
-                // use small image
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
-                cell!.nutritionFactsImage = UIImage(data: data)
-                return cell!
-                 */
-            } else if product?.nutritionFactsImageUrl != nil {
-                // show not yet available image
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
-                // show not yet retrieved image
-                cell!.nutritionFactsImage = nil
-                return cell!
+            if let result = product?.getNutritionImageData() {
+                switch result {
+                case .Success(let data):
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? NutrientsImageTableViewCell
+                    cell?.nutritionFactsImage = UIImage(data:data)
+                    return cell!
+                default:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoNutrientsImageCellIdentifier, forIndexPath: indexPath) as? NoNutrientsImageTableViewCell
+                    cell?.imageFetchStatus = result
+                    return cell!
+                }
             } else {
-                // show not available tag
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoNutrientsImageCellIdentifier, forIndexPath: indexPath) as? NoNutrientsImageTableViewCell
-                
-                cell!.tagList = []
+                cell?.imageFetchStatus = ImageFetchResult.NoImageAvailable
                 return cell!
             }
         }
@@ -222,9 +213,14 @@ class NutrientsTableViewController: UITableViewController {
             switch identifier {
             case Storyboard.ShowNutritionFactsImageSegueIdentifier:
                 if  let vc = segue.destinationViewController as? imageViewController,
-                    let data = product?.nutritionImageData {
-                    vc.image = UIImage(data: data)
-                    vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
+                    let result = product?.nutritionImageData {
+                    switch result {
+                    case .Success(let data):
+                        vc.image = UIImage(data: data)
+                        vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
+                    default:
+                        vc.image = nil
+                    }
                 }
             default: break
             }
@@ -245,9 +241,8 @@ class NutrientsTableViewController: UITableViewController {
             let imageURL = userInfo!["imageURL"] as? NSURL
             // only reload the section of image if it is meant for the current product
             if imageURL == product?.nutritionFactsImageUrl {
-                if product != nil {
-                    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation:UITableViewRowAnimation.Fade)
-                }
+                tableView.reloadData()
+                // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation:UITableViewRowAnimation.Fade)
             }
     }
 

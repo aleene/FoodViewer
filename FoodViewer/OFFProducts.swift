@@ -86,9 +86,21 @@ class OFFProducts {
     }
     
     func loadSampleImages() {
-        list[0]?.mainImageData = NSData(contentsOfFile: "SampleMain")
-        list[0]?.ingredientsImageData = NSData(contentsOfFile: "SampleIngredients")
-        list[0]?.nutritionImageData = NSData(contentsOfFile: "SampleNutrition")
+        if let data = NSData(contentsOfFile: "SampleMain") {
+            list[0]?.mainImageData = .Success(data)
+        } else {
+            list[0]?.mainImageData = .NoData
+        }
+        if let data = NSData(contentsOfFile: "SampleIngredients") {
+            list[0]?.ingredientsImageData = .Success(data)
+        } else {
+            list[0]?.ingredientsImageData = .NoData
+        }
+        if let data = NSData(contentsOfFile: "SampleNutrition") {
+            list[0]?.nutritionImageData = .Success(data)
+        } else {
+            list[0]?.nutritionImageData = .NoData
+        }
     }
     
     private func initList() {
@@ -288,7 +300,7 @@ class OFFProducts {
                                         }
                                     }
                                     if indexExistingProduct != nil {
-                                        self.list[indexExistingProduct!]!.mainImageData = imageData
+                                        self.list[indexExistingProduct!]!.mainImageData = .Success(imageData)
                                     }
                                     NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
                                 } // else bad luck corresponding product is no longer there

@@ -47,7 +47,7 @@ class IdentificationImageTableViewCell: UITableViewCell {
                 // print("cell: \(self.contentView.bounds.size)")
                 /*productImageView.image = newImage.squareCropImageToSideLength(productImageView) */
             } else {
-                identificationImageView?.image = UIImage(named: "NoImage")
+                identificationImageView?.image = UIImage(named: "ImageLoading")
             }
 
         }

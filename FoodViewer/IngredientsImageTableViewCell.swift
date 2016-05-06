@@ -41,7 +41,7 @@ class IngredientsImageTableViewCell: UITableViewCell {
                 
                 ingredientsImageView.contentMode = .Center
             } else {
-                ingredientsImageView?.image = UIImage(named: "NoImage")
+                ingredientsImageView?.image = UIImage(named: "ImageLoading")
             }
         }
     }

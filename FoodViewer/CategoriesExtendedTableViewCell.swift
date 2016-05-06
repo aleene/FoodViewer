@@ -29,7 +29,12 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
                 if !list.isEmpty {
                     listTagListView.tagBackgroundColor = UIColor.greenColor()
                     for listItem in list {
-                        listTagListView.addTag(listItem)
+                        if listItem.contains(":") {
+                            let tagView = listTagListView.addTag(listItem)
+                            tagView.tagBackgroundColor = UIColor.blueColor()
+                        } else {
+                            listTagListView.addTag(listItem)
+                        }
                     }
                 } else {
                     listTagListView.tagBackgroundColor = UIColor.orangeColor()

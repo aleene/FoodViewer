@@ -28,9 +28,14 @@ class TracesFullTableViewCell: UITableViewCell {
                 tracesTagList.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        tracesTagList.addTag(listItem)
+                        tracesTagList.tagBackgroundColor = UIColor.greenColor()
+                        if listItem.contains(":") {
+                            let tagView = tracesTagList.addTag(listItem)
+                            tagView.tagBackgroundColor = UIColor.blueColor()
+                        } else {
+                            tracesTagList.addTag(listItem)
+                        }
                     }
-                    tracesTagList.tagBackgroundColor = UIColor.greenColor()
                 } else {
                     tracesTagList.addTag(Constants.NoTag)
                     tracesTagList.tagBackgroundColor = UIColor.orangeColor()
