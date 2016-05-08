@@ -237,13 +237,7 @@ class NutrientsTableViewController: UITableViewController {
     }
     
     func reloadImageSection(notification: NSNotification) {
-            let userInfo = notification.userInfo
-            let imageURL = userInfo!["imageURL"] as? NSURL
-            // only reload the section of image if it is meant for the current product
-            if imageURL == product?.nutritionFactsImageUrl {
-                tableView.reloadData()
-                // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 2)], withRowAnimation:UITableViewRowAnimation.Fade)
-            }
+        tableView.reloadData()
     }
 
     func refreshProductWithNewNutritionFacts() {

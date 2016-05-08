@@ -86,21 +86,36 @@ class OFFProducts {
     }
     
     func loadSampleImages() {
-        if let data = NSData(contentsOfFile: "SampleMain") {
-            list[0]?.mainImageData = .Success(data)
+
+        // The images are read from the assets catalog as UIImage
+        // this ensure that the right resolution will be read
+        // and then they are interbally stored as PNG data
+        if let image = UIImage(named: "SampleMain") {
+            if let data = UIImagePNGRepresentation(image) {
+                list[0]?.mainImageData = .Success(data)
+            }
         } else {
             list[0]?.mainImageData = .NoData
         }
-        if let data = NSData(contentsOfFile: "SampleIngredients") {
-            list[0]?.ingredientsImageData = .Success(data)
+        
+        if let image = UIImage(named: "SampleIngredients") {
+            if let data = UIImagePNGRepresentation(image) {
+                list[0]?.ingredientsImageData = .Success(data)
+            }
         } else {
             list[0]?.ingredientsImageData = .NoData
         }
-        if let data = NSData(contentsOfFile: "SampleNutrition") {
-            list[0]?.nutritionImageData = .Success(data)
+        
+        if let image = UIImage(named: "SampleNutrition") {
+            if let data = UIImagePNGRepresentation(image) {
+                list[0]?.nutritionImageData = .Success(data)
+            }
         } else {
             list[0]?.nutritionImageData = .NoData
         }
+
+        list[0]?.name = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
+        list[0]?.commonName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
     }
     
     private func initList() {
@@ -154,29 +169,39 @@ class OFFProducts {
         }
     }
 
-    func fetchProduct(barcode: BarcodeType?) {
-        if (barcode != nil) && (barcodeIsNew(barcode!)) {
-            let request = OpenFoodFactsRequest()
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            // loading the product from internet will be done off the main queue
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                let fetchResult = request.fetchProductForBarcode(barcode!)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    switch fetchResult {
-                    case .Success(let newProduct):
-                        self.list.insert(newProduct, atIndex:0)
+    func fetchProduct(barcode: BarcodeType?) -> Int? {
+        
+        if let newBarcode = barcode {
+            // is the product already in the history list?
+            if let productIndexInHistory = isProductInHistory(newBarcode) {
+                return productIndexInHistory
+            } else {
+                // retrieve this new product
+                let request = OpenFoodFactsRequest()
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                // loading the product from internet will be done off the main queue
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    let fetchResult = request.fetchProductForBarcode(barcode!)
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        switch fetchResult {
+                        case .Success(let newProduct):
+                            self.list.insert(newProduct, atIndex:0)
                         // add product barcode to history
-                        self.storedHistory.addBarcode(barcode: newProduct.barcode.asString())
-                        self.loadMainImage(newProduct)
-                        self.saveMostRecentProduct(barcode!)
-                        NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                    case .Error(let error):
-                        let userInfo = ["error":error]
-                        self.handleError(userInfo)
-                    }
+                            self.storedHistory.addBarcode(barcode: newProduct.barcode.asString())
+                            // self.loadMainImage(newProduct)
+                            self.saveMostRecentProduct(barcode!)
+                            NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
+                        case .Error(let error):
+                            let userInfo = ["error":error]
+                            self.handleError(userInfo)
+                        }
+                    })
                 })
-            })
+                return nil
+            }
+        } else {
+            return nil
         }
     }
     
@@ -205,13 +230,13 @@ class OFFProducts {
         NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductNotAvailable, object:nil, userInfo: userInfo)
     }
 
-    private func barcodeIsNew(newBarcode: BarcodeType) -> Bool {
-        for product in list {
+    private func isProductInHistory(newBarcode: BarcodeType) -> Int? {
+        for (index, product) in list.enumerate() {
             if product!.barcode.asString() == newBarcode.asString() {
-                return false
+                return index
             }
         }
-        return true
+        return nil
     }
     
     func reload(product: FoodProduct) {
@@ -259,6 +284,7 @@ class OFFProducts {
         }
     }
 
+    /*
     private func loadMainImage(product: FoodProduct) {
         if (product.mainUrl != nil) {
             if (product.mainImageData == nil) {
@@ -314,6 +340,7 @@ class OFFProducts {
             }
         }
         
+ 
     private func retrieveMainThumbnailImage(url: NSURL?) {
         if let imageURL = url {
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
@@ -350,6 +377,6 @@ class OFFProducts {
             })
         }
     }
-    
+    */
 
 }

@@ -236,16 +236,8 @@ class IdentificationTableViewController: UITableViewController {
     
     // MARK: - Notification handler
     
-    func reloadImageSection(notification: NSNotification) {
-        let userInfo = notification.userInfo
-        let imageURL = userInfo!["imageURL"] as? NSURL
-        // only reload the section of image if it is meant for the current product
-        if imageURL == product?.mainUrl {
-            tableView.reloadData()
-            //if let index = imageSection(tableStructure) {
-            //    tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: index)], withRowAnimation:UITableViewRowAnimation.Fade)
-            //}
-        }
+    func reloadImageSection() {
+        tableView.reloadData()
     }
     
     private func imageSection(array: [SectionType]) -> Int? {
@@ -296,7 +288,7 @@ class IdentificationTableViewController: UITableViewController {
 
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.MainImageSet, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:FoodProduct.Notification.MainImageSet, object:nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
 

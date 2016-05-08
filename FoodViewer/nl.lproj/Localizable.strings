@@ -249,6 +249,9 @@
 /* Title of first segment in switch, which lets the user select between salt or sodium */
 "Salt" = "Zout";
 
+/* Product name of the product shown at first start */
+"Sample Product for Demonstration, the globally known M&M's" = "Voorbeeldproduct voor demonstratiedoeleinde, de wereldwijd bekende M&Ms.";
+
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portiegrootte";
 
@@ -273,6 +276,9 @@
 
 /* Text to indicate that there is one ingredient in the product. */
 "There is 1 ingredient." = "Er is 1 ingrediënt.";
+
+/* An explanatory text in the common name field. */
+"This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dit voorbeeldproduct laat zien hoe de productinformatie wordt getoond. Swipe naar de volgende pagina's om meer productdetails te zien. Na het scannen van het eerste product wordt dit voorbeeldproduct verwijderd.";
 
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
 "Traces" = "Sporen";

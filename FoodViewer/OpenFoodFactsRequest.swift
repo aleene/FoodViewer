@@ -990,16 +990,29 @@ class OpenFoodFactsRequest {
 
     private func decodeDate(date: String?) -> NSDate? {
         if let validDate = date {
-            let dateFormatter = NSDateFormatter()
-            // dateFormatter.locale = NSLocale(localeIdentifier: "EN_en")
-            // a valid date format is 20/07/2014
-            // but othe formats are possible
-            if validDate.rangeOfString( "../../....", options: .RegularExpressionSearch) != nil {
-                dateFormatter.dateFormat = "dd/MM/yyyy"
-                if let newDate = dateFormatter.dateFromString(validDate) {
-                    
-                    return newDate
+            if !validDate.isEmpty {
+                let types: NSTextCheckingType = [.Date]
+                let dateDetector = try? NSDataDetector(types: types.rawValue)
+            
+                let dateMatches = dateDetector?.matchesInString(validDate, options: [], range: NSMakeRange(0, (validDate as NSString).length))
+            
+                if let matches = dateMatches {
+                    if !matches.isEmpty {
+                        // did we find a date?
+                        if matches[0].resultType == NSTextCheckingType.Date {
+                            return matches[0].date
+                        }
+                    }
                 }
+                let dateFormatter = NSDateFormatter()
+                // This is for formats not recognized by NSDataDetector
+                // such as 07/2014
+                // but other formats are possible and still need to be found
+                if validDate.rangeOfString( "../....", options: .RegularExpressionSearch) != nil {
+                    dateFormatter.dateFormat = "MM/yyyy"
+                    return dateFormatter.dateFromString(validDate)
+                }
+                print("Date '\(validDate)' could not be recognized")
             }
         }
         return nil

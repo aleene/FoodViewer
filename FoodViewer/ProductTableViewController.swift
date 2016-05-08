@@ -24,7 +24,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     private var barcode: BarcodeType? = nil {
         didSet {
-            products.fetchProduct(barcode)
+            let indexInHistory = products.fetchProduct(barcode)
+            if  indexInHistory != nil {
+                selectedProduct = products.list[indexInHistory!]
+                tableView.reloadData()
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: indexInHistory!), atScrollPosition: .Middle, animated: true)
+            }
         }
     }
     

@@ -46,8 +46,7 @@ class FoodProduct {
     var mainImageData: ImageFetchResult? = nil {
         didSet {
             if mainImageData != nil {
-                let userInfo = ["imageURL":mainUrl!]
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object:nil, userInfo: userInfo)
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object:nil)
             }
         }
     }
@@ -64,8 +63,7 @@ class FoodProduct {
     var ingredientsImageData: ImageFetchResult? = nil {
         didSet {
             if ingredientsImageData != nil {
-                let userInfo = ["imageURL":imageIngredientsUrl!]
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.IngredientsImageSet, object: nil, userInfo: userInfo)
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.IngredientsImageSet, object: nil)
             }
         }
     }
@@ -107,24 +105,29 @@ class FoodProduct {
     var nutritionImageData: ImageFetchResult? {
         didSet {
             if nutritionImageData != nil {
-                let userInfo = ["imageURL":nutritionFactsImageUrl!]
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.NutritionImageSet, object: nil, userInfo: userInfo)
+                NSNotificationCenter.defaultCenter().postNotificationName(Notification.NutritionImageSet, object: nil)
             }
         }
     }
     
-    func getNutritionImageData() -> ImageFetchResult {
+    func getNutritionImageData() -> ImageFetchResult? {
         if nutritionImageData == nil {
+            nutritionImageData = .Loading
             // launch the image retrieval
-            retrieveNutritionImageData()
+            nutritionImageData?.retrieveImageData(mainUrl) { (fetchResult:ImageFetchResult?) in
+                self.nutritionImageData = fetchResult
+            }
         }
-        return nutritionImageData!
+        return nutritionImageData
     }
     
     func getMainImageData() -> ImageFetchResult {
         if mainImageData == nil {
             // launch the image retrieval
-            retrieveMainImageData()
+            mainImageData = .Loading
+            mainImageData?.retrieveImageData(mainUrl) { (fetchResult:ImageFetchResult?) in
+                self.mainImageData = fetchResult
+            }
         }
         return mainImageData!
     }
@@ -132,7 +135,10 @@ class FoodProduct {
     func getIngredientsImageData() -> ImageFetchResult {
         if ingredientsImageData == nil {
             // launch the image retrieval
-            retrieveIngredientsImageData()
+            ingredientsImageData = .Loading
+            ingredientsImageData?.retrieveImageData(imageIngredientsUrl) { (fetchResult:ImageFetchResult?) in
+                self.ingredientsImageData = fetchResult
+            }
         }
         return ingredientsImageData!
     }
@@ -373,15 +379,10 @@ class FoodProduct {
         return false
     }
     
-    struct ImageFetchErrors {
-        static let NoData = "No Data"
-        static let Loading = "Loading"
-        static let LoadingFailed = "Loading Failed"
-    }
-
-    private func retrieveNutritionImageData() {
-        if let imageURL = nutritionFactsImageUrl {
-            self.nutritionImageData = .Loading
+    /*
+    private func retrieveImageData(url: NSURL?, cont: ((ImageFetchResult?) -> Void)?) {
+        if let imageURL = url {
+            // self.nutritionImageData = .Loading
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
                 do {
                     // This only works if you add a line to your Info.plist
@@ -392,24 +393,28 @@ class FoodProduct {
                         // if we have the image data we can go back to the main thread
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             // set the received image data to the current product if valid
-                            self.nutritionImageData = .Success(imageData)
+                            cont?(.Success(imageData))
+                            return
                         })
                     } else {
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             // set the received image data to the current product if valid
-                            self.nutritionImageData = .NoData
+                            cont?(.NoData)
+                            return
                         })
                     }
                 }
                 catch {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         // set the received image data to the current product if valid
-                        self.nutritionImageData = .LoadingFailed(error)
+                        cont?(.LoadingFailed(error))
+                        return
                     })
                 }
             })
         } else {
-            self.nutritionImageData = .NoData
+            cont?(.NoData)
+            return
         }
     }
 
@@ -483,7 +488,8 @@ class FoodProduct {
 
         }
     }
-
+     */
+    
     // updates a product with new product data
     func updateDataWith(product: FoodProduct) {
         // all image data is set to nil, in order to force a reload

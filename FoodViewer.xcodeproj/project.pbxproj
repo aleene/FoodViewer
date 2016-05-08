@@ -291,6 +291,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				510A38E51CD3B01B00BAEB61 /* TagListView */,
 				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
 				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
@@ -498,7 +499,6 @@
 			children = (
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
 				51E614931C8349AD00DAEE6C /* History.swift */,
-				51EA98B71C64A3DD000A503D /* JSON.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				5114592A1CB1368E00D25116 /* Status.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
