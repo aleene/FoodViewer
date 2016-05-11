@@ -34,13 +34,46 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // MARK: - Storyboard Actions
 
     @IBAction func actionButtonTapped(sender: UIBarButtonItem) {
+        
+        var sharingItems = [AnyObject]()
+
+        if let text = product?.name {
+            sharingItems.append(text)
+        }
+        
+        if let data = product?.mainImageSmallData,
+            let image = UIImage(data:data) {
+            sharingItems.append(image)
+        }
+        
+        if let url = product?.worldURL() {
+            sharingItems.append(url)
+        }
+        
+        let activity = TUSafariActivity()
+
+        let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: [activity])
+        
+        activityViewController.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypePrint, UIActivityTypeOpenInIBooks, UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList]
+        
+        // This is necessary for the iPad
+        let presCon = activityViewController.popoverPresentationController
+        presCon?.barButtonItem = sender
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
+
+
+        
+        /*
+        
         if let barcode = product?.barcode.asString() {
             let urlString = Constants.OpenFoodFactsWebEditURL + barcode
             if let requestUrl = NSURL(string: urlString) {
                 UIApplication.sharedApplication().openURL(requestUrl)
             }
         }
-    }
+         */
     
     var pageIndex: Int? = nil {
         didSet {

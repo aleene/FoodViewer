@@ -24,6 +24,7 @@ class Preferences {
     init() {
         showSaltOrSodium = NatriumChloride.Salt
         showCaloriesOrJoule = Energy.Joule
+        
         mapAddress = Address()
         mapAddress.title = "Address used for center of map"
         let locale = NSLocale.currentLocale()

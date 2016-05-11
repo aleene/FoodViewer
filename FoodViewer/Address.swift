@@ -33,18 +33,23 @@ class Address {
     }
  */
     var language: String = ""
+    var raw: String = ""
     
     enum CoordinateFetchResult {
         case Error(String)
-        // case SearchStarted
+        case SearchStarted
         case Success([CLLocationCoordinate2D])
     }
 
     var coordinates: CoordinateFetchResult? = nil {
         didSet {
-            if coordinates != nil {
-                let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.CoordinateHasBeenSet, object:nil, userInfo: userInfo)
+            if let validCoordinates = coordinates {
+                switch validCoordinates {
+                case .Success:
+                    let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
+                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.CoordinateHasBeenSet, object:nil, userInfo: userInfo)
+                default: break
+                }
             }
         }
     }
@@ -62,7 +67,11 @@ class Address {
                 elements = removeDashes(elements!)
                 retrieveCoordinates(elements!.joinWithSeparator(" "))
             } else if !country.isEmpty {
-                retrieveCoordinates(country)
+                if !postalcode.isEmpty {
+                    retrieveCoordinates(postalcode + ", " + country)
+                } else {
+                    retrieveCoordinates(country)
+                }
             }
         }
     }
@@ -91,7 +100,7 @@ class Address {
         var coordinates: [CLLocationCoordinate2D]? =  nil
         
         if !locationName.isEmpty {
-            // self.coordinates = CoordinateFetchResult.SearchStarted
+            self.coordinates = .SearchStarted
             let geoCoder = CLGeocoder()
             geoCoder.geocodeAddressString(locationName) { (placemarks, error) -> Void in
                 if error != nil {

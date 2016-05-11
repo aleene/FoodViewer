@@ -639,7 +639,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="xIo-3N-Ski">
-                            <rect key="frame" x="0.0" y="416" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="460" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -707,8 +707,31 @@
                                     <outlet property="countriesTagListView" destination="8kh-y9-OHe" id="UDs-KP-0ry"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProducerCodes TagListView Cell" id="8Wl-Gj-cwk" customClass="AddressTagListTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="160" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8Wl-Gj-cwk" id="BQv-16-oAu">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyb-tq-jkw" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="8" width="584" height="28"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Dyb-tq-jkw" firstAttribute="top" secondItem="BQv-16-oAu" secondAttribute="topMargin" id="EVl-lq-Lo3"/>
+                                        <constraint firstItem="Dyb-tq-jkw" firstAttribute="leading" secondItem="BQv-16-oAu" secondAttribute="leadingMargin" id="Ifz-K9-aVa"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Dyb-tq-jkw" secondAttribute="trailing" id="Tot-Mj-oUJ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Dyb-tq-jkw" secondAttribute="bottom" id="aNr-UK-Bg1"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tagListView" destination="Dyb-tq-jkw" id="VVQ-SO-gFh"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Map Cell" rowHeight="256" id="6zJ-kS-IMv" customClass="MapTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="160" width="600" height="256"/>
+                                <rect key="frame" x="0.0" y="204" width="600" height="256"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="6zJ-kS-IMv" id="OBN-Zw-JZX">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="256"/>
@@ -1246,6 +1269,7 @@
                                         <constraint firstItem="PY2-Eu-268" firstAttribute="top" secondItem="aAD-Zb-a7c" secondAttribute="topMargin" id="vFD-oa-WwN"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                                 <connections>
                                     <outlet property="itemLabel" destination="PY2-Eu-268" id="rsT-Sn-iGu"/>
                                     <outlet property="standardUnitLabel" destination="5jY-ES-pZe" id="RTZ-ul-RBN"/>
@@ -1453,6 +1477,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="oZb-AL-Fkm"/>
+        <segue reference="54m-Vq-nRb"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -435,7 +435,9 @@ class OpenFoodFactsRequest {
                 product.countryArray(decodeCountries(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray))
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
                 product.purchaseLocationElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray)
-                product.producerCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesTagsKey]?.stringArray
+                
+                product.producerCode = decodeProducerCodeArray(jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesOrigKey]?.string)
+                
                 product.brandsArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2Key]?.string
@@ -758,6 +760,8 @@ class OpenFoodFactsRequest {
         }
     }
     
+    // MARK: - Decoding Functions
+
     private func nutritionDecode(fact: String, key: String, jsonObject: JSON?, product: FoodProduct) {
         
         struct Appendix {
@@ -1011,12 +1015,61 @@ class OpenFoodFactsRequest {
                 if validDate.rangeOfString( "../....", options: .RegularExpressionSearch) != nil {
                     dateFormatter.dateFormat = "MM/yyyy"
                     return dateFormatter.dateFromString(validDate)
+                } else if validDate.rangeOfString( "..-....", options: .RegularExpressionSearch) != nil {
+                    dateFormatter.dateFormat = "MM-yyyy"
+                    return dateFormatter.dateFromString(validDate)
                 }
                 print("Date '\(validDate)' could not be recognized")
             }
         }
         return nil
     }
+    
+    // This function decodes a string with comma separated producer codes into an array of valid addresses
+    private func decodeProducerCodeArray(codes: String?) -> [Address]? {
+        if let validCodes = codes {
+            if !validCodes.isEmpty {
+            let elements = validCodes.characters.split{$0 == ","}.map(String.init)
+                var addressArray: [Address] = []
+                for code in elements {
+                    if let newAddress = decodeProducerCode(code) {
+                        addressArray.append(newAddress)
+                    }
+                }
+                return addressArray
+            }
+        }
+        return nil
+    }
+
+    // This function extracts the postalcode out of the producer code and created an Address instance
+    private func decodeProducerCode(code: String?) -> Address? {
+        let newAddress = Address()
+        if let validCode = code {
+            if validCode.rangeOfString("FR\\s..[.]...[.]...\\sCE", options: .RegularExpressionSearch) != nil {
+                newAddress.raw = validCode
+                newAddress.country = "France"
+                let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
+                let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                // combine into a valid french postal code
+                newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
+                return newAddress
+                
+            } else if validCode.rangeOfString("EMB\\s\\d{5}", options: .RegularExpressionSearch) != nil {
+                newAddress.raw = validCode
+                newAddress.country = "France"
+                
+                // start after the first four characters
+                if validCode.length() >= 9 {
+                    newAddress.postalcode = validCode.substring(4, length: 5)
+                    return newAddress
+                }
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Extensions
 
 
     // This function splits an element in an array in a language and value part
@@ -1037,6 +1090,7 @@ class OpenFoodFactsRequest {
             return nil
         }
     }
+
 }
 
 

@@ -11,13 +11,6 @@ import MapKit
 
 class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
     
-    struct MapConstants {
-        static let PurchaseLocation = "Purchase"
-        static let ProducerLocation = "Producer"
-        static let SalesCountryLocation = "Sales Country"
-        static let IngredientOriginLocation = "Origin Ingredients"
-        static let SpaceDelimiter = " "
-    }
 
     private var initialLocation: CLLocation {
         get {
@@ -25,7 +18,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 switch coordinates {
                 case .Success(let coordinateValues):
                     return CLLocation.init(latitude: coordinateValues[0].latitude, longitude: coordinateValues[0].longitude)
-                case .Error:
+                case .Error, .SearchStarted:
                     return CLLocation.init(latitude: 0.0, longitude: 0.0)
                 }
 
@@ -43,9 +36,9 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 if let coordinates = currentProduct.purchaseLocation?.getCoordinates() {
                     switch coordinates {
                     case .Success(let coordinateValues):
-                        let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapConstants.PurchaseLocation, coordinate: coordinateValues[0])
+                        let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapPinCategories.PurchaseLocation, coordinate: coordinateValues[0])
                         mapView.addAnnotation(annotation)
-                    case .Error:
+                    default:
                         break
                     }
                 }
@@ -53,9 +46,9 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 if let coordinates = currentProduct.producer?.getCoordinates() {
                     switch coordinates {
                     case .Success(let coordinateValues):
-                        let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapConstants.ProducerLocation, coordinate: coordinateValues[0])
+                        let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapPinCategories.ProducerLocation, coordinate: coordinateValues[0])
                         mapView.addAnnotation(annotation)
-                    case .Error:
+                    default:
                         break
                     }
                 }
@@ -63,12 +56,32 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 if let coordinates = currentProduct.ingredientsOrigin?.getCoordinates() {
                     switch coordinates {
                     case .Success(let coordinateValues):
-                        let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapConstants.IngredientOriginLocation, coordinate: coordinateValues[0])
+                        let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapPinCategories.IngredientOriginLocation, coordinate: coordinateValues[0])
                         mapView.addAnnotation(annotation)
-                    case .Error:
+                    default:
                         break
                     }
                 }
+                
+                // The Apple forward geocoding API, does not work with postalcodes, so no location van be retrieved.
+/*
+                if let codes = currentProduct.producerCode {
+                    for code in codes {
+                        if let coordinates = code.getCoordinates() {
+                            switch coordinates {
+                            case .Success(let coordinateValues):
+                                if !coordinateValues.isEmpty {
+                                    let annotation = SupplyChainLocation(title: code.raw, locationName: code.postalcode + " " + code.country, discipline: MapPinCategories.ProducerCodes, coordinate: coordinateValues[0])
+                                    mapView.addAnnotation(annotation)
+                                }
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
+*/
+
                 
                 if let countries = currentProduct.countries {
                     for country in countries {
@@ -76,10 +89,10 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                             switch coordinates {
                             case .Success(let coordinateValues):
                                 if !coordinateValues.isEmpty {
-                                    let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapConstants.SalesCountryLocation, coordinate: coordinateValues[0])
+                                    let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapPinCategories.SalesCountryLocation, coordinate: coordinateValues[0])
                                     mapView.addAnnotation(annotation)
                                 }
-                            case .Error:
+                            default:
                                 break
                             }
                         }

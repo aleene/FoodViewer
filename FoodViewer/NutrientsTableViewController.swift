@@ -55,7 +55,7 @@ class NutrientsTableViewController: UITableViewController {
                     calorieFact.itemName = Energy.Calories.description()
                     calorieFact.standardValue = fact.standardValue != nil ? fact.standardValueInCalories() : ""
                     newFacts.append(calorieFact)
-                default: newFacts.append(fact)
+                case .Joule: newFacts.append(fact)
                 }
             } else {
                 newFacts.append(localizeFact(fact))
@@ -69,6 +69,7 @@ class NutrientsTableViewController: UITableViewController {
         localeFact.standardValueUnit = fact.standardValueUnit
         localeFact.itemName = fact.itemName
         localeFact.standardValue = fact.standardValue != nil ? fact.localeValue() : ""
+        localeFact.key = fact.key
         return localeFact
     }
     
@@ -118,6 +119,27 @@ class NutrientsTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactCellIdentifier, forIndexPath: indexPath) as? NutrientsTableViewCell
                 // warning set FIRST the saltOrSodium
                 cell?.nutritionFactItem = adaptedNutritionFacts[indexPath.row]
+                if  (adaptedNutritionFacts[indexPath.row].key == NatriumChloride.Salt.key()) ||
+                    (adaptedNutritionFacts[indexPath.row].key == NatriumChloride.Sodium.key()) {
+                    let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
+                    doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                    doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+                    doubleTapGestureRecognizer.cancelsTouchesInView = false
+                    doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+                    
+                    cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                } else if  (adaptedNutritionFacts[indexPath.row].key == Energy.Calories.key()) ||
+                    (adaptedNutritionFacts[indexPath.row].key == Energy.Joule.key()) {
+                    let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
+                    doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                    doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+                    doubleTapGestureRecognizer.cancelsTouchesInView = false
+                    doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+                    
+                    cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                }
+
+                
                 return cell!
             }
         case .ServingSize:
@@ -165,6 +187,31 @@ class NutrientsTableViewController: UITableViewController {
         static let NutritionFactsImageSectionHeader = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
         static let ServingSizeSectionHeader = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.") 
     }
+    
+    func doubleTapOnSaltSodiumTableViewCell(recognizer: UITapGestureRecognizer) {
+        /////
+        Preferences.manager.showSaltOrSodium = Preferences.manager.showSaltOrSodium == .Salt ? .Sodium : .Salt
+        
+        adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
+        tableView.reloadData()
+    }
+    
+    func doubleTapOnEnergyTableViewCell(recognizer: UITapGestureRecognizer) {
+        /////
+        switch Preferences.manager.showCaloriesOrJoule {
+        case .Calories:
+            Preferences.manager.showCaloriesOrJoule = .Joule
+        case .Joule:
+            Preferences.manager.showCaloriesOrJoule = .Calories
+        }
+        
+        adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
+        tableView.reloadData()
+
+//        let sections = NSIndexSet.init(index: 0)
+//        tableView.reloadSections(sections, withRowAnimation: .Fade)
+    }
+
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine

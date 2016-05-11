@@ -41,14 +41,16 @@ class SupplyChainLocation: NSObject, MKAnnotation {
     // pinColor for supply chain location type: Ingredient Origin, Production Location, Sales Locations, Buy location, other
     func pinColor() -> UIColor  {
         switch discipline {
-        case "Purchase":
+        case MapPinCategories.PurchaseLocation:
             return UIColor.redColor()
-        case "Sales Country":
+        case MapPinCategories.SalesCountryLocation:
             return UIColor.purpleColor()
-        case "Origin Ingredients":
+        case MapPinCategories.IngredientOriginLocation:
             return UIColor.yellowColor()
-        case "Producer":
+        case MapPinCategories.ProducerLocation:
             return UIColor.blueColor()
+        case MapPinCategories.ProducerCodes:
+            return UIColor.cyanColor()
         default:
             return UIColor.greenColor()
         }

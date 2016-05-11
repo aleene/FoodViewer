@@ -192,7 +192,7 @@ class FoodProduct {
         }
     }
 
-    var producerCode: [String]? = nil
+    var producerCode: [Address]? = nil
 
     // contributor parameters
     var additionDate: NSDate? = nil
@@ -540,6 +540,11 @@ class FoodProduct {
             // did I miss something?
         }
     }
+    
+    func worldURL() -> NSURL? {
+        return NSURL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
+    }
+    
     
 // End product
 }

@@ -49,6 +49,7 @@ class SupplyChainTableViewController: UITableViewController {
     private struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
         static let CountriesCellIdentifier = "Countries TagListView Cell"
+        static let ProducerCodeCellIdentifier = "ProducerCodes TagListView Cell"
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
         static let MapCellIdentifier = "Map Cell"
     }
@@ -145,7 +146,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tagList = product!.producer?.elements
             return cell
         case .ProducerCode:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCodeCellIdentifier, forIndexPath: indexPath) as! AddressTagListTableViewCell
             cell.tagList = product!.producerCode
             return cell
         case .IngredientOrigin:
