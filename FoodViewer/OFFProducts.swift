@@ -22,13 +22,14 @@ class OFFProducts {
         static let FirstProductLoaded = "First Product Loaded"
         static let HistoryIsLoaded = "History Is Loaded"
         static let ProductUpdated = "Product Updated"
+        static let ProductLoadingError = "Product Loading Error"
     }
     
     static let manager = OFFProducts()
     
     var mostRecentProduct = MostRecentProduct()
 
-    var list = [FoodProduct?]()
+    var fetchResultList = [ProductFetchStatus?]()
     
     init() {
         // check if there is history available
@@ -38,12 +39,13 @@ class OFFProducts {
             initList()
             
             if let data = mostRecentProduct.jsonData {
+                var fetchResult = ProductFetchStatus.Loading
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                    let fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+                    fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.fetchResultList[0] = fetchResult
                         switch fetchResult {
-                        case .Success(let newProduct):
-                            self.list[0] = newProduct
+                        case .Success:
                             self.historyLoadCount! += 1
                             NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
                             for (index, storedBarcode) in self.storedHistory.barcodes.enumerate() {
@@ -52,9 +54,13 @@ class OFFProducts {
                                     self.fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedBarcode)), index:index)
                                 }
                             }
-                        case .Error(let error):
+                        case .LoadingFailed(let error):
                             let userInfo = ["error":error]
-                            self.handleError(userInfo)
+                            self.handleLoadingFailed(userInfo)
+                        case .ProductNotAvailable(let error):
+                            let userInfo = ["error":error]
+                            self.handleProductNotAvailable(userInfo)
+                        default: break
                         }
                     })
                 })
@@ -67,18 +73,22 @@ class OFFProducts {
             }
         } else {
             historyLoadCount = nil
+            var fetchResult = ProductFetchStatus.Loading
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                let fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
+                fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-
+                    self.fetchResultList.append(fetchResult)
                     switch fetchResult {
-                    case .Success(let newProduct):
-                        self.list.append(newProduct)
+                    case .Success:
                         self.loadSampleImages()
                         NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                    case .Error(let error):
+                    case .LoadingFailed(let error):
                         let userInfo = ["error":error]
-                        self.handleError(userInfo)
+                        self.handleLoadingFailed(userInfo)
+                    case .ProductNotAvailable(let error):
+                        let userInfo = ["error":error]
+                        self.handleProductNotAvailable(userInfo)
+                    default: break
                     }
                 })
             })
@@ -90,43 +100,52 @@ class OFFProducts {
         // The images are read from the assets catalog as UIImage
         // this ensure that the right resolution will be read
         // and then they are interbally stored as PNG data
-        if let image = UIImage(named: "SampleMain") {
-            if let data = UIImagePNGRepresentation(image) {
-                list[0]?.mainImageData = .Success(data)
+        
+        if let validFetchResult = fetchResultList[0] {
+            switch validFetchResult {
+            case .Success(let sampleProduct):
+                if let image = UIImage(named: "SampleMain") {
+                    if let data = UIImagePNGRepresentation(image) {
+                        sampleProduct.mainImageData = .Success(data)
+                    }
+                } else {
+                    sampleProduct.mainImageData = .NoData
+                }
+                
+                if let image = UIImage(named: "SampleIngredients") {
+                    if let data = UIImagePNGRepresentation(image) {
+                        sampleProduct.ingredientsImageData = .Success(data)
+                    }
+                } else {
+                    sampleProduct.ingredientsImageData = .NoData
+                }
+                
+                if let image = UIImage(named: "SampleNutrition") {
+                    if let data = UIImagePNGRepresentation(image) {
+                        sampleProduct.nutritionImageData = .Success(data)
+                    }
+                } else {
+                    sampleProduct.nutritionImageData = .NoData
+                }
+                
+                sampleProduct.name = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
+                sampleProduct.commonName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
+                
+            default: break
             }
-        } else {
-            list[0]?.mainImageData = .NoData
         }
         
-        if let image = UIImage(named: "SampleIngredients") {
-            if let data = UIImagePNGRepresentation(image) {
-                list[0]?.ingredientsImageData = .Success(data)
             }
-        } else {
-            list[0]?.ingredientsImageData = .NoData
-        }
-        
-        if let image = UIImage(named: "SampleNutrition") {
-            if let data = UIImagePNGRepresentation(image) {
-                list[0]?.nutritionImageData = .Success(data)
-            }
-        } else {
-            list[0]?.nutritionImageData = .NoData
-        }
-
-        list[0]?.name = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
-        list[0]?.commonName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
-    }
     
     private func initList() {
         for _ in 0..<storedHistory.barcodes.count {
-            list.append(nil)
+            fetchResultList.append(nil)
         }
     }
     
     func removeAll() {
             storedHistory = History()
-            list = []
+            fetchResultList = []
     }
     
     var storedHistory = History()
@@ -140,13 +159,17 @@ class OFFProducts {
                 let fetchResult = request.fetchProductForBarcode(barcodeToFetch)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    self.fetchResultList[index] = fetchResult
                     switch fetchResult {
-                    case .Success(let newProduct):
-                        self.list[index] = newProduct
+                    case .Success:
                         self.historyLoadCount! += 1
-                    case .Error(let error):
+                    case .LoadingFailed(let error):
                         let userInfo = ["error":error]
-                        self.handleError(userInfo)
+                        self.handleLoadingFailed(userInfo)
+                    case .ProductNotAvailable(let error):
+                        let userInfo = ["error":error]
+                        self.handleProductNotAvailable(userInfo)
+                    default: break
                     }
                 })
             })
@@ -184,17 +207,21 @@ class OFFProducts {
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     let fetchResult = request.fetchProductForBarcode(barcode!)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.fetchResultList.insert(fetchResult, atIndex:0)
                         switch fetchResult {
                         case .Success(let newProduct):
-                            self.list.insert(newProduct, atIndex:0)
                         // add product barcode to history
                             self.storedHistory.addBarcode(barcode: newProduct.barcode.asString())
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
                             NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                        case .Error(let error):
+                        case .LoadingFailed(let error):
                             let userInfo = ["error":error]
-                            self.handleError(userInfo)
+                            self.handleLoadingFailed(userInfo)
+                        case .ProductNotAvailable(let error):
+                            let userInfo = ["error":error]
+                            self.handleProductNotAvailable(userInfo)
+                        default: break
                         }
                     })
                 })
@@ -219,21 +246,35 @@ class OFFProducts {
                         self.mostRecentProduct.addMostRecentProduct(newData)
                     case .Error(let error):
                         let userInfo = ["error":error]
-                        self.handleError(userInfo)
+                        self.handleLoadingFailed(userInfo)
                     }
                 })
             })
         }
     }
     
-    func handleError(userInfo: [String:String]) {
+    // MARK: - Create notifications
+
+    func handleProductNotAvailable(userInfo: [String:String]) {
         NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductNotAvailable, object:nil, userInfo: userInfo)
     }
 
+    func handleLoadingFailed(userInfo: [String:String]) {
+        NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoadingError, object:nil, userInfo: userInfo)
+    }
+
     private func isProductInHistory(newBarcode: BarcodeType) -> Int? {
-        for (index, product) in list.enumerate() {
-            if product!.barcode.asString() == newBarcode.asString() {
-                return index
+        for (index, fetchResult) in fetchResultList.enumerate() {
+            if let validFetchResult = fetchResult {
+                switch validFetchResult {
+                case .Success(let product):
+                    if product.barcode.asString() == newBarcode.asString() {
+                        return index
+                    }
+                default:
+                    break
+                }
+
             }
         }
         return nil
@@ -241,19 +282,25 @@ class OFFProducts {
     
     func reload(product: FoodProduct) {
         let request = OpenFoodFactsRequest()
+        var fetchResult = ProductFetchStatus.Loading
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-            let fetchResult = request.fetchProductForBarcode(product.barcode)
+            fetchResult = request.fetchProductForBarcode(product.barcode)
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                 switch fetchResult {
                 case .Success(let newProduct):
                     self.update(newProduct)
                     NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductUpdated, object:nil)
-                case .Error(let error):
+                case .LoadingFailed(let error):
                     let userInfo = ["error":error]
-                    self.handleError(userInfo)
+                    self.handleLoadingFailed(userInfo)
+                case .ProductNotAvailable(let error):
+                    let userInfo = ["error":error]
+                    self.handleProductNotAvailable(userInfo)
+                default:
+                    break
                 }
             })
         })
@@ -262,121 +309,45 @@ class OFFProducts {
     private func update(updatedProduct: FoodProduct) {
         // where is product in the list?
         var index = 0
-        for product in list {
-            if product!.barcode.asString() == updatedProduct.barcode.asString() {
-                // replace the existing product with the data of the new product
-                product!.updateDataWith(updatedProduct)
-                // i sthis the first product in the list
-                if index == 0 {
-                    // then the stored version must also be updated with this new product
-                    saveMostRecentProduct(product!.barcode)
+        for fetchResult in fetchResultList {
+            if let validFetchResult = fetchResult {
+                switch validFetchResult {
+                case .Success(let product):
+                    if product.barcode.asString() == updatedProduct.barcode.asString() {
+                        // replace the existing product with the data of the new product
+                        product.updateDataWith(updatedProduct)
+                        // i sthis the first product in the list
+                        if index == 0 {
+                            // then the stored version must also be updated with this new product
+                            saveMostRecentProduct(product.barcode)
+                        }
+                    }
+                    index += 1
+                default:
+                    break
                 }
+            } else {
+                print("error: OFFProducts.update - fetchResult is nil")
             }
-            index += 1
+
         }
     }
     
     func flushImages() {
-        for product in list {
-            product!.mainImageData = nil
-            product!.ingredientsImageData = nil
-            product!.nutritionImageData = nil
-        }
-    }
-
-    /*
-    private func loadMainImage(product: FoodProduct) {
-        if (product.mainUrl != nil) {
-            if (product.mainImageData == nil) {
-                // get image only if the data is not there yet
-                retrieveImage(product.mainUrl!)
+        for fetchResult in fetchResultList {
+            if let validFetchResult = fetchResult {
+                switch validFetchResult {
+                case .Success(let product):
+                    product.mainImageData = nil
+                    product.ingredientsImageData = nil
+                    product.nutritionImageData = nil
+                default:
+                    break
+                }
+            } else {
+                print("error: OFFProducts.flushImages - fetchResult is nil")
             }
         }
     }
-    
-    private func loadMainThumbnailImage(product: FoodProduct) {
-        if  (product.mainUrlThumb != nil) &&
-            (product.mainImageSmallData == nil) {
-                // get image only if the data is not there yet
-                retrieveMainThumbnailImage(product.mainUrlThumb!)
-        }
-    }
-
-    private func retrieveImage(url: NSURL?) {
-            if let imageURL = url {
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    do {
-                        // This only works if you add a line to your Info.plist
-                        // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                        //
-                        let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                        if imageData.length > 0 {
-                            // if we have the image data we can go back to the main thread
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                // set the received image data
-                                // as we are on another thread I should find the product to add it to
-                                if !self.list.isEmpty {
-                                    // look at all products
-                                    var indexExistingProduct: Int? = nil
-                                    for index in 0 ..< self.list.count {
-                                        if self.list[index]?.mainUrl == imageURL {
-                                            indexExistingProduct = index
-                                        }
-                                    }
-                                    if indexExistingProduct != nil {
-                                        self.list[indexExistingProduct!]!.mainImageData = .Success(imageData)
-                                    }
-                                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
-                                } // else bad luck corresponding product is no longer there
-                            })
-                        }
-                    }
-                    catch {
-                        print(error)
-                    }
-                })
-            }
-        }
-        
- 
-    private func retrieveMainThumbnailImage(url: NSURL?) {
-        if let imageURL = url {
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data
-                            // as we are on another thread I should find the product to add it to
-                            if !self.list.isEmpty {
-                                // look at all products
-                                var indexExistingProduct: Int? = nil
-                                for index in 0 ..< self.list.count {
-                                    if self.list[index]?.mainUrlThumb == imageURL {
-                                        indexExistingProduct = index
-                                    }
-                                }
-                                if indexExistingProduct != nil {
-                                    self.list[indexExistingProduct!]!.mainImageSmallData = imageData
-                                }
-                            } // else bad luck corresponding product is no longer there
-                        })
-                    }
-                }
-                catch {
-                    print(error)
-                }
-            })
-        }
-    }
-    */
 
 }

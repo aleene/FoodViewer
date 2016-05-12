@@ -244,8 +244,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // handle a notification that the first product has been set
         // this sets the current product and shows the first page
         let products = OFFProducts.manager
-        product = products.list.first!
-        pageIndex = 0
+        if let validProductFetchResult = products.fetchResultList[0] {
+            switch validProductFetchResult {
+            case .Success(let firstProduct):
+                product = firstProduct
+                pageIndex = 0
+            default: break
+            }
+        }
     }
     
     // MARK: - ViewController Lifecycle

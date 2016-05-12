@@ -15,6 +15,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         static let AlertSheetMessage = NSLocalizedString("Error retrieving product", comment: "Alert message, when the product could not be retrieved from Internet.")
         static let AlertSheetActionTitle = NSLocalizedString("Pity", comment: "Alert title, to indicate retrieving product did not work")
         static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
+        static let BusyLoadingProduct = NSLocalizedString("Busy loading product", comment: "Text to indicate that the it is trying to load.")
         static let ProductNameMissing = NSLocalizedString("No product name", comment: "Text in header of section, indicating that the product name is missing.")
         static let NumberOfNutritionalFactsText = NSLocalizedString("%@ nutritional facts specified.", comment: "Cell text for the total number of nutritional facts available.")
     }
@@ -25,24 +26,36 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     private var barcode: BarcodeType? = nil {
         didSet {
             let indexInHistory = products.fetchProduct(barcode)
-            if  indexInHistory != nil {
-                selectedProduct = products.list[indexInHistory!]
-                tableView.reloadData()
-                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: indexInHistory!), atScrollPosition: .Middle, animated: true)
+            if  indexInHistory != nil,
+                let validFetchResult = products.fetchResultList[indexInHistory!] {
+                switch validFetchResult  {
+                case .Success(let product):
+                    selectedProduct = product
+                    tableView.reloadData()
+                    tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: indexInHistory!), atScrollPosition: .Middle, animated: true)
+                default:
+                    break
+                }
             }
         }
     }
     
     private func startInterface() {
-        if products.list.count > 0 {
-            selectedProduct = products.list.first!
-            tableView.reloadData()
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+        if !products.fetchResultList.isEmpty {
+            if let validFetchResult = products.fetchResultList[0] {
+                switch validFetchResult {
+                case .Success(let product):
+                    selectedProduct = product
+                tableView.reloadData()
+                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+            default: break
+            }
+        }
         }
     }
     
     private func refreshInterface() {
-        if products.list.count > 0 {
+        if products.fetchResultList.count > 0 {
             tableView.reloadData()
         }
     }
@@ -146,98 +159,124 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //
-        return products.list.count
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let currentProductSection = tableStructure[indexPath.row]
-        if let currentProduct = products.list[indexPath.section] {
-        
-            switch currentProductSection {
-            case .Name:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath) as! NameTableViewCell
-            
-                cell.productBrand = currentProduct.brandsArray
-            
-                // TBD I do not think the logic is right here
-                if let data = currentProduct.mainImageSmallData {
-                    // try small image
-                    cell.productImage = UIImage(data:data)
-                    return cell
-                } else if currentProduct.mainUrl != nil {
-                    // show small image icon
-                    cell.productImage = nil
-                    return cell
-                }
-                if let result = currentProduct.mainImageData {
-                    switch result {
-                    case .Success(let data):
-                        cell.productImage = UIImage(data:data)
-                    default:
-                        cell.productImage = nil
-                    }
-                } else {
-                    cell.productImage = nil
-                }
-                return cell
-            case .Ingredients:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
-                cell.product = currentProduct
-                return cell
-            case .NutritionFacts:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath)
-                let formatter = NSNumberFormatter()
-                formatter.numberStyle = .DecimalStyle
-                let formattedCount = formatter.stringFromNumber(currentProduct.nutritionFacts.count)
-                
-                cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
-                return cell
-            case .NutritionScore:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell
-                cell?.product = currentProduct
-                return cell!
-            case .Categories:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CategoriesCellIdentifier, forIndexPath: indexPath) as? CategoriesTableViewCell
-                cell?.product = currentProduct
-                return cell!
-            case .Completion:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
-                cell?.product = currentProduct
-                return cell!
-            case .SupplyChain:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCellIdentifier, forIndexPath: indexPath) as? ProducerTableViewCell
-                cell?.product = currentProduct
-                return cell!
-            }
-        } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BeingLoadedCellIdentifier, forIndexPath: indexPath) as? BeingLoadedTableViewCell
-            cell?.tagList = nil
-            return cell!
-        }
+        return products.fetchResultList.count
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.list[section] != nil ? tableStructure.count : 1
+        if let validProductFetchResult = products.fetchResultList[section] {
+            switch validProductFetchResult {
+            case .Success:
+                return products.fetchResultList[section] != nil ? tableStructure.count : 1
+            default:
+                break
+            }
+        }
+        // no rows as the loading failed, the error message is in the header
+        return 0
     }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let currentProductSection = tableStructure[indexPath.row]
+        if let fetchResult = products.fetchResultList[indexPath.section] {
+            switch fetchResult {
+            case .Success(let currentProduct):
+                switch currentProductSection {
+                case .Name:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath) as! NameTableViewCell
+                    
+                    cell.productBrand = currentProduct.brandsArray
+                    
+                    // TBD I do not think the logic is right here
+                    if let data = currentProduct.mainImageSmallData {
+                        // try small image
+                        cell.productImage = UIImage(data:data)
+                        return cell
+                    } else if currentProduct.mainUrl != nil {
+                        // show small image icon
+                        cell.productImage = nil
+                        return cell
+                    }
+                    if let result = currentProduct.mainImageData {
+                        switch result {
+                        case .Success(let data):
+                            cell.productImage = UIImage(data:data)
+                        default:
+                            cell.productImage = nil
+                        }
+                    } else {
+                        cell.productImage = nil
+                    }
+                    return cell
+                case .Ingredients:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
+                    cell.product = currentProduct
+                    return cell
+                case .NutritionFacts:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath)
+                    let formatter = NSNumberFormatter()
+                    formatter.numberStyle = .DecimalStyle
+                    let formattedCount = formatter.stringFromNumber(currentProduct.nutritionFacts.count)
+                    
+                    cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
+                    return cell
+                case .NutritionScore:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell
+                    cell?.product = currentProduct
+                    return cell!
+                case .Categories:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CategoriesCellIdentifier, forIndexPath: indexPath) as? CategoriesTableViewCell
+                    cell?.product = currentProduct
+                    return cell!
+                case .Completion:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
+                    cell?.product = currentProduct
+                    return cell!
+                case .SupplyChain:
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCellIdentifier, forIndexPath: indexPath) as? ProducerTableViewCell
+                    cell?.product = currentProduct
+                    return cell!
+                }
+            default:
+                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BeingLoadedCellIdentifier, forIndexPath: indexPath) as? BeingLoadedTableViewCell
+                cell?.status = fetchResult
+            }
+            
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BeingLoadedCellIdentifier, forIndexPath: indexPath) as? BeingLoadedTableViewCell
+        cell?.status = nil
+        return cell!
+    }
+    
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row < 6 {
             // row 6 is the nutritional score, which has no correponding page
             selectedIndex = indexPath.row
-            selectedProduct = products.list[indexPath.section]
-            // performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+            if let validProductFetchResult = products.fetchResultList[indexPath.section] {
+                switch validProductFetchResult {
+                case .Success(let product):
+                    selectedProduct = product
+                default: break
+                }
+            }
         }
     }
    
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if products.list.isEmpty {
-            return Constants.NoProductsInHistory
-        } else {
-            return products.list[section]?.name != nil ? products.list[section]!.name! : Constants.ProductNameMissing
+        if !products.fetchResultList.isEmpty {
+            if let validProductFetchResult = products.fetchResultList[section] {
+                switch validProductFetchResult {
+                case .Success(let product):
+                    return product.name != nil ? product.name! : Constants.ProductNameMissing
+                default:
+                    return validProductFetchResult.description()
+                }
+            }
+            return Constants.BusyLoadingProduct
         }
+        return Constants.NoProductsInHistory
     }
 
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
@@ -273,7 +312,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     @IBAction func unwindForCancel(segue:UIStoryboardSegue) {
         if let _ = segue.sourceViewController as? BarcodeScanViewController {
-            if products.list.count > 0 {
+            if products.fetchResultList.count > 0 {
                 tableView.reloadData()
             }
         }
@@ -352,6 +391,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:OFFProducts.Notification.ProductLoaded, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:OFFProducts.Notification.FirstProductLoaded, object:nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:OFFProducts.Notification.ProductUpdated, object:nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:OFFProducts.Notification.ProductLoadingError, object:nil)
 
     }
     

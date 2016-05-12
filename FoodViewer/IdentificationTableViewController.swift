@@ -258,8 +258,14 @@ class IdentificationTableViewController: UITableViewController {
     
     func loadFirstProduct() {
         let products = OFFProducts.manager
-        product = products.list.first!
-        tableView.reloadData()
+        if let validProductFetchResult = products.fetchResultList[0] {
+            switch validProductFetchResult {
+            case .Success(let firstProduct):
+                product = firstProduct
+                tableView.reloadData()
+            default: break
+            }
+        }
     }
 
     

@@ -17,23 +17,18 @@ class OpenFoodFactsRequest {
         static let sampleProductBarcode = "40111490"
     }
     
-    enum FetchResult {
-        case Error(String)
-        case Success(FoodProduct)
-    }
-    
     enum FetchJsonResult {
         case Error(String)
         case Success(NSData)
     }
 
-    var fetched: FetchResult = .Error("Initialised")
+    var fetched: ProductFetchStatus = .Initialized
     
-    func fetchStoredProduct(data: NSData) -> FetchResult {
+    func fetchStoredProduct(data: NSData) -> ProductFetchStatus {
         return unpackJSONObject(JSON.parse(data))
     }
     
-    func fetchProductForBarcode(barcode: BarcodeType) -> FetchResult {
+    func fetchProductForBarcode(barcode: BarcodeType) -> ProductFetchStatus {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         let fetchUrl = NSURL(string: "\(OpenFoodFacts.APIURLPrefixForProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -45,10 +40,10 @@ class OpenFoodFactsRequest {
                 return unpackJSONObject(JSON.parse(data))
             } catch let error as NSError {
                 print(error);
-                return FetchResult.Error(error.description)
+                return ProductFetchStatus.LoadingFailed(error.description)
             }
         } else {
-            return FetchResult.Error(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
+            return ProductFetchStatus.LoadingFailed(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
         }
     }
 
@@ -70,13 +65,13 @@ class OpenFoodFactsRequest {
         }
     }
 
-    func fetchSampleProduct() -> FetchResult {
+    func fetchSampleProduct() -> ProductFetchStatus {
         let filePath  = NSBundle.mainBundle().pathForResource(OpenFoodFacts.sampleProductBarcode, ofType:OpenFoodFacts.JSONExtension)
         let data = NSData(contentsOfFile:filePath!)
         if let validData = data {
             return unpackJSONObject(JSON.parse(validData))
         } else {
-            return FetchResult.Error(NSLocalizedString("Error: No valid data", comment: "No valid data has been received"))
+            return ProductFetchStatus.LoadingFailed(NSLocalizedString("Error: No valid data", comment: "No valid data has been received"))
         }
     }
     
@@ -351,7 +346,7 @@ class OpenFoodFactsRequest {
         static let IngredientsIdsDebugKey = "ingredients_ids_debug"
     }
     
-    func unpackJSONObject(jsonObject: JSON?) -> FetchResult {
+    func unpackJSONObject(jsonObject: JSON?) -> ProductFetchStatus {
         
         // All the fields available in the barcode.json are listed below
         // Those that are not used at the moment are edited out
@@ -367,9 +362,9 @@ class OpenFoodFactsRequest {
                 // barcode NOT found in database
                 // There is nothing more to decode
                 if let statusVerbose = jsonObject?[OFFJson.StatusVerboseKey]?.string {
-                    return FetchResult.Error(statusVerbose)
+                    return ProductFetchStatus.ProductNotAvailable(statusVerbose)
                 } else {
-                    return FetchResult.Error(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
+                    return ProductFetchStatus.LoadingFailed(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
                 }
                 
             } else if resultStatus == 1 {
@@ -751,12 +746,12 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.PhKey, key: OFFJson.PhKey, jsonObject: jsonObject, product:product)
                 nutritionDecode(NutritionFacts.CacaoKey, key: OFFJson.CacaoKey, jsonObject: jsonObject, product:product)
                 
-                return FetchResult.Success(product)
+                return ProductFetchStatus.Success(product)
             } else {
-                return FetchResult.Error(NSLocalizedString("Error: Other (>1) result status", comment: "A JSON status which is not supported."))
+                return ProductFetchStatus.LoadingFailed(NSLocalizedString("Error: Other (>1) result status", comment: "A JSON status which is not supported."))
             }
         } else {
-            return FetchResult.Error(NSLocalizedString("Error: No result status in JSON", comment: "Error message when the json input file does not contain any information") )
+            return ProductFetchStatus.LoadingFailed(NSLocalizedString("Error: No result status in JSON", comment: "Error message when the json input file does not contain any information") )
         }
     }
     

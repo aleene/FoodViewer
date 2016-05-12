@@ -9,10 +9,6 @@
 import UIKit
 
 class BeingLoadedTableViewCell: UITableViewCell {
-
-    struct Constants {
-        static let NoTag = NSLocalizedString("product being loaded", comment: "Text in a TagListView, when to indicate the product is being loaded from Internet.")
-    }
     
     @IBOutlet weak var beingLoadedTagList: TagListView! {
         didSet {
@@ -22,22 +18,23 @@ class BeingLoadedTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [String]? = nil {
+    var status: ProductFetchStatus? = nil {
         didSet {
-            if let list = tagList {
+            if let validStatus = status {
                 beingLoadedTagList.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
-                        beingLoadedTagList.addTag(listItem)
-                    }
+                beingLoadedTagList.addTag(validStatus.description())
+                switch validStatus {
+                case .Success:
                     beingLoadedTagList.tagBackgroundColor = UIColor.greenColor()
-                } else {
-                    beingLoadedTagList.addTag(Constants.NoTag)
+                case .Loading:
                     beingLoadedTagList.tagBackgroundColor = UIColor.orangeColor()
+                default:
+                    beingLoadedTagList.tagBackgroundColor = UIColor.redColor()
+
                 }
             } else {
                 beingLoadedTagList.removeAllTags()
-                beingLoadedTagList.addTag(Constants.NoTag)
+                beingLoadedTagList.addTag(ProductFetchStatus.Loading.description())
                 beingLoadedTagList.tagBackgroundColor = UIColor.orangeColor()
             }
         }
