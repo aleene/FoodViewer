@@ -18,7 +18,16 @@ class NutrientsTableViewController: UITableViewController {
         case NutritionImage
     }
     
-    private var adaptedNutritionFacts: [NutritionFactItem] = []
+    private var adaptedNutritionFacts: [DisplayFact] = []
+    
+    private var showNutrientsAs: NutritionDataPerStandardOrServing = NutritionDataPerStandardOrServing.PerStandard
+    
+    struct DisplayFact {
+        var name: String? = nil
+        var value: String? = nil
+        var unit: String? = nil
+        var key: String? = nil
+    }
     
     var product: FoodProduct? {
         didSet {
@@ -29,48 +38,61 @@ class NutrientsTableViewController: UITableViewController {
         }
     }
     
-    func adaptNutritionFacts(facts: [NutritionFactItem]) -> [NutritionFactItem] {
-        var newFacts: [NutritionFactItem] = []
+    func adaptNutritionFacts(facts: [NutritionFactItem]) -> [DisplayFact] {
+        var displayFacts: [DisplayFact] = []
         for fact in facts {
+            var newFact: NutritionFactItem? = nil
             if (fact.key == NatriumChloride.Salt.key()) {
                 switch Preferences.manager.showSaltOrSodium {
                     // do not show sodium
                 case .Sodium: break
                 default:
-                    newFacts.append(localizeFact(fact))
+                    newFact = fact
                 }
             } else if (fact.key == NatriumChloride.Sodium.key()) {
                 switch Preferences.manager.showSaltOrSodium {
                 // do not show salt
                 case .Salt: break
                 default:
-                    newFacts.append(localizeFact(fact))
+                    newFact = fact
                 }
             } else if (fact.key == Energy.Joule.key()) {
                 switch Preferences.manager.showCaloriesOrJoule {
                 // show energy as calories
                 case .Calories:
-                    var calorieFact = NutritionFactItem()
-                    calorieFact.standardValueUnit = "kcal"
-                    calorieFact.itemName = Energy.Calories.description()
-                    calorieFact.standardValue = fact.standardValue != nil ? fact.standardValueInCalories() : ""
-                    newFacts.append(calorieFact)
-                case .Joule: newFacts.append(fact)
+                    newFact = NutritionFactItem.init(name: Energy.Calories.description(),
+                                                     standard: fact.valueInCalories(fact.standardValue),
+                                                     serving: fact.valueInCalories(fact.servingValue),
+                                                     unit: Energy.Calories.unit(),
+                                                     key: fact.key)
+                case .Joule:
+                    // this assumes that fact is in Joule
+                    newFact = fact
                 }
             } else {
-                newFacts.append(localizeFact(fact))
+                newFact = fact
+            }
+            if let validFact = newFact {
+                let validDisplayFact = localizeFact(validFact)
+                displayFacts.append(validDisplayFact)
             }
         }
-        return newFacts
+        return displayFacts
     }
     
-    private func localizeFact(fact: NutritionFactItem) -> NutritionFactItem {
-        var localeFact = NutritionFactItem()
-        localeFact.standardValueUnit = fact.standardValueUnit
-        localeFact.itemName = fact.itemName
-        localeFact.standardValue = fact.standardValue != nil ? fact.localeValue() : ""
-        localeFact.key = fact.key
-        return localeFact
+    private func localizeFact(fact: NutritionFactItem) -> DisplayFact {
+        var displayFact = DisplayFact()
+        displayFact.unit = fact.standardValueUnit
+        displayFact.name = fact.itemName
+        switch showNutrientsAs {
+        case .PerStandard:
+            let localizedValue = fact.localeStandardValue()
+            displayFact.value = fact.standardValue != nil ? localizedValue : ""
+        case .PerServing:
+            displayFact.value = fact.servingValue != nil ? fact.localeServingValue() : ""
+        }
+        displayFact.key = fact.key
+        return displayFact
     }
     
     @IBAction func refresh(sender: UIRefreshControl) {
@@ -85,6 +107,7 @@ class NutrientsTableViewController: UITableViewController {
     private struct Storyboard {
         static let NutritionFactCellIdentifier = "Nutrition Fact Cell"
         static let ServingSizeCellIdentifier = "Serving Size Cell"
+        static let NoServingSizeCellIdentifier = "No Serving Size Cell"
         static let NutritionFactsImageCellIdentifier = "Nutrition Facts Image Cell"
         static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
         static let NoNutrientsImageCellIdentifier = "No Nutrition Image Cell"
@@ -112,8 +135,11 @@ class NutrientsTableViewController: UITableViewController {
         case .NutritionFacts:
             if adaptedNutritionFacts.isEmpty {
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.EmptyNutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? EmptyNutrientsTableViewCell
-
-                cell?.tagList = []
+                if let available = product?.nutritionFactsAreAvailable {
+                    cell?.availability = available
+                } else {
+                    cell?.availability = NutritionAvailability.NotIndicated
+                }
                 return cell!
             } else {
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactCellIdentifier, forIndexPath: indexPath) as? NutrientsTableViewCell
@@ -143,16 +169,17 @@ class NutrientsTableViewController: UITableViewController {
                 return cell!
             }
         case .ServingSize:
-            if product!.servingSize == nil {
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.EmptyNutritionFactsImageCellIdentifier, forIndexPath: indexPath) as? EmptyNutrientsTableViewCell
-                
-                cell?.tagList = []
-                return cell!
-            } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ServingSizeCellIdentifier, forIndexPath: indexPath) as? ServingSizeTableViewCell
-                cell?.servingSize = product!.servingSize!
-                return cell!
+            if let servingSize = product?.servingSize {
+                if !servingSize.isEmpty {
+                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ServingSizeCellIdentifier, forIndexPath: indexPath) as? ServingSizeTableViewCell
+                    cell?.servingSize = servingSize
+                    return cell!
+                }
             }
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoServingSizeCellIdentifier, forIndexPath: indexPath) as? NoServingSizeTableViewCell
+            cell?.tagList = []
+            return cell!
 
         case .NutritionImage:
             if let result = product?.getNutritionImageData() {
@@ -174,10 +201,44 @@ class NutrientsTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
-        return header
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let tempView = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 25))
+        tempView.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        let label = UILabel.init(frame: CGRectMake(10, 5, tableView.frame.size.width, 20))
+        label.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+        // label.textColor = UIColor.whiteColor()
+        switch section {
+        case 0:
+            label.text = showNutrientsAs.description()
+            let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnNutrimentsHeader))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+            doubleTapGestureRecognizer.cancelsTouchesInView = false
+            doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+            
+            tempView.addGestureRecognizer(doubleTapGestureRecognizer)
+
+        default:
+            let (_, _, header) = tableStructureForProduct[section]
+            label.text = header
+        }
+        
+        tempView.addSubview(label)
+        tempView.tag = section;
+        return tempView;
     }
+    /*
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return Preferences.manager.showNutritionDataPerServingOrPerStandard.description()
+        default:
+            let (_, _, header) = tableStructureForProduct[section]
+            return header
+        }
+    }
+ */
     
     private struct TableStructure {
         static let NutritionFactsImageSectionSize = 1
@@ -211,6 +272,15 @@ class NutrientsTableViewController: UITableViewController {
 //        let sections = NSIndexSet.init(index: 0)
 //        tableView.reloadSections(sections, withRowAnimation: .Fade)
     }
+    
+    func doubleTapOnNutrimentsHeader(recognizer: UITapGestureRecognizer) {
+        /////
+        showNutrientsAs = showNutrientsAs == .PerServing ? .PerStandard : .PerServing
+        
+        adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
+        tableView.reloadData()
+    }
+
 
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -223,7 +293,31 @@ class NutrientsTableViewController: UITableViewController {
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
         adaptedNutritionFacts = adaptNutritionFacts(product.nutritionFacts)
-
+        
+        // how does the user want the data presented
+        switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
+        case .PerStandard:
+            // what is possible?
+            switch product.nutritionFactsAreAvailable {
+            case .PerStandardUnit, .PerServingAndStandardUnit:
+                showNutrientsAs = .PerStandard
+            case .PerServing:
+                showNutrientsAs = .PerServing
+            default:
+                break
+            }
+        case .PerServing:
+            switch product.nutritionFactsAreAvailable {
+                // what is possible?
+            case .PerStandardUnit:
+                showNutrientsAs = .PerStandard
+            case .PerServing, .PerServingAndStandardUnit:
+                showNutrientsAs = .PerServing
+            default:
+                break
+            }
+        }
+        
         // 0 : nutrition facts
         if product.nutritionFacts.isEmpty {
             sectionsAndRows.append((
@@ -279,7 +373,6 @@ class NutrientsTableViewController: UITableViewController {
     func refreshProduct() {
         if product != nil {
             tableView.reloadData()
-            
         }
     }
     

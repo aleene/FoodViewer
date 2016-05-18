@@ -40,7 +40,7 @@ class FoodProduct {
         }
      }
 
-     var mainImageSmallData: NSData? = nil
+    var mainImageSmallData: NSData? = nil
 
     var mainUrl: NSURL? = nil
     var mainImageData: ImageFetchResult? = nil {
@@ -77,30 +77,11 @@ class FoodProduct {
     var servingSize: String? = nil
     
     // content parameters
+    var nutritionFactsAreAvailable = NutritionAvailability.NotIndicated
+    var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
     var nutritionFacts: [NutritionFactItem] = []
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
     var imageNutritionSmallUrl: NSURL? = nil
-        /*{
-        didSet {
-            if let imageURL = imageNutritionSmallUrl {
-                do {
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                            // if we have the image data we can go back to the main thread
-                                // set the received image data to the current product if valid
-                        self.nutritionImageSmallData = imageData
-                    }
-                }
-                catch {
-                    print(error)
-                }
-            }
-        }
-    }
- 
-    var nutritionImageSmallData: NSData? = nil
-     */
-
     var nutritionFactsImageUrl: NSURL? = nil
     var nutritionImageData: ImageFetchResult? {
         didSet {
@@ -114,7 +95,7 @@ class FoodProduct {
         if nutritionImageData == nil {
             nutritionImageData = .Loading
             // launch the image retrieval
-            nutritionImageData?.retrieveImageData(mainUrl) { (fetchResult:ImageFetchResult?) in
+            nutritionImageData?.retrieveImageData(nutritionFactsImageUrl) { (fetchResult:ImageFetchResult?) in
                 self.nutritionImageData = fetchResult
             }
         }
@@ -545,6 +526,11 @@ class FoodProduct {
         return NSURL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
     }
     
+    func regionURL() -> NSURL? {
+        let region = NSBundle.mainBundle().preferredLocalizations[0] as NSString
+        return NSURL(string: "http://\(region).openfoodfacts.org/product/" + barcode.asString() + "/")
+    }
+
     
 // End product
 }

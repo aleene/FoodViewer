@@ -1,25 +1,23 @@
 //
-//  IdentificationPackagingTagListViewTableViewCell.swift
+//  NoServingSizeTableViewCell.swift
 //  FoodViewer
 //
-//  Created by arnaud on 16/02/16.
+//  Created by arnaud on 12/05/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
 
 import UIKit
 
+class NoServingSizeTableViewCell: UITableViewCell {
 
-class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
-
-    private struct Constants {
-        static let NoInformation = NSLocalizedString("no packaging info specified", comment: "Text for tag in a separate colour, when no packaging information is available in the product data.")
+    struct Constants {
+        static let NoTag = NSLocalizedString("no serving size available", comment: "Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.")
     }
-
+    
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
             tagListView.alignment = .Center
-            tagListView.tagBackgroundColor = UIColor.greenColor()
             tagListView.cornerRadius = 10
         }
     }
@@ -28,21 +26,33 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
         didSet {
             if let list = tagList {
                 tagListView.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
+                let newList = removeEmptyTags(list)
+                if !newList.isEmpty {
+                    for listItem in newList {
                         tagListView.addTag(listItem)
                     }
                     tagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {
-                    tagListView.addTag(Constants.NoInformation)
+                    tagListView.addTag(Constants.NoTag)
                     tagListView.tagBackgroundColor = UIColor.orangeColor()
                 }
             } else {
                 tagListView.removeAllTags()
-                tagListView.addTag(Constants.NoInformation)
+                tagListView.addTag(Constants.NoTag)
                 tagListView.tagBackgroundColor = UIColor.orangeColor()
             }
         }
     }
-
+    
+    func removeEmptyTags(list: [String]) -> [String] {
+        var newList: [String] = []
+        if !list.isEmpty {
+            for listItem in list {
+                if listItem.characters.count > 0 {
+                    newList.append(listItem)
+                }
+            }
+        }
+        return newList
+    }
 }

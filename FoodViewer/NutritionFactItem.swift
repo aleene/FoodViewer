@@ -15,7 +15,25 @@ struct NutritionFactItem {
     var servingValue: String? = nil
     var servingValueUnit: String? = nil
     var key: String? = nil
-    
+
+    init() {
+        itemName = nil
+        standardValue = nil
+        standardValueUnit = nil
+        servingValue = nil
+        servingValueUnit = nil
+        key = nil
+    }
+
+    init(name: String?, standard: String?, serving: String?, unit: String?, key: String?) {
+        itemName = name
+        standardValue = standard
+        servingValue = serving
+        standardValueUnit = unit
+        servingValueUnit = unit
+        self.key = key
+    }
+
     func valid() -> Bool {
         return standardValue != nil && !standardValue!.isEmpty
     }
@@ -23,30 +41,50 @@ struct NutritionFactItem {
     struct Constants {
         static let CaloriesPerJoule = 4.2
     }
-    
-    func standardValueInCalories() -> String {
-        if !standardValue!.isEmpty {
+
+    func valueInCalories(stringValue: String?) -> String {
+        
+        if !stringValue!.isEmpty {
             // convert standard value to a number
-            let value = Double(standardValue!)
+            let value = Double(stringValue!)
             let numberFormatter = NSNumberFormatter()
             numberFormatter.numberStyle = .DecimalStyle
             return String(numberFormatter.stringFromNumber(value! / Constants.CaloriesPerJoule)!)
-
-        } else {
-            return ""
         }
+        return ""
+    }
+    func localeStandardValue() -> String {
+        return localeValue(standardValue)
     }
     
-    func localeValue() -> String {
-        if !standardValue!.isEmpty {
-            // convert standard value to a number in the users locale
-            let value = Double(standardValue!)
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .DecimalStyle
-            return String(numberFormatter.stringFromNumber(value!)!)
-        } else {
-            return ""
+    func localeServingValue() -> String {
+        return localeValue(servingValue)
+    }
+
+    private func localeValue(value: String?) -> String {
+
+        if let validValue = value {
+
+            if !validValue.isEmpty {
+
+                // convert standard value to a number in the users locale
+                if let valueDouble = Double(validValue) {
+
+                    let numberFormatter = NSNumberFormatter()
+                    numberFormatter.numberStyle = .DecimalStyle
+                    if let returnString = numberFormatter.stringFromNumber(valueDouble) {
+                        return returnString
+                    }
+                }
+
+            }
+            return validValue
         }
 
+        return ""
     }
+
 }
+
+
+

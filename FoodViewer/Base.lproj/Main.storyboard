@@ -1219,7 +1219,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="nIc-JU-jSB" userLabel="FooterView">
-                            <rect key="frame" x="0.0" y="268" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="312" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.0"/>
@@ -1323,8 +1323,32 @@
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Nutrition Facts Image" id="54m-Vq-nRb"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty Nutrition Facts Image Cell" id="4HD-IM-CvN" customClass="EmptyNutrientsTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="180" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u9d-nb-gSc" id="q8I-Mx-AJ4">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-av-cA3" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="8" width="584" height="27"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="A5S-av-cA3" firstAttribute="top" secondItem="q8I-Mx-AJ4" secondAttribute="topMargin" id="ZaQ-wg-bnf"/>
+                                        <constraint firstItem="A5S-av-cA3" firstAttribute="leading" secondItem="q8I-Mx-AJ4" secondAttribute="leadingMargin" id="cI7-Md-6cM"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="A5S-av-cA3" secondAttribute="bottom" id="ocf-2e-dp3"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="A5S-av-cA3" secondAttribute="trailing" id="vGG-g7-itI"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="tagListView" destination="A5S-av-cA3" id="rVa-Ep-PMP"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Empty Nutrition Facts Image Cell" id="4HD-IM-CvN" customClass="EmptyNutrientsTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="224" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4HD-IM-CvN" id="oF0-FB-0xd">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
@@ -1346,27 +1370,27 @@
                                     <outlet property="tagListView" destination="N5K-3b-jkA" id="i4l-T2-nS6"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="224" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Serving Size Cell" id="UQy-aH-K8y" customClass="NoServingSizeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="268" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u9d-nb-gSc" id="q8I-Mx-AJ4">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UQy-aH-K8y" id="0JZ-25-xZ9">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-av-cA3" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2g-nR-AHM" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="8" y="8" width="584" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="top" secondItem="q8I-Mx-AJ4" secondAttribute="topMargin" id="ZaQ-wg-bnf"/>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="leading" secondItem="q8I-Mx-AJ4" secondAttribute="leadingMargin" id="cI7-Md-6cM"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="A5S-av-cA3" secondAttribute="bottom" id="ocf-2e-dp3"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="A5S-av-cA3" secondAttribute="trailing" id="vGG-g7-itI"/>
+                                        <constraint firstItem="p2g-nR-AHM" firstAttribute="top" secondItem="0JZ-25-xZ9" secondAttribute="topMargin" id="7J0-8J-bJI"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="p2g-nR-AHM" secondAttribute="trailing" id="FVO-NZ-Ld2"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="p2g-nR-AHM" secondAttribute="bottom" id="UtO-gG-zMG"/>
+                                        <constraint firstItem="p2g-nR-AHM" firstAttribute="leading" secondItem="0JZ-25-xZ9" secondAttribute="leadingMargin" id="j9D-t1-IPu"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="tagListView" destination="A5S-av-cA3" id="rVa-Ep-PMP"/>
+                                    <outlet property="tagListView" destination="p2g-nR-AHM" id="Z24-mk-Kti"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -31,6 +31,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch validFetchResult  {
                 case .Success(let product):
                     selectedProduct = product
+                    selectedIndex = 0
                     tableView.reloadData()
                     tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: indexInHistory!), atScrollPosition: .Middle, animated: true)
                 default:
@@ -124,7 +125,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // only segue if we are at the top of the stack
         // i.e. only segue once
         if let parentVC = self.parentViewController as? UINavigationController {
-            if let _ = parentVC.visibleViewController as? ProductTableViewController {
+            let testVC = parentVC.visibleViewController as? ProductTableViewController
+            if testVC != nil {
                 performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
             }
         }
@@ -263,7 +265,35 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
+    
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let tempView = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 25))
+        tempView.backgroundColor = UIColor.grayColor()
+        let label = UILabel.init(frame: CGRectMake(10, 5, tableView.frame.size.width, 20))
+        label.font = UIFont.boldSystemFontOfSize(20)
+        label.textColor = UIColor.whiteColor()
+        if !products.fetchResultList.isEmpty {
+            if let validProductFetchResult = products.fetchResultList[section] {
+                switch validProductFetchResult {
+                case .Success(let product):
+                    label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
+                default:
+                    label.text = validProductFetchResult.description()
+                }
+            } else {
+                label.text = Constants.BusyLoadingProduct
+            }
+        } else {
+            label.text = Constants.NoProductsInHistory
+        }
+        
+        tempView.addSubview(label)
+        tempView.tag = section;
+        return tempView;
+    }
    
+    /*
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if !products.fetchResultList.isEmpty {
             if let validProductFetchResult = products.fetchResultList[section] {
@@ -278,6 +308,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
         return Constants.NoProductsInHistory
     }
+  */
 
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -322,6 +353,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let vc = segue.sourceViewController as? BarcodeScanViewController {
             barcode = BarcodeType(typeCode:vc.type, value:vc.barcode)
             searchTextField.text = vc.barcode
+            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
         }
     }
     

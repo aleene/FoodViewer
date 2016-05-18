@@ -32,10 +32,13 @@ class OFFProducts {
     var fetchResultList = [ProductFetchStatus?]()
     
     init() {
-        // check if there is history available
-        // and init products with History
+        // Initialize the products, multiple options are possible:
+        // - there is no history, the user usese the app the first time for instance -> show a sample product
+        // - there are products in the history file
+        //      check first if the most recent product has been stored and load that one
+        //      then load the rest of the history products
+        
         if !storedHistory.barcodes.isEmpty {
-            historyLoadCount = 0
             initList()
             
             if let data = mostRecentProduct.jsonData {
@@ -43,17 +46,12 @@ class OFFProducts {
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
                     fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        self.historyLoadCount = 0
+                        self.historyLoadCount! += 1
                         self.fetchResultList[0] = fetchResult
                         switch fetchResult {
                         case .Success:
-                            self.historyLoadCount! += 1
                             NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                            for (index, storedBarcode) in self.storedHistory.barcodes.enumerate() {
-                                // skip the first in the history as it already has been loaded
-                                if index > 0 {
-                                    self.fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedBarcode)), index:index)
-                                }
-                            }
                         case .LoadingFailed(let error):
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
@@ -66,10 +64,7 @@ class OFFProducts {
                 })
                 
             } else {
-                for (index, storedBarcode) in storedHistory.barcodes.enumerate() {
-                    // fetch the corresponding data from internet
-                    fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedBarcode)), index:index)
-                }
+                historyLoadCount = 0
             }
         } else {
             historyLoadCount = nil
@@ -164,9 +159,11 @@ class OFFProducts {
                     case .Success:
                         self.historyLoadCount! += 1
                     case .LoadingFailed(let error):
+                        self.historyLoadCount! += 1
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
                     case .ProductNotAvailable(let error):
+                        self.historyLoadCount! += 1
                         let userInfo = ["error":error]
                         self.handleProductNotAvailable(userInfo)
                     default: break
@@ -176,17 +173,31 @@ class OFFProducts {
         }
     }
 
-
+    // This function manages the loading of the history products. A load batch is never larger than 5 simultaneous threads
     private var historyLoadCount: Int? = nil {
         didSet {
             if let currentLoadHistory = historyLoadCount {
-                if currentLoadHistory == storedHistory.barcodes.count {
+                let batchSize = 5
+                if currentLoadHistory == storedHistory.barcodes.count - 1 {
                     // all products have been loaded from history
-                    historyLoadCount = nil
                     NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
-                } else if historyLoadCount == 1 {
+                } else if (currentLoadHistory >= 4) && ((currentLoadHistory + 1 ) % batchSize == 0) {
+                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
+                    // load next batch
+                    let startIndex = currentLoadHistory + 1 <= storedHistory.barcodes.count - 1 ? currentLoadHistory + 1 : storedHistory.barcodes.count - 1
+                    let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodes.count - 1 ? startIndex + batchSize - 1 : storedHistory.barcodes.count - 1
+                    for index in startIndex...endIndex {
+                        fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodes[index])), index:index)
+                    }
+                } else if (currentLoadHistory == 0) {
                     // the first product is already there, so can be shown
                     NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
+                    // load first batch up to product 4
+                    let startIndex = 1 <= storedHistory.barcodes.count ? 1 : storedHistory.barcodes.count - 1
+                    let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodes.count - 1 ? batchSize - 1 : storedHistory.barcodes.count - 1
+                    for index in startIndex...endIndex {
+                        fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodes[index])), index:index)
+                    }
                 }
             }
         }
@@ -207,15 +218,16 @@ class OFFProducts {
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     let fetchResult = request.fetchProductForBarcode(barcode!)
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.fetchResultList.insert(fetchResult, atIndex:0)
                         switch fetchResult {
                         case .Success(let newProduct):
                         // add product barcode to history
+                            self.fetchResultList.insert(fetchResult, atIndex:0)
                             self.storedHistory.addBarcode(barcode: newProduct.barcode.asString())
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
                             NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
                         case .LoadingFailed(let error):
+                            self.fetchResultList.insert(fetchResult, atIndex:0)
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
                         case .ProductNotAvailable(let error):

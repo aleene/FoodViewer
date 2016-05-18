@@ -1,4 +1,4 @@
-//
+ //
 //  OpenFoodFactsRequest.swift
 //  FoodViewer
 //
@@ -224,32 +224,7 @@ class OpenFoodFactsRequest {
         //static let Proteins100gKey = "proteins_100g"
         //static let ProteinsUnitKey = "proteins_unit"
         static let NutritionScoreFrKey = "nutrition-score-fr"
-        //static let SugarsUnitKey = "sugars_unit"
-        //static let FatServingKey = "fat_serving"
-        //static let SodiumUnitKey = "sodium_unit"
-        //static let Sugars100gKey = "sugars_100g"
-        //static let SaturatedFatUnitKey = "saturated-fat_unit"
-        //static let Sodium100gKey = "sodium_100g"
-        //static let SaturatedFatServingKey = "saturated-fat_serving"
-        //static let FiberUnitKey = "fiber_unit"
-        //static let EnergyKey = "energy"
-        //static let EnergyUnitKey = "energy_unit"
-        //static let SugarsServingKey = "sugars_serving"
-        //static let Carbohydrates100gKey = "carbohydrates_100g"
-        //static let NutritionScoreUkKey = "nutrition-score-uk"
-        //static let FiberServingKey = "fiber_serving"
-        //static let CarbohydratesServingKey = "carbohydrates_serving"
-        //static let EnergyServingKey = "energy_serving"
-        //static let Fat100gKey = "fat_100g"
-        //static let SaturatedFat100gKey = "saturated-fat_100g"
         static let NutritionScoreUk100gKey = "nutrition-score-uk_100g"
-        //static let FiberKey = "fiber"
-        //static let SaltServingKey = "salt_serving"
-        //static let Salt100gKey = "salt_100g"
-        //static let CarbohydratesKey = "carbohydrates"
-        //static let Fiber100gKey = "fiber_100g"
-        //static let Energy100gKey = "energy_100g"
-        //static let saturatedFatKey = "saturated-fat"
         static let CountriesTagsKey = "countries_tags"
         static let IngredientsFromPalmOilTagsKey = "ingredients_from_palm_oil_tags"
         static let EmbCodesTagsKey = "emb_codes_tags"
@@ -410,7 +385,9 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2TagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.UnknownNutrientsTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesPrevTagsKey]?.stringArray
-                product.packagingArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingTagsKey]?.stringArray
+                if let packagingString = jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingKey]?.string {
+                    product.packagingArray = packagingString.characters.split{$0 == ","}.map(String.init)
+                }
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesKey]?.stringArray
                 product.numberOfIngredients = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsNKey]?.string
                 
@@ -452,6 +429,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromOrThatMayBeFromPalmOilNKey]?.int
                 product.creator = jsonObject?[OFFJson.ProductKey]?[OFFJson.CreatorKey]?.string
                 product.mainUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontUrlKey]?.nsurl
+                product.nutritionFactsAreAvailable = decodeNutritionDataAvalailable(jsonObject?[OFFJson.ProductKey]?[OFFJson.NoNutritionDataKey]?.string)
                 product.servingSize = jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingSizeKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CompletedTKey]?.time
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LastModifiedByKey]?.string
@@ -505,6 +483,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodes20141016Key]?.string
                 product.categories = decodeCategories(jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesTagsKey]?.stringArray)
                 product.quantity = jsonObject?[OFFJson.ProductKey]?[OFFJson.QuantityKey]?.string
+                product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionDataPerKey]?.string)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevHierarchyKey]?.stringArray
                 product.expirationDate = decodeDate(jsonObject?[OFFJson.ProductKey]?[OFFJson.ExpirationDateKey]?.string)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.StatesHierarchyKey]?.stringArray
@@ -785,11 +764,46 @@ class OpenFoodFactsRequest {
             }
         } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key]?.string {
             nutritionItem.standardValue = value
-        } else {
-            return
         }
-        nutritionItem.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ServingKey]?.string
         
+        if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ServingKey]?.string {
+            // print("\(key) \(value)")
+            if let unit = nutritionItem.standardValueUnit {
+                // print("value \(value) ; unit \(unit)")
+                if unit == "mg" {
+                    // is the value translatable to a number?
+                    if let doubleValue = Double(value) {
+                        nutritionItem.servingValue = "\( doubleValue * 1000)"
+                    } else {
+                        nutritionItem.servingValue = value
+                    }
+                } else {
+                    nutritionItem.servingValue = value
+                }
+            }
+        } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key]?.string {
+            nutritionItem.servingValue = value
+        }
+        // what data is defined?
+        if (nutritionItem.standardValue == nil) {
+            if (nutritionItem.servingValue == nil) {
+                if product.nutritionFactsImageUrl != nil {
+                // the user did ot enter the nutrition data
+                    product.nutritionFactsAreAvailable = .NotIndicated
+                } else {
+                    product.nutritionFactsAreAvailable = .NotAvailable
+                }
+                return
+            } else {
+                product.nutritionFactsAreAvailable = .PerServing
+            }
+        } else {
+            if (nutritionItem.servingValue == nil) {
+                product.nutritionFactsAreAvailable = .PerStandardUnit
+            } else {
+                product.nutritionFactsAreAvailable = .PerServingAndStandardUnit
+            }
+        }
         product.nutritionFacts.append(nutritionItem)
     }
     
@@ -826,6 +840,14 @@ class OpenFoodFactsRequest {
             return translatedAdds
         }
         return nil
+    }
+    
+    private func decodeNutritionDataAvalailable(code: String?) -> NutritionAvailability {
+        if let validCode = code {
+            return validCode.hasPrefix("on") ? NutritionAvailability.NotOnPackage : NutritionAvailability.NotIndicated
+        }
+        return NutritionAvailability.NotIndicated
+        
     }
     
     private func decodeAllergens(allergens: [String]?) -> [String]? {
@@ -1036,13 +1058,24 @@ class OpenFoodFactsRequest {
         }
         return nil
     }
+    
+    private func decodeNutritionFactIndicationUnit(value: String?) -> NutritionEntryUnit? {
+        if let validValue = value {
+            if validValue.contains(NutritionEntryUnit.PerStandardUnit.key()) {
+                return .PerStandardUnit
+            } else if validValue.contains(NutritionEntryUnit.PerServing.key()) {
+                return .PerServing
+            }
+        }
+        return nil
+    }
 
     // This function extracts the postalcode out of the producer code and created an Address instance
     private func decodeProducerCode(code: String?) -> Address? {
         let newAddress = Address()
         if let validCode = code {
+            newAddress.raw = validCode
             if validCode.rangeOfString("FR\\s..[.]...[.]...\\sCE", options: .RegularExpressionSearch) != nil {
-                newAddress.raw = validCode
                 newAddress.country = "France"
                 let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
                 let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
@@ -1051,7 +1084,6 @@ class OpenFoodFactsRequest {
                 return newAddress
                 
             } else if validCode.rangeOfString("EMB\\s\\d{5}", options: .RegularExpressionSearch) != nil {
-                newAddress.raw = validCode
                 newAddress.country = "France"
                 
                 // start after the first four characters
@@ -1059,6 +1091,15 @@ class OpenFoodFactsRequest {
                     newAddress.postalcode = validCode.substring(4, length: 5)
                     return newAddress
                 }
+            } else if validCode.hasPrefix("EMB B-") {
+                newAddress.country = "Belgium"
+                /*
+                // start after the first four characters
+                if validCode.length() >= 9 {
+                    newAddress.postalcode = validCode.substring(4, length: 5)
+                    return newAddress
+                }
+                 */
             }
         }
         return nil

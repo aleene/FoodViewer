@@ -80,6 +80,9 @@
 		5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91A1C5D3B9E002DBD21 /* Product.swift */; };
 		5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */; };
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
+		51974E671CE61F2C0008585D /* NutritionDataPerStandardOrServing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51974E661CE61F2C0008585D /* NutritionDataPerStandardOrServing.swift */; };
+		519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */; };
+		519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */; };
 		519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */; };
 		51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */; };
 		51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */; };
@@ -106,6 +109,7 @@
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
 		51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */; };
+		51D50F171CE78904008DD98C /* NutritionEntryUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */; };
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
@@ -205,6 +209,9 @@
 		5180B91A1C5D3B9E002DBD21 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		51974E661CE61F2C0008585D /* NutritionDataPerStandardOrServing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDataPerStandardOrServing.swift; sourceTree = "<group>"; };
+		519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionAvailability.swift; sourceTree = "<group>"; };
+		519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoServingSizeTableViewCell.swift; sourceTree = "<group>"; };
 		519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNutrientsImageTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainLocation.swift; sourceTree = "<group>"; };
@@ -233,6 +240,7 @@
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
 		51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
+		51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionEntryUnit.swift; sourceTree = "<group>"; };
 		51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
@@ -353,6 +361,7 @@
 				519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */,
 				516B328C1C75FF100031EF80 /* NutrientsImageTableViewCell.swift */,
 				513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */,
+				519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */,
 				516B328F1C7600F30031EF80 /* ServingSizeTableViewCell.swift */,
 				516B32911C76043D0031EF80 /* NutrientsTableViewCell.swift */,
 			);
@@ -446,6 +455,27 @@
 			name = "Support files";
 			sourceTree = "<group>";
 		};
+		519884E11CE4EA5E0020B3A1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
+				5176AAEA1CA44F5A00B0494A /* Address.swift */,
+				516B32801C75F2430031EF80 /* BarcodeType.swift */,
+				516B32881C75F74F0031EF80 /* CompletionState.swift */,
+				516BA5951CC769DD008A094A /* Energy.swift */,
+				51F057FA1CB68A3000849532 /* NatriumChloride.swift */,
+				516B32841C75F5120031EF80 /* NutritionItem.swift */,
+				51974E661CE61F2C0008585D /* NutritionDataPerStandardOrServing.swift */,
+				519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */,
+				5150C0631CBAC3F800161616 /* NutritionFactItem.swift */,
+				516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */,
+				516B32861C75F6F30031EF80 /* NutritionalGradeLevel.swift */,
+				51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */,
+				5114592A1CB1368E00D25116 /* Status.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
 		51AFB0081C734CD900598444 /* IdentificationCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,26 +545,16 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				519884E11CE4EA5E0020B3A1 /* Components */,
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
 				51E614931C8349AD00DAEE6C /* History.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
-				5114592A1CB1368E00D25116 /* Status.swift */,
-				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
-				5176AAEA1CA44F5A00B0494A /* Address.swift */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
-				516B32881C75F74F0031EF80 /* CompletionState.swift */,
-				516B32861C75F6F30031EF80 /* NutritionalGradeLevel.swift */,
-				516B32841C75F5120031EF80 /* NutritionItem.swift */,
-				51F057FA1CB68A3000849532 /* NatriumChloride.swift */,
 				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
-				516BA5951CC769DD008A094A /* Energy.swift */,
-				516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */,
-				516B32801C75F2430031EF80 /* BarcodeType.swift */,
 				511459301CB1389C00D25116 /* Taxonomy */,
 				51F057FC1CB6AFEF00849532 /* OFFProducts.swift */,
 				516BA5931CC522D8008A094A /* MostRecentProduct.swift */,
-				5150C0631CBAC3F800161616 /* NutritionFactItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -640,6 +660,7 @@
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
 				51EA98B81C64A3DD000A503D /* JSON.swift in Sources */,
 				51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */,
+				51974E671CE61F2C0008585D /* NutritionDataPerStandardOrServing.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
@@ -661,6 +682,7 @@
 				5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */,
 				515742771CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift in Sources */,
 				516B328B1C75FE4B0031EF80 /* NutrientsTableViewController.swift in Sources */,
+				519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */,
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
 				517AAD511C7DB62700B12F3C /* AdditivesFullTableViewCell.swift in Sources */,
@@ -695,6 +717,7 @@
 				516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */,
 				517AAD4F1C7DB61700B12F3C /* TracesFullTableViewCell.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,
+				519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
@@ -724,6 +747,7 @@
 				51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */,
 				516B32921C76043D0031EF80 /* NutrientsTableViewCell.swift in Sources */,
 				515742761CDB63B200BE8E2D /* RSITFGenerator.swift in Sources */,
+				51D50F171CE78904008DD98C /* NutritionEntryUnit.swift in Sources */,
 				516B32871C75F6F30031EF80 /* NutritionalGradeLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

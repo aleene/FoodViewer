@@ -46,7 +46,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             sharingItems.append(image)
         }
         
-        if let url = product?.worldURL() {
+        if let url = product?.regionURL() {
             sharingItems.append(url)
         }
         

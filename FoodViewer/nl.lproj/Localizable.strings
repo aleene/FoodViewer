@@ -37,6 +37,9 @@
 /* Tableview sectionheader for brands. */
 "Brands" = "Merken";
 
+/* Text to indicate that the it is trying to load. */
+"Busy loading product" = "Product wordt geladden";
+
 /* Title of second segment in switch, which lets the user select between joule or calories */
 "Calories" = "Calorieën";
 
@@ -129,6 +132,9 @@
 /* Title of tableview cell, indicating whether the product ingredients field have been filled in */
 "Ingredients complete?" = "Ingrediënten ingevuld?";
 
+/* String presented in a tagView if nothing has happened yet */
+"Initialized" = "Geïnitialiseerd";
+
 /* Title of first segment in switch, which lets the user select between joule or calories */
 "Joule" = "Joule";
 
@@ -189,6 +195,12 @@
 /* Tableview header section for the list of nutritional facts */
 "Nutrition Facts (100g; 100ml)" = "Voedingswaarden (100g of 100 ml)";
 
+/* Description for NutritionData per standard unit */
+"Nutrition Facts (per 100g/100ml)" = "Voedingswaarden (per 100g/1000ml)";
+
+/* Description for NutritionData per serving */
+"Nutrition Facts (per serving)" = "Voedingswaarden (per portie)";
+
 /* Tableview header section for the image of the nutritional facts */
 "Nutrition Facts Image" = "Voedingswaardenfoto";
 
@@ -197,6 +209,9 @@
 
 /* Viewcontroller title for page with nutritional facts for product. */
 "Nutritional facts" = "Voedingswaarden";
+
+/* String for the Activity Action Screen */
+"Open in Safari" = "Bekijk in Safari";
 
 /* Header for section of tableView with location(s) of ingredients. */
 "Origin ingredient" = "Oorsprong ingrediënten";
@@ -224,6 +239,18 @@
 
 /* Header for section of tableView with information of the producer (name, geographic location). */
 "Producers" = "Producenten";
+
+/* String presented in a tagView if the product has been loaded */
+"Product is loaded" = "Product is geladen";
+
+/* String presented in a tagView if the product is currently being loaded */
+"Product loading" = "Product wordt geladen";
+
+/* String presented in a tagView if the product loading has failed */
+"Product loading  failed" = "Laden product mislukt";
+
+/* String presented in a tagView if no product is available on OFF */
+"Product not available" = "Product niet beschikbaar";
 
 /* Title of tableview cell, indicateding whether the productname has been completed. */
 "Productname complete?" = "Productnaam ingevuld?";
@@ -310,8 +337,20 @@
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data available" = "geen voedingswaarden aangegeven";
 
-/* Text for tag in a separate colour, when no packaging infor is available in the product data. */
-"no packing info specified" = "geen verpakkingsinformatie aangegeven";
+/* Text in a TagListView, when no nutrition data has been specified in the product data. */
+"no nutrition data indicated" = "geen voedingswaarden beschikbaar";
+
+/* description() text if the nutrition data on the package is indicated per standard unit (100 g or 100 ml). */
+"no nutrition data indicated per standard unit" = "voedingswaarden aangegeven per standaard eenheid";
+
+/* Text for tag in a separate colour, when no packaging information is available in the product data. */
+"no packaging info specified" = "geen verpakkings info ingevuld";
+
+/* Text for an entry in a taglist, when no producer code is available. This is also indicated in a separate colour. */
+"no producercode available" = "geen producentcode beschikbaar";
+
+/* Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour. */
+"no serving size available" = "geen portiegroote ingevuld";
 
 /* Text in a TagListView, when no traces have been specified in the product data. */
 "no traces specified" = "geen sporen aangegeven";
@@ -322,8 +361,20 @@
 /* TextField text to indicate the serving size is not available */
 "not available" = "niet beschikbaar";
 
-/* Text in a TagListView, when to indicate the product is being loaded from Internet. */
-"product being loaded" = "product wordt geladen";
+/* description() text if the nutrition data on the package is indicated per serving. */
+"nutrition data indicated per serving" = "voedingswaarden aangegeven per portie";
+
+/* Text in a TagListView, when no nutrition data is available on the package. */
+"nutrition data not on package" = "geen voedingswaarden op verpakking";
+
+/* Text in a TagListView, when the nutrition data has been specified in the product data. */
+"nutrition data per serving and standard unit available" = "voedingswaarden per portie en per standaard eenheid beschikbaar";
+
+/* Text in a TagListView, when the nutrition data has been specified in the product data. */
+"nutrition data per serving available" = "voedingswaarden per portie beschikbaar";
+
+/* Text in a TagListView, when the nutrition data has been specified in the product data. */
+"nutrition data per standard unit available" = "voedingswaarden per standaard eenheid beschikbaar";
 
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";
