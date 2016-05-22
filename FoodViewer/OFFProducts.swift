@@ -67,6 +67,7 @@ class OFFProducts {
                 historyLoadCount = 0
             }
         } else {
+            // no history available, load sample product
             historyLoadCount = nil
             var fetchResult = ProductFetchStatus.Loading
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
@@ -162,10 +163,11 @@ class OFFProducts {
                         self.historyLoadCount! += 1
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
-                    case .ProductNotAvailable(let error):
+                    case .ProductNotAvailable:
+                        // product barcode no longer exists
                         self.historyLoadCount! += 1
-                        let userInfo = ["error":error]
-                        self.handleProductNotAvailable(userInfo)
+                        // let userInfo = ["error":error]
+                        // self.handleProductNotAvailable(userInfo)
                     default: break
                     }
                 })

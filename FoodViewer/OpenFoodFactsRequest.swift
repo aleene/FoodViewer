@@ -410,7 +410,10 @@ class OpenFoodFactsRequest {
                 
                 product.producerCode = decodeProducerCodeArray(jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesOrigKey]?.string)
                 
-                product.brandsArray = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsTagsKey]?.stringArray
+                if let brandsString = jsonObject?[OFFJson.ProductKey]?[OFFJson.BrandsKey]?.string {
+                    product.brandsArray = brandsString.characters.split{$0 == ","}.map(String.init)
+                }
+
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2Key]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesHierarchyKey]?.stringArray
@@ -742,46 +745,72 @@ class OpenFoodFactsRequest {
             static let HunderdKey = "_100g"
             static let ServingKey = "_serving"
             static let UnitKey = "_unit"
+            static let ValueKey = "_value"
         }
         var nutritionItem = NutritionFactItem()
         let preferredLanguage = NSLocale.preferredLanguages()[0]
         nutritionItem.key = key
         nutritionItem.itemName = OFFplists.manager.translateNutrients(key, language:preferredLanguage)
-        nutritionItem.standardValueUnit = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.UnitKey]?.string
+        // we use only the values standerdized on g
+        if nutritionItem.key!.contains("energy") {
+            nutritionItem.standardValueUnit = "kJ"
+        } else if nutritionItem.key!.contains("alcohol") {
+            nutritionItem.standardValueUnit = "%"
+        } else {
+            nutritionItem.standardValueUnit = "g"
+        }
+
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string {
-            if let unit = nutritionItem.standardValueUnit {
-                // print("value \(value) ; unit \(unit)")
-                if unit == "mg" {
-                    // is the value translatable to a number?
-                    if let doubleValue = Double(value) {
-                        nutritionItem.standardValue = "\( doubleValue * 1000)"
+            // is the value translatable to a number?
+            if var doubleValue = Double(value) {
+                if doubleValue < 1 {
+                    //change to the milli version
+                    doubleValue = doubleValue * 1000.0
+                    if doubleValue < 1 {
+                        // change to the microversion
+                        doubleValue = doubleValue * 1000.0
+                        // we use only the values standerdized on g
+                        if doubleValue < 1 {
+                            nutritionItem.standardValueUnit = " " + nutritionItem.standardValueUnit!
+                        } else {
+                            nutritionItem.standardValueUnit = "µ" + nutritionItem.standardValueUnit!
+                        }
                     } else {
-                        nutritionItem.standardValue = value
+                        // we use only the values standerdized on g
+                        nutritionItem.standardValueUnit = "m" + nutritionItem.standardValueUnit!
                     }
                 } else {
-                    nutritionItem.standardValue = value
+                    // we use only the values standerdized on g
+                    nutritionItem.standardValueUnit = " " + nutritionItem.standardValueUnit!
+
                 }
+                // print("\(key) \(value) \(doubleValue) \(nutritionItem.standardValueUnit)")
+
+                nutritionItem.standardValue = "\(doubleValue)"
+            } else {
+                nutritionItem.standardValue = value
             }
-        } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key]?.string {
+        } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ValueKey]?.string {
             nutritionItem.standardValue = value
         }
         
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ServingKey]?.string {
-            // print("\(key) \(value)")
-            if let unit = nutritionItem.standardValueUnit {
-                // print("value \(value) ; unit \(unit)")
-                if unit == "mg" {
-                    // is the value translatable to a number?
-                    if let doubleValue = Double(value) {
-                        nutritionItem.servingValue = "\( doubleValue * 1000)"
-                    } else {
-                        nutritionItem.servingValue = value
+            // is the value translatable to a number?
+            if var doubleValue = Double(value) {
+                if doubleValue < 1 {
+                    //change to the milli version
+                    doubleValue = doubleValue * 1000.0
+                    if doubleValue < 1 {
+                        // change to the microversion
+                        doubleValue = doubleValue * 1000.0
                     }
-                } else {
-                    nutritionItem.servingValue = value
                 }
+                nutritionItem.servingValue = "\(doubleValue)"
+            } else {
+                nutritionItem.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string
             }
-        } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key]?.string {
+
+        } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ValueKey]?.string {
             nutritionItem.servingValue = value
         }
         // what data is defined?

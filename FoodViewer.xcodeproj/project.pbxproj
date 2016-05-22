@@ -124,6 +124,7 @@
 		51F057F91CB6850300849532 /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51F057F81CB6850100849532 /* GlobalLabels.plist */; };
 		51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FA1CB68A3000849532 /* NatriumChloride.swift */; };
 		51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FC1CB6AFEF00849532 /* OFFProducts.swift */; };
+		51FB32271CF1F4D100A17312 /* Macadamia.json in Resources */ = {isa = PBXBuildFile; fileRef = 51FB32261CF1F4D100A17312 /* Macadamia.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -258,6 +259,7 @@
 		51F057F81CB6850100849532 /* GlobalLabels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GlobalLabels.plist; sourceTree = "<group>"; };
 		51F057FA1CB68A3000849532 /* NatriumChloride.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NatriumChloride.swift; sourceTree = "<group>"; };
 		51F057FC1CB6AFEF00849532 /* OFFProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProducts.swift; sourceTree = "<group>"; };
+		51FB32261CF1F4D100A17312 /* Macadamia.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Macadamia.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,6 +304,7 @@
 				51E5CC951CAD13A400216868 /* 54004207.json */,
 				51DAD3781C60A6A200895513 /* 737628064502.json */,
 				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
+				51FB32261CF1F4D100A17312 /* Macadamia.json */,
 			);
 			name = "Test files";
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				51F057F91CB6850300849532 /* GlobalLabels.plist in Resources */,
 				516BA5881CC3ADFD008A094A /* Launch Screen.storyboard in Resources */,
+				51FB32271CF1F4D100A17312 /* Macadamia.json in Resources */,
 				51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */,
 				51B14FFF1CB2DD8B00A57D42 /* States.plist in Resources */,
 				51B150031CB2DF9100A57D42 /* Allergens.plist in Resources */,
