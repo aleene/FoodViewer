@@ -241,10 +241,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="vLd-aq-IFY">
+                            <tableViewSection headerTitle="Nutrition display options" id="vLd-aq-IFY">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Salt or Sodium Cell" rowHeight="66" id="Gq9-5E-XA6">
-                                        <rect key="frame" x="0.0" y="166" width="600" height="66"/>
+                                        <rect key="frame" x="0.0" y="181" width="600" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gq9-5E-XA6" id="PK1-as-xjk">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
@@ -269,7 +269,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Joule or Calories Cell" rowHeight="66" id="q0C-Ec-WWv">
-                                        <rect key="frame" x="0.0" y="232" width="600" height="66"/>
+                                        <rect key="frame" x="0.0" y="247" width="600" height="66"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q0C-Ec-WWv" id="Opd-WW-6UF">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
@@ -293,6 +293,31 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Joule or Calories Cell" rowHeight="66" id="gnG-Rr-1Ys" userLabel="Nutrition Unit Cell">
+                                        <rect key="frame" x="0.0" y="313" width="600" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gnG-Rr-1Ys" id="3tJ-Ge-8xn">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XQE-hH-APP" userLabel="Salt Or Sodium Switch">
+                                                    <rect key="frame" x="198" y="16" width="205" height="34"/>
+                                                    <segments>
+                                                        <segment title="Per 100 mg/ml"/>
+                                                        <segment title="Per Serving"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="nutritionUnitSwitchTapped:" destination="wkb-2f-GaI" eventType="valueChanged" id="DRh-2u-xPr"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="XQE-hH-APP" secondAttribute="bottom" constant="8" id="PgG-Pg-3Tv"/>
+                                                <constraint firstItem="XQE-hH-APP" firstAttribute="top" secondItem="3tJ-Ge-8xn" secondAttribute="topMargin" constant="8" id="YGg-bb-08W"/>
+                                                <constraint firstItem="XQE-hH-APP" firstAttribute="centerX" secondItem="3tJ-Ge-8xn" secondAttribute="centerX" id="t3b-Mq-YgS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -306,6 +331,7 @@
                     <connections>
                         <outlet property="clearHistoryButton" destination="LUu-zu-IQr" id="aCc-5S-Uza"/>
                         <outlet property="jouleOrCaloriesOutlet" destination="b37-xu-DIS" id="BSR-qA-xAq"/>
+                        <outlet property="nutritionUnitOutlet" destination="XQE-hH-APP" id="4JB-uG-M1O"/>
                         <outlet property="saltOrSodiumOutlet" destination="9HQ-Hd-LCX" id="FFV-TI-qtX"/>
                         <segue destination="HFz-PM-YvU" kind="unwind" identifier="Settings Done" unwindAction="settingsDone:" id="ISY-Ed-Z4N"/>
                     </connections>

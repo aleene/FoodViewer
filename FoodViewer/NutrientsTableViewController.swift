@@ -20,7 +20,8 @@ class NutrientsTableViewController: UITableViewController {
     
     private var adaptedNutritionFacts: [DisplayFact] = []
     
-    private var showNutrientsAs: NutritionDataPerStandardOrServing = NutritionDataPerStandardOrServing.PerStandard
+    // set to app wide default
+    private var showNutrientsAs: NutritionDataPerStandardOrServing = Preferences.manager.showNutritionDataPerServingOrPerStandard
     
     struct DisplayFact {
         var name: String? = nil

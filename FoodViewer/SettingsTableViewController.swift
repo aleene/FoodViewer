@@ -47,7 +47,6 @@ class SettingsTableViewController: UITableViewController {
                 saltOrSodiumOutlet!.selectedSegmentIndex = 1
             }
         }
-
     }
     
     func refreshJouleOrCaloriesSwitch() {
@@ -59,7 +58,17 @@ class SettingsTableViewController: UITableViewController {
                 jouleOrCaloriesOutlet!.selectedSegmentIndex = 1
             }
         }
-        
+    }
+
+    func refresNutritionUnitSwitch() {
+        if nutritionUnitOutlet != nil {
+            switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
+            case .PerStandard:
+                nutritionUnitOutlet!.selectedSegmentIndex = 0
+            case .PerServing:
+                nutritionUnitOutlet!.selectedSegmentIndex = 1
+            }
+        }
     }
 
     
@@ -84,6 +93,14 @@ class SettingsTableViewController: UITableViewController {
             jouleOrCaloriesOutlet.setTitle(NSLocalizedString("Calories", comment: "Title of second segment in switch, which lets the user select between joule or calories"), forSegmentAtIndex: 1)
         }
     }
+    
+    @IBOutlet weak var nutritionUnitOutlet: UISegmentedControl! {
+        didSet {
+            nutritionUnitOutlet.setTitle(NSLocalizedString("Per 100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving"), forSegmentAtIndex: 0)
+            nutritionUnitOutlet.setTitle(NSLocalizedString("Per Serving", comment: "Title of second segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving"), forSegmentAtIndex: 1)
+        }
+    }
+
     
     // MARK: - Action methods
     
@@ -121,6 +138,18 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func nutritionUnitSwitchTapped(sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.showNutritionDataPerServingOrPerStandard = .PerStandard
+        case 1:
+            Preferences.manager.showNutritionDataPerServingOrPerStandard = .PerServing
+        default:
+            break
+        }
+
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -130,24 +159,12 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 1:
-            return 2
+            return 3
         default:
             return 1
         }
     }
-
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-
-
+    
     // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
@@ -155,6 +172,7 @@ class SettingsTableViewController: UITableViewController {
         
         refreshSaltOrSodiumSwitch()
         refreshJouleOrCaloriesSwitch()
+        refresNutritionUnitSwitch()
 
         title = Constants.ViewControllerTitle
     }

@@ -23,7 +23,7 @@
 		5150C0681CBD48BD00161616 /* NoImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0671CBD48BD00161616 /* NoImageTableViewCell.swift */; };
 		5150C06A1CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0691CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift */; };
 		5150C0701CBE779C00161616 /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5150C06F1CBE779C00161616 /* Categories.plist */; };
-		5150C0761CBE81D900161616 /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5150C0751CBE81D900161616 /* Nutrients.plist */; };
+		5150C0761CBE81D900161616 /* NutrientsDailyValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5150C0751CBE81D900161616 /* NutrientsDailyValues.plist */; };
 		515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742581CDB63B100BE8E2D /* RSCode39Generator.swift */; };
 		5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */; };
 		5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */; };
@@ -86,6 +86,7 @@
 		519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */; };
 		51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */; };
 		51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */; };
+		51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A4CAF21CF1C30B003F9763 /* Nutrients.plist */; };
 		51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */; };
 		51AFB0071C734C6600598444 /* IdentificationTagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0061C734C6600598444 /* IdentificationTagListViewTableViewCell.swift */; };
 		51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0091C734D6900598444 /* IdentificationImageTableViewCell.swift */; };
@@ -148,7 +149,7 @@
 		5150C0671CBD48BD00161616 /* NoImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoImageTableViewCell.swift; sourceTree = "<group>"; };
 		5150C0691CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoIdentificationImageTableViewCell.swift; sourceTree = "<group>"; };
 		5150C06F1CBE779C00161616 /* Categories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
-		5150C0751CBE81D900161616 /* Nutrients.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Nutrients.plist; sourceTree = "<group>"; };
+		5150C0751CBE81D900161616 /* NutrientsDailyValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NutrientsDailyValues.plist; sourceTree = "<group>"; };
 		515742581CDB63B100BE8E2D /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Generator.swift; path = RS/RSCode39Generator.swift; sourceTree = "<group>"; };
 		515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Mod43Generator.swift; path = RS/RSCode39Mod43Generator.swift; sourceTree = "<group>"; };
 		5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode93Generator.swift; path = RS/RSCode93Generator.swift; sourceTree = "<group>"; };
@@ -215,6 +216,7 @@
 		519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNutrientsImageTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainLocation.swift; sourceTree = "<group>"; };
+		51A4CAF21CF1C30B003F9763 /* Nutrients.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Nutrients.plist; sourceTree = "<group>"; };
 		51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationTableViewController.swift; sourceTree = "<group>"; };
 		51AFB0061C734C6600598444 /* IdentificationTagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationTagListViewTableViewCell.swift; sourceTree = "<group>"; };
 		51AFB0091C734D6900598444 /* IdentificationImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -444,7 +446,8 @@
 				51B150041CB2DFA400A57D42 /* Countries.plist */,
 				5150C06F1CBE779C00161616 /* Categories.plist */,
 				51F057F81CB6850100849532 /* GlobalLabels.plist */,
-				5150C0751CBE81D900161616 /* Nutrients.plist */,
+				5150C0751CBE81D900161616 /* NutrientsDailyValues.plist */,
+				51A4CAF21CF1C30B003F9763 /* Nutrients.plist */,
 				51B14FFE1CB2DD8B00A57D42 /* States.plist */,
 				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
 				5180B90E1C5D3B57002DBD21 /* Assets.xcassets */,
@@ -629,12 +632,13 @@
 				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
 				5150C0701CBE779C00161616 /* Categories.plist in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
-				5150C0761CBE81D900161616 /* Nutrients.plist in Resources */,
+				5150C0761CBE81D900161616 /* NutrientsDailyValues.plist in Resources */,
 				51B150011CB2DF5D00A57D42 /* Additives.plist in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				51F057F91CB6850300849532 /* GlobalLabels.plist in Resources */,
 				516BA5881CC3ADFD008A094A /* Launch Screen.storyboard in Resources */,
+				51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */,
 				51B14FFF1CB2DD8B00A57D42 /* States.plist in Resources */,
 				51B150031CB2DF9100A57D42 /* Allergens.plist in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
