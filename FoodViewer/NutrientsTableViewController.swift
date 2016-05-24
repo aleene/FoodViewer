@@ -21,7 +21,7 @@ class NutrientsTableViewController: UITableViewController {
     private var adaptedNutritionFacts: [DisplayFact] = []
     
     // set to app wide default
-    private var showNutrientsAs: NutritionDataPerStandardOrServing = Preferences.manager.showNutritionDataPerServingOrPerStandard
+    private var showNutrientsAs: NutritionDisplayMode = Preferences.manager.showNutritionDataPerServingOrPerStandard
     
     struct DisplayFact {
         var name: String? = nil
@@ -81,16 +81,21 @@ class NutrientsTableViewController: UITableViewController {
         return displayFacts
     }
     
+    // transform the nutrition fact values to values that must be displayed
     private func localizeFact(fact: NutritionFactItem) -> DisplayFact {
         var displayFact = DisplayFact()
-        displayFact.unit = fact.standardValueUnit
         displayFact.name = fact.itemName
         switch showNutrientsAs {
         case .PerStandard:
             let localizedValue = fact.localeStandardValue()
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
+            displayFact.unit = fact.standardValueUnit
         case .PerServing:
             displayFact.value = fact.servingValue != nil ? fact.localeServingValue() : ""
+            displayFact.unit = fact.servingValueUnit
+        case .PerDailyValue:
+            displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue() : ""
+            displayFact.unit = "" // The numberformatter already provides a % sign
         }
         displayFact.key = fact.key
         return displayFact
@@ -275,8 +280,15 @@ class NutrientsTableViewController: UITableViewController {
     }
     
     func doubleTapOnNutrimentsHeader(recognizer: UITapGestureRecognizer) {
-        /////
-        showNutrientsAs = showNutrientsAs == .PerServing ? .PerStandard : .PerServing
+        ///// Cycle through display modes
+        switch showNutrientsAs {
+        case .PerStandard:
+            showNutrientsAs = .PerServing
+        case .PerServing:
+            showNutrientsAs = .PerDailyValue
+        case .PerDailyValue:
+            showNutrientsAs = .PerStandard
+        }
         
         adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
         tableView.reloadData()
@@ -314,6 +326,18 @@ class NutrientsTableViewController: UITableViewController {
                 showNutrientsAs = .PerStandard
             case .PerServing, .PerServingAndStandardUnit:
                 showNutrientsAs = .PerServing
+            default:
+                break
+            }
+        case .PerDailyValue:
+            switch product.nutritionFactsAreAvailable {
+            case .PerStandardUnit:
+                // force showing perStandard as perServing is not available
+                showNutrientsAs = .PerStandard
+            case .PerServingAndStandardUnit:
+                showNutrientsAs = .PerDailyValue
+            case .PerServing:
+                showNutrientsAs = .PerDailyValue
             default:
                 break
             }

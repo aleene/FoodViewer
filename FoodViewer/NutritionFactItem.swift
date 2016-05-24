@@ -14,6 +14,7 @@ struct NutritionFactItem {
     var standardValueUnit: String? = nil
     var servingValue: String? = nil
     var servingValueUnit: String? = nil
+    var dailyFractionPerServing: Double? = nil
     var key: String? = nil
 
     init() {
@@ -81,6 +82,20 @@ struct NutritionFactItem {
             return validValue
         }
 
+        return ""
+    }
+
+    func localeDailyValue() -> String {
+        
+        if let validValue = dailyFractionPerServing {
+            
+            // convert standard value to a number in the users locale
+            let numberFormatter = NSNumberFormatter()
+            numberFormatter.numberStyle = .PercentStyle
+            if let returnString = numberFormatter.stringFromNumber(NSNumber.init(double: validValue)) {
+                return returnString
+            }
+        }
         return ""
     }
 

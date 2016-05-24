@@ -301,10 +301,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XQE-hH-APP" userLabel="Salt Or Sodium Switch">
-                                                    <rect key="frame" x="198" y="16" width="205" height="34"/>
+                                                    <rect key="frame" x="142" y="16" width="317" height="34"/>
                                                     <segments>
                                                         <segment title="Per 100 mg/ml"/>
                                                         <segment title="Per Serving"/>
+                                                        <segment title="Per Daily Value"/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="nutritionUnitSwitchTapped:" destination="wkb-2f-GaI" eventType="valueChanged" id="DRh-2u-xPr"/>

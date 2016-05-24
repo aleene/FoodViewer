@@ -754,23 +754,27 @@ class OpenFoodFactsRequest {
         // we use only the values standerdized on g
         if nutritionItem.key!.contains("energy") {
             nutritionItem.standardValueUnit = "kJ"
-        } else if nutritionItem.key!.contains("alcohol") {
+            nutritionItem.servingValueUnit = "kJ"
+        } else if (nutritionItem.key!.contains("alcohol")) || (nutritionItem.key!.contains("cocoa")){
             nutritionItem.standardValueUnit = "%"
+            nutritionItem.servingValueUnit = "%"
         } else {
             nutritionItem.standardValueUnit = "g"
+            nutritionItem.servingValueUnit = "g"
         }
 
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string {
             // is the value translatable to a number?
             if var doubleValue = Double(value) {
-                if doubleValue < 1 {
+
+                if doubleValue < 0.99 {
                     //change to the milli version
                     doubleValue = doubleValue * 1000.0
-                    if doubleValue < 1 {
+                    if doubleValue < 0.99 {
                         // change to the microversion
                         doubleValue = doubleValue * 1000.0
                         // we use only the values standerdized on g
-                        if doubleValue < 1 {
+                        if doubleValue < 0.99 {
                             nutritionItem.standardValueUnit = " " + nutritionItem.standardValueUnit!
                         } else {
                             nutritionItem.standardValueUnit = "µ" + nutritionItem.standardValueUnit!
@@ -784,8 +788,7 @@ class OpenFoodFactsRequest {
                     nutritionItem.standardValueUnit = " " + nutritionItem.standardValueUnit!
 
                 }
-                // print("\(key) \(value) \(doubleValue) \(nutritionItem.standardValueUnit)")
-
+                // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
                 nutritionItem.standardValue = "\(doubleValue)"
             } else {
                 nutritionItem.standardValue = value
@@ -797,15 +800,33 @@ class OpenFoodFactsRequest {
         if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ServingKey]?.string {
             // is the value translatable to a number?
             if var doubleValue = Double(value) {
-                if doubleValue < 1 {
+                // use the original values to calculate the daily fraction
+                let dailyValue = ReferenceDailyIntakeList.manager.dailyValue(doubleValue, forKey:key)
+                // print("serving: \(key) \(doubleValue)" )
+                nutritionItem.dailyFractionPerServing = dailyValue
+                
+                if doubleValue < 0.99 {
                     //change to the milli version
                     doubleValue = doubleValue * 1000.0
-                    if doubleValue < 1 {
+                    if doubleValue < 0.99 {
                         // change to the microversion
                         doubleValue = doubleValue * 1000.0
+                        if doubleValue < 0.99 {
+                            nutritionItem.servingValueUnit = " " + nutritionItem.servingValueUnit!
+                        } else {
+                            nutritionItem.servingValueUnit = "µ" + nutritionItem.servingValueUnit!
+                        }
+                    } else {
+                        // we use only the values standerdized on g
+                        nutritionItem.servingValueUnit = "m" + nutritionItem.servingValueUnit!
                     }
+                } else {
+                    // we use only the values standerdized on g
+                    nutritionItem.servingValueUnit = " " + nutritionItem.servingValueUnit!
                 }
+
                 nutritionItem.servingValue = "\(doubleValue)"
+
             } else {
                 nutritionItem.servingValue = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.HunderdKey]?.string
             }
@@ -813,6 +834,8 @@ class OpenFoodFactsRequest {
         } else if let value = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[key+Appendix.ValueKey]?.string {
             nutritionItem.servingValue = value
         }
+        
+        
         // what data is defined?
         if (nutritionItem.standardValue == nil) {
             if (nutritionItem.servingValue == nil) {

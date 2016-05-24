@@ -67,6 +67,8 @@ class SettingsTableViewController: UITableViewController {
                 nutritionUnitOutlet!.selectedSegmentIndex = 0
             case .PerServing:
                 nutritionUnitOutlet!.selectedSegmentIndex = 1
+            case .PerDailyValue:
+                nutritionUnitOutlet!.selectedSegmentIndex = 2
             }
         }
     }

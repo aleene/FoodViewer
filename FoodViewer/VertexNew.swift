@@ -109,7 +109,7 @@ class VertexNew: Node {
                                 }
                             }
                         } else if key2 == Constants.LanguagesKey {
-                            vertex.leaves = super.decodeLeavesDict(value2 as! Dictionary<String, AnyObject>)
+                            vertex.leaves = super.decodeLeavesDict(value2 as! Dictionary <String, AnyObject>)
                         }
                     }
                 } else {

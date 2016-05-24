@@ -19,13 +19,13 @@ class Preferences {
     
     var showSaltOrSodium: NatriumChloride
     var showCaloriesOrJoule: Energy
-    var showNutritionDataPerServingOrPerStandard: NutritionDataPerStandardOrServing
+    var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
     var mapAddress: Address
     
     init() {
         showSaltOrSodium = NatriumChloride.Salt
         showCaloriesOrJoule = Energy.Joule
-        showNutritionDataPerServingOrPerStandard = NutritionDataPerStandardOrServing.PerStandard
+        showNutritionDataPerServingOrPerStandard = NutritionDisplayMode.PerStandard
         
         mapAddress = Address()
         mapAddress.title = "Address used for center of map"
