@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
 
@@ -269,8 +270,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let tempView = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 25))
-        tempView.backgroundColor = UIColor.grayColor()
         let label = UILabel.init(frame: CGRectMake(10, 5, tableView.frame.size.width, 20))
+        tempView.backgroundColor = UIColor.grayColor()
         label.font = UIFont.boldSystemFontOfSize(20)
         label.textColor = UIColor.whiteColor()
         if !products.fetchResultList.isEmpty {
@@ -278,6 +279,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch validProductFetchResult {
                 case .Success(let product):
                     label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
+                    if let validKeys = product.allergenKeys {
+                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
+                            tempView.backgroundColor = UIColor.redColor()
+                        }
+                    } else {
+                        if let validKeys = product.traceKeys {
+                            if AllergenWarningDefaults.manager.hasValidWarning(validKeys) {
+                                tempView.backgroundColor = UIColor.redColor()
+                            }
+                        }
+                    }
                 default:
                     label.text = validProductFetchResult.description()
                 }
@@ -360,12 +372,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func settingsDone(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? SettingsTableViewController {
+            tableView.reloadData()
             if vc.historyHasBeenRemoved {
                 products.removeAll()
                 selectedProduct = nil
-                tableView.reloadData()
                 performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
             }
+            
         }
     }
 

@@ -22,6 +22,13 @@ class Address {
     var postalcode = ""
     var country = ""    
     var elements: [String]? = nil
+    var locationString: String? = nil {
+        didSet {
+            if let validLocationString = locationString {
+                elements = validLocationString.componentsSeparatedByString(",")
+            }
+        }
+    }
         /*
  {
         didSet {
@@ -58,7 +65,6 @@ class Address {
         setCoordinates()
         return coordinates
     }
-    
     
     func setCoordinates() {
         if coordinates == nil {

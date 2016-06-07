@@ -120,11 +120,6 @@ class OpenFoodFactsRequest {
         static let ManufacturingPlacesKey = "manufacturing_places"
         static let IngredientsNKey = "ingredients_n"
         static let NutrimentsKey = "nutriments"
-        
-        //static let struct Sodium {
-        //    static let Key = "sodium"
-        //    static let Text = "Sodium"
-        //}
         static let SodiumKey = "sodium"
         static let SaltKey = "salt"
         static let SugarsKey = "sugars"
@@ -360,7 +355,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageSmallUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductCodeKey]?.string
 
-                product.traces = decodeAllergens(jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray)
+                product.traceKeys = jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray
 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
                 product.primaryLanguage = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
@@ -406,7 +401,8 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrimentsKey]?[OFFJson.saturatedFatKey]?.string
                 product.countryArray(decodeCountries(jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesTagsKey]?.stringArray))
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromPalmOilTagsKey]?.stringArray
-                product.purchaseLocationElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray)
+                
+                // product.purchaseLocationElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesTagsKey]?.stringArray)
                 
                 product.producerCode = decodeProducerCodeArray(jsonObject?[OFFJson.ProductKey]?[OFFJson.EmbCodesOrigKey]?.string)
                 
@@ -414,7 +410,7 @@ class OpenFoodFactsRequest {
                     product.brandsArray = brandsString.characters.split{$0 == ","}.map(String.init)
                 }
 
-                    // jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string
+                    product.purchaseLocationString(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2Key]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesHierarchyKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesKey]?.string
@@ -497,7 +493,7 @@ class OpenFoodFactsRequest {
 //                        product.allergens!.append([elementsArray[0]:elementsArray[1]])
 //                    }
 //                }
-                product.allergens = decodeAllergens(jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray)
+                product.allergenKeys = jsonObject?[OFFJson.ProductKey]?[OFFJson.AllergensTagsKey]?.stringArray
                 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilNKey]?.int
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsThumbUrlKey]?.nsurl
@@ -643,6 +639,7 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.Omega9FatKey, key: OFFJson.Omega9FatKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.TransFatKey, key: OFFJson.TransFatKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.CholesterolKey, key: OFFJson.CholesterolKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(NutritionFacts.SodiumKey, key: OFFJson.SodiumKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.CarbohydratesKey, key: OFFJson.CarbohydratesKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SugarsKey, key: OFFJson.SugarsKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SucroseKey, key: OFFJson.SucroseKey, jsonObject: jsonObject, product: product)
@@ -654,9 +651,8 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.MaltodextrinsKey, key: OFFJson.MaltodextrinsKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.FiberKey, key: OFFJson.FiberKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.ProteinsKey, key: OFFJson.ProteinsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.AlcoholKey, key: OFFJson.AlcoholKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SodiumKey, key: OFFJson.SodiumKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SaltKey, key: OFFJson.SaltKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(NutritionFacts.AlcoholKey, key: OFFJson.AlcoholKey, jsonObject: jsonObject, product: product)
                 
                 nutritionDecode(NutritionFacts.BiotinKey, key: OFFJson.BiotinKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.CaseinKey, key: OFFJson.CaseinKey, jsonObject: jsonObject, product: product)
@@ -902,18 +898,6 @@ class OpenFoodFactsRequest {
         
     }
     
-    private func decodeAllergens(allergens: [String]?) -> [String]? {
-        if let allergensArray = allergens {
-            var translatedAllergens:[String]? = []
-            let preferredLanguage = NSLocale.preferredLanguages()[0]
-            for allergen in allergensArray {
-                translatedAllergens!.append(OFFplists.manager.translateAllergens(allergen, language:preferredLanguage))
-            }
-            return translatedAllergens
-        }
-        return nil
-    }
-
     private func decodeCountries(countries: [String]?) -> [String]? {
         if let countriesArray = countries {
             var translatedCountries:[String]? = []

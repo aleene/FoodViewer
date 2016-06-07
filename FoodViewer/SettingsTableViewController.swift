@@ -155,7 +155,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -166,6 +166,20 @@ class SettingsTableViewController: UITableViewController {
             return 1
         }
     }
+    
+    @IBAction func unwindAllergenWarningForCancel(segue:UIStoryboardSegue) {
+        if let _ = segue.sourceViewController as? AllergenWarningsTableViewController {
+            tableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func allergenWarningSettingsDone(segue:UIStoryboardSegue) {
+        if let _ = segue.sourceViewController as? AllergenWarningsTableViewController {
+            tableView.reloadData()
+        }
+    }
+
     
     // MARK: - ViewController Lifecycle
     

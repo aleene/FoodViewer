@@ -230,7 +230,7 @@
 		<key>key</key>
 		<string>vitamin-b3</string>
 		<key>value</key>
-		<string>20</string>
+		<integer>20</integer>
 		<key>unit</key>
 		<string>mg</string>
 	</dict>

@@ -83,11 +83,11 @@ class IngredientsTableViewController: UITableViewController {
             return cell!
         case .Allergens:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergensCellIdentifier, forIndexPath: indexPath) as? AllergensFullTableViewCell
-            cell?.tagList = product!.allergens
+            cell?.tagList = product!.translatedAllergens
             return cell!
         case .Traces:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TracesCellIdentifier, forIndexPath: indexPath) as? TracesFullTableViewCell
-            cell?.tagList = product!.traces
+            cell?.tagList = product!.translatedTraces
             return cell!
         case .Additives:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AdditivesCellIdentifier, forIndexPath: indexPath) as? AdditivesFullTableViewCell

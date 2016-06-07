@@ -67,9 +67,40 @@ class FoodProduct {
             }
         }
     }
+    // This includes the language prefix en:
+    var allergenKeys: [String]? = nil
+    
+    // returns the allergenKeys array in the current locale
+    var translatedAllergens: [String]? {
+        get {
+            if let validAllergenKeys = allergenKeys {
+                var translatedAllergens:[String]? = []
+                let preferredLanguage = NSLocale.preferredLanguages()[0]
+                for allergenKey in validAllergenKeys {
+                    translatedAllergens!.append(OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage))
+                }
+                return translatedAllergens
+            }
+            return nil
+        }
+    }
+    var traceKeys: [String]? = nil
+    
+    // returns the allergenKeys array in the current locale
+    var translatedTraces: [String]? {
+        get {
+            if let validTracesKeys = traceKeys {
+                var translatedTraces:[String]? = []
+                let preferredLanguage = NSLocale.preferredLanguages()[0]
+                for tracesKey in validTracesKeys {
+                    translatedTraces!.append(OFFplists.manager.translateAllergens(tracesKey, language:preferredLanguage))
+                }
+                return translatedTraces
+            }
+            return nil
+        }
+    }
 
-    var allergens: [String]? = nil
-    var traces: [String]? = nil
     var additives: [String]? = nil
     var labelArray: [String]? = nil
     
@@ -133,6 +164,14 @@ class FoodProduct {
         if elements != nil && !elements!.isEmpty {
             self.purchaseLocation = Address()
             self.purchaseLocation!.elements = elements
+        }
+    }
+    
+    func purchaseLocationString(location: String?) {
+        if let validLocationString = location {
+            self.purchaseLocation = Address()
+            self.purchaseLocation!.locationString = validLocationString
+
         }
     }
     
@@ -318,8 +357,8 @@ class FoodProduct {
         ingredients = nil
         imageIngredientsSmallUrl = nil
         imageIngredientsUrl = nil
-        allergens = nil
-        traces = nil
+        allergenKeys = nil
+        traceKeys = nil
         additives = nil
         labelArray = nil
         producer = nil
@@ -489,8 +528,8 @@ class FoodProduct {
             imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
             imageIngredientsUrl = product.imageIngredientsUrl
             ingredientsImageData = nil
-            allergens = product.allergens
-            traces = product.traces
+            allergenKeys = product.allergenKeys
+            traceKeys = product.traceKeys
             additives = product.additives
             labelArray = product.labelArray
             producer = product.producer
@@ -530,7 +569,6 @@ class FoodProduct {
         let region = NSBundle.mainBundle().preferredLocalizations[0] as NSString
         return NSURL(string: "http://\(region).openfoodfacts.org/product/" + barcode.asString() + "/")
     }
-
     
 // End product
 }

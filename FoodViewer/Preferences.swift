@@ -21,6 +21,7 @@ class Preferences {
     var showCaloriesOrJoule: Energy
     var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
     var mapAddress: Address
+    var allergenWarnings: [(String, Bool)] = []
     
     init() {
         showSaltOrSodium = NatriumChloride.Salt

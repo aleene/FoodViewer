@@ -91,6 +91,7 @@ class IdentificationTableViewController: UITableViewController {
 
     private struct Storyboard {
         static let BasicCellIdentifier = "Identification Basic Cell"
+        static let BarcodeCellIdentifier = "Barcode Cell"
         static let TagListCellIdentifier = "Identification TagList Cell"
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
@@ -113,9 +114,9 @@ class IdentificationTableViewController: UITableViewController {
         
         switch currentProductSection {
         case .Barcode:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product?.barcode.asString()
-            return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BarcodeCellIdentifier, forIndexPath: indexPath)as? BarcodeTableViewCell
+            cell!.barcode = product?.barcode.asString()
+            return cell!
         case .Name:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
             cell.textLabel?.text = product?.name != nil ? product!.name! : TextConstants.NoName

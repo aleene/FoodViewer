@@ -7,6 +7,79 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Allergen Warnings Table View Controller-->
+        <scene sceneID="euK-Dx-95p">
+            <objects>
+                <tableViewController extendedLayoutIncludesOpaqueBars="YES" id="x3J-Z2-tIT" customClass="AllergenWarningsTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="DhN-lj-7uC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="mVN-uP-SL1">
+                            <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Set Warnings" id="mZf-5k-m2j">
+                                    <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FL8-ss-9O3">
+                                        <connections>
+                                            <action selector="cancelButtonTapped:" destination="x3J-Z2-tIT" id="a3B-nF-df8"/>
+                                            <segue destination="7oq-ZG-7TM" kind="unwind" unwindAction="unwindAllergenWarningForCancel:" id="X3w-sx-cvg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem key="rightBarButtonItem" systemItem="done" id="pcR-Pa-WnY">
+                                        <connections>
+                                            <action selector="doneButtonTapped:" destination="x3J-Z2-tIT" id="LfD-fs-sOW"/>
+                                            <segue destination="7oq-ZG-7TM" kind="unwind" unwindAction="allergenWarningSettingsDone:" id="9ud-rm-7gf"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Allergen Warning Cell" rowHeight="44" id="Elg-Cu-tKZ" customClass="SetWarningTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="82" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Elg-Cu-tKZ" id="bM2-0V-p8p">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergen name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="or1-Yr-Xwl">
+                                            <rect key="frame" x="8" y="11" width="527" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ziz-GW-3s7">
+                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="or1-Yr-Xwl" secondAttribute="bottom" constant="3" id="NfQ-qz-jCc"/>
+                                        <constraint firstItem="or1-Yr-Xwl" firstAttribute="top" secondItem="bM2-0V-p8p" secondAttribute="topMargin" constant="3" id="Qoq-s6-Fdk"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="or1-Yr-Xwl" secondAttribute="leading" id="kbU-ch-BbJ"/>
+                                        <constraint firstItem="ziz-GW-3s7" firstAttribute="leading" secondItem="or1-Yr-Xwl" secondAttribute="trailing" constant="8" id="pML-XC-lXx"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ziz-GW-3s7" secondAttribute="trailing" id="xeb-tG-gSZ"/>
+                                        <constraint firstItem="ziz-GW-3s7" firstAttribute="centerY" secondItem="or1-Yr-Xwl" secondAttribute="centerY" id="y8r-2H-7p1"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="stateLabel" destination="or1-Yr-Xwl" id="iCm-uQ-cje"/>
+                                    <outlet property="stateSwitch" destination="ziz-GW-3s7" id="e6u-B9-vqh"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="x3J-Z2-tIT" id="L6D-ht-UJ7"/>
+                            <outlet property="delegate" destination="x3J-Z2-tIT" id="Ekr-To-6R4"/>
+                        </connections>
+                    </tableView>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="47q-wK-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="7oq-ZG-7TM" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2692" y="-316"/>
+        </scene>
         <!--Barcode Scan View Controller-->
         <scene sceneID="Qts-qL-Rig">
             <objects>
@@ -48,19 +121,19 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKV-Qy-Uqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="h1P-hs-FQC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2605" y="-316"/>
+            <point key="canvasLocation" x="3407" y="-316"/>
         </scene>
         <!--Identification Table View Controller-->
         <scene sceneID="AnZ-mD-Bvd">
             <objects>
                 <tableViewController storyboardIdentifier="IdentificationTableViewController" extendedLayoutIncludesOpaqueBars="YES" id="hwF-BC-CTo" customClass="IdentificationTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="v7f-Gc-N5v">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
-                            <rect key="frame" x="0.0" y="524" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="612" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -174,12 +247,51 @@
                                     <outlet property="tagListView" destination="wce-TT-Vog" id="kcq-4q-Hpd"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Barcode Cell" rowHeight="88" id="EEQ-rQ-wnz" userLabel="No Image TagListView Cell" customClass="BarcodeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="524" width="600" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EEQ-rQ-wnz" id="vuR-sL-kRr">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="O3f-3p-sEO">
+                                            <rect key="frame" x="432" y="8" width="160" height="80"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="160" id="VNy-Nb-Oxo"/>
+                                                <constraint firstAttribute="height" constant="80" id="wkS-EM-d5v"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-LR-JHI">
+                                            <rect key="frame" x="16" y="38" width="408" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lFH-LR-JHI" firstAttribute="centerY" secondItem="vuR-sL-kRr" secondAttribute="centerY" id="7W5-wb-15i"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="lFH-LR-JHI" secondAttribute="leading" constant="-8" id="8Ja-Fh-lJC"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="O3f-3p-sEO" secondAttribute="trailing" id="Wo8-Vk-fG9"/>
+                                        <constraint firstItem="O3f-3p-sEO" firstAttribute="leading" secondItem="lFH-LR-JHI" secondAttribute="trailing" constant="8" id="ZWA-mh-NsL"/>
+                                        <constraint firstItem="O3f-3p-sEO" firstAttribute="trailing" secondItem="vuR-sL-kRr" secondAttribute="trailingMargin" id="pBk-wb-HDn"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="O3f-3p-sEO" secondAttribute="bottom" id="vfY-6i-Amc"/>
+                                        <constraint firstItem="O3f-3p-sEO" firstAttribute="top" secondItem="vuR-sL-kRr" secondAttribute="topMargin" id="xDw-dg-emH"/>
+                                        <constraint firstItem="O3f-3p-sEO" firstAttribute="centerY" secondItem="vuR-sL-kRr" secondAttribute="centerY" id="yfJ-Yk-3Pn"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="barcodeImageView" destination="O3f-3p-sEO" id="sfy-De-Igx"/>
+                                    <outlet property="barcodeLabel" destination="lFH-LR-JHI" id="8KU-Th-Edf"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="hwF-BC-CTo" id="aJl-qe-l7a"/>
                             <outlet property="delegate" destination="hwF-BC-CTo" id="Qpx-BO-FYL"/>
                         </connections>
                     </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="800"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="YxV-p1-2QS">
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
@@ -303,7 +415,7 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="XQE-hH-APP" userLabel="Salt Or Sodium Switch">
                                                     <rect key="frame" x="142" y="16" width="317" height="34"/>
                                                     <segments>
-                                                        <segment title="Per 100 mg/ml"/>
+                                                        <segment title="100 mg/ml"/>
                                                         <segment title="Per Serving"/>
                                                         <segment title="Per Daily Value"/>
                                                     </segments>
@@ -318,6 +430,30 @@
                                                 <constraint firstItem="XQE-hH-APP" firstAttribute="centerX" secondItem="3tJ-Ge-8xn" secondAttribute="centerX" id="t3b-Mq-YgS"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Warnings" id="w8g-lE-sdx">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Salt or Sodium Cell" textLabel="G7c-Pb-uKU" rowHeight="66" style="IBUITableViewCellStyleDefault" id="Bbh-et-vcS">
+                                        <rect key="frame" x="0.0" y="430" width="600" height="66"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bbh-et-vcS" id="xL1-RL-cKU">
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="65"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Allergens / Traces" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G7c-Pb-uKU">
+                                                    <rect key="frame" x="15" y="0.0" width="550" height="65"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="x3J-Z2-tIT" kind="presentation" id="RlO-gG-BYf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1447,14 +1583,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -1528,6 +1664,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="54m-Vq-nRb"/>
+        <segue reference="fRX-dv-BPz"/>
     </inferredMetricsTieBreakers>
 </document>
