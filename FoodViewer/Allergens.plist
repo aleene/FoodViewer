@@ -9,7 +9,7 @@
 			<key>de</key>
 			<array>
 				<string>Alaska-Seelachsfilet</string>
-				<string> Alaska-Seelachs-Filet</string>
+				<string>Alaska-Seelachs-Filet</string>
 			</array>
 		</dict>
 	</dict>
@@ -23,12 +23,12 @@
 			</array>
 			<key>en</key>
 			<array>
-				<string>celery</string>
+				<string>Celery</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>céleri</string>
-				<string> céleri-rave</string>
+				<string>Céleri</string>
+				<string>Céleri-rave</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -46,28 +46,28 @@
 			</array>
 			<key>en</key>
 			<array>
-				<string>crustaceans</string>
-				<string> crab</string>
-				<string> lobster</string>
-				<string> crayfish</string>
-				<string> prawn</string>
-				<string> shrimp</string>
+				<string>Crustaceans</string>
+				<string>Crab</string>
+				<string>Lobster</string>
+				<string>Crayfish</string>
+				<string> Prawn</string>
+				<string>Shrimp</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>crustacés</string>
-				<string> crustacé</string>
-				<string> crabe</string>
-				<string> crabes</string>
-				<string> homard</string>
-				<string> homards</string>
-				<string> langouste</string>
-				<string> langoustine</string>
-				<string> gambas</string>
-				<string> crevettes</string>
-				<string> crevette</string>
-				<string> écrevisses</string>
-				<string> écrevisse</string>
+				<string>Crustacés</string>
+				<string>Crustacé</string>
+				<string>Crabe</string>
+				<string>Crabes</string>
+				<string>Homard</string>
+				<string>Homards</string>
+				<string>Langouste</string>
+				<string>Langoustine</string>
+				<string>Gambas</string>
+				<string>Crevettes</string>
+				<string>Crevette</string>
+				<string>écrevisses</string>
+				<string>écrevisse</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -104,12 +104,12 @@
 				<string> œuf</string>
 				<string> oeufs</string>
 				<string> oeuf</string>
-				<string> blanc d'oeuf</string>
-				<string> jaune d'oeuf</string>
-				<string> blanc d'œuf</string>
-				<string> jaune d'œuf</string>
-				<string> blanc d'œufs</string>
-				<string> jaune d'œufs</string>
+				<string> blanc d&apos;oeuf</string>
+				<string> jaune d&apos;oeuf</string>
+				<string> blanc d&apos;œuf</string>
+				<string> jaune d&apos;œuf</string>
+				<string> blanc d&apos;œufs</string>
+				<string> jaune d&apos;œufs</string>
 				<string> oeuf frais</string>
 				<string> œuf frais</string>
 				<string> œufs frais</string>
@@ -166,7 +166,7 @@
 				<string> sardine</string>
 				<string> sardines</string>
 				<string> loup</string>
-				<string> colin d'Alaska</string>
+				<string> colin d&apos;Alaska</string>
 				<string> anchois</string>
 				<string> brochet</string>
 				<string> hareng</string>
@@ -235,7 +235,7 @@
 				<string> blé complet</string>
 				<string> gluten de blé</string>
 				<string> fibre de blé</string>
-				<string> malt d'orge</string>
+				<string> malt d&apos;orge</string>
 				<string> malt</string>
 				<string> froment</string>
 				<string> farine de blé</string>
@@ -667,8 +667,8 @@
 			<key>de</key>
 			<array>
 				<string>Schwefeldioxid und Sulphite</string>
-				<string> Schwefeldioxid</string>
-				<string> Sulphite</string>
+				<string>Schwefeldioxid</string>
+				<string>Sulphite</string>
 				<string> E150b</string>
 				<string> E150d</string>
 				<string> E220</string>
@@ -703,9 +703,9 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>anhydride sulfureux et sulfites</string>
-				<string> anhydride sulfureux</string>
-				<string> sulfites</string>
+				<string>Anhydride sulfureux et sulfites</string>
+				<string>Anhydride sulfureux</string>
+				<string>Sulfites</string>
 				<string> sulfite</string>
 				<string> sulphites</string>
 				<string> sulphite</string>
@@ -729,9 +729,9 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>zwaveldioxide en sulfieten</string>
-				<string> zwaveldioxide</string>
-				<string> sulfieten</string>
+				<string>Zwaveldioxide en sulfieten</string>
+				<string>Zwaveldioxide</string>
+				<string>Sulfieten</string>
 				<string> E150b</string>
 				<string> E150d</string>
 				<string> E220</string>

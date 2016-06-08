@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>de:Bio 7 Initiative</key>
+	<key>de:bio-7-initiative</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -15,17 +15,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>de:DLG Jährlich Prämiert</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>DLG Jährlich Prämiert</string>
-			</array>
-		</dict>
-	</dict>
-	<key>de:Deutsches Bio-Siegel</key>
+	<key>de:deutsches-bio-siegel</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -36,7 +26,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>de:Migros "Aus der Region"</key>
+	<key>de:dlg-jährlich-prämiert</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>DLG Jährlich Prämiert</string>
+			</array>
+		</dict>
+	</dict>
+	<key>de:migros-"aus-der-region"</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -52,7 +52,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>de:Typisch Harz</key>
+	<key>de:typisch-harz</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -62,7 +62,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:1% for the planet</key>
+	<key>en:1%-for-the-planet</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -82,7 +82,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:10% less fat</key>
+	<key>en:10%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -106,7 +106,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:10% less salt</key>
+	<key>en:10%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -131,7 +131,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:10% less sugar</key>
+	<key>en:10%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -155,7 +155,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:100% muscle</key>
+	<key>en:100%-muscle</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -171,7 +171,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:100% natural</key>
+	<key>en:100%-natural</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -197,7 +197,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:15% less fat</key>
+	<key>en:15%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -221,7 +221,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:15% less salt</key>
+	<key>en:15%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -246,7 +246,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:15% less sugar</key>
+	<key>en:15%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -270,7 +270,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:20% less fat</key>
+	<key>en:20%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -294,7 +294,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:20% less salt</key>
+	<key>en:20%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -319,7 +319,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:20% less sugar</key>
+	<key>en:20%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -343,7 +343,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2009 Bronze medal of the German Agricultural Society</key>
+	<key>en:2009-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -357,7 +357,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2009 Gold medal of the German Agricultural Society</key>
+	<key>en:2009-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -371,7 +371,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2009 Silver medal of the German Agricultural Society</key>
+	<key>en:2009-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -385,7 +385,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2010 Bronze medal of the German Agricultural Society</key>
+	<key>en:2010-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -399,7 +399,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2010 Gold medal of the German Agricultural Society</key>
+	<key>en:2010-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -413,7 +413,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2010 Silver medal of the German Agricultural Society</key>
+	<key>en:2010-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -427,7 +427,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2011 Bronze medal of the German Agricultural Society</key>
+	<key>en:2011-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -441,7 +441,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2011 Gold medal of the German Agricultural Society</key>
+	<key>en:2011-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -455,7 +455,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2011 Silver medal of the German Agricultural Society</key>
+	<key>en:2011-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -469,7 +469,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2012 Bronze medal of the German Agricultural Society</key>
+	<key>en:2012-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -483,7 +483,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2012 Gold medal of the German Agricultural Society</key>
+	<key>en:2012-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -497,7 +497,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2012 Silver medal of the German Agricultural Society</key>
+	<key>en:2012-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -511,7 +511,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2013 Bronze medal of the German Agricultural Society</key>
+	<key>en:2013-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -525,7 +525,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2013 Gold medal of the German Agricultural Society</key>
+	<key>en:2013-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -539,7 +539,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2013 Silver medal of the German Agricultural Society</key>
+	<key>en:2013-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -553,7 +553,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2014 Bronze medal of the German Agricultural Society</key>
+	<key>en:2014-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -567,7 +567,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2014 Gold medal of the German Agricultural Society</key>
+	<key>en:2014-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -581,7 +581,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2014 Silver medal of the German Agricultural Society</key>
+	<key>en:2014-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -595,7 +595,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2015 Bronze medal of the German Agricultural Society</key>
+	<key>en:2015-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -609,7 +609,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2015 Gold medal of the German Agricultural Society</key>
+	<key>en:2015-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -623,7 +623,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2015 Silver medal of the German Agricultural Society</key>
+	<key>en:2015-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -637,7 +637,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2016 Bronze medal of the German Agricultural Society</key>
+	<key>en:2016-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -651,7 +651,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2016 Gold medal of the German Agricultural Society</key>
+	<key>en:2016-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -665,7 +665,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2016 Silver medal of the German Agricultural Society</key>
+	<key>en:2016-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -679,7 +679,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2017 Bronze medal of the German Agricultural Society</key>
+	<key>en:2017-bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -693,7 +693,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2017 Gold medal of the German Agricultural Society</key>
+	<key>en:2017-gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -707,7 +707,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:2017 Silver medal of the German Agricultural Society</key>
+	<key>en:2017-silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -721,7 +721,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:25% less fat</key>
+	<key>en:25%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -745,7 +745,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:25% less salt</key>
+	<key>en:25%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -770,7 +770,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:25% less sugar</key>
+	<key>en:25%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -794,7 +794,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:30% less fat</key>
+	<key>en:30%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -818,7 +818,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:30% less salt</key>
+	<key>en:30%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -843,7 +843,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:30% less sugar</key>
+	<key>en:30%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -867,7 +867,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:35% less fat</key>
+	<key>en:35%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -891,7 +891,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:35% less salt</key>
+	<key>en:35%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -916,7 +916,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:35% less sugar</key>
+	<key>en:35%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -940,7 +940,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:40% less fat</key>
+	<key>en:40%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -964,7 +964,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:40% less salt</key>
+	<key>en:40%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -989,7 +989,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:40% less sugar</key>
+	<key>en:40%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1013,7 +1013,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:45% less fat</key>
+	<key>en:45%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1037,7 +1037,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:45% less salt</key>
+	<key>en:45%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1062,7 +1062,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:45% less sugar</key>
+	<key>en:45%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1086,7 +1086,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:50% less fat</key>
+	<key>en:50%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1110,7 +1110,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:50% less salt</key>
+	<key>en:50%-less-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1135,7 +1135,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:50% less sugar</key>
+	<key>en:50%-less-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1159,7 +1159,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:55% less fat</key>
+	<key>en:55%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1183,7 +1183,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:60% less fat</key>
+	<key>en:60%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1207,7 +1207,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:65% less fat</key>
+	<key>en:65%-less-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1231,87 +1231,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:AT-BIO-004</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-004</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-301</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-301</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-401</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-401</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-402</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-402</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-501</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-501</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-701</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-701</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-901</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-901</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:AT-BIO-902</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>AT-BIO-902</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Agri Natura</key>
+	<key>en:agri-natura</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1322,7 +1242,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Alimentos Artesanos de Navarra</key>
+	<key>en:alimentos-artesanos-de-navarra</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1336,7 +1256,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Alimentos de Castilla-La Mancha</key>
+	<key>en:alimentos-de-castilla-la-mancha</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1350,7 +1270,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Alimentos de Extremadura</key>
+	<key>en:alimentos-de-extremadura</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1364,7 +1284,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Assured Food Standards</key>
+	<key>en:assured-food-standards</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1376,7 +1296,87 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Authentic Trappist Product</key>
+	<key>en:at-bio-004</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-004</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-301</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-301</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-401</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-401</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-402</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-402</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-501</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-501</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-701</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-701</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-901</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-901</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:at-bio-902</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AT-BIO-902</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:authentic-trappist-product</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1395,7 +1395,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:BE-BIO-01</key>
+	<key>en:be-bio-01</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1406,7 +1406,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:BE-BIO-02</key>
+	<key>en:be-bio-02</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1416,7 +1416,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:BE-BIO-03</key>
+	<key>en:be-bio-03</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1426,7 +1426,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:BE-BIO-04</key>
+	<key>en:be-bio-04</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1436,147 +1436,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:BG-BIO-02</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-02</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-03</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-03</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-04</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-04</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-05</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-05</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-06</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-06</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-07</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-07</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-08</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-08</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-10</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-10</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-12</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-12</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-13</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-13</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-14</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-14</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-15</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-15</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BG-BIO-16</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BG-BIO-16</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:BO-BIO-126</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>BO-BIO-126</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Belgian hops</key>
+	<key>en:belgian-hops</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1590,7 +1450,137 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Bio Suisse</key>
+	<key>en:bg-bio-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-03</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-03</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-04</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-04</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-05</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-05</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-06</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-06</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-08</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-08</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-10</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-10</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-12</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-12</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-13</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-13</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-14</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-14</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-15</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-15</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bg-bio-16</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BG-BIO-16</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:bio-suisse</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1601,7 +1591,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Biodynamic agriculture</key>
+	<key>en:biodynamic-agriculture</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1628,7 +1618,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Biokreis</key>
+	<key>en:biokreis</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1646,7 +1636,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Bioland</key>
+	<key>en:bioland</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1660,7 +1650,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:British Lion Quality</key>
+	<key>en:bo-bio-126</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>BO-BIO-126</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:british-lion-quality</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1675,7 +1675,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Bronze medal of the German Agricultural Society</key>
+	<key>en:bronze-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1689,7 +1689,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Brown Dot India</key>
+	<key>en:brown-dot-india</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1703,130 +1703,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:CCOF certified organic</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CCOF certified organic</string>
-				<string> certified CCOF organic</string>
-				<string> California Certified Organic Farmers</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CH-BIO-004</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CH-BIO-004</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CH-BIO-006</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CH-BIO-006</string>
-				<string> ch-bio-scesp-006</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CH-Bio-038</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CH-Bio-038</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CH-Bio-086</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CH-Bio-086</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:COR Kosher</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>COR Kosher</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CY-BIO-001</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CY-BIO-001</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CY-BIO-002</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CY-BIO-002</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CZ-BIO-001</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CZ-BIO-001</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CZ-BIO-002</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CZ-BIO-002</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CZ-BIO-003</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CZ-BIO-003</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:CZ-BIO-004</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>CZ-BIO-004</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Calidad Certificada</key>
+	<key>en:calidad-certificada</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1840,7 +1717,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Canada Organic</key>
+	<key>en:canada-organic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1860,7 +1737,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Carbon compensated product</key>
+	<key>en:carbon-compensated-product</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1878,7 +1755,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Carbon footprint</key>
+	<key>en:carbon-footprint</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1914,7 +1791,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Carrefour Quality</key>
+	<key>en:carrefour-quality</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1937,7 +1814,19 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Certified Belgian Abbey Beer</key>
+	<key>en:ccof-certified-organic</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CCOF certified organic</string>
+				<string> certified CCOF organic</string>
+				<string> California Certified Organic Farmers</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:certified-belgian-abbey-beer</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1961,7 +1850,48 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Charte LU Harmony</key>
+	<key>en:ch-bio-004</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CH-BIO-004</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ch-bio-006</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CH-BIO-006</string>
+				<string> ch-bio-scesp-006</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ch-bio-038</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CH-Bio-038</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ch-bio-086</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CH-Bio-086</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:charte-lu-harmony</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1974,7 +1904,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Class I</key>
+	<key>en:class-i</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1999,7 +1929,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Class II</key>
+	<key>en:class-ii</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2024,7 +1954,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Contains gluten</key>
+	<key>en:contains-gluten</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2046,7 +1976,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Contains milk</key>
+	<key>en:contains-milk</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2064,7 +1994,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Contains soy</key>
+	<key>en:contains-soy</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2082,7 +2012,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Cooperative product</key>
+	<key>en:cooperative-product</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2101,7 +2031,95 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-001</key>
+	<key>en:cor-kosher</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>COR Kosher</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:crc-pareve</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>cRc Pareve</string>
+				<string> Chicago Rabbinical Council Pareve</string>
+				<string> Chicago Rabbinical Council</string>
+				<string> cRc</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>cRc Pareve</string>
+				<string> cRc</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cy-bio-001</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CY-BIO-001</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cy-bio-002</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CY-BIO-002</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cz-bio-001</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CZ-BIO-001</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cz-bio-002</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CZ-BIO-002</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cz-bio-003</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CZ-BIO-003</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cz-bio-004</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>CZ-BIO-004</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:de-öko-001</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2111,7 +2129,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-003</key>
+	<key>en:de-öko-003</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2121,7 +2139,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-005</key>
+	<key>en:de-öko-005</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2131,7 +2149,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-006</key>
+	<key>en:de-öko-006</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2141,7 +2159,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-007</key>
+	<key>en:de-öko-007</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2151,7 +2169,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-009</key>
+	<key>en:de-öko-009</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2161,7 +2179,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-012</key>
+	<key>en:de-öko-012</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2171,7 +2189,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-013</key>
+	<key>en:de-öko-013</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2181,7 +2199,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-021</key>
+	<key>en:de-öko-021</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2191,7 +2209,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-022</key>
+	<key>en:de-öko-022</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2201,7 +2219,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-024</key>
+	<key>en:de-öko-024</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2211,7 +2229,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-034</key>
+	<key>en:de-öko-034</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2221,7 +2239,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-037</key>
+	<key>en:de-öko-037</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2231,7 +2249,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-039</key>
+	<key>en:de-öko-039</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2241,7 +2259,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-044</key>
+	<key>en:de-öko-044</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2251,7 +2269,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-060</key>
+	<key>en:de-öko-060</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2261,7 +2279,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-064</key>
+	<key>en:de-öko-064</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2271,7 +2289,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DE-ÖKO-070</key>
+	<key>en:de-öko-070</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2281,141 +2299,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:DK-ØKO-050</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DK-ØKO-050</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DK-ØKO-100</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DK-ØKO-100</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DK-ØKO-200</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DK-ØKO-200</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DK-ØKO-300</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DK-ØKO-300</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DO Manzanilla-Sanlúcar de Barrameda</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DO Manzanilla-Sanlúcar de Barrameda</string>
-				<string> D.O. Manzanilla-Sanlúcar de Barrameda</string>
-				<string> Manzanilla-Sanlúcar de Barrameda</string>
-				<string> Manzanilla de Sanlúcar de Barrameda</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>DO Manzanilla-Sanlúcar de Barrameda</string>
-				<string> D.O. Manzanilla-Sanlúcar de Barrameda</string>
-				<string> Manzanilla-Sanlúcar de Barrameda</string>
-				<string> Manzanilla de Sanlúcar de Barrameda</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DO Montilla-Moriles</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DO Montilla-Moriles</string>
-				<string> D.O. Montilla-Moriles</string>
-				<string> Montilla-Moriles</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>DO Montilla-Moriles</string>
-				<string> D.O. Montilla-Moriles</string>
-				<string> Montilla-Moriles</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DO Navarra</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DO Navarra</string>
-				<string> D.O. Navarra</string>
-				<string> Vino de Navarra</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>DO Navarra</string>
-				<string> D.O. Navarra</string>
-				<string> Vino de Navarra</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DO Toro</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DO Toro</string>
-				<string> D.O. Toro</string>
-				<string> Toro</string>
-				<string> Vino de Toro</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>DO Toro</string>
-				<string> D.O. Toro</string>
-				<string> Toro</string>
-				<string> Vino de Toro</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:DOCa Rioja</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>DOCa Rioja</string>
-				<string> D.O.Ca. Rioja</string>
-				<string> Vino de Rioja</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>DOCa Rioja</string>
-				<string> D.O.Ca. Rioja</string>
-				<string> Vino de Rioja</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Demeter</key>
+	<key>en:demeter</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2436,7 +2320,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Denominación de Origen</key>
+	<key>en:denominación-de-origen</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2452,7 +2336,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Denominación de Origen Calificada</key>
+	<key>en:denominación-de-origen-calificada</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2468,7 +2352,160 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:EE-ÖKO-01</key>
+	<key>en:dk-øko-050</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DK-ØKO-050</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:dk-øko-100</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DK-ØKO-100</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:dk-øko-200</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DK-ØKO-200</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:dk-øko-300</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DK-ØKO-300</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:do-manzanilla-sanlúcar-de-barrameda</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DO Manzanilla-Sanlúcar de Barrameda</string>
+				<string> D.O. Manzanilla-Sanlúcar de Barrameda</string>
+				<string> Manzanilla-Sanlúcar de Barrameda</string>
+				<string> Manzanilla de Sanlúcar de Barrameda</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>DO Manzanilla-Sanlúcar de Barrameda</string>
+				<string> D.O. Manzanilla-Sanlúcar de Barrameda</string>
+				<string> Manzanilla-Sanlúcar de Barrameda</string>
+				<string> Manzanilla de Sanlúcar de Barrameda</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:do-montilla-moriles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DO Montilla-Moriles</string>
+				<string> D.O. Montilla-Moriles</string>
+				<string> Montilla-Moriles</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>DO Montilla-Moriles</string>
+				<string> D.O. Montilla-Moriles</string>
+				<string> Montilla-Moriles</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:do-navarra</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DO Navarra</string>
+				<string> D.O. Navarra</string>
+				<string> Vino de Navarra</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>DO Navarra</string>
+				<string> D.O. Navarra</string>
+				<string> Vino de Navarra</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:do-toro</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DO Toro</string>
+				<string> D.O. Toro</string>
+				<string> Toro</string>
+				<string> Vino de Toro</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>DO Toro</string>
+				<string> D.O. Toro</string>
+				<string> Toro</string>
+				<string> Vino de Toro</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:doca-rioja</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>DOCa Rioja</string>
+				<string> D.O.Ca. Rioja</string>
+				<string> Vino de Rioja</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>DOCa Rioja</string>
+				<string> D.O.Ca. Rioja</string>
+				<string> Vino de Rioja</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ecocert</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>ar</key>
+			<array>
+				<string>Ecocert</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ecocert</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Ecocert</string>
+				<string> Distribution certifiée par Ecocert</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ee-öko-01</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2478,7 +2515,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:EE-ÖKO-02</key>
+	<key>en:ee-öko-02</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2488,7 +2525,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-EC0-017-AN</key>
+	<key>en:es-ec0-017-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2498,7 +2535,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-001</key>
+	<key>en:es-eco-001</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2508,7 +2545,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-001-AN</key>
+	<key>en:es-eco-001-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2518,7 +2555,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-001-CL</key>
+	<key>en:es-eco-001-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2528,7 +2565,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-001-CM</key>
+	<key>en:es-eco-001-cm</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2538,7 +2575,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-002</key>
+	<key>en:es-eco-002</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2548,7 +2585,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-002-AN</key>
+	<key>en:es-eco-002-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2558,7 +2595,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-002-AR</key>
+	<key>en:es-eco-002-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2568,7 +2605,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-002-CL</key>
+	<key>en:es-eco-002-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2578,7 +2615,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-002-CM</key>
+	<key>en:es-eco-002-cm</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2588,7 +2625,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-003-AN</key>
+	<key>en:es-eco-003-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2598,7 +2635,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-004</key>
+	<key>en:es-eco-004</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2608,7 +2645,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-004-AN</key>
+	<key>en:es-eco-004-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2618,7 +2655,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-004-AR</key>
+	<key>en:es-eco-004-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2628,7 +2665,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-005</key>
+	<key>en:es-eco-005</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2638,7 +2675,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-005-AN</key>
+	<key>en:es-eco-005-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2648,7 +2685,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-005-AR</key>
+	<key>en:es-eco-005-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2658,7 +2695,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-006-AR</key>
+	<key>en:es-eco-006-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2668,7 +2705,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-007-AR</key>
+	<key>en:es-eco-007-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2678,7 +2715,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-008-AR</key>
+	<key>en:es-eco-008-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2688,7 +2725,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-009-AR</key>
+	<key>en:es-eco-009-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2698,7 +2735,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-010-AN</key>
+	<key>en:es-eco-010-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2708,7 +2745,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-010-AR</key>
+	<key>en:es-eco-010-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2718,7 +2755,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-011-AN</key>
+	<key>en:es-eco-011-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2728,7 +2765,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-011-AR</key>
+	<key>en:es-eco-011-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2738,7 +2775,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-011-CM</key>
+	<key>en:es-eco-011-cm</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2748,7 +2785,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-012-AS</key>
+	<key>en:es-eco-012-as</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2758,7 +2795,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-013-IB</key>
+	<key>en:es-eco-013-ib</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2768,7 +2805,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-014-IC</key>
+	<key>en:es-eco-014-ic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2778,7 +2815,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-015-CN</key>
+	<key>en:es-eco-015-cn</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2788,7 +2825,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-016-CL</key>
+	<key>en:es-eco-016-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2798,7 +2835,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-017</key>
+	<key>en:es-eco-017</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2808,7 +2845,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-017-CL</key>
+	<key>en:es-eco-017-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2818,7 +2855,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-017-CM</key>
+	<key>en:es-eco-017-cm</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2828,7 +2865,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-019-CT</key>
+	<key>en:es-eco-019-ct</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2838,7 +2875,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-020-CV</key>
+	<key>en:es-eco-020-cv</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2848,7 +2885,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-021-EX</key>
+	<key>en:es-eco-021-ex</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2858,7 +2895,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-022-GA</key>
+	<key>en:es-eco-022-ga</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2868,7 +2905,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-023-MA</key>
+	<key>en:es-eco-023-ma</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2878,7 +2915,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-024-MU</key>
+	<key>en:es-eco-024-mu</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2888,7 +2925,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-025-NA</key>
+	<key>en:es-eco-025-na</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2898,7 +2935,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-026-VAS</key>
+	<key>en:es-eco-026-vas</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2908,7 +2945,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-027-RI</key>
+	<key>en:es-eco-027-ri</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2918,7 +2955,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-028-AN</key>
+	<key>en:es-eco-028-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2928,7 +2965,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-028-AR</key>
+	<key>en:es-eco-028-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2938,7 +2975,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-028-CL</key>
+	<key>en:es-eco-028-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2948,7 +2985,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-028-CM</key>
+	<key>en:es-eco-028-cm</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2958,7 +2995,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-029-AN</key>
+	<key>en:es-eco-029-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2968,7 +3005,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-029-AR</key>
+	<key>en:es-eco-029-ar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2978,7 +3015,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-029-CL</key>
+	<key>en:es-eco-029-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2988,7 +3025,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-030-AN</key>
+	<key>en:es-eco-030-an</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -2998,7 +3035,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:ES-ECO-031-CL</key>
+	<key>en:es-eco-031-cl</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3008,7 +3045,21 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:EU Agriculture</key>
+	<key>en:etiqueta-de-calidad-doñana-21</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Etiqueta de Calidad Doñana 21</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Etiqueta de Calidad Doñana 21</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:eu-agriculture</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3033,7 +3084,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:EU Organic</key>
+	<key>en:eu-organic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3068,40 +3119,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Ecocert</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>ar</key>
-			<array>
-				<string>Ecocert</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>Ecocert</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Ecocert</string>
-				<string> Distribution certifiée par Ecocert</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Etiqueta de Calidad Doñana 21</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Etiqueta de Calidad Doñana 21</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Etiqueta de Calidad Doñana 21</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:European Fruit Juice Control System</key>
+	<key>en:european-fruit-juice-control-system</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3114,7 +3132,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:FACE</key>
+	<key>en:face</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3124,479 +3142,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:FI-EKO-101</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-101</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-102</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-102</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-103</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-103</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-104</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-104</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-105</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-105</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-106</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-106</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-107</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-107</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-108</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-108</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-109</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-109</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-110</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-110</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-111</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-111</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-112</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-112</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-113</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-113</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-114</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-114</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-115</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-115</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-201</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-201</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-301</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-301</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FI-EKO-401</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FI-EKO-401</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-07</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-07</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-09</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-09</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-10</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-10</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-12</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-12</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-13</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-13</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-15</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-15</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FR-BIO-16</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FR-BIO-16</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC</string>
-				<string> Forest Stewardship Council</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>FSC</string>
-				<string> Forest Stewardship Council</string>
-				<string> Consejo de Administración Forestal</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC Mix</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC Mix</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>FSC Mix</string>
-				<string> FSC Mixte</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC Recycling</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC Recycling</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C002324</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C002324</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C014047</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C014047</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C014207</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C014207</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C016627</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C016627</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C020428</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C020428</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C022488</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C022488</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C074707</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C074707</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C081801</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C081801</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C100482</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C100482</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C104258</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C104258</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C104752</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C104752</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C106987</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C106987</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C107894</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C107894</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C109331</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C109331</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C115560</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C115560</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C117156</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C117156</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:FSC-C119044</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>FSC-C119044</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Fair trade</key>
+	<key>en:fair-trade</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3616,7 +3162,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Fairtrade International</key>
+	<key>en:fairtrade-international</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3643,7 +3189,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Fed without GMOs</key>
+	<key>en:fed-without-gmos</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3657,7 +3203,187 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:First grade TIS 3-1983</key>
+	<key>en:fi-eko-101</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-101</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-102</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-102</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-103</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-103</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-104</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-104</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-105</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-105</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-106</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-106</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-107</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-107</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-108</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-108</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-109</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-109</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-110</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-110</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-111</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-111</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-112</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-112</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-113</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-113</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-114</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-114</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-115</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-115</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-201</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-201</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-301</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-301</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fi-eko-401</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FI-EKO-401</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:first-grade-tis-3-1983</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3668,7 +3394,87 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Freedom Food</key>
+	<key>en:fr-bio-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-09</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-09</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-10</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-10</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-12</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-12</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-13</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-13</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-15</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-15</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fr-bio-16</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FR-BIO-16</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:freedom-food</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3679,296 +3485,219 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-01</key>
+	<key>en:fsc</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-01</string>
+				<string>FSC</string>
+				<string> Forest Stewardship Council</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>FSC</string>
+				<string> Forest Stewardship Council</string>
+				<string> Consejo de Administración Forestal</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-02</key>
+	<key>en:fsc-c002324</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-02</string>
+				<string>FSC-C002324</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-03</key>
+	<key>en:fsc-c014047</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-03</string>
+				<string>FSC-C014047</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-04</key>
+	<key>en:fsc-c014207</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-04</string>
+				<string>FSC-C014207</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-05</key>
+	<key>en:fsc-c016627</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-05</string>
+				<string>FSC-C016627</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-06</key>
+	<key>en:fsc-c020428</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-06</string>
+				<string>FSC-C020428</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-07</key>
+	<key>en:fsc-c022488</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-07</string>
+				<string>FSC-C022488</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-09</key>
+	<key>en:fsc-c074707</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-09</string>
+				<string>FSC-C074707</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-13</key>
+	<key>en:fsc-c081801</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-13</string>
+				<string>FSC-C081801</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-16</key>
+	<key>en:fsc-c100482</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-16</string>
+				<string>FSC-C100482</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GB-ORG-17</key>
+	<key>en:fsc-c104258</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GB-ORG-17</string>
+				<string>FSC-C104258</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GOST</key>
+	<key>en:fsc-c104752</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GOST</string>
+				<string>FSC-C104752</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-c106987</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC-C106987</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-c107894</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC-C107894</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-c109331</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC-C109331</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-c115560</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC-C115560</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-c117156</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC-C117156</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-c119044</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC-C119044</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:fsc-mix</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>FSC Mix</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>GOST</string>
-			</array>
-			<key>ru</key>
-			<array>
-				<string>ГОСТ</string>
-				<string> GOST</string>
+				<string>FSC Mix</string>
+				<string> FSC Mixte</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GR-BIO-01</key>
+	<key>en:fsc-recycling</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>GR-BIO-01</string>
+				<string>FSC Recycling</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:GR-BIO-02</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-02</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-03</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-03</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-04</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-04</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-05</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-05</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-06</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-06</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-07</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-07</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-08</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-08</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-10</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-10</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-12</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-12</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-13</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-13</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-14</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-14</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-15</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-15</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-16</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-16</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-17</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-17</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:GR-BIO-18</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>GR-BIO-18</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Galicia Calidade</key>
+	<key>en:galicia-calidade</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3982,7 +3711,117 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:German Agricultural Society</key>
+	<key>en:gb-org-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-03</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-03</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-04</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-04</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-05</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-05</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-06</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-06</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-09</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-09</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-13</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-13</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-16</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-16</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gb-org-17</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GB-ORG-17</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -3997,7 +3836,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Gluten-free</key>
+	<key>en:gluten-free</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4038,7 +3877,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Gold medal of the German Agricultural Society</key>
+	<key>en:gold-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4052,7 +3891,186 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Green Dot</key>
+	<key>en:gost</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GOST</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>GOST</string>
+			</array>
+			<key>ru</key>
+			<array>
+				<string>ГОСТ</string>
+				<string> GOST</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-03</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-03</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-04</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-04</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-05</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-05</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-06</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-06</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-08</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-08</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-10</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-10</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-12</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-12</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-13</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-13</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-14</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-14</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-15</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-15</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-16</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-16</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-17</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-17</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:gr-bio-18</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>GR-BIO-18</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:green-dot</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4084,7 +4102,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Green Dot India</key>
+	<key>en:green-dot-india</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4097,107 +4115,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:HR-EKO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-02</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-02</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-03</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-03</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-04</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-04</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-05</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-05</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-06</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-06</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-07</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-07</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HR-EKO-08</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HR-EKO-08</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HU-ÖKO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HU-ÖKO-01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:HU-ÖKO-02</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>HU-ÖKO-02</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Halal</key>
+	<key>en:halal</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4223,7 +4141,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Halal Food Authority</key>
+	<key>en:halal-food-authority</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4236,7 +4154,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Halal Food Council of Europe</key>
+	<key>en:halal-food-council-of-europe</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4247,7 +4165,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Halal Monitoring Committee</key>
+	<key>en:halal-monitoring-committee</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4258,7 +4176,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:High fibres</key>
+	<key>en:high-fibres</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4280,7 +4198,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:High in Omega 3</key>
+	<key>en:high-in-omega-3</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4304,7 +4222,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:High proteins</key>
+	<key>en:high-proteins</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4326,7 +4244,107 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:IE-ORG-01</key>
+	<key>en:hr-eko-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-03</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-03</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-04</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-04</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-05</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-05</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-06</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-06</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hr-eko-08</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HR-EKO-08</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hu-öko-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HU-ÖKO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:hu-öko-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>HU-ÖKO-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ie-org-01</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4336,7 +4354,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:IE-ORG-02</key>
+	<key>en:ie-org-02</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4346,7 +4364,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:IE-ORG-03</key>
+	<key>en:ie-org-03</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4356,7 +4374,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:IE-ORG-04</key>
+	<key>en:ie-org-04</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4366,7 +4384,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:IE-ORG-05</key>
+	<key>en:ie-org-05</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4376,228 +4394,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:IP-Suisse</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IP-Suisse</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:ISO 9001</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>ISO 9001</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Iso 9001</string>
-				<string> Certifie iso 9001</string>
-				<string> La certification qualite iso 9001</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Iso 9001</string>
-				<string> Uni en iso 9001</string>
-				<string> Sistema di qualita certificato iso 9001</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:ISO-9001-2008</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>ISO-9001-2008</string>
-				<string> ISO 9001 2008 certified qms</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Iso-9001-2008</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Iso-9001-2008</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-001-BZ</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-001-BZ</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-002</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-002</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-002-BZ</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-002-BZ</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-003</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-003</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-003-BZ</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-003-BZ</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-004</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-004</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-005</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-005</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-006</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-006</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-007</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-007</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-008</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-008</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-009</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-009</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-010</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-010</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-011</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-011</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-012</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-012</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-013</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-013</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-014</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-014</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:IT-BIO-015</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>IT-BIO-015</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:In braille</key>
+	<key>en:in-braille</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4616,7 +4413,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Incorrect data on label</key>
+	<key>en:incorrect-data-on-label</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4640,7 +4437,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Incorrect nutrition facts on label</key>
+	<key>en:incorrect-nutrition-facts-on-label</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4657,7 +4454,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:India Organic</key>
+	<key>en:india-organic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4667,7 +4464,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Integrated production</key>
+	<key>en:integrated-production</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4681,7 +4478,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Irradiated</key>
+	<key>en:ip-suisse</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IP-Suisse</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:irradiated</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4700,7 +4507,218 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Junta Islamica</key>
+	<key>en:iso-9001</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>ISO 9001</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Iso 9001</string>
+				<string> Certifie iso 9001</string>
+				<string> La certification qualite iso 9001</string>
+			</array>
+			<key>it</key>
+			<array>
+				<string>Iso 9001</string>
+				<string> Uni en iso 9001</string>
+				<string> Sistema di qualita certificato iso 9001</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:iso-9001-2008</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>ISO-9001-2008</string>
+				<string> ISO 9001 2008 certified qms</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Iso-9001-2008</string>
+			</array>
+			<key>it</key>
+			<array>
+				<string>Iso-9001-2008</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-001-bz</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-001-BZ</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-002</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-002</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-002-bz</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-002-BZ</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-003</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-003</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-003-bz</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-003-BZ</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-004</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-004</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-005</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-005</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-006</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-006</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-007</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-007</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-008</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-008</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-009</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-009</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-010</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-010</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-011</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-011</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-012</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-012</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-013</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-013</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-014</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-014</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:it-bio-015</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>IT-BIO-015</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:junta-islamica</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4710,7 +4728,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Kashrut division of the London Beth Din</key>
+	<key>en:kashrut-division-of-the-london-beth-din</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4727,7 +4745,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Kof-K</key>
+	<key>en:kof-k</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4737,7 +4755,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Kosher</key>
+	<key>en:kosher</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4762,7 +4780,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Kosher Check</key>
+	<key>en:kosher-check</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4773,33 +4791,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Kosher Supervision of America</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Kosher Supervision of America</string>
-				<string> KSA</string>
-				<string> KSA Kosher</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Kosher under supervision of Rabbi Weitman Tnuva</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Kosher under supervision of Rabbi Weitman Tnuva</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Kosher under supervision of Rabbi Weitman Tnuva</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Kosher-parve</key>
+	<key>en:kosher-parve</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4827,99 +4819,33 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:LEAF</key>
+	<key>en:kosher-supervision-of-america</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>LEAF</string>
-				<string> Linking Environment and Farming</string>
-				<string> LEAF Linking Environment and Farming</string>
+				<string>Kosher Supervision of America</string>
+				<string> KSA</string>
+				<string> KSA Kosher</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:LT-EKO-001</key>
+	<key>en:kosher-under-supervision-of-rabbi-weitman-tnuva</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>LT-EKO-001</string>
+				<string>Kosher under supervision of Rabbi Weitman Tnuva</string>
 			</array>
-		</dict>
-	</dict>
-	<key>en:LU-BIO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
+			<key>fr</key>
 			<array>
-				<string>LU-BIO-01</string>
+				<string>Kosher under supervision of Rabbi Weitman Tnuva</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:LU-BIO-04</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>LU-BIO-04</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:LU-BIO-05</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>LU-BIO-05</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:LU-BIO-06</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>LU-BIO-06</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:LU-BIO-07</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>LU-BIO-07</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:LV-BIO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>LV-BIO-01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:LV-BIO-02</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>LV-BIO-02</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Label Rouge</key>
+	<key>en:label-rouge</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4937,7 +4863,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Labels of distributors</key>
+	<key>en:labels-of-distributors</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4955,26 +4881,29 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low Sodium</key>
+	<key>en:leaf</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
-			<key>de</key>
-			<array>
-				<string>Natriumarm</string>
-			</array>
 			<key>en</key>
 			<array>
-				<string>Low Sodium</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Faible teneur en sodium</string>
-				<string>Pauvre en sodium</string>
+				<string>LEAF</string>
+				<string> Linking Environment and Farming</string>
+				<string> LEAF Linking Environment and Farming</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low fat</key>
+	<key>en:li-bio-969</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>li-bio-969</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:low-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -4991,7 +4920,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low or no fat</key>
+	<key>en:low-or-no-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5006,7 +4935,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low or no salt</key>
+	<key>en:low-or-no-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5021,7 +4950,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low or no sugar</key>
+	<key>en:low-or-no-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5040,7 +4969,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low salt</key>
+	<key>en:low-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5058,7 +4987,26 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Low sugar</key>
+	<key>en:low-sodium</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Natriumarm</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Low Sodium</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Faible teneur en sodium</string>
+				<string>Pauvre en sodium</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:low-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5074,7 +5022,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Lowers cholesterol</key>
+	<key>en:lowers-cholesterol</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5096,17 +5044,107 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:MT-ORG-01</key>
+	<key>en:lt-eko-001</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>MT-ORG-01</string>
+				<string>LT-EKO-001</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:Magen Tzedek</key>
+	<key>en:lu-bio-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LU-BIO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lu-bio-04</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LU-BIO-04</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lu-bio-05</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LU-BIO-05</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lu-bio-06</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LU-BIO-06</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lu-bio-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LU-BIO-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lv-bio-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LV-BIO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:lv-bio-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>LV-BIO-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:made-in-france</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>made in France</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Fabricado en Francia</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Fabriqué en France</string>
+				<string> production française</string>
+				<string> produit de France</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:magen-tzedek</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5121,7 +5159,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Manchester Beth Din</key>
+	<key>en:manchester-beth-din</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5137,7 +5175,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Max Havelaar</key>
+	<key>en:max-havelaar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5149,7 +5187,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Migros Bio</key>
+	<key>en:migros-bio</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5159,7 +5197,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Muslim Consumer Group</key>
+	<key>en:mt-org-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>MT-ORG-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:muslim-consumer-group</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5170,7 +5218,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Muslim Council International</key>
+	<key>en:muslim-council-international</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5180,7 +5228,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:NAPSI certified</key>
+	<key>en:napsi-certified</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5196,27 +5244,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:NL-BIO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>NL-BIO-01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:NO-ØKO-01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>NO-ØKO-01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Natura-Beef</key>
+	<key>en:natura-beef</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5227,7 +5255,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Natura-Veal</key>
+	<key>en:natura-veal</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5238,7 +5266,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Naturafarm</key>
+	<key>en:naturafarm</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5249,7 +5277,45 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Naturaplan</key>
+	<key>en:natural-colorings</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>natural colorings</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Colorantes naturales</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>colorants naturels</string>
+				<string> colorant naturel</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:natural-flavors</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>natural flavors</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Aromas naturales</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>arômes naturels</string>
+				<string> arôme naturel</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:naturaplan</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5260,7 +5326,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:NatureSuisse</key>
+	<key>en:naturesuisse</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5271,7 +5337,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Naturland</key>
+	<key>en:naturland</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5285,7 +5351,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Never frozen</key>
+	<key>en:never-frozen</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5303,7 +5369,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:New</key>
+	<key>en:new</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5325,7 +5391,229 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No Bisphenol-A</key>
+	<key>en:nl-bio-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>NL-BIO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-added-fat</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>No added fat</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin grasas añadidas</string>
+				<string> 0% grasas añadidas</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans matière grasse ajoutée</string>
+				<string> sans matières grasses ajoutées</string>
+				<string> sans ajout de matière grasse</string>
+				<string> sans matière grasse ajouté</string>
+				<string> sans matières grasses ajoutés</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-added-salt</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Salzzusatz</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No added salt</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin sal añadida</string>
+				<string> 0% sal añadida</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans sel ajouté</string>
+				<string> sans sel ajoutés</string>
+				<string> sans ajout de sel</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-added-sugar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Zuckerzusatz</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No added sugar</string>
+				<string> no sugar added</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin azúcares añadidos</string>
+				<string> 0% Azúcares añadidos</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans sucre ajouté</string>
+				<string> sans sucres ajoutés</string>
+				<string> sans ajout de sucre</string>
+			</array>
+			<key>pt</key>
+			<array>
+				<string>Sem açúcares adicionados</string>
+				<string> Sem adição de açúcares</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-added-thickener</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Zusatz von Verdickungsmittel</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No added thickener</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans épaississant ajouté</string>
+				<string> Sans epaissisant ajoute</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-additives</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>No additives</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin aditivos</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans additifs</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-alcohol</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Alkohol</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No alcohol</string>
+				<string> alcohol-free</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin alcohol</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans alcool</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-artificial-colors</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne künstliche Farbstoffe</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No artificial colors</string>
+				<string> free of artificial color</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin colorantes artificiales</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans colorants artificiels</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-artificial-flavors</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne künstliche Aromen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No artificial flavors</string>
+				<string> free of artificial flavor</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin aromas artificiales</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans arômes artificiels</string>
+				<string> sans arôme artificiel</string>
+				<string> sans aromatisants artificiels</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-aspartame</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>ohne Aspartam</string>
+				<string> aspartamfrei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No aspartame</string>
+				<string> aspartame free</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin aspartamo</string>
+				<string> Sin aspartame</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans aspartame</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-bisphenol-a</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5348,7 +5636,182 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No GMOs</key>
+	<key>en:no-caffeine</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>No caffeine</string>
+				<string> caffeine free</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin cafeína</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans caféine</string>
+				<string> sans théine</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-cholesterol</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>ohne Cholesterin</string>
+				<string> cholesterinfrei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No cholesterol</string>
+				<string> cholesterol-free</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin colesterol</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>sans cholestérol</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-colorings</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Farbstoffzusatz</string>
+				<string>Ohne Farbstoffe</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No colorings</string>
+				<string> no added colorings</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin colorantes</string>
+				<string> Sin colorantes añadidos</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans colorants</string>
+				<string> sans colorant ajouté</string>
+				<string> sans ajout de colorant</string>
+			</array>
+			<key>it</key>
+			<array>
+				<string>Senza coloranti</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-eggs</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>No eggs</string>
+				<string> egg free</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin huevo</string>
+				<string> Sin huevos</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans œufs</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-fat</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>ohne Fett</string>
+				<string> fettfrei</string>
+				<string> 0% Fett</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No fat</string>
+				<string> fat-free</string>
+				<string> 0% fat</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin grasas</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans matière grasse</string>
+				<string> 0% de matière grasse</string>
+				<string> sans matières grasses</string>
+				<string> 0% de matières grasses</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-flavors</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Zusatz von Aromen</string>
+				<string> Ohne Zusatz von Aromastoffen</string>
+				<string> Ohne Aromen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No flavors</string>
+				<string> no added flavors</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin aromas</string>
+				<string> Sin aromas añadidos</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>sans arômes ajoutés</string>
+				<string> sans arômes</string>
+			</array>
+			<key>it</key>
+			<array>
+				<string>Senza aromi</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-flavour-enhancer</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Geschmacksverstärker</string>
+				<string> Ohne Zusatzstoff Geschmacksverstärker</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>No flavour enhancer</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>sans exhausteur de goût</string>
+				<string> sans exhausteurs de goût</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-gmos</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5382,433 +5845,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No MSG</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>No MSG</string>
-				<string> MSG free</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin glutamato</string>
-				<string> Sin glutamato monosódico</string>
-				<string> Sin glutamato de sodio</string>
-				<string> Sin GMS</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans glutamate</string>
-				<string> sans GMS</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No Trans Fat</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>No Trans Fat</string>
-				<string> 0% Trans Fat</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans acides gras trans</string>
-				<string> sans graisses trans</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No added fat</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>No added fat</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin grasas añadidas</string>
-				<string> 0% grasas añadidas</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans matière grasse ajoutée</string>
-				<string> sans matières grasses ajoutées</string>
-				<string> sans ajout de matière grasse</string>
-				<string> sans matière grasse ajouté</string>
-				<string> sans matières grasses ajoutés</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No added salt</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Salzzusatz</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No added salt</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin sal añadida</string>
-				<string> 0% sal añadida</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans sel ajouté</string>
-				<string> sans sel ajoutés</string>
-				<string> sans ajout de sel</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No added sugar</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Zuckerzusatz</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No added sugar</string>
-				<string> no sugar added</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin azúcares añadidos</string>
-				<string> 0% Azúcares añadidos</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans sucre ajouté</string>
-				<string> sans sucres ajoutés</string>
-				<string> sans ajout de sucre</string>
-			</array>
-			<key>pt</key>
-			<array>
-				<string>Sem açúcares adicionados</string>
-				<string> Sem adição de açúcares</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No added thickener</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Zusatz von Verdickungsmittel</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No added thickener</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans épaississant ajouté</string>
-				<string> Sans epaissisant ajoute</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No additives</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>No additives</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin aditivos</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans additifs</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No alcohol</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Alkohol</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No alcohol</string>
-				<string> alcohol-free</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin alcohol</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans alcool</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No artificial colors</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne künstliche Farbstoffe</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No artificial colors</string>
-				<string> free of artificial color</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin colorantes artificiales</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans colorants artificiels</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No artificial flavors</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne künstliche Aromen</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No artificial flavors</string>
-				<string> free of artificial flavor</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin aromas artificiales</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans arômes artificiels</string>
-				<string> sans arôme artificiel</string>
-				<string> sans aromatisants artificiels</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No aspartame</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>ohne Aspartam</string>
-				<string> aspartamfrei</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No aspartame</string>
-				<string> aspartame free</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin aspartamo</string>
-				<string> Sin aspartame</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans aspartame</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No caffeine</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>No caffeine</string>
-				<string> caffeine free</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin cafeína</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans caféine</string>
-				<string> sans théine</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No cholesterol</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>ohne Cholesterin</string>
-				<string> cholesterinfrei</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No cholesterol</string>
-				<string> cholesterol-free</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin colesterol</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>sans cholestérol</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No colorings</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Farbstoffzusatz</string>
-				<string>Ohne Farbstoffe</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No colorings</string>
-				<string> no added colorings</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin colorantes</string>
-				<string> Sin colorantes añadidos</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans colorants</string>
-				<string> sans colorant ajouté</string>
-				<string> sans ajout de colorant</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Senza coloranti</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No eggs</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>No eggs</string>
-				<string> egg free</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin huevo</string>
-				<string> Sin huevos</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans œufs</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No fat</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>ohne Fett</string>
-				<string> fettfrei</string>
-				<string> 0% Fett</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No fat</string>
-				<string> fat-free</string>
-				<string> 0% fat</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin grasas</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans matière grasse</string>
-				<string> 0% de matière grasse</string>
-				<string> sans matières grasses</string>
-				<string> 0% de matières grasses</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No flavors</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Zusatz von Aromen</string>
-				<string> Ohne Zusatz von Aromastoffen</string>
-				<string> Ohne Aromen</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No flavors</string>
-				<string> no added flavors</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin aromas</string>
-				<string> Sin aromas añadidos</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>sans arômes ajoutés</string>
-				<string> sans arômes</string>
-			</array>
-			<key>it</key>
-			<array>
-				<string>Senza aromi</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No flavour enhancer</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Geschmacksverstärker</string>
-				<string> Ohne Zusatzstoff Geschmacksverstärker</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>No flavour enhancer</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>sans exhausteur de goût</string>
-				<string> sans exhausteurs de goût</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:No hydrogenated fats</key>
+	<key>en:no-hydrogenated-fats</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5842,7 +5879,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No lactose</key>
+	<key>en:no-lactose</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5870,7 +5907,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No lecithine</key>
+	<key>en:no-lecithine</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5893,7 +5930,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No milk</key>
+	<key>en:no-milk</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5923,7 +5960,30 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No preservatives</key>
+	<key>en:no-msg</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>No MSG</string>
+				<string> MSG free</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin glutamato</string>
+				<string> Sin glutamato monosódico</string>
+				<string> Sin glutamato de sodio</string>
+				<string> Sin GMS</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans glutamate</string>
+				<string> sans GMS</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-preservatives</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5957,7 +6017,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No salt</key>
+	<key>en:no-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -5982,7 +6042,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No soy</key>
+	<key>en:no-soy</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6006,7 +6066,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No sugar</key>
+	<key>en:no-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6029,7 +6089,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:No thickening agent</key>
+	<key>en:no-thickening-agent</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6051,7 +6111,33 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Non-vegetarian</key>
+	<key>en:no-trans-fat</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>No Trans Fat</string>
+				<string> 0% Trans Fat</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans acides gras trans</string>
+				<string> sans graisses trans</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:no-øko-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>NO-ØKO-01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:non-vegetarian</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6067,7 +6153,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Not advised for pregnant women</key>
+	<key>en:not-advised-for-pregnant-women</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6088,7 +6174,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Not recommended for children under 3 years</key>
+	<key>en:not-recommended-for-children-under-3-years</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6103,7 +6189,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Omega-3</key>
+	<key>en:omega-3</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6117,7 +6203,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Organic</key>
+	<key>en:organic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6166,7 +6252,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Organized Kashrut Kosher</key>
+	<key>en:organized-kashrut-kosher</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6180,7 +6266,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Orthodox Union Kosher</key>
+	<key>en:orthodox-union-kosher</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6195,7 +6281,31 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO</key>
+	<key>en:palm-oil-free</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Ohne Palmöl</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Palm oil free</string>
+				<string> Without palm oil</string>
+				<string> No palm oil</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Sin aceite de palma</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sans huile de palme</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pdo</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6231,7 +6341,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Aceituna Aloreña de Málaga</key>
+	<key>en:pdo-aceituna-aloreña-de-málaga</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6248,7 +6358,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Arroz de Calasparra</key>
+	<key>en:pdo-arroz-de-calasparra</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6265,7 +6375,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Arroz de Valencia</key>
+	<key>en:pdo-arroz-de-valencia</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6286,7 +6396,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Azafrán de La Mancha</key>
+	<key>en:pdo-azafrán-de-la-mancha</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6303,7 +6413,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Chufa de Valencia</key>
+	<key>en:pdo-chufa-de-valencia</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6320,7 +6430,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Estepa</key>
+	<key>en:pdo-estepa</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6336,7 +6446,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Montes de Granada</key>
+	<key>en:pdo-montes-de-granada</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6353,7 +6463,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Montes de Toledo</key>
+	<key>en:pdo-montes-de-toledo</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6370,7 +6480,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Pasas de Málaga</key>
+	<key>en:pdo-pasas-de-málaga</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6387,7 +6497,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Pera de Lleida</key>
+	<key>en:pdo-pera-de-lleida</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6409,7 +6519,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Peras de Rincón de Soto</key>
+	<key>en:pdo-peras-de-rincón-de-soto</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6426,24 +6536,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Pimentón de Murcia</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PDO Pimentón de Murcia</string>
-				<string> Pimentón de Murcia</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>DOP Pimentón de Murcia</string>
-				<string> D.O.P. Pimentón de Murcia</string>
-				<string> Pimentón de Murcia</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PDO Pimentón de la Vera</key>
+	<key>en:pdo-pimentón-de-la-vera</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6460,24 +6553,24 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Sierra Mágina</key>
+	<key>en:pdo-pimentón-de-murcia</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>PDO Sierra Mágina</string>
-				<string> Sierra Mágina</string>
+				<string>PDO Pimentón de Murcia</string>
+				<string> Pimentón de Murcia</string>
 			</array>
 			<key>es</key>
 			<array>
-				<string>DOP Sierra Mágina</string>
-				<string> D.O.P. Sierra Mágina</string>
-				<string> Sierra Mágina</string>
+				<string>DOP Pimentón de Murcia</string>
+				<string> D.O.P. Pimentón de Murcia</string>
+				<string> Pimentón de Murcia</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Sierra de Segura</key>
+	<key>en:pdo-sierra-de-segura</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6494,7 +6587,24 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PDO Vinagre de Jerez</key>
+	<key>en:pdo-sierra-mágina</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PDO Sierra Mágina</string>
+				<string> Sierra Mágina</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>DOP Sierra Mágina</string>
+				<string> D.O.P. Sierra Mágina</string>
+				<string> Sierra Mágina</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pdo-vinagre-de-jerez</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6511,7 +6621,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI</key>
+	<key>en:pgi</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6542,7 +6652,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Alcachofa de Tudela</key>
+	<key>en:pgi-alcachofa-de-tudela</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6559,7 +6669,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Alubia de La Bañeza-León</key>
+	<key>en:pgi-alubia-de-la-bañeza-león</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6576,7 +6686,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Berenjena de Almagro</key>
+	<key>en:pgi-berenjena-de-almagro</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6593,7 +6703,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Espárrago de Navarra</key>
+	<key>en:pgi-espárrago-de-navarra</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6610,7 +6720,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Garbanzo de Fuentesaúco</key>
+	<key>en:pgi-garbanzo-de-fuentesaúco</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6627,24 +6737,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Lenteja Pardina de Tierra de Campos</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PGI Lenteja Pardina de Tierra de Campos</string>
-				<string> Lenteja Pardina de Tierra de Campos</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>IGP Lenteja Pardina de Tierra de Campos</string>
-				<string> I.G.P. Lenteja Pardina de Tierra de Campos</string>
-				<string> Lenteja Pardina de Tierra de Campos</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PGI Lenteja de La Armuña</key>
+	<key>en:pgi-lenteja-de-la-armuña</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6661,7 +6754,24 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Mazapán de Toledo</key>
+	<key>en:pgi-lenteja-pardina-de-tierra-de-campos</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PGI Lenteja Pardina de Tierra de Campos</string>
+				<string> Lenteja Pardina de Tierra de Campos</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>IGP Lenteja Pardina de Tierra de Campos</string>
+				<string> I.G.P. Lenteja Pardina de Tierra de Campos</string>
+				<string> Lenteja Pardina de Tierra de Campos</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pgi-mazapán-de-toledo</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6678,7 +6788,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Pataca de Galicia</key>
+	<key>en:pgi-pataca-de-galicia</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6695,7 +6805,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Pemento do Couto</key>
+	<key>en:pgi-pemento-do-couto</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6712,7 +6822,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Plátano de Canarias</key>
+	<key>en:pgi-plátano-de-canarias</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6729,7 +6839,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Turrón de Alicante</key>
+	<key>en:pgi-turrón-de-alicante</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6746,7 +6856,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PGI Turrón de Jijona</key>
+	<key>en:pgi-turrón-de-jijona</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6763,7 +6873,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-01</key>
+	<key>en:pl-eko-01</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6773,7 +6883,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-02</key>
+	<key>en:pl-eko-02</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6783,7 +6893,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-03</key>
+	<key>en:pl-eko-03</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6793,7 +6903,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-04</key>
+	<key>en:pl-eko-04</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6803,7 +6913,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-05</key>
+	<key>en:pl-eko-05</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6813,7 +6923,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-06</key>
+	<key>en:pl-eko-06</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6823,7 +6933,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-07</key>
+	<key>en:pl-eko-07</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6833,7 +6943,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-08</key>
+	<key>en:pl-eko-08</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6843,7 +6953,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-09</key>
+	<key>en:pl-eko-09</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6853,7 +6963,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PL-EKO-10</key>
+	<key>en:pl-eko-10</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -6863,141 +6973,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:PT-BIO 01</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO 01</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-02</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-02</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-03</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-03</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-04</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-04</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-05</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-05</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-06</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-06</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-07</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-07</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-08</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-08</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-09</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-09</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-10</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-10</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:PT-BIO-11</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>PT-BIO-11</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Palm oil free</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Ohne Palmöl</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>Palm oil free</string>
-				<string> Without palm oil</string>
-				<string> No palm oil</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Sin aceite de palma</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Sans huile de palme</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Pro Montagna</key>
+	<key>en:pro-montagna</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7009,7 +6985,117 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Pure beef</key>
+	<key>en:pt-bio-01</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO 01</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-02</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-02</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-03</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-03</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-04</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-04</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-05</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-05</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-06</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-06</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-07</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-07</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-08</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-08</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-09</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-09</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-10</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-10</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pt-bio-11</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>PT-BIO-11</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pure-beef</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7023,7 +7109,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Pure butter</key>
+	<key>en:pure-butter</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7037,7 +7123,23 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Pure juice</key>
+	<key>en:pure-cocoa-butter</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>pure cocoa butter</string>
+				<string> pure cocoa butter chocolate</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>pur beurre de cacao</string>
+				<string> chocolat pur beurre de cacao</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pure-juice</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7051,7 +7153,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Pure pork</key>
+	<key>en:pure-pork</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7065,137 +7167,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:RO-ECO-001</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-001</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-005</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-005</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-007</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-007</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-008</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-008</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-009</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-009</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-010</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-010</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-014</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-014</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-015</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-015</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-016</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-016</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-018</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-018</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-021</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-021</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-022</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-022</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:RO-ECO-023</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>RO-ECO-023</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Rainforest Alliance</key>
+	<key>en:rainforest-alliance</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7217,7 +7189,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Real California Cheese</key>
+	<key>en:real-california-cheese</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7227,7 +7199,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Real California Milk</key>
+	<key>en:real-california-milk</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7237,7 +7209,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Reduced fat</key>
+	<key>en:reduced-fat</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7262,7 +7234,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Reduced salt</key>
+	<key>en:reduced-salt</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7282,7 +7254,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Reduced sugar</key>
+	<key>en:reduced-sugar</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7309,7 +7281,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Reinheitsgebot</key>
+	<key>en:reinheitsgebot</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7328,7 +7300,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Reyno Gourmet</key>
+	<key>en:reyno-gourmet</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7342,7 +7314,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Rich in vitamin C</key>
+	<key>en:rich-in-vitamin-c</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7360,7 +7332,137 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SE-EKO-01</key>
+	<key>en:ro-eco-001</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-001</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-005</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-005</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-007</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-007</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-008</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-008</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-009</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-009</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-010</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-010</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-014</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-014</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-015</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-015</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-016</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-016</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-018</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-018</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-021</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-021</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-022</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-022</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:ro-eco-023</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>RO-ECO-023</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:se-eko-01</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7370,7 +7472,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SE-EKO-03</key>
+	<key>en:se-eko-03</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7380,7 +7482,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SE-EKO-04</key>
+	<key>en:se-eko-04</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7390,7 +7492,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SE-EKO-05</key>
+	<key>en:se-eko-05</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7400,7 +7502,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SE-EKO-07</key>
+	<key>en:se-eko-07</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7410,7 +7512,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SE-EKO-08</key>
+	<key>en:se-eko-08</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7420,57 +7522,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:SI-EKO-001</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>SI-EKO-001</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:SI-EKO-002</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>SI-EKO-002</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:SI-EKO-003</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>SI-EKO-003</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:SK-BIO-002</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>SK-BIO-002</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:SK-BIO-003</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>SK-BIO-003</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Sephardi Kashrut Autority</key>
+	<key>en:sephardi-kashrut-autority</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7482,7 +7534,37 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Silver medal of the German Agricultural Society</key>
+	<key>en:si-eko-001</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>SI-EKO-001</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:si-eko-002</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>SI-EKO-002</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:si-eko-003</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>SI-EKO-003</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:silver-medal-of-the-german-agricultural-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7496,7 +7578,27 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Soil Association Organic</key>
+	<key>en:sk-bio-002</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>SK-BIO-002</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sk-bio-003</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>SK-BIO-003</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:soil-association-organic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7507,7 +7609,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Spanish protected product</key>
+	<key>en:spanish-protected-product</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7521,7 +7623,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Spanish quality label</key>
+	<key>en:spanish-quality-label</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7535,7 +7637,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Star-D Kosher</key>
+	<key>en:star-d-kosher</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7545,7 +7647,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Star-K Kosher</key>
+	<key>en:star-k-kosher</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7556,7 +7658,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Suisse Garantie</key>
+	<key>en:suisse-garantie</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7567,7 +7669,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Suitable for diabetics</key>
+	<key>en:suitable-for-diabetics</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7581,7 +7683,56 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Sustainable Palm Oil</key>
+	<key>en:superior-quality</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>superior quality</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>qualité supérieure</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sustainable-farming</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Sustainable farming</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Agriculture durable</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sustainable-fishery</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Nachhaltige Fischerei</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Sustainable fishery</string>
+				<string> Sustainable fishing</string>
+				<string> Sustainable Seafood</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pêche durable</string>
+				<string> pêches durables</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:sustainable-palm-oil</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7612,7 +7763,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Sustainable Seafood MSC</key>
+	<key>en:sustainable-seafood-msc</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7644,42 +7795,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Sustainable farming</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Sustainable farming</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Agriculture durable</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Sustainable fishery</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Nachhaltige Fischerei</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>Sustainable fishery</string>
-				<string> Sustainable fishing</string>
-				<string> Sustainable Seafood</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Pêche durable</string>
-				<string> pêches durables</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Swiss AOC</key>
+	<key>en:swiss-aoc</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7697,7 +7813,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Swiss PGI</key>
+	<key>en:swiss-pgi</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7715,7 +7831,139 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:TSG</key>
+	<key>en:tablet-k-kosher</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tablet-K Kosher</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tav-hayosher</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tav HaYosher</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:terrasuisse</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>TerraSuisse</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tesco-nurture</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tesco Nurture</string>
+				<string> Nurture</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:thai-fish-sauce-quality-label</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Thai fish sauce quality label</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:thai-quality-label</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Thai quality label</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:thailand-diversity-&amp;-refinement</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Thailand Diversity &amp; Refinement</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:the-central-islamic-committee-of-thailand</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>The Central Islamic Committee of Thailand</string>
+				<string> CICOT</string>
+				<string> The Islamic Committee Office of Thailand</string>
+				<string> The Halal Standard Institute of thailand</string>
+			</array>
+			<key>th</key>
+			<array>
+				<string>สำนักงานคณะกรรมการกลางอิสลามแห่งประเทศไทย</string>
+				<string> คณะกรรมการกลางอิสลามแห่งประเทศไทย</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tierra-de-sabor</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tierra de Sabor</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Tierra de Sabor</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tooth-health-related-labels</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Labels zur Zahngesundheit</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Tooth-health related labels</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gebitsgezondheidslabels</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:transfer</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>TransFer</string>
+				<string> TransFer Canada</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tsg</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7739,139 +7987,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Tablet-K Kosher</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Tablet-K Kosher</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Tav HaYosher</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Tav HaYosher</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:TerraSuisse</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>TerraSuisse</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Tesco Nurture</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Tesco Nurture</string>
-				<string> Nurture</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Thai fish sauce quality label</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Thai fish sauce quality label</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Thai quality label</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Thai quality label</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Thailand Diversity &amp; Refinement</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Thailand Diversity &amp; Refinement</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:The Central Islamic Committee of Thailand</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>The Central Islamic Committee of Thailand</string>
-				<string> CICOT</string>
-				<string> The Islamic Committee Office of Thailand</string>
-				<string> The Halal Standard Institute of thailand</string>
-			</array>
-			<key>th</key>
-			<array>
-				<string>สำนักงานคณะกรรมการกลางอิสลามแห่งประเทศไทย</string>
-				<string> คณะกรรมการกลางอิสลามแห่งประเทศไทย</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Tierra de Sabor</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Tierra de Sabor</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Tierra de Sabor</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Tooth-health related labels</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Labels zur Zahngesundheit</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>Tooth-health related labels</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Gebitsgezondheidslabels</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:TransFer</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>TransFer</string>
-				<string> TransFer Canada</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:USDA Organic</key>
+	<key>en:usda-organic</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7881,7 +7997,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:UTZ Certified</key>
+	<key>en:utz-certified</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7892,7 +8008,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:UTZ Certified Cacao</key>
+	<key>en:utz-certified-cacao</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7907,7 +8023,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:UTZ Certified Coffee</key>
+	<key>en:utz-certified-coffee</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -7921,43 +8037,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:VP Campo de la Guardia</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>VP Campo de la Guardia</string>
-				<string> V.P. Campo de la Guardia</string>
-				<string> Campo de la Guardia</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>VP Campo de la Guardia</string>
-				<string> V.P. Campo de la Guardia</string>
-				<string> Campo de la Guardia</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:VT Castilla</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>VT Castilla</string>
-				<string> V.T. Castilla</string>
-				<string> Vino de la Tierra de Castilla</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>VT Castilla</string>
-				<string> V.T. Castilla</string>
-				<string> Vino de la Tierra de Castilla</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Vegan</key>
+	<key>en:vegan</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8003,7 +8083,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Vegan Action</key>
+	<key>en:vegan-action</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8013,7 +8093,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Vegan Society</key>
+	<key>en:vegan-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8023,7 +8103,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Vegetarian</key>
+	<key>en:vegetarian</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8063,7 +8143,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Vegetarian Society</key>
+	<key>en:vegetarian-society</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8073,23 +8153,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Vino de Pago</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Vino de Pago</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>VP</string>
-				<string> V.P.</string>
-				<string> Vino de Pago</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:Vino de la Tierra</key>
+	<key>en:vino-de-la-tierra</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8105,26 +8169,59 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:With Sunflower oil</key>
+	<key>en:vino-de-pago</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>With Sunflower oil</string>
+				<string>Vino de Pago</string>
 			</array>
 			<key>es</key>
 			<array>
-				<string>Con aceite de girasol</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>A l'huile de tournesol</string>
-				<string> huile de tournesol</string>
+				<string>VP</string>
+				<string> V.P.</string>
+				<string> Vino de Pago</string>
 			</array>
 		</dict>
 	</dict>
-	<key>en:With sulfites</key>
+	<key>en:vp-campo-de-la-guardia</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>VP Campo de la Guardia</string>
+				<string> V.P. Campo de la Guardia</string>
+				<string> Campo de la Guardia</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>VP Campo de la Guardia</string>
+				<string> V.P. Campo de la Guardia</string>
+				<string> Campo de la Guardia</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:vt-castilla</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>VT Castilla</string>
+				<string> V.T. Castilla</string>
+				<string> Vino de la Tierra de Castilla</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>VT Castilla</string>
+				<string> V.T. Castilla</string>
+				<string> Vino de la Tierra de Castilla</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:with-sulfites</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8145,7 +8242,26 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:With sweeteners</key>
+	<key>en:with-sunflower-oil</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>With Sunflower oil</string>
+			</array>
+			<key>es</key>
+			<array>
+				<string>Con aceite de girasol</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>A l'huile de tournesol</string>
+				<string> huile de tournesol</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:with-sweeteners</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8164,7 +8280,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Without gelatin</key>
+	<key>en:without-gelatin</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8185,7 +8301,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:Without sweeteners</key>
+	<key>en:without-sweeteners</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8203,123 +8319,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:cRc Pareve</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>cRc Pareve</string>
-				<string> Chicago Rabbinical Council Pareve</string>
-				<string> Chicago Rabbinical Council</string>
-				<string> cRc</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>cRc Pareve</string>
-				<string> cRc</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:li-bio-969</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>li-bio-969</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:made in France</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>made in France</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Fabricado en Francia</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Fabriqué en France</string>
-				<string> production française</string>
-				<string> produit de France</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:natural colorings</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>natural colorings</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Colorantes naturales</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>colorants naturels</string>
-				<string> colorant naturel</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:natural flavors</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>natural flavors</string>
-			</array>
-			<key>es</key>
-			<array>
-				<string>Aromas naturales</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>arômes naturels</string>
-				<string> arôme naturel</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:pure cocoa butter</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>pure cocoa butter</string>
-				<string> pure cocoa butter chocolate</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>pur beurre de cacao</string>
-				<string> chocolat pur beurre de cacao</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:superior quality</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>superior quality</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>qualité supérieure</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:“Extra” Class</key>
+	<key>en:“extra”-class</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8345,7 +8345,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>es:UVE Vegano</key>
+	<key>es:uve-vegano</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8357,7 +8357,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:A Votre Service</key>
+	<key>fr:a-votre-service</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8368,7 +8368,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:AB Agriculture Biologique</key>
+	<key>fr:ab-agriculture-biologique</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8384,7 +8384,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:AOC</key>
+	<key>fr:ab-ecocert</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Ab-ecocert</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:aoc</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8398,17 +8408,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ab-ecocert</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Ab-ecocert</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:Association Culturelle Musulmane d’Ile de France</key>
+	<key>fr:association-culturelle-musulmane-d’ile-de-france</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8419,7 +8419,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Association Rituelle de la Grande Mosquée de Lyon</key>
+	<key>fr:association-rituelle-de-la-grande-mosquée-de-lyon</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8430,7 +8430,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Bio-Cohérence</key>
+	<key>fr:au-sel-de-guérande</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>au sel de Guérande</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:bio-cohérence</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8440,7 +8450,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Bio-Solidaire</key>
+	<key>fr:bio-solidaire</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8451,7 +8461,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Bio-équitable</key>
+	<key>fr:bio-équitable</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8462,7 +8472,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Bleu Blanc Coeur</key>
+	<key>fr:bleu-blanc-coeur</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8476,7 +8486,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Blé français</key>
+	<key>fr:blé-français</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8489,7 +8499,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Cacao-controle-par-ecocert-sa</key>
+	<key>fr:cacao-controle-par-ecocert-sa</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8499,7 +8509,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Centre Islamique Aachen</key>
+	<key>fr:centre-islamique-aachen</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8511,17 +8521,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Concours Mondial de Bruxelles</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Concours Mondial de Bruxelles</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:Concours général agricole</key>
+	<key>fr:concours-général-agricole</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8531,7 +8531,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Contrôle de la mosquée d'Évry-Courcouronnes</key>
+	<key>fr:concours-mondial-de-bruxelles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Concours Mondial de Bruxelles</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:contrôle-de-la-mosquée-d'évry-courcouronnes</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8541,7 +8551,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ecocert-canada</key>
+	<key>fr:ecocert-canada</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8551,7 +8561,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ecocert-f-32600</key>
+	<key>fr:ecocert-f-32600</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8561,7 +8571,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ecocert-fr-bio-01</key>
+	<key>fr:ecocert-fr-bio-01</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8571,7 +8581,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ecocert-s-a-s-f-32600</key>
+	<key>fr:ecocert-s-a-s-f-32600</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8581,7 +8591,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ecocert-sas-f-32600</key>
+	<key>fr:ecocert-sas-f-32600</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8591,7 +8601,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Ecocert-sas-f32-600</key>
+	<key>fr:ecocert-sas-f32-600</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8601,7 +8611,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Equitable-ecocert</key>
+	<key>fr:equitable-ecocert</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8611,7 +8621,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Fumé au bois de hêtre</key>
+	<key>fr:fumé-au-bois-de-hêtre</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8621,7 +8631,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Garantie IPLC</key>
+	<key>fr:garantie-iplc</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8633,7 +8643,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Halal Reunion</key>
+	<key>fr:halal-reunion</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8644,7 +8654,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Indication géographique protégée de la République populaire de Chine</key>
+	<key>fr:indication-géographique-protégée-de-la-république-populaire-de-chine</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8659,7 +8669,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Label Carrefour</key>
+	<key>fr:label-carrefour</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8669,7 +8679,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Max Havelaar Belgique</key>
+	<key>fr:max-havelaar-belgique</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8687,7 +8697,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Max Havelaar France</key>
+	<key>fr:max-havelaar-france</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8697,7 +8707,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Muslim Conseil International</key>
+	<key>fr:muslim-conseil-international</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8708,41 +8718,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'Argent du Concours Mondial de Bruxelles</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>fr</key>
 			<array>
-				<string>Médaille d'Argent du Concours Mondial de Bruxelles</string>
+				<string>médaille d'argent du Concours général agricole</string>
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'Argent du Concours Mondial de Bruxelles 2011</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Médaille d'Argent du Concours Mondial de Bruxelles 2011</string>
-				<string> Médaille argent concours mondial Bruxelles 2011</string>
-				<string> Médaille argent Bruxelles 2011</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:Médaille d'Argent du Concours Mondial de Bruxelles 2012</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Médaille d'Argent du Concours Mondial de Bruxelles 2012</string>
-				<string> Médaille argent concours mondial Bruxelles 2012</string>
-				<string> Médaille argent Bruxelles 2012</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:Médaille d'argent du concours général agricole 2011</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole-2011</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8755,7 +8741,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'argent du concours général agricole 2012</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole-2012</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8768,7 +8754,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'argent du concours général agricole 2013</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole-2013</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8781,7 +8767,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'argent du concours général agricole 2014</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole-2014</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8794,7 +8780,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'argent du concours général agricole 2015</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole-2015</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8807,7 +8793,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'argent du concours général agricole 2016</key>
+	<key>fr:médaille-d'argent-du-concours-général-agricole-2016</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8820,7 +8806,51 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'or du concours général agricole 2011</key>
+	<key>fr:médaille-d'argent-du-concours-mondial-de-bruxelles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Médaille d'Argent du Concours Mondial de Bruxelles</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:médaille-d'argent-du-concours-mondial-de-bruxelles-2011</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Médaille d'Argent du Concours Mondial de Bruxelles 2011</string>
+				<string> Médaille argent concours mondial Bruxelles 2011</string>
+				<string> Médaille argent Bruxelles 2011</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:médaille-d'argent-du-concours-mondial-de-bruxelles-2012</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Médaille d'Argent du Concours Mondial de Bruxelles 2012</string>
+				<string> Médaille argent concours mondial Bruxelles 2012</string>
+				<string> Médaille argent Bruxelles 2012</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:médaille-d'or-du-concours-général-agricole</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>médaille d'or du Concours général agricole</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:médaille-d'or-du-concours-général-agricole-2011</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8833,7 +8863,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'or du concours général agricole 2012</key>
+	<key>fr:médaille-d'or-du-concours-général-agricole-2012</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8846,7 +8876,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'or du concours général agricole 2013</key>
+	<key>fr:médaille-d'or-du-concours-général-agricole-2013</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8859,7 +8889,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'or du concours général agricole 2014</key>
+	<key>fr:médaille-d'or-du-concours-général-agricole-2014</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8872,7 +8902,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'or du concours général agricole 2015</key>
+	<key>fr:médaille-d'or-du-concours-général-agricole-2015</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8885,7 +8915,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille d'or du concours général agricole 2016</key>
+	<key>fr:médaille-d'or-du-concours-général-agricole-2016</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8898,7 +8928,17 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille de bronze du concours général agricole 2011</key>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>médaille de bronze du Concours général agricole</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole-2011</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8911,7 +8951,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille de bronze du concours général agricole 2012</key>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole-2012</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8924,7 +8964,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille de bronze du concours général agricole 2013</key>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole-2013</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8937,7 +8977,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille de bronze du concours général agricole 2014</key>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole-2014</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8950,7 +8990,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille de bronze du concours général agricole 2015</key>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole-2015</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8963,7 +9003,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Médaille de bronze du concours général agricole 2016</key>
+	<key>fr:médaille-de-bronze-du-concours-général-agricole-2016</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8976,7 +9016,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Origine France</key>
+	<key>fr:origine-france</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -8988,7 +9028,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Porc Français</key>
+	<key>fr:porc-français</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9000,7 +9040,83 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Produit en Bretagne</key>
+	<key>fr:prix-d'excellence-du-concours-général-agricole</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du Concours général agricole</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:prix-d'excellence-du-concours-général-agricole-2011</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du concours général agricole 2011</string>
+				<string> Concours général agricole prix d'excellence 2011</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:prix-d'excellence-du-concours-général-agricole-2012</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du concours général agricole 2012</string>
+				<string> Concours général agricole prix d'excellence 2012</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:prix-d'excellence-du-concours-général-agricole-2013</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du concours général agricole 2013</string>
+				<string> Concours général agricole prix d'excellence 2013</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:prix-d'excellence-du-concours-général-agricole-2014</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du concours général agricole 2014</string>
+				<string> Concours général agricole prix d'excellence 2014</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:prix-d'excellence-du-concours-général-agricole-2015</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du concours général agricole 2015</string>
+				<string> Concours général agricole prix d'excellence 2015</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:prix-d'excellence-du-concours-général-agricole-2016</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>prix d'excellence du concours général agricole 2016</string>
+				<string> Concours général agricole prix d'excellence 2016</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:produit-en-bretagne</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9010,7 +9126,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Péché au chalut</key>
+	<key>fr:péché-au-chalut</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9023,7 +9139,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché au casier</key>
+	<key>fr:pêché-au-casier</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9038,7 +9154,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché au filet maillant</key>
+	<key>fr:pêché-au-filet-maillant</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9053,7 +9169,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché au filet pélagique</key>
+	<key>fr:pêché-au-filet-pélagique</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9068,7 +9184,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché au filet soulevé</key>
+	<key>fr:pêché-au-filet-soulevé</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9083,7 +9199,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché au filet tournant</key>
+	<key>fr:pêché-au-filet-tournant</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9098,7 +9214,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la bolinche</key>
+	<key>fr:pêché-à-la-bolinche</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9113,7 +9229,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la drague</key>
+	<key>fr:pêché-à-la-drague</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9126,7 +9242,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la ligne</key>
+	<key>fr:pêché-à-la-ligne</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9149,7 +9265,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la main</key>
+	<key>fr:pêché-à-la-main</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9162,7 +9278,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la palangre</key>
+	<key>fr:pêché-à-la-palangre</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9175,7 +9291,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la senne</key>
+	<key>fr:pêché-à-la-senne</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9188,7 +9304,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Pêché à la senne coulissante</key>
+	<key>fr:pêché-à-la-senne-coulissante</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9201,7 +9317,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Qualité France</key>
+	<key>fr:qualité-france</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9211,7 +9327,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Salé au sel sec</key>
+	<key>fr:salé-au-sel-sec</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9221,7 +9337,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Sans ajout de produit laitiers</key>
+	<key>fr:sans-ajout-de-produit-laitiers</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9235,7 +9351,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Sans arachide</key>
+	<key>fr:sans-arachide</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9245,7 +9361,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année</key>
+	<key>fr:saveurs-de-l'année</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9255,7 +9371,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2009</key>
+	<key>fr:saveurs-de-l'année-2009</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9266,7 +9382,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2010</key>
+	<key>fr:saveurs-de-l'année-2010</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9277,7 +9393,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2011</key>
+	<key>fr:saveurs-de-l'année-2011</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9288,7 +9404,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2012</key>
+	<key>fr:saveurs-de-l'année-2012</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9299,7 +9415,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2013</key>
+	<key>fr:saveurs-de-l'année-2013</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9310,7 +9426,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2014</key>
+	<key>fr:saveurs-de-l'année-2014</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9321,7 +9437,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2015</key>
+	<key>fr:saveurs-de-l'année-2015</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9332,7 +9448,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs de l'Année 2016</key>
+	<key>fr:saveurs-de-l'année-2016</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9343,7 +9459,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Saveurs en Or</key>
+	<key>fr:saveurs-en-or</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9354,7 +9470,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Savourez l'Alsace</key>
+	<key>fr:savourez-l'alsace</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9364,7 +9480,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Société Française de Contrôle de Viande Halal</key>
+	<key>fr:société-française-de-contrôle-de-viande-halal</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9376,7 +9492,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Sélection Intermarché</key>
+	<key>fr:sélection-intermarché</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9386,7 +9502,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Testé par le panel test Carrefour</key>
+	<key>fr:testé-par-le-panel-test-carrefour</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9401,7 +9517,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Tréfilage au bronze</key>
+	<key>fr:tréfilage-au-bronze</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9416,7 +9532,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Union française pour la santé bucco-dentaire</key>
+	<key>fr:union-française-pour-la-santé-bucco-dentaire</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9427,7 +9543,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Viande Bovine Française</key>
+	<key>fr:viande-bovine-française</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9442,7 +9558,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Viande Française</key>
+	<key>fr:viande-française</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9453,7 +9569,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Viande Porcine Française</key>
+	<key>fr:viande-porcine-française</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9466,7 +9582,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:Volaille Française</key>
+	<key>fr:volaille-française</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -9477,123 +9593,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:au sel de Guérande</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>au sel de Guérande</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:médaille d'argent du Concours général agricole</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>médaille d'argent du Concours général agricole</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:médaille d'or du Concours général agricole</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>médaille d'or du Concours général agricole</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:médaille de bronze du Concours général agricole</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>médaille de bronze du Concours général agricole</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du Concours général agricole</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du Concours général agricole</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du concours général agricole 2011</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du concours général agricole 2011</string>
-				<string> Concours général agricole prix d'excellence 2011</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du concours général agricole 2012</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du concours général agricole 2012</string>
-				<string> Concours général agricole prix d'excellence 2012</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du concours général agricole 2013</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du concours général agricole 2013</string>
-				<string> Concours général agricole prix d'excellence 2013</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du concours général agricole 2014</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du concours général agricole 2014</string>
-				<string> Concours général agricole prix d'excellence 2014</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du concours général agricole 2015</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du concours général agricole 2015</string>
-				<string> Concours général agricole prix d'excellence 2015</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:prix d'excellence du concours général agricole 2016</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>prix d'excellence du concours général agricole 2016</string>
-				<string> Concours général agricole prix d'excellence 2016</string>
-			</array>
-		</dict>
-	</dict>
-	<key>it:DOC</key>
+	<key>it:doc</key>
 	<dict>
 		<key>Languages</key>
 		<dict>

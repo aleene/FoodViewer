@@ -116,7 +116,7 @@ class OFFplists {
                 
                 let currentVertex = OFFallergens![index!].leaves
                 let values = currentVertex[firstSplit[0]]
-                return  values != nil ? values![0] : key
+                return  values != nil ? values![0].capitalizedString : key
             } else {
                 return key
             }

@@ -447,7 +447,7 @@ class OpenFoodFactsRequest {
                 let nutrientLevelsSaturatedFat = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrientLevelsKey]?[OFFJson.NutrientLevelsSaturatedFatKey]?.string
                 let nutrientLevelsSugars = jsonObject?[OFFJson.ProductKey]?[OFFJson.NutrientLevelsKey]?[OFFJson.NutrientLevelsSugarsKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesPrevKey]?.string
-                product.stores = jsonObject?[OFFJson.ProductKey]?[OFFJson.StoresTagsKey]?.stringArray
+                product.stores = jsonObject?[OFFJson.ProductKey]?[OFFJson.StoresKey]?.string?.componentsSeparatedByString(",")
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IdKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontThumbUrlKey]?.nsurl
