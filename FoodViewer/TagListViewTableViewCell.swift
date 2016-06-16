@@ -12,7 +12,7 @@ import TagListView
 class TagListViewTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "No information available"
+        static let NoTag = "no info available"
     }
     
     @IBOutlet weak var tagListView: TagListView! {

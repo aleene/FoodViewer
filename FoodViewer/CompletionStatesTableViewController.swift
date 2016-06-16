@@ -34,7 +34,7 @@ class CompletionStatesTableViewController: UITableViewController {
     }
     
     struct Constants {
-        static let NameCompletionCellTitle = "Product name complete?"
+        static let NameCompletionCellTitle = "Productname complete?"
         static let BrandsCompletionCellTitle = "Brand(s) complete?"
         static let QuantityCompletionCellTitle = "Quantity complete?"
         static let PackagingCompletionCellTitle = "Packaging complete?"

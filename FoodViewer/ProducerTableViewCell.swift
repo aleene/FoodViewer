@@ -12,7 +12,7 @@ import TagListView
 class ProducerTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoProduct = "No product defined"
+        static let NoProduct = "No product Defined"
         static let EmptyString = ""
         static let SoldBy = "sold by "
         static let By = " by "
