@@ -14,7 +14,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     @IBOutlet weak var ingredientsLabel: UILabel!
     
     struct Constants {
-        static let NoIngredientsText = "no ingredients specified"
+        static let NoIngredientsText = "No ingredients specified"
     }
     
     var ingredients: String? = nil {

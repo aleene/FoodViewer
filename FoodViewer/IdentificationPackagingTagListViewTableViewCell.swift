@@ -13,7 +13,7 @@ import TagListView
 class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoInformation = "no packing info specified"
+        static let NoInformation = "No packaging info specified"
     }
 
     @IBOutlet weak var tagListView: TagListView! {
