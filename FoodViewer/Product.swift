@@ -569,6 +569,7 @@ class FoodProduct {
     
     func regionURL() -> NSURL? {
         let region = NSBundle.mainBundle().preferredLocalizations[0] as NSString
+        
         return NSURL(string: "http://\(region).openfoodfacts.org/product/" + barcode.asString() + "/")
     }
     

@@ -22,7 +22,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     struct Constants {
         static let StoryBoardIdentifier = "Main"
-        static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
+        // static let OpenFoodFactsWebEditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
         static let IdentificationVCIdentifier = "IdentificationTableViewController"
         static let IngredientsVCIdentifier = "IngredientsTableViewController"
         static let NutrientsVCIdentifier = "NutrientsTableViewController"
