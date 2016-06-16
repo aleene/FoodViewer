@@ -12,7 +12,7 @@ import TagListView
 class AllergensFullTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "no allergens detected"
+        static let NoTag = "No allergens detected"
     }
 
     @IBOutlet weak var allergensTagList: TagListView! {
