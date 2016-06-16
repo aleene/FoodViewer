@@ -19,6 +19,9 @@
 /* Header title for the product additives section, i.e. the additives are derived from the ingredients list. */
 "Additives" = "Additives";
 
+/* TableViewController title for the allergen warnings setting scene. */
+"Allergen warnings" = "Avertissements allergènes";
+
 /* Header title for the product allergens section, i.e. the allergens derived from the ingredients. */
 "Allergens" = "Allergènes";
 
@@ -28,8 +31,14 @@
 /* Text to indicate the product belongs to ONE category. */
 "Assigned to 1 category." = "Assigné à 1 catégorie.";
 
+/* Header for a table section showing the appreciations of the bad nutrients */
+"Bad nutrients" = "Mauvais nutriments";
+
 /* Tableview sectionheader for Barcode */
 "Barcode" = "Code barre";
+
+/* Cell title indicating the product belongs to the beverages category */
+"Beverages category" = "Bon nutriments";
 
 /* Title of tableview cell, indicateding whether the product brand field has been filled in. */
 "Brand(s) complete?" = "Marques complétés?";
@@ -51,6 +60,9 @@
 /* Title of tableview cell, indicating whether the product categories have been filled in. */
 "Categories complete?" = "Catégories complétés?";
 
+/* Cell title indicating the product belongs to the cheeses category */
+"Cheeses category" = "Catégorie fromages";
+
 /* Tableview sectionheader for long product name */
 "Common Name" = "Dénomination générique";
 
@@ -63,6 +75,9 @@
 
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Contributeurs";
+
+/* Description for NutritionData Daily Value per serving */
+"Daily Values (per serving)" = "Apport Journalières (par portion)";
 
 /* Text to indicate how much the product data is filled in (available). */
 "Data is %@ complete." = "Données sont %@ complèts.";
@@ -99,6 +114,9 @@
 
 /* Title of tableview cell, indicating whether the product expiration date has been filled in. */
 "Expiration date complete?" = "Date limite d'utilisation complété?";
+
+/* Header for a table section showing the appreciations of the good nutrients */
+"Good nutrients" = "Bons nutriments";
 
 /* Title for the view controller with the product image, title, etc.
    Viewcontroller title for page with product identification info. */
@@ -207,6 +225,15 @@
 /* Title of tableview cell, indicating whether nutritional facts have been filled in. */
 "Nutrition facts complete?" = "Inform. nutritionnelles complétés?";
 
+/* Viewcontroller title for page with explanation of the nutritional score of the product. */
+"Nutritional Score" = "Score Nutritionelle";
+
+/* Header for a table section showing the total results France */
+"Nutritional Score France" = "Score Nutritionelle France";
+
+/* Header for a table section showing the total results UK */
+"Nutritional Score UK" = "Score Nutritionelle UK";
+
 /* Viewcontroller title for page with nutritional facts for product. */
 "Nutritional facts" = "Inform. nutritionnelles";
 
@@ -221,6 +248,12 @@
 
 /* Title of tableview cell, indicating whether the product packaging field has been filled in. */
 "Packaging complete?" = "Données d'emballage completés?";
+
+/* Title of first segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving */
+"Per 100 mg/ml" = "Par 100 mg/ml";
+
+/* Title of second segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving */
+"Per Serving" = "Par Portion";
 
 /* Title of tableview cell, indicating whether prduct photos have been uploaded. */
 "Photos uploaded complete?" = "Chargement d'images completé?";
@@ -279,6 +312,9 @@
 /* Product name of the product shown at first start */
 "Sample Product for Demonstration, the globally known M&M's" = "Produit de démonstration, les M&Ms connu globalement";
 
+/* Title in cell with the saturated fat to all fat ratio */
+"Saturated Fat to Total Fat ratio" = "Rapport Graisses Saturés sur Graisses Totals";
+
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portion";
 
@@ -293,6 +329,9 @@
 
 /* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
 "Sold in " = "Vendu en ";
+
+/* Header for a table section showing the special categories */
+"Special categories" = "Catégories speciaux";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
    Viewcontroller title for page with supply chain for product. */

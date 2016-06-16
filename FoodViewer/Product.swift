@@ -157,7 +157,9 @@ class FoodProduct {
 
     
     // supply chain parameters
-    var nutritionGrade: NutritionalGradeLevel? = nil
+    var nutritionGrade: NutritionalScoreLevel? = nil
+    var nutritionalScoreUK = NutritionalScoreUK()
+    var nutritionalScoreFrance = NutritionalScoreFrance()
     var purchaseLocation: Address? = nil //or a set?
     
     func purchaseLocationElements(elements: [String]?) {

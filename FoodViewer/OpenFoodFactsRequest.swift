@@ -437,7 +437,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.OriginsKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradesKey]?.string
             
-                var grade: NutritionalGradeLevel = .Undefined
+                var grade: NutritionalScoreLevel = .Undefined
                 grade.string(jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionGradeFrKey]?.string)
                 product.nutritionGrade = grade
             
@@ -459,7 +459,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionThumbUrlKey]?.nsurl
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LastModifiedTKey]?.time
                 product.imageIngredientsUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageIngredientsUrlKey]?.nsurl
-                    // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionScoreDebugKey]?.string
+                (product.nutritionalScoreUK, product.nutritionalScoreFrance) = decodeNutritionalScore(jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionScoreDebugKey]?.string)
                 product.imageNutritionSmallUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageNutritionSmallUrlKey]?.nsurl
                 product.correctors = jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CorrectorsKey]?.stringArray
@@ -1140,6 +1140,202 @@ class OpenFoodFactsRequest {
         }
         return nil
     }
+    
+    func decodeNutritionalScore(jsonString: String?) -> (NutritionalScoreUK, NutritionalScoreFrance) {
+    
+        var nutrionalScoreUK = NutritionalScoreUK()
+        var nutrionalScoreFrance = NutritionalScoreFrance()
+        
+        if let validJsonString = jsonString {
+            /* now parse the jsonString to create the right values
+             sample string:
+             0 --
+             1 --
+             0
+             0
+             energy 5
+             1   +
+             sat-fat 10
+             2   +
+             fr-sat-fat-for-fats 2
+             3   +
+             sugars 6
+             4   +
+             sodium 0
+             1   -
+             0
+             fruits
+             1
+             0%
+             2
+             0
+             2   -
+             0
+             fiber
+             1
+             4
+             3   -
+             proteins 4
+             2  --
+             0
+             fsa
+             1
+             17
+             3  --
+             fr 17"
+             */
+            print("\(validJsonString)")
+            if !validJsonString.contains("missing") {
+                // split on --, should give 4 parts: empty, nutriments, fsa, fr
+                let dashParts = validJsonString.componentsSeparatedByString("-- ")
+                var offset = 0
+                if dashParts.count == 5 {
+                    offset = 1
+                    if dashParts[1].contains("beverages") {
+                        nutrionalScoreFrance.beverage = true
+                    } else if dashParts[1].contains("cheeses") {
+                        nutrionalScoreFrance.cheese = true
+                    }
+                }
+                // find the total fsa score
+                var spaceParts2 = dashParts[2+offset].componentsSeparatedByString(" ")
+                if let validScore = Int.init(spaceParts2[1]) {
+                    nutrionalScoreUK.score = validScore
+                } else {
+                    nutrionalScoreUK.score = 0
+                }
+                
+                spaceParts2 = dashParts[3+offset].componentsSeparatedByString(" ")
+                if let validScore = Int.init(spaceParts2[1]) {
+                    nutrionalScoreFrance.score = validScore
+                } else {
+                    nutrionalScoreFrance.score = 0
+                }
+
+                
+                if nutrionalScoreFrance.beverage {
+                    // the french calculation for beverages uses a different table and evaluation
+                    // use after the :
+                    let colonParts = dashParts[1].componentsSeparatedByString(": ")
+                    // split on +
+                    let plusParts = colonParts[1].componentsSeparatedByString(" + ")
+                    // split on space to find the numbers
+                    // energy
+                    var spacePart = plusParts[0].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValue = nutrionalScoreFrance.pointsA[0]
+                        newValue.points = validValue
+                        nutrionalScoreFrance.pointsA[0] = newValue
+                    }
+                    // sat_fat
+                    spacePart = plusParts[1].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValue = nutrionalScoreFrance.pointsA[1]
+                        newValue.points = validValue
+                        nutrionalScoreFrance.pointsA[1] = newValue
+                    }
+                    // sugars
+                    spacePart = plusParts[2].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValue = nutrionalScoreFrance.pointsA[2]
+                        newValue.points = validValue
+                        nutrionalScoreFrance.pointsA[2] = newValue
+                    }
+                    // sodium
+                    spacePart = plusParts[3].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValue = nutrionalScoreFrance.pointsA[3]
+                        newValue.points = validValue
+                        nutrionalScoreFrance.pointsA[3] = newValue
+                    }
+                    
+                } else {
+                    // split on -,
+                    let minusparts = dashParts[1+offset].componentsSeparatedByString(" - ")
+                    
+                    // fruits 0%
+                    var spacePart = minusparts[1].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[2]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsC[0]
+                        var newValueUK = nutrionalScoreUK.pointsC[0]
+                        newValueFrance.points = validValue
+                        newValueUK.points = validValue
+                        nutrionalScoreFrance.pointsC[0] = newValueFrance
+                        nutrionalScoreUK.pointsC[0] = newValueUK
+                    }
+                    // fiber
+                    spacePart = minusparts[2].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsC[1]
+                        var newValueUK = nutrionalScoreUK.pointsC[1]
+                        newValueFrance.points = validValue
+                        newValueUK.points = validValue
+                        nutrionalScoreFrance.pointsC[1] = newValueFrance
+                        nutrionalScoreUK.pointsC[1] = newValueUK
+                    }
+                    // proteins
+                    spacePart = minusparts[3].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsC[2]
+                        var newValueUK = nutrionalScoreUK.pointsC[2]
+                        newValueFrance.points = validValue
+                        newValueUK.points = validValue
+                        nutrionalScoreFrance.pointsC[2] = newValueFrance
+                        nutrionalScoreUK.pointsC[2] = newValueUK
+                    }
+                    
+                    let plusParts = minusparts[0].componentsSeparatedByString(" + ")
+                    // energy
+                    spacePart = plusParts[0].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsA[0]
+                        var newValueUK = nutrionalScoreUK.pointsA[0]
+                        newValueFrance.points = validValue
+                        newValueUK.points = validValue
+                        nutrionalScoreFrance.pointsA[0] = newValueFrance
+                        nutrionalScoreUK.pointsA[0] = newValueUK
+                    }
+                    // saturated fats
+                    spacePart = plusParts[1].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueUK = nutrionalScoreUK.pointsA[1]
+                        newValueUK.points = validValue
+                        nutrionalScoreUK.pointsA[1] = newValueUK
+                    }
+                    // saturated fat ratio
+                    spacePart = plusParts[2].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsA[1]
+                        newValueFrance.points = validValue
+                        nutrionalScoreFrance.pointsA[1] = newValueFrance
+                    }
+                    
+                    // sugars
+                    spacePart = plusParts[3].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsA[2]
+                        var newValueUK = nutrionalScoreUK.pointsA[2]
+                        newValueFrance.points = validValue
+                        newValueUK.points = validValue
+                        nutrionalScoreFrance.pointsA[2] = newValueFrance
+                        nutrionalScoreUK.pointsA[2] = newValueUK
+                    }
+                    // sodium
+                    spacePart = plusParts[4].componentsSeparatedByString(" ")
+                    if let validValue = Int.init(spacePart[1]) {
+                        var newValueFrance = nutrionalScoreFrance.pointsA[3]
+                        var newValueUK = nutrionalScoreUK.pointsA[3]
+                        newValueFrance.points = validValue
+                        newValueUK.points = validValue
+                        nutrionalScoreFrance.pointsA[3] = newValueFrance
+                        nutrionalScoreUK.pointsA[3] = newValueUK
+                    }
+                }
+            }
+        }
+        return (nutrionalScoreUK, nutrionalScoreFrance)
+    }
+
     
     // MARK: - Extensions
 

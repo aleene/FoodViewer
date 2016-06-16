@@ -1,5 +1,5 @@
 //
-//  NutritionalGradeLevel.swift
+//  NutritionalScoreLevel.swift
 //  FoodViewer
 //
 //  Created by arnaud on 18/02/16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NutritionalGradeLevel {
+enum NutritionalScoreLevel {
     case A
     case B
     case C
@@ -52,5 +52,9 @@ enum NutritionalGradeLevel {
         } else {
             self = .Undefined
         }
+    }
+    
+    init() {
+        self = .Undefined
     }
 }

@@ -292,22 +292,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>de:bremer-biere</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Bremer Biere</string>
-				<string> Bremer Bier</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Bremense bieren</string>
-				<string> Bieren uit Bremen</string>
-			</array>
-		</dict>
-	</dict>
 	<key>de:burgenland</key>
 	<dict>
 		<key>Languages</key>
@@ -325,21 +309,6 @@
 			<key>de</key>
 			<array>
 				<string>Carnuntum</string>
-			</array>
-		</dict>
-	</dict>
-	<key>de:dortmunder-biere</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Dortmunder Biere</string>
-				<string> Dortmunder Bier</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Dortmunder bieren</string>
 			</array>
 		</dict>
 	</dict>
@@ -1476,6 +1445,21 @@
 	<dict/>
 	<key>el:zitsa</key>
 	<dict/>
+	<key>en:-milk-bread-rolls</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string> Milk bread rolls</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pains au lait</string>
+				<string> pain au lait</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:absinthium</key>
 	<dict>
 		<key>Languages</key>
@@ -1759,9 +1743,14 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Branntweinessig</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Alcohol vinegars</string>
+				<string>spirit vinegar</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1978,6 +1967,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Mandelöle</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Almond oils</string>
@@ -2275,6 +2268,28 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:anchovy</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Sardellen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Anchovy</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Anchois</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ansjovis</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:anchovy-fillets</key>
 	<dict>
 		<key>Languages</key>
@@ -2461,6 +2476,26 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:aoc-products</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AOC Products</string>
+				<string> AOC</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Produits AOC</string>
+				<string> AOC</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>AOC producten</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:aoc-vegetables</key>
 	<dict>
 		<key>Languages</key>
@@ -2490,6 +2525,26 @@
 			<key>nl</key>
 			<array>
 				<string>AOP honingen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:aop-products</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>AOP Products</string>
+				<string> AOP</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Produits AOP</string>
+				<string> AOP</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>AOP producten</string>
 			</array>
 		</dict>
 	</dict>
@@ -3067,6 +3122,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Artischocken</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Artichokes</string>
@@ -3227,6 +3286,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Spargel</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Asparagus</string>
@@ -3344,6 +3407,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Auberginen</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Aubergines</string>
@@ -4051,6 +4118,11 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Barbecuesaucen</string>
+				<string> BBQ-Saucen</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Barbecue sauces</string>
@@ -4591,6 +4663,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:beef-from-maine</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Beef from Maine</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Boeuf du Maine</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:beef-from-vendée</key>
 	<dict>
 		<key>Languages</key>
@@ -4709,6 +4795,26 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:beers-from-bremen</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Bremer Biere</string>
+				<string> Bremer Bier</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Beers from Bremen</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Bremense bieren</string>
+				<string> Bieren uit Bremen</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:beers-from-czech-republic</key>
 	<dict>
 		<key>Languages</key>
@@ -4724,6 +4830,25 @@
 			<key>nl</key>
 			<array>
 				<string>Tsjechische bieren</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:beers-from-dortmund</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Dortmunder Biere</string>
+				<string> Dortmunder Bier</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Beers from Dortmund</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Dortmunder bieren</string>
 			</array>
 		</dict>
 	</dict>
@@ -4827,6 +4952,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Rote Bete</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Beet</string>
@@ -5619,25 +5748,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:black-whole-olives</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Black whole olives</string>
-				<string> whole black olives</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Olives noires entières</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Zwarte hele olijven</string>
-			</array>
-		</dict>
-	</dict>
 	<key>en:blackberries</key>
 	<dict>
 		<key>Languages</key>
@@ -6217,6 +6327,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:bordeaux-wines</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Bordeaux wines</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:bouillon-cubes</key>
 	<dict>
 		<key>Languages</key>
@@ -6453,6 +6573,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:breaded-cheeses</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Breaded cheeses</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Fromages panés</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:breaded-cod-fish</key>
 	<dict>
 		<key>Languages</key>
@@ -6469,6 +6603,25 @@
 			<key>nl</key>
 			<array>
 				<string>Gepaneerde kabeljauw</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:breaded-fish</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Breaded fish</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Poissons panés</string>
+				<string> Poisson pané</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gepaneerde vis</string>
 			</array>
 		</dict>
 	</dict>
@@ -6720,6 +6873,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Brokkoli</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Broccoli</string>
@@ -6934,6 +7091,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:brown-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Braune Saucen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Brown sauces</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:brown-sugars</key>
 	<dict>
 		<key>Languages</key>
@@ -6963,6 +7134,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Rosenkohl</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Brussels sprouts</string>
@@ -7394,6 +7569,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Kohl</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Cabbages</string>
@@ -8773,6 +8952,30 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:canned-raviolis</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Dosenravioli</string>
+				<string> Konservenravioli</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Canned raviolis</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Raviolis en conserve</string>
+				<string> raviolis en boite</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ravioli in blik</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:canned-red-peppers</key>
 	<dict>
 		<key>Languages</key>
@@ -9316,6 +9519,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:caramel-cheesecakes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Caramel cheesecakes</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Cheesecakes au caramel</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:caramel-spreads</key>
 	<dict>
 		<key>Languages</key>
@@ -9458,6 +9675,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Kohlensäurehaltige Getränke</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Carbonated drinks</string>
@@ -9577,6 +9798,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Kardone</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Cardoons</string>
@@ -9671,6 +9896,11 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Karotten</string>
+				<string> Möhren</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Carrots</string>
@@ -9794,6 +10024,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Blumenkohl</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Cauliflowers</string>
@@ -9877,6 +10111,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Sellerie</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Celery</string>
@@ -10350,6 +10588,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Mangold</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Chards</string>
@@ -10393,6 +10635,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:cheddar-and-onion-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Cheddar and onion crisps</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:cheddar-cheese</key>
 	<dict>
 		<key>Languages</key>
@@ -10404,6 +10656,7 @@
 			<key>en</key>
 			<array>
 				<string>Cheddar cheese</string>
+				<string> Cheddar</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -10431,6 +10684,30 @@
 			<key>nl</key>
 			<array>
 				<string>Sandwiches met Cheddar</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cheddar-slices</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Cheddar slices</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Cheddar en tranches</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cheese-and-onion-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Cheese and onion crisps</string>
 			</array>
 		</dict>
 	</dict>
@@ -10811,13 +11088,13 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:cherry-beer</key>
+	<key>en:cherry-beers</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Cherry beer</string>
+				<string>Cherry beers</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -10863,6 +11140,20 @@
 			<key>nl</key>
 			<array>
 				<string>Kersensojayoghurts</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cherry-syrups</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Cherry syrups</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sirops de cerise</string>
 			</array>
 		</dict>
 	</dict>
@@ -11044,6 +11335,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:chestnut-syrups</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Chestnut syrups</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sirops de chataignes</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:chestnut-yogurts</key>
 	<dict>
 		<key>Languages</key>
@@ -11169,6 +11474,20 @@
 			<key>nl</key>
 			<array>
 				<string>Kippeborst</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:chicken-curry</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Chicken curry</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Poulets au curry</string>
 			</array>
 		</dict>
 	</dict>
@@ -11692,6 +12011,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:chocolate-covered-bananas</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Chocolate-covered bananas</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:chocolate-covered-cherries</key>
 	<dict>
 		<key>Languages</key>
@@ -11754,6 +12083,26 @@
 			<key>nl</key>
 			<array>
 				<string>Chocopindas</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:chocolate-covered-prune</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Chocolate-covered prune</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:chocolate-covered-raisins</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Chocolate-covered raisins</string>
 			</array>
 		</dict>
 	</dict>
@@ -11902,6 +12251,21 @@
 			<key>nl</key>
 			<array>
 				<string>Chocolade-roomijs</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:chocolate-milks</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Chocolate milks</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Laits aromatisés au chocolat</string>
+				<string> laits au chocolat</string>
 			</array>
 		</dict>
 	</dict>
@@ -13015,6 +13379,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:coffee-milks</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Coffee milks</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Boissons lactées au café</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:coffee-soy-milks</key>
 	<dict>
 		<key>Languages</key>
@@ -13153,6 +13531,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:cold-starters</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Cold starters</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Entrées froides</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:coleraine-cheddar</key>
 	<dict>
 		<key>Languages</key>
@@ -13160,6 +13552,20 @@
 			<key>en</key>
 			<array>
 				<string>Coleraine cheddar</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:coleslaw</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Coleslaw</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Coleslaw</string>
 			</array>
 		</dict>
 	</dict>
@@ -13306,6 +13712,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Apfeldicksaft</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Concentrated apple juices</string>
@@ -13632,11 +14042,11 @@
 			</array>
 			<key>en</key>
 			<array>
-				<string>condensed milks</string>
+				<string>Condensed milks</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>lait condensé</string>
+				<string>Lait condensé</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -14231,6 +14641,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:country-style-pâté</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Country-style Pâté</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pâtés de campagne</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:cow-cheeses</key>
 	<dict>
 		<key>Languages</key>
@@ -14405,6 +14829,16 @@
 			<key>en</key>
 			<array>
 				<string>cranberry juice</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:cranberry-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Cranberry sauces</string>
 			</array>
 		</dict>
 	</dict>
@@ -14726,6 +15160,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Crisps</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Crisps</string>
@@ -15070,6 +15508,25 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:curry-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Currysaucen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Curry sauces</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sauces au curry</string>
+				<string> Sauces curry</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:czech-vodkas</key>
 	<dict>
 		<key>Languages</key>
@@ -15189,6 +15646,22 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:dairy-drinks</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Dairy drinks</string>
+				<string> dairy beverages</string>
+				<string> milk-based drinks</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Boissons lactées</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:dairy-mousses</key>
 	<dict>
 		<key>Languages</key>
@@ -15226,6 +15699,20 @@
 			<key>nl</key>
 			<array>
 				<string>Paardenbloem</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:dark-chocolate-biscuits</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Dark chocolate biscuits</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Biscuits au chocolat noir</string>
 			</array>
 		</dict>
 	</dict>
@@ -15880,7 +16367,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Mayonaises de Dijon</string>
+				<string>Mayonnaises de Dijon</string>
 				<string> Mayonnaise de Dijon</string>
 				<string> Mayonnaise à la moutarde de Dijon</string>
 				<string> Mayonnaises à la moutarde de Dijon</string>
@@ -16032,6 +16519,20 @@
 			<key>en</key>
 			<array>
 				<string>Dorset Drum</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:double-beer</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Double beer</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bière double</string>
 			</array>
 		</dict>
 	</dict>
@@ -17669,6 +18170,11 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Hartweizengrieße für Couscous</string>
+				<string> Hartweizengrieß für Couscous</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Durum wheat semolinas for couscous</string>
@@ -18406,6 +18912,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:extra-mature-cheddar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Extra-mature cheddar</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:extra-virgin-olive-oils</key>
 	<dict>
 		<key>Languages</key>
@@ -19009,6 +19525,21 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:fish-rillettes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Fish rillettes</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Rillettes de poissons</string>
+				<string> rillettes de poisson</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:fish-sandwiches</key>
 	<dict>
 		<key>Languages</key>
@@ -19294,6 +19825,16 @@
 			<key>nl</key>
 			<array>
 				<string>Zuiveldranken</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:flavoured-potato-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Flavoured potato crisps</string>
 			</array>
 		</dict>
 	</dict>
@@ -22414,6 +22955,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:frozen-lasagne</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Frozen lasagne</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lasagnes surgelées</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:frozen-leeks</key>
 	<dict>
 		<key>Languages</key>
@@ -23610,6 +24165,22 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:fruit-and-milk-juices</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Fruit and milk juices</string>
+				<string> milk and fruit juices</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Jus de fruits au lait</string>
+				<string> jus de fruits lactés</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:fruit-based-beverages</key>
 	<dict>
 		<key>Languages</key>
@@ -24483,6 +25054,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Deutscher Spargel</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>German Asparagus</string>
@@ -25398,6 +25973,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:grated-coconut</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Grated coconut</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Noix de coco râpée</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:grated-emmentaler</key>
 	<dict>
 		<key>Languages</key>
@@ -25656,9 +26245,9 @@
 		<dict>
 			<key>de</key>
 			<array>
-				<string>Grüne Weintrauben</string>
+				<string>Weiße Weintrauben</string>
+				<string> Grüne Weintrauben</string>
 				<string> Gelbe Weintrauben</string>
-				<string> Weiße Weintrauben</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -25889,9 +26478,9 @@
 		<dict>
 			<key>de</key>
 			<array>
-				<string>Grüne kernlose Weintrauben</string>
+				<string>Weiße kernlose Weintrauben</string>
+				<string> Grüne kernlose Weintrauben</string>
 				<string> Gelbe kernlose Weintrauben</string>
-				<string> Weiße kernlose Weintrauben</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -25954,21 +26543,6 @@
 			<key>fr</key>
 			<array>
 				<string>Thés verts à la menthe</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:green-whole-olives</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Green whole olives</string>
-				<string> whole green olives</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Olives vertes entières</string>
 			</array>
 		</dict>
 	</dict>
@@ -27249,6 +27823,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Haselnussöle</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Hazelnut oils</string>
@@ -29395,6 +29973,24 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:labeled-honeys</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Labeled honeys</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Miels labellisés</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Keurmerkhoningen</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:labeled-products</key>
 	<dict>
 		<key>Languages</key>
@@ -30022,6 +30618,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Zitronensaft</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Lemon juice</string>
@@ -31505,6 +32105,21 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:madeleines-with-raisin</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Madeleines with raisin</string>
+				<string> Raisin madeleines</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Madeleines au raisin</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:main-meals-for-babies</key>
 	<dict>
 		<key>Languages</key>
@@ -32394,6 +33009,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:mature-cheddar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Mature cheddar</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:matza-flours</key>
 	<dict>
 		<key>Languages</key>
@@ -32957,6 +33582,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:mild-cheddar</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Mild cheddar</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:mildly-carbonated-natural-mineral-water</key>
 	<dict>
 		<key>Languages</key>
@@ -32984,6 +33619,20 @@
 			<array>
 				<string>mildly soured butters</string>
 				<string> mildly soured butter</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:milk-chocolate-biscuits</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Milk chocolate biscuits</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Biscuits au chocolat au lait</string>
 			</array>
 		</dict>
 	</dict>
@@ -33242,6 +33891,24 @@
 			<key>nl</key>
 			<array>
 				<string>Munt</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mint-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Minzsaucen</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Mint sauces</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sauces à la menthe</string>
 			</array>
 		</dict>
 	</dict>
@@ -33754,6 +34421,20 @@
 			<key>fr</key>
 			<array>
 				<string>Saucisses de Montbéliard au cumin</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:mortadella</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Mortadella</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Mortadelle</string>
 			</array>
 		</dict>
 	</dict>
@@ -34465,6 +35146,22 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:nespresso-compatible-coffee-capsules</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Nespresso-compatible coffee capsules</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Café en dosettes compatible Nespresso</string>
+				<string> Dosettes Nespresso</string>
+				<string> Capsules Nespresso</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:newcastle-brown-ale</key>
 	<dict>
 		<key>Languages</key>
@@ -34672,6 +35369,24 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:non-food-products</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Non food products</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Non alimentaire</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Non-food</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:non-homogenized-milks</key>
 	<dict>
 		<key>Languages</key>
@@ -34697,6 +35412,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Ungezuckerte Getränke</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Non-sugared beverages</string>
@@ -34732,20 +35451,6 @@
 			<key>nl</key>
 			<array>
 				<string>Noedels</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:noodles-in-a-box</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Noodles in a box</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Box de nouilles</string>
 			</array>
 		</dict>
 	</dict>
@@ -34973,6 +35678,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Nussöle</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Nut oils</string>
@@ -35553,6 +36262,22 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:open-beauty-facts</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Open Beauty Facts</string>
+				<string> OBF</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Open Beauty Facts</string>
+				<string> OBF</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:orange-blossom</key>
 	<dict>
 		<key>Languages</key>
@@ -35767,6 +36492,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:organic-beers</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Organic beers</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bières bio</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:organic-eggs</key>
 	<dict>
 		<key>Languages</key>
@@ -35874,6 +36613,34 @@
 			<key>nl</key>
 			<array>
 				<string>Oesterzwammen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:oyster-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Oyster sauces</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sauce à l'huitre</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:oysters</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Oysters</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Huîtres</string>
 			</array>
 		</dict>
 	</dict>
@@ -36018,6 +36785,20 @@
 			<key>en</key>
 			<array>
 				<string>Panela blocks</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:panettone</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Panettone</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Panettone</string>
 			</array>
 		</dict>
 	</dict>
@@ -36447,6 +37228,24 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:pasteurized-butters</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Pasteurized butters</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Beurres pasteurisés</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gepasteuriseerde roomboters</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:pasteurized-camembert</key>
 	<dict>
 		<key>Languages</key>
@@ -36635,6 +37434,21 @@
 			<key>nl</key>
 			<array>
 				<string>Perzikkensojayoghurts</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:peach-syrups</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Peach syrups</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sirops de pêche</string>
+				<string> Sirops à la pêche</string>
 			</array>
 		</dict>
 	</dict>
@@ -36945,6 +37759,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Erbsen</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Peas</string>
@@ -37246,6 +38064,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Milchdesserts</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Petits suisses</string>
@@ -39152,6 +39974,21 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:pot-noodles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Pot noodles</string>
+				<string> Noodles in a box</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Box de nouilles</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:potato-crisps</key>
 	<dict>
 		<key>Languages</key>
@@ -39173,6 +40010,20 @@
 			<key>nl</key>
 			<array>
 				<string>Aardappelchips</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:potato-crisps-in-olive-oil</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Potato crisps in olive oil</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Chips de pommes de terre à l’huile d'olive</string>
 			</array>
 		</dict>
 	</dict>
@@ -39211,6 +40062,21 @@
 			<key>nl</key>
 			<array>
 				<string>Aardappelen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:pots</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Pots</string>
+				<string> Box</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Box</string>
 			</array>
 		</dict>
 	</dict>
@@ -39443,6 +40309,48 @@
 			<key>nl</key>
 			<array>
 				<string>Gevogelten</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:poultries-from-ancenis</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Poultries from Ancenis</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Volaille d'Ancenis</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:poultries-from-bresse</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Poultries from Bresse</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Volaille de Bresse</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:poultries-from-janzé</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Poultries from Janzé</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Volaille de Janzé</string>
 			</array>
 		</dict>
 	</dict>
@@ -39942,6 +40850,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:prawn-cocktail-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Prawn cocktail crisps</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:prawns</key>
 	<dict>
 		<key>Languages</key>
@@ -40022,6 +40940,24 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:prepared-lasagne</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Prepared lasagne</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lasagnes préparées</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Kant-en-klaar lasagnas</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:prepared-lentils</key>
 	<dict>
 		<key>Languages</key>
@@ -40052,6 +40988,20 @@
 			<key>fr</key>
 			<array>
 				<string>Charcuteries</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:prepared-meats-with-less-salt</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Prepared meats with less salt</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Charcuteries à teneur réduite en sel</string>
 			</array>
 		</dict>
 	</dict>
@@ -40800,6 +41750,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Puffreis</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Puffed rice</string>
@@ -40972,7 +41926,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Galettes d'épautre</string>
+				<string>Galettes d'épeautre</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -41237,6 +42191,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Weißer Spargel</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Purple asparagus</string>
@@ -41248,6 +42206,20 @@
 			<key>nl</key>
 			<array>
 				<string>Violette asperges</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:quadruple-beer</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Quadruple beer</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bière quadruple</string>
 			</array>
 		</dict>
 	</dict>
@@ -42500,20 +43472,31 @@
 		<dict>
 			<key>de</key>
 			<array>
-				<string>Rotwein</string>
+				<string>Roteweine</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Red wines</string>
-				<string> Red wine</string>
+				<string> red wine</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Vin rouge</string>
+				<string>vins rouges</string>
+				<string> vin rouge</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Rode wijn</string>
+				<string>Rode wijnen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:redcurrant-sauce</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Redcurrant sauce</string>
 			</array>
 		</dict>
 	</dict>
@@ -43446,6 +44429,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:roasted-pistachios</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Roasted pistachios</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Pistaches grillées</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:roasted-pumpkin-seeds</key>
 	<dict>
 		<key>Languages</key>
@@ -43780,6 +44777,20 @@
 			<key>nl</key>
 			<array>
 				<string>Rozeblaadjesjams</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:rose-syrups</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Rose syrups</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sirops de rose</string>
 			</array>
 		</dict>
 	</dict>
@@ -44457,6 +45468,7 @@
 			<array>
 				<string>Salad dressings</string>
 				<string> dressings</string>
+				<string> Salad sauce</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -44522,6 +45534,20 @@
 			<key>nl</key>
 			<array>
 				<string>Salamis</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:salmon-lasagne</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Salmon lasagne</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lasagnes au saumon</string>
 			</array>
 		</dict>
 	</dict>
@@ -44642,6 +45668,26 @@
 			<key>fr</key>
 			<array>
 				<string>Salmorejo</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:salt-and-malt-vinegar-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Salt and malt vinegar crisps</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:salt-and-vinegar-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Salt and vinegar crisps</string>
 			</array>
 		</dict>
 	</dict>
@@ -45013,6 +46059,11 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Saucen</string>
+				<string> Soßen</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Sauces</string>
@@ -45640,6 +46691,25 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:semolina-desserts</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Semolina desserts</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Semoules au lait</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Griesmeelpuddings</string>
+				<string> Griesmeelpappen</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:sencha-teas</key>
 	<dict>
 		<key>Languages</key>
@@ -45658,6 +46728,22 @@
 			<key>nl</key>
 			<array>
 				<string>Sencha</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:senseo-compatible-coffee-capsules</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Senseo-compatible coffee capsules</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Café en dosettes compatible Senseo</string>
+				<string> Dosettes Senseo</string>
+				<string> Capsules Senseo</string>
 			</array>
 		</dict>
 	</dict>
@@ -45713,6 +46799,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Sesamöle</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Sesame oils</string>
@@ -46154,6 +47244,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:shortbread</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Shortbread</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Shortbread</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:shoumei-teas</key>
 	<dict>
 		<key>Languages</key>
@@ -46225,6 +47329,20 @@
 			<key>en</key>
 			<array>
 				<string>Similkameen Valley</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:simple-beer</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Simple beer</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bière simple</string>
 			</array>
 		</dict>
 	</dict>
@@ -46630,6 +47748,27 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:smoked-salmons-from-farming</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Smoked salmons from farming</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saumons fumés d'élevage</string>
+				<string> saumon fumé d'élevage</string>
+				<string> saumons d'élevage fumés</string>
+				<string> saumons d'élevages fumés</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gerookte kweekzalm</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:smoked-sausages</key>
 	<dict>
 		<key>Languages</key>
@@ -46744,6 +47883,20 @@
 			<key>nl</key>
 			<array>
 				<string>Snacks en toetjes voor babies</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:snails</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Snails</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Escargots</string>
 			</array>
 		</dict>
 	</dict>
@@ -46989,6 +48142,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:sour-cream-and-sweet-chilli-crisps</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Sour cream and sweet chilli crisps</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:sour-cream-butters</key>
 	<dict>
 		<key>Languages</key>
@@ -47020,6 +48183,7 @@
 			<key>en</key>
 			<array>
 				<string>Sour creams</string>
+				<string> Crèmes fraîches</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -47784,6 +48948,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Spinat</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Spinachs</string>
@@ -48194,6 +49362,21 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:starters</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Starters</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Entrées</string>
+				<string> Entrée</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:steaks</key>
 	<dict>
 		<key>Languages</key>
@@ -48529,6 +49712,21 @@
 			<key>en</key>
 			<array>
 				<string>strawberry juice</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:strawberry-milks</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Strawberry milks</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Laits aromatisés à la fraise</string>
+				<string> laits à la fraise</string>
 			</array>
 		</dict>
 	</dict>
@@ -48888,6 +50086,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Gezuckerte Getränke</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Sugared beverages</string>
@@ -48931,6 +50133,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Süßwaren</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Sugary snacks</string>
@@ -49018,7 +50224,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Mayonaises à l’huile de tournesol</string>
+				<string>Mayonnaises à l’huile de tournesol</string>
 				<string> Mayonnaise à l’huile de tournesol</string>
 			</array>
 			<key>nl</key>
@@ -49031,6 +50237,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Sonnenblumenöle</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Sunflower oils</string>
@@ -49581,6 +50791,11 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Sirups</string>
+				<string> Sirup</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Syrups</string>
@@ -50276,6 +51491,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:teriyaki-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Teriyaki sauces</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sauces Teriyaki</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:terrine</key>
 	<dict>
 		<key>Languages</key>
@@ -50388,6 +51617,25 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:thuringian-sausages</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Original Thüringer Rostbratwürste</string>
+				<string> Original Thüringer Rostbratwurst</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Thuringian sausages</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Thüringer</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:thyme</key>
 	<dict>
 		<key>Languages</key>
@@ -50463,6 +51711,16 @@
 			<array>
 				<string>Aardamandeldranken</string>
 				<string> Tijgernootdranken</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tikka-masala-sauce</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tikka masala sauce</string>
 			</array>
 		</dict>
 	</dict>
@@ -50651,6 +51909,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Tomatenmark</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Tomato pastes</string>
@@ -50695,6 +51957,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Tomatensaucen</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Tomato sauces</string>
@@ -50904,6 +52170,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:triple-beer</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Triple beer</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Bière triple</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:triticale</key>
 	<dict>
 		<key>Languages</key>
@@ -51062,6 +52342,20 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:tuna-chunks</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tuna chunks</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Miettes de thon</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:tuna-fillets</key>
 	<dict>
 		<key>Languages</key>
@@ -51122,6 +52416,20 @@
 			<key>nl</key>
 			<array>
 				<string>Tonijnpizzas</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:tuna-rillettes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Tuna rillettes</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Rillettes de thon</string>
 			</array>
 		</dict>
 	</dict>
@@ -51855,6 +53163,21 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:vanilla-milks</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Vanilla milks</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Laits aromatisés à la vanille</string>
+				<string> laits à la vanille</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:vanilla-pods</key>
 	<dict>
 		<key>Languages</key>
@@ -52256,6 +53579,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Pflanzenöle</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Vegetable oils</string>
@@ -52458,6 +53785,20 @@
 			<key>nl</key>
 			<array>
 				<string>Vegetarische worstjes voor hotdogs</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:vegetarian-lasagne</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Vegetarian lasagne</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Lasagnes végétariennes</string>
 			</array>
 		</dict>
 	</dict>
@@ -53743,6 +55084,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Grüner Spargel</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>White asparagus</string>
@@ -53814,6 +55159,20 @@
 			<key>nl</key>
 			<array>
 				<string>Witbrood</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:white-chocolate-biscuits</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>White chocolate biscuits</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Biscuits au chocolat blanc</string>
 			</array>
 		</dict>
 	</dict>
@@ -53896,6 +55255,21 @@
 				<string> Jambon blanc</string>
 				<string> jambon cuit</string>
 				<string> jambons cuits</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:white-hams-with-less-salt</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>White hams with less salt</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Jambons blancs à teneur réduite en sel</string>
+				<string> jambon blanc à teneur réduite en sel</string>
 			</array>
 		</dict>
 	</dict>
@@ -54318,6 +55692,25 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:whole-black-olives</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Whole black olives</string>
+				<string> Black whole olives</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Olives noires entières</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Zwarte hele olijven</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:whole-cayenne</key>
 	<dict>
 		<key>Languages</key>
@@ -54447,6 +55840,21 @@
 			<key>nl</key>
 			<array>
 				<string>Hele fenegriekzaden</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:whole-green-olives</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Whole green olives</string>
+				<string> Green whole olives</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Olives vertes entières</string>
 			</array>
 		</dict>
 	</dict>
@@ -54758,6 +56166,28 @@
 			<key>nl</key>
 			<array>
 				<string>Wilde rijstvlokken</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:wild-smoked-salmons</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Wild smoked salmons</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Saumons fumés sauvages</string>
+				<string> saumon fumé sauvage</string>
+				<string> saumon fumé de pêche</string>
+				<string> saumons fumés de pêche</string>
+				<string> saumons sauvages fumés</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Gerookte wilde zalm</string>
 			</array>
 		</dict>
 	</dict>
@@ -55269,6 +56699,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:worcestershire-sauces</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>en</key>
+			<array>
+				<string>Worcestershire sauces</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:wrekin-white</key>
 	<dict>
 		<key>Languages</key>
@@ -55725,6 +57165,16 @@
 			<key>nl</key>
 			<array>
 				<string>Volkorenpastas</string>
+			</array>
+		</dict>
+	</dict>
+	<key>es:pastas-de-trigo-duro-integrales-o-semi-integrales</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>nl</key>
+			<array>
+				<string>Harde Volkorenpastas</string>
 			</array>
 		</dict>
 	</dict>
@@ -57267,6 +58717,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:baba-au-rhum</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Baba au rhum</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:bacons-de-dindes</key>
 	<dict>
 		<key>Languages</key>
@@ -57949,20 +59409,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:beurres-pasteurisés</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Beurres pasteurisés</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Gepasteuriseerde roomboters</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:bienvenues-bâtard-montrachet</key>
 	<dict>
 		<key>Languages</key>
@@ -58095,46 +59541,6 @@
 			<key>nl</key>
 			<array>
 				<string>Gemberbieren</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:bière-double</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Bière double</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:bière-quadruple</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Bière quadruple</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:bière-simple</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Bière simple</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:bière-triple</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Bière triple</string>
 			</array>
 		</dict>
 	</dict>
@@ -58311,10 +59717,30 @@
 		<dict>
 			<key>fr</key>
 			<array>
-				<string>blaye-côtes-de-bordeaux</string>
+				<string>Blaye-Côtes-de-Bordeaux</string>
 				<string> blaye côtes de bordeaux</string>
 				<string> blaye-cotes-de-bordeaux</string>
 				<string> blaye cotes de bordeaux</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:blaye-côtes-de-bordeaux-blanc</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Blaye-Côtes-de-Bordeaux blanc</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:blaye-côtes-de-bordeaux-rouge</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Blaye-Côtes-de-Bordeaux rouge</string>
 			</array>
 		</dict>
 	</dict>
@@ -58504,13 +59930,23 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:boeuf-du-maine</key>
+	<key>fr:boeufs-bourguignons</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>fr</key>
 			<array>
-				<string>Boeuf du Maine</string>
+				<string>Boeufs bourguignons</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:boeufs-bourguignons-aux-tagliatelles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Boeufs bourguignons aux tagliatelles</string>
 			</array>
 		</dict>
 	</dict>
@@ -58534,16 +59970,6 @@
 			<key>fr</key>
 			<array>
 				<string>Bonnezeaux Val de Loire</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:bordeaux</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Bordeaux</string>
 			</array>
 		</dict>
 	</dict>
@@ -59072,13 +60498,23 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:box</key>
+	<key>fr:brandade-de-morue</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>fr</key>
 			<array>
-				<string>Box</string>
+				<string>Brandade de morue</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:brandade-de-morue-parmentière</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Brandade de Morue parmentière</string>
 			</array>
 		</dict>
 	</dict>
@@ -59150,6 +60586,26 @@
 			<array>
 				<string>Brioches pur beurre</string>
 				<string> Brioche pur beurre</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:brioches-tranchées</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Brioches tranchées</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:brioches-tressées</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Brioches tressées</string>
 			</array>
 		</dict>
 	</dict>
@@ -59331,6 +60787,16 @@
 			<key>fr</key>
 			<array>
 				<string>Cahors</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:calissons-d'aix</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Calissons d'Aix</string>
 			</array>
 		</dict>
 	</dict>
@@ -60569,16 +62035,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:charcuteries-à-teneur-réduite-en-sel</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Charcuteries à teneur réduite en sel</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:charentais</key>
 	<dict>
 		<key>Languages</key>
@@ -61305,16 +62761,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:cheesecakes-au-caramel</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Cheesecakes au caramel</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:chenas</key>
 	<dict>
 		<key>Languages</key>
@@ -61675,6 +63121,16 @@
 			<array>
 				<string>Traditionele ciders</string>
 				<string> Appelwijnen</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:cigarettes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>cigarettes</string>
 			</array>
 		</dict>
 	</dict>
@@ -62132,6 +63588,16 @@
 			<key>fr</key>
 			<array>
 				<string>Compotes pommes mûre</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:compotes-pommes-pruneau</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Compotes pommes pruneau</string>
 			</array>
 		</dict>
 	</dict>
@@ -63556,6 +65022,18 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:céleris-rémoulade</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Céleris Rémoulade</string>
+				<string> Céleri Rémoulade</string>
+				<string> Céleries Rémoulades</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:cérons</key>
 	<dict>
 		<key>Languages</key>
@@ -64589,17 +66067,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:entrées</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Entrées</string>
-				<string> Entrée</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:entrées-et-snacks-surgelés</key>
 	<dict>
 		<key>Languages</key>
@@ -64632,6 +66099,16 @@
 			<key>fr</key>
 			<array>
 				<string>Escalopes de poulet</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:escargots-de-bourgogne</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Escargots de Bourgogne</string>
 			</array>
 		</dict>
 	</dict>
@@ -65561,16 +67038,6 @@
 			<key>nl</key>
 			<array>
 				<string>Merkkazen</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:fromages-panés</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Fromages panés</string>
 			</array>
 		</dict>
 	</dict>
@@ -67108,17 +68575,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:jambons-blancs-à-teneur-réduite-en-sel</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Jambons blancs à teneur réduite en sel</string>
-				<string> jambon blanc à teneur réduite en sel</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:jambons-crus</key>
 	<dict>
 		<key>Languages</key>
@@ -67338,6 +68794,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:jus-de-pruneaux</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Jus de pruneaux</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:kirsch</key>
 	<dict>
 		<key>Languages</key>
@@ -67382,6 +68848,16 @@
 			<key>fr</key>
 			<array>
 				<string>Knusper</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:kouign-amann</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Kouign amann</string>
 			</array>
 		</dict>
 	</dict>
@@ -67718,6 +69194,36 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:langue-de-boeuf</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Langue de boeuf</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:langue-de-boeuf-sauce-madere</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Langue de boeuf sauce madere</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:langue-de-boeuf-sauce-piquante</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Langue de boeuf sauce piquante</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:languedoc</key>
 	<dict>
 		<key>Languages</key>
@@ -67778,17 +69284,23 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:lasagnes-préparées</key>
+	<key>fr:lasagne-chèvre-épinards</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>fr</key>
 			<array>
-				<string>Lasagnes préparées</string>
+				<string>Lasagne Chèvre Épinards</string>
 			</array>
-			<key>nl</key>
+		</dict>
+	</dict>
+	<key>fr:lasagnes-aux-légumes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
 			<array>
-				<string>Kant-en-klaar lasagnas</string>
+				<string>Lasagnes aux légumes</string>
 			</array>
 		</dict>
 	</dict>
@@ -68008,16 +69520,6 @@
 				<string> macédoines de légume en conserve</string>
 				<string> macédoine de légumes en conserve</string>
 				<string> macédoine de légume en conserve</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:madeleines-au-raisin</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Madeleines au raisin</string>
 			</array>
 		</dict>
 	</dict>
@@ -68670,6 +70172,36 @@
 			<key>fr</key>
 			<array>
 				<string>Merguez</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:merguez-de-boeuf</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Merguez de boeuf</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:merguez-de-mouton</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Merguez de mouton</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:merguez-de-volaille</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Merguez de volaille</string>
 			</array>
 		</dict>
 	</dict>
@@ -69850,20 +71382,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:miels-labellisés</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Miels labellisés</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Keurmerkhoningen</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:miels-labélisés</key>
 	<dict>
 		<key>Languages</key>
@@ -70852,16 +72370,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:morbier</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Morbier</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:morbiers</key>
 	<dict>
 		<key>Languages</key>
@@ -71438,6 +72946,16 @@
 			<key>nl</key>
 			<array>
 				<string>Oostduitse mosterds</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:mozzarella-di-bufala-campana</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Mozzarella di Bufala Campana</string>
 			</array>
 		</dict>
 	</dict>
@@ -72050,20 +73568,6 @@
 			<key>fr</key>
 			<array>
 				<string>Noix de cajou salées</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:non-alimentaire</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Non alimentaire</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Non-food</string>
 			</array>
 		</dict>
 	</dict>
@@ -72728,17 +74232,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:pains-au-lait</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Pains au lait</string>
-				<string> pain au lait</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:pains-azymes-extra-fins</key>
 	<dict>
 		<key>Languages</key>
@@ -72951,6 +74444,16 @@
 			<array>
 				<string>Pasilla</string>
 				<string> chilaca</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:pastis</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Pastis</string>
 			</array>
 		</dict>
 	</dict>
@@ -73635,14 +75138,14 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:plats-à-base-d’oies</key>
+	<key>fr:plats-à-base-d’oie</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
 			<key>fr</key>
 			<array>
-				<string>Plats à base d’oies</string>
-				<string> Plats à base d’oie</string>
+				<string>Plats à base d’oie</string>
+				<string> Plats à base d’oies</string>
 				<string> plats préparés à base d'oie</string>
 			</array>
 			<key>nl</key>
@@ -73669,21 +75172,6 @@
 			<key>fr</key>
 			<array>
 				<string>Poirées</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:poissons-panés</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Poissons panés</string>
-				<string> Poisson pané</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Gepaneerde vis</string>
 			</array>
 		</dict>
 	</dict>
@@ -74074,6 +75562,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:pommes-dauphines</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Pommes dauphines</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:pommes-de-terre-aoc</key>
 	<dict>
 		<key>Languages</key>
@@ -74134,6 +75632,16 @@
 			<array>
 				<string>Pommes de terre primeurs</string>
 				<string> Pommes de terre de primeur</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:pommes-noisettes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Pommes noisettes</string>
 			</array>
 		</dict>
 	</dict>
@@ -74347,16 +75855,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:poulets-au-curry</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Poulets au curry</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:poulets-panés</key>
 	<dict>
 		<key>Languages</key>
@@ -74478,36 +75976,6 @@
 				<string> premières côtes de bordeaux</string>
 				<string> premieres-cotes-de-bordeaux</string>
 				<string> premieres cotes de bordeaux</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:produits-aoc</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Produits AOC</string>
-				<string> AOC</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>AOC producten</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:produits-aop</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Produits AOP</string>
-				<string> AOP</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>AOP producten</string>
 			</array>
 		</dict>
 	</dict>
@@ -75010,6 +76478,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>de</key>
+			<array>
+				<string>Süße Brotaufstriche</string>
+			</array>
 			<key>fr</key>
 			<array>
 				<string>Pâtes à tartiner</string>
@@ -75195,26 +76667,6 @@
 			<key>nl</key>
 			<array>
 				<string>Ratatouilles</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:raviolis-en-conserve</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Dosenravioli</string>
-				<string> Konservenravioli</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>Raviolis en conserve</string>
-				<string> raviolis en boite</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Ravioli in blik</string>
 			</array>
 		</dict>
 	</dict>
@@ -75493,17 +76945,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:rillettes-de-poissons</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Rillettes de poissons</string>
-				<string> rillettes de poisson</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:rillettes-de-porc</key>
 	<dict>
 		<key>Languages</key>
@@ -75563,16 +77004,6 @@
 			<key>fr</key>
 			<array>
 				<string>Rillettes de saumon rose</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:rillettes-de-thon</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Rillettes de thon</string>
 			</array>
 		</dict>
 	</dict>
@@ -75686,6 +77117,56 @@
 			<key>fr</key>
 			<array>
 				<string>Rillettes spéciales</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:risottos</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Risottos</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:risottos-au-crabe</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Risottos au crabe</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:risottos-aux-crevettes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Risottos aux crevettes</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:risottos-aux-cêpes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Risottos aux cêpes</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:risottos-de-veau</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Risottos de veau</string>
 			</array>
 		</dict>
 	</dict>
@@ -76831,6 +78312,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:salades-catalanes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades catalanes</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:salades-composées</key>
 	<dict>
 		<key>Languages</key>
@@ -76843,6 +78334,66 @@
 			<key>nl</key>
 			<array>
 				<string>Opgemaakte salades</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:salades-de-betteraves</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades de betteraves</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:salades-de-concombres</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades de concombres</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:salades-de-lentilles</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades de lentilles</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:salades-mexicaines</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades mexicaines</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:salades-nicoises</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades nicoises</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:salades-piémontaises</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Salades piémontaises</string>
 			</array>
 		</dict>
 	</dict>
@@ -77143,17 +78694,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:sauces-au-curry</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Sauces au curry</string>
-				<string> Sauces curry</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:sauces-au-poivre</key>
 	<dict>
 		<key>Languages</key>
@@ -77391,6 +78931,7 @@
 			<key>de</key>
 			<array>
 				<string>Original Nürnberger Rostbratwürste</string>
+				<string> Original Nürnberger Rostbratwurst</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -77524,23 +79065,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:saumons-fumés-d'élevage</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Saumons fumés d'élevage</string>
-				<string> saumon fumé d'élevage</string>
-				<string> saumons d'élevage fumés</string>
-				<string> saumons d'élevages fumés</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Gerookte kweekzalm</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:saumons-fumés-de-dégustation</key>
 	<dict>
 		<key>Languages</key>
@@ -77548,24 +79072,6 @@
 			<key>fr</key>
 			<array>
 				<string>Saumons fumés de dégustation</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:saumons-fumés-sauvages</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Saumons fumés sauvages</string>
-				<string> saumon fumé sauvage</string>
-				<string> saumon fumé de pêche</string>
-				<string> saumons fumés de pêche</string>
-				<string> saumons sauvages fumés</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>Gerookte wilde zalm</string>
 			</array>
 		</dict>
 	</dict>
@@ -78065,36 +79571,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:shortbread</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Shortbread</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:sirops-de-cerise</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Sirops de cerise</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:sirops-de-chataignes</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Sirops de chataignes</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:sirops-de-citron-vert</key>
 	<dict>
 		<key>Languages</key>
@@ -78133,27 +79609,6 @@
 			<array>
 				<string>Sirops de pamplemousse</string>
 				<string> Sirops de pamplemousses</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:sirops-de-peche</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Sirops de peche</string>
-				<string> Sirops à la peche</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:sirops-de-rose</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Sirops de rose</string>
 			</array>
 		</dict>
 	</dict>
@@ -78791,6 +80246,16 @@
 			</array>
 		</dict>
 	</dict>
+	<key>fr:thons-albacore-au-naturel</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Thons albacore au naturel</string>
+			</array>
+		</dict>
+	</dict>
 	<key>fr:thons-blancs-au-naturel</key>
 	<dict>
 		<key>Languages</key>
@@ -78941,6 +80406,16 @@
 			<key>fr</key>
 			<array>
 				<string>Thés noirs aromatisés à la bergamote</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:thés-à-la-bergamote</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Thés à la bergamote</string>
 			</array>
 		</dict>
 	</dict>
@@ -79555,26 +81030,6 @@
 			</array>
 		</dict>
 	</dict>
-	<key>fr:volaille-d'ancenis</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Volaille d'Ancenis</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:volaille-de-bresse</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Volaille de Bresse</string>
-			</array>
-		</dict>
-	</dict>
 	<key>fr:volaille-de-gascogne</key>
 	<dict>
 		<key>Languages</key>
@@ -79592,16 +81047,6 @@
 			<key>fr</key>
 			<array>
 				<string>Volaille de Houdan</string>
-			</array>
-		</dict>
-	</dict>
-	<key>fr:volaille-de-janzé</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>fr</key>
-			<array>
-				<string>Volaille de Janzé</string>
 			</array>
 		</dict>
 	</dict>
@@ -80480,6 +81925,16 @@
 			<key>nl</key>
 			<array>
 				<string>Wraps</string>
+			</array>
+		</dict>
+	</dict>
+	<key>fr:yaourt-aux-noisettes</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>fr</key>
+			<array>
+				<string>Yaourt aux noisettes</string>
 			</array>
 		</dict>
 	</dict>
@@ -81505,8 +82960,6 @@
 	<dict/>
 	<key>it:moscato-di-trani</key>
 	<dict/>
-	<key>it:mozzarella-di-bufala-campana</key>
-	<dict/>
 	<key>it:murazzano</key>
 	<dict/>
 	<key>it:murgia</key>
@@ -82011,16 +83464,6 @@
 			<key>nl</key>
 			<array>
 				<string>Hagelandse wijn</string>
-			</array>
-		</dict>
-	</dict>
-	<key>nl:harde-volkorenpastas</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>nl</key>
-			<array>
-				<string>Harde Volkorenpastas</string>
 			</array>
 		</dict>
 	</dict>

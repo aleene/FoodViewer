@@ -254,15 +254,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.row < 6 {
-            // row 6 is the nutritional score, which has no correponding page
-            selectedIndex = indexPath.row
-            if let validProductFetchResult = products.fetchResultList[indexPath.section] {
-                switch validProductFetchResult {
-                case .Success(let product):
-                    selectedProduct = product
-                default: break
-                }
+        selectedIndex = indexPath.row
+        if let validProductFetchResult = products.fetchResultList[indexPath.section] {
+            switch validProductFetchResult {
+            case .Success(let product):
+                selectedProduct = product
+            default: break
             }
         }
     }

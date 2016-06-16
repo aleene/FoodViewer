@@ -29,6 +29,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let SupplyChainVCIdentifier = "SupplyChainTableViewController"
         static let CategoriesVCIdentifier = "CategoriesTableViewController"
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
+        static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
     }
     
     // MARK: - Storyboard Actions
@@ -107,6 +108,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             pages.append(page4)
             pages.append(page5)
             pages.append(page6)
+            pages.append(page7)
         }
     }
     
@@ -116,7 +118,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product."),
         NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product."),
         NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product."),
-        NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")]
+        NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product."),
+        NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")]
     
     var page1: UIViewController {
         get {
@@ -148,6 +151,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.CommunityEffortVCIdentifier)
         }
     }
+    var page7: UIViewController {
+        get {
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.NutritionalScoreVCIdentifier)
+        }
+    }
 
     var product: FoodProduct? = nil {
         didSet {
@@ -172,6 +180,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             if let vc = pages[5] as? CompletionStatesTableViewController {
                 vc.product = product
             }
+            if let vc = pages[6] as? NutritionScoreTableViewController {
+                vc.product = product
+            }
+
         }
     }
     
