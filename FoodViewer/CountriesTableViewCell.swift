@@ -12,7 +12,7 @@ import TagListView
 class CountriesTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let NoProduct = "No product Defined"
+        static let NoProduct = "No product defined"
         static let EmptyString = ""
         static let SoldBy = "sold by "
         static let At = " at "
