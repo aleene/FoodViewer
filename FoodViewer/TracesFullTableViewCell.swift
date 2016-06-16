@@ -12,7 +12,7 @@ import TagListView
 class TracesFullTableViewCell: UITableViewCell {
 
     struct Constants {
-        static let NoTag = "no traces specified"
+        static let NoTag = "No traces specified"
     }
 
     @IBOutlet weak var tracesTagList: TagListView! {
