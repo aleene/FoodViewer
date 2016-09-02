@@ -343,6 +343,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case Storyboard.ShowSettingsSegueIdentifier:
                 if let vc = segue.destinationViewController as? SettingsTableViewController {
                     vc.storedHistory = products.storedHistory
+                    // vc.modalPresentationCapturesStatusBarAppearance = true
+                    // setNeedsStatusBarAppearanceUpdate()
                 }
 
             default: break
@@ -406,6 +408,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     // MARK: - Viewcontroller lifecycle
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -77,7 +77,11 @@ class FoodProduct {
                 var translatedAllergens:[String]? = []
                 let preferredLanguage = NSLocale.preferredLanguages()[0]
                 for allergenKey in validAllergenKeys {
-                    translatedAllergens!.append(OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage))
+                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
+                        translatedAllergens!.append(translatedKey)
+                    } else {
+                        translatedAllergens!.append(allergenKey)
+                    }
                 }
                 return translatedAllergens
             }
@@ -93,7 +97,11 @@ class FoodProduct {
                 var translatedTraces:[String]? = []
                 let preferredLanguage = NSLocale.preferredLanguages()[0]
                 for tracesKey in validTracesKeys {
-                    translatedTraces!.append(OFFplists.manager.translateAllergens(tracesKey, language:preferredLanguage))
+                    if let translatedKey = OFFplists.manager.translateAllergens(tracesKey, language:preferredLanguage) {
+                        translatedTraces!.append(translatedKey)
+                    } else {
+                        translatedTraces!.append(tracesKey)
+                    }
                 }
                 return translatedTraces
             }
@@ -569,8 +577,7 @@ class FoodProduct {
     
     func regionURL() -> NSURL? {
         let region = NSBundle.mainBundle().preferredLocalizations[0] as NSString
-        
-        return NSURL(string: "http://\(region).openfoodfacts.org/product/" + barcode.asString() + "/")
+        return NSURL(string: "http://\(region).openfoodfacts.org/en:product/" + barcode.asString() + "/")
     }
     
 // End product

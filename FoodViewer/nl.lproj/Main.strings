@@ -74,7 +74,7 @@
 "XQE-hH-APP.segmentTitles[1]" = "Per Portie";
 
 /* Class = "UISegmentedControl"; XQE-hH-APP.segmentTitles[2] = "Per Daily Value"; ObjectID = "XQE-hH-APP"; */
-"XQE-hH-APP.segmentTitles[2]" = "Per Dagelijkse Hoeveelheid";
+"XQE-hH-APP.segmentTitles[2]" = "Per ADH";
 
 /* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
 "XeQ-CI-ELW.text" = "Portie (waarde + eenheid)";

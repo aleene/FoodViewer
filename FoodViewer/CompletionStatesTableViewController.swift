@@ -31,7 +31,7 @@ class CompletionStatesTableViewController: UITableViewController {
     }
     
     struct Constants {
-        // static let NameCompletionCellTitle = NSLocalizedString("Productname complete?", comment: "Title of tableview cell, indicateding whether the productname has been completed.")
+        // static let NameCompletionCellTitle = NSLocalizedString("Product name complete?", comment: "Title of tableview cell, indicateding whether the productname has been completed.")
         // static let BrandsCompletionCellTitle = NSLocalizedString("Brand(s) complete?", comment: "Title of tableview cell, indicateding whether the product brand field has been filled in.")
         // static let QuantityCompletionCellTitle = NSLocalizedString("Quantity complete?", comment: "Title of tableview cell, indicating whether the product quantity field has been filled in.")
         // static let PackagingCompletionCellTitle = NSLocalizedString("Packaging complete?", comment: "Title of tableview cell, indicating whether the product packaging field has been filled in.")
@@ -44,13 +44,16 @@ class CompletionStatesTableViewController: UITableViewController {
         static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
         static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
         static let LastEditDateHeaderTitle = NSLocalizedString("Edit Dates", comment: "Header title of the tableview section, indicating when the product data was edited.")
+        static let CreationDateHeaderTitle = NSLocalizedString("Creation Date", comment: "Header title of the tableview section, indicating when the product data was created.")
         static let ViewControllerTitle = NSLocalizedString("Community Effort", comment: "Title of view controller, with information on the community that has contributed to the product data.")
+        static let NoCreationDateAvailable = NSLocalizedString("no creation date available", comment: "Value of the creation date field, if no valid date is available.")
+        static let NoEditDateAvailable = NSLocalizedString("no edit date available", comment: "Value of the edit date field, if no valid date is available.")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return product != nil ? 3 : 0
+        return product != nil ? 4 : 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,6 +64,8 @@ class CompletionStatesTableViewController: UITableViewController {
             return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
         case 2:
             return product?.lastEditDates?.count != nil ? product!.lastEditDates!.count : 0
+        case 3:
+            return product?.additionDate != nil ? 1 : 0
         default:
             return 0
         }
@@ -118,16 +123,29 @@ class CompletionStatesTableViewController: UITableViewController {
             
             cell?.contributor = product!.productContributors.contributors[indexPath.row]
             return cell!
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LastEditDateCellIdentifier, forIndexPath: indexPath)
+            let formatter = NSDateFormatter()
+            formatter.dateStyle = .MediumStyle
+            formatter.timeStyle = .NoStyle
+            // the lastEditDates array contains at least one date, if we arrive here
+            
+            cell.textLabel!.text = formatter.stringFromDate(product!.lastEditDates![indexPath.row])
+            return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LastEditDateCellIdentifier, forIndexPath: indexPath)
             let formatter = NSDateFormatter()
             formatter.dateStyle = .MediumStyle
             formatter.timeStyle = .NoStyle
-            cell.textLabel!.text = formatter.stringFromDate(product!.lastEditDates![indexPath.row])
+            if let validDate = product?.additionDate {
+                cell.textLabel!.text = formatter.stringFromDate(validDate)
+            } else {
+                cell.textLabel!.text = Constants.NoCreationDateAvailable
+            }
             return cell
         }
     }
-    
+
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch section {
@@ -141,6 +159,8 @@ class CompletionStatesTableViewController: UITableViewController {
             }
         case 2:
             return Constants.LastEditDateHeaderTitle
+        case 3:
+            return Constants.CreationDateHeaderTitle
         default:
             return nil
         }

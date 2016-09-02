@@ -628,6 +628,8 @@ class OpenFoodFactsRequest {
                     static let PhKey = "ph"
                     static let CacaoKey = "Cacao Min."
                 }
+                
+                // Warning: the order of these nutrients is important. It will be displayed as such.
            
                 nutritionDecode(NutritionFacts.EnergyKey, key: OFFJson.EnergyKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.FatKey, key: OFFJson.FatKey, jsonObject: jsonObject, product: product)
@@ -640,6 +642,7 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.TransFatKey, key: OFFJson.TransFatKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.CholesterolKey, key: OFFJson.CholesterolKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SodiumKey, key: OFFJson.SodiumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(NutritionFacts.SaltKey, key: OFFJson.SaltKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.CarbohydratesKey, key: OFFJson.CarbohydratesKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SugarsKey, key: OFFJson.SugarsKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.SucroseKey, key: OFFJson.SucroseKey, jsonObject: jsonObject, product: product)
@@ -651,7 +654,6 @@ class OpenFoodFactsRequest {
                 nutritionDecode(NutritionFacts.MaltodextrinsKey, key: OFFJson.MaltodextrinsKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.FiberKey, key: OFFJson.FiberKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.ProteinsKey, key: OFFJson.ProteinsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SaltKey, key: OFFJson.SaltKey, jsonObject: jsonObject, product: product)
                 nutritionDecode(NutritionFacts.AlcoholKey, key: OFFJson.AlcoholKey, jsonObject: jsonObject, product: product)
                 
                 nutritionDecode(NutritionFacts.BiotinKey, key: OFFJson.BiotinKey, jsonObject: jsonObject, product: product)
@@ -1127,15 +1129,16 @@ class OpenFoodFactsRequest {
                     newAddress.postalcode = validCode.substring(4, length: 5)
                     return newAddress
                 }
+                // Is this an EMB-code for Belgium?
             } else if validCode.hasPrefix("EMB B-") {
                 newAddress.country = "Belgium"
-                /*
-                // start after the first four characters
-                if validCode.length() >= 9 {
-                    newAddress.postalcode = validCode.substring(4, length: 5)
-                    return newAddress
+                // a valid code has 11 characters
+                // the last 4 characters contain the postal code
+                // there might be leading 0, which has no meaning in Belgium
+                if validCode.length() >= 10 {
+                    newAddress.postalcode = validCode.substring(validCode.length() - 4, length: 4)
                 }
-                 */
+                return newAddress
             }
         }
         return nil
@@ -1184,8 +1187,9 @@ class OpenFoodFactsRequest {
              3  --
              fr 17"
              */
-            print("\(validJsonString)")
-            if !validJsonString.contains("missing") {
+            // print("\(validJsonString)")
+            // is there useful info in the string?
+            if (validJsonString.contains("-- energy ")) {
                 // split on --, should give 4 parts: empty, nutriments, fsa, fr
                 let dashParts = validJsonString.componentsSeparatedByString("-- ")
                 var offset = 0

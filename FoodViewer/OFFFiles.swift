@@ -105,7 +105,7 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.AdditivesFileName)
     }
 
-    func translateAllergens(key: String, language:String) -> String {
+    func translateAllergens(key: String, language:String) -> String? {
         if OFFallergens != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
@@ -118,7 +118,7 @@ class OFFplists {
                 let values = currentVertex[firstSplit[0]]
                 return  values != nil ? values![0].capitalizedString : key
             } else {
-                return key
+                return nil
             }
         }
         return String(format:TextConstants.FileNotAvailable, Constants.AllergensFileName)

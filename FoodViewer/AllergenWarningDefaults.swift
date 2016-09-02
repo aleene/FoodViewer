@@ -17,7 +17,7 @@ class AllergenWarningDefaults {
     static let manager = AllergenWarningDefaults()
 
     
-    var list: [(String, Bool)] = []
+    var list: [(String, String, Bool)] = []
     
     private var defaults = NSUserDefaults()
     
@@ -28,6 +28,9 @@ class AllergenWarningDefaults {
     }
     
     init() {
+        let preferredLanguage = NSLocale.preferredLanguages()[0]
+        var updateNeeded = false
+
         // get the NSUserdefaults array with search strings
         defaults = NSUserDefaults.standardUserDefaults()
         if let allergenDict = defaults.objectForKey(Constants.AllergenWarningsArrayKey) as?
@@ -36,7 +39,14 @@ class AllergenWarningDefaults {
             for allergen in allergenDict {
                 if let allergenKey = allergen[Constants.AllergenKey] as? String,
                     let allergenWarning = allergen[Constants.WarningKey] as? Bool {
-                    list.append((allergenKey,allergenWarning))
+                    
+                    // is there a valid translation found
+                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
+                        list.append((allergenKey, translatedKey, allergenWarning))
+                    } else {
+                        // the key no longer exists, rquires an update
+                        updateNeeded = true
+                    }
                 }
             }
         } else {
@@ -44,10 +54,16 @@ class AllergenWarningDefaults {
             // create the allergen warning list
             // the keys include the language "en:" component
             if let validAllergenKeyArray = allergenKeyArray {
-                for allergen in validAllergenKeyArray {
-                    list.append((allergen, false))
+                for allergenKey in validAllergenKeyArray {
+                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
+                        list.append((allergenKey, translatedKey, false))
+                    }
                 }
             }
+        }
+        if updateNeeded {
+            updateAllergenWarnings()
+            updateNeeded = false
         }
     }
     
@@ -56,7 +72,7 @@ class AllergenWarningDefaults {
     
     func updateAllergenWarnings() {
         var newArray: [[String:AnyObject]] = [[:]]
-        for (allergen, warning) in list {
+        for (allergen, _, warning) in list {
             var newDict: [String:AnyObject] = [:]
             newDict[Constants.AllergenKey] = allergen
             newDict[Constants.WarningKey] = warning
@@ -68,7 +84,7 @@ class AllergenWarningDefaults {
     
     private func countTrue() -> Int {
         var count = 0
-        for (_, value) in list {
+        for (_, _, value) in list {
             if value {
                 count += 1
             }
@@ -85,8 +101,8 @@ class AllergenWarningDefaults {
         
         var testKey: String
         
-        func keyHasWarning(element: (String, Bool)) -> Bool {
-            if (testKey == element.0) && element.1 {
+        func keyHasWarning(element: (String, String, Bool)) -> Bool {
+            if (testKey == element.0) && element.2 {
                 return true
             }
             return false

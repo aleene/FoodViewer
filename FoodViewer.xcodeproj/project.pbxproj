@@ -346,13 +346,13 @@
 		513982481C89CEB800250FB1 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */,
 				51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */,
 				517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */,
 				516B328A1C75FE4B0031EF80 /* NutrientsTableViewController.swift */,
 				51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */,
 				51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */,
 				51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */,
+				5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */,
 			);
 			name = Pages;
 			sourceTree = "<group>";

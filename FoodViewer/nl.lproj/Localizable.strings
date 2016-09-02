@@ -189,9 +189,6 @@
 /* String if no name is available */
 "No name available" = "Geen productnaam beschikbaar.";
 
-/* Text to indicate that no product is defined/setup. */
-"No product Defined." = "Geen product gedefinieerd.";
-
 /* Text in header of section, indicating that the product name is missing. */
 "No product name" = "Geen productnaam beschikbaar.";
 
@@ -285,9 +282,6 @@
 /* String presented in a tagView if no product is available on OFF */
 "Product not available" = "Product niet beschikbaar";
 
-/* Title of tableview cell, indicateding whether the productname has been completed. */
-"Productname complete?" = "Productnaam ingevuld?";
-
 /* Title of ViewController with a list of all products that has been viewed. */
 "Products" = "Producten";
 
@@ -363,9 +357,6 @@
 
 /* Text in a TagListView, when no countries are available in the product data. */
 "no countries specified" = "geen verkooplanden aangegeven";
-
-/* Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour. */
-"no info available" = "geen informatie aangegeven";
 
 /* Text in a TagListView, when no ingredients are available in the product data. */
 "no ingredients specified" = "geen ingrediënten aangegeven";

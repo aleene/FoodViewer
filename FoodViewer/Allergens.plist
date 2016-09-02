@@ -6,6 +6,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>nl</key>
+			<array>
+				<string>Alaska koolvisfilet</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Alaska-Seelachsfilet</string>
@@ -634,29 +638,6 @@
 			<key>nl</key>
 			<array>
 				<string>soja</string>
-			</array>
-		</dict>
-	</dict>
-	<key>en:substances-or-products-causing-allergies-or-intolerances</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>de</key>
-			<array>
-				<string>Stoffe oder Erzeugnisse</string>
-				<string> die Allergien oder Unverträglichkeiten auslösen</string>
-			</array>
-			<key>en</key>
-			<array>
-				<string>substances or products causing allergies or intolerances</string>
-			</array>
-			<key>fr</key>
-			<array>
-				<string>substances ou produits provoquant des allergies ou intolérances</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>stoffen of producten die allergieën of intoleranties veroorzaken</string>
 			</array>
 		</dict>
 	</dict>

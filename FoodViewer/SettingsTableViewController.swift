@@ -1,4 +1,4 @@
-//
+  //
 //  SettingsTableViewController.swift
 //  FoodViewer
 //
@@ -179,7 +179,10 @@ class SettingsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
     
     // MARK: - ViewController Lifecycle
     
@@ -193,5 +196,5 @@ class SettingsTableViewController: UITableViewController {
         title = Constants.ViewControllerTitle
     }
 
-    
 }
+

@@ -32,7 +32,7 @@ class AllergenWarningsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergenWarningCellIdentifier, forIndexPath: indexPath) as! SetWarningTableViewCell
-        let (allergen, setWarning) = AllergenWarningDefaults.manager.list[indexPath.row]
+        let (_, allergen, setWarning) = AllergenWarningDefaults.manager.list[indexPath.row]
         cell.state = setWarning
         cell.stateTitle = allergen
         return cell
@@ -40,13 +40,17 @@ class AllergenWarningsTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let (allergenName, setWarning) = AllergenWarningDefaults.manager.list[indexPath.row]
-        AllergenWarningDefaults.manager.list[indexPath.row] = (allergenName, !setWarning)
+        let (allergenKey, allergenName, setWarning) = AllergenWarningDefaults.manager.list[indexPath.row]
+        AllergenWarningDefaults.manager.list[indexPath.row] = (allergenKey, allergenName, !setWarning)
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
 
     // MARK: - ViewController Lifecycle
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let _ = AllergenWarningDefaults.init()
@@ -54,6 +58,12 @@ class AllergenWarningsTableViewController: UITableViewController {
         title = Constants.ViewControllerTitle
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.edgesForExtendedLayout = .None
+        
+    }
+
     override func viewDidDisappear(animated: Bool) {
         AllergenWarningDefaults.manager.updateAllergenWarnings()
         super.viewDidDisappear(animated)
