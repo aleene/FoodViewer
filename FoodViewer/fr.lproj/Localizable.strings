@@ -76,6 +76,9 @@
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Contributeurs";
 
+/* Header title of the tableview section, indicating when the product data was created. */
+"Creation Date" = "Date création";
+
 /* Description for NutritionData Daily Value per serving */
 "Daily Values (per serving)" = "Apport Journalières (par portion)";
 
@@ -190,7 +193,7 @@
 "No name available" = "Pas de nom disponible";
 
 /* Text to indicate that no product is defined/setup. */
-"No product Defined." = "Pas de produits spécifiés";
+"No product defined." = "Pas de produit defini";
 
 /* Text in header of section, indicating that the product name is missing. */
 "No product name" = "Pas un nom du produit disponible";
@@ -282,11 +285,11 @@
 /* String presented in a tagView if the product loading has failed */
 "Product loading  failed" = "Chargement produit échoué";
 
+/* Title of tableview cell, indicateding whether the productname has been completed. */
+"Product name complete?" = "Nom produit complété?";
+
 /* String presented in a tagView if no product is available on OFF */
 "Product not available" = "Produit pas disponible";
-
-/* Title of tableview cell, indicateding whether the productname has been completed. */
-"Productname complete?" = "Nom produit completé?";
 
 /* Title of ViewController with a list of all products that has been viewed. */
 "Products" = "Produits";
@@ -364,8 +367,14 @@
 /* Text in a TagListView, when no countries are available in the product data. */
 "no countries specified" = "pas de pays de ventes spécifiés";
 
+/* Value of the creation date field, if no valid date is available. */
+"no creation date available" = "pas de date de création disponible";
+
+/* Value of the edit date field, if no valid date is available. */
+"no edit date available" = "pas de date d'édition disponible";
+
 /* Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour. */
-"no info available" = "pas d'information disponible";
+"no information available" = "pas d'information disponible";
 
 /* Text in a TagListView, when no ingredients are available in the product data. */
 "no ingredients specified" = "pas d'ingrédients spécifiés";
