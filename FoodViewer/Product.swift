@@ -19,10 +19,16 @@ class FoodProduct {
     
     // Primary variables
     
-    // identification parameters
+    // MARK: - Identification variables
+    
     var barcode: BarcodeType
+    
     var name: String? = nil
-    var commonName: String? = nil
+    var nameLanguage = [String:String?]()
+
+    var genericName: String? = nil
+    var genericNameLanguage = [String:String?]()
+
     var brandsArray: [String]? = nil
     var mainUrlThumb: NSURL? {
         didSet {
@@ -42,7 +48,7 @@ class FoodProduct {
 
     var mainImageSmallData: NSData? = nil
 
-    var mainUrl: NSURL? = nil
+    var mainImageUrl: NSURL? = nil
     var mainImageData: ImageFetchResult? = nil {
         didSet {
             if mainImageData != nil {
@@ -51,12 +57,18 @@ class FoodProduct {
         }
     }
     
-    // packaging parameters
+    var primaryLanguageCode: String? = nil
+    var languageCodes: [String]? = nil
+    
+    // MARK: - Packaging variables
+    
     var quantity: String? = nil
     var packagingArray: [String]? = nil
     
-    // ingredients parameters
+    // MARK: - Ingredients variables
+    
     var ingredients: String?
+    var ingredientsLanguage = [String:String?]()
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil
@@ -115,7 +127,8 @@ class FoodProduct {
     // usage parameters
     var servingSize: String? = nil
     
-    // content parameters
+    // MARK: - Nutrition variables 
+    
     var nutritionFactsAreAvailable = NutritionAvailability.NotIndicated
     var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
     var nutritionFacts: [NutritionFactItem] = []
@@ -145,7 +158,7 @@ class FoodProduct {
         if mainImageData == nil {
             // launch the image retrieval
             mainImageData = .Loading
-            mainImageData?.retrieveImageData(mainUrl) { (fetchResult:ImageFetchResult?) in
+            mainImageData?.retrieveImageData(mainImageUrl) { (fetchResult:ImageFetchResult?) in
                 self.mainImageData = fetchResult
             }
         }
@@ -164,7 +177,8 @@ class FoodProduct {
     }
 
     
-    // supply chain parameters
+    //MARK: - Supply chain variables
+    
     var nutritionGrade: NutritionalScoreLevel? = nil
     var nutritionalScoreUK = NutritionalScoreUK()
     var nutritionalScoreFrance = NutritionalScoreFrance()
@@ -240,7 +254,6 @@ class FoodProduct {
     }
     var state = CompletionState()
     
-    var primaryLanguage: String? = nil
 
     // group parameters
     var categories: [String]? = nil
@@ -354,13 +367,15 @@ class FoodProduct {
         static let CorrectorKey = "Correctors"
     }
     
+    // MARK: - Initialize functions
+    
     init() {
         barcode = BarcodeType.Undefined("")
         name = nil
-        commonName = nil
+        genericName = nil
         brandsArray = nil
         mainUrlThumb = nil
-        mainUrl = nil
+        mainImageUrl = nil
         mainImageData = nil
         packagingArray = nil
         quantity = nil
@@ -386,7 +401,7 @@ class FoodProduct {
         additionDate = nil
         creator = nil
         state = CompletionState()
-        primaryLanguage = nil
+        primaryLanguageCode = nil
         categories = nil
         photographers = nil
         correctors = nil
@@ -527,14 +542,17 @@ class FoodProduct {
         // is it really the same product?
         if barcode.asString() == product.barcode.asString() {
             name = product.name
-            commonName = product.commonName
+            nameLanguage = product.nameLanguage
+            genericName = product.genericName
+            genericNameLanguage = product.genericNameLanguage
             brandsArray = product.brandsArray
             mainUrlThumb = product.mainUrlThumb
-            mainUrl = product.mainUrl
+            mainImageUrl = product.mainImageUrl
             mainImageData = nil
             packagingArray = product.packagingArray
             quantity = product.quantity
             ingredients = product.ingredients
+            ingredientsLanguage = product.ingredientsLanguage
             imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
             imageIngredientsUrl = product.imageIngredientsUrl
             ingredientsImageData = nil
@@ -559,7 +577,8 @@ class FoodProduct {
             expirationDate = product.expirationDate
             creator = product.creator
             state = product.state
-            primaryLanguage = product.primaryLanguage
+            primaryLanguageCode = product.primaryLanguageCode
+            languageCodes = product.languageCodes
             categories = product.categories
             photographers = product.photographers
             correctors = product.correctors

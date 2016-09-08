@@ -13,9 +13,16 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     @IBOutlet weak var ingredientsLabel: UILabel!
     
+    @IBOutlet weak var languageLabel: UILabel!
+    
+    @IBOutlet weak var changeLanguageButton: UIButton!
+    @IBAction func ChangeLanguageButtonTapped(sender: UIButton) {
+    }
+    
     struct Constants {
         static let NoIngredientsText = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
         static let UnbalancedWarning = NSLocalizedString(" (WARNING: check brackets, they are unbalanced)", comment: "a warning to check the brackets used, they are unbalanced")
+        static let NoLanguageText = NSLocalizedString("none defined", comment: "the ingredients text has no associated language defined")
     }
     
     var ingredients: String? = nil {
@@ -52,6 +59,21 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
     
+    var language: String? = nil {
+        didSet {
+            languageLabel.text = language != nil ? language : Constants.NoLanguageText
+        }
+    }
+
+    var numberOfLanguages: Int = 0 {
+        didSet {
+            if numberOfLanguages > 1 {
+                changeLanguageButton.hidden = false
+            } else {
+                changeLanguageButton.hidden = true
+            }
+        }
+    }
 
 }
 

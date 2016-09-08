@@ -133,27 +133,54 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
-                            <rect key="frame" x="0.0" y="612" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="700" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Basic Cell" textLabel="zI1-0r-9KS" style="IBUITableViewCellStyleDefault" id="cxD-3X-5h8">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Name Cell" id="cxD-3X-5h8" customClass="ProductNameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="48" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxD-3X-5h8" id="xEb-a5-r3f">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Product name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zI1-0r-9KS">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="44"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Productname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k3-mD-RZs">
+                                            <rect key="frame" x="16" y="8" width="543" height="28"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iq0-G4-To0">
+                                            <rect key="frame" x="567" y="10" width="25" height="25"/>
+                                            <state key="normal" image="Languages"/>
+                                            <connections>
+                                                <action selector="changeLanguageButtonTapped:" destination="cxD-3X-5h8" eventType="touchUpInside" id="ReV-Tn-RNJ"/>
+                                                <segue destination="jr5-WB-3MY" kind="presentation" identifier="Show Names Languages" id="WmF-mg-s8n"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXO-u7-VNS">
+                                            <rect key="frame" x="503" y="21" width="56" height="15"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="leading" secondItem="8k3-mD-RZs" secondAttribute="trailing" constant="8" id="IbB-xg-QXc"/>
+                                        <constraint firstItem="8k3-mD-RZs" firstAttribute="top" secondItem="xEb-a5-r3f" secondAttribute="topMargin" id="LEL-2Y-Pjd"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="8k3-mD-RZs" secondAttribute="leading" constant="-8" id="NLc-L9-xz1"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Iq0-G4-To0" secondAttribute="trailing" id="me7-Qb-gFv"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="8k3-mD-RZs" secondAttribute="bottom" id="nOa-eR-bZY"/>
+                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="centerY" secondItem="xEb-a5-r3f" secondAttribute="centerY" id="nkW-gc-TGF"/>
+                                        <constraint firstItem="zXO-u7-VNS" firstAttribute="bottom" secondItem="8k3-mD-RZs" secondAttribute="bottom" id="sOy-Kf-dS8"/>
+                                        <constraint firstItem="zXO-u7-VNS" firstAttribute="trailing" secondItem="8k3-mD-RZs" secondAttribute="trailing" id="vps-dJ-c5S"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="changeLanguageButton" destination="Iq0-G4-To0" id="p8c-PH-adU"/>
+                                    <outlet property="productNameLabel" destination="8k3-mD-RZs" id="jmJ-rh-wUa"/>
+                                    <outlet property="productNameLanguageLabel" destination="zXO-u7-VNS" id="6Cc-vN-Dz3"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification TagList Cell" id="8wF-U4-oRG" customClass="IdentificationTagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
@@ -284,6 +311,23 @@
                                     <outlet property="barcodeLabel" destination="lFH-LR-JHI" id="8KU-Th-Edf"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Basic Cell" textLabel="1rX-wX-DbL" rowHeight="88" style="IBUITableViewCellStyleDefault" id="CZN-Jn-Vn9" userLabel="No Image TagListView Cell" customClass="BarcodeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="612" width="600" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CZN-Jn-Vn9" id="S5k-o3-wDT">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1rX-wX-DbL">
+                                            <rect key="frame" x="15" y="0.0" width="570" height="88"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="hwF-BC-CTo" id="aJl-qe-l7a"/>
@@ -301,7 +345,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBp-dG-DWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1082" y="2746"/>
+            <point key="canvasLocation" x="1073" y="2846"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="xlT-6V-tZS">
@@ -993,6 +1037,59 @@
             </objects>
             <point key="canvasLocation" x="3698" y="2746"/>
         </scene>
+        <!--Select Language View Controller-->
+        <scene sceneID="jub-U0-btO">
+            <objects>
+                <viewController id="jr5-WB-3MY" customClass="SelectLanguageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hKm-Px-anF"/>
+                        <viewControllerLayoutGuide type="bottom" id="iBf-Wf-WZA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="I9G-k1-O9X">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-vd-gTt">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="MGY-bs-Itx">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="NJZ-zu-ngt">
+                                            <connections>
+                                                <segue destination="IDv-on-CqZ" kind="unwind" unwindAction="unwindSetLanguageForCancel:" id="Vp6-1J-25p"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8M3-p6-kXY">
+                                            <connections>
+                                                <segue destination="IDv-on-CqZ" kind="unwind" unwindAction="unwindSetLanguageForDone:" id="3Xj-cJ-f1X"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-NT-FaZ">
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GY8-NT-FaZ" firstAttribute="top" secondItem="bEj-vd-gTt" secondAttribute="bottom" id="8PZ-TT-wiN"/>
+                            <constraint firstItem="GY8-NT-FaZ" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leading" id="Cto-jH-Prt"/>
+                            <constraint firstItem="bEj-vd-gTt" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leadingMargin" constant="-20" id="K9X-5T-QzE"/>
+                            <constraint firstItem="iBf-Wf-WZA" firstAttribute="top" secondItem="GY8-NT-FaZ" secondAttribute="bottom" id="PrY-s0-rOU"/>
+                            <constraint firstAttribute="trailing" secondItem="GY8-NT-FaZ" secondAttribute="trailing" id="RbI-zh-L1z"/>
+                            <constraint firstItem="bEj-vd-gTt" firstAttribute="top" secondItem="hKm-Px-anF" secondAttribute="bottom" constant="-20" id="s0F-ms-Cia"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="bEj-vd-gTt" secondAttribute="trailing" constant="-20" id="zaJ-qO-yu8"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="languagesPickerView" destination="GY8-NT-FaZ" id="OIj-jj-z5w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dq4-Hi-4HJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="IDv-on-CqZ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1073" y="3909"/>
+        </scene>
         <!--Product Page View Controller-->
         <scene sceneID="46m-HG-jtN">
             <objects>
@@ -1473,21 +1570,46 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Ingredients Available" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVH-wU-k1N">
-                                            <rect key="frame" x="8" y="8" width="584" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="543" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C93-Fg-KRg">
+                                            <rect key="frame" x="567" y="9" width="25" height="25"/>
+                                            <state key="normal" image="Languages"/>
+                                            <connections>
+                                                <action selector="ChangeLanguageButtonTapped:" destination="0kc-iQ-EHA" eventType="touchUpInside" id="AxF-eK-Z3g"/>
+                                                <segue destination="jr5-WB-3MY" kind="presentation" identifier="Show Ingredients Languages" id="4zk-rY-uLr"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p70-Bl-kqd" userLabel="Language Label">
+                                            <rect key="frame" x="503" y="20" width="56" height="15"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="C93-Fg-KRg" secondAttribute="trailing" id="3bu-jM-4fz"/>
                                         <constraint firstItem="bVH-wU-k1N" firstAttribute="top" secondItem="nc2-Pr-oS2" secondAttribute="topMargin" id="3rL-ll-0xj"/>
+                                        <constraint firstItem="C93-Fg-KRg" firstAttribute="leading" secondItem="bVH-wU-k1N" secondAttribute="trailing" constant="8" id="Non-Js-h2Y"/>
+                                        <constraint firstItem="p70-Bl-kqd" firstAttribute="bottom" secondItem="bVH-wU-k1N" secondAttribute="bottom" id="XNo-7D-Vh6"/>
+                                        <constraint firstItem="p70-Bl-kqd" firstAttribute="trailing" secondItem="bVH-wU-k1N" secondAttribute="trailing" id="d4L-8Q-1PU"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="bVH-wU-k1N" secondAttribute="trailing" id="dtr-op-eVC"/>
+                                        <constraint firstItem="bVH-wU-k1N" firstAttribute="centerY" secondItem="C93-Fg-KRg" secondAttribute="centerY" id="frK-Pf-SNx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bVH-wU-k1N" secondAttribute="bottom" id="oBb-ce-FM9"/>
-                                        <constraint firstItem="bVH-wU-k1N" firstAttribute="leading" secondItem="nc2-Pr-oS2" secondAttribute="leadingMargin" id="zJ7-aj-7YS"/>
+                                        <constraint firstItem="bVH-wU-k1N" firstAttribute="leading" secondItem="nc2-Pr-oS2" secondAttribute="leadingMargin" constant="8" id="zJ7-aj-7YS"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="dtr-op-eVC"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="changeLanguageButton" destination="C93-Fg-KRg" id="n6j-nx-4ZD"/>
                                     <outlet property="ingredientsLabel" destination="bVH-wU-k1N" id="ceN-Ap-TrJ"/>
+                                    <outlet property="languageLabel" destination="p70-Bl-kqd" id="jjX-kD-myu"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Allergens TagList Cell" id="9Er-cV-ltD" customClass="AllergensFullTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -1855,14 +1977,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="800"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -1891,7 +2013,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1746" y="3696"/>
+            <point key="canvasLocation" x="1746" y="3909"/>
         </scene>
         <!--Products-->
         <scene sceneID="RSI-qe-sXU">
@@ -1932,10 +2054,12 @@
     </scenes>
     <resources>
         <image name="Barcode Scanner" width="25" height="25"/>
+        <image name="Languages" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="fRX-dv-BPz"/>
+        <segue reference="oZb-AL-Fkm"/>
+        <segue reference="4zk-rY-uLr"/>
     </inferredMetricsTieBreakers>
 </document>

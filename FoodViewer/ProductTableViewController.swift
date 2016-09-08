@@ -195,7 +195,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         // try small image
                         cell.productImage = UIImage(data:data)
                         return cell
-                    } else if currentProduct.mainUrl != nil {
+                    } else if currentProduct.mainImageUrl != nil {
                         // show small image icon
                         cell.productImage = nil
                         return cell

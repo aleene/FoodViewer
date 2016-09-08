@@ -15,7 +15,7 @@ class IdentificationTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
         static let NoCommonName = NSLocalizedString("No common name available", comment: "String if no common name is available")
         static let NoName = NSLocalizedString("No name available", comment: "String if no name is available")
-        static let NoQuantity = NSLocalizedString("No quantity available", comment: "String if no quauntity is available")
+        static let NoQuantity = NSLocalizedString("No quantity available", comment: "String if no quantity is available")
     }
     
     private var tableStructure: [SectionType] = []
@@ -24,7 +24,7 @@ class IdentificationTableViewController: UITableViewController {
     private enum SectionType {
         case Barcode(Int, String)
         case Name(Int, String)
-        case CommonName(Int, String)
+        case GenericName(Int, String)
         case Brands(Int, String)
         case Packaging(Int, String)
         case Quantity(Int, String)
@@ -36,7 +36,7 @@ class IdentificationTableViewController: UITableViewController {
                 return headerTitle
             case .Name(_, let headerTitle):
                 return headerTitle
-            case .CommonName(_, let headerTitle):
+            case .GenericName(_, let headerTitle):
                 return headerTitle
             case .Brands(_, let headerTitle):
                 return headerTitle
@@ -55,7 +55,7 @@ class IdentificationTableViewController: UITableViewController {
                 return numberOfRows
             case .Name(let numberOfRows, _):
                 return numberOfRows
-            case .CommonName(let numberOfRows, _):
+            case .GenericName(let numberOfRows, _):
                 return numberOfRows
             case .Brands(let numberOfRows, _):
                 return numberOfRows
@@ -69,6 +69,8 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    // MARK: - public variables
+    
     var product: FoodProduct? {
         didSet {
             if product != nil {
@@ -76,6 +78,8 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
+    
+    var currentLanguageCode: String? = nil
     
     // MARK: - Action methods
     
@@ -91,12 +95,14 @@ class IdentificationTableViewController: UITableViewController {
 
     private struct Storyboard {
         static let BasicCellIdentifier = "Identification Basic Cell"
+        static let ProductNameCellIdentifier = "Product Name Cell"
         static let BarcodeCellIdentifier = "Barcode Cell"
         static let TagListCellIdentifier = "Identification TagList Cell"
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
         static let NoIdentificationImageCellIdentifier = "No Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Identification Image"
+        static let ShowNamesLanguagesSegueIdentifier = "Show Names Languages"
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -118,13 +124,33 @@ class IdentificationTableViewController: UITableViewController {
             cell!.barcode = product?.barcode.asString()
             return cell!
         case .Name:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = product?.name != nil ? product!.name! : TextConstants.NoName
-            return cell
-        case .CommonName:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel?.text = (product?.commonName != nil) && (!product!.commonName!.isEmpty) ? product!.commonName! : TextConstants.NoCommonName
-            return cell
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProductNameCellIdentifier, forIndexPath: indexPath) as? ProductNameTableViewCell
+            // does the product have valid multiple languages
+            if (product?.languageCodes != nil) && (product!.languageCodes!.count) >= 2 && (currentLanguageCode != nil) {
+                cell!.name = product!.nameLanguage[currentLanguageCode!]!
+                cell!.numberOfLanguages = product!.languageCodes!.count
+            } else {
+                cell!.name = product!.name
+                cell!.numberOfLanguages = 1
+            }
+
+            // MARK: - Need to change to actual language
+            cell!.language = currentLanguageCode
+            return cell!
+        case .GenericName:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProductNameCellIdentifier, forIndexPath: indexPath) as? ProductNameTableViewCell
+            // does the product have valid multiple languages
+            if (product?.languageCodes != nil) && (product!.languageCodes!.count) >= 2 && (currentLanguageCode != nil) {
+                cell!.name = product!.genericNameLanguage[currentLanguageCode!]!
+                cell!.numberOfLanguages = product!.languageCodes!.count
+            } else {
+                cell!.name = product!.genericName
+                cell!.numberOfLanguages = 1
+            }
+            // MARK: - Need to change to actual language
+            cell!.language = currentLanguageCode
+            return cell!
+
         case .Brands:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
             cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
@@ -197,7 +223,7 @@ class IdentificationTableViewController: UITableViewController {
         sectionsAndRows.append(.Name(TableStructure.NameSectionSize, TableStructure.NameSectionHeader))
         
         // 2: common name section
-        sectionsAndRows.append(.CommonName(TableStructure.CommonNameSectionSize, TableStructure.CommonNameSectionHeader))
+        sectionsAndRows.append(.GenericName(TableStructure.CommonNameSectionSize, TableStructure.CommonNameSectionHeader))
         
         // 3: brands section
         sectionsAndRows.append(.Brands(TableStructure.BrandsSectionSize, TableStructure.BrandsSectionHeader))
@@ -230,11 +256,18 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
+            case Storyboard.ShowNamesLanguagesSegueIdentifier:
+                if let vc = segue.destinationViewController as? SelectLanguageViewController {
+                    vc.currentLanguageCode = currentLanguageCode
+                    vc.productLanguageCodes = product?.languageCodes
+                    vc.primaryLanguageCode = product?.primaryLanguageCode
+                    vc.sourcePage = 0
+                }
             default: break
             }
         }
     }
-    
+        
     // MARK: - Notification handler
     
     func reloadImageSection() {

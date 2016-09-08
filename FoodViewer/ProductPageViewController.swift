@@ -32,6 +32,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
     }
     
+    // The languageCode for the language in which the fields are shown
+    var currentLanguageCode: String? = nil
+    
     // MARK: - Storyboard Actions
 
     @IBAction func actionButtonTapped(sender: UIBarButtonItem) {
@@ -159,14 +162,18 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     var product: FoodProduct? = nil {
         didSet {
+            setCurrentLanguage()
+            
             // initialise pages
             initPages()
             if let vc = pages[0] as? IdentificationTableViewController {
                 vc.product = product
+                vc.currentLanguageCode = currentLanguageCode
                 title = titles[0]
             }
             if let vc = pages[1] as? IngredientsTableViewController {
                 vc.product = product
+                vc.currentLanguageCode = currentLanguageCode
             }
             if let vc = pages[2] as? NutrientsTableViewController {
                 vc.product = product
@@ -187,6 +194,28 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    // This function finds the language that must be used to display the product
+    private func setCurrentLanguage() {
+        // is there already a current language?
+        guard currentLanguageCode == nil  else { return }
+        // find the first preferred language that can be used
+        for languageLocale in NSLocale.preferredLanguages() {
+            // split language and locale
+            let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
+            if let languageCodes = product?.languageCodes {
+                if languageCodes.contains(preferredLanguage) {
+                    currentLanguageCode = preferredLanguage
+                    // found a valid code
+                    return
+                }
+            }
+        }
+        // there is no match between preferred languages and product languages
+        if currentLanguageCode == nil {
+            currentLanguageCode = product?.primaryLanguageCode
+        }
+    }
+
     // MARK: - Pageview Controller data source
     
     
@@ -250,6 +279,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+
     // MARK: - Notification actions
 
     func loadFirstProduct() {
@@ -266,6 +296,34 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    // MARK: - Segues
+    // MARK: TBD This is not very elegant
+    
+    @IBAction func unwindSetLanguageForCancel(segue:UIStoryboardSegue) {
+        if let vc = segue.sourceViewController as? SelectLanguageViewController {
+            currentLanguageCode = vc.selectedLanguageCode
+            updateCurrentLanguage()
+            pageIndex = vc.sourcePage
+        }
+    }
+    
+    @IBAction func unwindSetLanguageForDone(segue:UIStoryboardSegue) {
+        if let vc = segue.sourceViewController as? SelectLanguageViewController {
+            currentLanguageCode = vc.selectedLanguageCode
+            updateCurrentLanguage()
+            pageIndex = vc.sourcePage
+        }
+    }
+    
+    func updateCurrentLanguage() {
+        if let vc = pages[0] as? IdentificationTableViewController {
+            vc.currentLanguageCode = currentLanguageCode
+        }
+        if let vc = pages[1] as? IngredientsTableViewController {
+            vc.currentLanguageCode = currentLanguageCode
+        }
+    }
+
     // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
@@ -277,6 +335,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         dataSource = self
         delegate = self
         
+
         initPages()
     }
     

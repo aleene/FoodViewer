@@ -97,6 +97,7 @@ class OpenFoodFactsRequest {
         static let AdditivesTagsNKey = "additives_tags_n"
         static let TracesTagsKey = "traces_tags"
         static let LangKey = "lang"
+        static let DebugParamSortedLangsKey = "debug_param_sorted_langs"
         static let PhotographersKey = "photographers"
         static let GenericNameKey = "generic_name"
         static let IngredientsThatMayBeFromPalmOilTagsKey = "ingredients_that_may_be_from_palm_oil_tags"
@@ -358,9 +359,22 @@ class OpenFoodFactsRequest {
                 product.traceKeys = jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesTagsKey]?.stringArray
 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
-                product.primaryLanguage = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
+                product.primaryLanguageCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
+                product.languageCodes = jsonObject?[OFFJson.ProductKey]?[OFFJson.DebugParamSortedLangsKey]?.stringArray
+                if let languageCodes = product.languageCodes {
+                    if languageCodes.count > 1 {
+                        for languageCode in languageCodes {
+                            var key = OFFJson.IngredientsTextKey + "_" + languageCode
+                            product.ingredientsLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                            key = OFFJson.ProductNameKey + "_" + languageCode
+                            product.nameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                            key = OFFJson.GenericNameKey + "_" + languageCode
+                            product.genericNameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                        }
+                    } // else only the primary language will be used
+                }
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
-                product.commonName = jsonObject?[OFFJson.ProductKey]?[OFFJson.GenericNameKey]?.string
+                product.genericName = jsonObject?[OFFJson.ProductKey]?[OFFJson.GenericNameKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsThatMayBeFromPalmOilTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesPrevNKey]?.int
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.KeywordsKey]?.stringArray
@@ -419,6 +433,7 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CategoriesKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsTextDebugKey]?.string
                 product.ingredients = jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsTextKey]?.string
+                
                 product.editors = jsonObject?[OFFJson.ProductKey]?[OFFJson.EditorsTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsPrevTagsKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesOldNKey]?.int
@@ -427,7 +442,7 @@ class OpenFoodFactsRequest {
                 product.name = jsonObject?[OFFJson.ProductKey]?[OFFJson.ProductNameKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.IngredientsFromOrThatMayBeFromPalmOilNKey]?.int
                 product.creator = jsonObject?[OFFJson.ProductKey]?[OFFJson.CreatorKey]?.string
-                product.mainUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontUrlKey]?.nsurl
+                product.mainImageUrl = jsonObject?[OFFJson.ProductKey]?[OFFJson.ImageFrontUrlKey]?.nsurl
                 product.nutritionFactsAreAvailable = decodeNutritionDataAvalailable(jsonObject?[OFFJson.ProductKey]?[OFFJson.NoNutritionDataKey]?.string)
                 product.servingSize = jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingSizeKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CompletedTKey]?.time

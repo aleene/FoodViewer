@@ -27,6 +27,8 @@ class IngredientsTableViewController: UITableViewController {
         case Image
     }
     
+    // MARK: - Public variables
+    
     var product: FoodProduct? {
         didSet {
             if product != nil {
@@ -36,6 +38,10 @@ class IngredientsTableViewController: UITableViewController {
             }
         }
     }
+    
+    var currentLanguageCode: String? = nil
+
+    // MARK: - Actions and Outlets
     
     @IBAction func refresh(sender: UIRefreshControl) {
         if refreshControl!.refreshing {
@@ -55,6 +61,7 @@ class IngredientsTableViewController: UITableViewController {
         static let IngredientsImageCellIdentifier = "Ingredients Image Cell"
         static let NoImageCellIdentifier = "No Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Ingredients Image"
+        static let SelectLanguageSegueIdentifier = "Show Ingredients Languages"
     }
     
     private struct TextConstants {
@@ -79,7 +86,16 @@ class IngredientsTableViewController: UITableViewController {
         switch currentProductSection {
         case .Ingredients:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as? IngredientsFullTableViewCell
-            cell?.ingredients = product!.ingredients
+            // does the product have valid multiple languages
+            if (product?.languageCodes != nil) && (product!.languageCodes!.count) >= 2 && (currentLanguageCode != nil) {
+                cell?.ingredients = product!.ingredientsLanguage[currentLanguageCode!]!
+                cell?.numberOfLanguages = product!.languageCodes!.count
+
+            } else {
+                cell?.ingredients = product!.ingredients
+                cell?.numberOfLanguages = 1
+            }
+            cell?.language = currentLanguageCode != nil ? currentLanguageCode! : product?.primaryLanguageCode
             return cell!
         case .Allergens:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergensCellIdentifier, forIndexPath: indexPath) as? AllergensFullTableViewCell
@@ -204,11 +220,18 @@ class IngredientsTableViewController: UITableViewController {
                         }
                     }
                 }
+            case Storyboard.SelectLanguageSegueIdentifier:
+                // pass the current language on to the popup vc
+                if let vc = segue.destinationViewController as? SelectLanguageViewController {
+                    vc.currentLanguageCode = currentLanguageCode
+                    vc.productLanguageCodes = product?.languageCodes
+                    vc.primaryLanguageCode = product?.primaryLanguageCode
+                    vc.sourcePage = 1
+                }
             default: break
             }
         }
     }
-
     // MARK: - Notification handler
     
     func reloadImageSection(notification: NSNotification) {
