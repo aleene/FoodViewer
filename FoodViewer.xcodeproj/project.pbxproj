@@ -70,6 +70,7 @@
 		516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C301C906E9E00C1C789 /* NutritionFactsTableViewCell.swift */; };
 		516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */; };
 		5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */; };
+		5174A6761D82F9AD00BA61F1 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5174A6751D82F9AC00BA61F1 /* Languages.plist */; };
 		5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5176AAEA1CA44F5A00B0494A /* Address.swift */; };
 		517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */; };
 		517AAD4A1C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */; };
@@ -210,6 +211,7 @@
 		516D0C301C906E9E00C1C789 /* NutritionFactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactsTableViewCell.swift; sourceTree = "<group>"; };
 		516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductNameTableViewCell.swift; sourceTree = "<group>"; };
+		5174A6751D82F9AC00BA61F1 /* Languages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
 		5176AAEA1CA44F5A00B0494A /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewController.swift; sourceTree = "<group>"; };
 		517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsFullTableViewCell.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				5125AB8C1D096C39000DCD29 /* Categories.plist */,
 				51B150041CB2DFA400A57D42 /* Countries.plist */,
 				5125AB8A1D096C2D000DCD29 /* GlobalLabels.plist */,
+				5174A6751D82F9AC00BA61F1 /* Languages.plist */,
 				5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */,
 				51A4CAF21CF1C30B003F9763 /* Nutrients.plist */,
 				51B14FFE1CB2DD8B00A57D42 /* States.plist */,
@@ -682,6 +685,7 @@
 				51FB32271CF1F4D100A17312 /* Macadamia.json in Resources */,
 				51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */,
 				51B14FFF1CB2DD8B00A57D42 /* States.plist in Resources */,
+				5174A6761D82F9AD00BA61F1 /* Languages.plist in Resources */,
 				5125AB8B1D096C2D000DCD29 /* GlobalLabels.plist in Resources */,
 				51B150031CB2DF9100A57D42 /* Allergens.plist in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,

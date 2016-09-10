@@ -146,40 +146,33 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Productname" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8k3-mD-RZs">
-                                            <rect key="frame" x="16" y="8" width="543" height="28"/>
+                                            <rect key="frame" x="16" y="8" width="524" height="28"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iq0-G4-To0">
-                                            <rect key="frame" x="567" y="10" width="25" height="25"/>
-                                            <state key="normal" image="Languages"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iq0-G4-To0">
+                                            <rect key="frame" x="540" y="9" width="52" height="27"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <state key="normal" title="language"/>
                                             <connections>
                                                 <action selector="changeLanguageButtonTapped:" destination="cxD-3X-5h8" eventType="touchUpInside" id="ReV-Tn-RNJ"/>
                                                 <segue destination="jr5-WB-3MY" kind="presentation" identifier="Show Names Languages" id="WmF-mg-s8n"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXO-u7-VNS">
-                                            <rect key="frame" x="503" y="21" width="56" height="15"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="leading" secondItem="8k3-mD-RZs" secondAttribute="trailing" constant="8" id="IbB-xg-QXc"/>
+                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="leading" secondItem="8k3-mD-RZs" secondAttribute="trailing" id="IbB-xg-QXc"/>
                                         <constraint firstItem="8k3-mD-RZs" firstAttribute="top" secondItem="xEb-a5-r3f" secondAttribute="topMargin" id="LEL-2Y-Pjd"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="8k3-mD-RZs" secondAttribute="leading" constant="-8" id="NLc-L9-xz1"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Iq0-G4-To0" secondAttribute="bottom" id="Zes-B3-mrh"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Iq0-G4-To0" secondAttribute="trailing" id="me7-Qb-gFv"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="8k3-mD-RZs" secondAttribute="bottom" id="nOa-eR-bZY"/>
-                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="centerY" secondItem="xEb-a5-r3f" secondAttribute="centerY" id="nkW-gc-TGF"/>
-                                        <constraint firstItem="zXO-u7-VNS" firstAttribute="bottom" secondItem="8k3-mD-RZs" secondAttribute="bottom" id="sOy-Kf-dS8"/>
-                                        <constraint firstItem="zXO-u7-VNS" firstAttribute="trailing" secondItem="8k3-mD-RZs" secondAttribute="trailing" id="vps-dJ-c5S"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="changeLanguageButton" destination="Iq0-G4-To0" id="p8c-PH-adU"/>
                                     <outlet property="productNameLabel" destination="8k3-mD-RZs" id="jmJ-rh-wUa"/>
-                                    <outlet property="productNameLanguageLabel" destination="zXO-u7-VNS" id="6Cc-vN-Dz3"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification TagList Cell" id="8wF-U4-oRG" customClass="IdentificationTagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -1570,46 +1563,41 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Ingredients Available" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVH-wU-k1N">
-                                            <rect key="frame" x="16" y="8" width="543" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="516" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C93-Fg-KRg">
-                                            <rect key="frame" x="567" y="9" width="25" height="25"/>
-                                            <state key="normal" image="Languages"/>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="252" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C93-Fg-KRg">
+                                            <rect key="frame" x="540" y="8" width="52" height="27"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <state key="normal" title="language"/>
                                             <connections>
                                                 <action selector="ChangeLanguageButtonTapped:" destination="0kc-iQ-EHA" eventType="touchUpInside" id="AxF-eK-Z3g"/>
                                                 <segue destination="jr5-WB-3MY" kind="presentation" identifier="Show Ingredients Languages" id="4zk-rY-uLr"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p70-Bl-kqd" userLabel="Language Label">
-                                            <rect key="frame" x="503" y="20" width="56" height="15"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="C93-Fg-KRg" secondAttribute="trailing" id="3bu-jM-4fz"/>
                                         <constraint firstItem="bVH-wU-k1N" firstAttribute="top" secondItem="nc2-Pr-oS2" secondAttribute="topMargin" id="3rL-ll-0xj"/>
                                         <constraint firstItem="C93-Fg-KRg" firstAttribute="leading" secondItem="bVH-wU-k1N" secondAttribute="trailing" constant="8" id="Non-Js-h2Y"/>
-                                        <constraint firstItem="p70-Bl-kqd" firstAttribute="bottom" secondItem="bVH-wU-k1N" secondAttribute="bottom" id="XNo-7D-Vh6"/>
-                                        <constraint firstItem="p70-Bl-kqd" firstAttribute="trailing" secondItem="bVH-wU-k1N" secondAttribute="trailing" id="d4L-8Q-1PU"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="bVH-wU-k1N" secondAttribute="trailing" id="dtr-op-eVC"/>
                                         <constraint firstItem="bVH-wU-k1N" firstAttribute="centerY" secondItem="C93-Fg-KRg" secondAttribute="centerY" id="frK-Pf-SNx"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bVH-wU-k1N" secondAttribute="bottom" id="oBb-ce-FM9"/>
                                         <constraint firstItem="bVH-wU-k1N" firstAttribute="leading" secondItem="nc2-Pr-oS2" secondAttribute="leadingMargin" constant="8" id="zJ7-aj-7YS"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="C93-Fg-KRg" secondAttribute="bottom" id="zkm-ow-O2r"/>
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="dtr-op-eVC"/>
+                                            <exclude reference="frK-Pf-SNx"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="changeLanguageButton" destination="C93-Fg-KRg" id="n6j-nx-4ZD"/>
                                     <outlet property="ingredientsLabel" destination="bVH-wU-k1N" id="ceN-Ap-TrJ"/>
-                                    <outlet property="languageLabel" destination="p70-Bl-kqd" id="jjX-kD-myu"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Allergens TagList Cell" id="9Er-cV-ltD" customClass="AllergensFullTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -2054,7 +2042,6 @@
     </scenes>
     <resources>
         <image name="Barcode Scanner" width="25" height="25"/>
-        <image name="Languages" width="25" height="25"/>
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>

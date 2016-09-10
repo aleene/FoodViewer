@@ -126,29 +126,29 @@ class IdentificationTableViewController: UITableViewController {
         case .Name:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProductNameCellIdentifier, forIndexPath: indexPath) as? ProductNameTableViewCell
             // does the product have valid multiple languages
-            if (product?.languageCodes != nil) && (product!.languageCodes!.count) >= 2 && (currentLanguageCode != nil) {
+            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
                 cell!.name = product!.nameLanguage[currentLanguageCode!]!
-                cell!.numberOfLanguages = product!.languageCodes!.count
+                cell!.language = product!.languages[currentLanguageCode!]
+                cell!.numberOfLanguages = product!.languageCodes.count
             } else {
-                cell!.name = product!.name
-                cell!.numberOfLanguages = 1
+                cell!.name = nil
+                cell!.language = nil
+                cell!.numberOfLanguages = 0
             }
 
-            // MARK: - Need to change to actual language
-            cell!.language = currentLanguageCode
             return cell!
         case .GenericName:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProductNameCellIdentifier, forIndexPath: indexPath) as? ProductNameTableViewCell
             // does the product have valid multiple languages
-            if (product?.languageCodes != nil) && (product!.languageCodes!.count) >= 2 && (currentLanguageCode != nil) {
+            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
                 cell!.name = product!.genericNameLanguage[currentLanguageCode!]!
-                cell!.numberOfLanguages = product!.languageCodes!.count
+                cell!.language = product!.languages[currentLanguageCode!]
+                cell!.numberOfLanguages = product!.languageCodes.count
             } else {
-                cell!.name = product!.genericName
-                cell!.numberOfLanguages = 1
+                cell!.name = nil
+                cell!.language = nil
+                cell!.numberOfLanguages = 0
             }
-            // MARK: - Need to change to actual language
-            cell!.language = currentLanguageCode
             return cell!
 
         case .Brands:
@@ -259,8 +259,11 @@ class IdentificationTableViewController: UITableViewController {
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
                 if let vc = segue.destinationViewController as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
-                    vc.productLanguageCodes = product?.languageCodes
+                    vc.languageCodes = product?.languageCodes
                     vc.primaryLanguageCode = product?.primaryLanguageCode
+                    if let validLanguages = product?.languages {
+                        vc.languages = validLanguages
+                    }
                     vc.sourcePage = 0
                 }
             default: break

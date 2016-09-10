@@ -11,9 +11,9 @@ import UIKit
 class ProductNameTableViewCell: UITableViewCell {
 
     @IBOutlet weak var productNameLabel: UILabel!
-    @IBOutlet weak var productNameLanguageLabel: UILabel!
 
     @IBOutlet weak var changeLanguageButton: UIButton!
+    
     @IBAction func changeLanguageButtonTapped(sender: UIButton) {
         
     }
@@ -31,16 +31,17 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var language: String? = nil {
         didSet {
-            productNameLanguageLabel.text = language != nil ? language : Constants.NoLanguage
+            let verboseLanguage = language != nil ? OFFplists.manager.translateLanguage(language!, language:NSLocale.preferredLanguages()[0])  : Constants.NoLanguage
+            changeLanguageButton.setTitle(verboseLanguage, forState: UIControlState.Normal)
         }
     }
     
     var numberOfLanguages: Int = 0 {
         didSet {
             if numberOfLanguages > 1 {
-                changeLanguageButton.hidden = false
+                changeLanguageButton.enabled = true
             } else {
-                changeLanguageButton.hidden = true
+                changeLanguageButton.enabled = false
             }
         }
     }

@@ -58,7 +58,8 @@ class FoodProduct {
     }
     
     var primaryLanguageCode: String? = nil
-    var languageCodes: [String]? = nil
+    var languageCodes: [String] = []
+    var languages: [String:String] = [:]
     
     // MARK: - Packaging variables
     
@@ -68,7 +69,7 @@ class FoodProduct {
     // MARK: - Ingredients variables
     
     var ingredients: String?
-    var ingredientsLanguage = [String:String?]()
+    var ingredientsLanguage = [String:String]()
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: NSURL?
     var imageIngredientsUrl: NSURL? = nil

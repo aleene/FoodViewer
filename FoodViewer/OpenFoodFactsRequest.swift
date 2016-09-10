@@ -98,6 +98,7 @@ class OpenFoodFactsRequest {
         static let TracesTagsKey = "traces_tags"
         static let LangKey = "lang"
         static let DebugParamSortedLangsKey = "debug_param_sorted_langs"
+        static let LanguagesHierarchy = "languages_hierarchy"
         static let PhotographersKey = "photographers"
         static let GenericNameKey = "generic_name"
         static let IngredientsThatMayBeFromPalmOilTagsKey = "ingredients_that_may_be_from_palm_oil_tags"
@@ -360,18 +361,23 @@ class OpenFoodFactsRequest {
 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
                 product.primaryLanguageCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
-                product.languageCodes = jsonObject?[OFFJson.ProductKey]?[OFFJson.DebugParamSortedLangsKey]?.stringArray
-                if let languageCodes = product.languageCodes {
-                    if languageCodes.count > 1 {
-                        for languageCode in languageCodes {
-                            var key = OFFJson.IngredientsTextKey + "_" + languageCode
-                            product.ingredientsLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
-                            key = OFFJson.ProductNameKey + "_" + languageCode
-                            product.nameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
-                            key = OFFJson.GenericNameKey + "_" + languageCode
-                            product.genericNameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
-                        }
-                    } // else only the primary language will be used
+                if let languageCodes = jsonObject?[OFFJson.ProductKey]?[OFFJson.DebugParamSortedLangsKey]?.stringArray {
+                    product.languageCodes = languageCodes
+                }
+                for languageCode in product.languageCodes {
+                    var key = OFFJson.IngredientsTextKey + "_" + languageCode
+                    product.ingredientsLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                    key = OFFJson.ProductNameKey + "_" + languageCode
+                    product.nameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                    key = OFFJson.GenericNameKey + "_" + languageCode
+                    product.genericNameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                }
+                let languages = jsonObject?[OFFJson.ProductKey]?[OFFJson.LanguagesHierarchy]?.stringArray
+                if let validLanguages = languages {
+                    for language in validLanguages {
+                        let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
+                        product.languages[isoCode] = language
+                    }
                 }
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
                 product.genericName = jsonObject?[OFFJson.ProductKey]?[OFFJson.GenericNameKey]?.string

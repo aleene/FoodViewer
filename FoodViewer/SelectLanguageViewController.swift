@@ -11,23 +11,24 @@ import UIKit
 class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     // These variables need to be set externally
-    var productLanguageCodes: [String]? = nil
+    var languageCodes: [String]? = []
+    var languages: [String:String]? = [:]
     var currentLanguageCode: String? = nil
     var primaryLanguageCode: String? = nil
     var selectedLanguageCode: String? = nil
     
-    var sourcePage: Int = 0
+    var sourcePage = 0
     
     @IBOutlet weak var languagesPickerView: UIPickerView!
     
+    private struct Constants {
+        static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
+    }
+
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        if let validLanguageCodes = productLanguageCodes {
-            selectedLanguageCode = validLanguageCodes[row]
-        } else {
-            selectedLanguageCode = nil
-        }
+        selectedLanguageCode = languageCodes != nil ? languageCodes![row] : nil
     }
     
     // MARK: - Delegates and datasource
@@ -37,22 +38,16 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
 
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let validLanguageCodes = productLanguageCodes {
-            return validLanguageCodes.count
-        } else {
-            return 0
-        }
+        return languageCodes != nil ? languageCodes!.count : 0
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let validLanguageCodes = productLanguageCodes {
-            // MARK: TBD - do not show the codes, but the actual languages
-            // show the language in the current iPad language
-            // I could highlight the primary language
-            return validLanguageCodes[row]
-        } else {
-            return ""
-        }
+        
+        let language = ((languageCodes != nil) && (languages != nil)) ? languages![languageCodes![row]] : nil
+        return language != nil ? OFFplists.manager.translateLanguage(language!, language:NSLocale.preferredLanguages()[0])  : Constants.NoLanguage
+        
+        
+
     }
 
     // MARK: - Lifecycle
@@ -64,9 +59,9 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         languagesPickerView.delegate = self
         
         // MARK: TBD - I should move the picker to the current language
-        if let validProductLanguageCodes = productLanguageCodes,
-            let validCurrentLanguageCode = currentLanguageCode {
-            let index = validProductLanguageCodes.indexOf(validCurrentLanguageCode)
+        if let validCurrentLanguageCode = currentLanguageCode,
+        let validLanguageCodes = languageCodes {
+            let index = validLanguageCodes.indexOf(validCurrentLanguageCode)
             if let validIndex = index {
                 languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
             }         }

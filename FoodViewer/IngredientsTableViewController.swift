@@ -87,15 +87,16 @@ class IngredientsTableViewController: UITableViewController {
         case .Ingredients:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as? IngredientsFullTableViewCell
             // does the product have valid multiple languages
-            if (product?.languageCodes != nil) && (product!.languageCodes!.count) >= 2 && (currentLanguageCode != nil) {
+            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
                 cell?.ingredients = product!.ingredientsLanguage[currentLanguageCode!]!
-                cell?.numberOfLanguages = product!.languageCodes!.count
+                cell?.numberOfLanguages = product!.languageCodes.count
+                cell?.language = product!.languages[currentLanguageCode!]
 
             } else {
-                cell?.ingredients = product!.ingredients
-                cell?.numberOfLanguages = 1
+                cell?.ingredients = nil
+                cell?.language = nil
+                cell?.numberOfLanguages = 0
             }
-            cell?.language = currentLanguageCode != nil ? currentLanguageCode! : product?.primaryLanguageCode
             return cell!
         case .Allergens:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergensCellIdentifier, forIndexPath: indexPath) as? AllergensFullTableViewCell
@@ -224,8 +225,9 @@ class IngredientsTableViewController: UITableViewController {
                 // pass the current language on to the popup vc
                 if let vc = segue.destinationViewController as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
-                    vc.productLanguageCodes = product?.languageCodes
+                    vc.languageCodes = product?.languageCodes
                     vc.primaryLanguageCode = product?.primaryLanguageCode
+                    vc.languages = product?.languages
                     vc.sourcePage = 1
                 }
             default: break

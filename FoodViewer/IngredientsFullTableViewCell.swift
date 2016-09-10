@@ -13,8 +13,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     @IBOutlet weak var ingredientsLabel: UILabel!
     
-    @IBOutlet weak var languageLabel: UILabel!
-    
     @IBOutlet weak var changeLanguageButton: UIButton!
     @IBAction func ChangeLanguageButtonTapped(sender: UIButton) {
     }
@@ -61,16 +59,16 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     var language: String? = nil {
         didSet {
-            languageLabel.text = language != nil ? language : Constants.NoLanguageText
+            changeLanguageButton.setTitle(language != nil ? OFFplists.manager.translateLanguage(language!, language:NSLocale.preferredLanguages()[0])  : Constants.NoLanguageText, forState: UIControlState.Normal)
         }
     }
 
     var numberOfLanguages: Int = 0 {
         didSet {
             if numberOfLanguages > 1 {
-                changeLanguageButton.hidden = false
+                changeLanguageButton.enabled = true
             } else {
-                changeLanguageButton.hidden = true
+                changeLanguageButton.enabled = false
             }
         }
     }

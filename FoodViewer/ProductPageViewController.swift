@@ -301,7 +301,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     @IBAction func unwindSetLanguageForCancel(segue:UIStoryboardSegue) {
         if let vc = segue.sourceViewController as? SelectLanguageViewController {
-            currentLanguageCode = vc.selectedLanguageCode
+            currentLanguageCode = vc.currentLanguageCode
             updateCurrentLanguage()
             pageIndex = vc.sourcePage
         }

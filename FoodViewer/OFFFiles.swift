@@ -35,6 +35,7 @@ class OFFplists {
         static let BrandsFileName = "Brands"
         static let CategoriesFileName = "Categories"
         static let NutrientsFileName = "Nutrients"
+        static let LanguagesFileName = "Languages"
         static let TaxonomyKey = "Taxonomy"
         static let Language = "en"
         static let LanguageDivider = ":"
@@ -52,6 +53,7 @@ class OFFplists {
     lazy var OFFglobalLabels: Set <VertexNew>? = nil
     lazy var OFFcategories: Set <VertexNew>? = nil
     lazy var OFFnutrients: Set <VertexNew>? = nil
+    lazy var OFFlanguages: Set <VertexNew>? = nil
     
     init() {
         // read all necessary plists in the background
@@ -62,11 +64,11 @@ class OFFplists {
         OFFglobalLabels = readPlist(Constants.GlobalLabelsFileName)
         OFFcategories = readPlist(Constants.CategoriesFileName)
         OFFnutrients = readPlist(Constants.NutrientsFileName)
+        OFFlanguages = readPlist(Constants.LanguagesFileName)
     }
     
-    // MARK: Outlets and Actions
+    // MARK: - Translate functions
 
-    
     func translateStates(key: String, language:String) -> String {
         if OFFstates != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
@@ -174,8 +176,11 @@ class OFFplists {
         return translate(OFFnutrients, file: Constants.NutrientsFileName, key: "en:" + key, language: language)
     }
 
+    func translateLanguage(key: String, language:String) -> String {
+        return translate(OFFlanguages, file: Constants.LanguagesFileName, key: key, language: language)
+    }
     
-    func translate(taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
+    private func translate(taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
         if taxonomy != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
@@ -197,8 +202,8 @@ class OFFplists {
 
     
     
-
-
+// MARK: - Read functions
+    
     private func readPlist(fileName: String) -> Set <VertexNew>? {
         // Copy the file from the Bundle and write it to the Device:
         if let path = NSBundle.mainBundle().pathForResource(fileName, ofType: Constants.PlistExtension) {
