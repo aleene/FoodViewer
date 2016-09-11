@@ -216,26 +216,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>bm</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Bambara</string>
-				<string> Bamana</string>
-				<string> Bamanankan</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Bambara</string>
-				<string> bm</string>
-				<string> bm</string>
-				<string> bam</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>bambara</string>
-				<string> Mandenkan</string>
-				<string> Bamanankan</string>
-				<string> Bamanan</string>
-				<string> bm</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -247,6 +242,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ba</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Baschkirische Sprache</string>
@@ -254,15 +253,10 @@
 			<key>en</key>
 			<array>
 				<string>Bashkir</string>
-				<string> Bashkir language</string>
-				<string> ba</string>
-				<string> ba</string>
-				<string> bak</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>bachkir</string>
-				<string> ba</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -274,6 +268,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>eu</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>baskische Sprache</string>
@@ -283,15 +281,10 @@
 			<key>en</key>
 			<array>
 				<string>Basque</string>
-				<string> Euskara</string>
-				<string> Euskera</string>
-				<string> Basque Language</string>
-				<string> ISO 639</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>basque</string>
-				<string> eu</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -303,27 +296,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>be</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Weißrussisch</string>
-				<string> Belarussisch</string>
-				<string> Weißrussische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Belarusian</string>
-				<string> Belarusian language</string>
-				<string> Belarusan language</string>
-				<string> Byelorussian language</string>
-				<string> Belarussian language</string>
-				<string> White Russian language</string>
-				<string> ISO 639</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>biélorusse</string>
-				<string> blanc-russe</string>
-				<string> be</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -335,24 +322,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>bn</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>bengalische Sprache</string>
 				<string> Bengali</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Bengali</string>
-				<string> Bengali language</string>
-				<string> Bangla</string>
-				<string> bn</string>
-				<string> bn</string>
-				<string> ben</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>bengali</string>
-				<string> bn</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -364,28 +348,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>bi</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Bislama</string>
-				<string> Beach-la-Mar</string>
-				<string> Bichelamar</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Bislama</string>
-				<string> bi</string>
-				<string> bi</string>
-				<string> bis</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Bichelamar</string>
-				<string> Bichlamar</string>
-				<string> Bishlama</string>
-				<string> Bislama</string>
-				<string> Bishlamar</string>
-				<string> Bislaman</string>
-				<string> bi</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -397,24 +374,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>nb</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Bokmål</string>
-				<string> Bokmal</string>
-				<string> Bokmaal</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Bokmål</string>
-				<string> Norwegian Bokmål</string>
-				<string> nb</string>
-				<string> nb</string>
-				<string> nob</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>bokmål</string>
-				<string> nb</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -426,27 +400,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>bs</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Bosnisch</string>
-				<string> Bosnische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Bosnian</string>
-				<string> bosanski</string>
-				<string> Bosniac language</string>
-				<string> Bosniak  language</string>
-				<string> bosanski jezik</string>
-				<string> Bosnian language</string>
-				<string> bs</string>
-				<string> bs</string>
-				<string> bos</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>bosnien</string>
-				<string> bs</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -458,6 +426,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>br</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Bretonisch</string>
@@ -465,16 +437,10 @@
 			<key>en</key>
 			<array>
 				<string>Breton</string>
-				<string> Brezhoneg</string>
-				<string> Breton language</string>
-				<string> br</string>
-				<string> br</string>
-				<string> bre</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>breton</string>
-				<string> br</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -486,23 +452,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>bg</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Bulgarisch</string>
-				<string> bulgarische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Bulgarian</string>
-				<string> Bulgarian language</string>
-				<string> bg</string>
-				<string> bg</string>
-				<string> bul</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>bulgare</string>
-				<string> bg</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -514,24 +478,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>my</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Birmanisch</string>
-				<string> Burmesisch</string>
-				<string> Birmesisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Burmese</string>
-				<string> Burmese language</string>
-				<string> my</string>
-				<string> my</string>
-				<string> mya</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>birman</string>
-				<string> my</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -543,28 +504,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ca</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Katalanisch</string>
-				<string> katalanische Sprache</string>
-				<string> català</string>
-				<string> catalán</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Catalan</string>
-				<string> Catalan language</string>
-				<string> català</string>
-				<string> ca</string>
-				<string> ca</string>
-				<string> cat</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>catalan</string>
-				<string> Langue catalane</string>
-				<string> Català</string>
-				<string> ca</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -576,32 +530,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ce</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Tschetschenisch</string>
-				<string> Нохчийн</string>
-				<string> tschetschenische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Chechen</string>
-				<string> ce</string>
-				<string> Chechen language</string>
-				<string> ce</string>
-				<string> che</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tchétchène</string>
-				<string> Tchechene</string>
-				<string> Langue tchétchène</string>
-				<string> Tchetchene</string>
-				<string> ce</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Tsjetsjeens</string>
-				<string> Tjetjeens</string>
 			</array>
 		</dict>
 	</dict>
@@ -609,34 +556,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ny</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Chichewa</string>
-				<string> Chinyanja</string>
-				<string> Chi-Chewa</string>
-				<string> Nyanja language</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Chewa</string>
-				<string> Chichewa</string>
-				<string> Nyanja</string>
-				<string> ny</string>
-				<string> ny</string>
-				<string> nya</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>chewa</string>
-				<string> nyanja</string>
-				<string> chichewa</string>
-				<string> ny</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Nyanja</string>
 				<string> Chewa</string>
-				<string> Chichewa</string>
 			</array>
 		</dict>
 	</dict>
@@ -644,25 +582,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>zh</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>chinesische Sprachen</string>
-				<string> sinitische Sprachen</string>
+				<string>Chinesisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Chinese</string>
-				<string> Chinese language</string>
-				<string> zh</string>
-				<string> zh</string>
-				<string> chi</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>langues chinoises</string>
-				<string> langues sinitiques</string>
 				<string> chinois</string>
-				<string> zh</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -674,29 +608,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>cv</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Tschuwaschische Sprache</string>
-				<string> Чӑвашла</string>
 				<string> Tschawaschla</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Chuvash</string>
-				<string> cv</string>
-				<string> cv</string>
-				<string> chv</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tchouvache</string>
-				<string> Langue tchouvache</string>
-				<string> cv</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>tsjoevasjisch</string>
-				<string> Tsjoewasjisch</string>
 			</array>
 		</dict>
 	</dict>
@@ -704,25 +634,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>co</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Korsisch</string>
-				<string> Corsu</string>
-				<string> Korsische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Corsican</string>
-				<string> Corsican language</string>
-				<string> co</string>
-				<string> co</string>
-				<string> cos</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>corse</string>
-				<string> Langue Corse</string>
-				<string> co</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -734,23 +660,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>hr</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kroatisch</string>
-				<string> kroatische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Croatian</string>
-				<string> Croatian standard</string>
-				<string> hr</string>
-				<string> hr</string>
-				<string> hrv</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>croate</string>
-				<string> hr</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -762,25 +686,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>cs</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Tschechisch</string>
-				<string> tschechische Sprache</string>
-				<string> böhmische Sprache</string>
-				<string> Böhmisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Czech</string>
-				<string> Czech language</string>
-				<string> cs</string>
-				<string> cs</string>
-				<string> ces</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tchèque</string>
-				<string> cs</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -799,7 +719,6 @@
 			<key>de</key>
 			<array>
 				<string>Dänisch</string>
-				<string> dänische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -808,7 +727,6 @@
 			<key>fr</key>
 			<array>
 				<string>danois</string>
-				<string> da</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -850,22 +768,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>dz</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Dzongkha</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Dzongkha language</string>
-				<string> Ngalopkha language</string>
-				<string> dz</string>
-				<string> dz</string>
-				<string> dzo</string>
+				<string>Dzongkha</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>dzongkha</string>
-				<string> dz</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -903,23 +820,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>et</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Estnische Sprache</string>
 				<string> Estnisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Estonian</string>
-				<string> Estonian language</string>
-				<string> et</string>
-				<string> et</string>
-				<string> est</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>estonien</string>
-				<string> et</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -931,6 +846,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ee</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Ewe</string>
@@ -938,14 +857,10 @@
 			<key>en</key>
 			<array>
 				<string>Ewe</string>
-				<string> ee</string>
-				<string> ee</string>
-				<string> ewe</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>ewe</string>
-				<string> ee</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -957,44 +872,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>fo</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Färöische Sprache</string>
-				<string> Føroyskt</string>
 				<string> Neufäröisch</string>
-				<string> Färingische Sprache</string>
-				<string> Færøsk</string>
-				<string> Foroyskt</string>
-				<string> Faerosk</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Faroese</string>
-				<string> Færoese language</string>
-				<string> Faroese</string>
-				<string> Faeroese language</string>
-				<string> Føroyskt</string>
-				<string> ISO 639</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>féroïen</string>
-				<string> Feringien</string>
-				<string> Langue féroïenne</string>
-				<string> Féroien</string>
-				<string> Féringien</string>
-				<string> fo</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Faeröers</string>
-				<string> Faerøers</string>
-				<string> Fareurs</string>
-				<string> Faeroers</string>
-				<string> Færøers</string>
-				<string> Faroers</string>
-				<string> Faröers</string>
-				<string> Farœrs</string>
 			</array>
 		</dict>
 	</dict>
@@ -1002,32 +898,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>fj</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Fidschi</string>
-				<string> Fidschianische Sprache</string>
-				<string> Fidschianisch</string>
-				<string> Fidjianisch</string>
-				<string> Na Vosa Vakaviti</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Fijian language</string>
 				<string> Fijian</string>
-				<string> fj</string>
-				<string> fj</string>
-				<string> fij</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>fidjien</string>
-				<string> Langue fidjienne</string>
-				<string> fj</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Fijisch</string>
-				<string> Fijinees</string>
 			</array>
 		</dict>
 	</dict>
@@ -1035,27 +924,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>fi</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Finnisch</string>
-				<string> Finnische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Finnish</string>
-				<string> Finnish language</string>
-				<string> suomi</string>
-				<string> suomen kieli</string>
-				<string> fi</string>
-				<string> fi</string>
-				<string> fin</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>finnois</string>
-				<string> finlandais</string>
-				<string> suomi</string>
-				<string> fi</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1093,45 +976,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ff</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Fulfulde</string>
-				<string> Maacina</string>
-				<string> Poular</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Fula language</string>
 				<string> Fulah</string>
-				<string> ff</string>
-				<string> Fulani</string>
-				<string> ff</string>
-				<string> ful</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>peul</string>
 				<string> Fulfulde</string>
-				<string> Langue peuhle</string>
-				<string> Fulfudé</string>
-				<string> Foulfouldé</string>
-				<string> Poular</string>
-				<string> Peulh</string>
-				<string> Peuhl</string>
-				<string> Fufuldé</string>
-				<string> Fulfuldé</string>
-				<string> Fulfude</string>
-				<string> Pulaar</string>
-				<string> Poulars</string>
-				<string> Les peuhls</string>
-				<string> ff</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Fula</string>
-				<string> Pulaar</string>
-				<string> Pular</string>
-				<string> Fulfulde</string>
 			</array>
 		</dict>
 	</dict>
@@ -1139,6 +1002,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ka</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Georgisch</string>
@@ -1146,15 +1013,10 @@
 			<key>en</key>
 			<array>
 				<string>Georgian</string>
-				<string> Georgian language</string>
-				<string> ka</string>
-				<string> ka</string>
-				<string> geo</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>géorgien</string>
-				<string> ka</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1192,6 +1054,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ki</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kikuyu</string>
@@ -1199,18 +1065,10 @@
 			<key>en</key>
 			<array>
 				<string>Gikuyu</string>
-				<string> Kikuyu</string>
-				<string> Gikuyu language</string>
-				<string> Kikuyu language</string>
-				<string> ki</string>
-				<string> ki</string>
-				<string> kik</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>kikuyu</string>
-				<string> Gikuyu</string>
-				<string> ki</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1222,37 +1080,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>kl</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Grönländisch</string>
-				<string> Grönländisches Inuktitut</string>
-				<string> Grönländisches Eskimo</string>
-				<string> Kalaallisut</string>
-				<string> Grönländische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Greenlandic</string>
-				<string> Greenlandic Inuktitut</string>
-				<string> Eastern Greenlandic</string>
-				<string> Kalaallisut</string>
-				<string> Greenlandic Inuit language</string>
-				<string> ISO 639</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>groenlandais</string>
-				<string> Kilaamiusut</string>
-				<string> Tunumiusut</string>
-				<string> Langue groenlandaise</string>
-				<string> Kalaallisut</string>
-				<string> Avanersuaq</string>
-				<string> kl</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Groenlands</string>
-				<string> Kalaallisut</string>
 			</array>
 		</dict>
 	</dict>
@@ -1260,32 +1106,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>gn</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Guaraní</string>
-				<string> Avanee</string>
-				<string> Avañe&apos;ẽ</string>
-				<string> Avane&apos;e</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Guarani</string>
-				<string> Paraguayan Guaraní</string>
-				<string> Guarani language</string>
-				<string> gn</string>
-				<string> gn</string>
-				<string> grn</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Guarani</string>
-				<string> gn</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Guaraní</string>
-				<string> Guarani</string>
-				<string> Guarani taal</string>
 			</array>
 		</dict>
 	</dict>
@@ -1293,6 +1132,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>gu</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Gujarati</string>
@@ -1300,15 +1143,10 @@
 			<key>en</key>
 			<array>
 				<string>Gujarati</string>
-				<string> Gujarati language</string>
-				<string> gu</string>
-				<string> gu</string>
-				<string> guj</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>gujarati</string>
-				<string> gu</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1320,52 +1158,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ht</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>haitianische Sprache</string>
 				<string> Haitianisch-Kreolisch</string>
-				<string> Kreyòl</string>
-				<string> Kreyol</string>
-				<string> Haitianisches Kreolisch</string>
-				<string> Kreyòl ayisyen</string>
-				<string> Kreyol ayisyen</string>
-				<string> Haitianisches Kreol</string>
-				<string> Haitianisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Haitian Creole</string>
-				<string> Haitian Creole</string>
-				<string> Haitian Creole language</string>
-				<string> Haitian language</string>
-				<string> ht</string>
-				<string> Kreyòl</string>
-				<string> ht</string>
-				<string> hat</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>haïtien</string>
-				<string> Haitien</string>
-				<string> Kreyòl ayisyen</string>
-				<string> créole haïtien</string>
-				<string> creole haitien</string>
-				<string> ht</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Haïtiaans Creools</string>
-				<string> Haitiaans Creools</string>
-				<string> Krèyol</string>
-				<string> Kreyòl</string>
-				<string> Kreyol</string>
-				<string> Haiti-Creools</string>
-				<string> Krèyol ayisyen</string>
-				<string> Haïtiaans Creool</string>
-				<string> Patua</string>
-				<string> Haïti-Creools</string>
-				<string> Kreyol ayisyen</string>
-				<string> Haitiaans Creool</string>
 			</array>
 		</dict>
 	</dict>
@@ -1373,36 +1184,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ha</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Hausa</string>
-				<string> Hawsa</string>
-				<string> Hausawa</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Hausa</string>
-				<string> ha</string>
-				<string> ha</string>
-				<string> hau</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>haoussa</string>
-				<string> Mgbakpa</string>
-				<string> Hausas</string>
-				<string> Haousa</string>
-				<string> Hausa</string>
-				<string> Abakwariga</string>
-				<string> Hausawa</string>
-				<string> Habe</string>
-				<string> ha</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Hausa</string>
-				<string> Hausa taal</string>
-				<string> Haussa</string>
 			</array>
 		</dict>
 	</dict>
@@ -1410,23 +1210,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>he</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Hebräisch</string>
-				<string> hebräische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Hebrew</string>
-				<string> Hebrew language</string>
-				<string> he</string>
-				<string> he</string>
-				<string> heb</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>hébreu</string>
-				<string> he</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1438,6 +1236,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>hi</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Hindi</string>
@@ -1445,17 +1247,10 @@
 			<key>en</key>
 			<array>
 				<string>Hindi</string>
-				<string> Hindi language</string>
-				<string> Indian language</string>
-				<string> Indian</string>
-				<string> hi</string>
-				<string> hi</string>
-				<string> hin</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>hindi</string>
-				<string> hi</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1467,6 +1262,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ho</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Hiri Motu</string>
@@ -1474,17 +1273,10 @@
 			<key>en</key>
 			<array>
 				<string>Hiri Motu</string>
-				<string> Hiri Motu</string>
-				<string> ho</string>
-				<string> ho</string>
-				<string> hmo</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Hiri motu</string>
-				<string> Police Motu</string>
-				<string> Hiri motou</string>
-				<string> ho</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1496,26 +1288,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>hu</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Ungarisch</string>
-				<string> Ungarische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Hungarian</string>
-				<string> Hungarian language</string>
-				<string> Magyar</string>
-				<string> hu</string>
-				<string> hu</string>
-				<string> hun</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>hongrois</string>
-				<string> hu</string>
-				<string> langue hongroise</string>
-				<string> magyar</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1527,23 +1314,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>is</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Isländisch</string>
-				<string> isländische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Icelandic</string>
-				<string> Icelandic language</string>
-				<string> is</string>
-				<string> is</string>
-				<string> ice</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>islandais</string>
-				<string> is</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1555,26 +1340,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ig</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Igbo</string>
-				<string> Ibo</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Igbo language</string>
 				<string> Igbo</string>
-				<string> ig</string>
-				<string> ig</string>
-				<string> ibo</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Igbo</string>
-				<string> Langue Igbo</string>
-				<string> Ibo</string>
-				<string> igbo</string>
-				<string> Asụsụ Igbo</string>
 				<string> ig</string>
 			</array>
 			<key>nl</key>
@@ -1587,26 +1367,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>id</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Indonesisch</string>
-				<string> indonesische Sprache</string>
-				<string> Bahasa Indonesia</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Indonesian</string>
-				<string> Indonesian language</string>
-				<string> bahasa Indonesia</string>
-				<string> id</string>
-				<string> id</string>
-				<string> ind</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>indonésien</string>
-				<string> id</string>
-				<string> ind</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1618,27 +1393,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>iu</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Inuktitut</string>
-				<string> ᐃᓄᒃᑎᑐᑦ</string>
-				<string> Grönlandische Sprache</string>
-				<string> Inuitische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Inuktitut</string>
-				<string> iu</string>
-				<string> iu</string>
-				<string> iku</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Inuktitut</string>
-				<string> Arctique oriental canadien</string>
-				<string> Inukophone</string>
-				<string> Inuktun</string>
-				<string> iu</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1650,26 +1419,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ga</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Irisch</string>
-				<string> Irische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Irish</string>
-				<string> Irish Gaelic</string>
-				<string> Irish language</string>
-				<string> Gaelic</string>
-				<string> Gaeilge</string>
-				<string> ga</string>
-				<string> ga</string>
-				<string> gle</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>irlandais</string>
-				<string> ga</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1688,7 +1452,6 @@
 			<key>de</key>
 			<array>
 				<string>Italienisch</string>
-				<string> italienische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1708,37 +1471,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ja</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Japanisch</string>
-				<string> Nihongo</string>
-				<string> japanische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Japanese</string>
-				<string> Nihongo</string>
-				<string> Japanese language</string>
-				<string> 日本語</string>
-				<string> ja</string>
-				<string> jpn</string>
-				<string> ja</string>
-				<string> jpn</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>japonais</string>
-				<string> にほんご</string>
-				<string> 日本語</string>
-				<string> Langue japonaise</string>
-				<string> Nihongo</string>
-				<string> ja</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Japans</string>
-				<string> Oud-Japans</string>
-				<string> Japanse taal en schrift</string>
 			</array>
 		</dict>
 	</dict>
@@ -1746,36 +1497,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>jv</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>javanische Sprache</string>
-				<string> Tjarakan</string>
 				<string> Javanisch</string>
-				<string> Banyumasan</string>
-				<string> Javanesische Sprache</string>
-				<string> Carakan</string>
-				<string> Basa Jawa</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Javanese</string>
-				<string> Javanese language</string>
-				<string> jv</string>
-				<string> jv</string>
-				<string> jav</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>javanais</string>
-				<string> Langue javanaise</string>
-				<string> Moyen-javanais</string>
-				<string> Vieux-javanais</string>
-				<string> jv</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Javaans</string>
-				<string> Javaanse taal</string>
 			</array>
 		</dict>
 	</dict>
@@ -1783,28 +1523,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>kk</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kasachisch</string>
-				<string> Kazachisch</string>
-				<string> Kasakkirgisisch</string>
-				<string> kasachische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Kazakh</string>
-				<string> Kazakh language</string>
-				<string> Qazaq</string>
-				<string> Qazaq language</string>
-				<string> Qazaqşa</string>
-				<string> kk</string>
-				<string> kk</string>
-				<string> kaz</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>kazakh</string>
-				<string> kk</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1816,6 +1549,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>km</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Khmer-Sprache</string>
@@ -1824,14 +1561,10 @@
 			<array>
 				<string>Khmer</string>
 				<string> km</string>
-				<string> Cambodian</string>
-				<string> km</string>
-				<string> khm</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>khmer</string>
-				<string> km</string>
 			</array>
 			<key>nl</key>
 			<array>

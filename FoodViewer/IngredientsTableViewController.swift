@@ -139,6 +139,33 @@ class IngredientsTableViewController: UITableViewController {
         return header
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        
+        switch currentProductSection {
+        case .Ingredients:
+            // set the next language in the array
+            if currentLanguageCode != nextLanguageCode() {
+                currentLanguageCode = nextLanguageCode()
+                // reload the first two rows
+                let indexPaths = [NSIndexPath.init(forRow: 0, inSection: 0)]
+                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
+                tableView.deselectRowAtIndexPath(indexPaths.first!, animated: true)
+            }
+        default:
+            break
+        }
+        return
+    }
+    
+    private func nextLanguageCode() -> String {
+        let currentIndex = (product?.languageCodes.indexOf(currentLanguageCode!))!
+        
+        let nextIndex = currentIndex == ((product?.languageCodes.count)! - 1) ? 0 : currentIndex.successor()
+        return (product?.languageCodes[nextIndex])!
+    }
+
     private struct TableStructure {
         static let IngredientsSectionSize = 1
         static let AllergensSectionSize = 1

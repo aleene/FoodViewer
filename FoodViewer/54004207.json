@@ -16,7 +16,9 @@
     "languages_tags":["en:spanish","en:dutch","en:italian","en:portuguese","en:german","en:french","en:english","en:7","en:multilingual"],
     
     "generic_name_en":"Beer","codes_tags":["code-8","54004207","5400420x","540042xx","54004xxx","5400xxxx","540xxxxx","54xxxxxx","5xxxxxxx"],
+    
     "languages_codes":{"en":3,"pt":3,"fr":6,"it":3,"de":3,"es":2,"nl":3},
+    
     "generic_name_de":"Bier","last_image_dates_tags":["2015-08-28","2015-08","2015"],"nutrition_grades_tags":["unknown"],"packaging":"Bouteille,Verre brun,Métal,Verre,Capsule metal","serving_quantity":330,
     
     "languages":{"en:italian":3,"en:dutch":3,"en:spanish":2,"en:portuguese":3,"en:french":6,"en:german":3,"en:english":3},
