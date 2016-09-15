@@ -13,7 +13,11 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     // These variables need to be set externally
     var languageCodes: [String]? = []
     var languages: [String:String]? = [:]
-    var currentLanguageCode: String? = nil
+    var currentLanguageCode: String? = nil {
+        didSet {
+            selectedLanguageCode = currentLanguageCode
+        }
+    }
     var primaryLanguageCode: String? = nil
     var selectedLanguageCode: String? = nil
     

@@ -15,11 +15,11 @@ class CompletionTableViewCell: UITableViewCell {
     }
     var product: FoodProduct? = nil {
         didSet {
-            if let percentage = product?.state.completionPercentage() {
+            if let productState = product?.state {
                 let formatter = NSNumberFormatter()
                 formatter.numberStyle = .PercentStyle
                 formatter.maximumFractionDigits = 0
-                completionLabel?.text = String(format:Constants.CompletePostText, formatter.stringFromNumber(Double(percentage) / 100.0)!)
+                completionLabel?.text = String(format:Constants.CompletePostText, formatter.stringFromNumber(Double(productState.completionPercentage()) / 100.0)!)
             }
         }
     }

@@ -275,6 +275,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             if let validProductFetchResult = products.fetchResultList[section] {
                 switch validProductFetchResult {
                 case .Success(let product):
+                    
                     label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
                     if let validKeys = product.allergenKeys {
                         if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {

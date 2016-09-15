@@ -318,6 +318,8 @@ class OpenFoodFactsRequest {
         static let IngredientsIdsDebugKey = "ingredients_ids_debug"
     }
     
+    // MARK: - unpack JSON
+    
     func unpackJSONObject(jsonObject: JSON?) -> ProductFetchStatus {
         
         // All the fields available in the barcode.json are listed below
@@ -361,22 +363,20 @@ class OpenFoodFactsRequest {
 
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.AdditivesTagsNKey]?.stringArray
                 product.primaryLanguageCode = jsonObject?[OFFJson.ProductKey]?[OFFJson.LangKey]?.string
-                if let languageCodes = jsonObject?[OFFJson.ProductKey]?[OFFJson.DebugParamSortedLangsKey]?.stringArray {
-                    product.languageCodes = languageCodes
-                }
-                for languageCode in product.languageCodes {
-                    var key = OFFJson.IngredientsTextKey + "_" + languageCode
-                    product.ingredientsLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
-                    key = OFFJson.ProductNameKey + "_" + languageCode
-                    product.nameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
-                    key = OFFJson.GenericNameKey + "_" + languageCode
-                    product.genericNameLanguage[languageCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
-                }
+                
+                product.languageCodes = []
                 let languages = jsonObject?[OFFJson.ProductKey]?[OFFJson.LanguagesHierarchy]?.stringArray
                 if let validLanguages = languages {
                     for language in validLanguages {
                         let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
+                        product.languageCodes.append(isoCode)
                         product.languages[isoCode] = language
+                        var key = OFFJson.IngredientsTextKey + "_" + isoCode
+                        product.ingredientsLanguage[isoCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                        key = OFFJson.ProductNameKey + "_" + isoCode
+                        product.nameLanguage[isoCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
+                        key = OFFJson.GenericNameKey + "_" + isoCode
+                        product.genericNameLanguage[isoCode] = jsonObject?[OFFJson.ProductKey]?[key]?.string
                     }
                 }
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PhotographersKey]?.stringArray
@@ -1091,8 +1091,14 @@ class OpenFoodFactsRequest {
                 if validDate.rangeOfString( "../....", options: .RegularExpressionSearch) != nil {
                     dateFormatter.dateFormat = "MM/yyyy"
                     return dateFormatter.dateFromString(validDate)
+                } else if validDate.rangeOfString( ".-....", options: .RegularExpressionSearch) != nil {
+                    dateFormatter.dateFormat = "MM/yyyy"
+                    return dateFormatter.dateFromString("0"+validDate)
                 } else if validDate.rangeOfString( "..-....", options: .RegularExpressionSearch) != nil {
                     dateFormatter.dateFormat = "MM-yyyy"
+                    return dateFormatter.dateFromString(validDate)
+                } else if validDate.rangeOfString( "....", options: .RegularExpressionSearch) != nil {
+                    dateFormatter.dateFormat = "yyyy"
                     return dateFormatter.dateFromString(validDate)
                 }
                 print("Date '\(validDate)' could not be recognized")
@@ -1161,6 +1167,8 @@ class OpenFoodFactsRequest {
                 }
                 return newAddress
             }
+            print("Producer code '\(validCode)' could not be recognized")
+
         }
         return nil
     }

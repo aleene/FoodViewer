@@ -30,9 +30,10 @@ class ProducerTableViewCell: UITableViewCell {
             if let newProduct = product {
                 textToDisplay = Constants.EmptyString
                 // "Produced by France, Sold in France by Shop"
-                
-                if let producerArray = newProduct.producer?.elements {
+                if let producer = newProduct.producer {
+                if let producerArray = producer.elements {
                     textToDisplay += !producerArray.isEmpty ? String(format: Constants.ProducedBy ,producerArray[0]) : Constants.EmptyString
+                }
                 }
                 if let countries = newProduct.countries {
                     if !countries.isEmpty {

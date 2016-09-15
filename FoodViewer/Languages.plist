@@ -1576,6 +1576,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>rw</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kinyarwanda</string>
@@ -1583,18 +1587,10 @@
 			<key>en</key>
 			<array>
 				<string>Kinyarwanda</string>
-				<string> Rwanda language</string>
-				<string> Rwandan</string>
-				<string> Ruanda language</string>
-				<string> rw</string>
-				<string> rw</string>
-				<string> kin</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>kinyarwanda</string>
-				<string> Rwandophone</string>
-				<string> Kinyarouanda</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1606,26 +1602,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>rn</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kirundi</string>
-				<string> Rundi</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Kirundi</string>
-				<string> RUndi</string>
-				<string> Rundi</string>
-				<string> rn</string>
-				<string> rn</string>
-				<string> run</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>kirundi</string>
-				<string> Rundi</string>
-				<string> Roundi</string>
-				<string> rn</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1637,28 +1628,24 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>kg</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kikongo</string>
-				<string> Kongo</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Kongo language</string>
 				<string> Kikongo</string>
-				<string> Kongo</string>
-				<string> kg</string>
-				<string> kg</string>
-				<string> kon</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Kikongo</string>
-				<string> kg</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Kongo</string>
 				<string> Kikongo</string>
 			</array>
 		</dict>
@@ -1667,24 +1654,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ko</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Koreanisch</string>
-				<string> 한국어</string>
-				<string> Koreanische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Korean</string>
-				<string> Korean language</string>
-				<string> ko</string>
-				<string> ko</string>
-				<string> kor</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>coréen</string>
-				<string> ko</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1696,24 +1680,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ku</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Kurdische Sprachen</string>
-				<string> Kurdische Sprache</string>
+				<string>Kurdisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Kurdish</string>
-				<string> Kurdish language</string>
-				<string> ku</string>
-				<string> ku</string>
-				<string> kur</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>kurde</string>
-				<string> langue kurde</string>
-				<string> ku</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1726,18 +1707,20 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>kj</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Kwanyama</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Kwanyama</string>
-				<string> Oshikwanyama</string>
-				<string> kj</string>
-				<string> kj</string>
-				<string> kua</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>kuanyama</string>
-				<string> Kwanyama</string>
 				<string> kj</string>
 			</array>
 			<key>nl</key>
@@ -1750,6 +1733,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ky</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>kirgisische Sprache</string>
@@ -1757,19 +1744,10 @@
 			<key>en</key>
 			<array>
 				<string>Kyrgyz</string>
-				<string> Kirghiz language</string>
-				<string> Kirgiz language</string>
-				<string> Kirgiz</string>
-				<string> Kirghiz</string>
-				<string> Kyrgyz language</string>
-				<string> ky</string>
-				<string> ky</string>
-				<string> kir</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>kirghize</string>
-				<string> ky</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1781,6 +1759,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>lo</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>laotische Sprache</string>
@@ -1788,17 +1770,10 @@
 			<key>en</key>
 			<array>
 				<string>Lao</string>
-				<string> Laotian</string>
-				<string> Lao language</string>
-				<string> Laotian language</string>
-				<string> lo</string>
-				<string> lo</string>
-				<string> lao</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>lao</string>
-				<string> lo</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1810,24 +1785,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>lv</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>lettische Sprache</string>
 				<string> Lettisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Latvian</string>
-				<string> Latvian language</string>
-				<string> lv</string>
-				<string> Lettish</string>
-				<string> lv</string>
-				<string> lav</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>letton</string>
-				<string> lv</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1839,22 +1811,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ln</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Lingála</string>
-				<string> Lingala</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Lingala language</string>
-				<string> Lingala</string>
-				<string> ISO 639</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>lingala</string>
-				<string> lingalaphone</string>
-				<string> ln</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1866,17 +1837,17 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>lt</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Litauische Sprache</string>
-				<string> Litauische</string>
+				<string> Litauisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Lithuanian</string>
-				<string> Lithuanian language</string>
-				<string> lt</string>
-				<string> lit</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1892,6 +1863,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>lg</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Luganda</string>
@@ -1899,20 +1874,14 @@
 			<key>en</key>
 			<array>
 				<string>Luganda</string>
-				<string> Ganda</string>
-				<string> lg</string>
-				<string> lg</string>
-				<string> lug</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>luganda</string>
 				<string> Louganda</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Luganda</string>
-				<string> Loeganda</string>
 			</array>
 		</dict>
 	</dict>
@@ -1920,25 +1889,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>lb</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Luxemburgisch</string>
-				<string> Luxemburgische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Luxembourgish</string>
-				<string> Luxembourgish language</string>
-				<string> Letzeburgesch</string>
-				<string> Lëtzebuergesch</string>
-				<string> lb</string>
-				<string> lb</string>
-				<string> ltz</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>luxembourgeois</string>
-				<string> lb</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1950,23 +1915,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>mk</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Mazedonisch</string>
-				<string> mazedonische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Macedonian</string>
-				<string> Macedonian language</string>
-				<string> mk</string>
-				<string> mk</string>
-				<string> mkd</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>macédonien</string>
-				<string> mk</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1978,24 +1941,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>mg</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Malagasy</string>
-				<string> Malagassi</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Malagasy</string>
-				<string> Malagasy language</string>
-				<string> mg</string>
-				<string> mg</string>
-				<string> mlg</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>malgache</string>
-				<string> malagasy</string>
-				<string> mg</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2007,24 +1967,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ms</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Malaiisch</string>
-				<string> malaiische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Malay</string>
-				<string> Malay language</string>
-				<string> Malay (individual language)</string>
-				<string> ms</string>
-				<string> ms</string>
-				<string> msa</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>malais</string>
-				<string> ms</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2036,28 +1993,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ml</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Malayalam</string>
-				<string> Malabarische Sprache</string>
-				<string> Malajalam</string>
-				<string> Malabarisch</string>
-				<string> മലയാളം</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Malayalam</string>
-				<string> Malayalam language</string>
-				<string> ml</string>
-				<string> ml</string>
-				<string> mal</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>malayalam</string>
-				<string> Malayāḷaṃ</string>
-				<string> Malayâlam</string>
-				<string> ml</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2069,37 +2019,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>dv</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Dhivehi</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Maldivian language</string>
-				<string> Dhivehi</string>
-				<string> Divehi</string>
-				<string> Dhivehi language</string>
 				<string> Maldivian</string>
-				<string> dv</string>
-				<string> dv</string>
-				<string> div</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Maldivien</string>
-				<string> Divehi</string>
-				<string> Divehli</string>
-				<string> Mahl</string>
-				<string> Malikh</string>
-				<string> Malki</string>
-				<string> Divehi Bas</string>
-				<string> dv</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Divehi</string>
 				<string> Maldivisch</string>
-				<string> Dhivehi</string>
 			</array>
 		</dict>
 	</dict>
@@ -2107,26 +2045,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>mt</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Maltesisch</string>
-				<string> Malti</string>
-				<string> Maltesische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Maltese</string>
-				<string> Il-lingwa Maltija</string>
-				<string> lingwa Maltija</string>
-				<string> Maltese Language- (Il-lingwa Maltija)</string>
-				<string> mt</string>
-				<string> mt</string>
-				<string> mlt</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>maltais</string>
-				<string> mt</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2138,6 +2071,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>mr</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Marathi</string>
@@ -2145,15 +2082,10 @@
 			<key>en</key>
 			<array>
 				<string>Marathi</string>
-				<string> Marathi language</string>
-				<string> mr</string>
-				<string> mr</string>
-				<string> mar</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>marathi</string>
-				<string> mr</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2165,33 +2097,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>el</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Neugriechisch</string>
-				<string> Modernes Griechisch</string>
-				<string> Neugriechische Sprache</string>
+				<string>Griechisch</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Modern Greek</string>
-				<string> Modern Greek language</string>
-				<string> el</string>
-				<string> el</string>
-				<string> gre</string>
+				<string>Greek</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>grec moderne</string>
-				<string> Romaïque</string>
-				<string> el</string>
+				<string>Grec</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Nieuwgrieks</string>
-				<string> Gemeenschappelijke Nieuw-Griekse taal</string>
-				<string> Nieuw-Grieks</string>
-				<string> Kini neo-elliniki glossa</string>
-				<string> Modern Grieks</string>
+				<string>Grieks</string>
 			</array>
 		</dict>
 	</dict>
@@ -2199,32 +2123,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>mo</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Moldauische Sprache</string>
 				<string> Moldawisch</string>
-				<string> Moldawische Sprache</string>
-				<string> Moldavisch</string>
-				<string> Moldauisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Moldovan</string>
-				<string> Moldovan language</string>
-				<string> mo</string>
-				<string> mo</string>
-				<string> rum</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>moldave</string>
-				<string> Langue moldave</string>
-				<string> mo</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Moldavisch</string>
-				<string> Moldovisch</string>
 			</array>
 		</dict>
 	</dict>
@@ -2232,38 +2149,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>mi</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Maorische Sprache</string>
-				<string> Māorische Sprache</string>
-				<string> Te reo</string>
-				<string> Reo Maori</string>
-				<string> Reo Māori</string>
-				<string> Te Reo Maori</string>
+				<string>Maori</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Māori</string>
-				<string> Maori language</string>
-				<string> Maori</string>
-				<string> mi</string>
-				<string> Māori language</string>
-				<string> Te Reo</string>
-				<string> mi</string>
-				<string> mao</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>maori de Nouvelle-Zélande</string>
-				<string> Langue maori</string>
-				<string> Langue māori</string>
-				<string> Māori de Nouvelle-Zélande</string>
-				<string> mi</string>
+				<string>maori</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Maori</string>
-				<string> Māori</string>
 			</array>
 		</dict>
 	</dict>
@@ -2271,29 +2175,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>nv</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Navajo</string>
-				<string> Navaho</string>
-				<string> Nabajo</string>
-				<string> Diné</string>
-				<string> Diné Bizaad</string>
-				<string> Apache de Navaio</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Navajo</string>
-				<string> Navaho language</string>
-				<string> Navaho</string>
-				<string> Navajo language</string>
-				<string> nv</string>
-				<string> nv</string>
-				<string> nav</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>navajo</string>
-				<string> nv</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2305,40 +2201,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ne</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Nepali</string>
-				<string> Nepalesisch</string>
-				<string> नेपाली</string>
-				<string> Nepalesische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Nepali</string>
-				<string> Nepali (macrolanguage)</string>
-				<string> Nepal</string>
-				<string> Nepalese</string>
-				<string> Nepali language</string>
-				<string> ne</string>
-				<string> ne</string>
-				<string> nep</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>népalais</string>
-				<string> nepâlî</string>
-				<string> népali</string>
-				<string> gorkhali</string>
-				<string> gourkhali</string>
-				<string> gurkhali</string>
-				<string> nepālī</string>
-				<string> népâlais</string>
-				<string> ne</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Nepalees</string>
-				<string> Nepali</string>
 			</array>
 		</dict>
 	</dict>
@@ -2346,23 +2227,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>no</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Norwegisch</string>
-				<string> norwegische Sprache</string>
-				<string> no</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Norwegian</string>
-				<string> no</string>
-				<string> no</string>
-				<string> nor</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>norvégien</string>
-				<string> no</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2370,45 +2249,25 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:nuosu-language</key>
-	<dict>
-		<key>Languages</key>
-		<dict>
-			<key>en</key>
-			<array>
-				<string>Nuosu language</string>
-				<string> Sichuan Yi</string>
-				<string> Nuosu</string>
-				<string> ii</string>
-				<string> ii</string>
-				<string> iii</string>
-			</array>
-		</dict>
-	</dict>
 	<key>en:nynorsk</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>nn</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Nynorsk</string>
 				<string> Neunorwegisch</string>
-				<string> nn</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Nynorsk</string>
 				<string> New Norwegian</string>
-				<string> Norwegian Nynorsk</string>
-				<string> Neo Norwegian</string>
-				<string> nn</string>
-				<string> nn</string>
-				<string> nno</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>nynorsk</string>
-				<string> nn</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2420,32 +2279,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>or</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Oriya</string>
-				<string> ଓଡ଼ିଆ</string>
-				<string> Odia</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Odia</string>
 				<string> Oriya</string>
-				<string> OR</string>
-				<string> or</string>
-				<string> or</string>
-				<string> ori</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>oriya</string>
-				<string> Oriyâ</string>
-				<string> Odia</string>
-				<string> or</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Odia</string>
-				<string> Oriya</string>
 			</array>
 		</dict>
 	</dict>
@@ -2453,34 +2305,24 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>om</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Oromo</string>
-				<string> Oromoo</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Oromo</string>
-				<string> om</string>
-				<string> Afaan Oromoo</string>
-				<string> Oromiffa</string>
-				<string> Galla</string>
-				<string> om</string>
-				<string> orm</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>oromo</string>
-				<string> Afan oromo</string>
-				<string> Afaan borana Oromoo</string>
-				<string> Oromiffaa</string>
-				<string> Afaan Oromo</string>
-				<string> Oromiffa</string>
-				<string> om</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Afaan Oromo</string>
 				<string> Oromo</string>
 			</array>
 		</dict>
@@ -2489,31 +2331,24 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>os</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Ossetische Sprache</string>
-				<string> Ирон</string>
 				<string> Ossetisch</string>
-				<string> Ирон æвзаг</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Ossetian</string>
-				<string> Ossetic</string>
-				<string> os</string>
-				<string> os</string>
-				<string> oss</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>ossète</string>
-				<string> Ossete</string>
-				<string> Langue ossète</string>
-				<string> os</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Ossetisch</string>
 				<string> Osseets</string>
 			</array>
 		</dict>
@@ -2522,45 +2357,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ps</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Paschtunische Sprache</string>
 				<string> Pashto</string>
-				<string> Pashtu</string>
-				<string> Paschtu</string>
-				<string> پښتو</string>
-				<string> Paschtunisch</string>
-				<string> Afghanische Sprache und Literatur</string>
-				<string> Paschto</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Pashto</string>
-				<string> Pushto</string>
-				<string> ps</string>
-				<string> ps</string>
-				<string> pus</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>pachto</string>
-				<string> Pashtoun</string>
-				<string> Pashto</string>
-				<string> Pashto language</string>
-				<string> Pachtou</string>
-				<string> Poshtou</string>
-				<string> Pachtoun</string>
-				<string> ps</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Pasjtoe</string>
-				<string> Pakhto</string>
-				<string> Pasjtu</string>
-				<string> Afghans</string>
-				<string> Pashto</string>
-				<string> Afghaans</string>
-				<string> Pashtu</string>
 			</array>
 		</dict>
 	</dict>
@@ -2568,34 +2383,24 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>fa</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Persisch</string>
 				<string> Farsi</string>
-				<string> Persische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Persian</string>
 				<string> Farsi</string>
-				<string> Persian language</string>
-				<string> Farsi language</string>
-				<string> Iranian language</string>
-				<string> Dari</string>
-				<string> fa</string>
-				<string> fa</string>
-				<string> per</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>persan</string>
 				<string> perse</string>
-				<string> iranien</string>
-				<string> fa</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Perzisch</string>
 				<string> Farsi</string>
 			</array>
 		</dict>
@@ -2611,7 +2416,6 @@
 			<key>de</key>
 			<array>
 				<string>Polnisch</string>
-				<string> polnische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -2620,7 +2424,6 @@
 			<key>fr</key>
 			<array>
 				<string>polonais</string>
-				<string> pl</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2639,7 +2442,6 @@
 			<key>de</key>
 			<array>
 				<string>Portugiesisch</string>
-				<string> portugiesische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -2648,15 +2450,10 @@
 			<key>fr</key>
 			<array>
 				<string>portugais</string>
-				<string> Portuguais</string>
-				<string> Langue portugaise</string>
-				<string> Lusophone</string>
-				<string> pt</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Portugees</string>
-				<string> Portugese taal</string>
 			</array>
 		</dict>
 	</dict>
@@ -2664,39 +2461,22 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>pa</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Panjabi</string>
-				<string> Pandschabisch</string>
-				<string> پنجابی</string>
-				<string> Punjabi</string>
-				<string> Pandschabi</string>
 				<string> ਪੰਜਾਬੀ</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Punjabi</string>
-				<string> Punjabi language</string>
-				<string> Panjabi</string>
-				<string> Panjabi language</string>
-				<string> PA</string>
-				<string> pa</string>
-				<string> pa</string>
-				<string> pan</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>panjābī</string>
-				<string> Penjâbî</string>
-				<string> Pandjabi</string>
-				<string> Penjabi occidental</string>
-				<string> Panjâbî</string>
-				<string> Pendjabi</string>
-				<string> Panjabi</string>
-				<string> Penjabi</string>
-				<string> Punjabi</string>
-				<string> Langue panjabi</string>
-				<string> pa</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2708,27 +2488,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>qu</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Quechua</string>
-				<string> Ketschua</string>
-				<string> Quechua-Sprache</string>
-				<string> Inkasprache</string>
-				<string> Runa-Simi</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Quechua languages</string>
 				<string> Quechua</string>
-				<string> runa simi</string>
-				<string> qu</string>
-				<string> qu</string>
-				<string> que</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>quechua</string>
-				<string> qu</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2740,26 +2514,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ro</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Rumänisch</string>
-				<string> Română</string>
-				<string> rumänische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Romanian</string>
-				<string> Romanian language</string>
-				<string> Moldovan</string>
-				<string> Moldavian</string>
-				<string> ro</string>
-				<string> ro</string>
-				<string> rum</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>roumain</string>
-				<string> ro</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2771,36 +2540,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>rm</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Rätoromanisch</string>
-				<string> Rumontsch</string>
-				<string> Romantsch</string>
-				<string> Bünderromanisch</string>
-				<string> Romontsch</string>
-				<string> Rumantsch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Romansh</string>
-				<string> Romansch</string>
-				<string> Rumantsch</string>
-				<string> Rumantsh</string>
-				<string> Romanche</string>
-				<string> Romansh language</string>
-				<string> Romansch language</string>
-				<string> Rumantsch language</string>
-				<string> Rumantsh language</string>
-				<string> Romanche language</string>
-				<string> rm</string>
-				<string> Romansh Language</string>
-				<string> rm</string>
-				<string> roh</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>romanche</string>
-				<string> rm</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2812,23 +2566,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ru</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Russisch</string>
-				<string> russische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Russian</string>
-				<string> Russian language</string>
-				<string> ru</string>
-				<string> ru</string>
-				<string> rus</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>russe</string>
-				<string> ru</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2840,25 +2592,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>sm</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Samoanische Sprache</string>
 				<string> Samoanisch</string>
-				<string> Gagana Samoa</string>
-				<string> Samoische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Samoan</string>
-				<string> Samoan language</string>
-				<string> sm</string>
-				<string> sm</string>
-				<string> smo</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>samoan</string>
-				<string> sm</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2870,35 +2618,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>sc</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Sardische Sprache</string>
-				<string> Sardinische Sprache</string>
-				<string> Limba sarda</string>
 				<string> Sardisch</string>
-				<string> Sardu</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Sardinian language</string>
 				<string> Sardinian</string>
-				<string> sc</string>
-				<string> sc</string>
-				<string> srd</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>sarde</string>
-				<string> Sard</string>
-				<string> Langue sarde</string>
-				<string> sc</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Sardijns</string>
-				<string> Sardisch</string>
-				<string> Sardische taal</string>
-				<string> Sardinisch</string>
 			</array>
 		</dict>
 	</dict>
@@ -2906,24 +2644,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>gd</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Schottisch-Gälisch</string>
-				<string> Schottisch-Gälische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Scottish Gaelic</string>
-				<string> Gaelic</string>
-				<string> Gàidhlig</string>
-				<string> gd</string>
-				<string> gd</string>
-				<string> gla</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>gaélique écossais</string>
-				<string> gd</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2935,23 +2670,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>sr</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Serbisch</string>
-				<string> Serbische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Serbian</string>
-				<string> Serbian language</string>
-				<string> sr</string>
-				<string> sr</string>
-				<string> srp</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>serbe</string>
-				<string> sr</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2963,23 +2696,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>sn</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Shona</string>
-				<string> ChiShona</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Shona</string>
-				<string> Shona language</string>
-				<string> sn</string>
-				<string> sn</string>
-				<string> sna</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>shona</string>
-				<string> sn</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2991,24 +2722,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>sd</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Sindhi</string>
-				<string> سنڌي</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Sindhi</string>
-				<string> Sindhi language</string>
-				<string> sd</string>
-				<string> sd</string>
-				<string> snd</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>sindhi</string>
-				<string> Sindhî</string>
-				<string> sd</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3020,28 +2748,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>si</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Singhalesische Sprache</string>
 				<string> Singhalesisch</string>
-				<string> Sinhalisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Sinhala</string>
-				<string> Singhalese language</string>
-				<string> Helabasa</string>
-				<string> Sinhalese language</string>
-				<string> Sinhalese</string>
-				<string> sin</string>
-				<string> si</string>
-				<string> si</string>
-				<string> sin</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>cingalais</string>
-				<string> si</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3060,20 +2781,14 @@
 			<key>de</key>
 			<array>
 				<string>Slowakisch</string>
-				<string> slowakische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Slovak</string>
-				<string> Slovak language</string>
-				<string> sk</string>
-				<string> sk</string>
-				<string> slk</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>slovaque</string>
-				<string> sk</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3092,7 +2807,6 @@
 			<key>de</key>
 			<array>
 				<string>Slowenisch</string>
-				<string> slowenische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -3101,7 +2815,6 @@
 			<key>fr</key>
 			<array>
 				<string>slovène</string>
-				<string> sl</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3113,6 +2826,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>so</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Somali</string>
@@ -3120,14 +2837,10 @@
 			<key>en</key>
 			<array>
 				<string>Somali</string>
-				<string> so</string>
-				<string> so</string>
-				<string> som</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>somali</string>
-				<string> so</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3139,32 +2852,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>st</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Sesotho</string>
-				<string> Süd-Sotho</string>
-				<string> Südliches Sotho</string>
-				<string> Südsotho</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Sotho</string>
-				<string> Southern Sotho</string>
-				<string> Sesotho</string>
-				<string> st</string>
-				<string> st</string>
-				<string> sot</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>sotho du Sud</string>
 				<string> SeSotho</string>
-				<string> st</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Zuid-Sotho</string>
-				<string> Sesotho</string>
 			</array>
 		</dict>
 	</dict>
@@ -3172,25 +2878,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>nr</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Süd-Ndebele</string>
-				<string> isiNdebele</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Southern Ndebele</string>
-				<string> South Ndebele</string>
-				<string> nr</string>
-				<string> nbl</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Nrebele</string>
-				<string> Ndébélé Du Nord</string>
 				<string> Ndébélé du sud</string>
-				<string> Ndebele du Nord</string>
-				<string> Ndebele du Sud</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3209,7 +2911,6 @@
 			<key>de</key>
 			<array>
 				<string>Spanisch</string>
-				<string> spanische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -3218,8 +2919,6 @@
 			<key>fr</key>
 			<array>
 				<string>espagnol</string>
-				<string> castillan</string>
-				<string> es</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3231,36 +2930,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>su</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Sundanesisch</string>
-				<string> Sundasprache</string>
-				<string> sundanesische Sprache</string>
-				<string> Basa Sunda</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Sundanese language</string>
-				<string> su</string>
-				<string> su</string>
-				<string> sun</string>
+				<string>Sundanese</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>soundanais</string>
-				<string> Langue sundanaise</string>
-				<string> Sondenais</string>
-				<string> Basa sunda</string>
-				<string> Sundenais</string>
-				<string> Sundanais</string>
-				<string> su</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>soendanees</string>
-				<string> Basa sunda</string>
-				<string> Soendaas</string>
-				<string> Sundanees</string>
 			</array>
 		</dict>
 	</dict>
@@ -3268,27 +2956,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>sw</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Swahili</string>
-				<string> Suaheli</string>
-				<string> Kisuaheli</string>
-				<string> Kiswahili</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Swahili</string>
-				<string> Swahili language</string>
-				<string> Swahili (macrolanguage)</string>
-				<string> Kiswahili</string>
-				<string> sw</string>
-				<string> sw</string>
-				<string> swa</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>swahili</string>
-				<string> sw</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3300,29 +2982,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ss</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Siswati</string>
 				<string> Swazi</string>
-				<string> Swati</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Swazi</string>
-				<string> Swati</string>
-				<string> ss</string>
-				<string> ss</string>
-				<string> ssw</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Swati</string>
-				<string> Siswati</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Swazi</string>
-				<string> SiSwati</string>
 			</array>
 		</dict>
 	</dict>
@@ -3337,7 +3015,6 @@
 			<key>de</key>
 			<array>
 				<string>Schwedisch</string>
-				<string> schwedische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -3346,7 +3023,6 @@
 			<key>fr</key>
 			<array>
 				<string>suédois</string>
-				<string> sv</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3358,6 +3034,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tl</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Tagalog</string>
@@ -3365,17 +3045,10 @@
 			<key>en</key>
 			<array>
 				<string>Tagalog</string>
-				<string> Tagalog language</string>
-				<string> tl</string>
-				<string> tl</string>
-				<string> tgl</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tagalog</string>
-				<string> Tagal</string>
-				<string> Tgl</string>
-				<string> tl</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3387,25 +3060,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ty</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Tahitianische Sprache</string>
 				<string> Tahitisch</string>
-				<string> Tahitianisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Tahitian</string>
-				<string> ty</string>
-				<string> Tahitian language</string>
-				<string> ty</string>
-				<string> tah</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tahitien</string>
-				<string> reo tahiti</string>
-				<string> ty</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3418,29 +3087,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tg</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Tadschikische Sprache</string>
 				<string> Tadschikisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Tajik</string>
-				<string> Tajik language</string>
-				<string> Tajiki</string>
-				<string> Tajiki language</string>
-				<string> Tadjik</string>
-				<string> Tadjik language</string>
-				<string> Tadzhik</string>
-				<string> Tadzhik language</string>
-				<string> tg</string>
-				<string> tg</string>
-				<string> tgk</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tadjik</string>
-				<string> tg</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3452,23 +3113,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ta</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Tamil</string>
-				<string> Tamilisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Tamil</string>
-				<string> ta</string>
-				<string> Tamil language</string>
-				<string> ta</string>
-				<string> tam</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tamoul</string>
-				<string> ta</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3480,31 +3139,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tt</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Tatarisch</string>
-				<string> Tatarça</string>
-				<string> Татарча</string>
-				<string> Kasan-Tatarisch</string>
-				<string> tatarische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Tatar</string>
-				<string> Kazan Tatar language</string>
-				<string> Qazan Tatar language</string>
-				<string> Tartarian</string>
-				<string> Tatar language</string>
-				<string> tt</string>
-				<string> tt</string>
-				<string> tat</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tatar</string>
-				<string> Tatarça</string>
-				<string> Tatare</string>
-				<string> tt</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3516,6 +3165,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>te</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Telugu</string>
@@ -3523,18 +3176,10 @@
 			<key>en</key>
 			<array>
 				<string>Telugu</string>
-				<string> Telugu language</string>
-				<string> Telungu</string>
-				<string> Andhra bhasha</string>
-				<string> Tenugu</string>
-				<string> te</string>
-				<string> te</string>
-				<string> tel</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>télougou</string>
-				<string> te</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3546,25 +3191,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>th</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Thailändisch</string>
-				<string> Thailändische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Thai</string>
-				<string> Central Thai</string>
-				<string> Siamese</string>
-				<string> Thai language</string>
-				<string> th</string>
-				<string> th</string>
-				<string> tha</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>thaï</string>
-				<string> th</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3576,35 +3217,25 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>bo</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Tibetische Sprache</string>
 				<string> Tibetisch</string>
-				<string> Bod yig</string>
-				<string> བོད་ཡིག</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Tibetan language</string>
-				<string> Standard Tibetan</string>
 				<string> Tibetan</string>
-				<string> Lhasa Tibetan</string>
-				<string> bo</string>
-				<string> bo</string>
-				<string> bod</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tibétain</string>
-				<string> Tibetain</string>
-				<string> Langues tibétaines</string>
-				<string> bo</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Tibetaans</string>
-				<string> Tibetaanse taal</string>
-				<string> Tibettaans</string>
 			</array>
 		</dict>
 	</dict>
@@ -3612,28 +3243,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>to</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Tongaische Sprache</string>
 				<string> Tongaisch</string>
-				<string> Faka-Tonga</string>
-				<string> Tongasprache</string>
-				<string> Tonganische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Tongan language</string>
-				<string> Tonga (Tonga Islands)</string>
-				<string> to</string>
-				<string> to</string>
-				<string> ton</string>
+				<string> Tonga</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tongien</string>
-				<string> tongan</string>
-				<string> tonguien</string>
-				<string> to</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3645,19 +3269,17 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ts</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Xitsonga</string>
 				<string> Tsonga</string>
-				<string> Shangaan</string>
-				<string> Thonga</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Tsonga</string>
-				<string> ts</string>
-				<string> ts</string>
-				<string> tso</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -3673,6 +3295,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tn</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Setswana</string>
@@ -3680,21 +3306,14 @@
 			<key>en</key>
 			<array>
 				<string>Tswana</string>
-				<string> Setswana</string>
-				<string> Sechuana</string>
-				<string> ISO 639</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>tswana</string>
-				<string> Setswana</string>
-				<string> Sotho de l&apos;Ouest</string>
-				<string> tn</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>Tswana</string>
-				<string> Setswana</string>
 			</array>
 		</dict>
 	</dict>
@@ -3702,25 +3321,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tr</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Türkisch</string>
-				<string> türkische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Turkish</string>
-				<string> Istanbul Turkish</string>
-				<string> Anatolian Turkish</string>
-				<string> Turkish language</string>
-				<string> tr</string>
-				<string> tr</string>
-				<string> tur</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>turc</string>
-				<string> tr</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3732,6 +3347,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tk</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Turkmenische Sprache</string>
@@ -3739,16 +3358,10 @@
 			<key>en</key>
 			<array>
 				<string>Turkmen</string>
-				<string> türkmençe</string>
-				<string> türkmen dili</string>
-				<string> tk</string>
-				<string> tk</string>
-				<string> tuk</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>turkmène</string>
-				<string> tk</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3760,6 +3373,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>tw</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Twi</string>
@@ -3767,15 +3384,10 @@
 			<key>en</key>
 			<array>
 				<string>Twi</string>
-				<string> tw</string>
-				<string> tw</string>
-				<string> twi</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>Twi</string>
-				<string> Tchi</string>
-				<string> tw</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3787,25 +3399,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>uk</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Ukrainisch</string>
-				<string> Ukrainisch</string>
-				<string> Ukrainische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Ukrainian</string>
-				<string> Ukrainian language</string>
-				<string> Українська</string>
-				<string> uk</string>
-				<string> uk</string>
-				<string> ukr</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>ukrainien</string>
-				<string> uk</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3817,6 +3425,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ur</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Urdu</string>
@@ -3824,16 +3436,10 @@
 			<key>en</key>
 			<array>
 				<string>Urdu</string>
-				<string> Urdu language</string>
-				<string> Modern Standard Urdu</string>
-				<string> ur</string>
-				<string> ur</string>
-				<string> urd</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>ourdou</string>
-				<string> ur</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3845,29 +3451,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ug</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Uigurisch</string>
-				<string> Ujghurisch</string>
-				<string> Uyghurisch</string>
-				<string> Neuuigurisch</string>
-				<string> Uigurische Sprache</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Uyghur</string>
-				<string> Uighur</string>
-				<string> Eastern Turkish</string>
-				<string> Uyghur language</string>
-				<string> uyghur</string>
-				<string> ug</string>
-				<string> ug</string>
-				<string> uig</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>ouïghour</string>
-				<string> ug</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3879,23 +3477,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>uz</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>Usbekische Sprache</string>
 				<string> Usbekisch</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Uzbek</string>
-				<string> Uzbek language</string>
-				<string> uz</string>
-				<string> uz</string>
-				<string> uzb</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>ouzbek</string>
-				<string> uz</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3907,6 +3503,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>ve</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Tshivenda</string>
@@ -3914,14 +3514,10 @@
 			<key>en</key>
 			<array>
 				<string>Venda</string>
-				<string> ve</string>
-				<string> ve</string>
-				<string> ven</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>venda</string>
-				<string> ve</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3933,6 +3529,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>vi</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Vietnamesische Sprache</string>
@@ -3940,15 +3540,10 @@
 			<key>en</key>
 			<array>
 				<string>Vietnamese</string>
-				<string> tiếng Việt</string>
-				<string> vi</string>
-				<string> vi</string>
-				<string> vie</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>vietnamien</string>
-				<string> vi</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3960,6 +3555,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>cy</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Walisische Sprache</string>
@@ -3967,16 +3566,10 @@
 			<key>en</key>
 			<array>
 				<string>Welsh</string>
-				<string> Welsh language</string>
-				<string> Cymric</string>
-				<string> cy</string>
-				<string> cy</string>
-				<string> wel</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>gallois</string>
-				<string> cy</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3988,23 +3581,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>wo</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Wolof</string>
-				<string> Ouolof</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Wolof</string>
-				<string> wo</string>
-				<string> wo</string>
-				<string> wol</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>wolof</string>
-				<string> Langue wolof</string>
-				<string> wo</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4016,29 +3607,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>xh</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>IsiXhosa</string>
 				<string> Xhosa</string>
-				<string> Caffre</string>
-				<string> Cafre</string>
-				<string> Cauzuh</string>
-				<string> Kaffersprache</string>
-				<string> Kafir</string>
-				<string> Koosa</string>
-				<string> Xosa Kafir</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Xhosa</string>
-				<string> xh</string>
-				<string> xh</string>
-				<string> xho</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>xhosa</string>
-				<string> xh</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4050,6 +3633,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>yi</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Jiddisch</string>
@@ -4057,20 +3644,10 @@
 			<key>en</key>
 			<array>
 				<string>Yiddish</string>
-				<string> yi</string>
-				<string> yi</string>
-				<string> yid</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>yiddish</string>
-				<string> yidich</string>
-				<string> judéo-allemand</string>
-				<string> yidish</string>
-				<string> jidisch</string>
-				<string> idiche</string>
-				<string> yidiche</string>
-				<string> yi</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4082,6 +3659,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>yo</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Yoruba</string>
@@ -4089,17 +3670,10 @@
 			<key>en</key>
 			<array>
 				<string>Yoruba</string>
-				<string> Yoruba language</string>
-				<string> yo</string>
-				<string> yo</string>
-				<string> yor</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>yoruba</string>
-				<string> dialecte yoruba</string>
-				<string> langue yoruba</string>
-				<string> yo</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4111,24 +3685,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>za</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Zhuang</string>
-				<string> Zhuangisch</string>
-				<string> Chuang</string>
-				<string> Tschuang</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Zhuang languages</string>
-				<string> za</string>
-				<string> za</string>
-				<string> zha</string>
+				<string>Zhuang</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>zhuang</string>
-				<string> za</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4140,24 +3711,21 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>iso</key>
+			<array>
+				<string>zu</string>
+			</array>
 			<key>de</key>
 			<array>
-				<string>IsiZulu</string>
 				<string> Zulu</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>Zulu</string>
-				<string> isiZulu</string>
-				<string> Zulu language</string>
-				<string> zu</string>
-				<string> zu</string>
-				<string> zul</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>zoulou</string>
-				<string> zu</string>
 			</array>
 			<key>nl</key>
 			<array>

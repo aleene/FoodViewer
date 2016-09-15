@@ -24,6 +24,7 @@
 		5125AB8B1D096C2D000DCD29 /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5125AB8A1D096C2D000DCD29 /* GlobalLabels.plist */; };
 		5125AB8D1D096C39000DCD29 /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5125AB8C1D096C39000DCD29 /* Categories.plist */; };
 		5125AB8F1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */; };
+		512C368E1D89A7850004C297 /* 5411788045285.json in Resources */ = {isa = PBXBuildFile; fileRef = 512C368D1D89A7850004C297 /* 5411788045285.json */; };
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0631CBAC3F800161616 /* NutritionFactItem.swift */; };
 		5150C0661CBCD66F00161616 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0651CBCD66F00161616 /* Preferences.swift */; };
@@ -165,6 +166,7 @@
 		5125AB8A1D096C2D000DCD29 /* GlobalLabels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GlobalLabels.plist; sourceTree = "<group>"; };
 		5125AB8C1D096C39000DCD29 /* Categories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
 		5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		512C368D1D89A7850004C297 /* 5411788045285.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5411788045285.json; sourceTree = "<group>"; };
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		5150C0631CBAC3F800161616 /* NutritionFactItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItem.swift; sourceTree = "<group>"; };
 		5150C0651CBCD66F00161616 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				51DAD3781C60A6A200895513 /* 737628064502.json */,
 				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
 				51FB32261CF1F4D100A17312 /* Macadamia.json */,
+				512C368D1D89A7850004C297 /* 5411788045285.json */,
 			);
 			name = "Test files";
 			sourceTree = "<group>";
@@ -679,6 +682,7 @@
 				5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */,
 				51B150011CB2DF5D00A57D42 /* Additives.plist in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
+				512C368E1D89A7850004C297 /* 5411788045285.json in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				516BA5881CC3ADFD008A094A /* Launch Screen.storyboard in Resources */,
 				5125AB8D1D096C39000DCD29 /* Categories.plist in Resources */,
