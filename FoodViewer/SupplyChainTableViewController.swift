@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SupplyChainTableViewController: UITableViewController {
+class SupplyChainTableViewController: UITableViewController, TagListViewDelegate {
     
     var product: FoodProduct? {
         didSet {
@@ -30,6 +30,7 @@ class SupplyChainTableViewController: UITableViewController {
         case Country
         case Map
         case ExpirationDate
+        case Sites
     }
     
     private struct Constants {
@@ -51,6 +52,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let CountriesCellIdentifier = "Countries TagListView Cell"
         static let ProducerCodeCellIdentifier = "ProducerCodes TagListView Cell"
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
+        static let SitesCellIdentifier = "Sites TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
     }
     
@@ -64,6 +66,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let StoresSectionHeader = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
         static let MapSectionHeader = NSLocalizedString("Map", comment: "Header for section of tableView with a map of producer, origin and shop locations.")
         static let ExpirationDateSectionHeader = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
+        static let SitesSectionHeader = NSLocalizedString("Producer Sites", comment: "Header title of tableview section, indicating the sites for the product")
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1
@@ -72,6 +75,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let StoresSectionSize = 1
         static let MapSectionSize = 1
         static let ExpirationDateSectionSize = 1
+        static let SitesSectionSize = 1
     }
     
     private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -97,6 +101,11 @@ class SupplyChainTableViewController: UITableViewController {
             SectionType.ProducerCode,
             TableStructure.ProducerCodeSectionSize,
             TableStructure.ProducerCodeSectionHeader))
+        // producer sites
+        sectionsAndRows.append((
+            SectionType.Sites,
+            TableStructure.SitesSectionSize,
+            TableStructure.SitesSectionHeader))
         // purchase Location section
         sectionsAndRows.append((
             SectionType.Location,
@@ -149,6 +158,11 @@ class SupplyChainTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCodeCellIdentifier, forIndexPath: indexPath) as! AddressTagListTableViewCell
             cell.tagList = product!.producerCode
             return cell
+        case .Sites:
+            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.SitesCellIdentifier, forIndexPath: indexPath) as! SitesTagListTableViewCell
+            cell.tagList = product!.links
+            cell.tagListView!.delegate = self
+            return cell
         case .IngredientOrigin:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.ingredientsOrigin?.elements
@@ -197,6 +211,26 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
     
+    // MARK: TagListViewDelegate
+    
+    func tagPressed(title: String, tagView: TagView, sender: TagListView) {
+        /// shoudl open the corresponding url in safari
+        if (product?.links != nil) && (product?.links!.count > 0) {
+            var urlToOpen = product!.links![0]
+            if (urlToOpen.scheme.length() == 0)
+            {
+                let text = "http://" + urlToOpen.absoluteString;
+                urlToOpen  = NSURL.init(string:text)!;
+            }
+            print("Tag pressed: \(title), \(urlToOpen)")
+            if UIApplication.sharedApplication().canOpenURL(urlToOpen) {
+                UIApplication.sharedApplication().openURL(urlToOpen)
+            }
+        }
+        tagView.selected = !tagView.selected
+    }
+    
+
     // MARK: - Notification handler
     
     func reloadMapSection(notification: NSNotification) {

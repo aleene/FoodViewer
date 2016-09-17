@@ -839,7 +839,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="xIo-3N-Ski">
-                            <rect key="frame" x="0.0" y="460" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="504" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -930,8 +930,31 @@
                                     <outlet property="tagListView" destination="Dyb-tq-jkw" id="VVQ-SO-gFh"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Sites TagListView Cell" id="4hJ-8H-QVY" userLabel="Sites Cell" customClass="SitesTagListTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="204" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="4hJ-8H-QVY" id="Yoh-0g-tC0">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9S2-o9-Qqd" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="8" width="584" height="28"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="9S2-o9-Qqd" secondAttribute="trailing" id="eti-8F-dzu"/>
+                                        <constraint firstItem="9S2-o9-Qqd" firstAttribute="leading" secondItem="Yoh-0g-tC0" secondAttribute="leadingMargin" id="r5E-XU-TnD"/>
+                                        <constraint firstItem="9S2-o9-Qqd" firstAttribute="top" secondItem="Yoh-0g-tC0" secondAttribute="topMargin" id="rCA-AY-chT"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="9S2-o9-Qqd" secondAttribute="bottom" id="yDP-rC-hMy"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tagListView" destination="9S2-o9-Qqd" id="Zjd-ci-y20"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Map Cell" rowHeight="256" id="6zJ-kS-IMv" customClass="MapTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="204" width="600" height="256"/>
+                                <rect key="frame" x="0.0" y="248" width="600" height="256"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="6zJ-kS-IMv" id="OBN-Zw-JZX">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="256"/>

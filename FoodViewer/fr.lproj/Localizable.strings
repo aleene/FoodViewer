@@ -201,7 +201,7 @@
 /* Text to indicate that the history of products is empty. */
 "No products listed" = "Pas de produits spécifiés";
 
-/* String if no quauntity is available */
+/* String if no quantity is available */
 "No quantity available" = "Pas des quantités disponible";
 
 /* Text to indicate that no supply chain infor (origin, producer, etc.) are available. */
@@ -273,6 +273,9 @@
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Codes emballeurs";
 
+/* Header title of tableview section, indicating the sites for the product */
+"Producer Sites" = "Sites producteurs";
+
 /* Header for section of tableView with information of the producer (name, geographic location). */
 "Producers" = "Producteurs";
 
@@ -317,6 +320,9 @@
 
 /* Title in cell with the saturated fat to all fat ratio */
 "Saturated Fat to Total Fat ratio" = "Rapport Graisses Saturés sur Graisses Totals";
+
+/* Title of viewcontroller which allows the selecting of a product language. */
+"Select Language" = "Selectionne langue";
 
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portion";
@@ -382,6 +388,9 @@
 /* Text in a TagListView, when no labels have been specified in the product data. */
 "no labels specified" = "pas de labels spécifiés";
 
+/* Text for productname, when no productname is available in the product data. */
+"no name specified" = "pas de nom spécifié";
+
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data available" = "pas d'info nutritionnelles spécifiés";
 
@@ -400,11 +409,19 @@
 /* Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour. */
 "no serving size available" = "pas de portion spécifié";
 
+/* Text for an entry in a taglist, when no site is available. This is also indicated in a separate colour. */
+"no sites available" = "pas de sites spécifiés";
+
 /* Text in a TagListView, when no traces have been specified in the product data. */
 "no traces specified" = "pas de traces specifiés";
 
-/* Text for a cell, when no status title has been provided, such as 'completed', etc. */
+/* Text for a cell, when no status title has been provided, such as 'completed', etc.
+   Text for language of product, when there is no laguage defined.
+   Text for language of product, when there is no language defined. */
 "none" = "aucun";
+
+/* the ingredients text has no associated language defined */
+"none defined" = "aucun défini";
 
 /* TextField text to indicate the serving size is not available */
 "not available" = "pas disponible";

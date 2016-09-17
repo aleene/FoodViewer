@@ -120,6 +120,7 @@ class OpenFoodFactsRequest {
         static let CategoriesPrevTagsKey = "categories_prev_tags"
         static let PackagingTagsKey = "packaging_tags"
         static let ManufacturingPlacesKey = "manufacturing_places"
+        static let LinkKey = "link"
         static let IngredientsNKey = "ingredients_n"
         static let NutrimentsKey = "nutriments"
         static let SodiumKey = "sodium"
@@ -430,7 +431,20 @@ class OpenFoodFactsRequest {
                     product.brandsArray = brandsString.characters.split{$0 == ","}.map(String.init)
                 }
 
-                    product.purchaseLocationString(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string)
+                // The links for the producer are stored as a string. This string might contain multiple links.
+                let linksString = jsonObject?[OFFJson.ProductKey]?[OFFJson.LinkKey]?.string
+                if let validLinksString = linksString {
+                    // assume that the links are separated by a comma ","
+                    let validLinksComponents = validLinksString.characters.split{$0 == ","}.map(String.init)
+                    product.links = []
+                    for component in validLinksComponents {
+                        if let validFirstURL = NSURL.init(string: component) {
+                            product.links!.append(validFirstURL)
+                        }
+                    }
+                }
+                
+                product.purchaseLocationString(jsonObject?[OFFJson.ProductKey]?[OFFJson.PurchasePlacesKey]?.string)
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PnnsGroups2Key]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CountriesHierarchyKey]?.stringArray
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.TracesKey]?.string

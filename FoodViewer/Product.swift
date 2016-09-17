@@ -219,6 +219,7 @@ class FoodProduct {
     }
 
     var producer: Address? = nil
+    var links: [NSURL]? = nil
     var expirationDate: NSDate? = nil
     
     func producerElements(elements: [String]?) {
@@ -557,6 +558,7 @@ class FoodProduct {
             imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
             imageIngredientsUrl = product.imageIngredientsUrl
             ingredientsImageData = nil
+            numberOfIngredients = product.numberOfIngredients
             allergenKeys = product.allergenKeys
             traceKeys = product.traceKeys
             additives = product.additives
@@ -580,6 +582,7 @@ class FoodProduct {
             state = product.state
             primaryLanguageCode = product.primaryLanguageCode
             languageCodes = product.languageCodes
+            languages = product.languages
             categories = product.categories
             photographers = product.photographers
             correctors = product.correctors

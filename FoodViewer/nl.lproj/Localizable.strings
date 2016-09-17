@@ -201,7 +201,7 @@
 /* Text to indicate that the history of products is empty. */
 "No products listed" = "Geen producten beschikbaar.";
 
-/* String if no quauntity is available */
+/* String if no quantity is available */
 "No quantity available" = "Geen verpakkingsgrootte beschikbaar.";
 
 /* Text to indicate that no supply chain infor (origin, producer, etc.) are available. */
@@ -273,6 +273,9 @@
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Producentcodes";
 
+/* Header title of tableview section, indicating the sites for the product */
+"Producer Sites" = "Productsites";
+
 /* Header for section of tableView with information of the producer (name, geographic location). */
 "Producers" = "Producenten";
 
@@ -317,6 +320,9 @@
 
 /* Title in cell with the saturated fat to all fat ratio */
 "Saturated Fat to Total Fat ratio" = "Verzadigde t.o.v. alle vetten";
+
+/* Title of viewcontroller which allows the selecting of a product language. */
+"Select Language" = "Kies taal";
 
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portiegrootte";
@@ -382,6 +388,9 @@
 /* Text in a TagListView, when no labels have been specified in the product data. */
 "no labels specified" = "geen keurmerken aangegeven";
 
+/* Text for productname, when no productname is available in the product data. */
+"no name specified" = "geen naam aangegeven";
+
 /* Text in a TagListView, when no nutrition data has been specified in the product data. */
 "no nutrition data available" = "geen voedingswaarden aangegeven";
 
@@ -400,11 +409,19 @@
 /* Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour. */
 "no serving size available" = "geen portiegroote ingevuld";
 
+/* Text for an entry in a taglist, when no site is available. This is also indicated in a separate colour. */
+"no sites available" = "geen sites aangegeven";
+
 /* Text in a TagListView, when no traces have been specified in the product data. */
 "no traces specified" = "geen sporen aangegeven";
 
-/* Text for a cell, when no status title has been provided, such as 'completed', etc. */
+/* Text for a cell, when no status title has been provided, such as 'completed', etc.
+   Text for language of product, when there is no laguage defined.
+   Text for language of product, when there is no language defined. */
 "none" = "geen";
+
+/* the ingredients text has no associated language defined */
+"none defined" = "geen gedefinieerd";
 
 /* TextField text to indicate the serving size is not available */
 "not available" = "niet beschikbaar";

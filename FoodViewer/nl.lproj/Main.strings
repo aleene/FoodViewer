@@ -1,6 +1,9 @@
 /* Class = "UILabel"; text = "-15"; ObjectID = "0Ia-fi-3Hh"; */
 "0Ia-fi-3Hh.text" = "-15";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "1rX-wX-DbL"; */
+"1rX-wX-DbL.text" = "Titel";
+
 /* Class = "UILabel"; text = "Sat. Fat"; ObjectID = "2PK-oc-6OO"; */
 "2PK-oc-6OO.text" = "Verz. Vetten";
 
@@ -16,6 +19,9 @@
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
 "8TO-NA-Iaz.title" = "Annuleer";
 
+/* Class = "UILabel"; text = "Productname"; ObjectID = "8k3-mD-RZs"; */
+"8k3-mD-RZs.text" = "Productnaam";
+
 /* Class = "UISegmentedControl"; 9HQ-Hd-LCX.segmentTitles[0] = "Salt"; ObjectID = "9HQ-Hd-LCX"; */
 "9HQ-Hd-LCX.segmentTitles[0]" = "Zout";
 
@@ -27,6 +33,9 @@
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
+
+/* Class = "UIButton"; normalTitle = "language"; ObjectID = "C93-Fg-KRg"; */
+"C93-Fg-KRg.normalTitle" = "taal";
 
 /* Class = "UILabel"; text = "Salt"; ObjectID = "DFK-3b-hb1"; */
 "DFK-3b-hb1.text" = "Zout";
@@ -46,11 +55,17 @@
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
 
+/* Class = "UIButton"; normalTitle = "language"; ObjectID = "Iq0-G4-To0"; */
+"Iq0-G4-To0.normalTitle" = "taal";
+
 /* Class = "UILabel"; text = "10"; ObjectID = "KVB-N1-x8r"; */
 "KVB-N1-x8r.text" = "10";
 
 /* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "LUu-zu-IQr"; */
 "LUu-zu-IQr.normalTitle" = "Verwijder historie";
+
+/* Class = "UINavigationItem"; title = "Title"; ObjectID = "MGY-bs-Itx"; */
+"MGY-bs-Itx.title" = "Titel";
 
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
 "PY2-Eu-268.text" = "Voedingswaarde";
@@ -168,9 +183,6 @@
 
 /* Class = "UILabel"; text = "Contributor name"; ObjectID = "xR6-oy-1vL"; */
 "xR6-oy-1vL.text" = "Naam bijdrager";
-
-/* Class = "UILabel"; text = "Product name"; ObjectID = "zI1-0r-9KS"; */
-"zI1-0r-9KS.text" = "Productnaam";
 
 /* Class = "UILabel"; text = "40"; ObjectID = "zwC-ws-6DY"; */
 "zwC-ws-6DY.text" = "40";
