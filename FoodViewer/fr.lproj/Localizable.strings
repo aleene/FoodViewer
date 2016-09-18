@@ -47,7 +47,7 @@
 "Brands" = "Marques";
 
 /* Text to indicate that the it is trying to load. */
-"Busy loading product" = "Chargement produit en train";
+"Busy loading product" = "Chargement produit en cours";
 
 /* Title of second segment in switch, which lets the user select between joule or calories */
 "Calories" = "Calories";
@@ -80,7 +80,7 @@
 "Creation Date" = "Date création";
 
 /* Description for NutritionData Daily Value per serving */
-"Daily Values (per serving)" = "Apport Journalières (par portion)";
+"Daily Values (per serving)" = "Apport Journ.";
 
 /* Text to indicate how much the product data is filled in (available). */
 "Data is %@ complete." = "Données sont %@ complèts.";
@@ -283,7 +283,7 @@
 "Product is loaded" = "Produit chargé";
 
 /* String presented in a tagView if the product is currently being loaded */
-"Product loading" = "En train de charger produit";
+"Product loading" = "En cours de charger produit";
 
 /* String presented in a tagView if the product loading has failed */
 "Product loading  failed" = "Chargement produit échoué";

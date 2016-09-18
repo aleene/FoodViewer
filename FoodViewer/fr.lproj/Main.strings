@@ -62,7 +62,7 @@
 "KVB-N1-x8r.text" = "10";
 
 /* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "LUu-zu-IQr"; */
-"LUu-zu-IQr.normalTitle" = "Supprimer histoire";
+"LUu-zu-IQr.normalTitle" = "Supprimer historique";
 
 /* Class = "UINavigationItem"; title = "Title"; ObjectID = "MGY-bs-Itx"; */
 "MGY-bs-Itx.title" = "Titre";
@@ -89,7 +89,7 @@
 "XQE-hH-APP.segmentTitles[1]" = "Par Portion";
 
 /* Class = "UISegmentedControl"; XQE-hH-APP.segmentTitles[2] = "Per Daily Value"; ObjectID = "XQE-hH-APP"; */
-"XQE-hH-APP.segmentTitles[2]" = "Par Apport Reference";
+"XQE-hH-APP.segmentTitles[2]" = "Apport Jour.";
 
 /* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
 "XeQ-CI-ELW.text" = "Portion (valeur + unité)";

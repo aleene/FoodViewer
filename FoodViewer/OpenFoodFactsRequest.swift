@@ -290,7 +290,7 @@ class OpenFoodFactsRequest {
         static let PackagingKey = "packaging"
         static let ServingQuantityKey = "serving_quantity"
         static let OriginsTagsKey = "origins_tags"
-        static let ManufacturingPlacesTags = "manufacturing_places_tags"
+        static let ManufacturingPlacesTagsKey = "manufacturing_places_tags"
         static let NutritionDataPerKey = "nutrition_data_per"
         static let LabelsKey = "labels"
         static let CitiesTagsKey = "cities_tags"
@@ -510,7 +510,8 @@ class OpenFoodFactsRequest {
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.PackagingKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.ServingQuantityKey]?.double
                 product.ingredientsOriginElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.OriginsTagsKey]?.stringArray)
-                product.producerElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesTags]?.stringArray)
+                product.producerElements(jsonObject?[OFFJson.ProductKey]?[OFFJson.ManufacturingPlacesKey]?.string)
+                
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.NutritionDataPerKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.LabelsKey]?.string
                     // jsonObject?[OFFJson.ProductKey]?[OFFJson.CitiesTagsKey]?.stringArray

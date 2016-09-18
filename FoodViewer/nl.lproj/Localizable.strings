@@ -47,7 +47,7 @@
 "Brands" = "Merken";
 
 /* Text to indicate that the it is trying to load. */
-"Busy loading product" = "Product wordt geladden";
+"Busy loading product" = "Product wordt geladen";
 
 /* Title of second segment in switch, which lets the user select between joule or calories */
 "Calories" = "Calorieën";

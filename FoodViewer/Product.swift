@@ -222,10 +222,11 @@ class FoodProduct {
     var links: [NSURL]? = nil
     var expirationDate: NSDate? = nil
     
-    func producerElements(elements: [String]?) {
-        if elements != nil && !elements!.isEmpty {
+    func producerElements(elements: String?) {
+        if elements != nil {
+            let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
             self.producer = Address()
-            self.producer!.elements = elements
+            self.producer!.elements = addressElements
         }
     }
     

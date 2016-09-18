@@ -86,11 +86,11 @@ class NutritionScoreTableViewController: UITableViewController {
             switch indexPath.section {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsA[indexPath.row].nutriment, product!.nutritionalScoreUK.pointsA[indexPath.row].points, 10, 0)
+                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsA[indexPath.row].nutriment, product!.nutritionalScoreUK.pointsA[indexPath.row].points, 10, 0, .Bad)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsC[indexPath.row].nutriment, product!.nutritionalScoreUK.pointsC[indexPath.row].points, 5, 0)
+                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsC[indexPath.row].nutriment, product!.nutritionalScoreUK.pointsC[indexPath.row].points, 5, 0, .Good)
                 return cell!
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ColourCodedNutritionalScoreCellIdentifier, forIndexPath: indexPath)as? ColourCodedNutritionalScoreTableViewCell
@@ -101,11 +101,11 @@ class NutritionScoreTableViewController: UITableViewController {
             switch indexPath.section {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsA[indexPath.row].nutriment, product!.nutritionalScoreFrance.pointsA[indexPath.row].points, 10, 0)
+                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsA[indexPath.row].nutriment, product!.nutritionalScoreFrance.pointsA[indexPath.row].points, 10, 0, .Bad)
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsC[indexPath.row].nutriment, product!.nutritionalScoreFrance.pointsC[indexPath.row].points, 5, 0)
+                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsC[indexPath.row].nutriment, product!.nutritionalScoreFrance.pointsC[indexPath.row].points, 5, 0, .Good)
                 return cell!
             case 2:
                 switch indexPath.row {
