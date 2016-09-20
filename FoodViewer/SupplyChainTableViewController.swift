@@ -217,9 +217,9 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         /// shoudl open the corresponding url in safari
         if (product?.links != nil) && (product?.links!.count > 0) {
             var urlToOpen = product!.links![0]
-            if (urlToOpen.scheme.length() == 0)
+            if (urlToOpen.scheme!.length() == 0)
             {
-                let text = "http://" + urlToOpen.absoluteString;
+                let text = "http://" + urlToOpen.absoluteString!;
                 urlToOpen  = NSURL.init(string:text)!;
             }
             print("Tag pressed: \(title), \(urlToOpen)")

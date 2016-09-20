@@ -38,7 +38,7 @@ class Keyboard: UIView {
     
     func initializeSubviews() {
         let xibFileName = "Keyboard" // xib extension not included
-        let view = NSBundle.mainBundle().loadNibNamed(xibFileName, owner: self, options: nil)[0] as! UIView
+        let view = NSBundle.mainBundle().loadNibNamed(xibFileName, owner: self, options: nil)![0] as! UIView
         self.addSubview(view)
         view.frame = self.bounds
     }

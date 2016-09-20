@@ -29,7 +29,7 @@ class SitesTagListTableViewCell: UITableViewCell {
                 tagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        tagListView.addTag(listItem.absoluteString)
+                        tagListView.addTag(listItem.absoluteString!)
                     }
                     tagListView.tagBackgroundColor = UIColor.greenColor()
                 } else {

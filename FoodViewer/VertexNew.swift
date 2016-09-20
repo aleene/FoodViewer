@@ -20,7 +20,7 @@ class VertexNew: Node {
     }
     
     init() {
-        super.init(key: "\(rand())")
+        super.init(key: "\(arc4random())")
     }
     
     init(node: Node) {

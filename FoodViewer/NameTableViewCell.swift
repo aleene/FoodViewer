@@ -113,7 +113,7 @@ extension UIImage {
         self.drawInRect(outputRect)
         
         // create new image from bitmap context
-        let outImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let outImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         
         // clean up
         UIGraphicsEndImageContext()
@@ -131,6 +131,6 @@ extension UIImage {
         self.drawInRect(CGRect(origin: CGPointZero, size: sizeChange))
         
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        return scaledImage
+        return scaledImage!
     }
 }
