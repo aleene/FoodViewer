@@ -10,7 +10,7 @@ import UIKit
 
 class NameTableViewCell: UITableViewCell {
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let NoBrandsIndicated = NSLocalizedString("No brands indicated.", comment: "Text in a tableview cell, when no brands are available in the product data.") 
         static let CellContentViewMargin = CGFloat(8)
     }
@@ -41,7 +41,7 @@ class NameTableViewCell: UITableViewCell {
                 }
                 // still need to solved what happens when the image is very high
                 
-                productImageView.contentMode = .Center
+                productImageView.contentMode = .center
 
                 // print("product imageView size \(productImageView?.bounds.size)")
                 // print("cell: \(self.contentView.bounds.size)")
@@ -73,7 +73,7 @@ class NameTableViewCell: UITableViewCell {
 
 extension UIImage {
     
-    func squareCropImageToSideLength(sideLength: CGFloat) -> UIImage {
+    func squareCropImageToSideLength(_ sideLength: CGFloat) -> UIImage {
         // input size comes from image
         let inputSize: CGSize = self.size
         
@@ -81,36 +81,36 @@ extension UIImage {
         let sideLength: CGFloat = ceil(sideLength)
         
         // output size has sideLength for both dimensions
-        let outputSize: CGSize = CGSizeMake(sideLength, sideLength)
+        let outputSize: CGSize = CGSize(width: sideLength, height: sideLength)
         
         // calculate scale so that smaller dimension fits sideLength
         let scale: CGFloat = max(sideLength / inputSize.width,
             sideLength / inputSize.height)
         
         // scaling the image with this scale results in this output size
-        let scaledInputSize: CGSize = CGSizeMake(inputSize.width * scale,
-            inputSize.height * scale)
+        let scaledInputSize: CGSize = CGSize(width: inputSize.width * scale,
+            height: inputSize.height * scale)
         
         // determine point in center of "canvas"
-        let center: CGPoint = CGPointMake(outputSize.width/2.0,
-            outputSize.height/2.0)
+        let center: CGPoint = CGPoint(x: outputSize.width/2.0,
+            y: outputSize.height/2.0)
         
         // calculate drawing rect relative to output Size
-        let outputRect: CGRect = CGRectMake(center.x - scaledInputSize.width/2.0,
-            center.y - scaledInputSize.height/2.0,
-            scaledInputSize.width,
-            scaledInputSize.height)
+        let outputRect: CGRect = CGRect(x: center.x - scaledInputSize.width/2.0,
+            y: center.y - scaledInputSize.height/2.0,
+            width: scaledInputSize.width,
+            height: scaledInputSize.height)
         
         // begin a new bitmap context, scale 0 takes display scale
         UIGraphicsBeginImageContextWithOptions(outputSize, true, 0)
         
         // optional: set the interpolation quality.
         // For this you need to grab the underlying CGContext
-        let context: CGContextRef = UIGraphicsGetCurrentContext()!
-        CGContextSetInterpolationQuality(context, CGInterpolationQuality.High)
+        let context: CGContext = UIGraphicsGetCurrentContext()!
+        context.interpolationQuality = CGInterpolationQuality.high
         
         // draw the source image into the calculated rect
-        self.drawInRect(outputRect)
+        self.draw(in: outputRect)
         
         // create new image from bitmap context
         let outImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -122,13 +122,13 @@ extension UIImage {
         return outImage
     }
     
-    func imageResize (sizeChange:CGSize)-> UIImage {
+    func imageResize (_ sizeChange:CGSize)-> UIImage {
         
         let hasAlpha = false
         let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
         
         UIGraphicsBeginImageContextWithOptions(sizeChange, !hasAlpha, scale)
-        self.drawInRect(CGRect(origin: CGPointZero, size: sizeChange))
+        self.draw(in: CGRect(origin: CGPoint.zero, size: sizeChange))
         
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         return scaledImage!

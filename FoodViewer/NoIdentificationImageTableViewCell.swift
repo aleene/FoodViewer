@@ -13,22 +13,22 @@ class NoIdentificationImageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tagListView.alignment = .Center
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.alignment = .center
             tagListView.cornerRadius = 10
         }
     }
     
-    var imageFetchStatus: ImageFetchResult = .NoData {
+    var imageFetchStatus: ImageFetchResult = .noData {
         didSet {
             tagListView.removeAllTags()
             switch imageFetchStatus {
-            case .Success:
-                tagListView.tagBackgroundColor = UIColor.greenColor()
-            case .NoImageAvailable, .NoData, .LoadingFailed:
-                tagListView.tagBackgroundColor = UIColor.redColor()
-            case .Loading:
-                tagListView.tagBackgroundColor = UIColor.orangeColor()
+            case .success:
+                tagListView.tagBackgroundColor = UIColor.green
+            case .noImageAvailable, .noData, .loadingFailed:
+                tagListView.tagBackgroundColor = UIColor.red
+            case .loading:
+                tagListView.tagBackgroundColor = UIColor.orange
             }
             tagListView.addTag(imageFetchStatus.description())
         }

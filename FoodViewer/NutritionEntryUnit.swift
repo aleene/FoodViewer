@@ -13,21 +13,21 @@ import Foundation
 
 enum NutritionEntryUnit {
     
-    case PerServing
-    case PerStandardUnit
+    case perServing
+    case perStandardUnit
     
     func description() -> String {
         switch self {
-        case .PerServing: return NSLocalizedString("nutrition data indicated per serving", comment: "description() text if the nutrition data on the package is indicated per serving.")
-        case .PerStandardUnit: return NSLocalizedString("no nutrition data indicated per standard unit", comment: "description() text if the nutrition data on the package is indicated per standard unit (100 g or 100 ml).")
+        case .perServing: return NSLocalizedString("nutrition data indicated per serving", comment: "description() text if the nutrition data on the package is indicated per serving.")
+        case .perStandardUnit: return NSLocalizedString("no nutrition data indicated per standard unit", comment: "description() text if the nutrition data on the package is indicated per standard unit (100 g or 100 ml).")
             
         }
     }
     
     func key() -> String {
         switch self {
-        case .PerServing: return "serving"
-        case .PerStandardUnit: return "100g"
+        case .perServing: return "serving"
+        case .perStandardUnit: return "100g"
         }
     }
 }

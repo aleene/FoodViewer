@@ -18,52 +18,52 @@ class IdentificationTableViewController: UITableViewController {
         static let NoQuantity = NSLocalizedString("No quantity available", comment: "String if no quantity is available")
     }
     
-    private var tableStructure: [SectionType] = []
+    fileprivate var tableStructure: [SectionType] = []
     
     
-    private enum SectionType {
-        case Barcode(Int, String)
-        case Name(Int, String)
-        case GenericName(Int, String)
-        case Brands(Int, String)
-        case Packaging(Int, String)
-        case Quantity(Int, String)
-        case Image(Int, String)
+    fileprivate enum SectionType {
+        case barcode(Int, String)
+        case name(Int, String)
+        case genericName(Int, String)
+        case brands(Int, String)
+        case packaging(Int, String)
+        case quantity(Int, String)
+        case image(Int, String)
         
         func header() -> String {
             switch self {
-            case .Barcode(_, let headerTitle):
+            case .barcode(_, let headerTitle):
                 return headerTitle
-            case .Name(_, let headerTitle):
+            case .name(_, let headerTitle):
                 return headerTitle
-            case .GenericName(_, let headerTitle):
+            case .genericName(_, let headerTitle):
                 return headerTitle
-            case .Brands(_, let headerTitle):
+            case .brands(_, let headerTitle):
                 return headerTitle
-            case .Packaging(_, let headerTitle):
+            case .packaging(_, let headerTitle):
                 return headerTitle
-            case .Quantity(_, let headerTitle):
+            case .quantity(_, let headerTitle):
                 return headerTitle
-            case .Image(_, let headerTitle):
+            case .image(_, let headerTitle):
                 return headerTitle
             }
         }
         
         func numberOfRows() -> Int {
             switch self {
-            case .Barcode(let numberOfRows, _):
+            case .barcode(let numberOfRows, _):
                 return numberOfRows
-            case .Name(let numberOfRows, _):
+            case .name(let numberOfRows, _):
                 return numberOfRows
-            case .GenericName(let numberOfRows, _):
+            case .genericName(let numberOfRows, _):
                 return numberOfRows
-            case .Brands(let numberOfRows, _):
+            case .brands(let numberOfRows, _):
                 return numberOfRows
-            case .Packaging(let numberOfRows, _):
+            case .packaging(let numberOfRows, _):
                 return numberOfRows
-            case .Quantity(let numberOfRows, _):
+            case .quantity(let numberOfRows, _):
                 return numberOfRows
-            case .Image(let numberOfRows, _):
+            case .image(let numberOfRows, _):
                 return numberOfRows
             }
         }
@@ -84,8 +84,8 @@ class IdentificationTableViewController: UITableViewController {
     // MARK: - Action methods
     
     // should redownload the current product and reload it in this scene
-    @IBAction func refresh(sender: UIRefreshControl) {
-        if refreshControl!.refreshing {
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
@@ -93,7 +93,7 @@ class IdentificationTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let BasicCellIdentifier = "Identification Basic Cell"
         static let ProductNameCellIdentifier = "Product Name Cell"
         static let BarcodeCellIdentifier = "Barcode Cell"
@@ -105,26 +105,26 @@ class IdentificationTableViewController: UITableViewController {
         static let ShowNamesLanguagesSegueIdentifier = "Show Names Languages"
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // should return all sections (7)
         return product == nil ? 0 : tableStructure.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableStructure[section].numberOfRows()
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentProductSection = tableStructure[indexPath.section]
+        let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
         
         switch currentProductSection {
-        case .Barcode:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BarcodeCellIdentifier, forIndexPath: indexPath)as? BarcodeTableViewCell
+        case .barcode:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BarcodeCellIdentifier, for: indexPath)as? BarcodeTableViewCell
             cell!.barcode = product?.barcode.asString()
             return cell!
-        case .Name:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProductNameCellIdentifier, forIndexPath: indexPath) as? ProductNameTableViewCell
+        case .name:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
             // does the product have valid multiple languages
             if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
                 cell!.name = product!.nameLanguage[currentLanguageCode!]!
@@ -137,8 +137,8 @@ class IdentificationTableViewController: UITableViewController {
             }
 
             return cell!
-        case .GenericName:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProductNameCellIdentifier, forIndexPath: indexPath) as? ProductNameTableViewCell
+        case .genericName:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
             // does the product have valid multiple languages
             if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
                 cell!.name = product!.genericNameLanguage[currentLanguageCode!]!
@@ -151,53 +151,53 @@ class IdentificationTableViewController: UITableViewController {
             }
             return cell!
 
-        case .Brands:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TagListCellIdentifier, forIndexPath: indexPath) as? IdentificationTagListViewTableViewCell
+        case .brands:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as? IdentificationTagListViewTableViewCell
             cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
             return cell!
-        case .Packaging:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.PackagingCellIdentifier, forIndexPath: indexPath) as? IdentificationPackagingTagListViewTableViewCell
+        case .packaging:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as? IdentificationPackagingTagListViewTableViewCell
             cell!.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
             return cell!
-        case .Quantity:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BasicCellIdentifier, forIndexPath: indexPath)
+        case .quantity:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BasicCellIdentifier, for: indexPath)
             cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : TextConstants.NoQuantity
             return cell
-        case .Image:
+        case .image:
             if let result = product?.getMainImageData() {
                 switch result {
-                case .Success(let data):
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ImageCellIdentifier, forIndexPath: indexPath) as? IdentificationImageTableViewCell
+                case .success(let data):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ImageCellIdentifier, for: indexPath) as? IdentificationImageTableViewCell
                     cell?.identificationImage = UIImage(data:data)
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? NoIdentificationImageTableViewCell
                     cell?.imageFetchStatus = result
                     return cell!
                 }
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoIdentificationImageCellIdentifier, forIndexPath: indexPath) as? NoIdentificationImageTableViewCell
-                cell?.imageFetchStatus = ImageFetchResult.NoImageAvailable
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? NoIdentificationImageTableViewCell
+                cell?.imageFetchStatus = ImageFetchResult.noImageAvailable
                 return cell!
             }
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
-        let currentProductSection = tableStructure[indexPath.section]
+        let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
         
         switch currentProductSection {
-        case .Name, .GenericName:
+        case .name, .genericName:
             // set the next language in the array
             if currentLanguageCode != nextLanguageCode() {
                 currentLanguageCode = nextLanguageCode()
                 // reload the first two rows
-                let indexPaths = [NSIndexPath.init(forRow: 0, inSection: 1),
-                                  NSIndexPath.init(forRow: 0, inSection: 2)]
-                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-                tableView.deselectRowAtIndexPath(indexPaths.first!, animated: true)
-                tableView.deselectRowAtIndexPath(indexPaths.last!, animated: true)
+                let indexPaths = [IndexPath.init(row: 0, section: 1),
+                                  IndexPath.init(row: 0, section: 2)]
+                tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+                tableView.deselectRow(at: indexPaths.first!, animated: true)
+                tableView.deselectRow(at: indexPaths.last!, animated: true)
             }
         default:
             break
@@ -205,22 +205,22 @@ class IdentificationTableViewController: UITableViewController {
         return
     }
     
-    private func nextLanguageCode() -> String {
-        let currentIndex = (product?.languageCodes.indexOf(currentLanguageCode!))!
+    fileprivate func nextLanguageCode() -> String {
+        let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
         
-        let nextIndex = currentIndex == ((product?.languageCodes.count)! - 1) ? 0 : currentIndex.successor()
+        let nextIndex = currentIndex == ((product?.languageCodes.count)! - 1) ? 0 : (currentIndex + 1)
         return (product?.languageCodes[nextIndex])!
     }
         
-    private struct Constants {
+    fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return tableStructure[section].header()
     }
 
-    private struct TableStructure {
+    fileprivate struct TableStructure {
         static let BarcodeSectionSize = 1
         static let NameSectionSize = 1
         static let CommonNameSectionSize = 1
@@ -237,7 +237,7 @@ class IdentificationTableViewController: UITableViewController {
         static let ImageSectionHeader = NSLocalizedString("Main Image", comment: "Tableview sectionheader for main image of package.")
     }
 
-    private func setupSections() -> [SectionType] {
+    fileprivate func setupSections() -> [SectionType] {
         // The returnValue is an array with sections
         // And each element is a  section type with the number of rows and the section title
         //
@@ -246,38 +246,38 @@ class IdentificationTableViewController: UITableViewController {
         
         // All sections are always presented
         // 0: barcode section
-        sectionsAndRows.append(.Barcode(TableStructure.BarcodeSectionSize, TableStructure.BarcodeSectionHeader))
+        sectionsAndRows.append(.barcode(TableStructure.BarcodeSectionSize, TableStructure.BarcodeSectionHeader))
         
         // 1:  name section
-        sectionsAndRows.append(.Name(TableStructure.NameSectionSize, TableStructure.NameSectionHeader))
+        sectionsAndRows.append(.name(TableStructure.NameSectionSize, TableStructure.NameSectionHeader))
         
         // 2: common name section
-        sectionsAndRows.append(.GenericName(TableStructure.CommonNameSectionSize, TableStructure.CommonNameSectionHeader))
+        sectionsAndRows.append(.genericName(TableStructure.CommonNameSectionSize, TableStructure.CommonNameSectionHeader))
         
         // 3: brands section
-        sectionsAndRows.append(.Brands(TableStructure.BrandsSectionSize, TableStructure.BrandsSectionHeader))
+        sectionsAndRows.append(.brands(TableStructure.BrandsSectionSize, TableStructure.BrandsSectionHeader))
         
         // 4: packaging section
-        sectionsAndRows.append(.Packaging(TableStructure.PackagingSectionSize, TableStructure.PackagingSectionHeader))
+        sectionsAndRows.append(.packaging(TableStructure.PackagingSectionSize, TableStructure.PackagingSectionHeader))
         
         // 5: quantity section
-        sectionsAndRows.append(.Quantity(TableStructure.QuantitySectionSize, TableStructure.QuantitySectionHeader))
+        sectionsAndRows.append(.quantity(TableStructure.QuantitySectionSize, TableStructure.QuantitySectionHeader))
         
         // 6: image section
-        sectionsAndRows.append(.Image(TableStructure.ImageSectionSize,TableStructure.ImageSectionHeader))
+        sectionsAndRows.append(.image(TableStructure.ImageSectionSize,TableStructure.ImageSectionHeader))
         
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
-                if let vc = segue.destinationViewController as? imageViewController {
+                if let vc = segue.destination as? imageViewController {
                     if let result = product?.mainImageData {
                         switch result {
-                        case .Success(let data):
+                        case .success(let data):
                             vc.image = UIImage(data: data)
                             vc.imageTitle = TextConstants.ShowIdentificationTitle
                         default:
@@ -286,7 +286,7 @@ class IdentificationTableViewController: UITableViewController {
                     }
                 }
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
-                if let vc = segue.destinationViewController as? SelectLanguageViewController {
+                if let vc = segue.destination as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
                     vc.languageCodes = product?.languageCodes
                     vc.primaryLanguageCode = product?.primaryLanguageCode
@@ -306,10 +306,10 @@ class IdentificationTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    private func imageSection(array: [SectionType]) -> Int? {
-        for (index, sectionType) in array.enumerate() {
+    fileprivate func imageSection(_ array: [SectionType]) -> Int? {
+        for (index, sectionType) in array.enumerated() {
             switch sectionType {
-            case .Image:
+            case .image:
                 return index
             default:
                 continue
@@ -326,7 +326,7 @@ class IdentificationTableViewController: UITableViewController {
         let products = OFFProducts.manager
         if let validProductFetchResult = products.fetchResultList[0] {
             switch validProductFetchResult {
-            case .Success(let firstProduct):
+            case .success(let firstProduct):
                 product = firstProduct
                 tableView.reloadData()
             default: break
@@ -351,7 +351,7 @@ class IdentificationTableViewController: UITableViewController {
 
 }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         if product != nil {
@@ -360,17 +360,17 @@ class IdentificationTableViewController: UITableViewController {
 
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:FoodProduct.Notification.MainImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:NSNotification.Name(rawValue: FoodProduct.Notification.MainImageSet), object:nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:OFFProducts.Notification.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.FirstProductLoaded), object:nil)
 
 }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
         if product != nil {
@@ -378,8 +378,8 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
     override func didReceiveMemoryWarning() {

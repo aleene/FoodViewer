@@ -9,30 +9,30 @@
 import Foundation
 
 enum NatriumChloride {
-    case Salt
-    case Sodium
+    case salt
+    case sodium
     
     func description() -> String {
-        let preferredLanguage = NSLocale.preferredLanguages()[0]
+        let preferredLanguage = Locale.preferredLanguages[0]
         switch self {
-        case .Salt:
+        case .salt:
             return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
-        case .Sodium:
+        case .sodium:
             return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
         }
     }
     
     func index() -> Int {
         switch self {
-        case .Salt: return 0
-        case .Sodium: return 1
+        case .salt: return 0
+        case .sodium: return 1
         }
     }
     
     func key() -> String {
         switch self {
-        case .Salt: return "salt"
-        case .Sodium: return "sodium"
+        case .salt: return "salt"
+        case .sodium: return "sodium"
         }
     }
 }

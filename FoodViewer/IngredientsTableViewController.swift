@@ -10,21 +10,21 @@ import UIKit
 
 class IngredientsTableViewController: UITableViewController {
 
-    private var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    private var ingredientsImage: UIImage? = nil {
+    fileprivate var ingredientsImage: UIImage? = nil {
         didSet {
             refreshProduct()
         }
     }
     
-    private enum SectionType {
-        case Ingredients
-        case Allergens
-        case Traces
-        case Additives
-        case Labels
-        case Image
+    fileprivate enum SectionType {
+        case ingredients
+        case allergens
+        case traces
+        case additives
+        case labels
+        case image
     }
     
     // MARK: - Public variables
@@ -43,8 +43,8 @@ class IngredientsTableViewController: UITableViewController {
 
     // MARK: - Actions and Outlets
     
-    @IBAction func refresh(sender: UIRefreshControl) {
-        if refreshControl!.refreshing {
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
@@ -52,7 +52,7 @@ class IngredientsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let IngredientsCellIdentifier = "Ingredients Full Cell"
         static let AllergensCellIdentifier = "Allergens TagList Cell"
         static let TracesCellIdentifier = "Traces TagList Cell"
@@ -64,28 +64,28 @@ class IngredientsTableViewController: UITableViewController {
         static let SelectLanguageSegueIdentifier = "Show Ingredients Languages"
     }
     
-    private struct TextConstants {
+    fileprivate struct TextConstants {
         static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the ViewController with the image of the product ingredients.")
         static let ViewControllerTitle = NSLocalizedString("Ingredients", comment: "Title for the ViewController with the product ingredients.")
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return tableStructureForProduct.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let (_, numberOfRows, _) = tableStructureForProduct[section]
         return numberOfRows
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         // we assume that product exists
         switch currentProductSection {
-        case .Ingredients:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as? IngredientsFullTableViewCell
+        case .ingredients:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as? IngredientsFullTableViewCell
             // does the product have valid multiple languages
             if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
                 cell?.ingredients = product!.ingredientsLanguage[currentLanguageCode!]!
@@ -98,60 +98,60 @@ class IngredientsTableViewController: UITableViewController {
                 cell?.numberOfLanguages = 0
             }
             return cell!
-        case .Allergens:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergensCellIdentifier, forIndexPath: indexPath) as? AllergensFullTableViewCell
+        case .allergens:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as? AllergensFullTableViewCell
             cell?.tagList = product!.translatedAllergens
             return cell!
-        case .Traces:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TracesCellIdentifier, forIndexPath: indexPath) as? TracesFullTableViewCell
+        case .traces:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as? TracesFullTableViewCell
             cell?.tagList = product!.translatedTraces
             return cell!
-        case .Additives:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AdditivesCellIdentifier, forIndexPath: indexPath) as? AdditivesFullTableViewCell
+        case .additives:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as? AdditivesFullTableViewCell
             cell!.tagList = product!.additives
             return cell!
-        case .Labels:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LabelsCellIdentifier, forIndexPath: indexPath) as? LabelsFullTableViewCell
+        case .labels:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as? LabelsFullTableViewCell
             cell?.tagList = product!.labelArray
             return cell!
-        case .Image:
+        case .image:
             if let result = product?.getIngredientsImageData() {
                 switch result {
-                case .Success(let data):
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsImageCellIdentifier, forIndexPath: indexPath) as? IngredientsImageTableViewCell
+                case .success(let data):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
                     cell?.ingredientsImage = UIImage(data:data)
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoImageCellIdentifier, forIndexPath: indexPath) as? NoImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? NoImageTableViewCell
                     cell?.imageFetchStatus = result
                     return cell!
                 }
             } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NoImageCellIdentifier, forIndexPath: indexPath) as? NoImageTableViewCell
-                cell?.imageFetchStatus = ImageFetchResult.NoImageAvailable
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? NoImageTableViewCell
+                cell?.imageFetchStatus = ImageFetchResult.noImageAvailable
                 return cell!
             }
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
         return header
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         switch currentProductSection {
-        case .Ingredients:
+        case .ingredients:
             // set the next language in the array
             if currentLanguageCode != nextLanguageCode() {
                 currentLanguageCode = nextLanguageCode()
                 // reload the first two rows
-                let indexPaths = [NSIndexPath.init(forRow: 0, inSection: 0)]
-                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-                tableView.deselectRowAtIndexPath(indexPaths.first!, animated: true)
+                let indexPaths = [IndexPath.init(row: 0, section: 0)]
+                tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+                tableView.deselectRow(at: indexPaths.first!, animated: true)
             }
         default:
             break
@@ -159,14 +159,14 @@ class IngredientsTableViewController: UITableViewController {
         return
     }
     
-    private func nextLanguageCode() -> String {
-        let currentIndex = (product?.languageCodes.indexOf(currentLanguageCode!))!
+    fileprivate func nextLanguageCode() -> String {
+        let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
         
-        let nextIndex = currentIndex == ((product?.languageCodes.count)! - 1) ? 0 : currentIndex.successor()
+        let nextIndex = currentIndex == ((product?.languageCodes.count)! - 1) ? 0 : (currentIndex + 1)
         return (product?.languageCodes[nextIndex])!
     }
 
-    private struct TableStructure {
+    fileprivate struct TableStructure {
         static let IngredientsSectionSize = 1
         static let AllergensSectionSize = 1
         static let TracesSectionSize = 1
@@ -181,7 +181,7 @@ class IngredientsTableViewController: UITableViewController {
         static let ImageSectionHeader = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
     }
     
-    private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
+    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
@@ -191,38 +191,38 @@ class IngredientsTableViewController: UITableViewController {
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
         // 0: ingredients
-        sectionsAndRows.append((SectionType.Ingredients,
+        sectionsAndRows.append((SectionType.ingredients,
             TableStructure.IngredientsSectionSize,
             TableStructure.IngredientsSectionHeader))
         
         // 1:  allergens section
         sectionsAndRows.append((
-            SectionType.Allergens,
+            SectionType.allergens,
             TableStructure.AllergensSectionSize,
             TableStructure.AllergensSectionHeader))
         
         // 2: traces section
         sectionsAndRows.append((
-            SectionType.Traces,
+            SectionType.traces,
             TableStructure.TracesSectionSize,
             TableStructure.TracesSectionHeader))
     
         // 3: additives section
         sectionsAndRows.append((
-            SectionType.Additives,
+            SectionType.additives,
             TableStructure.AdditivesSectionSize,
             TableStructure.AdditivesSectionHeader))
         
         // 4: labels section
         sectionsAndRows.append((
-            SectionType.Labels,
+            SectionType.labels,
             TableStructure.LabelsSectionSize,
             TableStructure.LabelsSectionHeader))
         
         
         // 5: image section
         sectionsAndRows.append((
-            SectionType.Image,
+            SectionType.image,
             TableStructure.ImageSectionSize,
             TableStructure.ImageSectionHeader))
         
@@ -232,15 +232,15 @@ class IngredientsTableViewController: UITableViewController {
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
-                if let vc = segue.destinationViewController as? imageViewController {
+                if let vc = segue.destination as? imageViewController {
                     if let result = product?.getIngredientsImageData() {
                         // try large image
                         switch result {
-                        case .Success(let data):
+                        case .success(let data):
                             vc.image = UIImage(data: data)
                             vc.imageTitle = TextConstants.ShowIdentificationTitle
                         default:
@@ -250,7 +250,7 @@ class IngredientsTableViewController: UITableViewController {
                 }
             case Storyboard.SelectLanguageSegueIdentifier:
                 // pass the current language on to the popup vc
-                if let vc = segue.destinationViewController as? SelectLanguageViewController {
+                if let vc = segue.destination as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
                     vc.languageCodes = product?.languageCodes
                     vc.primaryLanguageCode = product?.primaryLanguageCode
@@ -263,7 +263,7 @@ class IngredientsTableViewController: UITableViewController {
     }
     // MARK: - Notification handler
     
-    func reloadImageSection(notification: NSNotification) {
+    func reloadImageSection(_ notification: Notification) {
         tableView.reloadData()
         // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
@@ -285,28 +285,28 @@ class IngredientsTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 88.0
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if product != nil {
             tableView.reloadData()
         }
         title = TextConstants.ViewControllerTitle
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:FoodProduct.Notification.IngredientsImageSet, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:NSNotification.Name(rawValue: FoodProduct.Notification.IngredientsImageSet), object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
 
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if product != nil {
             tableView.reloadData()
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
 

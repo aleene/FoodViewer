@@ -12,13 +12,13 @@ import MapKit
 class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
     
 
-    private var initialLocation: CLLocation {
+    fileprivate var initialLocation: CLLocation {
         get {
             if let coordinates = Preferences.manager.mapAddress.coordinates {
                 switch coordinates {
-                case .Success(let coordinateValues):
+                case .success(let coordinateValues):
                     return CLLocation.init(latitude: coordinateValues[0].latitude, longitude: coordinateValues[0].longitude)
-                case .Error, .SearchStarted:
+                case .error, .searchStarted:
                     return CLLocation.init(latitude: 0.0, longitude: 0.0)
                 }
 
@@ -28,14 +28,14 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         }
     }
     
-    private let regionRadius: CLLocationDistance = 1000000
+    fileprivate let regionRadius: CLLocationDistance = 1000000
 
     var product: FoodProduct? = nil {
         didSet {
             if let currentProduct = product {
                 if let coordinates = currentProduct.purchaseLocation?.getCoordinates() {
                     switch coordinates {
-                    case .Success(let coordinateValues):
+                    case .success(let coordinateValues):
                         let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapPinCategories.PurchaseLocation, coordinate: coordinateValues[0])
                         mapView.addAnnotation(annotation)
                     default:
@@ -45,7 +45,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 
                 if let coordinates = currentProduct.producer?.getCoordinates() {
                     switch coordinates {
-                    case .Success(let coordinateValues):
+                    case .success(let coordinateValues):
                         let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapPinCategories.ProducerLocation, coordinate: coordinateValues[0])
                         mapView.addAnnotation(annotation)
                     default:
@@ -55,7 +55,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 
                 if let coordinates = currentProduct.ingredientsOrigin?.getCoordinates() {
                     switch coordinates {
-                    case .Success(let coordinateValues):
+                    case .success(let coordinateValues):
                         let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapPinCategories.IngredientOriginLocation, coordinate: coordinateValues[0])
                         mapView.addAnnotation(annotation)
                     default:
@@ -87,7 +87,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                     for country in countries {
                         if let coordinates = country.getCoordinates() {
                             switch coordinates {
-                            case .Success(let coordinateValues):
+                            case .success(let coordinateValues):
                                 if !coordinateValues.isEmpty {
                                     let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapPinCategories.SalesCountryLocation, coordinate: coordinateValues[0])
                                     mapView.addAnnotation(annotation)
@@ -112,17 +112,17 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         }
     }
     
-    func centerMapOnLocation(location: CLLocation) {
+    func centerMapOnLocation(_ location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
             regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
 
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? SupplyChainLocation {
             let identifier = "pin"
             var view: MKPinAnnotationView
-            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
                 as? MKPinAnnotationView { // 2
                     dequeuedView.annotation = annotation
                     view = dequeuedView
@@ -143,7 +143,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
     }
     
     //size the mapView region to fit its annotations
-    func zoomMapViewToFitAnnotations(mapView: MKMapView, animated: Bool)
+    func zoomMapViewToFitAnnotations(_ mapView: MKMapView, animated: Bool)
     {
         struct MapkitConstants {
             static let MINIMUM_ZOOM_ARC = CLLocationDegrees(5)  // (1 degree of arc ~= 110 km)
@@ -190,7 +190,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         mapView.setRegion(region, animated: true)
     }
     
-    func minMax(array: [MKAnnotation]) -> (CLLocationCoordinate2D, CLLocationCoordinate2D) {
+    func minMax(_ array: [MKAnnotation]) -> (CLLocationCoordinate2D, CLLocationCoordinate2D) {
         var currentLongitudeMin = array[0].coordinate.longitude
         var currentLongitudeMax = array[0].coordinate.longitude
         var currentLatitudeMin = array[0].coordinate.latitude

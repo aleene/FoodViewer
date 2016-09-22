@@ -10,7 +10,7 @@ import UIKit
 
 class LabelsFullTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let NoInformation = NSLocalizedString("no labels specified", comment: "Text in a TagListView, when no labels have been specified in the product data.")
     }
 
@@ -21,22 +21,22 @@ class LabelsFullTableViewCell: UITableViewCell {
                 labelsTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        labelsTagListView.tagBackgroundColor = UIColor.greenColor()
+                        labelsTagListView.tagBackgroundColor = UIColor.green
                         if listItem.contains(":") {
                             let tagView = labelsTagListView.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blueColor()
+                            tagView.tagBackgroundColor = UIColor.blue
                         } else {
                             labelsTagListView.addTag(listItem)
                         }
                     }
                 } else {
                     labelsTagListView.addTag(Constants.NoInformation)
-                    labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
+                    labelsTagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 labelsTagListView.removeAllTags()
                 labelsTagListView.addTag(Constants.NoInformation)
-                labelsTagListView.tagBackgroundColor = UIColor.orangeColor()
+                labelsTagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }
@@ -45,14 +45,14 @@ class LabelsFullTableViewCell: UITableViewCell {
 
     @IBOutlet weak var labelsTagListView: TagListView! {
         didSet {
-            labelsTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            labelsTagListView.alignment = .Center
+            labelsTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            labelsTagListView.alignment = .center
             labelsTagListView.cornerRadius = 10
         }
     }
 
     
-    func clean(list: [String]) -> [String] {
+    func clean(_ list: [String]) -> [String] {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {

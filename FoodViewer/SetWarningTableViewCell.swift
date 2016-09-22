@@ -12,7 +12,7 @@ class SetWarningTableViewCell: UITableViewCell {
     
     var state: Bool = false {
         didSet {
-            stateSwitch.on = state
+            stateSwitch.isOn = state
         }
     }
     
@@ -29,7 +29,7 @@ class SetWarningTableViewCell: UITableViewCell {
     
     @IBOutlet weak var stateSwitch: UISwitch! {
         didSet {
-            stateSwitch.enabled = false
+            stateSwitch.isEnabled = false
         }
     }
     

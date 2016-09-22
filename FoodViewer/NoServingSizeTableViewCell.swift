@@ -16,8 +16,8 @@ class NoServingSizeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tagListView.alignment = .Center
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.alignment = .center
             tagListView.cornerRadius = 10
         }
     }
@@ -31,20 +31,20 @@ class NoServingSizeTableViewCell: UITableViewCell {
                     for listItem in newList {
                         tagListView.addTag(listItem)
                     }
-                    tagListView.tagBackgroundColor = UIColor.greenColor()
+                    tagListView.tagBackgroundColor = UIColor.green
                 } else {
                     tagListView.addTag(Constants.NoTag)
-                    tagListView.tagBackgroundColor = UIColor.orangeColor()
+                    tagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 tagListView.removeAllTags()
                 tagListView.addTag(Constants.NoTag)
-                tagListView.tagBackgroundColor = UIColor.orangeColor()
+                tagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }
     
-    func removeEmptyTags(list: [String]) -> [String] {
+    func removeEmptyTags(_ list: [String]) -> [String] {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {

@@ -11,7 +11,7 @@ import UIKit
 class NutrientsTableViewCell: UITableViewCell {
 
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specified.")
     }
     

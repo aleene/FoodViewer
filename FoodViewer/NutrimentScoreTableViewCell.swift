@@ -11,21 +11,21 @@ import UIKit
 class NutrimentScoreTableViewCell: UITableViewCell {
     
     enum NutritionScoreType {
-        case Good
-        case Bad
+        case good
+        case bad
     }
 
-    var nutrimentScore: (String, Int, Int, Int, NutritionScoreType) = ("", 0, 1, 0, .Bad) {
+    var nutrimentScore: (String, Int, Int, Int, NutritionScoreType) = ("", 0, 1, 0, .bad) {
         didSet {
             nutrimentLabel.text = nutrimentScore.0
-            let formatter = NSNumberFormatter()
-            formatter.locale = NSLocale.currentLocale()
-            formatter.numberStyle = .NoStyle
+            let formatter = NumberFormatter()
+            formatter.locale = Locale.current
+            formatter.numberStyle = .none
             formatter.maximumIntegerDigits = 2
-            valueLabel.text = formatter.stringFromNumber(nutrimentScore.1)
+            valueLabel.text = formatter.string(from: NSNumber(integerLiteral: nutrimentScore.1))
             
             switch nutrimentScore.4 {
-            case .Bad:
+            case .bad:
                 let score = nutrimentScore.2 == 10 ? nutrimentScore.1 / 2 : nutrimentScore.1
                 switch score {
                 case 1:
@@ -39,9 +39,9 @@ class NutrimentScoreTableViewCell: UITableViewCell {
                 case 5:
                     nutrimentLabel.superview?.backgroundColor = UIColor(red:1.00, green:0.00, blue:0.00, alpha:1.0)
                 default:
-                    nutrimentLabel.superview?.backgroundColor = UIColor.whiteColor()
+                    nutrimentLabel.superview?.backgroundColor = UIColor.white
                 }
-            case .Good:
+            case .good:
                 let score = nutrimentScore.2 == 10 ? nutrimentScore.1 / 2 : nutrimentScore.1
                 switch score {
                 case 1:
@@ -55,7 +55,7 @@ class NutrimentScoreTableViewCell: UITableViewCell {
                 case 5:
                     nutrimentLabel.superview?.backgroundColor = UIColor(red:0.00, green:1.00, blue:0.00, alpha:1.0)
                 default:
-                    nutrimentLabel.superview?.backgroundColor = UIColor.whiteColor()
+                    nutrimentLabel.superview?.backgroundColor = UIColor.white
                 }
             }
         }

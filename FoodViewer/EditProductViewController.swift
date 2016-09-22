@@ -10,16 +10,16 @@ import UIKit
 
 class EditProductViewController: UIViewController {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let EditURL = "http://fr.openfoodfacts.org/cgi/product.pl?type=edit&code="
     }
     
-    private var request: NSURLRequest? = nil
+    fileprivate var request: URLRequest? = nil
     
     var barcode: String? {
         didSet {
             if let existingBarcode = barcode {
-                request = NSURLRequest(URL: NSURL(string: Constants.EditURL + existingBarcode)!)
+                request = URLRequest(url: URL(string: Constants.EditURL + existingBarcode)!)
                 refresh()
             }
         }
@@ -38,7 +38,7 @@ class EditProductViewController: UIViewController {
         title = NSLocalizedString("Edit", comment: "Title of viewcontroller which allows editing of the product in a webview.") 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refresh()
     }

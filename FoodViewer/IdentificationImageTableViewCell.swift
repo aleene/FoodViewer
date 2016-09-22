@@ -10,7 +10,7 @@ import UIKit
 
 class IdentificationImageTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
 
@@ -41,7 +41,7 @@ class IdentificationImageTableViewCell: UITableViewCell {
                 }
                 // still need to solved what happens when the image is very high
                 
-                identificationImageView.contentMode = .Center
+                identificationImageView.contentMode = .center
                 
                 // print("product imageView size \(productImageView?.bounds.size)")
                 // print("cell: \(self.contentView.bounds.size)")

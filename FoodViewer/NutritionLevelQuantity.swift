@@ -9,24 +9,24 @@
 import Foundation
 
 enum NutritionLevelQuantity {
-    case Low
-    case Moderate
-    case High
-    case Undefined
+    case low
+    case moderate
+    case high
+    case undefined
     
-    mutating func string(s:String?) {
+    mutating func string(_ s:String?) {
         if let newString = s {
             if newString == "high" {
-                self = .High
+                self = .high
             } else if newString == "moderate" {
-                self = .Moderate
+                self = .moderate
             } else if newString == "low" {
-                self = .Low
+                self = .low
             } else {
-                self = .Undefined
+                self = .undefined
             }
         } else {
-            self = .Undefined
+            self = .undefined
         }
     }
 }

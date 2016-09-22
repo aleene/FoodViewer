@@ -11,7 +11,7 @@ import Foundation
 
 class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
         static let AlertSheetMessage = NSLocalizedString("Error retrieving product", comment: "Alert message, when the product could not be retrieved from Internet.")
         static let AlertSheetActionTitle = NSLocalizedString("Pity", comment: "Alert title, to indicate retrieving product did not work")
@@ -22,19 +22,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
 
-    private let products = OFFProducts.manager
+    fileprivate let products = OFFProducts.manager
     
-    private var barcode: BarcodeType? = nil {
+    fileprivate var barcode: BarcodeType? = nil {
         didSet {
             let indexInHistory = products.fetchProduct(barcode)
             if  indexInHistory != nil,
                 let validFetchResult = products.fetchResultList[indexInHistory!] {
                 switch validFetchResult  {
-                case .Success(let product):
+                case .success(let product):
                     selectedProduct = product
                     selectedIndex = 0
                     tableView.reloadData()
-                    tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: indexInHistory!), atScrollPosition: .Middle, animated: true)
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: indexInHistory!), at: .middle, animated: true)
                 default:
                     break
                 }
@@ -42,21 +42,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    private func startInterface() {
+    fileprivate func startInterface() {
         if !products.fetchResultList.isEmpty {
             if let validFetchResult = products.fetchResultList[0] {
                 switch validFetchResult {
-                case .Success(let product):
+                case .success(let product):
                     selectedProduct = product
                 tableView.reloadData()
-                tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: .Top, animated: false)
+                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
             default: break
             }
         }
         }
     }
     
-    private func refreshInterface() {
+    fileprivate func refreshInterface() {
         if products.fetchResultList.count > 0 {
             tableView.reloadData()
         }
@@ -78,7 +78,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
  
-    func textFieldDidBeginEditing(textFieldUser: UITextField) {
+    func textFieldDidBeginEditing(_ textFieldUser: UITextField) {
         activeTextField = textFieldUser
     }
     
@@ -92,7 +92,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         keyboardView.delegate = self
     }
 
-    func keyWasTapped(character: String) {
+    func keyWasTapped(_ character: String) {
         activeTextField.insertText(character)
     }
     
@@ -109,7 +109,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     // MARK: - Table view methods and vars
     
-    private var selectedProduct: FoodProduct? = nil {
+    fileprivate var selectedProduct: FoodProduct? = nil {
         didSet {
             if selectedIndex == nil {
                 selectedIndex = 0
@@ -118,35 +118,35 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    private var selectedIndex: Int? = nil // this indicates which part of the product must be shown
+    fileprivate var selectedIndex: Int? = nil // this indicates which part of the product must be shown
     
-    private func showSelectedProduct() {
+    fileprivate func showSelectedProduct() {
         // prevent that to many changes are pushed on the view stack
         // check the current presented controller
         // only segue if we are at the top of the stack
         // i.e. only segue once
-        if let parentVC = self.parentViewController as? UINavigationController {
+        if let parentVC = self.parent as? UINavigationController {
             let testVC = parentVC.visibleViewController as? ProductTableViewController
             if testVC != nil {
-                performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+                performSegue(withIdentifier: Storyboard.ToPageViewControllerSegue, sender: self)
             }
         }
     }
 
-    private enum RowType {
-        case Name
-        case Ingredients
-        case NutritionFacts
-        case NutritionScore
-        case Categories
-        case Completion
-        case SupplyChain
+    fileprivate enum RowType {
+        case name
+        case ingredients
+        case nutritionFacts
+        case nutritionScore
+        case categories
+        case completion
+        case supplyChain
     }
 
     // defines the order of the rows
-    private var tableStructure: [RowType] = [.Name, .Ingredients, .NutritionFacts, .SupplyChain, .Categories, .Completion, .NutritionScore]
+    fileprivate var tableStructure: [RowType] = [.name, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
 
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let NameCellIdentifier = "Product Name Cell"
         static let IngredientsCellIdentifier = "Product Ingredients Cell"
         static let CountriesCellIdentifier = "Countries Cell"
@@ -161,14 +161,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return products.fetchResultList.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let validProductFetchResult = products.fetchResultList[section] {
             switch validProductFetchResult {
-            case .Success:
+            case .success:
                 return products.fetchResultList[section] != nil ? tableStructure.count : 1
             default:
                 break
@@ -178,15 +178,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         return 0
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentProductSection = tableStructure[indexPath.row]
-        if let fetchResult = products.fetchResultList[indexPath.section] {
+        let currentProductSection = tableStructure[(indexPath as NSIndexPath).row]
+        if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
             switch fetchResult {
-            case .Success(let currentProduct):
+            case .success(let currentProduct):
                 switch currentProductSection {
-                case .Name:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NameCellIdentifier, forIndexPath: indexPath) as! NameTableViewCell
+                case .name:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NameCellIdentifier, for: indexPath) as! NameTableViewCell
                     
                     cell.productBrand = currentProduct.brandsArray
                     
@@ -202,7 +202,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                     if let result = currentProduct.mainImageData {
                         switch result {
-                        case .Success(let data):
+                        case .success(let data):
                             cell.productImage = UIImage(data:data)
                         default:
                             cell.productImage = nil
@@ -211,80 +211,80 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         cell.productImage = nil
                     }
                     return cell
-                case .Ingredients:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.IngredientsCellIdentifier, forIndexPath: indexPath) as! IngredientsTableViewCell
+                case .ingredients:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as! IngredientsTableViewCell
                     cell.product = currentProduct
                     return cell
-                case .NutritionFacts:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionFactsCellIdentifier, forIndexPath: indexPath)
-                    let formatter = NSNumberFormatter()
-                    formatter.numberStyle = .DecimalStyle
-                    let formattedCount = formatter.stringFromNumber(currentProduct.nutritionFacts.count)
+                case .nutritionFacts:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsCellIdentifier, for: indexPath)
+                    let formatter = NumberFormatter()
+                    formatter.numberStyle = .decimal
+                    let formattedCount = formatter.string(from: NSNumber.init(integerLiteral: currentProduct.nutritionFacts.count))
                     
                     cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
                     return cell
-                case .NutritionScore:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutritionScoreCellIdentifier, forIndexPath: indexPath) as? NutritionScoreTableViewCell
+                case .nutritionScore:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionScoreCellIdentifier, for: indexPath) as? NutritionScoreTableViewCell
                     cell?.product = currentProduct
                     return cell!
-                case .Categories:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CategoriesCellIdentifier, forIndexPath: indexPath) as? CategoriesTableViewCell
+                case .categories:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CategoriesCellIdentifier, for: indexPath) as? CategoriesTableViewCell
                     cell?.product = currentProduct
                     return cell!
-                case .Completion:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionCellIdentifier, forIndexPath: indexPath) as? CompletionTableViewCell
+                case .completion:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionCellIdentifier, for: indexPath) as? CompletionTableViewCell
                     cell?.product = currentProduct
                     return cell!
-                case .SupplyChain:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCellIdentifier, forIndexPath: indexPath) as? ProducerTableViewCell
+                case .supplyChain:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCellIdentifier, for: indexPath) as? ProducerTableViewCell
                     cell?.product = currentProduct
                     return cell!
                 }
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BeingLoadedCellIdentifier, forIndexPath: indexPath) as? BeingLoadedTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BeingLoadedCellIdentifier, for: indexPath) as? BeingLoadedTableViewCell
                 cell?.status = fetchResult
             }
             
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BeingLoadedCellIdentifier, forIndexPath: indexPath) as? BeingLoadedTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BeingLoadedCellIdentifier, for: indexPath) as? BeingLoadedTableViewCell
         cell?.status = nil
         return cell!
     }
     
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        selectedIndex = indexPath.row
-        if let validProductFetchResult = products.fetchResultList[indexPath.section] {
+        selectedIndex = (indexPath as NSIndexPath).row
+        if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
             switch validProductFetchResult {
-            case .Success(let product):
+            case .success(let product):
                 selectedProduct = product
             default: break
             }
         }
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let tempView = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 25))
-        let label = UILabel.init(frame: CGRectMake(10, 5, tableView.frame.size.width, 20))
-        tempView.backgroundColor = UIColor.grayColor()
-        label.font = UIFont.boldSystemFontOfSize(20)
-        label.textColor = UIColor.whiteColor()
+        let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
+        let label = UILabel.init(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width, height: 20))
+        tempView.backgroundColor = UIColor.gray
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = UIColor.white
         if !products.fetchResultList.isEmpty {
             if let validProductFetchResult = products.fetchResultList[section] {
                 switch validProductFetchResult {
-                case .Success(let product):
+                case .success(let product):
                     
                     label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
                     if let validKeys = product.allergenKeys {
                         if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                            tempView.backgroundColor = UIColor.redColor()
+                            tempView.backgroundColor = UIColor.red
                         }
                     } else {
                         if let validKeys = product.traceKeys {
                             if AllergenWarningDefaults.manager.hasValidWarning(validKeys) {
-                                tempView.backgroundColor = UIColor.redColor()
+                                tempView.backgroundColor = UIColor.red
                             }
                         }
                     }
@@ -321,28 +321,28 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
   */
 
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
-    override func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return UITableViewAutomaticDimension
     }
     
     // MARK: - Scene changes
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.ToPageViewControllerSegue:
-                if let vc = segue.destinationViewController as? UINavigationController {
+                if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
                         ppvc.pageIndex = selectedIndex
                     }
                 }
             case Storyboard.ShowSettingsSegueIdentifier:
-                if let vc = segue.destinationViewController as? SettingsTableViewController {
+                if let vc = segue.destination as? SettingsTableViewController {
                     vc.storedHistory = products.storedHistory
                     // vc.modalPresentationCapturesStatusBarAppearance = true
                     // setNeedsStatusBarAppearanceUpdate()
@@ -353,30 +353,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
-    @IBAction func unwindForCancel(segue:UIStoryboardSegue) {
-        if let _ = segue.sourceViewController as? BarcodeScanViewController {
+    @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
+        if let _ = segue.source as? BarcodeScanViewController {
             if products.fetchResultList.count > 0 {
                 tableView.reloadData()
             }
         }
     }
     
-    @IBAction func unwindNewSearch(segue:UIStoryboardSegue) {
-        if let vc = segue.sourceViewController as? BarcodeScanViewController {
+    @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? BarcodeScanViewController {
             barcode = BarcodeType(typeCode:vc.type, value:vc.barcode)
             searchTextField.text = vc.barcode
-            performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+            performSegue(withIdentifier: Storyboard.ToPageViewControllerSegue, sender: self)
         }
     }
     
     
-    @IBAction func settingsDone(segue:UIStoryboardSegue) {
-        if let vc = segue.sourceViewController as? SettingsTableViewController {
+    @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SettingsTableViewController {
             tableView.reloadData()
             if vc.historyHasBeenRemoved {
                 products.removeAll()
                 selectedProduct = nil
-                performSegueWithIdentifier(Storyboard.ToPageViewControllerSegue, sender: self)
+                performSegue(withIdentifier: Storyboard.ToPageViewControllerSegue, sender: self)
             }
             
         }
@@ -384,27 +384,27 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     // MARK: - Notification methods
     
-    func showAlertProductNotAvailable(notification: NSNotification) {
-        let userInfo = notification.userInfo
+    func showAlertProductNotAvailable(_ notification: Notification) {
+        let userInfo = (notification as NSNotification).userInfo
         let error = userInfo!["error"] as? String?
         let alert = UIAlertController(
             title: Constants.AlertSheetMessage,
-            message: error!, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitle, style: .Cancel) { (action: UIAlertAction) -> Void in // do nothing )
+            message: error!, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitle, style: .cancel) { (action: UIAlertAction) -> Void in // do nothing )
             }
         )
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
     
-    func productLoaded(notification: NSNotification) {
+    func productLoaded(_ notification: Notification) {
         refreshInterface()
     }
     
-    func productUpdated(notification: NSNotification) {
+    func productUpdated(_ notification: Notification) {
         refreshInterface()
     }
     
-    func firstProductLoaded(notification: NSNotification) {
+    func firstProductLoaded(_ notification: Notification) {
         startInterface()
     }
 
@@ -422,32 +422,32 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         self.tableView.estimatedRowHeight = 80.0
         
         initializeCustomKeyboard()
-        Preferences.manager
+        // Preferences.manager
         
         startInterface()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         title = Constants.ViewControllerTitle
         refreshInterface()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:OFFProducts.Notification.ProductNotAvailable, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:OFFProducts.Notification.ProductLoaded, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:OFFProducts.Notification.FirstProductLoaded, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:OFFProducts.Notification.ProductUpdated, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:OFFProducts.Notification.ProductLoadingError, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductNotAvailable), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductLoaded), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.FirstProductLoaded), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductLoadingError), object:nil)
 
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         refreshInterface()
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
     

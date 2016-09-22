@@ -65,25 +65,27 @@ class ReferenceDailyIntakeList {
 
     init() {
         // read all necessary plists in the background
-        list = readPlist(Constants.DailyValuesFileName)
+        list = readPlist(fileName: Constants.DailyValuesFileName)
     }
     
     private func readPlist(fileName: String) -> [DailyValue] {
         // Copy the file from the Bundle and write it to the Device:
-        if let path = NSBundle.mainBundle().pathForResource(fileName, ofType: Constants.PlistExtension) {
+        if let path = Bundle.main.path(forResource: fileName, ofType: Constants.PlistExtension) {
             
             let resultArray = NSArray(contentsOfFile: path)
             // print("Saved plist file is --> \(resultDictionary?.description)")
             
             if let validResultArray = resultArray {
                 list = []
-                for dailyValueDict in validResultArray {
+                for arrayEntry in validResultArray {
+                    if let dailyValueDict = arrayEntry as? [String:Any] {
+                        let key = dailyValueDict[Constants.KeyKey] as? String
+                        let value = dailyValueDict[Constants.ValueKey] as? Double
+                        let unit = dailyValueDict[Constants.UnitKey] as? String
+                        let newDailyValue = DailyValue(key:key!, value:value!, unit:unit!)
+                        list.append(newDailyValue)
 
-                    let key = dailyValueDict[Constants.KeyKey] as? String
-                    let value = dailyValueDict[Constants.ValueKey] as? Double
-                    let unit = dailyValueDict[Constants.UnitKey] as? String
-                    let newDailyValue = DailyValue(key:key!, value:value!, unit:unit!)
-                    list.append(newDailyValue)
+                    }
                 }
                 return list
             }
@@ -102,7 +104,7 @@ class ReferenceDailyIntakeList {
  
     private func valueForKey(key: String) -> Double? {
         
-            if let dv = findKey(key) {
+            if let dv = findKey(key: key) {
                 return dv.normalized()
             } else {
                 return nil
@@ -112,7 +114,7 @@ class ReferenceDailyIntakeList {
 
     // returns the daily recommended value as fraction for a specific key
     func dailyValue(value: Double, forKey: String) -> Double? {
-        if let dv = valueForKey(forKey) {
+        if let dv = valueForKey(key: forKey) {
             return value / dv
         } else {
             return nil

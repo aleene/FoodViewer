@@ -10,15 +10,15 @@ import UIKit
 
 class IdentificationTagListViewTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let NoInformation = NSLocalizedString("no brands specified", comment: "Text for tag in a separate colour, when no brands information is available in the product data.")
     }
 
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tagListView.alignment = .Center
-            tagListView.tagBackgroundColor = UIColor.greenColor()
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.alignment = .center
+            tagListView.tagBackgroundColor = UIColor.green
             tagListView.cornerRadius = 10
         }
     }
@@ -31,15 +31,15 @@ class IdentificationTagListViewTableViewCell: UITableViewCell {
                     for listItem in list {
                         tagListView.addTag(listItem)
                     }
-                    tagListView.tagBackgroundColor = UIColor.greenColor()
+                    tagListView.tagBackgroundColor = UIColor.green
                 } else {
                     tagListView.addTag(Constants.NoInformation)
-                    tagListView.tagBackgroundColor = UIColor.orangeColor()
+                    tagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 tagListView.removeAllTags()
                 tagListView.addTag(Constants.NoInformation)
-                tagListView.tagBackgroundColor = UIColor.orangeColor()
+                tagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }

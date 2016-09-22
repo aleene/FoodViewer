@@ -14,11 +14,11 @@ class ContributorTableViewCell: UITableViewCell {
         didSet {
             if let existingContributor = contributor {
                 nameLabel.text = existingContributor.name
-                photographerLabel.hidden = !existingContributor.role.isPhotographer
-                correctorLabel.hidden = !existingContributor.role.isCorrector
-                editorLabel.hidden = !existingContributor.role.isEditor
-                informerLabel.hidden = !existingContributor.role.isInformer
-                creatorLabel.hidden = !existingContributor.role.isCreator
+                photographerLabel.isHidden = !existingContributor.role.isPhotographer
+                correctorLabel.isHidden = !existingContributor.role.isCorrector
+                editorLabel.isHidden = !existingContributor.role.isEditor
+                informerLabel.isHidden = !existingContributor.role.isInformer
+                creatorLabel.isHidden = !existingContributor.role.isCreator
             }
         }
     }

@@ -9,31 +9,31 @@
 import Foundation
 
 enum Energy {
-    case Calories
-    case Joule
+    case calories
+    case joule
     
     func description() -> String {
-        let preferredLanguage = NSLocale.preferredLanguages()[0]
+        let preferredLanguage = Locale.preferredLanguages[0]
         switch self {
-        case .Calories:
+        case .calories:
             return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
-        case .Joule:
+        case .joule:
             return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
         }
     }
     
     func unit() -> String {
         switch self {
-        case .Calories: return "kcal"
-        case .Joule: return "kJ"
+        case .calories: return "kcal"
+        case .joule: return "kJ"
         }
 
     }
     
     func index() -> Int {
         switch self {
-        case .Calories: return 1
-        case .Joule: return 0
+        case .calories: return 1
+        case .joule: return 0
         }
     }
     

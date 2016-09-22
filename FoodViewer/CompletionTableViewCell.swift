@@ -10,16 +10,19 @@ import UIKit
 
 class CompletionTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let CompletePostText = NSLocalizedString("Data is %@ complete.", comment: "Text to indicate how much the product data is filled in (available).")
     }
     var product: FoodProduct? = nil {
         didSet {
             if let productState = product?.state {
-                let formatter = NSNumberFormatter()
-                formatter.numberStyle = .PercentStyle
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .percent
                 formatter.maximumFractionDigits = 0
-                completionLabel?.text = String(format:Constants.CompletePostText, formatter.stringFromNumber(Double(productState.completionPercentage()) / 100.0)!)
+                let val = NSNumber.init(value:Double(productState.completionPercentage()) / 100.0)
+                if let valString = formatter.string(from: val) {
+                    completionLabel?.text = String(format:Constants.CompletePostText, valString)
+                }
             }
         }
     }

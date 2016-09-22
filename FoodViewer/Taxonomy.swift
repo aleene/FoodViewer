@@ -60,7 +60,7 @@ class Taxonomy {
     }
 
     
-    func locateNode(searchKey: String, inSet: Set<Node>) -> Node? {
+    func locateNode(_ searchKey: String, inSet: Set<Node>) -> Node? {
         // return inSet.contains(Node(key: searchKey))
         for node in inSet {
             if node.key == searchKey {
@@ -70,7 +70,7 @@ class Taxonomy {
         return nil
     }
     
-    func locateSection(testKey: String) -> Section? {
+    func locateSection(_ testKey: String) -> Section? {
         // loop over all branches
         // change to repeat while?
         for section in sections {

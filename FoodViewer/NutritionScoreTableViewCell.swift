@@ -15,34 +15,34 @@ class NutritionScoreTableViewCell: UITableViewCell {
             if let score = product?.nutritionScore {
                 for (item, level) in score {
                     switch item {
-                    case .Fat:
+                    case .fat:
                         fatLabel.backgroundColor = colorForLevel(level)
-                    case .SaturatedFat:
+                    case .saturatedFat:
                         saturatedFatLabel.backgroundColor = colorForLevel(level)
-                    case .Sugar:
+                    case .sugar:
                         sugarLabel.backgroundColor = colorForLevel(level)
-                    case .Salt:
+                    case .salt:
                         saltLabel.backgroundColor = colorForLevel(level)
-                    case .Undefined:
-                        fatLabel.backgroundColor = UIColor.whiteColor()
-                        saturatedFatLabel.backgroundColor = UIColor.whiteColor()
-                        sugarLabel.backgroundColor = UIColor.whiteColor()
-                        saltLabel.backgroundColor = UIColor.whiteColor()
+                    case .undefined:
+                        fatLabel.backgroundColor = UIColor.white
+                        saturatedFatLabel.backgroundColor = UIColor.white
+                        sugarLabel.backgroundColor = UIColor.white
+                        saltLabel.backgroundColor = UIColor.white
                     }
                 }
             }
             if let score = product?.nutritionGrade {
                 switch  score {
-                case .A:
-                    self.backgroundColor = UIColor.greenColor()
-                case .B:
-                    self.backgroundColor = UIColor.yellowColor()
-                case .C:
-                    self.backgroundColor = UIColor.orangeColor()
-                case .D:
-                    self.backgroundColor = UIColor.magentaColor()
-                case .E:
-                    self.backgroundColor = UIColor.redColor()
+                case .a:
+                    self.backgroundColor = UIColor.green
+                case .b:
+                    self.backgroundColor = UIColor.yellow
+                case .c:
+                    self.backgroundColor = UIColor.orange
+                case .d:
+                    self.backgroundColor = UIColor.magenta
+                case .e:
+                    self.backgroundColor = UIColor.red
                 default:
                     self.backgroundColor = nil
                 }
@@ -56,16 +56,16 @@ class NutritionScoreTableViewCell: UITableViewCell {
     @IBOutlet weak var saltLabel: UILabel!
     
     
-    private func colorForLevel(level: NutritionLevelQuantity) -> UIColor {
+    fileprivate func colorForLevel(_ level: NutritionLevelQuantity) -> UIColor {
         switch level {
-        case .Low:
-            return UIColor.greenColor()
-        case .Moderate:
-            return UIColor.orangeColor()
-        case.High:
-            return UIColor.redColor()
+        case .low:
+            return UIColor.green
+        case .moderate:
+            return UIColor.orange
+        case.high:
+            return UIColor.red
         default:
-            return UIColor.whiteColor()
+            return UIColor.white
         }
     }
 }

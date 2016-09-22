@@ -9,37 +9,37 @@
 import Foundation
 
 enum BarcodeType {
-    case EAN13(String)
-    case EAN8(String)
-    case Undefined(String)
+    case ean13(String)
+    case ean8(String)
+    case undefined(String)
     
     init(typeCode: String, value: String) {
         if typeCode == "org.gs1.EAN-13" {
-            self = .EAN13(value)
+            self = .ean13(value)
         } else if typeCode == "org.gs1.EAN-8" {
-            self = .EAN8(value)
+            self = .ean8(value)
         } else {
-            self = .Undefined(value)
+            self = .undefined(value)
         }
     }
     
     init(value: String) {
-        self = .Undefined(value)
+        self = .undefined(value)
     }
     
-    mutating func string(s: String?) {
+    mutating func string(_ s: String?) {
         if let newString = s {
-            self = .Undefined(newString)
+            self = .undefined(newString)
         }
     }
     
     func asString() -> String {
         switch self {
-        case .EAN13(let s):
+        case .ean13(let s):
             return s
-        case .EAN8(let s):
+        case .ean8(let s):
             return s
-        case .Undefined(let s):
+        case .undefined(let s):
             return s
         }
     }

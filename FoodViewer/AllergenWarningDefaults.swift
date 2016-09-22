@@ -19,21 +19,21 @@ class AllergenWarningDefaults {
     
     var list: [(String, String, Bool)] = []
     
-    private var defaults = NSUserDefaults()
+    fileprivate var defaults = UserDefaults()
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let AllergenWarningsArrayKey = "Allergen Warnings Array Key"
         static let AllergenKey = "Allergen Key"
         static let WarningKey = "Warning Key"
     }
     
     init() {
-        let preferredLanguage = NSLocale.preferredLanguages()[0]
+        let preferredLanguage = Locale.preferredLanguages[0]
         var updateNeeded = false
 
         // get the NSUserdefaults array with search strings
-        defaults = NSUserDefaults.standardUserDefaults()
-        if let allergenDict = defaults.objectForKey(Constants.AllergenWarningsArrayKey) as?
+        defaults = UserDefaults.standard
+        if let allergenDict = defaults.object(forKey: Constants.AllergenWarningsArrayKey) as?
             [[String:AnyObject]] {
             // retrieve the warning array
             for allergen in allergenDict {
@@ -67,22 +67,22 @@ class AllergenWarningDefaults {
         }
     }
     
-    private func allergenMap(s1: VertexNew) -> String { return s1.key }
+    fileprivate func allergenMap(_ s1: VertexNew) -> String { return s1.key }
 
     
     func updateAllergenWarnings() {
         var newArray: [[String:AnyObject]] = [[:]]
         for (allergen, _, warning) in list {
             var newDict: [String:AnyObject] = [:]
-            newDict[Constants.AllergenKey] = allergen
-            newDict[Constants.WarningKey] = warning
+            newDict[Constants.AllergenKey] = allergen as AnyObject?
+            newDict[Constants.WarningKey] = warning as AnyObject?
             newArray.append(newDict)
         }
-        defaults.setObject(newArray, forKey: Constants.AllergenWarningsArrayKey)
+        defaults.set(newArray, forKey: Constants.AllergenWarningsArrayKey)
         defaults.synchronize()
     }
     
-    private func countTrue() -> Int {
+    fileprivate func countTrue() -> Int {
         var count = 0
         for (_, _, value) in list {
             if value {
@@ -97,11 +97,11 @@ class AllergenWarningDefaults {
     }
     
     
-    func hasValidWarning(keys: [String]?) -> Bool {
+    func hasValidWarning(_ keys: [String]?) -> Bool {
         
         var testKey: String
         
-        func keyHasWarning(element: (String, String, Bool)) -> Bool {
+        func keyHasWarning(_ element: (String, String, Bool)) -> Bool {
             if (testKey == element.0) && element.2 {
                 return true
             }

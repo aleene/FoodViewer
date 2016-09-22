@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class SupplyChainTableViewController: UITableViewController, TagListViewDelegate {
     
@@ -19,35 +39,35 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         }
     }
     
-    private var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    private enum SectionType {
-        case IngredientOrigin
-        case Producer
-        case ProducerCode
-        case Location
-        case Store
-        case Country
-        case Map
-        case ExpirationDate
-        case Sites
+    fileprivate enum SectionType {
+        case ingredientOrigin
+        case producer
+        case producerCode
+        case location
+        case store
+        case country
+        case map
+        case expirationDate
+        case sites
     }
     
-    private struct Constants {
+    fileprivate struct Constants {
         // static let DefaultHeader = "No Header"
         static let ViewControllerTitle = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
         static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
     
-    @IBAction func refresh(sender: UIRefreshControl) {
-        if refreshControl!.refreshing {
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
     
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
         static let CountriesCellIdentifier = "Countries TagListView Cell"
         static let ProducerCodeCellIdentifier = "ProducerCodes TagListView Cell"
@@ -57,7 +77,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
     }
     
 
-    private struct TableStructure {
+    fileprivate struct TableStructure {
         static let ProducerSectionHeader = NSLocalizedString("Producers", comment: "Header for section of tableView with information of the producer (name, geographic location).")
         static let ProducerCodeSectionHeader = NSLocalizedString("Producer Codes", comment: "Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666).")
         static let IngredientOriginSectionHeader = NSLocalizedString("Origin ingredient", comment: "Header for section of tableView with location(s) of ingredients.")
@@ -78,7 +98,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         static let SitesSectionSize = 1
     }
     
-    private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
+    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
@@ -88,45 +108,45 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         
         // ingredient origin section
         sectionsAndRows.append((
-            SectionType.IngredientOrigin,
+            SectionType.ingredientOrigin,
             TableStructure.IngredientOriginSectionSize,
             TableStructure.IngredientOriginSectionHeader))
         // producer section
         sectionsAndRows.append((
-            SectionType.Producer,
+            SectionType.producer,
             TableStructure.ProducerSectionSize,
             TableStructure.ProducerSectionHeader))
         // producer codes section
         sectionsAndRows.append((
-            SectionType.ProducerCode,
+            SectionType.producerCode,
             TableStructure.ProducerCodeSectionSize,
             TableStructure.ProducerCodeSectionHeader))
         // producer sites
         sectionsAndRows.append((
-            SectionType.Sites,
+            SectionType.sites,
             TableStructure.SitesSectionSize,
             TableStructure.SitesSectionHeader))
         // purchase Location section
         sectionsAndRows.append((
-            SectionType.Location,
+            SectionType.location,
             TableStructure.LocationSectionSize,
             TableStructure.LocationSectionHeader))
         sectionsAndRows.append((
-            SectionType.ExpirationDate,
+            SectionType.expirationDate,
             TableStructure.ExpirationDateSectionSize,
             TableStructure.ExpirationDateSectionHeader))
         // countries section
         sectionsAndRows.append((
-            SectionType.Country,
+            SectionType.country,
             TableStructure.CountriesSectionSize,
             TableStructure.CountriesSectionHeader))
         // stores section
         sectionsAndRows.append((
-            SectionType.Store,
+            SectionType.store,
             TableStructure.StoresSectionSize,
             TableStructure.StoresSectionHeader))
         sectionsAndRows.append((
-            SectionType.Map,
+            SectionType.map,
             TableStructure.MapSectionSize,
             TableStructure.MapSectionHeader))
 
@@ -135,61 +155,61 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
 
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return tableStructureForProduct.count
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let (_, numberOfRows, _) = tableStructureForProduct[section]
         return numberOfRows
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         // we assume that product exists
         switch currentProductSection {
-        case .Producer:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
+        case .producer:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.producer?.elements
             return cell
-        case .ProducerCode:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ProducerCodeCellIdentifier, forIndexPath: indexPath) as! AddressTagListTableViewCell
+        case .producerCode:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! AddressTagListTableViewCell
             cell.tagList = product!.producerCode
             return cell
-        case .Sites:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.SitesCellIdentifier, forIndexPath: indexPath) as! SitesTagListTableViewCell
+        case .sites:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! SitesTagListTableViewCell
             cell.tagList = product!.links
             cell.tagListView!.delegate = self
             return cell
-        case .IngredientOrigin:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
+        case .ingredientOrigin:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.ingredientsOrigin?.elements
             return cell
-        case .Store:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
+        case .store:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.stores
             return cell
-        case .Location:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! TagListViewTableViewCell
+        case .location:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tagList = product!.purchaseLocation?.elements
             return cell
-        case .Country:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CountriesCellIdentifier, forIndexPath: indexPath) as! CountriesTagListViewTableViewCell
+        case .country:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! CountriesTagListViewTableViewCell
             cell.tagList = product!.countries
             return cell
-        case .Map:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.MapCellIdentifier, forIndexPath: indexPath) as! MapTableViewCell
+        case .map:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
             cell.product = product!
             return cell
-        case .ExpirationDate:
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ExpirationDateCellIdentifier, forIndexPath: indexPath)
+        case .expirationDate:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath)
             if let date = product!.expirationDate {
-                let formatter = NSDateFormatter()
-                formatter.dateStyle = .MediumStyle
-                formatter.timeStyle = .NoStyle
-                cell.textLabel!.text = formatter.stringFromDate(date)
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .none
+                cell.textLabel!.text = formatter.string(from: date as Date)
             } else {
                 cell.textLabel!.text = Constants.NoExpirationDate
             }
@@ -197,13 +217,13 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
         return header
     }
     
-    override func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch (indexPath as NSIndexPath).section {
         case 7:
             return 300
         default:
@@ -213,28 +233,28 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
     
     // MARK: TagListViewDelegate
     
-    func tagPressed(title: String, tagView: TagView, sender: TagListView) {
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
         /// shoudl open the corresponding url in safari
         if (product?.links != nil) && (product?.links!.count > 0) {
             var urlToOpen = product!.links![0]
             if (urlToOpen.scheme!.length() == 0)
             {
-                let text = "http://" + urlToOpen.absoluteString!;
-                urlToOpen  = NSURL.init(string:text)!;
+                let text = "http://" + urlToOpen.absoluteString;
+                urlToOpen  = URL.init(string:text)!;
             }
             print("Tag pressed: \(title), \(urlToOpen)")
-            if UIApplication.sharedApplication().canOpenURL(urlToOpen) {
-                UIApplication.sharedApplication().openURL(urlToOpen)
+            if UIApplication.shared.canOpenURL(urlToOpen as URL) {
+                UIApplication.shared.open(urlToOpen, options: [:], completionHandler: nil)
             }
         }
-        tagView.selected = !tagView.selected
+        tagView.isSelected = !tagView.isSelected
     }
     
 
     // MARK: - Notification handler
     
-    func reloadMapSection(notification: NSNotification) {
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 7)], withRowAnimation: UITableViewRowAnimation.Fade)
+    func reloadMapSection(_ notification: Notification) {
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 7)], with: UITableViewRowAnimation.fade)
     }
 
     func refreshProduct() {
@@ -259,18 +279,18 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         title = Constants.ViewControllerTitle
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name:Address.Notification.CoordinateHasBeenSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name:NSNotification.Name(rawValue: Address.Notification.CoordinateHasBeenSet), object:nil)
         
         // refreshProduct()
     }
 
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
     

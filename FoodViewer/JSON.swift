@@ -5,7 +5,7 @@
 //  Created by arnaud on 03/02/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import Foundation
 
 // json parse approach taken from
@@ -14,12 +14,12 @@ import Foundation
 //
 
 public enum JSON {
-    case Array([AnyObject])
-    case Dictionary([Swift.String: AnyObject])
+    case Array([Any])
+    case Dictionary([Swift.String: Any])
     case String(Swift.String)
-    case Number(Float)
-    case URL(Swift.String)
-    case Null
+    case number(Float)
+    case url(Swift.String)
+    case null
     
     public var string: Swift.String? {
         switch self {
@@ -32,7 +32,7 @@ public enum JSON {
     
     public var int: Int? {
         switch self {
-        case .Number(let d):
+        case .number(let d):
             return Int(d)
         default:
             return nil
@@ -41,7 +41,7 @@ public enum JSON {
     
     public var float: Float? {
         switch self {
-        case .Number(let d):
+        case .number(let d):
             return d
         default:
             return nil
@@ -50,7 +50,7 @@ public enum JSON {
 
     public var double: Double? {
         switch self {
-        case .Number(let d):
+        case .number(let d):
             return Double(d)
         default:
             return nil
@@ -59,39 +59,39 @@ public enum JSON {
 
     public var bool: Bool? {
         switch self {
-        case .Number(let d):
+        case .number(let d):
             return (d != 0)
         default:
             return nil
         }
     }
     
-    public var nsurl: NSURL? {
+    public var nsurl: Foundation.URL? {
         switch self {
         case .String(let u):
-            let url = NSURL(string: u)
+            let url = Foundation.URL(string: u)
             return url
         default:
             return nil
         }
     }
 
-    public var date: NSDate? {
+    public var date: Date? {
         switch self {
         case .String(let d):
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyyMMdd"
-            dateFormatter.locale = NSLocale(localeIdentifier: "EN_en")
-            return dateFormatter.dateFromString(d)
+            dateFormatter.locale = Locale(identifier: "EN_en")
+            return dateFormatter.date(from: d)
         default:
             return nil
         }
     }
 
-    public var time: NSDate? {
+    public var time: Date? {
         switch self {
-        case .Number(let d):
-            return NSDate(timeIntervalSince1970:Double(d))
+        case .number(let d):
+            return Date(timeIntervalSince1970:Double(d))
         default:
             return nil
         }
@@ -99,7 +99,7 @@ public enum JSON {
 
     public var isNull: Bool {
         switch self {
-        case Null:
+        case .null:
             return true
         default:
             return false
@@ -129,10 +129,10 @@ public enum JSON {
         }
     }
     
-    public var stringArray: [Swift.String]? {
+    public var stringArray: [String]? {
         switch self {
         case .Array(let array):
-            if let stringArray = array as? [Swift.String] {
+            if let stringArray = array as? [String] {
                 return stringArray
             }
             fallthrough
@@ -142,26 +142,27 @@ public enum JSON {
     }
 
 
-    public static func wrap(json: AnyObject) -> JSON {
-        if let str = json as? Swift.String {
+    public static func wrap(_ json: Any) -> JSON {
+        if let str = json as? String {
             return .String(str)
         }
         if let num = json as? NSNumber {
-            return .Number(num.floatValue)
+            return .number(num.floatValue)
         }
-        if let dictionary = json as? [Swift.String: AnyObject] {
+        if let dictionary = json as? [String: Any] {
             return .Dictionary(dictionary)
         }
-        if let array = json as? [AnyObject] {
+        if let array = json as? [Any] {
             return .Array(array)
         }
         assert(json is NSNull, "Unsupported Type")
-        return .Null
+        return .null
     }
     
-    public static func parse(data: NSData) -> JSON? {
+    public static func parse(_ data: Data) -> JSON? {
         do {
-            let jsonObject: AnyObject = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
+            let jsonObject = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any]
+            
             return wrap(jsonObject)
         } catch let error as NSError {
             print(error.localizedDescription)
@@ -172,10 +173,7 @@ public enum JSON {
     public subscript(index: Swift.String) -> JSON? {
         switch self {
         case .Dictionary(let dictionary):
-            if let value: AnyObject = dictionary[index] {
-                return JSON.wrap(value)
-            }
-            fallthrough
+            return JSON.wrap(dictionary[index] as Any)
         default:
             return nil
         }
@@ -190,3 +188,4 @@ public enum JSON {
         }
     }
 }
+*/

@@ -10,7 +10,7 @@ import UIKit
 
 class IngredientsImageTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
 
@@ -39,7 +39,7 @@ class IngredientsImageTableViewCell: UITableViewCell {
                 }
                 // still need to solved what happens when the image is very high
                 
-                ingredientsImageView.contentMode = .Center
+                ingredientsImageView.contentMode = .center
             } else {
                 ingredientsImageView?.image = UIImage(named: "ImageLoading")
             }

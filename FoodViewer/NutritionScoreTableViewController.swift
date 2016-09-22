@@ -10,11 +10,11 @@ import UIKit
 
 class NutritionScoreTableViewController: UITableViewController {
     
-    private var showNutritionalScore: NutritionalScoreType = .UK
+    fileprivate var showNutritionalScore: NutritionalScoreType = .uk
     
-    private enum NutritionalScoreType {
-        case UK
-        case France
+    fileprivate enum NutritionalScoreType {
+        case uk
+        case france
     }
     var product: FoodProduct? {
         didSet {
@@ -24,7 +24,7 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let TitleForSectionWithBadNutrients = NSLocalizedString("Bad nutrients", comment: "Header for a table section showing the appreciations of the bad nutrients")
         static let TitleForSectionWithGoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
         static let TitleForSectionWithExceptionCategory = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
@@ -34,24 +34,24 @@ class NutritionScoreTableViewController: UITableViewController {
         static let BeveragesCategory = NSLocalizedString("Beverages category", comment: "Cell title indicating the product belongs to the beverages category")
     }
 
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let NutrimentScoreCellIdentifier = "Nutriment Score Cell"
         static let BelongsToCategoryCellIdentifier = "Product Category Cell"
         static let ColourCodedNutritionalScoreCellIdentifier = "Colour Coded Nutritional Score Cell"
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         switch showNutritionalScore {
-        case .UK:
+        case .uk:
             return 3
-        case .France:
+        case .france:
             return 4
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch showNutritionalScore {
-        case .UK:
+        case .uk:
             switch section {
             // section with bad nutriments
             case 0:
@@ -63,7 +63,7 @@ class NutritionScoreTableViewController: UITableViewController {
                 return 1
             } 
 
-        case .France:
+        case .france:
             switch section {
             // section with bad nutriments
             case 0:
@@ -80,57 +80,57 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch showNutritionalScore {
-        case .UK:
-            switch indexPath.section {
+        case .uk:
+            switch (indexPath as NSIndexPath).section {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsA[indexPath.row].nutriment, product!.nutritionalScoreUK.pointsA[indexPath.row].points, 10, 0, .Bad)
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutrimentScoreCellIdentifier, for: indexPath)as? NutrimentScoreTableViewCell
+                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsA[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreUK.pointsA[(indexPath as NSIndexPath).row].points, 10, 0, .bad)
                 return cell!
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsC[indexPath.row].nutriment, product!.nutritionalScoreUK.pointsC[indexPath.row].points, 5, 0, .Good)
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutrimentScoreCellIdentifier, for: indexPath)as? NutrimentScoreTableViewCell
+                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsC[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreUK.pointsC[(indexPath as NSIndexPath).row].points, 5, 0, .good)
                 return cell!
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ColourCodedNutritionalScoreCellIdentifier, forIndexPath: indexPath)as? ColourCodedNutritionalScoreTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ColourCodedNutritionalScoreCellIdentifier, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
                 cell!.score = product!.nutritionalScoreUK.total
                 return cell!
             }
-        case .France:
-            switch indexPath.section {
+        case .france:
+            switch (indexPath as NSIndexPath).section {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsA[indexPath.row].nutriment, product!.nutritionalScoreFrance.pointsA[indexPath.row].points, 10, 0, .Bad)
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutrimentScoreCellIdentifier, for: indexPath)as? NutrimentScoreTableViewCell
+                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsA[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreFrance.pointsA[(indexPath as NSIndexPath).row].points, 10, 0, .bad)
                 return cell!
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.NutrimentScoreCellIdentifier, forIndexPath: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsC[indexPath.row].nutriment, product!.nutritionalScoreFrance.pointsC[indexPath.row].points, 5, 0, .Good)
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutrimentScoreCellIdentifier, for: indexPath)as? NutrimentScoreTableViewCell
+                cell!.nutrimentScore = (product!.nutritionalScoreFrance.pointsC[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreFrance.pointsC[(indexPath as NSIndexPath).row].points, 5, 0, .good)
                 return cell!
             case 2:
-                switch indexPath.row {
+                switch (indexPath as NSIndexPath).row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BelongsToCategoryCellIdentifier, forIndexPath: indexPath)as? ProductCategoryTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BelongsToCategoryCellIdentifier, for: indexPath)as? ProductCategoryTableViewCell
                     cell!.belongsToCategory = product!.nutritionalScoreFrance.cheese
                     cell!.belongsToCategoryTitle = Constants.CheesesCategory
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.BelongsToCategoryCellIdentifier, forIndexPath: indexPath)as? ProductCategoryTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BelongsToCategoryCellIdentifier, for: indexPath)as? ProductCategoryTableViewCell
                     cell!.belongsToCategory = product!.nutritionalScoreFrance.beverage
                     cell?.belongsToCategoryTitle = Constants.BeveragesCategory
                     return cell!
                 }
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ColourCodedNutritionalScoreCellIdentifier, forIndexPath: indexPath)as? ColourCodedNutritionalScoreTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ColourCodedNutritionalScoreCellIdentifier, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
                 cell!.score = product!.nutritionalScoreFrance.total
                 return cell!
             }
         }
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch showNutritionalScore {
-        case .UK:
+        case .uk:
             switch section {
             case 0:
                 return Constants.TitleForSectionWithBadNutrients
@@ -140,7 +140,7 @@ class NutritionScoreTableViewController: UITableViewController {
                 return Constants.TitleForSectionWithResultUK
             }
 
-        case .France:
+        case .france:
             switch section {
             case 0:
                 return Constants.TitleForSectionWithBadNutrients
@@ -159,9 +159,9 @@ class NutritionScoreTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    func doubleTapOnTableView(recognizer: UITapGestureRecognizer) {
+    func doubleTapOnTableView(_ recognizer: UITapGestureRecognizer) {
         /////
-        showNutritionalScore = showNutritionalScore == .UK ? .France : .UK
+        showNutritionalScore = showNutritionalScore == .uk ? .france : .uk
         tableView.reloadData()
     }
 
@@ -172,7 +172,7 @@ class NutritionScoreTableViewController: UITableViewController {
         // tableStructure = setupSections()
         // self.tableView.estimatedRowHeight = 88.0
         tableView.rowHeight = UITableViewAutomaticDimension
-        showNutritionalScore = .UK
+        showNutritionalScore = .uk
         let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutritionScoreTableViewController.doubleTapOnTableView))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
         doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -182,7 +182,7 @@ class NutritionScoreTableViewController: UITableViewController {
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if product != nil {

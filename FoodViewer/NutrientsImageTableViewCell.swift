@@ -10,7 +10,7 @@ import UIKit
 
 class NutrientsImageTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
 
@@ -39,7 +39,7 @@ class NutrientsImageTableViewCell: UITableViewCell {
                 }
                 // still need to solved what happens when the image is very high
                 
-                nutrientsImageView.contentMode = .Center
+                nutrientsImageView.contentMode = .center
                 
                 // print("product imageView size \(productImageView?.bounds.size)")
                 // print("cell: \(self.contentView.bounds.size)")

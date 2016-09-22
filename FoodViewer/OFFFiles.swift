@@ -24,7 +24,7 @@ class OFFplists {
     // A singleton limits however the number of file loads
     static let manager = OFFplists()
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let OpenFoodFactsExtension = "off"
         static let PlistExtension = "plist"
         static let AllergensFileName = "Allergens"
@@ -41,7 +41,7 @@ class OFFplists {
         static let LanguageDivider = ":"
     }
     
-    private struct TextConstants {
+    fileprivate struct TextConstants {
         static let FileNotAvailable = NSLocalizedString("Error: file %@ not available", comment: "Error to indicate that a file can not be read.")
     }
 
@@ -69,13 +69,13 @@ class OFFplists {
     
     // MARK: - Translate functions
 
-    func translateStates(key: String, language:String) -> String {
+    func translateStates(_ key: String, language:String) -> String {
         if OFFstates != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
 
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFstates!.indexOf(vertex)
+            let index = OFFstates!.index(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFstates![index!].leaves
@@ -88,13 +88,13 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.StatesFileName)
     }
     
-    func translateAdditives(key: String, language:String) -> String {
+    func translateAdditives(_ key: String, language:String) -> String {
         if OFFadditives != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFadditives!.indexOf(vertex)
+            let index = OFFadditives!.index(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFadditives![index!].leaves
@@ -107,18 +107,18 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.AdditivesFileName)
     }
 
-    func translateAllergens(key: String, language:String) -> String? {
+    func translateAllergens(_ key: String, language:String) -> String? {
         if OFFallergens != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFallergens!.indexOf(vertex)
+            let index = OFFallergens!.index(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFallergens![index!].leaves
                 let values = currentVertex[firstSplit[0]]
-                return  values != nil ? values![0].capitalizedString : key
+                return  values != nil ? values![0].capitalized : key
             } else {
                 return nil
             }
@@ -126,13 +126,13 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.AllergensFileName)
     }
 
-    func translateCountries(key: String, language:String) -> String {
+    func translateCountries(_ key: String, language:String) -> String {
         if OFFcountries != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFcountries!.indexOf(vertex)
+            let index = OFFcountries!.index(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFcountries![index!].leaves
@@ -146,13 +146,13 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.CountriesFileName)
     }
     
-    func translateGlobalLabels(key: String, language:String) -> String {
+    func translateGlobalLabels(_ key: String, language:String) -> String {
         if OFFglobalLabels != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFglobalLabels!.indexOf(vertex)
+            let index = OFFglobalLabels!.index(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFglobalLabels![index!].leaves
@@ -166,27 +166,27 @@ class OFFplists {
         }
     }
     
-    func translateCategories(key: String, language:String) -> String {
+    func translateCategories(_ key: String, language:String) -> String {
         
         return translate(OFFcategories, file: Constants.CategoriesFileName, key: key, language: language)
     }
     
-    func translateNutrients(key: String, language:String) -> String {
+    func translateNutrients(_ key: String, language:String) -> String {
         // remark that the key has been extended with a language for in order to be consistent with the other taxonomy keys.
         return translate(OFFnutrients, file: Constants.NutrientsFileName, key: "en:" + key, language: language)
     }
 
-    func translateLanguage(key: String, language:String) -> String {
+    func translateLanguage(_ key: String, language:String) -> String {
         return translate(OFFlanguages, file: Constants.LanguagesFileName, key: key, language: language)
     }
     
-    private func translate(taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
+    fileprivate func translate(_ taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
         if taxonomy != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = taxonomy!.indexOf(vertex)
+            let index = taxonomy!.index(of: vertex)
             if  index != nil {
                 
                 let currentVertex = taxonomy![index!].leaves
@@ -204,9 +204,9 @@ class OFFplists {
     
 // MARK: - Read functions
     
-    private func readPlist(fileName: String) -> Set <VertexNew>? {
+    fileprivate func readPlist(_ fileName: String) -> Set <VertexNew>? {
         // Copy the file from the Bundle and write it to the Device:
-        if let path = NSBundle.mainBundle().pathForResource(fileName, ofType: Constants.PlistExtension) {
+        if let path = Bundle.main.path(forResource: fileName, ofType: Constants.PlistExtension) {
 
             //let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
             //let documentsDirectory = paths.objectAtIndex(0) as! NSString

@@ -9,9 +9,9 @@
 import Foundation
 
 enum NutritionItem {
-    case Fat
-    case SaturatedFat
-    case Sugar
-    case Salt
-    case Undefined
+    case fat
+    case saturatedFat
+    case sugar
+    case salt
+    case undefined
 }

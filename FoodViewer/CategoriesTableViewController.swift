@@ -19,10 +19,10 @@ class CategoriesTableViewController: UITableViewController {
         }
     }
 
-    private var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
-    private enum SectionType {
-        case Categories
+    fileprivate enum SectionType {
+        case categories
     }
 
     struct Constants {
@@ -31,8 +31,8 @@ class CategoriesTableViewController: UITableViewController {
     }
     
     
-    @IBAction func refresh(sender: UIRefreshControl) {
-        if refreshControl!.refreshing {
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
@@ -40,26 +40,26 @@ class CategoriesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let CellIdentifier = "Categories Cell Identifier"
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return tableStructureForProduct.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let (_, numberOfRows, _) = tableStructureForProduct[section]
         return numberOfRows
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellIdentifier, forIndexPath: indexPath) as! CategoriesExtendedTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! CategoriesExtendedTableViewCell
         cell.tagList = product!.categories
         return cell
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
         return header
     }
@@ -69,7 +69,7 @@ class CategoriesTableViewController: UITableViewController {
         static let CategoriesSectionSize = 1
     }
 
-    private func analyseProductForTable(product: FoodProduct) -> [(SectionType,Int, String?)] {
+    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
@@ -78,7 +78,7 @@ class CategoriesTableViewController: UITableViewController {
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         // nutritionFacts section
         sectionsAndRows.append((
-            SectionType.Categories,
+            SectionType.categories,
             TableStructure.CategoriesSectionSize,
             TableStructure.CategoriesSectionHeader))
         return sectionsAndRows
@@ -107,22 +107,22 @@ class CategoriesTableViewController: UITableViewController {
         title = Constants.ViewControllerTitle
     }
 
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: UITableViewRowAnimation.fade)
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
 
     }
 
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
 

@@ -7,6 +7,26 @@
 //
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
 
 class CompletionStatesTableViewController: UITableViewController {
 
@@ -17,8 +37,8 @@ class CompletionStatesTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func refresh(sender: UIRefreshControl) {
-        if refreshControl!.refreshing {
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
@@ -52,11 +72,11 @@ class CompletionStatesTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return product != nil ? 4 : 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 10
@@ -72,11 +92,11 @@ class CompletionStatesTableViewController: UITableViewController {
         
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CompletionStateCellIdentifier, forIndexPath: indexPath) as! StateTableViewCell
-            switch indexPath.row {
+        if (indexPath as NSIndexPath).section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionStateCellIdentifier, for: indexPath) as! StateTableViewCell
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 cell.state = product!.state.productNameComplete.value
                 cell.stateTitle = product!.state.productNameComplete.text
@@ -118,27 +138,27 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.stateTitle = product!.state.photosValidatedComplete.text
                 return cell
             }
-        } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.ContributorsCellIdentifier, forIndexPath: indexPath) as? ContributorTableViewCell
+        } else if (indexPath as NSIndexPath).section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ContributorsCellIdentifier, for: indexPath) as? ContributorTableViewCell
             
-            cell?.contributor = product!.productContributors.contributors[indexPath.row]
+            cell?.contributor = product!.productContributors.contributors[(indexPath as NSIndexPath).row]
             return cell!
-        } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LastEditDateCellIdentifier, forIndexPath: indexPath)
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = .MediumStyle
-            formatter.timeStyle = .NoStyle
+        } else if (indexPath as NSIndexPath).section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LastEditDateCellIdentifier, for: indexPath)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
             // the lastEditDates array contains at least one date, if we arrive here
             
-            cell.textLabel!.text = formatter.stringFromDate(product!.lastEditDates![indexPath.row])
+            cell.textLabel!.text = formatter.string(from: product!.lastEditDates![(indexPath as NSIndexPath).row] as Date)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.LastEditDateCellIdentifier, forIndexPath: indexPath)
-            let formatter = NSDateFormatter()
-            formatter.dateStyle = .MediumStyle
-            formatter.timeStyle = .NoStyle
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LastEditDateCellIdentifier, for: indexPath)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
             if let validDate = product?.additionDate {
-                cell.textLabel!.text = formatter.stringFromDate(validDate)
+                cell.textLabel!.text = formatter.string(from: validDate as Date)
             } else {
                 cell.textLabel!.text = Constants.NoCreationDateAvailable
             }
@@ -146,7 +166,7 @@ class CompletionStatesTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch section {
         case 0:
@@ -186,17 +206,17 @@ class CompletionStatesTableViewController: UITableViewController {
         refreshProduct()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:OFFProducts.Notification.ProductUpdated, object:nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:History.Notification.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
 
     }
 
     
-    override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
 

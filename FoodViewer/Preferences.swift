@@ -24,14 +24,14 @@ class Preferences {
     var allergenWarnings: [(String, Bool)] = []
     
     init() {
-        showSaltOrSodium = NatriumChloride.Salt
-        showCaloriesOrJoule = Energy.Joule
-        showNutritionDataPerServingOrPerStandard = NutritionDisplayMode.PerStandard
+        showSaltOrSodium = NatriumChloride.salt
+        showCaloriesOrJoule = Energy.joule
+        showNutritionDataPerServingOrPerStandard = NutritionDisplayMode.perStandard
         
         mapAddress = Address()
         mapAddress.title = "Address used for center of map"
-        let locale = NSLocale.currentLocale()
-        mapAddress.country = locale.displayNameForKey(NSLocaleCountryCode, value: locale.objectForKey(NSLocaleCountryCode)!)!
+        let locale = Locale.current
+        mapAddress.country = (locale as NSLocale).displayName(forKey: NSLocale.Key.countryCode, value: (locale as NSLocale).object(forKey: NSLocale.Key.countryCode)!)!
         mapAddress.setCoordinates()
     }
 }

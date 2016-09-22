@@ -10,7 +10,7 @@ import UIKit
 
 class NutritionFactsTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let UnknownValue = " "
     }
     

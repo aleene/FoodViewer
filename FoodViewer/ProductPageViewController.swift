@@ -17,6 +17,26 @@
 
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
@@ -37,34 +57,34 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     // MARK: - Storyboard Actions
 
-    @IBAction func actionButtonTapped(sender: UIBarButtonItem) {
+    @IBAction func actionButtonTapped(_ sender: UIBarButtonItem) {
         
         var sharingItems = [AnyObject]()
 
         if let text = product?.name {
-            sharingItems.append(text)
+            sharingItems.append(text as AnyObject)
         }
         
         if let data = product?.mainImageSmallData,
-            let image = UIImage(data:data) {
+            let image = UIImage(data:data as Data) {
             sharingItems.append(image)
         }
         
         if let url = product?.regionURL() {
-            sharingItems.append(url)
+            sharingItems.append(url as AnyObject)
         }
         
         let activity = TUSafariActivity()
 
         let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: [activity])
         
-        activityViewController.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypePrint, UIActivityTypeOpenInIBooks, UIActivityTypeAssignToContact, UIActivityTypeAddToReadingList]
+        activityViewController.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.print, UIActivityType.openInIBooks, UIActivityType.assignToContact, UIActivityType.addToReadingList]
         
         // This is necessary for the iPad
         let presCon = activityViewController.popoverPresentationController
         presCon?.barButtonItem = sender
         
-        self.presentViewController(activityViewController, animated: true, completion: nil)
+        self.present(activityViewController, animated: true, completion: nil)
     }
 
 
@@ -92,7 +112,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // open de corresponding page
             setViewControllers(
                 [pages[pageIndex!]],
-                direction: .Forward,
+                direction: .forward,
                 animated: true, completion: nil)
             title = titles[pageIndex!]
         }
@@ -100,9 +120,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     // MARK: - Pages initialization
     
-    private var pages: [UIViewController] = []
+    fileprivate var pages: [UIViewController] = []
     
-    private func initPages () {
+    fileprivate func initPages () {
         // initialise pages
         if pages.isEmpty {
             pages.append(page1)
@@ -116,7 +136,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
 
-    private var titles = [NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info."),
+    fileprivate var titles = [NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info."),
         NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product."),
         NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product."),
         NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product."),
@@ -126,37 +146,37 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var page1: UIViewController {
         get {
-            return storyboard!.instantiateViewControllerWithIdentifier(Constants.IdentificationVCIdentifier)
+            return storyboard!.instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier)
         }
     }
     var page2: UIViewController {
         get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.IngredientsVCIdentifier)
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IngredientsVCIdentifier)
         }
     }
     var page3: UIViewController {
         get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.NutrientsVCIdentifier)
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutrientsVCIdentifier)
         }
     }
     var page4: UIViewController {
         get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.SupplyChainVCIdentifier)
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.SupplyChainVCIdentifier)
         }
     }
     var page5: UIViewController {
         get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.CategoriesVCIdentifier)
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CategoriesVCIdentifier)
         }
     }
     var page6: UIViewController {
         get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.CommunityEffortVCIdentifier)
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CommunityEffortVCIdentifier)
         }
     }
     var page7: UIViewController {
         get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(Constants.NutritionalScoreVCIdentifier)
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier)
         }
     }
 
@@ -195,11 +215,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     // This function finds the language that must be used to display the product
-    private func setCurrentLanguage() {
+    fileprivate func setCurrentLanguage() {
         // is there already a current language?
         guard currentLanguageCode == nil  else { return }
         // find the first preferred language that can be used
-        for languageLocale in NSLocale.preferredLanguages() {
+        for languageLocale in Locale.preferredLanguages {
             // split language and locale
             let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
             if let languageCodes = product?.languageCodes {
@@ -219,9 +239,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // MARK: - Pageview Controller data source
     
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
 
-        guard let viewControllerIndex = pages.indexOf(viewController) else {
+        guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
         
@@ -238,9 +258,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         return pages[nextIndex]
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
      
-        guard let viewControllerIndex = pages.indexOf(viewController) else {
+        guard let viewControllerIndex = pages.index(of: viewController) else {
             return nil
         }
         
@@ -259,22 +279,22 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     }
     
-    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return pages.count
     }
     
-    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         guard let firstViewController = viewControllers?.first,
-            firstViewControllerIndex = pages.indexOf(firstViewController) else {
+            let firstViewControllerIndex = pages.index(of: firstViewController) else {
                 return 0
         }
         
         return firstViewControllerIndex
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let current = viewControllers?.first,
-            let viewControllerIndex = pages.indexOf(current) {
+            let viewControllerIndex = pages.index(of: current) {
                 title = titles[viewControllerIndex]
         }
     }
@@ -288,7 +308,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         let products = OFFProducts.manager
         if let validProductFetchResult = products.fetchResultList[0] {
             switch validProductFetchResult {
-            case .Success(let firstProduct):
+            case .success(let firstProduct):
                 product = firstProduct
                 pageIndex = 0
             default: break
@@ -299,16 +319,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // MARK: - Segues
     // MARK: TBD This is not very elegant
     
-    @IBAction func unwindSetLanguageForCancel(segue:UIStoryboardSegue) {
-        if let vc = segue.sourceViewController as? SelectLanguageViewController {
+    @IBAction func unwindSetLanguageForCancel(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.currentLanguageCode
             updateCurrentLanguage()
             pageIndex = vc.sourcePage
         }
     }
     
-    @IBAction func unwindSetLanguageForDone(segue:UIStoryboardSegue) {
-        if let vc = segue.sourceViewController as? SelectLanguageViewController {
+    @IBAction func unwindSetLanguageForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.selectedLanguageCode
             updateCurrentLanguage()
             pageIndex = vc.sourcePage
@@ -329,7 +349,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         navigationItem.leftItemsSupplementBackButton = true
 
         dataSource = self
@@ -339,11 +359,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initPages()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // listen if a product is set outside of the MasterViewController
-        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:OFFProducts.Notification.FirstProductLoaded, object:nil)         
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.FirstProductLoaded), object:nil)         
     }
     
     override func didReceiveMemoryWarning() {

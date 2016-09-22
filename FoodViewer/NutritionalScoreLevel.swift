@@ -9,52 +9,52 @@
 import Foundation
 
 enum NutritionalScoreLevel {
-    case A
-    case B
-    case C
-    case D
-    case E
-    case Undefined
+    case a
+    case b
+    case c
+    case d
+    case e
+    case undefined
     
-    mutating func int(value: Int?) {
+    mutating func int(_ value: Int?) {
         if let existingValue = value {
             if existingValue <= -1 {
-                self = .A
+                self = .a
             } else if existingValue <= 2 {
-                self = .B
+                self = .b
             } else if existingValue <= 10 {
-                self = .C
+                self = .c
             } else if existingValue <= 18 {
-                self = .D
+                self = .d
             } else if existingValue > 18 {
-                self = .E
+                self = .e
             }
         } else {
-            self = .Undefined
+            self = .undefined
         }
     }
     
-    mutating func string(value: String?) {
+    mutating func string(_ value: String?) {
         if let existingValue = value {
             if existingValue == "a" {
-                self = .A
+                self = .a
             } else if existingValue == "b" {
-                self = .B
+                self = .b
             } else if existingValue == "c" {
-                self = .C
+                self = .c
             } else if existingValue == "d" {
-                self = .D
+                self = .d
             } else if existingValue == "e" {
-                self = .E
+                self = .e
             } else {
-                self = .Undefined
+                self = .undefined
             }
         } else {
-            self = .Undefined
+            self = .undefined
         }
     }
     
     init() {
-        self = .Undefined
+        self = .undefined
     }
 }

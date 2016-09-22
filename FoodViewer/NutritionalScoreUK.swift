@@ -59,8 +59,8 @@ struct NutritionalScoreUK {
     }
     
     
-    private mutating func setup() {
-        let preferredLanguage = NSLocale.preferredLanguages()[0]
+    fileprivate mutating func setup() {
+        let preferredLanguage = Locale.preferredLanguages[0]
 
         var energy = nutrimentScore()
         energy.nutriment = OFFplists.manager.translateNutrients(Constants.energyKey, language:preferredLanguage)

@@ -18,9 +18,9 @@ class BarcodeScanViewController: RSCodeReaderViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.focusMarkLayer.strokeColor = UIColor.redColor().CGColor
+        self.focusMarkLayer.strokeColor = UIColor.red.cgColor
         
-        self.cornersLayer.strokeColor = UIColor.yellowColor().CGColor
+        self.cornersLayer.strokeColor = UIColor.yellow.cgColor
                 
         self.tapHandler = { point in
             print(point)
@@ -28,16 +28,16 @@ class BarcodeScanViewController: RSCodeReaderViewController {
         
         
         let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
-        types.removeObject(AVMetadataObjectTypeQRCode)
-        types.removeObject(AVMetadataObjectTypePDF417Code)
-        types.removeObject(AVMetadataObjectTypeAztecCode)
-        types.removeObject(AVMetadataObjectTypeDataMatrixCode)
+        types.remove(AVMetadataObjectTypeQRCode)
+        types.remove(AVMetadataObjectTypePDF417Code)
+        types.remove(AVMetadataObjectTypeAztecCode)
+        types.remove(AVMetadataObjectTypeDataMatrixCode)
 
         self.output.metadataObjectTypes = NSArray(array: types) as [AnyObject]
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
-            self.view.bringSubviewToFront(subview)
+            self.view.bringSubview(toFront: subview)
         }
         
         self.barcodesHandler = { barcodes in
@@ -48,8 +48,8 @@ class BarcodeScanViewController: RSCodeReaderViewController {
                     self.type = barcode.type
                     print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
                     
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.performSegueWithIdentifier("Unwind New Search", sender: self)
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "Unwind New Search", sender: self)
                         
                         // MARK: NOTE: Perform UI related actions here.
                     })
@@ -58,7 +58,7 @@ class BarcodeScanViewController: RSCodeReaderViewController {
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.dispatched = false // reset the flag so user can do another scan
         
         super.viewWillAppear(animated)

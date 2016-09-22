@@ -14,11 +14,11 @@ class ProductNameTableViewCell: UITableViewCell {
 
     @IBOutlet weak var changeLanguageButton: UIButton!
     
-    @IBAction func changeLanguageButtonTapped(sender: UIButton) {
+    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) {
         
     }
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
         static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no laguage defined.")
     }
@@ -31,17 +31,17 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var language: String? = nil {
         didSet {
-            let verboseLanguage = language != nil ? OFFplists.manager.translateLanguage(language!, language:NSLocale.preferredLanguages()[0])  : Constants.NoLanguage
-            changeLanguageButton.setTitle(verboseLanguage, forState: UIControlState.Normal)
+            let verboseLanguage = language != nil ? OFFplists.manager.translateLanguage(language!, language:Locale.preferredLanguages[0])  : Constants.NoLanguage
+            changeLanguageButton.setTitle(verboseLanguage, for: UIControlState())
         }
     }
     
     var numberOfLanguages: Int = 0 {
         didSet {
             if numberOfLanguages > 1 {
-                changeLanguageButton.enabled = true
+                changeLanguageButton.isEnabled = true
             } else {
-                changeLanguageButton.enabled = false
+                changeLanguageButton.isEnabled = false
             }
         }
     }

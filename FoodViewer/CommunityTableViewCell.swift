@@ -23,9 +23,9 @@ class CommunityTableViewCell: UITableViewCell {
     
     @IBOutlet weak var communityTagListView: TagListView! {
         didSet {
-            communityTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            communityTagListView.alignment = .Center
-            communityTagListView.tagBackgroundColor = UIColor.greenColor()
+            communityTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            communityTagListView.alignment = .center
+            communityTagListView.tagBackgroundColor = UIColor.green
             communityTagListView.cornerRadius = 10
         }
     }

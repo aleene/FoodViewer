@@ -13,7 +13,7 @@ class VertexNew: Node {
     var parents: Set <VertexNew> = []
     var children: Set <VertexNew> = []
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let ParentsKey = "Parents"
         static let ChildrenKey = "Children"
         static let KeyKey = "Key"
@@ -32,63 +32,63 @@ class VertexNew: Node {
         super.init(key: key)
     }
 
-    func asParentsDict() -> Dictionary <String, AnyObject> {
+    func asParentsDict() -> Dictionary <String, Any> {
         
-        var leafDict: [String:AnyObject] = [:]
-        var subDict: [String:AnyObject] = [:]
-        var nodeDict: [String:AnyObject] = [:]
+        var leafDict: [String:Any] = [:]
+        var subDict: [String:Any] = [:]
+        var nodeDict: [String:Any] = [:]
         
         if !self.leaves.isEmpty {
             // loop over all leaves within a Vertex
             for (language, values) in self.leaves {
-                subDict[language] = values as Array
+                subDict[language] = values as [String]
             }
-            leafDict[Constants.LanguagesKey] = subDict
+            leafDict[Constants.LanguagesKey] = subDict as AnyObject?
             subDict.removeAll()
         }
         
         if !self.parents.isEmpty {
             // loop over all leaves within a Vertex
             for node in self.parents {
-                subDict[Constants.KeyKey] = node.key
+                subDict[Constants.KeyKey] = node.key as AnyObject?
             }
-            leafDict[Constants.ParentsKey] = subDict
+            leafDict[Constants.ParentsKey] = subDict as AnyObject?
         }
 
-        nodeDict[key] = leafDict
+        nodeDict[key] = leafDict as AnyObject?
         
         return nodeDict
     }
 
-    func asChildrenDict() -> Dictionary <String, AnyObject> {
+    func asChildrenDict() -> Dictionary <String, Any> {
         
-        var leafDict: [String:AnyObject] = [:]
-        var subDict: [String:AnyObject] = [:]
-        var nodeDict: [String:AnyObject] = [:]
+        var leafDict: [String:Any] = [:]
+        var subDict: [String:Any] = [:]
+        var nodeDict: [String:Any] = [:]
         
         if !self.leaves.isEmpty {
             // loop over all leaves within a Vertex
             for (language, values) in self.leaves {
                 subDict[language] = values as Array
             }
-            leafDict[Constants.LanguagesKey] = subDict
+            leafDict[Constants.LanguagesKey] = subDict as AnyObject?
             subDict.removeAll()
         }
         
         if !self.children.isEmpty {
             // loop over all leaves within a Vertex
             for node in self.children {
-                subDict[key] = node.asChildrenDict()
+                subDict[key] = node.asChildrenDict() as AnyObject?
             }
-            leafDict[Constants.ChildrenKey] = subDict
+            leafDict[Constants.ChildrenKey] = subDict as AnyObject?
         }
         
-        nodeDict[key] = leafDict
+        nodeDict[key] = leafDict as AnyObject?
         
         return nodeDict
     }
     
-    func decodeDict(dict: Dictionary <String, AnyObject>) -> VertexNew {
+    func decodeDict(_ dict: Dictionary <String, Any>) -> VertexNew {
         let vertex = VertexNew()
         // a dict defines a single vertex
         if dict.count == 1 {

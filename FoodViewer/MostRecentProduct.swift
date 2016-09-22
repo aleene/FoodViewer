@@ -10,34 +10,34 @@ import Foundation
 
 public struct MostRecentProduct {
     
-    public var jsonData: NSData? = nil
+    public var jsonData: Data? = nil
     
-    private var defaults = NSUserDefaults()
+    fileprivate var defaults = UserDefaults()
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let MostRecentProductKey = "Most Recent Product Key"
     }
     
     init() {
         // get the NSUserdefaults array with search strings
-        defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey(Constants.MostRecentProductKey) != nil {
-            if let data = defaults.dataForKey(Constants.MostRecentProductKey) {
+        defaults = UserDefaults.standard
+        if defaults.object(forKey: Constants.MostRecentProductKey) != nil {
+            if let data = defaults.data(forKey: Constants.MostRecentProductKey) {
                 jsonData = data
             }
         }
     }
     
-    mutating func addMostRecentProduct(data: NSData?) {
+    mutating func addMostRecentProduct(_ data: Data?) {
         if let newData = data {
-            defaults.setObject(newData, forKey: Constants.MostRecentProductKey)
+            defaults.set(newData, forKey: Constants.MostRecentProductKey)
             defaults.synchronize()
         }
     }
     
     mutating func remove() {
-        let removedData = NSData()
-        defaults.setObject(removedData, forKey: Constants.MostRecentProductKey)
+        let removedData = Data()
+        defaults.set(removedData, forKey: Constants.MostRecentProductKey)
         defaults.synchronize()
     }
     

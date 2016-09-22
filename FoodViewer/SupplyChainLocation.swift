@@ -42,17 +42,17 @@ class SupplyChainLocation: NSObject, MKAnnotation {
     func pinColor() -> UIColor  {
         switch discipline {
         case MapPinCategories.PurchaseLocation:
-            return UIColor.redColor()
+            return UIColor.red
         case MapPinCategories.SalesCountryLocation:
-            return UIColor.purpleColor()
+            return UIColor.purple
         case MapPinCategories.IngredientOriginLocation:
-            return UIColor.yellowColor()
+            return UIColor.yellow
         case MapPinCategories.ProducerLocation:
-            return UIColor.blueColor()
+            return UIColor.blue
         case MapPinCategories.ProducerCodes:
-            return UIColor.cyanColor()
+            return UIColor.cyan
         default:
-            return UIColor.greenColor()
+            return UIColor.green
         }
     }
 

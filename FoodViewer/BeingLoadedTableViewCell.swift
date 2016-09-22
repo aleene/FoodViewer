@@ -12,8 +12,8 @@ class BeingLoadedTableViewCell: UITableViewCell {
     
     @IBOutlet weak var beingLoadedTagList: TagListView! {
         didSet {
-            beingLoadedTagList.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            beingLoadedTagList.alignment = .Center
+            beingLoadedTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            beingLoadedTagList.alignment = .center
             beingLoadedTagList.cornerRadius = 10
         }
     }
@@ -24,18 +24,18 @@ class BeingLoadedTableViewCell: UITableViewCell {
                 beingLoadedTagList.removeAllTags()
                 beingLoadedTagList.addTag(validStatus.description())
                 switch validStatus {
-                case .Success:
-                    beingLoadedTagList.tagBackgroundColor = UIColor.greenColor()
-                case .Loading:
-                    beingLoadedTagList.tagBackgroundColor = UIColor.orangeColor()
+                case .success:
+                    beingLoadedTagList.tagBackgroundColor = UIColor.green
+                case .loading:
+                    beingLoadedTagList.tagBackgroundColor = UIColor.orange
                 default:
-                    beingLoadedTagList.tagBackgroundColor = UIColor.redColor()
+                    beingLoadedTagList.tagBackgroundColor = UIColor.red
 
                 }
             } else {
                 beingLoadedTagList.removeAllTags()
-                beingLoadedTagList.addTag(ProductFetchStatus.Loading.description())
-                beingLoadedTagList.tagBackgroundColor = UIColor.orangeColor()
+                beingLoadedTagList.addTag(ProductFetchStatus.loading.description())
+                beingLoadedTagList.tagBackgroundColor = UIColor.orange
             }
         }
     }

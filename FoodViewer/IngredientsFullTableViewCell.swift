@@ -14,7 +14,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     @IBOutlet weak var ingredientsLabel: UILabel!
     
     @IBOutlet weak var changeLanguageButton: UIButton!
-    @IBAction func ChangeLanguageButtonTapped(sender: UIButton) {
+    @IBAction func ChangeLanguageButtonTapped(_ sender: UIButton) {
     }
     
     struct Constants {
@@ -28,26 +28,26 @@ class IngredientsFullTableViewCell: UITableViewCell {
             if let text = ingredients {
                 if !text.isEmpty {
                     // defined the attributes for allergen text
-                    let allergenAttributes = [NSForegroundColorAttributeName : UIColor.redColor()]
-                    let noAttributes = [NSForegroundColorAttributeName : UIColor.blackColor()]
+                    let allergenAttributes = [NSForegroundColorAttributeName : UIColor.red]
+                    let noAttributes = [NSForegroundColorAttributeName : UIColor.black]
                     // create a attributable string
                     let myString = NSMutableAttributedString(string: "", attributes: allergenAttributes)
-                    let components = text.componentsSeparatedByString("_")
-                    for (index, component) in components.enumerate() {
+                    let components = text.components(separatedBy: "_")
+                    for (index, component) in components.enumerated() {
                         // if the text starts with a "_", then there will be an empty string component
                         let (_, fraction) = modf(Double(index)/2.0)
                         if (fraction) > 0 {
                             let attributedString = NSAttributedString(string: component, attributes: allergenAttributes)
-                            myString.appendAttributedString(attributedString)
+                            myString.append(attributedString)
                         } else {
                             let attributedString = NSAttributedString(string: component, attributes: noAttributes)
-                            myString.appendAttributedString(attributedString)
+                            myString.append(attributedString)
                         }
                     }
                     if  (text.unbalancedDelimiters()) ||
                         (text.oddNumberOfString("_")) {
                         let attributedString = NSAttributedString(string: Constants.UnbalancedWarning, attributes: noAttributes)
-                        myString.appendAttributedString(attributedString)
+                        myString.append(attributedString)
                     }
                     ingredientsLabel.attributedText = myString
                 } else {
@@ -59,16 +59,16 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     var language: String? = nil {
         didSet {
-            changeLanguageButton.setTitle(language != nil ? OFFplists.manager.translateLanguage(language!, language:NSLocale.preferredLanguages()[0])  : Constants.NoLanguageText, forState: UIControlState.Normal)
+            changeLanguageButton.setTitle(language != nil ? OFFplists.manager.translateLanguage(language!, language:Locale.preferredLanguages[0])  : Constants.NoLanguageText, for: UIControlState())
         }
     }
 
     var numberOfLanguages: Int = 0 {
         didSet {
             if numberOfLanguages > 1 {
-                changeLanguageButton.enabled = true
+                changeLanguageButton.isEnabled = true
             } else {
-                changeLanguageButton.enabled = false
+                changeLanguageButton.isEnabled = false
             }
         }
     }
@@ -83,16 +83,16 @@ extension String {
             (self.unbalanced("[", endDelimiter: "]"))
     }
     
-    func unbalanced(startDelimiter: String, endDelimiter: String) -> Bool {
+    func unbalanced(_ startDelimiter: String, endDelimiter: String) -> Bool {
         return (self.difference(startDelimiter, endDelimiter: endDelimiter) != 0)
     }
 
-    func difference(startDelimiter: String, endDelimiter: String) -> Int {
-        return self.componentsSeparatedByString(startDelimiter).count - self.componentsSeparatedByString(endDelimiter).count
+    func difference(_ startDelimiter: String, endDelimiter: String) -> Int {
+        return self.components(separatedBy: startDelimiter).count - self.components(separatedBy: endDelimiter).count
     }
     
-    func oddNumberOfString(testString: String) -> Bool {
-        let (_, fraction) = modf(Double(self.componentsSeparatedByString(testString).count-1)/2.0)
+    func oddNumberOfString(_ testString: String) -> Bool {
+        let (_, fraction) = modf(Double(self.components(separatedBy: testString).count-1)/2.0)
         return (fraction > 0)
     }
 

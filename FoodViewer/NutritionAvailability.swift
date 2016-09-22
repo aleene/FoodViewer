@@ -10,21 +10,21 @@ import Foundation
 
 enum NutritionAvailability {
     
-    case PerServing
-    case PerStandardUnit
-    case PerServingAndStandardUnit
-    case NotOnPackage
-    case NotIndicated
-    case NotAvailable
+    case perServing
+    case perStandardUnit
+    case perServingAndStandardUnit
+    case notOnPackage
+    case notIndicated
+    case notAvailable
     
     func description() -> String {
         switch self {
-        case .PerServing: return NSLocalizedString("nutrition data per serving available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
-        case .PerStandardUnit: return NSLocalizedString("nutrition data per standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
-        case .PerServingAndStandardUnit: return NSLocalizedString("nutrition data per serving and standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
-        case .NotOnPackage: return NSLocalizedString("nutrition data not on package", comment: "Text in a TagListView, when no nutrition data is available on the package.")
-        case .NotIndicated: return NSLocalizedString("no nutrition data indicated", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
-        case .NotAvailable: return NSLocalizedString("no nutrition data available", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
+        case .perServing: return NSLocalizedString("nutrition data per serving available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
+        case .perStandardUnit: return NSLocalizedString("nutrition data per standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
+        case .perServingAndStandardUnit: return NSLocalizedString("nutrition data per serving and standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
+        case .notOnPackage: return NSLocalizedString("nutrition data not on package", comment: "Text in a TagListView, when no nutrition data is available on the package.")
+        case .notIndicated: return NSLocalizedString("no nutrition data indicated", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
+        case .notAvailable: return NSLocalizedString("no nutrition data available", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
         }
     }
 }

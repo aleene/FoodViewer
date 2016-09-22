@@ -16,8 +16,8 @@ class AdditivesFullTableViewCell: UITableViewCell {
 
     @IBOutlet weak var additivesTagListView: TagListView! {
         didSet {
-            additivesTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            additivesTagListView.alignment = .Center
+            additivesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            additivesTagListView.alignment = .center
             additivesTagListView.cornerRadius = 10
         }
     }
@@ -28,22 +28,22 @@ class AdditivesFullTableViewCell: UITableViewCell {
                 additivesTagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        additivesTagListView.tagBackgroundColor = UIColor.greenColor()
+                        additivesTagListView.tagBackgroundColor = UIColor.green
                         if listItem.contains(":") {
                             let tagView = additivesTagListView.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blueColor()
+                            tagView.tagBackgroundColor = UIColor.blue
                         } else {
                             additivesTagListView.addTag(listItem)
                         }
                     }
                 } else {
                     additivesTagListView.addTag(Constants.NoTag)
-                    additivesTagListView.tagBackgroundColor = UIColor.orangeColor()
+                    additivesTagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 additivesTagListView.removeAllTags()
                 additivesTagListView.addTag(Constants.NoTag)
-                additivesTagListView.tagBackgroundColor = UIColor.orangeColor()
+                additivesTagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }

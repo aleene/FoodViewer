@@ -13,7 +13,7 @@ class ProductCategoryTableViewCell: UITableViewCell {
     
     var belongsToCategory: Bool = false {
         didSet {
-            belongsToCategorySwitch.on = belongsToCategory
+            belongsToCategorySwitch.isOn = belongsToCategory
         }
     }
     
@@ -29,7 +29,7 @@ class ProductCategoryTableViewCell: UITableViewCell {
     @IBOutlet weak var belongsToCategoryLabel: UILabel!
     @IBOutlet weak var belongsToCategorySwitch: UISwitch! {
         didSet {
-            belongsToCategorySwitch.enabled = false
+            belongsToCategorySwitch.isEnabled = false
         }
     }
 

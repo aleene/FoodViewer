@@ -25,7 +25,7 @@ class Address {
     var locationString: String? = nil {
         didSet {
             if let validLocationString = locationString {
-                elements = validLocationString.componentsSeparatedByString(",")
+                elements = validLocationString.components(separatedBy: ",")
             }
         }
     }
@@ -43,18 +43,18 @@ class Address {
     var raw: String = ""
     
     enum CoordinateFetchResult {
-        case Error(String)
-        case SearchStarted
-        case Success([CLLocationCoordinate2D])
+        case error(String)
+        case searchStarted
+        case success([CLLocationCoordinate2D])
     }
 
     var coordinates: CoordinateFetchResult? = nil {
         didSet {
             if let validCoordinates = coordinates {
                 switch validCoordinates {
-                case .Success:
+                case .success:
                     let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
-                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.CoordinateHasBeenSet, object:nil, userInfo: userInfo)
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.CoordinateHasBeenSet), object:nil, userInfo: userInfo)
                 default: break
                 }
             }
@@ -71,7 +71,7 @@ class Address {
             // launch the image retrieval
             if (elements != nil) && (!elements!.isEmpty) {
                 elements = removeDashes(elements!)
-                retrieveCoordinates(elements!.joinWithSeparator(" "))
+                retrieveCoordinates(elements!.joined(separator: " "))
             } else if !country.isEmpty {
                 if !postalcode.isEmpty {
                     retrieveCoordinates(postalcode + ", " + country)
@@ -99,19 +99,19 @@ class Address {
  */
     
     func joined() -> String? {
-        return elements?.joinWithSeparator(" ")
+        return elements?.joined(separator: " ")
     }
     
-    func retrieveCoordinates(locationName: String) {
+    func retrieveCoordinates(_ locationName: String) {
         var coordinates: [CLLocationCoordinate2D]? =  nil
         
         if !locationName.isEmpty {
-            self.coordinates = .SearchStarted
+            self.coordinates = .searchStarted
             let geoCoder = CLGeocoder()
             geoCoder.geocodeAddressString(locationName) { (placemarks, error) -> Void in
                 if error != nil {
                     let error = "Geocode failed with error: \(error!.localizedDescription) for \(locationName)"
-                    self.coordinates = CoordinateFetchResult.Error(error)
+                    self.coordinates = CoordinateFetchResult.error(error)
                     print(error)
                 } else {
                     coordinates = []
@@ -121,7 +121,7 @@ class Address {
                                 coordinates!.append(validLocation.coordinate)
                             }
                         }
-                        self.coordinates = CoordinateFetchResult.Success(coordinates!)
+                        self.coordinates = CoordinateFetchResult.success(coordinates!)
                     }
                 }
             }
@@ -129,14 +129,14 @@ class Address {
     }
     
     // This function splits an element in an array in a language and value part
-    func splitLanguageElements(inputArray: [String]?) -> [[String: String]]? {
+    func splitLanguageElements(_ inputArray: [String]?) -> [[String: String]]? {
         if let elementsArray = inputArray {
             if !elementsArray.isEmpty {
                 var outputArray: [[String:String]] = []
                 for element in elementsArray {
                     let elementsPair = element.characters.split{$0 == ":"}.map(String.init)
                     let dict = Dictionary(dictionaryLiteral: (elementsPair[0], elementsPair[1]))
-                    outputArray.insert(dict, atIndex: 0)
+                    outputArray.insert(dict, at: 0)
                 }
                 return outputArray
             } else {
@@ -146,7 +146,7 @@ class Address {
             return nil
         }
     }
-    func removeDashes(array: [String]) -> [String] {
+    func removeDashes(_ array: [String]) -> [String] {
         var newArray: [String] = []
         for element in array {
             newArray.append(removeDashes(element))
@@ -154,11 +154,11 @@ class Address {
         return newArray
     }
 
-    func removeDashes(element: String) -> String {
+    func removeDashes(_ element: String) -> String {
         var newElement = ""
         for character in element.characters {
             if character == "-" {
-                newElement.appendContentsOf(" ")
+                newElement.append(" ")
             } else {
                 newElement.append(character)
             }

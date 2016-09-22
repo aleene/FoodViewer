@@ -34,11 +34,11 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
         
     @IBOutlet weak var scrollView: UIScrollView!
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
 
-    private func refresh() {
+    fileprivate func refresh() {
         if let newImage = image {
             if imageView != nil {
                 if scrollView != nil {
@@ -78,7 +78,7 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
     //
     // The point of this function is to get around a slight annoyance with UIScrollView: if the scroll view content size is smaller than its bounds, then it sits at the top-left rather than in the center. Since you’ll be allowing the user to zoom out fully, it would be nice if the image sat in the center of the view. This function accomplishes that by positioning the image view such that it is always in the center of the scroll view’s bounds.
 
-    private func centerScrollViewContents() {
+    fileprivate func centerScrollViewContents() {
         let boundsSize = scrollView.bounds.size
         var contentsFrame = imageView.frame
         

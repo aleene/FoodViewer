@@ -16,50 +16,50 @@ public struct History {
 
     public var barcodes = [String]()
     
-    private var defaults = NSUserDefaults()
+    fileprivate var defaults = UserDefaults()
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let HistoryKey = "History Key"
         static let HistorySize = 100
     }
 
     init() {
         // get the NSUserdefaults array with search strings
-        defaults = NSUserDefaults.standardUserDefaults()
-        if defaults.objectForKey(Constants.HistoryKey) != nil {
-            barcodes = defaults.arrayForKey(Constants.HistoryKey) as! [String]
+        defaults = UserDefaults.standard
+        if defaults.object(forKey: Constants.HistoryKey) != nil {
+            barcodes = defaults.array(forKey: Constants.HistoryKey) as! [String]
         }
 
     }
         
     // see also http://stackoverflow.com/questions/30790882/unable-to-append-string-to-array-in-swift/30790932#30790932
     //
-    mutating func addBarcode(barcode barcode: String?) {
+    mutating func addBarcode(barcode: String?) {
         if let newBarcode = barcode {
             // is this query new?
             if !barcodes.contains(newBarcode) {
-                barcodes.insert(newBarcode, atIndex: 0)
+                barcodes.insert(newBarcode, at: 0)
                 if barcodes.count > Constants.HistorySize {
                     barcodes.removeLast()
                 }
             }
-            defaults.setObject(barcodes, forKey: Constants.HistoryKey)
+            defaults.set(barcodes, forKey: Constants.HistoryKey)
         }
     }
     
-    mutating func deleteQuery(query query: String?) {
+    mutating func deleteQuery(query: String?) {
         if let queryToDelete = query {
-            if let deleteIndex = barcodes.indexOf(queryToDelete) {
-                barcodes.removeAtIndex(deleteIndex)
+            if let deleteIndex = barcodes.index(of: queryToDelete) {
+                barcodes.remove(at: deleteIndex)
             }
         }
     }
     
     mutating func removeAll() {
         barcodes.removeAll()
-        defaults.setObject(barcodes, forKey: Constants.HistoryKey)
+        defaults.set(barcodes, forKey: Constants.HistoryKey)
         defaults.synchronize()
-        NSNotificationCenter.defaultCenter().postNotificationName(Notification.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.HistoryHasBeenDeleted), object:nil)
     }
     
 }

@@ -12,23 +12,23 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tagListView.alignment = .Center
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.alignment = .center
             tagListView.cornerRadius = 10
         }
     }
     
-    var availability: NutritionAvailability = .NotIndicated {
+    var availability: NutritionAvailability = .notIndicated {
         didSet {
             tagListView.removeAllTags()
             tagListView.addTag(availability.description())
             switch availability {
-            case .PerServing, .PerStandardUnit, .PerServingAndStandardUnit:
-                tagListView.tagBackgroundColor = UIColor.greenColor()
-            case .NotOnPackage:
-                tagListView.tagBackgroundColor = UIColor.orangeColor()
-            case .NotIndicated, .NotAvailable:
-                tagListView.tagBackgroundColor = UIColor.redColor()
+            case .perServing, .perStandardUnit, .perServingAndStandardUnit:
+                tagListView.tagBackgroundColor = UIColor.green
+            case .notOnPackage:
+                tagListView.tagBackgroundColor = UIColor.orange
+            case .notIndicated, .notAvailable:
+                tagListView.tagBackgroundColor = UIColor.red
             }
         }
     }

@@ -25,30 +25,30 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     @IBOutlet weak var languagesPickerView: UIPickerView!
     
-    private struct Constants {
+    fileprivate struct Constants {
         static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
     }
 
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         selectedLanguageCode = languageCodes != nil ? languageCodes![row] : nil
     }
     
     // MARK: - Delegates and datasource
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return languageCodes != nil ? languageCodes!.count : 0
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         let language = ((languageCodes != nil) && (languages != nil)) ? languages![languageCodes![row]] : nil
-        return language != nil ? OFFplists.manager.translateLanguage(language!, language:NSLocale.preferredLanguages()[0])  : Constants.NoLanguage
+        return language != nil ? OFFplists.manager.translateLanguage(language!, language:Locale.preferredLanguages[0])  : Constants.NoLanguage
         
         
 
@@ -65,7 +65,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         // MARK: TBD - I should move the picker to the current language
         if let validCurrentLanguageCode = currentLanguageCode,
         let validLanguageCodes = languageCodes {
-            let index = validLanguageCodes.indexOf(validCurrentLanguageCode)
+            let index = validLanguageCodes.index(of: validCurrentLanguageCode)
             if let validIndex = index {
                 languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
             }         }

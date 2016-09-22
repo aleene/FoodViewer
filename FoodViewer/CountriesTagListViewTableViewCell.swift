@@ -16,8 +16,8 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var countriesTagListView: TagListView! {
         didSet {
-            countriesTagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            countriesTagListView.alignment = .Center
+            countriesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            countriesTagListView.alignment = .center
             countriesTagListView.cornerRadius = 10
         }
     }
@@ -30,15 +30,15 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
                     for listItem in list {
                         countriesTagListView.addTag(listItem.country)
                     }
-                    countriesTagListView.tagBackgroundColor = UIColor.greenColor()
+                    countriesTagListView.tagBackgroundColor = UIColor.green
                 } else {
                     countriesTagListView.addTag(Constants.NoTag)
-                    countriesTagListView.tagBackgroundColor = UIColor.orangeColor()
+                    countriesTagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 countriesTagListView.removeAllTags()
                 countriesTagListView.addTag(Constants.NoTag)
-                countriesTagListView.tagBackgroundColor = UIColor.orangeColor()
+                countriesTagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }

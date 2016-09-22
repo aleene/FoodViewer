@@ -17,8 +17,8 @@ class AddressTagListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tagListView.alignment = .Center
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.alignment = .center
             tagListView.cornerRadius = 10
         }
     }
@@ -31,15 +31,15 @@ class AddressTagListTableViewCell: UITableViewCell {
                     for listItem in list {
                         tagListView.addTag(listItem.raw)
                     }
-                    tagListView.tagBackgroundColor = UIColor.greenColor()
+                    tagListView.tagBackgroundColor = UIColor.green
                 } else {
                     tagListView.addTag(Constants.NoTag)
-                    tagListView.tagBackgroundColor = UIColor.orangeColor()
+                    tagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 tagListView.removeAllTags()
                 tagListView.addTag(Constants.NoTag)
-                tagListView.tagBackgroundColor = UIColor.orangeColor()
+                tagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }

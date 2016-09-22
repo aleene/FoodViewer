@@ -16,8 +16,8 @@ class AllergensFullTableViewCell: UITableViewCell {
 
     @IBOutlet weak var allergensTagList: TagListView! {
         didSet {
-            allergensTagList.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            allergensTagList.alignment = .Center
+            allergensTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            allergensTagList.alignment = .center
             allergensTagList.cornerRadius = 10
         }
     }
@@ -28,22 +28,22 @@ class AllergensFullTableViewCell: UITableViewCell {
                 allergensTagList.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        allergensTagList.tagBackgroundColor = UIColor.greenColor()
+                        allergensTagList.tagBackgroundColor = UIColor.green
                         if listItem.contains(":") {
                             let tagView = allergensTagList.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blueColor()
+                            tagView.tagBackgroundColor = UIColor.blue
                         } else {
                             allergensTagList.addTag(listItem)
                         }
                     }
                 } else {
                     allergensTagList.addTag(Constants.NoTag)
-                    allergensTagList.tagBackgroundColor = UIColor.orangeColor()
+                    allergensTagList.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 allergensTagList.removeAllTags()
                 allergensTagList.addTag(Constants.NoTag)
-                allergensTagList.tagBackgroundColor = UIColor.orangeColor()
+                allergensTagList.tagBackgroundColor = UIColor.orange
             }
         }
     }

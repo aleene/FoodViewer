@@ -30,12 +30,12 @@ class FoodProduct {
     var genericNameLanguage = [String:String?]()
 
     var brandsArray: [String]? = nil
-    var mainUrlThumb: NSURL? {
+    var mainUrlThumb: URL? {
         didSet {
             if let imageURL = mainUrlThumb {
                 do {
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
+                    let imageData = try Data(contentsOf: imageURL, options: NSData.ReadingOptions.mappedIfSafe)
+                    if imageData.count > 0 {
                         mainImageSmallData = imageData
                     }
                 }
@@ -46,13 +46,13 @@ class FoodProduct {
         }
      }
 
-    var mainImageSmallData: NSData? = nil
+    var mainImageSmallData: Data? = nil
 
-    var mainImageUrl: NSURL? = nil
+    var mainImageUrl: URL? = nil
     var mainImageData: ImageFetchResult? = nil {
         didSet {
             if mainImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.MainImageSet, object:nil)
+                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.MainImageSet), object:nil)
             }
         }
     }
@@ -71,12 +71,12 @@ class FoodProduct {
     var ingredients: String?
     var ingredientsLanguage = [String:String]()
     var numberOfIngredients: String? = nil
-    var imageIngredientsSmallUrl: NSURL?
-    var imageIngredientsUrl: NSURL? = nil
+    var imageIngredientsSmallUrl: URL?
+    var imageIngredientsUrl: URL? = nil
     var ingredientsImageData: ImageFetchResult? = nil {
         didSet {
             if ingredientsImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.IngredientsImageSet, object: nil)
+                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.IngredientsImageSet), object: nil)
             }
         }
     }
@@ -88,7 +88,7 @@ class FoodProduct {
         get {
             if let validAllergenKeys = allergenKeys {
                 var translatedAllergens:[String]? = []
-                let preferredLanguage = NSLocale.preferredLanguages()[0]
+                let preferredLanguage = Locale.preferredLanguages[0]
                 for allergenKey in validAllergenKeys {
                     if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
                         translatedAllergens!.append(translatedKey)
@@ -108,7 +108,7 @@ class FoodProduct {
         get {
             if let validTracesKeys = traceKeys {
                 var translatedTraces:[String]? = []
-                let preferredLanguage = NSLocale.preferredLanguages()[0]
+                let preferredLanguage = Locale.preferredLanguages[0]
                 for tracesKey in validTracesKeys {
                     if let translatedKey = OFFplists.manager.translateAllergens(tracesKey, language:preferredLanguage) {
                         translatedTraces!.append(translatedKey)
@@ -130,23 +130,23 @@ class FoodProduct {
     
     // MARK: - Nutrition variables 
     
-    var nutritionFactsAreAvailable = NutritionAvailability.NotIndicated
+    var nutritionFactsAreAvailable = NutritionAvailability.notIndicated
     var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
     var nutritionFacts: [NutritionFactItem] = []
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
-    var imageNutritionSmallUrl: NSURL? = nil
-    var nutritionFactsImageUrl: NSURL? = nil
+    var imageNutritionSmallUrl: URL? = nil
+    var nutritionFactsImageUrl: URL? = nil
     var nutritionImageData: ImageFetchResult? {
         didSet {
             if nutritionImageData != nil {
-                NSNotificationCenter.defaultCenter().postNotificationName(Notification.NutritionImageSet, object: nil)
+                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.NutritionImageSet), object: nil)
             }
         }
     }
     
     func getNutritionImageData() -> ImageFetchResult? {
         if nutritionImageData == nil {
-            nutritionImageData = .Loading
+            nutritionImageData = .loading
             // launch the image retrieval
             nutritionImageData?.retrieveImageData(nutritionFactsImageUrl) { (fetchResult:ImageFetchResult?) in
                 self.nutritionImageData = fetchResult
@@ -158,7 +158,7 @@ class FoodProduct {
     func getMainImageData() -> ImageFetchResult {
         if mainImageData == nil {
             // launch the image retrieval
-            mainImageData = .Loading
+            mainImageData = .loading
             mainImageData?.retrieveImageData(mainImageUrl) { (fetchResult:ImageFetchResult?) in
                 self.mainImageData = fetchResult
             }
@@ -169,7 +169,7 @@ class FoodProduct {
     func getIngredientsImageData() -> ImageFetchResult {
         if ingredientsImageData == nil {
             // launch the image retrieval
-            ingredientsImageData = .Loading
+            ingredientsImageData = .loading
             ingredientsImageData?.retrieveImageData(imageIngredientsUrl) { (fetchResult:ImageFetchResult?) in
                 self.ingredientsImageData = fetchResult
             }
@@ -185,14 +185,14 @@ class FoodProduct {
     var nutritionalScoreFrance = NutritionalScoreFrance()
     var purchaseLocation: Address? = nil //or a set?
     
-    func purchaseLocationElements(elements: [String]?) {
+    func purchaseLocationElements(_ elements: [String]?) {
         if elements != nil && !elements!.isEmpty {
             self.purchaseLocation = Address()
             self.purchaseLocation!.elements = elements
         }
     }
     
-    func purchaseLocationString(location: String?) {
+    func purchaseLocationString(_ location: String?) {
         if let validLocationString = location {
             self.purchaseLocation = Address()
             self.purchaseLocation!.locationString = validLocationString
@@ -203,7 +203,7 @@ class FoodProduct {
     var stores: [String]? = nil //or a set?
     var countries: [Address]? = nil //or a set?
     
-    func countryArray(countries:[String]?) {
+    func countryArray(_ countries:[String]?) {
         if let array = countries {
             for element in array {
                 if !element.isEmpty {
@@ -219,10 +219,10 @@ class FoodProduct {
     }
 
     var producer: Address? = nil
-    var links: [NSURL]? = nil
-    var expirationDate: NSDate? = nil
+    var links: [URL]? = nil
+    var expirationDate: Date? = nil
     
-    func producerElements(elements: String?) {
+    func producerElements(_ elements: String?) {
         if elements != nil {
             let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
             self.producer = Address()
@@ -232,7 +232,7 @@ class FoodProduct {
     
     var ingredientsOrigin: Address? = nil
     
-    func ingredientsOriginElements(elements: [String]?) {
+    func ingredientsOriginElements(_ elements: [String]?) {
         if elements != nil && !elements!.isEmpty {
             self.ingredientsOrigin = Address()
             self.ingredientsOrigin!.elements = elements
@@ -242,8 +242,8 @@ class FoodProduct {
     var producerCode: [Address]? = nil
 
     // contributor parameters
-    var additionDate: NSDate? = nil
-    var lastEditDates: [NSDate]? = nil
+    var additionDate: Date? = nil
+    var lastEditDates: [Date]? = nil
     var creator: String? = nil {
         didSet {
             if let user = creator {
@@ -329,7 +329,7 @@ class FoodProduct {
     struct UniqueContributors {
         var contributors: [Contributor] = []
         
-        func indexOf(name: String) -> Int? {
+        func indexOf(_ name: String) -> Int? {
             for index in 0 ..< contributors.count {
                 if contributors[index].name == name {
                     return index
@@ -338,11 +338,11 @@ class FoodProduct {
             return nil
         }
         
-        func contains(name: String) -> Bool {
+        func contains(_ name: String) -> Bool {
             return indexOf(name) != nil ? true : false
         }
         
-        mutating func add(name: String) {
+        mutating func add(_ name: String) {
             contributors.append(Contributor(name: name, role: ContributorRole()))
         }
     }
@@ -373,7 +373,7 @@ class FoodProduct {
     // MARK: - Initialize functions
     
     init() {
-        barcode = BarcodeType.Undefined("")
+        barcode = BarcodeType.undefined("")
         name = nil
         genericName = nil
         brandsArray = nil
@@ -418,7 +418,7 @@ class FoodProduct {
         self.barcode = withBarcode
     }
     
-    func nutritionFactsContain(nutritionFactToCheck: String) -> Bool {
+    func nutritionFactsContain(_ nutritionFactToCheck: String) -> Bool {
         for fact in nutritionFacts {
             if fact.itemName == nutritionFactToCheck {
                 return true
@@ -539,7 +539,7 @@ class FoodProduct {
      */
     
     // updates a product with new product data
-    func updateDataWith(product: FoodProduct) {
+    func updateDataWith(_ product: FoodProduct) {
         // all image data is set to nil, in order to force a reload
         
         // is it really the same product?
@@ -595,13 +595,13 @@ class FoodProduct {
         }
     }
     
-    func worldURL() -> NSURL? {
-        return NSURL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
+    func worldURL() -> URL? {
+        return URL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
     }
     
-    func regionURL() -> NSURL? {
-        let region = NSBundle.mainBundle().preferredLocalizations[0] as NSString
-        return NSURL(string: "http://\(region).openfoodfacts.org/en:product/" + barcode.asString() + "/")
+    func regionURL() -> URL? {
+        let region = Bundle.main.preferredLocalizations[0] as NSString
+        return URL(string: "http://\(region).openfoodfacts.org/en:product/" + barcode.asString() + "/")
     }
     
 // End product

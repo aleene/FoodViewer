@@ -10,44 +10,44 @@ import UIKit
 
 class AllergenWarningsTableViewController: UITableViewController {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let ViewControllerTitle = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
     }
     
     // MARK: - Table view data source
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         static let AllergenWarningCellIdentifier = "Set Allergen Warning Cell"
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let aantal = AllergenWarningDefaults.manager.list.count
         return aantal
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.AllergenWarningCellIdentifier, forIndexPath: indexPath) as! SetWarningTableViewCell
-        let (_, allergen, setWarning) = AllergenWarningDefaults.manager.list[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergenWarningCellIdentifier, for: indexPath) as! SetWarningTableViewCell
+        let (_, allergen, setWarning) = AllergenWarningDefaults.manager.list[(indexPath as NSIndexPath).row]
         cell.state = setWarning
         cell.stateTitle = allergen
         return cell
         
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let (allergenKey, allergenName, setWarning) = AllergenWarningDefaults.manager.list[indexPath.row]
-        AllergenWarningDefaults.manager.list[indexPath.row] = (allergenKey, allergenName, !setWarning)
-        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let (allergenKey, allergenName, setWarning) = AllergenWarningDefaults.manager.list[(indexPath as NSIndexPath).row]
+        AllergenWarningDefaults.manager.list[(indexPath as NSIndexPath).row] = (allergenKey, allergenName, !setWarning)
+        tableView.reloadRows(at: [indexPath], with: .fade)
     }
 
     // MARK: - ViewController Lifecycle
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 
@@ -58,13 +58,13 @@ class AllergenWarningsTableViewController: UITableViewController {
         title = Constants.ViewControllerTitle
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.edgesForExtendedLayout = .None
+        self.edgesForExtendedLayout = UIRectEdge()
         
     }
 
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         AllergenWarningDefaults.manager.updateAllergenWarnings()
         super.viewDidDisappear(animated)
     }

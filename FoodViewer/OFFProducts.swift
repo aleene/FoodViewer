@@ -42,20 +42,20 @@ class OFFProducts {
             initList()
             
             if let data = mostRecentProduct.jsonData {
-                var fetchResult = ProductFetchStatus.Loading
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+                var fetchResult = ProductFetchStatus.loading
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                     fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    DispatchQueue.main.async(execute: { () -> Void in
                         self.historyLoadCount = 0
                         self.historyLoadCount! += 1
                         self.fetchResultList[0] = fetchResult
                         switch fetchResult {
-                        case .Success:
-                            NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                        case .LoadingFailed(let error):
+                        case .success:
+                            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                        case .loadingFailed(let error):
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
-                        case .ProductNotAvailable(let error):
+                        case .productNotAvailable(let error):
                             let userInfo = ["error":error]
                             self.handleProductNotAvailable(userInfo)
                         default: break
@@ -69,19 +69,19 @@ class OFFProducts {
         } else {
             // no history available, load sample product
             historyLoadCount = nil
-            var fetchResult = ProductFetchStatus.Loading
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+            var fetchResult = ProductFetchStatus.loading
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                 fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     self.fetchResultList.append(fetchResult)
                     switch fetchResult {
-                    case .Success:
+                    case .success:
                         self.loadSampleImages()
-                        NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                    case .LoadingFailed(let error):
+                        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                    case .loadingFailed(let error):
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
-                    case .ProductNotAvailable(let error):
+                    case .productNotAvailable(let error):
                         let userInfo = ["error":error]
                         self.handleProductNotAvailable(userInfo)
                     default: break
@@ -99,29 +99,29 @@ class OFFProducts {
         
         if let validFetchResult = fetchResultList[0] {
             switch validFetchResult {
-            case .Success(let sampleProduct):
+            case .success(let sampleProduct):
                 if let image = UIImage(named: "SampleMain") {
                     if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.mainImageData = .Success(data)
+                        sampleProduct.mainImageData = .success(data)
                     }
                 } else {
-                    sampleProduct.mainImageData = .NoData
+                    sampleProduct.mainImageData = .noData
                 }
                 
                 if let image = UIImage(named: "SampleIngredients") {
                     if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.ingredientsImageData = .Success(data)
+                        sampleProduct.ingredientsImageData = .success(data)
                     }
                 } else {
-                    sampleProduct.ingredientsImageData = .NoData
+                    sampleProduct.ingredientsImageData = .noData
                 }
                 
                 if let image = UIImage(named: "SampleNutrition") {
                     if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.nutritionImageData = .Success(data)
+                        sampleProduct.nutritionImageData = .success(data)
                     }
                 } else {
-                    sampleProduct.nutritionImageData = .NoData
+                    sampleProduct.nutritionImageData = .noData
                 }
                 
                 sampleProduct.name = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
@@ -133,7 +133,7 @@ class OFFProducts {
         
             }
     
-    private func initList() {
+    fileprivate func initList() {
         for _ in 0..<storedHistory.barcodes.count {
             fetchResultList.append(nil)
         }
@@ -146,24 +146,24 @@ class OFFProducts {
     
     var storedHistory = History()
 
-    private func fetchHistoryProduct(product: FoodProduct?, index: Int) {
+    fileprivate func fetchHistoryProduct(_ product: FoodProduct?, index: Int) {
         if let barcodeToFetch = product?.barcode {
             let request = OpenFoodFactsRequest()
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                 let fetchResult = request.fetchProductForBarcode(barcodeToFetch)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     self.fetchResultList[index] = fetchResult
                     switch fetchResult {
-                    case .Success:
+                    case .success:
                         self.historyLoadCount! += 1
-                    case .LoadingFailed(let error):
+                    case .loadingFailed(let error):
                         self.historyLoadCount! += 1
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
-                    case .ProductNotAvailable:
+                    case .productNotAvailable:
                         // product barcode no longer exists
                         self.historyLoadCount! += 1
                         // let userInfo = ["error":error]
@@ -176,15 +176,15 @@ class OFFProducts {
     }
 
     // This function manages the loading of the history products. A load batch is never larger than 5 simultaneous threads
-    private var historyLoadCount: Int? = nil {
+    fileprivate var historyLoadCount: Int? = nil {
         didSet {
             if let currentLoadHistory = historyLoadCount {
                 let batchSize = 5
                 if currentLoadHistory == storedHistory.barcodes.count - 1 {
                     // all products have been loaded from history
-                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductLoaded), object:nil)
                 } else if (currentLoadHistory >= 4) && ((currentLoadHistory + 1 ) % batchSize == 0) {
-                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoaded, object:nil)
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductLoaded), object:nil)
                     // load next batch
                     let startIndex = currentLoadHistory + 1 <= storedHistory.barcodes.count - 1 ? currentLoadHistory + 1 : storedHistory.barcodes.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodes.count - 1 ? startIndex + batchSize - 1 : storedHistory.barcodes.count - 1
@@ -193,7 +193,7 @@ class OFFProducts {
                     }
                 } else if (currentLoadHistory == 0) {
                     // the first product is already there, so can be shown
-                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
                     // load first batch up to product 4
                     let startIndex = 1 <= storedHistory.barcodes.count ? 1 : storedHistory.barcodes.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodes.count - 1 ? batchSize - 1 : storedHistory.barcodes.count - 1
@@ -205,7 +205,7 @@ class OFFProducts {
         }
     }
 
-    func fetchProduct(barcode: BarcodeType?) -> Int? {
+    func fetchProduct(_ barcode: BarcodeType?) -> Int? {
         
         if let newBarcode = barcode {
             // is the product already in the history list?
@@ -214,25 +214,25 @@ class OFFProducts {
             } else {
                 // retrieve this new product
                 let request = OpenFoodFactsRequest()
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 // loading the product from internet will be done off the main queue
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     let fetchResult = request.fetchProductForBarcode(barcode!)
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    DispatchQueue.main.async(execute: { () -> Void in
                         switch fetchResult {
-                        case .Success(let newProduct):
+                        case .success(let newProduct):
                         // add product barcode to history
-                            self.fetchResultList.insert(fetchResult, atIndex:0)
+                            self.fetchResultList.insert(fetchResult, at:0)
                             self.storedHistory.addBarcode(barcode: newProduct.barcode.asString())
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
-                            NSNotificationCenter.defaultCenter().postNotificationName(Notification.FirstProductLoaded, object:nil)
-                        case .LoadingFailed(let error):
-                            self.fetchResultList.insert(fetchResult, atIndex:0)
+                            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                        case .loadingFailed(let error):
+                            self.fetchResultList.insert(fetchResult, at:0)
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
-                        case .ProductNotAvailable(let error):
+                        case .productNotAvailable(let error):
                             let userInfo = ["error":error]
                             self.handleProductNotAvailable(userInfo)
                         default: break
@@ -246,19 +246,19 @@ class OFFProducts {
         }
     }
     
-    func saveMostRecentProduct(barcode: BarcodeType?) {
+    func saveMostRecentProduct(_ barcode: BarcodeType?) {
         if barcode != nil {
             let request = OpenFoodFactsRequest()
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 let fetchResult = request.fetchJsonForBarcode(barcode!)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     switch fetchResult {
-                    case .Success(let newData):
+                    case .success(let newData):
                         self.mostRecentProduct.addMostRecentProduct(newData)
-                    case .Error(let error):
+                    case .error(let error):
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
                     }
@@ -269,19 +269,19 @@ class OFFProducts {
     
     // MARK: - Create notifications
 
-    func handleProductNotAvailable(userInfo: [String:String]) {
-        NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductNotAvailable, object:nil, userInfo: userInfo)
+    func handleProductNotAvailable(_ userInfo: [String:String]) {
+        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductNotAvailable), object:nil, userInfo: userInfo)
     }
 
-    func handleLoadingFailed(userInfo: [String:String]) {
-        NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductLoadingError, object:nil, userInfo: userInfo)
+    func handleLoadingFailed(_ userInfo: [String:String]) {
+        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductLoadingError), object:nil, userInfo: userInfo)
     }
 
-    private func isProductInHistory(newBarcode: BarcodeType) -> Int? {
-        for (index, fetchResult) in fetchResultList.enumerate() {
+    fileprivate func isProductInHistory(_ newBarcode: BarcodeType) -> Int? {
+        for (index, fetchResult) in fetchResultList.enumerated() {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
-                case .Success(let product):
+                case .success(let product):
                     if product.barcode.asString() == newBarcode.asString() {
                         return index
                     }
@@ -294,23 +294,23 @@ class OFFProducts {
         return nil
     }
     
-    func reload(product: FoodProduct) {
+    func reload(_ product: FoodProduct) {
         let request = OpenFoodFactsRequest()
-        var fetchResult = ProductFetchStatus.Loading
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        var fetchResult = ProductFetchStatus.loading
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
             fetchResult = request.fetchProductForBarcode(product.barcode)
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            DispatchQueue.main.async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 switch fetchResult {
-                case .Success(let newProduct):
+                case .success(let newProduct):
                     self.update(newProduct)
-                    NSNotificationCenter.defaultCenter().postNotificationName(Notification.ProductUpdated, object:nil)
-                case .LoadingFailed(let error):
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductUpdated), object:nil)
+                case .loadingFailed(let error):
                     let userInfo = ["error":error]
                     self.handleLoadingFailed(userInfo)
-                case .ProductNotAvailable(let error):
+                case .productNotAvailable(let error):
                     let userInfo = ["error":error]
                     self.handleProductNotAvailable(userInfo)
                 default:
@@ -320,13 +320,13 @@ class OFFProducts {
         })
     }
     
-    private func update(updatedProduct: FoodProduct) {
+    fileprivate func update(_ updatedProduct: FoodProduct) {
         // where is product in the list?
         var index = 0
         for fetchResult in fetchResultList {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
-                case .Success(let product):
+                case .success(let product):
                     if product.barcode.asString() == updatedProduct.barcode.asString() {
                         // replace the existing product with the data of the new product
                         product.updateDataWith(updatedProduct)
@@ -351,7 +351,7 @@ class OFFProducts {
         for fetchResult in fetchResultList {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
-                case .Success(let product):
+                case .success(let product):
                     product.mainImageData = nil
                     product.ingredientsImageData = nil
                     product.nutritionImageData = nil

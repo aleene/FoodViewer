@@ -29,7 +29,7 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
         }
     }
     
-    private func resetLabels() {
+    fileprivate func resetLabels() {
         firstMiddleLabel.text = ""
         secondMiddleLabel.text = ""
         thirdMiddleLabel.text = ""

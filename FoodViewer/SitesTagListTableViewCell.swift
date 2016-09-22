@@ -17,29 +17,29 @@ class SitesTagListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tagListView.alignment = .Center
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.alignment = .center
             tagListView.cornerRadius = 10
         }
     }
     
-    var tagList: [NSURL]? = nil {
+    var tagList: [URL]? = nil {
         didSet {
             if let list = tagList {
                 tagListView.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        tagListView.addTag(listItem.absoluteString!)
+                        tagListView.addTag(listItem.absoluteString)
                     }
-                    tagListView.tagBackgroundColor = UIColor.greenColor()
+                    tagListView.tagBackgroundColor = UIColor.green
                 } else {
                     tagListView.addTag(Constants.NoTag)
-                    tagListView.tagBackgroundColor = UIColor.orangeColor()
+                    tagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 tagListView.removeAllTags()
                 tagListView.addTag(Constants.NoTag)
-                tagListView.tagBackgroundColor = UIColor.orangeColor()
+                tagListView.tagBackgroundColor = UIColor.orange
             }
         }
     }

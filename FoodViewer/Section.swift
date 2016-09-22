@@ -41,7 +41,7 @@ class Section {
         return setKey(language, values:values)
     }
     
-    func setKey(language: String, values: [String]) -> String {
+    func setKey(_ language: String, values: [String]) -> String {
         return language + Constants.Delimiter + values[0]
     }
 }

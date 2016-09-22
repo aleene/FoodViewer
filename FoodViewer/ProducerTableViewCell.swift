@@ -10,7 +10,7 @@ import UIKit
 
 class ProducerTableViewCell: UITableViewCell {
 
-    private struct Constants {
+    fileprivate struct Constants {
         static let NoProduct = NSLocalizedString("No product defined.", comment: "Text to indicate that no product is defined/setup.")
         static let EmptyString = ""
         static let SoldBy = NSLocalizedString("Sold by %@.", comment: "Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE.")

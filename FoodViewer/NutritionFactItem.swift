@@ -43,14 +43,18 @@ struct NutritionFactItem {
         static let CaloriesPerJoule = 4.2
     }
 
-    func valueInCalories(stringValue: String?) -> String {
+    func valueInCalories(_ stringValue: String?) -> String {
         
-        if !stringValue!.isEmpty {
-            // convert standard value to a number
-            let value = Double(stringValue!)
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .DecimalStyle
-            return String(numberFormatter.stringFromNumber(value! / Constants.CaloriesPerJoule)!)
+        if let value = stringValue {
+            guard !value.isEmpty else { return "" }
+            if let doubleValue = Double.init(value) {
+                let division = doubleValue / Constants.CaloriesPerJoule
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                let str = numberFormatter.string(from: NSNumber(floatLiteral: division))
+                guard (str != nil) else { return "" }
+                return str!
+            }
         }
         return ""
     }
@@ -62,27 +66,20 @@ struct NutritionFactItem {
         return localeValue(servingValue)
     }
 
-    private func localeValue(value: String?) -> String {
+    fileprivate func localeValue(_ stringValue: String?) -> String {
 
-        if let validValue = value {
-
-            if !validValue.isEmpty {
-
-                // convert standard value to a number in the users locale
-                if let valueDouble = Double(validValue) {
-
-                    let numberFormatter = NSNumberFormatter()
-                    numberFormatter.numberStyle = .DecimalStyle
-                    if let returnString = numberFormatter.stringFromNumber(valueDouble) {
-                        return returnString
-                    }
-                }
-
+        if let value = stringValue {
+            guard !value.isEmpty else { return value }
+            if let doubleValue = Double.init(value) {
+                let numberFormatter = NumberFormatter()
+                numberFormatter.numberStyle = .decimal
+                let str = numberFormatter.string(from: NSNumber(floatLiteral: doubleValue))
+                guard (str != nil) else { return "" }
+                return str!
             }
-            return validValue
         }
-
         return ""
+
     }
 
     func localeDailyValue() -> String {
@@ -90,9 +87,9 @@ struct NutritionFactItem {
         if let validValue = dailyFractionPerServing {
             
             // convert standard value to a number in the users locale
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = .PercentStyle
-            if let returnString = numberFormatter.stringFromNumber(NSNumber.init(double: validValue)) {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = .percent
+            if let returnString = numberFormatter.string(from: NSNumber.init(value: validValue as Double)) {
                 return returnString
             }
         }

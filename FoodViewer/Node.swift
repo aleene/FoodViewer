@@ -53,17 +53,17 @@ class Node: Hashable, Equatable, CustomStringConvertible {
         if !self.leaves.isEmpty {
             // loop over all leaves within a Vertex
             for (language, values) in self.leaves {
-                subDict[language] = values as Array
+                subDict[language] = values as AnyObject
             }
-            leafDict[Constants.LanguagesKey] = subDict
+            leafDict[Constants.LanguagesKey] = subDict as AnyObject?
         }
         
-        nodeDict[key] = leafDict
+        nodeDict[key] = leafDict as AnyObject?
         
         return nodeDict
     }
     
-    func decodeLeavesDict(dict: Dictionary <String, AnyObject>) -> [String:[String]] {
+    func decodeLeavesDict(_ dict: Dictionary <String, AnyObject>) -> [String:[String]] {
         var decodedLeaves: [String:[String]] = [:]
         // a dict defines leaves with languages
         for (key, values) in dict {
@@ -71,7 +71,7 @@ class Node: Hashable, Equatable, CustomStringConvertible {
             if let synonyms = values as? [String] {
                 decodedLeaves[key] = synonyms
             } else {
-                print("No a language string array")
+                print("Node.swift: Not a language string array")
             }
         }
         

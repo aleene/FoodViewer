@@ -16,8 +16,8 @@ class TracesFullTableViewCell: UITableViewCell {
 
     @IBOutlet weak var tracesTagList: TagListView! {
         didSet {
-            tracesTagList.textFont = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
-            tracesTagList.alignment = .Center
+            tracesTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tracesTagList.alignment = .center
             tracesTagList.cornerRadius = 10
         }
     }
@@ -28,22 +28,22 @@ class TracesFullTableViewCell: UITableViewCell {
                 tracesTagList.removeAllTags()
                 if !list.isEmpty {
                     for listItem in list {
-                        tracesTagList.tagBackgroundColor = UIColor.greenColor()
+                        tracesTagList.tagBackgroundColor = UIColor.green
                         if listItem.contains(":") {
                             let tagView = tracesTagList.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blueColor()
+                            tagView.tagBackgroundColor = UIColor.blue
                         } else {
                             tracesTagList.addTag(listItem)
                         }
                     }
                 } else {
                     tracesTagList.addTag(Constants.NoTag)
-                    tracesTagList.tagBackgroundColor = UIColor.orangeColor()
+                    tracesTagList.tagBackgroundColor = UIColor.orange
                 }
             } else {
                 tracesTagList.removeAllTags()
                 tracesTagList.addTag(Constants.NoTag)
-                tracesTagList.tagBackgroundColor = UIColor.orangeColor()
+                tracesTagList.tagBackgroundColor = UIColor.orange
             }
         }
     }
