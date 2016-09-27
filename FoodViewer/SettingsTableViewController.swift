@@ -38,7 +38,7 @@ class SettingsTableViewController: UITableViewController {
     
     var historyHasBeenRemoved = false
     
-    func refreshSaltOrSodiumSwitch() {
+    func refresh() {
         if saltOrSodiumOutlet != nil {
             switch Preferences.manager.showSaltOrSodium {
             case .salt:
@@ -47,10 +47,7 @@ class SettingsTableViewController: UITableViewController {
                 saltOrSodiumOutlet!.selectedSegmentIndex = 1
             }
         }
-    }
-    
-    func refreshJouleOrCaloriesSwitch() {
-        if jouleOrCaloriesOutlet != nil {
+            if jouleOrCaloriesOutlet != nil {
             switch Preferences.manager.showCaloriesOrJoule {
             case .joule:
                 jouleOrCaloriesOutlet!.selectedSegmentIndex = 0
@@ -58,9 +55,6 @@ class SettingsTableViewController: UITableViewController {
                 jouleOrCaloriesOutlet!.selectedSegmentIndex = 1
             }
         }
-    }
-
-    func refresNutritionUnitSwitch() {
         if nutritionUnitOutlet != nil {
             switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
             case .perStandard:
@@ -71,14 +65,25 @@ class SettingsTableViewController: UITableViewController {
                 nutritionUnitOutlet!.selectedSegmentIndex = 2
             }
         }
+        
+        runInTestModeSwitch.isOn = Preferences.manager.runInTestMode
     }
 
+    @IBAction func runInTestmodeSwitchTapped(_ sender: UISwitch) {
+        Preferences.manager.runInTestMode = !Preferences.manager.runInTestMode
+    }
     
     // MARK: - Outlet methods
 
     @IBOutlet weak var clearHistoryButton: UIButton! {
         didSet {
             enableClearHistoryButton()
+        }
+    }
+    
+    @IBOutlet weak var runInTestModeSwitch: UISwitch! {
+        didSet {
+            runInTestModeSwitch.isOn = Preferences.manager.runInTestMode
         }
     }
     
@@ -155,7 +160,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -173,13 +178,18 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    
     @IBAction func allergenWarningSettingsDone(_ segue:UIStoryboardSegue) {
         if let _ = segue.source as? AllergenWarningsTableViewController {
             tableView.reloadData()
         }
     }
     
+    @IBAction func favoriteShopsSettingsDone(_ segue:UIStoryboardSegue) {
+        if let _ = segue.source as? FavoriteShopsTableViewController {
+            tableView.reloadData()
+        }
+    }
+
     override var prefersStatusBarHidden : Bool {
         return true
     }
@@ -189,9 +199,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        refreshSaltOrSodiumSwitch()
-        refreshJouleOrCaloriesSwitch()
-        refresNutritionUnitSwitch()
+        refresh()
 
         title = Constants.ViewControllerTitle
     }

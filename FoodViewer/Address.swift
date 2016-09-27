@@ -29,6 +29,22 @@ class Address {
             }
         }
     }
+    
+    init() {
+        self.title = ""
+        self.street = ""
+        self.city = ""
+        self.postalcode = ""
+        self.country = ""
+
+    }
+    
+    init(newStreet: String, newPostalcode: String, newCity: String, newCountry: String) {
+        self.street = newStreet
+        self.postalcode = newPostalcode
+        self.city = newCity
+        self.country = newCountry
+    }
         /*
  {
         didSet {
