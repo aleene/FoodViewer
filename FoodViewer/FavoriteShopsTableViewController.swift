@@ -108,7 +108,11 @@ class FavoriteShopsTableViewController: UITableViewController {
         }
     }
     
-     func handleTableViewLongGesture(sender: UILongPressGestureRecognizer) {
+    // MARK: - Moving table rows by long press
+    
+    // https://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
+    
+    func handleTableViewLongGesture(sender: UILongPressGestureRecognizer) {
         let state = sender.state
         let location = sender.location(in: tableView)
         

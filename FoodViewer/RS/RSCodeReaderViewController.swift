@@ -94,16 +94,21 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     // MARK: Private methods
     
     func captureDevice() -> AVCaptureDevice? {
-        if self.device?.position == AVCaptureDevicePosition.back {
-            for device: AVCaptureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! Array {
-                if device.position == AVCaptureDevicePosition.front {
-                    return device
-                }
-            }
-        } else if self.device?.position == AVCaptureDevicePosition.front {
-            for device: AVCaptureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) as! Array {
-                if device.position == AVCaptureDevicePosition.back {
-                    return device
+        let allTypes = [AVCaptureDeviceType.builtInDuoCamera, AVCaptureDeviceType.builtInWideAngleCamera, AVCaptureDeviceType.builtInTelephotoCamera ]
+
+        if let currentSession = AVCaptureDeviceDiscoverySession.init(deviceTypes: allTypes, mediaType: AVMediaTypeVideo, position: (self.device?.position)!) {
+            if let validDevices = currentSession.devices {
+                for device in validDevices {
+
+                    if self.device?.position == AVCaptureDevicePosition.back {
+                        if device.position == AVCaptureDevicePosition.front {
+                            return device
+                        }
+                    } else if self.device?.position == AVCaptureDevicePosition.front {
+                        if device.position == AVCaptureDevicePosition.back {
+                            return device
+                        }
+                    }
                 }
             }
         }

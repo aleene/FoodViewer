@@ -292,10 +292,9 @@ class IngredientsTableViewController: UITableViewController {
         }
         title = TextConstants.ViewControllerTitle
         
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:NSNotification.Name(rawValue: FoodProduct.Notification.IngredientsImageSet), object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
-
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

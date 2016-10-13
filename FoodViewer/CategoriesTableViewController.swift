@@ -116,8 +116,8 @@ class CategoriesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
-        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
 
     }
 

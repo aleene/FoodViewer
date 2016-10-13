@@ -1049,8 +1049,25 @@ class OpenFoodFactsRequest {
         let newAddress = Address()
         if let validCode = code {
             newAddress.raw = validCode
-            if validCode.range(of: "FR\\s..[.]...[.]...\\sCE", options: .regularExpression) != nil {
+            // FR\s..\....\.... is the original regex string
+            if validCode.range(of: "FR\\s..\\....\\....", options: .regularExpression) != nil {
                 newAddress.country = "France"
+                let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
+                let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                // combine into a valid french postal code
+                newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
+                return newAddress
+                
+            } else if validCode.range(of: "ES\\s..\\....\\....", options: .regularExpression) != nil {
+                newAddress.country = "Spain"
+                let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
+                let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                // combine into a valid french postal code
+                newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
+                return newAddress
+                
+            } else if validCode.range(of: "IT\\s..\\....\\....", options: .regularExpression) != nil {
+                newAddress.country = "Italy"
                 let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
                 let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
                 // combine into a valid french postal code

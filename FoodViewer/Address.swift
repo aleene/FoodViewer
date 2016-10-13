@@ -12,7 +12,6 @@ import MapKit
 class Address {
     
     internal struct Notification {
-        static let CoordinateHasBeenSet = "Address.Notification.CoordinateHasBeenSet"
         static let CoordinateHasBeenSetForAddressKey = "Address.Notification.CoordinateHasBeenSet.Key"
     }
 
@@ -45,16 +44,7 @@ class Address {
         self.city = newCity
         self.country = newCountry
     }
-        /*
- {
-        didSet {
-            if (elements != nil) && (!elements!.isEmpty) {
-                elements = removeDashes(elements!)
-                // retrieveCoordinates(elements!.joinWithSeparator(" "))
-            }
-        }
-    }
- */
+
     var language: String = ""
     var raw: String = ""
     
@@ -70,7 +60,7 @@ class Address {
                 switch validCoordinates {
                 case .success:
                     let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
-                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.CoordinateHasBeenSet), object:nil, userInfo: userInfo)
+                    NotificationCenter.default.post(name: .CoordinateHasBeenSet, object:nil, userInfo: userInfo)
                 default: break
                 }
             }
@@ -97,22 +87,6 @@ class Address {
             }
         }
     }
-    
-
-    
-    /*
-    var languageCountry = "" {
-        didSet {
-            if !languageCountry.isEmpty {
-                let countryDictArray = splitLanguageElements([languageCountry])
-                let countryDict = countryDictArray!.first
-                (language, country) = countryDict!.first!
-                retrieveCoordinates(country)
-            }
-
-        }
-    }
- */
     
     func joined() -> String? {
         return elements?.joined(separator: " ")
@@ -144,8 +118,24 @@ class Address {
         }
     }
     
+    //  This function returns the street/postalcode/city/country as a single string
+    //  It adds delimiters if a field is present
+    func asSingleString(withSeparator separator: String) -> String? {
+        
+        // Create an array with optional String s
+        var loc: [String?] = []
+        // Fill the array with the address
+        loc.append(self.street.characters.count > 0 ? self.street : nil)
+        loc.append(self.postalcode.characters.count > 0 ? self.postalcode : nil)
+        loc.append(self.city.characters.count > 0 ? self.city : nil)
+        loc.append(self.country.characters.count > 0 ? self.country : nil)
+        return loc.flatMap{$0}.joined(separator: separator)
+    }
+    
+    //MARK: - Private functions
+    
     // This function splits an element in an array in a language and value part
-    func splitLanguageElements(_ inputArray: [String]?) -> [[String: String]]? {
+    private func splitLanguageElements(_ inputArray: [String]?) -> [[String: String]]? {
         if let elementsArray = inputArray {
             if !elementsArray.isEmpty {
                 var outputArray: [[String:String]] = []
@@ -162,7 +152,7 @@ class Address {
             return nil
         }
     }
-    func removeDashes(_ array: [String]) -> [String] {
+    private func removeDashes(_ array: [String]) -> [String] {
         var newArray: [String] = []
         for element in array {
             newArray.append(removeDashes(element))
@@ -170,7 +160,7 @@ class Address {
         return newArray
     }
 
-    func removeDashes(_ element: String) -> String {
+    private func removeDashes(_ element: String) -> String {
         var newElement = ""
         for character in element.characters {
             if character == "-" {
@@ -181,4 +171,9 @@ class Address {
         }
         return newElement
     }
+}
+
+// Definition:
+extension Notification.Name {
+    static let CoordinateHasBeenSet = Notification.Name("Address.Notification.CoordinateHasBeenSet")
 }

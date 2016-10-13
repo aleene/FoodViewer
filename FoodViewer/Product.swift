@@ -11,11 +11,6 @@ import MapKit
 
 class FoodProduct {
     
-    internal struct Notification {
-        static let MainImageSet = "FoodProduct.Notification.MainImageSet"
-        static let IngredientsImageSet = "FoodProduct.Notification.IngredientsImageSet"
-        static let NutritionImageSet = "FoodProduct.Notification.NutritionImageSet"
-    }
     
     // Primary variables
     
@@ -52,7 +47,7 @@ class FoodProduct {
     var mainImageData: ImageFetchResult? = nil {
         didSet {
             if mainImageData != nil {
-                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.MainImageSet), object:nil)
+                NotificationCenter.default.post(name: .MainImageSet, object:nil)
             }
         }
     }
@@ -76,7 +71,7 @@ class FoodProduct {
     var ingredientsImageData: ImageFetchResult? = nil {
         didSet {
             if ingredientsImageData != nil {
-                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.IngredientsImageSet), object: nil)
+                NotificationCenter.default.post(name: .IngredientsImageSet, object: nil)
             }
         }
     }
@@ -139,7 +134,7 @@ class FoodProduct {
     var nutritionImageData: ImageFetchResult? {
         didSet {
             if nutritionImageData != nil {
-                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.NutritionImageSet), object: nil)
+                NotificationCenter.default.post(name: .NutritionImageSet, object: nil)
             }
         }
     }
@@ -604,5 +599,29 @@ class FoodProduct {
         return URL(string: "http://\(region).openfoodfacts.org/en:product/" + barcode.asString() + "/")
     }
     
+    func add(shop: String?) -> [String]? {
+        if let validShop = shop {
+            // are there any shops yet?
+            if let validStores = stores {
+                // is this shop not listed?
+                if !validStores.contains(validShop) {
+                    stores!.append(validShop)
+                }
+            } else {
+                // add the first shop
+                stores = [validShop]
+            }
+        }
+        return stores
+    }
+    
 // End product
 }
+
+// Definition:
+extension Notification.Name {
+    static let MainImageSet = Notification.Name("FoodProduct.Notification.MainImageSet")
+    static let IngredientsImageSet = Notification.Name("FoodProduct.Notification.IngredientsImageSet")
+    static let NutritionImageSet = Notification.Name("FoodProduct.Notification.NutritionImageSet")
+}
+

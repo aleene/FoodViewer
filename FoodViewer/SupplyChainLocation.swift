@@ -11,10 +11,6 @@ import MapKit
 
 class SupplyChainLocation: NSObject, MKAnnotation {
     
-    struct Notification {
-        static let CoordinateSet = "FoodProduct.Notification.CoordinateSet"
-        static let CountryCoordinateSet = "FoodProduct.Notification.CountryCoordinateSet"
-    }
     
     let title: String?
     let discipline: String
@@ -57,3 +53,10 @@ class SupplyChainLocation: NSObject, MKAnnotation {
     }
 
 }
+
+// Definition:
+extension Notification.Name {
+    static let CoordinateSet = Notification.Name("FoodProduct.Notification.CoordinateSet")
+    static let CountryCoordinateSet = Notification.Name("FoodProduct.Notification.CountryCoordinateSet")
+}
+

@@ -360,13 +360,13 @@ class IdentificationTableViewController: UITableViewController {
 
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:NSNotification.Name(rawValue: FoodProduct.Notification.MainImageSet), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
         
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.FirstProductLoaded), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
 
 }
     

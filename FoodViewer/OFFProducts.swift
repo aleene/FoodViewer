@@ -16,14 +16,6 @@ class OFFProducts {
     // Unfortunately moving to another VC deletes the products, so it must be stored somewhere more permanently.
     // A singleton limits however the number of file loads
     
-    struct Notification {
-        static let ProductNotAvailable = "Product Not Available"
-        static let ProductLoaded = "Product Loaded"
-        static let FirstProductLoaded = "First Product Loaded"
-        static let HistoryIsLoaded = "History Is Loaded"
-        static let ProductUpdated = "Product Updated"
-        static let ProductLoadingError = "Product Loading Error"
-    }
     
     static let manager = OFFProducts()
     
@@ -51,7 +43,7 @@ class OFFProducts {
                         self.fetchResultList[0] = fetchResult
                         switch fetchResult {
                         case .success:
-                            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                            NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                         case .loadingFailed(let error):
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
@@ -77,7 +69,7 @@ class OFFProducts {
                     switch fetchResult {
                     case .success:
                         self.loadSampleImages()
-                        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                        NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                     case .loadingFailed(let error):
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
@@ -182,9 +174,9 @@ class OFFProducts {
                 let batchSize = 5
                 if currentLoadHistory == storedHistory.barcodes.count - 1 {
                     // all products have been loaded from history
-                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductLoaded), object:nil)
+                    NotificationCenter.default.post(name: .ProductLoaded, object:nil)
                 } else if (currentLoadHistory >= 4) && ((currentLoadHistory + 1 ) % batchSize == 0) {
-                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductLoaded), object:nil)
+                    NotificationCenter.default.post(name: .ProductLoaded, object:nil)
                     // load next batch
                     let startIndex = currentLoadHistory + 1 <= storedHistory.barcodes.count - 1 ? currentLoadHistory + 1 : storedHistory.barcodes.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodes.count - 1 ? startIndex + batchSize - 1 : storedHistory.barcodes.count - 1
@@ -193,7 +185,7 @@ class OFFProducts {
                     }
                 } else if (currentLoadHistory == 0) {
                     // the first product is already there, so can be shown
-                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                    NotificationCenter.default.post(name:  .FirstProductLoaded, object:nil)
                     // load first batch up to product 4
                     let startIndex = 1 <= storedHistory.barcodes.count ? 1 : storedHistory.barcodes.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodes.count - 1 ? batchSize - 1 : storedHistory.barcodes.count - 1
@@ -227,7 +219,7 @@ class OFFProducts {
                             self.storedHistory.addBarcode(barcode: newProduct.barcode.asString())
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
-                            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.FirstProductLoaded), object:nil)
+                            NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                         case .loadingFailed(let error):
                             self.fetchResultList.insert(fetchResult, at:0)
                             let userInfo = ["error":error]
@@ -270,11 +262,11 @@ class OFFProducts {
     // MARK: - Create notifications
 
     func handleProductNotAvailable(_ userInfo: [String:String]) {
-        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductNotAvailable), object:nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: .ProductNotAvailable, object:nil, userInfo: userInfo)
     }
 
     func handleLoadingFailed(_ userInfo: [String:String]) {
-        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductLoadingError), object:nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: .ProductLoadingError, object:nil, userInfo: userInfo)
     }
 
     fileprivate func isProductInHistory(_ newBarcode: BarcodeType) -> Int? {
@@ -306,7 +298,7 @@ class OFFProducts {
                 switch fetchResult {
                 case .success(let newProduct):
                     self.update(newProduct)
-                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.ProductUpdated), object:nil)
+                    NotificationCenter.default.post(name: .ProductUpdated, object:nil)
                 case .loadingFailed(let error):
                     let userInfo = ["error":error]
                     self.handleLoadingFailed(userInfo)
@@ -363,5 +355,16 @@ class OFFProducts {
             }
         }
     }
-
 }
+
+// Definition:
+extension Notification.Name {
+    static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.Product Not Available")
+    static let ProductLoaded = Notification.Name("OFFProducts.Notification.Product Loaded")
+    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.First Product Loaded")
+    static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.History Is Loaded")
+    static let ProductUpdated = Notification.Name("OFFProducts.Notification.Product Updated")
+    static let ProductLoadingError = Notification.Name("OFFProducts.Notification.Product Loading Error")
+}
+
+

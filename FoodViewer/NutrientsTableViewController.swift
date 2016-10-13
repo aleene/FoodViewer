@@ -436,11 +436,11 @@ class NutrientsTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(NutrientsTableViewController.refreshProduct),
-            name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated),
+            name: .ProductUpdated,
             object:nil
         )
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name:NSNotification.Name(rawValue: FoodProduct.Notification.NutritionImageSet), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name: .NutritionImageSet, object:nil)
 
     }
     

@@ -282,11 +282,9 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name:NSNotification.Name(rawValue: History.Notification.HistoryHasBeenDeleted), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name:NSNotification.Name(rawValue: Address.Notification.CoordinateHasBeenSet), object:nil)
-        
-        // refreshProduct()
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
     }
 
     override func viewDidDisappear(_ animated: Bool) {

@@ -69,19 +69,6 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         return cell
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath)
-        currentCell?.textLabel?.becomeFirstResponder()
-    }
-    
-    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let currentCell = tableView.cellForRow(at: indexPath)
-        currentCell?.textLabel?.resignFirstResponder()
-
-    }
- */
-    
     // MARK: - TextField stuff
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {

@@ -10,9 +10,6 @@ import Foundation
 
 public struct History {
 
-    struct Notification {
-        static let HistoryHasBeenDeleted = "History.Notification.HistoryHasBeenDeleted"
-    }
 
     public var barcodes = [String]()
     
@@ -59,7 +56,13 @@ public struct History {
         barcodes.removeAll()
         defaults.set(barcodes, forKey: Constants.HistoryKey)
         defaults.synchronize()
-        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: Notification.HistoryHasBeenDeleted), object:nil)
+        NotificationCenter.default.post(name: .HistoryHasBeenDeleted, object:nil)
     }
     
 }
+
+// Definition:
+extension Notification.Name {
+    static let HistoryHasBeenDeleted = Notification.Name("History.Notification.HistoryHasBeenDeleted")
+}
+

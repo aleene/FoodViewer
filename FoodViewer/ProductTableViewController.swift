@@ -433,11 +433,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         title = Constants.ViewControllerTitle
         refreshInterface()
 
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductNotAvailable), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductLoaded), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.FirstProductLoaded), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductUpdated), object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:NSNotification.Name(rawValue: OFFProducts.Notification.ProductLoadingError), object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
+        // listen if a product has been changed through an update
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdateSucceeded, object:nil)
+        
 
     }
     
