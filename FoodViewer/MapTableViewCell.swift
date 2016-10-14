@@ -17,27 +17,31 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
             if let coordinates = Preferences.manager.mapAddress.coordinates {
                 switch coordinates {
                 case .success(let coordinateValues):
-                    return CLLocation.init(latitude: coordinateValues[0].latitude, longitude: coordinateValues[0].longitude)
+                    return CLLocation.init(latitude: coordinateValues.first!.latitude, longitude: coordinateValues[0].longitude)
                 case .error, .searchStarted:
-                    return CLLocation.init(latitude: 0.0, longitude: 0.0)
+                    break
                 }
-
-            } else {
-                return CLLocation.init(latitude: 0.0, longitude: 0.0)
             }
+            return CLLocation.init(latitude: 0.0, longitude: 0.0)
         }
     }
     
-    fileprivate let regionRadius: CLLocationDistance = 1000000
+    private var annotations: [MKAnnotation] = []
+    
+    // fileprivate let regionRadius: CLLocationDistance = 1000000
 
     var product: FoodProduct? = nil {
         didSet {
+            // if there are any annotations on the map remove them
+            // note that this is set multiple times
+            mapView.removeAnnotations(mapView.annotations)
+            
             if let currentProduct = product {
                 if let coordinates = currentProduct.purchaseLocation?.getCoordinates() {
                     switch coordinates {
                     case .success(let coordinateValues):
                         let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapPinCategories.PurchaseLocation, coordinate: coordinateValues[0])
-                        mapView.addAnnotation(annotation)
+                        annotations.append(annotation)
                     default:
                         break
                     }
@@ -47,7 +51,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                     switch coordinates {
                     case .success(let coordinateValues):
                         let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapPinCategories.ProducerLocation, coordinate: coordinateValues[0])
-                        mapView.addAnnotation(annotation)
+                        annotations.append(annotation)
                     default:
                         break
                     }
@@ -57,7 +61,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                     switch coordinates {
                     case .success(let coordinateValues):
                         let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapPinCategories.IngredientOriginLocation, coordinate: coordinateValues[0])
-                        mapView.addAnnotation(annotation)
+                        annotations.append(annotation)
                     default:
                         break
                     }
@@ -90,7 +94,7 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                             case .success(let coordinateValues):
                                 if !coordinateValues.isEmpty {
                                     let annotation = SupplyChainLocation(title: country.country, locationName: country.country, discipline: MapPinCategories.SalesCountryLocation, coordinate: coordinateValues[0])
-                                    mapView.addAnnotation(annotation)
+                                    annotations.append(annotation)
                                 }
                             default:
                                 break
@@ -100,8 +104,12 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 }
             }
             mapView.delegate = self
-
+            mapView.addAnnotations(annotations)
+            // mapView.showAnnotations(mapView.annotations, animated: true)
             zoomMapViewToFitAnnotations(mapView, animated:true)
+            // print("S: \(mapView.region.span.latitudeDelta), \(mapView.region.span.longitudeDelta)")
+            // print("Frame: \(mapView.frame.size.height), \(mapView.frame.size.width)")
+
         }
     }
     
@@ -109,16 +117,19 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         didSet {
             centerMapOnLocation(initialLocation)
             mapView.delegate = self
+            mapView.frame.size = CGSize(width:240, height:320)
+            // mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
     }
     
-    func centerMapOnLocation(_ location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-            regionRadius * 2.0, regionRadius * 2.0)
-        mapView.setRegion(coordinateRegion, animated: true)
+    private func centerMapOnLocation(_ location: CLLocation) {
+        zoomMapViewToFitAnnotations(mapView, animated:true)
+
+        // let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        // mapView.setRegion(coordinateRegion, animated: true)
     }
 
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    internal func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? SupplyChainLocation {
             let identifier = "pin"
             var view: MKPinAnnotationView
@@ -143,21 +154,23 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
     }
     
     //size the mapView region to fit its annotations
-    func zoomMapViewToFitAnnotations(_ mapView: MKMapView, animated: Bool)
+    private func zoomMapViewToFitAnnotations(_ mapView: MKMapView, animated: Bool)
     {
         struct MapkitConstants {
-            static let MINIMUM_ZOOM_ARC = CLLocationDegrees(5)  // (1 degree of arc ~= 110 km)
-            static let ANNOTATION_REGION_PAD_FACTOR = 1.3
-            static let MAX_DEGREES_ARC = CLLocationDegrees(360)
-            static let MaxDegreesLatitude = CLLocationDegrees(180)
+            static let SPAN_MINIMUM_DELTA_DEGREES = CLLocationDegrees(8)  // (1 degree of arc ~= 110 km)
+            static let ANNOTATION_REGION_PAD_FACTOR = 1.2
+            static let SPAN_MAX_LONGITUDE_DEGREES = CLLocationDegrees(360)
+            static let SPAN_MAX_LATITUDE_DEGREES = CLLocationDegrees(180)
         }
 
-        if mapView.annotations.count == 0 { return } //bail if no annotations
-    
+        guard mapView.annotations.count > 0 else { return } //bail if no annotations
+
         var center = CLLocationCoordinate2D()
         let (min, max) = minMax(mapView.annotations)
-        
-        let span = MKCoordinateSpan(latitudeDelta: max.latitude - min.latitude, longitudeDelta: max.longitude - min.longitude)
+        var span = MKCoordinateSpan(latitudeDelta: max.longitude - min.longitude, longitudeDelta: max.longitude - min.longitude)
+        if (max.latitude - min.latitude) > (max.longitude - min.longitude) {
+            span = MKCoordinateSpan(latitudeDelta: max.latitude - min.latitude, longitudeDelta: max.latitude - min.latitude)
+        }
         center.latitude = (max.latitude - min.latitude) / 2 + min.latitude
         center.longitude = (max.longitude - min.longitude) / 2 + min.longitude
         
@@ -166,49 +179,66 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
         //add padding so pins aren't scrunched on the edges
         region.span.latitudeDelta  *= MapkitConstants.ANNOTATION_REGION_PAD_FACTOR
         region.span.longitudeDelta *= MapkitConstants.ANNOTATION_REGION_PAD_FACTOR
-        //but padding can't be bigger than the world
-        if( region.span.latitudeDelta > MapkitConstants.MaxDegreesLatitude) {
-            region.span.latitudeDelta  = MapkitConstants.MaxDegreesLatitude
+        
+        //but padded region can't be bigger than the world, just show the whole world
+        if( region.span.latitudeDelta > MapkitConstants.SPAN_MAX_LATITUDE_DEGREES) {
+            region.span.latitudeDelta  = MapkitConstants.SPAN_MAX_LATITUDE_DEGREES
+            region.span.longitudeDelta = MapkitConstants.SPAN_MAX_LONGITUDE_DEGREES
         }
-        if( region.span.longitudeDelta > MapkitConstants.MAX_DEGREES_ARC) {
-            region.span.longitudeDelta = MapkitConstants.MAX_DEGREES_ARC
+        if( region.span.longitudeDelta > MapkitConstants.SPAN_MAX_LONGITUDE_DEGREES) {
+            region.span.latitudeDelta  = MapkitConstants.SPAN_MAX_LATITUDE_DEGREES
+            region.span.longitudeDelta = MapkitConstants.SPAN_MAX_LONGITUDE_DEGREES
         }
     
         //and don't zoom in stupid-close on small samples
-        if( region.span.latitudeDelta  < MapkitConstants.MINIMUM_ZOOM_ARC ) {
-            region.span.latitudeDelta  = MapkitConstants.MINIMUM_ZOOM_ARC
+        if( region.span.latitudeDelta  < MapkitConstants.SPAN_MINIMUM_DELTA_DEGREES ) {
+            region.span.latitudeDelta  = MapkitConstants.SPAN_MINIMUM_DELTA_DEGREES
         }
-        if( region.span.longitudeDelta < MapkitConstants.MINIMUM_ZOOM_ARC ) {
-            region.span.longitudeDelta = MapkitConstants.MINIMUM_ZOOM_ARC
+        if( region.span.longitudeDelta < MapkitConstants.SPAN_MINIMUM_DELTA_DEGREES ) {
+            region.span.longitudeDelta = MapkitConstants.SPAN_MINIMUM_DELTA_DEGREES
         }
         //and if there is a sample of 1 we want the max zoom-in instead of max zoom-out
-        if( mapView.annotations.count == 1 )
-        {
-            region.span.latitudeDelta = MapkitConstants.MINIMUM_ZOOM_ARC
-            region.span.longitudeDelta = MapkitConstants.MINIMUM_ZOOM_ARC
+        if( mapView.annotations.count == 1 ) {
+            region.span.latitudeDelta = MapkitConstants.SPAN_MINIMUM_DELTA_DEGREES
+            region.span.longitudeDelta = MapkitConstants.SPAN_MINIMUM_DELTA_DEGREES
         }
-        mapView.setRegion(region, animated: true)
+        // print("Ci: \(region.center.longitude), \(region.center.latitude)")
+        
+        // print("Si: \(region.span.latitudeDelta), \(region.span.longitudeDelta)")
+
+        mapView.setRegion(region, animated: false)
+        // print("C: \(mapView.region.center.longitude), \(mapView.region.center.latitude)")
+
+        // print("S: \(mapView.region.span.latitudeDelta), \(mapView.region.span.longitudeDelta)")
+        
     }
     
-    func minMax(_ array: [MKAnnotation]) -> (CLLocationCoordinate2D, CLLocationCoordinate2D) {
-        var currentLongitudeMin = array[0].coordinate.longitude
-        var currentLongitudeMax = array[0].coordinate.longitude
-        var currentLatitudeMin = array[0].coordinate.latitude
-        var currentLatitudeMax = array[0].coordinate.latitude
+    private func minMax(_ array: [MKAnnotation]) -> (CLLocationCoordinate2D, CLLocationCoordinate2D) {
+        var currentLongitudeMinDegrees = array[0].coordinate.longitude
+        var currentLongitudeMaxDegrees = array[0].coordinate.longitude
+        var currentLatitudeMinDegrees = array[0].coordinate.latitude
+        var currentLatitudeMaxDegrees = array[0].coordinate.latitude
+        // print("Coord0: \(currentLatitudeMinDegrees), \(currentLongitudeMinDegrees)")
+
         for value in array[1..<array.count] {
-            if value.coordinate.latitude < currentLatitudeMin {
-                currentLatitudeMin = value.coordinate.latitude
-            } else if value.coordinate.latitude > currentLatitudeMax {
-                currentLatitudeMax = value.coordinate.latitude
+            if value.coordinate.latitude < currentLatitudeMinDegrees {
+                currentLatitudeMinDegrees = value.coordinate.latitude
             }
-            if value.coordinate.longitude < currentLongitudeMin {
-                currentLongitudeMin = value.coordinate.longitude
-            } else if value.coordinate.longitude > currentLongitudeMax {
-                currentLongitudeMax = value.coordinate.longitude
+            if value.coordinate.latitude > currentLatitudeMaxDegrees {
+                currentLatitudeMaxDegrees = value.coordinate.latitude
             }
+            if value.coordinate.longitude < currentLongitudeMinDegrees {
+                currentLongitudeMinDegrees = value.coordinate.longitude
+            }
+            if value.coordinate.longitude > currentLongitudeMaxDegrees {
+                currentLongitudeMaxDegrees = value.coordinate.longitude
+            }
+            // print("Coord: \(value.coordinate.latitude), \(value.coordinate.longitude)")
         }
-        return (CLLocationCoordinate2D(latitude: currentLatitudeMin, longitude: currentLongitudeMin),
-            CLLocationCoordinate2D(latitude: currentLatitudeMax, longitude: currentLongitudeMax))
+        // print("Min:\(currentLatitudeMinDegrees), \(currentLongitudeMinDegrees)")
+        // print("Max:\(currentLatitudeMaxDegrees), \(currentLongitudeMaxDegrees)")
+        return (CLLocationCoordinate2D(latitude: currentLatitudeMinDegrees, longitude: currentLongitudeMinDegrees),
+            CLLocationCoordinate2D(latitude: currentLatitudeMaxDegrees, longitude: currentLongitudeMaxDegrees))
     }
 
  }

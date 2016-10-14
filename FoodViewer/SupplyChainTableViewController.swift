@@ -254,7 +254,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
     // MARK: - Notification handler
     
     func reloadMapSection(_ notification: Notification) {
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 7)], with: UITableViewRowAnimation.fade)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 8)], with: UITableViewRowAnimation.fade)
     }
 
     func refreshProduct() {

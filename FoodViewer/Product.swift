@@ -539,6 +539,7 @@ class FoodProduct {
         
         // is it really the same product?
         if barcode.asString() == product.barcode.asString() {
+            // Do I need to replace things, or should I carry out a check first?
             name = product.name
             nameLanguage = product.nameLanguage
             genericName = product.genericName

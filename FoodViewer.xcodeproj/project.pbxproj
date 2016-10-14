@@ -504,9 +504,9 @@
 				5124013E1CDB84910051F120 /* Frameworks */,
 				51E925ED1C678FAC009C52E8 /* Model */,
 				51DCD3C91C6A110900D39898 /* ProductPages */,
+				51DAD3771C5F757A00895513 /* ProductTableCells */,
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
 				516BA5871CC3ADFD008A094A /* Launch Screen.storyboard */,
-				51DAD3771C5F757A00895513 /* ProductTableCells */,
 				511459371CB1398F00D25116 /* Test files */,
 				5180B9191C5D3B75002DBD21 /* Support files */,
 			);

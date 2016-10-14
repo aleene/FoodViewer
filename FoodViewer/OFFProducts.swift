@@ -313,7 +313,8 @@ class OFFProducts {
     }
     
     fileprivate func update(_ updatedProduct: FoodProduct) {
-        // where is product in the list?
+        // only update the updated product
+        // need to find it first in the history.
         var index = 0
         for fetchResult in fetchResultList {
             if let validFetchResult = fetchResult {
@@ -332,10 +333,7 @@ class OFFProducts {
                 default:
                     break
                 }
-            } else {
-                print("error: OFFProducts.update - fetchResult is nil")
-            }
-
+            } 
         }
     }
     
@@ -357,7 +355,8 @@ class OFFProducts {
     }
 }
 
-// Definition:
+// Notification definitions
+
 extension Notification.Name {
     static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.Product Not Available")
     static let ProductLoaded = Notification.Name("OFFProducts.Notification.Product Loaded")

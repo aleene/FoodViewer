@@ -29,6 +29,20 @@ class Address {
         }
     }
     
+    var coordinates: CoordinateFetchResult? = nil {
+        didSet {
+            if let validCoordinates = coordinates {
+                switch validCoordinates {
+                case .success:
+                    // upon successfull setting ot the variable inform potential users
+                    let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
+                    NotificationCenter.default.post(name: .CoordinateHasBeenSet, object:nil, userInfo: userInfo)
+                default: break
+                }
+            }
+        }
+    }
+    
     init() {
         self.title = ""
         self.street = ""
@@ -54,27 +68,16 @@ class Address {
         case success([CLLocationCoordinate2D])
     }
 
-    var coordinates: CoordinateFetchResult? = nil {
-        didSet {
-            if let validCoordinates = coordinates {
-                switch validCoordinates {
-                case .success:
-                    let userInfo = [Notification.CoordinateHasBeenSetForAddressKey:self]
-                    NotificationCenter.default.post(name: .CoordinateHasBeenSet, object:nil, userInfo: userInfo)
-                default: break
-                }
-            }
-        }
-    }
     
     func getCoordinates() -> CoordinateFetchResult? {
-        setCoordinates()
+        if coordinates == nil {
+            setCoordinates() }
         return coordinates
     }
     
     func setCoordinates() {
         if coordinates == nil {
-            // launch the image retrieval
+            // launch the coordinate retrieval
             if (elements != nil) && (!elements!.isEmpty) {
                 elements = removeDashes(elements!)
                 retrieveCoordinates(elements!.joined(separator: " "))
@@ -92,7 +95,7 @@ class Address {
         return elements?.joined(separator: " ")
     }
     
-    func retrieveCoordinates(_ locationName: String) {
+    private func retrieveCoordinates(_ locationName: String) {
         var coordinates: [CLLocationCoordinate2D]? =  nil
         
         if !locationName.isEmpty {
