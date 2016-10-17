@@ -22,8 +22,9 @@ class Preferences {
     var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
     var mapAddress: Address
     var allergenWarnings: [(String, Bool)] = []
-    var runInTestMode: Bool = false
     var favoriteShops: [(String, Address)] = []
+    var keyChainUnlocked: Bool = false
+    var OFFLogInCredentialsSet = false
     
     init() {
         showSaltOrSodium = NatriumChloride.salt

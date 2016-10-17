@@ -10,16 +10,16 @@ import Foundation
 
 // completion states parameters
 struct CompletionState {
-    var photosValidatedComplete = Status()
-    var productNameComplete = Status()
-    var brandsComplete = Status()
-    var quantityComplete = Status()
-    var packagingComplete = Status()
-    var categoriesComplete = Status()
-    var nutritionFactsComplete = Status()
-    var photosUploadedComplete = Status()
-    var ingredientsComplete = Status()
-    var expirationDateComplete = Status()
+    var photosValidatedComplete = CompletionStatus()
+    var productNameComplete = CompletionStatus()
+    var brandsComplete = CompletionStatus()
+    var quantityComplete = CompletionStatus()
+    var packagingComplete = CompletionStatus()
+    var categoriesComplete = CompletionStatus()
+    var nutritionFactsComplete = CompletionStatus()
+    var photosUploadedComplete = CompletionStatus()
+    var ingredientsComplete = CompletionStatus()
+    var expirationDateComplete = CompletionStatus()
     
     func completionPercentage() -> Int {
         var val = 0

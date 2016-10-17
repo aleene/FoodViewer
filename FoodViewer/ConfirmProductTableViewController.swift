@@ -10,9 +10,9 @@ import UIKit
 
 class ConfirmProductTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    var selectedAddress : Address?
-    var selectedShop: String?
-    var selectedDate: Date?
+    var selectedAddress : Address? = nil
+    var selectedShop: String? = nil
+    var selectedDate: Date? = nil
     var product: FoodProduct?
     
     fileprivate struct Storyboard {
@@ -23,15 +23,17 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
     // MARK: - Actions
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        let update = OFFUpdate()
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        // has a change been carried out?
+        if selectedShop != nil || selectedDate != nil || selectedDate != nil {
+            let update = OFFUpdate()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-        // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
-        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-            let fetchResult = update.confirmProduct(product: self.product, expiryDate: self.selectedDate, shop: self.selectedShop, location:self.selectedAddress)
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                switch fetchResult {
+            // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                let fetchResult = update.confirmProduct(product: self.product, expiryDate: self.selectedDate, shop: self.selectedShop, location:self.selectedAddress)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    switch fetchResult {
                     case .success:
                         // get the new product data
                         OFFProducts.manager.reload(self.product!)
@@ -42,9 +44,10 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
                         // send notification of failure, so feedback can be given
                         NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
                         break
-                }
+                    }
+                })
             })
-        })
+        }
         // Go back and let the queue do its work
         self.performSegue(withIdentifier: Storyboard.SegueIdentifier, sender: self)
     }
@@ -143,7 +146,7 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
         } else {
         switch row {
             case 0:
-                selectedShop = ""
+                selectedShop = nil
                 selectedAddress = nil
             default:
                 selectedShop = FavoriteShopsDefaults.manager.list[row - 1].0
@@ -152,7 +155,8 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
         }
     }
     
-    /* MARK: - Notification methods
+
+    /*  - Notification methods
     
     func expiryDateHasBeenUpdated(notification: Notification) -> Void {
         
@@ -170,7 +174,6 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         NotificationCenter.default.addObserver(forName: .ExpirydateHasBeenSet,
                                                object:nil, queue:OperationQueue.main) {
                                                 notification in
@@ -179,20 +182,19 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
                                                 self.selectedDate = notification.userInfo?[ExpiryDatePickerTableViewCell.Notification.ExpiryDateHasBeenSetKey] as? Date
 
             }
-
-        
     }
+    
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
-
+    
 }
 
 // Definition:
-extension Notification.Name {
-    static let ProductUpdateSucceeded = Notification.Name("Product Update Succeeded")
-    static let ProductUpdateFailed = Notification.Name("Product Update Failed")
+    extension Notification.Name {
+        static let ProductUpdateSucceeded = Notification.Name("Product Update Succeeded")
+        static let ProductUpdateFailed = Notification.Name("Product Update Failed")
 }
 
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Status: CustomStringConvertible {
+struct CompletionStatus: CustomStringConvertible {
     var value = false
     var text = "Missing state"
     

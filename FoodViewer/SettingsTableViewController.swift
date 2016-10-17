@@ -66,11 +66,20 @@ class SettingsTableViewController: UITableViewController {
             }
         }
         
-        runInTestModeSwitch.isOn = Preferences.manager.runInTestMode
+        runInTestModeSwitch.isOn = Preferences.manager.OFFLogInCredentialsSet
     }
 
-    @IBAction func runInTestmodeSwitchTapped(_ sender: UISwitch) {
-        Preferences.manager.runInTestMode = !Preferences.manager.runInTestMode
+    @IBOutlet weak var clearCredentialsButton: UIButton! {
+        didSet {
+            clearCredentialsButton.titleLabel?.text = NSLocalizedString("Clear Credentials", comment: "Text of a button, to allow the user to remove all of his login credentials for OFF.")
+        }
+    }
+    
+    @IBAction func clearCredentialsButtonTapped(_ sender: UIButton) {
+        Preferences.manager.OFFLogInCredentialsSet = false
+        Preferences.manager.keyChainUnlocked = false
+        var loginCredentials = LogIn()
+        loginCredentials.resetCredentials()
     }
     
     // MARK: - Outlet methods
@@ -83,7 +92,7 @@ class SettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var runInTestModeSwitch: UISwitch! {
         didSet {
-            runInTestModeSwitch.isOn = Preferences.manager.runInTestMode
+            runInTestModeSwitch.isOn = Preferences.manager.OFFLogInCredentialsSet
         }
     }
     
@@ -160,7 +169,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -201,6 +210,7 @@ class SettingsTableViewController: UITableViewController {
         
         refresh()
 
+        
         title = Constants.ViewControllerTitle
     }
 

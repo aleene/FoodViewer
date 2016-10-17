@@ -70,7 +70,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0na-7c-rwo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2686" y="-1718"/>
+            <point key="canvasLocation" x="3548" y="-967"/>
         </scene>
         <!--Favorite Shops Table View Controller-->
         <scene sceneID="0ro-al-cXx">
@@ -108,18 +108,18 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="paQ-Yj-cRj" id="32S-I8-7MB">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IL2-Vr-5wd">
-                                            <frame key="frameInset" minX="15" minY="5" width="33.5" height="20.5"/>
+                                            <frame key="frameInset" minX="15" minY="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="807-If-TeI">
-                                            <frame key="frameInset" minX="15" minY="25.5" width="44" height="14.5"/>
+                                            <frame key="frameInset" minX="15" minY="25" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -616,11 +616,11 @@
                                         <rect key="frame" x="0.0" y="500" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x05-UC-kk1" id="c2T-sP-7zf">
-                                            <frame key="frameInset" width="342" height="43.5"/>
+                                            <frame key="frameInset" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Set Favorite Shops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qQk-vQ-Zpu">
-                                                    <frame key="frameInset" minX="15" width="325" height="43.5"/>
+                                                    <frame key="frameInset" minX="15" width="325" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -643,24 +643,19 @@
                                             <frame key="frameInset" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5fz-j9-0He">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfi-7R-ANU">
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
+                                                    <state key="normal" title="Clear Credentials"/>
                                                     <connections>
-                                                        <action selector="runInTestmodeSwitchTapped:" destination="wkb-2f-GaI" eventType="valueChanged" id="tsE-8a-vud"/>
+                                                        <action selector="clearCredentialsButtonTapped:" destination="wkb-2f-GaI" eventType="touchUpInside" id="Qe2-Af-cQc"/>
                                                     </connections>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Run in testmode?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OtE-Lp-tg8">
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="OtE-Lp-tg8" firstAttribute="top" secondItem="iQf-2d-Hga" secondAttribute="topMargin" constant="3" id="0bK-zz-YUV"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="5fz-j9-0He" secondAttribute="trailing" id="TXj-OJ-iys"/>
-                                                <constraint firstAttribute="leading" secondItem="OtE-Lp-tg8" secondAttribute="leading" constant="-16" id="qh5-He-i5n"/>
-                                                <constraint firstItem="5fz-j9-0He" firstAttribute="leading" secondItem="OtE-Lp-tg8" secondAttribute="trailing" constant="8" id="sCE-gK-To7"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="OtE-Lp-tg8" secondAttribute="bottom" constant="3" id="tgL-iP-Bxs"/>
-                                                <constraint firstItem="5fz-j9-0He" firstAttribute="centerY" secondItem="iQf-2d-Hga" secondAttribute="centerY" id="tqq-Em-Wgq"/>
+                                                <constraint firstAttribute="bottom" secondItem="jfi-7R-ANU" secondAttribute="bottom" id="4I2-o9-E7e"/>
+                                                <constraint firstItem="jfi-7R-ANU" firstAttribute="top" secondItem="iQf-2d-Hga" secondAttribute="top" id="J31-w7-Gfc"/>
+                                                <constraint firstAttribute="trailing" secondItem="jfi-7R-ANU" secondAttribute="trailing" id="Vle-Dj-jvh"/>
+                                                <constraint firstItem="jfi-7R-ANU" firstAttribute="leading" secondItem="iQf-2d-Hga" secondAttribute="leading" id="i4e-qW-zMz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -675,10 +670,10 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="clearCredentialsButton" destination="jfi-7R-ANU" id="b6l-NZ-pBa"/>
                         <outlet property="clearHistoryButton" destination="LUu-zu-IQr" id="aCc-5S-Uza"/>
                         <outlet property="jouleOrCaloriesOutlet" destination="b37-xu-DIS" id="BSR-qA-xAq"/>
                         <outlet property="nutritionUnitOutlet" destination="XQE-hH-APP" id="4JB-uG-M1O"/>
-                        <outlet property="runInTestModeSwitch" destination="5fz-j9-0He" id="wbT-JO-jOt"/>
                         <outlet property="saltOrSodiumOutlet" destination="9HQ-Hd-LCX" id="FFV-TI-qtX"/>
                         <segue destination="HFz-PM-YvU" kind="unwind" identifier="Settings Done" unwindAction="settingsDone:" id="ISY-Ed-Z4N"/>
                     </connections>
@@ -1361,13 +1356,14 @@
                             </barButtonItem>
                             <barButtonItem image="CheckMark" id="faJ-id-Sfe">
                                 <connections>
-                                    <segue destination="a0t-M1-5KH" kind="presentation" identifier="Confirm Product Segue" id="4mW-e3-cmD"/>
+                                    <action selector="confirmButtonTapped:" destination="PaB-Sk-wD0" id="BAu-6Y-A7u"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="confirmBarButtonItem" destination="faJ-id-Sfe" id="8B3-VQ-Pcl"/>
+                        <segue destination="a0t-M1-5KH" kind="presentation" identifier="Confirm Product Segue" id="cwF-P7-Jeg"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2AQ-b9-qBA" userLabel="First Responder" sceneMemberID="firstResponder"/>
