@@ -31,6 +31,9 @@
 /* Text to indicate the product belongs to ONE category. */
 "Assigned to 1 category." = "1 categorie toegekend.";
 
+/* Explanatory text in AlertViewController, which lets the user enter his username/password. */
+"Authentication with TouchID failed. Specify your password" = "Authenticatie met TouchID mislukt, specificeer je wachtwoord:";
+
 /* Header for a table section showing the appreciations of the bad nutrients */
 "Bad nutrients" = "Slechte voedingsstoffen";
 
@@ -51,6 +54,9 @@
 
 /* Title of second segment in switch, which lets the user select between joule or calories */
 "Calories" = "Calorieën";
+
+/* String in button, to let the user indicate he wants to cancel username/password input. */
+"Cancel" = "Annuleer";
 
 /* Header title for table section with product Categories
    Title of ViewController with the categories the product belongs to.
@@ -85,11 +91,29 @@
 /* Text to indicate how much the product data is filled in (available). */
 "Data is %@ complete." = "Gegevens zijn %@ volledig.";
 
+/* String in button, to let the user indicate he is ready with username/password input. */
+"Done" = "Klaar";
+
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Bewerk";
 
 /* Header title of the tableview section, indicating when the product data was edited. */
 "Edit Dates" = "Bewerkdatums";
+
+/* Placeholder text for field where user should enter a city name. */
+"Enter city name" = "Voer stad in";
+
+/* Placeholder text for field where user should enter a country name. */
+"Enter country name" = "Voer land in";
+
+/* Placeholder text for field where user should enter a postal code. */
+"Enter postal code" = "Voer postcode in";
+
+/* Placeholder text for field where user should enter a shop name. */
+"Enter shop name" = "Voer winkel in";
+
+/* Placeholder text for field where user should enter a street name. */
+"Enter street name" = "Voer straat in";
 
 /* Alert message, when the product could not be retrieved from Internet. */
 "Error retrieving product" = "Probleem ophalen product.";
@@ -106,6 +130,12 @@
 /* A JSON status which is not supported. */
 "Error: Other (>1) result status" = "Fout: andere (>1) resultaat status";
 
+/* Probably a programming error. */
+"Error: URL encoding failed" = "Fout: encodering van URL mislukt";
+
+/* Probably a programming error. */
+"Error: URL is wrong somehow" = "Fout: opbouw URL klopt niet";
+
 /* Retrieved a json file that is no longer relevant for the app. */
 "Error: URL not matched" = "Fout: URL niet meer relevant";
 
@@ -117,6 +147,12 @@
 
 /* Title of tableview cell, indicating whether the product expiration date has been filled in. */
 "Expiration date complete?" = "Uiterste houdbaarheidsdatum ingevuld?";
+
+/* Header for Tableview section with product expiry date */
+"Expiry Date" = "Uiterste houdbaarheidsdatum";
+
+/* String in button, to let the user indicate he wants to use the FoodViewer OFF credentials. */
+"FoodViewer" = "foodviewer";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
@@ -170,6 +206,9 @@
 
 /* Tableview sectionheader for product name */
 "Name" = "Productnaam";
+
+/* String in pickerView if no purchase shops are defined */
+"No Favorites defined" = "Geen favorieten gedefinieerd";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated." = "Geen merken beschikbaar.";
@@ -252,11 +291,17 @@
 /* Title of tableview cell, indicating whether the product packaging field has been filled in. */
 "Packaging complete?" = "Verpakkingsinformatie ingevuld?";
 
+/* String in textField placeholder, to show that the user has to enter his password */
+"Password" = "Wachtwoord";
+
 /* Title of first segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving */
 "Per 100 mg/ml" = "Per 100 mg/ml";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving */
 "Per Serving" = "Per Portie";
+
+/* Title in AlertViewController, which lets the user enter his username/password. */
+"Personal Account" = "Persoonlijke account";
 
 /* Title of tableview cell, indicating whether prduct photos have been uploaded. */
 "Photos uploaded complete?" = "Foto's geupload?";
@@ -294,17 +339,29 @@
 /* String presented in a tagView if no product is available on OFF */
 "Product not available" = "Product niet beschikbaar";
 
+/* Where do I use this? */
+"Product update failed" = "Aanpassing product mislukt";
+
+/* Where do I use this? */
+"Product update succeeded" = "Aanpassing product geslaagd";
+
 /* Title of ViewController with a list of all products that has been viewed. */
 "Products" = "Producten";
 
+/* Header for Tableview section with product purchase location date */
+"Purchase Location" = "Aankoopplaats";
+
 /* Header for section of tableView with Locations where the product was bought. */
-"Purchase Locations" = "Aankoopplaats";
+"Purchase Locations" = "Aankoopplaatsen";
 
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Verpakkingsgrootte";
 
 /* Title of tableview cell, indicating whether the product quantity field has been filled in. */
 "Quantity complete?" = "Verpakkingsgrootte ingevuld?";
+
+/* String in button, to let the user indicate he wants to cancel username/password input. */
+"Reset" = "Reset";
 
 /* Header for section of tableView with names of the stores where the product is sold. */
 "Sale Stores" = "Verkoopwinkels";
@@ -327,8 +384,17 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portiegrootte";
 
+/* Title of second segment in switch, which  indicates the user can set another account */
+"Set Account" = "Definieer account";
+
+/* title in AlertController, which lets the user set which OFF Credentials should be used. */
+"Set OFF Account" = "Definieer OFF-account";
+
 /* TableViewController title for the settings scene. */
 "Settings" = "Instellingen";
+
+/* String in pickerView if the purchase shop is not known */
+"Shop unknown" = "Winkel onbekend";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
@@ -341,6 +407,12 @@
 
 /* Header for a table section showing the special categories */
 "Special categories" = "Uitzonderingscategorieën";
+
+/* Title in AlertViewController, which lets the user enter his username/password. */
+"Specify password" = "Voer wachtwoord in";
+
+/* Explanatory text in AlertViewController, which lets the user enter his username/password. */
+"Specify your credentials for OFF?" = "Voer je gerbruikersnaam en wachtwoord voor OFF in";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
    Viewcontroller title for page with supply chain for product. */
@@ -357,6 +429,18 @@
 
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
 "Traces" = "Sporen";
+
+/* String in button, to let the user indicate he wants to use his own OFF credentials. */
+"Use My Own" = "Gebruik mijn eigen";
+
+/* String in textField placeholder, to show that the user has to enter his username. */
+"Username" = "Gebruikersnaam";
+
+/* explanatory text in AlertController, which lets the user set which OFF Credentials should be used. */
+"Which OFF account should be used for editing products?" = "Welke OFF gebruikersnaam moet worden gebruikt om producten aan te passen?";
+
+/* Title of first segment in switch, which indicates the foodviewer account will be used for edits */
+"foodviewer" = "foodviewer";
 
 /* Text in a TagListView, when no additives (E-numbers) have been detected in the product ingredients. */
 "no additives detected" = "geen additieven gedetecteerd";

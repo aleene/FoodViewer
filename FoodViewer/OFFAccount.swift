@@ -13,13 +13,15 @@ public struct OFFAccount {
     fileprivate struct Credentials {
         static let FoodViewerUsername = "foodviewer"
         static let FoodViewerPassword = "42DYJhL69fxK"
+        static let UsernameKey = kSecAttrAccount as String
+        static let PasswordKey = kSecValueData as String
     }
 
-    private let myKeychainWrapper = KeychainWrapper()
-
+    // private let myKeychainWrapper = KeychainWrapper()
+    private let keychain = KeychainSwift()
     var userId: String {
         get {
-            if let validKeyChainValue = myKeychainWrapper.myObject(forKey: kSecAttrAccount) as? String {
+            if let validKeyChainValue = keychain.get(Credentials.UsernameKey) {
                 if validKeyChainValue.characters.count > 0 {
                 return validKeyChainValue
                 }
@@ -27,14 +29,15 @@ public struct OFFAccount {
             return Credentials.FoodViewerUsername
         }
         set {
-            myKeychainWrapper.mySetObject(newValue, forKey:kSecAttrAccount)
-            myKeychainWrapper.writeToKeychain()
+            keychain.set(newValue, forKey: Credentials.UsernameKey)
+            //myKeychainWrapper.mySetObject(newValue, forKey:kSecAttrAccount)
+            //myKeychainWrapper.writeToKeychain()
 
         }
     }
     var password: String {
         get {
-            if let validKeyChainValue = myKeychainWrapper.myObject(forKey: kSecValueData) as? String {
+            if let validKeyChainValue = keychain.get(Credentials.PasswordKey) {
                 if validKeyChainValue.characters.count > 0 {
                     return validKeyChainValue
                 }
@@ -44,14 +47,14 @@ public struct OFFAccount {
 
         }
         set {
-            myKeychainWrapper.mySetObject(newValue, forKey:kSecValueData)
-            myKeychainWrapper.writeToKeychain()
+            keychain.set(newValue, forKey: Credentials.PasswordKey)
+            // myKeychainWrapper.writeToKeychain()
         }
     }
     
     func personalExists() -> Bool {
         // has a personal account been defined?
-        if let validAccount = myKeychainWrapper.myObject(forKey: kSecAttrAccount) as? String {
+        if let validAccount = keychain.get(Credentials.UsernameKey) {
             if validAccount.characters.count > 0 {
                 return true
             }
@@ -61,13 +64,15 @@ public struct OFFAccount {
     
     func removePersonal() {
         // remove the personal credentials from the keychain
-        myKeychainWrapper.mySetObject("", forKey:kSecAttrAccount)
-        myKeychainWrapper.mySetObject("", forKey:kSecValueData)
-        myKeychainWrapper.writeToKeychain()
+        keychain.delete(Credentials.UsernameKey)
+        keychain.delete(Credentials.PasswordKey)
+
+        //myKeychainWrapper.mySetObject("", forKey:kSecValueData)
+        // myKeychainWrapper.writeToKeychain()
     }
     
     func check(password: String) -> Bool {
-        return password == (myKeychainWrapper.myObject(forKey: kSecValueData) as? String) ? true: false
+        return password == keychain.get(Credentials.PasswordKey) ? true: false
     }
     
 }

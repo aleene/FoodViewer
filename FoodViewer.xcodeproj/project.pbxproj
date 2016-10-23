@@ -59,6 +59,7 @@
 		51578BF41DB11E6A005BEEF6 /* KeychainAccess in Resources */ = {isa = PBXBuildFile; fileRef = 51578BF31DB11E6A005BEEF6 /* KeychainAccess */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
+		5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */; };
 		5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160FE4E1CD3ADC300CA4A6E /* StringExtension.swift */; };
 		5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160FE4F1CD3ADC300CA4A6E /* UIColorExtension.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
@@ -134,7 +135,6 @@
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
-		51DBECCF1DB2822D00D25918 /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 51DBECCE1DB2822D00D25918 /* KeychainWrapper.m */; };
 		51E13F041D9A8E40000F71C5 /* ConfirmProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F031D9A8E40000F71C5 /* ConfirmProductTableViewController.swift */; };
 		51E13F061D9BCB7F000F71C5 /* PickerViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */; };
 		51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */; };
@@ -227,6 +227,8 @@
 		51578BF31DB11E6A005BEEF6 /* KeychainAccess */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KeychainAccess; path = /Users/arnaud/Programming/FoodViewer/FoodViewer/KeychainAccess; sourceTree = "<absolute>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
+		5160C29A1DBCFE6A00CB3EF0 /* FoodViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodViewer.entitlements; sourceTree = "<group>"; };
+		5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainSwiftDistrib.swift; sourceTree = "<group>"; };
 		5160FE4E1CD3ADC300CA4A6E /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		5160FE4F1CD3ADC300CA4A6E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
@@ -309,9 +311,6 @@
 		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
-		51DBECCC1DB2822C00D25918 /* FoodViewer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FoodViewer-Bridging-Header.h"; sourceTree = "<group>"; };
-		51DBECCD1DB2822D00D25918 /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
-		51DBECCE1DB2822D00D25918 /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		51E13F031D9A8E40000F71C5 /* ConfirmProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmProductTableViewController.swift; sourceTree = "<group>"; };
 		51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewTableViewCell.swift; sourceTree = "<group>"; };
 		51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiryDatePickerTableViewCell.swift; sourceTree = "<group>"; };
@@ -393,7 +392,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				51DBECD31DB3742900D25918 /* KeyChainWrapper */,
+				5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */,
 				51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */,
 				512403671D93DD10007FED5A /* SwiftyJSON.swift */,
 				510A38E51CD3B01B00BAEB61 /* TagListView */,
@@ -529,6 +528,7 @@
 		5180B9061C5D3B57002DBD21 /* FoodViewer */ = {
 			isa = PBXGroup;
 			children = (
+				5160C29A1DBCFE6A00CB3EF0 /* FoodViewer.entitlements */,
 				512403711D96C724007FED5A /* Preferences */,
 				5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */,
 				51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */,
@@ -653,16 +653,6 @@
 			name = ProductTableCells;
 			sourceTree = "<group>";
 		};
-		51DBECD31DB3742900D25918 /* KeyChainWrapper */ = {
-			isa = PBXGroup;
-			children = (
-				51DBECCD1DB2822D00D25918 /* KeychainWrapper.h */,
-				51DBECCC1DB2822C00D25918 /* FoodViewer-Bridging-Header.h */,
-				51DBECCE1DB2822D00D25918 /* KeychainWrapper.m */,
-			);
-			name = KeyChainWrapper;
-			sourceTree = "<group>";
-		};
 		51DCD3C91C6A110900D39898 /* ProductPages */ = {
 			isa = PBXGroup;
 			children = (
@@ -743,6 +733,9 @@
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 0;
 							};
@@ -881,6 +874,7 @@
 				51E13F041D9A8E40000F71C5 /* ConfirmProductTableViewController.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
+				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
 				516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */,
 				517AAD4F1C7DB61700B12F3C /* TracesFullTableViewCell.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,
@@ -902,7 +896,6 @@
 				5157426F1CDB63B200BE8E2D /* RSCodeLayer.swift in Sources */,
 				51E13F061D9BCB7F000F71C5 /* PickerViewTableViewCell.swift in Sources */,
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
-				51DBECCF1DB2822D00D25918 /* KeychainWrapper.m in Sources */,
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift in Sources */,
@@ -1071,6 +1064,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FoodViewer/FoodViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -1081,7 +1075,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "FoodViewer/FoodViewer-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -1092,6 +1085,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = FoodViewer/FoodViewer.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Arnaud Leene (Q4FXMVWJ7V)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
@@ -1102,7 +1096,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "FoodViewer/FoodViewer-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

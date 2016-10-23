@@ -13,6 +13,9 @@
 /* Class = "UILabel"; text = "Category summary"; ObjectID = "3Xm-aT-3Hv"; */
 "3Xm-aT-3Hv.text" = "Samenvatting categorie";
 
+/* Class = "UINavigationItem"; title = "Enter Shop details"; ObjectID = "4y8-hi-MjI"; */
+"4y8-hi-MjI.title" = "Voer details winkel in";
+
 /* Class = "UILabel"; text = "unit"; ObjectID = "5jY-ES-pZe"; */
 "5jY-ES-pZe.text" = "eenh.";
 
@@ -31,6 +34,9 @@
 /* Class = "UILabel"; text = "18"; ObjectID = "57B-be-2Bi"; */
 "57B-be-2Bi.text" = "18";
 
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "807-If-TeI"; */
+"807-If-TeI.text" = "Subtitel";
+
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
 
@@ -39,6 +45,9 @@
 
 /* Class = "UILabel"; text = "Salt"; ObjectID = "DFK-3b-hb1"; */
 "DFK-3b-hb1.text" = "Zout";
+
+/* Class = "UITableViewSection"; headerTitle = "Set OpenFoodFacts Account"; ObjectID = "Djh-Dd-Dk0"; */
+"Djh-Dd-Dk0.headerTitle" = "Specificeer OpenFoodFacts account";
 
 /* Class = "UILabel"; text = "Co"; ObjectID = "Dm8-yq-w79"; */
 "Dm8-yq-w79.text" = "Co";
@@ -51,6 +60,9 @@
 
 /* Class = "UILabel"; text = "Main product brand"; ObjectID = "Hyf-DH-VMK"; */
 "Hyf-DH-VMK.text" = "Hoofdmerk";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "IL2-Vr-5wd"; */
+"IL2-Vr-5wd.text" = "Titel";
 
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
@@ -81,6 +93,9 @@
 
 /* Class = "UILabel"; text = "Sugar"; ObjectID = "TUb-j1-7sk"; */
 "TUb-j1-7sk.text" = "Suiker";
+
+/* Class = "UINavigationItem"; title = "Confirm Product"; ObjectID = "WA5-QR-fDF"; */
+"WA5-QR-fDF.title" = "Bevestig product";
 
 /* Class = "UISegmentedControl"; XQE-hH-APP.segmentTitles[0] = "100 mg/ml"; ObjectID = "XQE-hH-APP"; */
 "XQE-hH-APP.segmentTitles[0]" = "100 mg/ml";
@@ -163,6 +178,15 @@
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";
 
+/* Class = "UILabel"; text = "Set Favorite Shops"; ObjectID = "qQk-vQ-Zpu"; */
+"qQk-vQ-Zpu.text" = "Definieer favoriete winkels";
+
+/* Class = "UISegmentedControl"; rxA-on-uNI.segmentTitles[0] = "First"; ObjectID = "rxA-on-uNI"; */
+"rxA-on-uNI.segmentTitles[0]" = "Eerste";
+
+/* Class = "UISegmentedControl"; rxA-on-uNI.segmentTitles[1] = "Second"; ObjectID = "rxA-on-uNI"; */
+"rxA-on-uNI.segmentTitles[1]" = "Tweede";
+
 /* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
 "syW-t8-eaP.text" = "Keteninformatie";
 
@@ -177,6 +201,9 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Warnings"; ObjectID = "w8g-lE-sdx"; */
 "w8g-lE-sdx.headerTitle" = "Waarschuwingen";
+
+/* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
+"wEv-aO-bBx.title" = "Favoriete winkels";
 
 /* Class = "UILabel"; text = "State category text"; ObjectID = "wvW-mK-iiF"; */
 "wvW-mK-iiF.text" = "Categorie status tekst";

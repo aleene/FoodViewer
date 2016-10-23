@@ -31,6 +31,9 @@
 /* Text to indicate the product belongs to ONE category. */
 "Assigned to 1 category." = "Assigné à 1 catégorie.";
 
+/* Explanatory text in AlertViewController, which lets the user enter his username/password. */
+"Authentication with TouchID failed. Specify your password" = "Authentication avec TouchID échoué, spécifie ton mot de passe:";
+
 /* Header for a table section showing the appreciations of the bad nutrients */
 "Bad nutrients" = "Mauvais nutriments";
 
@@ -51,6 +54,9 @@
 
 /* Title of second segment in switch, which lets the user select between joule or calories */
 "Calories" = "Calories";
+
+/* String in button, to let the user indicate he wants to cancel username/password input. */
+"Cancel" = "Annule";
 
 /* Header title for table section with product Categories
    Title of ViewController with the categories the product belongs to.
@@ -85,11 +91,29 @@
 /* Text to indicate how much the product data is filled in (available). */
 "Data is %@ complete." = "Données sont %@ complèts.";
 
+/* String in button, to let the user indicate he is ready with username/password input. */
+"Done" = "Fini";
+
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Edité";
 
 /* Header title of the tableview section, indicating when the product data was edited. */
 "Edit Dates" = "Dates d'éditions";
+
+/* Placeholder text for field where user should enter a city name. */
+"Enter city name" = "Nom de la ville";
+
+/* Placeholder text for field where user should enter a country name. */
+"Enter country name" = "Nom du pays";
+
+/* Placeholder text for field where user should enter a postal code. */
+"Enter postal code" = "Code postal";
+
+/* Placeholder text for field where user should enter a shop name. */
+"Enter shop name" = "Nom du magasin";
+
+/* Placeholder text for field where user should enter a street name. */
+"Enter street name" = "Nom de la rue";
 
 /* Alert message, when the product could not be retrieved from Internet. */
 "Error retrieving product" = "Erreur: chargement produit";
@@ -106,6 +130,12 @@
 /* A JSON status which is not supported. */
 "Error: Other (>1) result status" = "Erreur: autre (>1) result status in json";
 
+/* Probably a programming error. */
+"Error: URL encoding failed" = "Erreur: encodage URL échoué";
+
+/* Probably a programming error. */
+"Error: URL is wrong somehow" = "Erreur: URL mal-formé";
+
 /* Retrieved a json file that is no longer relevant for the app. */
 "Error: URL not matched" = "Erreur: URL n'est plus rélévant";
 
@@ -117,6 +147,12 @@
 
 /* Title of tableview cell, indicating whether the product expiration date has been filled in. */
 "Expiration date complete?" = "Date limite d'utilisation complété?";
+
+/* Header for Tableview section with product expiry date */
+"Expiry Date" = "Date Lime d'Utilisation";
+
+/* String in button, to let the user indicate he wants to use the FoodViewer OFF credentials. */
+"FoodViewer" = "foodviewer";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Bons nutriments";
@@ -170,6 +206,9 @@
 
 /* Tableview sectionheader for product name */
 "Name" = "Nom du produit";
+
+/* String in pickerView if no purchase shops are defined */
+"No Favorites defined" = "Pas des favoris définié";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated." = "Pas des marques disponible";
@@ -252,11 +291,17 @@
 /* Title of tableview cell, indicating whether the product packaging field has been filled in. */
 "Packaging complete?" = "Données d'emballage completés?";
 
+/* String in textField placeholder, to show that the user has to enter his password */
+"Password" = "Mot de passe";
+
 /* Title of first segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving */
 "Per 100 mg/ml" = "Par 100 mg/ml";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving */
 "Per Serving" = "Par Portion";
+
+/* Title in AlertViewController, which lets the user enter his username/password. */
+"Personal Account" = "Compte personel";
 
 /* Title of tableview cell, indicating whether prduct photos have been uploaded. */
 "Photos uploaded complete?" = "Chargement d'images completé?";
@@ -294,17 +339,29 @@
 /* String presented in a tagView if no product is available on OFF */
 "Product not available" = "Produit pas disponible";
 
+/* Where do I use this? */
+"Product update failed" = "Maj produit échoué";
+
+/* Where do I use this? */
+"Product update succeeded" = "Maj produit réussi";
+
 /* Title of ViewController with a list of all products that has been viewed. */
 "Products" = "Produits";
 
+/* Header for Tableview section with product purchase location date */
+"Purchase Location" = "Endroit d'achat";
+
 /* Header for section of tableView with Locations where the product was bought. */
-"Purchase Locations" = "Endroit d'achat";
+"Purchase Locations" = "Endroits d'achat";
 
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Quantité";
 
 /* Title of tableview cell, indicating whether the product quantity field has been filled in. */
 "Quantity complete?" = "Quantité completé?";
+
+/* String in button, to let the user indicate he wants to cancel username/password input. */
+"Reset" = "Réinitialise";
 
 /* Header for section of tableView with names of the stores where the product is sold. */
 "Sale Stores" = "Magasins de vente";
@@ -327,8 +384,17 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portion";
 
+/* Title of second segment in switch, which  indicates the user can set another account */
+"Set Account" = "Défini compte";
+
+/* title in AlertController, which lets the user set which OFF Credentials should be used. */
+"Set OFF Account" = "Défini compte OFF";
+
 /* TableViewController title for the settings scene. */
 "Settings" = "Réglages";
+
+/* String in pickerView if the purchase shop is not known */
+"Shop unknown" = "Magasin inconnu";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Sodium";
@@ -341,6 +407,12 @@
 
 /* Header for a table section showing the special categories */
 "Special categories" = "Catégories speciaux";
+
+/* Title in AlertViewController, which lets the user enter his username/password. */
+"Specify password" = "Spécifie mot de passe";
+
+/* Explanatory text in AlertViewController, which lets the user enter his username/password. */
+"Specify your credentials for OFF?" = "Spécifie compte et mot de passe pour OFF";
 
 /* Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).
    Viewcontroller title for page with supply chain for product. */
@@ -357,6 +429,18 @@
 
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
 "Traces" = "Traces";
+
+/* String in button, to let the user indicate he wants to use his own OFF credentials. */
+"Use My Own" = "Utilise mon propre";
+
+/* String in textField placeholder, to show that the user has to enter his username. */
+"Username" = "Nom du compte";
+
+/* explanatory text in AlertController, which lets the user set which OFF Credentials should be used. */
+"Which OFF account should be used for editing products?" = "Quelle compte OFF devait être utilisé pour changer des produits?";
+
+/* Title of first segment in switch, which indicates the foodviewer account will be used for edits */
+"foodviewer" = "foodviewer";
 
 /* Text in a TagListView, when no additives (E-numbers) have been detected in the product ingredients. */
 "no additives detected" = "pas d'additives spécifiés";
