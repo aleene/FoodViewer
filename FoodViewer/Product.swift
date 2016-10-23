@@ -606,7 +606,12 @@ class FoodProduct {
             if let validStores = stores {
                 // is this shop not listed?
                 if !validStores.contains(validShop) {
-                    stores!.append(validShop)
+                    // there might be a shop with an empty string
+                    if validStores.count == 1 && validStores[0].characters.count == 0 {
+                        stores = [validShop]
+                    } else {
+                        stores!.append(validShop)
+                    }
                 }
             } else {
                 // add the first shop

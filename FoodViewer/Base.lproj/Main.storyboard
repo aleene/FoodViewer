@@ -634,28 +634,28 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="Djh-Dd-Dk0">
+                            <tableViewSection headerTitle="Set OpenFoodFacts Account" id="Djh-Dd-Dk0">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="Test Mode Cell" id="kzs-uf-Ks9">
-                                        <rect key="frame" x="0.0" y="580" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="600" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kzs-uf-Ks9" id="iQf-2d-Hga">
                                             <frame key="frameInset" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfi-7R-ANU">
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                                    <state key="normal" title="Clear Credentials"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rxA-on-uNI">
+                                                    <segments>
+                                                        <segment title="First"/>
+                                                        <segment title="Second"/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="clearCredentialsButtonTapped:" destination="wkb-2f-GaI" eventType="touchUpInside" id="Qe2-Af-cQc"/>
+                                                        <action selector="offAccountToUseSegmentedControlTapped:" destination="wkb-2f-GaI" eventType="valueChanged" id="jpr-fr-dOG"/>
                                                     </connections>
-                                                </button>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="jfi-7R-ANU" secondAttribute="bottom" id="4I2-o9-E7e"/>
-                                                <constraint firstItem="jfi-7R-ANU" firstAttribute="top" secondItem="iQf-2d-Hga" secondAttribute="top" id="J31-w7-Gfc"/>
-                                                <constraint firstAttribute="trailing" secondItem="jfi-7R-ANU" secondAttribute="trailing" id="Vle-Dj-jvh"/>
-                                                <constraint firstItem="jfi-7R-ANU" firstAttribute="leading" secondItem="iQf-2d-Hga" secondAttribute="leading" id="i4e-qW-zMz"/>
+                                                <constraint firstItem="rxA-on-uNI" firstAttribute="centerX" secondItem="iQf-2d-Hga" secondAttribute="centerX" id="Kjy-sT-IXP"/>
+                                                <constraint firstItem="rxA-on-uNI" firstAttribute="centerY" secondItem="iQf-2d-Hga" secondAttribute="centerY" id="bvl-1E-OjM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -670,10 +670,10 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <toolbarItems/>
                     <connections>
-                        <outlet property="clearCredentialsButton" destination="jfi-7R-ANU" id="b6l-NZ-pBa"/>
                         <outlet property="clearHistoryButton" destination="LUu-zu-IQr" id="aCc-5S-Uza"/>
                         <outlet property="jouleOrCaloriesOutlet" destination="b37-xu-DIS" id="BSR-qA-xAq"/>
                         <outlet property="nutritionUnitOutlet" destination="XQE-hH-APP" id="4JB-uG-M1O"/>
+                        <outlet property="offAcountToUse" destination="rxA-on-uNI" id="hgC-Zz-yaB"/>
                         <outlet property="saltOrSodiumOutlet" destination="9HQ-Hd-LCX" id="FFV-TI-qtX"/>
                         <segue destination="HFz-PM-YvU" kind="unwind" identifier="Settings Done" unwindAction="settingsDone:" id="ISY-Ed-Z4N"/>
                     </connections>

@@ -23,8 +23,7 @@ class Preferences {
     var mapAddress: Address
     var allergenWarnings: [(String, Bool)] = []
     var favoriteShops: [(String, Address)] = []
-    var keyChainUnlocked: Bool = false
-    var OFFLogInCredentialsSet = false
+    var userDidAuthenticate: Bool = false
     
     init() {
         showSaltOrSodium = NatriumChloride.salt

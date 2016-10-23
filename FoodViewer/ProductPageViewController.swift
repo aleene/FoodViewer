@@ -83,12 +83,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
-        // befor continuing to let the user enter data
-        // check how the data should be saved
-        // Did the user already login into the app?
-        if !Preferences.manager.OFFLogInCredentialsSet {
-            credentialProtocolToUse()
-        }
         self.performSegue(withIdentifier: Constants.ConfirmProductViewControllerSegue, sender: self)
     }
         
@@ -315,7 +309,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func changeConfirmButtonToFailure() {
         confirmBarButtonItem.tintColor = .red
     }
-    
+    /*
     // MARK: - Credential functions
     
     let MyKeychainWrapper = KeychainWrapper()
@@ -387,7 +381,50 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 // The username and password will then be retrieved from the keychain if needed
                 if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: nil) {
                     // the device knows TouchID
-                    Preferences.manager.keyChainUnlocked = true
+                    context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Logging in with Touch ID", reply: {
+                        (success: Bool, error: Error? ) -> Void in
+                        
+                        // 3. Inside the reply block, you handling the success case first. By default, the policy evaluation happens on a private thread, so your code jumps back to the main thread so it can update the UI. If the authentication was successful, you call the segue that dismisses the login view.
+                        
+                        // DispatchQueue.main.async(execute: {
+                        if success {
+                            Preferences.manager.keyChainUnlocked = true
+                            self.performSegue(withIdentifier: Constants.ConfirmProductViewControllerSegue, sender: self)
+                        } else {
+                            if let validError = error {
+                                var message : NSString
+                                var showAlert : Bool
+                                // 4. Now for the “failure” cases. You use a switch statement to set appropriate error messages for each error case, then present the user with an alert view.
+                                switch(validError) {
+                                case LAError.authenticationFailed:
+                                    message = "There was a problem verifying your identity."
+                                    showAlert = true
+                                    break;
+                                case LAError.userCancel:
+                                    message = "You pressed cancel."
+                                    showAlert = true
+                                    break;
+                                case LAError.userFallback:
+                                    message = "You pressed password."
+                                    showAlert = true
+                                    break;
+                                default:
+                                    showAlert = true
+                                    message = "Touch ID may not be configured"
+                                    break;
+                                }
+                                
+                                let alertView = UIAlertController(title: "Error", message: message as String, preferredStyle:.alert)
+                                let okAction = UIAlertAction(title: "Darn!", style: .default, handler: nil)
+                                alertView.addAction(okAction)
+                                if showAlert {
+                                    self.present(alertView, animated: true, completion: nil)
+                                }
+                                self.setUserNamePassword()
+                            }
+                        }
+                    } )
+
                 } else {
                     // let the user login normally
                     setUserNamePassword()
@@ -399,69 +436,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // so we will not bother the user any more
         Preferences.manager.OFFLogInCredentialsSet = true
     }
-    
-    // Function to ask username/password and store it in the keychain
-    private func setUserNamePassword() {
-
-        let alertController = UIAlertController(title: NSLocalizedString("Personal Account",
-                                                                         comment: "Title in AlertViewController, which lets the user enter his username/password."),
-                                                message: NSLocalizedString("Specify your credentials for OFF?",
-                                                                           comment: "Explanatory text in AlertViewController, which lets the user enter his username/password."),
-                                                preferredStyle:.alert)
-        let useFoodViewer = UIAlertAction(title: NSLocalizedString("Cancel",
-                                                                   comment: "String in button, to let the user indicate he wants to cancel username/password input."),
-                                          style: .default) { action -> Void in
-                                            Preferences.manager.keyChainUnlocked = false
-        }
-        
-        let useMyOwn = UIAlertAction(title: NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input."), style: .default) { action -> Void in
-            // alertController.view.resignFirstResponder()
-            // all depends on other asynchronic processes
-        }
-        alertController.addTextField { textField -> Void in
-            textField.tag = 0
-            textField.placeholder = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
-            textField.delegate = self
-        }
-        alertController.addTextField { textField -> Void in
-            textField.tag = 1
-            textField.placeholder = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
-            textField.delegate = self
-        }
-
-        alertController.addAction(useFoodViewer)
-        alertController.addAction(useMyOwn)
-        self.present(alertController, animated: true, completion: nil)
-    }
-
-    // MARK: - TextField stuff
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // username
-        switch textField.tag {
-        case 0:
-            if let validText = textField.text {
-                username = validText
-            }
-        // password
-        default:
-            if let validText = textField.text {
-                password = validText
-            }
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        
-        return true
-    }
+    */
 
     // MARK: - Segues
     

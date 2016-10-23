@@ -30,7 +30,7 @@
 		512C368E1D89A7850004C297 /* 5411788045285.json in Resources */ = {isa = PBXBuildFile; fileRef = 512C368D1D89A7850004C297 /* 5411788045285.json */; };
 		51352FBB1DA6570E008FF151 /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */; };
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
-		513D16B01DB4C02D005B1971 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* LogIn.swift */; };
+		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		514A74001D91B6D500EFF465 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A73FF1D91B6D500EFF465 /* TagView.swift */; };
 		514A74041D91B6F400EFF465 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A74011D91B6F400EFF465 /* CloseButton.swift */; };
 		514A74051D91B6F400EFF465 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A74031D91B6F400EFF465 /* TagListView.swift */; };
@@ -57,7 +57,6 @@
 		515742781CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742671CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift */; };
 		515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */; };
 		51578BF41DB11E6A005BEEF6 /* KeychainAccess in Resources */ = {isa = PBXBuildFile; fileRef = 51578BF31DB11E6A005BEEF6 /* KeychainAccess */; };
-		51578C0A1DB27C77005BEEF6 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51578C091DB27C77005BEEF6 /* LogInViewController.swift */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
 		5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160FE4E1CD3ADC300CA4A6E /* StringExtension.swift */; };
@@ -198,7 +197,7 @@
 		512C368D1D89A7850004C297 /* 5411788045285.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5411788045285.json; sourceTree = "<group>"; };
 		51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPageViewController.swift; sourceTree = "<group>"; };
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
-		513D16AF1DB4C02D005B1971 /* LogIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		514A73FF1D91B6D500EFF465 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		514A74011D91B6F400EFF465 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
 		514A74021D91B6F400EFF465 /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
@@ -226,7 +225,6 @@
 		515742671CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUnifiedCodeValidator.swift; path = RS/RSUnifiedCodeValidator.swift; sourceTree = "<group>"; };
 		515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUPCEGenerator.swift; path = RS/RSUPCEGenerator.swift; sourceTree = "<group>"; };
 		51578BF31DB11E6A005BEEF6 /* KeychainAccess */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KeychainAccess; path = /Users/arnaud/Programming/FoodViewer/FoodViewer/KeychainAccess; sourceTree = "<absolute>"; };
-		51578C091DB27C77005BEEF6 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
 		5160FE4E1CD3ADC300CA4A6E /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
@@ -349,7 +347,6 @@
 		5107C82B1D9D07AB006A628C /* EditPages */ = {
 			isa = PBXGroup;
 			children = (
-				51578C091DB27C77005BEEF6 /* LogInViewController.swift */,
 				51E13F031D9A8E40000F71C5 /* ConfirmProductTableViewController.swift */,
 			);
 			name = EditPages;
@@ -437,6 +434,7 @@
 			children = (
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				51F057FC1CB6AFEF00849532 /* OFFProducts.swift */,
+				513D16AF1DB4C02D005B1971 /* OFFAccount.swift */,
 				5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */,
 			);
 			name = OFF;
@@ -595,7 +593,6 @@
 			isa = PBXGroup;
 			children = (
 				51E614931C8349AD00DAEE6C /* History.swift */,
-				513D16AF1DB4C02D005B1971 /* LogIn.swift */,
 				51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */,
 				515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */,
 			);
@@ -855,7 +852,6 @@
 				5150C0681CBD48BD00161616 /* NoImageTableViewCell.swift in Sources */,
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
 				517AAD551C7DB65400B12F3C /* LabelsFullTableViewCell.swift in Sources */,
-				51578C0A1DB27C77005BEEF6 /* LogInViewController.swift in Sources */,
 				5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
@@ -922,7 +918,7 @@
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,
 				5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */,
-				513D16B01DB4C02D005B1971 /* LogIn.swift in Sources */,
+				513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */,
 				51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */,
 				51CB20171D8C48C8005DFEDC /* SitesTagListTableViewCell.swift in Sources */,
 				51C86B5D1C6DE901002B7566 /* CommunityTableViewCell.swift in Sources */,

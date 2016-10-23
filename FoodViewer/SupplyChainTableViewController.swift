@@ -106,6 +106,10 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
+        sectionsAndRows.append((
+            SectionType.expirationDate,
+            TableStructure.ExpirationDateSectionSize,
+            TableStructure.ExpirationDateSectionHeader))
         // ingredient origin section
         sectionsAndRows.append((
             SectionType.ingredientOrigin,
@@ -126,25 +130,21 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
             SectionType.sites,
             TableStructure.SitesSectionSize,
             TableStructure.SitesSectionHeader))
-        // purchase Location section
-        sectionsAndRows.append((
-            SectionType.location,
-            TableStructure.LocationSectionSize,
-            TableStructure.LocationSectionHeader))
-        sectionsAndRows.append((
-            SectionType.expirationDate,
-            TableStructure.ExpirationDateSectionSize,
-            TableStructure.ExpirationDateSectionHeader))
-        // countries section
-        sectionsAndRows.append((
-            SectionType.country,
-            TableStructure.CountriesSectionSize,
-            TableStructure.CountriesSectionHeader))
         // stores section
         sectionsAndRows.append((
             SectionType.store,
             TableStructure.StoresSectionSize,
             TableStructure.StoresSectionHeader))
+        // purchase Location section
+        sectionsAndRows.append((
+            SectionType.location,
+            TableStructure.LocationSectionSize,
+            TableStructure.LocationSectionHeader))
+        // countries section
+        sectionsAndRows.append((
+            SectionType.country,
+            TableStructure.CountriesSectionSize,
+            TableStructure.CountriesSectionHeader))
         sectionsAndRows.append((
             SectionType.map,
             TableStructure.MapSectionSize,
