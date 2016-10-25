@@ -8,9 +8,9 @@
 
 import UIKit
 
-class IdentificationTableViewController: UITableViewController {
+class IdentificationTableViewController: UITableViewController, UITextFieldDelegate {
 
-    struct TextConstants {
+    fileprivate struct TextConstants {
         static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
         static let NoCommonName = NSLocalizedString("No common name available", comment: "String if no common name is available")
@@ -19,7 +19,13 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     fileprivate var tableStructure: [SectionType] = []
-    
+
+    var editMode: Bool = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            tableView.reloadData()
+        }
+    }
     
     fileprivate enum SectionType {
         case barcode(Int, String)
@@ -130,6 +136,9 @@ class IdentificationTableViewController: UITableViewController {
                 cell!.name = product!.nameLanguage[currentLanguageCode!]!
                 cell!.language = product!.languages[currentLanguageCode!]
                 cell!.numberOfLanguages = product!.languageCodes.count
+                cell!.editMode = editMode
+                cell!.nameTextField.delegate = self
+                cell!.nameTextField.tag = 0
             } else {
                 cell!.name = nil
                 cell!.language = nil
@@ -144,6 +153,9 @@ class IdentificationTableViewController: UITableViewController {
                 cell!.name = product!.genericNameLanguage[currentLanguageCode!]!
                 cell!.language = product!.languages[currentLanguageCode!]
                 cell!.numberOfLanguages = product!.languageCodes.count
+                cell!.editMode = editMode
+                cell!.nameTextField.delegate = self
+                cell!.nameTextField.tag = 1
             } else {
                 cell!.name = nil
                 cell!.language = nil
@@ -269,6 +281,43 @@ class IdentificationTableViewController: UITableViewController {
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
+    
+    // MARK: - TextField stuff
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            // productname
+            if let validText = textField.text {
+                product!.name = validText
+            }
+        case 1:
+            // generic name
+            if let validText = textField.text {
+                product!.genericName = validText
+            }
+        default:
+            break
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return editMode
+    }
+
+    // MARK: - Segue stuff
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {

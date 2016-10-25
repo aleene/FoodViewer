@@ -32,7 +32,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITextFieldDelegate {
 
-    struct Constants {
+    fileprivate struct Constants {
         static let StoryBoardIdentifier = "Main"
         static let IdentificationVCIdentifier = "IdentificationTableViewController"
         static let IngredientsVCIdentifier = "IngredientsTableViewController"
@@ -45,8 +45,18 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     // The languageCode for the language in which the fields are shown
-    var currentLanguageCode: String? = nil
+    fileprivate var currentLanguageCode: String? = nil
 
+    fileprivate var editMode: Bool = false {
+        didSet {
+            // percolate the change to the productpages
+            let currentViewController = pages[pageIndex!]
+            if let vc = currentViewController as? IdentificationTableViewController {
+                vc.editMode = editMode
+            }
+        }
+    }
+    
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem!
     
     
@@ -83,7 +93,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: Constants.ConfirmProductViewControllerSegue, sender: self)
+        editMode = !editMode
+        if editMode {
+            confirmBarButtonItem.image = UIImage.init(named: "CheckMark")
+        } else {
+            confirmBarButtonItem.image = UIImage.init(named: "Edit")
+
+        }
+        // MARK: TBD: I should change the button to correspond th edit mode
+        
+        // self.performSegue(withIdentifier: Constants.ConfirmProductViewControllerSegue, sender: self)
     }
         
     var pageIndex: Int? = nil {
@@ -131,37 +150,37 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                 NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product."),
                                 NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")]
     
-    var page1: UIViewController {
+    fileprivate var page1: UIViewController {
         get {
             return storyboard!.instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier)
         }
     }
-    var page2: UIViewController {
+    fileprivate var page2: UIViewController {
         get {
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IngredientsVCIdentifier)
         }
     }
-    var page3: UIViewController {
+    fileprivate var page3: UIViewController {
         get {
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutrientsVCIdentifier)
         }
     }
-    var page4: UIViewController {
+    fileprivate var page4: UIViewController {
         get {
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.SupplyChainVCIdentifier)
         }
     }
-    var page5: UIViewController {
+    fileprivate var page5: UIViewController {
         get {
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CategoriesVCIdentifier)
         }
     }
-    var page6: UIViewController {
+    fileprivate var page6: UIViewController {
         get {
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CommunityEffortVCIdentifier)
         }
     }
-    var page7: UIViewController {
+    fileprivate var page7: UIViewController {
         get {
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier)
         }
@@ -176,6 +195,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             if let vc = pages[0] as? IdentificationTableViewController {
                 vc.product = product
                 vc.currentLanguageCode = currentLanguageCode
+                vc.editMode = editMode
                 title = titles[0]
             }
             if let vc = pages[1] as? IngredientsTableViewController {
@@ -200,90 +220,88 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
         
-        // This function finds the language that must be used to display the product
-        fileprivate func setCurrentLanguage() {
-            // is there already a current language?
-            guard currentLanguageCode == nil  else { return }
-            // find the first preferred language that can be used
-            for languageLocale in Locale.preferredLanguages {
-                // split language and locale
-                let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
-                if let languageCodes = product?.languageCodes {
-                    if languageCodes.contains(preferredLanguage) {
-                        currentLanguageCode = preferredLanguage
-                        // found a valid code
-                        return
-                    }
+    // This function finds the language that must be used to display the product
+    func setCurrentLanguage() {
+        // is there already a current language?
+        guard currentLanguageCode == nil else { return }
+        // find the first preferred language that can be used
+        for languageLocale in Locale.preferredLanguages {
+            // split language and locale
+            let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
+            if let languageCodes = product?.languageCodes {
+                if languageCodes.contains(preferredLanguage) {
+                    currentLanguageCode = preferredLanguage
+                    // found a valid code
+                    return
                 }
             }
-            // there is no match between preferred languages and product languages
-            if currentLanguageCode == nil {
-                currentLanguageCode = product?.primaryLanguageCode
-            }
+        }
+        // there is no match between preferred languages and product languages
+        if currentLanguageCode == nil {
+            currentLanguageCode = product?.primaryLanguageCode
+        }
+    }
+        
+// MARK: - Pageview Controller data source
+        
+        
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+            
+        guard let viewControllerIndex = pages.index(of: viewController) else {
+            return nil
+        }
+            
+        let nextIndex = viewControllerIndex + 1
+        let orderedViewControllersCount = pages.count
+            
+        guard orderedViewControllersCount != nextIndex else {
+            return nil
+        }
+            
+        guard orderedViewControllersCount > nextIndex else {
+            return nil
+        }
+        return pages[nextIndex]
+    }
+        
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+            
+        guard let viewControllerIndex = pages.index(of: viewController) else {
+            return nil
+        }
+            
+        let previousIndex = viewControllerIndex - 1
+            
+        guard previousIndex >= 0 else {
+            return nil
+        }
+            
+        guard pages.count > previousIndex else {
+            return nil
         }
         
-        // MARK: - Pageview Controller data source
+        return pages[previousIndex]
+    }
         
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return pages.count
+    }
         
-        func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-            
-            guard let viewControllerIndex = pages.index(of: viewController) else {
-                return nil
-            }
-            
-            let nextIndex = viewControllerIndex + 1
-            let orderedViewControllersCount = pages.count
-            
-            guard orderedViewControllersCount != nextIndex else {
-                return nil
-            }
-            
-            guard orderedViewControllersCount > nextIndex else {
-                return nil
-            }
-            return pages[nextIndex]
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        guard let firstViewController = viewControllers?.first,
+            let firstViewControllerIndex = pages.index(of: firstViewController) else {
+                return 0
         }
+            
+        return firstViewControllerIndex
+    }
         
-        func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-            
-            guard let viewControllerIndex = pages.index(of: viewController) else {
-                return nil
-            }
-            
-            let previousIndex = viewControllerIndex - 1
-            
-            guard previousIndex >= 0 else {
-                return nil
-            }
-            
-            guard pages.count > previousIndex else {
-                return nil
-            }
-            
-            
-            return pages[previousIndex]
-            
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let current = viewControllers?.first,
+            let viewControllerIndex = pages.index(of: current) {
+            title = titles[viewControllerIndex]
         }
-        
-        func presentationCount(for pageViewController: UIPageViewController) -> Int {
-            return pages.count
-        }
-        
-        func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-            guard let firstViewController = viewControllers?.first,
-                let firstViewControllerIndex = pages.index(of: firstViewController) else {
-                    return 0
-            }
-            
-            return firstViewControllerIndex
-        }
-        
-        func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-            if let current = viewControllers?.first,
-                let viewControllerIndex = pages.index(of: current) {
-                title = titles[viewControllerIndex]
-            }
-        }
+    }
         
         
     // MARK: - Notification actions
@@ -309,134 +327,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func changeConfirmButtonToFailure() {
         confirmBarButtonItem.tintColor = .red
     }
-    /*
-    // MARK: - Credential functions
-    
-    let MyKeychainWrapper = KeychainWrapper()
-    var context = LAContext()
-
-    private var username: String? = nil {
-        didSet {
-            privateCredentialsHaveBeenSet()
-        }
-    }
-    private var password: String? = nil {
-        didSet {
-            privateCredentialsHaveBeenSet()
-        }
-    }
-    
-    private func privateCredentialsHaveBeenSet() {
-        var logInProtocol = LogIn()
-        logInProtocol.useFoodViewerOFFAccount = false
-        // only write if both items have been set
-        if self.username != nil && self.password != nil {
-            self.MyKeychainWrapper.mySetObject(self.username!, forKey:kSecAttrAccount)
-            self.MyKeychainWrapper.mySetObject(self.password!, forKey:kSecValueData)
-            self.MyKeychainWrapper.writeToKeychain()
-            // once stored in the keychain, remove the items
-            self.username = nil
-            self.password = nil
-            logInProtocol.personalOFFAcountAvailable = true
-            Preferences.manager.keyChainUnlocked = true
-        }
-    }
-    
-    private func credentialProtocolToUse() {
-        var logInProtocol = LogIn()
-
-        // allow the user to set how he wants to use the app
-        // he can later change it under Preferences
-        // is this a first run?
-        if logInProtocol.useFoodViewerOFFAccount == nil {
-            let alertController = UIAlertController(title: NSLocalizedString("Set OFF Account",
-                                                                             comment: "title in AlertController, which lets the user set which OFF Credentials should be used."),
-                                                    message: NSLocalizedString("Which OFF account should be used for editing products?",
-                                                                               comment: "explanatory text in AlertController, which lets the user set which OFF Credentials should be used."),
-                                                    preferredStyle: .alert)
-            let useFoodViewer = UIAlertAction(title: NSLocalizedString("FoodViewer",
-                                                                       comment: "String in button, to let the user indicate he wants to use the FoodViewer OFF credentials."),
-                                              style: .default) { action -> Void in
-                logInProtocol.useFoodViewerOFFAccount = true
-            }
-            let useMyOwn = UIAlertAction(title: NSLocalizedString("Use My Own",
-                                                                  comment: "String in button, to let the user indicate he wants to use his own OFF credentials."),
-                                         style: .default) { action -> Void in
-                logInProtocol.useFoodViewerOFFAccount = false
-                // now the user can set username / password
-                self.setUserNamePassword()
-            }
-
-            alertController.addAction(useFoodViewer)
-            alertController.addAction(useMyOwn)
-            // TBD I can also run the setUserNamePassword upon present-completion??
-            self.present(alertController, animated: true, completion: nil)
-        // Has a personal off-account been set?
-        } else if !logInProtocol.useFoodViewerOFFAccount! {
-            // has the username/password already been set?
-            if logInProtocol.personalOFFAcountAvailable == nil || !logInProtocol.personalOFFAcountAvailable! {
-                setUserNamePassword()
-            } else {
-                // let the user ID himself with TouchID
-                // The username and password will then be retrieved from the keychain if needed
-                if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: nil) {
-                    // the device knows TouchID
-                    context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Logging in with Touch ID", reply: {
-                        (success: Bool, error: Error? ) -> Void in
-                        
-                        // 3. Inside the reply block, you handling the success case first. By default, the policy evaluation happens on a private thread, so your code jumps back to the main thread so it can update the UI. If the authentication was successful, you call the segue that dismisses the login view.
-                        
-                        // DispatchQueue.main.async(execute: {
-                        if success {
-                            Preferences.manager.keyChainUnlocked = true
-                            self.performSegue(withIdentifier: Constants.ConfirmProductViewControllerSegue, sender: self)
-                        } else {
-                            if let validError = error {
-                                var message : NSString
-                                var showAlert : Bool
-                                // 4. Now for the “failure” cases. You use a switch statement to set appropriate error messages for each error case, then present the user with an alert view.
-                                switch(validError) {
-                                case LAError.authenticationFailed:
-                                    message = "There was a problem verifying your identity."
-                                    showAlert = true
-                                    break;
-                                case LAError.userCancel:
-                                    message = "You pressed cancel."
-                                    showAlert = true
-                                    break;
-                                case LAError.userFallback:
-                                    message = "You pressed password."
-                                    showAlert = true
-                                    break;
-                                default:
-                                    showAlert = true
-                                    message = "Touch ID may not be configured"
-                                    break;
-                                }
-                                
-                                let alertView = UIAlertController(title: "Error", message: message as String, preferredStyle:.alert)
-                                let okAction = UIAlertAction(title: "Darn!", style: .default, handler: nil)
-                                alertView.addAction(okAction)
-                                if showAlert {
-                                    self.present(alertView, animated: true, completion: nil)
-                                }
-                                self.setUserNamePassword()
-                            }
-                        }
-                    } )
-
-                } else {
-                    // let the user login normally
-                    setUserNamePassword()
-                }
-
-            }
-        }
-        // The login stuff has been done for the duration of this app run
-        // so we will not bother the user any more
-        Preferences.manager.OFFLogInCredentialsSet = true
-    }
-    */
 
     // MARK: - Segues
     
