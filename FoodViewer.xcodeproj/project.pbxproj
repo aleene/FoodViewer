@@ -56,7 +56,6 @@
 		515742771CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742661CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift */; };
 		515742781CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742671CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift */; };
 		515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */; };
-		51578BF41DB11E6A005BEEF6 /* KeychainAccess in Resources */ = {isa = PBXBuildFile; fileRef = 51578BF31DB11E6A005BEEF6 /* KeychainAccess */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
 		5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */; };
@@ -224,7 +223,6 @@
 		515742661CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUnifiedCodeGenerator.swift; path = RS/RSUnifiedCodeGenerator.swift; sourceTree = "<group>"; };
 		515742671CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUnifiedCodeValidator.swift; path = RS/RSUnifiedCodeValidator.swift; sourceTree = "<group>"; };
 		515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUPCEGenerator.swift; path = RS/RSUPCEGenerator.swift; sourceTree = "<group>"; };
-		51578BF31DB11E6A005BEEF6 /* KeychainAccess */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KeychainAccess; path = /Users/arnaud/Programming/FoodViewer/FoodViewer/KeychainAccess; sourceTree = "<absolute>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
 		5160C29A1DBCFE6A00CB3EF0 /* FoodViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoodViewer.entitlements; sourceTree = "<group>"; };
@@ -768,7 +766,6 @@
 			files = (
 				517FC9311CD500C100CB89ED /* Localizable.strings in Resources */,
 				516BA58C1CC4E6BE008A094A /* 40111490.json in Resources */,
-				51578BF41DB11E6A005BEEF6 /* KeychainAccess in Resources */,
 				51E5CC961CAD13A600216868 /* 54004207.json in Resources */,
 				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
