@@ -244,7 +244,12 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
             }
             print("Tag pressed: \(title), \(urlToOpen)")
             if UIApplication.shared.canOpenURL(urlToOpen as URL) {
-                UIApplication.shared.open(urlToOpen, options: [:], completionHandler: nil)
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(urlToOpen, options: [:], completionHandler: nil)
+                } else {
+                    // Fallback on earlier versions
+                    UIApplication.shared.openURL(urlToOpen)
+                }
             }
         }
         tagView.isSelected = !tagView.isSelected

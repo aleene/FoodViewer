@@ -47,7 +47,13 @@ class TUSafariActivity : UIActivity {
     override func perform() {
         // Todo: handle action:
         if let requestUrl = openURL {
-            UIApplication.shared.open(requestUrl, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(requestUrl, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+                UIApplication.shared.openURL(requestUrl)
+
+            }
         }
         
         self.activityDidFinish(true)
