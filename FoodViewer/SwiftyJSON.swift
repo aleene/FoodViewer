@@ -824,12 +824,12 @@ extension JSON {
             }
         }
         set {
-            self.object = newValue?.absoluteString
+            self.object = newValue?.absoluteString as Any
         }
     }
     
     //Optional time
-    public var time: Date? {
+    public var time: Date? { 
         get {
             switch self.type {
             case .number:
@@ -844,7 +844,7 @@ extension JSON {
             }
         }
         set {
-            self.object = newValue?.timeIntervalSince1970
+            self.object = newValue?.timeIntervalSince1970 as Any
         }
     }
 
