@@ -87,7 +87,7 @@ class IngredientsTableViewController: UITableViewController {
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as? IngredientsFullTableViewCell
             // does the product have valid multiple languages
-            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
+            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) && product!.ingredientsLanguage.count > 0  {
                 cell?.ingredients = product!.ingredientsLanguage[currentLanguageCode!]!
                 cell?.numberOfLanguages = product!.languageCodes.count
                 cell?.language = product!.languages[currentLanguageCode!]
