@@ -59,6 +59,17 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
     
+    var editMode = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            if editMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    var delegate: ProductPageViewController? = nil
+
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
@@ -74,6 +85,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
         static let SitesCellIdentifier = "Sites TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
+        static let ShowExpirationDateViewControllerSegue = "Show ExpirationDate ViewController"
     }
     
 
@@ -205,11 +217,18 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
             return cell
         case .expirationDate:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath)
-            if let date = product!.expirationDate {
+            
+            // has the product been edited?
+            if let validName = delegate?.updatedProduct?.expirationDate {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .none
-                cell.textLabel!.text = formatter.string(from: date as Date)
+                cell.textLabel!.text = formatter.string(from: validName as Date)
+            } else if let validName = product!.expirationDate {
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .none
+                cell.textLabel!.text = formatter.string(from: validName as Date)
             } else {
                 cell.textLabel!.text = Constants.NoExpirationDate
             }
@@ -228,6 +247,20 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
             return 300
         default:
             return 88
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+
+        if editMode {
+            switch currentProductSection {
+            case .expirationDate:
+                performSegue(withIdentifier: Storyboard.ShowExpirationDateViewControllerSegue, sender: self)
+            default:
+                break
+            }
         }
     }
     
@@ -264,6 +297,47 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
     func removeProduct() {
         product = nil
         tableView.reloadData()
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.ShowExpirationDateViewControllerSegue:
+                if  let vc = segue.destination as? SelectExpirationDateViewController {
+                    if let validName = delegate?.updatedProduct?.expirationDate {
+                        let formatter = DateFormatter()
+                        formatter.dateStyle = .medium
+                        formatter.timeStyle = .none
+                        vc.currentDate = validName
+                    } else if let validName = product!.expirationDate {
+                        let formatter = DateFormatter()
+                        formatter.dateStyle = .medium
+                        formatter.timeStyle = .none
+                        vc.currentDate = validName
+                    } else {
+                        vc.currentDate = nil
+                    }
+
+                }
+            default: break
+            }
+        }
+    }
+
+    @IBAction func unwindSetExpirationDateForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectExpirationDateViewController {
+            if let newDate = vc.selectedDate {
+                delegate?.updated(expirationDate: newDate)
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    @IBAction func unwindSetExpirationDateForCancel(_ segue:UIStoryboardSegue) {
+        if let _ = segue.source as? SelectExpirationDateViewController {
+        }
     }
 
     // MARK: - Controller Lifecycle

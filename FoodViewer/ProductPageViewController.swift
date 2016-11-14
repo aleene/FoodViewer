@@ -30,7 +30,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, UITextFieldDelegate {
+class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ProductUpdatedProtocol {
 
     fileprivate struct Constants {
         static let StoryBoardIdentifier = "Main"
@@ -46,16 +46,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     // The languageCode for the language in which the fields are shown
     fileprivate var currentLanguageCode: String? = nil
-
-    fileprivate var editMode: Bool = false {
-        didSet {
-            // percolate the change to the productpages
-            let currentViewController = pages[pageIndex!]
-            if let vc = currentViewController as? IdentificationTableViewController {
-                vc.editMode = editMode
-            }
-        }
-    }
     
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem!
     
@@ -92,19 +82,70 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         self.present(activityViewController, animated: true, completion: nil)
     }
     
+    // MARK: edit functions
+    
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
-        editMode = !editMode
+        // Current mode
         if editMode {
-            confirmBarButtonItem.image = UIImage.init(named: "CheckMark")
-        } else {
+            // time to save
+            if let validUpdatedProduct = updatedProduct {
+                let update = OFFUpdate()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+                // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                    let fetchResult = update.update(product: validUpdatedProduct)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        switch fetchResult {
+                        case .success:
+                            // get the new product data
+                            OFFProducts.manager.reload(self.product!)
+                            self.updatedProduct = nil
+                            // send notification of success, so feedback can be given
+                            NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
+                            break
+                        case .failure:
+                            // send notification of failure, so feedback can be given
+                            NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
+                            break
+                        }
+                    })
+                })
+            }
             confirmBarButtonItem.image = UIImage.init(named: "Edit")
-
+        } else {
+            // create an updated product instance to store all changes/edits
+            //if let validBarcode = product?.barcode {
+                // setup an empty product with only theh barcode
+            //    updatedProduct = FoodProduct.init(withBarcode: validBarcode)
+           // }
+            confirmBarButtonItem.image = UIImage.init(named: "CheckMark")
         }
-        // MARK: TBD: I should change the button to correspond th edit mode
-        
-        // self.performSegue(withIdentifier: Constants.ConfirmProductViewControllerSegue, sender: self)
+        editMode = !editMode
     }
-        
+    
+    
+    fileprivate var editMode: Bool = false {
+        didSet {
+            // pushdown any setting
+            if let vc = pages[0] as? IdentificationTableViewController {
+                vc.editMode = editMode
+            }
+            if let vc = pages[1] as? IngredientsTableViewController {
+                vc.editMode = editMode
+            }
+            if let vc = pages[2] as? NutrientsTableViewController {
+                vc.editMode = editMode
+            }
+            if let vc = pages[3] as? SupplyChainTableViewController {
+                vc.editMode = editMode
+            }
+        }
+    }
+
+    // MARK: - Pages initialization
+    
     var pageIndex: Int? = nil {
         didSet {
             // has the initialisation been done?
@@ -124,8 +165,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
         
-    // MARK: - Pages initialization
-        
+    
     fileprivate var pages: [UIViewController] = []
         
     fileprivate func initPages () {
@@ -194,19 +234,26 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             initPages()
             if let vc = pages[0] as? IdentificationTableViewController {
                 vc.product = product
+                vc.delegate = self
                 vc.currentLanguageCode = currentLanguageCode
                 vc.editMode = editMode
                 title = titles[0]
             }
             if let vc = pages[1] as? IngredientsTableViewController {
                 vc.product = product
+                vc.delegate = self
+                vc.editMode = editMode
                 vc.currentLanguageCode = currentLanguageCode
             }
             if let vc = pages[2] as? NutrientsTableViewController {
                 vc.product = product
+                vc.delegate = self
+                vc.editMode = editMode
             }
             if let vc = pages[3] as? SupplyChainTableViewController {
                 vc.product = product
+                vc.delegate = self
+                vc.editMode = editMode
             }
             if let vc = pages[4] as? CategoriesTableViewController {
                 vc.product = product
@@ -327,7 +374,46 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func changeConfirmButtonToFailure() {
         confirmBarButtonItem.tintColor = .red
     }
+    
+    // MARK: - Product Updated Protocol functions
 
+    // The updated product contains only those fields that have been edited.
+    // Thus one can always revert to the original product
+    // And we know exactly what has changed
+    // The user can undo an edit in progress by stepping back, i.e. selecting another product
+    var updatedProduct: FoodProduct? = nil
+
+    func updated(name: String, languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.set(newName: name, forLanguageCode: languageCode)
+    }
+    
+    func updated(genericName: String, languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.set(newGenericName: genericName, forLanguageCode: languageCode)
+    }
+    
+    func updated(ingredients: String, languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.set(newIngredients: ingredients, forLanguageCode: languageCode)
+    }
+    
+    func updated(portion: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.servingSize = portion
+    }
+
+    func updated(expirationDate: Date) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.expirationDate = expirationDate
+    }
+
+    private func initUpdatedProductWith(product: FoodProduct) {
+        if updatedProduct == nil {
+            updatedProduct = FoodProduct.init(product:product)
+        }
+    }
+    
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -346,8 +432,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     @IBAction func unwindSetLanguageForCancel(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectLanguageViewController {
-            currentLanguageCode = vc.currentLanguageCode
-            updateCurrentLanguage()
+            // currentLanguageCode = vc.currentLanguageCode
+            // updateCurrentLanguage()
             pageIndex = vc.sourcePage
         }
     }
@@ -355,11 +441,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     @IBAction func unwindSetLanguageForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.selectedLanguageCode
-            updateCurrentLanguage()
             pageIndex = vc.sourcePage
+            product?.languageCodes = vc.languageCodes
+            updateCurrentLanguage()
         }
     }
-        
+    
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
         /*
         if let vc = segue.source as? ConfirmProductTableViewController {

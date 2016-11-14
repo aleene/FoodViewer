@@ -26,11 +26,16 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextField.borderStyle = .roundedRect
             nameTextField.layer.borderWidth = 1.0
             nameTextField.layer.borderColor = UIColor.black.cgColor
-
+            changeLanguageButton.isEnabled = true
         } else {
             nameTextField.borderStyle = .roundedRect
             nameTextField.layer.borderWidth = 1.0
             nameTextField.layer.borderColor = UIColor.white.cgColor
+            if numberOfLanguages > 1 {
+                changeLanguageButton.isEnabled = true
+            } else {
+                changeLanguageButton.isEnabled = false
+            }
         }
     }
     
@@ -51,20 +56,16 @@ class ProductNameTableViewCell: UITableViewCell {
         }
     }
     
-    var language: String? = nil {
+    var languageCode: String? = nil {
         didSet {
-            let verboseLanguage = language != nil ? OFFplists.manager.translateLanguage(language!, language:Locale.preferredLanguages[0])  : Constants.NoLanguage
+            let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0])  : Constants.NoLanguage
             changeLanguageButton.setTitle(verboseLanguage, for: UIControlState())
         }
     }
     
     var numberOfLanguages: Int = 0 {
         didSet {
-            if numberOfLanguages > 1 {
-                changeLanguageButton.isEnabled = true
-            } else {
-                changeLanguageButton.isEnabled = false
-            }
+            setTextFieldStyle()
         }
     }
 }

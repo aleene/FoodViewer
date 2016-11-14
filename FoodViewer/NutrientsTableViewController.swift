@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NutrientsTableViewController: UITableViewController {
+class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
 
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
@@ -39,43 +39,59 @@ class NutrientsTableViewController: UITableViewController {
         }
     }
     
-    func adaptNutritionFacts(_ facts: [NutritionFactItem]) -> [DisplayFact] {
-        var displayFacts: [DisplayFact] = []
-        for fact in facts {
-            var newFact: NutritionFactItem? = nil
-            if (fact.key == NatriumChloride.salt.key()) {
-                switch Preferences.manager.showSaltOrSodium {
-                    // do not show sodium
-                case .sodium: break
-                default:
-                    newFact = fact
-                }
-            } else if (fact.key == NatriumChloride.sodium.key()) {
-                switch Preferences.manager.showSaltOrSodium {
-                // do not show salt
-                case .salt: break
-                default:
-                    newFact = fact
-                }
-            } else if (fact.key == Energy.joule.key()) {
-                switch Preferences.manager.showCaloriesOrJoule {
-                // show energy as calories
-                case .calories:
-                    newFact = NutritionFactItem.init(name: Energy.calories.description(),
-                                                     standard: fact.valueInCalories(fact.standardValue),
-                                                     serving: fact.valueInCalories(fact.servingValue),
-                                                     unit: Energy.calories.unit(),
-                                                     key: fact.key)
-                case .joule:
-                    // this assumes that fact is in Joule
-                    newFact = fact
-                }
-            } else {
-                newFact = fact
+    var editMode = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            if editMode != oldValue {
+                tableView.reloadData()
             }
-            if let validFact = newFact {
-                let validDisplayFact = localizeFact(validFact)
-                displayFacts.append(validDisplayFact)
+        }
+    }
+
+    var delegate: ProductPageViewController? = nil
+
+    private func adaptNutritionFacts(_ facts: [NutritionFactItem?]?) -> [DisplayFact] {
+        var displayFacts: [DisplayFact] = []
+        if let validFacts = facts {
+            for fact in validFacts {
+                if let validFact = fact {
+                    var newFact: NutritionFactItem? = nil
+                    if (validFact.key == NatriumChloride.salt.key()) {
+                        switch Preferences.manager.showSaltOrSodium {
+                        // do not show sodium
+                        case .sodium: break
+                        default:
+                            newFact = validFact
+                        }
+                    } else if (validFact.key == NatriumChloride.sodium.key()) {
+                        switch Preferences.manager.showSaltOrSodium {
+                        // do not show salt
+                        case .salt: break
+                        default:
+                            newFact = validFact
+                        }
+                    } else if (validFact.key == Energy.joule.key()) {
+                        switch Preferences.manager.showCaloriesOrJoule {
+                        // show energy as calories
+                        case .calories:
+                            newFact = NutritionFactItem.init(name: Energy.calories.description(),
+                                                             standard: validFact.valueInCalories(validFact.standardValue),
+                                                             serving: validFact.valueInCalories(validFact.servingValue),
+                                                             unit: Energy.calories.unit(),
+                                                             key: validFact.key)
+                        case .joule:
+                            // this assumes that fact is in Joule
+                            newFact = validFact
+                        }
+                    } else {
+                        newFact = validFact
+                    }
+                    if let finalFact = newFact {
+                        let validDisplayFact = localizeFact(finalFact)
+                        displayFacts.append(validDisplayFact)
+                    }
+
+                }
             }
         }
         return displayFacts
@@ -89,10 +105,10 @@ class NutrientsTableViewController: UITableViewController {
         case .perStandard:
             let localizedValue = fact.localeStandardValue()
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
-            displayFact.unit = fact.standardValueUnit
+            displayFact.unit = fact.standardValueUnit?.short()
         case .perServing:
             displayFact.value = fact.servingValue != nil ? fact.localeServingValue() : ""
-            displayFact.unit = fact.servingValueUnit
+            displayFact.unit = fact.servingValueUnit?.short()
         case .perDailyValue:
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue() : ""
             displayFact.unit = "" // The numberformatter already provides a % sign
@@ -118,6 +134,7 @@ class NutrientsTableViewController: UITableViewController {
         static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
         static let NoNutrientsImageCellIdentifier = "No Nutrition Image Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
+        static let EditNutrientsViewControllerSegue = "Show Edit Nutrients ViewController Segue"
         static let ShowNutritionFactsImageTitle = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
         static let ViewControllerTitle = NSLocalizedString("Nutrition Facts", comment: "Title of the ViewController with the nutritional values")
     }
@@ -175,16 +192,19 @@ class NutrientsTableViewController: UITableViewController {
                 return cell!
             }
         case .servingSize:
-            if let servingSize = product?.servingSize {
-                if !servingSize.isEmpty {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ServingSizeCellIdentifier, for: indexPath) as? ServingSizeTableViewCell
-                    cell?.servingSize = servingSize
-                    return cell!
-                }
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ServingSizeCellIdentifier, for: indexPath) as? ServingSizeTableViewCell
+            cell!.servingSizeTextField.delegate = self
+            cell!.servingSizeTextField.tag = 0
+            cell!.editMode = editMode
+
+            // has the product been edited?
+            if let validName = delegate?.updatedProduct?.servingSize {
+                cell!.servingSize = validName
+            } else if let validName = product?.servingSize {
+                cell!.servingSize = validName
+            } else {
+                cell!.servingSize = nil
             }
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoServingSizeCellIdentifier, for: indexPath) as? NoServingSizeTableViewCell
-            cell?.tagList = []
             return cell!
 
         case .nutritionImage:
@@ -234,6 +254,17 @@ class NutrientsTableViewController: UITableViewController {
         tempView.tag = section;
         return tempView;
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if editMode {
+        switch indexPath.section {
+            case 0:
+                performSegue(withIdentifier: Storyboard.EditNutrientsViewControllerSegue, sender: self)
+            default:
+                break
+            }
+        }
+    }
     /*
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -258,8 +289,9 @@ class NutrientsTableViewController: UITableViewController {
     func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
         /////
         Preferences.manager.showSaltOrSodium = Preferences.manager.showSaltOrSodium == .salt ? .sodium : .salt
-        
-        adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
+        if let nutritionFacts = product!.nutritionFacts {
+            adaptedNutritionFacts = adaptNutritionFacts(nutritionFacts)
+        }
         tableView.reloadData()
     }
     
@@ -272,7 +304,7 @@ class NutrientsTableViewController: UITableViewController {
             Preferences.manager.showCaloriesOrJoule = .calories
         }
         
-        adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
+        adaptedNutritionFacts = adaptNutritionFacts(product?.nutritionFacts)
         tableView.reloadData()
 
 //        let sections = NSIndexSet.init(index: 0)
@@ -344,7 +376,7 @@ class NutrientsTableViewController: UITableViewController {
         }
         
         // 0 : nutrition facts
-        if product.nutritionFacts.isEmpty {
+        if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
             sectionsAndRows.append((
                 SectionType.nutritionFacts,
                 TableStructure.NutritionFactsEmpytSectionSize,
@@ -371,7 +403,37 @@ class NutrientsTableViewController: UITableViewController {
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
+    
+    // MARK: - TextField stuff
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            // productname
+            if let validText = textField.text {
+                delegate?.updated(portion: validText)
+            }
+        default:
+            break
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return editMode
+    }
+
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -388,11 +450,44 @@ class NutrientsTableViewController: UITableViewController {
                         vc.image = nil
                     }
                 }
+            case Storyboard.EditNutrientsViewControllerSegue:
+                if let vc = segue.destination as? EditNutrientsViewController {
+                    vc.originalNutritionFacts = product?.nutritionFacts
+                    // also pass the edited version, so one can continue editing
+                    vc.editedNutritionFacts = delegate?.product?.nutritionFacts
+                }
             default: break
             }
         }
     }
     
+    @IBAction func unwindEditNutrientsForCancel(_ segue:UIStoryboardSegue) {
+        // reload with first nutrient?
+    }
+    
+    @IBAction func unwindEditNutrientsForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? EditNutrientsViewController {
+            if vc.editedNutritionFacts != nil {
+                delegate?.product?.nutritionFacts = vc.editedNutritionFacts! as! [NutritionFactItem]
+                // have the nutritionFacts been edited?
+                if delegate?.product?.nutritionFacts != nil {
+                    // create a mixed array of unedited and edited items
+                    var newNutritionFacts: [NutritionFactItem?] = []
+                    for index in 0 ..< delegate!.product!.nutritionFacts!.count {
+                        if delegate!.product!.nutritionFacts![index] == nil {
+                            newNutritionFacts.append(product!.nutritionFacts![index]!)
+                        } else {
+                            newNutritionFacts.append(delegate!.product!.nutritionFacts![index]!)
+                        }
+                    }
+                    adaptedNutritionFacts = adaptNutritionFacts(newNutritionFacts)
+                    tableStructureForProduct = analyseProductForTable(product!)
+                    tableView.reloadData()
+                }
+            }
+        }
+    }
+
     // MARK: - Notification handler
     
     func refreshProduct() {

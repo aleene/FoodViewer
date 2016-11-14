@@ -11,9 +11,9 @@ import Foundation
 struct NutritionFactItem {
     var itemName: String? = nil
     var standardValue: String? = nil
-    var standardValueUnit: String? = nil
+    var standardValueUnit: NutritionFactUnit? = nil
     var servingValue: String? = nil
-    var servingValueUnit: String? = nil
+    var servingValueUnit: NutritionFactUnit? = nil
     var dailyFractionPerServing: Double? = nil
     var key: String? = nil
 
@@ -30,8 +30,10 @@ struct NutritionFactItem {
         itemName = name
         standardValue = standard
         servingValue = serving
-        standardValueUnit = unit
-        servingValueUnit = unit
+        if let validUnit = unit {
+            standardValueUnit = NutritionFactUnit.set(text: validUnit)
+            servingValueUnit = NutritionFactUnit.set(text: validUnit)
+        }
         self.key = key
     }
 

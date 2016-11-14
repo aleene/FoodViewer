@@ -20,12 +20,6 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     
     fileprivate var tableStructure: [SectionType] = []
 
-    var editMode: Bool = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            tableView.reloadData()
-        }
-    }
     
     fileprivate enum SectionType {
         case barcode(Int, String)
@@ -85,7 +79,22 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
     
-    var currentLanguageCode: String? = nil
+    var delegate: ProductPageViewController? = nil
+    
+    var editMode: Bool = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            if editMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+
+    var currentLanguageCode: String? = nil {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     // MARK: - Action methods
     
@@ -100,9 +109,10 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     // MARK: - Table view data source
 
     fileprivate struct Storyboard {
-        static let BasicCellIdentifier = "Identification Basic Cell"
+        static let TextFieldCellIdentifier = "Identification Basic Cell"
         static let ProductNameCellIdentifier = "Product Name Cell"
         static let BarcodeCellIdentifier = "Barcode Cell"
+        static let QuantityCellIdentifier = "Quantity Cell"
         static let TagListCellIdentifier = "Identification TagList Cell"
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
@@ -129,37 +139,41 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BarcodeCellIdentifier, for: indexPath)as? BarcodeTableViewCell
             cell!.barcode = product?.barcode.asString()
             return cell!
+            
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
-            // does the product have valid multiple languages
-            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
-                cell!.name = product!.nameLanguage[currentLanguageCode!]!
-                cell!.language = product!.languages[currentLanguageCode!]
-                cell!.numberOfLanguages = product!.languageCodes.count
-                cell!.editMode = editMode
-                cell!.nameTextField.delegate = self
-                cell!.nameTextField.tag = 0
-            } else {
-                cell!.name = nil
-                cell!.language = nil
-                cell!.numberOfLanguages = 0
+            cell!.numberOfLanguages = product!.languageCodes.count
+            cell!.nameTextField.delegate = self
+            cell!.nameTextField.tag = 0
+            cell!.editMode = editMode
+            if let validCurrentLanguageCode = currentLanguageCode {
+                cell!.languageCode = validCurrentLanguageCode
+                // has the product name been edited?
+                if let validName = delegate?.updatedProduct?.nameLanguage[validCurrentLanguageCode]  {
+                    cell!.name = validName
+                } else if let validName = product?.nameLanguage[validCurrentLanguageCode] {
+                    cell!.name = validName
+                } else {
+                    cell!.name = nil
+                }
             }
-
             return cell!
+            
         case .genericName:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
-            // does the product have valid multiple languages
-            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
-                cell!.name = product!.genericNameLanguage[currentLanguageCode!]!
-                cell!.language = product!.languages[currentLanguageCode!]
-                cell!.numberOfLanguages = product!.languageCodes.count
-                cell!.editMode = editMode
-                cell!.nameTextField.delegate = self
-                cell!.nameTextField.tag = 1
-            } else {
-                cell!.name = nil
-                cell!.language = nil
-                cell!.numberOfLanguages = 0
+            cell!.numberOfLanguages = product!.languageCodes.count
+            cell!.nameTextField.delegate = self
+            cell!.nameTextField.tag = 1
+            cell!.editMode = editMode
+            if let validCurrentLanguageCode = currentLanguageCode {
+                cell!.languageCode = validCurrentLanguageCode
+                if let validName = delegate?.updatedProduct?.genericNameLanguage[validCurrentLanguageCode] {
+                    cell!.name = validName
+                } else if let validName = product!.genericNameLanguage[validCurrentLanguageCode] {
+                        cell!.name = validName
+                } else {
+                    cell!.name = nil
+                }
             }
             return cell!
 
@@ -167,14 +181,26 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as? IdentificationTagListViewTableViewCell
             cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
             return cell!
+            
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as? IdentificationPackagingTagListViewTableViewCell
             cell!.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
             return cell!
+            
         case .quantity:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BasicCellIdentifier, for: indexPath)
-            cell.textLabel?.text = product?.quantity != nil ? product!.quantity! : TextConstants.NoQuantity
-            return cell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.QuantityCellIdentifier, for: indexPath) as? QuantityTableViewCell
+            if let validQuantity = delegate?.updatedProduct?.quantity {
+                cell!.tekst = validQuantity
+            } else if let validQuantity = product?.quantity {
+                cell!.tekst = validQuantity
+            } else {
+                cell!.tekst = nil
+            }
+            cell!.editMode = editMode
+            cell!.textField.delegate = self
+            cell!.textField.tag = 2
+            return cell!
+            
         case .image:
             if let result = product?.getMainImageData() {
                 switch result {
@@ -294,12 +320,17 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         case 0:
             // productname
             if let validText = textField.text {
-                product!.name = validText
+                delegate?.updated(name: validText, languageCode: currentLanguageCode!)
             }
         case 1:
-            // generic name
+            // generic name updated?
             if let validText = textField.text {
-                product!.genericName = validText
+                delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
+            }
+        case 2:
+            // quantity updated?
+            if let validText = textField.text {
+                delegate?.updatedProduct?.quantity = validText
             }
         default:
             break
@@ -337,11 +368,9 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
                 if let vc = segue.destination as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
-                    vc.languageCodes = product?.languageCodes
+                    vc.languageCodes = product!.languageCodes
                     vc.primaryLanguageCode = product?.primaryLanguageCode
-                    if let validLanguages = product?.languages {
-                        vc.languages = validLanguages
-                    }
+                    vc.editMode = editMode
                     vc.sourcePage = 0
                 }
             default: break

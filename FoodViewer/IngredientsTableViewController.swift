@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IngredientsTableViewController: UITableViewController {
+class IngredientsTableViewController: UITableViewController, UITextViewDelegate {
 
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
@@ -39,7 +39,25 @@ class IngredientsTableViewController: UITableViewController {
         }
     }
     
-    var currentLanguageCode: String? = nil
+    var currentLanguageCode: String? = nil {
+        didSet {
+            if currentLanguageCode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+
+
+    var editMode: Bool = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            if editMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+
+    var delegate: ProductPageViewController? = nil
 
     // MARK: - Actions and Outlets
     
@@ -86,22 +104,28 @@ class IngredientsTableViewController: UITableViewController {
         switch currentProductSection {
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as? IngredientsFullTableViewCell
-            // does the product have valid multiple languages
-            if (product!.languageCodes.count) > 0 && (currentLanguageCode != nil) {
-                cell?.ingredients = product!.ingredientsLanguage[currentLanguageCode!]!
-                cell?.numberOfLanguages = product!.languageCodes.count
-                cell?.language = product!.languages[currentLanguageCode!]
-
-            } else {
-                cell?.ingredients = nil
-                cell?.language = nil
-                cell?.numberOfLanguages = 0
+            cell!.numberOfLanguages = product!.languageCodes.count
+            cell!.textViewDelegate = self
+            cell!.textViewTag = 0
+            cell!.editMode = editMode
+            if let validCurrentLanguageCode = currentLanguageCode {
+                cell!.languageCode = validCurrentLanguageCode
+                // has the product been edited?
+                if let validName = delegate?.updatedProduct?.ingredientsLanguage[validCurrentLanguageCode] {
+                    cell!.ingredients = validName
+                } else if let validName = product?.ingredientsLanguage[validCurrentLanguageCode] {
+                        cell!.ingredients = validName
+                } else {
+                    cell!.ingredients = nil
+                }
             }
             return cell!
+            
         case .allergens:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as? AllergensFullTableViewCell
             cell?.tagList = product!.translatedAllergens
             return cell!
+            
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as? TracesFullTableViewCell
             cell?.tagList = product!.translatedTraces
@@ -252,15 +276,47 @@ class IngredientsTableViewController: UITableViewController {
                 // pass the current language on to the popup vc
                 if let vc = segue.destination as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
-                    vc.languageCodes = product?.languageCodes
+                    vc.languageCodes = product!.languageCodes
                     vc.primaryLanguageCode = product?.primaryLanguageCode
-                    vc.languages = product?.languages
                     vc.sourcePage = 1
+                    vc.editMode = editMode
                 }
             default: break
             }
         }
     }
+    
+    // MARK: - TextView stuff
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return editMode
+
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if textView.isFirstResponder { textView.resignFirstResponder() }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        switch textView.tag {
+        case 0:
+            // productname
+            if let validText = textView.text {
+                delegate?.updated(ingredients: validText, languageCode: currentLanguageCode!)
+            }
+        default:
+            break
+        }
+    }
+    
+    func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
+        let calculationView = UITextView()
+        calculationView.attributedText = text
+        let size = calculationView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
+        return size.height
+    }
+
     // MARK: - Notification handler
     
     func reloadImageSection(_ notification: Notification) {
@@ -281,7 +337,7 @@ class IngredientsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 88.0
     }
     

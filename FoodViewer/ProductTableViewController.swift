@@ -219,7 +219,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsCellIdentifier, for: indexPath)
                     let formatter = NumberFormatter()
                     formatter.numberStyle = .decimal
-                    let formattedCount = formatter.string(from: NSNumber.init(integerLiteral: currentProduct.nutritionFacts.count))
+                    let formattedCount = currentProduct.nutritionFacts != nil ? formatter.string(from: NSNumber.init(integerLiteral: currentProduct.nutritionFacts!.count)) :
+                        formatter.string(from: NSNumber.init(integerLiteral: 0))
                     
                     cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
                     return cell

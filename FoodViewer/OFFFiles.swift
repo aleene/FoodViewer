@@ -200,7 +200,53 @@ class OFFplists {
         }
     }
 
+    func language(atIndex index: Int, languageCode key: String) -> String? {
+        if index >= 0 && OFFlanguages != nil && index <= OFFlanguages!.count {
+            let currentVertex = OFFlanguages![OFFlanguages!.index(OFFlanguages!.startIndex, offsetBy: index)].leaves
+            let values = currentVertex[key]
+            return  values != nil ? values![0] : nil
+        } else {
+            return nil
+        }
+    }
     
+    func nutrientText(atIndex index: Int, languageCode key: String) -> String? {
+        if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {
+            let currentVertex = OFFnutrients![OFFnutrients!.index(OFFnutrients!.startIndex, offsetBy: index)].leaves
+            let values = currentVertex[key]
+            return  values != nil ? values![0] : nil
+        } else {
+            return nil
+        }
+    }
+
+    func nutrientVertex(atIndex index: Int) -> VertexNew? {
+        if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {
+            return OFFnutrients![OFFnutrients!.index(OFFnutrients!.startIndex, offsetBy: index)]
+        } else {
+            return nil
+        }
+    }
+
+    func allLanguages(_ localeLanguage: String) -> [Language] {
+        var languages = [Language()]
+        guard OFFlanguages != nil else { return languages }
+        // loop over all verteces and fill the languages array
+        for vertex in OFFlanguages! {
+            var language = Language()
+            if let validValues = vertex.leaves["iso"] {
+                language.code = validValues[0]
+            }
+            let firstSplit = localeLanguage.characters.split{ $0 == "-" }.map(String.init)
+
+            let values = vertex.leaves[firstSplit[0]]
+            
+            language.name = values != nil ? values![0] : localeLanguage
+            languages.append(language)
+        }
+        languages.sort(by: { (s1: Language, s2: Language) -> Bool in return s1.name < s2.name } )
+        return languages
+    }
     
 // MARK: - Read functions
     

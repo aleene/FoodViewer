@@ -18,11 +18,59 @@ class FoodProduct {
     
     var barcode: BarcodeType
     
-    var name: String? = nil
-    var nameLanguage = [String:String?]()
+    var name: String? = nil {
+        didSet {
+            // make sure things are consistent
+            // add the name also to the name languages array
+            setName()
+        }
+    }
+    
+    private func setName() {
+        if primaryLanguageCode != nil && name != nil {
+            nameLanguage[primaryLanguageCode!] = name
+        }
+    }
+    
+    var nameLanguage = [String:String?]() {
+        didSet {
+            if let language = primaryLanguageCode,
+                let validName = name,
+                let existingLanguageName = nameLanguage[language],
+                let validLanguageName = existingLanguageName {
+                if  validLanguageName != validName {
+                    print("Product Error: names are not consistent")
+                }
+            }
+        }
+    }
 
-    var genericName: String? = nil
-    var genericNameLanguage = [String:String?]()
+
+    var genericName: String? = nil {
+        didSet {
+            // make sure things are consistent
+            setGenericName()
+        }
+    }
+    
+    private func setGenericName() {
+        if primaryLanguageCode != nil && genericName != nil {
+            genericNameLanguage[primaryLanguageCode!] = genericName
+        }
+    }
+    
+    var genericNameLanguage = [String:String?]() {
+        didSet {
+            if let language = primaryLanguageCode,
+                let validName = genericName,
+                let existingLanguageName = genericNameLanguage[language],
+                let validLanguageName = existingLanguageName {
+                if  validLanguageName != validName {
+                    print("Product Error: generic names are not consistent")
+                }
+            }
+        }
+    }
 
     var brandsArray: [String]? = nil
     var mainUrlThumb: URL? {
@@ -52,9 +100,31 @@ class FoodProduct {
         }
     }
     
-    var primaryLanguageCode: String? = nil
+    var primaryLanguageCode: String? = nil {
+        didSet {
+            // make sure things are consistent
+            setName()
+            setGenericName()
+            if let validLanguage = primaryLanguageCode {
+                if !languageCodes.contains(validLanguage) {
+                    languageCodes.append(validLanguage)
+                    // TBD need to add to language array
+                }
+            }
+        }
+    }
     var languageCodes: [String] = []
-    var languages: [String:String] = [:]
+    
+    var languages: [String:String] {
+        get {
+            var languageList: [String:String] = [:]
+            for languageCode in self.languageCodes {
+                // TBD can this be set in the locale language?
+                languageList[languageCode] = OFFplists.manager.translateLanguage(languageCode, language: "en")
+            }
+            return languageList
+        }
+    }
     
     // MARK: - Packaging variables
     
@@ -63,8 +133,32 @@ class FoodProduct {
     
     // MARK: - Ingredients variables
     
-    var ingredients: String?
-    var ingredientsLanguage = [String:String]()
+    var ingredients: String? {
+        didSet {
+            // make sure things are consistent
+            // add the name also to the name languages array
+            setIngredients()
+        }
+    }
+    
+    private func setIngredients() {
+        if primaryLanguageCode != nil && ingredients != nil {
+            ingredientsLanguage[primaryLanguageCode!] = ingredients
+        }
+    }
+
+    var ingredientsLanguage = [String:String]() {
+        didSet {
+            if let language = primaryLanguageCode,
+                let validIngredients = ingredients,
+                let existingLanguageIngredients = ingredientsLanguage[language] {
+                if  existingLanguageIngredients != validIngredients {
+                    print("Product Error: ingredients are not consistent")
+                }
+            }
+        }
+    }
+
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: URL?
     var imageIngredientsUrl: URL? = nil
@@ -127,7 +221,18 @@ class FoodProduct {
     
     var nutritionFactsAreAvailable = NutritionAvailability.notIndicated
     var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
-    var nutritionFacts: [NutritionFactItem] = []
+    
+    // The nutritionFacts array can be nil, if nothing has been defined
+    // An element in the array can be nil as well
+    var nutritionFacts: [NutritionFactItem?]? = nil
+    
+    func add(fact: NutritionFactItem) {
+        if nutritionFacts == nil {
+            nutritionFacts = []
+        }
+        nutritionFacts?.append(fact)
+    }
+    
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
     var imageNutritionSmallUrl: URL? = nil
     var nutritionFactsImageUrl: URL? = nil
@@ -413,11 +518,20 @@ class FoodProduct {
         self.barcode = withBarcode
     }
     
+    init(product: FoodProduct) {
+        self.barcode = product.barcode
+        self.primaryLanguageCode = product.primaryLanguageCode
+
+    }
+    
     func nutritionFactsContain(_ nutritionFactToCheck: String) -> Bool {
-        for fact in nutritionFacts {
-            if fact.itemName == nutritionFactToCheck {
-                return true
+        if let validNutritionFacts = self.nutritionFacts {
+            for fact in validNutritionFacts {
+                if fact != nil && fact!.itemName == nutritionFactToCheck {
+                    return true
+                }
             }
+
         }
         return false
     }
@@ -579,7 +693,6 @@ class FoodProduct {
             state = product.state
             primaryLanguageCode = product.primaryLanguageCode
             languageCodes = product.languageCodes
-            languages = product.languages
             categories = product.categories
             photographers = product.photographers
             correctors = product.correctors
@@ -619,6 +732,36 @@ class FoodProduct {
             }
         }
         return stores
+    }
+    
+    func set(newName: String, forLanguageCode languageCode: String) {
+        // is this the main language?
+        if languageCode == self.primaryLanguageCode {
+            self.name = newName
+        }
+        add(languageCode: languageCode)
+        self.nameLanguage[languageCode] = newName
+    }
+    
+    func set(newGenericName: String, forLanguageCode languageCode: String) {
+        // is this the main language?
+        if languageCode == self.primaryLanguageCode {
+            self.genericName = newGenericName
+        }
+        add(languageCode: languageCode)
+        self.genericNameLanguage[languageCode] = newGenericName
+    }
+
+    func set(newIngredients: String, forLanguageCode languageCode: String) {
+        add(languageCode: languageCode)
+        self.ingredientsLanguage[languageCode] = newIngredients
+    }
+
+    func add(languageCode: String) {
+        // is this a new language?
+        if !self.languageCodes.contains(languageCode) {
+            self.languageCodes.append(languageCode)
+        }
     }
     
 // End product

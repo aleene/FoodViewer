@@ -824,7 +824,11 @@ extension JSON {
             }
         }
         set {
-            self.object = newValue?.absoluteString
+            if newValue != nil {
+                self.object = newValue!.absoluteString as String
+            } else {
+                self.object = NSNull()
+            }
         }
     }
     
@@ -844,7 +848,12 @@ extension JSON {
             }
         }
         set {
-            self.object = newValue?.timeIntervalSince1970
+            if newValue != nil {
+                self.object = newValue!.timeIntervalSince1970
+            } else {
+                self.object = NSNull()
+            }
+
         }
     }
 

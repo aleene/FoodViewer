@@ -360,12 +360,11 @@ class OpenFoodFactsRequest {
 
                 product.primaryLanguageCode = jsonObject[OFFJson.ProductKey][OFFJson.LangKey].string
                 
-                product.languageCodes = []
                 if let languages = jsonObject[OFFJson.ProductKey][OFFJson.LanguagesHierarchy].stringArray {
+                    product.languageCodes = []
                     for language in languages {
                         let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
                         product.languageCodes.append(isoCode)
-                        product.languages[isoCode] = language
                         var key = OFFJson.IngredientsTextKey + "_" + isoCode
                         product.ingredientsLanguage[isoCode] = jsonObject[OFFJson.ProductKey][key].string
                         key = OFFJson.ProductNameKey + "_" + isoCode
@@ -784,7 +783,7 @@ class OpenFoodFactsRequest {
                 product.nutritionFactsAreAvailable = .perServingAndStandardUnit
             }
         }
-        product.nutritionFacts.append(nutritionItem)
+        product.add(fact: nutritionItem)
     }
     
     fileprivate struct StateCompleteKey {

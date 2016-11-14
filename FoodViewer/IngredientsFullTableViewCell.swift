@@ -10,14 +10,69 @@ import UIKit
 
 class IngredientsFullTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var textView: UITextView! {
+        didSet {
+            setupTextView()
+        }
+    }
+
     
-    @IBOutlet weak var ingredientsLabel: UILabel!
+    private func setupTextView() {
+        // the textView might not be initialised
+        if textView != nil {
+            if editMode {
+                textView.layer.borderWidth = 1.0
+                textView.layer.borderColor = UIColor.black.cgColor
+                
+            } else {
+                textView.layer.borderWidth = 1.0
+                textView.layer.borderColor = UIColor.white.cgColor
+            }
+            textView.delegate = textViewDelegate
+            textView.tag = textViewTag
+            if editMode {
+                if unAttributedIngredients.characters.count > 0 {
+                    textView.text = unAttributedIngredients
+                } else {
+                    textView.text = Constants.NoIngredientsText
+                }
+            } else {
+                if attributedIngredients.length > 0 {
+                    textView.attributedText = attributedIngredients
+                    // textView.text = ingredients != nil ? ingredients! : Constants.NoIngredientsText
+                } else {
+                    textView.text = Constants.NoIngredientsText
+                }
+            }
+
+            // print(textView.description)
+        }
+    }
+    
+    var editMode: Bool = false {
+        didSet {
+            setupTextView()
+        }
+    }
+
+    var textViewDelegate: IngredientsTableViewController? = nil {
+        didSet {
+            setupTextView()
+        }
+    }
+    
+    var textViewTag: Int = 0 {
+        didSet {
+            setupTextView()
+        }
+    }
     
     @IBOutlet weak var changeLanguageButton: UIButton!
+    
     @IBAction func ChangeLanguageButtonTapped(_ sender: UIButton) {
     }
     
-    struct Constants {
+    private struct Constants {
         static let NoIngredientsText = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
         static let UnbalancedWarning = NSLocalizedString(" (WARNING: check brackets, they are unbalanced)", comment: "a warning to check the brackets used, they are unbalanced")
         static let NoLanguageText = NSLocalizedString("none defined", comment: "the ingredients text has no associated language defined")
@@ -49,26 +104,33 @@ class IngredientsFullTableViewCell: UITableViewCell {
                         let attributedString = NSAttributedString(string: Constants.UnbalancedWarning, attributes: noAttributes)
                         myString.append(attributedString)
                     }
-                    ingredientsLabel.attributedText = myString
-                } else {
-                    ingredientsLabel.text = Constants.NoIngredientsText
+                    attributedIngredients = myString
+                    unAttributedIngredients = text
                 }
             }
+            setupTextView()
         }
     }
     
-    var language: String? = nil {
+    private var attributedIngredients = NSMutableAttributedString()
+    private var unAttributedIngredients: String = ""
+    
+    var languageCode: String? = nil {
         didSet {
-            changeLanguageButton.setTitle(language != nil ? OFFplists.manager.translateLanguage(language!, language:Locale.preferredLanguages[0])  : Constants.NoLanguageText, for: UIControlState())
+            changeLanguageButton.setTitle(languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0])  : Constants.NoLanguageText, for: UIControlState())
         }
     }
 
     var numberOfLanguages: Int = 0 {
         didSet {
-            if numberOfLanguages > 1 {
+            if editMode {
                 changeLanguageButton.isEnabled = true
             } else {
-                changeLanguageButton.isEnabled = false
+                if numberOfLanguages > 1 {
+                    changeLanguageButton.isEnabled = true
+                } else {
+                    changeLanguageButton.isEnabled = false
+                }
             }
         }
     }
