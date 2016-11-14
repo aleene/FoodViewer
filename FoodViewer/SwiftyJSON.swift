@@ -833,7 +833,7 @@ extension JSON {
     }
     
     //Optional time
-    public var time: Date? {
+    public var time: Date? { 
         get {
             switch self.type {
             case .number:

@@ -404,7 +404,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func productUpdated(_ notification: Notification) {
         refreshInterface()
     }
-    
+    // 
     func firstProductLoaded(_ notification: Notification) {
         startInterface()
     }
