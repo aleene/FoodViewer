@@ -37,14 +37,13 @@ class IngredientsFullTableViewCell: UITableViewCell {
                     textView.text = Constants.NoIngredientsText
                 }
             } else {
+                // print (attributedIngredients.description)
                 if attributedIngredients.length > 0 {
                     textView.attributedText = attributedIngredients
-                    // textView.text = ingredients != nil ? ingredients! : Constants.NoIngredientsText
                 } else {
                     textView.text = Constants.NoIngredientsText
                 }
             }
-
             // print(textView.description)
         }
     }
@@ -55,17 +54,9 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
 
-    var textViewDelegate: IngredientsTableViewController? = nil {
-        didSet {
-            setupTextView()
-        }
-    }
+    var textViewDelegate: IngredientsTableViewController? = nil
     
-    var textViewTag: Int = 0 {
-        didSet {
-            setupTextView()
-        }
-    }
+    var textViewTag: Int = 0
     
     @IBOutlet weak var changeLanguageButton: UIButton!
     
@@ -83,8 +74,12 @@ class IngredientsFullTableViewCell: UITableViewCell {
             if let text = ingredients {
                 if !text.isEmpty {
                     // defined the attributes for allergen text
-                    let allergenAttributes = [NSForegroundColorAttributeName : UIColor.red]
-                    let noAttributes = [NSForegroundColorAttributeName : UIColor.black]
+                    let fontSize = (textView.font?.pointSize)!
+                    // let currentFont = (textView.font?.fontName)!
+                    // textView.font = UIFont(name: ()!, size: fontSize)!
+
+                    let allergenAttributes = [NSForegroundColorAttributeName : UIColor.red, NSFontAttributeName: UIFont.systemFont(ofSize: fontSize)]
+                    let noAttributes = [NSForegroundColorAttributeName : UIColor.black,  NSFontAttributeName: UIFont.systemFont(ofSize: fontSize)]
                     // create a attributable string
                     let myString = NSMutableAttributedString(string: "", attributes: allergenAttributes)
                     let components = text.components(separatedBy: "_")
@@ -113,6 +108,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     }
     
     private var attributedIngredients = NSMutableAttributedString()
+    
     private var unAttributedIngredients: String = ""
     
     var languageCode: String? = nil {

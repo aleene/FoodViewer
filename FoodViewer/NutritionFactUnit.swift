@@ -8,9 +8,10 @@
 
 import Foundation
 
-enum NutritionFactUnit: Int {
+enum NutritionFactUnit: Int, CaseCountable {
     
-    case Joule = 0
+    case None = 0
+    case Joule
     case Calories
     case Kilogram
     case Gram
@@ -20,7 +21,6 @@ enum NutritionFactUnit: Int {
     case Milliliter
     case Microliter
     case Percent
-    case None 
     
     static func set(text: String) -> NutritionFactUnit {
         switch text {
@@ -48,6 +48,8 @@ enum NutritionFactUnit: Int {
             return .None
         }
     }
+
+    static let caseCount = NutritionFactUnit.countCases()
 
     func description() -> String {
         switch self {
@@ -96,10 +98,10 @@ enum NutritionFactUnit: Int {
         static let Joule = "kJ"
         static let Calories = "kcal"
         static let Kilogram = "kg"
-        static let Gram = "g"
+        static let Gram = " g"
         static let Milligram = "mg"
         static let Microgram = "µg"
-        static let Liter = "L"
+        static let Liter = " L"
         static let Milliliter = "mL"
         static let Microliter = "µL"
         static let Percent = "%"

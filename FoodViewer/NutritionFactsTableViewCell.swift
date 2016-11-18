@@ -21,7 +21,7 @@ class NutritionFactsTableViewCell: UITableViewCell {
             if let item = nutritionFactItem {
                     itemLabel.text = item.itemName != nil ? item.itemName! : Constants.UnknownValue
                     standardValueLabel.text = item.standardValue != nil ? item.standardValue! : Constants.UnknownValue
-                    standardUnitLabel.text = item.standardValueUnit != nil ? item.standardValueUnit! : Constants.UnknownValue
+                    standardUnitLabel.text = item.standardValueUnit != nil ? item.standardValueUnit!.short() : NutritionFactUnit.None.short()
             }
         }
     }

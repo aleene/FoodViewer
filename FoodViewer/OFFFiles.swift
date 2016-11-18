@@ -175,6 +175,12 @@ class OFFplists {
         // remark that the key has been extended with a language for in order to be consistent with the other taxonomy keys.
         return translate(OFFnutrients, file: Constants.NutrientsFileName, key: "en:" + key, language: language)
     }
+    
+    func translateNutrients(extendedKey: String, language:String) -> String {
+        // the extendedKey includes the language prefix such as en:
+        return translate(OFFnutrients, file: Constants.NutrientsFileName, key: extendedKey, language: language)
+    }
+
 
     func translateLanguage(_ key: String, language:String) -> String {
         return translate(OFFlanguages, file: Constants.LanguagesFileName, key: key, language: language)

@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -112,18 +111,18 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="paQ-Yj-cRj" id="32S-I8-7MB">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IL2-Vr-5wd">
-                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="807-If-TeI">
-                                            <rect key="frame" x="15" y="25.5" width="44" height="14.5"/>
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -664,11 +663,11 @@
                                         <rect key="frame" x="0.0" y="500" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x05-UC-kk1" id="c2T-sP-7zf">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Set Favorite Shops" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qQk-vQ-Zpu">
-                                                    <rect key="frame" x="15" y="0.0" width="270" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="270" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
@@ -1930,17 +1929,11 @@
                                         </button>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Ingredients" translatesAutoresizingMaskIntoConstraints="NO" id="xD7-Nn-Z60">
                                             <rect key="frame" x="8" y="8" width="248" height="160"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="160" id="Axh-va-chx"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="Axh-va-chx"/>
-                                                </mask>
-                                            </variation>
                                         </textView>
                                     </subviews>
                                     <constraints>
@@ -2136,7 +2129,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RoF-y0-Tn8">
-                                            <rect key="frame" x="240.5" y="8" width="42" height="27.5"/>
+                                            <rect key="frame" x="237" y="8" width="42" height="27.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" priority="750" constant="50" id="k6X-tJ-o1Q"/>
                                             </constraints>
@@ -2145,13 +2138,16 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" text="unit" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jY-ES-pZe">
-                                            <rect key="frame" x="290.5" y="8" width="21.5" height="27.5"/>
+                                            <rect key="frame" x="287" y="8" width="25" height="27.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="Fhm-xT-NwQ"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Nutritional Fact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PY2-Eu-268">
-                                            <rect key="frame" x="8" y="8" width="224.5" height="27.5"/>
+                                            <rect key="frame" x="8" y="8" width="221" height="27.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -2383,12 +2379,12 @@
                                     <navigationItem title="Title" id="HKs-FP-yIO">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ukd-W3-L70">
                                             <connections>
-                                                <segue destination="Dob-6j-cMd" kind="unwind" unwindAction="unwindEditNutrientsForCancel:" id="Gjb-cP-xcQ"/>
+                                                <segue destination="Dob-6j-cMd" kind="unwind" identifier="Unwind Edit Nutrients For Cancel Segue" unwindAction="unwindEditNutrientsForCancel:" id="Gjb-cP-xcQ"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="TSU-wu-7iF">
                                             <connections>
-                                                <segue destination="Dob-6j-cMd" kind="unwind" unwindAction="unwindEditNutrientsForDone:" id="vlD-8P-Mxl"/>
+                                                <segue destination="Dob-6j-cMd" kind="unwind" unwindAction="unwindEditNutrientsForDone:" id="f0P-YV-rlU"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -2636,8 +2632,8 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1lc-8h-qsb"/>
         <segue reference="54m-Vq-nRb"/>
+        <segue reference="1lc-8h-qsb"/>
         <segue reference="4zk-rY-uLr"/>
     </inferredMetricsTieBreakers>
 </document>

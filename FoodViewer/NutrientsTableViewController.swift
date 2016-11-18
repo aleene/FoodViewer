@@ -26,13 +26,14 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
     struct DisplayFact {
         var name: String? = nil
         var value: String? = nil
-        var unit: String? = nil
+        var unit: NutritionFactUnit? = nil
         var key: String? = nil
     }
     
     var product: FoodProduct? {
         didSet {
             if product != nil {
+                mergeNutritionFacts()
                 tableStructureForProduct = analyseProductForTable(product!)
                 tableView.reloadData()
             }
@@ -105,13 +106,13 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
         case .perStandard:
             let localizedValue = fact.localeStandardValue()
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
-            displayFact.unit = fact.standardValueUnit?.short()
+            displayFact.unit = fact.standardValueUnit
         case .perServing:
             displayFact.value = fact.servingValue != nil ? fact.localeServingValue() : ""
-            displayFact.unit = fact.servingValueUnit?.short()
+            displayFact.unit = fact.servingValueUnit
         case .perDailyValue:
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue() : ""
-            displayFact.unit = "" // The numberformatter already provides a % sign
+            displayFact.unit = NutritionFactUnit.None // The numberformatter already provides a % sign
         }
         displayFact.key = fact.key
         return displayFact
@@ -167,7 +168,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactCellIdentifier, for: indexPath) as? NutrientsTableViewCell
                 // warning set FIRST the saltOrSodium
-                cell?.nutritionFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
+                cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
                 if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.salt.key()) ||
                     (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key()) {
                     let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
@@ -188,7 +189,6 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
                     cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                 }
 
-                
                 return cell!
             }
         case .servingSize:
@@ -265,17 +265,6 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
             }
         }
     }
-    /*
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return Preferences.manager.showNutritionDataPerServingOrPerStandard.description()
-        default:
-            let (_, _, header) = tableStructureForProduct[section]
-            return header
-        }
-    }
- */
     
     fileprivate struct TableStructure {
         static let NutritionFactsImageSectionSize = 1
@@ -289,9 +278,8 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
     func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
         /////
         Preferences.manager.showSaltOrSodium = Preferences.manager.showSaltOrSodium == .salt ? .sodium : .salt
-        if let nutritionFacts = product!.nutritionFacts {
-            adaptedNutritionFacts = adaptNutritionFacts(nutritionFacts)
-        }
+        
+        mergeNutritionFacts()
         tableView.reloadData()
     }
     
@@ -304,7 +292,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
             Preferences.manager.showCaloriesOrJoule = .calories
         }
         
-        adaptedNutritionFacts = adaptNutritionFacts(product?.nutritionFacts)
+        mergeNutritionFacts()
         tableView.reloadData()
 
 //        let sections = NSIndexSet.init(index: 0)
@@ -322,7 +310,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
             showNutrientsAs = .perStandard
         }
         
-        adaptedNutritionFacts = adaptNutritionFacts(product!.nutritionFacts)
+        mergeNutritionFacts()
         tableView.reloadData()
     }
 
@@ -337,7 +325,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
         //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        adaptedNutritionFacts = adaptNutritionFacts(product.nutritionFacts)
+        
         
         // how does the user want the data presented
         switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
@@ -454,7 +442,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
                 if let vc = segue.destination as? EditNutrientsViewController {
                     vc.originalNutritionFacts = product?.nutritionFacts
                     // also pass the edited version, so one can continue editing
-                    vc.editedNutritionFacts = delegate?.product?.nutritionFacts
+                    vc.editedNutritionFacts = delegate?.updatedProduct?.nutritionFacts
                 }
             default: break
             }
@@ -467,27 +455,38 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func unwindEditNutrientsForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? EditNutrientsViewController {
+            vc.nutrientValue.resignFirstResponder()
+
+            // have any edits been created?
             if vc.editedNutritionFacts != nil {
-                delegate?.product?.nutritionFacts = vc.editedNutritionFacts! as! [NutritionFactItem]
-                // have the nutritionFacts been edited?
-                if delegate?.product?.nutritionFacts != nil {
-                    // create a mixed array of unedited and edited items
-                    var newNutritionFacts: [NutritionFactItem?] = []
-                    for index in 0 ..< delegate!.product!.nutritionFacts!.count {
-                        if delegate!.product!.nutritionFacts![index] == nil {
-                            newNutritionFacts.append(product!.nutritionFacts![index]!)
-                        } else {
-                            newNutritionFacts.append(delegate!.product!.nutritionFacts![index]!)
-                        }
-                    }
-                    adaptedNutritionFacts = adaptNutritionFacts(newNutritionFacts)
-                    tableStructureForProduct = analyseProductForTable(product!)
-                    tableView.reloadData()
-                }
+                // does an updated product already exist?
+                delegate?.updated(facts: vc.editedNutritionFacts!)
             }
         }
     }
 
+    private func mergeNutritionFacts() {
+        var newNutritionFacts: [NutritionFactItem?] = []
+        // Are there any nutritionFacts defined?
+        if let validNutritionFacts = product?.nutritionFacts {
+            // Is there an edited version of the nutritionFacts?
+            if let updatedNutritionFacts = delegate?.updatedProduct?.nutritionFacts {
+                // create a mixed array of unedited and edited items
+                for index in 0 ..< validNutritionFacts.count {
+                    // has this nutritionFact been updated?
+                    if updatedNutritionFacts[index] == nil {
+                        newNutritionFacts.append(validNutritionFacts[index]!)
+                    } else {
+                        newNutritionFacts.append(delegate?.updatedProduct?.nutritionFacts?[index])
+                    }
+                }
+                adaptedNutritionFacts = adaptNutritionFacts(newNutritionFacts)
+            } else {
+                // just use the original facts
+                adaptedNutritionFacts = adaptNutritionFacts(validNutritionFacts)
+            }
+        }
+    }
     // MARK: - Notification handler
     
     func refreshProduct() {
@@ -503,6 +502,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
     func refreshProductWithNewNutritionFacts() {
         // recalculate the nutritionfacts that must be shown
         if product != nil {
+            mergeNutritionFacts()
             tableStructureForProduct = analyseProductForTable(product!)
             tableView.reloadData()
         }

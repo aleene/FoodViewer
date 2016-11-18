@@ -10,6 +10,10 @@ import UIKit
 
 class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     
+    fileprivate struct Storyboard {
+        static let SegueIdentifier = "Unwind Edit Nutrients For Done Segue"
+    }
+
     var originalNutritionFacts: [NutritionFactItem?]? = nil {
         didSet {
             if originalNutritionFacts != nil {
@@ -40,7 +44,10 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
                     editedNutritionFacts!.append(nil)
                 }
             }
-            editedNutritionFacts?[currentNutrientItemIndex!] = originalNutritionFacts![currentNutrientItemIndex!]
+            // is this the first edit on this nutrient?
+            if editedNutritionFacts![currentNutrientItemIndex!] == nil {
+                editedNutritionFacts![currentNutrientItemIndex!] = originalNutritionFacts![currentNutrientItemIndex!]
+            }
         }
     }
     
@@ -65,7 +72,9 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
                 // no valid index is possible
                 currentNutrientItemIndex = nil
             }
-            setupButtons()
+            if interfaceHasBeenSetup {
+                setupButtons()
+            }
         }
     }
     
@@ -75,15 +84,26 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
                 if let validFact = originalNutritionFacts?[index] {
                     nutrientTitle.text = validFact.itemName
                     nutrientValue.text = validFact.standardValue
+                    if let row = validFact.standardValueUnit?.rawValue {
+                        unitsPickerView.selectRow(row, inComponent: 0, animated: false)
+                    } else {
+                        unitsPickerView.selectRow(0, inComponent: 0, animated: false)
+                    }
                     nutrientValue.isEnabled = true
                 } else {
                     nutrientValue.isEnabled = false
                 }
-                // TBD set Unit
                 // TBD set model
                 // TBD I should show either tht original or the edited values
+                // set up previous/next buttons
+                if currentNutrientItemIndex != nil  {
+                    previousNutrientItemButton.isEnabled = currentNutrientItemIndex! > 0
+                    nextNutrientItemButton.isEnabled = currentNutrientItemIndex! < originalNutritionFacts!.count - 1
+                } else {
+                    previousNutrientItemButton.isEnabled = false
+                    nextNutrientItemButton.isEnabled = false
+                }
             }
-
         }
     }
     
@@ -98,9 +118,12 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         }
     }
     
-    private var selectedUnit: NutritionFactUnit = .Gram
+    // private var newValue: String? = nil
     
-    private var newValue: String? = nil
+    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        nutrientValue.resignFirstResponder()
+        // performSegue(withIdentifier: Storyboard.SegueIdentifier, sender: self)
+    }
     
     @IBOutlet weak var nutrientTitle: UILabel! {
         didSet {
@@ -136,7 +159,9 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
             return nutrient != nil &&
             nutrientTitle != nil &&
             unitsPickerView != nil &&
-            nutrientModelSegmentedControl != nil
+            nutrientModelSegmentedControl != nil &&
+            previousNutrientItemButton != nil &&
+            nextNutrientItemButton != nil
         }
     }
     
@@ -145,7 +170,7 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return 11
+            return NutritionFactUnit.countCases()
         default:
             return 0
         }
@@ -164,7 +189,12 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedUnit = NutritionFactUnit(rawValue: row)!
+        initEditedNutritionFacts()
+        if nutrientModelSegmentedControl.selectedSegmentIndex == 0 {
+            editedNutritionFacts![currentNutrientItemIndex!]?.standardValueUnit = NutritionFactUnit(rawValue: row)!
+        } else {
+            editedNutritionFacts![currentNutrientItemIndex!]?.servingValueUnit = NutritionFactUnit(rawValue: row)!
+        }
     }
     
     // MARK: - TextField stuff
@@ -188,7 +218,11 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
             // nutrient value
             if let validText = textField.text {
                 initEditedNutritionFacts()
-                editedNutritionFacts![currentNutrientItemIndex!]!.standardValue = validText
+                if nutrientModelSegmentedControl.selectedSegmentIndex == 0 {
+                    editedNutritionFacts![currentNutrientItemIndex!]!.standardValue = validText
+                } else {
+                    editedNutritionFacts![currentNutrientItemIndex!]!.servingValue = validText
+                }
             }
         default:
             break
@@ -245,7 +279,8 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     @IBAction func unwindAddNutrientForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? AddNutrientViewController {
             var newNutrient = NutritionFactItem()
-            newNutrient.itemName = vc.addedNutrientKey
+            newNutrient.key = vc.addedNutrientKey
+            newNutrient.itemName = OFFplists.manager.translateNutrients(extendedKey:newNutrient.key!, language: Locale.preferredLanguages[0])
             // is this the first nutritionFact?
             if originalNutritionFacts == nil {
                 originalNutritionFacts = []
@@ -263,16 +298,18 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         
         self.title = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
         per = .perStandardUnit
-        nutrientValue.delegate = self
-        unitsPickerView.delegate = self
-        unitsPickerView.dataSource = self
-        nutrientValue.isEnabled = false
         nutrientTitle.text = NSLocalizedString("No nutrients", comment: "Text of Label, indicating that the product has no nutrients defined")
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupButtons()
+        nutrientValue.delegate = self
+        unitsPickerView.delegate = self
+        unitsPickerView.dataSource = self
+        unitsPickerView.selectRow(0, inComponent: 0, animated: false)
+        nutrientValue.isEnabled = false
+
+        // setupButtons()
         setupInterface()
     }
 }

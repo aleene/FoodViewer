@@ -132,6 +132,7 @@
 		51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */; };
 		51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */; };
 		51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */; };
+		51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C769B31DDA0D010000D260 /* CaseCountable.swift */; };
 		51C86B5D1C6DE901002B7566 /* CommunityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5C1C6DE901002B7566 /* CommunityTableViewCell.swift */; };
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
@@ -313,6 +314,7 @@
 		51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainTableViewController.swift; sourceTree = "<group>"; };
 		51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewTableViewCell.swift; sourceTree = "<group>"; };
 		51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanViewController.swift; sourceTree = "<group>"; };
+		51C769B31DDA0D010000D260 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		51C86B5C1C6DE901002B7566 /* CommunityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommunityTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
@@ -698,6 +700,7 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
 				5150C0651CBCD66F00161616 /* Preferences.swift */,
 				519884E11CE4EA5E0020B3A1 /* Components */,
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
@@ -862,6 +865,7 @@
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
 				517AAD511C7DB62700B12F3C /* AdditivesFullTableViewCell.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
+				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
 				5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
 				5150C0681CBD48BD00161616 /* NoImageTableViewCell.swift in Sources */,

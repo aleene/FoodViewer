@@ -407,6 +407,34 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initUpdatedProductWith(product: product!)
         updatedProduct?.expirationDate = expirationDate
     }
+    
+    func updated(facts: [NutritionFactItem?]) {
+        initUpdatedProductWith(product: product!)
+        // make sure we have an nillified nutritionFacts array
+        if updatedProduct!.nutritionFacts == nil {
+            updatedProduct!.nutritionFacts = []
+            // the new array should be based on the size of the edited array
+            for _ in facts {
+                updatedProduct?.nutritionFacts!.append(nil)
+            }
+        } else {
+            // make sure the updated nutritionFacts array is long enough
+            for _ in updatedProduct!.nutritionFacts!.count ..< facts.count {
+                updatedProduct!.nutritionFacts!.append(nil)
+            }
+        }
+        
+        // only replace the fact that has been edited
+        for (index, fact) in facts.enumerated() {
+            if fact != nil {
+                updatedProduct?.nutritionFacts![index] = fact
+            }
+        }
+        // make sure both nutritionFacts arrays have the same length
+        for _ in product!.nutritionFacts!.count ..< updatedProduct!.nutritionFacts!.count {
+            product!.nutritionFacts!.append(nil)
+        }
+    }
 
     private func initUpdatedProductWith(product: FoodProduct) {
         if updatedProduct == nil {

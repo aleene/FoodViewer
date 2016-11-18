@@ -18,4 +18,6 @@ protocol ProductUpdatedProtocol: class {
     func updated(genericName: String, languageCode: String)
     
     func updated(ingredients: String, languageCode: String)
+    
+    func updated(facts: [NutritionFactItem?])
 }

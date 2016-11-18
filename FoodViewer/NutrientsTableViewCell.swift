@@ -15,12 +15,12 @@ class NutrientsTableViewCell: UITableViewCell {
         static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specified.")
     }
     
-    var nutritionFactItem: NutrientsTableViewController.DisplayFact? = nil {
+    var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
         didSet {
-            if let item = nutritionFactItem {
+            if let item = nutritionDisplayFactItem {
                 itemLabel.text = item.name != nil ? item.name! : Constants.UnknownValue
                 standardValueLabel.text = item.value != nil ? item.value! : Constants.UnknownValue
-                standardUnitLabel.text = item.unit != nil ? item.unit! : Constants.UnknownValue
+                standardUnitLabel.text = item.unit != nil ? item.unit!.short() : Constants.UnknownValue
             }
         }
     }
