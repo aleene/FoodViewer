@@ -408,6 +408,17 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         updatedProduct?.expirationDate = expirationDate
     }
     
+    func updated(primaryLanguageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.primaryLanguageCode = primaryLanguageCode
+    }
+
+    func update(addLanguageCode languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.add(languageCode: languageCode)
+    }
+
+    
     func updated(facts: [NutritionFactItem?]) {
         initUpdatedProductWith(product: product!)
         // make sure we have an nillified nutritionFacts array
@@ -470,7 +481,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.selectedLanguageCode
             pageIndex = vc.sourcePage
-            product?.languageCodes = vc.languageCodes
             updateCurrentLanguage()
         }
     }
@@ -492,7 +502,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             vc.currentLanguageCode = currentLanguageCode
         }
     }
-        
+    
     // MARK: - ViewController Lifecycle
         
     override func viewDidLoad() {

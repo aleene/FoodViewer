@@ -521,6 +521,7 @@ class FoodProduct {
     init(product: FoodProduct) {
         self.barcode = product.barcode
         self.primaryLanguageCode = product.primaryLanguageCode
+        self.languageCodes = product.languageCodes
 
     }
     

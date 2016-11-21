@@ -368,9 +368,15 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
                 if let vc = segue.destination as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
+                    if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
+                        vc.primaryLanguageCode = updatedPrimaryLanguageCode
+                    } else {
+                        vc.primaryLanguageCode = product?.primaryLanguageCode
+                    }
                     vc.languageCodes = product!.languageCodes
-                    vc.primaryLanguageCode = product?.primaryLanguageCode
+                    vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
                     vc.editMode = editMode
+                    vc.delegate = delegate
                     vc.sourcePage = 0
                 }
             default: break

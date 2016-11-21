@@ -12,75 +12,84 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - External properties
     
-    var languageCodes: [String] = []
+    var languageCodes: [String] = [] {
+        didSet {
+            setupLanguages()
+        }
+    }
+    
+    var updatedLanguageCodes: [String] = [] {
+        didSet {
+            setupLanguages()
+        }
+    }
+
     var currentLanguageCode: String? = nil {
         didSet {
             selectedLanguageCode = currentLanguageCode
         }
     }
+        
     var primaryLanguageCode: String? = nil
+    
+    var updatedPrimaryLanguageCode: String? = nil {
+        didSet {
+            delegate?.updated(primaryLanguageCode: updatedPrimaryLanguageCode!)
+        }
+    }
+    
     var selectedLanguageCode: String? = nil
 
     var editMode = false {
         didSet {
-            setupAddLanguageButton()
+            setAddBarButtonItem()
         }
     }
     
+    var delegate: ProductPageViewController? = nil
+
     var sourcePage = 0
 
     // MARK: - Internal properties
     
-    private var allLanguages: [Language] = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
+    private var sortedLanguages: [Language] = []
 
-    private var addLanguage = false {
-        didSet {
-            setupAddLanguageButton()
-        }
-    }
-    
-    private func setupAddLanguageButton() {
-        if addLanguageButton != nil {
-            if addLanguage {
-                addLanguageButton.setTitle(NSLocalizedString("Finish Add", comment: "Title of a button to finish adding languages"), for: .normal)
-            } else {
-                addLanguageButton.setTitle(NSLocalizedString("Add Languages", comment: "Title of a button allowing to add languages"), for: .normal)
-            }
-            // make the button usable, when in editMode
-            addLanguageButton.isHidden = !editMode
-        }
-    }
-    
     fileprivate struct Constants {
-        static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
+        static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
+    }
+    
+    private var languageCodesToUse: [String] {
+        get {
+            return updatedLanguageCodes.count > languageCodes.count ? updatedLanguageCodes : languageCodes
+        }
     }
 
-    @IBOutlet weak var languagesPickerView: UIPickerView!
-    
-    @IBOutlet weak var addLanguageButton: UIButton! {
+
+    //  MARK : Interface elements
+
+    @IBOutlet weak var navBar: UINavigationBar! {
         didSet {
-            setupAddLanguageButton()
+            navBar.topItem?.title = NSLocalizedString("Main Language", comment: "Title of a navigationBar with the main language")
         }
     }
 
-    
-    @IBAction func addLanguageButtonTapped(_ sender: UIButton) {
-        if addLanguage {
-            languageCodes.append(allLanguages[languagesPickerView.selectedRow(inComponent: 0)].code)
+    @IBOutlet weak var languagesPickerView: UIPickerView! {
+        didSet {
+            languagesPickerView.dataSource = self
+            languagesPickerView.delegate = self
         }
-        addLanguage = !addLanguage
-        languagesPickerView.reloadAllComponents()
     }
     
     // MARK: - Delegates and datasource
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        if addLanguage {
-
-        } else {
-            selectedLanguageCode = languageCodes[row]
+        // use the selected language also as the primary language
+        if editMode {
+            updatedPrimaryLanguageCode = sortedLanguages[row].code
+            languagesPickerView.reloadComponent(0)
         }
+        selectedLanguageCode = sortedLanguages[row].code
     }
     
     
@@ -89,25 +98,114 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if addLanguage {
-            return allLanguages.count
+        if sortedLanguages.isEmpty {
+            return 1
         } else {
-            return languageCodes.count
+            return sortedLanguages.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if addLanguage {
-            return allLanguages[row].name
+        if sortedLanguages.isEmpty {
+            return Constants.NoLanguage
         } else {
-            let rowLanguageCode = languageCodes[row]
-            if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
-                s.code == rowLanguageCode
-            }){
-                return allLanguages[validIndex].name
-            } else {
-                return Constants.NoLanguage
+            return sortedLanguages[row].name
+        }
+    }
+
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        
+        let myLabel = view == nil ? UILabel() : view as? UILabel
+        
+        var attributedRowText = NSMutableAttributedString()
+
+        if sortedLanguages.isEmpty {
+            attributedRowText = NSMutableAttributedString(string: Constants.NoLanguage)
+        } else {
+            attributedRowText = NSMutableAttributedString(string: sortedLanguages[row].name)
+        }
+
+        myLabel?.textAlignment = .center
+
+        // has the primary languageCode been updated?
+        let currentLanguageCode = updatedPrimaryLanguageCode != nil ? updatedPrimaryLanguageCode : primaryLanguageCode
+        // is this the primary language?
+        if (sortedLanguages[row].code == currentLanguageCode) {
+            attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
+        } else {
+            attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
+        }
+        
+        attributedRowText.addAttribute(NSFontAttributeName, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
+        myLabel!.attributedText = attributedRowText
+        return myLabel!
+    }
+    
+    private func positionPickerView() {
+        if editMode {
+            if let validCurrentLanguageCode = primaryLanguageCode {
+                if let validIndex = sortedLanguages.index(where: { (s: Language) -> Bool in
+                    s.code == validCurrentLanguageCode
+                }){
+                    languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
+                }
+            }
+        } else {
+            if let validCurrentLanguageCode = currentLanguageCode {
+                if let validIndex = sortedLanguages.index(where: { (s: Language) -> Bool in
+                    s.code == validCurrentLanguageCode
+                }){
+                    languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
+                }
+            }
+        }
+    }
+
+    @IBOutlet weak var addBarButtonItem: UIBarButtonItem! {
+        didSet {
+            setAddBarButtonItem()
+        }
+    }
+    
+    private func setAddBarButtonItem() {
+        if addBarButtonItem != nil {
+            addBarButtonItem!.isEnabled = editMode
+        }
+    }
+    
+    // MARK: - Segue stuff
+    
+    fileprivate struct Storyboard {
+        static let AddLanguageSegueIdentifier = "Add Language ViewController Segue"
+    }
+
+    @IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
+        // reload with first nutrient?
+    }
+    
+    @IBAction func unwindAddLanguageForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? AddLanguageViewController {
+            if let newLanguageCode = vc.selectedLanguageCode {
+                // the languageCodes have been edited, so with have now an updated product
+                delegate?.update(addLanguageCode: newLanguageCode)
+                if updatedLanguageCodes.isEmpty {
+                    updatedLanguageCodes = languageCodes
+                }
+                updatedLanguageCodes.append(newLanguageCode)
+                languagesPickerView.reloadComponent(0)
+                positionPickerView()
+            }
+        }
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.AddLanguageSegueIdentifier:
+                if let vc = segue.destination as? AddLanguageViewController {
+                    vc.currentLanguageCodes = languageCodesToUse
+                }
+            default: break
             }
         }
     }
@@ -116,18 +214,33 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        languagesPickerView.dataSource = self
-        languagesPickerView.delegate = self
         
-        // MARK: TBD - I should move the picker to the current language
-        if let validCurrentLanguageCode = currentLanguageCode {
-            let index = languageCodes.index(of: validCurrentLanguageCode)
-            if let validIndex = index {
-                languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
-            }         }
-        
-        title = NSLocalizedString("Select Language", comment: "Title of viewcontroller which allows the selecting of a product language.")
+        positionPickerView()
     }
 
+    private func setupLanguages() {
+        buildLanguagesToUse()
+        sortedLanguages = sortedLanguages.sorted(by: forward)
+    }
+    
+    private func buildLanguagesToUse() {
+        if !languageCodesToUse.isEmpty {
+            sortedLanguages = []
+            let allLanguages: [Language] = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
+            for code in languageCodesToUse {
+                if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+                    s.code == code
+                }){
+                    sortedLanguages.append(allLanguages[validIndex])
+                }
+            }
+        }
+    }
+
+    private func forward(_ s1: Language, _ s2: Language) -> Bool {
+        return s1.name < s2.name
+    }
+    
 }
+
+

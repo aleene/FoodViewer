@@ -277,6 +277,7 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate 
                 if let vc = segue.destination as? SelectLanguageViewController {
                     vc.currentLanguageCode = currentLanguageCode
                     vc.languageCodes = product!.languageCodes
+                    vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
                     vc.primaryLanguageCode = product?.primaryLanguageCode
                     vc.sourcePage = 1
                     vc.editMode = editMode

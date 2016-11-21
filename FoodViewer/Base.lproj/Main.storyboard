@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -1286,7 +1285,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-vd-gTt">
                                 <rect key="frame" x="-4" y="20" width="328" height="44"/>
                                 <items>
-                                    <navigationItem title="Title" id="MGY-bs-Itx">
+                                    <navigationItem title="Select Language" id="MGY-bs-Itx">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="NJZ-zu-ngt">
                                             <connections>
                                                 <segue destination="IDv-on-CqZ" kind="unwind" unwindAction="unwindSetLanguageForCancel:" id="Vp6-1J-25p"/>
@@ -1301,38 +1300,97 @@
                                 </items>
                             </navigationBar>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-NT-FaZ">
-                                <rect key="frame" x="0.0" y="84" width="320" height="366"/>
+                                <rect key="frame" x="0.0" y="84" width="320" height="216"/>
+                                <gestureRecognizers/>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yg9-Zo-bAb">
-                                <rect key="frame" x="110.5" y="450" width="99" height="30"/>
-                                <state key="normal" title="Add Language"/>
-                                <connections>
-                                    <action selector="addLanguageButtonTapped:" destination="jr5-WB-3MY" eventType="touchUpInside" id="9Tc-Yk-8rr"/>
-                                </connections>
-                            </button>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-Vb-8XW">
+                                <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="M4n-uz-oYl"/>
+                                    <barButtonItem systemItem="add" id="cFk-ea-6EH">
+                                        <connections>
+                                            <segue destination="I8T-CR-49E" kind="presentation" identifier="Add Language ViewController Segue" id="1Ci-bu-4sU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="yg9-Zo-bAb" firstAttribute="bottomMargin" secondItem="iBf-Wf-WZA" secondAttribute="top" constant="-8" id="6yf-mB-Ycg"/>
                             <constraint firstItem="GY8-NT-FaZ" firstAttribute="top" secondItem="bEj-vd-gTt" secondAttribute="bottom" constant="20" id="8PZ-TT-wiN"/>
                             <constraint firstItem="GY8-NT-FaZ" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leading" id="Cto-jH-Prt"/>
                             <constraint firstItem="bEj-vd-gTt" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leadingMargin" constant="-20" id="K9X-5T-QzE"/>
                             <constraint firstAttribute="trailing" secondItem="GY8-NT-FaZ" secondAttribute="trailing" id="RbI-zh-L1z"/>
-                            <constraint firstItem="yg9-Zo-bAb" firstAttribute="centerX" secondItem="I9G-k1-O9X" secondAttribute="centerX" id="kbk-eF-XxG"/>
-                            <constraint firstItem="yg9-Zo-bAb" firstAttribute="top" secondItem="GY8-NT-FaZ" secondAttribute="bottom" id="nTS-3g-QIQ"/>
                             <constraint firstItem="bEj-vd-gTt" firstAttribute="top" secondItem="hKm-Px-anF" secondAttribute="bottom" id="s0F-ms-Cia"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bEj-vd-gTt" secondAttribute="trailing" constant="-20" id="zaJ-qO-yu8"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="addLanguageButton" destination="yg9-Zo-bAb" id="VGl-fQ-zXU"/>
+                        <outlet property="addBarButtonItem" destination="cFk-ea-6EH" id="ReQ-0n-rHY"/>
                         <outlet property="languagesPickerView" destination="GY8-NT-FaZ" id="OIj-jj-z5w"/>
+                        <outlet property="navBar" destination="bEj-vd-gTt" id="2QB-SP-MgK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dq4-Hi-4HJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="IDv-on-CqZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1001" y="4109"/>
+        </scene>
+        <!--Add Language View Controller-->
+        <scene sceneID="VdE-p6-Qdz">
+            <objects>
+                <viewController id="I8T-CR-49E" customClass="AddLanguageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xMc-Ig-682"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Hk-2t-xz6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hrN-JU-8kv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="hie-TI-GZb">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="7hu-JR-POT">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="4sm-7k-b0X">
+                                            <connections>
+                                                <segue destination="1h6-hl-cx9" kind="unwind" unwindAction="unwindAddLanguageForCancel:" id="9l0-pg-Jbl"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="8MH-IQ-Qp2">
+                                            <connections>
+                                                <segue destination="1h6-hl-cx9" kind="unwind" unwindAction="unwindAddLanguageForDone:" id="ACK-tz-EfU"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wz9-lT-1nW">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hie-TI-GZb" firstAttribute="top" secondItem="hrN-JU-8kv" secondAttribute="top" id="3AF-18-Gvl"/>
+                            <constraint firstAttribute="trailing" secondItem="wz9-lT-1nW" secondAttribute="trailing" id="Deg-fy-vYD"/>
+                            <constraint firstItem="wz9-lT-1nW" firstAttribute="top" secondItem="hie-TI-GZb" secondAttribute="bottom" id="NAe-jr-iId"/>
+                            <constraint firstAttribute="trailing" secondItem="hie-TI-GZb" secondAttribute="trailing" id="abZ-gZ-Sbl"/>
+                            <constraint firstItem="hie-TI-GZb" firstAttribute="leading" secondItem="hrN-JU-8kv" secondAttribute="leading" id="gph-0U-Ya2"/>
+                            <constraint firstItem="wz9-lT-1nW" firstAttribute="leading" secondItem="hrN-JU-8kv" secondAttribute="leading" id="ou8-DS-E0b"/>
+                            <constraint firstItem="wz9-lT-1nW" firstAttribute="top" secondItem="hie-TI-GZb" secondAttribute="bottom" id="rif-gS-Ber"/>
+                            <constraint firstItem="0Hk-2t-xz6" firstAttribute="top" secondItem="wz9-lT-1nW" secondAttribute="bottom" id="voT-Yb-fAV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="languagesPickerView" destination="wz9-lT-1nW" id="cdU-bs-c8e"/>
+                        <outlet property="navBar" destination="hie-TI-GZb" id="NUv-Bi-igI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0h8-AZ-lII" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="1h6-hl-cx9" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="999" y="4996"/>
         </scene>
         <!--Confirm Product Table View Controller-->
         <scene sceneID="5CJ-Aa-CUn">

@@ -118,13 +118,6 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         }
     }
     
-    // private var newValue: String? = nil
-    
-    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        nutrientValue.resignFirstResponder()
-        // performSegue(withIdentifier: Storyboard.SegueIdentifier, sender: self)
-    }
-    
     @IBOutlet weak var nutrientTitle: UILabel! {
         didSet {
             setupInterface()
@@ -190,7 +183,7 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         initEditedNutritionFacts()
-        if nutrientModelSegmentedControl.selectedSegmentIndex == 0 {
+        if per == .perStandardUnit {
             editedNutritionFacts![currentNutrientItemIndex!]?.standardValueUnit = NutritionFactUnit(rawValue: row)!
         } else {
             editedNutritionFacts![currentNutrientItemIndex!]?.servingValueUnit = NutritionFactUnit(rawValue: row)!
@@ -218,7 +211,7 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
             // nutrient value
             if let validText = textField.text {
                 initEditedNutritionFacts()
-                if nutrientModelSegmentedControl.selectedSegmentIndex == 0 {
+                if per == .perStandardUnit {
                     editedNutritionFacts![currentNutrientItemIndex!]!.standardValue = validText
                 } else {
                     editedNutritionFacts![currentNutrientItemIndex!]!.servingValue = validText
