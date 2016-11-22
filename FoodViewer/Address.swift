@@ -60,6 +60,13 @@ class Address {
     }
     
     convenience init(with: (String, Address)?) {
+        
+        func initElements() {
+            if self.elements == nil {
+                self.elements = []
+            }
+        }
+
         self.init()
         if let shop = with {
             self.title = shop.0
@@ -67,8 +74,29 @@ class Address {
             self.city = shop.1.street
             self.postalcode = shop.1.postalcode
             self.country = shop.1.country
-            self.elements = [shop.1.title, shop.1.street, shop.1.street, shop.1.postalcode, shop.1.country]
+            if !shop.1.title.characters.isEmpty {
+                initElements()
+                self.elements?.append(shop.1.title)
+            }
+            if !shop.1.street.isEmpty {
+                initElements()
+                self.elements?.append(shop.1.street)
+            }
+            if !shop.1.postalcode.isEmpty {
+                initElements()
+                self.elements?.append(shop.1.postalcode)
+            }
+            if !shop.1.city.isEmpty {
+                initElements()
+                self.elements?.append(shop.1.city)
+            }
+
+            if !shop.1.country.isEmpty {
+                initElements()
+                self.elements?.append(shop.1.country)
+            }
         }
+        
     }
     
     var language: String = ""

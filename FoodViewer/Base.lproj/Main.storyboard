@@ -26,7 +26,7 @@
                                 <navigationItem title="Enter Shop details" id="4y8-hi-MjI">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PtU-Dw-UEq">
                                         <connections>
-                                            <segue destination="0na-7c-rwo" kind="unwind" identifier="Cancel Add Favorite Shop Unwind" unwindAction="unwindAddFavoriteShopForCancel:" id="ZQo-7y-6np"/>
+                                            <segue destination="0na-7c-rwo" kind="unwind" identifier="" unwindAction="unwindAddFavoriteShopForCancel:" id="ZQo-7y-6np"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem key="rightBarButtonItem" systemItem="done" id="Mbu-Ol-613">
@@ -76,7 +76,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="0na-7c-rwo" kind="unwind" identifier="Done Add Favorite Shop Unwind" unwindAction="unwindAddFavoriteShopForDone:" id="3Pl-f4-HwM"/>
+                        <segue destination="0na-7c-rwo" kind="unwind" identifier="Unwind Add Favorite Shop Segue" unwindAction="unwindAddFavoriteShopForDone:" id="3Pl-f4-HwM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -124,7 +124,11 @@
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="kEy-oX-gzH"/>
-                                        <barButtonItem systemItem="add" id="fnz-IT-DTg"/>
+                                        <barButtonItem systemItem="add" id="fnz-IT-DTg">
+                                            <connections>
+                                                <segue destination="ThT-Su-Fb2" kind="presentation" identifier="Add Favorite Shop Segue" id="5gK-vd-Q7C"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </items>
                                 </toolbar>
                             </subviews>

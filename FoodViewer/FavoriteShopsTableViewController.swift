@@ -118,7 +118,7 @@ class FavoriteShopsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    
+        
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         editMode = !editMode
     }
