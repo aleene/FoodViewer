@@ -34,9 +34,6 @@
 		5148F0F11DD3291500EF1B67 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F01DD3291500EF1B67 /* Language.swift */; };
 		5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */; };
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
-		514A74001D91B6D500EFF465 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A73FF1D91B6D500EFF465 /* TagView.swift */; };
-		514A74041D91B6F400EFF465 /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A74011D91B6F400EFF465 /* CloseButton.swift */; };
-		514A74051D91B6F400EFF465 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514A74031D91B6F400EFF465 /* TagListView.swift */; };
 		5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0631CBAC3F800161616 /* NutritionFactItem.swift */; };
 		5150C0661CBCD66F00161616 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0651CBCD66F00161616 /* Preferences.swift */; };
 		5150C0681CBD48BD00161616 /* NoImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0671CBD48BD00161616 /* NoImageTableViewCell.swift */; };
@@ -67,6 +64,9 @@
 		5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160FE4F1CD3ADC300CA4A6E /* UIColorExtension.swift */; };
 		51649A501DE3306C000F305E /* ExpirationDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */; };
 		51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */; };
+		51649A541DE498CE000F305E /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A531DE498CE000F305E /* CloseButton.swift */; };
+		51649A581DE498F4000F305E /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A561DE498F4000F305E /* TagListView.swift */; };
+		51649A591DE498F4000F305E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A571DE498F4000F305E /* TagView.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
 		516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B327E1C74D9560031EF80 /* EditProductViewController.swift */; };
 		516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32801C75F2430031EF80 /* BarcodeType.swift */; };
@@ -211,10 +211,6 @@
 		5148F0F01DD3291500EF1B67 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectExpirationDateViewController.swift; sourceTree = "<group>"; };
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
-		514A73FF1D91B6D500EFF465 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
-		514A74011D91B6F400EFF465 /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
-		514A74021D91B6F400EFF465 /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
-		514A74031D91B6F400EFF465 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		5150C0631CBAC3F800161616 /* NutritionFactItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItem.swift; sourceTree = "<group>"; };
 		5150C0651CBCD66F00161616 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5150C0671CBD48BD00161616 /* NoImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -246,6 +242,10 @@
 		5160FE4F1CD3ADC300CA4A6E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpirationDateTableViewCell.swift; sourceTree = "<group>"; };
 		51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchacePlaceTableViewCell.swift; sourceTree = "<group>"; };
+		51649A531DE498CE000F305E /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		51649A551DE498F4000F305E /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
+		51649A561DE498F4000F305E /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		51649A571DE498F4000F305E /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
 		516B327E1C74D9560031EF80 /* EditProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
 		516B32801C75F2430031EF80 /* BarcodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeType.swift; sourceTree = "<group>"; };
@@ -381,10 +381,10 @@
 		510A38E51CD3B01B00BAEB61 /* TagListView */ = {
 			isa = PBXGroup;
 			children = (
-				514A74011D91B6F400EFF465 /* CloseButton.swift */,
-				514A74021D91B6F400EFF465 /* TagListView.h */,
-				514A74031D91B6F400EFF465 /* TagListView.swift */,
-				514A73FF1D91B6D500EFF465 /* TagView.swift */,
+				51649A531DE498CE000F305E /* CloseButton.swift */,
+				51649A551DE498F4000F305E /* TagListView.h */,
+				51649A561DE498F4000F305E /* TagListView.swift */,
+				51649A571DE498F4000F305E /* TagView.swift */,
 			);
 			name = TagListView;
 			sourceTree = "<group>";
@@ -847,6 +847,7 @@
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
 				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
+				51649A541DE498CE000F305E /* CloseButton.swift in Sources */,
 				515742721CDB63B200BE8E2D /* RSEANGenerator.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
@@ -887,7 +888,6 @@
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
 				516B328D1C75FF100031EF80 /* NutrientsImageTableViewCell.swift in Sources */,
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
-				514A74051D91B6F400EFF465 /* TagListView.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
 				51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */,
 				516D0C231C8DD30400C1C789 /* CountriesTagListViewTableViewCell.swift in Sources */,
@@ -897,6 +897,7 @@
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
+				51649A581DE498F4000F305E /* TagListView.swift in Sources */,
 				51AFB0071C734C6600598444 /* IdentificationTagListViewTableViewCell.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,
 				51BED0C61CE1C1B7006ED62B /* AddressTagListTableViewCell.swift in Sources */,
@@ -938,15 +939,14 @@
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift in Sources */,
-				514A74041D91B6F400EFF465 /* CloseButton.swift in Sources */,
 				51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */,
 				51FB322D1CF44E8A00A17312 /* BarcodeTableViewCell.swift in Sources */,
 				515742781CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift in Sources */,
 				51649A501DE3306C000F305E /* ExpirationDateTableViewCell.swift in Sources */,
 				51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */,
-				514A74001D91B6D500EFF465 /* TagView.swift in Sources */,
 				51352FBB1DA6570E008FF151 /* ProductPageViewController.swift in Sources */,
 				516BA5961CC769DD008A094A /* Energy.swift in Sources */,
+				51649A591DE498F4000F305E /* TagView.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,
 				5157426E1CDB63B200BE8E2D /* RSCodeGenerator.swift in Sources */,
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,

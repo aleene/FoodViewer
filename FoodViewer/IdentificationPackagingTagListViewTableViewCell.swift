@@ -24,24 +24,38 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
         }
     }
     
+    var editMode = false {
+        didSet {
+            setTags()
+        }
+    }
+    
     var tagList: [String]? = nil {
         didSet {
-            if let list = tagList {
-                tagListView.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
+            setTags()
+        }
+    }
+    
+    private func setTags() {
+        if let list = tagList {
+            tagListView.removeAllTags()
+            if !list.isEmpty {
+                for (index, listItem) in list.enumerated() {
+                    if editMode {
+                        tagListView.insertTag(listItem + " X", at: index)
+                    } else {
                         tagListView.addTag(listItem)
                     }
-                    tagListView.tagBackgroundColor = UIColor.green
-                } else {
-                    tagListView.addTag(Constants.NoInformation)
-                    tagListView.tagBackgroundColor = UIColor.orange
                 }
+                tagListView.tagBackgroundColor = UIColor.green
             } else {
-                tagListView.removeAllTags()
                 tagListView.addTag(Constants.NoInformation)
                 tagListView.tagBackgroundColor = UIColor.orange
             }
+        } else {
+            tagListView.removeAllTags()
+            tagListView.addTag(Constants.NoInformation)
+            tagListView.tagBackgroundColor = UIColor.orange
         }
     }
 

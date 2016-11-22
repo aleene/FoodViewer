@@ -23,25 +23,41 @@ class IdentificationTagListViewTableViewCell: UITableViewCell {
         }
     }
     
-    var tagList: [String]? = nil {
+    var editMode = false {
         didSet {
-            if let list = tagList {
-                tagListView.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
-                        tagListView.addTag(listItem)
-                    }
-                    tagListView.tagBackgroundColor = UIColor.green
-                } else {
-                    tagListView.addTag(Constants.NoInformation)
-                    tagListView.tagBackgroundColor = UIColor.orange
-                }
-            } else {
-                tagListView.removeAllTags()
-                tagListView.addTag(Constants.NoInformation)
-                tagListView.tagBackgroundColor = UIColor.orange
+            // if the editmode changes I should repaint the view
+            if editMode != oldValue {
+                setTags()
             }
         }
     }
+    
+    var tagList: [String]? = nil {
+        didSet {
+            setTags()
+        }
+    }
 
+    private func setTags() {
+        if let list = tagList {
+            tagListView.removeAllTags()
+            if !list.isEmpty {
+                for (index, listItem) in list.enumerated() {
+                    if editMode {
+                        tagListView.insertTag(listItem + " X", at: index)
+                    } else {
+                        tagListView.addTag(listItem)
+                    }
+                }
+                tagListView.tagBackgroundColor = UIColor.green
+            } else {
+                tagListView.addTag(Constants.NoInformation)
+                tagListView.tagBackgroundColor = UIColor.orange
+            }
+        } else {
+            tagListView.removeAllTags()
+            tagListView.addTag(Constants.NoInformation)
+            tagListView.tagBackgroundColor = UIColor.orange
+        }
+    }
 }

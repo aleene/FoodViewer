@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IdentificationTableViewController: UITableViewController, UITextFieldDelegate {
+class IdentificationTableViewController: UITableViewController, UITextFieldDelegate, TagListViewDelegate {
 
     fileprivate struct TextConstants {
         static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
@@ -178,14 +178,20 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             return cell!
 
         case .brands:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as? IdentificationTagListViewTableViewCell
-            cell!.tagList = product?.brandsArray != nil ? product!.brandsArray! : nil
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as! IdentificationTagListViewTableViewCell
+            cell.tagList = delegate?.updatedProduct?.brandsArray == nil ? product!.brandsArray! : delegate!.updatedProduct!.brandsArray
+            cell.editMode = editMode
+            cell.tagListView.delegate = self
+            cell.tagListView.tag = 0
+            return cell
             
         case .packaging:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as? IdentificationPackagingTagListViewTableViewCell
-            cell!.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as! IdentificationPackagingTagListViewTableViewCell
+            cell.tagList = product?.packagingArray != nil ? product!.packagingArray! : nil
+            cell.editMode = editMode
+            cell.tagListView.delegate = self
+            cell.tagListView.tag = 1
+            return cell
             
         case .quantity:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.QuantityCellIdentifier, for: indexPath) as? QuantityTableViewCell
@@ -308,6 +314,20 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         return sectionsAndRows
     }
     
+    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
+        switch sender.tag {
+        case 0: // brands
+            delegate?.product?.brandsArray = product?.brandsArray
+            delegate?.product?.brandsArray?.remove(at: tagView.tag)
+        case 1: // packaging tags
+            delegate?.product?.packagingArray = product?.packagingArray
+            delegate?.product?.packagingArray?.remove(at: tagView.tag)
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+
     // MARK: - TextField stuff
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
