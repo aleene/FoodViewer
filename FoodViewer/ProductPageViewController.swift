@@ -418,6 +418,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         updatedProduct?.add(languageCode: languageCode)
     }
 
+    func update(shop: (String, Address)?) {
+        initUpdatedProductWith(product: product!)
+        if let validShop = shop {
+            _ = updatedProduct?.add(shop: validShop.0)
+            updatedProduct?.purchaseLocation = Address.init(with: shop)
+        }
+    }
+
     
     func updated(facts: [NutritionFactItem?]) {
         initUpdatedProductWith(product: product!)

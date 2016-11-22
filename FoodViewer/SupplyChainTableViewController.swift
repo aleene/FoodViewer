@@ -85,7 +85,9 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
         static let SitesCellIdentifier = "Sites TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
+        static let PurchasPlaceCellIdentifier = "Purchase Place Cell"
         static let ShowExpirationDateViewControllerSegue = "Show ExpirationDate ViewController"
+        static let ShowFavoriteShopsSegue = "Show Favorite Shops Segue"
     }
     
 
@@ -200,35 +202,33 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
             cell.tagList = product!.ingredientsOrigin?.elements
             return cell
         case .store:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.stores
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
+            cell.tagList = delegate?.updatedProduct?.stores == nil ? product!.stores : delegate!.updatedProduct!.stores
+            cell.editMode = editMode
             return cell
         case .location:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.purchaseLocation?.elements
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
+            cell.tagList = delegate?.updatedProduct?.purchaseLocation == nil ? product!.purchaseLocation!.elements : delegate!.updatedProduct!.purchaseLocation!.elements            
+            cell.editMode = editMode
             return cell
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! CountriesTagListViewTableViewCell
-            cell.tagList = product!.countries
+            cell.tagList = delegate?.updatedProduct?.countries == nil ? product!.countries : delegate!.updatedProduct!.countries
             return cell
         case .map:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
             cell.product = product!
             return cell
         case .expirationDate:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath) as! ExpirationDateTableViewCell
             
             // has the product been edited?
-            if let validName = delegate?.updatedProduct?.expirationDate {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                cell.textLabel!.text = formatter.string(from: validName as Date)
-            } else if let validName = product!.expirationDate {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                cell.textLabel!.text = formatter.string(from: validName as Date)
+            if let validDate = delegate?.updatedProduct?.expirationDate {
+                cell.editMode = editMode
+                cell.date = validDate
+            } else if let validDate = product!.expirationDate {
+                cell.date = validDate
+                cell.editMode = editMode
             } else {
                 cell.textLabel!.text = Constants.NoExpirationDate
             }
@@ -343,6 +343,16 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
     @IBAction func unwindSetExpirationDateForCancel(_ segue:UIStoryboardSegue) {
         if let _ = segue.source as? SelectExpirationDateViewController {
         }
+    }
+
+    @IBAction func unwindSetFavoriteShopForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? FavoriteShopsTableViewController {
+            delegate?.update(shop: vc.selectedShop)
+            tableView.reloadData()
+        }
+    }
+    
+    @IBAction func unwindSetFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
     }
 
     // MARK: - Controller Lifecycle

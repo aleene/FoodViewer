@@ -300,12 +300,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
             tableView.reloadData()
         }
     }
-    
-    @IBAction func favoriteShopsSettingsDone(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? FavoriteShopsTableViewController {
-            tableView.reloadData()
-        }
-    }
 
     override var prefersStatusBarHidden : Bool {
         return true

@@ -58,7 +58,19 @@ class Address {
         self.city = newCity
         self.country = newCountry
     }
-
+    
+    convenience init(with: (String, Address)?) {
+        self.init()
+        if let shop = with {
+            self.title = shop.0
+            self.street = shop.1.street
+            self.city = shop.1.street
+            self.postalcode = shop.1.postalcode
+            self.country = shop.1.country
+            self.elements = [shop.1.title, shop.1.street, shop.1.street, shop.1.postalcode, shop.1.country]
+        }
+    }
+    
     var language: String = ""
     var raw: String = ""
     

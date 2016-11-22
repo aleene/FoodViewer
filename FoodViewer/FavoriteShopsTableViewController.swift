@@ -17,7 +17,12 @@ class FavoriteShopsTableViewController: UITableViewController {
     private var shops: [(String, Address)] = []
 
     private var snapShot: UIView?
+    
     private var sourceIndexPath: IndexPath?
+    
+    var editMode = false
+    
+    var selectedShop: (String, Address)? = nil
 
     // MARK: - Table view data source
 
@@ -74,11 +79,17 @@ class FavoriteShopsTableViewController: UITableViewController {
 
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if !editMode {
+            selectedShop = FavoriteShopsDefaults.manager.list[indexPath.row]
+        }
+    }
 
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return editMode
     }
     
     
@@ -108,6 +119,13 @@ class FavoriteShopsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
+        editMode = !editMode
+    }
+    
+    @IBAction func unwindAddFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
+    }
+
     // MARK: - Moving table rows by long press
     
     // https://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture

@@ -12,6 +12,12 @@ class SelectExpirationDateViewController: UIViewController {
     
     var currentDate: Date? {
         didSet {
+            setupInterface()
+        }
+    }
+    
+    private func setupInterface() {
+        if expirationDatePicker != nil {
             if let validDate = currentDate {
                 expirationDatePicker.date = validDate
             }
@@ -20,7 +26,11 @@ class SelectExpirationDateViewController: UIViewController {
     
     var selectedDate: Date?
     
-    @IBOutlet weak var expirationDatePicker: UIDatePicker!
+    @IBOutlet weak var expirationDatePicker: UIDatePicker! {
+        didSet {
+            setupInterface()
+        }
+    }
     
     @IBAction func expirationDatePickerChanged(_ sender: UIDatePicker) {
         selectedDate = sender.date
