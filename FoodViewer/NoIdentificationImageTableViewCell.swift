@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoIdentificationImageTableViewCell: UITableViewCell {
+class NoIdentificationImageTableViewCell: UITableViewCell, TagListViewDataSource {
     
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -16,12 +16,12 @@ class NoIdentificationImageTableViewCell: UITableViewCell {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
             tagListView.cornerRadius = 10
+            tagListView.datasource = self
         }
     }
     
     var imageFetchStatus: ImageFetchResult = .noData {
         didSet {
-            tagListView.removeAllTags()
             switch imageFetchStatus {
             case .success:
                 tagListView.tagBackgroundColor = UIColor.green
@@ -30,8 +30,16 @@ class NoIdentificationImageTableViewCell: UITableViewCell {
             case .loading:
                 tagListView.tagBackgroundColor = UIColor.orange
             }
-            tagListView.addTag(imageFetchStatus.description())
         }
     }
     
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        return imageFetchStatus.description()
+    }
 }

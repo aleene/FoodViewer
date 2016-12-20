@@ -354,7 +354,7 @@ class OpenFoodFactsRequest {
                 decodeLastEditDates(jsonObject[OFFJson.ProductKey][OFFJson.LastEditDatesTagsKey].stringArray, forProduct:product)
                 
                 
-                product.labelArray = decodeGlobalLabels(jsonObject[OFFJson.ProductKey][OFFJson.LabelsTagsKey].stringArray)
+                product.labelArray = Tags(decodeGlobalLabels(jsonObject[OFFJson.ProductKey][OFFJson.LabelsTagsKey].stringArray))
                 
                 product.traceKeys = jsonObject[OFFJson.ProductKey][OFFJson.TracesTagsKey].stringArray
 
@@ -374,22 +374,18 @@ class OpenFoodFactsRequest {
                     }
                 }
                 product.genericName = jsonObject[OFFJson.ProductKey][OFFJson.GenericNameKey].string
-                product.additives = decodeAdditives(jsonObject[OFFJson.ProductKey][OFFJson.AdditivesTagsKey].stringArray)
+                product.additives = Tags(decodeAdditives(jsonObject[OFFJson.ProductKey][OFFJson.AdditivesTagsKey].stringArray))
                 
                 product.informers = jsonObject[OFFJson.ProductKey][OFFJson.InformersTagsKey].stringArray
                 product.photographers = jsonObject[OFFJson.ProductKey][OFFJson.PhotographersTagsKey].stringArray
-                if let packagingString = jsonObject[OFFJson.ProductKey][OFFJson.PackagingKey].string {
-                    product.packagingArray = packagingString.characters.split{$0 == ","}.map(String.init)
-                }
+                product.packagingArray = Tags.init(jsonObject[OFFJson.ProductKey][OFFJson.PackagingKey].string)
                 product.numberOfIngredients = jsonObject[OFFJson.ProductKey][OFFJson.IngredientsNKey].string
                 
                 product.countryArray(decodeCountries(jsonObject[OFFJson.ProductKey][OFFJson.CountriesTagsKey].stringArray))
                 
                 product.producerCode = decodeProducerCodeArray(jsonObject[OFFJson.ProductKey][OFFJson.EmbCodesOrigKey].string)
                 
-                if let brandsString = jsonObject[OFFJson.ProductKey][OFFJson.BrandsKey].string {
-                    product.brandsArray = brandsString.characters.split{$0 == ","}.map(String.init)
-                }
+                product.brands = Tags.init(jsonObject[OFFJson.ProductKey][OFFJson.BrandsKey].string)
                 
                 // The links for the producer are stored as a string. This string might contain multiple links.
                 let linksString = jsonObject[OFFJson.ProductKey][OFFJson.LinkKey].string

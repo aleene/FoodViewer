@@ -28,7 +28,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 }
 
 
-class SupplyChainTableViewController: UITableViewController, TagListViewDelegate {
+class SupplyChainTableViewController: UITableViewController {
     
     var product: FoodProduct? {
         didSet {
@@ -195,7 +195,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         case .sites:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! SitesTagListTableViewCell
             cell.tagList = product!.links
-            cell.tagListView!.delegate = self
+            // cell.tagListView!.delegate = self
             return cell
         case .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
@@ -264,7 +264,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         }
     }
     
-    // MARK: TagListViewDelegate
+    /* MARK: TagListViewDelegate
     
     func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
         /// shoudl open the corresponding url in safari
@@ -288,6 +288,7 @@ class SupplyChainTableViewController: UITableViewController, TagListViewDelegate
         tagView.isSelected = !tagView.isSelected
     }
     
+     */
 
     // MARK: - Notification handler
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IngredientsTableViewController: UITableViewController, UITextViewDelegate {
+class IngredientsTableViewController: UITableViewController, UITextViewDelegate, TagListViewDelegate, TagListViewDataSource {
 
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
@@ -122,22 +122,42 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate 
             return cell!
             
         case .allergens:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as? AllergensFullTableViewCell
-            cell?.tagList = product!.translatedAllergens
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! AllergensFullTableViewCell
+            // cell?.tagList = product!.translatedAllergens
+            cell.editMode = editMode
+            cell.datasource = self
+            cell.delegate = self
+            cell.tag = 0
+
+            return cell
             
         case .traces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as? TracesFullTableViewCell
-            cell?.tagList = product!.translatedTraces
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TracesFullTableViewCell
+            // cell?.tagList = product!.translatedTraces
+            cell.editMode = editMode
+            cell.datasource = self
+            cell.delegate = self
+            cell.tag = 1
+
+            return cell
         case .additives:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as? AdditivesFullTableViewCell
-            cell!.tagList = product!.additives
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! AdditivesFullTableViewCell
+            // cell!.tagList = product!.additives
+            cell.editMode = editMode
+            cell.datasource = self
+            cell.delegate = self
+            cell.tag = 2
+
+            return cell
         case .labels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as? LabelsFullTableViewCell
-            cell?.tagList = product!.labelArray
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! LabelsFullTableViewCell
+            // cell?.tagList = product!.labelArray
+            cell.editMode = editMode
+            cell.datasource = self
+            cell.delegate = self
+            cell.tag = 3
+
+            return cell
         case .image:
             if let result = product?.getIngredientsImageData() {
                 switch result {
@@ -316,6 +336,233 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate 
         calculationView.attributedText = text
         let size = calculationView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
         return size.height
+    }
+
+    
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        switch tagListView.tag {
+        case 0:
+            var tags = product!.translatedAllergens
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.translatedAllergens {
+                case .available:
+                    tags = delegate!.updatedProduct!.translatedAllergens
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                return 1
+            case let .available(list):
+                return list.count
+            }
+        case 1:
+            var tags = product!.translatedTraces
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.translatedTraces {
+                case .available:
+                    tags = delegate!.updatedProduct!.translatedTraces
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                return 1
+            case let .available(list):
+                return list.count
+            }
+        case 2:
+            var tags = product!.additives
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.additives {
+                case .available:
+                    tags = delegate!.updatedProduct!.additives
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                return 1
+            case let .available(list):
+                return list.count
+            }
+        case 3:
+            var tags = product!.labelArray
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.labelArray {
+                case .available:
+                    tags = delegate!.updatedProduct!.labelArray
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                return 1
+            case let .available(list):
+                return list.count
+            }
+        default: break
+        }
+        return 0
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        switch tagListView.tag {
+        case 1:
+            var tags = product!.translatedTraces
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.translatedTraces {
+                case .available:
+                    tags = delegate!.updatedProduct!.translatedTraces
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                tagListView.tagBackgroundColor = .orange
+                return tags.description()
+            case let .available(list):
+                if index >= 0 && index < list.count {
+                    return list[index]
+                } else {
+                    assert(true, "traces array - index out of bounds")
+                }
+            }
+        case 3:
+            var tags = product!.labelArray
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.labelArray {
+                case .available:
+                    tags = delegate!.updatedProduct!.labelArray
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                tagListView.tagBackgroundColor = .orange
+                return tags.description()
+            case let .available(list):
+                if index >= 0 && index < list.count {
+                    return list[index]
+                } else {
+                    assert(true, "labels array - index out of bounds")
+                }
+            }
+
+        default: break
+        }
+        return("error")
+    }
+    
+    // TagListView Delegate functions
+    
+    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
+        switch tagListView.tag {
+        case 1:
+            var traces = Tags()
+            // has it been edited already?
+            if delegate?.updatedProduct?.translatedTraces == nil {
+                // initialise with the existing data
+                traces = product!.translatedTraces
+            } else {
+                traces = delegate!.updatedProduct!.translatedTraces
+            }
+            switch traces {
+            case .undefined, .empty:
+                delegate?.update(tracesTags: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(tracesTags: list)
+            }
+            tableView.reloadData()
+        case 3:
+            var labels = Tags()
+            // has it been edited already?
+            if delegate?.updatedProduct?.labelArray == nil {
+                // initialise with the existing data
+                labels = product!.labelArray
+            } else {
+                labels = delegate!.updatedProduct!.labelArray
+            }
+            switch labels {
+            case .undefined, .empty:
+                delegate?.update(labelTags: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(labelTags: list)
+            }
+            tableView.reloadData()
+        default:
+            break
+        }
+    }
+    
+    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
+        switch tagListView.tag {
+        case 1:
+            var traces = Tags()
+            // has it been edited already?
+            if delegate?.updatedProduct?.traces == nil {
+                // initialise with the existing array
+                traces = product!.translatedTraces
+            } else {
+                traces = delegate!.updatedProduct!.traces
+            }
+            switch traces {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
+                    break
+                }
+                list.remove(at: index)
+                delegate?.update(tracesTags: list)
+            }
+            tableView.reloadData()
+        case 3:
+            var labels = Tags()
+            // has it been edited already?
+            if delegate?.updatedProduct?.labelArray == nil {
+                // initialise with the existing data
+                labels = product!.labelArray
+            } else {
+                labels = delegate!.updatedProduct!.labelArray
+            }
+            switch labels {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
+                    break
+                }
+                list.remove(at: index)
+                delegate?.update(labelTags: list)
+            }
+            tableView.reloadData()
+        default:
+            break
+        }
+        
     }
 
     // MARK: - Notification handler

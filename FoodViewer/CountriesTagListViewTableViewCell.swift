@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CountriesTagListViewTableViewCell: UITableViewCell {
+class CountriesTagListViewTableViewCell: UITableViewCell, TagListViewDataSource {
     
     struct Constants {
         static let NoTag = NSLocalizedString("no countries specified", comment: "Text in a TagListView, when no countries are available in the product data.") 
@@ -19,28 +19,41 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
             countriesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             countriesTagListView.alignment = .center
             countriesTagListView.cornerRadius = 10
+            countriesTagListView.datasource = self
         }
     }
     
     var tagList: [Address]? = nil {
         didSet {
             if let list = tagList {
-                countriesTagListView.removeAllTags()
                 if !list.isEmpty {
-                    for listItem in list {
-                        countriesTagListView.addTag(listItem.country)
-                    }
                     countriesTagListView.tagBackgroundColor = UIColor.green
-                } else {
-                    countriesTagListView.addTag(Constants.NoTag)
-                    countriesTagListView.tagBackgroundColor = UIColor.orange
+                    return
                 }
-            } else {
-                countriesTagListView.removeAllTags()
-                countriesTagListView.addTag(Constants.NoTag)
-                countriesTagListView.tagBackgroundColor = UIColor.orange
             }
+            countriesTagListView.tagBackgroundColor = UIColor.orange
         }
     }
+    
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list.count
+            }
+        }
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list[index].country
+            }
+        }
+        return Constants.NoTag
+    }
+
     
 }

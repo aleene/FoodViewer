@@ -72,7 +72,7 @@ class FoodProduct {
         }
     }
 
-    var brandsArray: [String]? = nil
+    var brands: Tags = .undefined
     var mainUrlThumb: URL? {
         didSet {
             if let imageURL = mainUrlThumb {
@@ -129,7 +129,7 @@ class FoodProduct {
     // MARK: - Packaging variables
     
     var quantity: String? = nil
-    var packagingArray: [String]? = nil
+    var packagingArray: Tags = .undefined
     
     // MARK: - Ingredients variables
     
@@ -173,46 +173,49 @@ class FoodProduct {
     var allergenKeys: [String]? = nil
     
     // returns the allergenKeys array in the current locale
-    var translatedAllergens: [String]? {
+    var translatedAllergens: Tags {
         get {
             if let validAllergenKeys = allergenKeys {
-                var translatedAllergens:[String]? = []
+                var translatedAllergens:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
                 for allergenKey in validAllergenKeys {
                     if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
-                        translatedAllergens!.append(translatedKey)
+                        translatedAllergens.append(translatedKey)
                     } else {
-                        translatedAllergens!.append(allergenKey)
+                        translatedAllergens.append(allergenKey)
                     }
                 }
-                return translatedAllergens
+                return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens)
             }
-            return nil
+            return .undefined
         }
     }
+    
     var traceKeys: [String]? = nil
     
     // returns the allergenKeys array in the current locale
-    var translatedTraces: [String]? {
+    var translatedTraces: Tags {
         get {
             if let validTracesKeys = traceKeys {
-                var translatedTraces:[String]? = []
+                var translatedTraces:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
                 for tracesKey in validTracesKeys {
                     if let translatedKey = OFFplists.manager.translateAllergens(tracesKey, language:preferredLanguage) {
-                        translatedTraces!.append(translatedKey)
+                        translatedTraces.append(translatedKey)
                     } else {
-                        translatedTraces!.append(tracesKey)
+                        translatedTraces.append(tracesKey)
                     }
                 }
-                return translatedTraces
+                return translatedTraces.count == 0 ? .empty : .available(translatedTraces)
             }
-            return nil
+            return .undefined
         }
     }
 
-    var additives: [String]? = nil
-    var labelArray: [String]? = nil
+    var traces: Tags = .undefined
+    
+    var additives: Tags = .undefined
+    var labelArray: Tags = .undefined
     
     // usage parameters
     var servingSize: String? = nil
@@ -476,19 +479,19 @@ class FoodProduct {
         barcode = BarcodeType.undefined("")
         name = nil
         genericName = nil
-        brandsArray = nil
+        brands = .undefined
         mainUrlThumb = nil
         mainImageUrl = nil
         mainImageData = nil
-        packagingArray = nil
+        packagingArray = .undefined
         quantity = nil
         ingredients = nil
         imageIngredientsSmallUrl = nil
         imageIngredientsUrl = nil
         allergenKeys = nil
         traceKeys = nil
-        additives = nil
-        labelArray = nil
+        additives = .undefined
+        labelArray = .undefined
         producer = nil
         ingredientsOrigin = nil
         producerCode = nil
@@ -659,7 +662,7 @@ class FoodProduct {
             nameLanguage = product.nameLanguage
             genericName = product.genericName
             genericNameLanguage = product.genericNameLanguage
-            brandsArray = product.brandsArray
+            brands = product.brands
             mainUrlThumb = product.mainUrlThumb
             mainImageUrl = product.mainImageUrl
             mainImageData = nil

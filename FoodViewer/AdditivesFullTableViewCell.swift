@@ -19,32 +19,33 @@ class AdditivesFullTableViewCell: UITableViewCell {
             additivesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             additivesTagListView.alignment = .center
             additivesTagListView.cornerRadius = 10
+            additivesTagListView.datasource = datasource
+            additivesTagListView.delegate = delegate
         }
     }
     
-    var tagList: [String]? = nil {
-        didSet {
-            if let list = tagList {
-                additivesTagListView.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
-                        additivesTagListView.tagBackgroundColor = UIColor.green
-                        if listItem.contains(":") {
-                            let tagView = additivesTagListView.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blue
-                        } else {
-                            additivesTagListView.addTag(listItem)
-                        }
-                    }
-                } else {
-                    additivesTagListView.addTag(Constants.NoTag)
-                    additivesTagListView.tagBackgroundColor = UIColor.orange
-                }
-            } else {
-                additivesTagListView.removeAllTags()
-                additivesTagListView.addTag(Constants.NoTag)
-                additivesTagListView.tagBackgroundColor = UIColor.orange
-            }
+    var datasource: TagListViewDataSource? = nil {
+        didSet{
+            additivesTagListView?.datasource = datasource
         }
     }
+    
+    var delegate: TagListViewDelegate? = nil {
+        didSet{
+            additivesTagListView?.delegate = delegate
+        }
+    }
+    
+    var editMode: Bool = false {
+        didSet{
+            additivesTagListView?.isEditable = editMode
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            additivesTagListView.tag = tag
+        }
+    }
+    
 }

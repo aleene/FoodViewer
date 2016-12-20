@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PurchacePlaceTableViewCell: UITableViewCell {
+class PurchacePlaceTableViewCell: UITableViewCell, TagListViewDataSource {
 
     struct Constants {
         static let NoTag = NSLocalizedString("no location specified", comment: "Text in a TagListView, when no purchase location are available in the product data.")
@@ -27,21 +27,12 @@ class PurchacePlaceTableViewCell: UITableViewCell {
         didSet {
             setupInterface()
             if let list = tagList {
-                tagListView.removeAllTags()
                 if !list.isEmpty {
-                    for listItem in list {
-                        tagListView.addTag(listItem)
-                    }
                     tagListView.tagBackgroundColor = UIColor.green
-                } else {
-                    tagListView.addTag(Constants.NoTag)
-                    tagListView.tagBackgroundColor = UIColor.orange
+                    return
                 }
-            } else {
-                tagListView.removeAllTags()
-                tagListView.addTag(Constants.NoTag)
-                tagListView.tagBackgroundColor = UIColor.orange
             }
+            tagListView.tagBackgroundColor = UIColor.orange
         }
     }
     
@@ -56,9 +47,31 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
             tagListView.cornerRadius = 10
+            tagListView.datasource = self
         }
     }
 
     @IBOutlet weak var favoriteButton: UIButton!
     
+    
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list.count
+            }
+        }
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list[index]
+            }
+        }
+        return Constants.NoTag
+    }
+
 }

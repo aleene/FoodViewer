@@ -10,41 +10,37 @@ import UIKit
 
 class AllergensFullTableViewCell: UITableViewCell {
 
-    struct Constants {
-        static let NoTag = NSLocalizedString("no allergens detected", comment: "Text in a TagListView, when no allerges have been detected in the product ingredients.") 
-    }
-
     @IBOutlet weak var allergensTagList: TagListView! {
         didSet {
             allergensTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             allergensTagList.alignment = .center
             allergensTagList.cornerRadius = 10
+            allergensTagList.datasource = datasource
+            allergensTagList.delegate = delegate
         }
     }
     
-    var tagList: [String]? = nil {
+    var datasource: TagListViewDataSource? = nil {
+        didSet{
+            allergensTagList?.datasource = datasource
+        }
+    }
+
+    var delegate: TagListViewDelegate? = nil {
+        didSet{
+            allergensTagList?.delegate = delegate
+        }
+    }
+    
+    var editMode: Bool = false {
+        didSet{
+            allergensTagList?.isEditable = editMode
+        }
+    }
+    
+    override var tag: Int {
         didSet {
-            if let list = tagList {
-                allergensTagList.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
-                        allergensTagList.tagBackgroundColor = UIColor.green
-                        if listItem.contains(":") {
-                            let tagView = allergensTagList.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blue
-                        } else {
-                            allergensTagList.addTag(listItem)
-                        }
-                    }
-                } else {
-                    allergensTagList.addTag(Constants.NoTag)
-                    allergensTagList.tagBackgroundColor = UIColor.orange
-                }
-            } else {
-                allergensTagList.removeAllTags()
-                allergensTagList.addTag(Constants.NoTag)
-                allergensTagList.tagBackgroundColor = UIColor.orange
-            }
+            allergensTagList.tag = tag
         }
     }
 

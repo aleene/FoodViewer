@@ -8,20 +8,19 @@
 
 import UIKit
 
-class EmptyNutrientsTableViewCell: UITableViewCell {
+class EmptyNutrientsTableViewCell: UITableViewCell, TagListViewDataSource {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
             tagListView.cornerRadius = 10
+            tagListView.datasource = self
         }
     }
     
     var availability: NutritionAvailability = .notIndicated {
         didSet {
-            tagListView.removeAllTags()
-            tagListView.addTag(availability.description())
             switch availability {
             case .perServing, .perStandardUnit, .perServingAndStandardUnit:
                 tagListView.tagBackgroundColor = UIColor.green
@@ -32,4 +31,15 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        return availability.description()
+    }
+
 }

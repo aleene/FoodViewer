@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TagListViewTableViewCell: UITableViewCell {
+class TagListViewTableViewCell: UITableViewCell, TagListViewDataSource {
 
     struct Constants {
         static let NoTag = NSLocalizedString("no information available", comment: "Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour.") 
@@ -19,26 +19,20 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
             tagListView.cornerRadius = 10
+            tagListView.datasource = self
         }
     }
     
     var tagList: [String]? = nil {
         didSet {
             if let list = tagList {
-                tagListView.removeAllTags()
                 let newList = removeEmptyTags(list)
                 if !newList.isEmpty {
-                    for listItem in newList {
-                        tagListView.addTag(listItem)
-                    }
                     tagListView.tagBackgroundColor = UIColor.green
                 } else {
-                    tagListView.addTag(Constants.NoTag)
                     tagListView.tagBackgroundColor = UIColor.orange
                 }
             } else {
-                tagListView.removeAllTags()
-                tagListView.addTag(Constants.NoTag)
                 tagListView.tagBackgroundColor = UIColor.orange
             }
         }
@@ -55,4 +49,33 @@ class TagListViewTableViewCell: UITableViewCell {
         }
         return newList
     }
+    
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if let list = tagList {
+            let newList = removeEmptyTags(list)
+            if !newList.isEmpty {
+                return newList.count
+            } else {
+                return 1
+            }
+        } else {
+            return 1
+        }
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let list = tagList {
+            let newList = removeEmptyTags(list)
+            if !newList.isEmpty {
+                return newList[index]
+            } else {
+                return Constants.NoTag
+            }
+        } else {
+            return Constants.NoTag
+        }
+    }
+
 }

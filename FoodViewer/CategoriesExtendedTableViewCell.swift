@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CategoriesExtendedTableViewCell: UITableViewCell {
+class CategoriesExtendedTableViewCell: UITableViewCell, TagListViewDataSource {
     
     fileprivate struct Constants {
         static let NoInformation = NSLocalizedString("no categories specified", comment: "Text in a TagListView, when no categories are available in the product data.") 
@@ -19,15 +19,16 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
             listTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             listTagListView.alignment = .center
             listTagListView.cornerRadius = 10
+            listTagListView.datasource = self
         }
     }
         
     var tagList: [String]? = nil {
         didSet {
-            listTagListView.removeAllTags()
             if let list = tagList {
                 if !list.isEmpty {
                     listTagListView.tagBackgroundColor = UIColor.green
+                    /*
                     for listItem in list {
                         if listItem.contains(":") {
                             let tagView = listTagListView.addTag(listItem)
@@ -36,15 +37,50 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
                             listTagListView.addTag(listItem)
                         }
                     }
+                     */
                 } else {
                     listTagListView.tagBackgroundColor = UIColor.orange
-                    listTagListView.addTag(Constants.NoInformation)
                 }
             } else {
                 listTagListView.tagBackgroundColor = UIColor.orange
-                listTagListView.addTag(Constants.NoInformation)
             }
         }
     }
 
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list.count
+            } else {
+                return 1
+            }
+        } else {
+            return 1
+        }
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list[index]
+                /*
+                for listItem in list {
+                    if listItem.contains(":") {
+                        let tagView = listTagListView.addTag(listItem)
+                        tagView.tagBackgroundColor = UIColor.blue
+                    } else {
+                        listTagListView.addTag(listItem)
+                    }
+                }
+                 */
+            } else {
+                return Constants.NoInformation
+            }
+        } else {
+            return Constants.NoInformation
+        }
+    }
+    
 }

@@ -10,58 +10,38 @@ import UIKit
 
 class LabelsFullTableViewCell: UITableViewCell {
 
-    fileprivate struct Constants {
-        static let NoInformation = NSLocalizedString("no labels specified", comment: "Text in a TagListView, when no labels have been specified in the product data.")
-    }
-
-    
-    var tagList: [String]? = nil {
-        didSet {
-            if let list = tagList {
-                labelsTagListView.removeAllTags()
-                if !list.isEmpty {
-                    for listItem in list {
-                        labelsTagListView.tagBackgroundColor = UIColor.green
-                        if listItem.contains(":") {
-                            let tagView = labelsTagListView.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blue
-                        } else {
-                            labelsTagListView.addTag(listItem)
-                        }
-                    }
-                } else {
-                    labelsTagListView.addTag(Constants.NoInformation)
-                    labelsTagListView.tagBackgroundColor = UIColor.orange
-                }
-            } else {
-                labelsTagListView.removeAllTags()
-                labelsTagListView.addTag(Constants.NoInformation)
-                labelsTagListView.tagBackgroundColor = UIColor.orange
-            }
-        }
-    }
-    
-
-
     @IBOutlet weak var labelsTagListView: TagListView! {
         didSet {
             labelsTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             labelsTagListView.alignment = .center
             labelsTagListView.cornerRadius = 10
+            labelsTagListView.datasource = datasource
+            labelsTagListView.delegate = delegate
         }
     }
-
     
-    func clean(_ list: [String]) -> [String] {
-        var newList: [String] = []
-        if !list.isEmpty {
-            for listItem in list {
-                if listItem.characters.count > 0 {
-                    newList.append(listItem)
-                }
-            }
+    var datasource: TagListViewDataSource? = nil {
+        didSet{
+            labelsTagListView?.datasource = datasource
         }
-        return newList
+    }
+    
+    var delegate: TagListViewDelegate? = nil {
+        didSet{
+            labelsTagListView?.delegate = delegate
+        }
+    }
+    
+    var editMode: Bool = false {
+        didSet{
+            labelsTagListView?.isEditable = editMode
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            labelsTagListView.tag = tag
+        }
     }
 
 }

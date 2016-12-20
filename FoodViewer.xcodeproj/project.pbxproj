@@ -64,9 +64,6 @@
 		5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5160FE4F1CD3ADC300CA4A6E /* UIColorExtension.swift */; };
 		51649A501DE3306C000F305E /* ExpirationDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */; };
 		51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */; };
-		51649A541DE498CE000F305E /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A531DE498CE000F305E /* CloseButton.swift */; };
-		51649A581DE498F4000F305E /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A561DE498F4000F305E /* TagListView.swift */; };
-		51649A591DE498F4000F305E /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A571DE498F4000F305E /* TagView.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
 		516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B327E1C74D9560031EF80 /* EditProductViewController.swift */; };
 		516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32801C75F2430031EF80 /* BarcodeType.swift */; };
@@ -141,6 +138,11 @@
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
 		51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */; };
 		51CB20171D8C48C8005DFEDC /* SitesTagListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */; };
+		51CF42C51E02F47200C9AD91 /* BackspaceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */; };
+		51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42C61E02F48600C9AD91 /* TagView.xib */; };
+		51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C81E02F4A200C9AD91 /* TagView.swift */; };
+		51CF42CB1E02F4AC00C9AD91 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */; };
+		51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42CE1E069BDA00C9AD91 /* Tags.swift */; };
 		51D50F171CE78904008DD98C /* NutritionEntryUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */; };
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
@@ -242,10 +244,6 @@
 		5160FE4F1CD3ADC300CA4A6E /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpirationDateTableViewCell.swift; sourceTree = "<group>"; };
 		51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchacePlaceTableViewCell.swift; sourceTree = "<group>"; };
-		51649A531DE498CE000F305E /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
-		51649A551DE498F4000F305E /* TagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
-		51649A561DE498F4000F305E /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
-		51649A571DE498F4000F305E /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
 		516B327E1C74D9560031EF80 /* EditProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
 		516B32801C75F2430031EF80 /* BarcodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeType.swift; sourceTree = "<group>"; };
@@ -326,6 +324,11 @@
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
 		51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
 		51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SitesTagListTableViewCell.swift; sourceTree = "<group>"; };
+		51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceTextView.swift; sourceTree = "<group>"; };
+		51CF42C61E02F48600C9AD91 /* TagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
+		51CF42C81E02F4A200C9AD91 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		51CF42CE1E069BDA00C9AD91 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionEntryUnit.swift; sourceTree = "<group>"; };
 		51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -381,10 +384,10 @@
 		510A38E51CD3B01B00BAEB61 /* TagListView */ = {
 			isa = PBXGroup;
 			children = (
-				51649A531DE498CE000F305E /* CloseButton.swift */,
-				51649A551DE498F4000F305E /* TagListView.h */,
-				51649A561DE498F4000F305E /* TagListView.swift */,
-				51649A571DE498F4000F305E /* TagView.swift */,
+				51CF42C61E02F48600C9AD91 /* TagView.xib */,
+				51CF42C81E02F4A200C9AD91 /* TagView.swift */,
+				51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */,
+				51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */,
 			);
 			name = TagListView;
 			sourceTree = "<group>";
@@ -612,6 +615,7 @@
 				511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift */,
 				51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */,
 				5114592A1CB1368E00D25116 /* Status.swift */,
+				51CF42CE1E069BDA00C9AD91 /* Tags.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -816,6 +820,7 @@
 				5125AB8B1D096C2D000DCD29 /* GlobalLabels.plist in Resources */,
 				51B150031CB2DF9100A57D42 /* Allergens.plist in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
+				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -847,7 +852,6 @@
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
 				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
-				51649A541DE498CE000F305E /* CloseButton.swift in Sources */,
 				515742721CDB63B200BE8E2D /* RSEANGenerator.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
@@ -861,6 +865,7 @@
 				5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */,
 				515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */,
 				515742751CDB63B200BE8E2D /* RSITF14Generator.swift in Sources */,
+				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				515742711CDB63B200BE8E2D /* RSCornersLayer.swift in Sources */,
 				51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */,
 				5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */,
@@ -897,9 +902,9 @@
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
-				51649A581DE498F4000F305E /* TagListView.swift in Sources */,
 				51AFB0071C734C6600598444 /* IdentificationTagListViewTableViewCell.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,
+				51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */,
 				51BED0C61CE1C1B7006ED62B /* AddressTagListTableViewCell.swift in Sources */,
 				5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */,
 				5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */,
@@ -907,6 +912,7 @@
 				51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */,
 				51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */,
 				516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */,
+				51CF42CB1E02F4AC00C9AD91 /* TagListView.swift in Sources */,
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
 				511459341CB138DC00D25116 /* Node.swift in Sources */,
 				51E13F041D9A8E40000F71C5 /* ConfirmProductTableViewController.swift in Sources */,
@@ -922,6 +928,7 @@
 				5125AB891D095A14000DCD29 /* NutritionalScoreUK.swift in Sources */,
 				51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
+				51CF42C51E02F47200C9AD91 /* BackspaceTextView.swift in Sources */,
 				516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */,
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
@@ -946,7 +953,6 @@
 				51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */,
 				51352FBB1DA6570E008FF151 /* ProductPageViewController.swift in Sources */,
 				516BA5961CC769DD008A094A /* Energy.swift in Sources */,
-				51649A591DE498F4000F305E /* TagView.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,
 				5157426E1CDB63B200BE8E2D /* RSCodeGenerator.swift in Sources */,
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,

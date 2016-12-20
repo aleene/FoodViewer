@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SitesTagListTableViewCell: UITableViewCell {
+class SitesTagListTableViewCell: UITableViewCell, TagListViewDataSource {
     
     
     struct Constants {
@@ -20,28 +20,40 @@ class SitesTagListTableViewCell: UITableViewCell {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
             tagListView.cornerRadius = 10
+            tagListView.datasource = self
         }
     }
     
     var tagList: [URL]? = nil {
         didSet {
             if let list = tagList {
-                tagListView.removeAllTags()
                 if !list.isEmpty {
-                    for listItem in list {
-                        tagListView.addTag(listItem.absoluteString)
-                    }
                     tagListView.tagBackgroundColor = UIColor.green
-                } else {
-                    tagListView.addTag(Constants.NoTag)
-                    tagListView.tagBackgroundColor = UIColor.orange
                 }
-            } else {
-                tagListView.removeAllTags()
-                tagListView.addTag(Constants.NoTag)
-                tagListView.tagBackgroundColor = UIColor.orange
+            }
+            tagListView.tagBackgroundColor = UIColor.orange
+        }
+    }
+    
+    
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list.count
             }
         }
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let list = tagList {
+            if !list.isEmpty {
+                return list[index].absoluteString
+            }
+        }
+        return Constants.NoTag
     }
     
 }

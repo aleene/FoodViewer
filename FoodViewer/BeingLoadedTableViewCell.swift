@@ -8,21 +8,20 @@
 
 import UIKit
 
-class BeingLoadedTableViewCell: UITableViewCell {
+class BeingLoadedTableViewCell: UITableViewCell, TagListViewDataSource {
     
     @IBOutlet weak var beingLoadedTagList: TagListView! {
         didSet {
             beingLoadedTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             beingLoadedTagList.alignment = .center
             beingLoadedTagList.cornerRadius = 10
+            beingLoadedTagList.datasource = self
         }
     }
     
     var status: ProductFetchStatus? = nil {
         didSet {
             if let validStatus = status {
-                beingLoadedTagList.removeAllTags()
-                beingLoadedTagList.addTag(validStatus.description())
                 switch validStatus {
                 case .success:
                     beingLoadedTagList.tagBackgroundColor = UIColor.green
@@ -33,10 +32,22 @@ class BeingLoadedTableViewCell: UITableViewCell {
 
                 }
             } else {
-                beingLoadedTagList.removeAllTags()
-                beingLoadedTagList.addTag(ProductFetchStatus.loading.description())
                 beingLoadedTagList.tagBackgroundColor = UIColor.orange
             }
+        }
+    }
+
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let validStatus = status {
+            return validStatus.description()
+        } else {
+            return ProductFetchStatus.loading.description()
         }
     }
     

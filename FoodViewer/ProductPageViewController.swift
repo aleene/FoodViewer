@@ -425,8 +425,35 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             updatedProduct?.purchaseLocation = Address.init(with: shop)
         }
     }
-
     
+    func update(brandTags: [String]?) {
+        initUpdatedProductWith(product: product!)
+        if let validtags = brandTags {
+            updatedProduct?.brands = Tags.init(validtags)
+        }
+    }
+
+    func update(packagingTags: [String]?) {
+        initUpdatedProductWith(product: product!)
+        if let validTags = packagingTags {
+            updatedProduct?.packagingArray = Tags.init(validTags)
+        }
+    }
+    
+    func update(tracesTags: [String]?) {
+        initUpdatedProductWith(product: product!)
+        if let validTags = tracesTags {
+            updatedProduct?.traces = Tags.init(validTags)
+        }
+    }
+
+    func update(labelTags: [String]?) {
+        initUpdatedProductWith(product: product!)
+        if let validTags = labelTags {
+            updatedProduct?.labelArray = Tags.init(validTags)
+        }
+    }
+
     func updated(facts: [NutritionFactItem?]) {
         initUpdatedProductWith(product: product!)
         // make sure we have an nillified nutritionFacts array

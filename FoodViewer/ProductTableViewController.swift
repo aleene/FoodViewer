@@ -187,8 +187,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch currentProductSection {
                 case .name:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NameCellIdentifier, for: indexPath) as! NameTableViewCell
-                    
-                    cell.productBrand = currentProduct.brandsArray
+                    switch currentProduct.brands {
+                    case .undefined, .empty:
+                        cell.productBrand = [currentProduct.brands.description()]
+                    case let .available(list):
+                        cell.productBrand = list
+                    }
                     
                     // TBD I do not think the logic is right here
                     if let data = currentProduct.mainImageSmallData {

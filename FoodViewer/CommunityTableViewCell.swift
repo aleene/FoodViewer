@@ -8,18 +8,9 @@
 
 import UIKit
 
-class CommunityTableViewCell: UITableViewCell {
+class CommunityTableViewCell: UITableViewCell, TagListViewDataSource {
 
-    var product: FoodProduct? = nil {
-        didSet {
-            if let users = product?.productContributors.contributors {
-            communityTagListView.removeAllTags()
-                for user in users {
-                    communityTagListView.addTag(user.name)
-                }
-            }
-        }
-    }
+    var product: FoodProduct? = nil
     
     @IBOutlet weak var communityTagListView: TagListView! {
         didSet {
@@ -27,8 +18,25 @@ class CommunityTableViewCell: UITableViewCell {
             communityTagListView.alignment = .center
             communityTagListView.tagBackgroundColor = UIColor.green
             communityTagListView.cornerRadius = 10
+            communityTagListView.datasource = self
         }
     }
 
+    // TagListView Datasource functions
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        if let users = product?.productContributors.contributors {
+            return users.count
+        }
+        return 1
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if let users = product?.productContributors.contributors {
+            return users[index].name
+        }
+        // TODO:
+        return "No users"
+    }
 
 }
