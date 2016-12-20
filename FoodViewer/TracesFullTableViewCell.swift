@@ -14,6 +14,7 @@ class TracesFullTableViewCell: UITableViewCell {
         didSet {
             tracesTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tracesTagList.alignment = .center
+            tracesTagList.tagBackgroundColor = .green
             tracesTagList.cornerRadius = 10
             tracesTagList.datasource = datasource
             tracesTagList.delegate = delegate

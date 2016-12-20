@@ -191,6 +191,8 @@ class FoodProduct {
         }
     }
     
+    var allergens: Tags = .undefined
+    
     var traceKeys: [String]? = nil
     
     // returns the allergenKeys array in the current locale
@@ -362,7 +364,7 @@ class FoodProduct {
     
 
     // group parameters
-    var categories: [String]? = nil
+    var categories: Tags = .undefined
     
     // community parameters
     var photographers: [String]? = nil {
@@ -508,7 +510,7 @@ class FoodProduct {
         creator = nil
         state = CompletionState()
         primaryLanguageCode = nil
-        categories = nil
+        categories = .undefined
         photographers = nil
         correctors = nil
         editors = nil

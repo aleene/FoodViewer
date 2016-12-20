@@ -14,6 +14,7 @@ class AllergensFullTableViewCell: UITableViewCell {
         didSet {
             allergensTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             allergensTagList.alignment = .center
+            allergensTagList.tagBackgroundColor = .green
             allergensTagList.cornerRadius = 10
             allergensTagList.datasource = datasource
             allergensTagList.delegate = delegate
@@ -29,12 +30,6 @@ class AllergensFullTableViewCell: UITableViewCell {
     var delegate: TagListViewDelegate? = nil {
         didSet{
             allergensTagList?.delegate = delegate
-        }
-    }
-    
-    var editMode: Bool = false {
-        didSet{
-            allergensTagList?.isEditable = editMode
         }
     }
     

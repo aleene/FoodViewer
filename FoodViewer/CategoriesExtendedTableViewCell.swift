@@ -8,78 +8,42 @@
 
 import UIKit
 
-class CategoriesExtendedTableViewCell: UITableViewCell, TagListViewDataSource {
+class CategoriesExtendedTableViewCell: UITableViewCell {
     
-    fileprivate struct Constants {
-        static let NoInformation = NSLocalizedString("no categories specified", comment: "Text in a TagListView, when no categories are available in the product data.") 
-    }
-        
     @IBOutlet weak var listTagListView: TagListView! {
         didSet {
             listTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             listTagListView.alignment = .center
             listTagListView.cornerRadius = 10
-            listTagListView.datasource = self
-        }
-    }
-        
-    var tagList: [String]? = nil {
-        didSet {
-            if let list = tagList {
-                if !list.isEmpty {
-                    listTagListView.tagBackgroundColor = UIColor.green
-                    /*
-                    for listItem in list {
-                        if listItem.contains(":") {
-                            let tagView = listTagListView.addTag(listItem)
-                            tagView.tagBackgroundColor = UIColor.blue
-                        } else {
-                            listTagListView.addTag(listItem)
-                        }
-                    }
-                     */
-                } else {
-                    listTagListView.tagBackgroundColor = UIColor.orange
-                }
-            } else {
-                listTagListView.tagBackgroundColor = UIColor.orange
-            }
+            listTagListView.tagBackgroundColor = .green
+            listTagListView.datasource = datasource
+            listTagListView.delegate = delegate
+            listTagListView.tag = tag
+            listTagListView.isEditable = editMode
         }
     }
 
-    // TagListView Datasource functions
-    
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        if let list = tagList {
-            if !list.isEmpty {
-                return list.count
-            } else {
-                return 1
-            }
-        } else {
-            return 1
+    var datasource: TagListViewDataSource? = nil {
+        didSet{
+            listTagListView?.datasource = datasource
         }
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if let list = tagList {
-            if !list.isEmpty {
-                return list[index]
-                /*
-                for listItem in list {
-                    if listItem.contains(":") {
-                        let tagView = listTagListView.addTag(listItem)
-                        tagView.tagBackgroundColor = UIColor.blue
-                    } else {
-                        listTagListView.addTag(listItem)
-                    }
-                }
-                 */
-            } else {
-                return Constants.NoInformation
-            }
-        } else {
-            return Constants.NoInformation
+    var delegate: TagListViewDelegate? = nil {
+        didSet{
+            listTagListView?.delegate = delegate
+        }
+    }
+
+    var editMode: Bool = false {
+        didSet{
+            listTagListView?.isEditable = editMode
+        }
+    }
+
+    override var tag: Int {
+        didSet {
+            listTagListView.tag = tag
         }
     }
     

@@ -591,7 +591,10 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         default:
             break
         }
-
+    }
+    
+    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+        // stub to silence the warning
     }
 
     // MARK: - Notification handler

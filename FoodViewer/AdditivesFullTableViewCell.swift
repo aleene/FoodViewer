@@ -10,14 +10,11 @@ import UIKit
 
 class AdditivesFullTableViewCell: UITableViewCell {
 
-    struct Constants {
-        static let NoTag = NSLocalizedString("no additives detected", comment: "Text in a TagListView, when no additives (E-numbers) have been detected in the product ingredients.")
-    }
-
     @IBOutlet weak var additivesTagListView: TagListView! {
         didSet {
             additivesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             additivesTagListView.alignment = .center
+            additivesTagListView.tagBackgroundColor = .green
             additivesTagListView.cornerRadius = 10
             additivesTagListView.datasource = datasource
             additivesTagListView.delegate = delegate
@@ -33,12 +30,6 @@ class AdditivesFullTableViewCell: UITableViewCell {
     var delegate: TagListViewDelegate? = nil {
         didSet{
             additivesTagListView?.delegate = delegate
-        }
-    }
-    
-    var editMode: Bool = false {
-        didSet{
-            additivesTagListView?.isEditable = editMode
         }
     }
     

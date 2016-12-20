@@ -18,21 +18,15 @@ class CategoriesTableViewCell: UITableViewCell {
 
     @IBOutlet weak var categorySummaryLabel: UILabel!
     
-    var product: FoodProduct? = nil {
+    var categories: Tags = .undefined {
         didSet {
-            if let categories = product?.categories {
-                if !categories.isEmpty {
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .decimal
-                    
-                    categorySummaryLabel.text = categories.count == 1 ? Constants.CategoryOneText : String(format: Constants.CategoryText, formatter.string(from: NSNumber(integerLiteral: categories.count))!)
-                } else {
-                    categorySummaryLabel.text = Constants.NoInformation
-
-                }
-                
-            } else {
+            switch categories {
+            case .undefined, .empty:
                 categorySummaryLabel.text = Constants.NoInformation
+            case let .available(list):
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .decimal
+                                categorySummaryLabel.text = list.count == 1 ? Constants.CategoryOneText : String(format: Constants.CategoryText, formatter.string(from: NSNumber(integerLiteral: list.count))!)
             }
         }
     }

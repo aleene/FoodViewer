@@ -233,9 +233,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell?.product = currentProduct
                     return cell!
                 case .categories:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CategoriesCellIdentifier, for: indexPath) as? CategoriesTableViewCell
-                    cell?.product = currentProduct
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CategoriesCellIdentifier, for: indexPath) as! CategoriesTableViewCell
+                    cell.categories = currentProduct.categories
+                    return cell
                 case .completion:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionCellIdentifier, for: indexPath) as? CompletionTableViewCell
                     cell?.product = currentProduct

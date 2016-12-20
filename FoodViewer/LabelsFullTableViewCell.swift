@@ -14,6 +14,7 @@ class LabelsFullTableViewCell: UITableViewCell {
         didSet {
             labelsTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             labelsTagListView.alignment = .center
+            labelsTagListView.tagBackgroundColor = .green
             labelsTagListView.cornerRadius = 10
             labelsTagListView.datasource = datasource
             labelsTagListView.delegate = delegate

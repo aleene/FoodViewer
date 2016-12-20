@@ -429,7 +429,7 @@ class OpenFoodFactsRequest {
                 product.imageIngredientsSmallUrl = jsonObject[OFFJson.ProductKey][OFFJson.ImageIngredientsSmallUrlKey].url
                 product.ingredientsOriginElements(jsonObject[OFFJson.ProductKey][OFFJson.OriginsTagsKey].stringArray)
                 product.producerElements(jsonObject[OFFJson.ProductKey][OFFJson.ManufacturingPlacesKey].string)
-                product.categories = decodeCategories(jsonObject[OFFJson.ProductKey][OFFJson.CategoriesTagsKey].stringArray)
+                product.categories = Tags(decodeCategories(jsonObject[OFFJson.ProductKey][OFFJson.CategoriesTagsKey].stringArray))
                 product.quantity = jsonObject[OFFJson.ProductKey][OFFJson.QuantityKey].string
                 product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[OFFJson.ProductKey][OFFJson.NutritionDataPerKey].string)
                 product.expirationDate = decodeDate(jsonObject[OFFJson.ProductKey][OFFJson.ExpirationDateKey].string)

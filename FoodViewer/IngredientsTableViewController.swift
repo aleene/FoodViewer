@@ -123,41 +123,32 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
             
         case .allergens:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! AllergensFullTableViewCell
-            // cell?.tagList = product!.translatedAllergens
-            cell.editMode = editMode
             cell.datasource = self
-            cell.delegate = self
             cell.tag = 0
-
             return cell
             
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TracesFullTableViewCell
-            // cell?.tagList = product!.translatedTraces
             cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
             cell.tag = 1
-
             return cell
+            
         case .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! AdditivesFullTableViewCell
-            // cell!.tagList = product!.additives
-            cell.editMode = editMode
             cell.datasource = self
-            cell.delegate = self
             cell.tag = 2
-
             return cell
+            
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! LabelsFullTableViewCell
-            // cell?.tagList = product!.labelArray
             cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
             cell.tag = 3
-
             return cell
+            
         case .image:
             if let result = product?.getIngredientsImageData() {
                 switch result {
@@ -348,9 +339,9 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
             // is an updated product available?
             if delegate?.updatedProduct != nil {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.translatedAllergens {
+                switch delegate!.updatedProduct!.allergens {
                 case .available:
-                    tags = delegate!.updatedProduct!.translatedAllergens
+                    tags = delegate!.updatedProduct!.allergens
                 default:
                     break
                 }
@@ -362,15 +353,15 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
                 return list.count
             }
         case 1:
-            var tags = product!.translatedTraces
+            var tags = Tags()
             // is an updated product available?
             if delegate?.updatedProduct != nil {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.translatedTraces {
-                case .available:
-                    tags = delegate!.updatedProduct!.translatedTraces
-                default:
-                    break
+                switch delegate!.updatedProduct!.traces {
+                case .available, .empty:
+                    tags = delegate!.updatedProduct!.traces
+                case .undefined:
+                    tags = product!.translatedTraces
                 }
             }
             switch tags {
@@ -383,7 +374,7 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
             var tags = product!.additives
             // is an updated product available?
             if delegate?.updatedProduct != nil {
-                // does it have brands defined?
+                // does it have tags defined?
                 switch delegate!.updatedProduct!.additives {
                 case .available:
                     tags = delegate!.updatedProduct!.additives
@@ -398,15 +389,15 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
                 return list.count
             }
         case 3:
-            var tags = product!.labelArray
+            var tags = Tags()
             // is an updated product available?
             if delegate?.updatedProduct != nil {
-                // does it have brands defined?
+                // does it have tags defined?
                 switch delegate!.updatedProduct!.labelArray {
-                case .available:
+                case .available, .empty:
                     tags = delegate!.updatedProduct!.labelArray
-                default:
-                    break
+                case .undefined:
+                    tags = product!.labelArray
                 }
             }
             switch tags {
@@ -422,14 +413,37 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
     
     func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         switch tagListView.tag {
+        case 0:
+            var tags = product!.translatedAllergens
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.allergens {
+                case .available:
+                    tags = delegate!.updatedProduct!.allergens
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                tagListView.tagBackgroundColor = .orange
+                return tags.description()
+            case let .available(list):
+                if index >= 0 && index < list.count {
+                    return list[index]
+                } else {
+                    assert(true, "allergens array - index out of bounds")
+                }
+            }
         case 1:
             var tags = product!.translatedTraces
             // is an updated product available?
             if delegate?.updatedProduct != nil {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.translatedTraces {
+                switch delegate!.updatedProduct!.traces {
                 case .available:
-                    tags = delegate!.updatedProduct!.translatedTraces
+                    tags = delegate!.updatedProduct!.traces
                 default:
                     break
                 }
@@ -443,6 +457,29 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
                     return list[index]
                 } else {
                     assert(true, "traces array - index out of bounds")
+                }
+            }
+        case 2:
+            var tags = product!.additives
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.additives {
+                case .available:
+                    tags = delegate!.updatedProduct!.additives
+                default:
+                    break
+                }
+            }
+            switch tags {
+            case .undefined, .empty:
+                tagListView.tagBackgroundColor = .orange
+                return tags.description()
+            case let .available(list):
+                if index >= 0 && index < list.count {
+                    return list[index]
+                } else {
+                    assert(true, "additives array - index out of bounds")
                 }
             }
         case 3:
@@ -483,9 +520,9 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
             // has it been edited already?
             if delegate?.updatedProduct?.translatedTraces == nil {
                 // initialise with the existing data
-                traces = product!.translatedTraces
+                traces = product!.traces
             } else {
-                traces = delegate!.updatedProduct!.translatedTraces
+                traces = delegate!.updatedProduct!.traces
             }
             switch traces {
             case .undefined, .empty:
@@ -563,6 +600,10 @@ class IngredientsTableViewController: UITableViewController, UITextViewDelegate,
             break
         }
         
+    }
+    
+    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+        // stub to silence the warning
     }
 
     // MARK: - Notification handler

@@ -257,6 +257,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             if let vc = pages[4] as? CategoriesTableViewController {
                 vc.product = product
+                vc.delegate = self
+                vc.editMode = editMode
             }
             if let vc = pages[5] as? CompletionStatesTableViewController {
                 vc.product = product
@@ -453,6 +455,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             updatedProduct?.labelArray = Tags.init(validTags)
         }
     }
+    
+    func update(categories: [String]?) {
+        initUpdatedProductWith(product: product!)
+        if let validTags = categories {
+            updatedProduct?.labelArray = Tags.init(validTags)
+        }
+    }
+
 
     func updated(facts: [NutritionFactItem?]) {
         initUpdatedProductWith(product: product!)
