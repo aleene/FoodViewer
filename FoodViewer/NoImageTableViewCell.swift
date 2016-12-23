@@ -24,11 +24,11 @@ class NoImageTableViewCell: UITableViewCell, TagListViewDataSource {
         didSet {
             switch imageFetchStatus {
             case .success:
-                tagListView.tagBackgroundColor = UIColor.green
+                tagListView.normalColorScheme = ColorSchemes.normal
             case .noImageAvailable, .noData, .loadingFailed:
-                tagListView.tagBackgroundColor = UIColor.red
+                tagListView.normalColorScheme = ColorSchemes.error
             case .loading:
-                tagListView.tagBackgroundColor = UIColor.orange
+                tagListView.normalColorScheme = ColorSchemes.none
             }
         }
     }

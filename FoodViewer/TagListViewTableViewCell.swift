@@ -8,74 +8,45 @@
 
 import UIKit
 
-class TagListViewTableViewCell: UITableViewCell, TagListViewDataSource {
+class TagListViewTableViewCell: UITableViewCell {
 
-    struct Constants {
-        static let NoTag = NSLocalizedString("no information available", comment: "Text for an entry in a taglist, when no information is available. This is also indicated in a separate colour.") 
-    }
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
+            tagListView.normalColorScheme = ColorSchemes.normal
+            tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
-            tagListView.datasource = self
+            tagListView.datasource = datasource
+            tagListView.delegate = delegate
+            tagListView.isEditable = editMode
+            tagListView.tag = tag
         }
     }
     
-    var tagList: [String]? = nil {
+    var datasource: TagListViewDataSource? = nil {
         didSet {
-            if let list = tagList {
-                let newList = removeEmptyTags(list)
-                if !newList.isEmpty {
-                    tagListView.tagBackgroundColor = UIColor.green
-                } else {
-                    tagListView.tagBackgroundColor = UIColor.orange
-                }
-            } else {
-                tagListView.tagBackgroundColor = UIColor.orange
-            }
+            tagListView?.datasource = datasource
         }
     }
     
-    func removeEmptyTags(_ list: [String]) -> [String] {
-        var newList: [String] = []
-        if !list.isEmpty {
-            for listItem in list {
-                if listItem.characters.count > 0 {
-                    newList.append(listItem)
-                }
-            }
-        }
-        return newList
-    }
-    
-    // TagListView Datasource functions
-    
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        if let list = tagList {
-            let newList = removeEmptyTags(list)
-            if !newList.isEmpty {
-                return newList.count
-            } else {
-                return 1
-            }
-        } else {
-            return 1
+    var delegate: TagListViewDelegate? = nil {
+        didSet {
+            tagListView?.delegate = delegate
         }
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if let list = tagList {
-            let newList = removeEmptyTags(list)
-            if !newList.isEmpty {
-                return newList[index]
-            } else {
-                return Constants.NoTag
-            }
-        } else {
-            return Constants.NoTag
+    var editMode: Bool = false {
+        didSet {
+            tagListView?.isEditable = editMode
         }
     }
-
+    
+    override var tag: Int {
+        didSet {
+            tagListView?.tag = tag
+        }
+    }
+    
 }

@@ -8,8 +8,9 @@
 
 import UIKit
 
-class IdentificationTableViewController: UITableViewController, UITextFieldDelegate, TagListViewDataSource, TagListViewDelegate {
+class IdentificationTableViewController: UITableViewController, UITextFieldDelegate {
 
+    
     fileprivate struct TextConstants {
         static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
@@ -96,6 +97,41 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         }
     }
     
+    
+    // MARK: - Fileprivate Functions
+    
+    fileprivate var brandsToDisplay: Tags {
+        get {
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.brands {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.brands
+                default:
+                    break
+                }
+            }
+            return product!.brands
+        }
+    }
+    
+    fileprivate var packagingToDisplay: Tags {
+        get {
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.packagingArray {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.packagingArray
+                default:
+                    break
+                }
+            }
+            return product!.packagingArray
+        }
+    }
+
     // MARK: - Action methods
     
     // should redownload the current product and reload it in this scene
@@ -313,21 +349,6 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
-    /*
-    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
-        switch sender.tag {
-        case 0: // brands
-            delegate?.product?.brandsArray = product?.brandsArray
-            delegate?.product?.brandsArray?.remove(at: tagView.tag)
-        case 1: // packaging tags
-            delegate?.product?.packagingArray = product?.packagingArray
-            delegate?.product?.packagingArray?.remove(at: tagView.tag)
-        default:
-            break
-        }
-        tableView.reloadData()
-    }
-     */
 
     // MARK: - TextField stuff
     
@@ -403,198 +424,6 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             default: break
             }
         }
-    }
-    
-    // TagListView Datasource functions
-    
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        switch tagListView.tag {
-        case 0:
-            var tags = product!.brands
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.brands {
-                case .available:
-                    tags = delegate!.updatedProduct!.brands
-                default:
-                    break
-                }
-            }
-            switch tags {
-            case .undefined, .empty:
-                return 1
-            case let .available(list):
-                return list.count
-            }
-        case 1:
-            var tags = product!.packagingArray
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.packagingArray {
-                case .available:
-                    tags = delegate!.updatedProduct!.packagingArray
-                default:
-                    break
-                }
-            }
-            switch tags {
-            case .undefined, .empty:
-                return 1
-            case let .available(list):
-                return list.count
-            }
-        default: break
-        }
-        return 0
-    }
-    
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        switch tagListView.tag {
-        case 0:
-            var tags = product!.brands
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.brands {
-                case .available:
-                    tags = delegate!.updatedProduct!.brands
-                default:
-                    break
-                }
-            }
-            switch tags {
-            case .undefined, .empty:
-                tagListView.tagBackgroundColor = .orange
-                return tags.description()
-            case let .available(list):
-                if index >= 0 && index < list.count {
-                    return list[index]
-                } else {
-                    assert(true, "brands array - index out of bounds")
-                }
-            }
-        case 1:
-            var tags = product!.packagingArray
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.packagingArray {
-                case .available:
-                    tags = delegate!.updatedProduct!.packagingArray
-                default:
-                    break
-                }
-            }
-            switch tags {
-            case .undefined, .empty:
-                tagListView.tagBackgroundColor = .orange
-                return tags.description()
-            case let .available(list):
-                if index >= 0 && index < list.count {
-                    return list[index]
-                } else {
-                    assert(true, "packaging array - index out of bounds")
-                }
-            }
-        default: break
-        }
-        return("error")
-    }
-    
-    // TagListView Delegate functions
-    
-    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        switch tagListView.tag {
-        case 0:
-            var brands = Tags()
-            // has it been edited already?
-            if delegate?.updatedProduct?.brands == nil {
-                // initialise with the existing array
-                brands = product!.brands
-            } else {
-                brands = delegate!.updatedProduct!.brands
-            }
-            switch brands {
-            case .undefined, .empty:
-                delegate?.update(brandTags: [title])
-            case var .available(list):
-                list.append(title)
-                delegate?.update(brandTags: list)
-            }
-            tableView.reloadData()
-        case 1:
-            var packaging = Tags()
-            // has it been edited already?
-            if delegate?.updatedProduct?.packagingArray == nil {
-                // initialise with the existing data
-                packaging = product!.packagingArray
-            } else {
-                packaging = delegate!.updatedProduct!.packagingArray
-            }
-            switch packaging {
-            case .undefined, .empty:
-                delegate?.update(packagingTags: [title])
-            case var .available(list):
-                list.append(title)
-                delegate?.update(packagingTags: list)
-            }
-            tableView.reloadData()
-        default:
-            break
-        }
-    }
-    
-    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        switch tagListView.tag {
-        case 0:
-            var brands = Tags()
-            // has it been edited already?
-            if delegate?.updatedProduct?.brands == nil {
-                // initialise with the existing array
-                brands = product!.brands
-            } else {
-                brands = delegate!.updatedProduct!.brands
-            }
-            switch brands {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
-                guard index >= 0 && index < list.count else {
-                    break
-                }
-                list.remove(at: index)
-                delegate?.update(brandTags: list)
-            }
-            tableView.reloadData()
-        case 1:
-            var packaging = Tags()
-            // has it been edited already?
-            if delegate?.updatedProduct?.packagingArray == nil {
-                // initialise with the existing data
-                packaging = product!.packagingArray
-            } else {
-                packaging = delegate!.updatedProduct!.packagingArray
-            }
-            switch packaging {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
-                guard index >= 0 && index < list.count else {
-                    break
-                }
-                list.remove(at: index)
-                delegate?.update(packagingTags: list)
-            }
-            tableView.reloadData()
-        default:
-            break
-        }
-    }
-    
-    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
-        // stub to silence the warning
     }
 
     // MARK: - Notification handler
@@ -683,4 +512,162 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         OFFProducts.manager.flushImages()
     }
 
+}
+
+// MARK: - TagListView DataSource Functions
+
+extension IdentificationTableViewController: TagListViewDataSource {
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        
+        func count(_ tags: Tags) -> Int {
+            switch tags {
+            case .undefined:
+                tagListView.allowsRemoval = false
+                tagListView.normalColorScheme = ColorSchemes.error
+                return editMode ? 0 : 1
+            case .empty:
+                tagListView.allowsRemoval = false
+                tagListView.normalColorScheme = ColorSchemes.none
+                return editMode ? 0 : 1
+            case let .available(list):
+                if editMode { tagListView.allowsRemoval = true }
+                tagListView.normalColorScheme = ColorSchemes.normal
+                return list.count
+            }
+        }
+        
+        switch tagListView.tag {
+        case 0:
+            return count(brandsToDisplay)
+        case 1:
+            return count(packagingToDisplay)
+        default: break
+        }
+        return 0
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        
+        func title(_ tags: Tags) -> String {
+            switch tags {
+            case .undefined, .empty:
+                return tags.description()
+            case let .available(list):
+                if index >= 0 && index < list.count {
+                    return list[index]
+                } else {
+                    assert(true, "Tags array - index out of bounds")
+                }
+            }
+            return "Tags array - index out of bounds"
+        }
+        
+        switch tagListView.tag {
+        case 0:
+            return title(brandsToDisplay)
+        case 1:
+            return title(packagingToDisplay)
+        default: break
+        }
+        return("error")
+    }
+    
+}
+
+// MARK: - TagListView Delegate Functions
+
+extension IdentificationTableViewController: TagListViewDelegate {
+    
+    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
+        switch tagListView.tag {
+        case 0:
+            switch brandsToDisplay {
+            case .undefined, .empty:
+                delegate?.update(brandTags: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(brandTags: list)
+            }
+        case 1:
+            switch packagingToDisplay {
+            case .undefined, .empty:
+                delegate?.update(packagingTags: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(packagingTags: list)
+            }
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
+    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
+        switch tagListView.tag {
+        case 0:
+            switch brandsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
+                    break
+                }
+                list.remove(at: index)
+                delegate?.update(brandTags: list)
+            }
+            tableView.reloadData()
+        case 1:
+            switch packagingToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
+                    break
+                }
+                list.remove(at: index)
+                delegate?.update(packagingTags: list)
+            }
+            tableView.reloadData()
+        default:
+            break
+        }
+    }
+    
+    func didClear(_ tagListView: TagListView) {
+        switch tagListView.tag {
+        case 0:
+            switch brandsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I clear a tag when there are none")
+            case var .available(list):
+                list.removeAll()
+                delegate?.update(brandTags: list)
+            }
+        case 1:
+            switch packagingToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                list.removeAll()
+                delegate?.update(packagingTags: list)
+            }
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
+    // TagListView function stubs
+    
+    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+        return true
+    }
+    
+    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    }
+    
+    func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
+    }
+    
 }

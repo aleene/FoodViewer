@@ -41,7 +41,7 @@ open class TagView: UIView {
         /// Default opacity for shadow
         static let defaultShadowOpacity: Float = 0.0
     }
-
+    
     @IBInspectable open var cornerRadius = Constants.defaultCornerRadius {
         didSet {
             shadow?.layer.cornerRadius = cornerRadius
@@ -54,28 +54,74 @@ open class TagView: UIView {
         }
     }
     
-    @IBInspectable open var borderColor = Constants.defaultBorderColor {
+    /*
+     @IBInspectable open var borderColor = Constants.defaultBorderColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     
+     @IBInspectable var textColor = Constants.defaultTextColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     @IBInspectable var selectedTextColor = Constants.defaultTextColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     @IBInspectable var highlightedTextColor = Constants.defaultTextColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     // beware that this UIView also has an attribute backgroundColor
+     @IBInspectable var tagBackgroundColor = Constants.defaultBackgroundColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     
+     @IBInspectable var tagHighlightedBackgroundColor = Constants.defaultBackgroundColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     
+     @IBInspectable var highlightedBorderColor = Constants.defaultBackgroundColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     
+     
+     @IBInspectable var selectedBorderColor = Constants.defaultBackgroundColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     
+     @IBInspectable var tagSelectedBackgroundColor = Constants.defaultBackgroundColor {
+     didSet {
+     reloadStyles()
+     }
+     }
+     
+     */
+    
+    @IBInspectable open dynamic var shadowColor = Constants.defaultBackgroundColor {
         didSet {
             reloadStyles()
         }
     }
     
-    @IBInspectable open var textColor = Constants.defaultTextColor {
+    @IBInspectable open dynamic var textFont: UIFont = Constants.defaultTextFont {
         didSet {
-            reloadStyles()
+            label?.font = textFont
         }
     }
-    @IBInspectable open var selectedTextColor = Constants.defaultTextColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-    @IBInspectable open var highlightedTextColor = Constants.defaultTextColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-
+    
     @IBInspectable open var verticalPadding = Constants.defaultVerticalPadding {
         didSet {
             topLayoutConstraint?.constant = verticalPadding
@@ -89,50 +135,6 @@ open class TagView: UIView {
             leadingLayOutConstraint?.constant = horizontalPadding
             // titleEdgeInsets.left = paddingX
             updateRightInsets()
-        }
-    }
-    // beware that this UIView also has an attribute backgroundColor
-    @IBInspectable open var tagBackgroundColor = Constants.defaultBackgroundColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-    
-    @IBInspectable open var tagHighlightedBackgroundColor = Constants.defaultBackgroundColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-    
-    @IBInspectable open var highlightedBorderColor = Constants.defaultBackgroundColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-
-    
-    @IBInspectable open var selectedBorderColor = Constants.defaultBackgroundColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-    
-    @IBInspectable open var tagSelectedBackgroundColor = Constants.defaultBackgroundColor {
-        didSet {
-            reloadStyles()
-        }
-    }
-    
-    var textFont: UIFont = Constants.defaultTextFont {
-        didSet {
-            label?.font = textFont
-        }
-    }
-    
-    
-    @IBInspectable open dynamic var shadowColor = Constants.defaultBackgroundColor {
-        didSet {
-            reloadStyles()
         }
     }
     
@@ -153,26 +155,62 @@ open class TagView: UIView {
             reloadStyles()
         }
     }
-
-    private func reloadStyles() {
-        if isHighlighted {
-            shadow.backgroundColor = tagHighlightedBackgroundColor
-            label.textColor = highlightedTextColor
-            shadow.layer.borderColor = highlightedBorderColor.cgColor
-                    }
-        else if isSelected {
-            shadow.backgroundColor = tagSelectedBackgroundColor
-            label.textColor = selectedTextColor
-            shadow.layer.borderColor = selectedBorderColor.cgColor
-        }
-        else {
-            shadow.backgroundColor = tagBackgroundColor
-            label.textColor = textColor
-            shadow.layer.borderColor = borderColor.cgColor
+    
+    open var normalColorScheme = ColorScheme() {
+        didSet {
+            reloadStyles()
         }
     }
     
-    open var isHighlighted: Bool = false {
+    open var selectedColorScheme = ColorScheme() {
+        didSet {
+            reloadStyles()
+        }
+    }
+    
+    open var removableColorScheme = ColorScheme() {
+        didSet {
+            setRemoveImageViewColor()
+            reloadStyles()
+        }
+    }
+
+    var state: TagViewState = .normal {
+        didSet {
+            switch state {
+            case .normal:
+                isHighlighted = false
+                isSelected = false
+            case .selected:
+                isHighlighted = false
+                isSelected = true
+            case .removable:
+                isHighlighted = true
+                isSelected = false
+            }
+            reloadStyles()
+        }
+    }
+    
+    private func reloadStyles() {
+        if isHighlighted {
+            shadow.backgroundColor = removableColorScheme.backgroundColor
+            label.textColor = removableColorScheme.textColor
+            shadow.layer.borderColor = removableColorScheme.borderColor.cgColor
+        }
+        else if isSelected {
+            shadow.backgroundColor = selectedColorScheme.backgroundColor
+            label.textColor = selectedColorScheme.textColor
+            shadow.layer.borderColor = selectedColorScheme.borderColor.cgColor
+        }
+        else {
+            shadow.backgroundColor = normalColorScheme.backgroundColor
+            label.textColor = normalColorScheme.textColor
+            shadow.layer.borderColor = normalColorScheme.borderColor.cgColor
+        }
+    }
+
+    fileprivate var isHighlighted: Bool = false {
         didSet {
             if isHighlighted != oldValue {
                 reloadStyles()
@@ -180,14 +218,13 @@ open class TagView: UIView {
         }
     }
     
-    open var isSelected: Bool = false {
+    var isSelected: Bool = false {
         didSet {
             if isSelected != oldValue {
                 reloadStyles()
             }
         }
     }
-    
     
     /// TagView delegate gives access to the didTagView(_ tagView: TagView) method.
     public weak var delegate: TagViewDelegate?
@@ -201,31 +238,40 @@ open class TagView: UIView {
             setupView()
         }
     }
-
+    
     /// function that responds to the Token's tapGestureRecognizer.
     func didTapTagView(_ sender: UITapGestureRecognizer) {
         delegate?.didTapTagView(self)
     }
-
+    
     // MARK: remove button
     
     open var removeButtonIsEnabled = false {
         didSet {
             if removeButtonIsEnabled {
-                removeButtonWidthConstraint.constant = Constants.RemoveButtonWidth
-                var currentImage = removeButton.currentImage
-                currentImage = currentImage!.withRenderingMode(.alwaysTemplate)
-                removeButton.setImage(currentImage, for: .normal)
-                removeButton.tintColor = textColor
-                tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagView.removeButtonTapped(_:)))
-                removeButton.addGestureRecognizer(tapGestureRecognizer)
+                var image = UIImage(named: "Clear")!
+                // this is needed to adapt the color of the image
+                image = image.withRenderingMode(.alwaysTemplate)
 
+                removeImageView.contentMode = .scaleAspectFit
+                removeImageView.image = image
+
+                removeImageViewWidthConstraint.constant = Constants.RemoveButtonWidth
+                setRemoveImageViewColor()
+                tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagView.removeButtonTapped(_:)))
+                removeImageView.addGestureRecognizer(tapGestureRecognizer)
+                
             } else {
-                removeButtonWidthConstraint.constant = 0
+                // make imageView to small to see
+                removeImageViewWidthConstraint.constant = 0
             }
-            removeButton.isEnabled = removeButtonIsEnabled
+            removeImageView?.isHidden = !removeButtonIsEnabled
             // updateRightInsets()
         }
+    }
+    
+    private func setRemoveImageViewColor() {
+        removeImageView?.tintColor = ColorSchemes.removable.borderColor
     }
     
     /// Handles Tap (TouchUpInside)
@@ -249,10 +295,10 @@ open class TagView: UIView {
     
     private func setupView() {
         frame.size = intrinsicContentSize
-
+        
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagView.didTapTagView(_:)))
         addGestureRecognizer(tapGestureRecognizer)
-
+        
     }
     
     // MARK: - layout
@@ -265,7 +311,7 @@ open class TagView: UIView {
         if removeButtonIsEnabled {
             size?.width += Constants.RemoveButtonWidth // + paddingX
         }
-
+        
         return size != nil ? size! : CGSize.init(width: 20, height: 5)
     }
     
@@ -284,7 +330,7 @@ open class TagView: UIView {
         didSet {
             label.text = title
             label.textAlignment = .left
-            label.textColor = textColor
+            label.textColor = normalColorScheme.textColor
             label.font = textFont
         }
     }
@@ -312,8 +358,8 @@ open class TagView: UIView {
     
     @IBOutlet weak var shadow: UIView! {
         didSet {
-            shadow.backgroundColor = tagBackgroundColor
-            shadow.layer.shadowColor = shadowColor.cgColor
+            shadow.backgroundColor = normalColorScheme.backgroundColor
+            shadow.layer.shadowColor = normalColorScheme.backgroundColor.cgColor
             shadow.layer.shadowRadius = shadowRadius
             shadow.layer.shadowOffset = shadowOffset
             shadow.layer.shadowOpacity = shadowOpacity
@@ -321,11 +367,12 @@ open class TagView: UIView {
             shadow.layer.shadowPath = UIBezierPath(roundedRect: shadow.bounds, cornerRadius: self.cornerRadius).cgPath
         }
     }
-    @IBOutlet weak var removeButtonWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var removeImageViewWidthConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var removeButton: UIButton!
     
-    @IBAction func removeButtonTapped(_ sender: UIButton) {
+    @IBOutlet weak var removeImageView: UIImageView!
+    
+    func removeButtonTapped(_ sender: UIButton) {
         delegate?.didTapRemoveButton(self)
     }
     
@@ -338,10 +385,10 @@ open class TagView: UIView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(view)
     }
-
+    
     open override func layoutSubviews() {
         super.layoutSubviews()
-
+        
     }
 }
 

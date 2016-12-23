@@ -15,6 +15,12 @@
 		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
 		511459361CB1391300D25116 /* VertexNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459351CB1391300D25116 /* VertexNew.swift */; };
 		511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift */; };
+		511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */; };
+		511DB4341E09B615009D4A4B /* OFFjsonReadKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */; };
+		511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */; };
+		511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4401E0ADC03009D4A4B /* ColorScheme.swift */; };
+		511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4421E0AE994009D4A4B /* ColorSchemes.swift */; };
+		511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4441E0C4999009D4A4B /* TagViewState.swift */; };
 		512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */; };
 		512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403671D93DD10007FED5A /* SwiftyJSON.swift */; };
 		5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */; };
@@ -192,6 +198,13 @@
 		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		511459351CB1391300D25116 /* VertexNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertexNew.swift; sourceTree = "<group>"; };
 		511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFrance.swift; sourceTree = "<group>"; };
+		511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFWriteAPI.swift; sourceTree = "<group>"; };
+		511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFjsonReadKeys.swift; sourceTree = "<group>"; };
+		511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentsFactKeys.swift; sourceTree = "<group>"; };
+		511DB43F1E0AD533009D4A4B /* TagListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
+		511DB4401E0ADC03009D4A4B /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
+		511DB4421E0AE994009D4A4B /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
+		511DB4441E0C4999009D4A4B /* TagViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagViewState.swift; sourceTree = "<group>"; };
 		5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetchResult.swift; sourceTree = "<group>"; };
 		512403671D93DD10007FED5A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsTableViewController.swift; sourceTree = "<group>"; };
@@ -385,9 +398,11 @@
 			isa = PBXGroup;
 			children = (
 				51CF42C61E02F48600C9AD91 /* TagView.xib */,
+				511DB4401E0ADC03009D4A4B /* ColorScheme.swift */,
 				51CF42C81E02F4A200C9AD91 /* TagView.swift */,
 				51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */,
 				51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */,
+				511DB4441E0C4999009D4A4B /* TagViewState.swift */,
 			);
 			name = TagListView;
 			sourceTree = "<group>";
@@ -438,6 +453,7 @@
 				516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */,
 				51FB322E1CF7589700A17312 /* AllergenWarningsTableViewController.swift */,
 				5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */,
+				511DB4421E0AE994009D4A4B /* ColorSchemes.swift */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -463,6 +479,8 @@
 				51F057FC1CB6AFEF00849532 /* OFFProducts.swift */,
 				513D16AF1DB4C02D005B1971 /* OFFAccount.swift */,
 				5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */,
+				511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */,
+				511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */,
 			);
 			name = OFF;
 			sourceTree = "<group>";
@@ -575,6 +593,7 @@
 		5180B9191C5D3B75002DBD21 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
+				511DB43F1E0AD533009D4A4B /* TagListView.h */,
 				517FC9331CD500C100CB89ED /* Localizable.strings */,
 				517FC92C1CD5009A00CB89ED /* InfoPlist.strings */,
 				51B150001CB2DF5C00A57D42 /* Additives.plist */,
@@ -719,6 +738,7 @@
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
+				511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */,
 				51578C081DB23177005BEEF6 /* OFF */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				511459301CB1389C00D25116 /* Taxonomy */,
@@ -868,6 +888,7 @@
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				515742711CDB63B200BE8E2D /* RSCornersLayer.swift in Sources */,
 				51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */,
+				511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */,
 				5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */,
 				517AAD4A1C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift in Sources */,
 				51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */,
@@ -876,10 +897,13 @@
 				515742771CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift in Sources */,
 				516B328B1C75FE4B0031EF80 /* NutrientsTableViewController.swift in Sources */,
 				519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */,
+				511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */,
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
+				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
 				517AAD511C7DB62700B12F3C /* AdditivesFullTableViewCell.swift in Sources */,
+				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
 				5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */,
@@ -933,6 +957,7 @@
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
+				511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */,
 				5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */,
 				519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */,
 				5114592B1CB1368F00D25116 /* Status.swift in Sources */,
@@ -964,6 +989,7 @@
 				51C86B5D1C6DE901002B7566 /* CommunityTableViewCell.swift in Sources */,
 				516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */,
 				51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */,
+				511DB4341E09B615009D4A4B /* OFFjsonReadKeys.swift in Sources */,
 				516B32921C76043D0031EF80 /* NutrientsTableViewCell.swift in Sources */,
 				5125AB8F1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift in Sources */,
 				515742761CDB63B200BE8E2D /* RSITFGenerator.swift in Sources */,

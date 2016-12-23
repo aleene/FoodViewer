@@ -16,8 +16,8 @@ enum Tags {
     
     func description() -> String {
         switch self {
-        case .undefined: return NSLocalizedString("field not received", comment: "Text in a TagListView, when the field in the json was empty.")
-        case .empty: return NSLocalizedString("empty", comment: "Text in a TagListView, when the json provided an empty string.")
+        case .undefined: return NSLocalizedString("unknown", comment: "Text in a TagListView, when the field in the json was empty.")
+        case .empty: return NSLocalizedString("none", comment: "Text in a TagListView, when the json provided an empty string.")
         case .available:
             return NSLocalizedString("available", comment: "Text in a TagListView, when tags are available the product data.")        }
     }
@@ -39,6 +39,30 @@ enum Tags {
         }
     }
     
+    func tag(_ index: Int) -> String? {
+        switch self {
+        case .undefined, .empty:
+            return self.description()
+        case let .available(list):
+            if index >= 0 && index < list.count {
+                return list[index]
+            } else {
+                assert(true, "Tags array - index out of bounds")
+            }
+        }
+        return nil
+    }
+    
+    func remove(_ index: Int) {
+        switch self {
+        case var .available(list):
+            guard index >= 0 && index < list.count else { break }
+            list.remove(at: index)
+        default:
+            break
+        }
+    }
+
     // remove any empty items from the list
     private func clean(_ list: [String]) -> [String] {
         var newList: [String] = []

@@ -21,7 +21,6 @@ class BarcodeTableViewCell: UITableViewCell {
                     barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObjectTypeEAN8Code)
                 case 12: // UPC-A
                     barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObjectTypeUPCECode)
-
                 case 13: // EAN-13
                     barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
                 default:

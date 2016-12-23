@@ -291,10 +291,10 @@ class FoodProduct {
     var purchaseLocation: Address? = nil //or a set?
     
     func purchaseLocationElements(_ elements: [String]?) {
-        if elements != nil && !elements!.isEmpty {
+        if self.purchaseLocation == nil {
             self.purchaseLocation = Address()
-            self.purchaseLocation!.elements = elements
         }
+        self.purchaseLocation?.rawArray = elements
     }
     
     func purchaseLocationString(_ location: String?) {
@@ -310,20 +310,25 @@ class FoodProduct {
     
     func countryArray(_ countries:[String]?) {
         if let array = countries {
-            for element in array {
-                if !element.isEmpty {
-                    if self.countries == nil {
-                        self.countries = []
+            if !array.isEmpty {
+                for element in array {
+                    if !element.isEmpty {
+                        if self.countries == nil {
+                            self.countries = []
+                        }
+                        let newAddress = Address()
+                        newAddress.country = element
+                        self.countries!.append(newAddress)
                     }
-                    let newAddress = Address()
-                    newAddress.country = element
-                    self.countries!.append(newAddress)
                 }
+            } else {
+                self.countries = []
             }
         }
     }
 
     var producer: Address? = nil
+    
     var links: [URL]? = nil
     var expirationDate: Date? = nil
     
@@ -331,21 +336,37 @@ class FoodProduct {
         if elements != nil {
             let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
             self.producer = Address()
-            self.producer!.elements = addressElements
+            self.producer!.rawArray = addressElements
         }
     }
     
+    func producerElementsArray(_ elements: [String]?) {
+        if let validElements = elements {
+            self.producer = Address()
+            self.producer!.rawArray = validElements
+        }
+    }
     var ingredientsOrigin: Address? = nil
     
     func ingredientsOriginElements(_ elements: [String]?) {
-        if elements != nil && !elements!.isEmpty {
-            self.ingredientsOrigin = Address()
-            self.ingredientsOrigin!.elements = elements
-        }
+        self.ingredientsOrigin = Address()
+        self.ingredientsOrigin!.rawArray = elements
     }
 
     var producerCode: [Address]? = nil
-
+    var producerCodeArray: [String]? = nil {
+        didSet {
+            if let validProducerCodes = producerCodeArray {
+                producerCode = []
+                for code in validProducerCodes {
+                    let newAddress = Address()
+                    newAddress.raw = code
+                    producerCode?.append(newAddress)
+                }
+            }
+        }
+    }
+    
     // contributor parameters
     var additionDate: Date? = nil
     var lastEditDates: [Date]? = nil

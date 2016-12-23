@@ -14,7 +14,8 @@ class AdditivesFullTableViewCell: UITableViewCell {
         didSet {
             additivesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             additivesTagListView.alignment = .center
-            additivesTagListView.tagBackgroundColor = .green
+            additivesTagListView.normalColorScheme = ColorSchemes.normal
+            additivesTagListView.removableColorScheme = ColorSchemes.removable
             additivesTagListView.cornerRadius = 10
             additivesTagListView.datasource = datasource
             additivesTagListView.delegate = delegate

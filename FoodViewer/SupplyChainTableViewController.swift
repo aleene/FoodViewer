@@ -30,6 +30,19 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 class SupplyChainTableViewController: UITableViewController {
     
+// MARK: - Public Functions/Variables
+    
+    var editMode = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            if editMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    var delegate: ProductPageViewController? = nil
+
     var product: FoodProduct? {
         didSet {
             if product != nil {
@@ -39,6 +52,90 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
     
+// MARK: Private Functions/Variables
+    
+    fileprivate var producerTagsToDisplay: [String]? {
+        get {
+            if let validTags = delegate?.updatedProduct?.producer?.rawArray {
+                return validTags
+            } else if let validTags = product?.producer?.rawArray {
+                return validTags
+            }
+            return nil
+        }
+    }
+    
+    fileprivate var producerCodeTagsToDisplay: [String]? {
+        get {
+            if let tags = delegate?.updatedProduct?.producerCodeArray {
+                return tags
+            } else if let validAddresses = product?.producerCode {
+                var tags: [String] = []
+                for address in validAddresses {
+                    tags.append(address.raw)
+                }
+                return tags
+            }
+            return nil
+        }
+    }
+    
+    fileprivate var ingredientOriginLocationTagsToDisplay: [String]? {
+        get {
+            if let validTags = delegate?.updatedProduct?.ingredientsOrigin?.rawArray {
+                return validTags
+            } else if let validTags = product?.ingredientsOrigin?.rawArray {
+                return validTags
+            }
+            return nil
+        }
+    }
+    
+    fileprivate var purchaseLocationTagsToDisplay: [String]? {
+        get {
+            if let validTags = delegate?.updatedProduct?.purchaseLocation?.rawArray {
+                return validTags
+            } else if let validTags = product?.purchaseLocation?.rawArray {
+                return validTags
+            }
+            return nil
+        }
+    }
+    
+    fileprivate var storeTagsToDisplay: [String]? {
+        get {
+            if let validTags = delegate?.updatedProduct?.stores {
+                if validTags.count >= 1 {
+                    return validTags
+                }
+            } else if let validTags = product?.stores {
+                if validTags.count >= 1 {
+                    return validTags
+                }
+            }
+            return nil
+        }
+    }
+    
+    fileprivate var countriesToDisplay: [String]? {
+        get {
+            if let validAddresses = delegate?.updatedProduct?.countries {
+                var tags: [String] = []
+                for address in validAddresses {
+                    tags += address.elements
+                }
+                return tags
+            } else if let validAddresses = product?.countries {
+                var tags: [String] = []
+                for address in validAddresses {
+                    tags += address.elements
+                }
+                return tags
+            }
+            return nil
+        }
+    }
+
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
@@ -58,25 +155,15 @@ class SupplyChainTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
         static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
-    
-    var editMode = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableView.reloadData()
-            }
-        }
-    }
-    
-    var delegate: ProductPageViewController? = nil
 
+    // MARK: - Interface Functions
+    
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
             OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
-    
     
     fileprivate struct Storyboard {
         static let CellIdentifier = "TagListView Cell"
@@ -186,39 +273,68 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.producer?.elements
+            // cell.tagList = product!.producer?.elements
+            cell.tag = 0
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
             return cell
+            
         case .producerCode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! AddressTagListTableViewCell
-            cell.tagList = product!.producerCode
+            // cell.tagList = product!.producerCode
+            cell.tag = 1
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
             return cell
+            
         case .sites:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! SitesTagListTableViewCell
             cell.tagList = product!.links
-            // cell.tagListView!.delegate = self
             return cell
+            
         case .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            cell.tagList = product!.ingredientsOrigin?.elements
+            // cell.tagList = product!.ingredientsOrigin?.elements
+            cell.tag = 2
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
             return cell
+            
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
-            cell.tagList = delegate?.updatedProduct?.stores == nil ? product!.stores : delegate!.updatedProduct!.stores
+            // cell.tagList = delegate?.updatedProduct?.stores == nil ? product!.stores : delegate!.updatedProduct!.stores
+            cell.tag = 3
+            cell.delegate = self
+            cell.datasource = self
             cell.editMode = editMode
             return cell
+            
         case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
-            cell.tagList = delegate?.updatedProduct?.purchaseLocation == nil ? product!.purchaseLocation!.elements : delegate!.updatedProduct!.purchaseLocation!.elements            
+            // cell.tagList = delegate?.updatedProduct?.purchaseLocation == nil ? product!.purchaseLocation!.elements : delegate!.updatedProduct!.purchaseLocation!.elements
+            cell.tag = 4
+            cell.delegate = self
+            cell.datasource = self
             cell.editMode = editMode
             return cell
+            
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! CountriesTagListViewTableViewCell
-            cell.tagList = delegate?.updatedProduct?.countries == nil ? product!.countries : delegate!.updatedProduct!.countries
+            // cell.tagList = delegate?.updatedProduct?.countries == nil ? product!.countries : delegate!.updatedProduct!.countries
+            cell.tag = 5
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
             return cell
+            
         case .map:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
             cell.product = product!
             return cell
+            
         case .expirationDate:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath) as! ExpirationDateTableViewCell
             
@@ -263,32 +379,6 @@ class SupplyChainTableViewController: UITableViewController {
             }
         }
     }
-    
-    /* MARK: TagListViewDelegate
-    
-    func tagPressed(_ title: String, tagView: TagView, sender: TagListView) {
-        /// shoudl open the corresponding url in safari
-        if (product?.links != nil) && (product?.links!.count > 0) {
-            var urlToOpen = product!.links![0]
-            if (urlToOpen.scheme!.length() == 0)
-            {
-                let text = "http://" + urlToOpen.absoluteString;
-                urlToOpen  = URL.init(string:text)!;
-            }
-            print("Tag pressed: \(title), \(urlToOpen)")
-            if UIApplication.shared.canOpenURL(urlToOpen as URL) {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(urlToOpen, options: [:], completionHandler: nil)
-                } else {
-                    // Fallback on earlier versions
-                    UIApplication.shared.openURL(urlToOpen)
-                }
-            }
-        }
-        tagView.isSelected = !tagView.isSelected
-    }
-    
-     */
 
     // MARK: - Notification handler
     
@@ -386,4 +476,222 @@ class SupplyChainTableViewController: UITableViewController {
         OFFProducts.manager.flushImages()
     }
 
+}
+
+// MARK: - TagListView DataSource Functions
+
+extension SupplyChainTableViewController: TagListViewDataSource {
+    
+    fileprivate struct TagConstants {
+        static let Undefined = NSLocalizedString("undefined", comment: "tag of cell when no date was in off")
+        static let None = NSLocalizedString("none", comment: "tag of cell when no tags are available")
+    }
+    
+    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        
+        func count(_ inputTags: [String]?) -> Int {
+            if let tags = inputTags {
+                if tags.isEmpty {
+                    tagListView.allowsRemoval = false
+                    tagListView.normalColorScheme = ColorSchemes.none
+                    return editMode ? 0 : 1
+                } else {
+                    if editMode { tagListView.allowsRemoval = true }
+                    tagListView.normalColorScheme = ColorSchemes.normal
+                    return tags.count
+                }
+            } else {
+                tagListView.allowsRemoval = false
+                tagListView.normalColorScheme = ColorSchemes.error
+                return editMode ? 0 : 1
+            }
+        }
+        
+        switch tagListView.tag {
+        case 0:
+            return count(producerTagsToDisplay)
+        case 1:
+            return count(producerCodeTagsToDisplay)
+        case 2:
+            return count(ingredientOriginLocationTagsToDisplay)
+        case 3:
+            return count(storeTagsToDisplay)
+        case 4:
+            return count(purchaseLocationTagsToDisplay)
+        case 5:
+            return count(countriesToDisplay)
+        default: break
+        }
+        return 0
+    }
+    
+    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        
+        func title(_ inputTags: [String]?) -> String {
+            if let tags = inputTags {
+                return tags.isEmpty ? TagConstants.None : tags[index]
+            }
+            return TagConstants.Undefined
+        }
+        
+        switch tagListView.tag {
+        case 0:
+            return title(producerTagsToDisplay)
+        case 1:
+            return title(producerCodeTagsToDisplay)
+        case 2:
+            return title(ingredientOriginLocationTagsToDisplay)
+        case 3:
+            return title(storeTagsToDisplay)
+        case 4:
+            return title(purchaseLocationTagsToDisplay)
+        case 5:
+            return title(countriesToDisplay)
+        default: break
+        }
+        return("error")
+    }
+    
+}
+
+// MARK: - TagListView Delegate Functions
+
+extension SupplyChainTableViewController: TagListViewDelegate {
+    
+    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
+        switch tagListView.tag {
+        case 0:
+            if var tags = producerTagsToDisplay {
+                tags.append(title)
+                delegate?.update(producer: tags)
+            }
+            tableView.reloadData()
+            
+        case 1:
+            if var tags = producerCodeTagsToDisplay {
+                tags.append(title)
+                delegate?.update(producerCode: tags)
+            }
+            tableView.reloadData()
+            
+        case 2:
+            if var tags = ingredientOriginLocationTagsToDisplay {
+                tags.append(title)
+                delegate?.update(ingredientsOrigin: tags)
+            }
+            tableView.reloadData()
+            
+        case 3:
+            if var tags = storeTagsToDisplay {
+                tags.append(title)
+                delegate?.update(stores: tags)
+            }
+            tableView.reloadData()
+            
+        case 4:
+            if var tags = purchaseLocationTagsToDisplay {
+                tags.append(title)
+                delegate?.update(purchaseLocation: tags)
+            }
+            
+        case 5:
+            if var tags = countriesToDisplay {
+                tags.append(title)
+                delegate?.update(countries: tags)
+            }
+            
+        default:
+            break
+        }
+    }
+    
+    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
+        switch tagListView.tag {
+        case 0:
+            if var validTags = producerTagsToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(producer: validTags)
+            }
+        case 1:
+            if var validTags = producerCodeTagsToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(producerCode: validTags)
+            }
+        case 2:
+            if var validTags = ingredientOriginLocationTagsToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(ingredientsOrigin: validTags)
+            }
+        case 3:
+            if var validTags = storeTagsToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(stores: validTags)
+            }
+        case 4:
+            if var validTags = purchaseLocationTagsToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(purchaseLocation: validTags)
+            }
+        case 5:
+            if var validTags = countriesToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(countries: validTags)
+            }
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
+    // TagListView function stubs
+    
+    /// Called if the user wants to delete all tags
+    func didClear(_ tagListView: TagListView) {
+        switch tagListView.tag {
+        case 0:
+            delegate?.update(producer: [])
+        case 1:
+            delegate?.update(producerCode: [])
+        case 2:
+            delegate?.update(ingredientsOrigin: [])
+        case 3:
+            delegate?.update(stores: [])
+        case 4:
+            delegate?.update(purchaseLocation: [])
+        case 5:
+            delegate?.update(countries: [])
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
+    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+        return true
+    }
+    
+    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    }
+    
+    func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
+    }
+    
 }

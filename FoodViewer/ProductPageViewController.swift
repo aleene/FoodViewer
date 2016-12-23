@@ -141,6 +141,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             if let vc = pages[3] as? SupplyChainTableViewController {
                 vc.editMode = editMode
             }
+            if let vc = pages[4] as? CategoriesTableViewController {
+                vc.editMode = editMode
+            }
         }
     }
 
@@ -459,9 +462,45 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func update(categories: [String]?) {
         initUpdatedProductWith(product: product!)
         if let validTags = categories {
-            updatedProduct?.labelArray = Tags.init(validTags)
+            if validTags.isEmpty {
+                updatedProduct?.categories = .empty
+            } else {
+                updatedProduct?.categories = .available(validTags)
+            }
         }
     }
+
+    func update(producer: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.producer = Address()
+        updatedProduct?.producerElementsArray(producer)
+    }
+
+    func update(producerCode: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.producerCodeArray = producerCode
+    }
+    
+    func update(ingredientsOrigin: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.ingredientsOriginElements(ingredientsOrigin)
+    }
+
+    func update(stores: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.stores = stores
+    }
+    
+    func update(purchaseLocation: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.purchaseLocationElements(purchaseLocation)
+    }
+
+    func update(countries: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.countryArray(countries)
+    }
+
 
 
     func updated(facts: [NutritionFactItem?]) {

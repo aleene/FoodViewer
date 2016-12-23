@@ -75,249 +75,11 @@ class OpenFoodFactsRequest {
         }
     }
     
-    // JSON keys
-
-    fileprivate struct OFFJson {
-        static let StatusKey = "status"
-        static let StatusVerboseKey = "status_verbose"
-        static let ProductKey = "product"
-        static let CodeKey = "code"
-        static let LastEditDatesTagsKey = "last_edit_dates_tags"
-        static let LabelsHierarchyKey = "labels_hierarchy"
-        static let ImageFrontSmallUrlKey = "image_front_small_url"
-        static let IIdKey = "_id"
-        static let LabelsDebugTagsKey = "labels_debug_tags"
-        static let CategoriesHierarchyKey = "categories_hierarchy"
-        static let PnnsGroups1Key = "pnns_groups_1"
-        static let StatesTagsKey = "states_tags"
-        static let CheckersTagsKey = "checkers_tags"
-        static let LabelsTagsKey = "labels_tags"
-        static let ImageSmallUrlKey = "image_small_url"
-        static let ProductCodeKey = "code"
-        static let AdditivesTagsNKey = "additives_tags_n"
-        static let TracesTagsKey = "traces_tags"
-        static let LangKey = "lang"
-        static let DebugParamSortedLangsKey = "debug_param_sorted_langs"
-        static let LanguagesHierarchy = "languages_hierarchy"
-        static let PhotographersKey = "photographers"
-        static let GenericNameKey = "generic_name"
-        static let IngredientsThatMayBeFromPalmOilTagsKey = "ingredients_that_may_be_from_palm_oil_tags"
-        static let AdditivesPrevNKey = "additives_prev_n"
-        static let KeywordsKey = "_keywords"
-        static let RevKey = "rev"
-        static let EditorsKey = "editors"
-        static let InterfaceVersionCreatedKey = "interface_version_created"
-        static let EmbCodesKey = "emb_codes"
-        static let MaxImgidKey = "max_imgid"
-        static let AdditivesTagsKey = "additives_tags"
-        static let EmbCodesOrigKey = "emb_codes_orig"
-        static let InformersTagsKey = "informers_tags"
-        static let NutrientLevelsTagsKey = "nutrient_levels_tags"
-        static let PhotographersTagsKey = "photographers_tags"
-        static let AdditivesNKey = "additives_n"
-        static let PnnsGroups2TagsKey = "pnns_groups_2_tags"
-        static let UnknownNutrientsTagsKey = "unknown_nutrients_tags"
-        static let CategoriesPrevTagsKey = "categories_prev_tags"
-        static let PackagingTagsKey = "packaging_tags"
-        static let ManufacturingPlacesKey = "manufacturing_places"
-        static let LinkKey = "link"
-        static let IngredientsNKey = "ingredients_n"
-        static let NutrimentsKey = "nutriments"
-        static let SodiumKey = "sodium"
-        static let SaltKey = "salt"
-        static let SugarsKey = "sugars"
-        static let EnergyKey = "energy"
-        static let ProteinsKey = "proteins"
-        static let CaseinKey = "casein"
-        static let SerumProteinsKey = "serum-proteins"
-        static let NucleotidesKey = "nucleotides"
-        static let CarbohydratesKey = "carbohydrates"
-        static let SucroseKey = "sucrose"
-        static let GlucoseKey = "glucose"
-        static let FructoseKey = "fructose"
-        static let LactoseKey = "lactose"
-        static let MaltoseKey = "maltose"
-        static let MaltodextrinsKey = "maltodextrins"
-        static let StarchKey = "starch"
-        static let PolyolsKey = "polyols"
-        static let FatKey = "fat"
-        static let SaturatedFatKey = "saturated-fat"
-        static let ButyricAcidKey = "butyric-acid"
-        static let CaproicAcidKey = "caproic-acid"
-        static let CaprylicAcidKey = "caprylic-acid"
-        static let CapricAcidKey = "capric-acid"
-        static let LauricAcidKey = "lauric-acid"
-        static let MyristicAcidKey = "myristic-acid"
-        static let PalmiticAcidKey = "palmitic-acid"
-        static let StearicAcidKey = "stearic-acid"
-        static let ArachidicAcidKey = "arachidic-acid"
-        static let BehenicAcidKey = "behenic-acid"
-        static let LignocericAcidKey = "lignoceric-acid"
-        static let CeroticAcidKey = "cerotic-acid"
-        static let MontanicAcidKey = "montanic-acid"
-        static let MelissicAcidKey = "melissic-acid"
-        static let MonounsaturatedFatKey = "monounsaturated-fat"
-        static let PolyunsaturatedFatKey = "polyunsaturated-fat"
-        static let Omega3FatKey = "omega-3-fat"
-        static let AlphaLinolenicAcidKey = "alpha-linolenic-acid"
-        static let EicosapentaenoicAcidKey = "eicosapentaenoic-acid"
-        static let DocosahexaenoicAcidKey = "docosahexaenoic-acid"
-        static let Omega6FatKey = "omega-6-fat"
-        static let LinoleicAcidKey = "linoleic-acid"
-        static let ArachidonicAcidKey = "arachidonic-acid"
-        static let GammaLinolenicAcidKey = "gamma-linolenic-acid"
-        static let DihomoGammaLinolenicAcidKey = "dihomo-gamma-linolenic-acid"
-        static let Omega9FatKey = "omega-9-fat"
-        static let VoleicAcidKey = "voleic-acid"
-        static let ElaidicAcidKey = "elaidic-acid"
-        static let GondoicAcidKey = "gondoic-acid"
-        static let MeadAcidKey = "mead-acid"
-        static let ErucicAcidKey = "erucic-acid"
-        static let NervonicAcidKey = "nervonic-acid"
-        static let TransFatKey = "trans-fat"
-        static let CholesterolKey = "cholesterol"
-        static let FiberKey = "fiber"
-        static let AlcoholKey = "alcohol"
-        static let VitaminAKey = "vitamin-a"
-        static let VitaminDKey = "vitamin-d"
-        static let VitaminEKey = "vitamin-e"
-        static let VitaminKKey = "vitamin-k"
-        static let VitaminCKey = "vitamin-c"
-        static let VitaminB1Key = "vitamin-b1"
-        static let VitaminB2Key = "vitamin-b2"
-        static let VitaminPPKey = "vitamin-pp"
-        static let VitaminB6Key = "vitamin-b6"
-        static let VitaminB9Key = "vitamin-b9"
-        static let VitaminB12Key = "vitamin-b12"
-        static let BiotinKey = "biotin"
-        static let PantothenicAcidKey = "pantothenic-acid"
-        static let SilicaKey = "silica"
-        static let BicarbonateKey = "bicarbonate"
-        static let PotassiumKey = "potassium"
-        static let ChlorideKey = "chloride"
-        static let CalciumKey = "calcium"
-        static let PhosphorusKey = "phosphorus"
-        static let IronKey = "iron"
-        static let MagnesiumKey = "magnesium"
-        static let ZincKey = "zinc"
-        static let CopperKey = "copper"
-        static let ManganeseKey = "manganese"
-        static let FluorideKey = "fluoride"
-        static let SeleniumKey = "selenium"
-        static let ChromiumKey = "chromium"
-        static let MolybdenumKey = "molybdenum"
-        static let IodineKey = "iodine"
-        static let CaffeineKey = "caffeine"
-        static let TaurineKey = "taurine"
-        static let PhKey = "ph"
-        static let CacaoKey = "cocoa"
-        
-        //static let CarbohydratesUnitKey = "carbohydrates_unit"
-        //static let FatUnitKey = "fat_unit"
-        static let NutritionScoreFr100gKey = "nutrition-score-fr_100g"
-        //static let FatKey = "fat"
-        //static let SodiumServingKey = "sodium_serving"
-        //static let ProteinsKey = "proteins"
-        //static let ProteinsServingKey = "proteins_serving"
-        //static let Proteins100gKey = "proteins_100g"
-        //static let ProteinsUnitKey = "proteins_unit"
-        static let NutritionScoreFrKey = "nutrition-score-fr"
-        static let NutritionScoreUk100gKey = "nutrition-score-uk_100g"
-        static let CountriesTagsKey = "countries_tags"
-        static let IngredientsFromPalmOilTagsKey = "ingredients_from_palm_oil_tags"
-        static let EmbCodesTagsKey = "emb_codes_tags"
-        static let BrandsTagsKey = "brands_tags"
-        static let PurchasePlacesKey = "purchase_places"
-        static let PnnsGroups2Key = "pnns_groups_2"
-        static let CountriesHierarchyKey = "countries_hierarchy"
-        static let TracesKey = "traces"
-        static let AdditivesOldTagsKey = "additives_old_tags"
-        static let ImageNutritionUrlKey = "image_nutrition_url"
-        static let CategoriesKey = "categories"
-        static let IngredientsTextDebugKey = "ingredients_text_debug"
-        static let IngredientsTextKey = "ingredients_text"
-        static let EditorsTagsKey = "editors_tags"
-        static let LabelsPrevTagsKey = "labels_prev_tags"
-        static let AdditivesOldNKey = "additives_old_n"
-        static let CategoriesPrevHierarchyKey = "categories_prev_hierarchy"
-        static let CreatedTKey = "created_t"
-        static let ProductNameKey = "product_name"
-        static let IngredientsFromOrThatMayBeFromPalmOilNKey = "ingredients_from_or_that_may_be_from_palm_oil_n"
-        static let CreatorKey = "creator"
-        static let ImageFrontUrlKey = "image_front_url"
-        static let NoNutritionDataKey = "no_nutrition_data" // TBD
-        static let ServingSizeKey = "serving_size"
-        static let CompletedTKey = "completed_t"
-        static let LastModifiedByKey = "last_modified_by"
-        static let NewAdditivesNKey = "new_additives_n"
-        static let AdditivesPrevTagsKey = "additives_prev_tags"
-        static let OriginsKey = "origins"
-        static let StoresKey = "stores"
-        static let NutritionGradesKey = "nutrition_grades"
-        static let NutritionGradeFrKey = "nutrition_grade_fr"
-        static let NutrientLevelsKey = "nutrient_levels"
-        static let NutrientLevelsSaltKey = "salt"
-        static let NutrientLevelsFatKey = "fat"
-        static let NutrientLevelsSugarsKey = "sugars"
-        static let NutrientLevelsSaturatedFatKey = "saturated-fat"
-        static let AdditivesPrevKey = "additives_prev"
-        static let StoresTagsKey = "stores_tags"
-        static let IdKey = "id"
-        static let CountriesKey = "countries"
-        static let ImageFrontThumbUrlKey = "image_front_thumb_url"
-        static let PurchasePlacesTagsKey = "purchase_places_tags"
-        static let TracesHierarchyKey = "traces_hierarchy"
-        static let InterfaceVersionModifiedKey = "interface_version_modified"
-        static let FruitsVegetablesNuts100gEstimateKey = "fruits-vegetables-nuts_100g_estimate"
-        static let ImageThumbUrlKey = "image_thumb_url"
-        static let SortkeyKey = "sortkey"
-        static let ImageNutritionThumbUrlKey = "image_nutrition_thumb_url"
-        static let LastModifiedTKey = "last_modified_t"
-        static let ImageIngredientsUrlKey = "image_ingredients_url"
-        static let NutritionScoreDebugKey = "nutrition_score_debug"
-        static let ImageNutritionSmallUrlKey = "image_nutrition_small_url"
-        static let CorrectorsTagsKey = "correctors_tags"
-        static let CorrectorsKey = "correctors"
-        static let CategoriesDebugTagsKey = "categories_debug_tags"
-        static let BrandsKey = "brands"
-        static let IngredientsTagsKey = "ingredients_tags"
-        static let CodesTagsKey = "codes_tags"
-        static let StatesKey = "states"
-        static let InformersKey = "informers"
-        static let EntryDatesTagsKey = "entry_dates_tags"
-        static let ImageIngredientsSmallUrlKey = "image_ingredients_small_url"
-        static let NutritionGradesTagsKey = "nutrition_grades_tags"
-        static let PackagingKey = "packaging"
-        static let ServingQuantityKey = "serving_quantity"
-        static let OriginsTagsKey = "origins_tags"
-        static let ManufacturingPlacesTagsKey = "manufacturing_places_tags"
-        static let NutritionDataPerKey = "nutrition_data_per"
-        static let LabelsKey = "labels"
-        static let CitiesTagsKey = "cities_tags"
-        static let EmbCodes20141016Key = "emb_codes_20141016"
-        static let CategoriesTagsKey = "categories_tags"
-        static let QuantityKey = "quantity"
-        static let LabelsPrevHierarchyKey = "labels_prev_hierarchy"
-        static let ExpirationDateKey = "expiration_date"
-        static let StatesHierarchyKey = "states_hierarchy"
-        static let AllergensTagsKey = "allergens_tags"
-        static let IngredientsThatMayBeFromPalmOilNKey = "ingredients_that_may_be_from_palm_oil_n"
-        static let ImageIngredientsThumbUrlKey = "image_ingredients_thumb_url"
-        static let IngredientsFromPalmOilNKey = "ingredients_from_palm_oil_n"
-        static let ImageUrlKey = "image_url"
-        static let IngredientsKey = "ingredients" // TBD
-        static let IngredientsElementTextKey = "text"
-        static let IngredientsElementRankKey = "rank"
-        static let IngredientsElementIdKey = "id"
-        static let LcKey = "lc"
-        static let IngredientsDebugKey = "ingredients_debug"
-        static let PnnsGroups1TagsKey = "pnns_groups_1_tags"
-        static let CheckersKey = "checkers"
-        static let AdditivesKey = "additives"
-        static let CompleteKey = "complete"
-        static let AdditivesDebugTagsKey = "additives_debug_tags"
-        static let IngredientsIdsDebugKey = "ingredients_ids_debug"
-    }
+    // MARK: - The keys for decoding the json-files
+    
+    typealias jsonKeys = OFFReadAPIkeysJSON
+    
+    typealias nutrimentKeys = NutrimentsFactKeys
     
     // MARK: - unpack JSON
     
@@ -332,11 +94,11 @@ class OpenFoodFactsRequest {
             var rank: Int? = nil
         }
         
-        if let resultStatus = jsonObject[OFFJson.StatusKey].int {
+        if let resultStatus = jsonObject[jsonKeys.StatusKey].int {
             if resultStatus == 0 {
                 // barcode NOT found in database
                 // There is nothing more to decode
-                if let statusVerbose = jsonObject[OFFJson.StatusVerboseKey].string {
+                if let statusVerbose = jsonObject[jsonKeys.StatusVerboseKey].string {
                     return ProductFetchStatus.productNotAvailable(statusVerbose)
                 } else {
                     return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
@@ -346,49 +108,49 @@ class OpenFoodFactsRequest {
                 // barcode exists in OFF database
                 let product = FoodProduct()
                 
-                product.barcode.string(jsonObject[OFFJson.CodeKey].string)
+                product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
                 
-                product.mainUrlThumb = jsonObject[OFFJson.ProductKey][OFFJson.ImageFrontSmallUrlKey].url
+                product.mainUrlThumb = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontSmallUrlKey].url
 
-                decodeCompletionStates(jsonObject[OFFJson.ProductKey][OFFJson.StatesTagsKey].stringArray, product:product)
-                decodeLastEditDates(jsonObject[OFFJson.ProductKey][OFFJson.LastEditDatesTagsKey].stringArray, forProduct:product)
+                decodeCompletionStates(jsonObject[jsonKeys.ProductKey][jsonKeys.StatesTagsKey].stringArray, product:product)
+                decodeLastEditDates(jsonObject[jsonKeys.ProductKey][jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
                 
                 
-                product.labelArray = Tags(decodeGlobalLabels(jsonObject[OFFJson.ProductKey][OFFJson.LabelsTagsKey].stringArray))
+                product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsTagsKey].stringArray))
                 
-                product.traceKeys = jsonObject[OFFJson.ProductKey][OFFJson.TracesTagsKey].stringArray
+                product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
 
-                product.primaryLanguageCode = jsonObject[OFFJson.ProductKey][OFFJson.LangKey].string
+                product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
                 
-                if let languages = jsonObject[OFFJson.ProductKey][OFFJson.LanguagesHierarchy].stringArray {
+                if let languages = jsonObject[jsonKeys.ProductKey][jsonKeys.LanguagesHierarchy].stringArray {
                     product.languageCodes = []
                     for language in languages {
                         let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
                         product.languageCodes.append(isoCode)
-                        var key = OFFJson.IngredientsTextKey + "_" + isoCode
-                        product.ingredientsLanguage[isoCode] = jsonObject[OFFJson.ProductKey][key].string
-                        key = OFFJson.ProductNameKey + "_" + isoCode
-                        product.nameLanguage[isoCode] = jsonObject[OFFJson.ProductKey][key].string
-                        key = OFFJson.GenericNameKey + "_" + isoCode
-                        product.genericNameLanguage[isoCode] = jsonObject[OFFJson.ProductKey][key].string
+                        var key = jsonKeys.IngredientsTextKey + "_" + isoCode
+                        product.ingredientsLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
+                        key = jsonKeys.ProductNameKey + "_" + isoCode
+                        product.nameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
+                        key = jsonKeys.GenericNameKey + "_" + isoCode
+                        product.genericNameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
                     }
                 }
-                product.genericName = jsonObject[OFFJson.ProductKey][OFFJson.GenericNameKey].string
-                product.additives = Tags(decodeAdditives(jsonObject[OFFJson.ProductKey][OFFJson.AdditivesTagsKey].stringArray))
+                product.genericName = jsonObject[jsonKeys.ProductKey][jsonKeys.GenericNameKey].string
+                product.additives = Tags(decodeAdditives(jsonObject[jsonKeys.ProductKey][jsonKeys.AdditivesTagsKey].stringArray))
                 
-                product.informers = jsonObject[OFFJson.ProductKey][OFFJson.InformersTagsKey].stringArray
-                product.photographers = jsonObject[OFFJson.ProductKey][OFFJson.PhotographersTagsKey].stringArray
-                product.packagingArray = Tags.init(jsonObject[OFFJson.ProductKey][OFFJson.PackagingKey].string)
-                product.numberOfIngredients = jsonObject[OFFJson.ProductKey][OFFJson.IngredientsNKey].string
+                product.informers = jsonObject[jsonKeys.ProductKey][jsonKeys.InformersTagsKey].stringArray
+                product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
+                product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
+                product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
                 
-                product.countryArray(decodeCountries(jsonObject[OFFJson.ProductKey][OFFJson.CountriesTagsKey].stringArray))
+                product.countryArray(decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
                 
-                product.producerCode = decodeProducerCodeArray(jsonObject[OFFJson.ProductKey][OFFJson.EmbCodesOrigKey].string)
+                product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesOrigKey].string)
                 
-                product.brands = Tags.init(jsonObject[OFFJson.ProductKey][OFFJson.BrandsKey].string)
+                product.brands = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
                 
                 // The links for the producer are stored as a string. This string might contain multiple links.
-                let linksString = jsonObject[OFFJson.ProductKey][OFFJson.LinkKey].string
+                let linksString = jsonObject[jsonKeys.ProductKey][jsonKeys.LinkKey].string
                 if let validLinksString = linksString {
                     // assume that the links are separated by a comma ","
                     let validLinksComponents = validLinksString.characters.split{$0 == ","}.map(String.init)
@@ -400,47 +162,47 @@ class OpenFoodFactsRequest {
                     }
                 }
                 
-                product.purchaseLocationString(jsonObject[OFFJson.ProductKey][OFFJson.PurchasePlacesKey].string)
-                product.nutritionFactsImageUrl = jsonObject[OFFJson.ProductKey][OFFJson.ImageNutritionUrlKey].url
-                product.ingredients = jsonObject[OFFJson.ProductKey][OFFJson.IngredientsTextKey].string
+                product.purchaseLocationString(jsonObject[jsonKeys.ProductKey][jsonKeys.PurchasePlacesKey].string)
+                product.nutritionFactsImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionUrlKey].url
+                product.ingredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsTextKey].string
                 
-                product.editors = jsonObject[OFFJson.ProductKey][OFFJson.EditorsTagsKey].stringArray
-                product.additionDate = jsonObject[OFFJson.ProductKey][OFFJson.CreatedTKey].time
-                product.name = jsonObject[OFFJson.ProductKey][OFFJson.ProductNameKey].string
-                product.creator = jsonObject[OFFJson.ProductKey][OFFJson.CreatorKey].string
-                product.mainImageUrl = jsonObject[OFFJson.ProductKey][OFFJson.ImageFrontUrlKey].url
-                product.nutritionFactsAreAvailable = decodeNutritionDataAvalailable(jsonObject[OFFJson.ProductKey][OFFJson.NoNutritionDataKey].string)
-                product.servingSize = jsonObject[OFFJson.ProductKey][OFFJson.ServingSizeKey].string
+                product.editors = jsonObject[jsonKeys.ProductKey][jsonKeys.EditorsTagsKey].stringArray
+                product.additionDate = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatedTKey].time
+                product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
+                product.creator = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatorKey].string
+                product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
+                product.nutritionFactsAreAvailable = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
+                product.servingSize = jsonObject[jsonKeys.ProductKey][jsonKeys.ServingSizeKey].string
                 var grade: NutritionalScoreLevel = .undefined
-                grade.string(jsonObject[OFFJson.ProductKey][OFFJson.NutritionGradeFrKey].string)
+                grade.string(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionGradeFrKey].string)
                 product.nutritionGrade = grade
                 
                 
-                let nutrientLevelsSalt = jsonObject[OFFJson.ProductKey][OFFJson.NutrientLevelsKey][OFFJson.NutrientLevelsSaltKey].string
-                let nutrientLevelsFat = jsonObject[OFFJson.ProductKey][OFFJson.NutrientLevelsKey][OFFJson.NutrientLevelsFatKey].string
-                let nutrientLevelsSaturatedFat = jsonObject[OFFJson.ProductKey][OFFJson.NutrientLevelsKey][OFFJson.NutrientLevelsSaturatedFatKey].string
-                let nutrientLevelsSugars = jsonObject[OFFJson.ProductKey][OFFJson.NutrientLevelsKey][OFFJson.NutrientLevelsSugarsKey].string
-                product.stores = jsonObject[OFFJson.ProductKey][OFFJson.StoresKey].string?.components(separatedBy: ",")
-                product.imageIngredientsUrl = jsonObject[OFFJson.ProductKey][OFFJson.ImageIngredientsUrlKey].url
-                (product.nutritionalScoreUK, product.nutritionalScoreFrance) = decodeNutritionalScore(jsonObject[OFFJson.ProductKey][OFFJson.NutritionScoreDebugKey].string)
-                product.imageNutritionSmallUrl = jsonObject[OFFJson.ProductKey][OFFJson.ImageNutritionSmallUrlKey].url
-                product.correctors = jsonObject[OFFJson.ProductKey][OFFJson.CorrectorsTagsKey].stringArray
+                let nutrientLevelsSalt = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaltKey].string
+                let nutrientLevelsFat = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
+                let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
+                let nutrientLevelsSugars = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
+                product.stores = jsonObject[jsonKeys.ProductKey][jsonKeys.StoresKey].string?.components(separatedBy: ",")
+                product.imageIngredientsUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsUrlKey].url
+                (product.nutritionalScoreUK, product.nutritionalScoreFrance) = decodeNutritionalScore(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionScoreDebugKey].string)
+                product.imageNutritionSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionSmallUrlKey].url
+                product.correctors = jsonObject[jsonKeys.ProductKey][jsonKeys.CorrectorsTagsKey].stringArray
 
-                product.imageIngredientsSmallUrl = jsonObject[OFFJson.ProductKey][OFFJson.ImageIngredientsSmallUrlKey].url
-                product.ingredientsOriginElements(jsonObject[OFFJson.ProductKey][OFFJson.OriginsTagsKey].stringArray)
-                product.producerElements(jsonObject[OFFJson.ProductKey][OFFJson.ManufacturingPlacesKey].string)
-                product.categories = Tags(decodeCategories(jsonObject[OFFJson.ProductKey][OFFJson.CategoriesTagsKey].stringArray))
-                product.quantity = jsonObject[OFFJson.ProductKey][OFFJson.QuantityKey].string
-                product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[OFFJson.ProductKey][OFFJson.NutritionDataPerKey].string)
-                product.expirationDate = decodeDate(jsonObject[OFFJson.ProductKey][OFFJson.ExpirationDateKey].string)
-                product.allergenKeys = jsonObject[OFFJson.ProductKey][OFFJson.AllergensTagsKey].stringArray
-                if let ingredientsJSON = jsonObject[OFFJson.ProductKey][OFFJson.IngredientsKey].array {
+                product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsSmallUrlKey].url
+                product.ingredientsOriginElements(jsonObject[jsonKeys.ProductKey][jsonKeys.OriginsTagsKey].stringArray)
+                product.producerElements(jsonObject[jsonKeys.ProductKey][jsonKeys.ManufacturingPlacesKey].string)
+                product.categories = Tags(decodeCategories(jsonObject[jsonKeys.ProductKey][jsonKeys.CategoriesTagsKey].stringArray))
+                product.quantity = jsonObject[jsonKeys.ProductKey][jsonKeys.QuantityKey].string
+                product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionDataPerKey].string)
+                product.expirationDate = decodeDate(jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string)
+                product.allergenKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.AllergensTagsKey].stringArray
+                if let ingredientsJSON = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsKey].array {
                     var ingredients: [ingredientsElement] = []
                     for ingredientsJSONElement in ingredientsJSON {
                         var element = ingredientsElement()
-                        element.text = ingredientsJSONElement[OFFJson.IngredientsElementTextKey].string
-                        element.id = ingredientsJSONElement[OFFJson.IngredientsElementIdKey].string
-                        element.rank = ingredientsJSONElement[OFFJson.IngredientsElementRankKey].int
+                        element.text = ingredientsJSONElement[jsonKeys.IngredientsElementTextKey].string
+                        element.id = ingredientsJSONElement[jsonKeys.IngredientsElementIdKey].string
+                        element.rank = ingredientsJSONElement[jsonKeys.IngredientsElementRankKey].int
                         ingredients.append(element)
                     }
                 }
@@ -455,200 +217,103 @@ class OpenFoodFactsRequest {
                 nutritionLevelQuantity.string(nutrientLevelsSalt)
                 let saltNutritionScore = (NutritionItem.salt, nutritionLevelQuantity)
                 product.nutritionScore = [fatNutritionScore, saturatedFatNutritionScore, sugarNutritionScore, saltNutritionScore]
-                
-                struct NutritionFacts {
-                    static let EnergyKey = "Energy"
-                    static let FatKey = "Fat"
-                    static let MonounsaturatedFatKey = "Monounsaturated fat"
-                    static let PolyunsaturatedFatKey = "Polyunsaturated fat"
-                    static let SaturatedFatKey = "Saturated fat"
-                    static let Omega3FatKey = "Omega-3 fat"
-                    static let Omega6FatKey = "Omega-6 fat"
-                    static let Omega9FatKey = "Omega-9 fat"
-                    static let TransFatKey = "Trans fat"
-                    static let CholesterolKey = "Cholesterol"
-                    static let CarbohydratesKey = "Carbohydrates"
-                    static let SugarsKey = "Sugars"
-                    static let SucroseKey = "Sucrose"
-                    static let GlucoseKey = "Glucose"
-                    static let FructoseKey = "Fructose"
-                    static let LactoseKey = "Lactose"
-                    static let MaltoseKey = "Maltose"
-                    static let PolyolsKey = "Polyols"
-                    static let MaltodextrinsKey = "Maltodextrins"
-                    static let FiberKey = "Fiber"
-                    static let ProteinsKey = "Proteins"
-                    static let AlcoholKey = "Alcohol"
-                    static let SodiumKey = "Sodium"
-                    static let SaltKey = "Salt"
-                    
-                    static let BiotinKey = "Biotin"
-                    static let CaseinKey = "Casein"
-                    static let SerumProteinsKey = "Serum proteins"
-                    static let NucleotidesKey = "Nucleotides"
-                    static let StarchKey = "Starch"
-                    
-                    static let AlphaLinolenicAcidKey = "Alpha-linolenic acid"
-                    static let ArachidicAcidKey = "Arachidic acid"
-                    static let ArachidonicAcidKey = "Arachidonic acid"
-                    static let BehenicAcidKey = "Behenic acid"
-                    static let ButyricAcidKey = "Butyric acid"
-                    static let CapricAcidKey = "Capric acid"
-                    static let CaproicAcidKey = "Caproic acid"
-                    static let CaprylicAcidKey = "Caprylic-acid"
-                    static let CeroticAcidKey = "Cerotic acid"
-                    static let DihomoGammaLinolenicAcidKey = "Dihomo-gamma-linolenic acid"
-                    static let DocosahexaenoicAcidKey = "Docosahexaenoic acid"
-                    static let EicosapentaenoicAcidKey = "Eicosapentaenoic acid"
-                    static let ElaidicAcidKey = "Elaidic acid"
-                    static let ErucicAcidKey = "Erucic acid"
-                    static let GammaLinolenicAcidKey = "Gamma-linolenic acid"
-                    static let GondoicAcidKey = "Gondoic acid"
-                    static let LauricAcidKey = "Lauric acid"
-                    static let LignocericAcidKey = "Lignoceric acid"
-                    static let LinoleicAcidKey = "Linoleic acid"
-                    static let MeadAcidKey = "Mead acid"
-                    static let MelissicAcidKey = "Melissic acid"
-                    static let MontanicAcidKey = "Montanic acid"
-                    static let MyristicAcidKey = "Myristic acid"
-                    static let NervonicAcidKey = "Nervonic acid"
-                    static let PalmiticAcidKey = "Palmitic acid"
-                    static let PantothenicAcidKey = "Pantothenic acid"
-                    static let StearicAcidKey = "Stearic acid"
-                    static let VoleicAcidKey = "Voleic acid"
-                    
-                    static let VitaminAKey = "Vitamin A"
-                    static let VitaminB1Key = "Vitamin B1"
-                    static let VitaminB2Key = "Vitamin B2"
-                    static let VitaminPPKey = "Vitamin PP"
-                    static let VitaminB6Key = "Vitamin B6"
-                    static let VitaminB9Key = "Vitamin B9"
-                    static let VitaminB12Key = "Vitamin B12"
-                    static let VitaminCKey = "Vitamin C"
-                    static let VitaminDKey = "Vitamin D"
-                    static let VitaminEKey = "Vitamin E"
-                    static let VitaminKKey = "Vitamin K"
-                    
-                    static let CalciumKey = "Calcium"
-                    static let ChlorideKey = "Chloride"
-                    static let ChromiumKey = "Chromium"
-                    static let CopperKey = "Copper"
-                    static let BicarbonateKey = "Bicarbonate"
-                    static let FluorideKey = "Fluoride"
-                    static let IodineKey = "Iodine"
-                    static let IronKey = "Iron"
-                    static let MagnesiumKey = "Magnesium"
-                    static let ManganeseKey = "Manganese"
-                    static let MolybdenumKey = "Molybdenum"
-                    static let PhosphorusKey = "Phosphorus"
-                    static let PotassiumKey = "Potassium"
-                    static let SeleniumKey = "Selenium"
-                    static let SilicaKey = "Silica"
-                    static let ZincKey = "Zinc"
-                    
-                    static let CaffeineKey = "Caffeine"
-                    static let TaurineKey = "Taurine"
-                    
-                    static let PhKey = "ph"
-                    static let CacaoKey = "Cacao Min."
-                }
-                
+                                
                 // Warning: the order of these nutrients is important. It will be displayed as such.
                 
-                nutritionDecode(NutritionFacts.EnergyKey, key: OFFJson.EnergyKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.FatKey, key: OFFJson.FatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MonounsaturatedFatKey, key: OFFJson.MonounsaturatedFatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.PolyunsaturatedFatKey, key: OFFJson.PolyunsaturatedFatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SaturatedFatKey, key: OFFJson.SaturatedFatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.Omega3FatKey, key: OFFJson.Omega3FatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.Omega6FatKey, key: OFFJson.Omega6FatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.Omega9FatKey, key: OFFJson.Omega9FatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.TransFatKey, key: OFFJson.TransFatKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CholesterolKey, key: OFFJson.CholesterolKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SodiumKey, key: OFFJson.SodiumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SaltKey, key: OFFJson.SaltKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CarbohydratesKey, key: OFFJson.CarbohydratesKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SugarsKey, key: OFFJson.SugarsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SucroseKey, key: OFFJson.SucroseKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.GlucoseKey, key: OFFJson.GlucoseKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.FructoseKey , key: OFFJson.FructoseKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.LactoseKey, key: OFFJson.LactoseKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MaltoseKey, key: OFFJson.MaltoseKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.PolyolsKey, key: OFFJson.PolyolsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MaltodextrinsKey, key: OFFJson.MaltodextrinsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.FiberKey, key: OFFJson.FiberKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ProteinsKey, key: OFFJson.ProteinsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.AlcoholKey, key: OFFJson.AlcoholKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.EnergyKey, key: jsonKeys.EnergyKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.FatKey, key: jsonKeys.FatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MonounsaturatedFatKey, key: jsonKeys.MonounsaturatedFatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.PolyunsaturatedFatKey, key: jsonKeys.PolyunsaturatedFatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SaturatedFatKey, key: jsonKeys.SaturatedFatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.Omega3FatKey, key: jsonKeys.Omega3FatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.Omega6FatKey, key: jsonKeys.Omega6FatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.Omega9FatKey, key: jsonKeys.Omega9FatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.TransFatKey, key: jsonKeys.TransFatKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CholesterolKey, key: jsonKeys.CholesterolKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SodiumKey, key: jsonKeys.SodiumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SaltKey, key: jsonKeys.SaltKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CarbohydratesKey, key: jsonKeys.CarbohydratesKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SugarsKey, key: jsonKeys.SugarsKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SucroseKey, key: jsonKeys.SucroseKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.GlucoseKey, key: jsonKeys.GlucoseKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.FructoseKey , key: jsonKeys.FructoseKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.LactoseKey, key: jsonKeys.LactoseKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MaltoseKey, key: jsonKeys.MaltoseKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.PolyolsKey, key: jsonKeys.PolyolsKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MaltodextrinsKey, key: jsonKeys.MaltodextrinsKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.FiberKey, key: jsonKeys.FiberKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ProteinsKey, key: jsonKeys.ProteinsKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.AlcoholKey, key: jsonKeys.AlcoholKey, jsonObject: jsonObject, product: product)
                 
-                nutritionDecode(NutritionFacts.BiotinKey, key: OFFJson.BiotinKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CaseinKey, key: OFFJson.CaseinKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SerumProteinsKey, key: OFFJson.SerumProteinsKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.NucleotidesKey , key: OFFJson.NucleotidesKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.StarchKey, key: OFFJson.StarchKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.BiotinKey, key: jsonKeys.BiotinKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CaseinKey, key: jsonKeys.CaseinKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SerumProteinsKey, key: jsonKeys.SerumProteinsKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.NucleotidesKey , key: jsonKeys.NucleotidesKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.StarchKey, key: jsonKeys.StarchKey, jsonObject: jsonObject, product: product)
                 
-                nutritionDecode(NutritionFacts.AlphaLinolenicAcidKey, key: OFFJson.AlphaLinolenicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ArachidicAcidKey, key: OFFJson.ArachidicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ArachidonicAcidKey, key: OFFJson.ArachidonicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.BehenicAcidKey, key: OFFJson.BehenicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ButyricAcidKey, key: OFFJson.ButyricAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CapricAcidKey, key: OFFJson.CapricAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CaproicAcidKey, key: OFFJson.CaproicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CaprylicAcidKey, key: OFFJson.CaprylicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CeroticAcidKey, key: OFFJson.CeroticAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.DihomoGammaLinolenicAcidKey, key: OFFJson.DihomoGammaLinolenicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.DocosahexaenoicAcidKey, key: OFFJson.EicosapentaenoicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.EicosapentaenoicAcidKey, key: OFFJson.EicosapentaenoicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ElaidicAcidKey, key: OFFJson.ElaidicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ErucicAcidKey, key: OFFJson.ErucicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.GammaLinolenicAcidKey, key: OFFJson.GammaLinolenicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.GondoicAcidKey, key: OFFJson.GondoicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.LauricAcidKey, key: OFFJson.LauricAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.LignocericAcidKey, key: OFFJson.LignocericAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.LinoleicAcidKey, key: OFFJson.LinoleicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MeadAcidKey, key: OFFJson.MeadAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MelissicAcidKey, key: OFFJson.MelissicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MontanicAcidKey, key: OFFJson.MontanicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MyristicAcidKey, key: OFFJson.MyristicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.NervonicAcidKey, key: OFFJson.NervonicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.PalmiticAcidKey, key: OFFJson.PalmiticAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.PantothenicAcidKey, key: OFFJson.PantothenicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.StearicAcidKey, key: OFFJson.StearicAcidKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VoleicAcidKey, key: OFFJson.VoleicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.AlphaLinolenicAcidKey, key: jsonKeys.AlphaLinolenicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ArachidicAcidKey, key: jsonKeys.ArachidicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ArachidonicAcidKey, key: jsonKeys.ArachidonicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.BehenicAcidKey, key: jsonKeys.BehenicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ButyricAcidKey, key: jsonKeys.ButyricAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CapricAcidKey, key: jsonKeys.CapricAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CaproicAcidKey, key: jsonKeys.CaproicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CaprylicAcidKey, key: jsonKeys.CaprylicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CeroticAcidKey, key: jsonKeys.CeroticAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.DihomoGammaLinolenicAcidKey, key: jsonKeys.DihomoGammaLinolenicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.DocosahexaenoicAcidKey, key: jsonKeys.EicosapentaenoicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.EicosapentaenoicAcidKey, key: jsonKeys.EicosapentaenoicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ElaidicAcidKey, key: jsonKeys.ElaidicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ErucicAcidKey, key: jsonKeys.ErucicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.GammaLinolenicAcidKey, key: jsonKeys.GammaLinolenicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.GondoicAcidKey, key: jsonKeys.GondoicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.LauricAcidKey, key: jsonKeys.LauricAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.LignocericAcidKey, key: jsonKeys.LignocericAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.LinoleicAcidKey, key: jsonKeys.LinoleicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MeadAcidKey, key: jsonKeys.MeadAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MelissicAcidKey, key: jsonKeys.MelissicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MontanicAcidKey, key: jsonKeys.MontanicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MyristicAcidKey, key: jsonKeys.MyristicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.NervonicAcidKey, key: jsonKeys.NervonicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.PalmiticAcidKey, key: jsonKeys.PalmiticAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.PantothenicAcidKey, key: jsonKeys.PantothenicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.StearicAcidKey, key: jsonKeys.StearicAcidKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VoleicAcidKey, key: jsonKeys.VoleicAcidKey, jsonObject: jsonObject, product: product)
                 
-                nutritionDecode(NutritionFacts.VitaminAKey, key: OFFJson.VitaminAKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminB1Key, key: OFFJson.VitaminB1Key, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminB2Key, key: OFFJson.VitaminB2Key, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminPPKey, key: OFFJson.VitaminPPKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminB6Key, key: OFFJson.VitaminB6Key, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminB9Key, key: OFFJson.VitaminB9Key, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminB12Key, key: OFFJson.VitaminB12Key, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminCKey, key: OFFJson.VitaminCKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminDKey, key: OFFJson.VitaminDKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminEKey, key: OFFJson.VitaminEKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.VitaminKKey, key: OFFJson.VitaminKKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminAKey, key: jsonKeys.VitaminAKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminB1Key, key: jsonKeys.VitaminB1Key, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminB2Key, key: jsonKeys.VitaminB2Key, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminPPKey, key: jsonKeys.VitaminPPKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminB6Key, key: jsonKeys.VitaminB6Key, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminB9Key, key: jsonKeys.VitaminB9Key, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminB12Key, key: jsonKeys.VitaminB12Key, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminCKey, key: jsonKeys.VitaminCKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminDKey, key: jsonKeys.VitaminDKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminEKey, key: jsonKeys.VitaminEKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.VitaminKKey, key: jsonKeys.VitaminKKey, jsonObject: jsonObject, product: product)
                 
-                nutritionDecode(NutritionFacts.CalciumKey, key: OFFJson.CalciumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ChlorideKey, key: OFFJson.ChlorideKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ChromiumKey, key: OFFJson.ChromiumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.CopperKey, key: OFFJson.CopperKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.BicarbonateKey, key: OFFJson.BicarbonateKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.FluorideKey, key: OFFJson.FluorideKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.IodineKey, key: OFFJson.IodineKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.IronKey, key: OFFJson.IronKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MagnesiumKey, key: OFFJson.MagnesiumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ManganeseKey, key: OFFJson.ManganeseKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.MolybdenumKey, key: OFFJson.MolybdenumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.PhosphorusKey, key: OFFJson.PhosphorusKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.PotassiumKey, key: OFFJson.PotassiumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SeleniumKey, key: OFFJson.SeleniumKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.SilicaKey, key: OFFJson.SilicaKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.ZincKey, key: OFFJson.ZincKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CalciumKey, key: jsonKeys.CalciumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ChlorideKey, key: jsonKeys.ChlorideKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ChromiumKey, key: jsonKeys.ChromiumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CopperKey, key: jsonKeys.CopperKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.BicarbonateKey, key: jsonKeys.BicarbonateKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.FluorideKey, key: jsonKeys.FluorideKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.IodineKey, key: jsonKeys.IodineKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.IronKey, key: jsonKeys.IronKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MagnesiumKey, key: jsonKeys.MagnesiumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ManganeseKey, key: jsonKeys.ManganeseKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.MolybdenumKey, key: jsonKeys.MolybdenumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.PhosphorusKey, key: jsonKeys.PhosphorusKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.PotassiumKey, key: jsonKeys.PotassiumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SeleniumKey, key: jsonKeys.SeleniumKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.SilicaKey, key: jsonKeys.SilicaKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.ZincKey, key: jsonKeys.ZincKey, jsonObject: jsonObject, product: product)
                 
-                nutritionDecode(NutritionFacts.CaffeineKey, key: OFFJson.CaffeineKey, jsonObject: jsonObject, product: product)
-                nutritionDecode(NutritionFacts.TaurineKey, key: OFFJson.TaurineKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.CaffeineKey, key: jsonKeys.CaffeineKey, jsonObject: jsonObject, product: product)
+                nutritionDecode(nutrimentKeys.TaurineKey, key: jsonKeys.TaurineKey, jsonObject: jsonObject, product: product)
                 
-                nutritionDecode(NutritionFacts.PhKey, key: OFFJson.PhKey, jsonObject: jsonObject, product:product)
-                nutritionDecode(NutritionFacts.CacaoKey, key: OFFJson.CacaoKey, jsonObject: jsonObject, product:product)
+                nutritionDecode(nutrimentKeys.PhKey, key: jsonKeys.PhKey, jsonObject: jsonObject, product:product)
+                nutritionDecode(nutrimentKeys.CacaoKey, key: jsonKeys.CacaoKey, jsonObject: jsonObject, product:product)
                 
                 return ProductFetchStatus.success(product)
             } else {
@@ -679,34 +344,34 @@ class OpenFoodFactsRequest {
         if nutritionItem.key!.contains("energy") {
             nutritionItem.standardValueUnit = NutritionFactUnit.Joule
             nutritionItem.servingValueUnit = NutritionFactUnit.Joule
-            if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.HunderdKey].string {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
                 nutritionItem.standardValue = value
-            } else if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ValueKey].string {
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.standardValue = value
             }
-            if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ServingKey].string {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
                 nutritionItem.servingValue = value
-            } else if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ValueKey].string {
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.servingValue = value
             }
 
         } else if (nutritionItem.key!.contains("alcohol")) || (nutritionItem.key!.contains("cocoa")){
             nutritionItem.standardValueUnit = NutritionFactUnit.Percent
             nutritionItem.servingValueUnit = NutritionFactUnit.Percent
-            if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.HunderdKey].string {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
                 nutritionItem.standardValue = value
-            } else if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ValueKey].string {
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.standardValue = value
             }
-            if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ServingKey].string {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
                 nutritionItem.servingValue = value
-            } else if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ValueKey].string {
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.servingValue = value
             }
         } else {
             nutritionItem.standardValueUnit = NutritionFactUnit.Gram
             nutritionItem.servingValueUnit = NutritionFactUnit.Gram
-            if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.HunderdKey].string {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
                 // is the value translatable to a number?
                 if var doubleValue = Double(value) {
 
@@ -736,11 +401,11 @@ class OpenFoodFactsRequest {
                 } else {
                     nutritionItem.standardValue = value
                 }
-            } else if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ValueKey].string {
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.standardValue = value
             }
         
-            if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ServingKey].string {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
                 // is the value translatable to a number?
                 if var doubleValue = Double(value) {
                     // use the original values to calculate the daily fraction
@@ -780,10 +445,10 @@ class OpenFoodFactsRequest {
                     nutritionItem.servingValue = "\(doubleValue)"
 
                 } else {
-                    nutritionItem.servingValue = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.HunderdKey].string
+                    nutritionItem.servingValue = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string
                 }
 
-            } else if let value = jsonObject[OFFJson.ProductKey][OFFJson.NutrimentsKey][key+Appendix.ValueKey].string {
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.servingValue = value
             }
         }
@@ -811,8 +476,8 @@ class OpenFoodFactsRequest {
     }
     
     fileprivate struct StateCompleteKey {
-        static let NutritionFacts = "en:nutrition-facts-completed"
-        static let NutritionFactsTBD = "en:nutrition-facts-to-be-completed"
+        static let nutrimentKeys = "en:nutrition-facts-completed"
+        static let nutrimentKeysTBD = "en:nutrition-facts-to-be-completed"
         static let Ingredients = "en:ingredients-completed"
         static let IngredientsTBD = "en:ingredients-to-be-completed"
         static let ExpirationDate = "en:expiration-date-completed"
@@ -943,13 +608,13 @@ class OpenFoodFactsRequest {
                     product.state.categoriesComplete.value = false
                     product.state.categoriesComplete.text = OFFplists.manager.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
 
-                } else if currentState.contains(StateCompleteKey.NutritionFacts) {
+                } else if currentState.contains(StateCompleteKey.nutrimentKeys) {
                     product.state.nutritionFactsComplete.value = true
-                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.NutritionFacts, language:preferredLanguage)
+                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.nutrimentKeys, language:preferredLanguage)
                     
-                } else if currentState.contains(StateCompleteKey.NutritionFactsTBD) {
+                } else if currentState.contains(StateCompleteKey.nutrimentKeysTBD) {
                     product.state.nutritionFactsComplete.value = false
-                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.NutritionFactsTBD, language:preferredLanguage)
+                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.nutrimentKeysTBD, language:preferredLanguage)
 
                 } else if currentState.contains(StateCompleteKey.PhotosValidated) {
                     product.state.photosValidatedComplete.value = true

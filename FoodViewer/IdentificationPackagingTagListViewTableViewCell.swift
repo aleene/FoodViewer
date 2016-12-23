@@ -15,7 +15,8 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
-            tagListView.tagBackgroundColor = UIColor.green
+            tagListView.normalColorScheme = ColorSchemes.normal
+            tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
             tagListView.datasource = datasource
             tagListView.delegate = delegate

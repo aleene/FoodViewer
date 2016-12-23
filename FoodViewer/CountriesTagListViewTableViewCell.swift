@@ -8,52 +8,44 @@
 
 import UIKit
 
-class CountriesTagListViewTableViewCell: UITableViewCell, TagListViewDataSource {
-    
-    struct Constants {
-        static let NoTag = NSLocalizedString("no countries specified", comment: "Text in a TagListView, when no countries are available in the product data.") 
-    }
+class CountriesTagListViewTableViewCell: UITableViewCell {
     
     @IBOutlet weak var countriesTagListView: TagListView! {
         didSet {
             countriesTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             countriesTagListView.alignment = .center
+            countriesTagListView.normalColorScheme = ColorSchemes.normal
+            countriesTagListView.removableColorScheme = ColorSchemes.removable
             countriesTagListView.cornerRadius = 10
-            countriesTagListView.datasource = self
+            countriesTagListView.datasource = datasource
+            countriesTagListView.delegate = delegate
+            countriesTagListView.isEditable = editMode
+            countriesTagListView.tag = tag
         }
     }
     
-    var tagList: [Address]? = nil {
+    var editMode: Bool = false {
         didSet {
-            if let list = tagList {
-                if !list.isEmpty {
-                    countriesTagListView.tagBackgroundColor = UIColor.green
-                    return
-                }
-            }
-            countriesTagListView.tagBackgroundColor = UIColor.orange
+            countriesTagListView?.isEditable = editMode
         }
     }
     
-    // TagListView Datasource functions
-    
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        if let list = tagList {
-            if !list.isEmpty {
-                return list.count
-            }
+    var datasource: TagListViewDataSource? = nil {
+        didSet {
+            countriesTagListView?.datasource = datasource
         }
-        return 1
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if let list = tagList {
-            if !list.isEmpty {
-                return list[index].country
-            }
+    var delegate: TagListViewDelegate? = nil {
+        didSet {
+            countriesTagListView?.delegate = delegate
         }
-        return Constants.NoTag
     }
-
+    
+    override var tag: Int {
+        didSet {
+            countriesTagListView?.tag = tag
+        }
+    }
     
 }

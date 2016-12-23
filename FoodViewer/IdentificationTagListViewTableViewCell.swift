@@ -14,11 +14,12 @@ class IdentificationTagListViewTableViewCell: UITableViewCell {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             // tagListView.alignment = .center
-            tagListView.tagBackgroundColor = UIColor.green
+            tagListView.normalColorScheme = ColorSchemes.normal
+            tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
-            tagListView?.isEditable = editMode
-            tagListView?.datasource = datasource
-            tagListView?.delegate = delegate
+            tagListView.isEditable = editMode
+            tagListView.datasource = datasource
+            tagListView.delegate = delegate
         }
     }
     

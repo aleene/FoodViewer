@@ -4,18 +4,17 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagView" customModule="ManagedTagListView" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TagView" customModule="FoodViewer" customModuleProvider="target">
             <connections>
                 <outlet property="bottomLayOutConstraint" destination="Ny5-Q4-Dd4" id="mgQ-Ih-M7Z"/>
                 <outlet property="label" destination="0FF-5S-vXq" id="ZCm-Vu-n7o"/>
                 <outlet property="leadingLayOutConstraint" destination="V52-g6-ZAR" id="v03-8a-kgP"/>
-                <outlet property="removeButton" destination="NHO-JS-fit" id="WcT-5A-QP8"/>
-                <outlet property="removeButtonWidthConstraint" destination="fRY-Nz-Bag" id="Nqf-85-hjW"/>
+                <outlet property="removeImageView" destination="Zpb-tW-gEp" id="bzy-ab-OA8"/>
+                <outlet property="removeImageViewWidthConstraint" destination="plR-3A-DuY" id="F6w-BW-mru"/>
                 <outlet property="shadow" destination="65R-BH-Ljd" id="aM7-0p-Vbb"/>
                 <outlet property="topLayoutConstraint" destination="w3J-8Q-KCK" id="dp0-Ps-iu5"/>
                 <outlet property="trailingLayOutConstraint" destination="BY3-rd-LPv" id="t3E-Ju-bh7"/>
@@ -35,25 +34,21 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NHO-JS-fit">
-                            <rect key="frame" x="106" y="17.5" width="13" height="13"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zpb-tW-gEp">
+                            <rect key="frame" x="110" y="18" width="13" height="13"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="13" id="Cx4-Ef-Aqa"/>
-                                <constraint firstAttribute="width" constant="13" id="fRY-Nz-Bag"/>
+                                <constraint firstAttribute="height" constant="13" id="bDI-66-5L1"/>
+                                <constraint firstAttribute="width" constant="13" id="plR-3A-DuY"/>
                             </constraints>
-                            <state key="normal" title="Button" image="Delete"/>
-                            <connections>
-                                <action selector="removeButtonTapped:" destination="-1" eventType="touchUpInside" id="SWp-nn-McW"/>
-                            </connections>
-                        </button>
+                        </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstItem="NHO-JS-fit" firstAttribute="centerY" secondItem="0FF-5S-vXq" secondAttribute="centerY" id="6Ge-dT-fil"/>
+                        <constraint firstAttribute="trailing" secondItem="Zpb-tW-gEp" secondAttribute="trailing" id="11o-s2-km4"/>
                         <constraint firstAttribute="trailing" secondItem="0FF-5S-vXq" secondAttribute="trailing" id="BY3-rd-LPv"/>
                         <constraint firstAttribute="bottom" secondItem="0FF-5S-vXq" secondAttribute="bottom" id="Ny5-Q4-Dd4"/>
                         <constraint firstItem="0FF-5S-vXq" firstAttribute="leading" secondItem="65R-BH-Ljd" secondAttribute="leading" id="V52-g6-ZAR"/>
-                        <constraint firstAttribute="trailing" secondItem="NHO-JS-fit" secondAttribute="trailing" constant="4" id="eiD-fM-HnV"/>
+                        <constraint firstItem="Zpb-tW-gEp" firstAttribute="centerY" secondItem="0FF-5S-vXq" secondAttribute="centerY" id="scf-fS-e7Z"/>
                         <constraint firstItem="0FF-5S-vXq" firstAttribute="top" secondItem="65R-BH-Ljd" secondAttribute="top" id="w3J-8Q-KCK"/>
                     </constraints>
                 </view>
@@ -70,7 +65,4 @@
             <point key="canvasLocation" x="-176.5" y="-16"/>
         </view>
     </objects>
-    <resources>
-        <image name="Delete" width="25" height="25"/>
-    </resources>
 </document>

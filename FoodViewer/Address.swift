@@ -20,11 +20,34 @@ class Address {
     var city = ""
     var postalcode = ""
     var country = ""    
-    var elements: [String]? = nil
+    var elements: [String] {
+        get {
+            var array: [String] = []
+            if !title.isEmpty {
+                array.append(title)
+            }
+            if !street.isEmpty {
+                array.append(street)
+            }
+            if !postalcode.isEmpty {
+                array.append(postalcode)
+            }
+            if !city.isEmpty {
+                array.append(city)
+            }
+            if !country.isEmpty {
+                array.append(country)
+            }
+            if array.isEmpty {
+                return rawArray != nil ? rawArray! : []
+            }
+            return array
+        }
+    }
     var locationString: String? = nil {
         didSet {
             if let validLocationString = locationString {
-                elements = validLocationString.components(separatedBy: ",")
+                rawArray = validLocationString.components(separatedBy: ",")
             }
         }
     }
@@ -61,12 +84,6 @@ class Address {
     
     convenience init(with: (String, Address)?) {
         
-        func initElements() {
-            if self.elements == nil {
-                self.elements = []
-            }
-        }
-
         self.init()
         if let shop = with {
             self.title = shop.0
@@ -74,33 +91,14 @@ class Address {
             self.city = shop.1.street
             self.postalcode = shop.1.postalcode
             self.country = shop.1.country
-            if !shop.1.title.characters.isEmpty {
-                initElements()
-                self.elements?.append(shop.1.title)
-            }
-            if !shop.1.street.isEmpty {
-                initElements()
-                self.elements?.append(shop.1.street)
-            }
-            if !shop.1.postalcode.isEmpty {
-                initElements()
-                self.elements?.append(shop.1.postalcode)
-            }
-            if !shop.1.city.isEmpty {
-                initElements()
-                self.elements?.append(shop.1.city)
-            }
-
-            if !shop.1.country.isEmpty {
-                initElements()
-                self.elements?.append(shop.1.country)
-            }
         }
         
     }
     
     var language: String = ""
     var raw: String = ""
+    // an array of elements, which should translate to an address if you what is what
+    var rawArray: [String]? = nil
     
     enum CoordinateFetchResult {
         case error(String)
@@ -118,9 +116,9 @@ class Address {
     func setCoordinates() {
         if coordinates == nil {
             // launch the coordinate retrieval
-            if (elements != nil) && (!elements!.isEmpty) {
-                elements = removeDashes(elements!)
-                retrieveCoordinates(elements!.joined(separator: " "))
+            if !elements.isEmpty {
+                rawArray = removeDashes(elements)
+                retrieveCoordinates(elements.joined(separator: " "))
             } else if !country.isEmpty {
                 if !postalcode.isEmpty {
                     retrieveCoordinates(postalcode + ", " + country)
@@ -132,7 +130,7 @@ class Address {
     }
     
     func joined() -> String? {
-        return elements?.joined(separator: " ")
+        return elements.joined(separator: " ")
     }
     
     private func retrieveCoordinates(_ locationName: String) {

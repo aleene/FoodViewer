@@ -14,7 +14,8 @@ class AllergensFullTableViewCell: UITableViewCell {
         didSet {
             allergensTagList.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             allergensTagList.alignment = .center
-            allergensTagList.tagBackgroundColor = .green
+            allergensTagList.normalColorScheme = ColorSchemes.normal
+            allergensTagList.removableColorScheme = ColorSchemes.removable
             allergensTagList.cornerRadius = 10
             allergensTagList.datasource = datasource
             allergensTagList.delegate = delegate

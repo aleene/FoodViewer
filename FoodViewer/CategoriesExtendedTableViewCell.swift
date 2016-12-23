@@ -15,7 +15,8 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
             listTagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             listTagListView.alignment = .center
             listTagListView.cornerRadius = 10
-            listTagListView.tagBackgroundColor = .green
+            listTagListView.normalColorScheme = ColorSchemes.normal
+            listTagListView.removableColorScheme = ColorSchemes.removable
             listTagListView.datasource = datasource
             listTagListView.delegate = delegate
             listTagListView.tag = tag
@@ -43,7 +44,7 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
 
     override var tag: Int {
         didSet {
-            listTagListView.tag = tag
+            listTagListView?.tag = tag
         }
     }
     
