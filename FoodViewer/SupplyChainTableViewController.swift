@@ -684,6 +684,19 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
+    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        /*
+         switch tagListView.tag {
+         case 0:
+         case 1:
+         
+         default:
+         break
+         }
+         */
+        tableView.setNeedsLayout()
+    }
+    
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         return true
     }

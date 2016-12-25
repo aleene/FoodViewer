@@ -92,7 +92,6 @@ class IngredientsTableViewController: UITableViewController {
         }
     }
 
-
     var editMode: Bool = false {
         didSet {
             // vc changed from/to editMode, need to repaint
@@ -491,6 +490,20 @@ extension IngredientsTableViewController: TagListViewDelegate {
             break
         }
     }
+    
+    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        /*
+         switch tagListView.tag {
+         case 0:
+         case 1:
+         
+         default:
+         break
+         }
+         */
+        tableView.setNeedsLayout()
+    }
+
 }
 
 // MARK: - TagListView DataSource Functions

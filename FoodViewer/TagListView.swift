@@ -37,7 +37,7 @@ public protocol TagListViewPureDelegate {
     /// Called when the TagListView did begin editing.
     ///func tagListViewDidBeginEditing(_ tagListView: TagListView)
     /// Called when the TagListView's content height changes.
-    ///func tagListView(_ tagListView: TagListView, didChangeContent height: CGFloat)
+    func tagListView(_ tagListView: TagListView, didChange height: CGFloat)
 }
 
 // MARK: - TagListView DataSource Functions
@@ -63,7 +63,7 @@ public protocol TagListViewPureDelegate {
 // MARK: - TagListView CLASS
 
 @IBDesignable
-open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITextViewDelegate {
+open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     open var pureDelegate: TagListViewPureDelegate? = nil
     
@@ -149,7 +149,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     /// Input textView text color.
     @IBInspectable open dynamic var inputTextViewTextColor = Constants.defaultTextInputColor{
         didSet {
-            inputTextView.textColor = inputTextViewTextColor
+            inputTextField.textColor = inputTextViewTextColor
         }
     }
     
@@ -314,7 +314,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     /// Input textView accessibility label.
     public var inputTextViewAccessibilityLabel: String! {
         didSet {
-            inputTextView.accessibilityLabel = inputTextViewAccessibilityLabel
+            inputTextField.accessibilityLabel = inputTextViewAccessibilityLabel
         }
     }
     
@@ -335,19 +335,19 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     /// Autocorrection type for textView initial value .no
     public var autocorrectionType: UITextAutocorrectionType = .no {
         didSet {
-            inputTextView.autocorrectionType = autocorrectionType
+            inputTextField.autocorrectionType = autocorrectionType
         }
     }
     /// Autocapitalization type for textView inital value .sentences
     public var autocapitalizationType: UITextAutocapitalizationType = .sentences {
         didSet {
-            inputTextView.autocapitalizationType = autocapitalizationType
+            inputTextField.autocapitalizationType = autocapitalizationType
         }
     }
     /// Input accessory view for textView.
     public var inputTextViewAccessoryView: UIView? {
         didSet {
-            inputTextView.inputAccessoryView = inputTextViewAccessoryView
+            inputTextField.inputAccessoryView = inputTextViewAccessoryView
         }
     }
     
@@ -381,7 +381,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     
     private func initSetup() {
         originalHeight = frame.height
-        
         // addSubview(scrollView)
         reloadData()
     }
@@ -398,7 +397,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     /// Resigns first responder.
     override open func resignFirstResponder() -> Bool {
         super.resignFirstResponder()
-        return inputTextView.resignFirstResponder()
+        return inputTextField.resignFirstResponder()
     }
     
     /// TagListView calls self.layoutTagsAndInputWithFrameAdjustment(true) and self.inputTextViewBecomeFirstResponder()
@@ -414,13 +413,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
         if highlightedTagViews.count == 0 {
             inputTextViewBecomeFirstResponder()
         } else {
-            invisibleTextView.becomeFirstResponder()
+            invisibleTextField.becomeFirstResponder()
         }
     }
     
     private func inputTextViewBecomeFirstResponder() {
-        guard !inputTextView.isFirstResponder else { return }
-        inputTextView.becomeFirstResponder()
+        guard !inputTextField.isFirstResponder else { return }
+        inputTextField.becomeFirstResponder()
         // delegate?.tagListViewDidBeginEditing(self)
     }
     
@@ -442,36 +441,37 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     
     // This textView has no size and is only to intervene for deletion
     
-    private lazy var invisibleTextView: BackspaceTextView = {
-        let invisibleTextView = BackspaceTextView(frame: CGRect.zero)
-        invisibleTextView.autocorrectionType = self.autocorrectionType
-        invisibleTextView.autocapitalizationType = self.autocapitalizationType
-        invisibleTextView.backspaceDelegate = self
-        return invisibleTextView
+    private lazy var invisibleTextField: BackspaceTextField = {
+        let invisibleTextField = BackspaceTextField(frame: CGRect.zero)
+        invisibleTextField.autocorrectionType = self.autocorrectionType
+        invisibleTextField.autocapitalizationType = self.autocapitalizationType
+        invisibleTextField.backspaceDelegate = self
+        return invisibleTextField
     }()
     
     // The TextView that allows the user to enter a new tag
     
-    private lazy var inputTextView: UITextView = {
-        let inputTextView = BackspaceTextView()
-        inputTextView.keyboardType = self.inputTextViewKeyboardType
-        inputTextView.textColor = .black // self.removableColorScheme.textColor
-        inputTextView.backgroundColor = .red
-        inputTextView.font = self.textFont
-        inputTextView.autocorrectionType = self.autocorrectionType
-        inputTextView.autocapitalizationType = self.autocapitalizationType
-        inputTextView.tintColor = .black
-        inputTextView.isScrollEnabled = false
-        inputTextView.textContainer.lineBreakMode = .byWordWrapping
-        inputTextView.delegate = self
-        inputTextView.backspaceDelegate = self
+    fileprivate lazy var inputTextField: UITextField = {
+        let inputTextField = BackspaceTextField()
+        inputTextField.keyboardType = self.inputTextViewKeyboardType
+        inputTextField.textColor = .black // self.removableColorScheme.textColor
+        // inputTextField.backgroundColor = .red
+        // inputTextField.borderColor = .blue
+        inputTextField.font = self.textFont
+        inputTextField.autocorrectionType = self.autocorrectionType
+        inputTextField.autocapitalizationType = self.autocapitalizationType
+        inputTextField.tintColor = .black
+        // inputTextView.isScrollEnabled = false
+        // inputTextView.textContainer.lineBreakMode = .byWordWrapping
+        inputTextField.delegate = self
+        inputTextField.backspaceDelegate = self
         // TODO: - Add placeholder to BackspaceTextView and set it here
-        inputTextView.inputAccessoryView = self.inputTextViewAccessoryView
-        inputTextView.accessibilityLabel = self.inputTextViewAccessibilityLabel
-        inputTextView.textAlignment = .left
-        inputTextView.layer.borderColor = UIColor.black.cgColor // self.removableColorScheme.textColor.cgColor
-        inputTextView.layer.backgroundColor = UIColor.gray.cgColor
-        return inputTextView
+        inputTextField.inputAccessoryView = self.inputTextViewAccessoryView
+        inputTextField.accessibilityLabel = self.inputTextViewAccessibilityLabel
+        inputTextField.textAlignment = .left
+        // inputTextField.layer.borderColor = UIColor.black.cgColor // self.removableColorScheme.textColor.cgColor
+        inputTextField.layer.backgroundColor = UIColor.lightGray.cgColor
+        return inputTextField
     }()
     
     // The label shown when the TagLisView is in collapsed state
@@ -499,6 +499,10 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
         tagView.verticalPadding = self.verticalPadding
         tagView.textFont = self.textFont
         tagView.removeButtonIsEnabled = false
+        tagView.shadowColor = self.shadowColor
+        tagView.shadowOpacity = self.shadowOpacity
+        tagView.shadowRadius = self.shadowRadius
+        tagView.shadowOffset = self.shadowOffset
 
         return tagView
     }()
@@ -609,13 +613,14 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     
     open override func layoutSubviews() {
         super.layoutSubviews()
-        
+        /*
         // Check in which state TagListView is
         if isCollapsed {
             layoutCollapsedLabel()
         } else {
-            rearrangeViews(false)
+            rearrangeViews(true)
         }
+ */
     }
     
     // Reload's the TagListView's data and layout it's views.
@@ -669,17 +674,17 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     private func clearUncollapsedView() {
         // TODO: is this OK?
         tagViews.forEach { $0.removeFromSuperview() }
-        inputTextView.removeFromSuperview()
-        invisibleTextView.removeFromSuperview()
+        inputTextField.removeFromSuperview()
+        invisibleTextField.removeFromSuperview()
         rowViews.removeAll(keepingCapacity: true)
         clearView.removeFromSuperview()
     }
     
-    private func rearrangeViews(_ shouldAdjustFrame: Bool) {
+    fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
         
         clearUncollapsedView()
         
-        let inputViewShouldBecomeFirstResponder = inputTextView.isFirstResponder
+        let inputViewShouldBecomeFirstResponder = inputTextField.isFirstResponder
         //scrollView.subviews.forEach { $0.removeFromSuperview() }
         //scrollView.isHidden = false
         
@@ -688,12 +693,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
             tapGestureRecognizer = nil
         }
         
-        var currentX: CGFloat = 0.0
-        var currentY: CGFloat = 0.0
+        // startpoint of layout taking in account the margins
+        var currentX: CGFloat = Constants.defaultHorizontalMargin
+        var currentY: CGFloat = Constants.defaultVerticalMargin
         
         // Add the possibility to intercept a backspace for last tag removal
         if isEditable && allowsRemoval {
-            addSubview(invisibleTextView)
+            addSubview(invisibleTextField)
         }
         
         // Add the prefix Label
@@ -701,12 +707,15 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
         if prefixLabelText != nil {
             layoutPrefixLabel(origin: CGPoint.zero, currentX: &currentX)
         }
-        
+        // print("after Prefix",currentY)
+
         layoutTagViewsWith(currentX: &currentX, currentY: &currentY)
         
         if isEditable && allowsCreation {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }
+        // print("after Input",currentY)
+        // print("tagViewHeight", tagViewHeight)
         if shouldAdjustFrame {
             adjustHeightFor(currentY: currentY)
         }
@@ -730,10 +739,10 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
         if inputViewShouldBecomeFirstResponder {
             inputTextViewBecomeFirstResponder()
         } else {
-            // focusInputTextView(currentX: &currentX, currentY: &currentY)
+            // focusInputTextFIeld(currentX: &currentX, currentY: &currentY)
         }
-        
         invalidateIntrinsicContentSize()
+        // print("frame used", frame.height)
     }
     
     
@@ -801,7 +810,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
         var currentRow = 0
         // var currentRowView: UIView!
         var currentRowTagCount = 0
-        var currentRowWidth: CGFloat = 0
+         var currentRowWidth: CGFloat = 0
         // print("frame", frame.size)
         
         // are there any tags?
@@ -828,19 +837,58 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
             }
             tagView.frame.size = tagView.intrinsicContentSize
             tagViewHeight = tagView.frame.height
-            
             if currentRowTagCount == 0 || currentRowWidth + tagView.frame.width > rowWidth {
-                currentRow += 1
-                currentRowWidth = 0
-                currentRowTagCount = 0
+                // Add TagView to existing row?
+                
                 // currentRowView = UIView()
                 // currentRowView.frame.origin.y = CGFloat(currentRow - 1) * (tagViewHeight + verticalMargin)
                 // currentRowView.backgroundColor = UIColor.lightGray
                 // rowViews.append(currentRowView)
                 // addSubview(currentRowView)
+                if currentX + tagView.frame.width <= rowWidth || currentRowTagCount == 0 {
+                    // tagView fits in current line
+                    tagView.frame = CGRect(
+                        x: currentX,
+                        y: currentY,
+                        width: tagView.frame.width,
+                        height: tagView.frame.height
+                    )
+                } else {
+                    // Create new row with TagViews
+                    currentRowTagCount = 0
+                    currentRow += 1
+                    currentY += tagView.frame.height + Constants.defaultVerticalPadding
+                    currentX = 0
+                    var tagWidth = tagView.frame.width
+                    if (tagWidth > frame.size.width) { // token is wider than max width
+                        tagWidth = frame.size.width
+                    }
+                    tagView.frame = CGRect(
+                        x: currentX,
+                        y: currentY,
+                        width: tagWidth,
+                        height: tagView.frame.height
+                    )
+                }
+                
+                // print("currentXY", currentX, currentY)
+                //let tagBackgroundView = self.tagBackgroundView
+                //tagBackgroundView.frame.origin = CGPoint(x: currentX, y: currentY)
+                //tagBackgroundView.frame.size = tagView.bounds.size
+                //addSubview(tagBackgroundView)
+                addSubview(tagView)
+                // print("currentRowView", currentRowView.frame.origin)
+                // print("TagView", tagView.title, tagView.frame.origin, tagView.frame.size)
+                // print("backgroundTagView", tagBackgroundView.frame.origin)
+                //currentRowView.addSubview(tagView)
+                // currentRowView.addSubview(tagBackgroundView)
+                currentX += tagView.frame.width + horizontalPadding
+                // print("NEWcurrentXY", currentX, currentY)
+                
+                //scrollView.addSubview(tagView)
             }
             
-            currentRowTagCount += 1
+            // currentRowTagCount += 1
             currentRowWidth += tagView.frame.width + horizontalMargin
             
             /*switch alignment {
@@ -854,83 +902,43 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
              currentRowView.frame.size.width = currentRowWidth
              currentRowView.frame.size.height = max(tagViewHeight, currentRowView.frame.height)
              */
-            tagView.backgroundColor = backgroundColor
+            // tagView.backgroundColor = backgroundColor
             
-            if currentX + tagView.frame.width <= rowWidth {
-                // tagView fits in current line
-                tagView.frame = CGRect(
-                    x: currentX,
-                    y: currentY,
-                    width: tagView.frame.width,
-                    height: tagView.frame.height
-                )
-            } else {
-                // new line with TagViews
-                currentY += tagView.frame.height + Constants.defaultVerticalPadding
-                currentX = 0
-                var tagWidth = tagView.frame.width
-                if (tagWidth > frame.size.width) { // token is wider than max width
-                    tagWidth = frame.size.width
-                }
-                tagView.frame = CGRect(
-                    x: currentX,
-                    y: currentY,
-                    width: tagWidth,
-                    height: tagView.frame.height
-                )
-            }
-            
-            // print("currentXY", currentX, currentY)
-            tagView.shadowColor = shadowColor
-            tagView.shadowOpacity = shadowOpacity
-            tagView.shadowRadius = shadowRadius
-            tagView.shadowOffset = shadowOffset
-            //let tagBackgroundView = self.tagBackgroundView
-            //tagBackgroundView.frame.origin = CGPoint(x: currentX, y: currentY)
-            //tagBackgroundView.frame.size = tagView.bounds.size
-            //addSubview(tagBackgroundView)
-            addSubview(tagView)
-            // print("currentRowView", currentRowView.frame.origin)
-            print("TagView", tagView.title, tagView.frame.origin, tagView.frame.size)
-            // print("backgroundTagView", tagBackgroundView.frame.origin)
-            //currentRowView.addSubview(tagView)
-            // currentRowView.addSubview(tagBackgroundView)
-            currentX += tagView.frame.width + horizontalPadding
-            // print("NEWcurrentXY", currentX, currentY)
-            
-            //scrollView.addSubview(tagView)
         }
         rows = currentRow
+
     }
     
     private func layoutInputTextViewWith(currentX: inout CGFloat, currentY: inout CGFloat, clearInput: Bool) {
         
-        var inputTextViewOrigin = CGPoint.init(x: currentX, y: currentY)
+        var inputTextViewOrigin = CGPoint()
         
-        //let inputHeight = inputTextView.intrinsicContentSize.height > Constants.defaultTagHeight
-        //    ? inputTextView.intrinsicContentSize.height
-        //    : Constants.defaultTagHeight
-        let inputHeight = tagViewHeight
+        //let inputHeight = inputTextField.intrinsicContentSize.height > Constants.defaultTagHeight
+//            ? inputTextField.intrinsicContentSize.height
+  //          : Constants.defaultTagHeight
+        
+        // let inputHeight = tagViewHeight
         
         // Is there enough space for a reasonable inputTextView
-        if currentX + Constants.defaultMinInputWidth >= frame.size.width {
+        if currentX + Constants.defaultMinInputWidth >= frame.width {
             // start with a new row
-            inputTextViewOrigin.x = CGFloat(0.0)
+            inputTextViewOrigin.x = Constants.defaultHorizontalMargin
             inputTextViewOrigin.y = currentY + tagViewHeight + Constants.defaultVerticalPadding
         } else {
             inputTextViewOrigin.x = currentX
             inputTextViewOrigin.y = currentY
         }
-        inputTextView.frame = CGRect(
+        
+        inputTextField.frame = CGRect(
             x: inputTextViewOrigin.x,
             y: inputTextViewOrigin.y,
-            width: frame.width - currentX,
-            height: inputHeight //  + Constants.defaultVerticalPadding
+            width: frame.width - inputTextViewOrigin.x,
+            height: tagViewHeight //  + Constants.defaultVerticalPadding
         )
-        print("frame origin", inputTextView.frame.origin, inputTextView.frame.size)
+        // print("frame origin", inputTextField.frame.origin, inputTextField.frame.size)
 
-        // currentX += inputTextView.frame.width
-        // currentY += tagViewHeight // - Constants.defaultVerticalPadding
+        currentX += inputTextField.frame.width
+        currentY += inputTextViewOrigin.y
         // print("inputHeight", inputHeight)
         /*
          var exclusionPaths: [UIBezierPath] = []
@@ -950,14 +958,16 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
          }
          inputTextView.textContainer.exclusionPaths = exclusionPaths
          */
-        inputTextView.backgroundColor = .white
+        // inputTextField.backgroundColor = .white
+        // inputTextField.layer.borderColor = UIColor.green.cgColor
+        
         if clearInput {
-            inputTextView.text = ""
+            inputTextField.text = ""
         }
         // scrollView.addSubview(inputTextView)
         // scrollView.sendSubview(toBack: inputTextView)
         // print("inputTextView origin", frame.origin.x, frame.origin.y)
-        addSubview(inputTextView)
+        addSubview(inputTextField)
         // sendSubview(toBack: inputTextView)
     }
     
@@ -988,40 +998,57 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     }
     
     private func adjustHeightFor(currentY: CGFloat) {
-        let oldHeight = frame.size.height
-        var newFrame = frame
         
-        if currentY + Constants.defaultTagHeight > frame.height {
-            if currentY + Constants.defaultTagHeight <= maxHeight {
+        // The height of the TagListView frame should be adjusted
+        let oldHeight = frame.height
+        // print("old", oldHeight)
+        
+        var newFrame = frame
+        newFrame.size.height = currentY + tagViewHeight + Constants.defaultVerticalMargin
+
+        /*
+        // has the frame height increased?
+        if currentY + tagViewHeight + Constants.defaultVerticalMargin > oldHeight {
+            // still within height limit?
+            if currentY + tagViewHeight + Constants.defaultVerticalMargin <= maxHeight {
+                // YES - calculate new height
                 newFrame.size.height = currentY
-                    + Constants.defaultTagHeight
-                    + Constants.defaultVerticalMargin * 2
+                    + tagViewHeight
+                    + Constants.defaultVerticalMargin
             } else {
-                newFrame.size.height = maxHeight
-            }
-        } else {
-            if currentY + Constants.defaultTagHeight > originalHeight {
-                newFrame.size.height = currentY
-                    + Constants.defaultTagHeight
-                    + Constants.defaultVerticalMargin * 2
-            } else {
+                // No use maxHeight
                 newFrame.size.height = maxHeight
             }
         }
+        else {
+            newFrame.size.height = currentY + tagViewHeight + Constants.defaultVerticalMargin
+            /*
+            // has a first increase occured?
+            if currentY + tagViewHeight > originalHeight {
+                newFrame.size.height = currentY
+                    + tagViewHeight
+                    + Constants.defaultVerticalMargin * 2
+            } else {
+                newFrame.size.height = maxHeight
+            }
+             */
+        }
+ */
+ 
         if oldHeight != newFrame.height {
             frame = newFrame
-            // delegate?.tagListView(self, didChangeContent: newFrame.height)
+            // print("new",frame.height)
+            delegate?.tagListView(self, didChange: frame.height)
         }
     }
     
     // MARK: - Manage tags
-    
     override open var intrinsicContentSize: CGSize {
-        var height = CGFloat(rows) * (tagViewHeight + verticalMargin)
-        if rows > 0 {
-            height -= verticalMargin
-        }
-        return CGSize(width: frame.width, height: height)
+        //var height = CGFloat(rows) * (tagViewHeight + verticalMargin)
+        //if rows > 0 {
+        //    height -= verticalMargin
+        //}
+        return CGSize(width: frame.width, height: frame.height)
     }
     
     // MARK: - TagView delegates
@@ -1474,7 +1501,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
     // TBD This should only work in editMode?
     // TBD Is there a mixup between highlighted and selected?
     // The user can delete tags with a backspace
-    func textViewDidEnterBackspace(_ textView: BackspaceTextView) {
+    func textFieldDidEnterBackspace(_ textField: BackspaceTextField) {
         var tagViewDeleted = false
         // Is the tag under datasource control?
         if let tagCount = datasource?.numberOfTagsIn(self), tagCount > 0 {
@@ -1495,37 +1522,34 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextViewDelegate, UITe
         setCursorVisibility()
     }
     
-    
+}
     // MARK: - UITextViewDelegates
     
-    public func textViewDidChange(_ textView: UITextView) {
-        // unhighlightAllTags()
-        // delegate?.tagListView?(self, didChange: textView.text ?? "")
-        
-        if textView.contentSize.height > textView.frame.height {
-            rearrangeViews(true)
-        }
-    }
+extension TagListView: UITextFieldDelegate {
     
-    public func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // If the user enters a return, a new tag will be created
         
-        //unhighlightAllTags()
-        
-        guard text != "\n" else {
-            if !textView.text.isEmpty {
-                delegate?.tagListView?(self, didAddTagWith: textView.text)
-                textView.resignFirstResponder()
-                self.reloadData()
+        if string == "\n" {
+            if let newTag = textField.text {
+                if !newTag.isEmpty {
+                    delegate?.tagListView?(self, didAddTagWith: newTag)
+                    self.reloadData()
+                }
             }
             return false
         }
         return true
     }
     
-    public func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView === inputTextView {
-            unhighlightAllTags()
-        }
+    /*
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
     }
+    */
     
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+
 }
+

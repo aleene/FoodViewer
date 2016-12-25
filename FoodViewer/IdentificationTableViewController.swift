@@ -285,6 +285,12 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         return
     }
     
+    /*
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    */
+    
     fileprivate func nextLanguageCode() -> String {
         let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
         
@@ -425,7 +431,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             }
         }
     }
-
+    
     // MARK: - Notification handler
     
     func reloadImageSection() {
@@ -548,7 +554,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
     }
     
     func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        
+        // print("height", tagListView.frame.size.height)
         func title(_ tags: Tags) -> String {
             switch tags {
             case .undefined, .empty:
@@ -658,6 +664,21 @@ extension IdentificationTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
+    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        // tableView.reloadData()
+        /*
+        switch tagListView.tag {
+        case 0: // Section 3
+            packagingHeight = NSLayoutConstraint.init(item: self, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: self, attribute: .height, multiplier: 1.0, constant: height)
+        case 1: // Section 4
+            packagingHeight = NSLayoutConstraint.init(item: self, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: self, attribute: .height, multiplier: 1.0, constant: height)
+        default:
+            break
+        }
+        tableView.setNeedsLayout()
+ */
+    }
+
     // TagListView function stubs
     
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {

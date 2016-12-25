@@ -256,6 +256,19 @@ extension CategoriesTableViewController: TagListViewDelegate {
         }
     }
     
+    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        /*
+         switch tagListView.tag {
+         case 0:
+         case 1:
+         
+         default:
+         break
+         }
+         */
+        tableView.setNeedsLayout()
+    }
+
     // TagListView function stubs
 
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
