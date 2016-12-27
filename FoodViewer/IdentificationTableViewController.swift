@@ -98,7 +98,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     }
     
     
-    // MARK: - Fileprivate Functions
+    // MARK: - Fileprivate Functions/variables
     
     fileprivate var brandsToDisplay: Tags {
         get {
@@ -477,10 +477,11 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableStructure = setupSections()
+        
         self.tableView.estimatedRowHeight = 88.0
         tableView.rowHeight = UITableViewAutomaticDimension
-
 }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -514,6 +515,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
+    
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }
@@ -665,18 +667,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
     }
     
     func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        // tableView.reloadData()
-        /*
-        switch tagListView.tag {
-        case 0: // Section 3
-            packagingHeight = NSLayoutConstraint.init(item: self, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: self, attribute: .height, multiplier: 1.0, constant: height)
-        case 1: // Section 4
-            packagingHeight = NSLayoutConstraint.init(item: self, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: self, attribute: .height, multiplier: 1.0, constant: height)
-        default:
-            break
-        }
         tableView.setNeedsLayout()
- */
     }
 
     // TagListView function stubs

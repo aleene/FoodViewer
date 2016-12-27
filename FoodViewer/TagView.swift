@@ -174,7 +174,7 @@ open class TagView: UIView {
             reloadStyles()
         }
     }
-
+    
     var state: TagViewState = .normal {
         didSet {
             switch state {

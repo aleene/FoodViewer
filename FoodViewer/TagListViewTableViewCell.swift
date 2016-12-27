@@ -18,9 +18,11 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.normalColorScheme = ColorSchemes.normal
             tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
+            
             tagListView.datasource = datasource
             tagListView.delegate = delegate
-            tagListView.isEditable = editMode
+            tagListView.allowsRemoval = editMode
+            tagListView.allowsCreation = editMode
             tagListView.tag = tag
         }
     }
@@ -39,7 +41,8 @@ class TagListViewTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet {
-            tagListView?.isEditable = editMode
+            tagListView?.allowsRemoval = editMode
+            tagListView?.allowsCreation = editMode
         }
     }
     

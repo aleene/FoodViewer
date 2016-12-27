@@ -17,16 +17,19 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
             countriesTagListView.normalColorScheme = ColorSchemes.normal
             countriesTagListView.removableColorScheme = ColorSchemes.removable
             countriesTagListView.cornerRadius = 10
+            
             countriesTagListView.datasource = datasource
             countriesTagListView.delegate = delegate
-            countriesTagListView.isEditable = editMode
+            countriesTagListView.allowsRemoval = editMode
+            countriesTagListView.allowsCreation = editMode
             countriesTagListView.tag = tag
         }
     }
     
     var editMode: Bool = false {
         didSet {
-            countriesTagListView?.isEditable = editMode
+            countriesTagListView?.allowsRemoval = editMode
+            countriesTagListView?.allowsCreation = editMode
         }
     }
     

@@ -17,8 +17,12 @@ class LabelsFullTableViewCell: UITableViewCell {
             labelsTagListView.normalColorScheme = ColorSchemes.normal
             labelsTagListView.removableColorScheme = ColorSchemes.removable
             labelsTagListView.cornerRadius = 10
+            
+            labelsTagListView.allowsRemoval = editMode
+            labelsTagListView.allowsCreation = editMode
             labelsTagListView.datasource = datasource
             labelsTagListView.delegate = delegate
+            labelsTagListView.tag = tag
         }
     }
     
@@ -36,13 +40,13 @@ class LabelsFullTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet{
-            labelsTagListView?.isEditable = editMode
+            labelsTagListView.allowsCreation = editMode
         }
     }
     
     override var tag: Int {
         didSet {
-            labelsTagListView.tag = tag
+            labelsTagListView?.tag = tag
         }
     }
 

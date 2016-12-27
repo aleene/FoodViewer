@@ -7,6 +7,8 @@
 //
 
 import UIKit
+
+/*
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -26,7 +28,7 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     return rhs < lhs
   }
 }
-
+*/
 
 class SupplyChainTableViewController: UITableViewController {
     
@@ -35,9 +37,7 @@ class SupplyChainTableViewController: UITableViewController {
     var editMode = false {
         didSet {
             // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableView.reloadData()
-            }
+            tableView.reloadData()
         }
     }
     
@@ -105,13 +105,9 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var storeTagsToDisplay: [String]? {
         get {
             if let validTags = delegate?.updatedProduct?.stores {
-                if validTags.count >= 1 {
-                    return validTags
-                }
+                return validTags
             } else if let validTags = product?.stores {
-                if validTags.count >= 1 {
-                    return validTags
-                }
+                return validTags
             }
             return nil
         }
@@ -136,6 +132,17 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
 
+    fileprivate var linksToDisplay: [String]? {
+        get {
+            if let validTags = delegate?.updatedProduct?.links {
+                return validTags.map( { $0.absoluteString } )
+            } else if let validTags = product?.links {
+                return validTags.map( { $0.absoluteString } )
+            }
+            return nil
+        }
+    }
+    
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
@@ -166,13 +173,15 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     fileprivate struct Storyboard {
-        static let CellIdentifier = "TagListView Cell"
+        static let IngredientOriginCellIdentifier = "Ingredients Origin TagListView Cell"
+        static let ProducerTagListViewCell = "Producer TagListView Cell"
         static let CountriesCellIdentifier = "Countries TagListView Cell"
         static let ProducerCodeCellIdentifier = "ProducerCodes TagListView Cell"
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
         static let SitesCellIdentifier = "Sites TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
         static let PurchasPlaceCellIdentifier = "Purchase Place Cell"
+        static let StoreCellIdentifier = "Store Place Cell"
         static let ShowExpirationDateViewControllerSegue = "Show ExpirationDate ViewController"
         static let ShowFavoriteShopsSegue = "Show Favorite Shops Segue"
     }
@@ -272,7 +281,7 @@ class SupplyChainTableViewController: UITableViewController {
         // we assume that product exists
         switch currentProductSection {
         case .producer:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerTagListViewCell, for: indexPath) as! TagListViewTableViewCell
             // cell.tagList = product!.producer?.elements
             cell.tag = 0
             cell.delegate = self
@@ -291,11 +300,15 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .sites:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! SitesTagListTableViewCell
-            cell.tagList = product!.links
+            // cell.tagList = product!.links
+            cell.tag = 6
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
             return cell
             
         case .ingredientOrigin:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientOriginCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             // cell.tagList = product!.ingredientsOrigin?.elements
             cell.tag = 2
             cell.delegate = self
@@ -304,7 +317,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .store:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.StoreCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
             // cell.tagList = delegate?.updatedProduct?.stores == nil ? product!.stores : delegate!.updatedProduct!.stores
             cell.tag = 3
             cell.delegate = self
@@ -357,6 +370,7 @@ class SupplyChainTableViewController: UITableViewController {
         return header
     }
     
+    /*
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         switch (indexPath as NSIndexPath).section {
         case 7:
@@ -365,6 +379,7 @@ class SupplyChainTableViewController: UITableViewController {
             return 88
         }
     }
+ */
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
@@ -452,9 +467,7 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        // self.tableView.estimatedRowHeight = 80.0
-        // tableView.translatesAutoresizingMaskIntoConstraints = false;
-        // refreshProduct()
+        self.tableView.estimatedRowHeight = 80.0
         
         title = Constants.ViewControllerTitle
     }
@@ -462,10 +475,19 @@ class SupplyChainTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tableView.reloadData()
+        
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
+
+        tableView.reloadData()
+}
 
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -490,19 +512,18 @@ extension SupplyChainTableViewController: TagListViewDataSource {
     func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         func count(_ inputTags: [String]?) -> Int {
+            // print( editMode)
+            // reset ColorScheme
+            tagListView.normalColorScheme = ColorSchemes.normal
             if let tags = inputTags {
                 if tags.isEmpty {
-                    tagListView.allowsRemoval = false
-                    tagListView.normalColorScheme = ColorSchemes.none
+                    if !editMode { tagListView.normalColorScheme = ColorSchemes.none }
                     return editMode ? 0 : 1
                 } else {
-                    if editMode { tagListView.allowsRemoval = true }
-                    tagListView.normalColorScheme = ColorSchemes.normal
                     return tags.count
                 }
             } else {
-                tagListView.allowsRemoval = false
-                tagListView.normalColorScheme = ColorSchemes.error
+                if !editMode { tagListView.normalColorScheme = ColorSchemes.error }
                 return editMode ? 0 : 1
             }
         }
@@ -520,6 +541,8 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             return count(purchaseLocationTagsToDisplay)
         case 5:
             return count(countriesToDisplay)
+        case 6:
+            return count(linksToDisplay)
         default: break
         }
         return 0
@@ -547,6 +570,8 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             return title(purchaseLocationTagsToDisplay)
         case 5:
             return title(countriesToDisplay)
+        case 6:
+            return title(linksToDisplay)
         default: break
         }
         return("error")
@@ -565,44 +590,40 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 tags.append(title)
                 delegate?.update(producer: tags)
             }
-            tableView.reloadData()
-            
         case 1:
             if var tags = producerCodeTagsToDisplay {
                 tags.append(title)
                 delegate?.update(producerCode: tags)
             }
-            tableView.reloadData()
-            
         case 2:
             if var tags = ingredientOriginLocationTagsToDisplay {
                 tags.append(title)
                 delegate?.update(ingredientsOrigin: tags)
             }
-            tableView.reloadData()
-            
         case 3:
             if var tags = storeTagsToDisplay {
                 tags.append(title)
                 delegate?.update(stores: tags)
             }
-            tableView.reloadData()
-            
         case 4:
             if var tags = purchaseLocationTagsToDisplay {
                 tags.append(title)
                 delegate?.update(purchaseLocation: tags)
             }
-            
         case 5:
             if var tags = countriesToDisplay {
                 tags.append(title)
                 delegate?.update(countries: tags)
             }
-            
+        case 6:
+            if var tags = linksToDisplay {
+                tags.append(title)
+                delegate?.update(links: tags)
+            }
         default:
             break
         }
+        tableView.reloadData()
     }
     
     func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -655,13 +676,20 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(countries: validTags)
             }
+        case 6:
+            if var validTags = linksToDisplay {
+                guard index >= 0 && index < validTags.count else {
+                    break
+                }
+                validTags.remove(at: index)
+                delegate?.update(links: validTags)
+            }
         default:
             break
         }
         tableView.reloadData()
     }
     
-    // TagListView function stubs
     
     /// Called if the user wants to delete all tags
     func didClear(_ tagListView: TagListView) {
@@ -678,6 +706,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             delegate?.update(purchaseLocation: [])
         case 5:
             delegate?.update(countries: [])
+        case 6:
+            delegate?.update(links: [])
         default:
             break
         }
@@ -685,17 +715,10 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     }
     
     func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        /*
-         switch tagListView.tag {
-         case 0:
-         case 1:
-         
-         default:
-         break
-         }
-         */
         tableView.setNeedsLayout()
     }
+    
+    // TagListView function stubs
     
     func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         return true

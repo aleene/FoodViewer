@@ -8,70 +8,56 @@
 
 import UIKit
 
-class PurchacePlaceTableViewCell: UITableViewCell, TagListViewDataSource {
-
-    struct Constants {
-        static let NoTag = NSLocalizedString("no location specified", comment: "Text in a TagListView, when no purchase location are available in the product data.")
-    }
-
-    var editMode: Bool = false {
-        didSet {
-            if editMode != oldValue {
-                setupInterface()
-            }
-        }
-    }
-    
-    
-    var tagList: [String]? = nil {
-        didSet {
-            setupInterface()
-            if let list = tagList {
-                if !list.isEmpty {
-                    tagListView.tagBackgroundColor = UIColor.green
-                    return
-                }
-            }
-            tagListView.tagBackgroundColor = UIColor.orange
-        }
-    }
-    
-    private func setupInterface() {
-        if favoriteButton != nil {
-            favoriteButton.isHidden = !editMode
-        }
-    }
+class PurchacePlaceTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
+            tagListView.normalColorScheme = ColorSchemes.normal
+            tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
-            tagListView.datasource = self
+            
+            tagListView.datasource = datasource
+            tagListView.delegate = delegate
+            tagListView.tag = tag
+            tagListView.allowsRemoval = editMode
+            tagListView.allowsCreation = editMode
         }
     }
 
-    @IBOutlet weak var favoriteButton: UIButton!
-    
-    
-    // TagListView Datasource functions
-    
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        if let list = tagList {
-            if !list.isEmpty {
-                return list.count
-            }
+    @IBOutlet weak var favoriteButton: UIButton! {
+        didSet {
+            favoriteButton.isHidden = !editMode
         }
-        return 1
+    }
+
+    var editMode: Bool = false {
+        didSet {
+            if editMode != oldValue {
+                favoriteButton?.isHidden = !editMode
+            }
+            tagListView?.allowsRemoval = editMode
+            tagListView?.allowsCreation = editMode
+        }
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if let list = tagList {
-            if !list.isEmpty {
-                return list[index]
-            }
+    var datasource: TagListViewDataSource? = nil {
+        didSet {
+            tagListView?.datasource = datasource
         }
-        return Constants.NoTag
+    }
+    
+    var delegate: TagListViewDelegate? = nil {
+        didSet {
+            tagListView?.delegate = delegate
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            tagListView?.tag = tag
+        }
     }
 
 }

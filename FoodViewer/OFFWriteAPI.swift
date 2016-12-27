@@ -34,6 +34,7 @@ struct OFFWriteAPI {
     static let ProducerCode = "emb_codes="
     static let IngredientsOrigin = "origins="
     static let Countries = "countries="
+    static let Links = "link="
     static let Delimiter = "&"
     static let CommaDelimiter = ", "
     static let LanguageSpacer = "_"

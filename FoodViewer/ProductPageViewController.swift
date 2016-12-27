@@ -501,7 +501,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         updatedProduct?.countryArray(countries)
     }
 
-
+    func update(links: [String]?) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.links = links!.map( { URL.init(string:$0)! } )
+    }
 
     func updated(facts: [NutritionFactItem?]) {
         initUpdatedProductWith(product: product!)
@@ -537,6 +540,75 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    // MARK: - Authentication
+    
+    private func authenticate() {
+        
+        // Is authentication necessary?
+        // only for personal accounts and has not yet authenticated
+        if OFFAccount().personalExists() && !Preferences.manager.userDidAuthenticate {
+            // let the user ID himself with TouchID
+            let context = LAContext()
+            // The username and password will then be retrieved from the keychain if needed
+            if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+                // the device knows TouchID
+                context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Logging in with Touch ID", reply: {
+                    (success: Bool, error: Error? ) -> Void in
+                    
+                    // 3. Inside the reply block, you handling the success case first. By default, the policy evaluation happens on a private thread, so your code jumps back to the main thread so it can update the UI. If the authentication was successful, you call the segue that dismisses the login view.
+                    
+                    // DispatchQueue.main.async(execute: {
+                    if success {
+                        Preferences.manager.userDidAuthenticate = true
+                    } else {
+                        self.askPassword()
+                    }
+                    // } )
+                } )
+            }
+            
+        }
+        // The login stuff has been done for the duration of this app run
+        // so we will not bother the user any more
+        Preferences.manager.userDidAuthenticate = true
+    }
+    
+    fileprivate var password: String? = nil
+    
+    private func askPassword() {
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Specify password",
+                                                                         comment: "Title in AlertViewController, which lets the user enter his username/password."),
+                                                message: NSLocalizedString("Authentication with TouchID failed. Specify your password",
+                                                                           comment: "Explanatory text in AlertViewController, which lets the user enter his username/password."),
+                                                preferredStyle:.alert)
+        let useFoodViewer = UIAlertAction(title: NSLocalizedString("Reset",
+                                                                   comment: "String in button, to let the user indicate he wants to cancel username/password input."),
+                                          style: .default)
+        { action -> Void in
+            // set the foodviewer selected index
+            OFFAccount().removePersonal()
+            Preferences.manager.userDidAuthenticate = false
+        }
+        
+        let useMyOwn = UIAlertAction(title: NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input."), style: .default)
+        { action -> Void in
+            // I should check the password here
+            if let validString = self.password {
+                Preferences.manager.userDidAuthenticate = OFFAccount().check(password: validString) ? true : false
+            }
+        }
+        alertController.addTextField { textField -> Void in
+            textField.tag = 0
+            textField.placeholder = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
+            textField.delegate = self
+        }
+        
+        alertController.addAction(useFoodViewer)
+        alertController.addAction(useMyOwn)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -570,11 +642,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
-        /*
-        if let vc = segue.source as? ConfirmProductTableViewController {
-        // nothing to happen
-        }
-            */
     }
         
         
@@ -600,6 +667,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         initPages()
     }
+    
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -609,9 +677,47 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
     }
-        
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if OFFAccount().personalExists() {
+            // maybe the user has to authenticate himself before continuing
+            // authenticate()
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }
         
+}
+
+// MARK: - TextField Delegation Functions
+
+extension ProductPageViewController: UITextFieldDelegate {
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // username
+        switch textField.tag {
+        case 0:
+            if let validText = textField.text {
+                password = validText
+            }
+        default:
+            break
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        
+        return true
+    }
+
 }

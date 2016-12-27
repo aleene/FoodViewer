@@ -825,15 +825,17 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             tagView.horizontalPadding = self.horizontalPadding
             tagView.verticalPadding = self.verticalPadding
             tagView.textFont = self.textFont
-            
             if self.isEditable && allowsRemoval {
                 if datasource?.tagListView?(self, canEditTagAt: tagView.tag) != nil && datasource!.tagListView!(self, canEditTagAt: tagView.tag) {
                     tagView.removeButtonIsEnabled = true
+                    tagView.state = .removable
                 } else {
                     tagView.removeButtonIsEnabled = false
+                    tagView.state = .normal
                 }
             } else {
                 tagView.removeButtonIsEnabled = false
+                tagView.state = .normal
             }
             tagView.frame.size = tagView.intrinsicContentSize
             tagViewHeight = tagView.frame.height
@@ -918,9 +920,10 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
   //          : Constants.defaultTagHeight
         
         // let inputHeight = tagViewHeight
+        let clearButtonWidth = clearButtonIsEnabled ? CGFloat(Clear.ViewSize) : 0.0
         
         // Is there enough space for a reasonable inputTextView
-        if currentX + Constants.defaultMinInputWidth >= frame.width {
+        if currentX + Constants.defaultMinInputWidth >= frame.width - clearButtonWidth {
             // start with a new row
             inputTextViewOrigin.x = Constants.defaultHorizontalMargin
             inputTextViewOrigin.y = currentY + tagViewHeight + Constants.defaultVerticalPadding
@@ -932,7 +935,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         inputTextField.frame = CGRect(
             x: inputTextViewOrigin.x,
             y: inputTextViewOrigin.y,
-            width: frame.width - inputTextViewOrigin.x,
+            width: frame.width - inputTextViewOrigin.x - clearButtonWidth,
             height: tagViewHeight //  + Constants.defaultVerticalPadding
         )
         // print("frame origin", inputTextField.frame.origin, inputTextField.frame.size)
@@ -1132,32 +1135,31 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
     
-    open var isEditable = false {
-        didSet {
-            if isEditable {
-                // selection status is no longer relevant
-                deselectAllTags()
-                // removable state is only set when allowed
-                allowsRemoval = true
-                allowsReordering = true
-                allowsCreation = true
-            } else {
-                // highlight status is no longer relevant
-                tagViews.forEach { $0.state = .normal }
-                allowsRemoval = false
-                allowsReordering = false
-                allowsCreation = false
-            }
+    private var isEditable: Bool {
+        get {
+            return allowsRemoval || allowsCreation || allowsReordering
         }
     }
     
     var allowsMultipleSelection = false
     
-    var allowsCreation = false
+    var allowsCreation = false {
+        didSet {
+            if allowsCreation != oldValue {
+                rearrangeViews(true)
+            }
+        }
+    }
     
-    var allowsRemoval = false
+    var allowsRemoval = false {
+        didSet {
+            if allowsRemoval != oldValue {
+                rearrangeViews(true)
+            }
+        }
+    }
     
-    open var removeButtonIsEnabled : Bool = true
+    open var removeButtonIsEnabled = true
     
     // MARK: - Tag handling
     
@@ -1183,31 +1185,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             delegate?.tagListView?(self, didEndEditingTagAt: index)
         }
     }
-    
-    /*
-     private func remove(_ tagView: TagView) {
-     if let index = tagViews.index(of: tagView) {
-     removeTag(at: index)
-     }
-     }
-     
-     
-     private func removeAllTags() {
-     let views = tagViews as [UIView] + tagBackgroundViews
-     for view in views {
-     view.removeFromSuperview()
-     }
-     tagViews = []
-     tagBackgroundViews = []
-     rearrangeViews(true)
-     }
-     
-     private var tagsCount: Int {
-     get {
-     return tagViews.count
-     }
-     }
-     */
     
     // MARK : Selection functions
     
