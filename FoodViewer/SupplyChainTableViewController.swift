@@ -353,13 +353,11 @@ class SupplyChainTableViewController: UITableViewController {
             
             // has the product been edited?
             if let validDate = delegate?.updatedProduct?.expirationDate {
-                cell.editMode = editMode
                 cell.date = validDate
+                cell.editMode = editMode
             } else if let validDate = product!.expirationDate {
                 cell.date = validDate
                 cell.editMode = editMode
-            } else {
-                cell.textLabel!.text = Constants.NoExpirationDate
             }
             return cell
         }

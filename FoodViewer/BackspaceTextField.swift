@@ -1,5 +1,5 @@
 //
-//  BackspaceTextView.swift
+//  BackspaceTextField.swift
 //  TagListView
 //
 //  Created by Reid Chatham on 11/4/16.

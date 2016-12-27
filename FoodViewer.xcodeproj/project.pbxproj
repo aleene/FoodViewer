@@ -144,7 +144,7 @@
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
 		51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */; };
 		51CB20171D8C48C8005DFEDC /* SitesTagListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */; };
-		51CF42C51E02F47200C9AD91 /* BackspaceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */; };
+		51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */; };
 		51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42C61E02F48600C9AD91 /* TagView.xib */; };
 		51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C81E02F4A200C9AD91 /* TagView.swift */; };
 		51CF42CB1E02F4AC00C9AD91 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */; };
@@ -337,7 +337,7 @@
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
 		51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
 		51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SitesTagListTableViewCell.swift; sourceTree = "<group>"; };
-		51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceTextView.swift; sourceTree = "<group>"; };
+		51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
 		51CF42C61E02F48600C9AD91 /* TagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		51CF42C81E02F4A200C9AD91 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
@@ -401,7 +401,7 @@
 				511DB4401E0ADC03009D4A4B /* ColorScheme.swift */,
 				51CF42C81E02F4A200C9AD91 /* TagView.swift */,
 				51CF42CA1E02F4AC00C9AD91 /* TagListView.swift */,
-				51CF42C41E02F47200C9AD91 /* BackspaceTextView.swift */,
+				51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */,
 				511DB4441E0C4999009D4A4B /* TagViewState.swift */,
 			);
 			name = TagListView;
@@ -952,7 +952,7 @@
 				5125AB891D095A14000DCD29 /* NutritionalScoreUK.swift in Sources */,
 				51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
-				51CF42C51E02F47200C9AD91 /* BackspaceTextView.swift in Sources */,
+				51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */,
 				516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */,
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,

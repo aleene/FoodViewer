@@ -10,6 +10,10 @@ import UIKit
 
 class ExpirationDateTableViewCell: UITableViewCell {
 
+    fileprivate struct Constants {
+        static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
+    }
+
     var date: Date? = Date.init(timeIntervalSinceNow: 0.0) {
         didSet {
             setTextFieldStyle()
@@ -25,27 +29,19 @@ class ExpirationDateTableViewCell: UITableViewCell {
     }
 
     private func setTextFieldStyle() {
-        if expirationDateTextField != nil {
-            if let validDate = date {
-                let formatter = DateFormatter()
-                formatter.dateStyle = .medium
-                formatter.timeStyle = .none
-                expirationDateTextField.text = formatter.string(from: validDate as Date)
-            }
-            if editMode {
-                expirationDateTextField.borderStyle = .roundedRect
-                expirationDateTextField.layer.borderWidth = 1.0
-                expirationDateTextField.layer.borderColor = UIColor.black.cgColor
-                expirationDateTextField.isEnabled = true
-                expirationDateButton.isHidden = false
-            } else {
-                expirationDateTextField.borderStyle = .roundedRect
-                expirationDateTextField.layer.borderWidth = 1.0
-                expirationDateTextField.layer.borderColor = UIColor.white.cgColor
-                expirationDateTextField.isEnabled = false
-                expirationDateButton.isHidden = true
-            }
+        if let validDate = date {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            expirationDateTextField?.text = formatter.string(from: validDate as Date)
+        } else {
+            expirationDateTextField?.text = Constants.NoExpirationDate
         }
+        expirationDateTextField?.layer.borderWidth = 0.0
+        expirationDateTextField?.isEnabled = editMode
+        expirationDateButton?.isHidden = !editMode
+        expirationDateTextField?.backgroundColor = editMode ? UIColor.lightGray : UIColor.white
+        expirationDateTextField?.borderStyle = editMode ? .roundedRect : .none
     }
 
     @IBOutlet weak var expirationDateButton: UIButton!
