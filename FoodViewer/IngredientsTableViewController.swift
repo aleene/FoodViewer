@@ -435,7 +435,7 @@ extension IngredientsTableViewController: UITextViewDelegate {
 extension IngredientsTableViewController: TagListViewDelegate {
     
     
-    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
+    public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         switch tagListView.tag {
         case 1:
             switch tracesToDisplay {
@@ -460,7 +460,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
         }
     }
     
-    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
         switch tagListView.tag {
         case 1:
             switch tracesToDisplay {
@@ -491,7 +491,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
         }
     }
     
-    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         /*
          switch tagListView.tag {
          case 0:
@@ -504,13 +504,38 @@ extension IngredientsTableViewController: TagListViewDelegate {
         tableView.setNeedsLayout()
     }
 
+    // TagListView function stubs
+    
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
+    }
+
+    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
+                            toProposed proposedDestinationIndex: Int) -> Int {
+        return proposedDestinationIndex
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
+    }
+    
 }
 
 // MARK: - TagListView DataSource Functions
 
 extension IngredientsTableViewController: TagListViewDataSource {
     
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         switch tagListView.tag {
         case 0:
             switch allergensToDisplay {
@@ -528,12 +553,24 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case 1:
             switch tracesToDisplay {
             case .undefined:
+                tagListView.allowsRemoval = false
+                tagListView.allowsCreation = false
+                tagListView.clearButtonIsEnabled = false
+                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -552,12 +589,24 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case 3:
             switch labelsToDisplay {
             case .undefined:
+                tagListView.allowsRemoval = false
+                tagListView.allowsCreation = false
+                tagListView.clearButtonIsEnabled = false
+                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -566,7 +615,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
         return 0
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         switch tagListView.tag {
         case 0:
             return allergensToDisplay.tag(index)!
@@ -583,11 +632,22 @@ extension IngredientsTableViewController: TagListViewDataSource {
     
     // TagListView function stubs
     
-    func didClear(_ tagListView: TagListView) {
+    public func didClear(_ tagListView: TagListView) {
     }
     
-    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return true
+    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+        return editMode
+    }
+
+    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
+        return false
+    }
+    
+    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Stub collapsed text"
+    }
+    
+    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
     }
 
 }

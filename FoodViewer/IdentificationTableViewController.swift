@@ -526,20 +526,29 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
 
 extension IdentificationTableViewController: TagListViewDataSource {
     
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         func count(_ tags: Tags) -> Int {
             switch tags {
             case .undefined:
                 tagListView.allowsRemoval = false
+                tagListView.allowsCreation = false
+                tagListView.clearButtonIsEnabled = false
+                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.allowsRemoval = false
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                if editMode { tagListView.allowsRemoval = true }
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -555,7 +564,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         return 0
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         // print("height", tagListView.frame.size.height)
         func title(_ tags: Tags) -> String {
             switch tags {
@@ -581,68 +590,20 @@ extension IdentificationTableViewController: TagListViewDataSource {
         return("error")
     }
     
-}
-
-// MARK: - TagListView Delegate Functions
-
-extension IdentificationTableViewController: TagListViewDelegate {
-    
-    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        switch tagListView.tag {
-        case 0:
-            switch brandsToDisplay {
-            case .undefined, .empty:
-                delegate?.update(brandTags: [title])
-            case var .available(list):
-                list.append(title)
-                delegate?.update(brandTags: list)
-            }
-        case 1:
-            switch packagingToDisplay {
-            case .undefined, .empty:
-                delegate?.update(packagingTags: [title])
-            case var .available(list):
-                list.append(title)
-                delegate?.update(packagingTags: list)
-            }
-        default:
-            break
-        }
-        tableView.reloadData()
+    /// Is it allowed to edit a Tag object at a given index?
+    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+        return true
+    }
+    /// Is it allowed to move a Tag object at a given index?
+    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
+        return false
+    }
+    /// The Tag object at the source index has been moved to a destination index.
+    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
     }
     
-    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        switch tagListView.tag {
-        case 0:
-            switch brandsToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
-                guard index >= 0 && index < list.count else {
-                    break
-                }
-                list.remove(at: index)
-                delegate?.update(brandTags: list)
-            }
-            tableView.reloadData()
-        case 1:
-            switch packagingToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
-                guard index >= 0 && index < list.count else {
-                    break
-                }
-                list.remove(at: index)
-                delegate?.update(packagingTags: list)
-            }
-            tableView.reloadData()
-        default:
-            break
-        }
-    }
-    
-    func didClear(_ tagListView: TagListView) {
+    /// Called if the user wants to delete all tags
+    public func didClear(_ tagListView: TagListView) {
         switch tagListView.tag {
         case 0:
             switch brandsToDisplay {
@@ -666,20 +627,100 @@ extension IdentificationTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
-    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+    /// Which text should be displayed when the TagListView is collapsed?
+    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Collapsed"
+    }
+
+}
+
+// MARK: - TagListView Delegate Functions
+
+extension IdentificationTableViewController: TagListViewDelegate {
+    
+    public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
+        switch tagListView.tag {
+        case 0:
+            switch brandsToDisplay {
+            case .undefined, .empty:
+                delegate?.update(brandTags: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(brandTags: list)
+            }
+        case 1:
+            switch packagingToDisplay {
+            case .undefined, .empty:
+                delegate?.update(packagingTags: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(packagingTags: list)
+            }
+        default:
+            break
+        }
+        tableView.reloadData()
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
+        switch tagListView.tag {
+        case 0:
+            switch brandsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
+                    break
+                }
+                list.remove(at: index)
+                delegate?.update(brandTags: list)
+            }
+            tableView.reloadData()
+        case 1:
+            switch packagingToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
+                    break
+                }
+                list.remove(at: index)
+                delegate?.update(packagingTags: list)
+            }
+            tableView.reloadData()
+        default:
+            break
+        }
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
     }
 
     // TagListView function stubs
     
-    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return true
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    }
+
+    
+    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
+    }
+
+    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
     }
     
-    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
     }
     
-    func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
+                            toProposed proposedDestinationIndex: Int) -> Int {
+        return proposedDestinationIndex
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
     }
     
 }

@@ -507,13 +507,17 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         static let None = NSLocalizedString("none", comment: "tag of cell when no tags are available")
     }
     
-    func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         func count(_ inputTags: [String]?) -> Int {
             // print( editMode)
             // reset ColorScheme
             tagListView.normalColorScheme = ColorSchemes.normal
             if let tags = inputTags {
+                tagListView.allowsRemoval = editMode
+                tagListView.allowsCreation = editMode
+                tagListView.clearButtonIsEnabled = editMode
+                tagListView.removeButtonIsEnabled = editMode
                 if tags.isEmpty {
                     if !editMode { tagListView.normalColorScheme = ColorSchemes.none }
                     return editMode ? 0 : 1
@@ -522,6 +526,10 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 }
             } else {
                 if !editMode { tagListView.normalColorScheme = ColorSchemes.error }
+                tagListView.allowsRemoval = false
+                tagListView.allowsCreation = false
+                tagListView.clearButtonIsEnabled = false
+                tagListView.removeButtonIsEnabled = false
                 return editMode ? 0 : 1
             }
         }
@@ -546,7 +554,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         return 0
     }
     
-    func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         
         func title(_ inputTags: [String]?) -> String {
             if let tags = inputTags {
@@ -575,13 +583,32 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         return("error")
     }
     
+    /// Is it allowed to edit a Tag object at a given index?
+    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
+        return editMode
+    }
+    
+    // Stubs
+    
+    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
+        return false
+    }
+
+    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
+    }
+
+    /// Which text should be displayed when the TagListView is collapsed?
+    func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Collapsed stub text"
+    }
+
 }
 
 // MARK: - TagListView Delegate Functions
 
 extension SupplyChainTableViewController: TagListViewDelegate {
     
-    func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
+    public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         switch tagListView.tag {
         case 0:
             if var tags = producerTagsToDisplay {
@@ -624,7 +651,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
-    func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
         switch tagListView.tag {
         case 0:
             if var validTags = producerTagsToDisplay {
@@ -690,7 +717,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     
     
     /// Called if the user wants to delete all tags
-    func didClear(_ tagListView: TagListView) {
+    public func didClear(_ tagListView: TagListView) {
         switch tagListView.tag {
         case 0:
             delegate?.update(producer: [])
@@ -712,20 +739,34 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
-    func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
     }
     
     // TagListView function stubs
     
-    func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return true
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
     }
     
-    func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
     }
     
-    func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
     }
+
+    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
+    }
+    
+    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
+                            toProposed proposedDestinationIndex: Int) -> Int {
+        return proposedDestinationIndex
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
+    }
+    
     
 }
