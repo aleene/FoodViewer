@@ -27,6 +27,7 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextField.layer.borderWidth = 1.0
             nameTextField.layer.borderColor = UIColor.black.cgColor
             changeLanguageButton.isEnabled = true
+            nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             nameTextField.borderStyle = .roundedRect
             nameTextField.layer.borderWidth = 1.0
@@ -36,9 +37,12 @@ class ProductNameTableViewCell: UITableViewCell {
             } else {
                 changeLanguageButton.isEnabled = false
             }
+            nameTextField.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     
+    private let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
+
     fileprivate struct Constants {
         static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
         static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
@@ -68,4 +72,14 @@ class ProductNameTableViewCell: UITableViewCell {
             setTextFieldStyle()
         }
     }
+    
+    func nameTapped() {
+        NotificationCenter.default.post(name: .NameTextFieldTapped, object: nil)
+    }
 }
+
+// Definition:
+extension Notification.Name {
+    static let NameTextFieldTapped = Notification.Name("ProductNameTableViewCell.Notification.NameTextFieldTapped")
+}
+

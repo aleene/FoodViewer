@@ -170,7 +170,7 @@ class NutritionScoreTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // tableStructure = setupSections()
-        // self.tableView.estimatedRowHeight = 88.0
+        self.tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
         showNutritionalScore = .uk
         let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutritionScoreTableViewController.doubleTapOnTableView))

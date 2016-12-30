@@ -75,7 +75,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                refreshProduct()
+                tableView.reloadData()
             }
         }
     }
@@ -215,7 +215,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
 
         case .brands:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as! IdentificationTagListViewTableViewCell
-            cell.editMode = editMode
+            // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
             cell.tag = 0
@@ -223,7 +223,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as! IdentificationPackagingTagListViewTableViewCell
-            cell.editMode = editMode
+            // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
             cell.tag = 1
@@ -269,22 +269,25 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         
         switch currentProductSection {
         case .name, .genericName:
-            // set the next language in the array
-            if currentLanguageCode != nextLanguageCode() {
-                currentLanguageCode = nextLanguageCode()
-                // reload the first two rows
-                let indexPaths = [IndexPath.init(row: 0, section: 1),
-                                  IndexPath.init(row: 0, section: 2)]
-                tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-                tableView.deselectRow(at: indexPaths.first!, animated: true)
-                tableView.deselectRow(at: indexPaths.last!, animated: true)
-            }
+            changeLanguage()
         default:
             break
         }
         return
     }
     
+    func changeLanguage() {
+        // set the next language in the array
+        if currentLanguageCode != nextLanguageCode() {
+            currentLanguageCode = nextLanguageCode()
+            // reload the first two rows
+            let indexPaths = [IndexPath.init(row: 0, section: 1),
+                              IndexPath.init(row: 0, section: 2)]
+            tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+            tableView.deselectRow(at: indexPaths.first!, animated: true)
+            tableView.deselectRow(at: indexPaths.last!, animated: true)
+        }
+    }
     /*
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -378,7 +381,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         case 2:
             // quantity updated?
             if let validText = textField.text {
-                delegate?.updatedProduct?.quantity = validText
+                delegate?.update(quantity: validText)
             }
         default:
             break
@@ -471,7 +474,6 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         product = nil
         tableView.reloadData()
     }
-
     
     // MARK: - ViewController Lifecycle
     
@@ -480,7 +482,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         
         tableStructure = setupSections()
         
-        self.tableView.estimatedRowHeight = 88.0
+        self.tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
 }
     
@@ -488,7 +490,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         super.viewWillAppear(animated)
 
         if product != nil {
-            refreshProduct()
+            tableView.reloadData()
         }
 
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -501,13 +503,14 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
 
-}
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
         if product != nil {
-            refreshProduct()
+            tableView.reloadData()
         }
     }
     
@@ -533,22 +536,16 @@ extension IdentificationTableViewController: TagListViewDataSource {
             case .undefined:
                 tagListView.allowsRemoval = false
                 tagListView.allowsCreation = false
-                tagListView.clearButtonIsEnabled = false
-                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
                 tagListView.allowsRemoval = editMode
                 tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
                 tagListView.allowsRemoval = editMode
                 tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -589,19 +586,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         }
         return("error")
     }
-    
-    /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return true
-    }
-    /// Is it allowed to move a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-    /// The Tag object at the source index has been moved to a destination index.
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
+
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
         switch tagListView.tag {
@@ -695,32 +680,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
-    }
-
-    // TagListView function stubs
-    
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
-    }
-
-    
-    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
-    }
-
-    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
-                            toProposed proposedDestinationIndex: Int) -> Int {
-        return proposedDestinationIndex
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
     }
     
 }

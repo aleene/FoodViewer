@@ -21,8 +21,8 @@ class TagListViewTableViewCell: UITableViewCell {
             
             tagListView.datasource = datasource
             tagListView.delegate = delegate
-            tagListView.allowsRemoval = editMode
-            tagListView.allowsCreation = editMode
+            //tagListView.allowsRemoval = editMode
+            //tagListView.allowsCreation = editMode
             tagListView.tag = tag
         }
     }
@@ -41,8 +41,8 @@ class TagListViewTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet {
-            tagListView?.allowsRemoval = editMode
-            tagListView?.allowsCreation = editMode
+            //tagListView?.allowsRemoval = editMode
+            //tagListView?.allowsCreation = editMode
         }
     }
     

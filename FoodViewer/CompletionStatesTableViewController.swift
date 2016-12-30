@@ -202,6 +202,10 @@ class CompletionStatesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 44.0
+        
         title = Constants.ViewControllerTitle
         refreshProduct()
     }

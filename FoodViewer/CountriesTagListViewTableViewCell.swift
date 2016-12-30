@@ -20,16 +20,16 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
             
             countriesTagListView.datasource = datasource
             countriesTagListView.delegate = delegate
-            countriesTagListView.allowsRemoval = editMode
-            countriesTagListView.allowsCreation = editMode
+            //countriesTagListView.allowsRemoval = editMode
+            //countriesTagListView.allowsCreation = editMode
             countriesTagListView.tag = tag
         }
     }
     
     var editMode: Bool = false {
         didSet {
-            countriesTagListView?.allowsRemoval = editMode
-            countriesTagListView?.allowsCreation = editMode
+            //countriesTagListView?.allowsRemoval = editMode
+            //countriesTagListView?.allowsCreation = editMode
         }
     }
     

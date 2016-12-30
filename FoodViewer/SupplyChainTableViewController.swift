@@ -286,7 +286,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tag = 0
             cell.delegate = self
             cell.datasource = self
-            cell.editMode = editMode
+            // cell.editMode = editMode
             return cell
             
         case .producerCode:
@@ -295,7 +295,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tag = 1
             cell.delegate = self
             cell.datasource = self
-            cell.editMode = editMode
+            // cell.editMode = editMode
             return cell
             
         case .sites:
@@ -304,7 +304,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tag = 6
             cell.delegate = self
             cell.datasource = self
-            cell.editMode = editMode
+            // cell.editMode = editMode
             return cell
             
         case .ingredientOrigin:
@@ -313,7 +313,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tag = 2
             cell.delegate = self
             cell.datasource = self
-            cell.editMode = editMode
+            // cell.editMode = editMode
             return cell
             
         case .store:
@@ -340,7 +340,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tag = 5
             cell.delegate = self
             cell.datasource = self
-            cell.editMode = editMode
+            // cell.editMode = editMode
             return cell
             
         case .map:
@@ -465,16 +465,14 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 80.0
+        self.tableView.estimatedRowHeight = 44.0
         
         title = Constants.ViewControllerTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        tableView.reloadData()
-        
+                
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
@@ -484,6 +482,9 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
 
+        
+        tableView.reloadData()
+        tableView.layoutIfNeeded()
         tableView.reloadData()
 }
 
@@ -582,7 +583,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         }
         return("error")
     }
-    
+    /*
     /// Is it allowed to edit a Tag object at a given index?
     public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         return editMode
@@ -601,6 +602,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
     func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed stub text"
     }
+    */
 
 }
 
@@ -742,7 +744,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
     }
-    
+    /*
     // TagListView function stubs
     
     public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
@@ -767,6 +769,6 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
     }
-    
+    */
     
 }

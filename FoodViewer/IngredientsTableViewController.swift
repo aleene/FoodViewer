@@ -173,7 +173,7 @@ class IngredientsTableViewController: UITableViewController {
             
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TracesFullTableViewCell
-            cell.editMode = editMode
+            // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
             cell.tag = 1
@@ -187,7 +187,7 @@ class IngredientsTableViewController: UITableViewController {
             
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! LabelsFullTableViewCell
-            cell.editMode = editMode
+            // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
             cell.tag = 3
@@ -224,14 +224,7 @@ class IngredientsTableViewController: UITableViewController {
         
         switch currentProductSection {
         case .ingredients:
-            // set the next language in the array
-            if currentLanguageCode != nextLanguageCode() {
-                currentLanguageCode = nextLanguageCode()
-                // reload the first two rows
-                let indexPaths = [IndexPath.init(row: 0, section: 0)]
-                tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-                tableView.deselectRow(at: indexPaths.first!, animated: true)
-            }
+            changeLanguage()
         default:
             break
         }
@@ -357,12 +350,23 @@ class IngredientsTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    func changeLanguage() {
+        // set the next language in the array
+        if currentLanguageCode != nextLanguageCode() {
+            currentLanguageCode = nextLanguageCode()
+            // reload the first two rows
+            let indexPaths = [IndexPath.init(row: 0, section: 0)]
+            tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+            tableView.deselectRow(at: indexPaths.first!, animated: true)
+        }
+    }
+
     // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 88.0
+        self.tableView.estimatedRowHeight = 44.0
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -375,6 +379,7 @@ class IngredientsTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.IngredientsTextViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -629,7 +634,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
         }
         return("tagListView error")
     }
-    
+    /*
     // TagListView function stubs
     
     public func didClear(_ tagListView: TagListView) {
@@ -649,6 +654,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
     }
+     */
 
 }
 

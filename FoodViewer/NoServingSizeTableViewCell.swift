@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoServingSizeTableViewCell: UITableViewCell, TagListViewDataSource {
+class NoServingSizeTableViewCell: UITableViewCell {
 
     struct Constants {
         static let NoTag = NSLocalizedString("no serving size available", comment: "Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.")
@@ -49,7 +49,10 @@ class NoServingSizeTableViewCell: UITableViewCell, TagListViewDataSource {
         }
         return newList
     }
-    
+}
+
+extension NoServingSizeTableViewCell: TagListViewDataSource {
+
     // TagListView Datasource functions
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
@@ -78,7 +81,7 @@ class NoServingSizeTableViewCell: UITableViewCell, TagListViewDataSource {
         }
     }
     
-    
+    /*
     /// Is it allowed to edit a Tag object at a given index?
     public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         return false
@@ -100,4 +103,6 @@ class NoServingSizeTableViewCell: UITableViewCell, TagListViewDataSource {
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Stub text"
     }
+    */
+    
 }

@@ -294,18 +294,24 @@ class FoodProduct {
         if self.purchaseLocation == nil {
             self.purchaseLocation = Address()
         }
-        self.purchaseLocation?.rawArray = elements
+        self.purchaseLocation?.rawArray = elements ?? clean(elements!)
     }
     
     func purchaseLocationString(_ location: String?) {
         if let validLocationString = location {
             self.purchaseLocation = Address()
             self.purchaseLocation!.locationString = validLocationString
-
         }
     }
     
-    var stores: [String]? = nil //or a set?
+    var stores: [String]? = nil {
+        didSet {
+            if stores != nil {
+                self.stores = clean(stores!)
+            }
+        }
+    }
+    
     var countries: [Address]? = nil //or a set?
     
     func countryArray(_ countries:[String]?) {
@@ -354,6 +360,7 @@ class FoodProduct {
     }
 
     var producerCode: [Address]? = nil
+    
     var producerCodeArray: [String]? = nil {
         didSet {
             if let validProducerCodes = producerCodeArray {
@@ -367,6 +374,19 @@ class FoodProduct {
         }
     }
     
+    // remove any empty items from the list
+    private func clean(_ list: [String]) -> [String] {
+        var newList: [String] = []
+        if !list.isEmpty {
+            for listItem in list {
+                if listItem.characters.count > 0 {
+                    newList.append(listItem)
+                }
+            }
+        }
+        return newList
+    }
+
     // contributor parameters
     var additionDate: Date? = nil
     var lastEditDates: [Date]? = nil

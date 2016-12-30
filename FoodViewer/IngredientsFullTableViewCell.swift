@@ -43,6 +43,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
                 } else {
                     textView.text = Constants.NoIngredientsText
                 }
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
+                textView.addGestureRecognizer(tapGestureRecognizer)
             }
             // print(textView.description)
         }
@@ -131,6 +133,10 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
 
+    func ingredientsTapped() {
+        NotificationCenter.default.post(name: .IngredientsTextViewTapped, object: nil)
+    }
+
 }
 
 extension String {
@@ -153,5 +159,10 @@ extension String {
         let (_, fraction) = modf(Double(self.components(separatedBy: testString).count-1)/2.0)
         return (fraction > 0)
     }
-
 }
+
+// Definition:
+extension Notification.Name {
+    static let IngredientsTextViewTapped = Notification.Name("IngredientsFullTableViewCell.Notification.IngredientsTextViewTapped")
+}
+

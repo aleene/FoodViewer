@@ -161,7 +161,9 @@
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
 		51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51E5CC9A1CB1105E00216868 /* Keyboard.xib */; };
 		51E614941C8349AD00DAEE6C /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E614931C8349AD00DAEE6C /* History.swift */; };
-		51E92AF71E12CF880071B293 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92AF61E12CF880071B293 /* TagListView.swift */; };
+		51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92AFC1E13D60E0071B293 /* TagListViewDelegate.swift */; };
+		51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92AFE1E13D6210071B293 /* TagListViewDatasource.swift */; };
+		51E92B011E13D6970071B293 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92B001E13D6970071B293 /* TagListView.swift */; };
 		51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */; };
 		51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FA1CB68A3000849532 /* NatriumChloride.swift */; };
 		51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FC1CB6AFEF00849532 /* OFFProducts.swift */; };
@@ -356,7 +358,9 @@
 		51E5CC9A1CB1105E00216868 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Keyboard.xib; sourceTree = "<group>"; };
 		51E614911C821EFE00DAEE6C /* 6524654176.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 6524654176.json; sourceTree = "<group>"; };
 		51E614931C8349AD00DAEE6C /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		51E92AF61E12CF880071B293 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
+		51E92AFC1E13D60E0071B293 /* TagListViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewDelegate.swift; sourceTree = "<group>"; };
+		51E92AFE1E13D6210071B293 /* TagListViewDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewDatasource.swift; sourceTree = "<group>"; };
+		51E92B001E13D6970071B293 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
 		51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColourCodedNutritionalScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51F057FA1CB68A3000849532 /* NatriumChloride.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NatriumChloride.swift; sourceTree = "<group>"; };
 		51F057FC1CB6AFEF00849532 /* OFFProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFProducts.swift; sourceTree = "<group>"; };
@@ -399,9 +403,11 @@
 			children = (
 				51CF42C61E02F48600C9AD91 /* TagView.xib */,
 				511DB4401E0ADC03009D4A4B /* ColorScheme.swift */,
-				51E92AF61E12CF880071B293 /* TagListView.swift */,
 				51CF42C81E02F4A200C9AD91 /* TagView.swift */,
+				51E92B001E13D6970071B293 /* TagListView.swift */,
 				51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */,
+				51E92AFE1E13D6210071B293 /* TagListViewDatasource.swift */,
+				51E92AFC1E13D60E0071B293 /* TagListViewDelegate.swift */,
 				511DB4441E0C4999009D4A4B /* TagViewState.swift */,
 			);
 			name = TagListView;
@@ -732,9 +738,9 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				519884E11CE4EA5E0020B3A1 /* Components */,
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
 				5150C0651CBCD66F00161616 /* Preferences.swift */,
-				519884E11CE4EA5E0020B3A1 /* Components */,
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
@@ -872,6 +878,7 @@
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
 				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
+				51E92B011E13D6970071B293 /* TagListView.swift in Sources */,
 				515742721CDB63B200BE8E2D /* RSEANGenerator.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
@@ -914,7 +921,6 @@
 				5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
-				51E92AF71E12CF880071B293 /* TagListView.swift in Sources */,
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
 				516B328D1C75FF100031EF80 /* NutrientsImageTableViewCell.swift in Sources */,
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
@@ -969,6 +975,7 @@
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */,
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
+				51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFrance.swift in Sources */,
 				51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */,
@@ -982,6 +989,7 @@
 				5157426E1CDB63B200BE8E2D /* RSCodeGenerator.swift in Sources */,
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,
+				51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */,
 				5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */,
 				513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */,
 				51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */,

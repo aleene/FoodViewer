@@ -16,7 +16,7 @@ class CategoriesTableViewController: UITableViewController {
         didSet {
             if product != nil {
                 tableStructureForProduct = analyseProductForTable(product!)
-                refreshProduct()
+                tableView.reloadData()
             }
         }
     }
@@ -87,9 +87,11 @@ class CategoriesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! CategoriesExtendedTableViewCell
         cell.tag = 0
-        cell.editMode = editMode
+        // cell.editMode = editMode
         cell.delegate = self
         cell.datasource = self
+        // cell.setNeedsDisplay()
+        // cell.layoutIfNeeded()
         return cell
     }
 
@@ -135,24 +137,25 @@ class CategoriesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 80.0
+        self.tableView.estimatedRowHeight = 44.0
 
-        refreshProduct()
         title = Constants.ViewControllerTitle
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: UITableViewRowAnimation.fade)
-
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
+        
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tableView.reloadData()
+        tableView.layoutIfNeeded()
+        tableView.reloadData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -180,14 +183,14 @@ extension CategoriesTableViewController: TagListViewDataSource {
                 tagListView.clearButtonIsEnabled = false
                 tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
-                return 1
+                return editMode ? 0 : 1
             case .empty:
                 tagListView.allowsRemoval = editMode
                 tagListView.allowsCreation = editMode
                 tagListView.clearButtonIsEnabled = editMode
                 tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
-                return 1
+                return editMode ? 0 : 1
             case let .available(list):
                 tagListView.allowsRemoval = editMode
                 tagListView.allowsCreation = editMode
@@ -216,23 +219,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
             }
         default: break
         }
-        return("error")
-    }
-    
-    /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return editMode
-    }
-    
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Stub Collapsed Text"
+        return("TagListView titleForTagAt error")
     }
 }
 
@@ -276,50 +263,11 @@ extension CategoriesTableViewController: TagListViewDelegate {
         }
     }
     
-    
     public func didClear(_ tagListView: TagListView) {
         if tagListView.tag == 0 {
             delegate?.update(categories: [])
             tableView.reloadData()
         }
     }
-    
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        /*
-         switch tagListView.tag {
-         case 0:
-         case 1:
-         
-         default:
-         break
-         }
-         */
-        tableView.setNeedsLayout()
-    }
 
-    // TagListView function stubs
-    
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
-                            toProposed proposedDestinationIndex: Int) -> Int {
-        return proposedDestinationIndex
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
-    }
-        
 }

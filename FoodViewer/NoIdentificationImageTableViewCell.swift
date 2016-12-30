@@ -42,7 +42,7 @@ class NoIdentificationImageTableViewCell: UITableViewCell, TagListViewDataSource
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         return imageFetchStatus.description()
     }
-    
+    /*
     /// Is it allowed to edit a Tag object at a given index?
     public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         return false
@@ -63,5 +63,5 @@ class NoIdentificationImageTableViewCell: UITableViewCell, TagListViewDataSource
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Stub text"
-    }
+    } */
 }

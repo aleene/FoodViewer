@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoImageTableViewCell: UITableViewCell, TagListViewDataSource {
+class NoImageTableViewCell: UITableViewCell {
 
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -32,7 +32,10 @@ class NoImageTableViewCell: UITableViewCell, TagListViewDataSource {
             }
         }
     }
-    
+}
+
+extension NoImageTableViewCell: TagListViewDataSource {
+
     // TagListView Datasource functions
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
@@ -43,7 +46,7 @@ class NoImageTableViewCell: UITableViewCell, TagListViewDataSource {
         return imageFetchStatus.description()
     }
 
-    
+    /*
     /// Is it allowed to edit a Tag object at a given index?
     public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
         return false
@@ -65,5 +68,6 @@ class NoImageTableViewCell: UITableViewCell, TagListViewDataSource {
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Stub text"
     }
+    */
 
 }

@@ -21,8 +21,8 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.datasource = datasource
             tagListView.delegate = delegate
             tagListView.tag = tag
-            tagListView.allowsRemoval = editMode
-            tagListView.allowsCreation = editMode
+            //tagListView.allowsRemoval = editMode
+            //tagListView.allowsCreation = editMode
         }
     }
 
@@ -37,8 +37,8 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             if editMode != oldValue {
                 favoriteButton?.isHidden = !editMode
             }
-            tagListView?.allowsRemoval = editMode
-            tagListView?.allowsCreation = editMode
+            //tagListView?.allowsRemoval = editMode
+            //tagListView?.allowsCreation = editMode
         }
     }
     

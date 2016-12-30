@@ -9,27 +9,6 @@
 import UIKit
 import LocalAuthentication
 
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l < r
-    case (nil, _?):
-        return true
-    default:
-        return false
-    }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-    switch (lhs, rhs) {
-    case let (l?, r?):
-        return l > r
-    default:
-        return rhs < lhs
-    }
-}
-
-
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ProductUpdatedProtocol {
 
     fileprivate struct Constants {
@@ -47,11 +26,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // The languageCode for the language in which the fields are shown
     fileprivate var currentLanguageCode: String? = nil
     
+    // MARK: - Interface Actions
+    
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem!
     
-    
-    // MARK: - Storyboard Actions
-        
     @IBAction func actionButtonTapped(_ sender: UIBarButtonItem) {
             
         var sharingItems = [AnyObject]()
@@ -82,16 +60,21 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         self.present(activityViewController, animated: true, completion: nil)
     }
     
-    // MARK: edit functions
-    
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
+        userWantsToSave = true
+        saveUpdatedProduct()
+    }
+    
+    private var userWantsToSave = false
+    
+    private func saveUpdatedProduct() {
         // Current mode
-        if editMode {
+        if editMode && userWantsToSave {
             // time to save
             if let validUpdatedProduct = updatedProduct {
                 let update = OFFUpdate()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            
+                
                 // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                     let fetchResult = update.update(product: validUpdatedProduct)
@@ -102,6 +85,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                             // get the new product data
                             OFFProducts.manager.reload(self.product!)
                             self.updatedProduct = nil
+                            self.userWantsToSave = false
                             // send notification of success, so feedback can be given
                             NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
                             break
@@ -117,14 +101,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         } else {
             // create an updated product instance to store all changes/edits
             //if let validBarcode = product?.barcode {
-                // setup an empty product with only theh barcode
+            // setup an empty product with only the barcode
             //    updatedProduct = FoodProduct.init(withBarcode: validBarcode)
-           // }
+            // }
             confirmBarButtonItem.image = UIImage.init(named: "CheckMark")
         }
         editMode = !editMode
     }
-    
     
     fileprivate var editMode: Bool = false {
         didSet {
@@ -156,7 +139,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 initPages()
             }
                 // do we have a valid pageIndex?
-            if pageIndex < 0 || pageIndex > pages.count || pageIndex == nil {
+            if pageIndex == nil {
+                pageIndex = 0
+            } else if pageIndex! < 0 || pageIndex! > pages.count - 1 {
                 pageIndex = 0
             }
                 // open de corresponding page
@@ -294,8 +279,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
         
-// MARK: - Pageview Controller data source
-        
+// MARK: - Pageview Controller DataSource Functions
         
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
             
@@ -355,8 +339,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
         
-        
-    // MARK: - Notification actions
+    // MARK: - Notification Functions
         
     func loadFirstProduct() {
     // handle a notification that the first product has been set
@@ -374,6 +357,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     func changeConfirmButtonToSuccess() {
         confirmBarButtonItem.tintColor = UIColor.green
+        updatedProduct = nil
     }
         
     func changeConfirmButtonToFailure() {
@@ -391,36 +375,43 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func updated(name: String, languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.set(newName: name, forLanguageCode: languageCode)
+        saveUpdatedProduct()
     }
     
     func updated(genericName: String, languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.set(newGenericName: genericName, forLanguageCode: languageCode)
+        saveUpdatedProduct()
     }
     
     func updated(ingredients: String, languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.set(newIngredients: ingredients, forLanguageCode: languageCode)
+        saveUpdatedProduct()
     }
     
     func updated(portion: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.servingSize = portion
+        saveUpdatedProduct()
     }
 
     func updated(expirationDate: Date) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.expirationDate = expirationDate
+        saveUpdatedProduct()
     }
     
     func updated(primaryLanguageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.primaryLanguageCode = primaryLanguageCode
+        saveUpdatedProduct()
     }
 
     func update(addLanguageCode languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.add(languageCode: languageCode)
+        saveUpdatedProduct()
     }
 
     func update(shop: (String, Address)?) {
@@ -429,6 +420,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             _ = updatedProduct?.add(shop: validShop.0)
             updatedProduct?.purchaseLocation = Address.init(with: shop)
         }
+        saveUpdatedProduct()
     }
     
     func update(brandTags: [String]?) {
@@ -436,6 +428,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let validtags = brandTags {
             updatedProduct?.brands = Tags.init(validtags)
         }
+        saveUpdatedProduct()
     }
 
     func update(packagingTags: [String]?) {
@@ -443,6 +436,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let validTags = packagingTags {
             updatedProduct?.packagingArray = Tags.init(validTags)
         }
+        saveUpdatedProduct()
     }
     
     func update(tracesTags: [String]?) {
@@ -450,6 +444,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let validTags = tracesTags {
             updatedProduct?.traces = Tags.init(validTags)
         }
+        saveUpdatedProduct()
     }
 
     func update(labelTags: [String]?) {
@@ -457,6 +452,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let validTags = labelTags {
             updatedProduct?.labelArray = Tags.init(validTags)
         }
+        saveUpdatedProduct()
     }
     
     func update(categories: [String]?) {
@@ -468,42 +464,56 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 updatedProduct?.categories = .available(validTags)
             }
         }
+        saveUpdatedProduct()
     }
 
     func update(producer: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.producer = Address()
         updatedProduct?.producerElementsArray(producer)
+        saveUpdatedProduct()
     }
 
     func update(producerCode: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.producerCodeArray = producerCode
+        saveUpdatedProduct()
     }
     
     func update(ingredientsOrigin: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.ingredientsOriginElements(ingredientsOrigin)
+        saveUpdatedProduct()
     }
 
     func update(stores: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.stores = stores
+        saveUpdatedProduct()
     }
     
     func update(purchaseLocation: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.purchaseLocationElements(purchaseLocation)
+        saveUpdatedProduct()
     }
 
     func update(countries: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.countryArray(countries)
+        saveUpdatedProduct()
+    }
+    
+    func update(quantity: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.quantity = quantity
+        saveUpdatedProduct()
     }
 
     func update(links: [String]?) {
         initUpdatedProductWith(product: product!)
         updatedProduct?.links = links!.map( { URL.init(string:$0)! } )
+        saveUpdatedProduct()
     }
 
     func updated(facts: [NutritionFactItem?]) {
@@ -532,12 +542,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         for _ in product!.nutritionFacts!.count ..< updatedProduct!.nutritionFacts!.count {
             product!.nutritionFacts!.append(nil)
         }
+        saveUpdatedProduct()
     }
 
     private func initUpdatedProductWith(product: FoodProduct) {
         if updatedProduct == nil {
             updatedProduct = FoodProduct.init(product:product)
         }
+        saveUpdatedProduct()
     }
     
     // MARK: - Authentication
@@ -682,7 +694,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         super.viewDidAppear(animated)
         if OFFAccount().personalExists() {
             // maybe the user has to authenticate himself before continuing
-            // authenticate()
+            authenticate()
         }
     }
     
