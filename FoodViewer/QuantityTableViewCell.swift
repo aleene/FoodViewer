@@ -30,14 +30,18 @@ class QuantityTableViewCell: UITableViewCell {
     }
     
     private func setTextFieldStyle() {
+        textField.layer.borderWidth = 0.5
+        textField.clearButtonMode = .whileEditing
         if editMode {
-            textField.borderStyle = .roundedRect
-            textField.layer.borderWidth = 1.0
-            textField.layer.borderColor = UIColor.black.cgColor
+            
+            textField.backgroundColor = UIColor.groupTableViewBackground
+            textField.layer.cornerRadius = 5
+            textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            textField.clipsToBounds = true
             
         } else {
             textField.borderStyle = .roundedRect
-            textField.layer.borderWidth = 1.0
+            textField.backgroundColor = UIColor.white
             textField.layer.borderColor = UIColor.white.cgColor
         }
     }

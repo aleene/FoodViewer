@@ -213,6 +213,12 @@ class CompletionStatesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
+        }
+
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
     }

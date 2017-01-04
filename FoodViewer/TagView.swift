@@ -20,19 +20,19 @@ open class TagView: UIView {
     private struct Constants {
         static let RemoveButtonWidth: CGFloat = 13.0
         /// Default maximum height = 150.0
-        static let defaultCornerRadius: CGFloat = 0.0
+        static let defaultCornerRadius: CGFloat = 5.0
         /// Default border width
-        static let defaultBorderWidth: CGFloat = 0.0
+        static let defaultBorderWidth: CGFloat = 0.5
         /// Default color and selected textColor
         static let defaultTextColor: UIColor = UIColor.white
         /// Default text font
-        static let defaultTextFont: UIFont = UIFont.systemFont(ofSize: 12)
+        static let defaultTextFont: UIFont = UIFont.preferredFont(forTextStyle: .body)
         /// Default color, highlighted and selected backgroundColor, shadowColor
         static let defaultBackgroundColor = UIColor.blue
         /// Default color and selected border Color
         static let defaultBorderColor: UIColor = .blue
         /// Default padding add to top and bottom of tag wrt font height
-        static let defaultVerticalPadding: CGFloat = 2.0
+        static let defaultVerticalPadding: CGFloat = 5.0
         /// Default padding between view objects
         static let defaultHorizontalPadding: CGFloat = 5.0
         

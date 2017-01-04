@@ -22,15 +22,18 @@ class ProductNameTableViewCell: UITableViewCell {
     }
     
     private func setTextFieldStyle() {
+        nameTextField.clearButtonMode = .whileEditing
+        nameTextField.layer.borderWidth = 0.5
         if editMode {
-            nameTextField.borderStyle = .roundedRect
-            nameTextField.layer.borderWidth = 1.0
-            nameTextField.layer.borderColor = UIColor.black.cgColor
             changeLanguageButton.isEnabled = true
+            nameTextField.backgroundColor = UIColor.groupTableViewBackground
+            nameTextField.layer.cornerRadius = 5
+            nameTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            nameTextField.clipsToBounds = true
             nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             nameTextField.borderStyle = .roundedRect
-            nameTextField.layer.borderWidth = 1.0
+            nameTextField.backgroundColor = UIColor.white
             nameTextField.layer.borderColor = UIColor.white.cgColor
             if numberOfLanguages > 1 {
                 changeLanguageButton.isEnabled = true

@@ -157,7 +157,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         static let ProducerCellIdentifier = "Product Producer Cell"
         static let BeingLoadedCellIdentifier = "Product Being Loaded Cell"
         static let ToPageViewControllerSegue = "Show Page Controller"
-        static let ShowSettingsSegueIdentifier = "Show Settings"
+        static let ShowSettingsSegueIdentifier = "Show Settings Segue"
     }
     
     
@@ -349,8 +349,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case Storyboard.ShowSettingsSegueIdentifier:
                 if let vc = segue.destination as? SettingsTableViewController {
                     vc.storedHistory = products.storedHistory
-                    // vc.modalPresentationCapturesStatusBarAppearance = true
-                    // setNeedsStatusBarAppearanceUpdate()
+                    vc.modalPresentationCapturesStatusBarAppearance = true
+                    setNeedsStatusBarAppearanceUpdate()
                 }
 
             default: break

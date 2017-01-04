@@ -218,6 +218,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = editMode
             cell.tag = 0
             return cell
             
@@ -226,6 +227,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = editMode
             cell.tag = 1
             return cell
             
@@ -488,8 +490,10 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
             tableView.reloadData()
         }
 
@@ -508,10 +512,8 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
-        if product != nil {
-            tableView.reloadData()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -534,18 +536,12 @@ extension IdentificationTableViewController: TagListViewDataSource {
         func count(_ tags: Tags) -> Int {
             switch tags {
             case .undefined:
-                tagListView.allowsRemoval = false
-                tagListView.allowsCreation = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }

@@ -61,7 +61,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
-        userWantsToSave = true
+        if editMode {
+            userWantsToSave = true
+        }
         saveUpdatedProduct()
     }
     
@@ -69,33 +71,35 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     private func saveUpdatedProduct() {
         // Current mode
-        if editMode && userWantsToSave {
-            // time to save
-            if let validUpdatedProduct = updatedProduct {
-                let update = OFFUpdate()
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        if editMode {
+            if userWantsToSave {
+                // time to save
+                if let validUpdatedProduct = updatedProduct {
+                    let update = OFFUpdate()
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 
-                // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
-                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                    let fetchResult = update.update(product: validUpdatedProduct)
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        switch fetchResult {
-                        case .success:
-                            // get the new product data
-                            OFFProducts.manager.reload(self.product!)
-                            self.updatedProduct = nil
-                            self.userWantsToSave = false
-                            // send notification of success, so feedback can be given
-                            NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
-                            break
-                        case .failure:
-                            // send notification of failure, so feedback can be given
-                            NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
-                            break
-                        }
+                    // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                        let fetchResult = update.update(product: validUpdatedProduct)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                            switch fetchResult {
+                            case .success:
+                                // get the new product data
+                                OFFProducts.manager.reload(self.product!)
+                                self.updatedProduct = nil
+                                self.userWantsToSave = false
+                                // send notification of success, so feedback can be given
+                                NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
+                                break
+                            case .failure:
+                                // send notification of failure, so feedback can be given
+                                NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
+                                break
+                            }
+                        })
                     })
-                })
+                }
             }
             confirmBarButtonItem.image = UIImage.init(named: "Edit")
         } else {

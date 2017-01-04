@@ -17,11 +17,13 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.normalColorScheme = ColorSchemes.normal
             tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
+            tagListView.removeButtonIsEnabled = true
+            tagListView.clearButtonIsEnabled = true
             
             tagListView.datasource = datasource
             tagListView.delegate = delegate
             tagListView.tag = tag
-            //tagListView.allowsRemoval = editMode
+            tagListView.allowsRemoval = editMode
             //tagListView.allowsCreation = editMode
         }
     }
@@ -36,9 +38,9 @@ class PurchacePlaceTableViewCell: UITableViewCell {
         didSet {
             if editMode != oldValue {
                 favoriteButton?.isHidden = !editMode
+                tagListView?.allowsRemoval = editMode
+                tagListView?.allowsCreation = editMode
             }
-            //tagListView?.allowsRemoval = editMode
-            //tagListView?.allowsCreation = editMode
         }
     }
     

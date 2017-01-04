@@ -21,8 +21,8 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
             tagListView.clearButtonIsEnabled = true
             tagListView.removeButtonIsEnabled = true
             
-            //tagListView.allowsRemoval = editMode
-            //tagListView.allowsCreation = editMode
+            tagListView.allowsRemoval = editMode
+            tagListView.allowsCreation = editMode
             tagListView.datasource = datasource
             tagListView.delegate = delegate
             tagListView.tag = tag
@@ -49,8 +49,10 @@ class IdentificationPackagingTagListViewTableViewCell: UITableViewCell {
     
     var editMode = false {
         didSet {
-            //tagListView?.allowsRemoval = editMode
-            //tagListView?.allowsCreation = editMode
+            if editMode != oldValue {
+                tagListView?.allowsRemoval = editMode
+                tagListView?.allowsCreation = editMode
+            }
         }
     }
 

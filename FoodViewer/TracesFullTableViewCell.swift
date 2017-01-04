@@ -17,7 +17,11 @@ class TracesFullTableViewCell: UITableViewCell {
             tracesTagList.normalColorScheme = ColorSchemes.normal
             tracesTagList.removableColorScheme = ColorSchemes.removable
             tracesTagList.cornerRadius = 10
-            
+            tracesTagList.clearButtonIsEnabled = true
+            tracesTagList.removeButtonIsEnabled = true
+
+            tracesTagList.allowsRemoval = editMode
+            tracesTagList.allowsCreation = editMode
             tracesTagList.datasource = datasource
             tracesTagList.delegate = delegate
             tracesTagList.tag = tag
@@ -38,8 +42,10 @@ class TracesFullTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet{
-            //tracesTagList?.allowsRemoval = editMode
-            //tracesTagList?.allowsCreation = editMode
+            if editMode != oldValue {
+                tracesTagList?.allowsRemoval = editMode
+                tracesTagList?.allowsCreation = editMode
+            }
         }
     }
     

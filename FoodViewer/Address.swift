@@ -47,7 +47,7 @@ class Address {
     var locationString: String? = nil {
         didSet {
             if let validLocationString = locationString {
-                rawArray = validLocationString.components(separatedBy: ",")
+                rawArray = clean(validLocationString.components(separatedBy: ","))
             }
         }
     }
@@ -212,6 +212,20 @@ class Address {
         }
         return newElement
     }
+    
+    // remove any empty items from a list
+    private func clean(_ list: [String]) -> [String] {
+        var newList: [String] = []
+        if !list.isEmpty {
+            for listItem in list {
+                if listItem.characters.count > 0 {
+                    newList.append(listItem)
+                }
+            }
+        }
+        return newList
+    }
+
 }
 
 // Definition:

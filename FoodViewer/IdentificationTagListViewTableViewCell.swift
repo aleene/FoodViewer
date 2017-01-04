@@ -19,9 +19,9 @@ class IdentificationTagListViewTableViewCell: UITableViewCell {
             tagListView.cornerRadius = 10
             tagListView.clearButtonIsEnabled = true
             tagListView.removeButtonIsEnabled = true
-
-            //tagListView.allowsRemoval = editMode
-            //tagListView.allowsCreation = editMode
+            
+            tagListView.allowsRemoval = editMode
+            tagListView.allowsCreation = editMode
             tagListView.datasource = datasource
             tagListView.delegate = delegate
         }
@@ -40,8 +40,10 @@ class IdentificationTagListViewTableViewCell: UITableViewCell {
     }
     var editMode = false {
         didSet {
-            //tagListView?.allowsRemoval = editMode
-            //tagListView?.allowsCreation = editMode
+            if editMode != oldValue {
+                tagListView?.allowsRemoval = editMode
+                tagListView?.allowsCreation = editMode
+            }
         }
     }
     

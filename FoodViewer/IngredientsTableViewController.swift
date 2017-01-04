@@ -176,6 +176,7 @@ class IngredientsTableViewController: UITableViewController {
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = editMode
             cell.tag = 1
             return cell
             
@@ -190,6 +191,7 @@ class IngredientsTableViewController: UITableViewController {
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = editMode
             cell.tag = 3
             return cell
             
@@ -371,11 +373,14 @@ class IngredientsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if product != nil {
-            tableView.reloadData()
-        }
         title = TextConstants.ViewControllerTitle
         
+        if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
+        }
+
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
@@ -384,9 +389,6 @@ class IngredientsTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if product != nil {
-            tableView.reloadData()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -495,7 +497,8 @@ extension IngredientsTableViewController: TagListViewDelegate {
             break
         }
     }
-    
+    /*
+
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         /*
          switch tagListView.tag {
@@ -533,6 +536,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
     }
+ */
     
 }
 
@@ -558,24 +562,12 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case 1:
             switch tracesToDisplay {
             case .undefined:
-                tagListView.allowsRemoval = false
-                tagListView.allowsCreation = false
-                tagListView.clearButtonIsEnabled = false
-                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -594,24 +586,12 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case 3:
             switch labelsToDisplay {
             case .undefined:
-                tagListView.allowsRemoval = false
-                tagListView.allowsCreation = false
-                tagListView.clearButtonIsEnabled = false
-                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }

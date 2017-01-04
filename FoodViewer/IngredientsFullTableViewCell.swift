@@ -19,34 +19,36 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     private func setupTextView() {
         // the textView might not be initialised
-        if textView != nil {
-            if editMode {
-                textView.layer.borderWidth = 1.0
-                textView.layer.borderColor = UIColor.black.cgColor
-                
+        guard textView != nil else { return }
+
+        textView?.layer.borderWidth = 0.5
+        textView?.delegate = textViewDelegate
+        textView?.tag = textViewTag
+
+        if editMode {
+            textView?.backgroundColor = UIColor.groupTableViewBackground
+            textView?.layer.cornerRadius = 5
+            textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            textView?.clipsToBounds = true
+        } else {
+            textView?.backgroundColor = UIColor.white
+            textView.layer.borderColor = UIColor.white.cgColor
+        }
+        
+        if editMode {
+            if unAttributedIngredients.characters.count > 0 {
+                textView?.text = unAttributedIngredients
             } else {
-                textView.layer.borderWidth = 1.0
-                textView.layer.borderColor = UIColor.white.cgColor
+                textView?.text = Constants.NoIngredientsText
             }
-            textView.delegate = textViewDelegate
-            textView.tag = textViewTag
-            if editMode {
-                if unAttributedIngredients.characters.count > 0 {
-                    textView.text = unAttributedIngredients
-                } else {
-                    textView.text = Constants.NoIngredientsText
-                }
+        } else {
+            if attributedIngredients.length > 0 {
+                textView?.attributedText = attributedIngredients
             } else {
-                // print (attributedIngredients.description)
-                if attributedIngredients.length > 0 {
-                    textView.attributedText = attributedIngredients
-                } else {
-                    textView.text = Constants.NoIngredientsText
-                }
-                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
-                textView.addGestureRecognizer(tapGestureRecognizer)
+                textView?.text = Constants.NoIngredientsText
             }
-            // print(textView.description)
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
+            textView?.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     

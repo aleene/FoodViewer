@@ -35,6 +35,7 @@ struct OFFWriteAPI {
     static let IngredientsOrigin = "origins="
     static let Countries = "countries="
     static let Links = "link="
+    static let ServingSize = "serving_size="
     static let Delimiter = "&"
     static let CommaDelimiter = ", "
     static let LanguageSpacer = "_"

@@ -282,43 +282,38 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerTagListViewCell, for: indexPath) as! TagListViewTableViewCell
-            // cell.tagList = product!.producer?.elements
             cell.tag = 0
             cell.delegate = self
             cell.datasource = self
-            // cell.editMode = editMode
+            cell.editMode = editMode
             return cell
             
         case .producerCode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! AddressTagListTableViewCell
-            // cell.tagList = product!.producerCode
             cell.tag = 1
             cell.delegate = self
             cell.datasource = self
-            // cell.editMode = editMode
+            cell.editMode = editMode
             return cell
             
         case .sites:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! SitesTagListTableViewCell
-            // cell.tagList = product!.links
             cell.tag = 6
             cell.delegate = self
             cell.datasource = self
-            // cell.editMode = editMode
+            cell.editMode = editMode
             return cell
             
         case .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientOriginCellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            // cell.tagList = product!.ingredientsOrigin?.elements
             cell.tag = 2
             cell.delegate = self
             cell.datasource = self
-            // cell.editMode = editMode
+            cell.editMode = editMode
             return cell
             
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.StoreCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
-            // cell.tagList = delegate?.updatedProduct?.stores == nil ? product!.stores : delegate!.updatedProduct!.stores
             cell.tag = 3
             cell.delegate = self
             cell.datasource = self
@@ -327,7 +322,6 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
-            // cell.tagList = delegate?.updatedProduct?.purchaseLocation == nil ? product!.purchaseLocation!.elements : delegate!.updatedProduct!.purchaseLocation!.elements
             cell.tag = 4
             cell.delegate = self
             cell.datasource = self
@@ -336,11 +330,10 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! CountriesTagListViewTableViewCell
-            // cell.tagList = delegate?.updatedProduct?.countries == nil ? product!.countries : delegate!.updatedProduct!.countries
             cell.tag = 5
             cell.delegate = self
             cell.datasource = self
-            // cell.editMode = editMode
+            cell.editMode = editMode
             return cell
             
         case .map:
@@ -354,11 +347,10 @@ class SupplyChainTableViewController: UITableViewController {
             // has the product been edited?
             if let validDate = delegate?.updatedProduct?.expirationDate {
                 cell.date = validDate
-                cell.editMode = editMode
             } else if let validDate = product!.expirationDate {
                 cell.date = validDate
-                cell.editMode = editMode
             }
+            cell.editMode = editMode
             return cell
         }
     }
@@ -367,18 +359,7 @@ class SupplyChainTableViewController: UITableViewController {
         let (_, _, header) = tableStructureForProduct[section]
         return header
     }
-    
-    /*
-    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch (indexPath as NSIndexPath).section {
-        case 7:
-            return 300
-        default:
-            return 88
-        }
-    }
- */
-    
+        
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
@@ -472,7 +453,13 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
+        
+        if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
+        }
+
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
@@ -482,11 +469,7 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
 
-        
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableView.reloadData()
-}
+        }
 
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -511,14 +494,8 @@ extension SupplyChainTableViewController: TagListViewDataSource {
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         func count(_ inputTags: [String]?) -> Int {
-            // print( editMode)
-            // reset ColorScheme
             tagListView.normalColorScheme = ColorSchemes.normal
             if let tags = inputTags {
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 if tags.isEmpty {
                     if !editMode { tagListView.normalColorScheme = ColorSchemes.none }
                     return editMode ? 0 : 1
@@ -527,10 +504,6 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 }
             } else {
                 if !editMode { tagListView.normalColorScheme = ColorSchemes.error }
-                tagListView.allowsRemoval = false
-                tagListView.allowsCreation = false
-                tagListView.clearButtonIsEnabled = false
-                tagListView.removeButtonIsEnabled = false
                 return editMode ? 0 : 1
             }
         }
@@ -583,27 +556,6 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         }
         return("error")
     }
-    /*
-    /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return editMode
-    }
-    
-    // Stubs
-    
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-
-    /// Which text should be displayed when the TagListView is collapsed?
-    func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Collapsed stub text"
-    }
-    */
-
 }
 
 // MARK: - TagListView Delegate Functions

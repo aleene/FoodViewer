@@ -291,10 +291,12 @@ class FoodProduct {
     var purchaseLocation: Address? = nil //or a set?
     
     func purchaseLocationElements(_ elements: [String]?) {
-        if self.purchaseLocation == nil {
-            self.purchaseLocation = Address()
+        if elements != nil {
+            if self.purchaseLocation == nil {
+                self.purchaseLocation = Address()
+            }
+            self.purchaseLocation?.rawArray = clean(elements!)
         }
-        self.purchaseLocation?.rawArray = elements ?? clean(elements!)
     }
     
     func purchaseLocationString(_ location: String?) {

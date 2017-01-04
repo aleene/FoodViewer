@@ -31,25 +31,25 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         static let defaultTagHeight: CGFloat = 30.0
         
         
-        static let defaultCornerRadius: CGFloat = 0.0
+        static let defaultCornerRadius: CGFloat = 5.0
         /// Default border width
-        static let defaultBorderWidth: CGFloat = 0.0
+        static let defaultBorderWidth: CGFloat = 0.5
         /// Default color and selected textColor
         static let defaultTextColor: UIColor = UIColor.white
         /// Default color and selected textColor
         static let defaultTextInputColor: UIColor = UIColor(red: 38/255.0, green: 39/255.0, blue: 41/255.0, alpha: 1.0)
         /// Default text font
-        static let defaultTextFont: UIFont = UIFont.systemFont(ofSize: 12)
+        static let defaultTextFont: UIFont = UIFont.preferredFont(forTextStyle: .body)
         /// Default color, highlighted and selected backgroundColor, shadowColor
         static let defaultBackgroundColor: UIColor = UIColor.blue
         /// Default color and selected border Color
         static let defaultBorderColor: UIColor = UIColor.blue
         /// Default padding add to top and bottom of tag wrt font height
-        static let defaultVerticalPadding: CGFloat = 2.0
+        static let defaultVerticalPadding: CGFloat = 5.0
         /// Default padding between view objects
         static let defaultHorizontalPadding: CGFloat = 5.0
         /// Default margin between tag rows
-        static let defaultVerticalMargin: CGFloat = 2.0
+        static let defaultVerticalMargin: CGFloat = 1.5
         /// Default margin outside a tag row
         static let defaultHorizontalMargin: CGFloat = 2.0
         /// Default offset for shadow
@@ -409,8 +409,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         inputTextField.inputAccessoryView = self.inputTextViewAccessoryView
         inputTextField.accessibilityLabel = self.inputTextViewAccessibilityLabel
         inputTextField.textAlignment = .left
-        // inputTextField.layer.borderColor = UIColor.black.cgColor // self.removableColorScheme.textColor.cgColor
-        inputTextField.layer.backgroundColor = UIColor.lightGray.cgColor
+        inputTextField.layer.backgroundColor = UIColor.groupTableViewBackground.cgColor
+        inputTextField.layer.cornerRadius = 5
+        inputTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+        inputTextField.layer.borderWidth = self.borderWidth
+        inputTextField.clipsToBounds = true
+
         return inputTextField
     }()
     
@@ -647,34 +651,34 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         if prefixLabelText != nil {
             layoutPrefixLabel(origin: CGPoint.zero, currentX: &currentX)
         }
-        // print("after Prefix",currentY)
+
+        // print("after Prefix", currentY, frame.height)
 
         layoutTagViewsWith(currentX: &currentX, currentY: &currentY)
         
+        // print("after tagViews", currentY, frame.height)
+
         if isEditable && allowsCreation {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }
-        // print("after Input",currentY)
-        // print("tagViewHeight", tagViewHeight)
+
+        // print("after Input", currentY, frame.height)
+        
         if shouldAdjustFrame {
             adjustHeightFor(currentY: currentY)
         }
-        
+        // print("after adjustHeight", currentY, frame.height)
+
         if allowsRemoval && clearButtonIsEnabled {
             layoutClearView()
         }
         
+        // print("after clearView", currentY, frame.height)
+
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListView.clearOnTap(_:)))
         if tapGestureRecognizer != nil {
             clearView.addGestureRecognizer(tapGestureRecognizer!)
         }
-        
-        //scrollView.contentSize = CGSize(
-        //    width: scrollView.contentSize.width,
-        //    height: currentY + inputTextView.frame.height
-        //)
-        
-        //scrollView.isScrollEnabled = scrollView.contentSize.height > maxHeight
         
         if inputViewShouldBecomeFirstResponder {
             inputTextViewBecomeFirstResponder()
@@ -682,7 +686,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             // focusInputTextFIeld(currentX: &currentX, currentY: &currentY)
         }
         invalidateIntrinsicContentSize()
-        // print("frame used", frame.height)
+        // print("frame used", currentY, frame.height)
     }
     
     
@@ -778,7 +782,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             }
             tagView.frame.size = tagView.intrinsicContentSize
             tagViewHeight = tagView.frame.height
-            
+            // print("y", currentY, tagViewHeight, frame.height)
             // Is this the first tag of the row?
             if currentRowTagCount > 0 && currentX + tagView.frame.width > rowWidth {
                 // Create new row with TagViews
@@ -848,12 +852,11 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // Is there enough space for a reasonable inputTextView
         if currentX + Constants.defaultMinInputWidth >= frame.width - clearButtonWidth {
             // start with a new row
-            inputTextViewOrigin.x = Constants.defaultHorizontalMargin
-            inputTextViewOrigin.y = currentY + tagViewHeight + Constants.defaultVerticalPadding
-        } else {
-            inputTextViewOrigin.x = currentX
-            inputTextViewOrigin.y = currentY
+            currentX += Constants.defaultHorizontalMargin
+            currentY += tagViewHeight + Constants.defaultVerticalPadding
         }
+        inputTextViewOrigin.x = currentX
+        inputTextViewOrigin.y = currentY
         
         inputTextField.frame = CGRect(
             x: inputTextViewOrigin.x,
@@ -861,11 +864,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             width: frame.width - inputTextViewOrigin.x - clearButtonWidth,
             height: tagViewHeight //  + Constants.defaultVerticalPadding
         )
-        // print("frame origin", inputTextField.frame.origin, inputTextField.frame.size)
 
-        currentX += inputTextField.frame.width
-        currentY += inputTextViewOrigin.y
-        // print("inputHeight", inputHeight)
         /*
          var exclusionPaths: [UIBezierPath] = []
          

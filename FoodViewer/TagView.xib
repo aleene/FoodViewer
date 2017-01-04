@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,12 +30,12 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0FF-5S-vXq">
                             <rect key="frame" x="0.0" y="0.0" width="123" height="48"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zpb-tW-gEp">
-                            <rect key="frame" x="110" y="18" width="13" height="13"/>
+                            <rect key="frame" x="107" y="18" width="13" height="13"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="13" id="bDI-66-5L1"/>
                                 <constraint firstAttribute="width" constant="13" id="plR-3A-DuY"/>
@@ -44,7 +44,7 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="Zpb-tW-gEp" secondAttribute="trailing" id="11o-s2-km4"/>
+                        <constraint firstAttribute="trailing" secondItem="Zpb-tW-gEp" secondAttribute="trailing" constant="3" id="11o-s2-km4"/>
                         <constraint firstAttribute="trailing" secondItem="0FF-5S-vXq" secondAttribute="trailing" id="BY3-rd-LPv"/>
                         <constraint firstAttribute="bottom" secondItem="0FF-5S-vXq" secondAttribute="bottom" id="Ny5-Q4-Dd4"/>
                         <constraint firstItem="0FF-5S-vXq" firstAttribute="leading" secondItem="65R-BH-Ljd" secondAttribute="leading" id="V52-g6-ZAR"/>

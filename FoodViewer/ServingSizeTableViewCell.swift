@@ -30,13 +30,17 @@ class ServingSizeTableViewCell: UITableViewCell {
     
     private func setTextFieldStyle() {
         if editMode {
-            servingSizeTextField.borderStyle = .roundedRect
-            servingSizeTextField.layer.borderWidth = 1.0
-            servingSizeTextField.layer.borderColor = UIColor.black.cgColor
+            servingSizeTextField.layer.borderWidth = 0.5
+            servingSizeTextField.backgroundColor = UIColor.groupTableViewBackground
+            servingSizeTextField.layer.cornerRadius = 5
+            servingSizeTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            servingSizeTextField.clipsToBounds = true
         } else {
             servingSizeTextField.borderStyle = .roundedRect
-            servingSizeTextField.layer.borderWidth = 1.0
+            servingSizeTextField.layer.borderWidth = 0.5
             servingSizeTextField.layer.borderColor = UIColor.white.cgColor
+            servingSizeTextField.backgroundColor = UIColor.white
+
         }
     }
 

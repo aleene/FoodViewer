@@ -17,19 +17,23 @@ class CountriesTagListViewTableViewCell: UITableViewCell {
             countriesTagListView.normalColorScheme = ColorSchemes.normal
             countriesTagListView.removableColorScheme = ColorSchemes.removable
             countriesTagListView.cornerRadius = 10
+            countriesTagListView.clearButtonIsEnabled = true
+            countriesTagListView.removeButtonIsEnabled = true
             
             countriesTagListView.datasource = datasource
             countriesTagListView.delegate = delegate
-            //countriesTagListView.allowsRemoval = editMode
-            //countriesTagListView.allowsCreation = editMode
+            countriesTagListView.allowsRemoval = editMode
+            countriesTagListView.allowsCreation = editMode
             countriesTagListView.tag = tag
         }
     }
     
     var editMode: Bool = false {
         didSet {
-            //countriesTagListView?.allowsRemoval = editMode
-            //countriesTagListView?.allowsCreation = editMode
+            if editMode != oldValue {
+                countriesTagListView?.allowsRemoval = editMode
+                countriesTagListView?.allowsCreation = editMode
+            }
         }
     }
     

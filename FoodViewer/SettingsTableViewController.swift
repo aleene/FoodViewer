@@ -8,21 +8,22 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
+class SettingsTableViewController: UITableViewController {
 
-    fileprivate struct Storyboard {
-        static let ReturnToProductSegueIdentifier = "Settings Done"
-    }
-    
     fileprivate struct Constants {
-        static let ViewControllerTitle = NSLocalizedString("Settings", comment: "TableViewController title for the settings scene.")
+        static let ViewControllerTitle = NSLocalizedString("Preferences", comment: "TableViewController title for the settings scene.")
+        static let AllergenSegue = "Show Allergen Segue"
     }
 
+    // MARK: - Clear History functions
+    
     var storedHistory = History() {
         didSet {
             enableClearHistoryButton()
         }
     }
+    
+    var historyHasBeenRemoved = false
 
     var mostRecentProduct = MostRecentProduct()
 
@@ -35,37 +36,143 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    var historyHasBeenRemoved = false
-    
-    func refresh() {
-        if saltOrSodiumOutlet != nil {
-            switch Preferences.manager.showSaltOrSodium {
-            case .salt:
-                saltOrSodiumOutlet!.selectedSegmentIndex = 0
-            case .sodium:
-                saltOrSodiumOutlet!.selectedSegmentIndex = 1
-            }
+
+    @IBOutlet weak var clearHistoryButton: UIButton! {
+        didSet {
+            enableClearHistoryButton()
+            clearHistoryButton.setTitle(NSLocalizedString("Clear History", comment: "Title of a button, which removes all ites in the product search history."), for: .normal)
         }
-            if jouleOrCaloriesOutlet != nil {
-            switch Preferences.manager.showCaloriesOrJoule {
-            case .joule:
-                jouleOrCaloriesOutlet!.selectedSegmentIndex = 0
-            case .calories:
-                jouleOrCaloriesOutlet!.selectedSegmentIndex = 1
-            }
+    }
+
+    @IBAction func clearHistoryButtonTapped(_ sender: UIButton) {
+        storedHistory.removeAll()
+        mostRecentProduct.remove()
+        historyHasBeenRemoved = true
+        enableClearHistoryButton()
+    }
+    
+    // MARK: - Salt Or Sodium Functions
+    
+    private func refreshAll() {
+        refreshSaltOrSodium()
+        refreshJouleOrCalories()
+        refreshNutritionUnit()
+    }
+    
+    private func refreshSaltOrSodium() {
+        switch Preferences.manager.showSaltOrSodium {
+        case .salt:
+            saltOrSodiumSegmentedControl?.selectedSegmentIndex = 0
+        case .sodium:
+            saltOrSodiumSegmentedControl?.selectedSegmentIndex = 1
         }
-        if nutritionUnitOutlet != nil {
+    }
+
+    @IBOutlet weak var saltOrSodiumSegmentedControl: UISegmentedControl! {
+        didSet {
+            saltOrSodiumSegmentedControl.setTitle(NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAt: 0)
+            saltOrSodiumSegmentedControl.setTitle(NSLocalizedString("Sodium", comment: "Title of third segment in switch, which lets the user select between salt or sodium"), forSegmentAt: 1)
+            refreshSaltOrSodium()
+        }
+    }
+    
+    @IBAction func saltOrSodiumSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.showSaltOrSodium = .salt
+        case 1:
+            Preferences.manager.showSaltOrSodium = .sodium
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Joule or Calories Functions
+    
+    private func refreshJouleOrCalories() {
+        switch Preferences.manager.showCaloriesOrJoule {
+        case .joule:
+            jouleOrCaloriesSegmentedControl?.selectedSegmentIndex = 0
+        case .calories:
+            jouleOrCaloriesSegmentedControl?.selectedSegmentIndex = 1
+        }
+    }
+
+    @IBOutlet weak var jouleOrCaloriesSegmentedControl: UISegmentedControl! {
+        didSet {
+            jouleOrCaloriesSegmentedControl.setTitle(NSLocalizedString("Joule", comment: "Title of first segment in switch, which lets the user select between joule or calories"), forSegmentAt: 0)
+            jouleOrCaloriesSegmentedControl.setTitle(NSLocalizedString("Calories", comment: "Title of second segment in switch, which lets the user select between joule or calories"), forSegmentAt: 1)
+            refreshJouleOrCalories()
+        }
+    }
+    
+    @IBAction func jouleOrCaloriesSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.showCaloriesOrJoule = .joule
+        case 1:
+            Preferences.manager.showCaloriesOrJoule = .calories
+        default:
+            break
+        }
+    }
+    
+    // MARK: - per 100 or per portion or per daily value
+    
+    @IBOutlet weak var nutritionUnitSegmentedControl: UISegmentedControl! {
+        didSet {
+            nutritionUnitSegmentedControl.setTitle(NSLocalizedString("100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)"), forSegmentAt: 0)
+            nutritionUnitSegmentedControl.setTitle(NSLocalizedString("Serving", comment: "Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)"), forSegmentAt: 1)
+            nutritionUnitSegmentedControl.setTitle(NSLocalizedString("Daily Value", comment: "Title of third segment in switch, which lets the user select between per daily value (per 100 mg/ml / per serving / per daily value)"), forSegmentAt: 2)
+            refreshNutritionUnit()
+        }
+    }
+    
+    @IBAction func nutritionUnitSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.showNutritionDataPerServingOrPerStandard = .perStandard
+        case 1:
+            Preferences.manager.showNutritionDataPerServingOrPerStandard = .perServing
+        case 2:
+            Preferences.manager.showNutritionDataPerServingOrPerStandard = .perDailyValue
+        default:
+            break
+        }
+    }
+    
+    private func refreshNutritionUnit() {
+        if nutritionUnitSegmentedControl != nil {
             switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
             case .perStandard:
-                nutritionUnitOutlet!.selectedSegmentIndex = 0
+                nutritionUnitSegmentedControl!.selectedSegmentIndex = 0
             case .perServing:
-                nutritionUnitOutlet!.selectedSegmentIndex = 1
+                nutritionUnitSegmentedControl!.selectedSegmentIndex = 1
             case .perDailyValue:
-                nutritionUnitOutlet!.selectedSegmentIndex = 2
+                nutritionUnitSegmentedControl!.selectedSegmentIndex = 2
             }
         }
     }
+
+    // MARK: - OFF Account Functions
+    
+    fileprivate var username: String? = nil {
+        didSet {
+            // privateCredentialsHaveBeenSet()
+        }
+    }
+    fileprivate var password: String? = nil {
+        didSet {
+            // privateCredentialsHaveBeenSet()
+        }
+    }
+    
+    private var offAccount = OFFAccount()
+
+    /*
+     
+     
+    
 
     @IBOutlet weak var offAcountToUse: UISegmentedControl! {
         didSet {
@@ -102,18 +209,6 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
     
     // MARK: - Credential functions
     
-    private var username: String? = nil {
-        didSet {
-            privateCredentialsHaveBeenSet()
-        }
-    }
-    private var password: String? = nil {
-        didSet {
-            privateCredentialsHaveBeenSet()
-        }
-    }
-
-    private var offAccount = OFFAccount()
     
     private func privateCredentialsHaveBeenSet() {
         // only write if both items have been set
@@ -166,8 +261,81 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         alertController.addAction(useMyOwn)
         self.present(alertController, animated: true, completion: nil)
     }
+     */
+
+    @IBAction func unwindAllergenWarningForCancel(_ segue:UIStoryboardSegue) {
+        if let _ = segue.source as? AllergenWarningsTableViewController {
+            tableView.reloadData()
+        }
+    }
     
-    // MARK: - TextField stuff
+    @IBAction func unwindAllergenWarningForDone(_ segue:UIStoryboardSegue) {
+        if let _ = segue.source as? AllergenWarningsTableViewController {
+            tableView.reloadData()
+        }
+    }
+
+    
+   
+    // MARK: - TableView Delegate Functions
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 2:
+            return NSLocalizedString("Reset", comment: "Title of a tableView section, which lets the user reset the history")
+        case 0:
+            return NSLocalizedString("Display Prefs", comment: "Title of a tableView section, which lets the user select display options")
+        case 1:
+            return NSLocalizedString("Warnings", comment: "Title of a tableView section, which lets the user set warnings")
+        case 3:
+            return NSLocalizedString("OpenFoodFacts Account", comment: "Title of a tableView section, which lets the user set the off account to use")
+        default:
+            break
+        }
+        return nil
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            performSegue(withIdentifier: Constants.AllergenSegue, sender: self)
+        default:
+            break
+        }
+    }
+
+    /*
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let _ = segue.source as? AllergenWarningsTableViewController {
+            // currentLanguageCode = vc.currentLanguageCode
+            // updateCurrentLanguage()
+            // pageIndex = vc.sourcePage
+        }
+    }
+   */
+
+    // MARK: - ViewController Lifecycle
+    
+    override var prefersStatusBarHidden : Bool {
+        return true
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.delegate = self
+        
+        refreshAll()
+        
+        title = Constants.ViewControllerTitle
+    }
+
+}
+  
+// MARK: - UITextField Delegate Functions
+  
+extension SettingsTableViewController: UITextFieldDelegate {
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if textField.isFirstResponder { textField.resignFirstResponder() }
@@ -196,125 +364,4 @@ class SettingsTableViewController: UITableViewController, UITextFieldDelegate {
         return true
     }
 
-    // MARK: - Outlet methods
-
-    @IBOutlet weak var clearHistoryButton: UIButton! {
-        didSet {
-            enableClearHistoryButton()
-        }
-    }
-    
-    @IBOutlet weak var saltOrSodiumOutlet: UISegmentedControl! {
-        didSet {
-            saltOrSodiumOutlet.setTitle(NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAt: 0)
-            saltOrSodiumOutlet.setTitle(NSLocalizedString("Sodium", comment: "Title of third segment in switch, which lets the user select between salt or sodium"), forSegmentAt: 1)
-        }
-    }
-    
-    @IBOutlet weak var jouleOrCaloriesOutlet: UISegmentedControl! {
-        didSet {
-            jouleOrCaloriesOutlet.setTitle(NSLocalizedString("Joule", comment: "Title of first segment in switch, which lets the user select between joule or calories"), forSegmentAt: 0)
-            jouleOrCaloriesOutlet.setTitle(NSLocalizedString("Calories", comment: "Title of second segment in switch, which lets the user select between joule or calories"), forSegmentAt: 1)
-        }
-    }
-    
-    @IBOutlet weak var nutritionUnitOutlet: UISegmentedControl! {
-        didSet {
-            nutritionUnitOutlet.setTitle(NSLocalizedString("Per 100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving"), forSegmentAt: 0)
-            nutritionUnitOutlet.setTitle(NSLocalizedString("Per Serving", comment: "Title of second segment in switch, which lets the user select between per standard unit (100 mg/ml or per serving"), forSegmentAt: 1)
-        }
-    }
-
-    
-    // MARK: - Action methods
-    
-    @IBAction func jouleOrCaloriesSwitchTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            Preferences.manager.showCaloriesOrJoule = .joule
-        case 1:
-            Preferences.manager.showCaloriesOrJoule = .calories
-        default:
-            break
-        }
-    }
-
-    @IBAction func clearProductHistoryTapped(_ sender: UIButton) {
-        storedHistory.removeAll()
-        mostRecentProduct.remove()
-        historyHasBeenRemoved = true
-        enableClearHistoryButton()
-    }
-    
-    @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        self.performSegue(withIdentifier: Storyboard.ReturnToProductSegueIdentifier, sender: self)
-
-    }
-    
-    @IBAction func saltOrSodiumSwitchTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            Preferences.manager.showSaltOrSodium = .salt
-        case 1:
-            Preferences.manager.showSaltOrSodium = .sodium
-        default:
-            break
-        }
-    }
-    
-    @IBAction func nutritionUnitSwitchTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            Preferences.manager.showNutritionDataPerServingOrPerStandard = .perStandard
-        case 1:
-            Preferences.manager.showNutritionDataPerServingOrPerStandard = .perServing
-        default:
-            break
-        }
-
-    }
-    
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 1:
-            return 3
-        default:
-            return 1
-        }
-    }
-    
-    @IBAction func unwindAllergenWarningForCancel(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? AllergenWarningsTableViewController {
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func allergenWarningSettingsDone(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? AllergenWarningsTableViewController {
-            tableView.reloadData()
-        }
-    }
-
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-    
-    // MARK: - ViewController Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        refresh()
-
-        
-        title = Constants.ViewControllerTitle
-    }
-
-}
-
+  }

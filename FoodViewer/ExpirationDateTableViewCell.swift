@@ -37,14 +37,18 @@ class ExpirationDateTableViewCell: UITableViewCell {
         } else {
             expirationDateTextField?.text = Constants.NoExpirationDate
         }
-        expirationDateTextField?.layer.borderWidth = 0.0
+        // expirationDateTextField?.layer.borderWidth = 0.0
         expirationDateTextField?.isEnabled = editMode
         expirationDateButton?.isHidden = !editMode
-        expirationDateTextField?.backgroundColor = editMode ? UIColor.lightGray : UIColor.white
+        expirationDateTextField?.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
         expirationDateTextField?.borderStyle = editMode ? .roundedRect : .none
     }
 
-    @IBOutlet weak var expirationDateButton: UIButton!
+    @IBOutlet weak var expirationDateButton: UIButton! {
+        didSet {
+            expirationDateButton.isHidden = !editMode
+            }
+    }
     
     @IBOutlet weak var expirationDateTextField: UITextField! {
         didSet {

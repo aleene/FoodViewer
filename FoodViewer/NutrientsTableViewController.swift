@@ -402,7 +402,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag {
         case 0:
-            // productname
+            // product serving size
             if let validText = textField.text {
                 delegate?.updated(portion: validText)
             }
@@ -528,6 +528,12 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
         
         refreshProductWithNewNutritionFacts()
         
+        if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
+        }
+
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(NutrientsTableViewController.refreshProduct),
@@ -541,9 +547,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if product != nil {
-            tableView.reloadData()
-        }
+        
     }
     
     override func viewDidDisappear(_ animated: Bool) {

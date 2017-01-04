@@ -87,11 +87,9 @@ class CategoriesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! CategoriesExtendedTableViewCell
         cell.tag = 0
-        // cell.editMode = editMode
+        cell.editMode = editMode
         cell.delegate = self
         cell.datasource = self
-        // cell.setNeedsDisplay()
-        // cell.layoutIfNeeded()
         return cell
     }
 
@@ -146,6 +144,12 @@ class CategoriesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
+        }
+
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
     }
@@ -153,9 +157,6 @@ class CategoriesTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableView.reloadData()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -178,24 +179,12 @@ extension CategoriesTableViewController: TagListViewDataSource {
         case 0:
             switch categoriesToDisplay {
             case .undefined:
-                tagListView.allowsRemoval = false
-                tagListView.allowsCreation = false
-                tagListView.clearButtonIsEnabled = false
-                tagListView.removeButtonIsEnabled = false
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
             case let .available(list):
-                tagListView.allowsRemoval = editMode
-                tagListView.allowsCreation = editMode
-                tagListView.clearButtonIsEnabled = editMode
-                tagListView.removeButtonIsEnabled = editMode
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }

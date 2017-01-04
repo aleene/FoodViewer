@@ -186,12 +186,12 @@ class NutritionScoreTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if product != nil {
-            refreshProduct()
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
         }
-        
+
         navigationController?.setNavigationBarHidden(false, animated: false)
-        
-        
     }
     
     override func didReceiveMemoryWarning() {

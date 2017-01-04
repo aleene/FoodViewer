@@ -17,7 +17,9 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
             listTagListView.cornerRadius = 10
             listTagListView.normalColorScheme = ColorSchemes.normal
             listTagListView.removableColorScheme = ColorSchemes.removable
-            
+            listTagListView.clearButtonIsEnabled = true
+            listTagListView.removeButtonIsEnabled = true
+
             listTagListView.datasource = datasource
             listTagListView.delegate = delegate
             listTagListView.tag = tag
@@ -40,8 +42,10 @@ class CategoriesExtendedTableViewCell: UITableViewCell {
 
     var editMode: Bool = false {
         didSet{
-            listTagListView?.allowsRemoval = editMode
-            listTagListView?.allowsCreation = editMode
+            if editMode != oldValue {
+                listTagListView?.allowsRemoval = editMode
+                listTagListView?.allowsCreation = editMode
+            }
         }
     }
 
