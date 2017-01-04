@@ -158,37 +158,31 @@ class SettingsTableViewController: UITableViewController {
     
     fileprivate var username: String? = nil {
         didSet {
-            // privateCredentialsHaveBeenSet()
+            privateCredentialsHaveBeenSet()
         }
     }
     fileprivate var password: String? = nil {
         didSet {
-            // privateCredentialsHaveBeenSet()
+            privateCredentialsHaveBeenSet()
         }
     }
     
     private var offAccount = OFFAccount()
 
-    /*
-     
-     
-    
-
-    @IBOutlet weak var offAcountToUse: UISegmentedControl! {
+    @IBOutlet weak var offAccountSegmentedControl: UISegmentedControl! {
         didSet {
-            offAcountToUse.setTitle(NSLocalizedString("foodviewer", comment: "Title of first segment in switch, which indicates the foodviewer account will be used for edits"), forSegmentAt: 0)
+            offAccountSegmentedControl.setTitle(NSLocalizedString("foodviewer", comment: "Title of first segment in switch, which indicates the foodviewer account will be used for edits"), forSegmentAt: 0)
             // is a personal userID available?
             if OFFAccount().personalExists() {
-                offAcountToUse.setTitle(OFFAccount().userId, forSegmentAt: 1)
-                offAcountToUse.selectedSegmentIndex = 1
+                offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)
+                offAccountSegmentedControl.selectedSegmentIndex = 1
             } else {
-                offAcountToUse.setTitle(NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account"), forSegmentAt: 1)
-                offAcountToUse.selectedSegmentIndex = 0
+                offAccountSegmentedControl.setTitle(NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account"), forSegmentAt: 1)
+                offAccountSegmentedControl.selectedSegmentIndex = 0
             }
         }
     }
-    
-    @IBAction func offAccountToUseSegmentedControlTapped(_ sender: UISegmentedControl) {
+    @IBAction func offAccountSegmentedControlTapped(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
             // The user wants to use foodviewer
@@ -196,7 +190,7 @@ class SettingsTableViewController: UITableViewController {
             Preferences.manager.userDidAuthenticate = false
             // delete the personal OFF Account credentials
             OFFAccount().removePersonal()
-            offAcountToUse.setTitle(NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account"), forSegmentAt: 1)
+            offAccountSegmentedControl.setTitle(NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account"), forSegmentAt: 1)
         case 1:
             // The user has to define his credentials
             setUserNamePassword()
@@ -204,11 +198,7 @@ class SettingsTableViewController: UITableViewController {
         default:
             break
         }
-
     }
-    
-    // MARK: - Credential functions
-    
     
     private func privateCredentialsHaveBeenSet() {
         // only write if both items have been set
@@ -236,13 +226,13 @@ class SettingsTableViewController: UITableViewController {
                                                                    comment: "String in button, to let the user indicate he wants to cancel username/password input."),
                                           style: .default) { action -> Void in
                                             // set the foodviewer selected index
-                                            self.offAcountToUse.selectedSegmentIndex = 0
+                                            self.offAccountSegmentedControl.selectedSegmentIndex = 0
         }
         
         let useMyOwn = UIAlertAction(title: NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input."), style: .default)
         { action -> Void in
             // change the title of the segmented controller to the account the user just entered
-            self.offAcountToUse.setTitle(OFFAccount().userId, forSegmentAt: 1)
+            self.offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)
             // alertController.view.resignFirstResponder()
             // all depends on other asynchronic processes
         }
@@ -261,7 +251,6 @@ class SettingsTableViewController: UITableViewController {
         alertController.addAction(useMyOwn)
         self.present(alertController, animated: true, completion: nil)
     }
-     */
 
     @IBAction func unwindAllergenWarningForCancel(_ segue:UIStoryboardSegue) {
         if let _ = segue.source as? AllergenWarningsTableViewController {
@@ -281,13 +270,13 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 2:
+        case 3:
             return NSLocalizedString("Reset", comment: "Title of a tableView section, which lets the user reset the history")
         case 0:
             return NSLocalizedString("Display Prefs", comment: "Title of a tableView section, which lets the user select display options")
         case 1:
             return NSLocalizedString("Warnings", comment: "Title of a tableView section, which lets the user set warnings")
-        case 3:
+        case 2:
             return NSLocalizedString("OpenFoodFacts Account", comment: "Title of a tableView section, which lets the user set the off account to use")
         default:
             break
@@ -304,16 +293,6 @@ class SettingsTableViewController: UITableViewController {
             break
         }
     }
-
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let _ = segue.source as? AllergenWarningsTableViewController {
-            // currentLanguageCode = vc.currentLanguageCode
-            // updateCurrentLanguage()
-            // pageIndex = vc.sourcePage
-        }
-    }
-   */
 
     // MARK: - ViewController Lifecycle
     

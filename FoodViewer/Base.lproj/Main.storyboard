@@ -660,10 +660,40 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="68J-Mf-bIs">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WXA-OX-61J">
+                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WXA-OX-61J" id="9w0-50-ygX">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M4v-mg-2eX">
+                                                    <rect key="frame" x="8" y="8" width="304" height="28"/>
+                                                    <segments>
+                                                        <segment title="First"/>
+                                                        <segment title="Second"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="offAccountSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="O79-5P-fxY"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="M4v-mg-2eX" secondAttribute="trailing" id="Qqg-rC-kGH"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="M4v-mg-2eX" secondAttribute="bottom" id="WeZ-N7-FCa"/>
+                                                <constraint firstItem="M4v-mg-2eX" firstAttribute="leading" secondItem="9w0-50-ygX" secondAttribute="leadingMargin" id="XGi-pA-oS4"/>
+                                                <constraint firstItem="M4v-mg-2eX" firstAttribute="top" secondItem="9w0-50-ygX" secondAttribute="topMargin" id="bjY-yJ-g87"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection id="GoD-a7-jqG">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hoE-SS-5xU">
-                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="264" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hoE-SS-5xU" id="h5H-aD-k1n">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -702,6 +732,7 @@
                         <outlet property="clearHistoryButton" destination="7bH-Lm-Fh3" id="VJD-53-1qK"/>
                         <outlet property="jouleOrCaloriesSegmentedControl" destination="iLS-3y-yF5" id="tw0-QT-u8C"/>
                         <outlet property="nutritionUnitSegmentedControl" destination="h25-t4-qRW" id="fbn-xd-cNY"/>
+                        <outlet property="offAccountSegmentedControl" destination="M4v-mg-2eX" id="yus-OJ-xaA"/>
                         <outlet property="saltOrSodiumSegmentedControl" destination="qLB-2k-Ecw" id="K8t-EF-jCw"/>
                     </connections>
                 </tableViewController>
