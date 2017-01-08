@@ -26,7 +26,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         /// Default maximum height = 150.0
         static let defaultMaxHeight: CGFloat = 150.0
         /// Default minimum input width = 80.0
-        static let defaultMinInputWidth: CGFloat = 80.0
+        static let defaultMinInputWidth: CGFloat = 200.0
         /// Default tag height
         static let defaultTagHeight: CGFloat = 30.0
         
@@ -211,7 +211,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         case center
         case right
     }
-    @IBInspectable open var alignment: Alignment = .left {
+    @IBInspectable open var alignment: Alignment = .center {
         didSet {
             rearrangeViews(true)
         }
@@ -754,7 +754,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         var currentRow = 0
         // var currentRowView: UIView!
         var currentRowTagCount = 0
-         var currentRowWidth: CGFloat = 0
+        // var startedNewRow = false
+        // var currentRowWidth: CGFloat = 0
         // print("frame", frame.size, "super", superview?.frame.size)
         
         // are there any tags?
@@ -763,7 +764,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // calculate the rowWidth available for tags
         let rowWidth = allowsRemoval && clearButtonIsEnabled ? frame.size.width - clearView.frame.width : frame.size.width
         
-        for tagView in tagViews {
+        for (index,tagView) in tagViews.enumerated() {
             tagView.cornerRadius = self.cornerRadius
             tagView.horizontalPadding = self.horizontalPadding
             tagView.verticalPadding = self.verticalPadding
@@ -785,9 +786,31 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             // print("y", currentY, tagViewHeight, frame.height)
             // Is this the first tag of the row?
             if currentRowTagCount > 0 && currentX + tagView.frame.width > rowWidth {
-                // Create new row with TagViews
+                
+                if !isEditable {
+                    // Align the tags for center and right position
+                    // of the previous row
+                    switch alignment {
+                    case .center:
+                        let horizontalOffset = (rowWidth - currentX) / 2
+                        // Loop over the tags in the row
+                        for alignIndex in 0..<currentRowTagCount {
+                            // print(index, alignIndex)
+                            tagViews[index - alignIndex - 1].frame.origin.x += horizontalOffset
+                        }
+                    case .right:
+                        let horizontalOffset = (rowWidth - currentX)
+                        for alignIndex in 0...currentRowTagCount - 1 {
+                            tagViews[index - alignIndex].frame.origin.x += horizontalOffset
+                        }
+                    default:
+                        break
+                    }
+                }
                 currentRowTagCount = 0
                 currentRow += 1
+                    
+                // Create new row with TagViews
                 currentY += tagView.frame.height + Constants.defaultVerticalPadding
                 currentX = 0
                 /*var tagWidth = tagView.frame.width
@@ -799,15 +822,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
                 x: currentX,
                 y: currentY,
                 width: tagView.frame.width,
-                height: tagView.frame.height
-            )
+                height: tagView.frame.height )
             
             // print("currentXY", currentX, currentY)
             //let tagBackgroundView = self.tagBackgroundView
             //tagBackgroundView.frame.origin = CGPoint(x: currentX, y: currentY)
             //tagBackgroundView.frame.size = tagView.bounds.size
             //addSubview(tagBackgroundView)
-            addSubview(tagView)
             // print("currentRowView", currentRowView.frame.origin)
             // print("TagView", tagView.title, tagView.frame.origin, tagView.frame.size)
             // print("backgroundTagView", tagBackgroundView.frame.origin)
@@ -818,22 +839,33 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             
             //scrollView.addSubview(tagView)
             
-            currentRowTagCount += 1
-            currentRowWidth += tagView.frame.width + horizontalMargin
+            // currentRowWidth += tagView.frame.width + horizontalMargin
             
-            /*switch alignment {
-             case .left:
-             currentRowView.frame.origin.x = 0
-             case .center:
-             currentRowView.frame.origin.x = (frame.width - (currentRowWidth - horizontalMargin)) / 2
-             case .right:
-             currentRowView.frame.origin.x = frame.width - (currentRowWidth - horizontalMargin)
-             }
-             currentRowView.frame.size.width = currentRowWidth
-             currentRowView.frame.size.height = max(tagViewHeight, currentRowView.frame.height)
-             */
             // tagView.backgroundColor = backgroundColor
+            
+            // very last tag? OR started a new row
+            if index == tagViews.count - 1 && !isEditable {
+                // align the tags for center and right position
+                switch alignment {
+                case .center:
+                    let horizontalOffset = (rowWidth - currentX) / 2
+                    // Loop over the tags in the row
+                    for alignIndex in 0...currentRowTagCount {
+                        tagViews[index - alignIndex].frame.origin.x += horizontalOffset
+                    }
+                case .right:
+                    let horizontalOffset = (rowWidth - currentX)
+                    for alignIndex in 0...currentRowTagCount {
+                        tagViews[index - alignIndex].frame.origin.x += horizontalOffset
+                    }
+                default:
+                    break
+                }
+            }
+            currentRowTagCount += 1
         }
+        
+        tagViews.forEach( { addSubview($0) } )
         
         rows = currentRow
     }
@@ -852,7 +884,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // Is there enough space for a reasonable inputTextView
         if currentX + Constants.defaultMinInputWidth >= frame.width - clearButtonWidth {
             // start with a new row
-            currentX += Constants.defaultHorizontalMargin
+            currentX = Constants.defaultHorizontalMargin
             currentY += tagViewHeight + Constants.defaultVerticalPadding
         }
         inputTextViewOrigin.x = currentX
@@ -1152,12 +1184,14 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
     }
     
+    /*
     // Maybe this should be deprecated as it exposes to TagView
     private func selectTagIn(_ tagView: TagView) {
         if let validIndex = tagViews.index(of: tagView) {
             filterSelectionAt(validIndex)
         }
     }
+    */
     
     private func filterSelectionAt(_ index: Int) {
         if !isEditable {
@@ -1167,19 +1201,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             delegate?.tagListView(self, didSelectTagAt: index)
         }
     }
-    
-    // MARK: Index functions
-    
-    /*
-     var indexForSelectedTag: Int? {
-     get {
-     for (index, tagView) in tagViews.enumerated() {
-     if tagView.isSelected { return index }
-     }
-     return nil
-     }
-     }
-     */
     
     private func indecesWithTag(_ title: String) -> [Int] {
         var indeces: [Int] = []
@@ -1385,23 +1406,20 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     // TBD Is there a mixup between highlighted and selected?
     // The user can delete tags with a backspace
     func textFieldDidEnterBackspace(_ textField: BackspaceTextField) {
-        var tagViewDeleted = false
-        // Is the tag under datasource control?
+        //var tagViewDeleted = false
+        
+        // Are there any tags?
         if let tagCount = datasource?.numberOfTagsIn(self), tagCount > 0 {
-            for (index, tagView) in tagViews.enumerated() {
-                if tagView.state == .removable {
-                    delegate?.tagListView(self, didDeleteTagAt: index)
-                    tagViewDeleted = true
-                    self.reloadData()
-                    break
-                }
-            }
+            // remove the last one
+            removeTag(at: tagCount - 1 )
         }
+        /*
         if !tagViewDeleted {
             if let last = tagViews.last {
                 last.state = .removable
             }
         }
+         */
         setCursorVisibility()
     }
     
@@ -1424,11 +1442,6 @@ extension TagListView: UITextFieldDelegate {
         }
         return true
     }
-    
-    /*
-    public func textFieldDidBeginEditing(_ textField: UITextField) {
-    }
-    */
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()

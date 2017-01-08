@@ -338,8 +338,54 @@ class FoodProduct {
     var producer: Address? = nil
     
     var links: [URL]? = nil
-    var expirationDate: Date? = nil
     
+    var expirationDateString: String? = nil
+
+    var expirationDate: Date? {
+        get {
+            return decodeDate(expirationDateString)
+        }
+    }
+    
+    fileprivate func decodeDate(_ date: String?) -> Date? {
+        if let validDate = date {
+            if !validDate.isEmpty {
+                let types: NSTextCheckingResult.CheckingType = [.date]
+                let dateDetector = try? NSDataDetector(types: types.rawValue)
+                
+                let dateMatches = dateDetector?.matches(in: validDate, options: [], range: NSMakeRange(0, (validDate as NSString).length))
+                
+                if let matches = dateMatches {
+                    if !matches.isEmpty {
+                        // did we find a date?
+                        if matches[0].resultType == NSTextCheckingResult.CheckingType.date {
+                            return matches[0].date
+                        }
+                    }
+                }
+                let dateFormatter = DateFormatter()
+                // This is for formats not recognized by NSDataDetector
+                // such as 07/2014
+                // but other formats are possible and still need to be found
+                if validDate.range( of: "../....", options: .regularExpression) != nil {
+                    dateFormatter.dateFormat = "MM/yyyy"
+                    return dateFormatter.date(from: validDate)
+                } else if validDate.range( of: ".-....", options: .regularExpression) != nil {
+                    dateFormatter.dateFormat = "MM/yyyy"
+                    return dateFormatter.date(from: "0"+validDate)
+                } else if validDate.range( of: "..-....", options: .regularExpression) != nil {
+                    dateFormatter.dateFormat = "MM-yyyy"
+                    return dateFormatter.date(from: validDate)
+                } else if validDate.range( of: "....", options: .regularExpression) != nil {
+                    dateFormatter.dateFormat = "yyyy"
+                    return dateFormatter.date(from: validDate)
+                }
+                print("Date '\(validDate)' could not be recognized")
+            }
+        }
+        return nil
+    }
+
     func producerElements(_ elements: String?) {
         if elements != nil {
             let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
@@ -569,7 +615,7 @@ class FoodProduct {
     init(product: FoodProduct) {
         self.barcode = product.barcode
         self.primaryLanguageCode = product.primaryLanguageCode
-        self.languageCodes = product.languageCodes
+        // self.languageCodes = product.languageCodes
 
     }
     
@@ -737,7 +783,7 @@ class FoodProduct {
             stores = product.stores
             countries = product.countries
             additionDate = product.additionDate
-            expirationDate = product.expirationDate
+            expirationDateString = product.expirationDateString
             creator = product.creator
             state = product.state
             primaryLanguageCode = product.primaryLanguageCode
@@ -783,7 +829,7 @@ class FoodProduct {
         return stores
     }
     
-    func set(newName: String, forLanguageCode languageCode: String) {
+    func set(newName: String, for languageCode: String) {
         // is this the main language?
         if languageCode == self.primaryLanguageCode {
             self.name = newName
@@ -792,7 +838,7 @@ class FoodProduct {
         self.nameLanguage[languageCode] = newName
     }
     
-    func set(newGenericName: String, forLanguageCode languageCode: String) {
+    func set(newGenericName: String, for languageCode: String) {
         // is this the main language?
         if languageCode == self.primaryLanguageCode {
             self.genericName = newGenericName
@@ -801,7 +847,7 @@ class FoodProduct {
         self.genericNameLanguage[languageCode] = newGenericName
     }
 
-    func set(newIngredients: String, forLanguageCode languageCode: String) {
+    func set(newIngredients: String, for languageCode: String) {
         add(languageCode: languageCode)
         self.ingredientsLanguage[languageCode] = newIngredients
     }
@@ -813,6 +859,153 @@ class FoodProduct {
         }
     }
     
+    func contains(name: String, for languageCode: String) -> Bool {
+        if nameLanguage[languageCode] != nil, nameLanguage[languageCode]! == name {
+            return true
+        }
+        return false
+    }
+    
+    func contains(genericName: String, for languageCode: String) -> Bool {
+        if genericNameLanguage[languageCode] != nil, genericNameLanguage[languageCode]! == name {
+            return true
+        }
+        return false
+    }
+    
+    func contains(ingredients: String) -> Bool {
+        return ingredients == self.ingredients ? true : false
+    }
+    
+    func contains(servingSize: String) -> Bool {
+        return servingSize == self.servingSize ? true : false
+    }
+    
+    func contains(expirationDate: Date) -> Bool {
+        return expirationDate == self.expirationDate ? true : false
+    }
+
+    func contains(expirationDateString: String) -> Bool {
+        return expirationDateString == self.expirationDateString ? true : false
+    }
+
+    func contains(primaryLanguageCode: String) -> Bool {
+        return primaryLanguageCode == self.primaryLanguageCode ? true : false
+    }
+
+    func contains(languageCode: String) -> Bool {
+        return languageCodes.contains(languageCode) ? true : false
+    }
+
+    func contains(shop: String) -> Bool {
+        guard stores != nil else { return false }
+        return stores!.contains(shop) ? true : false
+    }
+    
+    func contains(brands: [String]) -> Bool {
+        switch self.brands {
+        case .available(let currentBrands):
+            return Set.init(currentBrands) == Set.init(brands) ? true : false
+        default:
+            break
+        }
+        return false
+    }
+    
+    func contains(packaging: [String]) -> Bool {
+        switch self.packagingArray {
+        case .available(let currentpackagingArray):
+            return Set.init(currentpackagingArray) == Set.init(packaging) ? true : false
+        default:
+            break
+        }
+        return false
+    }
+
+    func contains(traces: [String]) -> Bool {
+        switch self.traces {
+        case .available(let currentTraces):
+            return Set.init(currentTraces) == Set.init(traces) ? true : false
+        default:
+            break
+        }
+        return false
+    }
+
+    func contains(labels: [String]) -> Bool {
+        switch self.labelArray {
+        case .available(let currentLabels):
+            return Set.init(currentLabels) == Set.init(labels) ? true : false
+        default:
+            break
+        }
+        return false
+    }
+
+    func contains(categories: [String]) -> Bool {
+        switch self.categories {
+        case .available(let currentCategories):
+            return Set.init(currentCategories) == Set.init(categories) ? true : false
+        default:
+            break
+        }
+        return false
+    }
+    
+    func contains(producer: [String]) -> Bool {
+        if let validProducerArray = self.producer?.elements {
+            return Set.init(validProducerArray) == Set.init(producer) ? true : false
+        }
+        return false
+    }
+
+    func contains(producerCode: [String]) -> Bool {
+        // assume that the producerCode only contains a title
+        if let validProducerCodeArray = self.producerCode?.map( { $0.title } ) {
+            return Set.init(validProducerCodeArray) == Set.init(producerCode) ? true : false
+        }
+        return false
+    }
+
+    func contains(ingredientsOrigin: [String]) -> Bool {
+        if let validIngredientsOriginArray = self.ingredientsOrigin?.elements {
+            return Set.init(validIngredientsOriginArray) == Set.init(ingredientsOrigin) ? true : false
+        }
+        return false
+    }
+    
+    func contains(stores: [String]) -> Bool {
+        if let validStoresArray = self.stores {
+            return Set.init(validStoresArray) == Set.init(stores) ? true : false
+        }
+        return false
+    }
+
+    func contains(purchaseLocation: [String]) -> Bool {
+        if let validPurchaseLocationArray = self.purchaseLocation?.elements {
+            return Set.init(validPurchaseLocationArray) == Set.init(purchaseLocation) ? true : false
+        }
+        return false
+    }
+    
+    func contains(countries: [String]) -> Bool {
+        if let validCountriesArray = self.countries?.map( { $0.title } ) {
+            return Set.init(validCountriesArray) == Set.init(countries) ? true : false
+        }
+        return false
+    }
+
+    func contains(links: [String]) -> Bool {
+        if let validLinksArray = self.links?.map( { $0.absoluteString } ) {
+            return Set.init(validLinksArray) == Set.init(links) ? true : false
+        }
+        return false
+    }
+
+    func contains(quantity: String) -> Bool {
+        return quantity == self.quantity ? true : false
+    }
+
 // End product
 }
 

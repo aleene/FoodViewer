@@ -181,77 +181,79 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let currentProductSection = tableStructure[(indexPath as NSIndexPath).row]
-        if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-            switch fetchResult {
-            case .success(let currentProduct):
-                switch currentProductSection {
-                case .name:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NameCellIdentifier, for: indexPath) as! NameTableViewCell
-                    switch currentProduct.brands {
-                    case .undefined, .empty:
-                        cell.productBrand = [currentProduct.brands.description()]
-                    case let .available(list):
-                        cell.productBrand = list
-                    }
+        if !products.fetchResultList.isEmpty {
+            if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
+                switch fetchResult {
+                case .success(let currentProduct):
+                    switch currentProductSection {
+                    case .name:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NameCellIdentifier, for: indexPath) as! NameTableViewCell
+                        switch currentProduct.brands {
+                        case .undefined, .empty:
+                            cell.productBrand = [currentProduct.brands.description()]
+                        case let .available(list):
+                            cell.productBrand = list
+                        }
                     
-                    // TBD I do not think the logic is right here
-                    if let data = currentProduct.mainImageSmallData {
-                        // try small image
-                        cell.productImage = UIImage(data:data)
-                        return cell
-                    } else if currentProduct.mainImageUrl != nil {
-                        // show small image icon
-                        cell.productImage = nil
-                        return cell
-                    }
-                    if let result = currentProduct.mainImageData {
-                        switch result {
-                        case .success(let data):
+                        // TBD I do not think the logic is right here
+                        if let data = currentProduct.mainImageSmallData {
+                            // try small image
                             cell.productImage = UIImage(data:data)
-                        default:
+                            return cell
+                        } else if currentProduct.mainImageUrl != nil {
+                            // show small image icon
+                            cell.productImage = nil
+                            return cell
+                        }
+                        if let result = currentProduct.mainImageData {
+                            switch result {
+                            case .success(let data):
+                                cell.productImage = UIImage(data:data)
+                            default:
+                                cell.productImage = nil
+                            }
+                        } else {
                             cell.productImage = nil
                         }
-                    } else {
-                        cell.productImage = nil
-                    }
-                    return cell
-                case .ingredients:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as! IngredientsTableViewCell
-                    cell.product = currentProduct
-                    return cell
-                case .nutritionFacts:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsCellIdentifier, for: indexPath)
-                    let formatter = NumberFormatter()
-                    formatter.numberStyle = .decimal
-                    let formattedCount = currentProduct.nutritionFacts != nil ? formatter.string(from: NSNumber.init(integerLiteral: currentProduct.nutritionFacts!.count)) :
+                        return cell
+                    case .ingredients:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as! IngredientsTableViewCell
+                        cell.product = currentProduct
+                        return cell
+                    case .nutritionFacts:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsCellIdentifier, for: indexPath)
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .decimal
+                        let formattedCount = currentProduct.nutritionFacts != nil ? formatter.string(from: NSNumber.init(integerLiteral: currentProduct.nutritionFacts!.count)) :
                         formatter.string(from: NSNumber.init(integerLiteral: 0))
                     
-                    cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
-                    return cell
-                case .nutritionScore:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionScoreCellIdentifier, for: indexPath) as? NutritionScoreTableViewCell
-                    cell?.product = currentProduct
-                    return cell!
-                case .categories:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CategoriesCellIdentifier, for: indexPath) as! CategoriesTableViewCell
-                    cell.categories = currentProduct.categories
-                    return cell
-                case .completion:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionCellIdentifier, for: indexPath) as? CompletionTableViewCell
-                    cell?.product = currentProduct
-                    return cell!
-                case .supplyChain:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCellIdentifier, for: indexPath) as? ProducerTableViewCell
-                    cell?.product = currentProduct
-                    return cell!
+                        cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
+                        return cell
+                    case .nutritionScore:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionScoreCellIdentifier, for: indexPath) as? NutritionScoreTableViewCell
+                        cell?.product = currentProduct
+                        return cell!
+                    case .categories:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CategoriesCellIdentifier, for: indexPath) as! CategoriesTableViewCell
+                        cell.categories = currentProduct.categories
+                        return cell
+                    case .completion:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionCellIdentifier, for: indexPath) as? CompletionTableViewCell
+                        cell?.product = currentProduct
+                        return cell!
+                    case .supplyChain:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCellIdentifier, for: indexPath) as? ProducerTableViewCell
+                        cell?.product = currentProduct
+                        return cell!
+                    }
+                default:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BeingLoadedCellIdentifier, for: indexPath) as? BeingLoadedTableViewCell
+                    cell?.status = fetchResult
                 }
-            default:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BeingLoadedCellIdentifier, for: indexPath) as? BeingLoadedTableViewCell
-                cell?.status = fetchResult
             }
-            
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BeingLoadedCellIdentifier, for: indexPath) as? BeingLoadedTableViewCell
+            
         cell?.status = nil
         return cell!
     }
@@ -260,11 +262,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedIndex = (indexPath as NSIndexPath).row
-        if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-            switch validProductFetchResult {
-            case .success(let product):
-                selectedProduct = product
-            default: break
+        if !products.fetchResultList.isEmpty {
+            if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
+                switch validProductFetchResult {
+                case .success(let product):
+                    selectedProduct = product
+                default: break
+                }
             }
         }
     }
@@ -380,7 +384,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             tableView.reloadData()
             if vc.historyHasBeenRemoved {
                 products.removeAll()
-                selectedProduct = nil
                 performSegue(withIdentifier: Storyboard.ToPageViewControllerSegue, sender: self)
             }
             
@@ -436,7 +439,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         super.viewWillAppear(animated)
 
         title = Constants.ViewControllerTitle
-        refreshInterface()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)

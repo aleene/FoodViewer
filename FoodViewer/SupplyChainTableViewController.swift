@@ -351,6 +351,8 @@ class SupplyChainTableViewController: UITableViewController {
                 cell.date = validDate
             }
             cell.editMode = editMode
+            cell.delegate = self
+            cell.tag = 6
             return cell
         }
     }
@@ -454,12 +456,6 @@ class SupplyChainTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
-
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
@@ -468,8 +464,12 @@ class SupplyChainTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
-
+        if product != nil {
+            tableView.reloadData()
+            tableView.layoutIfNeeded()
+            tableView.reloadData()
         }
+    }
 
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -696,31 +696,38 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
     }
-    /*
-    // TagListView function stubs
+}
+
+// MARK: - UITextFieldDelegate Functions
+
+extension SupplyChainTableViewController: UITextFieldDelegate {
     
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
     }
     
-    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 6:
+            // expiration date
+            if let validText = textField.text {
+                delegate?.updated(expirationDateString: validText)
+            }
+        default:
+            break
+        }
     }
     
-    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return editMode
     }
 
-    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
-                            toProposed proposedDestinationIndex: Int) -> Int {
-        return proposedDestinationIndex
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
-    }
-    */
-    
 }

@@ -17,6 +17,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameTextField: UITextField! {
         didSet {
+            
             setTextFieldStyle()
         }
     }
@@ -24,13 +25,18 @@ class ProductNameTableViewCell: UITableViewCell {
     private func setTextFieldStyle() {
         nameTextField.clearButtonMode = .whileEditing
         nameTextField.layer.borderWidth = 0.5
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        nameTextField.addGestureRecognizer(tapGestureRecognizer)
+
         if editMode {
-            changeLanguageButton.isEnabled = true
+            changeLanguageButton.isEnabled = false
             nameTextField.backgroundColor = UIColor.groupTableViewBackground
             nameTextField.layer.cornerRadius = 5
             nameTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             nameTextField.clipsToBounds = true
-            nameTextField.removeGestureRecognizer(tapGestureRecognizer)
+            // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             nameTextField.borderStyle = .roundedRect
             nameTextField.backgroundColor = UIColor.white
@@ -40,11 +46,9 @@ class ProductNameTableViewCell: UITableViewCell {
             } else {
                 changeLanguageButton.isEnabled = false
             }
-            nameTextField.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     
-    private let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
 
     fileprivate struct Constants {
         static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")

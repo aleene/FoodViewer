@@ -374,153 +374,247 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // Thus one can always revert to the original product
     // And we know exactly what has changed
     // The user can undo an edit in progress by stepping back, i.e. selecting another product
-    var updatedProduct: FoodProduct? = nil
+    // First it is checked whether a change to the field has been made
+    
+    var updatedProduct: FoodProduct? = nil // Stays nil when no changes are made
 
     func updated(name: String, languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.set(newName: name, forLanguageCode: languageCode)
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(name: name, for: languageCode) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.set(newName: name, for: languageCode)
+            saveUpdatedProduct()
+        }
     }
     
     func updated(genericName: String, languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.set(newGenericName: genericName, forLanguageCode: languageCode)
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(genericName: genericName, for: languageCode) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.set(newGenericName: genericName, for: languageCode)
+            saveUpdatedProduct()
+        }
     }
     
     func updated(ingredients: String, languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.set(newIngredients: ingredients, forLanguageCode: languageCode)
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(ingredients: ingredients) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.set(newIngredients: ingredients, for: languageCode)
+            saveUpdatedProduct()
+        }
     }
     
     func updated(portion: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.servingSize = portion
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(servingSize: portion) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.servingSize = portion
+            saveUpdatedProduct()
+        }
     }
 
     func updated(expirationDate: Date) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.expirationDate = expirationDate
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(expirationDate: expirationDate) {
+            initUpdatedProductWith(product: product!)
+            let formatter = DateFormatter()
+            formatter.dateStyle = .medium
+            formatter.timeStyle = .none
+            updatedProduct?.expirationDateString = formatter.string(from: expirationDate)
+            saveUpdatedProduct()
+        }
     }
     
+    func updated(expirationDateString: String) {
+        guard product != nil else { return }
+        if !product!.contains(expirationDateString: expirationDateString) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.expirationDateString = expirationDateString
+            saveUpdatedProduct()
+        }
+    }
+
     func updated(primaryLanguageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.primaryLanguageCode = primaryLanguageCode
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(primaryLanguageCode: primaryLanguageCode) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.primaryLanguageCode = primaryLanguageCode
+            saveUpdatedProduct()
+        }
     }
 
     func update(addLanguageCode languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.add(languageCode: languageCode)
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(languageCode: languageCode) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.add(languageCode: languageCode)
+            saveUpdatedProduct()
+        }
     }
 
     func update(shop: (String, Address)?) {
-        initUpdatedProductWith(product: product!)
         if let validShop = shop {
-            _ = updatedProduct?.add(shop: validShop.0)
-            updatedProduct?.purchaseLocation = Address.init(with: shop)
+            guard product != nil else { return }
+            if !product!.contains(shop: validShop.0) {
+                initUpdatedProductWith(product: product!)
+                _ = updatedProduct?.add(shop: validShop.0)
+                updatedProduct?.purchaseLocation = Address.init(with: shop)
+            }
+            saveUpdatedProduct()
         }
-        saveUpdatedProduct()
     }
     
     func update(brandTags: [String]?) {
-        initUpdatedProductWith(product: product!)
-        if let validtags = brandTags {
-            updatedProduct?.brands = Tags.init(validtags)
+        if let validTags = brandTags {
+            guard product != nil else { return }
+            if !product!.contains(brands: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.brands = Tags.init(validTags)
+                saveUpdatedProduct()
+            }
         }
-        saveUpdatedProduct()
     }
 
     func update(packagingTags: [String]?) {
-        initUpdatedProductWith(product: product!)
         if let validTags = packagingTags {
-            updatedProduct?.packagingArray = Tags.init(validTags)
+            guard product != nil else { return }
+            if !product!.contains(packaging: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.packagingArray = Tags.init(validTags)
+                saveUpdatedProduct()
+            }
         }
-        saveUpdatedProduct()
     }
     
     func update(tracesTags: [String]?) {
-        initUpdatedProductWith(product: product!)
         if let validTags = tracesTags {
-            updatedProduct?.traces = Tags.init(validTags)
+            guard product != nil else { return }
+            if !product!.contains(traces: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.traces = Tags.init(validTags)
+                saveUpdatedProduct()
+            }
         }
-        saveUpdatedProduct()
     }
 
     func update(labelTags: [String]?) {
-        initUpdatedProductWith(product: product!)
         if let validTags = labelTags {
-            updatedProduct?.labelArray = Tags.init(validTags)
+            guard product != nil else { return }
+            if !product!.contains(labels: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.labelArray = Tags.init(validTags)
+                saveUpdatedProduct()
+            }
         }
-        saveUpdatedProduct()
     }
     
     func update(categories: [String]?) {
-        initUpdatedProductWith(product: product!)
         if let validTags = categories {
-            if validTags.isEmpty {
-                updatedProduct?.categories = .empty
-            } else {
-                updatedProduct?.categories = .available(validTags)
+            guard product != nil else { return }
+            if !product!.contains(categories: validTags) {
+                initUpdatedProductWith(product: product!)
+                if validTags.isEmpty {
+                    updatedProduct?.categories = .empty
+                } else {
+                    updatedProduct?.categories = .available(validTags)
+                }
+                saveUpdatedProduct()
             }
         }
-        saveUpdatedProduct()
     }
 
     func update(producer: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.producer = Address()
-        updatedProduct?.producerElementsArray(producer)
-        saveUpdatedProduct()
+        if let validTags = producer {
+            guard product != nil else { return }
+            if !product!.contains(producer: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.producer = Address()
+                updatedProduct?.producerElementsArray(validTags)
+                saveUpdatedProduct()
+            }
+        }
     }
 
     func update(producerCode: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.producerCodeArray = producerCode
-        saveUpdatedProduct()
+        if let validTags = producerCode {
+            guard product != nil else { return }
+            if !product!.contains(producerCode: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.producerCodeArray = validTags
+                saveUpdatedProduct()
+            }
+        }
     }
     
     func update(ingredientsOrigin: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.ingredientsOriginElements(ingredientsOrigin)
-        saveUpdatedProduct()
+        if let validTags = ingredientsOrigin {
+            guard product != nil else { return }
+            if !product!.contains(ingredientsOrigin: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.ingredientsOriginElements(validTags)
+                saveUpdatedProduct()
+            }
+        }
     }
 
     func update(stores: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.stores = stores
-        saveUpdatedProduct()
+        if let validTags = stores {
+            guard product != nil else { return }
+            if !product!.contains(stores: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.stores = validTags
+                saveUpdatedProduct()
+            }
+        }
     }
     
     func update(purchaseLocation: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.purchaseLocationElements(purchaseLocation)
-        saveUpdatedProduct()
+        if let validTags = purchaseLocation {
+            guard product != nil else { return }
+            if !product!.contains(purchaseLocation: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.purchaseLocationElements(validTags)
+                saveUpdatedProduct()
+            }
+        }
     }
 
     func update(countries: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.countryArray(countries)
-        saveUpdatedProduct()
+        if let validTags = countries {
+            guard product != nil else { return }
+            if !product!.contains(purchaseLocation: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.countryArray(validTags)
+                saveUpdatedProduct()
+            }
+        }
     }
     
     func update(quantity: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.quantity = quantity
-        saveUpdatedProduct()
+        guard product != nil else { return }
+        if !product!.contains(quantity: quantity) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.quantity = quantity
+            saveUpdatedProduct()
+        }
     }
 
     func update(links: [String]?) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.links = links!.map( { URL.init(string:$0)! } )
-        saveUpdatedProduct()
+        if let validTags = links {
+            guard product != nil else { return }
+            if !product!.contains(links: validTags) {
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.links = validTags.map( { URL.init(string:$0)! } )
+                saveUpdatedProduct()
+                
+            }
+        }
     }
 
     func updated(facts: [NutritionFactItem?]) {
+        // TODO: need to check if a fact has been updated
+        
         initUpdatedProductWith(product: product!)
         // make sure we have an nillified nutritionFacts array
         if updatedProduct!.nutritionFacts == nil {

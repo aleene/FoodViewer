@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IdentificationTableViewController: UITableViewController, UITextFieldDelegate {
+class IdentificationTableViewController: UITableViewController {
 
     
     fileprivate struct TextConstants {
@@ -181,7 +181,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.nameTextField.delegate = self
             cell!.nameTextField.tag = 0
-            cell!.editMode = editMode
+            cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
                 // has the product name been edited?
@@ -200,7 +200,7 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.nameTextField.delegate = self
             cell!.nameTextField.tag = 1
-            cell!.editMode = editMode
+            cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
                 if let validName = delegate?.updatedProduct?.genericNameLanguage[validCurrentLanguageCode] {
@@ -290,11 +290,6 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
             tableView.deselectRow(at: indexPaths.last!, animated: true)
         }
     }
-    /*
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
-    }
-    */
     
     fileprivate func nextLanguageCode() -> String {
         let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
@@ -359,46 +354,6 @@ class IdentificationTableViewController: UITableViewController, UITextFieldDeleg
         
         // print("\(sectionsAndRows)")
         return sectionsAndRows
-    }
-
-    // MARK: - TextField stuff
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 0:
-            // productname
-            if let validText = textField.text {
-                delegate?.updated(name: validText, languageCode: currentLanguageCode!)
-            }
-        case 1:
-            // generic name updated?
-            if let validText = textField.text {
-                delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
-            }
-        case 2:
-            // quantity updated?
-            if let validText = textField.text {
-                delegate?.update(quantity: validText)
-            }
-        default:
-            break
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return editMode
     }
 
     // MARK: - Segue stuff
@@ -676,6 +631,50 @@ extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.setNeedsLayout()
+    }
+    
+}
+
+// MARK: - UITextField Delegate Functions
+
+extension IdentificationTableViewController: UITextFieldDelegate {
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            // productname
+            if let validText = textField.text {
+                delegate?.updated(name: validText, languageCode: currentLanguageCode!)
+            }
+        case 1:
+            // generic name updated?
+            if let validText = textField.text {
+                delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
+            }
+        case 2:
+            // quantity updated?
+            if let validText = textField.text {
+                delegate?.update(quantity: validText)
+            }
+        default:
+            break
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return currentLanguageCode == product!.primaryLanguageCode ? editMode : false
     }
     
 }

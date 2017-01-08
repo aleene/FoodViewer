@@ -27,6 +27,18 @@ class ExpirationDateTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    var delegate: UITextFieldDelegate? = nil {
+        didSet {
+            expirationDateTextField?.delegate = delegate
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            expirationDateTextField?.tag = tag
+        }
+    }
 
     private func setTextFieldStyle() {
         if let validDate = date {
@@ -38,6 +50,8 @@ class ExpirationDateTableViewCell: UITableViewCell {
             expirationDateTextField?.text = Constants.NoExpirationDate
         }
         // expirationDateTextField?.layer.borderWidth = 0.0
+        expirationDateTextField?.delegate = delegate
+        expirationDateTextField?.tag = tag
         expirationDateTextField?.isEnabled = editMode
         expirationDateButton?.isHidden = !editMode
         expirationDateTextField?.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white

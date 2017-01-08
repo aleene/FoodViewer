@@ -59,28 +59,32 @@ class OFFProducts {
                 historyLoadCount = 0
             }
         } else {
-            // no history available, load sample product
-            historyLoadCount = nil
-            var fetchResult = ProductFetchStatus.loading
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.fetchResultList.append(fetchResult)
-                    switch fetchResult {
-                    case .success:
-                        self.loadSampleImages()
-                        NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                    case .loadingFailed(let error):
-                        let userInfo = ["error":error]
-                        self.handleLoadingFailed(userInfo)
-                    case .productNotAvailable(let error):
-                        let userInfo = ["error":error]
-                        self.handleProductNotAvailable(userInfo)
-                    default: break
-                    }
-                })
-            })
+            loadSampleProduct()
         }
+    }
+    
+    private func loadSampleProduct() {
+        // no history available, load sample product
+        historyLoadCount = nil
+        var fetchResult = ProductFetchStatus.loading
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+            fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.fetchResultList.append(fetchResult)
+                switch fetchResult {
+                case .success:
+                    self.loadSampleImages()
+                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                case .loadingFailed(let error):
+                    let userInfo = ["error":error]
+                    self.handleLoadingFailed(userInfo)
+                case .productNotAvailable(let error):
+                    let userInfo = ["error":error]
+                    self.handleProductNotAvailable(userInfo)
+                default: break
+                }
+            })
+        })
     }
     
     func loadSampleImages() {
@@ -134,6 +138,7 @@ class OFFProducts {
     func removeAll() {
             storedHistory = History()
             fetchResultList = []
+            loadSampleProduct()
     }
     
     var storedHistory = History()

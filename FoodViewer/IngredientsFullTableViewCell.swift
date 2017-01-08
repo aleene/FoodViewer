@@ -21,6 +21,11 @@ class IngredientsFullTableViewCell: UITableViewCell {
         // the textView might not be initialised
         guard textView != nil else { return }
 
+        // Double tapping allows to change the language of the ingredients
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
+        tapGestureRecognizer.numberOfTapsRequired = 2
+        textView?.addGestureRecognizer(tapGestureRecognizer)
+        
         textView?.layer.borderWidth = 0.5
         textView?.delegate = textViewDelegate
         textView?.tag = textViewTag
@@ -32,7 +37,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.clipsToBounds = true
         } else {
             textView?.backgroundColor = UIColor.white
-            textView.layer.borderColor = UIColor.white.cgColor
+            textView?.layer.borderColor = UIColor.white.cgColor
         }
         
         if editMode {
@@ -41,15 +46,17 @@ class IngredientsFullTableViewCell: UITableViewCell {
             } else {
                 textView?.text = Constants.NoIngredientsText
             }
+            // textView?.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             if attributedIngredients.length > 0 {
                 textView?.attributedText = attributedIngredients
             } else {
                 textView?.text = Constants.NoIngredientsText
             }
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(IngredientsFullTableViewCell.ingredientsTapped))
-            textView?.addGestureRecognizer(tapGestureRecognizer)
         }
+        textView?.sizeToFit()
+        // print(textView.frame.size)
+        // self.frame.size.height = textView.frame.size.height
     }
     
     var editMode: Bool = false {
@@ -124,12 +131,12 @@ class IngredientsFullTableViewCell: UITableViewCell {
     var numberOfLanguages: Int = 0 {
         didSet {
             if editMode {
-                changeLanguageButton.isEnabled = true
+                changeLanguageButton.isEnabled = false
             } else {
                 if numberOfLanguages > 1 {
-                    changeLanguageButton.isEnabled = true
+                    changeLanguageButton?.isEnabled = true
                 } else {
-                    changeLanguageButton.isEnabled = false
+                    changeLanguageButton?.isEnabled = false
                 }
             }
         }

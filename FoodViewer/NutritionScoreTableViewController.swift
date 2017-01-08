@@ -18,9 +18,7 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     var product: FoodProduct? {
         didSet {
-            if product != nil {
-                refreshProduct()
-            }
+            refreshProduct()
         }
     }
     
@@ -156,13 +154,15 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     
     func refreshProduct() {
-        tableView.reloadData()
+        if product != nil {
+            tableView.reloadData()
+        }
     }
 
     func doubleTapOnTableView(_ recognizer: UITapGestureRecognizer) {
         /////
         showNutritionalScore = showNutritionalScore == .uk ? .france : .uk
-        tableView.reloadData()
+        refreshProduct()
     }
 
     // MARK: - ViewController Lifecycle
@@ -186,9 +186,9 @@ class NutritionScoreTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         if product != nil {
-            tableView.reloadData()
+            refreshProduct()
             tableView.layoutIfNeeded()
-            tableView.reloadData()
+            refreshProduct()
         }
 
         navigationController?.setNavigationBarHidden(false, animated: false)

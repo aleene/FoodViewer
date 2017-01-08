@@ -120,6 +120,7 @@ class OpenFoodFactsRequest {
                 
                 product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
 
+                print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
                 product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
                 
                 if let languages = jsonObject[jsonKeys.ProductKey][jsonKeys.LanguagesHierarchy].stringArray {
@@ -194,7 +195,7 @@ class OpenFoodFactsRequest {
                 product.categories = Tags(decodeCategories(jsonObject[jsonKeys.ProductKey][jsonKeys.CategoriesTagsKey].stringArray))
                 product.quantity = jsonObject[jsonKeys.ProductKey][jsonKeys.QuantityKey].string
                 product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionDataPerKey].string)
-                product.expirationDate = decodeDate(jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string)
+                product.expirationDateString = jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string
                 product.allergenKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.AllergensTagsKey].stringArray
                 if let ingredientsJSON = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsKey].array {
                     var ingredients: [ingredientsElement] = []
@@ -663,45 +664,6 @@ class OpenFoodFactsRequest {
             
             forProduct.lastEditDates = uniqueDates.sorted { $0.compare($1) == .orderedAscending }
         }
-    }
-
-    fileprivate func decodeDate(_ date: String?) -> Date? {
-        if let validDate = date {
-            if !validDate.isEmpty {
-                let types: NSTextCheckingResult.CheckingType = [.date]
-                let dateDetector = try? NSDataDetector(types: types.rawValue)
-            
-                let dateMatches = dateDetector?.matches(in: validDate, options: [], range: NSMakeRange(0, (validDate as NSString).length))
-            
-                if let matches = dateMatches {
-                    if !matches.isEmpty {
-                        // did we find a date?
-                        if matches[0].resultType == NSTextCheckingResult.CheckingType.date {
-                            return matches[0].date
-                        }
-                    }
-                }
-                let dateFormatter = DateFormatter()
-                // This is for formats not recognized by NSDataDetector
-                // such as 07/2014
-                // but other formats are possible and still need to be found
-                if validDate.range( of: "../....", options: .regularExpression) != nil {
-                    dateFormatter.dateFormat = "MM/yyyy"
-                    return dateFormatter.date(from: validDate)
-                } else if validDate.range( of: ".-....", options: .regularExpression) != nil {
-                    dateFormatter.dateFormat = "MM/yyyy"
-                    return dateFormatter.date(from: "0"+validDate)
-                } else if validDate.range( of: "..-....", options: .regularExpression) != nil {
-                    dateFormatter.dateFormat = "MM-yyyy"
-                    return dateFormatter.date(from: validDate)
-                } else if validDate.range( of: "....", options: .regularExpression) != nil {
-                    dateFormatter.dateFormat = "yyyy"
-                    return dateFormatter.date(from: validDate)
-                }
-                print("Date '\(validDate)' could not be recognized")
-            }
-        }
-        return nil
     }
     
     // This function decodes a string with comma separated producer codes into an array of valid addresses
