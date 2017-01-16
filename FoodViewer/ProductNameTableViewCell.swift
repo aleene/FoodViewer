@@ -11,42 +11,45 @@ import UIKit
 class ProductNameTableViewCell: UITableViewCell {
 
 
-    @IBOutlet weak var changeLanguageButton: UIButton!
-    
-    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) { }
-    
-    @IBOutlet weak var nameTextField: UITextField! {
+    @IBOutlet weak var changeLanguageButton: UIButton! {
         didSet {
-            
-            setTextFieldStyle()
+            setLanguageButton()
         }
     }
     
-    private func setTextFieldStyle() {
-        nameTextField.clearButtonMode = .whileEditing
-        nameTextField.layer.borderWidth = 0.5
-        
+    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) { }
+    
+    @IBOutlet weak var nameTextView: UITextView! {
+        didSet {
+            setTextViewStyle()
+        }
+    }
+    
+    private func setLanguageButton() {
+        changeLanguageButton?.isEnabled = editMode ? false : ( numberOfLanguages > 1 ? true : false )
+    }
+    
+    private func setTextViewStyle() {
+        nameTextView.layer.borderWidth = 0.5
+        nameTextView?.delegate = delegate
+        nameTextView?.tag = tag
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
         tapGestureRecognizer.numberOfTapsRequired = 2
-        nameTextField.addGestureRecognizer(tapGestureRecognizer)
+        nameTextView.addGestureRecognizer(tapGestureRecognizer)
 
         if editMode {
-            changeLanguageButton.isEnabled = false
-            nameTextField.backgroundColor = UIColor.groupTableViewBackground
-            nameTextField.layer.cornerRadius = 5
-            nameTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-            nameTextField.clipsToBounds = true
+            nameTextView.backgroundColor = UIColor.groupTableViewBackground
+            nameTextView.layer.cornerRadius = 5
+            nameTextView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            nameTextView.clipsToBounds = true
             // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
-            nameTextField.borderStyle = .roundedRect
-            nameTextField.backgroundColor = UIColor.white
-            nameTextField.layer.borderColor = UIColor.white.cgColor
-            if numberOfLanguages > 1 {
-                changeLanguageButton.isEnabled = true
-            } else {
-                changeLanguageButton.isEnabled = false
-            }
+            nameTextView.backgroundColor = UIColor.white
+            nameTextView.layer.borderColor = UIColor.white.cgColor
         }
+        
+        nameTextView?.sizeToFit()
+
     }
     
 
@@ -57,13 +60,14 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var name: String? = nil {
         didSet {
-            nameTextField.text = (name != nil) && (name!.characters.count > 0) ? name! : Constants.NoName
+            nameTextView.text = (name != nil) && (name!.characters.count > 0) ? name! : Constants.NoName
         }
     }
     
     var editMode: Bool = false {
         didSet {
-            setTextFieldStyle()
+            setLanguageButton()
+            setTextViewStyle()
         }
     }
     
@@ -76,10 +80,22 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var numberOfLanguages: Int = 0 {
         didSet {
-            setTextFieldStyle()
+            setTextViewStyle()
         }
     }
     
+    var delegate: IdentificationTableViewController? = nil {
+        didSet {
+            nameTextView?.delegate = delegate
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            nameTextView?.tag = tag
+        }
+    }
+
     func nameTapped() {
         NotificationCenter.default.post(name: .NameTextFieldTapped, object: nil)
     }

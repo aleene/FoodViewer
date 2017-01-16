@@ -1432,19 +1432,23 @@ extension TagListView: UITextFieldDelegate {
         // If the user enters a return, a new tag will be created
         
         if string == "\n" {
-            if let newTag = textField.text {
-                if !newTag.isEmpty {
-                    delegate?.tagListView(self, didAddTagWith: newTag)
-                    self.reloadData()
-                }
-            }
+            // stop editing
+            textField.resignFirstResponder()
             return false
         }
         return true
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        // The user did not end a tag with return, save what he has typed
+        if let newTag = textField.text {
+            if !newTag.isEmpty {
+                delegate?.tagListView(self, didAddTagWith: newTag)
+                self.reloadData()
+            }
+        }
         textField.resignFirstResponder()
     }
-
+    
 }

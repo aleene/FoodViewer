@@ -120,7 +120,7 @@ class OpenFoodFactsRequest {
                 
                 product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
 
-                print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
+                // print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
                 product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
                 
                 if let languages = jsonObject[jsonKeys.ProductKey][jsonKeys.LanguagesHierarchy].stringArray {
@@ -145,8 +145,10 @@ class OpenFoodFactsRequest {
                 product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
                 
                 product.countryArray(decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
+                let test = jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string
                 
-                product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesOrigKey].string)
+                // let test2 = jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesOrigKey].string
+                product.producerCode = decodeProducerCodeArray(test)
                 
                 product.brands = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
                 
@@ -715,15 +717,15 @@ class OpenFoodFactsRequest {
                 // combine into a valid french postal code
                 newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
                 return newAddress
-                
-            } else if validCode.range(of: "IT\\s..\\....\\....", options: .regularExpression) != nil {
+            } else if validCode.hasPrefix("IT ") {
                 newAddress.country = "Italy"
-                let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
-                let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
-                // combine into a valid french postal code
-                newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
+                if validCode.range(of: "IT\\s..\\....\\....", options: .regularExpression) != nil {
+                    let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
+                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                    // combine into a valid french postal code
+                    newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
+                }
                 return newAddress
-                
             } else if validCode.range(of: "EMB\\s\\d{5}", options: .regularExpression) != nil {
                 newAddress.country = "France"
                 
@@ -742,9 +744,11 @@ class OpenFoodFactsRequest {
                     newAddress.postalcode = validCode.substring(validCode.length() - 4, length: 4)
                 }
                 return newAddress
+            } else if validCode.hasPrefix("DE ") {
+                newAddress.country = "Germany"
+                return newAddress
             }
             print("Producer code '\(validCode)' could not be recognized")
-
         }
         return nil
     }

@@ -74,15 +74,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Alpha-linolenic acid / ALA (18</string>
+				<string>Alpha-linolenic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide alpha-linolénique / ALA (18</string>
+				<string>Acide alpha-linolénique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Alfa-linoleenzuur / ALA (18</string>
+				<string>Alfa-linoleenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -92,15 +92,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Arachidic acid (20</string>
+				<string>Arachidic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide arachidique / acide eicosanoïque (20</string>
+				<string>Acide arachidique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Arachidinezuur (20</string>
+				<string>Arachidinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -110,15 +110,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Arachidonic acid / AA / ARA (20</string>
+				<string>Arachidonic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide arachidonique / AA / ARA (20</string>
+				<string>Acide arachidonique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Arachidonzuur / AA / ARA (20</string>
+				<string>Arachidonzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -138,15 +138,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Behenic acid (22</string>
+				<string>Behenic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide béhénique (22</string>
+				<string>Acide béhénique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Beheenzuur (22</string>
+				<string>Beheenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -222,15 +222,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Butyric acid (4</string>
+				<string>Butyric acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide butyrique (4</string>
+				<string>Acide butyrique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Boterzuur (4</string>
+				<string>Boterzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -280,15 +280,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Capric acid (10</string>
+				<string>Capric acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide caprique (10</string>
+				<string>Acide caprique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Decaanzuur (10</string>
+				<string>Decaanzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -298,15 +298,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Caproic acid (6</string>
+				<string>Caproic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide caproïque (6</string>
+				<string>Acide caproïque</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Capronzuur (6</string>
+				<string>Capronzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -316,15 +316,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Caprylic acid (8</string>
+				<string>Caprylic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide caproïque (8</string>
+				<string>Acide caproïque</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Octaanzuur (8</string>
+				<string>Octaanzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -400,15 +400,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Cerotic acid (26</string>
+				<string>Cerotic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide cérotique (26</string>
+				<string>Acide cérotique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Cerotinezuur (26</string>
+				<string>Cerotinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -568,15 +568,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Dihomo-gamma-linolenic acid / DGLA (20</string>
+				<string>Dihomo-gamma-linolenic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide dihomo-gamma-linolénique / DGLA (20</string>
+				<string>Acide dihomo-gamma-linolénique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Dihomo-gammalinoleenzuur / DGLA (20</string>
+				<string>Dihomo-gammalinoleenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -586,15 +586,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Docosahexaenoic acid / DHA (22</string>
+				<string>Docosahexaenoic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide docosahexaénoïque / DHA (22</string>
+				<string>Acide docosahexaénoïque</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Docosahexaeenzuur / DHA (22</string>
+				<string>Docosahexaeenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -604,15 +604,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Eicosapentaenoic acid / EPA (20</string>
+				<string>Eicosapentaenoic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide eicosapentaénoïque / EPA (20</string>
+				<string>Acide eicosapentaénoïque</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Eicosapentaeenzuur / EPA (20</string>
+				<string>Eicosapentaeenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -622,15 +622,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Elaidic acid (18</string>
+				<string>Elaidic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide élaïdique (18</string>
+				<string>Acide élaïdique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Elaïdinezuur (18</string>
+				<string>Elaïdinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -676,15 +676,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Erucic acid (22</string>
+				<string>Erucic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide érucique (22</string>
+				<string>Acide érucique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Erucazuur (22</string>
+				<string>Erucazuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -782,18 +782,15 @@
 		<dict>
 			<key>de</key>
 			<array>
-				<string>Obst</string>
-				<string> Gemüse und Nüsse (Minimum)</string>
+				<string>Obst - Gemüse und Nüsse (Minimum)</string>
 			</array>
 			<key>en</key>
 			<array>
-				<string>Fruits</string>
-				<string> vegetables and nuts (minimum)</string>
+				<string>Fruits - vegetables and nuts (minimum)</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Fruits</string>
-				<string> légumes et noix (minimum)</string>
+				<string>Fruits -  légumes et noix (minimum)</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -808,15 +805,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Gamma-linolenic acid / GLA (18</string>
+				<string>Gamma-linolenic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide gamma-linolénique / GLA (18</string>
+				<string>Acide gamma-linolénique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Gamma-linoleenzuur / GLA (18</string>
+				<string>Gamma-linoleenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -848,15 +845,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Gondoic acid (20</string>
+				<string>Gondoic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide gadoléique (20</string>
+				<string>Acide gadoléique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Eicoseenzuur (20</string>
+				<string>Eicoseenzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -974,15 +971,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Lauric acid (12</string>
+				<string>Lauric acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide laurique (12</string>
+				<string>Acide laurique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Laurinezuur (12</string>
+				<string>Laurinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -992,15 +989,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Lignoceric acid (24</string>
+				<string>Lignoceric acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide lignocérique (24</string>
+				<string>Acide lignocérique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Lignocerinezuur (24</string>
+				<string>Lignocerinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1010,15 +1007,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Linoleic acid / LA (18</string>
+				<string>Linoleic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide linoléique / LA (18</string>
+				<string>Acide linoléique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Linolzuur / LA (18</string>
+				<string>Linolzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1112,15 +1109,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Mead acid (20</string>
+				<string>Mead acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide de Mead (20</string>
+				<string>Acide de Mead</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Meadzuur (20</string>
+				<string>Meadzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1130,15 +1127,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Melissic acid (30</string>
+				<string>Melissic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide mélissique (30</string>
+				<string>Acide mélissique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Melissinezuur (30</string>
+				<string>Melissinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1192,15 +1189,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Montanic acid (28</string>
+				<string>Montanic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide montanique (28</string>
+				<string>Acide montanique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Montaanzuur (28</string>
+				<string>Montaanzuur </string>
 			</array>
 		</dict>
 	</dict>
@@ -1210,15 +1207,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Myristic acid (14</string>
+				<string>Myristic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide myristique (14</string>
+				<string>Acide myristique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Myristinezuur (14</string>
+				<string>Myristinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1228,15 +1225,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Nervonic acid (24</string>
+				<string>Nervonic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide nervonique (24</string>
+				<string>Acide nervonique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Nervonzuur (24</string>
+				<string>Nervonzuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1328,15 +1325,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Oleic acid (18</string>
+				<string>Oleic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide oléique (18</string>
+				<string>Acide oléique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Oliezuur (18</string>
+				<string>Oliezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1412,15 +1409,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Palmitic acid (16</string>
+				<string>Palmitic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide palmitique (16</string>
+				<string>Acide palmitique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Palmitinezuur (16</string>
+				<string>Palmitinezuur</string>
 			</array>
 		</dict>
 	</dict>
@@ -1434,7 +1431,7 @@
 			</array>
 			<key>en</key>
 			<array>
-				<string>Pantothenic acid / Pantothenate (Vitamin B5)</string>
+				<string>Pantothenic acid (Vitamin B5)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1768,15 +1765,15 @@
 		<dict>
 			<key>en</key>
 			<array>
-				<string>Stearic acid (18</string>
+				<string>Stearic acid</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Acide stéarique (18</string>
+				<string>Acide stéarique</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Stearinezuur (18</string>
+				<string>Stearinezuur</string>
 			</array>
 		</dict>
 	</dict>

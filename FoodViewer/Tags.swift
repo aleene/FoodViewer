@@ -88,5 +88,25 @@ enum Tags {
             self = .undefined
         }
     }
-
+    
+    // returns the tag-list with a language-prefix
+    func prefixedList(_ language: String) -> [String] {
+        switch self {
+        case let .available(list):
+            if !list.isEmpty {
+                var prefixedList: [String] = []
+                for tag in list {
+                    if tag.contains(":") {
+                        prefixedList.append(tag)
+                    } else {
+                        prefixedList.append(language + ":" + tag)
+                    }
+                }
+                return prefixedList
+            }
+        default:
+            break
+        }
+        return []
+    }
 }

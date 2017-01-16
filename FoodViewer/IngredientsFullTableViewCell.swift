@@ -15,7 +15,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
             setupTextView()
         }
     }
-
     
     private func setupTextView() {
         // the textView might not be initialised

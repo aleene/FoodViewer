@@ -88,7 +88,7 @@ class Address {
         if let shop = with {
             self.title = shop.0
             self.street = shop.1.street
-            self.city = shop.1.street
+            self.city = shop.1.city
             self.postalcode = shop.1.postalcode
             self.country = shop.1.country
         }

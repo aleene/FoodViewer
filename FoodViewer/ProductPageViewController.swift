@@ -77,7 +77,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let validUpdatedProduct = updatedProduct {
                     let update = OFFUpdate()
                     UIApplication.shared.isNetworkActivityIndicatorVisible = true
-                
+
                     // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
                     DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                         let fetchResult = update.update(product: validUpdatedProduct)
@@ -112,7 +112,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         editMode = !editMode
     }
-    
+
     fileprivate var editMode: Bool = false {
         didSet {
             // pushdown any setting
@@ -360,12 +360,21 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     func changeConfirmButtonToSuccess() {
-        confirmBarButtonItem.tintColor = UIColor.green
+        confirmBarButtonItem.tintColor = .green
+        // NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
+
+        _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
         updatedProduct = nil
     }
         
     func changeConfirmButtonToFailure() {
         confirmBarButtonItem.tintColor = .red
+        Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
+    }
+    
+    // function to reset the SaveButton to the default IOS color
+    func resetSaveButtonColor() {
+        confirmBarButtonItem.tintColor = self.view.tintColor
     }
     
     // MARK: - Product Updated Protocol functions
@@ -605,9 +614,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(links: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.links = validTags.map( { URL.init(string:$0)! } )
+                for tag in validTags {
+                    if let validURL = URL.init(string:tag) {
+                        if updatedProduct?.links == nil {
+                            updatedProduct!.links = []
+                        }
+                        updatedProduct!.links!.append(validURL)
+                    }
+                }
                 saveUpdatedProduct()
-                
             }
         }
     }

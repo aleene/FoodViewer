@@ -24,7 +24,22 @@ class NutrientsTableViewCell: UITableViewCell {
             }
         }
     }
-        
+    
+    var editMode: Bool = false {
+        didSet {
+            if editMode {
+                itemLabel.backgroundColor = UIColor.groupTableViewBackground
+                itemLabel.layer.cornerRadius = 5
+                itemLabel.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+                itemLabel.clipsToBounds = true
+            } else {
+                itemLabel.layer.cornerRadius = 5
+                itemLabel.backgroundColor = UIColor.white
+                itemLabel.layer.borderColor = UIColor.white.cgColor
+            }
+        }
+    }
+
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var standardValueLabel: UILabel!
     @IBOutlet weak var standardUnitLabel: UILabel!

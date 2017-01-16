@@ -24,7 +24,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.delegate = delegate
             tagListView.tag = tag
             tagListView.allowsRemoval = editMode
-            //tagListView.allowsCreation = editMode
+            tagListView.allowsCreation = editMode
         }
     }
 
@@ -33,7 +33,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             favoriteButton.isHidden = !editMode
         }
     }
-
+    
     var editMode: Bool = false {
         didSet {
             if editMode != oldValue {

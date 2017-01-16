@@ -31,9 +31,25 @@ class EmptyNutrientsTableViewCell: UITableViewCell {
             }
         }
     }
+
+    var editMode: Bool = false {
+        didSet {
+            if editMode {
+                tagListView.backgroundColor = UIColor.groupTableViewBackground
+                tagListView.layer.cornerRadius = 5
+                tagListView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+                tagListView.clipsToBounds = true
+            } else {
+                tagListView.layer.cornerRadius = 5
+                tagListView.backgroundColor = UIColor.white
+                tagListView.layer.borderColor = UIColor.white.cgColor
+            }
+        }
+    }
+
 }
 
-extension EmptyNutrientsTableViewCell: TagListViewDataSource{
+extension EmptyNutrientsTableViewCell: TagListViewDataSource {
 
     // TagListView Datasource functions
     
@@ -44,30 +60,5 @@ extension EmptyNutrientsTableViewCell: TagListViewDataSource{
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         return availability.description()
     }
-
-    
-    /*
-    /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return false
-    }
-    
-    /// Is it allowed to move a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-    /// The Tag object at the source index has been moved to a destination index.
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
-    /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
-    }
-    
-    /// Which text should be displayed when the TagListView is collapsed?
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Stub text"
-    }
-    */
 
 }

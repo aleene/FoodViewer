@@ -147,18 +147,8 @@ class FoodProduct {
         }
     }
 
-    var ingredientsLanguage = [String:String]() {
-        didSet {
-            if let language = primaryLanguageCode,
-                let validIngredients = ingredients,
-                let existingLanguageIngredients = ingredientsLanguage[language] {
-                if  existingLanguageIngredients != validIngredients {
-                    print("Product Error: ingredients are not consistent")
-                }
-            }
-        }
-    }
-
+    var ingredientsLanguage = [String:String]()
+    
     var numberOfIngredients: String? = nil
     var imageIngredientsSmallUrl: URL?
     var imageIngredientsUrl: URL? = nil
@@ -850,6 +840,9 @@ class FoodProduct {
     func set(newIngredients: String, for languageCode: String) {
         add(languageCode: languageCode)
         self.ingredientsLanguage[languageCode] = newIngredients
+        if languageCode == self.primaryLanguageCode {
+            self.ingredients = newIngredients
+        }
     }
 
     func add(languageCode: String) {
@@ -960,8 +953,8 @@ class FoodProduct {
     }
 
     func contains(producerCode: [String]) -> Bool {
-        // assume that the producerCode only contains a title
-        if let validProducerCodeArray = self.producerCode?.map( { $0.title } ) {
+        // assume that the producerCode only contains a raw
+        if let validProducerCodeArray = self.producerCode?.map( { $0.raw } ) {
             return Set.init(validProducerCodeArray) == Set.init(producerCode) ? true : false
         }
         return false

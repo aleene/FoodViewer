@@ -164,6 +164,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
                 } else {
                     cell?.availability = NutritionAvailability.notIndicated
                 }
+                cell?.editMode = editMode
                 return cell!
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactCellIdentifier, for: indexPath) as? NutrientsTableViewCell
@@ -188,7 +189,7 @@ class NutrientsTableViewController: UITableViewController, UITextFieldDelegate {
                     
                     cell?.addGestureRecognizer(doubleTapGestureRecognizer)
                 }
-
+                cell?.editMode = editMode
                 return cell!
             }
         case .servingSize:

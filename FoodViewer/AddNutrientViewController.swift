@@ -12,6 +12,8 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
 
     var addedNutrientKey :String? = nil
     
+    var existingNutrients: [String]? = nil
+    
     @IBOutlet weak var nutrientsPickerView: UIPickerView!
     
     // MARK: - PickerView Datasource methods
@@ -19,7 +21,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return OFFplists.manager.OFFnutrients?.count != nil ? OFFplists.manager.OFFnutrients!.count + 1 : 0
+            return OFFplists.manager.nutrients.count + 1
         default:
             return 0
         }
@@ -32,14 +34,13 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // MARK: - PickerView delegate methods
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let key = Locale.preferredLanguages[0]
-        return row == 0 ? NSLocalizedString("Select Nutrient", comment: "Text of first element in a pickerView with all possible nutrients") :
-            OFFplists.manager.nutrientText(atIndex: row - 1, languageCode: key)
+        return row == 0 ? NSLocalizedString("Select Nutrient", comment: "Text of first element in a pickerView with all possible nutrients") : OFFplists.manager.nutrients[row - 1]
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row > 0 {
-            addedNutrientKey = OFFplists.manager.nutrientVertex(atIndex: row - 1)?.key
+            addedNutrientKey = OFFplists.manager.nutrients[row - 1]
         }
     }
 

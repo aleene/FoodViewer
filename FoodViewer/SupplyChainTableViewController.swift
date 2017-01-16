@@ -289,7 +289,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .producerCode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! AddressTagListTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tag = 1
             cell.delegate = self
             cell.datasource = self
@@ -297,7 +297,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .sites:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! SitesTagListTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tag = 6
             cell.delegate = self
             cell.datasource = self
@@ -329,7 +329,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .country:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! CountriesTagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.tag = 5
             cell.delegate = self
             cell.datasource = self
@@ -568,36 +568,50 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             if var tags = producerTagsToDisplay {
                 tags.append(title)
                 delegate?.update(producer: tags)
+            } else {
+                delegate?.update(producer: [title])
             }
         case 1:
             if var tags = producerCodeTagsToDisplay {
                 tags.append(title)
                 delegate?.update(producerCode: tags)
+            } else {
+                delegate?.update(producerCode: [title])
             }
         case 2:
             if var tags = ingredientOriginLocationTagsToDisplay {
                 tags.append(title)
                 delegate?.update(ingredientsOrigin: tags)
+            } else {
+                delegate?.update(ingredientsOrigin: [title])
             }
         case 3:
             if var tags = storeTagsToDisplay {
                 tags.append(title)
                 delegate?.update(stores: tags)
+            } else {
+                delegate?.update(stores: [title])
             }
         case 4:
             if var tags = purchaseLocationTagsToDisplay {
                 tags.append(title)
                 delegate?.update(purchaseLocation: tags)
+            } else {
+                delegate?.update(purchaseLocation: [title])
             }
         case 5:
             if var tags = countriesToDisplay {
                 tags.append(title)
                 delegate?.update(countries: tags)
+            } else {
+                delegate?.update(countries: [title])
             }
         case 6:
             if var tags = linksToDisplay {
                 tags.append(title)
                 delegate?.update(links: tags)
+            } else {
+                delegate?.update(links: [title])
             }
         default:
             break

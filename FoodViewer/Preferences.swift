@@ -36,4 +36,6 @@ class Preferences {
         mapAddress.country = (locale as NSLocale).displayName(forKey: NSLocale.Key.countryCode, value: (locale as NSLocale).object(forKey: NSLocale.Key.countryCode)!)!
         mapAddress.setCoordinates()
     }
+    
 }
+

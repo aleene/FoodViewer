@@ -166,13 +166,13 @@ class IngredientsTableViewController: UITableViewController {
             return cell!
             
         case .allergens:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! AllergensFullTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.datasource = self
             cell.tag = 0
             return cell
             
         case .traces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TracesFullTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
@@ -181,13 +181,13 @@ class IngredientsTableViewController: UITableViewController {
             return cell
             
         case .additives:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! AdditivesFullTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.datasource = self
             cell.tag = 2
             return cell
             
         case .labels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! LabelsFullTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
@@ -497,47 +497,6 @@ extension IngredientsTableViewController: TagListViewDelegate {
             break
         }
     }
-    /*
-
-    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        /*
-         switch tagListView.tag {
-         case 0:
-         case 1:
-         
-         default:
-         break
-         }
-         */
-        tableView.setNeedsLayout()
-    }
-
-    // TagListView function stubs
-    
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willSelectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didDeselectTagAt index: Int) {
-    }
-
-    public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, targetForMoveFromTagAt sourceIndex: Int,
-                            toProposed proposedDestinationIndex: Int) -> Int {
-        return proposedDestinationIndex
-    }
-    
-    public func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int) {
-    }
- */
-    
 }
 
 // MARK: - TagListView DataSource Functions
@@ -614,28 +573,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
         }
         return("tagListView error")
     }
-    /*
-    // TagListView function stubs
-    
-    public func didClear(_ tagListView: TagListView) {
-    }
-    
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return editMode
-    }
-
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-    
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Stub collapsed text"
-    }
-    
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-     */
-
 }
 
 

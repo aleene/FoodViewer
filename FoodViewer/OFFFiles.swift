@@ -54,6 +54,7 @@ class OFFplists {
     lazy var OFFcategories: Set <VertexNew>? = nil
     lazy var OFFnutrients: Set <VertexNew>? = nil
     lazy var OFFlanguages: Set <VertexNew>? = nil
+    lazy var nutrients: [String] = []
     
     init() {
         // read all necessary plists in the background
@@ -65,6 +66,7 @@ class OFFplists {
         OFFcategories = readPlist(Constants.CategoriesFileName)
         OFFnutrients = readPlist(Constants.NutrientsFileName)
         OFFlanguages = readPlist(Constants.LanguagesFileName)
+        nutrients = localNutrients()
     }
     
     // MARK: - Translate functions
@@ -216,11 +218,37 @@ class OFFplists {
         }
     }
     
-    func nutrientText(atIndex index: Int, languageCode key: String) -> String? {
+    
+    // Setup the nutrients to be used in the local language
+    
+    private func localNutrients() -> [String] {
+        var nutrients: [String] = []
+        if let nutrientVerteces = OFFnutrients {
+            for (index,_) in nutrientVerteces.enumerated() {
+                if let nutrient = nutrientText(at:index, languageCode:Locale.preferredLanguages[0]) {
+                    nutrients.append(nutrient)
+                }
+            }
+        }
+        // sort the nutrients alphabetically
+        nutrients = nutrients.sorted()
+        return nutrients
+    }
+
+    func nutrientText(at index: Int, languageCode key: String) -> String? {
         if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {
             let currentVertex = OFFnutrients![OFFnutrients!.index(OFFnutrients!.startIndex, offsetBy: index)].leaves
-            let values = currentVertex[key]
-            return  values != nil ? values![0] : nil
+            let firstSplit = key.characters.split{ $0 == "-" }.map(String.init)
+
+            // get the language array for the current language
+            let translatedValues = currentVertex[firstSplit[0]]
+            let englishValues = currentVertex["en"]
+            if translatedValues == nil {
+                return englishValues != nil ? englishValues![0] : NSLocalizedString("No english name", comment: "Text in a pickerView, when no translated text is available")
+            } else {
+                // return the first value of the translation array
+                return  !translatedValues!.isEmpty ? translatedValues![0] : NSLocalizedString("No translation", comment: "Text in a pickerView, when no translated text is available")
+            }
         } else {
             return nil
         }

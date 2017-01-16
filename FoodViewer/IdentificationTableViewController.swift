@@ -179,8 +179,8 @@ class IdentificationTableViewController: UITableViewController {
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
-            cell!.nameTextField.delegate = self
-            cell!.nameTextField.tag = 0
+            cell!.delegate = self
+            cell!.tag = 0
             cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
@@ -198,8 +198,8 @@ class IdentificationTableViewController: UITableViewController {
         case .genericName:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
-            cell!.nameTextField.delegate = self
-            cell!.nameTextField.tag = 1
+            cell!.delegate = self
+            cell!.tag = 1
             cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
@@ -214,7 +214,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell!
 
         case .brands:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as! IdentificationTagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
@@ -223,7 +223,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .packaging:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as! IdentificationPackagingTagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             // cell.editMode = editMode
             cell.datasource = self
             cell.delegate = self
@@ -482,6 +482,46 @@ class IdentificationTableViewController: UITableViewController {
 
 }
 
+// MARK: - TextView Delegate Functions
+
+extension IdentificationTableViewController: UITextViewDelegate {
+    
+    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        return editMode
+        
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if textView.isFirstResponder { textView.resignFirstResponder() }
+        return true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        switch textView.tag {
+        case 0:
+            // productname
+            if let validText = textView.text {
+                delegate?.updated(name: validText, languageCode: currentLanguageCode!)
+            }
+        case 1:
+            // generic name updated?
+            if let validText = textView.text {
+                delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
+            }
+        default:
+            break
+        }
+    }
+    
+    func textViewHeightForAttributedText(text: NSAttributedString, andWidth width: CGFloat) -> CGFloat {
+        let calculationView = UITextView()
+        calculationView.attributedText = text
+        let size = calculationView.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude))
+        return size.height
+    }
+    
+}
+
 // MARK: - TagListView DataSource Functions
 
 extension IdentificationTableViewController: TagListViewDataSource {
@@ -520,6 +560,21 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 return tags.description()
             case let .available(list):
                 if index >= 0 && index < list.count {
+                    let tagParts = list[index].characters.split{ $0 == ":" }.map(String.init)
+                    if tagParts.isEmpty {
+                        // I guess this should not happen
+                        return "No tags"
+                    } else if tagParts.count == 1 {
+                        // Can this happen?
+                        return tagParts[0]
+                    }
+                    let preferredLanguage = Locale.preferredLanguages[0]
+                    let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
+                    if tagParts[0] == currentLanguage[0] {
+                        // strip the language part
+                        return tagParts[1]
+                    }
+                    // just use the entire string
                     return list[index]
                 } else {
                     assert(true, "Tags array - index out of bounds")
@@ -646,16 +701,6 @@ extension IdentificationTableViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         switch textField.tag {
-        case 0:
-            // productname
-            if let validText = textField.text {
-                delegate?.updated(name: validText, languageCode: currentLanguageCode!)
-            }
-        case 1:
-            // generic name updated?
-            if let validText = textField.text {
-                delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
-            }
         case 2:
             // quantity updated?
             if let validText = textField.text {
