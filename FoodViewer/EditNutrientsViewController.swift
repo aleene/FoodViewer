@@ -263,26 +263,6 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         }
     }
     
-    // MARK: - Segue stuff
-    
-    @IBAction func unwindAddNutrientForCancel(_ segue:UIStoryboardSegue) {
-        // reload with first nutrient?
-    }
-    
-    @IBAction func unwindAddNutrientForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? AddNutrientViewController {
-            var newNutrient = NutritionFactItem()
-            newNutrient.key = vc.addedNutrientKey
-            newNutrient.itemName = OFFplists.manager.translateNutrients(extendedKey:newNutrient.key!, language: Locale.preferredLanguages[0])
-            // is this the first nutritionFact?
-            if originalNutritionFacts == nil {
-                originalNutritionFacts = []
-            }
-            originalNutritionFacts!.append(newNutrient)
-            // move to the newly added nutrient
-            currentNutrientItemIndex = originalNutritionFacts!.count - 1
-        }
-    }
     
     // MARK: - ViewController lifecycle stuff
 

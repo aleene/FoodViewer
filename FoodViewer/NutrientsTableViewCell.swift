@@ -15,33 +15,64 @@ class NutrientsTableViewCell: UITableViewCell {
         static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specified.")
     }
     
+    @IBOutlet weak var itemLabel: UILabel! {
+        didSet {
+            itemLabel.text = nutritionDisplayFactItem?.name != nil ? nutritionDisplayFactItem!.name! : Constants.UnknownValue
+        }
+    }
+    
+    @IBOutlet weak var textField: UITextField! {
+        didSet {
+            textField.text = nutritionDisplayFactItem?.value != nil ? nutritionDisplayFactItem!.value! : Constants.UnknownValue
+            textField.tag = tag
+            textField.delegate = delegate
+        }
+    }
+
+    @IBOutlet weak var unitButton: UIButton! {
+        didSet {
+            unitButton.setTitle(nutritionDisplayFactItem?.unit?.short(), for: .normal)
+            unitButton.tag = tag
+        }
+    }
+    
     var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
         didSet {
             if let item = nutritionDisplayFactItem {
                 itemLabel.text = item.name != nil ? item.name! : Constants.UnknownValue
-                standardValueLabel.text = item.value != nil ? item.value! : Constants.UnknownValue
-                standardUnitLabel.text = item.unit != nil ? item.unit!.short() : Constants.UnknownValue
+                textField?.text = item.value != nil ? item.value! : Constants.UnknownValue
+                item.unit != nil ? unitButton.setTitle(item.unit!.short(), for: .normal) : unitButton.setTitle(Constants.UnknownValue, for: .normal)
             }
         }
     }
     
     var editMode: Bool = false {
         didSet {
+            unitButton.isEnabled = editMode
             if editMode {
-                itemLabel.backgroundColor = UIColor.groupTableViewBackground
-                itemLabel.layer.cornerRadius = 5
-                itemLabel.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-                itemLabel.clipsToBounds = true
+                textField.backgroundColor = UIColor.groupTableViewBackground
+                textField.layer.cornerRadius = 5
+                textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+                textField.clipsToBounds = true
             } else {
-                itemLabel.layer.cornerRadius = 5
-                itemLabel.backgroundColor = UIColor.white
-                itemLabel.layer.borderColor = UIColor.white.cgColor
+                textField.layer.cornerRadius = 5
+                textField.backgroundColor = UIColor.white
+                textField.layer.borderColor = UIColor.white.cgColor
             }
         }
     }
-
-    @IBOutlet weak var itemLabel: UILabel!
-    @IBOutlet weak var standardValueLabel: UILabel!
-    @IBOutlet weak var standardUnitLabel: UILabel!
-
+    
+    // The tag is used to identify, which Nutrient is being edited
+    override var tag: Int {
+        didSet {
+            textField?.tag = tag
+            unitButton?.tag = tag
+        }
+    }
+    
+    var delegate: NutrientsTableViewController? = nil {
+        didSet {
+            textField?.delegate = delegate
+        }
+    }
 }

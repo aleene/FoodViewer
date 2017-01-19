@@ -109,6 +109,8 @@
 		519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */; };
 		5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */; };
 		519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */; };
+		51A056F81E2D100C0099092E /* AddNutrientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A056F71E2D100C0099092E /* AddNutrientTableViewCell.swift */; };
+		51A056FA1E2D23340099092E /* SelectNutrientUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */; };
 		51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */; };
 		51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */; };
 		51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */; };
@@ -297,6 +299,8 @@
 		519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoServingSizeTableViewCell.swift; sourceTree = "<group>"; };
 		5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityTableViewCell.swift; sourceTree = "<group>"; };
 		519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNutrientsImageTableViewCell.swift; sourceTree = "<group>"; };
+		51A056F71E2D100C0099092E /* AddNutrientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNutrientTableViewCell.swift; sourceTree = "<group>"; };
+		51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectNutrientUnitViewController.swift; sourceTree = "<group>"; };
 		51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductUpdatedProtocol.swift; sourceTree = "<group>"; };
 		51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainLocation.swift; sourceTree = "<group>"; };
@@ -383,6 +387,7 @@
 				5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */,
 				51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */,
 				5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */,
+				51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
 			);
 			name = EditPages;
@@ -516,6 +521,7 @@
 				519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */,
 				516B328F1C7600F30031EF80 /* ServingSizeTableViewCell.swift */,
 				516B32911C76043D0031EF80 /* NutrientsTableViewCell.swift */,
+				51A056F71E2D100C0099092E /* AddNutrientTableViewCell.swift */,
 			);
 			name = NutrientsCells;
 			sourceTree = "<group>";
@@ -856,6 +862,7 @@
 				5150C06A1CBD4AB000161616 /* NoIdentificationImageTableViewCell.swift in Sources */,
 				5148F0F11DD3291500EF1B67 /* Language.swift in Sources */,
 				5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */,
+				51A056F81E2D100C0099092E /* AddNutrientTableViewCell.swift in Sources */,
 				51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */,
 				51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */,
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
@@ -887,6 +894,7 @@
 				515742771CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift in Sources */,
 				516B328B1C75FE4B0031EF80 /* NutrientsTableViewController.swift in Sources */,
 				519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */,
+				51A056FA1E2D23340099092E /* SelectNutrientUnitViewController.swift in Sources */,
 				511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */,
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,

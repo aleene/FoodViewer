@@ -12,6 +12,40 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Select Nutrient Unit View Controller-->
+        <scene sceneID="ZQn-AM-IdF">
+            <objects>
+                <viewController id="ene-BC-XTS" customClass="SelectNutrientUnitViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3xe-t4-5Ai"/>
+                        <viewControllerLayoutGuide type="bottom" id="eHS-nQ-Fdi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0hk-6M-W3a">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Vz-ruS">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PDX-Vz-ruS" firstAttribute="top" secondItem="0hk-6M-W3a" secondAttribute="top" id="5yF-3I-l9W"/>
+                            <constraint firstItem="PDX-Vz-ruS" firstAttribute="leading" secondItem="0hk-6M-W3a" secondAttribute="leading" id="9QZ-9w-HtI"/>
+                            <constraint firstAttribute="trailing" secondItem="PDX-Vz-ruS" secondAttribute="trailing" id="B4d-xW-Uxd"/>
+                            <constraint firstItem="eHS-nQ-Fdi" firstAttribute="top" secondItem="PDX-Vz-ruS" secondAttribute="bottom" id="pXg-e3-x7D"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nutrientUnitsPickerView" destination="PDX-Vz-ruS" id="Fhv-dV-bpu"/>
+                        <segue destination="QhO-Bq-K34" kind="unwind" identifier="Unwind Set Nutrient Unit" unwindAction="unwindSetNutrientUnit:" id="F4h-Cu-izd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uvp-sU-I6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QhO-Bq-K34" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3030" y="4109"/>
+        </scene>
         <!--Add Favorite Shop Table View Controller-->
         <scene sceneID="XYb-tx-zRY">
             <objects>
@@ -48,7 +82,7 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ClR-5h-8jc" id="wLp-Lk-j1U">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ijR-p7-i6Q">
@@ -83,7 +117,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0na-7c-rwo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3720" y="4982.5"/>
+            <point key="canvasLocation" x="4444" y="4986"/>
         </scene>
         <!--Favorite Shops Table View Controller-->
         <scene sceneID="0ro-al-cXx">
@@ -171,7 +205,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ac-sw-5AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9Mk-6V-ku1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3720" y="4109"/>
+            <point key="canvasLocation" x="4444" y="4109"/>
         </scene>
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
@@ -206,7 +240,7 @@
                                 <rect key="frame" x="0.0" y="62" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Elg-Cu-tKZ" id="bM2-0V-p8p">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allergen name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="or1-Yr-Xwl">
@@ -560,7 +594,7 @@
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wrk-E7-xZk" id="9ad-ln-7tS">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qLB-2k-Ecw">
@@ -586,7 +620,7 @@
                                         <rect key="frame" x="0.0" y="88" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hVm-vn-Ji3" id="h22-ql-arD">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iLS-3y-yF5">
@@ -613,7 +647,7 @@
                                         <rect key="frame" x="0.0" y="132" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mFu-Bk-Nvj" id="xwJ-lx-b2N">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h25-t4-qRW">
@@ -667,7 +701,7 @@
                                         <rect key="frame" x="0.0" y="220" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WXA-OX-61J" id="9w0-50-ygX">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M4v-mg-2eX">
@@ -697,7 +731,7 @@
                                         <rect key="frame" x="0.0" y="264" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hoE-SS-5xU" id="h5H-aD-k1n">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bH-Lm-Fh3">
@@ -757,7 +791,7 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                         </textField>
                         <view key="tableFooterView" contentMode="scaleToFill" id="pLB-EC-tip">
-                            <rect key="frame" x="0.0" y="645" width="600" height="44"/>
+                            <rect key="frame" x="0.0" y="644.5" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -1332,7 +1366,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6FH-qY-aLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3411" y="2883"/>
+            <point key="canvasLocation" x="4118" y="2883"/>
         </scene>
         <!--Categories Table View Controller-->
         <scene sceneID="j4o-lI-2fF">
@@ -1387,7 +1421,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-2D-TOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4311" y="2745"/>
+            <point key="canvasLocation" x="4868" y="2745"/>
         </scene>
         <!--Select Language View Controller-->
         <scene sceneID="jub-U0-btO">
@@ -1533,7 +1567,7 @@
                             </items>
                         </navigationBar>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Eqy-Nh-1dm">
-                            <rect key="frame" x="0.0" y="511" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="510.5" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -1542,7 +1576,7 @@
                                 <rect key="frame" x="0.0" y="100" width="320" height="231"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JZv-W6-g6H" id="gN0-N6-qsp">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="230"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="231"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="z2z-A1-5t0">
@@ -1570,7 +1604,7 @@
                                 <rect key="frame" x="0.0" y="331" width="320" height="162"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7LZ-ht-6s6" id="50t-eS-ahm">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="162"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hA8-n6-vUp">
@@ -1650,7 +1684,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zd5-ze-4hj" id="Exz-1V-TwS">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TV9-Ie-kEf">
@@ -1689,7 +1723,7 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AHJ-Wx-nma" id="f6g-ql-mad">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="240" horizontalCompressionResistancePriority="751" text="Contributor name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xR6-oy-1vL">
@@ -1771,11 +1805,11 @@
                                 <rect key="frame" x="0.0" y="116" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mAU-Va-ulk" id="5aY-gw-3U9">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Edit Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZjT-hs-fGX">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1800,7 +1834,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RF7-RF-gTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5177" y="2745"/>
+            <point key="canvasLocation" x="5608" y="2745"/>
         </scene>
         <!--Nutrition Score Table View Controller-->
         <scene sceneID="bSp-xL-aQg">
@@ -1815,7 +1849,7 @@
                                 <rect key="frame" x="0.0" y="56" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zPg-pw-1ZC" id="AcA-dG-PGX">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Nutrient" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gm4-Bw-AEu">
@@ -1851,7 +1885,7 @@
                                 <rect key="frame" x="0.0" y="100" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6W2-KJ-661" id="bcG-uu-Zaj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Belongs to category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxw-q6-4Vp">
@@ -1880,7 +1914,7 @@
                                 <rect key="frame" x="0.0" y="144" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mMW-fi-nXC" id="Gal-15-pDB">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-V5-7bA">
@@ -2072,7 +2106,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pwd-xJ-AdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6038" y="2745"/>
+            <point key="canvasLocation" x="6341" y="2745"/>
         </scene>
         <!--Ingredients Table View Controller-->
         <scene sceneID="2bd-NI-S3Q">
@@ -2092,7 +2126,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="176"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0kc-iQ-EHA" id="nc2-Pr-oS2">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="175"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="176"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="252" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C93-Fg-KRg">
@@ -2128,7 +2162,7 @@
                                 <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Er-cV-ltD" id="rIq-1P-Kvn">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fF8-kh-meL" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2151,7 +2185,7 @@
                                 <rect key="frame" x="0.0" y="248" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QI5-gC-Qe6" id="9NS-kw-Zv1">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SAU-L4-vIS" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2174,7 +2208,7 @@
                                 <rect key="frame" x="0.0" y="292" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ECR-b1-xLG" id="Rz3-gt-0nE">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CW4-0T-jgP" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2197,7 +2231,7 @@
                                 <rect key="frame" x="0.0" y="336" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T5Y-Ku-072" id="0G9-KE-QMW">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLT-b2-JWJ" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2220,7 +2254,7 @@
                                 <rect key="frame" x="0.0" y="380" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ae1-IC-EpV" id="ELm-nP-Bga">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-n8-WDV">
@@ -2243,7 +2277,7 @@
                                 <rect key="frame" x="0.0" y="424" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VKP-I4-yuk" id="xwK-kS-5IP">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKf-lq-hkB" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2278,7 +2312,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrg-Ju-tn5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1744.8" y="2745.8770614692658"/>
+            <point key="canvasLocation" x="1854" y="2745"/>
         </scene>
         <!--Nutrients Table View Controller-->
         <scene sceneID="tzc-OM-yPK">
@@ -2289,7 +2323,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="nIc-JU-jSB" userLabel="FooterView">
-                            <rect key="frame" x="0.0" y="292" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="336" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.0"/>
@@ -2299,61 +2333,58 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4st-QW-GM9" id="aAD-Zb-a7c">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Value" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RoF-y0-Tn8">
-                                            <rect key="frame" x="237" y="8" width="42" height="27.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" priority="750" constant="50" id="k6X-tJ-o1Q"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" horizontalCompressionResistancePriority="1000" text="unit" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5jY-ES-pZe">
-                                            <rect key="frame" x="287" y="8" width="25" height="27.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="25" id="Fhm-xT-NwQ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Nutritional Fact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PY2-Eu-268">
-                                            <rect key="frame" x="8" y="8" width="221" height="27.5"/>
+                                            <rect key="frame" x="8" y="8" width="192" height="27.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tfR-RY-KYa">
+                                            <rect key="frame" x="208" y="8" width="50" height="27.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" priority="750" constant="50" id="I66-1m-5ds"/>
+                                            </constraints>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Phy-lP-wsX">
+                                            <rect key="frame" x="266" y="7" width="46" height="30"/>
+                                            <state key="normal" title="Button"/>
+                                            <connections>
+                                                <segue destination="ene-BC-XTS" kind="presentation" identifier="Select Nutrient Unit Segue" id="YcK-hI-xUg"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="RoF-y0-Tn8" secondAttribute="bottom" id="3Mo-0I-RZ2"/>
-                                        <constraint firstItem="5jY-ES-pZe" firstAttribute="trailing" secondItem="aAD-Zb-a7c" secondAttribute="trailingMargin" id="Fsb-zu-XnQ"/>
-                                        <constraint firstItem="RoF-y0-Tn8" firstAttribute="leading" secondItem="PY2-Eu-268" secondAttribute="trailing" constant="8" id="Hza-gp-1vV"/>
-                                        <constraint firstItem="5jY-ES-pZe" firstAttribute="leading" secondItem="RoF-y0-Tn8" secondAttribute="trailing" constant="8" id="ItZ-w8-A6o"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="5jY-ES-pZe" secondAttribute="bottom" id="UGm-k9-fF2"/>
+                                        <constraint firstItem="tfR-RY-KYa" firstAttribute="top" secondItem="aAD-Zb-a7c" secondAttribute="topMargin" id="SdS-lM-gDW"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="PY2-Eu-268" secondAttribute="bottom" id="YHW-iL-lOp"/>
-                                        <constraint firstItem="RoF-y0-Tn8" firstAttribute="leading" secondItem="PY2-Eu-268" secondAttribute="trailing" constant="8" id="d6h-JW-Vgs"/>
+                                        <constraint firstItem="tfR-RY-KYa" firstAttribute="leading" secondItem="PY2-Eu-268" secondAttribute="trailing" constant="8" id="d8J-2N-uxn"/>
+                                        <constraint firstItem="Phy-lP-wsX" firstAttribute="leading" secondItem="tfR-RY-KYa" secondAttribute="trailing" constant="8" id="ddP-0p-Scf"/>
                                         <constraint firstItem="PY2-Eu-268" firstAttribute="leading" secondItem="aAD-Zb-a7c" secondAttribute="leadingMargin" id="fbL-4J-NgY"/>
-                                        <constraint firstItem="5jY-ES-pZe" firstAttribute="top" secondItem="aAD-Zb-a7c" secondAttribute="topMargin" id="iyv-XA-XJM"/>
-                                        <constraint firstItem="RoF-y0-Tn8" firstAttribute="top" secondItem="aAD-Zb-a7c" secondAttribute="topMargin" id="tTD-MM-5gf"/>
-                                        <constraint firstItem="5jY-ES-pZe" firstAttribute="leading" secondItem="RoF-y0-Tn8" secondAttribute="trailing" constant="8" id="u8I-aB-XCq"/>
+                                        <constraint firstItem="tfR-RY-KYa" firstAttribute="centerY" secondItem="Phy-lP-wsX" secondAttribute="centerY" id="oEX-lm-eZA"/>
                                         <constraint firstItem="PY2-Eu-268" firstAttribute="top" secondItem="aAD-Zb-a7c" secondAttribute="topMargin" id="vFD-oa-WwN"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="tfR-RY-KYa" secondAttribute="bottom" id="wKe-Rf-MqZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Phy-lP-wsX" secondAttribute="trailing" constant="8" id="TLo-bg-2wc"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="itemLabel" destination="PY2-Eu-268" id="rsT-Sn-iGu"/>
-                                    <outlet property="standardUnitLabel" destination="5jY-ES-pZe" id="RTZ-ul-RBN"/>
-                                    <outlet property="standardValueLabel" destination="RoF-y0-Tn8" id="brm-7R-YCL"/>
+                                    <outlet property="textField" destination="tfR-RY-KYa" id="IaY-wQ-TEi"/>
+                                    <outlet property="unitButton" destination="Phy-lP-wsX" id="9eD-nZ-S2z"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Serving Size Cell" id="zj3-mI-Jja" customClass="ServingSizeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zj3-mI-Jja" id="XgA-9U-eE1">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Serving Size (value + unit)" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XeQ-CI-ELW">
@@ -2377,7 +2408,7 @@
                                 <rect key="frame" x="0.0" y="116" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S31-TZ-O7G" id="pbH-bk-fc1">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-Iy-n3f">
@@ -2393,14 +2424,13 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nutrientsImageView" destination="bPg-Iy-n3f" id="c0A-eS-h01"/>
-                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Nutrition Facts Image" id="54m-Vq-nRb"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="160" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u9d-nb-gSc" id="q8I-Mx-AJ4">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-av-cA3" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2424,7 +2454,7 @@
                                 <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4HD-IM-CvN" id="oF0-FB-0xd">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5K-3b-jkA" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2447,7 +2477,7 @@
                                 <rect key="frame" x="0.0" y="248" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UQy-aH-K8y" id="0JZ-25-xZ9">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2g-nR-AHM" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
@@ -2466,6 +2496,33 @@
                                     <outlet property="tagListView" destination="p2g-nR-AHM" id="Z24-mk-Kti"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Add Nutrient Cell" id="EeR-VC-2i8" customClass="AddNutrientTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="292" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EeR-VC-2i8" id="ucD-wy-xoj">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PU9-ny-duI">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <state key="normal" title="Add Nutrient"/>
+                                            <connections>
+                                                <segue destination="nVr-vx-E3e" kind="presentation" identifier="Add Nutrient Segue" id="goV-7o-AKL"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="PU9-ny-duI" firstAttribute="leading" secondItem="ucD-wy-xoj" secondAttribute="leading" id="Km4-nZ-Jdg"/>
+                                        <constraint firstAttribute="bottom" secondItem="PU9-ny-duI" secondAttribute="bottom" id="LaY-ap-nmW"/>
+                                        <constraint firstAttribute="trailing" secondItem="PU9-ny-duI" secondAttribute="trailing" id="NMg-Fu-30i"/>
+                                        <constraint firstItem="PU9-ny-duI" firstAttribute="top" secondItem="ucD-wy-xoj" secondAttribute="top" id="NP9-f3-Q1b"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="addNutrientButton" destination="PU9-ny-duI" id="HUB-iL-6yO"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Q8f-Fa-rlA" id="FTZ-6m-eLB"/>
@@ -2480,13 +2537,10 @@
                             <action selector="refresh:" destination="Q8f-Fa-rlA" eventType="valueChanged" id="5qd-vP-IYJ"/>
                         </connections>
                     </refreshControl>
-                    <connections>
-                        <segue destination="Vwv-e7-giR" kind="presentation" identifier="Show Edit Nutrients ViewController Segue" id="nKO-5N-zIo"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXN-b8-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2418" y="2746"/>
+            <point key="canvasLocation" x="2666" y="2745"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="NCZ-i8-lPe">
@@ -2497,14 +2551,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -2533,121 +2587,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1692" y="4309"/>
-        </scene>
-        <!--Edit Nutrients View Controller-->
-        <scene sceneID="Mfd-3F-5hs">
-            <objects>
-                <viewController id="Vwv-e7-giR" customClass="EditNutrientsViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NVO-KP-JQa"/>
-                        <viewControllerLayoutGuide type="bottom" id="bgH-PI-DRC"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kcP-T7-3EL">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="MXO-7i-7iV">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <items>
-                                    <navigationItem title="Title" id="HKs-FP-yIO">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ukd-W3-L70">
-                                            <connections>
-                                                <segue destination="Dob-6j-cMd" kind="unwind" identifier="Unwind Edit Nutrients For Cancel Segue" unwindAction="unwindEditNutrientsForCancel:" id="Gjb-cP-xcQ"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="TSU-wu-7iF">
-                                            <connections>
-                                                <segue destination="Dob-6j-cMd" kind="unwind" unwindAction="unwindEditNutrientsForDone:" id="f0P-YV-rlU"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H6R-YF-559">
-                                <rect key="frame" x="0.0" y="436" width="320" height="44"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="R5m-U5-7KB"/>
-                                    <barButtonItem title="&lt;" id="iLq-IA-efr">
-                                        <connections>
-                                            <action selector="previousNutrientItemTapped:" destination="Vwv-e7-giR" id="dR2-dr-jy3"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="&gt;" id="tHE-JC-hmD">
-                                        <connections>
-                                            <action selector="nextNutrientItemTapped:" destination="Vwv-e7-giR" id="IvT-4f-o9p"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="zBr-7e-tJZ"/>
-                                    <barButtonItem systemItem="add" id="u30-Vd-wnW">
-                                        <connections>
-                                            <segue destination="nVr-vx-E3e" kind="presentation" identifier="Add Nutrient ViewController Segue" id="QTD-G4-3ia"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xYv-dM-HfJ">
-                                <rect key="frame" x="16" y="225" width="140" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNa-ZO-8hy">
-                                <rect key="frame" x="16" y="60" width="288" height="33.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BBH-2e-OvY">
-                                <rect key="frame" x="16" y="400" width="288" height="29"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                                <connections>
-                                    <action selector="nutrientModelSegmentedControlChanged:" destination="Vwv-e7-giR" eventType="valueChanged" id="nMe-8K-vFu"/>
-                                </connections>
-                            </segmentedControl>
-                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="DTy-qb-5d1">
-                                <rect key="frame" x="164" y="132" width="140" height="216"/>
-                            </pickerView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="xYv-dM-HfJ" firstAttribute="width" secondItem="DTy-qb-5d1" secondAttribute="width" id="2Gx-dH-mh3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="DTy-qb-5d1" secondAttribute="trailing" id="6Xa-uC-9LS"/>
-                            <constraint firstItem="H6R-YF-559" firstAttribute="leading" secondItem="kcP-T7-3EL" secondAttribute="leadingMargin" constant="-16" id="ArU-5e-HtS"/>
-                            <constraint firstItem="DTy-qb-5d1" firstAttribute="leading" secondItem="xYv-dM-HfJ" secondAttribute="trailing" constant="8" id="F5f-B8-0EE"/>
-                            <constraint firstItem="bgH-PI-DRC" firstAttribute="top" secondItem="H6R-YF-559" secondAttribute="bottom" id="L5C-t0-h7Z"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="yNa-ZO-8hy" secondAttribute="leading" id="QnS-ij-4j5"/>
-                            <constraint firstItem="H6R-YF-559" firstAttribute="top" secondItem="BBH-2e-OvY" secondAttribute="bottom" constant="8" id="TFl-G2-N8Y"/>
-                            <constraint firstItem="MXO-7i-7iV" firstAttribute="leading" secondItem="kcP-T7-3EL" secondAttribute="leading" id="Vqg-tH-z7F"/>
-                            <constraint firstItem="xYv-dM-HfJ" firstAttribute="centerY" secondItem="DTy-qb-5d1" secondAttribute="centerY" id="Z7d-mc-EJA"/>
-                            <constraint firstItem="yNa-ZO-8hy" firstAttribute="top" secondItem="MXO-7i-7iV" secondAttribute="bottom" constant="16" id="kNH-1t-Z94"/>
-                            <constraint firstItem="xYv-dM-HfJ" firstAttribute="top" secondItem="NVO-KP-JQa" secondAttribute="bottom" constant="205" id="och-TY-aGc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="BBH-2e-OvY" secondAttribute="trailing" id="p2h-UY-O9R"/>
-                            <constraint firstAttribute="trailing" secondItem="MXO-7i-7iV" secondAttribute="trailing" id="pgM-OZ-CZV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="yNa-ZO-8hy" secondAttribute="trailing" id="q2J-eU-cbc"/>
-                            <constraint firstItem="MXO-7i-7iV" firstAttribute="top" secondItem="kcP-T7-3EL" secondAttribute="top" id="sjb-zt-628"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="BBH-2e-OvY" secondAttribute="leading" id="wQe-VY-aX3"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="xYv-dM-HfJ" secondAttribute="leading" id="yPX-Gy-EBa"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="H6R-YF-559" secondAttribute="trailing" constant="-16" id="yQD-55-AQl"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="nextNutrientItemButton" destination="tHE-JC-hmD" id="KDY-Kj-gcL"/>
-                        <outlet property="nutrient" destination="yNa-ZO-8hy" id="lEr-Gj-4zm"/>
-                        <outlet property="nutrientModelSegmentedControl" destination="BBH-2e-OvY" id="lGS-Bd-Ydb"/>
-                        <outlet property="nutrientTitle" destination="yNa-ZO-8hy" id="m6A-EE-nkK"/>
-                        <outlet property="nutrientValue" destination="xYv-dM-HfJ" id="YSh-T2-DfA"/>
-                        <outlet property="previousNutrientItemButton" destination="iLq-IA-efr" id="5UH-8a-zuT"/>
-                        <outlet property="unitsPickerView" destination="DTy-qb-5d1" id="N1J-aR-P1D"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XGq-f6-qZO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="Dob-6j-cMd" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2416.875" y="4108.75"/>
+            <point key="canvasLocation" x="1744" y="4109"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -2700,7 +2640,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hN1-hb-NjU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2416.875" y="4982.5"/>
+            <point key="canvasLocation" x="2385" y="4109"/>
         </scene>
         <!--Select Expiration Date View Controller-->
         <scene sceneID="z2H-NT-F1c">
@@ -2761,7 +2701,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1D5-2L-NQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cjF-Ec-3gy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3056" y="4109"/>
+            <point key="canvasLocation" x="3690" y="4109"/>
         </scene>
         <!--Products-->
         <scene sceneID="RSI-qe-sXU">
@@ -2808,9 +2748,9 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WmF-mg-s8n"/>
-        <segue reference="fRX-dv-BPz"/>
-        <segue reference="GR8-bW-x6k"/>
         <segue reference="NgB-UV-Avc"/>
+        <segue reference="4zk-rY-uLr"/>
+        <segue reference="oZb-AL-Fkm"/>
+        <segue reference="GR8-bW-x6k"/>
     </inferredMetricsTieBreakers>
 </document>

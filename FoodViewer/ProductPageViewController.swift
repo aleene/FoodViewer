@@ -626,6 +626,69 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
         }
     }
+    
+    func updated(fact: NutritionFactItem?) {
+        if let validFact = fact {
+            guard product != nil else { return }
+            // initialize an updated product if it does not exist yet
+            initUpdatedProductWith(product: product!)
+            // editing or first nutrient of product
+            if let originalFacts = product?.nutritionFacts {
+                // there were already some facts
+                if updatedProduct!.nutritionFacts == nil {
+                    // first edit
+                    updatedProduct!.nutritionFacts = Array.init(repeating: nil, count: originalFacts.count)
+                }
+                var factExists = false
+                // has an existing fact been edited?
+                for (index, currentFact) in originalFacts.enumerated() {
+                    if currentFact?.key == fact?.key {
+                        updatedProduct?.nutritionFacts?[index] = fact
+                        factExists = true
+                        break
+                    }
+                }
+                // the fact does not exist yet
+                if !factExists {
+                    for (index, currentFact) in updatedProduct!.nutritionFacts!.enumerated() {
+                        if currentFact?.key == fact?.key {
+                            updatedProduct?.nutritionFacts?[index] = fact
+                            factExists = true
+                            break
+                        }
+                    }
+                    if !factExists {
+                        // add it to both arrays
+                        updatedProduct?.nutritionFacts?.append(fact)
+                        product!.nutritionFacts?.append(nil)
+                    }
+                }
+            } else {
+                // no facts are available for this product
+                if updatedProduct?.nutritionFacts == nil {
+                    // add the first fact
+                    updatedProduct?.nutritionFacts = [validFact]
+                } else {
+                    // has an existing edited fact been edited again
+                    var factExists = false
+                    for (index, currentFact) in updatedProduct!.nutritionFacts!.enumerated() {
+                        if currentFact?.key == fact?.key {
+                            updatedProduct?.nutritionFacts?[index] = fact
+                            factExists = true
+                            break
+                        }
+                    }
+                    // if the fact has not been found, add it
+                    if !factExists {
+                        // add it to both arrays
+                        updatedProduct?.nutritionFacts?.append(fact)
+                        product!.nutritionFacts = Array.init(repeating: nil, count: 1)
+                    }
+                }
+            }
+            saveUpdatedProduct()
+        }
+    }
 
     func updated(facts: [NutritionFactItem?]) {
         // TODO: need to check if a fact has been updated
@@ -633,11 +696,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initUpdatedProductWith(product: product!)
         // make sure we have an nillified nutritionFacts array
         if updatedProduct!.nutritionFacts == nil {
-            updatedProduct!.nutritionFacts = []
             // the new array should be based on the size of the edited array
-            for _ in facts {
-                updatedProduct?.nutritionFacts!.append(nil)
-            }
+            updatedProduct!.nutritionFacts = Array.init(repeating: nil, count: facts.count)
         } else {
             // make sure the updated nutritionFacts array is long enough
             for _ in updatedProduct!.nutritionFacts!.count ..< facts.count {
