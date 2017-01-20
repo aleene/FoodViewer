@@ -506,7 +506,7 @@ class NutrientsTableViewController: UITableViewController {
                 editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
                 editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
                 delegate?.updated(fact: editedNutritionFact)
-                refreshProduct()
+                refreshProductWithNewNutritionFacts()
             }
         }
     }
