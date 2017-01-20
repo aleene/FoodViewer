@@ -607,7 +607,11 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 editedNutritionFact.itemName = adaptedNutritionFacts[textField.tag].name
                 editedNutritionFact.standardValueUnit = adaptedNutritionFacts[textField.tag].unit
                 // this value has been changed
-                editedNutritionFact.standardValue = textField.text
+                if let text = textField.text {
+                    editedNutritionFact.standardValue = String(text.characters.map {
+                        $0 == "," ? "." : $0
+                    })
+                }
                 delegate?.updated(fact: editedNutritionFact)
                 refreshProductWithNewNutritionFacts()
             }
