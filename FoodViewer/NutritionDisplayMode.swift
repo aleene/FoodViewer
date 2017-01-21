@@ -24,6 +24,17 @@ enum NutritionDisplayMode {
         }
     }
     
+    init(_ index: Int) {
+        switch index {
+        case 1:
+            self = .perServing
+        case 2:
+            self = .perServing
+        default:
+            self = .perStandard
+        }
+    }
+    
     func index() -> Int {
         switch self {
         case .perServing: return 0
@@ -36,7 +47,7 @@ enum NutritionDisplayMode {
         switch self {
         case .perServing: return "per serving"
         case .perStandard: return "per standard unit"
-        case .perDailyValue: return "daily value"
+        case .perDailyValue: return "per daily value"
         }
     }
 }

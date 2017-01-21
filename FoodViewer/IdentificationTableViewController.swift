@@ -241,8 +241,8 @@ class IdentificationTableViewController: UITableViewController {
                 cell.tekst = nil
             }
             cell.editMode = editMode
-            cell.textField.delegate = self
-            cell.textField.tag = 2
+            cell.delegate = self
+            cell.tag = 2
             return cell
             
         case .image:
@@ -719,7 +719,12 @@ extension IdentificationTableViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        return currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+        switch textField.tag {
+        case 2:
+            return editMode
+        default:
+            return currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+        }
     }
     
 }

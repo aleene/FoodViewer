@@ -153,6 +153,7 @@ class NutrientsTableViewController: UITableViewController {
         static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
         static let NoNutrientsImageCellIdentifier = "No Nutrition Image Cell"
         static let AddNutrientCellIdentifier = "Add Nutrient Cell"
+        static let PerUnitCellIdentifier = "Per Unit Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
         static let AddNutrientSegue = "Add Nutrient Segue"
         static let SelectNutrientUnitSegue = "Select Nutrient Unit Segue"
@@ -164,6 +165,7 @@ class NutrientsTableViewController: UITableViewController {
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
+        case perUnit
         case nutritionFacts
         case addNutrient
         case servingSize
@@ -186,6 +188,10 @@ class NutrientsTableViewController: UITableViewController {
         
         // we assume that product exists
         switch currentProductSection {
+        case .perUnit:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PerUnitCellIdentifier, for: indexPath) as! PerUnitTableViewCell
+            cell.displayMode = showNutrientsAs
+            return cell
         case .nutritionFacts:
             if adaptedNutritionFacts.isEmpty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.EmptyNutritionFactsImageCellIdentifier, for: indexPath) as? EmptyNutrientsTableViewCell
@@ -264,6 +270,12 @@ class NutrientsTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let (_, _, header) = tableStructureForProduct[section]
+        return header
+    }
+    
+    /*
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
@@ -274,6 +286,7 @@ class NutrientsTableViewController: UITableViewController {
         switch section {
         case 0:
             label.text = showNutrientsAs.description()
+            
             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnNutrimentsHeader))
             doubleTapGestureRecognizer.numberOfTapsRequired = 2
             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -291,6 +304,8 @@ class NutrientsTableViewController: UITableViewController {
         tempView.tag = section;
         return tempView;
     }
+ */
+    
     
     /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -310,10 +325,12 @@ class NutrientsTableViewController: UITableViewController {
         static let ServingSizeSectionSize = 1
         static let NutritionFactsEmpytSectionSize = 1
         static let AddNutrientSectionSize = 1
-        static let NutritionFactItemsSectionHeader = NSLocalizedString("Nutrition Facts (100g; 100ml)", comment: "Tableview header section for the list of nutritional facts")
+        static let PerUnitSectionSize = 1
+        static let NutritionFactItemsSectionHeader = NSLocalizedString("Nutrition Facts", comment: "Tableview header section for the list of nutritional facts")
         static let NutritionFactsImageSectionHeader = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
         static let ServingSizeSectionHeader = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.")
         static let AddNutrientSectionHeader = "No Add Nutrient Header"
+        static let PerUnitSectionHeader = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
     }
     
     func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
@@ -401,6 +418,12 @@ class NutrientsTableViewController: UITableViewController {
                 break
             }
         }
+        // 0 : how the nutrients are shown section
+        sectionsAndRows.append(
+            ( SectionType.perUnit,
+            TableStructure.PerUnitSectionSize,
+            TableStructure.PerUnitSectionHeader )
+        )
         
         // 0 : nutrition facts
         if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
@@ -518,6 +541,14 @@ class NutrientsTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func newPerUnitSettings(_ notification: Notification) {
+        guard product != nil else { return }
+        if let index = notification.userInfo?[PerUnitTableViewCell.Notification.PerUnitHasBeenSetKey] as? Int {
+            showNutrientsAs = NutritionDisplayMode.init(index)
+            tableView.reloadData()
+        }
+    }
+
     func reloadImageSection(_ notification: Notification) {
         tableView.reloadData()
     }
@@ -563,7 +594,10 @@ class NutrientsTableViewController: UITableViewController {
             object:nil
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
+        
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name: .NutritionImageSet, object:nil)
+
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.newPerUnitSettings(_:)), name: .PerUnitChanged, object:nil)
 
     }
     

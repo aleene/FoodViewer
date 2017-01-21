@@ -13,6 +13,10 @@ class QuantityTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField! {
         didSet {
+            textField.layer.borderWidth = 0.5
+            textField.clearButtonMode = .whileEditing
+            textField.delegate = delegate
+            textField.tag = tag
             setTextFieldStyle()
         }
     }
@@ -29,11 +33,20 @@ class QuantityTableViewCell: UITableViewCell {
         }
     }
     
+    var delegate: IdentificationTableViewController? = nil {
+        didSet {
+            textField?.delegate = delegate
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            textField?.tag = tag
+        }
+    }
+    
     private func setTextFieldStyle() {
-        textField.layer.borderWidth = 0.5
-        textField.clearButtonMode = .whileEditing
         if editMode {
-            
             textField.backgroundColor = UIColor.groupTableViewBackground
             textField.layer.cornerRadius = 5
             textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
