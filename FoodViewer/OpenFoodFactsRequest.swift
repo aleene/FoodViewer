@@ -174,7 +174,7 @@ class OpenFoodFactsRequest {
                 product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
                 product.creator = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatorKey].string
                 product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
-                product.nutritionFactsAreAvailable = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
+                product.nutritionFactsOnPackage = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
                 product.servingSize = jsonObject[jsonKeys.ProductKey][jsonKeys.ServingSizeKey].string
                 var grade: NutritionalScoreLevel = .undefined
                 grade.string(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionGradeFrKey].string)
@@ -351,11 +351,15 @@ class OpenFoodFactsRequest {
                 nutritionItem.standardValue = value
             } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.standardValue = value
+            } else {
+                nutritionItem.standardValue = nil
             }
             if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
                 nutritionItem.servingValue = value
             } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.servingValue = value
+            } else {
+                nutritionItem.servingValue = nil
             }
 
         } else if (nutritionItem.key!.contains("alcohol")) || (nutritionItem.key!.contains("cocoa")){
@@ -365,15 +369,18 @@ class OpenFoodFactsRequest {
                 nutritionItem.standardValue = value
             } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.standardValue = value
+            } else {
+                nutritionItem.standardValue = nil
             }
             if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
                 nutritionItem.servingValue = value
             } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
                 nutritionItem.servingValue = value
+            } else {
+                nutritionItem.servingValue = nil
             }
         } else {
             nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-            nutritionItem.servingValueUnit = NutritionFactUnit.Gram
             if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
                 // is the value translatable to a number?
                 if var doubleValue = Double(value) {
@@ -402,20 +409,62 @@ class OpenFoodFactsRequest {
                     // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
                     nutritionItem.standardValue = "\(doubleValue)"
                 } else {
+                    // not a number, maybe some text
                     nutritionItem.standardValue = value
                 }
             } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
+                // use the value key data if any
                 nutritionItem.standardValue = value
             }
         
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
+            nutritionItem.servingValueUnit = NutritionFactUnit.Gram
+            if var value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].number?.doubleValue {
+                // is the value translatable to a number?
+                // use the original values to calculate the daily fraction
+                let dailyValue = ReferenceDailyIntakeList.manager.dailyValue(value: value, forKey:key)
+                // print("serving: \(key) \(doubleValue)" )
+                nutritionItem.dailyFractionPerServing = dailyValue
+                
+                if value < 0.99 {
+                    //change to the milli version
+                    value = value * 1000.0
+                    if value < 0.99 {
+                        // change to the microversion
+                        value = value * 1000.0
+                        if value < 0.99 {
+                            nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
+                        } else {
+                            // we use only the values standerdized on g
+                            if nutritionItem.servingValueUnit! == .Gram {
+                                nutritionItem.servingValueUnit = .Microgram
+                            } else if nutritionItem.servingValueUnit! == .Liter {
+                                nutritionItem.servingValueUnit = .Microliter
+                            }
+                        }
+                    } else {
+                        // we use only the values standerdized on g
+                        if nutritionItem.servingValueUnit! == .Gram {
+                            nutritionItem.servingValueUnit = .Milligram
+                        } else if nutritionItem.servingValueUnit! == .Liter {
+                            nutritionItem.servingValueUnit = .Milliliter
+                        }
+                    }
+                } else {
+                        // we use only the values standerdized on g
+                    nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
+                }
+
+                nutritionItem.servingValue = "\(value)"
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
+                
                 // is the value translatable to a number?
                 if var doubleValue = Double(value) {
+
                     // use the original values to calculate the daily fraction
                     let dailyValue = ReferenceDailyIntakeList.manager.dailyValue(value: doubleValue, forKey:key)
                     // print("serving: \(key) \(doubleValue)" )
                     nutritionItem.dailyFractionPerServing = dailyValue
-                
+                    
                     if doubleValue < 0.99 {
                         //change to the milli version
                         doubleValue = doubleValue * 1000.0
@@ -444,17 +493,18 @@ class OpenFoodFactsRequest {
                         // we use only the values standerdized on g
                         nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
                     }
-
+                    
                     nutritionItem.servingValue = "\(doubleValue)"
-
                 } else {
-                    nutritionItem.servingValue = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string
+                    nutritionItem.servingValue = value
                 }
 
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.servingValue = value
+            } else {
+                nutritionItem.servingValue = nil
             }
         }
+
+        /*
         // what data is defined?
         if (nutritionItem.standardValue == nil) {
             if (nutritionItem.servingValue == nil) {
@@ -475,7 +525,11 @@ class OpenFoodFactsRequest {
                 product.nutritionFactsAreAvailable = .perServingAndStandardUnit
             }
         }
-        product.add(fact: nutritionItem)
+        */
+        // only add a fact if it has valid values
+        if nutritionItem.standardValue != nil || nutritionItem.servingValue != nil {
+            product.add(fact: nutritionItem)
+        }
     }
     
     fileprivate struct StateCompleteKey {

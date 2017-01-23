@@ -113,7 +113,7 @@ class NutrientsTableViewController: UITableViewController {
     
     // The functions creates a mixed array of edited and unedited nutrients
     
-    private func mergeNutritionFacts() {
+    fileprivate func mergeNutritionFacts() {
         var newNutritionFacts: [NutritionFactItem?] = []
         // Are there any nutritionFacts defined?
         if let validNutritionFacts = product?.nutritionFacts {
@@ -125,7 +125,15 @@ class NutrientsTableViewController: UITableViewController {
                     if updatedNutritionFacts[index] == nil {
                         newNutritionFacts.append(validNutritionFacts[index]!)
                     } else {
-                        newNutritionFacts.append(delegate?.updatedProduct?.nutritionFacts?[index])
+                        var newFact = NutritionFactItem()
+                        newFact.key = validNutritionFacts[index]?.key
+                        newFact.itemName = validNutritionFacts[index]?.itemName
+                        // check out whether an update occured
+                        newFact.standardValue = updatedNutritionFacts[index]?.standardValue ?? validNutritionFacts[index]?.standardValue
+                        newFact.standardValueUnit = updatedNutritionFacts[index]?.standardValueUnit ?? validNutritionFacts[index]?.standardValueUnit
+                        newFact.servingValue = updatedNutritionFacts[index]?.servingValue ?? validNutritionFacts[index]?.servingValue
+                        newFact.servingValueUnit = updatedNutritionFacts[index]?.servingValueUnit ?? validNutritionFacts[index]?.servingValueUnit
+                        newNutritionFacts.append(newFact)
                     }
                 }
                 adaptedNutritionFacts = adaptNutritionFacts(newNutritionFacts)
@@ -191,6 +199,9 @@ class NutrientsTableViewController: UITableViewController {
         case .perUnit:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PerUnitCellIdentifier, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = showNutrientsAs
+            cell.editMode = editMode
+            cell.nutritionFactsAvailability = product!.nutritionFactsAreAvailable
+            // print(showNutrientsAs, product!.nutritionFactsAreAvailable)
             return cell
         case .nutritionFacts:
             if adaptedNutritionFacts.isEmpty {
@@ -357,6 +368,7 @@ class NutrientsTableViewController: UITableViewController {
 //        tableView.reloadSections(sections, withRowAnimation: .Fade)
     }
     
+    /*
     func doubleTapOnNutrimentsHeader(_ recognizer: UITapGestureRecognizer) {
         ///// Cycle through display modes
         switch showNutrientsAs {
@@ -371,6 +383,7 @@ class NutrientsTableViewController: UITableViewController {
         mergeNutritionFacts()
         tableView.reloadData()
     }
+ */
     
     fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
@@ -380,8 +393,6 @@ class NutrientsTableViewController: UITableViewController {
         //
         //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType,Int, String?)] = []
-        
-        
         
         // how does the user want the data presented
         switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
@@ -545,6 +556,7 @@ class NutrientsTableViewController: UITableViewController {
         guard product != nil else { return }
         if let index = notification.userInfo?[PerUnitTableViewCell.Notification.PerUnitHasBeenSetKey] as? Int {
             showNutrientsAs = NutritionDisplayMode.init(index)
+            mergeNutritionFacts()
             tableView.reloadData()
         }
     }
@@ -556,7 +568,6 @@ class NutrientsTableViewController: UITableViewController {
     func refreshProductWithNewNutritionFacts() {
         guard product != nil else { return }
         // recalculate the nutritionfacts that must be shown
-        mergeNutritionFacts()
         tableStructureForProduct = analyseProductForTable(product!)
         tableView.reloadData()
     }
@@ -639,15 +650,28 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 var editedNutritionFact = NutritionFactItem()
                 editedNutritionFact.key = adaptedNutritionFacts[textField.tag].key
                 editedNutritionFact.itemName = adaptedNutritionFacts[textField.tag].name
-                editedNutritionFact.standardValueUnit = adaptedNutritionFacts[textField.tag].unit
-                // this value has been changed
-                if let text = textField.text {
-                    editedNutritionFact.standardValue = String(text.characters.map {
-                        $0 == "," ? "." : $0
-                    })
+                if showNutrientsAs == .perStandard {
+                    editedNutritionFact.standardValueUnit = adaptedNutritionFacts[textField.tag].unit
+
+                    // this value has been changed
+                    if let text = textField.text {
+                        editedNutritionFact.standardValue = String(text.characters.map {
+                            $0 == "," ? "." : $0
+                        })
+                    }
+                } else if showNutrientsAs == .perServing {
+                    editedNutritionFact.servingValueUnit = adaptedNutritionFacts[textField.tag].unit
+
+                    // this value has been changed
+                    if let text = textField.text {
+                        editedNutritionFact.servingValue = String(text.characters.map {
+                            $0 == "," ? "." : $0
+                        })
+                    }
                 }
                 delegate?.updated(fact: editedNutritionFact)
-                refreshProductWithNewNutritionFacts()
+                mergeNutritionFacts()
+                tableView.reloadData()
             }
         }
     }

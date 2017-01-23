@@ -214,7 +214,32 @@ class FoodProduct {
     
     // MARK: - Nutrition variables 
     
-    var nutritionFactsAreAvailable = NutritionAvailability.notIndicated
+    var nutritionFactsAreAvailable: NutritionAvailability {
+        get {
+            // Figures out whether a nutrition fact contains values per serving and/or standard
+            if let validNutritionFacts = nutritionFacts {
+                if !validNutritionFacts.isEmpty {
+                    if validNutritionFacts[0]?.servingValue != nil &&
+                        !validNutritionFacts[0]!.servingValue!.isEmpty &&
+                        validNutritionFacts[0]?.standardValue != nil &&
+                        !validNutritionFacts[0]!.standardValue!.isEmpty {
+                        return .perServingAndStandardUnit
+                    } else if validNutritionFacts[0]?.servingValue != nil &&
+                        !validNutritionFacts[0]!.servingValue!.isEmpty {
+                        return .perServing
+                    } else if validNutritionFacts[0]?.standardValue != nil &&
+                        !validNutritionFacts[0]!.standardValue!.isEmpty {
+                        return .perStandardUnit
+                    }
+                }
+            }
+            return self.nutritionFactsOnPackage
+        }
+    }
+    
+    // This variable indicates whether there are nutrition facts available on the package.
+    var nutritionFactsOnPackage: NutritionAvailability = .notIndicated
+    
     var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
     
     // The nutritionFacts array can be nil, if nothing has been defined
@@ -226,6 +251,7 @@ class FoodProduct {
             nutritionFacts = []
         }
         nutritionFacts?.append(fact)
+        
     }
     
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil

@@ -2340,7 +2340,7 @@
                                             <rect key="frame" x="8" y="8" width="304" height="29"/>
                                             <segments>
                                                 <segment title="100 g / 100 ml"/>
-                                                <segment title="Portion"/>
+                                                <segment title="Serving"/>
                                             </segments>
                                             <connections>
                                                 <action selector="PerUnitSegmentedControlTapped:" destination="WPh-oO-Mv6" eventType="valueChanged" id="t72-7U-E24"/>

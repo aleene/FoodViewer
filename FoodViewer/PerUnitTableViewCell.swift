@@ -33,12 +33,47 @@ class PerUnitTableViewCell: UITableViewCell {
             case .perServing:
                 perUnitSegmentedControl.selectedSegmentIndex = 1
             case .perDailyValue:
-                perUnitSegmentedControl.selectedSegmentIndex = 2
+                perUnitSegmentedControl.selectedSegmentIndex = 0
             }
         }
     }
     
-    func notifyUser() {
+    var editMode = false {
+        didSet {
+            setView()
+        }
+    }
+    
+    var nutritionFactsAvailability: NutritionAvailability? = nil {
+        didSet {
+            setView()
+        }
+    }
+    
+    private func setView() {
+        if editMode {
+            perUnitSegmentedControl.isEnabled = true
+        } else {
+            if let validAvailability = nutritionFactsAvailability {
+                perUnitSegmentedControl.isEnabled = false
+                // what is possible?
+                switch validAvailability {
+                case .perServingAndStandardUnit:
+                    perUnitSegmentedControl.isEnabled = true
+                case .perServing:
+                    perUnitSegmentedControl.isEnabledForSegment(at: 1)
+                    perUnitSegmentedControl.selectedSegmentIndex = 1
+                case .perStandardUnit:
+                    perUnitSegmentedControl.isEnabledForSegment(at: 0)
+                    perUnitSegmentedControl.selectedSegmentIndex = 0
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    private func notifyUser() {
         if let index = perUnitSegmentedControl?.selectedSegmentIndex {
             let data = [Notification.PerUnitHasBeenSetKey: index]
             NotificationCenter.default.post(name: .PerUnitChanged, object:nil, userInfo: data)
