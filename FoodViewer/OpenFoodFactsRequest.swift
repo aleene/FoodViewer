@@ -144,7 +144,7 @@ class OpenFoodFactsRequest {
                 product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
                 product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
                 
-                product.countryArray(decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
+                product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
                 let test = jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string
                 
                 // let test2 = jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesOrigKey].string

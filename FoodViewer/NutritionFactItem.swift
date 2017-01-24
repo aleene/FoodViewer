@@ -31,8 +31,8 @@ struct NutritionFactItem {
         standardValue = standard
         servingValue = serving
         if let validUnit = unit {
-            standardValueUnit = NutritionFactUnit.set(text: validUnit)
-            servingValueUnit = NutritionFactUnit.set(text: validUnit)
+            standardValueUnit = NutritionFactUnit(validUnit)
+            servingValueUnit = NutritionFactUnit(validUnit)
         }
         self.key = key
     }

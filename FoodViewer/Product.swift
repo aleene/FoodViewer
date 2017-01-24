@@ -342,14 +342,12 @@ class FoodProduct {
     
     var countries: [Address]? = nil //or a set?
     
-    func countryArray(_ countries:[String]?) {
+    func set(countries:[String]?) {
         if let array = countries {
             if !array.isEmpty {
+                self.countries = []
                 for element in array {
                     if !element.isEmpty {
-                        if self.countries == nil {
-                            self.countries = []
-                        }
                         let newAddress = Address()
                         newAddress.country = element
                         self.countries!.append(newAddress)

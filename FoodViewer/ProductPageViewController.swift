@@ -594,7 +594,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(purchaseLocation: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.countryArray(validTags)
+                updatedProduct?.set(countries:validTags)
                 saveUpdatedProduct()
             }
         }

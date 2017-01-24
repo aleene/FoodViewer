@@ -552,6 +552,8 @@ class NutrientsTableViewController: UITableViewController {
                 var newNutrient = NutritionFactItem()
                 newNutrient.key = newNutrientTuple.0
                 newNutrient.itemName = newNutrientTuple.1
+                newNutrient.servingValueUnit = newNutrientTuple.2
+                newNutrient.standardValueUnit = newNutrientTuple.2
                 delegate?.updated(fact: newNutrient)
                 refreshProductWithNewNutritionFacts()
             }

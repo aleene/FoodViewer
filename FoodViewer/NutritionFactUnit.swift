@@ -22,30 +22,30 @@ enum NutritionFactUnit: Int, CaseCountable {
     case Microliter
     case Percent
     
-    static func set(text: String) -> NutritionFactUnit {
+    init(_ text: String) {
         switch text {
         case Strings.Joule:
-            return .Joule
+            self = .Joule
         case Strings.Calories:
-            return .Calories
+            self =  .Calories
         case Strings.Kilogram:
-            return .Kilogram
+            self =  .Kilogram
         case Strings.Gram:
-            return .Gram
+            self =  .Gram
         case Strings.Milligram:
-            return .Milligram
+            self =  .Milligram
         case Strings.Microgram:
-            return .Microgram
+            self =  .Microgram
         case Strings.Liter:
-            return .Liter
+            self =  .Liter
         case Strings.Milliliter:
-            return .Milliliter
+            self =  .Milliliter
         case Strings.Microliter:
-            return .Microliter
+            self =  .Microliter
         case Strings.Percent:
-            return .Percent
+            self =  .Percent
         default:
-            return .None
+            self =  .None
         }
     }
 
