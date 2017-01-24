@@ -49,7 +49,7 @@ struct NutritionFactItem {
         
         if let value = stringValue {
             guard !value.isEmpty else { return "" }
-            if let doubleValue = Double.init(value) {
+            if let doubleValue = Double.init(value.replacingOccurrences(of: ",", with: ".")) {
                 let division = doubleValue / Constants.CaloriesPerJoule
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
@@ -72,7 +72,8 @@ struct NutritionFactItem {
 
         if let value = stringValue {
             guard !value.isEmpty else { return value }
-            if let doubleValue = Double.init(value) {
+            // change any comma numbers to point numbers
+            if let doubleValue = Double.init(value.replacingOccurrences(of: ",", with: ".")) {
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
                 let str = numberFormatter.string(from: NSNumber(floatLiteral: doubleValue))

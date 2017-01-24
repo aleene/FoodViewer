@@ -17,9 +17,9 @@ enum NutritionFactUnit: Int, CaseCountable {
     case Gram
     case Milligram
     case Microgram
-    case Liter
-    case Milliliter
-    case Microliter
+    //case Liter
+    //case Milliliter
+    //case Microliter
     case Percent
     
     init(_ text: String) {
@@ -36,12 +36,12 @@ enum NutritionFactUnit: Int, CaseCountable {
             self =  .Milligram
         case Strings.Microgram:
             self =  .Microgram
-        case Strings.Liter:
-            self =  .Liter
-        case Strings.Milliliter:
-            self =  .Milliliter
-        case Strings.Microliter:
-            self =  .Microliter
+        //case Strings.Liter:
+        //    self =  .Liter
+        //case Strings.Milliliter:
+        //    self =  .Milliliter
+        //case Strings.Microliter:
+        //    self =  .Microliter
         case Strings.Percent:
             self =  .Percent
         default:
@@ -59,9 +59,9 @@ enum NutritionFactUnit: Int, CaseCountable {
         case .Gram: return NSLocalizedString("gram (g)", comment: "Standard weight unit.")
         case .Milligram: return NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
         case .Microgram: return NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
-        case .Liter: return NSLocalizedString("liter (L)", comment: "Standard volume unit.")
-        case .Milliliter: return NSLocalizedString("milliliter (mL)", comment: "Standard volume unit divided by thousand.")
-        case .Microliter: return NSLocalizedString("microliter (µL)", comment: "Standard volume unit divided by million.")
+        //case .Liter: return NSLocalizedString("liter (L)", comment: "Standard volume unit.")
+        //case .Milliliter: return NSLocalizedString("milliliter (mL)", comment: "Standard volume unit divided by thousand.")
+        //case .Microliter: return NSLocalizedString("microliter (µL)", comment: "Standard volume unit divided by million.")
         case .Percent: return NSLocalizedString("percentage (%)", comment: "Fraction of total by volume")
         case .None:return NSLocalizedString("none", comment: "Unitless")
         }
@@ -81,12 +81,12 @@ enum NutritionFactUnit: Int, CaseCountable {
             return Strings.Milligram
         case .Microgram :
             return Strings.Microgram
-        case .Liter :
-            return Strings.Liter
-        case .Milliliter :
-            return Strings.Milliliter
-        case .Microliter :
-            return Strings.Microliter
+        //case .Liter :
+        //    return Strings.Liter
+        //case .Milliliter :
+        //    return Strings.Milliliter
+        //case .Microliter :
+        //    return Strings.Microliter
         case .Percent :
             return Strings.Percent
         case .None :
@@ -101,9 +101,9 @@ enum NutritionFactUnit: Int, CaseCountable {
         static let Gram = " g"
         static let Milligram = "mg"
         static let Microgram = "µg"
-        static let Liter = " L"
-        static let Milliliter = "mL"
-        static let Microliter = "µL"
+        //static let Liter = " L"
+        //static let Milliliter = "mL"
+        //static let Microliter = "µL"
         static let Percent = "%"
         static let None = ""
     }

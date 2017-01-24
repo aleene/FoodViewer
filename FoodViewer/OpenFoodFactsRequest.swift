@@ -437,16 +437,16 @@ class OpenFoodFactsRequest {
                             // we use only the values standerdized on g
                             if nutritionItem.servingValueUnit! == .Gram {
                                 nutritionItem.servingValueUnit = .Microgram
-                            } else if nutritionItem.servingValueUnit! == .Liter {
-                                nutritionItem.servingValueUnit = .Microliter
+//                            } else if nutritionItem.servingValueUnit! == .Liter {
+//                                nutritionItem.servingValueUnit = .Microliter
                             }
                         }
                     } else {
                         // we use only the values standerdized on g
                         if nutritionItem.servingValueUnit! == .Gram {
                             nutritionItem.servingValueUnit = .Milligram
-                        } else if nutritionItem.servingValueUnit! == .Liter {
-                            nutritionItem.servingValueUnit = .Milliliter
+//                        } else if nutritionItem.servingValueUnit! == .Liter {
+//                            nutritionItem.servingValueUnit = .Milliliter
                         }
                     }
                 } else {
@@ -477,16 +477,16 @@ class OpenFoodFactsRequest {
                                 // we use only the values standerdized on g
                                 if nutritionItem.servingValueUnit! == .Gram {
                                     nutritionItem.servingValueUnit = .Microgram
-                                } else if nutritionItem.servingValueUnit! == .Liter {
-                                    nutritionItem.servingValueUnit = .Microliter
+//                                } else if nutritionItem.servingValueUnit! == .Liter {
+//                                    nutritionItem.servingValueUnit = .Microliter
                                 }
                             }
                         } else {
                             // we use only the values standerdized on g
                             if nutritionItem.servingValueUnit! == .Gram {
                                 nutritionItem.servingValueUnit = .Milligram
-                            } else if nutritionItem.servingValueUnit! == .Liter {
-                                nutritionItem.servingValueUnit = .Milliliter
+//                            } else if nutritionItem.servingValueUnit! == .Liter {
+//                                nutritionItem.servingValueUnit = .Milliliter
                             }
                         }
                     } else {
