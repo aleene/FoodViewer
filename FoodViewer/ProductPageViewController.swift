@@ -627,6 +627,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    func updated(availability: Bool) {
+        guard product != nil else { return }
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.hasNutritionFacts = availability
+        saveUpdatedProduct()
+    }
+    
     func updated(fact: NutritionFactItem?) {
         if let validFact = fact {
             guard product != nil else { return }

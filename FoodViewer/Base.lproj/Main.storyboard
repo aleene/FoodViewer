@@ -2323,7 +2323,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="nIc-JU-jSB" userLabel="FooterView">
-                            <rect key="frame" x="0.0" y="380" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="424" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <rect key="contentStretch" x="0.0" y="0.0" width="1" height="0.0"/>
@@ -2552,6 +2552,39 @@
                                     <outlet property="addNutrientButton" destination="PU9-ny-duI" id="HUB-iL-6yO"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutriments Available Cell" id="r01-FL-wDf" customClass="NutrimentsAvailableTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="380" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r01-FL-wDf" id="9fq-8g-OnN">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listed on package?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Swp-Bc-P0i" userLabel="Nutriments available?">
+                                            <rect key="frame" x="8" y="8" width="247" height="27.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cmM-ql-9OU">
+                                            <rect key="frame" x="263" y="6.5" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="NutrimentsAvailableSwitchTapped:" destination="r01-FL-wDf" eventType="valueChanged" id="7QT-wn-C2B"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Swp-Bc-P0i" firstAttribute="top" secondItem="9fq-8g-OnN" secondAttribute="topMargin" id="2um-5p-tGF"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Swp-Bc-P0i" secondAttribute="bottom" id="5P2-yp-QeN"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="cmM-ql-9OU" secondAttribute="trailing" id="8yx-Yu-ame"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="Swp-Bc-P0i" secondAttribute="leading" id="CJe-Vf-3Mn"/>
+                                        <constraint firstItem="cmM-ql-9OU" firstAttribute="leading" secondItem="Swp-Bc-P0i" secondAttribute="trailing" constant="8" id="g0g-hh-Nvp"/>
+                                        <constraint firstItem="cmM-ql-9OU" firstAttribute="centerY" secondItem="Swp-Bc-P0i" secondAttribute="centerY" id="qsB-DE-qcn"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="NutrimentsAvailableSwitch" destination="cmM-ql-9OU" id="hdz-60-CCI"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Q8f-Fa-rlA" id="FTZ-6m-eLB"/>
@@ -2569,7 +2602,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXN-b8-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2666" y="2745"/>
+            <point key="canvasLocation" x="2664.375" y="2745"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="NCZ-i8-lPe">

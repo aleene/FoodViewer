@@ -233,13 +233,23 @@ class FoodProduct {
                     }
                 }
             }
-            return self.nutritionFactsOnPackage
+            return .notIndicated
         }
     }
     
     // This variable indicates whether there are nutrition facts available on the package.
-    var nutritionFactsOnPackage: NutritionAvailability = .notIndicated
+    var hasNutritionFacts: Bool? = nil // nil indicates that it is not known
     
+    // hasNutritionFacts can be nil even if there are nutriments defined
+    var nutrimentFactsAvailability: Bool {
+        get {
+            if hasNutritionFacts != nil {
+                return hasNutritionFacts!
+            } else {
+                return nutritionFacts != nil || nutritionFactsImageUrl != nil ? true : false
+            }
+        }
+    }
     var nutritionFactsIndicationUnit: NutritionEntryUnit? = nil
     
     // The nutritionFacts array can be nil, if nothing has been defined
@@ -620,6 +630,7 @@ class FoodProduct {
         correctors = nil
         editors = nil
         informers = nil
+        hasNutritionFacts = nil
         productContributors = UniqueContributors()
         contributorsArray = []
     }
@@ -811,6 +822,7 @@ class FoodProduct {
             informers = product.informers
             productContributors = product.productContributors
             contributorsArray = product.contributorsArray
+            hasNutritionFacts = product.hasNutritionFacts
             // did I miss something?
         }
     }
@@ -1023,6 +1035,10 @@ class FoodProduct {
 
     func contains(quantity: String) -> Bool {
         return quantity == self.quantity ? true : false
+    }
+
+    func contains(availability: Bool) -> Bool {
+        return availability == self.hasNutritionFacts ? true : false
     }
 
 // End product

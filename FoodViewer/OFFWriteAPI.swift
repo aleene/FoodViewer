@@ -23,6 +23,7 @@ struct OFFWriteAPI {
     static let PurchasePlaces = "purchase_places="
     static let Stores = "stores="
     static let PrimaryLanguageCode = "lang="
+    static let NoNutriments = "no_nutriments"
     static let NutrimentPrefix = "nutriment_"
     static let NutrimentUnit = "_unit"
     static let NutrimentPerServing = "nutrition_data_per=serving"

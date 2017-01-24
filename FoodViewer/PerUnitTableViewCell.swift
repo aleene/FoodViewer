@@ -12,7 +12,7 @@ import Foundation
 class PerUnitTableViewCell: UITableViewCell {
 
     internal struct Notification {
-        static let PerUnitHasBeenSetKey = "PerUnitTableViewCell.Notification.PerUnitHasBeenSetKey.Key"
+        static let PerUnitHasBeenSetKey = "PerUnitTableViewCell.Notification.PerUnitHasBeenSet.Key"
     }
 
     @IBOutlet weak var perUnitSegmentedControl: UISegmentedControl!

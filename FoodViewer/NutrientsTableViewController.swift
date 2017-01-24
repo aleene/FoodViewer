@@ -126,8 +126,8 @@ class NutrientsTableViewController: UITableViewController {
                         newNutritionFacts.append(validNutritionFacts[index]!)
                     } else {
                         var newFact = NutritionFactItem()
-                        newFact.key = validNutritionFacts[index]?.key
-                        newFact.itemName = validNutritionFacts[index]?.itemName
+                        newFact.key = updatedNutritionFacts[index]?.key
+                        newFact.itemName = updatedNutritionFacts[index]?.itemName
                         // check out whether an update occured
                         newFact.standardValue = updatedNutritionFacts[index]?.standardValue ?? validNutritionFacts[index]?.standardValue
                         newFact.standardValueUnit = updatedNutritionFacts[index]?.standardValueUnit ?? validNutritionFacts[index]?.standardValueUnit
@@ -162,6 +162,7 @@ class NutrientsTableViewController: UITableViewController {
         static let NoNutrientsImageCellIdentifier = "No Nutrition Image Cell"
         static let AddNutrientCellIdentifier = "Add Nutrient Cell"
         static let PerUnitCellIdentifier = "Per Unit Cell"
+        static let NoNutrimentsAvailableCellIdentifier = "Nutriments Available Cell"
         static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
         static let AddNutrientSegue = "Add Nutrient Segue"
         static let SelectNutrientUnitSegue = "Select Nutrient Unit Segue"
@@ -172,12 +173,14 @@ class NutrientsTableViewController: UITableViewController {
     
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
+    // The different sections of the tableView
     fileprivate enum SectionType {
         case perUnit
         case nutritionFacts
         case addNutrient
         case servingSize
         case nutritionImage
+        case noNutrimentsAvailable
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -196,6 +199,11 @@ class NutrientsTableViewController: UITableViewController {
         
         // we assume that product exists
         switch currentProductSection {
+        case .noNutrimentsAvailable:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrimentsAvailableCellIdentifier, for: indexPath) as! NutrimentsAvailableTableViewCell
+            cell.editMode = editMode
+            cell.hasNutrimentFacts = delegate?.updatedProduct?.hasNutritionFacts != nil ? delegate!.updatedProduct!.nutrimentFactsAvailability : product!.nutrimentFactsAvailability
+            return cell
         case .perUnit:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PerUnitCellIdentifier, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = showNutrientsAs
@@ -337,11 +345,13 @@ class NutrientsTableViewController: UITableViewController {
         static let NutritionFactsEmpytSectionSize = 1
         static let AddNutrientSectionSize = 1
         static let PerUnitSectionSize = 1
+        static let NutrimentsAvailableSection = 1
         static let NutritionFactItemsSectionHeader = NSLocalizedString("Nutrition Facts", comment: "Tableview header section for the list of nutritional facts")
         static let NutritionFactsImageSectionHeader = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
         static let ServingSizeSectionHeader = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.")
         static let AddNutrientSectionHeader = "No Add Nutrient Header"
         static let PerUnitSectionHeader = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
+        static let NutrimentsAvailableSectionHeader = NSLocalizedString("Nutriments Availability", comment: "Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package.")
     }
     
     func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
@@ -429,25 +439,45 @@ class NutrientsTableViewController: UITableViewController {
                 break
             }
         }
-        // 0 : how the nutrients are shown section
-        sectionsAndRows.append(
-            ( SectionType.perUnit,
-            TableStructure.PerUnitSectionSize,
-            TableStructure.PerUnitSectionHeader )
-        )
         
-        // 0 : nutrition facts
-        if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
-            sectionsAndRows.append((
-                SectionType.nutritionFacts,
-                TableStructure.NutritionFactsEmpytSectionSize,
-                TableStructure.NutritionFactItemsSectionHeader))
+        // Which sections are shown depends on whether the product has nutriment data
+        if ( !editMode && product.hasNutritionFacts != nil && !product.hasNutritionFacts! ) {
+            // the product has no nutriments indicated
+            sectionsAndRows.append(
+                ( SectionType.noNutrimentsAvailable,
+                  TableStructure.NutrimentsAvailableSection,
+                  TableStructure.NutrimentsAvailableSectionHeader )
+            )
         } else {
-            sectionsAndRows.append((
-                SectionType.nutritionFacts,
-                adaptedNutritionFacts.count,
-                TableStructure.NutritionFactItemsSectionHeader))
-        }
+            
+            if editMode {
+                sectionsAndRows.append(
+                    ( SectionType.noNutrimentsAvailable,
+                      TableStructure.NutrimentsAvailableSection,
+                      TableStructure.NutrimentsAvailableSectionHeader )
+                )
+            }
+            
+            // the product has nutriments indicated
+            // 0 : how the nutrients are shown section
+            sectionsAndRows.append(
+                ( SectionType.perUnit,
+                  TableStructure.PerUnitSectionSize,
+                  TableStructure.PerUnitSectionHeader )
+            )
+        
+            // 0 : nutrition facts
+            if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
+                sectionsAndRows.append((
+                    SectionType.nutritionFacts,
+                    TableStructure.NutritionFactsEmpytSectionSize,
+                    TableStructure.NutritionFactItemsSectionHeader))
+            } else {
+                sectionsAndRows.append((
+                    SectionType.nutritionFacts,
+                    adaptedNutritionFacts.count,
+                    TableStructure.NutritionFactItemsSectionHeader))
+            }
         
         // 1: Add nutrient Button only in editMode
         
@@ -470,7 +500,7 @@ class NutrientsTableViewController: UITableViewController {
                 TableStructure.NutritionFactsImageSectionSize,
                 TableStructure.NutritionFactsImageSectionHeader))
         
-        // print("\(sectionsAndRows)")
+        }
         return sectionsAndRows
     }
     
@@ -561,6 +591,16 @@ class NutrientsTableViewController: UITableViewController {
         }
     }
 
+    // The availability of nutriments on the product has changed
+    func nutrimentsAvailabilitySet(_ notification: Notification) {
+        guard product != nil else { return }
+        if let availability = notification.userInfo?[NutrimentsAvailableTableViewCell.Notification.NutrimentsAvailability] as? Bool {
+            // change the updated product
+            delegate?.updated(availability: availability)
+            refreshProductWithNewNutritionFacts()
+        }
+    }
+
     func reloadImageSection(_ notification: Notification) {
         tableView.reloadData()
     }
@@ -569,6 +609,7 @@ class NutrientsTableViewController: UITableViewController {
         guard product != nil else { return }
         // recalculate the nutritionfacts that must be shown
         tableStructureForProduct = analyseProductForTable(product!)
+        mergeNutritionFacts()
         tableView.reloadData()
     }
 
@@ -609,6 +650,8 @@ class NutrientsTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name: .NutritionImageSet, object:nil)
 
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.newPerUnitSettings(_:)), name: .PerUnitChanged, object:nil)
+
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
 
     }
     

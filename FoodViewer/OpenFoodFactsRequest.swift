@@ -174,7 +174,7 @@ class OpenFoodFactsRequest {
                 product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
                 product.creator = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatorKey].string
                 product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
-                product.nutritionFactsOnPackage = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
+                product.hasNutritionFacts = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
                 product.servingSize = jsonObject[jsonKeys.ProductKey][jsonKeys.ServingSizeKey].string
                 var grade: NutritionalScoreLevel = .undefined
                 grade.string(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionGradeFrKey].string)
@@ -567,12 +567,14 @@ class OpenFoodFactsRequest {
         return nil
     }
     
-    fileprivate func decodeNutritionDataAvalailable(_ code: String?) -> NutritionAvailability {
+    // checks whether a valid value is in the json-data
+    fileprivate func decodeNutritionDataAvalailable(_ code: String?) -> Bool? {
         if let validCode = code {
-            return validCode.hasPrefix("on") ? NutritionAvailability.notOnPackage : NutritionAvailability.notIndicated
+            // "no_nutrition_data":"on" indicates that there are NO nutriments on the package
+            return validCode.hasPrefix("on") ? false : true
         }
-        return NutritionAvailability.notIndicated
-        
+        // not a valid json-code, so return do not know
+        return nil
     }
     
     fileprivate func decodeCountries(_ countries: [String]?) -> [String]? {
