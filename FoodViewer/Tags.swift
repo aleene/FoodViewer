@@ -39,6 +39,12 @@ enum Tags {
         }
     }
     
+    init(_ list: [String]?, language: String) {
+        self.init()
+        guard list != nil else { return }
+        decode(addPrefix(list!, prefix: language))
+    }
+    
     func tag(_ index: Int) -> String? {
         switch self {
         case .undefined, .empty:
@@ -94,19 +100,24 @@ enum Tags {
         switch self {
         case let .available(list):
             if !list.isEmpty {
-                var prefixedList: [String] = []
-                for tag in list {
-                    if tag.contains(":") {
-                        prefixedList.append(tag)
-                    } else {
-                        prefixedList.append(language + ":" + tag)
-                    }
-                }
-                return prefixedList
+                return addPrefix(list, prefix: language)
             }
         default:
             break
         }
         return []
+    }
+    
+    private func addPrefix(_ list: [String], prefix: String) -> [String] {
+        var prefixedList: [String] = []
+        for tag in list {
+            if tag.contains(":") {
+                // there is already a prefix
+                prefixedList.append(tag)
+            } else {
+                prefixedList.append(prefix + ":" + tag)
+            }
+        }
+        return prefixedList
     }
 }
