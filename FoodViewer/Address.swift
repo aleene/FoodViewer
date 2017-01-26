@@ -91,6 +91,7 @@ class Address {
             self.city = shop.1.city
             self.postalcode = shop.1.postalcode
             self.country = shop.1.country
+            self.rawArray = [self.title, self.street, self.city, self.postalcode, self.country]
         }
         
     }

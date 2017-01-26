@@ -467,8 +467,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(shop: validShop.0) {
                 initUpdatedProductWith(product: product!)
-                _ = updatedProduct?.add(shop: validShop.0)
-                updatedProduct?.purchaseLocation = Address.init(with: shop)
+                if var currentStores = product!.stores {
+                    currentStores.append(validShop.0)
+                    updatedProduct?.stores = currentStores
+
+                } else {
+                    updatedProduct?.stores = [validShop.0]
+                }
+                updatedProduct?.purchaseLocation = Address.init(with: validShop)
             }
             saveUpdatedProduct()
         }
