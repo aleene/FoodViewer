@@ -504,7 +504,7 @@ class NutrientsTableViewController: UITableViewController {
         return sectionsAndRows
     }
     
-    // MARK: - Navigation
+    // MARK: - Segue functions
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -531,7 +531,7 @@ class NutrientsTableViewController: UITableViewController {
                         // the current nutrient is found by the button tag
                         // it has to be passed on, so that it can be updated later
                         vc.nutrientRow = button.tag
-                        vc.currentNutritionUnit = adaptedNutritionFacts[button.tag].unit
+                        vc.currentNutritionFactKey = adaptedNutritionFacts[button.tag].key
                     }
 
                 }
@@ -539,8 +539,6 @@ class NutrientsTableViewController: UITableViewController {
             }
         }
     }
-    
-    // MARK: - Segue stuff
     
     @IBAction func unwindAddNutrientForCancel(_ segue:UIStoryboardSegue) {
         // reload with first nutrient?

@@ -15,7 +15,9 @@ class OFFProducts {
     // The productsArray is only needed by the ProductsViewController
     // Unfortunately moving to another VC deletes the products, so it must be stored somewhere more permanently.
     // A singleton limits however the number of file loads
-    
+    internal struct Notification {
+        static let BarcodeDoesNotExistKey = "OFFProducts.Notification.BarcodeDoesNotExist.Key"
+    }
     
     static let manager = OFFProducts()
     
@@ -230,7 +232,7 @@ class OFFProducts {
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
                         case .productNotAvailable(let error):
-                            let userInfo = ["error":error]
+                            let userInfo = [Notification.BarcodeDoesNotExistKey:newBarcode.asString(), "error":error]
                             self.handleProductNotAvailable(userInfo)
                         default: break
                         }

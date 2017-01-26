@@ -10,17 +10,13 @@ import Foundation
 
 enum NutritionFactUnit: Int, CaseCountable {
     
-    case None = 0
-    case Joule
-    case Calories
-    case Kilogram
-    case Gram
+    case Gram = 0
     case Milligram
     case Microgram
-    //case Liter
-    //case Milliliter
-    //case Microliter
+    case Joule
+    case Calories
     case Percent
+    case None
     
     init(_ text: String) {
         switch text {
@@ -28,20 +24,12 @@ enum NutritionFactUnit: Int, CaseCountable {
             self = .Joule
         case Strings.Calories:
             self =  .Calories
-        case Strings.Kilogram:
-            self =  .Kilogram
         case Strings.Gram:
             self =  .Gram
         case Strings.Milligram:
             self =  .Milligram
         case Strings.Microgram:
             self =  .Microgram
-        //case Strings.Liter:
-        //    self =  .Liter
-        //case Strings.Milliliter:
-        //    self =  .Milliliter
-        //case Strings.Microliter:
-        //    self =  .Microliter
         case Strings.Percent:
             self =  .Percent
         default:
@@ -51,17 +39,27 @@ enum NutritionFactUnit: Int, CaseCountable {
 
     static let caseCount = NutritionFactUnit.countCases()
 
+    static func caseCount(key:String) -> Int {
+        return key.hasPrefix("energy") ? 4 : 5
+    }
+    
+    static func value(for row: Int, and key:String) -> Int {
+        // is this an energy nutrient?
+        if key.hasPrefix("energy") {
+            // This is an energy nutriment
+            return row + 3
+        } else {
+            return row <= 2 ? row : row + 2
+        }
+    }
+    
     func description() -> String {
         switch self {
         case .Joule: return NSLocalizedString("Joule (J)", comment: "Energy unit")
         case .Calories: return NSLocalizedString("kCalories (kcal)", comment: "Energy unit.")
-        case .Kilogram: return NSLocalizedString("kilogram (kg)", comment: "Standard weight unit multiplies by thousand.")
         case .Gram: return NSLocalizedString("gram (g)", comment: "Standard weight unit.")
         case .Milligram: return NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
         case .Microgram: return NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
-        //case .Liter: return NSLocalizedString("liter (L)", comment: "Standard volume unit.")
-        //case .Milliliter: return NSLocalizedString("milliliter (mL)", comment: "Standard volume unit divided by thousand.")
-        //case .Microliter: return NSLocalizedString("microliter (µL)", comment: "Standard volume unit divided by million.")
         case .Percent: return NSLocalizedString("percentage (%)", comment: "Fraction of total by volume")
         case .None:return NSLocalizedString("none", comment: "Unitless")
         }
@@ -73,20 +71,12 @@ enum NutritionFactUnit: Int, CaseCountable {
             return Strings.Joule
         case .Calories :
             return Strings.Calories
-        case .Kilogram :
-            return Strings.Kilogram
         case .Gram :
             return Strings.Gram
         case .Milligram :
             return Strings.Milligram
         case .Microgram :
             return Strings.Microgram
-        //case .Liter :
-        //    return Strings.Liter
-        //case .Milliliter :
-        //    return Strings.Milliliter
-        //case .Microliter :
-        //    return Strings.Microliter
         case .Percent :
             return Strings.Percent
         case .None :
@@ -94,10 +84,39 @@ enum NutritionFactUnit: Int, CaseCountable {
         }
     }
     
+    func short(key: String) -> String {
+        // is this an energy nutrient?
+        if key.hasPrefix("energy") {
+            switch self {
+            case .Joule:
+                return Strings.Joule
+            case .Calories :
+                return Strings.Calories
+            case .Percent :
+                return Strings.Percent
+            default :
+                return Strings.None
+            }
+        } else {
+            switch self {
+            case .Gram :
+                return Strings.Gram
+            case .Milligram :
+                return Strings.Milligram
+            case .Microgram :
+                return Strings.Microgram
+            case .Percent :
+                return Strings.Percent
+            default :
+                return Strings.None
+            }
+        }
+    }
+    
     private struct Strings {
         static let Joule = "kJ"
         static let Calories = "kcal"
-        static let Kilogram = "kg"
+        // static let Kilogram = "kg"
         static let Gram = " g"
         static let Milligram = "mg"
         static let Microgram = "µg"

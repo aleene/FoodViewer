@@ -13,8 +13,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     fileprivate struct Constants {
         static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
-        static let AlertSheetMessage = NSLocalizedString("Error retrieving product", comment: "Alert message, when the product could not be retrieved from Internet.")
-        static let AlertSheetActionTitle = NSLocalizedString("Pity", comment: "Alert title, to indicate retrieving product did not work")
+        static let AlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
+        static let AlertSheetActionTitleForCancel = NSLocalizedString("Nob", comment: "Alert title, to indicate product should NOT be added")
+        static let AlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
         static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
         static let BusyLoadingProduct = NSLocalizedString("Loading product", comment: "Text to indicate that the it is trying to load.")
         static let ProductNameMissing = NSLocalizedString("No product name", comment: "Text in header of section, indicating that the product name is missing.")
@@ -389,21 +390,53 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             
         }
     }
-
+    
     // MARK: - Notification methods
     
     func showAlertProductNotAvailable(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
-        let error = userInfo!["error"] as? String?
+        let error = userInfo!["error"] as? String ?? "No valid error"
+        let barcodeString = userInfo![OFFProducts.Notification.BarcodeDoesNotExistKey] as? String
         let alert = UIAlertController(
             title: Constants.AlertSheetMessage,
-            message: error!, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitle, style: .cancel) { (action: UIAlertAction) -> Void in // do nothing )
+            message: error, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in // do nothing )
             }
         )
+        if let validBarcodeString = barcodeString {
+            // if there is a valid barcode, allow the user to add it
+            alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitleForAdd, style: .destructive) { (action: UIAlertAction) -> Void in
+                let newProduct = FoodProduct.init(withBarcode: BarcodeType(value: validBarcodeString))
+                let preferredLanguage = Locale.preferredLanguages[0]
+                let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
+
+                newProduct.primaryLanguageCode = currentLanguage[0]
+                let update = OFFUpdate()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                
+                // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                    let fetchResult = update.update(product: newProduct)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        switch fetchResult {
+                        case .success:
+                            self.barcode = BarcodeType(value: validBarcodeString)
+                            self.searchTextField.text = validBarcodeString
+                            self.performSegue(withIdentifier: Storyboard.ToPageViewControllerSegue, sender: self)
+                            break
+                        case .failure:
+                            // no feedback needed
+                            break
+                        }
+                    })
+                })
+                }
+            )
+        }
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     func productLoaded(_ notification: Notification) {
         refreshInterface()
     }

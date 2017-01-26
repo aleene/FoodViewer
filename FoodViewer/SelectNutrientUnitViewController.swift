@@ -18,6 +18,8 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     var currentNutritionUnit: NutritionFactUnit? = nil
     
+    var currentNutritionFactKey: String? = nil
+    
     var selectedNutritionUnit: NutritionFactUnit? = nil
     
     @IBOutlet weak var nutrientUnitsPickerView: UIPickerView!
@@ -27,7 +29,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return NutritionFactUnit.countCases()
+            return currentNutritionFactKey != nil ? NutritionFactUnit.caseCount(key: currentNutritionFactKey!) : NutritionFactUnit.countCases()
         default:
             return 0
         }
@@ -40,11 +42,12 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     // MARK: - PickerView delegate methods
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return NutritionFactUnit(rawValue: row)?.short()
+        
+        return currentNutritionFactKey != nil ? NutritionFactUnit(rawValue:NutritionFactUnit.value(for: row, and:currentNutritionFactKey!))?.short() : NutritionFactUnit(rawValue: row)?.short()
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedNutritionUnit = NutritionFactUnit(rawValue: row)
+        selectedNutritionUnit = currentNutritionFactKey != nil ? NutritionFactUnit(rawValue:NutritionFactUnit.value(for: row, and:currentNutritionFactKey!)) : NutritionFactUnit(rawValue: row)
         performSegue(withIdentifier: Constants.UnwindSegue, sender: self)
     }
     
