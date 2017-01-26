@@ -56,6 +56,8 @@ struct NutritionFactItem {
                 let str = numberFormatter.string(from: NSNumber(floatLiteral: division))
                 guard (str != nil) else { return "" }
                 return str!
+            } else {
+                return value
             }
         }
         return ""
@@ -79,6 +81,8 @@ struct NutritionFactItem {
                 let str = numberFormatter.string(from: NSNumber(floatLiteral: doubleValue))
                 guard (str != nil) else { return "" }
                 return str!
+            } else {
+                return value
             }
         }
         return ""
