@@ -64,7 +64,7 @@ class NutrientsTableViewController: UITableViewController {
                         default:
                             newFact = validFact
                         }
-                    } else if (validFact.key == Energy.joule.key()) {
+                    } else if !editMode && ( validFact.key == Energy.key ) {
                         switch Preferences.manager.showCaloriesOrJoule {
                         // show energy as calories
                         case .calories:
@@ -227,24 +227,25 @@ class NutrientsTableViewController: UITableViewController {
                 cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
                 cell?.delegate = self
                 cell?.tag = indexPath.row
-                if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.salt.key()) ||
-                    (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key()) {
-                    let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
-                    doubleTapGestureRecognizer.numberOfTapsRequired = 2
-                    doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-                    doubleTapGestureRecognizer.cancelsTouchesInView = false
-                    doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
-                    
-                    cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == Energy.calories.key()) ||
-                    (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == Energy.joule.key()) {
-                    let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
-                    doubleTapGestureRecognizer.numberOfTapsRequired = 2
-                    doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-                    doubleTapGestureRecognizer.cancelsTouchesInView = false
-                    doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
-                    
-                    cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                // only add taps gestures when NOT in editMode
+                if !editMode {
+                    if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.salt.key()) ||
+                        (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key()) {
+                        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
+                        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+                        doubleTapGestureRecognizer.cancelsTouchesInView = false
+                        doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+                        cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                    } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == Energy.key) ||
+                        (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == Energy.key) {
+                        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
+                        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+                        doubleTapGestureRecognizer.cancelsTouchesInView = false
+                        doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+                        cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                    }
                 }
                 cell?.editMode = editMode
                 return cell!

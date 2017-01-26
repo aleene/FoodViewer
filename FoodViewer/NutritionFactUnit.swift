@@ -40,12 +40,12 @@ enum NutritionFactUnit: Int, CaseCountable {
     static let caseCount = NutritionFactUnit.countCases()
 
     static func caseCount(key:String) -> Int {
-        return key.hasPrefix("energy") ? 4 : 5
+        return key.hasPrefix(Energy.prefixKey) ? 4 : 5
     }
     
     static func value(for row: Int, and key:String) -> Int {
         // is this an energy nutrient?
-        if key.hasPrefix("energy") {
+        if key.hasPrefix(Energy.prefixKey) {
             // This is an energy nutriment
             return row + 3
         } else {
@@ -56,7 +56,7 @@ enum NutritionFactUnit: Int, CaseCountable {
     func description() -> String {
         switch self {
         case .Joule: return NSLocalizedString("Joule (J)", comment: "Energy unit")
-        case .Calories: return NSLocalizedString("kCalories (kcal)", comment: "Energy unit.")
+        case .Calories: return NSLocalizedString("kcalories (kcal)", comment: "Energy unit.")
         case .Gram: return NSLocalizedString("gram (g)", comment: "Standard weight unit.")
         case .Milligram: return NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
         case .Microgram: return NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
@@ -86,7 +86,7 @@ enum NutritionFactUnit: Int, CaseCountable {
     
     func short(key: String) -> String {
         // is this an energy nutrient?
-        if key.hasPrefix("energy") {
+        if key.hasPrefix(Energy.prefixKey) {
             switch self {
             case .Joule:
                 return Strings.Joule

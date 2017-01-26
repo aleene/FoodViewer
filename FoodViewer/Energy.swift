@@ -16,9 +16,9 @@ enum Energy {
         let preferredLanguage = Locale.preferredLanguages[0]
         switch self {
         case .calories:
-            return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
+            return OFFplists.manager.translateNutrients(Energy.key, language:preferredLanguage)
         case .joule:
-            return OFFplists.manager.translateNutrients(key(), language:preferredLanguage)
+            return OFFplists.manager.translateNutrients(Energy.key, language:preferredLanguage)
         }
     }
     
@@ -37,7 +37,8 @@ enum Energy {
         }
     }
     
-    func key() -> String {
-        return "energy"
-    }
+    static let key = "energy"
+
+    static let prefixKey = "en:energy"
+
 }
