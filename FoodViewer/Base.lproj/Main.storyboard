@@ -391,8 +391,14 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="h49-6T-dZE" secondAttribute="bottom" id="9Nl-PZ-HBA"/>
                                         <constraint firstItem="h49-6T-dZE" firstAttribute="leading" secondItem="BaI-t0-8tn" secondAttribute="leadingMargin" id="UCi-Vz-XgB"/>
                                         <constraint firstItem="h49-6T-dZE" firstAttribute="top" secondItem="BaI-t0-8tn" secondAttribute="topMargin" id="Wgl-Cw-HFk"/>
+                                        <constraint firstItem="h49-6T-dZE" firstAttribute="centerX" secondItem="BaI-t0-8tn" secondAttribute="centerX" id="aJy-AE-jfa"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="h49-6T-dZE" secondAttribute="trailing" id="qA1-th-6j4"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="qA1-th-6j4"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="tagListView" destination="h49-6T-dZE" id="Y4Q-Cd-kBt"/>
@@ -1213,7 +1219,7 @@
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Sites TagListView Cell" id="4hJ-8H-QVY" userLabel="Sites Cell" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="4hJ-8H-QVY" id="Yoh-0g-tC0">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4hJ-8H-QVY" id="Yoh-0g-tC0">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -2556,7 +2562,7 @@
                                 <rect key="frame" x="0.0" y="380" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="r01-FL-wDf" id="9fq-8g-OnN">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Listed on package?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Swp-Bc-P0i" userLabel="Nutriments available?">
@@ -2788,6 +2794,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bDa-Ia-c5K" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eoN-kP-g8Q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2810,9 +2817,9 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="1lc-8h-qsb"/>
         <segue reference="NgB-UV-Avc"/>
         <segue reference="4zk-rY-uLr"/>
         <segue reference="oZb-AL-Fkm"/>
-        <segue reference="GR8-bW-x6k"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -93,7 +93,9 @@ class IdentificationTableViewController: UITableViewController {
 
     var currentLanguageCode: String? = nil {
         didSet {
-            tableView.reloadData()
+            if currentLanguageCode != oldValue {
+                tableView.reloadData()
+            }
         }
     }
     
@@ -215,7 +217,7 @@ class IdentificationTableViewController: UITableViewController {
 
         case .brands:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            // cell.editMode = editMode
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -224,7 +226,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            // cell.editMode = editMode
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -440,28 +442,19 @@ class IdentificationTableViewController: UITableViewController {
         tableStructure = setupSections()
         
         self.tableView.estimatedRowHeight = 44.0
+        tableView.allowsSelection = false
         tableView.rowHeight = UITableViewAutomaticDimension
 }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
-
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
-        
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
-
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
-
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
     }
     

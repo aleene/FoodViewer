@@ -204,8 +204,9 @@ class CompletionStatesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
-        
+        tableView.estimatedRowHeight = 44.0
+        tableView.allowsSelection = false
+
         title = Constants.ViewControllerTitle
         refreshProduct()
     }
@@ -213,12 +214,6 @@ class CompletionStatesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
-
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
     }

@@ -167,13 +167,14 @@ class IngredientsTableViewController: UITableViewController {
             
         case .allergens:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.tag = 0
             return cell
             
         case .traces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            // cell.editMode = editMode
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -182,13 +183,14 @@ class IngredientsTableViewController: UITableViewController {
             
         case .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.tag = 2
             return cell
             
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! TagListViewTableViewCell
-            // cell.editMode = editMode
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -367,20 +369,16 @@ class IngredientsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 44.0
+        tableView.allowsSelection = false
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = TextConstants.ViewControllerTitle
         
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
-
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)

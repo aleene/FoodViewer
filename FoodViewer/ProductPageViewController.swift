@@ -24,7 +24,27 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     // The languageCode for the language in which the fields are shown
-    fileprivate var currentLanguageCode: String? = nil
+    fileprivate var currentLanguageCode: String? = nil {
+        didSet {
+            // if a valid page is presented, the currentLanguageCode can be passed on
+            guard pageIndex != nil else { return }
+            if currentLanguageCode != oldValue {
+                
+            }
+            switch pageIndex! {
+            case 0:
+                if let vc = pages[0] as? IdentificationTableViewController {
+                    vc.currentLanguageCode = currentLanguageCode
+                }
+            case 1:
+                if let vc = pages[1] as? IngredientsTableViewController {
+                    vc.currentLanguageCode = currentLanguageCode
+                }
+            default:
+                break
+            }
+        }
+    }
     
     // MARK: - Interface Actions
     
@@ -100,6 +120,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                         })
                     })
                 }
+                editMode = !editMode
             }
             confirmBarButtonItem.image = UIImage.init(named: "Edit")
         } else {
@@ -109,27 +130,29 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             //    updatedProduct = FoodProduct.init(withBarcode: validBarcode)
             // }
             confirmBarButtonItem.image = UIImage.init(named: "CheckMark")
+            editMode = !editMode
         }
-        editMode = !editMode
     }
 
     fileprivate var editMode: Bool = false {
         didSet {
-            // pushdown any setting
-            if let vc = pages[0] as? IdentificationTableViewController {
-                vc.editMode = editMode
-            }
-            if let vc = pages[1] as? IngredientsTableViewController {
-                vc.editMode = editMode
-            }
-            if let vc = pages[2] as? NutrientsTableViewController {
-                vc.editMode = editMode
-            }
-            if let vc = pages[3] as? SupplyChainTableViewController {
-                vc.editMode = editMode
-            }
-            if let vc = pages[4] as? CategoriesTableViewController {
-                vc.editMode = editMode
+            if editMode != oldValue {
+                // pushdown any change
+                if let vc = pages[0] as? IdentificationTableViewController {
+                    vc.editMode = editMode
+                }
+                if let vc = pages[1] as? IngredientsTableViewController {
+                    vc.editMode = editMode
+                }
+                if let vc = pages[2] as? NutrientsTableViewController {
+                    vc.editMode = editMode
+                }
+                if let vc = pages[3] as? SupplyChainTableViewController {
+                    vc.editMode = editMode
+                }
+                if let vc = pages[4] as? CategoriesTableViewController {
+                    vc.editMode = editMode
+                }
             }
         }
     }
@@ -138,29 +161,38 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var pageIndex: Int? = nil {
         didSet {
-            // has the initialisation been done?
-            if pages.isEmpty {
-                initPages()
-            }
+            
+            if pageIndex != oldValue {
+                // has the initialisation been done?
+                if pages.isEmpty {
+                    initPages()
+                }
+                
                 // do we have a valid pageIndex?
-            if pageIndex == nil {
-                pageIndex = 0
-            } else if pageIndex! < 0 || pageIndex! > pages.count - 1 {
-                pageIndex = 0
-            }
+                if pageIndex == nil {
+                    pageIndex = 0
+                } else if pageIndex! < 0 || pageIndex! > pages.count - 1 {
+                    pageIndex = 0
+                }
                 // open de corresponding page
-            setViewControllers(
-                [pages[pageIndex!]],
-                direction: .forward,
-                animated: true, completion: nil)
-            title = titles[pageIndex!]
+                setViewControllers(
+                    [pages[pageIndex!]],
+                    direction: .forward,
+                    animated: true, completion: nil)
+                title = titles[pageIndex!]
+                
+                initPage(pageIndex!)
+            }
         }
     }
-        
+    
     
     fileprivate var pages: [UIViewController] = []
-        
+    
     fileprivate func initPages () {
+        
+        // only initialise when a page needs to be shown
+        guard pageIndex != nil else { return }
         // initialise pages
         if pages.isEmpty {
             pages.append(page1)
@@ -170,10 +202,72 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             pages.append(page5)
             pages.append(page6)
             pages.append(page7)
+        
+            if let vc = pages[0] as? IdentificationTableViewController {
+                vc.delegate = self
+                title = titles[0]
+            }
+            if let vc = pages[1] as? IngredientsTableViewController {
+                vc.delegate = self
+            }
+            if let vc = pages[2] as? NutrientsTableViewController {
+                vc.delegate = self
+            }
+            if let vc = pages[3] as? SupplyChainTableViewController {
+                vc.delegate = self
+            }
+            if let vc = pages[4] as? CategoriesTableViewController {
+                vc.delegate = self
+            }
+
         }
     }
-        
-        
+    
+    private func initPage(_ index: Int) {
+
+        switch index {
+            // the values only need to be pushed to the page, if it needs to be opened
+        case 0:
+            if let vc = pages[0] as? IdentificationTableViewController {
+                vc.product = product
+                vc.currentLanguageCode = currentLanguageCode
+                vc.editMode = editMode
+            }
+        case 1:
+            if let vc = pages[1] as? IngredientsTableViewController {
+                vc.product = product
+                vc.editMode = editMode
+                vc.currentLanguageCode = currentLanguageCode
+            }
+        case 2:
+            if let vc = pages[2] as? NutrientsTableViewController {
+                vc.product = product
+                vc.editMode = editMode
+            }
+        case 3:
+            if let vc = pages[3] as? SupplyChainTableViewController {
+                vc.product = product
+                vc.editMode = editMode
+            }
+        case 4:
+            if let vc = pages[4] as? CategoriesTableViewController {
+                vc.product = product
+                vc.editMode = editMode
+            }
+        case 5:
+            if let vc = pages[5] as? CompletionStatesTableViewController {
+                vc.product = product
+            }
+        case 6:
+            if let vc = pages[6] as? NutritionScoreTableViewController {
+                vc.product = product
+            }
+        default:
+            break
+        }
+    }
+    
+    
     fileprivate var titles = [NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info."),
                                 NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product."),
                                 NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product."),
@@ -220,43 +314,47 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     var product: FoodProduct? = nil {
         didSet {
-            setCurrentLanguage()
+            if product != nil {
+                setCurrentLanguage()
                 
-            // initialise pages
-            initPages()
-            if let vc = pages[0] as? IdentificationTableViewController {
-                vc.product = product
-                vc.delegate = self
-                vc.currentLanguageCode = currentLanguageCode
-                vc.editMode = editMode
-                title = titles[0]
-            }
-            if let vc = pages[1] as? IngredientsTableViewController {
-                vc.product = product
-                vc.delegate = self
-                vc.editMode = editMode
-                vc.currentLanguageCode = currentLanguageCode
-            }
-            if let vc = pages[2] as? NutrientsTableViewController {
-                vc.product = product
-                vc.delegate = self
-                vc.editMode = editMode
-            }
-            if let vc = pages[3] as? SupplyChainTableViewController {
-                vc.product = product
-                vc.delegate = self
-                vc.editMode = editMode
-            }
-            if let vc = pages[4] as? CategoriesTableViewController {
-                vc.product = product
-                vc.delegate = self
-                vc.editMode = editMode
-            }
-            if let vc = pages[5] as? CompletionStatesTableViewController {
-                vc.product = product
-            }
-            if let vc = pages[6] as? NutritionScoreTableViewController {
-                vc.product = product
+                // only set the field of a separate page if we have a valid page
+                
+                guard pageIndex != nil else { return }
+                switch pageIndex! {
+                case 0:
+                    if let vc = pages[0] as? IdentificationTableViewController {
+                        vc.product = product
+                    }
+                case 1:
+                    if let vc = pages[1] as? IngredientsTableViewController {
+                        vc.product = product
+                    }
+                case 2:
+                    if let vc = pages[2] as? NutrientsTableViewController {
+                        vc.product = product
+                    }
+                case 3:
+                    if let vc = pages[3] as? SupplyChainTableViewController {
+                        vc.product = product
+                    }
+                case 4:
+                    if let vc = pages[4] as? CategoriesTableViewController {
+                        vc.product = product
+                    }
+                case 5:
+                    if let vc = pages[5] as? CompletionStatesTableViewController {
+                        vc.product = product
+                    }
+                case 6:
+                    if let vc = pages[6] as? NutritionScoreTableViewController {
+                        vc.product = product
+                    }
+                default:
+                    break
+                }
+
+                // initialise pages
+                // initPages()
             }
         }
     }
@@ -322,7 +420,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         return pages[previousIndex]
     }
-        
+
+    func pageViewController(_ pageViewController: UIPageViewController,
+                                     willTransitionTo pendingViewControllers: [UIViewController]) {
+        // inform us what is happening, so the page can be setup
+        if let vc = pendingViewControllers.first {
+            pageIndex = pages.index(of:vc)
+        }
+    
+    }
+    
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return pages.count
     }
@@ -622,11 +729,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(links: validTags) {
                 initUpdatedProductWith(product: product!)
+                updatedProduct!.links = []
                 for tag in validTags {
                     if let validURL = URL.init(string:tag) {
-                        if updatedProduct?.links == nil {
-                            updatedProduct!.links = []
-                        }
                         updatedProduct!.links!.append(validURL)
                     }
                 }
@@ -880,6 +985,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
         if OFFAccount().personalExists() {
             // maybe the user has to authenticate himself before continuing
             authenticate()

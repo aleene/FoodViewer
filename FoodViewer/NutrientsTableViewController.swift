@@ -624,8 +624,10 @@ class NutrientsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 44.0
+        tableView.allowsSelection = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -633,12 +635,6 @@ class NutrientsTableViewController: UITableViewController {
         title = Storyboard.ViewControllerTitle
         
         refreshProductWithNewNutritionFacts()
-        
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
 
         NotificationCenter.default.addObserver(
             self,

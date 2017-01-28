@@ -756,7 +756,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         var currentRowTagCount = 0
         // var startedNewRow = false
         // var currentRowWidth: CGFloat = 0
-        // print("frame", frame.size, "super", superview?.frame.size)
+        // print("TagListView frame", frame.size, "super", superview?.frame.size)
         
         // are there any tags?
         guard tagViews.count > 0 else { return }
@@ -1123,19 +1123,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     // MARK: - Tag handling
     
-    /*
-     private func removeTag(_ title: String) {
-     // loop the array in reversed order to remove items during loop
-     for index in stride(from: (tagViews.count - 1), through: 0, by: -1) {
-     
-     let tagView = tagViews[index]
-     if tagView.tagViewLabel?.text == title {
-     remove(tagView)
-     }
-     }
-     }
-     */
-    
     private func removeTag(at index: Int) {
         if datasource?.tagListView(self, canEditTagAt: index) != nil && datasource!.tagListView(self, canEditTagAt: index) {
             delegate?.tagListView(self, willBeginEditingTagAt: index)
@@ -1183,15 +1170,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             delegate?.tagListView(self, didDeselectTagAt: index)
         }
     }
-    
-    /*
-    // Maybe this should be deprecated as it exposes to TagView
-    private func selectTagIn(_ tagView: TagView) {
-        if let validIndex = tagViews.index(of: tagView) {
-            filterSelectionAt(validIndex)
-        }
-    }
-    */
     
     private func filterSelectionAt(_ index: Int) {
         if !isEditable {
@@ -1432,22 +1410,25 @@ extension TagListView: UITextFieldDelegate {
         // If the user enters a return, a new tag will be created
         
         if string == "\n" {
-            // stop editing
-            textField.resignFirstResponder()
+            if let newTag = textField.text {
+                if !newTag.isEmpty {
+                    delegate?.tagListView(self, didAddTagWith: newTag)
+                    textField.resignFirstResponder()
+                }
+            }
             return false
+        } else if string == "," {
+            if let newTag = textField.text {
+                if !newTag.isEmpty {
+                    delegate?.tagListView(self, didAddTagWith: newTag)
+                    reloadData()
+                }
+            }
         }
         return true
     }
     
     public func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        // The user did not end a tag with return, save what he has typed
-        if let newTag = textField.text {
-            if !newTag.isEmpty {
-                delegate?.tagListView(self, didAddTagWith: newTag)
-                self.reloadData()
-            }
-        }
         textField.resignFirstResponder()
     }
     

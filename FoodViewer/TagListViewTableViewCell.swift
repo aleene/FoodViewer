@@ -20,6 +20,7 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.cornerRadius = 10
             tagListView.removeButtonIsEnabled = true
             tagListView.clearButtonIsEnabled = true
+            tagListView.frame.size.width = self.frame.size.width
             
             tagListView.datasource = datasource
             tagListView.delegate = delegate
@@ -50,6 +51,13 @@ class TagListViewTableViewCell: UITableViewCell {
         }
     }
     
+    var width: CGFloat = CGFloat(320.0) {
+        didSet {
+            tagListView?.frame.size.width = width
+            // print("Cell", tagListView.frame.size.width)
+        }
+    }
+
     override var tag: Int {
         didSet {
             tagListView?.tag = tag

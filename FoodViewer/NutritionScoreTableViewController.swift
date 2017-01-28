@@ -92,7 +92,7 @@ class NutritionScoreTableViewController: UITableViewController {
                 return cell!
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ColourCodedNutritionalScoreCellIdentifier, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
-                cell!.score = product!.nutritionalScoreUK.total
+                cell!.score = product?.nutritionalScoreUK.total
                 return cell!
             }
         case .france:
@@ -120,7 +120,7 @@ class NutritionScoreTableViewController: UITableViewController {
                 }
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ColourCodedNutritionalScoreCellIdentifier, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
-                cell!.score = product!.nutritionalScoreFrance.total
+                cell!.score = product?.nutritionalScoreFrance.total
                 return cell!
             }
         }
@@ -170,9 +170,12 @@ class NutritionScoreTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // tableStructure = setupSections()
-        self.tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.allowsSelection = false
+
         showNutritionalScore = .uk
+        
         let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutritionScoreTableViewController.doubleTapOnTableView))
         doubleTapGestureRecognizer.numberOfTapsRequired = 2
         doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -185,12 +188,6 @@ class NutritionScoreTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if product != nil {
-            refreshProduct()
-            tableView.layoutIfNeeded()
-            refreshProduct()
-        }
-
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     

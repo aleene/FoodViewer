@@ -8,36 +8,16 @@
 
 import UIKit
 
-/*
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-*/
-
 class SupplyChainTableViewController: UITableViewController {
     
 // MARK: - Public Functions/Variables
     
     var editMode = false {
         didSet {
-            // vc changed from/to editMode, need to repaint
-            tableView.reloadData()
+            if editMode != oldValue {
+                // vc changed from/to editMode, need to repaint
+                tableView.reloadData()
+            }
         }
     }
     
@@ -282,6 +262,7 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerTagListViewCell, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 0
             cell.delegate = self
             cell.datasource = self
@@ -290,6 +271,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .producerCode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 1
             cell.delegate = self
             cell.datasource = self
@@ -298,14 +280,17 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .sites:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 6
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
+            // print ("sites 2", cell.frame.size)
             return cell
             
         case .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientOriginCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 2
             cell.delegate = self
             cell.datasource = self
@@ -314,6 +299,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.StoreCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 3
             cell.delegate = self
             cell.datasource = self
@@ -322,6 +308,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 4
             cell.delegate = self
             cell.datasource = self
@@ -330,6 +317,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
             cell.tag = 5
             cell.delegate = self
             cell.datasource = self
@@ -448,14 +436,17 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
-        
+        tableView.estimatedRowHeight = 44.0
+        tableView.allowsSelection = false
+
         title = Constants.ViewControllerTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        // tableView.reloadData()
+        // print ("viewWillAppear", tableView.frame)
+
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
@@ -463,12 +454,8 @@ class SupplyChainTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
+        // tableView.reloadData()
+        // print ("viewDidAppear", tableView.frame)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -616,7 +603,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        tableView.reloadData()
+        // tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {

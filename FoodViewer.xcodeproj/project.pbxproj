@@ -86,7 +86,6 @@
 		516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5891CC3F06C008A094A /* BeingLoadedTableViewCell.swift */; };
 		516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5931CC522D8008A094A /* MostRecentProduct.swift */; };
 		516BA5961CC769DD008A094A /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5951CC769DD008A094A /* Energy.swift */; };
-		516D0C231C8DD30400C1C789 /* CountriesTagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C221C8DD30300C1C789 /* CountriesTagListViewTableViewCell.swift */; };
 		516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C301C906E9E00C1C789 /* NutritionFactsTableViewCell.swift */; };
 		516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */; };
 		5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */; };
@@ -129,7 +128,6 @@
 		51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B721731DD5F268003AF608 /* AddNutrientViewController.swift */; };
 		51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */; };
 		51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C31CE1C044006ED62B /* MapPinCategories.swift */; };
-		51BED0C61CE1C1B7006ED62B /* AddressTagListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C51CE1C1B7006ED62B /* AddressTagListTableViewCell.swift */; };
 		51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */; };
 		51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */; };
 		51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E451C70A30B00271708 /* ProducerTableViewCell.swift */; };
@@ -141,7 +139,6 @@
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
 		51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */; };
-		51CB20171D8C48C8005DFEDC /* SitesTagListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */; };
 		51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */; };
 		51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42C61E02F48600C9AD91 /* TagView.xib */; };
 		51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C81E02F4A200C9AD91 /* TagView.swift */; };
@@ -273,7 +270,6 @@
 		516BA58B1CC4E6BE008A094A /* 40111490.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 40111490.json; sourceTree = "<group>"; };
 		516BA5931CC522D8008A094A /* MostRecentProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MostRecentProduct.swift; sourceTree = "<group>"; };
 		516BA5951CC769DD008A094A /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
-		516D0C221C8DD30300C1C789 /* CountriesTagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountriesTagListViewTableViewCell.swift; sourceTree = "<group>"; };
 		516D0C301C906E9E00C1C789 /* NutritionFactsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactsTableViewCell.swift; sourceTree = "<group>"; };
 		516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductNameTableViewCell.swift; sourceTree = "<group>"; };
@@ -320,7 +316,6 @@
 		51B721731DD5F268003AF608 /* AddNutrientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNutrientViewController.swift; sourceTree = "<group>"; };
 		51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TUSafariActivity.swift; sourceTree = "<group>"; };
 		51BED0C31CE1C044006ED62B /* MapPinCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapPinCategories.swift; sourceTree = "<group>"; };
-		51BED0C51CE1C1B7006ED62B /* AddressTagListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTagListTableViewCell.swift; sourceTree = "<group>"; };
 		51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductFetchStatus.swift; sourceTree = "<group>"; };
 		51C29E3D1C6F89E800271708 /* 3608580744184.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3608580744184.json; sourceTree = "<group>"; };
 		51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewController.swift; sourceTree = "<group>"; };
@@ -333,7 +328,6 @@
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
 		51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
-		51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SitesTagListTableViewCell.swift; sourceTree = "<group>"; };
 		51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
 		51CF42C61E02F48600C9AD91 /* TagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		51CF42C81E02F4A200C9AD91 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -676,10 +670,7 @@
 		51BED0C21CE1BF67006ED62B /* SupplyChainCells */ = {
 			isa = PBXGroup;
 			children = (
-				51BED0C51CE1C1B7006ED62B /* AddressTagListTableViewCell.swift */,
-				51CB20161D8C48C7005DFEDC /* SitesTagListTableViewCell.swift */,
 				51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */,
-				516D0C221C8DD30300C1C789 /* CountriesTagListViewTableViewCell.swift */,
 				51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */,
 				51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */,
 			);
@@ -915,7 +906,6 @@
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
 				51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */,
-				516D0C231C8DD30400C1C789 /* CountriesTagListViewTableViewCell.swift in Sources */,
 				51FB322F1CF7589700A17312 /* AllergenWarningsTableViewController.swift in Sources */,
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */,
@@ -925,7 +915,6 @@
 				51AFB0071C734C6600598444 /* IdentificationTagListViewTableViewCell.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,
 				51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */,
-				51BED0C61CE1C1B7006ED62B /* AddressTagListTableViewCell.swift in Sources */,
 				5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */,
 				515FF5AB1E361AF100E85815 /* NutrimentsAvailableTableViewCell.swift in Sources */,
 				515FF5A91E322C8700E85815 /* PerUnitTableViewCell.swift in Sources */,
@@ -983,7 +972,6 @@
 				5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */,
 				513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */,
 				51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */,
-				51CB20171D8C48C8005DFEDC /* SitesTagListTableViewCell.swift in Sources */,
 				51C86B5D1C6DE901002B7566 /* CommunityTableViewCell.swift in Sources */,
 				516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */,
 				51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */,

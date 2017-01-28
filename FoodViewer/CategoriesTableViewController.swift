@@ -86,6 +86,7 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
+        cell.width = tableView.frame.size.width
         cell.tag = 0
         cell.editMode = editMode
         cell.delegate = self
@@ -135,7 +136,8 @@ class CategoriesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 44.0
+        tableView.allowsSelection = false
 
         title = Constants.ViewControllerTitle
     }
@@ -152,13 +154,7 @@ class CategoriesTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if product != nil {
-            tableView.reloadData()
-            tableView.layoutIfNeeded()
-            tableView.reloadData()
-        }
-        
+
     }
 
     override func viewDidDisappear(_ animated: Bool) {
