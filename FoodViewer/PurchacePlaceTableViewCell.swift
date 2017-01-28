@@ -65,7 +65,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
     var width: CGFloat = CGFloat(320.0) {
         didSet {
             tagListView?.frame.size.width = width
-            print("Cell", tagListView.frame.size.width)
+            // print("Cell", tagListView.frame.size.width)
         }
     }
 

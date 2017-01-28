@@ -16,7 +16,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     open var delegate: TagListViewDelegate? = nil
     open var datasource: TagListViewDataSource? = nil {
         didSet {
-            reloadData()
+            reloadData(clearAll:true)
         }
     }
     
@@ -322,13 +322,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     private func initSetup() {
         originalHeight = frame.height
         // addSubview(scrollView)
-        reloadData()
+        reloadData(clearAll:true)
     }
     
     // If you identify a taglist by a tag, it needs to reload the data
     override open var tag: Int {
         didSet {
-            reloadData()
+            reloadData(clearAll:true)
         }
     }
     
@@ -568,10 +568,15 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     
     // Reload's the TagListView's data and layout it's views.
-    public func reloadData() {
+    public func reloadData(clearAll: Bool) {
         guard datasource?.numberOfTagsIn(self) != nil else { return }
         
-        clearTagListView()
+        if clearAll {
+            clearTagListView()
+        } else {
+            tagViews.forEach { $0.removeFromSuperview() }
+            tagViews = []
+        }
         
         // Setup the tagView array and load the data here
         for index in 0..<datasource!.numberOfTagsIn(self) {
@@ -626,7 +631,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
         
-        clearUncollapsedView()
+        // clearUncollapsedView()
         
         let inputViewShouldBecomeFirstResponder = inputTextField.isFirstResponder
         //scrollView.subviews.forEach { $0.removeFromSuperview() }
@@ -1127,7 +1132,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         if datasource?.tagListView(self, canEditTagAt: index) != nil && datasource!.tagListView(self, canEditTagAt: index) {
             delegate?.tagListView(self, willBeginEditingTagAt: index)
             delegate?.tagListView(self, didDeleteTagAt: index)
-            reloadData()
+            reloadData(clearAll:false)
             delegate?.tagListView(self, didEndEditingTagAt: index)
         }
     }
@@ -1228,7 +1233,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     internal func clearOnTap(_ sender: UITapGestureRecognizer) {
         datasource?.didClear(self)
         // reload in case the user changed the data
-        reloadData()
+        reloadData(clearAll:false)
     }
     
     // MARK: - Drag & Drop support
@@ -1372,7 +1377,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             if fromIndex != toIndex {
                 // give the user the chance to move the data
                 datasource?.tagListView(self, moveTagAt: fromIndex, to: toIndex)
-                self.reloadData()
+                self.reloadData(clearAll:false)
             }
         }
         
@@ -1413,6 +1418,7 @@ extension TagListView: UITextFieldDelegate {
             if let newTag = textField.text {
                 if !newTag.isEmpty {
                     delegate?.tagListView(self, didAddTagWith: newTag)
+                    reloadData(clearAll:true)
                     textField.resignFirstResponder()
                 }
             }
@@ -1421,9 +1427,10 @@ extension TagListView: UITextFieldDelegate {
             if let newTag = textField.text {
                 if !newTag.isEmpty {
                     delegate?.tagListView(self, didAddTagWith: newTag)
-                    reloadData()
+                    reloadData(clearAll:false)
                 }
             }
+            return false
         }
         return true
     }

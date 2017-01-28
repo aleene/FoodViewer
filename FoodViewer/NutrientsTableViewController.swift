@@ -35,7 +35,7 @@ class NutrientsTableViewController: UITableViewController {
     var editMode = false {
         didSet {
             // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
+            if editMode != oldValue && product != nil {
                 tableStructureForProduct = analyseProductForTable(product!)
                 tableView.reloadData()
             }
