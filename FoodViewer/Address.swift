@@ -171,7 +171,8 @@ class Address {
         loc.append(self.postalcode.characters.count > 0 ? self.postalcode : nil)
         loc.append(self.city.characters.count > 0 ? self.city : nil)
         loc.append(self.country.characters.count > 0 ? self.country : nil)
-        return loc.flatMap{$0}.joined(separator: separator)
+        let singleString = loc.flatMap{$0}.joined(separator: separator)
+        return singleString.isEmpty ? nil : singleString
     }
     
     //MARK: - Private functions
