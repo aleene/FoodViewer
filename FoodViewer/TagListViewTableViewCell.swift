@@ -10,6 +10,9 @@ import UIKit
 
 class TagListViewTableViewCell: UITableViewCell {
 
+    private struct Constants {
+        static let Margin = CGFloat( 8.0 )
+    }
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
@@ -53,7 +56,7 @@ class TagListViewTableViewCell: UITableViewCell {
     
     var width: CGFloat = CGFloat(320.0) {
         didSet {
-            tagListView?.frame.size.width = width
+            tagListView?.frame.size.width = width - Constants.Margin
             // print("Cell", tagListView.frame.size.width)
         }
     }
