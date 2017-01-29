@@ -85,6 +85,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             userWantsToSave = true
         }
         saveUpdatedProduct()
+        editMode = !editMode
     }
     
     private var userWantsToSave = false
@@ -120,23 +121,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                         })
                     })
                 }
-                editMode = !editMode
             }
-            confirmBarButtonItem.image = UIImage.init(named: "Edit")
-        } else {
-            // create an updated product instance to store all changes/edits
-            //if let validBarcode = product?.barcode {
-            // setup an empty product with only the barcode
-            //    updatedProduct = FoodProduct.init(withBarcode: validBarcode)
-            // }
-            confirmBarButtonItem.image = UIImage.init(named: "CheckMark")
-            editMode = !editMode
         }
     }
 
     fileprivate var editMode: Bool = false {
         didSet {
             if editMode != oldValue {
+                confirmBarButtonItem.image = editMode ? UIImage.init(named: "CheckMark") : UIImage.init(named: "Edit")
                 // pushdown any change
                 if let vc = pages[0] as? IdentificationTableViewController {
                     vc.editMode = editMode

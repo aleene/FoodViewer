@@ -660,7 +660,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
         default:
             break
         }
-        tableView.reloadData()
+        // tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
