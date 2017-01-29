@@ -18,7 +18,7 @@ class TagListViewTableViewCell: UITableViewCell {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
-            tagListView.normalColorScheme = ColorSchemes.normal
+            tagListView.normalColorScheme = scheme
             tagListView.removableColorScheme = ColorSchemes.removable
             tagListView.cornerRadius = 10
             tagListView.removeButtonIsEnabled = true
@@ -58,6 +58,12 @@ class TagListViewTableViewCell: UITableViewCell {
         didSet {
             tagListView?.frame.size.width = width - Constants.Margin
             // print("Cell", tagListView.frame.size.width)
+        }
+    }
+    
+    var scheme = ColorSchemes.normal {
+        didSet {
+            tagListView?.normalColorScheme = scheme
         }
     }
 

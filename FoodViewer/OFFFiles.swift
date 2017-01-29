@@ -225,8 +225,9 @@ class OFFplists {
         var nutrients: [(String, String, NutritionFactUnit)] = []
         if let nutrientVerteces = OFFnutrients {
             for (index,_) in nutrientVerteces.enumerated() {
-                if let nutrientTuple = nutrientText(at:index, languageCode:Locale.preferredLanguages[0]) {
-                    nutrients.append(nutrientTuple)
+                let nutrientTuple = nutrientText(at:index, languageCode:Locale.preferredLanguages[0])
+                if nutrientTuple != nil {
+                    nutrients.append(nutrientTuple!)
                 }
             }
         }

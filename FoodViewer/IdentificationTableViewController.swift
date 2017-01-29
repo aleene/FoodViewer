@@ -133,6 +133,8 @@ class IdentificationTableViewController: UITableViewController {
             return product!.packagingArray
         }
     }
+    
+    fileprivate var searchResult: String = ""
 
     // MARK: - Action methods
     
@@ -255,13 +257,21 @@ class IdentificationTableViewController: UITableViewController {
                     cell?.identificationImage = UIImage(data:data)
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? NoIdentificationImageTableViewCell
-                    cell?.imageFetchStatus = result
+                    searchResult = result.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.tag = 3
+                    cell?.width = tableView.frame.size.width
+                    cell?.datasource = self
+                    cell?.scheme = ColorSchemes.error
                     return cell!
                 }
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? NoIdentificationImageTableViewCell
-                cell?.imageFetchStatus = ImageFetchResult.noImageAvailable
+                searchResult = ImageFetchResult.noImageAvailable.description()
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                cell?.tag = 4
+                cell?.width = tableView.frame.size.width
+                cell?.datasource = self
+                cell?.scheme = ColorSchemes.error
                 return cell!
             }
         }
@@ -540,7 +550,12 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return count(brandsToDisplay)
         case 1:
             return count(packagingToDisplay)
-        default: break
+        case 3:
+            return 1
+        case 4:
+            return 1
+        default:
+            break
         }
         return 0
     }
@@ -581,6 +596,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return title(brandsToDisplay)
         case 1:
             return title(packagingToDisplay)
+        case 3,4:
+            return searchResult
         default: break
         }
         return("error")

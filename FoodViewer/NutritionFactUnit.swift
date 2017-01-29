@@ -117,7 +117,7 @@ enum NutritionFactUnit: Int, CaseCountable {
         static let Joule = "kJ"
         static let Calories = "kcal"
         // static let Kilogram = "kg"
-        static let Gram = " g"
+        static let Gram = "g"
         static let Milligram = "mg"
         static let Microgram = "µg"
         //static let Liter = " L"

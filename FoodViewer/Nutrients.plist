@@ -400,6 +400,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>unit</key>
+			<array>
+				<string>g</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kohlenhydrate</string>

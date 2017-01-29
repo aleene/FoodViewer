@@ -450,7 +450,7 @@
                                     <outlet property="tagListView" destination="Uzv-hg-1Pm" id="B5d-Al-gSC"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" id="gUL-qK-f1G" customClass="NoIdentificationImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" id="gUL-qK-f1G" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="460" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gUL-qK-f1G" id="PNb-Ht-uqC">
@@ -2279,7 +2279,7 @@
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Ingredients Image" id="oZb-AL-Fkm"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" id="VKP-I4-yuk" customClass="NoImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" id="VKP-I4-yuk" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="424" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VKP-I4-yuk" id="xwK-kS-5IP">
@@ -2461,7 +2461,7 @@
                                     <outlet property="nutrientsImageView" destination="bPg-Iy-n3f" id="c0A-eS-h01"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" id="u9d-nb-gSc" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u9d-nb-gSc" id="q8I-Mx-AJ4">

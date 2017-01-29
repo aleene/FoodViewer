@@ -72,6 +72,8 @@ class IngredientsTableViewController: UITableViewController {
         }
     }
 
+    fileprivate var searchResult: String = ""
+
     // MARK: - Public variables
     
     var product: FoodProduct? {
@@ -205,13 +207,23 @@ class IngredientsTableViewController: UITableViewController {
                     cell?.ingredientsImage = UIImage(data:data)
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? NoImageTableViewCell
-                    cell?.imageFetchStatus = result
+                    searchResult = result.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
+                    cell?.tag = 4
+                    cell?.delegate = self
+                    cell?.width = tableView.frame.size.width
+                    cell?.datasource = self
+                    cell?.scheme = ColorSchemes.error
                     return cell!
                 }
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? NoImageTableViewCell
-                cell?.imageFetchStatus = ImageFetchResult.noImageAvailable
+                searchResult = ImageFetchResult.noImageAvailable.description()
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
+                cell?.tag = 5
+                cell?.delegate = self
+                cell?.width = tableView.frame.size.width
+                cell?.datasource = self
+                cell?.scheme = ColorSchemes.error
                 return cell!
             }
         }
@@ -552,6 +564,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
+        case 4,5:
+            return 1
         default: break
         }
         return 0
@@ -567,6 +581,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return additivesToDisplay.tag(index)!
         case 3:
             return labelsToDisplay.tag(index)!
+        case 4,5:
+            return searchResult
         default: break
         }
         return("tagListView error")

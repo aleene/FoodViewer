@@ -15,6 +15,8 @@ class NutrientsTableViewController: UITableViewController {
     // set to app wide default
     fileprivate var showNutrientsAs: NutritionDisplayMode = Preferences.manager.showNutritionDataPerServingOrPerStandard
     
+    fileprivate var searchResult: String = ""
+
     struct DisplayFact {
         var name: String? = nil
         var value: String? = nil
@@ -274,13 +276,25 @@ class NutrientsTableViewController: UITableViewController {
                     cell?.nutritionFactsImage = UIImage(data:data)
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? NoNutrientsImageTableViewCell
-                    cell?.imageFetchStatus = result
+                    searchResult = result.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
+                    cell?.tag = 4
+                    // cell?.delegate = self
+                    cell?.width = tableView.frame.size.width
+                    cell?.datasource = self
+                    cell?.editMode = editMode
+                    cell?.scheme = ColorSchemes.error
                     return cell!
                 }
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? NoNutrientsImageTableViewCell
-                cell?.imageFetchStatus = ImageFetchResult.noImageAvailable
+                searchResult = ImageFetchResult.noImageAvailable.description()
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
+                cell?.tag = 5
+                // cell?.delegate = self
+                cell?.width = tableView.frame.size.width
+                cell?.datasource = self
+                cell?.editMode = editMode
+                cell?.scheme = ColorSchemes.error
                 return cell!
             }
         case .addNutrient:
@@ -729,3 +743,27 @@ extension NutrientsTableViewController: UITextFieldDelegate {
     
 
 }
+
+// MARK: - TagListView DataSource Functions
+
+extension NutrientsTableViewController: TagListViewDataSource {
+    
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        switch tagListView.tag {
+        case 4,5:
+            return 1
+        default: break
+        }
+        return 0
+    }
+    
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        switch tagListView.tag {
+        case 4,5:
+            return searchResult
+        default: break
+        }
+        return("tagListView error")
+    }
+}
+

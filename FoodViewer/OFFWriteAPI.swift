@@ -28,7 +28,7 @@ struct OFFWriteAPI {
     static let NutrimentUnit = "_unit"
     static let NutrimentPerServing = "nutrition_data_per=serving"
     static let NutrimentPer100g = "nutrition_data_per=100g"
-    static let Brands = "brand="
+    static let Brands = "brands="
     static let Packaging = "packaging="
     static let Traces = "traces="
     static let TracesPrefix = "traces"
