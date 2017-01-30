@@ -34,9 +34,11 @@ class IngredientsFullTableViewCell: UITableViewCell {
             textView?.layer.cornerRadius = 5
             textView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             textView?.clipsToBounds = true
+            textView.isScrollEnabled = true
         } else {
             textView?.backgroundColor = UIColor.white
             textView?.layer.borderColor = UIColor.white.cgColor
+            textView.isScrollEnabled = false
         }
         
         if editMode {

@@ -42,10 +42,12 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextView.layer.cornerRadius = 5
             nameTextView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             nameTextView.clipsToBounds = true
+            nameTextView.isScrollEnabled = true
             // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             nameTextView.backgroundColor = UIColor.white
             nameTextView.layer.borderColor = UIColor.white.cgColor
+            nameTextView.isScrollEnabled = false
         }
         
         nameTextView?.sizeToFit()
