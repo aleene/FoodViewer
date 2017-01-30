@@ -225,7 +225,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(categories: list)
             }
-            tableView.reloadData()
+            // tableView.reloadData()
         default:
             break
         }

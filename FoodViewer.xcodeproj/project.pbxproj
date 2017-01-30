@@ -27,6 +27,7 @@
 		5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */; };
 		512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */; };
 		512499A11C6CD0100061A083 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512499A01C6CD0100061A083 /* imageViewController.swift */; };
+		5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */; };
 		5125AB851D0864BB000DCD29 /* NutritionScoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */; };
 		5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */; };
 		5125AB891D095A14000DCD29 /* NutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB881D095A14000DCD29 /* NutritionalScoreUK.swift */; };
@@ -205,6 +206,7 @@
 		51243AA41CA92906003F6D88 /* 20454456.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 20454456.json; sourceTree = "<group>"; };
 		51243AA51CA93DCB003F6D88 /* APIDataFields.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = APIDataFields.txt; path = ../APIDataFields.txt; sourceTree = "<group>"; };
 		512499A01C6CD0100061A083 /* imageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
+		5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLanguageViewController.swift; sourceTree = "<group>"; };
 		5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewController.swift; sourceTree = "<group>"; };
 		5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentScoreTableViewCell.swift; sourceTree = "<group>"; };
 		5125AB881D095A14000DCD29 /* NutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUK.swift; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */,
 				51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
+				5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */,
 			);
 			name = EditPages;
 			sourceTree = "<group>";
@@ -940,6 +943,7 @@
 				51E13F061D9BCB7F000F71C5 /* PickerViewTableViewCell.swift in Sources */,
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
+				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
 				5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */,
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */,

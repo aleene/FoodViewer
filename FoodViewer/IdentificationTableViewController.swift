@@ -159,6 +159,7 @@ class IdentificationTableViewController: UITableViewController {
         static let NoIdentificationImageCellIdentifier = "No Image Cell"
         static let ShowIdentificationSegueIdentifier = "Show Identification Image"
         static let ShowNamesLanguagesSegueIdentifier = "Show Names Languages"
+        static let ShowSelectMainLanguageSegueIdentifier = "Show Select Main Language Segue"
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -178,6 +179,8 @@ class IdentificationTableViewController: UITableViewController {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BarcodeCellIdentifier, for: indexPath)as? BarcodeTableViewCell
             cell!.barcode = product?.barcode.asString()
+            cell!.mainLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
+            cell!.editMode = editMode
             return cell!
             
         case .name:
@@ -399,11 +402,32 @@ class IdentificationTableViewController: UITableViewController {
                     vc.delegate = delegate
                     vc.sourcePage = 0
                 }
+            case Storyboard.ShowSelectMainLanguageSegueIdentifier:
+                if let vc = segue.destination as? MainLanguageViewController {
+                    if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
+                        vc.currentLanguageCode = updatedPrimaryLanguageCode
+                    } else {
+                        vc.currentLanguageCode = product?.primaryLanguageCode
+                    }
+                }
             default: break
             }
         }
     }
     
+    @IBAction func unwindChangeMainLanguageForCancel(_ segue:UIStoryboardSegue) {
+        // nothing needs to be done
+    }
+    
+    @IBAction func unwindChangeMainLanguageForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? MainLanguageViewController {
+            if let newLanguageCode = vc.selectedLanguageCode {
+                delegate?.updated(primaryLanguageCode: newLanguageCode)
+                tableView.reloadData()
+            }
+        }
+    }
+
     // MARK: - Notification handler
     
     func reloadImageSection() {

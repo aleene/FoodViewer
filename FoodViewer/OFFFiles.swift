@@ -269,15 +269,16 @@ class OFFplists {
     }
 
     func allLanguages(_ localeLanguage: String) -> [Language] {
-        var languages = [Language()]
+        var languages: [Language] = []
         guard OFFlanguages != nil else { return languages }
+        let firstSplit = localeLanguage.characters.split{ $0 == "-" }.map(String.init)
+
         // loop over all verteces and fill the languages array
         for vertex in OFFlanguages! {
             var language = Language()
             if let validValues = vertex.leaves["iso"] {
                 language.code = validValues[0]
             }
-            let firstSplit = localeLanguage.characters.split{ $0 == "-" }.map(String.init)
 
             let values = vertex.leaves[firstSplit[0]]
             

@@ -29,8 +29,33 @@ class BarcodeTableViewCell: UITableViewCell {
             }
         }
     }
+
+    var mainLanguageCode: String? = nil {
+        didSet {
+            if let validMainLanguageCode = mainLanguageCode {
+                mainLanguageButton.setTitle(validMainLanguageCode, for: .normal)
+            } else {
+                mainLanguageButton.setTitle("??", for: .normal)
+            }
+        }
+    }
+    
+    var editMode = false {
+        didSet {
+            if editMode != oldValue {
+                mainLanguageButton?.isEnabled = editMode
+            }
+        }
+    }
     
     @IBOutlet weak var barcodeImageView: UIImageView!
     
     @IBOutlet weak var barcodeLabel: UILabel!
+    
+    @IBOutlet weak var mainLanguageButton: UIButton! {
+        didSet {
+            mainLanguageButton.isEnabled = editMode
+        }
+    }
+    
 }

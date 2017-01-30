@@ -487,8 +487,16 @@
                                                 <constraint firstAttribute="height" constant="60" id="wkS-EM-d5v"/>
                                             </constraints>
                                         </imageView>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5N-ax-YY5">
+                                            <rect key="frame" x="172" y="18.5" width="30" height="39"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <state key="normal" title="en"/>
+                                            <connections>
+                                                <segue destination="PpT-BN-Hfh" kind="presentation" identifier="Show Select Main Language Segue" id="bfB-Dd-gmH"/>
+                                            </connections>
+                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-LR-JHI">
-                                            <rect key="frame" x="16" y="28" width="223" height="20.5"/>
+                                            <rect key="frame" x="16" y="28" width="148" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -497,8 +505,10 @@
                                     <constraints>
                                         <constraint firstItem="lFH-LR-JHI" firstAttribute="centerY" secondItem="vuR-sL-kRr" secondAttribute="centerY" id="7W5-wb-15i"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="lFH-LR-JHI" secondAttribute="leading" constant="-8" id="8Ja-Fh-lJC"/>
+                                        <constraint firstItem="b5N-ax-YY5" firstAttribute="centerX" secondItem="vuR-sL-kRr" secondAttribute="centerX" id="CrY-NA-EZE"/>
+                                        <constraint firstItem="b5N-ax-YY5" firstAttribute="leading" secondItem="lFH-LR-JHI" secondAttribute="trailing" constant="8" id="LEb-l3-rSR"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="O3f-3p-sEO" secondAttribute="trailing" id="Wo8-Vk-fG9"/>
-                                        <constraint firstItem="O3f-3p-sEO" firstAttribute="leading" secondItem="lFH-LR-JHI" secondAttribute="trailing" constant="8" id="ZWA-mh-NsL"/>
+                                        <constraint firstItem="b5N-ax-YY5" firstAttribute="centerY" secondItem="O3f-3p-sEO" secondAttribute="centerY" id="d2t-82-rvo"/>
                                         <constraint firstItem="O3f-3p-sEO" firstAttribute="trailing" secondItem="vuR-sL-kRr" secondAttribute="trailingMargin" id="pBk-wb-HDn"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="O3f-3p-sEO" secondAttribute="bottom" id="vfY-6i-Amc"/>
                                         <constraint firstItem="O3f-3p-sEO" firstAttribute="top" secondItem="vuR-sL-kRr" secondAttribute="topMargin" id="xDw-dg-emH"/>
@@ -508,6 +518,7 @@
                                 <connections>
                                     <outlet property="barcodeImageView" destination="O3f-3p-sEO" id="sfy-De-Igx"/>
                                     <outlet property="barcodeLabel" destination="lFH-LR-JHI" id="8KU-Th-Edf"/>
+                                    <outlet property="mainLanguageButton" destination="b5N-ax-YY5" id="e6v-6O-sDq"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Basic Cell" textLabel="1rX-wX-DbL" rowHeight="88" style="IBUITableViewCellStyleDefault" id="CZN-Jn-Vn9" customClass="BarcodeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -570,7 +581,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBp-dG-DWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="998" y="2945"/>
+            <point key="canvasLocation" x="946" y="2945"/>
         </scene>
         <!--Settings Table View Controller-->
         <scene sceneID="haz-kS-KCO">
@@ -1372,7 +1383,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6FH-qY-aLL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4118" y="2883"/>
+            <point key="canvasLocation" x="4408" y="2883"/>
         </scene>
         <!--Categories Table View Controller-->
         <scene sceneID="j4o-lI-2fF">
@@ -1427,7 +1438,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-2D-TOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4868" y="2745"/>
+            <point key="canvasLocation" x="5158" y="2745"/>
         </scene>
         <!--Select Language View Controller-->
         <scene sceneID="jub-U0-btO">
@@ -1840,7 +1851,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RF7-RF-gTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5608" y="2745"/>
+            <point key="canvasLocation" x="5966" y="2745"/>
         </scene>
         <!--Nutrition Score Table View Controller-->
         <scene sceneID="bSp-xL-aQg">
@@ -2112,7 +2123,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pwd-xJ-AdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6341" y="2745"/>
+            <point key="canvasLocation" x="6896" y="2745"/>
         </scene>
         <!--Ingredients Table View Controller-->
         <scene sceneID="2bd-NI-S3Q">
@@ -2608,7 +2619,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXN-b8-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2664.375" y="2745"/>
+            <point key="canvasLocation" x="2869" y="2745"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="NCZ-i8-lPe">
@@ -2619,14 +2630,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -2655,7 +2666,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1744" y="4109"/>
+            <point key="canvasLocation" x="1688" y="4309"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -2808,6 +2819,60 @@
             </objects>
             <point key="canvasLocation" x="1856" y="1596"/>
         </scene>
+        <!--Main Language View Controller-->
+        <scene sceneID="Gtb-19-kfH">
+            <objects>
+                <viewController id="PpT-BN-Hfh" customClass="MainLanguageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pRI-5n-G4X"/>
+                        <viewControllerLayoutGuide type="bottom" id="bMk-JX-aFc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gg7-Ca-Lm5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="APZ-VN-DIT">
+                                <rect key="frame" x="-4" y="20" width="328" height="44"/>
+                                <items>
+                                    <navigationItem title="Main Language" id="uO9-18-9Hq">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vkh-PV-lXm">
+                                            <connections>
+                                                <segue destination="HrT-0p-TNu" kind="unwind" identifier="Unwind Change Main Language For Done Segue" unwindAction="unwindChangeMainLanguageForCancel:" id="BE6-Vv-AW0"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="RIx-Dx-Ekh">
+                                            <connections>
+                                                <segue destination="HrT-0p-TNu" kind="unwind" identifier="Unwind Change Main Language For Cancel Segue" unwindAction="unwindChangeMainLanguageForDone:" id="x27-pL-HQa"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="29H-HT-btt">
+                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                                <gestureRecognizers/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="APZ-VN-DIT" firstAttribute="leading" secondItem="gg7-Ca-Lm5" secondAttribute="leadingMargin" constant="-20" id="H7q-3e-epa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="APZ-VN-DIT" secondAttribute="trailing" constant="-20" id="M5B-uF-yoV"/>
+                            <constraint firstItem="APZ-VN-DIT" firstAttribute="top" secondItem="pRI-5n-G4X" secondAttribute="bottom" id="XLw-dx-Xa0"/>
+                            <constraint firstItem="bMk-JX-aFc" firstAttribute="top" secondItem="29H-HT-btt" secondAttribute="bottom" id="gMe-Hz-XSd"/>
+                            <constraint firstItem="29H-HT-btt" firstAttribute="leading" secondItem="gg7-Ca-Lm5" secondAttribute="leading" id="lI8-bg-80y"/>
+                            <constraint firstAttribute="trailing" secondItem="29H-HT-btt" secondAttribute="trailing" id="p7f-fW-yzP"/>
+                            <constraint firstItem="29H-HT-btt" firstAttribute="top" secondItem="APZ-VN-DIT" secondAttribute="bottom" id="vOU-RS-OOc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="languagesPickerView" destination="29H-HT-btt" id="WYN-aj-umv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZtT-I9-nrf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="HrT-0p-TNu" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="296.25" y="4108.75"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Agenda" width="25" height="25"/>
@@ -2819,7 +2884,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="1lc-8h-qsb"/>
         <segue reference="NgB-UV-Avc"/>
-        <segue reference="4zk-rY-uLr"/>
-        <segue reference="oZb-AL-Fkm"/>
+        <segue reference="WmF-mg-s8n"/>
+        <segue reference="fRX-dv-BPz"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -462,7 +462,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(tracesTags: list)
             }
-            tableView.reloadData()
+            // tableView.reloadData()
         case 3:
             switch labelsToDisplay {
             case .undefined, .empty:
@@ -471,7 +471,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(labelTags: list)
             }
-            tableView.reloadData()
+            // tableView.reloadData()
         default:
             break
         }
