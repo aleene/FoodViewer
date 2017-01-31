@@ -52,6 +52,7 @@ class NutrientsTableViewController: UITableViewController {
             for fact in validFacts {
                 if let validFact = fact {
                     var newFact: NutritionFactItem? = nil
+                    // if the validFact is sodium or salt, add either one to the list of facts, but not both
                     if (validFact.key == NatriumChloride.salt.key()) {
                         switch Preferences.manager.showSaltOrSodium {
                         // do not show sodium
@@ -519,6 +520,19 @@ class NutrientsTableViewController: UITableViewController {
         return sectionsAndRows
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        
+        switch currentProductSection {
+        case .nutritionImage :
+            return indexPath
+        default:
+            break
+        }
+        return nil
+    }
+
     // MARK: - Segue functions
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -641,7 +655,6 @@ class NutrientsTableViewController: UITableViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
-        tableView.allowsSelection = false
     }
     
     override func viewWillAppear(_ animated: Bool) {

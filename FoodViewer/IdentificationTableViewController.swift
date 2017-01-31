@@ -157,7 +157,7 @@ class IdentificationTableViewController: UITableViewController {
         static let PackagingCellIdentifier = "Identification Packaging Cell"
         static let ImageCellIdentifier = "Identification Image Cell"
         static let NoIdentificationImageCellIdentifier = "No Image Cell"
-        static let ShowIdentificationSegueIdentifier = "Show Identification Image"
+        static let ShowIdentificationImageSegueIdentifier = "Show Identification Image"
         static let ShowNamesLanguagesSegueIdentifier = "Show Names Languages"
         static let ShowSelectMainLanguageSegueIdentifier = "Show Select Main Language Segue"
     }
@@ -293,6 +293,18 @@ class IdentificationTableViewController: UITableViewController {
         return
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
+        
+        switch currentProductSection {
+        case .name, .genericName, .image:
+            return indexPath
+        default:
+            break
+        }
+        return nil
+    }
+    
     func changeLanguage() {
         // set the next language in the array
         if currentLanguageCode != nextLanguageCode() {
@@ -376,7 +388,7 @@ class IdentificationTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowIdentificationSegueIdentifier:
+            case Storyboard.ShowIdentificationImageSegueIdentifier:
                 if let vc = segue.destination as? imageViewController {
                     if let result = product?.mainImageData {
                         switch result {
@@ -476,7 +488,7 @@ class IdentificationTableViewController: UITableViewController {
         tableStructure = setupSections()
         
         self.tableView.estimatedRowHeight = 44.0
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension
 }
     

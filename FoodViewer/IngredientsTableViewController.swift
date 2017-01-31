@@ -247,6 +247,19 @@ class IngredientsTableViewController: UITableViewController {
         return
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        
+        switch currentProductSection {
+        case .image:
+            return indexPath
+        default:
+            break
+        }
+        return nil
+    }
+
     fileprivate func nextLanguageCode() -> String {
         let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
         
@@ -383,8 +396,6 @@ class IngredientsTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
-        tableView.allowsSelection = false
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
