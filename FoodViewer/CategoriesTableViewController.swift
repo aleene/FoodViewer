@@ -208,7 +208,18 @@ extension CategoriesTableViewController: TagListViewDataSource {
         }
         return("TagListView titleForTagAt error")
     }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        switch tagListView.tag {
+        case 0:
+            tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
+        default:
+            break
+        }
+    }
+
 }
+
 
 // MARK: - TagListView Delegate Functions
 

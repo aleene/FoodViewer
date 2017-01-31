@@ -587,6 +587,18 @@ extension IngredientsTableViewController: TagListViewDataSource {
         }
         return("tagListView error")
     }
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        switch tagListView.tag {
+        case 1:
+            tableView.reloadSections(IndexSet.init(integer: 2), with: .automatic)
+        case 3:
+            tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
+        default:
+            break
+        }
+    }
+
 }
 
 

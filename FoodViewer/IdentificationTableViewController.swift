@@ -719,7 +719,14 @@ extension IdentificationTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.setNeedsLayout()
+        switch tagListView.tag {
+        case 0:
+            tableView.reloadSections(IndexSet.init(integer: 3), with: .automatic)
+        case 1:
+            tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
+        default:
+            break
+        }
     }
     
 }

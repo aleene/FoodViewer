@@ -44,7 +44,9 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
     // MARK: - Delegates and datasource
         
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedLanguageCode = sortedLanguages[row].code
+        if row > 0 {
+            selectedLanguageCode = sortedLanguages[row - 1].code
+        }
     }
         
     internal func numberOfComponents(in pickerView: UIPickerView) -> Int {
