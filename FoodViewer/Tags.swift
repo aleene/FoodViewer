@@ -59,6 +59,18 @@ enum Tags {
         return nil
     }
     
+    func tagWithoutPrefix(_ index: Int, language:String) -> String? {
+        if let currentTag = self.tag(index) {
+            let interfaceLanguage = language.characters.split{ $0 == "-" }.map(String.init)[0]
+            if currentTag.hasPrefix(interfaceLanguage + ":") {
+                return currentTag.characters.split{ $0 == ":" }.map(String.init)[1]
+            } else {
+                return currentTag
+            }
+        } else {
+            return nil
+        }
+    }
     func remove(_ index: Int) {
         switch self {
         case var .available(list):

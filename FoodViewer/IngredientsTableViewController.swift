@@ -585,13 +585,13 @@ extension IngredientsTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         switch tagListView.tag {
         case 0:
-            return allergensToDisplay.tag(index)!
+            return allergensToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
         case 1:
-            return tracesToDisplay.tag(index)!
+            return tracesToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
         case 2:
-            return additivesToDisplay.tag(index)!
+            return additivesToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
         case 3:
-            return labelsToDisplay.tag(index)!
+            return labelsToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
         case 4,5:
             return searchResult
         default: break
