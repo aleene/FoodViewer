@@ -596,12 +596,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         guard datasource?.numberOfTagsIn(self) != nil else { return }
         
         // TODO what should be cleared when?
-        if clearAll {
+        // if clearAll {
             clearTagListView()
-        } else {
-            tagViews.forEach { $0.removeFromSuperview() }
-            tagViews = []
-        }
+        //} else {
+        //    tagViews.forEach { $0.removeFromSuperview() }
+        //    tagViews = []
+        //}
         
         // Setup the tagView array and load the data here
         for index in 0..<datasource!.numberOfTagsIn(self) {
@@ -652,6 +652,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         invisibleTextField.removeFromSuperview()
         // rowViews.removeAll(keepingCapacity: true)
         clearView.removeFromSuperview()
+        print(tag, allowsCreation)
     }
     
     fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
@@ -688,6 +689,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // print("after tagViews", currentY, frame.height)
 
+        print(tag, allowsCreation)
         if isEditable && allowsCreation {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }
@@ -1138,7 +1140,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     open var allowsRemoval = false {
         didSet {
             if allowsRemoval != oldValue {
-                reloadData(clearAll: true)
+                rearrangeViews(true)
             }
         }
     }

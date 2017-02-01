@@ -694,26 +694,28 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         tableView.reloadData()
     }
     
+    /*
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
             switch tagListView.tag {
             case 0:
-                tableView.reloadSections(IndexSet.init(integer: 1), with: .automatic)
-            case 1:
                 tableView.reloadSections(IndexSet.init(integer: 2), with: .automatic)
-            case 2:
+            case 1:
                 tableView.reloadSections(IndexSet.init(integer: 3), with: .automatic)
+            case 2:
+                tableView.reloadSections(IndexSet.init(integer: 1), with: .automatic)
             case 3:
-                tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
-            case 4:
                 tableView.reloadSections(IndexSet.init(integer: 5), with: .automatic)
-            case 5:
+            case 4:
                 tableView.reloadSections(IndexSet.init(integer: 6), with: .automatic)
-            case 6:
+            case 5:
                 tableView.reloadSections(IndexSet.init(integer: 7), with: .automatic)
+            case 6:
+                tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
             default:
                 break
             }
         }
+ */
 }
 
 // MARK: - UITextFieldDelegate Functions
