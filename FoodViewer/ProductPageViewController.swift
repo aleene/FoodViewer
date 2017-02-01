@@ -82,9 +82,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
         if editMode {
+            // the user was editing AND tapped the save button
             userWantsToSave = true
+            // Saving can be done
+            saveUpdatedProduct()
         }
-        saveUpdatedProduct()
         editMode = !editMode
     }
     
@@ -109,7 +111,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                 // get the new product data
                                 OFFProducts.manager.reload(self.product!)
                                 self.updatedProduct = nil
-                                self.userWantsToSave = false
                                 // send notification of success, so feedback can be given
                                 NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
                                 break
@@ -121,6 +122,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                         })
                     })
                 }
+                userWantsToSave = false
             }
         }
     }
