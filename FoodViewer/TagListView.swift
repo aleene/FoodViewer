@@ -14,6 +14,11 @@ import UIKit
 open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
     open var delegate: TagListViewDelegate? = nil
+    
+    // The datasource indicates where TagListView can find the titles for the tags.
+    // If the delegate uses multiple TagListViews, an additional TagListView identifier is required
+    // This is set by the variable tag
+    
     open var datasource: TagListViewDataSource? = nil {
         didSet {
             reloadData(clearAll:true)
@@ -89,7 +94,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
                 setupPrefixLabel()
             }
             prefixLabel?.text = prefixLabelText
-            rearrangeViews(true)
+            if prefixLabelText != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     /// Input textView text color.
@@ -138,9 +145,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     @IBInspectable open dynamic var cornerRadius = Constants.defaultCornerRadius {
         didSet {
             // requires rearranging the tagViews.
-            rearrangeViews(true)
+            if cornerRadius != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
+    
     @IBInspectable open dynamic var borderWidth = Constants.defaultBorderWidth {
         didSet {
             tagViews.forEach { $0.borderWidth = borderWidth }
@@ -187,22 +197,30 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     @IBInspectable open dynamic var verticalPadding = Constants.defaultVerticalPadding {
         didSet {
-            rearrangeViews(true)
+            if verticalPadding != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     @IBInspectable open dynamic var horizontalPadding = Constants.defaultHorizontalPadding {
         didSet {
-            rearrangeViews(true)
+            if horizontalMargin != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     @IBInspectable open dynamic var verticalMargin = Constants.defaultVerticalMargin {
         didSet {
-            rearrangeViews(true)
+            if verticalMargin != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     @IBInspectable open dynamic var horizontalMargin = Constants.defaultHorizontalMargin {
         didSet {
-            rearrangeViews(true)
+            if horizontalMargin != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     
@@ -213,7 +231,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     @IBInspectable open var alignment: Alignment = .center {
         didSet {
-            rearrangeViews(true)
+            if alignment != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     
@@ -243,7 +263,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     @IBInspectable open dynamic var textFont = Constants.defaultTextFont {
         didSet {
-            rearrangeViews(true)
+            if textFont != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
     
@@ -325,7 +347,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         reloadData(clearAll:true)
     }
     
-    // If you identify a taglist by a tag, it needs to reload the data
+    // If the the delegate contains multiple TagListViews, it needs to identify each one
+    // You can do this with the tag variable.
+    // Note that default is tag == 0
     override open var tag: Int {
         didSet {
             reloadData(clearAll:true)
@@ -489,8 +513,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     
     fileprivate func unhighlightAllTags() {
-        for tag in tagViews {
-            tag.state = .normal
+        for tagView in tagViews {
+            tagView.state = .normal
         }
         setCursorVisibility()
     }
@@ -547,7 +571,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     // MARK: - Layout functions
     
     private(set) var tagBackgroundViews: [UIView] = []
-    private(set) var rowViews: [UIView] = []
+    // private(set) var rowViews: [UIView] = []
     private(set) var tagViewHeight: CGFloat = 0
     private(set) var rows = 0 {
         didSet {
@@ -571,6 +595,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     public func reloadData(clearAll: Bool) {
         guard datasource?.numberOfTagsIn(self) != nil else { return }
         
+        // TODO what should be cleared when?
         if clearAll {
             clearTagListView()
         } else {
@@ -625,13 +650,13 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         tagViews.forEach { $0.removeFromSuperview() }
         inputTextField.removeFromSuperview()
         invisibleTextField.removeFromSuperview()
-        rowViews.removeAll(keepingCapacity: true)
+        // rowViews.removeAll(keepingCapacity: true)
         clearView.removeFromSuperview()
     }
     
     fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
         
-        // clearUncollapsedView()
+        clearUncollapsedView()
         
         let inputViewShouldBecomeFirstResponder = inputTextField.isFirstResponder
         //scrollView.subviews.forEach { $0.removeFromSuperview() }
@@ -997,7 +1022,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
  */
  
-        if oldHeight != newFrame.height {
+        if oldHeight < newFrame.height {
             frame = newFrame
             // print("new",frame.height)
             delegate?.tagListView(self, didChange: frame.height)
@@ -1112,15 +1137,17 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     open var allowsRemoval = false {
         didSet {
-            // if allowsRemoval != oldValue {
-                rearrangeViews(true)
-            // }
+            if allowsRemoval != oldValue {
+                reloadData(clearAll: true)
+            }
         }
     }
     
     open var clearButtonIsEnabled: Bool = false {
         didSet {
-            rearrangeViews(true)
+            if clearButtonIsEnabled != oldValue {
+                rearrangeViews(true)
+            }
         }
     }
 

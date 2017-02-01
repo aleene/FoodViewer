@@ -66,11 +66,15 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView?.normalColorScheme = scheme
         }
     }
-
+    
     override var tag: Int {
         didSet {
             tagListView?.tag = tag
         }
+    }
+    
+    func reloadData() {
+        tagListView.reloadData(clearAll: true)
     }
     
 }

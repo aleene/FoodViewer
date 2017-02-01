@@ -226,7 +226,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            cell.tag = 0
+            cell.tag = 4
             return cell
             
         case .packaging:
@@ -235,7 +235,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            cell.tag = 1
+            cell.tag = 5
             return cell
             
         case .quantity:
@@ -262,18 +262,18 @@ class IdentificationTableViewController: UITableViewController {
                 default:
                     searchResult = result.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.tag = 3
-                    cell?.width = tableView.frame.size.width
                     cell?.datasource = self
+                    cell?.tag = 7
+                    cell?.width = tableView.frame.size.width
                     cell?.scheme = ColorSchemes.error
                     return cell!
                 }
             } else {
                 searchResult = ImageFetchResult.noImageAvailable.description()
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
-                cell?.tag = 4
-                cell?.width = tableView.frame.size.width
                 cell?.datasource = self
+                cell?.tag = 7
+                cell?.width = tableView.frame.size.width
                 cell?.scheme = ColorSchemes.error
                 return cell!
             }
@@ -582,13 +582,11 @@ extension IdentificationTableViewController: TagListViewDataSource {
         }
         
         switch tagListView.tag {
-        case 0:
-            return count(brandsToDisplay)
-        case 1:
-            return count(packagingToDisplay)
-        case 3:
-            return 1
         case 4:
+            return count(brandsToDisplay)
+        case 5:
+            return count(packagingToDisplay)
+        case 7:
             return 1
         default:
             break
@@ -628,11 +626,11 @@ extension IdentificationTableViewController: TagListViewDataSource {
         }
         
         switch tagListView.tag {
-        case 0:
+        case 4:
             return title(brandsToDisplay)
-        case 1:
+        case 5:
             return title(packagingToDisplay)
-        case 3,4:
+        case 7:
             return searchResult
         default: break
         }
@@ -642,7 +640,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
         switch tagListView.tag {
-        case 0:
+        case 4:
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I clear a tag when there are none")
@@ -650,7 +648,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 list.removeAll()
                 delegate?.update(brandTags: list)
             }
-        case 1:
+        case 5:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -677,7 +675,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
         switch tagListView.tag {
-        case 0:
+        case 4:
             switch brandsToDisplay {
             case .undefined, .empty:
                 delegate?.update(brandTags: [title])
@@ -685,7 +683,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(brandTags: list)
             }
-        case 1:
+        case 5:
             switch packagingToDisplay {
             case .undefined, .empty:
                 delegate?.update(packagingTags: [title])
@@ -701,7 +699,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
         switch tagListView.tag {
-        case 0:
+        case 4:
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -713,7 +711,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 delegate?.update(brandTags: list)
             }
             tableView.reloadData()
-        case 1:
+        case 5:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -732,9 +730,9 @@ extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         switch tagListView.tag {
-        case 0:
+        case 4:
             tableView.reloadSections(IndexSet.init(integer: 3), with: .automatic)
-        case 1:
+        case 5:
             tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
         default:
             break

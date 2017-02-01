@@ -38,7 +38,7 @@ class CategoriesTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Categories", comment: "Title of ViewController with the categories the product belongs to.")
     }
     
-    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    fileprivate var tableStructureForProduct: [(Int, SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
         case categories
@@ -80,39 +80,48 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (_, numberOfRows, _) = tableStructureForProduct[section]
+        let (_, _, numberOfRows, _) = tableStructureForProduct[section]
         return numberOfRows
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
-        cell.width = tableView.frame.size.width
-        cell.tag = 0
-        cell.editMode = editMode
-        cell.delegate = self
-        cell.datasource = self
-        return cell
+        
+        let (_, currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        
+        // we assume that product exists
+        switch currentProductSection {
+        case .categories:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            // cell.id = section // TagListView id, not needed at the moment
+            cell.editMode = editMode
+            cell.delegate = self
+            cell.datasource = self
+            return cell
+        }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
+        let (_, _, _, header) = tableStructureForProduct[section]
         return header
     }
-
+    
     struct TableStructure {
         static let CategoriesSectionHeader = NSLocalizedString("Categories", comment: "Header title for table section with product Categories") 
         static let CategoriesSectionSize = 1
+        static let CategoriesSection = 0
     }
 
-    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
+    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(Int, SectionType, Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
         // And each element is a tuple with the section type and number of rows
         //
-        var sectionsAndRows: [(SectionType,Int, String?)] = []
+        var sectionsAndRows: [(Int, SectionType,Int, String?)] = []
         // nutritionFacts section
         sectionsAndRows.append((
+            TableStructure.CategoriesSection,
             SectionType.categories,
             TableStructure.CategoriesSectionSize,
             TableStructure.CategoriesSectionHeader))
@@ -173,8 +182,10 @@ class CategoriesTableViewController: UITableViewController {
 extension CategoriesTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        switch tagListView.tag {
-        case 0:
+        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+
+        switch  currentProductSection {
+        case .categories :
             switch categoriesToDisplay {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
@@ -186,14 +197,14 @@ extension CategoriesTableViewController: TagListViewDataSource {
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
-        default: break
         }
-        return 0
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        switch tagListView.tag {
-        case 0:
+        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch  currentProductSection {
+        case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
                 return categoriesToDisplay.description()
@@ -204,17 +215,16 @@ extension CategoriesTableViewController: TagListViewDataSource {
                     assert(true, "categories array - index out of bounds")
                 }
             }
-        default: break
         }
         return("TagListView titleForTagAt error")
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        switch tagListView.tag {
-        case 0:
+        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch  currentProductSection {
+        case .categories :
             tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
-        default:
-            break
         }
     }
 
@@ -227,8 +237,10 @@ extension CategoriesTableViewController: TagListViewDelegate {
     
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        switch tagListView.tag {
-        case 0:
+        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch  currentProductSection {
+        case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
                 delegate?.update(categories: [title])
@@ -237,14 +249,14 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 delegate?.update(categories: list)
             }
             // tableView.reloadData()
-        default:
-            break
         }
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        switch tagListView.tag {
-        case 0:
+        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch  currentProductSection {
+        case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -255,16 +267,17 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(categories: list)
             }
-            tableView.reloadData()
-        default:
-            break
+            // tableView.reloadData()
         }
     }
     
     public func didClear(_ tagListView: TagListView) {
-        if tagListView.tag == 0 {
+        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch  currentProductSection {
+        case .categories :
             delegate?.update(categories: [])
-            tableView.reloadData()
+            // tableView.reloadData()
         }
     }
 
