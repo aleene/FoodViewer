@@ -720,8 +720,10 @@ extension NutrientsTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        let (currentProductSection, _, _) = tableStructureForProduct[textField.tag % 100]
+        // the tag is a combination of the section and the row
+        // section*100 + row
+        let section = (textField.tag - textField.tag % 100)/100
+        let (currentProductSection, _, _) = tableStructureForProduct[section]
         
         switch currentProductSection {
         case .servingSize:
@@ -730,15 +732,16 @@ extension NutrientsTableViewController: UITextFieldDelegate {
             }
         default:
             // decode the actual row from the tag by subtracting the section*100
-            let row = textField.tag - (textField.tag % 100) * 100
+            let row = textField.tag % 100
+            print(textField.tag, row)
             if row >= 0 && row < adaptedNutritionFacts.count {
                 // The new nutrient unit should be set to the nutrient that was edited
                 // copy the existing nutrient and change the unit
                 var editedNutritionFact = NutritionFactItem()
-                editedNutritionFact.key = adaptedNutritionFacts[textField.tag].key
-                editedNutritionFact.itemName = adaptedNutritionFacts[textField.tag].name
+                editedNutritionFact.key = adaptedNutritionFacts[row].key
+                editedNutritionFact.itemName = adaptedNutritionFacts[row].name
                 if showNutrientsAs == .perStandard {
-                    editedNutritionFact.standardValueUnit = adaptedNutritionFacts[textField.tag].unit
+                    editedNutritionFact.standardValueUnit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
@@ -747,7 +750,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                         })
                     }
                 } else if showNutrientsAs == .perServing {
-                    editedNutritionFact.servingValueUnit = adaptedNutritionFacts[textField.tag].unit
+                    editedNutritionFact.servingValueUnit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
                     if let text = textField.text {
