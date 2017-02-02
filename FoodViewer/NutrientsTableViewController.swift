@@ -229,7 +229,7 @@ class NutrientsTableViewController: UITableViewController {
                 // warning set FIRST the saltOrSodium
                 cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
                 cell?.delegate = self
-                cell?.tag = indexPath.row
+                cell?.tag = indexPath.section * 100 + indexPath.row
                 // only add taps gestures when NOT in editMode
                 if !editMode {
                     if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.salt.key()) ||
@@ -256,7 +256,7 @@ class NutrientsTableViewController: UITableViewController {
         case .servingSize:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ServingSizeCellIdentifier, for: indexPath) as? ServingSizeTableViewCell
             cell!.servingSizeTextField.delegate = self
-            cell!.servingSizeTextField.tag = Storyboard.PortionTag
+            cell!.servingSizeTextField.tag = indexPath.section
             cell!.editMode = editMode
 
             // has the product been edited?
@@ -279,7 +279,7 @@ class NutrientsTableViewController: UITableViewController {
                 default:
                     searchResult = result.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                    cell?.tag = 4
+                    cell?.tag = indexPath.section
                     // cell?.delegate = self
                     cell?.width = tableView.frame.size.width
                     cell?.datasource = self
@@ -290,7 +290,7 @@ class NutrientsTableViewController: UITableViewController {
             } else {
                 searchResult = ImageFetchResult.noImageAvailable.description()
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                cell?.tag = 5
+                cell?.tag = indexPath.section
                 // cell?.delegate = self
                 cell?.width = tableView.frame.size.width
                 cell?.datasource = self
@@ -705,13 +705,17 @@ extension NutrientsTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == Storyboard.PortionTag {
-            // product serving size
+        let (currentProductSection, _, _) = tableStructureForProduct[textField.tag]
+        
+        switch currentProductSection {
+        case .servingSize:
             if let validText = textField.text {
                 delegate?.updated(portion: validText)
             }
-        } else {
-            if textField.tag >= 0 && textField.tag < adaptedNutritionFacts.count {
+        default:
+            // decode the actual row from the tag by subtracting the section*100
+            let row = textField.tag - (textField.tag % 100) * 100
+            if row >= 0 && row < adaptedNutritionFacts.count {
                 // The new nutrient unit should be set to the nutrient that was edited
                 // copy the existing nutrient and change the unit
                 var editedNutritionFact = NutritionFactItem()
@@ -762,21 +766,25 @@ extension NutrientsTableViewController: UITextFieldDelegate {
 extension NutrientsTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        switch tagListView.tag {
-        case 4,5:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch currentProductSection {
+        case .nutritionImage:
             return 1
-        default: break
+        default:
+            return 0
         }
-        return 0
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        switch tagListView.tag {
-        case 4,5:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        
+        switch currentProductSection {
+        case .nutritionImage:
             return searchResult
-        default: break
+        default:
+            return("tagListView error")
         }
-        return("tagListView error")
     }
 }
 

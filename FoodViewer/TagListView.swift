@@ -691,7 +691,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // print("after tagViews", currentY, frame.height)
 
-        print(tag, allowsCreation)
+        // print(tag, allowsCreation)
         if isEditable && allowsCreation {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }
@@ -992,8 +992,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // The height of the TagListView frame should be adjusted
         let oldHeight = frame.height
-        // print("old", oldHeight)
-        
         var newFrame = frame
         newFrame.size.height = currentY + tagViewHeight + Constants.defaultVerticalMargin
 
@@ -1026,7 +1024,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
  */
  
-        // print("old", oldHeight, "new", newFrame.size.height, abs(oldHeight - newFrame.size.height),CGFloat(Constants.ErrorMarginFrameHeight))
+        print(tag, "old", oldHeight, "new", newFrame.size.height, abs(oldHeight - newFrame.size.height),CGFloat(Constants.ErrorMarginFrameHeight))
         // If the frame height has changed to much, inform the user, so he can repaint
         if abs(oldHeight - newFrame.size.height) > CGFloat(Constants.ErrorMarginFrameHeight) {
             frame = newFrame

@@ -18,15 +18,6 @@ class IngredientsTableViewController: UITableViewController {
         }
     }
     
-    fileprivate enum SectionType {
-        case ingredients
-        case allergens
-        case traces
-        case additives
-        case labels
-        case image
-    }
-    
     
     fileprivate var allergensToDisplay: Tags {
         get {
@@ -116,6 +107,15 @@ class IngredientsTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     
+    fileprivate enum SectionType {
+        case ingredients
+        case allergens
+        case traces
+        case additives
+        case labels
+        case image
+    }
+
     fileprivate struct Storyboard {
         static let IngredientsCellIdentifier = "Ingredients Full Cell"
         static let AllergensCellIdentifier = "Allergens TagList Cell"
@@ -152,7 +152,7 @@ class IngredientsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as? IngredientsFullTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.textViewDelegate = self
-            cell!.textViewTag = 0
+            cell!.textViewTag = indexPath.section
             cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
@@ -171,7 +171,7 @@ class IngredientsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
-            cell.tag = 0
+            cell.tag = indexPath.section
             return cell
             
         case .traces:
@@ -180,14 +180,14 @@ class IngredientsTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            cell.tag = 1
+            cell.tag = indexPath.section
             return cell
             
         case .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
-            cell.tag = 2
+            cell.tag = indexPath.section
             return cell
             
         case .labels:
@@ -196,7 +196,7 @@ class IngredientsTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            cell.tag = 3
+            cell.tag = indexPath.section
             return cell
             
         case .image:
@@ -209,7 +209,7 @@ class IngredientsTableViewController: UITableViewController {
                 default:
                     searchResult = result.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                    cell?.tag = 4
+                    cell?.tag = indexPath.section
                     cell?.delegate = self
                     cell?.width = tableView.frame.size.width
                     cell?.datasource = self
@@ -219,7 +219,7 @@ class IngredientsTableViewController: UITableViewController {
             } else {
                 searchResult = ImageFetchResult.noImageAvailable.description()
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                cell?.tag = 5
+                cell?.tag = indexPath.section
                 cell?.delegate = self
                 cell?.width = tableView.frame.size.width
                 cell?.datasource = self
@@ -327,7 +327,6 @@ class IngredientsTableViewController: UITableViewController {
             TableStructure.ImageSectionSize,
             TableStructure.ImageSectionHeader))
         
-        // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
     
@@ -438,9 +437,9 @@ extension IngredientsTableViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        switch textView.tag {
-        case 0:
-            // productname
+        let (currentProductSection, _, _) = tableStructureForProduct[textView.tag]
+        switch currentProductSection {
+        case .ingredients:
             if let validText = textView.text {
                 delegate?.updated(ingredients: validText, languageCode: currentLanguageCode!)
             }
@@ -464,8 +463,9 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        switch tagListView.tag {
-        case 1:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .traces:
             switch tracesToDisplay {
             case .undefined, .empty:
                 delegate?.update(tracesTags: [title])
@@ -474,7 +474,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 delegate?.update(tracesTags: list)
             }
             // tableView.reloadData()
-        case 3:
+        case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
                 delegate?.update(labelTags: [title])
@@ -489,8 +489,9 @@ extension IngredientsTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        switch tagListView.tag {
-        case 1:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .traces:
             switch tracesToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -502,7 +503,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 delegate?.update(tracesTags: list)
             }
             tableView.reloadData()
-        case 3:
+        case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -525,8 +526,9 @@ extension IngredientsTableViewController: TagListViewDelegate {
 extension IngredientsTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .allergens:
             switch allergensToDisplay {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
@@ -539,7 +541,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
                 return list.count
             }
             
-        case 1:
+        case .traces:
             switch tracesToDisplay {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
@@ -551,7 +553,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
-        case 2:
+        case .additives:
             switch additivesToDisplay {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
@@ -563,7 +565,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
-        case 3:
+        case .labels:
             switch labelsToDisplay {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
@@ -575,7 +577,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
-        case 4,5:
+        case .image:
             return 1
         default: break
         }
@@ -583,16 +585,17 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .allergens:
             return allergensToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
-        case 1:
+        case .traces:
             return tracesToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
-        case 2:
+        case .additives:
             return additivesToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
-        case 3:
+        case .labels:
             return labelsToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
-        case 4,5:
+        case .image:
             return searchResult
         default: break
         }
@@ -600,14 +603,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        switch tagListView.tag {
-        case 1:
-            tableView.reloadSections(IndexSet.init(integer: 2), with: .automatic)
-        case 3:
-            tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
-        default:
-            break
-        }
+        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
 }
