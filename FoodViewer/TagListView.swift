@@ -63,6 +63,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         static let defaultshadowOpacity: Float = 0
         /// Default image used for the Clear and Remove button, similar to the one used in UITextField
         static let clearRemoveImage: UIImage? = UIImage.init(named: "Clear")
+        // Error margin for updated frame height
+        static let ErrorMarginFrameHeight = 0.2
     }
     
     // MARK: - Inspectable Variables
@@ -652,7 +654,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         invisibleTextField.removeFromSuperview()
         // rowViews.removeAll(keepingCapacity: true)
         clearView.removeFromSuperview()
-        print(tag, allowsCreation)
+        // print(tag, allowsCreation)
     }
     
     fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
@@ -1024,7 +1026,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
  */
  
-        if oldHeight < newFrame.height {
+        // print("old", oldHeight, "new", newFrame.size.height, abs(oldHeight - newFrame.size.height),CGFloat(Constants.ErrorMarginFrameHeight))
+        // If the frame height has changed to much, inform the user, so he can repaint
+        if abs(oldHeight - newFrame.size.height) > CGFloat(Constants.ErrorMarginFrameHeight) {
             frame = newFrame
             // print("new",frame.height)
             delegate?.tagListView(self, didChange: frame.height)

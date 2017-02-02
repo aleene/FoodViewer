@@ -38,7 +38,7 @@ class CategoriesTableViewController: UITableViewController {
         static let ViewControllerTitle = NSLocalizedString("Categories", comment: "Title of ViewController with the categories the product belongs to.")
     }
     
-    fileprivate var tableStructureForProduct: [(Int, SectionType, Int, String?)] = []
+    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
         case categories
@@ -80,13 +80,13 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (_, _, numberOfRows, _) = tableStructureForProduct[section]
+        let (_, numberOfRows, _) = tableStructureForProduct[section]
         return numberOfRows
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (_, currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         // we assume that product exists
         switch currentProductSection {
@@ -102,26 +102,24 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, _, header) = tableStructureForProduct[section]
+        let (_, _, header) = tableStructureForProduct[section]
         return header
     }
     
     struct TableStructure {
         static let CategoriesSectionHeader = NSLocalizedString("Categories", comment: "Header title for table section with product Categories") 
         static let CategoriesSectionSize = 1
-        static let CategoriesSection = 0
     }
 
-    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(Int, SectionType, Int, String?)] {
+    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType, Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
         // And each element is a tuple with the section type and number of rows
         //
-        var sectionsAndRows: [(Int, SectionType,Int, String?)] = []
+        var sectionsAndRows: [(SectionType,Int, String?)] = []
         // nutritionFacts section
         sectionsAndRows.append((
-            TableStructure.CategoriesSection,
             SectionType.categories,
             TableStructure.CategoriesSectionSize,
             TableStructure.CategoriesSectionHeader))
@@ -182,7 +180,7 @@ class CategoriesTableViewController: UITableViewController {
 extension CategoriesTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
 
         switch  currentProductSection {
         case .categories :
@@ -201,7 +199,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch  currentProductSection {
         case .categories :
@@ -220,12 +218,8 @@ extension CategoriesTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        
-        switch  currentProductSection {
-        case .categories :
-            tableView.reloadSections(IndexSet.init(integer: 0), with: .automatic)
-        }
+        // Assume that the tag value corresponds to the section
+        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
 }
@@ -237,7 +231,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
     
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch  currentProductSection {
         case .categories :
@@ -253,7 +247,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch  currentProductSection {
         case .categories :
@@ -272,7 +266,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
     }
     
     public func didClear(_ tagListView: TagListView) {
-        let (_, currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch  currentProductSection {
         case .categories :

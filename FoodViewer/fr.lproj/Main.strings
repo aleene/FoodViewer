@@ -16,7 +16,10 @@
 /* Class = "UINavigationItem"; title = "Enter Shop details"; ObjectID = "4y8-hi-MjI"; */
 "4y8-hi-MjI.title" = "Entre détails du magasin";
 
-/* Class = "UINavigationItem"; title = "Title"; ObjectID = "7hu-JR-POT"; */
+/* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "7bH-Lm-Fh3"; */
+"7bH-Lm-Fh3.normalTitle" = "Effacer histoire";
+
+/* Class = "UINavigationItem"; title = "Add Language"; ObjectID = "7hu-JR-POT"; */
 "7hu-JR-POT.title" = "Titre";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
@@ -28,7 +31,7 @@
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "807-If-TeI"; */
 "807-If-TeI.text" = "Soustitre";
 
-/* Class = "UINavigationItem"; title = "Title"; ObjectID = "A9l-Yd-38c"; */
+/* Class = "UINavigationItem"; title = "Add Nutriment"; ObjectID = "A9l-Yd-38c"; */
 "A9l-Yd-38c.title" = "Titre";
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
@@ -58,10 +61,10 @@
 /* Class = "UILabel"; text = "10"; ObjectID = "KVB-N1-x8r"; */
 "KVB-N1-x8r.text" = "10";
 
-/* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[0] = "First"; ObjectID = "M4v-mg-2eX"; */
+/* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[0] = "foodviewer"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[0]" = "Premier";
 
-/* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[1] = "Second"; ObjectID = "M4v-mg-2eX"; */
+/* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[1] = "OFF account"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[1]" = "Seconde";
 
 /* Class = "UINavigationItem"; title = "Select Language"; ObjectID = "MGY-bs-Itx"; */
@@ -73,7 +76,7 @@
 /* Class = "UILabel"; text = "Nutritional Fact"; ObjectID = "PY2-Eu-268"; */
 "PY2-Eu-268.text" = "Valeur Nutritionnelle";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Phy-lP-wsX"; */
+/* Class = "UIButton"; normalTitle = "g"; ObjectID = "Phy-lP-wsX"; */
 "Phy-lP-wsX.normalTitle" = "Bouton";
 
 /* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
@@ -84,6 +87,9 @@
 
 /* Class = "UILabel"; text = " 19"; ObjectID = "Rte-ld-pqj"; */
 "Rte-ld-pqj.text" = "19";
+
+/* Class = "UILabel"; text = "Listed on package?"; ObjectID = "Swp-Bc-P0i"; */
+"Swp-Bc-P0i.text" = "Marqué sur l'emballage";
 
 /* Class = "UILabel"; text = "Sugar"; ObjectID = "TUb-j1-7sk"; */
 "TUb-j1-7sk.text" = "Sucre";
@@ -96,6 +102,9 @@
 
 /* Class = "UILabel"; text = "Edit Date"; ObjectID = "ZjT-hs-fGX"; */
 "ZjT-hs-fGX.text" = "Date d'édition";
+
+/* Class = "UIButton"; normalTitle = "en"; ObjectID = "b5N-ax-YY5"; */
+"b5N-ax-YY5.normalTitle" = "en";
 
 /* Class = "UILabel"; text = " 3"; ObjectID = "bAo-a0-aBQ"; */
 "bAo-a0-aBQ.text" = "3";
@@ -121,13 +130,13 @@
 /* Class = "UILabel"; text = "Nutrient"; ObjectID = "gm4-Bw-AEu"; */
 "gm4-Bw-AEu.text" = "Nutriment";
 
-/* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[0] = "First"; ObjectID = "h25-t4-qRW"; */
+/* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[0] = "100 mg/ml"; ObjectID = "h25-t4-qRW"; */
 "h25-t4-qRW.segmentTitles[0]" = "Premier";
 
-/* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[1] = "Second"; ObjectID = "h25-t4-qRW"; */
+/* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[1] = "portion"; ObjectID = "h25-t4-qRW"; */
 "h25-t4-qRW.segmentTitles[1]" = "Deuxième";
 
-/* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[2] = "Third"; ObjectID = "h25-t4-qRW"; */
+/* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[2] = "daily value"; ObjectID = "h25-t4-qRW"; */
 "h25-t4-qRW.segmentTitles[2]" = "Troisième";
 
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
@@ -136,10 +145,10 @@
 /* Class = "UINavigationItem"; title = "Select Exp. Date"; ObjectID = "hha-cD-Ejl"; */
 "hha-cD-Ejl.title" = "Date expiration";
 
-/* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[0] = "First"; ObjectID = "iLS-3y-yF5"; */
+/* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[0] = "Joule"; ObjectID = "iLS-3y-yF5"; */
 "iLS-3y-yF5.segmentTitles[0]" = "Premier";
 
-/* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[1] = "Second"; ObjectID = "iLS-3y-yF5"; */
+/* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[1] = "Calories"; ObjectID = "iLS-3y-yF5"; */
 "iLS-3y-yF5.segmentTitles[1]" = "Deuxième";
 
 /* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
@@ -169,10 +178,10 @@
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";
 
-/* Class = "UISegmentedControl"; qLB-2k-Ecw.segmentTitles[0] = "First"; ObjectID = "qLB-2k-Ecw"; */
+/* Class = "UISegmentedControl"; qLB-2k-Ecw.segmentTitles[0] = "Salt"; ObjectID = "qLB-2k-Ecw"; */
 "qLB-2k-Ecw.segmentTitles[0]" = "Premier";
 
-/* Class = "UISegmentedControl"; qLB-2k-Ecw.segmentTitles[1] = "Second"; ObjectID = "qLB-2k-Ecw"; */
+/* Class = "UISegmentedControl"; qLB-2k-Ecw.segmentTitles[1] = "Sodium"; ObjectID = "qLB-2k-Ecw"; */
 "qLB-2k-Ecw.segmentTitles[1]" = "Deuxième";
 
 /* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
@@ -180,6 +189,9 @@
 
 /* Class = "UILabel"; text = " 11"; ObjectID = "tKL-Tg-nO5"; */
 "tKL-Tg-nO5.text" = "11";
+
+/* Class = "UINavigationItem"; title = "Main Language"; ObjectID = "uO9-18-9Hq"; */
+"uO9-18-9Hq.title" = "Langue principale";
 
 /* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
 "wEv-aO-bBx.title" = "Magasins favoris";
@@ -189,6 +201,12 @@
 
 /* Class = "UILabel"; text = "Contributor name"; ObjectID = "xR6-oy-1vL"; */
 "xR6-oy-1vL.text" = "Nom contributeur";
+
+/* Class = "UISegmentedControl"; yzx-7e-epe.segmentTitles[0] = "100 g / 100 ml"; ObjectID = "yzx-7e-epe"; */
+"yzx-7e-epe.segmentTitles[0]" = "100 g / ml";
+
+/* Class = "UISegmentedControl"; yzx-7e-epe.segmentTitles[1] = "Serving"; ObjectID = "yzx-7e-epe"; */
+"yzx-7e-epe.segmentTitles[1]" = "Portion";
 
 /* Class = "UILabel"; text = "40"; ObjectID = "zwC-ws-6DY"; */
 "zwC-ws-6DY.text" = "40";

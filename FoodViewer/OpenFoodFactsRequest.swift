@@ -381,11 +381,11 @@ class OpenFoodFactsRequest {
             }
         } else {
             nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-            let jsonVal = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string
+            // let jsonVal = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string
             // print(product.name, key, key + Appendix.HunderdKey, jsonVal)
             
             if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string {
-                if key == "salt" { print("salt", value) }
+                // if key == "salt" { print("salt", value) }
                 // is the value translatable to a number?
                 if var doubleValue = Double(value) {
 

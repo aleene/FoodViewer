@@ -58,9 +58,6 @@
 /* Tableview sectionheader for brands. */
 "Brands" = "Merken";
 
-/* Text to indicate that the it is trying to load. */
-"Busy loading product" = "Product wordt geladen";
-
 /* Title of second segment in switch, which lets the user select between joule or calories */
 "Calories" = "Calorieën";
 
@@ -135,9 +132,6 @@
 
 /* Placeholder text for field where user should enter a street name. */
 "Enter street name" = "Voer straat in";
-
-/* Alert message, when the product could not be retrieved from Internet. */
-"Error retrieving product" = "Probleem ophalen product.";
 
 /* Error message when the json input file does not contain any information */
 "Error: No result status in JSON" = "Fout: geen resultaat status in JSON";
@@ -219,6 +213,9 @@
 /* Header title for the product labels section, i.e. images, logos, etc. */
 "Labels" = "Keur- en kenmerken";
 
+/* Text to indicate that the it is trying to load. */
+"Loading product" = "Bezig met laden product";
+
 /* Tableview sectionheader for main image of package. */
 "Main Image" = "Productfoto";
 
@@ -282,11 +279,15 @@
 /* Text in a pickerView, when no translated text is available */
 "No translation" = "Geen vertaling";
 
-/* Title of the ViewController with the nutritional values */
-"Nutrition Facts" = "Voedingswaarden";
+/* Alert title, to indicate product should NOT be added */
+"Nob" = "Noah";
 
-/* Tableview header section for the list of nutritional facts */
-"Nutrition Facts (100g; 100ml)" = "Voedingswaarden (100g of 100 ml)";
+/* Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package. */
+"Nutriments Availability" = "Beschikbaarheid Voedingsstoffen";
+
+/* Tableview header section for the list of nutritional facts
+   Title of the ViewController with the nutritional values */
+"Nutrition Facts" = "Voedingswaarden";
 
 /* Description for NutritionData per standard unit */
 "Nutrition Facts (per 100g/100ml)" = "Voedingswaarden (per 100g/1000ml)";
@@ -345,11 +346,11 @@
 /* Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info. */
 "Photos validated complete?" = "Foto's gevalideerd?";
 
-/* Alert title, to indicate retrieving product did not work */
-"Pity" = "Jammer";
-
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
+
+/* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
+"Presentation format" = "Presentatie format";
 
 /* Text to indicate the producer of the product.  ADD A TRAILING SPACE. */
 "Produced in/by %@; " = "Geproduceerd in/door %@; ";
@@ -362,6 +363,9 @@
 
 /* Header for section of tableView with information of the producer (name, geographic location). */
 "Producers" = "Producenten";
+
+/* Alert message, when the product could not be retrieved from Internet. */
+"Product does not exist. Add?" = "Product bestaat niet. Toevoegen?";
 
 /* String presented in a tagView if the product has been loaded */
 "Product is loaded" = "Product is geladen";
@@ -456,6 +460,9 @@
    Viewcontroller title for page with supply chain for product. */
 "Supply Chain" = "Aanvoerketen";
 
+/* Alert title, to indicate product should be added */
+"Sure" = "Doen";
+
 /* Text to indicate the number of ingredients in the product. */
 "There are %@ ingredients." = "Er zijn %@ verschillende ingrediënten.";
 
@@ -484,25 +491,13 @@
 "gram (g)" = "gram (g)";
 
 /* Energy unit. */
-"kCalories (kcal)" = "kilocalories (kcal)";
-
-/* Standard weight unit multiplies by thousand. */
-"kilogram (kg)" = "kilogram (kg)";
-
-/* Standard volume unit. */
-"liter (L)" = "liter (L)";
+"kcalories (kcal)" = "calorieën (kcal)";
 
 /* Standard weight unit divided by million. */
 "microgram (µm)" = "microgram (µm)";
 
-/* Standard volume unit divided by million. */
-"microliter (µL)" = "microliter (µl)";
-
 /* Standard weight unit divided by thousand. */
 "milligram (mg)" = "milligram (mg)";
-
-/* Standard volume unit divided by thousand. */
-"milliliter (mL)" = "milliliter (mL)";
 
 /* Value of the creation date field, if no valid date is available. */
 "no creation date available" = "geen creatiedatum beschikbaar";

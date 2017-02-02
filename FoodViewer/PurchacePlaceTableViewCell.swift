@@ -29,6 +29,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.tag = tag
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
+            tagListView?.frame.size.width = editMode ? width - Constants.Margin - CGFloat(40.0) : width - Constants.Margin
         }
     }
 
@@ -45,6 +46,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
                 tagListView?.allowsRemoval = editMode
                 tagListView?.allowsCreation = editMode
             }
+            // tagListView?.frame.size.width = editMode ? width - Constants.Margin - CGFloat(40.0) : width - Constants.Margin
         }
     }
     
@@ -68,6 +70,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
 
     var width: CGFloat = CGFloat(320.0) {
         didSet {
+            // tagListView?.frame.size.width = editMode ? width - Constants.Margin - CGFloat(40.0) : width - Constants.Margin
             tagListView?.frame.size.width = width - Constants.Margin - CGFloat(40.0)
             // print("Cell", tagListView.frame.size.width)
         }

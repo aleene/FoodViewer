@@ -187,7 +187,7 @@ class IdentificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
-            cell!.tag = 0
+            cell!.tag = indexPath.section
             cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
@@ -206,7 +206,7 @@ class IdentificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
-            cell!.tag = 1
+            cell!.tag = indexPath.section
             cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
@@ -226,7 +226,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            cell.tag = 4
+            cell.tag = indexPath.section
             return cell
             
         case .packaging:
@@ -235,7 +235,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
-            cell.tag = 5
+            cell.tag = indexPath.section
             return cell
             
         case .quantity:
@@ -249,7 +249,7 @@ class IdentificationTableViewController: UITableViewController {
             }
             cell.editMode = editMode
             cell.delegate = self
-            cell.tag = 2
+            cell.tag = indexPath.section
             return cell
             
         case .image:
@@ -263,7 +263,7 @@ class IdentificationTableViewController: UITableViewController {
                     searchResult = result.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
                     cell?.datasource = self
-                    cell?.tag = 7
+                    cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
                     cell?.scheme = ColorSchemes.error
                     return cell!
@@ -272,7 +272,7 @@ class IdentificationTableViewController: UITableViewController {
                 searchResult = ImageFetchResult.noImageAvailable.description()
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
                 cell?.datasource = self
-                cell?.tag = 7
+                cell?.tag = indexPath.section
                 cell?.width = tableView.frame.size.width
                 cell?.scheme = ColorSchemes.error
                 return cell!
@@ -536,13 +536,15 @@ extension IdentificationTableViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        switch textView.tag {
-        case 0:
+        let currentProductSection = tableStructure[textView.tag]
+        
+        switch currentProductSection {
+        case .name:
             // productname
             if let validText = textView.text {
                 delegate?.updated(name: validText, languageCode: currentLanguageCode!)
             }
-        case 1:
+        case .genericName:
             // generic name updated?
             if let validText = textView.text {
                 delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
@@ -581,17 +583,16 @@ extension IdentificationTableViewController: TagListViewDataSource {
             }
         }
         
-        switch tagListView.tag {
-        case 4:
+        let currentProductSection = tableStructure[tagListView.tag]
+        
+        switch currentProductSection {
+        case .brands:
             return count(brandsToDisplay)
-        case 5:
+        case .packaging:
             return count(packagingToDisplay)
-        case 7:
-            return 1
         default:
-            break
+            return 0
         }
-        return 0
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
@@ -625,22 +626,24 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return "Tags array - index out of bounds"
         }
         
-        switch tagListView.tag {
-        case 4:
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
             return title(brandsToDisplay)
-        case 5:
+        case .packaging:
             return title(packagingToDisplay)
-        case 7:
+        case .image:
             return searchResult
-        default: break
+        default:
+            return("error")
         }
-        return("error")
     }
 
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
-        switch tagListView.tag {
-        case 4:
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I clear a tag when there are none")
@@ -648,7 +651,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 list.removeAll()
                 delegate?.update(brandTags: list)
             }
-        case 5:
+        case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -659,7 +662,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         default:
             break
         }
-        tableView.reloadData()
+        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
     /// Which text should be displayed when the TagListView is collapsed?
@@ -674,8 +677,9 @@ extension IdentificationTableViewController: TagListViewDataSource {
 extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        switch tagListView.tag {
-        case 4:
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
                 delegate?.update(brandTags: [title])
@@ -683,7 +687,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(brandTags: list)
             }
-        case 5:
+        case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 delegate?.update(packagingTags: [title])
@@ -694,12 +698,14 @@ extension IdentificationTableViewController: TagListViewDelegate {
         default:
             break
         }
+
         // tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        switch tagListView.tag {
-        case 4:
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -710,8 +716,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(brandTags: list)
             }
-            tableView.reloadData()
-        case 5:
+            // tableView.reloadData()
+        case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
@@ -722,21 +728,14 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(packagingTags: list)
             }
-            tableView.reloadData()
+            // tableView.reloadData()
         default:
             break
         }
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        switch tagListView.tag {
-        case 4:
-            tableView.reloadSections(IndexSet.init(integer: 3), with: .automatic)
-        case 5:
-            tableView.reloadSections(IndexSet.init(integer: 4), with: .automatic)
-        default:
-            break
-        }
+        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
 }
@@ -751,8 +750,9 @@ extension IdentificationTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 2:
+        let currentProductSection = tableStructure[textField.tag]
+        switch currentProductSection {
+        case .quantity:
             // quantity updated?
             if let validText = textField.text {
                 delegate?.update(quantity: validText)
@@ -770,10 +770,12 @@ extension IdentificationTableViewController: UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        switch textField.tag {
-        case 2:
+        let currentProductSection = tableStructure[textField.tag]
+        switch currentProductSection {
+        case .quantity:
             return editMode
         default:
+            // only allow edit for the primary language code
             return currentLanguageCode == product!.primaryLanguageCode ? editMode : false
         }
     }
