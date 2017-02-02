@@ -16,6 +16,8 @@ class NutrientsTableViewController: UITableViewController {
     fileprivate var showNutrientsAs: NutritionDisplayMode = Preferences.manager.showNutritionDataPerServingOrPerStandard
     
     fileprivate var searchResult: String = ""
+    
+    fileprivate var nutritionFactsTagTitle: String = ""
 
     struct DisplayFact {
         var name: String? = nil
@@ -216,13 +218,26 @@ class NutrientsTableViewController: UITableViewController {
             return cell
         case .nutritionFacts:
             if adaptedNutritionFacts.isEmpty {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.EmptyNutritionFactsImageCellIdentifier, for: indexPath) as? EmptyNutrientsTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
+                cell?.tag = indexPath.section
+                cell?.width = tableView.frame.size.width
+                cell?.datasource = self
+                // cell?.delegate = self // no manipulations on tags possible
+                // cell?.editMode = editMode // cell is not editable
                 if let available = product?.nutritionFactsAreAvailable {
-                    cell?.availability = available
+                    nutritionFactsTagTitle = available.description()
+                    switch available {
+                    case .perServing, .perStandardUnit, .perServingAndStandardUnit:
+                        cell?.scheme = ColorSchemes.normal
+                    case .notOnPackage:
+                        cell?.scheme = ColorSchemes.error
+                    case .notIndicated, .notAvailable:
+                        cell?.scheme = ColorSchemes.error
+                    }
                 } else {
-                    cell?.availability = NutritionAvailability.notIndicated
+                    nutritionFactsTagTitle = NutritionAvailability.notIndicated.description()
+                    cell?.scheme = ColorSchemes.error
                 }
-                cell?.editMode = editMode
                 return cell!
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactCellIdentifier, for: indexPath) as? NutrientsTableViewCell
@@ -283,7 +298,7 @@ class NutrientsTableViewController: UITableViewController {
                     // cell?.delegate = self
                     cell?.width = tableView.frame.size.width
                     cell?.datasource = self
-                    cell?.editMode = editMode
+                    // cell?.editMode = editMode // cell is not editable
                     cell?.scheme = ColorSchemes.error
                     return cell!
                 }
@@ -294,7 +309,7 @@ class NutrientsTableViewController: UITableViewController {
                 // cell?.delegate = self
                 cell?.width = tableView.frame.size.width
                 cell?.datasource = self
-                cell?.editMode = editMode
+                // cell?.editMode = editMode // cell is not editable
                 cell?.scheme = ColorSchemes.error
                 return cell!
             }
@@ -705,7 +720,8 @@ extension NutrientsTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        let (currentProductSection, _, _) = tableStructureForProduct[textField.tag]
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[textField.tag % 100]
         
         switch currentProductSection {
         case .servingSize:
@@ -769,7 +785,7 @@ extension NutrientsTableViewController: TagListViewDataSource {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch currentProductSection {
-        case .nutritionImage:
+        case .nutritionImage, .nutritionFacts:
             return 1
         default:
             return 0
@@ -782,6 +798,8 @@ extension NutrientsTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .nutritionImage:
             return searchResult
+        case .nutritionFacts:
+            return nutritionFactsTagTitle
         default:
             return("tagListView error")
         }

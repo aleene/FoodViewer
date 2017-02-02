@@ -1024,7 +1024,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
  */
  
-        print(tag, "old", oldHeight, "new", newFrame.size.height, abs(oldHeight - newFrame.size.height),CGFloat(Constants.ErrorMarginFrameHeight))
+        // print(tag, "old", oldHeight, "new", newFrame.size.height, abs(oldHeight - newFrame.size.height),CGFloat(Constants.ErrorMarginFrameHeight))
         // If the frame height has changed to much, inform the user, so he can repaint
         if abs(oldHeight - newFrame.size.height) > CGFloat(Constants.ErrorMarginFrameHeight) {
             frame = newFrame

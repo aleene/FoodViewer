@@ -72,7 +72,7 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView?.tag = tag
         }
     }
-    
+        
     func reloadData() {
         tagListView.reloadData(clearAll: true)
     }
