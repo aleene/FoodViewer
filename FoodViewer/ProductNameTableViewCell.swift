@@ -25,6 +25,15 @@ class ProductNameTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var clearTextViewButton: UIButton! {
+        didSet {
+            setTextViewClearButton()
+        }
+    }
+    @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
+        name = ""
+    }
+    
     private func setLanguageButton() {
         changeLanguageButton?.isEnabled = editMode ? false : ( numberOfLanguages > 1 ? true : false )
     }
@@ -70,6 +79,7 @@ class ProductNameTableViewCell: UITableViewCell {
         didSet {
             setLanguageButton()
             setTextViewStyle()
+            setTextViewClearButton()
         }
     }
     
@@ -90,6 +100,10 @@ class ProductNameTableViewCell: UITableViewCell {
         didSet {
             nameTextView?.delegate = delegate
         }
+    }
+    
+    private func setTextViewClearButton() {
+        clearTextViewButton?.isHidden = !editMode
     }
     
     override var tag: Int {

@@ -16,6 +16,20 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var clearTextViewButton: UIButton! {
+        didSet {
+            setTextViewClearButton()
+        }
+    }
+    
+    @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
+        ingredients = ""
+    }
+    
+    private func setTextViewClearButton() {
+        clearTextViewButton?.isHidden = !editMode
+    }
+
     private func setupTextView() {
         // the textView might not be initialised
         guard textView != nil else { return }
@@ -63,6 +77,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     var editMode: Bool = false {
         didSet {
             setupTextView()
+            setTextViewClearButton()
         }
     }
 
