@@ -357,7 +357,7 @@
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <state key="normal" title="en"/>
                                             <connections>
-                                                <segue destination="PpT-BN-Hfh" kind="presentation" identifier="Show Select Main Language Segue" id="bfB-Dd-gmH"/>
+                                                <action selector="mainLanguageTapped:" destination="EEQ-rQ-wnz" eventType="touchUpInside" id="sMk-CF-Dqr"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Barcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-LR-JHI">
@@ -383,7 +383,7 @@
                                 <connections>
                                     <outlet property="barcodeImageView" destination="O3f-3p-sEO" id="sfy-De-Igx"/>
                                     <outlet property="barcodeLabel" destination="lFH-LR-JHI" id="8KU-Th-Edf"/>
-                                    <outlet property="mainLanguageButton" destination="b5N-ax-YY5" id="e6v-6O-sDq"/>
+                                    <outlet property="mainLanguageButton" destination="b5N-ax-YY5" id="K49-8g-DUA"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Name Cell" id="cxD-3X-5h8" customClass="ProductNameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -405,7 +405,6 @@
                                             <state key="normal" title="en"/>
                                             <connections>
                                                 <action selector="changeLanguageButtonTapped:" destination="cxD-3X-5h8" eventType="touchUpInside" id="ReV-Tn-RNJ"/>
-                                                <segue destination="jr5-WB-3MY" kind="presentation" identifier="Show Names Languages" id="WmF-mg-s8n"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxF-Vk-wdN">
@@ -592,6 +591,14 @@
                             <action selector="refresh:" destination="hwF-BC-CTo" eventType="valueChanged" id="Qtv-UO-UJU"/>
                         </connections>
                     </refreshControl>
+                    <connections>
+                        <segue destination="PpT-BN-Hfh" kind="popoverPresentation" identifier="Show Select Main Language Segue" popoverAnchorView="v7f-Gc-N5v" id="UhK-sq-49d">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                        <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Names Languages" popoverAnchorView="v7f-Gc-N5v" id="TJD-zt-Jpp">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PBp-dG-DWB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1462,17 +1469,17 @@
                         <viewControllerLayoutGuide type="top" id="hKm-Px-anF"/>
                         <viewControllerLayoutGuide type="bottom" id="iBf-Wf-WZA"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="I9G-k1-O9X">
+                    <view key="view" contentMode="scaleAspectFit" id="I9G-k1-O9X">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-vd-gTt">
                                 <rect key="frame" x="-4" y="20" width="328" height="44"/>
                                 <items>
-                                    <navigationItem title="Select Language" id="MGY-bs-Itx">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="NJZ-zu-ngt">
+                                    <navigationItem title="Select" id="MGY-bs-Itx">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="cFk-ea-6EH">
                                             <connections>
-                                                <segue destination="IDv-on-CqZ" kind="unwind" unwindAction="unwindSetLanguageForCancel:" id="Vp6-1J-25p"/>
+                                                <segue destination="I8T-CR-49E" kind="presentation" identifier="Add Language ViewController Segue" id="1Ci-bu-4sU"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8M3-p6-kXY">
@@ -1487,20 +1494,8 @@
                                 <rect key="frame" x="0.0" y="84" width="320" height="216"/>
                                 <gestureRecognizers/>
                             </pickerView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s0L-Vb-8XW">
-                                <rect key="frame" x="0.0" y="436" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="M4n-uz-oYl"/>
-                                    <barButtonItem systemItem="add" id="cFk-ea-6EH">
-                                        <connections>
-                                            <segue destination="I8T-CR-49E" kind="presentation" identifier="Add Language ViewController Segue" id="1Ci-bu-4sU"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="GY8-NT-FaZ" firstAttribute="top" secondItem="bEj-vd-gTt" secondAttribute="bottom" constant="20" id="8PZ-TT-wiN"/>
                             <constraint firstItem="GY8-NT-FaZ" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leading" id="Cto-jH-Prt"/>
@@ -2182,7 +2177,9 @@
                                             <state key="normal" title="en"/>
                                             <connections>
                                                 <action selector="ChangeLanguageButtonTapped:" destination="0kc-iQ-EHA" eventType="touchUpInside" id="AxF-eK-Z3g"/>
-                                                <segue destination="jr5-WB-3MY" kind="presentation" identifier="Show Ingredients Languages" id="4zk-rY-uLr"/>
+                                                <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Ingredients Languages" popoverAnchorView="f3R-Uq-Nld" id="4zk-rY-uLr">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2659,14 +2656,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -2695,7 +2692,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1686" y="4109"/>
+            <point key="canvasLocation" x="1687" y="4309"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -2863,12 +2860,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="APZ-VN-DIT">
                                 <rect key="frame" x="-4" y="20" width="328" height="44"/>
                                 <items>
-                                    <navigationItem title="Main Language" id="uO9-18-9Hq">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vkh-PV-lXm">
-                                            <connections>
-                                                <segue destination="HrT-0p-TNu" kind="unwind" identifier="Unwind Change Main Language For Done Segue" unwindAction="unwindChangeMainLanguageForCancel:" id="BE6-Vv-AW0"/>
-                                            </connections>
-                                        </barButtonItem>
+                                    <navigationItem title="Select" id="uO9-18-9Hq">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="RIx-Dx-Ekh">
                                             <connections>
                                                 <segue destination="HrT-0p-TNu" kind="unwind" identifier="Unwind Change Main Language For Cancel Segue" unwindAction="unwindChangeMainLanguageForDone:" id="x27-pL-HQa"/>
@@ -2882,7 +2874,7 @@
                                 <gestureRecognizers/>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="APZ-VN-DIT" firstAttribute="leading" secondItem="gg7-Ca-Lm5" secondAttribute="leadingMargin" constant="-20" id="H7q-3e-epa"/>
                             <constraint firstAttribute="trailingMargin" secondItem="APZ-VN-DIT" secondAttribute="trailing" constant="-20" id="M5B-uF-yoV"/>
@@ -2912,9 +2904,9 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1lc-8h-qsb"/>
+        <segue reference="Bpf-rD-vDt"/>
+        <segue reference="GR8-bW-x6k"/>
         <segue reference="NgB-UV-Avc"/>
         <segue reference="4zk-rY-uLr"/>
-        <segue reference="oZb-AL-Fkm"/>
     </inferredMetricsTieBreakers>
 </document>

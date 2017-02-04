@@ -33,18 +33,16 @@ class BarcodeTableViewCell: UITableViewCell {
     var mainLanguageCode: String? = nil {
         didSet {
             if let validMainLanguageCode = mainLanguageCode {
-                mainLanguageButton.setTitle(validMainLanguageCode, for: .normal)
+                mainLanguageButton?.setTitle(validMainLanguageCode, for: .normal)
             } else {
-                mainLanguageButton.setTitle("??", for: .normal)
+                mainLanguageButton?.setTitle("??", for: .normal)
             }
         }
     }
     
     var editMode = false {
         didSet {
-            if editMode != oldValue {
-                mainLanguageButton?.isEnabled = editMode
-            }
+            mainLanguageButton?.isEnabled = editMode
         }
     }
     
@@ -58,4 +56,13 @@ class BarcodeTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func mainLanguageTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .MainLanguageTapped, object: nil)
+    }
 }
+
+// Definition:
+extension Notification.Name {
+    static let MainLanguageTapped = Notification.Name("BarcodeTableViewCell.Notification.MainLanguageTapped")
+}
+

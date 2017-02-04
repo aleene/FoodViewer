@@ -17,7 +17,9 @@ class ProductNameTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) { }
+    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .LanguageTapped, object: nil)
+    }
     
     @IBOutlet weak var nameTextView: UITextView! {
         didSet {
@@ -71,7 +73,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var name: String? = nil {
         didSet {
-            nameTextView.text = (name != nil) && (name!.characters.count > 0) ? name! : Constants.NoName
+            nameTextView.text = (name != nil) && (name!.characters.count > 0) ? name! :  ( editMode ? "" : Constants.NoName )
         }
     }
     
@@ -85,7 +87,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var languageCode: String? = nil {
         didSet {
-            let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0])  : Constants.NoLanguage
+            let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0]) : Constants.NoLanguage
             changeLanguageButton.setTitle(verboseLanguage, for: UIControlState())
         }
     }
@@ -120,5 +122,6 @@ class ProductNameTableViewCell: UITableViewCell {
 // Definition:
 extension Notification.Name {
     static let NameTextFieldTapped = Notification.Name("ProductNameTableViewCell.Notification.NameTextFieldTapped")
+    static let LanguageTapped = Notification.Name("ProductNameTableViewCell.Notification.LanguageTapped")
 }
 

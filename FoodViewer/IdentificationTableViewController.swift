@@ -177,7 +177,7 @@ class IdentificationTableViewController: UITableViewController {
         
         switch currentProductSection {
         case .barcode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BarcodeCellIdentifier, for: indexPath)as? BarcodeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BarcodeCellIdentifier, for: indexPath) as? BarcodeTableViewCell
             cell!.barcode = product?.barcode.asString()
             cell!.mainLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
             cell!.editMode = editMode
@@ -287,6 +287,13 @@ class IdentificationTableViewController: UITableViewController {
         switch currentProductSection {
         case .name, .genericName:
             changeLanguage()
+        // case .barcode:
+            /*
+            // should only be done in editMode
+            if editMode {
+                performSegue(withIdentifier: Storyboard.ShowNamesLanguagesSegueIdentifier, sender: self)
+            }
+ */
         default:
             break
         }
@@ -295,10 +302,12 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
-        
+        // only allow the user to select a few rows, which have buttons
         switch currentProductSection {
         case .name, .genericName, .image:
             return indexPath
+        case .barcode:
+            if editMode { return indexPath }
         default:
             break
         }
@@ -307,14 +316,16 @@ class IdentificationTableViewController: UITableViewController {
     
     func changeLanguage() {
         // set the next language in the array
-        if currentLanguageCode != nextLanguageCode() {
-            currentLanguageCode = nextLanguageCode()
-            // reload the first two rows
-            let indexPaths = [IndexPath.init(row: 0, section: 1),
-                              IndexPath.init(row: 0, section: 2)]
-            tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-            tableView.deselectRow(at: indexPaths.first!, animated: true)
-            tableView.deselectRow(at: indexPaths.last!, animated: true)
+        if let availableLanguages = product?.languageCodes {
+            if availableLanguages.count > 1 && currentLanguageCode != nextLanguageCode() {
+                currentLanguageCode = nextLanguageCode()
+                // reload the first two rows
+                let indexPaths = [IndexPath.init(row: 0, section: 1),
+                                  IndexPath.init(row: 0, section: 2)]
+                tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+                tableView.deselectRow(at: indexPaths.first!, animated: true)
+                tableView.deselectRow(at: indexPaths.last!, animated: true)
+            }
         }
     }
     
@@ -402,6 +413,27 @@ class IdentificationTableViewController: UITableViewController {
                 }
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
                 if let vc = segue.destination as? SelectLanguageViewController {
+                    // Corresponds this to the cell with the language button?
+                    if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as? ProductNameTableViewCell {
+                        // are we in a popovercontroller?
+                        // define the anchor point
+                        if let ppc = vc.popoverPresentationController {
+                            // set the main language button as the anchor of the popOver
+                            ppc.permittedArrowDirections = .right
+                            ppc.sourceRect = leftMiddle(currentCell.changeLanguageButton.frame)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                        }
+                    } else if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as? ProductNameTableViewCell{
+                            // are we in a popovercontroller?
+                            // define the anchor point
+                        if let ppc = vc.popoverPresentationController {
+                            // set the main language button as the anchor of the popOver
+                            ppc.permittedArrowDirections = .right
+                            ppc.sourceRect = leftMiddle(currentCell.changeLanguageButton.frame)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                        }
+                    }
+
                     vc.currentLanguageCode = currentLanguageCode
                     if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
                         vc.primaryLanguageCode = updatedPrimaryLanguageCode
@@ -416,17 +448,48 @@ class IdentificationTableViewController: UITableViewController {
                 }
             case Storyboard.ShowSelectMainLanguageSegueIdentifier:
                 if let vc = segue.destination as? MainLanguageViewController {
-                    if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
+                    let currentIndexPath = IndexPath.init(row: 0, section: 0)
+                    // Corresponds this to the cell with the language button?
+                        if let currentCell = tableView.cellForRow(at: currentIndexPath) as? BarcodeTableViewCell {
+                            // are we in a popovercontroller?
+                            // define the anchor point
+                            if let ppc = vc.popoverPresentationController {
+                            // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .up
+                                ppc.sourceRect = bottomCenter(currentCell.mainLanguageButton.frame)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            }
+                        }
+                        if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
                         vc.currentLanguageCode = updatedPrimaryLanguageCode
-                    } else {
-                        vc.currentLanguageCode = product?.primaryLanguageCode
-                    }
+                        } else {
+                            vc.currentLanguageCode = product?.primaryLanguageCode
+                        }
                 }
             default: break
             }
         }
     }
     
+    // function that defines a pixel on the bottom center of a frame
+    private func bottomCenter(_ frame: CGRect) -> CGRect {
+        var newFrame = frame
+        newFrame.origin.y += frame.size.height * 1.5
+        newFrame.origin.x += frame.size.width / 2
+        newFrame.size.height = 1
+        newFrame.size.width = 1
+        return newFrame
+    }
+    
+    // function that defines a pixel on the bottom center of a frame
+    private func leftMiddle(_ frame: CGRect) -> CGRect {
+        var newFrame = frame
+        newFrame.origin.y += frame.size.height / 2
+        newFrame.size.height = 1
+        newFrame.size.width = 1
+        return newFrame
+    }
+
     @IBAction func unwindChangeMainLanguageForCancel(_ segue:UIStoryboardSegue) {
         // nothing needs to be done
     }
@@ -474,7 +537,14 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    
+    func showMainLanguageSelector() {
+        performSegue(withIdentifier: Storyboard.ShowSelectMainLanguageSegueIdentifier, sender: self)
+    }
+
+    func showLanguageSelector() {
+        performSegue(withIdentifier: Storyboard.ShowNamesLanguagesSegueIdentifier, sender: self)
+    }
+
     func removeProduct() {
         product = nil
         tableView.reloadData()
@@ -502,6 +572,8 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showLanguageSelector), name:.LanguageTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
