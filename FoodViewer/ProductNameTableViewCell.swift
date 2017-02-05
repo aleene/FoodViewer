@@ -44,24 +44,26 @@ class ProductNameTableViewCell: UITableViewCell {
         nameTextView.layer.borderWidth = 0.5
         nameTextView?.delegate = delegate
         nameTextView?.tag = tag
+        nameTextView?.isEditable = editMode
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
         tapGestureRecognizer.numberOfTapsRequired = 2
-        nameTextView.addGestureRecognizer(tapGestureRecognizer)
-
+        nameTextView?.addGestureRecognizer(tapGestureRecognizer)
+        nameTextView?.isScrollEnabled = editMode
+        nameTextView.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
+        
         if editMode {
-            nameTextView.backgroundColor = UIColor.groupTableViewBackground
-            nameTextView.layer.cornerRadius = 5
-            nameTextView.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
-            nameTextView.clipsToBounds = true
-            nameTextView.isScrollEnabled = true
+            nameTextView?.backgroundColor = UIColor.groupTableViewBackground
+            nameTextView?.layer.cornerRadius = 5
+            nameTextView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
+            nameTextView?.clipsToBounds = true
             // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
-            nameTextView.backgroundColor = UIColor.white
-            nameTextView.layer.borderColor = UIColor.white.cgColor
-            nameTextView.isScrollEnabled = false
+            nameTextView?.layer.borderColor = UIColor.white.cgColor
         }
         
-        nameTextView?.sizeToFit()
+        if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
+            nameTextView?.sizeToFit()
+        }
 
     }
     

@@ -42,6 +42,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         textView?.layer.borderWidth = 0.5
         textView?.delegate = textViewDelegate
         textView?.tag = textViewTag
+        textView?.isEditable = editMode
 
         if editMode {
             textView?.backgroundColor = UIColor.groupTableViewBackground
