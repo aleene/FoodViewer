@@ -558,9 +558,45 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 }
             case Storyboard.AddNutrientSegue:
                 if let vc = segue.destination as? AddNutrientViewController {
-                    // I can pass on the existing nutrients, so the list of nutrients can be filtered
-                    vc.existingNutrients = adaptedNutritionFacts.flatMap { $0.name }
+                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? AddNutrientTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .up
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.existingNutrients = adaptedNutritionFacts.flatMap { $0.name }
+                            }
+                        }
+                    }
                 }
+            case Storyboard.SelectNutrientUnitSegue:
+                if let vc = segue.destination as? SelectNutrientUnitViewController {
+                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? NutrientsTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                let row = button.tag % 100
+                                vc.nutrientRow = row
+                                if row >= 0 && row < adaptedNutritionFacts.count {
+                                    vc.currentNutritionFactKey = adaptedNutritionFacts[row].key
+                                }
+                            }
+                        }
+                    }
+                }
+/*
             case Storyboard.SelectNutrientUnitSegue:
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     if let button = sender as? UIButton {
@@ -571,7 +607,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 if let ppc = vc.popoverPresentationController {
                                     // set the main language button as the anchor of the popOver
                                     ppc.permittedArrowDirections = .any
-                                    ppc.sourceRect = bottomCenter(currentCell.unitButton.frame)
+                                    ppc.sourceRect = currentCell.unitButton.frame
                                     ppc.delegate = self
                                     vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 }
@@ -585,6 +621,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
 
                 }
+ */
             default: break
             }
         }
@@ -623,16 +660,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 refreshProductWithNewNutritionFacts()
             }
         }
-    }
-        
-    // function that defines a pixel on the bottom center of a frame
-    private func bottomCenter(_ frame: CGRect) -> CGRect {
-        var newFrame = frame
-        newFrame.origin.y += frame.size.height * 1.5
-        newFrame.origin.x += frame.size.width / 2
-        newFrame.size.height = 1
-        newFrame.size.width = 1
-        return newFrame
     }
     
     // MARK: - Popover delegation functions
@@ -674,6 +701,19 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             refreshProductWithNewNutritionFacts()
         }
     }
+    
+    func showNutrimentSelector(_ notification: Notification) {
+        if let sender = notification.userInfo?[AddNutrientTableViewCell.Notification.AddNutrientButtonTappedKey] {
+            performSegue(withIdentifier: Storyboard.AddNutrientSegue, sender: sender)
+        }
+    }
+
+    func showNutrimentUnitSelector(_ notification: Notification) {
+        if let sender = notification.userInfo?[NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTappedKey] {
+            performSegue(withIdentifier: Storyboard.SelectNutrientUnitSegue, sender: sender)
+        }
+    }
+
 
     func reloadImageSection(_ notification: Notification) {
         tableView.reloadData()
@@ -715,13 +755,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             object:nil
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
-        
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name: .NutritionImageSet, object:nil)
-
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.newPerUnitSettings(_:)), name: .PerUnitChanged, object:nil)
-
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
-
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

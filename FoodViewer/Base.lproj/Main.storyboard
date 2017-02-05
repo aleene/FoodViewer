@@ -117,7 +117,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0na-7c-rwo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4444" y="4986"/>
+            <point key="canvasLocation" x="4457" y="4985"/>
         </scene>
         <!--Favorite Shops Table View Controller-->
         <scene sceneID="0ro-al-cXx">
@@ -161,7 +161,7 @@
                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="kEy-oX-gzH"/>
                                         <barButtonItem systemItem="add" id="fnz-IT-DTg">
                                             <connections>
-                                                <segue destination="ThT-Su-Fb2" kind="presentation" identifier="Add Favorite Shop Segue" id="5gK-vd-Q7C"/>
+                                                <segue destination="ThT-Su-Fb2" kind="presentation" identifier="Add Favorite Shop Segue" modalPresentationStyle="formSheet" id="5gK-vd-Q7C"/>
                                             </connections>
                                         </barButtonItem>
                                     </items>
@@ -205,7 +205,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ac-sw-5AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9Mk-6V-ku1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4444" y="4109"/>
+            <point key="canvasLocation" x="4457" y="4109"/>
         </scene>
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
@@ -1482,7 +1482,7 @@
                                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="cFk-ea-6EH">
                                             <connections>
                                                 <segue destination="I8T-CR-49E" kind="popoverPresentation" identifier="Add Language ViewController Segue" popoverAnchorBarButtonItem="cFk-ea-6EH" id="1Ci-bu-4sU">
-                                                    <popoverArrowDirection key="popoverArrowDirection" down="YES"/>
+                                                    <popoverArrowDirection key="popoverArrowDirection"/>
                                                 </segue>
                                             </connections>
                                         </barButtonItem>
@@ -1537,11 +1537,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Add Language" id="7hu-JR-POT">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="4sm-7k-b0X">
-                                            <connections>
-                                                <segue destination="1h6-hl-cx9" kind="unwind" unwindAction="unwindAddLanguageForCancel:" id="9l0-pg-Jbl"/>
-                                            </connections>
-                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8MH-IQ-Qp2">
                                             <connections>
                                                 <segue destination="1h6-hl-cx9" kind="unwind" unwindAction="unwindAddLanguageForDone:" id="ACK-tz-EfU"/>
@@ -2587,7 +2582,10 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="Add Nutrient"/>
                                             <connections>
-                                                <segue destination="nVr-vx-E3e" kind="presentation" identifier="Add Nutrient Segue" id="goV-7o-AKL"/>
+                                                <action selector="addNutrientButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="CYT-iI-CwR"/>
+                                                <segue destination="nVr-vx-E3e" kind="popoverPresentation" identifier="Add Nutrient Segue" popoverAnchorView="jbQ-6K-nWx" id="goV-7o-AKL">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2699,7 +2697,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1687" y="4309"/>
+            <point key="canvasLocation" x="1682" y="4109"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -2716,12 +2714,7 @@
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="pfI-Vf-yJ5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Add Nutriment" id="A9l-Yd-38c">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="rJe-Na-eaE">
-                                            <connections>
-                                                <segue destination="hN1-hb-NjU" kind="unwind" unwindAction="unwindAddNutrientForCancel:" id="duh-P8-c4Z"/>
-                                            </connections>
-                                        </barButtonItem>
+                                    <navigationItem title="Select" id="A9l-Yd-38c">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="yDL-58-zQ8">
                                             <connections>
                                                 <segue destination="hN1-hb-NjU" kind="unwind" unwindAction="unwindAddNutrientForDone:" id="4S9-KR-xlh"/>
@@ -2913,7 +2906,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
         <segue reference="GUZ-MJ-1ik"/>
-        <segue reference="oZb-AL-Fkm"/>
+        <segue reference="EQr-JI-4QT"/>
         <segue reference="4zk-rY-uLr"/>
     </inferredMetricsTieBreakers>
 </document>

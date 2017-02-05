@@ -19,12 +19,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return OFFplists.manager.nutrients.count + 1
-        default:
-            return 0
-        }
+        return OFFplists.manager.nutrients.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -34,14 +29,12 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // MARK: - PickerView delegate methods
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return row == 0 ? NSLocalizedString("Select Nutrient", comment: "Text of first element in a pickerView with all possible nutrients") : OFFplists.manager.nutrients[row - 1].1
+        return OFFplists.manager.nutrients[row].1
         
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if row > 0 {
-            addedNutrientTuple = OFFplists.manager.nutrients[row - 1]
-        }
+        addedNutrientTuple = OFFplists.manager.nutrients[row]
     }
     
     override func viewDidLoad() {

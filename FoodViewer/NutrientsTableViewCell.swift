@@ -9,8 +9,11 @@
 import UIKit
 
 class NutrientsTableViewCell: UITableViewCell {
-
     
+    internal struct Notification {
+        static let ChangeNutrientUnitButtonTappedKey = "NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTapped.Key"
+    }
+
     fileprivate struct Constants {
         static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specified.")
     }
@@ -76,3 +79,9 @@ class NutrientsTableViewCell: UITableViewCell {
         }
     }
 }
+
+// Definition:
+extension Notification.Name {
+    static let ChangeNutrientUnitButtonTapped = Notification.Name("NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTapped")
+}
+

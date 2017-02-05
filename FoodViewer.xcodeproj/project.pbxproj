@@ -507,12 +507,12 @@
 		516B328E1C75FF2C0031EF80 /* NutrientsCells */ = {
 			isa = PBXGroup;
 			children = (
+				516B32911C76043D0031EF80 /* NutrientsTableViewCell.swift */,
 				519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */,
 				516B328C1C75FF100031EF80 /* NutrientsImageTableViewCell.swift */,
 				513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */,
 				519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */,
 				516B328F1C7600F30031EF80 /* ServingSizeTableViewCell.swift */,
-				516B32911C76043D0031EF80 /* NutrientsTableViewCell.swift */,
 				51A056F71E2D100C0099092E /* AddNutrientTableViewCell.swift */,
 				515FF5A81E322C8700E85815 /* PerUnitTableViewCell.swift */,
 				515FF5AA1E361AF000E85815 /* NutrimentsAvailableTableViewCell.swift */,
