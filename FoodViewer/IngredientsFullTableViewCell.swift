@@ -58,8 +58,9 @@ class IngredientsFullTableViewCell: UITableViewCell {
         if editMode {
             if unAttributedIngredients.characters.count > 0 {
                 textView?.text = unAttributedIngredients
+                textView?.sizeToFit()
             } else {
-                textView?.text = Constants.NoIngredientsText
+                textView?.text = ""
             }
             // textView?.removeGestureRecognizer(tapGestureRecognizer)
         } else {
@@ -68,8 +69,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
             } else {
                 textView?.text = Constants.NoIngredientsText
             }
+            textView?.sizeToFit()
         }
-        textView?.sizeToFit()
         // print(textView.frame.size)
         // self.frame.size.height = textView.frame.size.height
     }
@@ -128,6 +129,9 @@ class IngredientsFullTableViewCell: UITableViewCell {
                     }
                     attributedIngredients = myString
                     unAttributedIngredients = text
+                } else {
+                    attributedIngredients = NSMutableAttributedString.init(string: "")
+                    unAttributedIngredients = ""
                 }
             }
             setupTextView()
@@ -147,7 +151,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     var numberOfLanguages: Int = 0 {
         didSet {
             if editMode {
-                changeLanguageButton.isEnabled = false
+                changeLanguageButton.isEnabled = true
             } else {
                 if numberOfLanguages > 1 {
                     changeLanguageButton?.isEnabled = true

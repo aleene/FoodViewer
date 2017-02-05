@@ -430,6 +430,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                                 // anchorFrame.origin.x += currentCell.frame.origin.x
                                 anchorFrame.origin.y += currentCell.frame.origin.y
                                 ppc.sourceRect = leftMiddle(anchorFrame)
+                                ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                             }
                         }
@@ -444,6 +445,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                                 // anchorFrame.origin.x += currentCell.frame.origin.x
                                 anchorFrame.origin.y += currentCell.frame.origin.y
                                 ppc.sourceRect = leftMiddle(anchorFrame)
+                                ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                             }
                         }
