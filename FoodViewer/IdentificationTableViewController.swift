@@ -282,43 +282,6 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-      
-        selectedSection = indexPath.section
-        // _ = tableStructure[(indexPath as NSIndexPath).section]
-        
-        /*
-        switch currentProductSection {
-        case .name, .genericName:
-            // changeLanguage()
-        // case .barcode:
-            /*
-            // should only be done in editMode
-            if editMode {
-                performSegue(withIdentifier: Storyboard.ShowNamesLanguagesSegueIdentifier, sender: self)
-            }
- */
-        default:
-            break
-        }
- */
-        return
-    }
-    
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
-        // only allow the user to select a few rows, which have buttons
-        switch currentProductSection {
-        case .name, .genericName, .image:
-            return indexPath
-        case .barcode:
-            if editMode { return indexPath }
-        default:
-            break
-        }
-        return nil
-    }
-    
     func changeLanguage() {
         // set the next language in the array
         if let availableLanguages = product?.languageCodes {
@@ -418,72 +381,46 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                 }
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
                 if let vc = segue.destination as? SelectLanguageViewController {
-                    // Corresponds this to the cell with the language button?
-                    if selectedSection == 1 {
-                        if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as? ProductNameTableViewCell {
-                            // are we in a popovercontroller?
-                            // define the anchor point
+                    // The segue can only be initiated from a button within a ProductNameTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? ProductNameTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .right
-                                var anchorFrame = currentCell.changeLanguageButton.frame
-                                // anchorFrame.origin.x += currentCell.frame.origin.x
-                                anchorFrame.origin.y += currentCell.frame.origin.y
-                                ppc.sourceRect = leftMiddle(anchorFrame)
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 ppc.delegate = self
+                                
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentLanguageCode = currentLanguageCode
+                                vc.primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
+                                vc.languageCodes = product!.languageCodes
+                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.editMode = editMode
+                                vc.delegate = delegate
+                                vc.sourcePage = 0
                             }
                         }
-                    } else if selectedSection == 2 {
-                        if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as? ProductNameTableViewCell{
-                            // are we in a popovercontroller?
-                            // define the anchor point
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
-                                var anchorFrame = currentCell.changeLanguageButton.frame
-                                // anchorFrame.origin.x += currentCell.frame.origin.x
-                                anchorFrame.origin.y += currentCell.frame.origin.y
-                                ppc.sourceRect = leftMiddle(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                            }
-                        }
-
                     }
-
-                    vc.currentLanguageCode = currentLanguageCode
-                    if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
-                        vc.primaryLanguageCode = updatedPrimaryLanguageCode
-                    } else {
-                        vc.primaryLanguageCode = product?.primaryLanguageCode
-                    }
-                    vc.languageCodes = product!.languageCodes
-                    vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
-                    vc.editMode = editMode
-                    vc.delegate = delegate
-                    vc.sourcePage = 0
                 }
             case Storyboard.ShowSelectMainLanguageSegueIdentifier:
                 if let vc = segue.destination as? MainLanguageViewController {
-                    let currentIndexPath = IndexPath.init(row: 0, section: 0)
-                    // Corresponds this to the cell with the language button?
-                        if let currentCell = tableView.cellForRow(at: currentIndexPath) as? BarcodeTableViewCell {
-                            // are we in a popovercontroller?
-                            // define the anchor point
+                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? BarcodeTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
-                            // set the main language button as the anchor of the popOver
+                                // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .up
-                                ppc.sourceRect = bottomCenter(currentCell.mainLanguageButton.frame)
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
                             }
                         }
-                        if let updatedPrimaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode {
-                        vc.currentLanguageCode = updatedPrimaryLanguageCode
-                        } else {
-                            vc.currentLanguageCode = product?.primaryLanguageCode
-                        }
+                    }
                 }
             default: break
             }
@@ -570,12 +507,16 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         }
     }
 
-    func showMainLanguageSelector() {
-        performSegue(withIdentifier: Storyboard.ShowSelectMainLanguageSegueIdentifier, sender: self)
+    func showMainLanguageSelector(_ notification: Notification) {
+        if let sender = notification.userInfo?[BarcodeTableViewCell.Notification.MainLanguageButtonTappedKey] {
+            performSegue(withIdentifier: Storyboard.ShowSelectMainLanguageSegueIdentifier, sender: sender)
+        }
     }
 
-    func showLanguageSelector() {
-        performSegue(withIdentifier: Storyboard.ShowNamesLanguagesSegueIdentifier, sender: self)
+    func showLanguageSelector(_ notification: Notification) {
+        if let sender = notification.userInfo?[ProductNameTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
+            performSegue(withIdentifier: Storyboard.ShowNamesLanguagesSegueIdentifier, sender: sender)
+        }
     }
 
     func removeProduct() {

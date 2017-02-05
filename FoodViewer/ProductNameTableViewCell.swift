@@ -10,6 +10,10 @@ import UIKit
 
 class ProductNameTableViewCell: UITableViewCell {
 
+    internal struct Notification {
+        static let ChangeLanguageButtonTappedKey = "ProductNameTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
+        static let MainLanguageButtonTappedKey = "ProductNameTableViewCell.Notification.MainLanguageButtonTapped.Key"
+    }
 
     @IBOutlet weak var changeLanguageButton: UIButton! {
         didSet {
@@ -18,7 +22,8 @@ class ProductNameTableViewCell: UITableViewCell {
     }
     
     @IBAction func changeLanguageButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .LanguageTapped, object: nil)
+        let userInfo = [Notification.ChangeLanguageButtonTappedKey:sender]
+        NotificationCenter.default.post(name: .LanguageTapped, object: nil, userInfo: userInfo)
     }
     
     @IBOutlet weak var nameTextView: UITextView! {
