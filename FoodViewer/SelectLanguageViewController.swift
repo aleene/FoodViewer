@@ -67,11 +67,13 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     //  MARK : Interface elements
 
-    @IBOutlet weak var navBar: UINavigationBar! {
+    @IBOutlet weak var navBar: UINavigationBar!
+        /*{
         didSet {
             navBar.topItem?.title = NSLocalizedString("Main Language", comment: "Title of a navigationBar with the main language")
         }
     }
+ */
 
     @IBOutlet weak var languagesPickerView: UIPickerView! {
         didSet {
@@ -129,11 +131,13 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
         // has the primary languageCode been updated?
         let currentLanguageCode = updatedPrimaryLanguageCode != nil ? updatedPrimaryLanguageCode : primaryLanguageCode
-        // is this the primary language?
-        if (sortedLanguages[row].code == currentLanguageCode) {
-            attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
-        } else {
-            attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
+        if !sortedLanguages.isEmpty {
+            // is this the primary language?
+            if (sortedLanguages[row].code == currentLanguageCode) {
+                attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
+            } else {
+                attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
+            }
         }
         
         attributedRowText.addAttribute(NSFontAttributeName, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
@@ -204,11 +208,35 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
             case Storyboard.AddLanguageSegueIdentifier:
                 if let vc = segue.destination as? AddLanguageViewController {
                     vc.currentLanguageCodes = languageCodesToUse
+                    // are we in a popovercontroller?
+                    // define the anchor point
+                    /*
+                    if let ppc = vc.popoverPresentationController {
+                        // set the main language button as the anchor of the popOver
+                        ppc.permittedArrowDirections = .right
+                        var anchorFrame = vc.navBar.frame
+                        // anchorFrame.origin.x += currentCell.frame.origin.x
+                        // anchorFrame.origin.y += currentCell.frame.origin.y
+                        ppc.sourceRect = bottomCenter(anchorFrame)
+                        vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                        }
+ */
+
                 }
             default: break
             }
         }
     }
+    
+    private func bottomCenter(_ frame: CGRect) -> CGRect {
+        var newFrame = frame
+        newFrame.origin.y += frame.size.height * 1.5
+        newFrame.origin.x += frame.size.width / 2
+        newFrame.size.height = 1
+        newFrame.size.width = 1
+        return newFrame
+    }
+
 
     // MARK: - ViewController Lifecycle
 

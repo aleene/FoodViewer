@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IngredientsTableViewController: UITableViewController {
+class IngredientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
@@ -64,6 +64,8 @@ class IngredientsTableViewController: UITableViewController {
     }
 
     fileprivate var searchResult: String = ""
+    
+    private var selectedSection: Int? = nil
 
     // MARK: - Public variables
     
@@ -236,6 +238,8 @@ class IngredientsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        selectedSection = indexPath.section
+        /*
         let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         switch currentProductSection {
@@ -245,6 +249,7 @@ class IngredientsTableViewController: UITableViewController {
             break
         }
         return
+ */
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -252,7 +257,7 @@ class IngredientsTableViewController: UITableViewController {
         let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         switch currentProductSection {
-        case .image:
+        case .image, .ingredients:
             return indexPath
         default:
             break
@@ -351,17 +356,57 @@ class IngredientsTableViewController: UITableViewController {
             case Storyboard.SelectLanguageSegueIdentifier:
                 // pass the current language on to the popup vc
                 if let vc = segue.destination as? SelectLanguageViewController {
-                    vc.currentLanguageCode = currentLanguageCode
-                    vc.languageCodes = product!.languageCodes
-                    vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
-                    vc.primaryLanguageCode = product?.primaryLanguageCode
-                    vc.sourcePage = 1
-                    vc.editMode = editMode
+                    // Corresponds this to the cell with the language button?
+                    if selectedSection != nil {
+                        if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: selectedSection!)) as? IngredientsFullTableViewCell {
+                            // are we in a popovercontroller?
+                            // define the anchor point
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                var anchorFrame = currentCell.changeLanguageButton.frame
+                                // anchorFrame.origin.x += currentCell.frame.origin.x
+                                anchorFrame.origin.y += currentCell.frame.origin.y
+                                ppc.sourceRect = leftMiddle(anchorFrame)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            }
+                            vc.currentLanguageCode = currentLanguageCode
+                            vc.languageCodes = product!.languageCodes
+                            vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                            vc.primaryLanguageCode = product?.primaryLanguageCode
+                            vc.sourcePage = 1
+                            vc.editMode = editMode
+                        }
+                    }
                 }
             default: break
             }
         }
     }
+    
+    // function that defines a pixel on the bottom center of a frame
+    private func leftMiddle(_ frame: CGRect) -> CGRect {
+        var newFrame = frame
+        newFrame.origin.y += frame.size.height / 2
+        newFrame.size.height = 1
+        newFrame.size.width = 1
+        return newFrame
+    }
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.overFullScreen
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+
     // MARK: - Notification handler
     
     func reloadImageSection(_ notification: Notification) {

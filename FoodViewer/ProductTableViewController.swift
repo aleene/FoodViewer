@@ -14,7 +14,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate struct Constants {
         static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
         static let AlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
-        static let AlertSheetActionTitleForCancel = NSLocalizedString("Nob", comment: "Alert title, to indicate product should NOT be added")
+        static let AlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
         static let AlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
         static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
         static let BusyLoadingProduct = NSLocalizedString("Loading product", comment: "Text to indicate that the it is trying to load.")

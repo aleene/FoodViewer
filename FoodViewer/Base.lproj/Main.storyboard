@@ -400,8 +400,8 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iq0-G4-To0">
-                                            <rect key="frame" x="337" y="8" width="30" height="28"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <rect key="frame" x="337" y="5.5" width="30" height="33"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <state key="normal" title="en"/>
                                             <connections>
                                                 <action selector="changeLanguageButtonTapped:" destination="cxD-3X-5h8" eventType="touchUpInside" id="ReV-Tn-RNJ"/>
@@ -1286,7 +1286,7 @@
                                             <rect key="frame" x="287" y="9.5" width="25" height="25"/>
                                             <state key="normal" image="Heart"/>
                                             <connections>
-                                                <segue destination="jNk-e2-kVa" kind="presentation" id="GUZ-MJ-1ik"/>
+                                                <segue destination="jNk-e2-kVa" kind="presentation" modalPresentationStyle="formSheet" id="GUZ-MJ-1ik"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1368,7 +1368,7 @@
                                             <rect key="frame" x="287" y="10" width="25" height="25"/>
                                             <state key="normal" image="Heart"/>
                                             <connections>
-                                                <segue destination="jNk-e2-kVa" kind="presentation" identifier="Show Favorite Shops Segue" id="NgB-UV-Avc"/>
+                                                <segue destination="jNk-e2-kVa" kind="presentation" identifier="Show Favorite Shops Segue" modalPresentationStyle="formSheet" id="NgB-UV-Avc"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1469,7 +1469,7 @@
                         <viewControllerLayoutGuide type="top" id="hKm-Px-anF"/>
                         <viewControllerLayoutGuide type="bottom" id="iBf-Wf-WZA"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleAspectFit" id="I9G-k1-O9X">
+                    <view key="view" contentMode="scaleToFill" id="I9G-k1-O9X">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1479,7 +1479,9 @@
                                     <navigationItem title="Select" id="MGY-bs-Itx">
                                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="cFk-ea-6EH">
                                             <connections>
-                                                <segue destination="I8T-CR-49E" kind="presentation" identifier="Add Language ViewController Segue" id="1Ci-bu-4sU"/>
+                                                <segue destination="I8T-CR-49E" kind="popoverPresentation" identifier="Add Language ViewController Segue" popoverAnchorBarButtonItem="cFk-ea-6EH" id="1Ci-bu-4sU">
+                                                    <popoverArrowDirection key="popoverArrowDirection" down="YES"/>
+                                                </segue>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8M3-p6-kXY">
@@ -1491,7 +1493,7 @@
                                 </items>
                             </navigationBar>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-NT-FaZ">
-                                <rect key="frame" x="0.0" y="84" width="320" height="216"/>
+                                <rect key="frame" x="0.0" y="84" width="320" height="396"/>
                                 <gestureRecognizers/>
                             </pickerView>
                         </subviews>
@@ -1502,6 +1504,7 @@
                             <constraint firstItem="bEj-vd-gTt" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leadingMargin" constant="-20" id="K9X-5T-QzE"/>
                             <constraint firstAttribute="trailing" secondItem="GY8-NT-FaZ" secondAttribute="trailing" id="RbI-zh-L1z"/>
                             <constraint firstItem="bEj-vd-gTt" firstAttribute="top" secondItem="hKm-Px-anF" secondAttribute="bottom" id="s0F-ms-Cia"/>
+                            <constraint firstItem="iBf-Wf-WZA" firstAttribute="top" secondItem="GY8-NT-FaZ" secondAttribute="bottom" id="txE-kB-MbI"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bEj-vd-gTt" secondAttribute="trailing" constant="-20" id="zaJ-qO-yu8"/>
                         </constraints>
                     </view>
@@ -2172,13 +2175,13 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="252" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C93-Fg-KRg">
-                                            <rect key="frame" x="274" y="74" width="30" height="28"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                            <rect key="frame" x="274" y="71.5" width="30" height="33"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <state key="normal" title="en"/>
                                             <connections>
                                                 <action selector="ChangeLanguageButtonTapped:" destination="0kc-iQ-EHA" eventType="touchUpInside" id="AxF-eK-Z3g"/>
                                                 <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Ingredients Languages" popoverAnchorView="f3R-Uq-Nld" id="4zk-rY-uLr">
-                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                    <popoverArrowDirection key="popoverArrowDirection" right="YES"/>
                                                 </segue>
                                             </connections>
                                         </button>
@@ -2426,7 +2429,9 @@
                                             <rect key="frame" x="282" y="7" width="30" height="30"/>
                                             <state key="normal" title="g"/>
                                             <connections>
-                                                <segue destination="ene-BC-XTS" kind="presentation" identifier="Select Nutrient Unit Segue" id="YcK-hI-xUg"/>
+                                                <segue destination="ene-BC-XTS" kind="popoverPresentation" identifier="Select Nutrient Unit Segue" popoverAnchorView="jbQ-6K-nWx" id="YcK-hI-xUg">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2904,9 +2909,9 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Bpf-rD-vDt"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="NgB-UV-Avc"/>
+        <segue reference="GUZ-MJ-1ik"/>
+        <segue reference="Bpf-rD-vDt"/>
         <segue reference="4zk-rY-uLr"/>
     </inferredMetricsTieBreakers>
 </document>

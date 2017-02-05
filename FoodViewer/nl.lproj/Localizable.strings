@@ -280,7 +280,7 @@
 "No translation" = "Geen vertaling";
 
 /* Alert title, to indicate product should NOT be added */
-"Nob" = "Noah";
+"Nope" = "Noah";
 
 /* Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package. */
 "Nutriments Availability" = "Beschikbaarheid Voedingsstoffen";

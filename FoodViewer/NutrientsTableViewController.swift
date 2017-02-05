@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NutrientsTableViewController: UITableViewController {
+class NutrientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
     fileprivate var adaptedNutritionFacts: [DisplayFact] = []
     
@@ -19,6 +19,8 @@ class NutrientsTableViewController: UITableViewController {
     
     fileprivate var nutritionFactsTagTitle: String = ""
 
+    private var selectedIndexPath: IndexPath? = nil
+    
     struct DisplayFact {
         var name: String? = nil
         var value: String? = nil
@@ -356,19 +358,9 @@ class NutrientsTableViewController: UITableViewController {
     }
  */
     
-    
-    /*
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if editMode {
-        switch indexPath.section {
-            case 0:
-                performSegue(withIdentifier: Storyboard.EditNutrientsViewControllerSegue, sender: self)
-            default:
-                break
-            }
-        }
+        selectedIndexPath = indexPath
     }
-     */
     
     fileprivate struct TableStructure {
         static let NutritionFactsImageSectionSize = 1
@@ -572,10 +564,24 @@ class NutrientsTableViewController: UITableViewController {
             case Storyboard.SelectNutrientUnitSegue:
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     if let button = sender as? UIButton {
-                        // the current nutrient is found by the button tag
-                        // it has to be passed on, so that it can be updated later
-                        vc.nutrientRow = button.tag
-                        vc.currentNutritionFactKey = adaptedNutritionFacts[button.tag].key
+                        if selectedIndexPath != nil {
+                            if let currentCell = tableView.cellForRow(at: selectedIndexPath!) as? NutrientsTableViewCell {
+                                // are we in a popovercontroller?
+                                // define the anchor point
+                                if let ppc = vc.popoverPresentationController {
+                                    // set the main language button as the anchor of the popOver
+                                    ppc.permittedArrowDirections = .any
+                                    ppc.sourceRect = bottomCenter(currentCell.unitButton.frame)
+                                    ppc.delegate = self
+                                    vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                }
+                            }
+                            // the current nutrient is found by the button tag
+                            // it has to be passed on, so that it can be updated later
+                            vc.nutrientRow = button.tag
+                            vc.currentNutritionFactKey = adaptedNutritionFacts[button.tag].key
+                        }
+                        // Corresponds this to the cell with the language button?
                     }
 
                 }
@@ -617,6 +623,30 @@ class NutrientsTableViewController: UITableViewController {
                 refreshProductWithNewNutritionFacts()
             }
         }
+    }
+        
+    // function that defines a pixel on the bottom center of a frame
+    private func bottomCenter(_ frame: CGRect) -> CGRect {
+        var newFrame = frame
+        newFrame.origin.y += frame.size.height * 1.5
+        newFrame.origin.x += frame.size.width / 2
+        newFrame.size.height = 1
+        newFrame.size.width = 1
+        return newFrame
+    }
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.overFullScreen
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
     }
     
     // MARK: - Notification handler functions
@@ -720,9 +750,13 @@ extension NutrientsTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        // the tag is a combination of the section and the row
-        // section*100 + row
-        let section = (textField.tag - textField.tag % 100)/100
+        
+        var section = textField.tag
+        if section != 4 {
+            // the tag is a combination of the section and the row
+            // section*100 + row
+            section = (section - section % 100) / 100
+        }
         let (currentProductSection, _, _) = tableStructureForProduct[section]
         
         switch currentProductSection {

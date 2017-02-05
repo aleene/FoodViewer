@@ -8,10 +8,10 @@
 
 import UIKit
 
-class IdentificationTableViewController: UITableViewController {
+class IdentificationTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
     
-    fileprivate struct TextConstants {
+    private struct TextConstants {
         static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
         static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
         static let NoCommonName = NSLocalizedString("No common name available", comment: "String if no common name is available")
@@ -69,6 +69,8 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
+    
+    private var selectedSection: Int? = nil
     
     // MARK: - public variables
     
@@ -282,11 +284,13 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       
-        let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
+        selectedSection = indexPath.section
+        // _ = tableStructure[(indexPath as NSIndexPath).section]
         
+        /*
         switch currentProductSection {
         case .name, .genericName:
-            changeLanguage()
+            // changeLanguage()
         // case .barcode:
             /*
             // should only be done in editMode
@@ -297,6 +301,7 @@ class IdentificationTableViewController: UITableViewController {
         default:
             break
         }
+ */
         return
     }
     
@@ -414,24 +419,35 @@ class IdentificationTableViewController: UITableViewController {
             case Storyboard.ShowNamesLanguagesSegueIdentifier:
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // Corresponds this to the cell with the language button?
-                    if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as? ProductNameTableViewCell {
-                        // are we in a popovercontroller?
-                        // define the anchor point
-                        if let ppc = vc.popoverPresentationController {
-                            // set the main language button as the anchor of the popOver
-                            ppc.permittedArrowDirections = .right
-                            ppc.sourceRect = leftMiddle(currentCell.changeLanguageButton.frame)
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                        }
-                    } else if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as? ProductNameTableViewCell{
+                    if selectedSection == 1 {
+                        if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as? ProductNameTableViewCell {
                             // are we in a popovercontroller?
                             // define the anchor point
-                        if let ppc = vc.popoverPresentationController {
-                            // set the main language button as the anchor of the popOver
-                            ppc.permittedArrowDirections = .right
-                            ppc.sourceRect = leftMiddle(currentCell.changeLanguageButton.frame)
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                var anchorFrame = currentCell.changeLanguageButton.frame
+                                // anchorFrame.origin.x += currentCell.frame.origin.x
+                                anchorFrame.origin.y += currentCell.frame.origin.y
+                                ppc.sourceRect = leftMiddle(anchorFrame)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            }
                         }
+                    } else if selectedSection == 2 {
+                        if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 2)) as? ProductNameTableViewCell{
+                            // are we in a popovercontroller?
+                            // define the anchor point
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                var anchorFrame = currentCell.changeLanguageButton.frame
+                                // anchorFrame.origin.x += currentCell.frame.origin.x
+                                anchorFrame.origin.y += currentCell.frame.origin.y
+                                ppc.sourceRect = leftMiddle(anchorFrame)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            }
+                        }
+
                     }
 
                     vc.currentLanguageCode = currentLanguageCode
@@ -457,6 +473,7 @@ class IdentificationTableViewController: UITableViewController {
                             // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .up
                                 ppc.sourceRect = bottomCenter(currentCell.mainLanguageButton.frame)
+                                ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                             }
                         }
@@ -501,6 +518,20 @@ class IdentificationTableViewController: UITableViewController {
                 tableView.reloadData()
             }
         }
+    }
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.overFullScreen
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
     }
 
     // MARK: - Notification handler
