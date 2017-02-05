@@ -427,6 +427,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         }
     }
     
+    /*
     // function that defines a pixel on the bottom center of a frame
     private func bottomCenter(_ frame: CGRect) -> CGRect {
         var newFrame = frame
@@ -445,6 +446,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         newFrame.size.width = 1
         return newFrame
     }
+ */
 
     @IBAction func unwindChangeMainLanguageForCancel(_ segue:UIStoryboardSegue) {
         // nothing needs to be done

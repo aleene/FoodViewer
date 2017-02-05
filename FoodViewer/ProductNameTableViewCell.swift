@@ -12,7 +12,6 @@ class ProductNameTableViewCell: UITableViewCell {
 
     internal struct Notification {
         static let ChangeLanguageButtonTappedKey = "ProductNameTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
-        static let MainLanguageButtonTappedKey = "ProductNameTableViewCell.Notification.MainLanguageButtonTapped.Key"
     }
 
     @IBOutlet weak var changeLanguageButton: UIButton! {

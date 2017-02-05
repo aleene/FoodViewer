@@ -354,6 +354,31 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     }
                 }
             case Storyboard.SelectLanguageSegueIdentifier:
+                if let vc = segue.destination as? SelectLanguageViewController {
+                    // The segue can only be initiated from a button within a ProductNameTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? IngredientsFullTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                ppc.delegate = self
+                                
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentLanguageCode = currentLanguageCode
+                                vc.languageCodes = product!.languageCodes
+                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.primaryLanguageCode = product?.primaryLanguageCode
+                                vc.sourcePage = 1
+                                vc.editMode = editMode
+                            }
+                        }
+                    }
+                }
+/*
+            case Storyboard.SelectLanguageSegueIdentifier:
                 // pass the current language on to the popup vc
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // Corresponds this to the cell with the language button?
@@ -379,6 +404,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         }
                     }
                 }
+ */
             default: break
             }
         }
@@ -433,6 +459,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             tableView.deselectRow(at: indexPaths.first!, animated: true)
         }
     }
+    
+    func showLanguageSelector(_ notification: Notification) {
+        if let sender = notification.userInfo?[IngredientsFullTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
+            performSegue(withIdentifier: Storyboard.SelectLanguageSegueIdentifier, sender: sender)
+        }
+    }
 
     // MARK: - ViewController Lifecycle
     
@@ -449,7 +481,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.IngredientsTextViewTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeLanguage), name:.IngredientsTextViewTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.showLanguageSelector), name:.IngredientsLanguageTapped, object:nil)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

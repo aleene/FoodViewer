@@ -10,6 +10,10 @@ import UIKit
 
 class IngredientsFullTableViewCell: UITableViewCell {
 
+    internal struct Notification {
+        static let ChangeLanguageButtonTappedKey = "IngredientsFullTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
+    }
+
     @IBOutlet weak var textView: UITextView! {
         didSet {
             setupTextView()
@@ -90,6 +94,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
     @IBOutlet weak var changeLanguageButton: UIButton!
     
     @IBAction func ChangeLanguageButtonTapped(_ sender: UIButton) {
+        let userInfo = [Notification.ChangeLanguageButtonTappedKey:sender]
+        NotificationCenter.default.post(name: .LanguageTapped, object: nil, userInfo: userInfo)
     }
     
     private struct Constants {
@@ -194,5 +200,6 @@ extension String {
 // Definition:
 extension Notification.Name {
     static let IngredientsTextViewTapped = Notification.Name("IngredientsFullTableViewCell.Notification.IngredientsTextViewTapped")
+    static let IngredientsLanguageTapped = Notification.Name("IngredientsFullTableViewCell.Notification.IngredientsLanguageTapped")
 }
 
