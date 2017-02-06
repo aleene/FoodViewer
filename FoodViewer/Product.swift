@@ -90,6 +90,12 @@ class FoodProduct {
             }
         }
     }
+    
+    // a complex structure with all the images
+    var frontImages: [ProductImageSize] = []
+    var nutritionImages: [ProductImageSize] = []
+    var ingredientsImages: [ProductImageSize] = []
+    
     var languageCodes: [String] = []
     
     var languages: [String:String] {

@@ -462,7 +462,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     func changeConfirmButtonToSuccess() {
         confirmBarButtonItem.tintColor = .green
-        // NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
 
         _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
         updatedProduct = nil

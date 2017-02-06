@@ -56,6 +56,13 @@ struct OFFReadAPIkeysJSON {
     static let LinkKey = "link"
     static let IngredientsNKey = "ingredients_n"
     static let NutrimentsKey = "nutriments"
+    static let SelectedImagesKey = "selected_images"
+    static let FrontImageKey = "front"
+    static let NutritionImageKey = "nutrition"
+    static let IngredientsImageKey = "ingredients"
+    static let DisplayKey = "display"
+    static let SmallKey = "small"
+    static let ThumbKey = "thumb"
     
     static let SodiumKey = "sodium"
     static let SaltKey = "salt"

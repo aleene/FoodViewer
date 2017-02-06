@@ -151,17 +151,21 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
     // MARK: - Table view data source
 
     fileprivate struct Storyboard {
-        static let TextFieldCellIdentifier = "Identification Basic Cell"
-        static let ProductNameCellIdentifier = "Product Name Cell"
-        static let BarcodeCellIdentifier = "Barcode Cell"
-        static let QuantityCellIdentifier = "Quantity Cell"
-        static let TagListCellIdentifier = "Identification TagList Cell"
-        static let PackagingCellIdentifier = "Identification Packaging Cell"
-        static let ImageCellIdentifier = "Identification Image Cell"
-        static let NoIdentificationImageCellIdentifier = "No Image Cell"
-        static let ShowIdentificationImageSegueIdentifier = "Show Identification Image"
-        static let ShowNamesLanguagesSegueIdentifier = "Show Names Languages"
-        static let ShowSelectMainLanguageSegueIdentifier = "Show Select Main Language Segue"
+        struct CellIdentifier {
+            static let TextField = "Identification Basic Cell"
+            static let ProductName = "Product Name Cell"
+            static let Barcode = "Barcode Cell"
+            static let Quantity = "Quantity Cell"
+            static let TagList = "Identification TagList Cell"
+            static let Packaging = "Identification Packaging Cell"
+            static let Image = "Identification Image Cell"
+            static let NoIdentificationImage = "No Image Cell"
+        }
+        struct SegueIdentifier {
+            static let ShowIdentificationImage = "Show Identification Image"
+            static let ShowNamesLanguages = "Show Names Languages"
+            static let ShowSelectMainLanguage = "Show Select Main Language Segue"
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -179,14 +183,14 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         
         switch currentProductSection {
         case .barcode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BarcodeCellIdentifier, for: indexPath) as? BarcodeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as? BarcodeTableViewCell
             cell!.barcode = product?.barcode.asString()
             cell!.mainLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
             cell!.editMode = editMode
             return cell!
             
         case .name:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
             cell!.tag = indexPath.section
@@ -205,7 +209,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             return cell!
             
         case .genericName:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProductNameCellIdentifier, for: indexPath) as? ProductNameTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
             cell!.tag = indexPath.section
@@ -223,7 +227,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             return cell!
 
         case .brands:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TagListCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -232,7 +236,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             return cell
             
         case .packaging:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PackagingCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Packaging, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -241,7 +245,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             return cell
             
         case .quantity:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.QuantityCellIdentifier, for: indexPath) as! QuantityTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Quantity, for: indexPath) as! QuantityTableViewCell
             if let validQuantity = delegate?.updatedProduct?.quantity {
                 cell.tekst = validQuantity
             } else if let validQuantity = product?.quantity {
@@ -258,12 +262,12 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             if let result = product?.getMainImageData() {
                 switch result {
                 case .success(let data):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ImageCellIdentifier, for: indexPath) as? IdentificationImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                     cell?.identificationImage = UIImage(data:data)
                     return cell!
                 default:
                     searchResult = result.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
                     cell?.datasource = self
                     cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
@@ -272,7 +276,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                 }
             } else {
                 searchResult = ImageFetchResult.noImageAvailable.description()
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoIdentificationImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
                 cell?.datasource = self
                 cell?.tag = indexPath.section
                 cell?.width = tableView.frame.size.width
@@ -367,7 +371,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowIdentificationImageSegueIdentifier:
+            case Storyboard.SegueIdentifier.ShowIdentificationImage:
                 if let vc = segue.destination as? imageViewController {
                     if let result = product?.mainImageData {
                         switch result {
@@ -379,7 +383,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                         }
                     }
                 }
-            case Storyboard.ShowNamesLanguagesSegueIdentifier:
+            case Storyboard.SegueIdentifier.ShowNamesLanguages:
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
@@ -404,7 +408,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                         }
                     }
                 }
-            case Storyboard.ShowSelectMainLanguageSegueIdentifier:
+            case Storyboard.SegueIdentifier.ShowSelectMainLanguage:
                 if let vc = segue.destination as? MainLanguageViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -511,13 +515,13 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
 
     func showMainLanguageSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[BarcodeTableViewCell.Notification.MainLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.ShowSelectMainLanguageSegueIdentifier, sender: sender)
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSelectMainLanguage, sender: sender)
         }
     }
 
     func showLanguageSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[ProductNameTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.ShowNamesLanguagesSegueIdentifier, sender: sender)
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
         }
     }
 

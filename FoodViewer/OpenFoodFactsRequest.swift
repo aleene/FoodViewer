@@ -139,6 +139,8 @@ class OpenFoodFactsRequest {
                         product.genericNameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
                     }
                 }
+                let test = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionary
+
                 // print(product.name, product.languageCodes, product.nameLanguage)
                 // Is no longer needed, is part of the language array
                 // product.genericName = jsonObject[jsonKeys.ProductKey][jsonKeys.GenericNameKey].string
@@ -150,10 +152,7 @@ class OpenFoodFactsRequest {
                 product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
                 
                 product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
-                let test = jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string
-                
-                // let test2 = jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesOrigKey].string
-                product.producerCode = decodeProducerCodeArray(test)
+                product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string)
                 
                 product.brands = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
                 

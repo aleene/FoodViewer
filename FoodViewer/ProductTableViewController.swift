@@ -479,7 +479,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
         // listen if a product has been changed through an update
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdateSucceeded, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdateSucceeded, object:nil)
         
 
     }
