@@ -11,68 +11,45 @@ import MapKit
 
 class FoodProduct {
     
-    
     // Primary variables
     
     // MARK: - Identification variables
     
     var barcode: BarcodeType
     
-    var name: String? = nil {
-        didSet {
-            // make sure things are consistent
-            // add the name also to the name languages array
-            setName()
-        }
-    }
-    
-    private func setName() {
-        if primaryLanguageCode != nil && name != nil {
-            nameLanguage[primaryLanguageCode!] = name
-        }
-    }
-    
-    var nameLanguage = [String:String?]() {
-        didSet {
-            if let language = primaryLanguageCode,
-                let validName = name,
-                let existingLanguageName = nameLanguage[language],
-                let validLanguageName = existingLanguageName {
-                if  validLanguageName != validName {
-                    print("Product Error: names are not consistent")
+    // This variable returns the product name for the primary language
+    var name: String? {
+        get {
+            if let validPrimaryLanguageCode = primaryLanguageCode {
+                // In this way the primaryLanguageCode can change
+                if nameLanguage[validPrimaryLanguageCode] != nil {
+                    // If no name has been defined in this language, it will return nil
+                    return nameLanguage[validPrimaryLanguageCode]!
                 }
             }
-        }
-    }
-
-
-    var genericName: String? = nil {
-        didSet {
-            // make sure things are consistent
-            setGenericName()
+            return nil
         }
     }
     
-    private func setGenericName() {
-        if primaryLanguageCode != nil && genericName != nil {
-            genericNameLanguage[primaryLanguageCode!] = genericName
-        }
-    }
-    
-    var genericNameLanguage = [String:String?]() {
-        didSet {
-            if let language = primaryLanguageCode,
-                let validName = genericName,
-                let existingLanguageName = genericNameLanguage[language],
-                let validLanguageName = existingLanguageName {
-                if  validLanguageName != validName {
-                    print("Product Error: generic names are not consistent")
+    var nameLanguage: [String:String?] = [:]
+
+    var genericName: String? {
+        get {
+            if let validPrimaryLanguageCode = primaryLanguageCode {
+                // In this way the primaryLanguageCode can change
+                if genericNameLanguage[validPrimaryLanguageCode] != nil {
+                    // If no name has been defined in this language, it will return nil
+                    return genericNameLanguage[validPrimaryLanguageCode]!
                 }
             }
+            return nil
         }
     }
-
+    
+    var genericNameLanguage = [String:String?]()
+    
     var brands: Tags = .undefined
+    
     var mainUrlThumb: URL? {
         didSet {
             if let imageURL = mainUrlThumb {
@@ -102,13 +79,13 @@ class FoodProduct {
     
     var primaryLanguageCode: String? = nil {
         didSet {
-            // make sure things are consistent
-            setName()
-            setGenericName()
             if let validLanguage = primaryLanguageCode {
                 if !languageCodes.contains(validLanguage) {
+                    // add the language if it does not exist yet
                     languageCodes.append(validLanguage)
-                    // TBD need to add to language array
+                    set(newName: "", for: validLanguage)
+                    set(newGenericName: "", for: validLanguage)
+                    set(newIngredients: "", for: validLanguage)
                 }
             }
         }
@@ -134,18 +111,25 @@ class FoodProduct {
     // MARK: - Ingredients variables
     
     var ingredients: String? {
-        didSet {
-            // make sure things are consistent
-            // add the name also to the name languages array
-            setIngredients()
+        get {
+            if let validPrimaryLanguageCode = primaryLanguageCode {
+                // In this way the primaryLanguageCode can change
+                if ingredientsLanguage[validPrimaryLanguageCode] != nil {
+                    // If no name has been defined in this language, it will return nil
+                    return ingredientsLanguage[validPrimaryLanguageCode]!
+                }
+            }
+            return nil
         }
     }
     
+    /*
     private func setIngredients() {
         if primaryLanguageCode != nil && ingredients != nil {
             ingredientsLanguage[primaryLanguageCode!] = ingredients
         }
     }
+ */
 
     var ingredientsLanguage = [String:String]()
     
@@ -592,15 +576,12 @@ class FoodProduct {
     
     init() {
         barcode = BarcodeType.undefined("")
-        name = nil
-        genericName = nil
         brands = .undefined
         mainUrlThumb = nil
         mainImageUrl = nil
         mainImageData = nil
         packagingArray = .undefined
         quantity = nil
-        ingredients = nil
         imageIngredientsSmallUrl = nil
         imageIngredientsUrl = nil
         allergenKeys = nil
@@ -774,9 +755,7 @@ class FoodProduct {
         // is it really the same product?
         if barcode.asString() == product.barcode.asString() {
             // Do I need to replace things, or should I carry out a check first?
-            name = product.name
             nameLanguage = product.nameLanguage
-            genericName = product.genericName
             genericNameLanguage = product.genericNameLanguage
             brands = product.brands
             mainUrlThumb = product.mainUrlThumb
@@ -784,7 +763,6 @@ class FoodProduct {
             mainImageData = nil
             packagingArray = product.packagingArray
             quantity = product.quantity
-            ingredients = product.ingredients
             ingredientsLanguage = product.ingredientsLanguage
             imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
             imageIngredientsUrl = product.imageIngredientsUrl
@@ -857,18 +835,18 @@ class FoodProduct {
     
     func set(newName: String, for languageCode: String) {
         // is this the main language?
-        if languageCode == self.primaryLanguageCode {
-            self.name = newName
-        }
+        //if languageCode == self.primaryLanguageCode {
+        //    self.name = newName
+        // }
         add(languageCode: languageCode)
         self.nameLanguage[languageCode] = newName
     }
     
     func set(newGenericName: String, for languageCode: String) {
         // is this the main language?
-        if languageCode == self.primaryLanguageCode {
-            self.genericName = newGenericName
-        }
+        //if languageCode == self.primaryLanguageCode {
+        //    self.genericName = newGenericName
+        //}
         add(languageCode: languageCode)
         self.genericNameLanguage[languageCode] = newGenericName
     }
@@ -876,9 +854,6 @@ class FoodProduct {
     func set(newIngredients: String, for languageCode: String) {
         add(languageCode: languageCode)
         self.ingredientsLanguage[languageCode] = newIngredients
-        if languageCode == self.primaryLanguageCode {
-            self.ingredients = newIngredients
-        }
     }
 
     func add(languageCode: String) {

@@ -124,10 +124,13 @@ class OpenFoodFactsRequest {
                 product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
                 
                 if let languages = jsonObject[jsonKeys.ProductKey][jsonKeys.LanguagesHierarchy].stringArray {
-                    product.languageCodes = []
+                    // product.languageCodes = []
                     for language in languages {
                         let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
-                        product.languageCodes.append(isoCode)
+                        // it can already be set by the primary language
+                        if !product.contains(languageCode: isoCode) {
+                            product.languageCodes.append(isoCode)
+                        }
                         var key = jsonKeys.IngredientsTextKey + "_" + isoCode
                         product.ingredientsLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
                         key = jsonKeys.ProductNameKey + "_" + isoCode
@@ -136,7 +139,9 @@ class OpenFoodFactsRequest {
                         product.genericNameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
                     }
                 }
-                product.genericName = jsonObject[jsonKeys.ProductKey][jsonKeys.GenericNameKey].string
+                // print(product.name, product.languageCodes, product.nameLanguage)
+                // Is no longer needed, is part of the language array
+                // product.genericName = jsonObject[jsonKeys.ProductKey][jsonKeys.GenericNameKey].string
                 product.additives = Tags(decodeAdditives(jsonObject[jsonKeys.ProductKey][jsonKeys.AdditivesTagsKey].stringArray))
                 
                 product.informers = jsonObject[jsonKeys.ProductKey][jsonKeys.InformersTagsKey].stringArray
@@ -167,11 +172,11 @@ class OpenFoodFactsRequest {
                 
                 product.purchaseLocationString(jsonObject[jsonKeys.ProductKey][jsonKeys.PurchasePlacesKey].string)
                 product.nutritionFactsImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionUrlKey].url
-                product.ingredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsTextKey].string
+                // product.ingredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsTextKey].string
                 
                 product.editors = jsonObject[jsonKeys.ProductKey][jsonKeys.EditorsTagsKey].stringArray
                 product.additionDate = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatedTKey].time
-                product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
+                // product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
                 product.creator = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatorKey].string
                 product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
                 product.hasNutritionFacts = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)

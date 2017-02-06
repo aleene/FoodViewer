@@ -41,7 +41,7 @@ class ProductNameTableViewCell: UITableViewCell {
     }
     
     private func setLanguageButton() {
-        changeLanguageButton?.isEnabled = editMode ? false : ( numberOfLanguages > 1 ? true : false )
+        changeLanguageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
     }
     
     private func setTextViewStyle() {
