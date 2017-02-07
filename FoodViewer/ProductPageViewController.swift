@@ -40,6 +40,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let vc = pages[1] as? IngredientsTableViewController {
                     vc.currentLanguageCode = currentLanguageCode
                 }
+            case 2:
+                if let vc = pages[2] as? IngredientsTableViewController {
+                    vc.currentLanguageCode = currentLanguageCode
+                }
             default:
                 break
             }
@@ -236,6 +240,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         case 2:
             if let vc = pages[2] as? NutrientsTableViewController {
                 vc.product = product
+                vc.currentLanguageCode = currentLanguageCode
                 vc.editMode = editMode
             }
         case 3:
@@ -951,6 +956,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = pages[1] as? IngredientsTableViewController {
             vc.currentLanguageCode = currentLanguageCode
         }
+        if let vc = pages[2] as? IngredientsTableViewController {
+            vc.currentLanguageCode = currentLanguageCode
+        }
+
     }
     
     // MARK: - ViewController Lifecycle

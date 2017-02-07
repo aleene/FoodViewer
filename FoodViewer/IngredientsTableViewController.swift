@@ -202,6 +202,60 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
             
         case .image:
+            // in all the front images find the display images
+            if product!.frontImages.display.count > 0 {
+                // is the data for the current language available?
+                // then fetch the image
+                if let result = product!.ingredientsImages.display[currentLanguageCode!]?.fetch() {
+                    switch result {
+                    case .success:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
+                        cell?.ingredientsImage = product!.ingredientsImages.display[currentLanguageCode!]?.image
+                        return cell!
+                    default:
+                        searchResult = result.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
+                    // try to use the primary image
+                } else if let result = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.fetch() {
+                    switch result {
+                    case .success:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
+                        cell?.ingredientsImage = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.image
+                        return cell!
+                    default:
+                        searchResult = result.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
+                } else {
+                    // image could not be found (yet)
+                    searchResult = ImageFetchResult.noImageAvailable.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    return cell!
+                }
+            }
+            searchResult = ImageFetchResult.noImageAvailable.description()
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+            cell?.datasource = self
+            cell?.tag = indexPath.section
+            cell?.width = tableView.frame.size.width
+            cell?.scheme = ColorSchemes.error
+            return cell!
+/*
             if let result = product?.getIngredientsImageData() {
                 switch result {
                 case .success(let data):
@@ -228,6 +282,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell?.scheme = ColorSchemes.error
                 return cell!
             }
+ */
         }
     }
     
@@ -342,13 +397,27 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
                 if let vc = segue.destination as? imageViewController {
-                    if let result = product?.getIngredientsImageData() {
-                        // try large image
-                        switch result {
-                        case .success(let data):
-                            vc.image = UIImage(data: data)
-                            vc.imageTitle = TextConstants.ShowIdentificationTitle
-                        default:
+                    if product!.ingredientsImages.display.count > 0 {
+                        // is the data for the current language available?
+                        // then fetch the image
+                        if let result = product!.ingredientsImages.display[currentLanguageCode!]?.fetch() {
+                            switch result {
+                            case .success:
+                                vc.image = product!.ingredientsImages.display[currentLanguageCode!]?.image
+                                vc.imageTitle = TextConstants.ShowIdentificationTitle
+                            default:
+                                vc.image = nil
+                            }
+                            // try to use the primary image
+                        } else if let result = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.fetch() {
+                            switch result {
+                            case .success:
+                                vc.image = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.image
+                                vc.imageTitle = TextConstants.ShowIdentificationTitle
+                            default:
+                                vc.image = nil
+                            }
+                        } else {
                             vc.image = nil
                         }
                     }
@@ -435,7 +504,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     // MARK: - Notification handler
     
-    func reloadImageSection(_ notification: Notification) {
+    func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
         // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
@@ -478,12 +547,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         super.viewWillAppear(animated)
         title = TextConstants.ViewControllerTitle
         
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeLanguage), name:.IngredientsTextViewTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.showLanguageSelector), name:.IngredientsLanguageTapped, object:nil)
-
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

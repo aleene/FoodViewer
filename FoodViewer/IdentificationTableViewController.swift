@@ -260,45 +260,17 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             
         case .image:
             // in all the front images find the display images
-            for frontImageSet in product!.frontImages {
-                switch frontImageSet {
-                case .display(let imagesDict):
+            if product!.frontImages.display.count > 0 {
                     // is the data for the current language available?
                     // then fetch the image
-                    if let result = imagesDict[currentLanguageCode!]?.fetch() {
-                        switch result {
-                        case .success:
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                            cell?.identificationImage = imagesDict[currentLanguageCode!]?.image
+                if let result = product!.frontImages.display[currentLanguageCode!]?.fetch() {
+                    switch result {
+                    case .success:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                        cell?.identificationImage = product!.frontImages.display[currentLanguageCode!]?.image
                             return cell!
-                        default:
-                            searchResult = result.description()
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                            cell?.datasource = self
-                            cell?.tag = indexPath.section
-                            cell?.width = tableView.frame.size.width
-                            cell?.scheme = ColorSchemes.error
-                            return cell!
-                        }
-                        // try to use the primary image
-                    } else if let result = imagesDict[product!.primaryLanguageCode!]?.fetch() {
-                        switch result {
-                        case .success:
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                            cell?.identificationImage = imagesDict[product!.primaryLanguageCode!]?.image
-                            return cell!
-                        default:
-                            searchResult = result.description()
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                            cell?.datasource = self
-                            cell?.tag = indexPath.section
-                            cell?.width = tableView.frame.size.width
-                            cell?.scheme = ColorSchemes.error
-                            return cell!
-                        }
-                    } else {
-                        // image could not be found (yet)
-                        searchResult = ImageFetchResult.noImageAvailable.description()
+                    default:
+                        searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
@@ -306,8 +278,31 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                         cell?.scheme = ColorSchemes.error
                         return cell!
                     }
-                default:
-                    break
+                        // try to use the primary image
+                } else if let result = product!.frontImages.display[product!.primaryLanguageCode!]?.fetch() {
+                    switch result {
+                    case .success:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                        cell?.identificationImage = product!.frontImages.display[product!.primaryLanguageCode!]?.image
+                        return cell!
+                    default:
+                        searchResult = result.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
+                } else {
+                        // image could not be found (yet)
+                        searchResult = ImageFetchResult.noImageAvailable.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    return cell!
                 }
             }
             searchResult = ImageFetchResult.noImageAvailable.description()
@@ -411,36 +406,30 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentificationImage:
                 if let vc = segue.destination as? imageViewController {
-                    for frontImageSet in product!.frontImages {
-                        switch frontImageSet {
-                        case .display(let imagesDict):
-                            // is the data for the current language available?
+                    if product!.frontImages.display.count > 0 {
+                        // is the data for the current language available?
                             // then fetch the image
-                            if let result = imagesDict[currentLanguageCode!]?.fetch() {
-                                switch result {
-                                case .success:
-                                    vc.image = imagesDict[currentLanguageCode!]?.image
-                                    vc.imageTitle = TextConstants.ShowIdentificationTitle
-                                default:
-                                    vc.image = nil
-                                }
-                                // try to use the primary image
-                            } else if let result = imagesDict[product!.primaryLanguageCode!]?.fetch() {
-                                switch result {
-                                case .success:
-                                    vc.image = imagesDict[product!.primaryLanguageCode!]?.image
-                                    vc.imageTitle = TextConstants.ShowIdentificationTitle
-                                default:
-                                    vc.image = nil
-                                }
-                            } else {
+                        if let result = product!.frontImages.display[currentLanguageCode!]?.fetch() {
+                            switch result {
+                            case .success:
+                                vc.image = product!.frontImages.display[currentLanguageCode!]?.image
+                                vc.imageTitle = TextConstants.ShowIdentificationTitle
+                            default:
                                 vc.image = nil
                             }
-                        default:
-                            break
+                                // try to use the primary image
+                    } else if let result = product!.frontImages.display[product!.primaryLanguageCode!]?.fetch() {
+                            switch result {
+                            case .success:
+                                vc.image = product!.frontImages.display[product!.primaryLanguageCode!]?.image
+                                vc.imageTitle = TextConstants.ShowIdentificationTitle
+                            default:
+                                vc.image = nil
+                            }
+                        } else {
+                            vc.image = nil
                         }
                     }
-
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:
                 if let vc = segue.destination as? SelectLanguageViewController {

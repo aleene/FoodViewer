@@ -14,8 +14,13 @@ class ProductImageData {
     var fetchResult: ImageFetchResult? = nil {
         didSet {
             if fetchResult != nil {
-                // encode the url, so it can be determined if the receiver need to act on it.
-                NotificationCenter.default.post(name: .ImageSet, object: nil)
+                switch fetchResult! {
+                case .success:
+                    // encode the url, so it can be determined if the receiver need to act on it.
+                    NotificationCenter.default.post(name: .ImageSet, object: nil)
+                default:
+                    break
+                }
             }
         }
     }

@@ -8,10 +8,10 @@
 
 import Foundation
 
-enum ProductImageSize {
-    case display([String:ProductImageData])
-    case small([String:ProductImageData])
-    case thumb([String:ProductImageData])
+struct ProductImageSize {
+    var display:[String:ProductImageData] = [:]
+    var small: [String:ProductImageData] = [:]
+    var thumb: [String:ProductImageData] = [:]
     
     
 }

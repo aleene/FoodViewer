@@ -352,6 +352,9 @@ class OFFProducts {
                     product.mainImageData = nil
                     product.ingredientsImageData = nil
                     product.nutritionImageData = nil
+                    product.nutritionImages = ProductImageSize()
+                    product.frontImages = ProductImageSize()
+                    product.ingredientsImages = ProductImageSize()
                 default:
                     break
                 }

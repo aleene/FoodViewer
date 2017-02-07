@@ -149,8 +149,9 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.frontImages.append(.display(images))
+                    product.frontImages.display = images
                 }
+                    
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.ThumbKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
                     for element in valid {
@@ -160,8 +161,9 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.frontImages.append(.thumb(images))
+                    product.frontImages.thumb = images
                 }
+                    
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.SmallKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
                     for element in valid {
@@ -171,7 +173,7 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.frontImages.append(.small(images))
+                    product.frontImages.small = images
                 }
                 
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.DisplayKey].dictionaryObject {
@@ -183,8 +185,9 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.nutritionImages.append(.display(images))
+                    product.nutritionImages.display = images
                 }
+                    
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.ThumbKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
                     for element in valid {
@@ -194,8 +197,9 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.nutritionImages.append(.thumb(images))
+                    product.nutritionImages.thumb = images
                 }
+                    
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.SmallKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
                     for element in valid {
@@ -205,7 +209,7 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.nutritionImages.append(.small(images))
+                    product.nutritionImages.small = images
                 }
                 
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.DisplayKey].dictionaryObject {
@@ -217,8 +221,9 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.ingredientsImages.append(.display(images))
+                    product.ingredientsImages.display = images
                 }
+                    
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.ThumbKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
                     for element in valid {
@@ -228,7 +233,7 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.ingredientsImages.append(.thumb(images))
+                    product.ingredientsImages.thumb = images
                 }
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
@@ -239,7 +244,7 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.ingredientsImages.append(.small(images))
+                    product.ingredientsImages.small = images
                 }
 
                 // print(product.name, product.languageCodes, product.nameLanguage)
