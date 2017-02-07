@@ -5,6 +5,7 @@
 //  Created by arnaud on 05/05/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
+//  The function of this enum is to start a network call in order to retrieve an image based on an url
 
 import Foundation
 

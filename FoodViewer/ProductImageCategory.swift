@@ -11,5 +11,5 @@ import Foundation
 enum ProductImageCategory {
     case front([ProductImageSize])
     case nutrition([ProductImageSize])
-    case igredients([ProductImageSize])
+    case ingredients([ProductImageSize])
 }

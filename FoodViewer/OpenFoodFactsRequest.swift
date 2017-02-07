@@ -139,7 +139,108 @@ class OpenFoodFactsRequest {
                         product.genericNameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
                     }
                 }
-                let test = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionary
+                
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.frontImages.append(.display(images))
+                }
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.ThumbKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.frontImages.append(.thumb(images))
+                }
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.SmallKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.frontImages.append(.small(images))
+                }
+                
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.DisplayKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.nutritionImages.append(.display(images))
+                }
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.ThumbKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.nutritionImages.append(.thumb(images))
+                }
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.SmallKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.nutritionImages.append(.small(images))
+                }
+                
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.DisplayKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.ingredientsImages.append(.display(images))
+                }
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.ThumbKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.ingredientsImages.append(.thumb(images))
+                }
+                if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
+                    var images: [String:ProductImageData] = [:]
+                    for element in valid {
+                        if let validString = element.value as? String {
+                            if let url = URL.init(string: validString) {
+                                images[element.key] = ProductImageData.init(url: url)
+                            }
+                        }
+                    }
+                    product.ingredientsImages.append(.small(images))
+                }
 
                 // print(product.name, product.languageCodes, product.nameLanguage)
                 // Is no longer needed, is part of the language array

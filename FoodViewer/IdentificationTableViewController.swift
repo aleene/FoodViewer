@@ -259,30 +259,64 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             return cell
             
         case .image:
-            if let result = product?.getMainImageData() {
-                switch result {
-                case .success(let data):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                    cell?.identificationImage = UIImage(data:data)
-                    return cell!
+            // in all the front images find the display images
+            for frontImageSet in product!.frontImages {
+                switch frontImageSet {
+                case .display(let imagesDict):
+                    // is the data for the current language available?
+                    // then fetch the image
+                    if let result = imagesDict[currentLanguageCode!]?.fetch() {
+                        switch result {
+                        case .success:
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                            cell?.identificationImage = imagesDict[currentLanguageCode!]?.image
+                            return cell!
+                        default:
+                            searchResult = result.description()
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                            cell?.datasource = self
+                            cell?.tag = indexPath.section
+                            cell?.width = tableView.frame.size.width
+                            cell?.scheme = ColorSchemes.error
+                            return cell!
+                        }
+                        // try to use the primary image
+                    } else if let result = imagesDict[product!.primaryLanguageCode!]?.fetch() {
+                        switch result {
+                        case .success:
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                            cell?.identificationImage = imagesDict[product!.primaryLanguageCode!]?.image
+                            return cell!
+                        default:
+                            searchResult = result.description()
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                            cell?.datasource = self
+                            cell?.tag = indexPath.section
+                            cell?.width = tableView.frame.size.width
+                            cell?.scheme = ColorSchemes.error
+                            return cell!
+                        }
+                    } else {
+                        // image could not be found (yet)
+                        searchResult = ImageFetchResult.noImageAvailable.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
                 default:
-                    searchResult = result.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    return cell!
+                    break
                 }
-            } else {
-                searchResult = ImageFetchResult.noImageAvailable.description()
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                cell?.datasource = self
-                cell?.tag = indexPath.section
-                cell?.width = tableView.frame.size.width
-                cell?.scheme = ColorSchemes.error
-                return cell!
             }
+            searchResult = ImageFetchResult.noImageAvailable.description()
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+            cell?.datasource = self
+            cell?.tag = indexPath.section
+            cell?.width = tableView.frame.size.width
+            cell?.scheme = ColorSchemes.error
+            return cell!
         }
     }
     
@@ -316,21 +350,25 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         return tableStructure[section].header()
     }
 
-    fileprivate struct TableStructure {
-        static let BarcodeSectionSize = 1
-        static let NameSectionSize = 1
-        static let CommonNameSectionSize = 1
-        static let BrandsSectionSize = 1
-        static let PackagingSectionSize = 1
-        static let QuantitySectionSize = 1
-        static let ImageSectionSize = 1
-        static let BarcodeSectionHeader = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
-        static let NameSectionHeader = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
-        static let CommonNameSectionHeader = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
-        static let BrandsSectionHeader = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
-        static let PackagingSectionHeader = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
-        static let QuantitySectionHeader = NSLocalizedString("Quantity", comment: "Tableview sectionheader for size of package.")
-        static let ImageSectionHeader = NSLocalizedString("Main Image", comment: "Tableview sectionheader for main image of package.")
+    fileprivate struct TableSection {
+        struct Size {
+            static let Barcode = 1
+            static let Name = 1
+            static let CommonName = 1
+            static let Brands = 1
+            static let Packaging = 1
+            static let Quantity = 1
+            static let Image = 1
+        }
+        struct Header {
+            static let Barcode = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
+            static let Name = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
+            static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
+            static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
+            static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
+            static let Quantity = NSLocalizedString("Quantity", comment: "Tableview sectionheader for size of package.")
+            static let Image = NSLocalizedString("Main Image", comment: "Tableview sectionheader for main image of package.")
+        }
     }
 
     fileprivate func setupSections() -> [SectionType] {
@@ -342,25 +380,25 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         
         // All sections are always presented
         // 0: barcode section
-        sectionsAndRows.append(.barcode(TableStructure.BarcodeSectionSize, TableStructure.BarcodeSectionHeader))
+        sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
         
         // 1:  name section
-        sectionsAndRows.append(.name(TableStructure.NameSectionSize, TableStructure.NameSectionHeader))
+        sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
         
         // 2: common name section
-        sectionsAndRows.append(.genericName(TableStructure.CommonNameSectionSize, TableStructure.CommonNameSectionHeader))
+        sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
         
         // 3: brands section
-        sectionsAndRows.append(.brands(TableStructure.BrandsSectionSize, TableStructure.BrandsSectionHeader))
+        sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
         
         // 4: packaging section
-        sectionsAndRows.append(.packaging(TableStructure.PackagingSectionSize, TableStructure.PackagingSectionHeader))
+        sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         
         // 5: quantity section
-        sectionsAndRows.append(.quantity(TableStructure.QuantitySectionSize, TableStructure.QuantitySectionHeader))
+        sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
         
         // 6: image section
-        sectionsAndRows.append(.image(TableStructure.ImageSectionSize,TableStructure.ImageSectionHeader))
+        sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
         
         // print("\(sectionsAndRows)")
         return sectionsAndRows
@@ -373,15 +411,36 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentificationImage:
                 if let vc = segue.destination as? imageViewController {
-                    if let result = product?.mainImageData {
-                        switch result {
-                        case .success(let data):
-                            vc.image = UIImage(data: data)
-                            vc.imageTitle = TextConstants.ShowIdentificationTitle
+                    for frontImageSet in product!.frontImages {
+                        switch frontImageSet {
+                        case .display(let imagesDict):
+                            // is the data for the current language available?
+                            // then fetch the image
+                            if let result = imagesDict[currentLanguageCode!]?.fetch() {
+                                switch result {
+                                case .success:
+                                    vc.image = imagesDict[currentLanguageCode!]?.image
+                                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                                default:
+                                    vc.image = nil
+                                }
+                                // try to use the primary image
+                            } else if let result = imagesDict[product!.primaryLanguageCode!]?.fetch() {
+                                switch result {
+                                case .success:
+                                    vc.image = imagesDict[product!.primaryLanguageCode!]?.image
+                                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                                default:
+                                    vc.image = nil
+                                }
+                            } else {
+                                vc.image = nil
+                            }
                         default:
-                            vc.image = nil
+                            break
                         }
                     }
+
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:
                 if let vc = segue.destination as? SelectLanguageViewController {
@@ -554,6 +613,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showLanguageSelector), name:.LanguageTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

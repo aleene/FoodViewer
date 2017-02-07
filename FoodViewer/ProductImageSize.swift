@@ -12,4 +12,6 @@ enum ProductImageSize {
     case display([String:ProductImageData])
     case small([String:ProductImageData])
     case thumb([String:ProductImageData])
+    
+    
 }
