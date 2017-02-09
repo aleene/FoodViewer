@@ -837,6 +837,28 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         saveUpdatedProduct()
     }
 
+    func updated(frontImage: UIImage, languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        if updatedProduct!.frontImages == nil { updatedProduct!.frontImages = ProductImageSize() }
+
+        var images: [String:ProductImageData] = [:]
+        images[languageCode] = ProductImageData.init(image: frontImage)
+        updatedProduct?.frontImages?.display = images
+        saveUpdatedProduct()
+    }
+
+    func updated(nutritionImage: UIImage, languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.nutritionImages?.display[languageCode]?.image = nutritionImage
+        saveUpdatedProduct()
+    }
+
+    func updated(ingredientsImage: UIImage, languageCode: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct?.ingredientsImages?.display[languageCode]?.image = ingredientsImage
+        saveUpdatedProduct()
+    }
+
     private func initUpdatedProductWith(product: FoodProduct) {
         if updatedProduct == nil {
             updatedProduct = FoodProduct.init(product:product)

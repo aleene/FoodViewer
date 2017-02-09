@@ -296,14 +296,22 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
         case .nutritionImage:
             // are any nutrition images in the product
-            if product!.nutritionImages.display.count > 0 {
+            if product!.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
                 // is the data for the current language available?
                 // then fetch the image
-                if let result = product!.nutritionImages.display[currentLanguageCode!]?.fetch() {
+                if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
+                    if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
+                        cell?.nutritionFactsImage = image
+                    } else if let image = delegate!.updatedProduct!.nutritionImages!.display[delegate!.updatedProduct!.primaryLanguageCode!]?.image {
+                        cell?.nutritionFactsImage = image
+                    }
+                    return cell!
+                } else if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = product!.nutritionImages.display[currentLanguageCode!]?.image
+                        cell?.nutritionFactsImage = product!.nutritionImages!.display[currentLanguageCode!]?.image
                         return cell!
                     default:
                         searchResult = result.description()
@@ -315,11 +323,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         return cell!
                     }
                     // try to use the primary image
-                } else if let result = product!.nutritionImages.display[product!.primaryLanguageCode!]?.fetch() {
+                } else if let result = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = product!.nutritionImages.display[product!.primaryLanguageCode!]?.image
+                        cell?.nutritionFactsImage = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.image
                         return cell!
                     default:
                         searchResult = result.description()
@@ -426,8 +434,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         selectedIndexPath = indexPath
     }
     
-    fileprivate struct TableStructure {
-        struct SectionSize {
+    fileprivate struct TableSections {
+        struct Size {
             static let NutritionFactsImage = 1
             static let ServingSize = 1
             static let NutritionFactsEmpyt = 1
@@ -435,12 +443,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let PerUnit = 1
             static let NutrimentsAvailable = 1
         }
-        static let NutritionFactItemsSectionHeader = NSLocalizedString("Nutrition Facts", comment: "Tableview header section for the list of nutritional facts")
-        static let NutritionFactsImageSectionHeader = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
-        static let ServingSizeSectionHeader = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.")
-        static let AddNutrientSectionHeader = "No Add Nutrient Header"
-        static let PerUnitSectionHeader = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
-        static let NutrimentsAvailableSectionHeader = NSLocalizedString("Nutriments Availability", comment: "Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package.")
+        struct Header {
+            static let NutritionFactItems = NSLocalizedString("Nutrition Facts", comment: "Tableview header section for the list of nutritional facts")
+            static let NutritionFactsImage = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
+            static let ServingSize = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.")
+            static let AddNutrient = "No Add Nutrient Header"
+            static let PerUnit = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
+            static let NutrimentsAvailable = NSLocalizedString("Nutriments Availability", comment: "Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package.")
+        }
     }
     
     func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
@@ -534,16 +544,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // the product has no nutriments indicated
             sectionsAndRows.append(
                 ( SectionType.noNutrimentsAvailable,
-                  TableStructure.SectionSize.NutrimentsAvailable,
-                  TableStructure.NutrimentsAvailableSectionHeader )
+                  TableSections.Size.NutrimentsAvailable,
+                  TableSections.Header.NutrimentsAvailable )
             )
         } else {
             
             if editMode {
                 sectionsAndRows.append(
                     ( SectionType.noNutrimentsAvailable,
-                      TableStructure.SectionSize.NutrimentsAvailable,
-                      TableStructure.NutrimentsAvailableSectionHeader )
+                      TableSections.Size.NutrimentsAvailable,
+                      TableSections.Header.NutrimentsAvailable )
                 )
             }
             
@@ -551,21 +561,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // 0 : how the nutrients are shown section
             sectionsAndRows.append(
                 ( SectionType.perUnit,
-                  TableStructure.SectionSize.PerUnit,
-                  TableStructure.PerUnitSectionHeader )
+                  TableSections.Size.PerUnit,
+                  TableSections.Header.PerUnit )
             )
         
             // 0 : nutrition facts
             if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
                 sectionsAndRows.append((
                     SectionType.nutritionFacts,
-                    TableStructure.SectionSize.NutritionFactsEmpyt,
-                    TableStructure.NutritionFactItemsSectionHeader))
+                    TableSections.Size.NutritionFactsEmpyt,
+                    TableSections.Header.NutritionFactItems))
             } else {
                 sectionsAndRows.append((
                     SectionType.nutritionFacts,
                     adaptedNutritionFacts.count,
-                    TableStructure.NutritionFactItemsSectionHeader))
+                    TableSections.Header.NutritionFactItems))
             }
         
         // 1: Add nutrient Button only in editMode
@@ -573,21 +583,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         if editMode {
             sectionsAndRows.append((
             SectionType.addNutrient,
-            TableStructure.SectionSize.AddNutrient,
-            TableStructure.AddNutrientSectionHeader))
+            TableSections.Size.AddNutrient,
+            TableSections.Header.AddNutrient))
         }
     
         // 1 or 2:  serving size
         sectionsAndRows.append((
             SectionType.servingSize,
-            TableStructure.SectionSize.ServingSize,
-            TableStructure.ServingSizeSectionHeader))
+            TableSections.Size.ServingSize,
+            TableSections.Header.ServingSize))
         
         // 2 or 3: image section
             sectionsAndRows.append((
                 SectionType.nutritionImage,
-                TableStructure.SectionSize.NutritionFactsImage,
-                TableStructure.NutritionFactsImageSectionHeader))
+                TableSections.Size.NutritionFactsImage,
+                TableSections.Header.NutritionFactsImage))
         
         }
         return sectionsAndRows
@@ -613,22 +623,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             switch identifier {
             case Storyboard.ShowNutritionFactsImageSegueIdentifier:
                 if let vc = segue.destination as? imageViewController {
-                    if product!.nutritionImages.display.count > 0 {
+                    if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
+                        if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
+                            vc.image = image
+                        } else if let image = delegate!.updatedProduct!.nutritionImages!.display[delegate!.updatedProduct!.primaryLanguageCode!]?.image {
+                            vc.image = image
+                        }
+                        vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
+                    } else if product?.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
                         // is the data for the current language available?
                         // then fetch the image
-                        if let result = product!.nutritionImages.display[currentLanguageCode!]?.fetch() {
+                        if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
-                                vc.image = product!.nutritionImages.display[currentLanguageCode!]?.image
+                                vc.image = product!.nutritionImages!.display[currentLanguageCode!]?.image
                                 vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
                             default:
                                 vc.image = nil
                             }
                             // try to use the primary image
-                        } else if let result = product!.nutritionImages.display[product!.primaryLanguageCode!]?.fetch() {
+                        } else if let result = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
-                                vc.image = product!.nutritionImages.display[product!.primaryLanguageCode!]?.image
+                                vc.image = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.image
                                 vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
                             default:
                                 vc.image = nil

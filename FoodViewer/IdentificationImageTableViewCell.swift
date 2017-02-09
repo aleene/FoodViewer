@@ -10,8 +10,29 @@ import UIKit
 
 class IdentificationImageTableViewCell: UITableViewCell {
 
+    internal struct Notification {
+        static let AddImageTappedKey = "IdentificationImageTableViewCell.Notification.AddImageTapped.Key"
+    }
+
     fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
+    }
+
+    @IBOutlet weak var addImageButton: UIButton! {
+        didSet {
+            addImageButton.isHidden = !editMode
+        }
+    }
+    
+    @IBAction func addImageButtonTapped(_ sender: UIButton) {
+        let userInfo = [Notification.AddImageTappedKey:sender]
+        NotificationCenter.default.post(name: .AddImageTapped, object: nil, userInfo: userInfo)
+    }
+    
+    var editMode: Bool = false {
+        didSet {
+            addImageButton?.isHidden = !editMode
+        }
     }
 
     var identificationImage: UIImage? = nil {
@@ -55,3 +76,9 @@ class IdentificationImageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var identificationImageView: UIImageView!
 }
+
+// Definition:
+extension Notification.Name {
+    static let AddImageTapped = Notification.Name("IdentificationImageTableViewCell.Notification.AddImageTapped")
+}
+

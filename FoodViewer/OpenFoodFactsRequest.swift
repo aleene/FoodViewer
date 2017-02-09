@@ -149,7 +149,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.frontImages.display = images
+                    if product.frontImages == nil { product.frontImages = ProductImageSize() }
+                    product.frontImages?.display = images
                 }
                     
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.ThumbKey].dictionaryObject {
@@ -161,7 +162,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.frontImages.thumb = images
+                    if product.frontImages == nil { product.frontImages = ProductImageSize() }
+                    product.frontImages?.thumb = images
                 }
                     
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.SmallKey].dictionaryObject {
@@ -173,7 +175,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.frontImages.small = images
+                    if product.frontImages == nil { product.frontImages = ProductImageSize() }
+                    product.frontImages?.small = images
                 }
                 
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.DisplayKey].dictionaryObject {
@@ -185,7 +188,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.nutritionImages.display = images
+                    if product.nutritionImages == nil { product.nutritionImages = ProductImageSize() }
+                    product.nutritionImages?.display = images
                 }
                     
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.ThumbKey].dictionaryObject {
@@ -197,7 +201,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.nutritionImages.thumb = images
+                    if product.nutritionImages == nil { product.nutritionImages = ProductImageSize() }
+                    product.nutritionImages?.thumb = images
                 }
                     
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.SmallKey].dictionaryObject {
@@ -209,7 +214,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.nutritionImages.small = images
+                    if product.nutritionImages == nil { product.nutritionImages = ProductImageSize() }
+                    product.nutritionImages?.small = images
                 }
                 
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.DisplayKey].dictionaryObject {
@@ -221,7 +227,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.ingredientsImages.display = images
+                    if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
+                    product.ingredientsImages?.display = images
                 }
                     
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.ThumbKey].dictionaryObject {
@@ -233,7 +240,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.ingredientsImages.thumb = images
+                    if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
+                    product.ingredientsImages?.thumb = images
                 }
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
@@ -244,7 +252,8 @@ class OpenFoodFactsRequest {
                             }
                         }
                     }
-                    product.ingredientsImages.small = images
+                    if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
+                    product.ingredientsImages?.small = images
                 }
 
                 // print(product.name, product.languageCodes, product.nameLanguage)

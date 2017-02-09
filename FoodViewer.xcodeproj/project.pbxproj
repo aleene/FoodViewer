@@ -36,8 +36,8 @@
 		5125AB8F1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */; };
 		5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDEE1E48A03600944FE8 /* ProductImageData.swift */; };
 		5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */; };
-		5127CDF31E48A21400944FE8 /* ProductImageCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF21E48A21400944FE8 /* ProductImageCategory.swift */; };
 		5127CDF51E48B64D00944FE8 /* ConfirmProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF41E48B64D00944FE8 /* ConfirmProductTableViewController.swift */; };
+		5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */; };
 		51352FBB1DA6570E008FF151 /* ProductPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */; };
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
@@ -218,8 +218,8 @@
 		5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryTableViewCell.swift; sourceTree = "<group>"; };
 		5127CDEE1E48A03600944FE8 /* ProductImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageData.swift; sourceTree = "<group>"; };
 		5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageSize.swift; sourceTree = "<group>"; };
-		5127CDF21E48A21400944FE8 /* ProductImageCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageCategory.swift; sourceTree = "<group>"; };
 		5127CDF41E48B64D00944FE8 /* ConfirmProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmProductTableViewController.swift; sourceTree = "<group>"; };
+		5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageSourceViewController.swift; sourceTree = "<group>"; };
 		512C368D1D89A7850004C297 /* 5411788045285.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 5411788045285.json; sourceTree = "<group>"; };
 		51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductPageViewController.swift; sourceTree = "<group>"; };
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
@@ -387,6 +387,7 @@
 				51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
 				5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */,
+				5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */,
 			);
 			name = EditPages;
 			sourceTree = "<group>";
@@ -617,7 +618,6 @@
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
 				5127CDEE1E48A03600944FE8 /* ProductImageData.swift */,
 				5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */,
-				5127CDF21E48A21400944FE8 /* ProductImageCategory.swift */,
 				5176AAEA1CA44F5A00B0494A /* Address.swift */,
 				516B32801C75F2430031EF80 /* BarcodeType.swift */,
 				516B32881C75F74F0031EF80 /* CompletionState.swift */,
@@ -929,6 +929,7 @@
 				511459341CB138DC00D25116 /* Node.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
+				5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
 				516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,
@@ -970,7 +971,6 @@
 				5157426E1CDB63B200BE8E2D /* RSCodeGenerator.swift in Sources */,
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,
-				5127CDF31E48A21400944FE8 /* ProductImageCategory.swift in Sources */,
 				51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */,
 				5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */,
 				5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */,

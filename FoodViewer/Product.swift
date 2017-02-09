@@ -92,9 +92,9 @@ class FoodProduct {
     }
     
     // a complex structure with all the images
-    var frontImages = ProductImageSize()
-    var nutritionImages = ProductImageSize()
-    var ingredientsImages = ProductImageSize()
+    var frontImages: ProductImageSize? = nil
+    var nutritionImages: ProductImageSize? = nil
+    var ingredientsImages: ProductImageSize? = nil
     
     var languageCodes: [String] = []
     

@@ -165,6 +165,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             static let ShowIdentificationImage = "Show Identification Image"
             static let ShowNamesLanguages = "Show Names Languages"
             static let ShowSelectMainLanguage = "Show Select Main Language Segue"
+            static let ShowImageSourceSelector = "Show Select Image Source Segue"
         }
     }
 
@@ -259,16 +260,37 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             return cell
             
         case .image:
+            if delegate?.updatedProduct?.frontImages?.display != nil && delegate!.updatedProduct!.frontImages!.display.count > 0 {
+                if let image = delegate!.updatedProduct!.frontImages!.display[currentLanguageCode!]?.image {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                    cell?.editMode = editMode
+                    cell?.identificationImage = image
+                    return cell!
+                /*} else if let image = delegate!.updatedProduct!.frontImages!.display[primaryLanguageCode]?.image {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                    cell?.editMode = editMode
+                    cell?.identificationImage = image
+                    return cell! */
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    searchResult = "No image in the right language"
+                    return cell!
+                }
             // in all the front images find the display images
-            if product!.frontImages.display.count > 0 {
+            } else if product!.frontImages != nil && product!.frontImages!.display.count > 0 {
                     // is the data for the current language available?
                     // then fetch the image
-                if let result = product!.frontImages.display[currentLanguageCode!]?.fetch() {
+                if let result = product!.frontImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages.display[currentLanguageCode!]?.image
-                            return cell!
+                        cell?.identificationImage = product!.frontImages!.display[currentLanguageCode!]?.image
+                        cell?.editMode = editMode
+                        return cell!
                     default:
                         searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
@@ -279,11 +301,12 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                         return cell!
                     }
                         // try to use the primary image
-                } else if let result = product!.frontImages.display[product!.primaryLanguageCode!]?.fetch() {
+                } else if let result = product!.frontImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages.display[product!.primaryLanguageCode!]?.image
+                        cell?.identificationImage = product!.frontImages!.display[product!.primaryLanguageCode!]?.image
+                        cell?.editMode = editMode
                         return cell!
                     default:
                         searchResult = result.description()
@@ -406,23 +429,28 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentificationImage:
                 if let vc = segue.destination as? imageViewController {
-                    if product!.frontImages.display.count > 0 {
+                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                    if delegate?.updatedProduct?.frontImages?.display != nil && delegate!.updatedProduct!.frontImages!.display.count > 0 {
+                        if let image = delegate!.updatedProduct!.frontImages!.display[currentLanguageCode!]?.image {
+                            vc.image = image
+                        } else if let image = delegate!.updatedProduct!.frontImages!.display[currentLanguageCode!]?.image {
+                            vc.image = image
+                        }
+                    } else if product!.frontImages !=  nil && product!.frontImages!.display.count > 0 {
                         // is the data for the current language available?
                             // then fetch the image
-                        if let result = product!.frontImages.display[currentLanguageCode!]?.fetch() {
+                        if let result = product!.frontImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
-                                vc.image = product!.frontImages.display[currentLanguageCode!]?.image
-                                vc.imageTitle = TextConstants.ShowIdentificationTitle
+                                vc.image = product!.frontImages!.display[currentLanguageCode!]?.image
                             default:
-                                vc.image = nil
+                                break
                             }
                                 // try to use the primary image
-                    } else if let result = product!.frontImages.display[product!.primaryLanguageCode!]?.fetch() {
+                } else if let result = product!.frontImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
-                                vc.image = product!.frontImages.display[product!.primaryLanguageCode!]?.image
-                                vc.imageTitle = TextConstants.ShowIdentificationTitle
+                                vc.image = product!.frontImages!.display[product!.primaryLanguageCode!]?.image
                             default:
                                 vc.image = nil
                             }
@@ -474,31 +502,28 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                         }
                     }
                 }
+            case Storyboard.SegueIdentifier.ShowImageSourceSelector:
+                if let vc = segue.destination as? SelectImageSourceViewController {
+                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? IdentificationImageTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.delegate = self
+                            }
+                        }
+                    }
+                }
             default: break
             }
         }
     }
-    
-    /*
-    // function that defines a pixel on the bottom center of a frame
-    private func bottomCenter(_ frame: CGRect) -> CGRect {
-        var newFrame = frame
-        newFrame.origin.y += frame.size.height * 1.5
-        newFrame.origin.x += frame.size.width / 2
-        newFrame.size.height = 1
-        newFrame.size.width = 1
-        return newFrame
-    }
-    
-    // function that defines a pixel on the bottom center of a frame
-    private func leftMiddle(_ frame: CGRect) -> CGRect {
-        var newFrame = frame
-        newFrame.origin.y += frame.size.height / 2
-        newFrame.size.height = 1
-        newFrame.size.width = 1
-        return newFrame
-    }
- */
 
     @IBAction func unwindChangeMainLanguageForCancel(_ segue:UIStoryboardSegue) {
         // nothing needs to be done
@@ -572,6 +597,28 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
         }
     }
+    
+    func showSelectImageSource(_ notification: Notification) {
+        if let sender = notification.userInfo?[IdentificationImageTableViewCell.Notification.AddImageTappedKey] {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImageSourceSelector, sender: sender)
+        }
+    }
+
+    func imageHasBeenUpdated(_ notification: Notification) {
+        if notification.userInfo?[SelectImageSourceViewController.Notification.ImageTypeKey] as! String == SelectImageSourceViewController.Notification.FrontValue {
+            // update the updatedProduct with the new image
+            var image: UIImage? = nil
+            image = notification.userInfo?[UIImagePickerControllerEditedImage] as? UIImage
+            if image == nil {
+                image = notification.userInfo?[UIImagePickerControllerOriginalImage] as? UIImage
+            }
+            if image != nil {
+                delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
+                tableView.reloadData()
+            }
+        }
+    }
+
 
     func removeProduct() {
         product = nil
@@ -603,6 +650,8 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showLanguageSelector), name:.LanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showSelectImageSource(_:)), name:.AddImageTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageHasBeenUpdated(_:)), name:.ImageHasBeenChanged, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -15,9 +15,10 @@ class ProductImageData {
         didSet {
             if fetchResult != nil {
                 switch fetchResult! {
-                case .success:
+                case .success(let data):
                     // encode the url, so it can be determined if the receiver need to act on it.
                     NotificationCenter.default.post(name: .ImageSet, object: nil)
+                    image = UIImage(data:data)
                 default:
                     break
                 }
@@ -25,17 +26,7 @@ class ProductImageData {
         }
     }
 
-    var image: UIImage? {
-        get {
-            guard fetchResult != nil else { return nil}
-            switch fetchResult! {
-            case .success(let data):
-                return UIImage(data:data)
-            default:
-                return nil
-            }
-        }
-    }
+    var image: UIImage? = nil
     
     init() {
         url = nil
@@ -45,6 +36,12 @@ class ProductImageData {
     init(url: URL) {
         self.url = url
         fetchResult = nil
+    }
+    
+    init(image: UIImage) {
+        self.url = nil
+        fetchResult = nil
+        self.image = image
     }
     
     func fetch() -> ImageFetchResult? {

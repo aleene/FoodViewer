@@ -13,5 +13,4 @@ struct ProductImageSize {
     var small: [String:ProductImageData] = [:]
     var thumb: [String:ProductImageData] = [:]
     
-    
 }

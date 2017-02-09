@@ -203,14 +203,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .image:
             // in all the front images find the display images
-            if product!.frontImages.display.count > 0 {
+            if product!.ingredientsImages != nil && product!.ingredientsImages!.display.count > 0 {
                 // is the data for the current language available?
                 // then fetch the image
-                if let result = product!.ingredientsImages.display[currentLanguageCode!]?.fetch() {
+                if let result = product!.ingredientsImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
-                        cell?.ingredientsImage = product!.ingredientsImages.display[currentLanguageCode!]?.image
+                        cell?.ingredientsImage = product!.ingredientsImages!.display[currentLanguageCode!]?.image
                         return cell!
                     default:
                         searchResult = result.description()
@@ -222,11 +222,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         return cell!
                     }
                     // try to use the primary image
-                } else if let result = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.fetch() {
+                } else if let result = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
-                        cell?.ingredientsImage = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.image
+                        cell?.ingredientsImage = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.image
                         return cell!
                     default:
                         searchResult = result.description()
@@ -397,22 +397,22 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch identifier {
             case Storyboard.ShowIdentificationSegueIdentifier:
                 if let vc = segue.destination as? imageViewController {
-                    if product!.ingredientsImages.display.count > 0 {
+                    if product?.ingredientsImages != nil && product!.ingredientsImages!.display.count > 0 {
                         // is the data for the current language available?
                         // then fetch the image
-                        if let result = product!.ingredientsImages.display[currentLanguageCode!]?.fetch() {
+                        if let result = product!.ingredientsImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
-                                vc.image = product!.ingredientsImages.display[currentLanguageCode!]?.image
+                                vc.image = product!.ingredientsImages!.display[currentLanguageCode!]?.image
                                 vc.imageTitle = TextConstants.ShowIdentificationTitle
                             default:
                                 vc.image = nil
                             }
                             // try to use the primary image
-                        } else if let result = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.fetch() {
+                        } else if let result = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
-                                vc.image = product!.ingredientsImages.display[product!.primaryLanguageCode!]?.image
+                                vc.image = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.image
                                 vc.imageTitle = TextConstants.ShowIdentificationTitle
                             default:
                                 vc.image = nil
