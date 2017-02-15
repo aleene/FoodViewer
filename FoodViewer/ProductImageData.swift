@@ -54,6 +54,10 @@ class ProductImageData {
         }
         return fetchResult
     }
+    
+    func reset() {
+        fetchResult = nil
+    }
 }
 
 // Definition:

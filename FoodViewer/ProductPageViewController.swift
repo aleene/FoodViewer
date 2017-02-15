@@ -849,13 +849,22 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     func updated(nutritionImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
-        updatedProduct?.nutritionImages?.display[languageCode]?.image = nutritionImage
+        if updatedProduct!.nutritionImages == nil { updatedProduct!.nutritionImages = ProductImageSize() }
+        
+        var images: [String:ProductImageData] = [:]
+        images[languageCode] = ProductImageData.init(image: nutritionImage)
+        updatedProduct?.nutritionImages?.display = images
         saveUpdatedProduct()
     }
 
     func updated(ingredientsImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
-        updatedProduct?.ingredientsImages?.display[languageCode]?.image = ingredientsImage
+        if updatedProduct!.ingredientsImages == nil { updatedProduct!.ingredientsImages = ProductImageSize() }
+        
+        var images: [String:ProductImageData] = [:]
+        images[languageCode] = ProductImageData.init(image: ingredientsImage)
+
+        updatedProduct?.ingredientsImages?.display = images
         saveUpdatedProduct()
     }
 

@@ -46,5 +46,40 @@ class IngredientsImageTableViewCell: UITableViewCell {
         }
     }
 
+    var editMode: Bool = false {
+        didSet {
+            takePhotoButton?.isHidden = !editMode
+            selectFromCameraRollButton?.isHidden = !editMode
+        }
+    }
+
     @IBOutlet weak var ingredientsImageView: UIImageView!
+    @IBOutlet weak var takePhotoButton: UIButton! {
+        didSet {
+            takePhotoButton.isHidden = !editMode
+        }
+    }
+
+    
+    @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .IngredientsTakePhotoButtonTapped, object: nil)
+    }
+    
+    @IBOutlet weak var selectFromCameraRollButton: UIButton! {
+        didSet {
+            selectFromCameraRollButton.isHidden = !editMode
+        }
+    }
+
+    
+    @IBAction func selectFromCamerRollButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .IngredientsSelectFromCameraRollButtonTapped, object: nil)
+    }
+}
+
+// Definition:
+extension Notification.Name {
+    // static let AddImageTapped = Notification.Name("IdentificationImageTableViewCell.Notification.AddImageTapped")
+    static let IngredientsTakePhotoButtonTapped = Notification.Name("IngredientsImageTableViewCell.Notification.TakePhotoButtonTapped")
+    static let IngredientsSelectFromCameraRollButtonTapped = Notification.Name("IngredientsImageTableViewCell.Notification.SelectCameraFromRollButtonTapped")
 }

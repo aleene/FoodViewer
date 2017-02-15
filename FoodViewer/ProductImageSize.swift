@@ -12,5 +12,17 @@ struct ProductImageSize {
     var display:[String:ProductImageData] = [:]
     var small: [String:ProductImageData] = [:]
     var thumb: [String:ProductImageData] = [:]
-    
+ 
+    mutating func reset() {
+        for pair in display {
+            pair.value.fetchResult = nil
+        }
+        for pair in small {
+            pair.value.fetchResult = nil
+        }
+        for pair in thumb {
+            pair.value.fetchResult = nil
+        }
+
+    }
 }

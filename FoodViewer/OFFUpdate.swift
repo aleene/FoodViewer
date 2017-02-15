@@ -9,6 +9,7 @@
 //
 
 import Foundation
+    import UIKit
 
 class OFFUpdate {
     
@@ -89,7 +90,7 @@ class OFFUpdate {
         // update only the fields that have something defined, i.e. are not nil
         var productUpdated: Bool = false
         
-        let interfaceLanguage = Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
+        let interfaceLanguageCode = Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
 
         guard product != nil else { return .failure("OFFUpdate: No product defined") }
 
@@ -220,7 +221,7 @@ class OFFUpdate {
         switch product!.packagingArray {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + product!.packagingArray.prefixedList(interfaceLanguage).joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + product!.packagingArray.prefixedList(interfaceLanguageCode).joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging)
@@ -232,7 +233,7 @@ class OFFUpdate {
         switch product!.labelArray {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + product!.labelArray.prefixedList(interfaceLanguage).joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + product!.labelArray.prefixedList(interfaceLanguageCode).joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels)
@@ -244,7 +245,7 @@ class OFFUpdate {
         switch product!.traces {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + product!.traces.prefixedList(interfaceLanguage).joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + product!.traces.prefixedList(interfaceLanguageCode).joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces)
@@ -256,7 +257,7 @@ class OFFUpdate {
         switch product!.categories {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + product!.categories.prefixedList(interfaceLanguage).joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + product!.categories.prefixedList(interfaceLanguageCode).joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories)
@@ -301,6 +302,20 @@ class OFFUpdate {
                 productUpdated = true
             }
         }
+        
+        let languageCodeToUse = product!.primaryLanguageCode != nil ? product!.primaryLanguageCode! : interfaceLanguageCode
+
+        if let frontImages = product!.frontImages?.display {
+            uploadImages(frontImages, barcode: product!.barcode.asString(), id:"front", primaryLanguageCode: languageCodeToUse)
+        }
+
+        if let ingredientsImages = product!.ingredientsImages?.display {
+            uploadImages(ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients", primaryLanguageCode: languageCodeToUse)
+        }
+
+        if let nutritionImages = product!.nutritionImages?.display {
+            uploadImages(nutritionImages, barcode: product!.barcode.asString(), id:"nutrition", primaryLanguageCode: languageCodeToUse)
+        }
 
         if productUpdated {
             if let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
@@ -322,11 +337,283 @@ class OFFUpdate {
         return .failure("OFFUpdate Error: No product changes detected")
     }
 
+    private func uploadImages(_ images: [String:ProductImageData], barcode: String, id: String, primaryLanguageCode: String) {
+
+        for image in images {
+            guard image.value.image != nil else { return }
+
+            // start by unselecting any existing image
+            postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
+                                         OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:image.key)
+                                // Adding credentials are not accepted
+                                //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
+                                //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
+                                        ],
+                            url: OFFHttpPost.URL.Unselect)
+            post(image: image.value.image!,
+                      parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
+                                   OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:image.key),
+                                   OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
+                                   OFFHttpPost.AddParameter.Password: OFFAccount().password],
+                      imageType: id, url: OFFHttpPost.URL.Add,
+                      languageCode: image.key)
+            /*
+            post2(image: image.value.image!,
+                      with: OFFHttpPost.imageName(for: id, in: image.key),
+                      parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
+                                   OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.imageFieldValue(for:id, in:image.key),
+                                   OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
+                                   OFFHttpPost.AddParameter.Password: OFFAccount().password],
+                      url: OFFHttpPost.URL.Add)
+     */
+        }
+    }
     
+    private func post(image: UIImage, parameters : Dictionary<String, String>, imageType: String, url : String, languageCode: String) {
+        let urlString = URL(string: url)
+        guard urlString != nil else { return }
+        
+        let data: Data? = UIImagePNGRepresentation(image)
+        guard data != nil else { return }
+        
+        
+        // let TWITTERFON_FORM_BOUNDARY:String = "FoodViewer"
+        // let MPboundary:String = "--\(TWITTERFON_FORM_BOUNDARY)"
+        // let endMPboundary:String = "\(MPboundary)--"
+        
+        let body:NSMutableString = NSMutableString();
+        
+        // parameters
+        for (key, value) in parameters {
+            body.appendFormat( Constants.TwoDash + HTTP.BoundaryValue + Constants.RN as NSString ) // "\(MPboundary)\r\n" as NSString)
+            body.appendFormat( HTTP.ContentDisposition + HTTP.NameKey + Constants.EscapedQuote + key + Constants.EscapedQuote + Constants.RN + Constants.RN as NSString ) //"Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" as NSString)
+            body.appendFormat( value + Constants.RN  as NSString) // "\(value)\r\n" as NSString)
+        }
+        
+        // image upload
+        body.appendFormat( Constants.TwoDash + HTTP.BoundaryValue + Constants.RN as NSString ) //"%@\r\n",MPboundary)
+
+        let string1 = HTTP.ContentDisposition
+        let string2 = HTTP.NameKey + Constants.EscapedQuote + OFFHttpPost.imageName(for: imageType, in: languageCode) + Constants.EscapedQuote + Constants.SemiColonSpace
+        let string3 = HTTP.FilenameKey + Constants.EscapedQuote + imageType + Constants.PNG + Constants.EscapedQuote + Constants.RN // "filename=\"\(imageType).png\"\r\n"
+        // "Content-Disposition: form-data; name=\"imgupload_\(imageType)_\(languageCode)\"; filename=\"\(imageType).png\"\r\n"
+        let string = string1 + string2 + string3 as NSString
+        body.appendFormat(string)
+        print("string", string)
+        
+        body.appendFormat( HTTP.ContentTypeImage + Constants.RN + Constants.RN as NSString ) // "Content-Type: image/png\r\n\r\n")
+        let end:String = Constants.RN + Constants.TwoDash + HTTP.BoundaryValue + Constants.TwoDash // "\r\n\(endMPboundary)"
+        
+        let myRequestData:NSMutableData = NSMutableData();
+        myRequestData.append(body.data(using: String.Encoding.utf8.rawValue)!)
+        myRequestData.append(data!)
+        myRequestData.append(end.data(using: String.Encoding.utf8)!)
+        
+        let content:String = HTTP.FormData + HTTP.BoundaryKey + HTTP.BoundaryValue // "multipart/form-data; boundary=\(TWITTERFON_FORM_BOUNDARY)"
+        let request = NSMutableURLRequest(url: urlString!) //, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        request.httpMethod = HTTP.Post
+        request.setValue(content, forHTTPHeaderField: HTTP.ContentType)
+        request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
+        request.httpBody = myRequestData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            guard let data = data else { return }
+            _ = self.unpackImageJSONObject( JSON(data: data) )
+        })
+        task.resume()
+    }
+    
+     private struct Constants {
+        static let TwoDash = "--"
+        static let EscapedQuote = "\""
+        static let RN = "\r\n"
+        static let ColonSpace = ": "
+        static let PNG = ".png"
+        static let SemiColonSpace = "; "
+     }
+     
+     private struct HTTP {
+        static let BoundaryValue = "FoodViewer"
+        static let ContentType = "Content-Type"
+        static let ContentTypeImage = "Content-Type: image/png"
+        static let ContentLength = "Content-Length"
+        static let Post = "POST"
+        static let FormData = "multipart/form-data; "
+        static let ContentDisposition = "Content-Disposition: form-data; "
+        static let PNG = "image/png"
+        static let BoundaryKey = "boundary="
+        static let FilenameKey = "filename="
+        static let NameKey = "name="
+     }
+     
+     
+     private func post2(image: UIImage, with name: String, parameters : Dictionary<String, String>, url : String) {
+        let urlString = URL(string: url)
+        guard urlString != nil else { return }
+     
+        let data: Data? = UIImagePNGRepresentation(image)
+        guard data != nil else { return }
+     
+        let body:NSMutableString = NSMutableString();
+     
+        // Set parameters
+        for (key, value) in parameters {
+            // --FoodViewer\r\n
+            body.appendFormat(Constants.TwoDash + HTTP.BoundaryValue + Constants.RN as NSString)
+            // Content-Disposition: form-data; name="key"\r\n\r\n
+            body.appendFormat(
+                HTTP.ContentDisposition +
+                HTTP.NameKey + Constants.EscapedQuote + "\(key)" + Constants.EscapedQuote +
+                Constants.RN + Constants.RN as NSString
+            )
+            // value\r\n
+            body.appendFormat("\(value)" + Constants.RN as NSString)
+        }
+     
+        // image upload
+     
+        // \r\n--FoodViewer
+        body.appendFormat( Constants.RN + Constants.TwoDash + HTTP.BoundaryValue as NSString )
+     
+        // Content-Disposition: form-data;
+        let string1 = HTTP.ContentDisposition
+        // name="imgupload_front_fr";
+        let string2 = HTTP.NameKey + Constants.EscapedQuote + name + Constants.EscapedQuote + Constants.SemiColonSpace
+        // filename="front.png"\r\n
+        let string3 = HTTP.FilenameKey + Constants.EscapedQuote + name + Constants.PNG + Constants.EscapedQuote + Constants.RN
+        body.appendFormat(string1 + string2 + string3 as NSString)
+     
+        // print("string", string)
+        body.appendFormat(
+            HTTP.ContentType +
+            Constants.ColonSpace +
+            HTTP.PNG +
+            Constants.RN +
+            Constants.RN as NSString)
+        
+        let end: String = Constants.RN + Constants.TwoDash + HTTP.BoundaryValue + Constants.TwoDash
+     
+        let myRequestData:NSMutableData = NSMutableData();
+        myRequestData.append(body.data(using: String.Encoding.utf8.rawValue)!)
+        myRequestData.append(data!)
+        myRequestData.append(end.data(using: String.Encoding.utf8)!)
+     
+        let content = HTTP.FormData + HTTP.BoundaryKey + HTTP.BoundaryValue
+        let request = NSMutableURLRequest(url: urlString!) //, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        request.httpMethod = HTTP.Post
+        request.setValue(content, forHTTPHeaderField: HTTP.ContentType)
+        request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
+        request.httpBody = myRequestData as Data
+     
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            guard let data = data else { return }
+            _ = self.unpackImageJSONObject( JSON(data: data) )
+        })
+        task.resume()
+    }
+    
+    private func postDelete(parameters : Dictionary<String, String>, url : String) {
+        let urlString = URL(string: url)
+        guard urlString != nil else { return }
+     
+        let TWITTERFON_FORM_BOUNDARY:String = "FoodViewer"
+        let MPboundary:String = "--\(TWITTERFON_FORM_BOUNDARY)"
+        let endMPboundary:String = "\(MPboundary)--"
+     
+        let body:NSMutableString = NSMutableString();
+     
+        // parameters
+        for (key, value) in parameters {
+            body.appendFormat("\(MPboundary)\r\n" as NSString)
+            body.appendFormat("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" as NSString)
+            body.appendFormat("\(value)\r\n" as NSString)
+        }
+     
+        let end:String = "\r\n\(endMPboundary)"
+     
+        let myRequestData:NSMutableData = NSMutableData();
+        myRequestData.append(body.data(using: String.Encoding.utf8.rawValue)!)
+        myRequestData.append(end.data(using: String.Encoding.utf8)!)
+        
+        let content:String = "multipart/form-data; boundary=\(TWITTERFON_FORM_BOUNDARY)"
+        let request = NSMutableURLRequest(url: urlString!) //, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 10)
+        request.httpMethod = "POST"
+        request.setValue(content, forHTTPHeaderField: "Content-Type")
+        request.setValue("\(myRequestData.length)", forHTTPHeaderField: "Content-Length")
+        request.httpBody = myRequestData as Data
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            data, response, error in
+            if error != nil {
+                print(error as Any)
+                return
+            }
+            guard let data = data else { return }
+            _ = self.unpackImageJSONObject( JSON(data: data) )
+        })
+        task.resume()
+    }
+
     fileprivate struct OFFJson {
         static let StatusKey = "status"
+        static let StatusCodeKey = "status_code"
+        static let ImageFieldKey = "imagefield"
         static let StatusVerboseKey = "status_verbose"
+        static let ImageIDKey = "imgid" // Int?
+        static let ErrorKey = "error"
     }
+    
+    private func unpackImageJSONObject(_ jsonObject: JSON) -> ProductUpdateStatus {
+        
+        // a json file is returned upon posting
+        
+        if let status = jsonObject[OFFHttpPost.ResultJson.Key.Status].string {
+            print("status", status)
+            if status != OFFHttpPost.ResultJson.Value.StatusOK {
+                // Post did NOT succeed
+                if let statusCode = jsonObject[OFFHttpPost.ResultJson.Key.StatusCode].string {
+                    print("statusCode not ok", statusCode)
+                }
+
+                if let imgid = jsonObject[OFFHttpPost.ResultJson.Key.ImageID].string {
+                    print("imgid not ok", imgid)
+                }
+                if let error = jsonObject[OFFHttpPost.ResultJson.Key.Error].string {
+                    print("error after not ok", error)
+                    return ProductUpdateStatus.failure(error)
+                }
+            } else {
+                // Post DID succeed
+                if let statusCode = jsonObject[OFFHttpPost.ResultJson.Key.StatusCode].string {
+                    print("statusCode ok", statusCode)
+                }
+                if let imageField = jsonObject[OFFHttpPost.ResultJson.Key.ImageField].string {
+                    print("imageField ok", imageField)
+                }
+
+                if let imgid = jsonObject[OFFHttpPost.ResultJson.Key.ImageID].int {
+                    print("imgid", imgid)
+                }
+                if let error = jsonObject[OFFHttpPost.ResultJson.Key.Error].string {
+                    print("error", error)
+                    return ProductUpdateStatus.failure(error)
+                }
+                return ProductUpdateStatus.success("Image upload succeeded")
+            }
+        }
+        return ProductUpdateStatus.failure(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
+    }
+
     
     private func unpackJSONObject(_ jsonObject: JSON) -> ProductUpdateStatus {
         
@@ -337,15 +624,15 @@ class OFFUpdate {
         if let resultStatus = jsonObject[OFFJson.StatusKey].int {
             if resultStatus == 0 {
                 // posting product updates did not work
-                if let statusVerbose = jsonObject[OFFJson.StatusVerboseKey].string {
+                if let statusVerbose = jsonObject[OFFJson.ErrorKey].string {
                     return ProductUpdateStatus.failure(statusVerbose)
+                }
+                if let error = jsonObject[OFFJson.StatusVerboseKey].string {
+                    return ProductUpdateStatus.failure(error)
                 }
             } else if resultStatus == 1 {
                 // posting did work out
                 // upon a realize update
-                // a json file is returned
-                // {"status_verbose":"fields saved","status":1}
-
                 if let statusVerbose = jsonObject[OFFJson.StatusVerboseKey].string {
                     return ProductUpdateStatus.success(statusVerbose)
                 }

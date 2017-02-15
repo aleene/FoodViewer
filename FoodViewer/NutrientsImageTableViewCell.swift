@@ -14,6 +14,33 @@ class NutrientsImageTableViewCell: UITableViewCell {
         static let CellContentViewMargin = CGFloat(8)
     }
 
+    @IBOutlet weak var takePhotoButton: UIButton! {
+        didSet {
+            takePhotoButton.isHidden = !editMode
+        }
+    }
+    
+    @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .NutritionTakePhotoButtonTapped, object: nil)
+    }
+    
+    @IBOutlet weak var useCameraRollButton: UIButton! {
+        didSet {
+            useCameraRollButton.isHidden = !editMode
+        }
+    }
+    
+    @IBAction func useCameraRollTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .NutritionSelectFromCameraRollButtonTapped, object: nil)
+    }
+    
+    var editMode: Bool = false {
+        didSet {
+            takePhotoButton?.isHidden = !editMode
+            useCameraRollButton?.isHidden = !editMode
+        }
+    }
+
     var nutritionFactsImage: UIImage? = nil {
         didSet {
             if let newImage = nutritionFactsImage {
@@ -50,3 +77,10 @@ class NutrientsImageTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nutrientsImageView: UIImageView!
 }
+
+// Definition:
+extension Notification.Name {
+    static let NutritionTakePhotoButtonTapped = Notification.Name("NutrientsImageTableViewCell.Notification.NutritionTakePhotoButtonTapped")
+    static let NutritionSelectFromCameraRollButtonTapped = Notification.Name("NutrientsImageTableViewCell.Notification.NutritionSelectFromCameraRollButtonTapped")
+}
+

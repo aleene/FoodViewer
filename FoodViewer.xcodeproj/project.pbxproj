@@ -122,6 +122,8 @@
 		51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */; };
 		51AFB00A1C734D6900598444 /* IdentificationImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB0091C734D6900598444 /* IdentificationImageTableViewCell.swift */; };
 		51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51AFB00D1C74876D00598444 /* ContributorTableViewCell.swift */; };
+		51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B11D271E4F37C400823630 /* OFFHttpPost.swift */; };
+		51B11D501E509DE900823630 /* test.json in Resources */ = {isa = PBXBuildFile; fileRef = 51B11D4F1E509DE900823630 /* test.json */; };
 		51B14FFF1CB2DD8B00A57D42 /* States.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51B14FFE1CB2DD8B00A57D42 /* States.plist */; };
 		51B150011CB2DF5D00A57D42 /* Additives.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51B150001CB2DF5C00A57D42 /* Additives.plist */; };
 		51B150031CB2DF9100A57D42 /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51B150021CB2DF9100A57D42 /* Allergens.plist */; };
@@ -310,6 +312,8 @@
 		51AFB0041C73455E00598444 /* IdentificationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationTableViewController.swift; sourceTree = "<group>"; };
 		51AFB0091C734D6900598444 /* IdentificationImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentificationImageTableViewCell.swift; sourceTree = "<group>"; };
 		51AFB00D1C74876D00598444 /* ContributorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContributorTableViewCell.swift; sourceTree = "<group>"; };
+		51B11D271E4F37C400823630 /* OFFHttpPost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFHttpPost.swift; sourceTree = "<group>"; };
+		51B11D4F1E509DE900823630 /* test.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test.json; sourceTree = "<group>"; };
 		51B14FFE1CB2DD8B00A57D42 /* States.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = States.plist; sourceTree = "<group>"; };
 		51B150001CB2DF5C00A57D42 /* Additives.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Additives.plist; sourceTree = "<group>"; };
 		51B150021CB2DF9100A57D42 /* Allergens.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Allergens.plist; sourceTree = "<group>"; };
@@ -430,6 +434,7 @@
 				51C29E3D1C6F89E800271708 /* 3608580744184.json */,
 				51FB32261CF1F4D100A17312 /* Macadamia.json */,
 				512C368D1D89A7850004C297 /* 5411788045285.json */,
+				51B11D4F1E509DE900823630 /* test.json */,
 			);
 			name = "Test files";
 			sourceTree = "<group>";
@@ -481,6 +486,7 @@
 				5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */,
 				511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */,
 				511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */,
+				51B11D271E4F37C400823630 /* OFFHttpPost.swift */,
 			);
 			name = OFF;
 			sourceTree = "<group>";
@@ -818,6 +824,7 @@
 				51A056FB1E31205F0099092E /* 40111490.json in Resources */,
 				517FC9311CD500C100CB89ED /* Localizable.strings in Resources */,
 				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
+				51B11D501E509DE900823630 /* test.json in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
 				5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */,
 				51B150011CB2DF5D00A57D42 /* Additives.plist in Resources */,
@@ -850,6 +857,7 @@
 				5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
 				512499A11C6CD0100061A083 /* imageViewController.swift in Sources */,
+				51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */,
 				517AAD531C7DB63A00B12F3C /* IngredientsImageTableViewCell.swift in Sources */,
 				51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */,
 				5148F0F11DD3291500EF1B67 /* Language.swift in Sources */,

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class IdentificationTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
+class IdentificationTableViewController: UITableViewController {
 
     
     private struct TextConstants {
@@ -318,8 +319,30 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                         return cell!
                     }
                 } else {
+                    if editMode {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                        cell?.identificationImage = nil
+                        cell?.editMode = editMode
+                        return cell!
+                    } else {
                         // image could not be found (yet)
                         searchResult = ImageFetchResult.noImageAvailable.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
+                }
+            } else {
+                if editMode {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                    cell?.identificationImage = nil
+                    cell?.editMode = editMode
+                    return cell!
+                } else {
+                    searchResult = ImageFetchResult.noImageAvailable.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
                     cell?.datasource = self
                     cell?.tag = indexPath.section
@@ -328,13 +351,6 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                     return cell!
                 }
             }
-            searchResult = ImageFetchResult.noImageAvailable.description()
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-            cell?.datasource = self
-            cell?.tag = indexPath.section
-            cell?.width = tableView.frame.size.width
-            cell?.scheme = ColorSchemes.error
-            return cell!
         }
     }
     
@@ -537,20 +553,6 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
             }
         }
     }
-    
-    // MARK: - Popover delegation functions
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.overFullScreen
-    }
-    
-    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
-        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
-        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
-        visualEffectView.frame = navcon.view.bounds
-        navcon.view.insertSubview(visualEffectView, at: 0)
-        return navcon
-    }
 
     // MARK: - Notification handler
     
@@ -598,12 +600,7 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         }
     }
     
-    func showSelectImageSource(_ notification: Notification) {
-        if let sender = notification.userInfo?[IdentificationImageTableViewCell.Notification.AddImageTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImageSourceSelector, sender: sender)
-        }
-    }
-
+    /*
     func imageHasBeenUpdated(_ notification: Notification) {
         if notification.userInfo?[SelectImageSourceViewController.Notification.ImageTypeKey] as! String == SelectImageSourceViewController.Notification.FrontValue {
             // update the updatedProduct with the new image
@@ -616,6 +613,48 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
                 delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
                 tableView.reloadData()
             }
+        }
+    }
+     */
+    
+    func takePhotoButtonTapped() {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.delegate = self
+            picker.allowsEditing = true
+            present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    func useCameraRollButtonTapped() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            let picker = UIImagePickerController()
+            picker.sourceType = .savedPhotosAlbum
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.delegate = self
+            picker.allowsEditing = false
+            // picker.modalPresentationStyle = .popover
+            present(picker, animated: true, completion: nil)
+            // let popoverPresentationController = picker.popoverPresentationController
+            // popoverPresentationController?.sourceView = sender
+            // popoverPresentationController?.sourceRect = tableView.frame
+            
+        }
+    }
+
+    fileprivate func newImageSelected(info: [String : Any]) {
+        var image: UIImage? = nil
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if image == nil {
+            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        }
+        if image != nil {
+            print("front image", image!.size)
+            delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
+            tableView.reloadData()
         }
     }
 
@@ -650,8 +689,9 @@ class IdentificationTableViewController: UITableViewController, UIPopoverPresent
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showLanguageSelector), name:.LanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showSelectImageSource(_:)), name:.AddImageTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageHasBeenUpdated(_:)), name:.ImageHasBeenChanged, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageHasBeenUpdated(_:)), name:.ImageHasBeenChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -930,4 +970,39 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         }
     }
     
+}
+
+// MARK: - UIImagePickerControllerDelegate Functions
+
+extension IdentificationTableViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        newImageSelected(info: info)
+        picker.dismiss(animated: true, completion: nil)
+    }
+
+}
+
+// MARK: - UIPopoverPresentationControllerDelegate Functions
+
+extension IdentificationTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.overFullScreen
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+
 }

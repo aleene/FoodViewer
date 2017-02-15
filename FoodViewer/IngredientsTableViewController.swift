@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class IngredientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
@@ -119,15 +120,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate struct Storyboard {
-        static let IngredientsCellIdentifier = "Ingredients Full Cell"
-        static let AllergensCellIdentifier = "Allergens TagList Cell"
-        static let TracesCellIdentifier = "Traces TagList Cell"
-        static let AdditivesCellIdentifier = "Additives TagList Cell"
-        static let LabelsCellIdentifier = "Labels TagList Cell"
-        static let IngredientsImageCellIdentifier = "Ingredients Image Cell"
-        static let NoImageCellIdentifier = "No Image Cell"
-        static let ShowIdentificationSegueIdentifier = "Show Ingredients Image"
-        static let SelectLanguageSegueIdentifier = "Show Ingredients Languages"
+        struct CellIdentifier {
+            static let Ingredients = "Ingredients Full Cell"
+            static let Allergens = "Allergens TagList Cell"
+            static let Traces = "Traces TagList Cell"
+            static let Additives = "Additives TagList Cell"
+            static let Labels = "Labels TagList Cell"
+            static let Image = "Ingredients Image Cell"
+            static let NoImage = "No Image Cell"
+        }
+        struct SegueIdentifier {
+            static let ShowIdentification = "Show Ingredients Image"
+            static let SelectLanguage = "Show Ingredients Languages"
+        }
     }
     
     fileprivate struct TextConstants {
@@ -151,7 +156,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // we assume that product exists
         switch currentProductSection {
         case .ingredients:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as? IngredientsFullTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as? IngredientsFullTableViewCell
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.textViewDelegate = self
             cell!.textViewTag = indexPath.section
@@ -170,14 +175,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell!
             
         case .allergens:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AllergensCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.tag = indexPath.section
             return cell
             
         case .traces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.TracesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -186,14 +191,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
             
         case .additives:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AdditivesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Additives, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.tag = indexPath.section
             return cell
             
         case .labels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LabelsCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Labels, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -202,19 +207,36 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
             
         case .image:
-            // in all the front images find the display images
-            if product!.ingredientsImages != nil && product!.ingredientsImages!.display.count > 0 {
+            // in all the ingredientsImages images find the display images
+            if delegate?.updatedProduct?.ingredientsImages?.display != nil && delegate!.updatedProduct!.ingredientsImages!.display.count > 0 {
+                if let image = delegate!.updatedProduct!.ingredientsImages!.display[currentLanguageCode!]?.image {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
+                    cell?.editMode = editMode
+                    cell?.ingredientsImage = image
+                    return cell!
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    searchResult = "No image in the right language"
+                    return cell!
+                }
+                // in all the ingredientsImages images find the display images
+            } else if product!.ingredientsImages != nil && product!.ingredientsImages!.display.count > 0 {
                 // is the data for the current language available?
                 // then fetch the image
                 if let result = product!.ingredientsImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
                         cell?.ingredientsImage = product!.ingredientsImages!.display[currentLanguageCode!]?.image
+                        cell?.editMode = editMode
                         return cell!
                     default:
                         searchResult = result.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
@@ -225,12 +247,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 } else if let result = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
                         cell?.ingredientsImage = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.image
+                        cell?.editMode = editMode
                         return cell!
                     default:
                         searchResult = result.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
@@ -238,51 +261,38 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         return cell!
                     }
                 } else {
-                    // image could not be found (yet)
-                    searchResult = ImageFetchResult.noImageAvailable.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    return cell!
-                }
-            }
-            searchResult = ImageFetchResult.noImageAvailable.description()
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
-            cell?.datasource = self
-            cell?.tag = indexPath.section
-            cell?.width = tableView.frame.size.width
-            cell?.scheme = ColorSchemes.error
-            return cell!
-/*
-            if let result = product?.getIngredientsImageData() {
-                switch result {
-                case .success(let data):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsImageCellIdentifier, for: indexPath) as? IngredientsImageTableViewCell
-                    cell?.ingredientsImage = UIImage(data:data)
-                    return cell!
-                default:
-                    searchResult = result.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                    cell?.tag = indexPath.section
-                    cell?.delegate = self
-                    cell?.width = tableView.frame.size.width
-                    cell?.datasource = self
-                    cell?.scheme = ColorSchemes.error
-                    return cell!
+                    if editMode {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
+                        cell?.ingredientsImage = nil
+                        cell?.editMode = editMode
+                        return cell!
+                    } else {
+                        // image could not be found (yet)
+                        searchResult = ImageFetchResult.noImageAvailable.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
                 }
             } else {
-                searchResult = ImageFetchResult.noImageAvailable.description()
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                cell?.tag = indexPath.section
-                cell?.delegate = self
-                cell?.width = tableView.frame.size.width
-                cell?.datasource = self
-                cell?.scheme = ColorSchemes.error
-                return cell!
+                if editMode {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
+                    cell?.ingredientsImage = nil
+                    cell?.editMode = editMode
+                    return cell!
+                } else {
+                    searchResult = ImageFetchResult.noImageAvailable.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    return cell!
+                }
             }
- */
         }
     }
     
@@ -327,19 +337,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return (product?.languageCodes[nextIndex])!
     }
 
-    fileprivate struct TableStructure {
-        static let IngredientsSectionSize = 1
-        static let AllergensSectionSize = 1
-        static let TracesSectionSize = 1
-        static let AdditivesSectionSize = 1
-        static let LabelsSectionSize = 1
-        static let ImageSectionSize = 1
-        static let IngredientsSectionHeader = NSLocalizedString("Ingredients", comment: "Header title for the product ingredients section.")
-        static let AllergensSectionHeader = NSLocalizedString("Allergens", comment: "Header title for the product allergens section, i.e. the allergens derived from the ingredients.")
-        static let TracesSectionHeader = NSLocalizedString("Traces", comment: "Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.")
-        static let AdditivesSectionHeader = NSLocalizedString("Additives", comment: "Header title for the product additives section, i.e. the additives are derived from the ingredients list.")
-        static let LabelsSectionHeader = NSLocalizedString("Labels", comment: "Header title for the product labels section, i.e. images, logos, etc.")
-        static let ImageSectionHeader = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
+    fileprivate struct TableSection {
+        struct Size {
+            static let Ingredients = 1
+            static let Allergens = 1
+            static let Traces = 1
+            static let Additives = 1
+            static let Labels = 1
+            static let Image = 1
+        }
+        struct Header {
+            static let Ingredients = NSLocalizedString("Ingredients", comment: "Header title for the product ingredients section.")
+            static let Allergens = NSLocalizedString("Allergens", comment: "Header title for the product allergens section, i.e. the allergens derived from the ingredients.")
+            static let Traces = NSLocalizedString("Traces", comment: "Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.")
+            static let Additives = NSLocalizedString("Additives", comment: "Header title for the product additives section, i.e. the additives are derived from the ingredients list.")
+            static let Labels = NSLocalizedString("Labels", comment: "Header title for the product labels section, i.e. images, logos, etc.")
+            static let Image = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
+        }
     }
     
     fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -353,39 +367,39 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         // 0: ingredients
         sectionsAndRows.append((SectionType.ingredients,
-            TableStructure.IngredientsSectionSize,
-            TableStructure.IngredientsSectionHeader))
+            TableSection.Size.Ingredients,
+            TableSection.Header.Ingredients))
         
         // 1:  allergens section
         sectionsAndRows.append((
             SectionType.allergens,
-            TableStructure.AllergensSectionSize,
-            TableStructure.AllergensSectionHeader))
+            TableSection.Size.Allergens,
+            TableSection.Header.Allergens))
         
         // 2: traces section
         sectionsAndRows.append((
             SectionType.traces,
-            TableStructure.TracesSectionSize,
-            TableStructure.TracesSectionHeader))
+            TableSection.Size.Traces,
+            TableSection.Header.Traces))
     
         // 3: additives section
         sectionsAndRows.append((
             SectionType.additives,
-            TableStructure.AdditivesSectionSize,
-            TableStructure.AdditivesSectionHeader))
+            TableSection.Size.Additives,
+            TableSection.Header.Additives))
         
         // 4: labels section
         sectionsAndRows.append((
             SectionType.labels,
-            TableStructure.LabelsSectionSize,
-            TableStructure.LabelsSectionHeader))
+            TableSection.Size.Labels,
+            TableSection.Header.Labels))
         
         
         // 5: image section
         sectionsAndRows.append((
             SectionType.image,
-            TableStructure.ImageSectionSize,
-            TableStructure.ImageSectionHeader))
+            TableSection.Size.Image,
+            TableSection.Header.Image))
         
         return sectionsAndRows
     }
@@ -395,25 +409,30 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowIdentificationSegueIdentifier:
+            case Storyboard.SegueIdentifier.ShowIdentification:
                 if let vc = segue.destination as? imageViewController {
-                    if product?.ingredientsImages != nil && product!.ingredientsImages!.display.count > 0 {
+                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                    if delegate?.updatedProduct?.ingredientsImages?.display != nil && delegate!.updatedProduct!.ingredientsImages!.display.count > 0 {
+                        if let image = delegate!.updatedProduct!.ingredientsImages!.display[currentLanguageCode!]?.image {
+                            vc.image = image
+                        } else if let image = delegate!.updatedProduct!.ingredientsImages!.display[currentLanguageCode!]?.image {
+                            vc.image = image
+                        }
+                    } else if product!.ingredientsImages !=  nil && product!.ingredientsImages!.display.count > 0 {
                         // is the data for the current language available?
                         // then fetch the image
                         if let result = product!.ingredientsImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
                                 vc.image = product!.ingredientsImages!.display[currentLanguageCode!]?.image
-                                vc.imageTitle = TextConstants.ShowIdentificationTitle
                             default:
-                                vc.image = nil
+                                break
                             }
                             // try to use the primary image
                         } else if let result = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
                             case .success:
                                 vc.image = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.image
-                                vc.imageTitle = TextConstants.ShowIdentificationTitle
                             default:
                                 vc.image = nil
                             }
@@ -422,7 +441,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         }
                     }
                 }
-            case Storyboard.SelectLanguageSegueIdentifier:
+            case Storyboard.SegueIdentifier.SelectLanguage:
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
@@ -446,34 +465,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         }
                     }
                 }
-/*
-            case Storyboard.SelectLanguageSegueIdentifier:
-                // pass the current language on to the popup vc
-                if let vc = segue.destination as? SelectLanguageViewController {
-                    // Corresponds this to the cell with the language button?
-                    if selectedSection != nil {
-                        if let currentCell = tableView.cellForRow(at: IndexPath.init(row: 0, section: selectedSection!)) as? IngredientsFullTableViewCell {
-                            // are we in a popovercontroller?
-                            // define the anchor point
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
-                                var anchorFrame = currentCell.changeLanguageButton.frame
-                                // anchorFrame.origin.x += currentCell.frame.origin.x
-                                anchorFrame.origin.y += currentCell.frame.origin.y
-                                ppc.sourceRect = leftMiddle(anchorFrame)
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                            }
-                            vc.currentLanguageCode = currentLanguageCode
-                            vc.languageCodes = product!.languageCodes
-                            vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
-                            vc.primaryLanguageCode = product?.primaryLanguageCode
-                            vc.sourcePage = 1
-                            vc.editMode = editMode
-                        }
-                    }
-                }
- */
             default: break
             }
         }
@@ -531,7 +522,42 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     func showLanguageSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[IngredientsFullTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SelectLanguageSegueIdentifier, sender: sender)
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectLanguage, sender: sender)
+        }
+    }
+
+    func takePhotoButtonTapped() {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.delegate = self
+            picker.allowsEditing = true
+            present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    func useCameraRollButtonTapped() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            let picker = UIImagePickerController()
+            picker.sourceType = .savedPhotosAlbum
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.delegate = self
+            picker.allowsEditing = false
+            present(picker, animated: true, completion: nil)
+        }
+    }
+
+    fileprivate func newImageSelected(info: [String : Any]) {
+        var image: UIImage? = nil
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if image == nil {
+            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        }
+        if image != nil {
+            delegate?.updated(ingredientsImage: image!, languageCode: currentLanguageCode!)
+            tableView.reloadData()
         }
     }
 
@@ -552,7 +578,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeLanguage), name:.IngredientsTextViewTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.showLanguageSelector), name:.IngredientsLanguageTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.takePhotoButtonTapped), name:.IngredientsTakePhotoButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.useCameraRollButtonTapped), name:.IngredientsSelectFromCameraRollButtonTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -756,4 +784,17 @@ extension IngredientsTableViewController: TagListViewDataSource {
 
 }
 
+extension IngredientsTableViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        newImageSelected(info: info)
+        picker.dismiss(animated: true, completion: nil)
+        // notify the delegate
+    }
+    
+}
 

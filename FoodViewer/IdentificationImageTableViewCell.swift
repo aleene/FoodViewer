@@ -10,30 +10,38 @@ import UIKit
 
 class IdentificationImageTableViewCell: UITableViewCell {
 
-    internal struct Notification {
-        static let AddImageTappedKey = "IdentificationImageTableViewCell.Notification.AddImageTapped.Key"
-    }
 
     fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
 
-    @IBOutlet weak var addImageButton: UIButton! {
+    @IBOutlet weak var takePhotoButton: UIButton! {
         didSet {
-            addImageButton.isHidden = !editMode
+            takePhotoButton.isHidden = !editMode
         }
     }
     
-    @IBAction func addImageButtonTapped(_ sender: UIButton) {
-        let userInfo = [Notification.AddImageTappedKey:sender]
-        NotificationCenter.default.post(name: .AddImageTapped, object: nil, userInfo: userInfo)
+    @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .FrontTakePhotoButtonTapped, object: nil)
     }
     
+    @IBOutlet weak var useCameraRollButton: UIButton! {
+        didSet {
+            useCameraRollButton.isHidden = !editMode
+        }
+    }
+    
+    @IBAction func useCameraRollTapped(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .FrontSelectFromCameraRollButtonTapped, object: nil)
+    }
+
     var editMode: Bool = false {
         didSet {
-            addImageButton?.isHidden = !editMode
+            takePhotoButton?.isHidden = !editMode
+            useCameraRollButton?.isHidden = !editMode
         }
     }
+    
 
     var identificationImage: UIImage? = nil {
         didSet {
@@ -79,6 +87,7 @@ class IdentificationImageTableViewCell: UITableViewCell {
 
 // Definition:
 extension Notification.Name {
-    static let AddImageTapped = Notification.Name("IdentificationImageTableViewCell.Notification.AddImageTapped")
+    static let FrontTakePhotoButtonTapped = Notification.Name("IdentificationImageTableViewCell.Notification.FrontTakePhotoButtonTapped")
+    static let FrontSelectFromCameraRollButtonTapped = Notification.Name("IdentificationImageTableViewCell.Notification.FrontSelectFromCameraRollButtonTapped")
 }
 

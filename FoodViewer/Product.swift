@@ -767,6 +767,10 @@ class FoodProduct {
             mainUrlThumb = product.mainUrlThumb
             mainImageUrl = product.mainImageUrl
             mainImageData = nil
+            frontImages = product.frontImages
+            ingredientsImages = product.ingredientsImages
+            //ingredientsImages.resetData()
+            nutritionImages = product.nutritionImages
             packagingArray = product.packagingArray
             quantity = product.quantity
             ingredientsLanguage = product.ingredientsLanguage

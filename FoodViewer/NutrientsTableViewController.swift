@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 class NutrientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
@@ -169,20 +170,27 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // MARK: - Table view data source
     
     fileprivate struct Storyboard {
-        static let NutritionFactCellIdentifier = "Nutrition Fact Cell"
-        static let ServingSizeCellIdentifier = "Serving Size Cell"
-        static let NoServingSizeCellIdentifier = "No Serving Size Cell"
-        static let NutritionFactsImageCellIdentifier = "Nutrition Facts Image Cell"
-        static let EmptyNutritionFactsImageCellIdentifier = "Empty Nutrition Facts Image Cell"
-        static let NoNutrientsImageCellIdentifier = "No Nutrition Image Cell"
-        static let AddNutrientCellIdentifier = "Add Nutrient Cell"
-        static let PerUnitCellIdentifier = "Per Unit Cell"
-        static let NoNutrimentsAvailableCellIdentifier = "Nutriments Available Cell"
-        static let ShowNutritionFactsImageSegueIdentifier = "Show Nutrition Facts Image"
-        static let AddNutrientSegue = "Add Nutrient Segue"
-        static let SelectNutrientUnitSegue = "Select Nutrient Unit Segue"
-        static let ShowNutritionFactsImageTitle = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
-        static let ViewControllerTitle = NSLocalizedString("Nutrition Facts", comment: "Title of the ViewController with the nutritional values")
+        struct CellIdentifier {
+            static let NutritionFact = "Nutrition Fact Cell"
+            static let ServingSize = "Serving Size Cell"
+            static let NoServingSize = "No Serving Size Cell"
+            static let Image = "Nutrition Facts Image Cell"
+            static let EmptyNutritionFacts = "Empty Nutrition Facts Image Cell"
+            static let NoImage = "No Nutrition Image Cell"
+            static let AddNutrient = "Add Nutrient Cell"
+            static let PerUnit = "Per Unit Cell"
+            static let NoNutrimentsAvailable = "Nutriments Available Cell"
+        }
+        
+        struct SegueIdentifier {
+            static let ShowNutritionFactsImage = "Show Nutrition Facts Image"
+            static let AddNutrient = "Add Nutrient Segue"
+            static let SelectNutrientUnit = "Select Nutrient Unit Segue"
+        }
+        struct Title {
+            static let ShowNutritionFactsImage = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
+            static let ViewController = NSLocalizedString("Nutrition Facts", comment: "Title of the ViewController with the nutritional values")
+        }
         static let PortionTag = 100
     }
     
@@ -215,12 +223,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         // we assume that product exists
         switch currentProductSection {
         case .noNutrimentsAvailable:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrimentsAvailableCellIdentifier, for: indexPath) as! NutrimentsAvailableTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
             cell.editMode = editMode
             cell.hasNutrimentFacts = delegate?.updatedProduct?.hasNutritionFacts != nil ? delegate!.updatedProduct!.nutrimentFactsAvailability : product!.nutrimentFactsAvailability
             return cell
         case .perUnit:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PerUnitCellIdentifier, for: indexPath) as! PerUnitTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PerUnit, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = showNutrientsAs
             cell.editMode = editMode
             cell.nutritionFactsAvailability = product!.nutritionFactsAreAvailable
@@ -228,7 +236,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell
         case .nutritionFacts:
             if adaptedNutritionFacts.isEmpty {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell
                 cell?.tag = indexPath.section
                 cell?.width = tableView.frame.size.width
                 cell?.datasource = self
@@ -250,7 +258,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 }
                 return cell!
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactCellIdentifier, for: indexPath) as? NutrientsTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
                 // warning set FIRST the saltOrSodium
                 cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
                 cell?.delegate = self
@@ -278,8 +286,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell?.editMode = editMode
                 return cell!
             }
+            
         case .servingSize:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ServingSizeCellIdentifier, for: indexPath) as? ServingSizeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ServingSize, for: indexPath) as? ServingSizeTableViewCell
             cell!.servingSizeTextField.delegate = self
             cell!.servingSizeTextField.tag = indexPath.section
             cell!.editMode = editMode
@@ -295,27 +304,40 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell!
 
         case .nutritionImage:
-            // are any nutrition images in the product
-            if product!.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
+            if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
+                if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
+                    cell?.editMode = editMode
+                    cell?.nutritionFactsImage = image
+                    return cell!
+                    /*} else if let image = delegate!.updatedProduct!.frontImages!.display[primaryLanguageCode]?.image {
+                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
+                     cell?.editMode = editMode
+                     cell?.identificationImage = image
+                     return cell! */
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    searchResult = "No image in the right language"
+                    return cell!
+                }
+                // in all the front images find the display images
+            } else if product!.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
                 // is the data for the current language available?
                 // then fetch the image
-                if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
-                    if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
-                        cell?.nutritionFactsImage = image
-                    } else if let image = delegate!.updatedProduct!.nutritionImages!.display[delegate!.updatedProduct!.primaryLanguageCode!]?.image {
-                        cell?.nutritionFactsImage = image
-                    }
-                    return cell!
-                } else if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
+                if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = product!.nutritionImages!.display[currentLanguageCode!]?.image
+                        cell?.editMode = editMode
                         return cell!
                     default:
                         searchResult = result.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
@@ -326,12 +348,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else if let result = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.image
+                        cell?.editMode = editMode
                         return cell!
                     default:
                         searchResult = result.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
@@ -339,56 +362,41 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         return cell!
                     }
                 } else {
-                    // image could not be found (yet)
-                    searchResult = ImageFetchResult.noImageAvailable.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    return cell!
-                }
-            }
-            searchResult = ImageFetchResult.noImageAvailable.description()
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell //
-            cell?.datasource = self
-            cell?.tag = indexPath.section
-            cell?.width = tableView.frame.size.width
-            cell?.scheme = ColorSchemes.error
-            return cell!
-
-            /*
-            if let result = product?.getNutritionImageData() {
-                switch result {
-                case .success(let data):
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NutritionFactsImageCellIdentifier, for: indexPath) as? NutrientsImageTableViewCell
-                    cell?.nutritionFactsImage = UIImage(data:data)
-                    return cell!
-                default:
-                    searchResult = result.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                    cell?.tag = indexPath.section
-                    // cell?.delegate = self
-                    cell?.width = tableView.frame.size.width
-                    cell?.datasource = self
-                    // cell?.editMode = editMode // cell is not editable
-                    cell?.scheme = ColorSchemes.error
-                    return cell!
+                    if editMode {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
+                        cell?.nutritionFactsImage = nil
+                        cell?.editMode = editMode
+                        return cell!
+                    } else {
+                        // image could not be found (yet)
+                        searchResult = ImageFetchResult.noImageAvailable.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        return cell!
+                    }
                 }
             } else {
-                searchResult = ImageFetchResult.noImageAvailable.description()
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.NoNutrientsImageCellIdentifier, for: indexPath) as? TagListViewTableViewCell
-                cell?.tag = indexPath.section
-                // cell?.delegate = self
-                cell?.width = tableView.frame.size.width
-                cell?.datasource = self
-                // cell?.editMode = editMode // cell is not editable
-                cell?.scheme = ColorSchemes.error
-                return cell!
+                if editMode {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
+                    cell?.nutritionFactsImage = nil
+                    cell?.editMode = editMode
+                    return cell!
+                } else {
+                    searchResult = ImageFetchResult.noImageAvailable.description()
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    return cell!
+                }
             }
- */
+
         case .addNutrient:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.AddNutrientCellIdentifier, for: indexPath) as! AddNutrientTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
             cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
             return cell
         }
@@ -438,7 +446,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         struct Size {
             static let NutritionFactsImage = 1
             static let ServingSize = 1
-            static let NutritionFactsEmpyt = 1
+            static let NutritionFactsEmpty = 1
             static let AddNutrient = 1
             static let PerUnit = 1
             static let NutrimentsAvailable = 1
@@ -494,14 +502,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
  */
     
-    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
+    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType, Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
         // And each element is a tuple with the section type and number of rows
         //
         //  The order of each element determines the order in the table
-        var sectionsAndRows: [(SectionType,Int, String?)] = []
+        var sectionsAndRows: [(SectionType, Int, String?)] = []
         
         // how does the user want the data presented
         switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
@@ -540,6 +548,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
         
         // Which sections are shown depends on whether the product has nutriment data
+        
+        // Are there any nutriments
         if ( !editMode && product.hasNutritionFacts != nil && !product.hasNutritionFacts! ) {
             // the product has no nutriments indicated
             sectionsAndRows.append(
@@ -549,6 +559,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             )
         } else {
             
+            // Section 0 : switch to indicate whether any nutritional data is available on the product
+            
             if editMode {
                 sectionsAndRows.append(
                     ( SectionType.noNutrimentsAvailable,
@@ -557,43 +569,48 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 )
             }
             
-            // the product has nutriments indicated
-            // 0 : how the nutrients are shown section
+            // Section 0 or 1 : presentation format
+            
             sectionsAndRows.append(
                 ( SectionType.perUnit,
                   TableSections.Size.PerUnit,
                   TableSections.Header.PerUnit )
             )
         
-            // 0 : nutrition facts
+            // Section 1 or 2 : nutrition facts
+            
             if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
+                // Show a tag indicating no nutrition facts have been specified
                 sectionsAndRows.append((
                     SectionType.nutritionFacts,
-                    TableSections.Size.NutritionFactsEmpyt,
+                    TableSections.Size.NutritionFactsEmpty,
                     TableSections.Header.NutritionFactItems))
             } else {
+                // show a list with nutrition facts
                 sectionsAndRows.append((
                     SectionType.nutritionFacts,
                     adaptedNutritionFacts.count,
                     TableSections.Header.NutritionFactItems))
             }
         
-        // 1: Add nutrient Button only in editMode
+            // Section 2 or 3 : Add nutrient Button only in editMode
         
-        if editMode {
-            sectionsAndRows.append((
-            SectionType.addNutrient,
-            TableSections.Size.AddNutrient,
-            TableSections.Header.AddNutrient))
-        }
+            if editMode {
+                sectionsAndRows.append((
+                    SectionType.addNutrient,
+                    TableSections.Size.AddNutrient,
+                    TableSections.Header.AddNutrient))
+            }
     
-        // 1 or 2:  serving size
-        sectionsAndRows.append((
-            SectionType.servingSize,
-            TableSections.Size.ServingSize,
-            TableSections.Header.ServingSize))
+            // Section 2 or 3 or 4 : serving size
+            
+            sectionsAndRows.append((
+                SectionType.servingSize,
+                TableSections.Size.ServingSize,
+                TableSections.Header.ServingSize))
         
-        // 2 or 3: image section
+            // Section 3 or 4 or 5: image section
+            
             sectionsAndRows.append((
                 SectionType.nutritionImage,
                 TableSections.Size.NutritionFactsImage,
@@ -605,13 +622,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        if indexPath.section >= 0 && indexPath.section < tableStructureForProduct.count {
+            let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
         
-        switch currentProductSection {
-        case .nutritionImage :
-            return indexPath
-        default:
-            break
+            switch currentProductSection {
+            case .nutritionImage :
+                return indexPath
+            default:
+                break
+            }
         }
         return nil
     }
@@ -621,7 +640,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowNutritionFactsImageSegueIdentifier:
+            case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
                 if let vc = segue.destination as? imageViewController {
                     if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
                         if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
@@ -629,7 +648,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         } else if let image = delegate!.updatedProduct!.nutritionImages!.display[delegate!.updatedProduct!.primaryLanguageCode!]?.image {
                             vc.image = image
                         }
-                        vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
+                        vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                     } else if product?.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
                         // is the data for the current language available?
                         // then fetch the image
@@ -637,7 +656,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             switch result {
                             case .success:
                                 vc.image = product!.nutritionImages!.display[currentLanguageCode!]?.image
-                                vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
+                                vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             default:
                                 vc.image = nil
                             }
@@ -646,7 +665,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             switch result {
                             case .success:
                                 vc.image = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.image
-                                vc.imageTitle = Storyboard.ShowNutritionFactsImageTitle
+                                vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             default:
                                 vc.image = nil
                             }
@@ -655,7 +674,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         }
                     }
                 }
-            case Storyboard.AddNutrientSegue:
+            case Storyboard.SegueIdentifier.AddNutrient:
                 if let vc = segue.destination as? AddNutrientViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -673,7 +692,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         }
                     }
                 }
-            case Storyboard.SelectNutrientUnitSegue:
+            case Storyboard.SegueIdentifier.SelectNutrientUnit:
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
@@ -803,13 +822,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     func showNutrimentSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[AddNutrientTableViewCell.Notification.AddNutrientButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.AddNutrientSegue, sender: sender)
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.AddNutrient, sender: sender)
         }
     }
 
     func showNutrimentUnitSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SelectNutrientUnitSegue, sender: sender)
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: sender)
         }
     }
 
@@ -821,10 +840,46 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     func refreshProductWithNewNutritionFacts() {
         guard product != nil else { return }
         // recalculate the nutritionfacts that must be shown
-        tableStructureForProduct = analyseProductForTable(product!)
         mergeNutritionFacts()
+        tableStructureForProduct = analyseProductForTable(product!)
         tableView.reloadData()
     }
+
+    func takePhotoButtonTapped() {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.delegate = self
+            picker.allowsEditing = true
+            present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    func useCameraRollButtonTapped() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            let picker = UIImagePickerController()
+            picker.sourceType = .savedPhotosAlbum
+            picker.mediaTypes = [kUTTypeImage as String]
+            picker.delegate = self
+            picker.allowsEditing = false
+            present(picker, animated: true, completion: nil)
+        }
+    }
+    
+    fileprivate func newImageSelected(info: [String : Any]) {
+        var image: UIImage? = nil
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if image == nil {
+            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        }
+        if image != nil {
+            delegate?.updated(nutritionImage: image!, languageCode: currentLanguageCode!)
+            tableView.reloadData()
+        }
+    }
+    
 
     func removeProduct() {
         product = nil
@@ -843,7 +898,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = Storyboard.ViewControllerTitle
+        title = Storyboard.Title.ViewController
         
         refreshProductWithNewNutritionFacts()
 
@@ -859,7 +914,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -957,14 +1014,17 @@ extension NutrientsTableViewController: UITextFieldDelegate {
 extension NutrientsTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        if tagListView.tag >= 0 && tagListView.tag < tableStructureForProduct.count {
+            let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
-        switch currentProductSection {
-        case .nutritionImage, .nutritionFacts:
-            return 1
-        default:
-            return 0
+            switch currentProductSection {
+            case .nutritionImage, .nutritionFacts:
+                return 1
+            default:
+                break
+            }
         }
+        return 0
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
@@ -980,4 +1040,21 @@ extension NutrientsTableViewController: TagListViewDataSource {
         }
     }
 }
+
+// MARK: - UIImagePickerControllerDelegate Functions
+
+extension NutrientsTableViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        newImageSelected(info: info)
+        picker.dismiss(animated: true, completion: nil)
+        // notify the delegate
+    }
+    
+}
+
 
