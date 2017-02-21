@@ -165,6 +165,11 @@ class FoodProduct {
                         translatedAllergens.append(allergenKey)
                     }
                 }
+                /*
+                if primaryLanguageCode != nil {
+                    translatedAllergens = addPrefix(keys: translatedAllergens, languageCode: primaryLanguageCode!)!
+                }
+                */
                 return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens)
             }
             return .undefined
@@ -188,10 +193,30 @@ class FoodProduct {
                         translatedTraces.append(tracesKey)
                     }
                 }
+                /*
+                if primaryLanguageCode != nil {
+                    translatedTraces = addPrefix(keys: translatedTraces, languageCode: primaryLanguageCode!)!
+                }
+                 */
                 return translatedTraces.count == 0 ? .empty : .available(translatedTraces)
             }
             return .undefined
         }
+    }
+
+    private func addPrefix(keys:[String]?, languageCode: String) -> [String]?  {
+        if keys != nil {
+            var newKeys: [String] = []
+            for key in keys! {
+                if !key.contains(":") {
+                    newKeys.append(languageCode + key)
+                } else {
+                    newKeys.append(key)
+                }
+            }
+            return newKeys
+        }
+        return nil
     }
 
     var traces: Tags = .undefined

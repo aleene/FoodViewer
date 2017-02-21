@@ -39,11 +39,19 @@ enum Tags {
         }
     }
     
-    init(_ list: [String]?, language: String) {
+    init(_ list: [String]?, languageCode: String) {
         self.init()
         guard list != nil else { return }
-        decode(addPrefix(list!, prefix: language))
+        decode(addPrefix(list!, prefix: languageCode))
     }
+    
+    init(_ string: String?, with languageCode: String) {
+        self.init()
+        guard string != nil else { return }
+        let list = string!.characters.split{ $0 == "," }.map(String.init)
+        decode(addPrefix(list, prefix: languageCode))
+    }
+
     
     func tag(_ index: Int) -> String? {
         switch self {

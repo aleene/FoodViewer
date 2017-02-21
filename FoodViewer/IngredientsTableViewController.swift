@@ -538,14 +538,33 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    fileprivate lazy var imagePicker: GKImagePicker = {
+        let picker = GKImagePicker.init()
+        picker.imagePickerController = UIImagePickerController.init()
+        picker.imagePickerController!.modalPresentationStyle = .formSheet
+        picker.sourceType = .savedPhotosAlbum
+        // picker.mediaTypes = [kUTTypeImage as String]
+        return picker
+    }()
+
     func useCameraRollButtonTapped() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.cropSize = CGSize.init(width: 200, height: 200)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+            }
+            /*
             let picker = UIImagePickerController()
             picker.sourceType = .savedPhotosAlbum
             picker.mediaTypes = [kUTTypeImage as String]
             picker.delegate = self
             picker.allowsEditing = false
             present(picker, animated: true, completion: nil)
+             */
         }
     }
 
@@ -797,4 +816,18 @@ extension IngredientsTableViewController: UINavigationControllerDelegate, UIImag
     }
     
 }
+
+
+extension IngredientsTableViewController: GKImagePickerDelegate {
+    
+    func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
+        
+        print("ingredients image", image.size)
+        delegate?.updated(ingredientsImage: image, languageCode: currentLanguageCode!)
+        tableView.reloadData()
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+}
+
 

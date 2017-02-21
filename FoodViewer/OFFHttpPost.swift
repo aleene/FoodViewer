@@ -53,16 +53,7 @@ struct OFFHttpPost {
             static let ImageToSmall = "-4"
         }
     }
-    
-    /*
-    enum ImageType {
-        case front
-        case nutrition
-        case ingredients
-        case general
-    }
-    */
-    
+        
     // returns the value for the imagefield key, based on the image type and languageCode
     static func imageFieldValue(for type: String, in languageCode: String) -> String {
         return type + "_" + languageCode

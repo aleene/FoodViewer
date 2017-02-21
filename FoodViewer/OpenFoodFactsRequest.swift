@@ -85,6 +85,20 @@ class OpenFoodFactsRequest {
     
     func unpackJSONObject(_ jsonObject: JSON) -> ProductFetchStatus {
         
+        func addPrefix(keys:[String]?, languageCode: String) -> [String]?  {
+            if keys != nil {
+                var newKeys: [String] = []
+                for key in keys! {
+                    if !key.contains(":") {
+                        newKeys.append(languageCode + key)
+                    } else {
+                        newKeys.append(key)
+                    }
+                }
+                return newKeys
+            }
+            return nil
+        }
         // All the fields available in the barcode.json are listed below
         // Those that are not used at the moment are edited out
         
@@ -108,6 +122,9 @@ class OpenFoodFactsRequest {
                 // barcode exists in OFF database
                 let product = FoodProduct()
                 
+                // print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
+                product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
+
                 product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
                 
                 product.mainUrlThumb = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontSmallUrlKey].url
@@ -115,13 +132,11 @@ class OpenFoodFactsRequest {
                 decodeCompletionStates(jsonObject[jsonKeys.ProductKey][jsonKeys.StatesTagsKey].stringArray, product:product)
                 decodeLastEditDates(jsonObject[jsonKeys.ProductKey][jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
                 
-                
                 product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsTagsKey].stringArray))
+                
                 
                 product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
 
-                // print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
-                product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
                 
                 if let languages = jsonObject[jsonKeys.ProductKey][jsonKeys.LanguagesHierarchy].stringArray {
                     // product.languageCodes = []
@@ -263,7 +278,7 @@ class OpenFoodFactsRequest {
                 
                 product.informers = jsonObject[jsonKeys.ProductKey][jsonKeys.InformersTagsKey].stringArray
                 product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
-                product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
+                product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: product.primaryLanguageCode!)
                 product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
                 
                 product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
@@ -820,7 +835,6 @@ class OpenFoodFactsRequest {
                 } else if currentState.contains(StateCompleteKey.ExpirationDate) {
                     product.state.expirationDateComplete.value = true
                     product.state.expirationDateComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ExpirationDate, language:preferredLanguage)
-                    
                 } else if currentState.contains(StateCompleteKey.ExpirationDateTBD) {
                     product.state.expirationDateComplete.value = false
                     product.state.expirationDateComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ExpirationDateTBD, language:preferredLanguage)
@@ -925,6 +939,12 @@ class OpenFoodFactsRequest {
                 if validCode.length() >= 10 {
                     newAddress.postalcode = validCode.substring(validCode.length() - 4, length: 4)
                 }
+                return newAddress
+            } else if validCode.hasPrefix("BE ") {
+                newAddress.country = "Belgium"
+                return newAddress
+            } else if validCode.hasPrefix("ES ") {
+                newAddress.country = "Spain"
                 return newAddress
             } else if validCode.hasPrefix("DE ") {
                 newAddress.country = "Germany"

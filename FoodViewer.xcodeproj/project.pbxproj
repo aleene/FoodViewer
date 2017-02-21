@@ -21,6 +21,15 @@
 		511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4401E0ADC03009D4A4B /* ColorScheme.swift */; };
 		511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4421E0AE994009D4A4B /* ColorSchemes.swift */; };
 		511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4441E0C4999009D4A4B /* TagViewState.swift */; };
+		512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E11E5B3E7200BE62CB /* GKImagePicker.swift */; };
+		512039EC1E5B3E9500BE62CB /* GKImagePickerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E41E5B3E9500BE62CB /* GKImagePickerProtocol.swift */; };
+		512039ED1E5B3E9500BE62CB /* GKImageCropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E51E5B3E9500BE62CB /* GKImageCropViewController.swift */; };
+		512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E61E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift */; };
+		512039EF1E5B3E9500BE62CB /* GKImageCropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E71E5B3E9500BE62CB /* GKImageCropView.swift */; };
+		512039F01E5B3E9500BE62CB /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E81E5B3E9500BE62CB /* ScrollView.swift */; };
+		512039F11E5B3E9500BE62CB /* GKImageCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039E91E5B3E9500BE62CB /* GKImageCropOverlayView.swift */; };
+		512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039EA1E5B3E9500BE62CB /* GKResizableCropOverlayView.swift */; };
+		512039F31E5B3E9500BE62CB /* GKCropBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512039EB1E5B3E9500BE62CB /* GKCropBorderView.swift */; };
 		512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */; };
 		512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403671D93DD10007FED5A /* SwiftyJSON.swift */; };
 		5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */; };
@@ -203,6 +212,15 @@
 		511DB4401E0ADC03009D4A4B /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		511DB4421E0AE994009D4A4B /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
 		511DB4441E0C4999009D4A4B /* TagViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagViewState.swift; sourceTree = "<group>"; };
+		512039E11E5B3E7200BE62CB /* GKImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKImagePicker.swift; sourceTree = "<group>"; };
+		512039E41E5B3E9500BE62CB /* GKImagePickerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKImagePickerProtocol.swift; sourceTree = "<group>"; };
+		512039E51E5B3E9500BE62CB /* GKImageCropViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKImageCropViewController.swift; sourceTree = "<group>"; };
+		512039E61E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKImageCropControllerDelegate.swift; sourceTree = "<group>"; };
+		512039E71E5B3E9500BE62CB /* GKImageCropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKImageCropView.swift; sourceTree = "<group>"; };
+		512039E81E5B3E9500BE62CB /* ScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		512039E91E5B3E9500BE62CB /* GKImageCropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKImageCropOverlayView.swift; sourceTree = "<group>"; };
+		512039EA1E5B3E9500BE62CB /* GKResizableCropOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKResizableCropOverlayView.swift; sourceTree = "<group>"; };
+		512039EB1E5B3E9500BE62CB /* GKCropBorderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GKCropBorderView.swift; sourceTree = "<group>"; };
 		5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetchResult.swift; sourceTree = "<group>"; };
 		512403671D93DD10007FED5A /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsTableViewController.swift; sourceTree = "<group>"; };
@@ -439,9 +457,26 @@
 			name = "Test files";
 			sourceTree = "<group>";
 		};
+		512039E31E5B3E7900BE62CB /* GKImagePickerSwift */ = {
+			isa = PBXGroup;
+			children = (
+				512039E41E5B3E9500BE62CB /* GKImagePickerProtocol.swift */,
+				512039E51E5B3E9500BE62CB /* GKImageCropViewController.swift */,
+				512039E61E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift */,
+				512039E71E5B3E9500BE62CB /* GKImageCropView.swift */,
+				512039E81E5B3E9500BE62CB /* ScrollView.swift */,
+				512039E91E5B3E9500BE62CB /* GKImageCropOverlayView.swift */,
+				512039EA1E5B3E9500BE62CB /* GKResizableCropOverlayView.swift */,
+				512039EB1E5B3E9500BE62CB /* GKCropBorderView.swift */,
+				512039E11E5B3E7200BE62CB /* GKImagePicker.swift */,
+			);
+			name = GKImagePickerSwift;
+			sourceTree = "<group>";
+		};
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				512039E31E5B3E7900BE62CB /* GKImagePickerSwift */,
 				5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */,
 				51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */,
 				512403671D93DD10007FED5A /* SwiftyJSON.swift */,
@@ -851,6 +886,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
+				512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
 				51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */,
@@ -865,6 +901,7 @@
 				51A056F81E2D100C0099092E /* AddNutrientTableViewCell.swift in Sources */,
 				51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */,
 				51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */,
+				512039EF1E5B3E9500BE62CB /* GKImageCropView.swift in Sources */,
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
 				51C29E461C70A30B00271708 /* ProducerTableViewCell.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
@@ -872,6 +909,7 @@
 				515742721CDB63B200BE8E2D /* RSEANGenerator.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
+				512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */,
 				518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */,
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
@@ -879,6 +917,7 @@
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
+				512039ED1E5B3E9500BE62CB /* GKImageCropViewController.swift in Sources */,
 				5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */,
 				515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */,
 				515742751CDB63B200BE8E2D /* RSITF14Generator.swift in Sources */,
@@ -932,9 +971,12 @@
 				516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */,
 				51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */,
 				51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */,
+				512039EC1E5B3E9500BE62CB /* GKImagePickerProtocol.swift in Sources */,
 				516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */,
+				512039F31E5B3E9500BE62CB /* GKCropBorderView.swift in Sources */,
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
 				511459341CB138DC00D25116 /* Node.swift in Sources */,
+				512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
 				5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */,
@@ -986,7 +1028,9 @@
 				51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */,
 				51C86B5D1C6DE901002B7566 /* CommunityTableViewCell.swift in Sources */,
 				516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */,
+				512039F01E5B3E9500BE62CB /* ScrollView.swift in Sources */,
 				51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */,
+				512039F11E5B3E9500BE62CB /* GKImageCropOverlayView.swift in Sources */,
 				511DB4341E09B615009D4A4B /* OFFjsonReadKeys.swift in Sources */,
 				516B32921C76043D0031EF80 /* NutrientsTableViewCell.swift in Sources */,
 				5125AB8F1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift in Sources */,

@@ -1,4 +1,4 @@
-    //
+//
 //  OFFUpdate.swift
 //  FoodViewer
 //
@@ -525,31 +525,31 @@ class OFFUpdate {
     private func postDelete(parameters : Dictionary<String, String>, url : String) {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
-     
-        let TWITTERFON_FORM_BOUNDARY:String = "FoodViewer"
-        let MPboundary:String = "--\(TWITTERFON_FORM_BOUNDARY)"
-        let endMPboundary:String = "\(MPboundary)--"
-     
+          
         let body:NSMutableString = NSMutableString();
      
         // parameters
         for (key, value) in parameters {
-            body.appendFormat("\(MPboundary)\r\n" as NSString)
-            body.appendFormat("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n" as NSString)
-            body.appendFormat("\(value)\r\n" as NSString)
+            body.appendFormat(Constants.TwoDash + HTTP.BoundaryValue + Constants.RN as NSString)
+            body.appendFormat(
+                HTTP.ContentDisposition +
+                    HTTP.NameKey + Constants.EscapedQuote + "\(key)" + Constants.EscapedQuote +
+                    Constants.RN + Constants.RN as NSString
+            )
+            body.appendFormat("\(value)" + Constants.RN as NSString)
         }
      
-        let end:String = "\r\n\(endMPboundary)"
+        let end:String = Constants.RN + Constants.TwoDash + HTTP.BoundaryValue + Constants.TwoDash
      
         let myRequestData:NSMutableData = NSMutableData();
         myRequestData.append(body.data(using: String.Encoding.utf8.rawValue)!)
         myRequestData.append(end.data(using: String.Encoding.utf8)!)
         
-        let content:String = "multipart/form-data; boundary=\(TWITTERFON_FORM_BOUNDARY)"
+        let content = HTTP.FormData + HTTP.BoundaryKey + HTTP.BoundaryValue
         let request = NSMutableURLRequest(url: urlString!) //, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        request.httpMethod = "POST"
-        request.setValue(content, forHTTPHeaderField: "Content-Type")
-        request.setValue("\(myRequestData.length)", forHTTPHeaderField: "Content-Length")
+        request.httpMethod = HTTP.Post
+        request.setValue(content, forHTTPHeaderField: HTTP.ContentType)
+        request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
         request.httpBody = myRequestData as Data
         
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {

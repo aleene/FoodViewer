@@ -14,7 +14,7 @@ class ExpirationDateTableViewCell: UITableViewCell {
         static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
 
-    var date: Date? = Date.init(timeIntervalSinceNow: 0.0) {
+    var date: Date? = nil {
         didSet {
             setTextFieldStyle()
         }
