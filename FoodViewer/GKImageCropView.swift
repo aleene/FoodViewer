@@ -201,6 +201,9 @@ class GKImageCropView: UIView {
         return scrollView;
     }
     
+    private struct Constant {
+        static let BorderCorrectionValue = CGFloat(12.0)
+    }
     func layoutSubViews() {
         super.layoutSubviews()
         
@@ -212,17 +215,20 @@ class GKImageCropView: UIView {
         var faktoredHeight = CGFloat(0.0)
         var faktoredWidth = CGFloat(0.0)
         
+        let correctedWidth = self.bounds.width - 2 * Constant.BorderCorrectionValue // width corrected for the handles
+        let correctedHeight = self.bounds.height - 2 * Constant.BorderCorrectionValue - toolbarHeight// width corrected for the handles
+        
         // print("cropSize", cropSize, imageToCrop!.size)
         if self.imageToCrop!.size.width > self.imageToCrop!.size.height {
-            faktor = self.imageToCrop!.size.width / self.bounds.width;
-            faktoredWidth = self.bounds.width
+            faktor = self.imageToCrop!.size.width / correctedWidth;
+            faktoredWidth = correctedWidth
             faktoredHeight =  self.imageToCrop!.size.height / faktor
             self.yOffset = toolbarHeight  // ( faktoredHeight - self.scrollView.bounds.size.height ) / 2
 
         } else {
-            faktor = self.imageToCrop!.size.height / ( self.bounds.height - toolbarHeight )
+            faktor = self.imageToCrop!.size.height / correctedHeight
             faktoredWidth = self.imageToCrop!.size.width / faktor
-            faktoredHeight =  self.bounds.height - toolbarHeight
+            faktoredHeight =  correctedHeight
             self.yOffset = toolbarHeight // ( faktoredHeight - self.scrollView.bounds.size.height ) / 2
         }
  
@@ -234,14 +240,14 @@ class GKImageCropView: UIView {
         self.scrollView.contentSize = imageView.image!.size // CGSize.init(width: self.cropSize.width, height: self.cropSize.height)
         // The image should fit the scrollview (aspectFit)
         self.xOffset = 0 // ( faktoredWidth - self.scrollView.bounds.size.width ) / 2
-        self.imageView.frame = CGRect.init(x: 0, y: 0, width: faktoredWidth, height: faktoredHeight)
+        self.imageView.frame = CGRect.init(x: Constant.BorderCorrectionValue, y: Constant.BorderCorrectionValue, width: faktoredWidth, height: faktoredHeight)
         // move the content of the scrollView, so the image is centered in the window
         self.scrollView.contentOffset = CGPoint.init(x: self.xOffset, y: self.yOffset)
         // print("offset",xOffset,yOffset)
         // print("scroll",scrollView.frame, scrollView.bounds)
         // print("image",imageView.frame,imageView.bounds)
         // If this is not set the app will crash upon pinch
-        self.scrollView.minimumZoomScale = 1 // scrollView.frame.width / imageView.frame.width
+        self.scrollView.minimumZoomScale = 0.2 // scrollView.frame.width / imageView.frame.width
     }
     
     

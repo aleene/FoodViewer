@@ -10,6 +10,7 @@
 
 import Foundation
     import UIKit
+    import CoreGraphics
 
 class OFFUpdate {
     
@@ -365,9 +366,43 @@ class OFFUpdate {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
-        print(image.imageOrientation)
+        let rotatedImage = image.fixOrientation()
+        if (rotatedImage.imageOrientation == UIImageOrientation.up) {
+            print("up")
+        }
         
-        let data: Data? = UIImagePNGRepresentation(image)
+        if (rotatedImage.imageOrientation == UIImageOrientation.down
+            || rotatedImage.imageOrientation == UIImageOrientation.downMirrored) {
+            
+            print("down")
+        }
+        
+        if (rotatedImage.imageOrientation == UIImageOrientation.left
+            || rotatedImage.imageOrientation == UIImageOrientation.leftMirrored) {
+            
+            print("left")
+        }
+        
+        if (rotatedImage.imageOrientation == UIImageOrientation.right
+            || rotatedImage.imageOrientation == UIImageOrientation.rightMirrored) {
+            
+            print("right")
+        }
+        
+        if (rotatedImage.imageOrientation == UIImageOrientation.upMirrored
+            || rotatedImage.imageOrientation == UIImageOrientation.downMirrored) {
+            
+            print("up/down")
+        }
+        
+        if (rotatedImage.imageOrientation == UIImageOrientation.leftMirrored
+            || rotatedImage.imageOrientation == UIImageOrientation.rightMirrored) {
+            
+            print("right/left")
+        }
+
+        
+        let data: Data? = UIImagePNGRepresentation(rotatedImage)
         guard data != nil else { return }
         
         
@@ -647,5 +682,87 @@ class OFFUpdate {
     }
 
     
+}
+
+extension UIImage {
+    func fixOrientation() -> UIImage {
+        
+        // We need to calculate the proper transformation to make the image upright.
+        // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+        var transform = CGAffineTransform.identity
+        // Rotate image clockwise by 90 degree
+        if (self.imageOrientation == UIImageOrientation.up) {
+            transform = transform.translatedBy(x: 0, y: self.size.height)
+            transform = transform.rotated(by: CGFloat(-M_PI_2))
+        }
+        
+        if (self.imageOrientation == UIImageOrientation.down
+            || self.imageOrientation == UIImageOrientation.downMirrored) {
+            
+            transform = transform.translatedBy(x: self.size.width, y: self.size.height)
+            transform = transform.rotated(by: CGFloat(M_PI))
+        }
+        
+        if (self.imageOrientation == UIImageOrientation.left
+            || self.imageOrientation == UIImageOrientation.leftMirrored) {
+            
+            transform = transform.translatedBy(x: self.size.width, y: 0)
+            transform = transform.rotated(by: CGFloat(M_PI_2))
+        }
+        
+        if (self.imageOrientation == UIImageOrientation.right
+            || self.imageOrientation == UIImageOrientation.rightMirrored) {
+            
+            transform = transform.translatedBy(x: 0, y: self.size.height)
+            transform = transform.rotated(by: CGFloat(-M_PI_2))
+        }
+        
+        if (self.imageOrientation == UIImageOrientation.upMirrored
+            || self.imageOrientation == UIImageOrientation.downMirrored) {
+            
+            transform = transform.translatedBy(x: self.size.width, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        }
+        
+        if (self.imageOrientation == UIImageOrientation.leftMirrored
+            || self.imageOrientation == UIImageOrientation.rightMirrored) {
+            
+            transform = transform.translatedBy(x: self.size.height, y: 0)
+            transform = transform.scaledBy(x: -1, y: 1)
+        }
+        
+        
+        // Now we draw the underlying CGImage into a new context, applying the transform
+        // calculated above.
+        let ctx: CGContext = CGContext.init(data: nil,
+                                            width: Int(self.size.width),
+                                            height: Int(self.size.height),
+                                            bitsPerComponent: self.cgImage!.bitsPerComponent,
+                                            bytesPerRow: 0,
+                                            space: self.cgImage!.colorSpace!,
+                                            bitmapInfo: self.cgImage!.bitmapInfo.rawValue)!
+        
+        ctx.concatenate(transform)
+        
+        
+        if (self.imageOrientation == UIImageOrientation.left
+            || self.imageOrientation == UIImageOrientation.leftMirrored
+            || self.imageOrientation == UIImageOrientation.right
+            || self.imageOrientation == UIImageOrientation.rightMirrored
+            || self.imageOrientation == UIImageOrientation.up
+            ) {
+            
+             ctx.draw(self.cgImage!, in: CGRect.init(x: 0, y: 0, width: self.size.height, height: self.size.width))
+        } else {
+            ctx.draw(self.cgImage!, in: CGRect.init(x: 0, y: 0, width: self.size.width, height: self.size.height))
+        }
+        
+        
+        // And now we just create a new UIImage from the drawing context
+        let cgimg: CGImage = ctx.makeImage()!
+        let imgEnd: UIImage = UIImage(cgImage: cgimg)
+        
+        return imgEnd
+    }
 }
 
