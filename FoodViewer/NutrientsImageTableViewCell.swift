@@ -10,8 +10,25 @@ import UIKit
 
 class NutrientsImageTableViewCell: UITableViewCell {
 
+    internal struct Notification {
+        static let ChangeLanguageButtonTappedKey = "NutrientsImageTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
+    }
+
     fileprivate struct Constants {
-        static let CellContentViewMargin = CGFloat(8)
+        static let CellContentViewMargin = CGFloat(44)
+        static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
+    }
+    
+    
+    @IBOutlet weak var changeLanguageButton: UIButton! {
+        didSet {
+            setLanguageButton()
+        }
+    }
+    
+    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) {
+        let userInfo = [Notification.ChangeLanguageButtonTappedKey:sender]
+        NotificationCenter.default.post(name: .NutrientsImageLanguageTapped, object: nil, userInfo: userInfo)
     }
 
     @IBOutlet weak var takePhotoButton: UIButton! {
@@ -34,6 +51,23 @@ class NutrientsImageTableViewCell: UITableViewCell {
         NotificationCenter.default.post(name: .NutritionSelectFromCameraRollButtonTapped, object: nil)
     }
     
+    private func setLanguageButton() {
+        changeLanguageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
+    }
+
+    var languageCode: String? = nil {
+        didSet {
+            let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0]) : Constants.NoLanguage
+            changeLanguageButton.setTitle(verboseLanguage, for: UIControlState())
+        }
+    }
+    
+    var numberOfLanguages: Int = 0 {
+        didSet {
+            setLanguageButton()
+        }
+    }
+
     var editMode: Bool = false {
         didSet {
             takePhotoButton?.isHidden = !editMode
@@ -82,5 +116,6 @@ class NutrientsImageTableViewCell: UITableViewCell {
 extension Notification.Name {
     static let NutritionTakePhotoButtonTapped = Notification.Name("NutrientsImageTableViewCell.Notification.NutritionTakePhotoButtonTapped")
     static let NutritionSelectFromCameraRollButtonTapped = Notification.Name("NutrientsImageTableViewCell.Notification.NutritionSelectFromCameraRollButtonTapped")
+    static let NutrientsImageLanguageTapped = Notification.Name("NutrientsImageTableViewCell.Notification.LanguageTapped")
 }
 

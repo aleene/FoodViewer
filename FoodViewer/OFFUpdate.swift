@@ -357,21 +357,15 @@ class OFFUpdate {
                                    OFFHttpPost.AddParameter.Password: OFFAccount().password],
                       imageType: id, url: OFFHttpPost.URL.Add,
                       languageCode: image.key)
-            /*
-            post2(image: image.value.image!,
-                      with: OFFHttpPost.imageName(for: id, in: image.key),
-                      parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
-                                   OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.imageFieldValue(for:id, in:image.key),
-                                   OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
-                                   OFFHttpPost.AddParameter.Password: OFFAccount().password],
-                      url: OFFHttpPost.URL.Add)
-     */
+        
         }
     }
     
     private func post(image: UIImage, parameters : Dictionary<String, String>, imageType: String, url : String, languageCode: String) {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
+        
+        print(image.imageOrientation)
         
         let data: Data? = UIImagePNGRepresentation(image)
         guard data != nil else { return }

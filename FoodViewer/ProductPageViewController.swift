@@ -29,23 +29,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // if a valid page is presented, the currentLanguageCode can be passed on
             guard pageIndex != nil else { return }
             if currentLanguageCode != oldValue {
-                
-            }
-            switch pageIndex! {
-            case 0:
                 if let vc = pages[0] as? IdentificationTableViewController {
                     vc.currentLanguageCode = currentLanguageCode
                 }
-            case 1:
                 if let vc = pages[1] as? IngredientsTableViewController {
                     vc.currentLanguageCode = currentLanguageCode
                 }
-            case 2:
-                if let vc = pages[2] as? IngredientsTableViewController {
+                if let vc = pages[2] as? NutrientsTableViewController {
                     vc.currentLanguageCode = currentLanguageCode
                 }
-            default:
-                break
             }
         }
     }
@@ -159,7 +151,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var pageIndex: Int? = nil {
         didSet {
-            
             if pageIndex != oldValue {
                 // has the initialisation been done?
                 if pages.isEmpty {
@@ -314,6 +305,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     var product: FoodProduct? = nil {
         didSet {
             if product != nil {
+                
                 setCurrentLanguage()
                 
                 // only set the field of a separate page if we have a valid page
@@ -972,7 +964,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.selectedLanguageCode
             pageIndex = vc.sourcePage
-            updateCurrentLanguage()
+            // updateCurrentLanguage()
         }
     }
     
@@ -987,8 +979,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = pages[1] as? IngredientsTableViewController {
             vc.currentLanguageCode = currentLanguageCode
         }
-        if let vc = pages[2] as? IngredientsTableViewController {
-            vc.currentLanguageCode = currentLanguageCode
+        if let vc = pages[2] as? NutrientsTableViewController {
+            let test = currentLanguageCode!
+            vc.currentLanguageCode = test
         }
 
     }

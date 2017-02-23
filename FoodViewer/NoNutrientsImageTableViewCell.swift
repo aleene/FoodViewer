@@ -11,64 +11,101 @@ import UIKit
 
 class NoNutrientsImageTableViewCell: UITableViewCell {
     
-    
+    internal struct Notification {
+        static let NoNutrientsImageChangeLanguageButtonTappedKey = "NoNutrientsImageTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
+    }
+
+    fileprivate struct Constants {
+        static let NoLanguage = NSLocalizedString("no", comment: "Text for language of product, when there is no language defined.")
+        // Correct width for language button width (32) and trailing margin (8)
+        static let Margin = CGFloat( 44.0 )
+    }
+
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
             tagListView.alignment = .center
             tagListView.cornerRadius = 10
-            tagListView.datasource = self
+            tagListView.datasource = datasource
         }
     }
     
-    var imageFetchStatus: ImageFetchResult = .noData {
+    @IBOutlet weak var languageButton: UIButton! {
         didSet {
-            switch imageFetchStatus {
-            case .success:
-                tagListView.tagBackgroundColor = UIColor.green
-            case .noImageAvailable, .noData, .loadingFailed:
-                tagListView.tagBackgroundColor = UIColor.red
-            case .loading:
-                tagListView.tagBackgroundColor = UIColor.orange
-            }
+            setLanguageButton()
         }
     }
+
+    
+    @IBAction func languageButtonTapped(_ sender: UIButton) {
+        let userInfo = [Notification.NoNutrientsImageChangeLanguageButtonTappedKey:sender]
+        NotificationCenter.default.post(name: .NoNutritionImageLanguageTapped, object: nil, userInfo: userInfo)
+    }
+    
+    private func setLanguageButton() {
+        languageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
+        let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0]) : Constants.NoLanguage
+        languageButton.setTitle(verboseLanguage, for: UIControlState())
+    }
+    
+    var datasource: TagListViewDataSource? = nil {
+        didSet {
+            tagListView?.datasource = datasource
+        }
+    }
+    
+    var delegate: TagListViewDelegate? = nil {
+        didSet {
+            tagListView?.delegate = delegate
+        }
+    }
+    
+
+    var editMode: Bool = false {
+        didSet {
+            setLanguageButton()
+        }
+    }
+
+    var width: CGFloat = CGFloat(320.0) {
+        didSet {
+            tagListView?.frame.size.width = width - Constants.Margin
+        }
+    }
+    
+    var scheme = ColorSchemes.normal {
+        didSet {
+            tagListView?.normalColorScheme = scheme
+        }
+    }
+    
+    var languageCode: String? = nil {
+        didSet {
+            setLanguageButton()
+        }
+    }
+    
+    var numberOfLanguages: Int = 0 {
+        didSet {
+            setLanguageButton()
+        }
+    }
+    
+    override var tag: Int {
+        didSet {
+            tagListView?.tag = tag
+        }
+    }
+    
+    func reloadData() {
+        tagListView.reloadData(clearAll: true)
+    }
+    
 }
 
-extension NoNutrientsImageTableViewCell: TagListViewDataSource {
-
-    // TagListView Datasource functions
-    
-    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        return 1
-    }
-    
-    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        return imageFetchStatus.description()
-    }
-    
-    
-    /*
-    /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return false
-    }
-    
-    /// Is it allowed to move a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-    /// The Tag object at the source index has been moved to a destination index.
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
-    /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
-    }
-    
-    /// Which text should be displayed when the TagListView is collapsed?
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Stub text"
-    }
-    */
+// Definition:
+extension Notification.Name {
+    static let NoNutritionImageLanguageTapped = Notification.Name("NoNutrientsImageTableViewCell.Notification.ChangeLanguageButtonTapped")
 }
+
+
