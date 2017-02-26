@@ -925,6 +925,22 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         tableView.reloadData()
     }
 
+    func imageUploaded(_ notification: Notification) {
+        // Check if this image is relevant to this product
+        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
+            if barcode == product!.barcode.asString() {
+                // is it relevant to the main image?
+                if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
+                        // reload product data
+                        OFFProducts.manager.reload(self.product!)
+                    }
+                }
+            }
+        }
+    }
+    
+    
 
     // MARK: - ViewController Lifecycle
     
@@ -958,6 +974,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

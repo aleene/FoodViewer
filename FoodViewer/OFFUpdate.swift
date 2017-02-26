@@ -366,43 +366,7 @@ class OFFUpdate {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
-        let rotatedImage = image.fixOrientation()
-        if (rotatedImage.imageOrientation == UIImageOrientation.up) {
-            print("up")
-        }
-        
-        if (rotatedImage.imageOrientation == UIImageOrientation.down
-            || rotatedImage.imageOrientation == UIImageOrientation.downMirrored) {
-            
-            print("down")
-        }
-        
-        if (rotatedImage.imageOrientation == UIImageOrientation.left
-            || rotatedImage.imageOrientation == UIImageOrientation.leftMirrored) {
-            
-            print("left")
-        }
-        
-        if (rotatedImage.imageOrientation == UIImageOrientation.right
-            || rotatedImage.imageOrientation == UIImageOrientation.rightMirrored) {
-            
-            print("right")
-        }
-        
-        if (rotatedImage.imageOrientation == UIImageOrientation.upMirrored
-            || rotatedImage.imageOrientation == UIImageOrientation.downMirrored) {
-            
-            print("up/down")
-        }
-        
-        if (rotatedImage.imageOrientation == UIImageOrientation.leftMirrored
-            || rotatedImage.imageOrientation == UIImageOrientation.rightMirrored) {
-            
-            print("right/left")
-        }
-
-        
-        let data: Data? = UIImagePNGRepresentation(rotatedImage)
+        let data: Data? = UIImagePNGRepresentation(image.fixOrientation())
         guard data != nil else { return }
         
         
@@ -428,7 +392,7 @@ class OFFUpdate {
         // "Content-Disposition: form-data; name=\"imgupload_\(imageType)_\(languageCode)\"; filename=\"\(imageType).png\"\r\n"
         let string = string1 + string2 + string3 as NSString
         body.appendFormat(string)
-        print("string", string)
+        // print("string", string)
         
         body.appendFormat( HTTP.ContentTypeImage + Constants.RN + Constants.RN as NSString ) // "Content-Type: image/png\r\n\r\n")
         let end:String = Constants.RN + Constants.TwoDash + HTTP.BoundaryValue + Constants.TwoDash // "\r\n\(endMPboundary)"
@@ -452,9 +416,28 @@ class OFFUpdate {
                 return
             }
             guard let data = data else { return }
-            _ = self.unpackImageJSONObject( JSON(data: data) )
+            DispatchQueue.main.async(execute: { () -> Void in
+                let result = self.unpackImageJSONObject( JSON(data: data) )
+                switch result {
+                case .success(let error):
+                    let userInfo = [Notification.ImageUploadSuccessStatusKey:error,
+                                    Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey],
+                                    Notification.ImageUploadSuccessImagetypeKey: imageType]
+                    NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
+                default:
+                    break
+                }
+                return
+            })
+
         })
         task.resume()
+    }
+    
+    internal struct Notification {
+        static let ImageUploadSuccessStatusKey = "OFFUpdate.Notification.ImageUploadSuccessStatus.Key"
+        static let ImageUploadSuccessBarcodeKey = "OFFUpdate.Notification.ImageUploadSuccessBarcode.Key"
+        static let ImageUploadSuccessImagetypeKey = "OFFUpdate.Notification.ImageUploadSuccessImageType.Key"
     }
     
      private struct Constants {
@@ -480,76 +463,6 @@ class OFFUpdate {
         static let NameKey = "name="
      }
      
-     
-     private func post2(image: UIImage, with name: String, parameters : Dictionary<String, String>, url : String) {
-        let urlString = URL(string: url)
-        guard urlString != nil else { return }
-     
-        let data: Data? = UIImagePNGRepresentation(image)
-        guard data != nil else { return }
-     
-        let body:NSMutableString = NSMutableString();
-     
-        // Set parameters
-        for (key, value) in parameters {
-            // --FoodViewer\r\n
-            body.appendFormat(Constants.TwoDash + HTTP.BoundaryValue + Constants.RN as NSString)
-            // Content-Disposition: form-data; name="key"\r\n\r\n
-            body.appendFormat(
-                HTTP.ContentDisposition +
-                HTTP.NameKey + Constants.EscapedQuote + "\(key)" + Constants.EscapedQuote +
-                Constants.RN + Constants.RN as NSString
-            )
-            // value\r\n
-            body.appendFormat("\(value)" + Constants.RN as NSString)
-        }
-     
-        // image upload
-     
-        // \r\n--FoodViewer
-        body.appendFormat( Constants.RN + Constants.TwoDash + HTTP.BoundaryValue as NSString )
-     
-        // Content-Disposition: form-data;
-        let string1 = HTTP.ContentDisposition
-        // name="imgupload_front_fr";
-        let string2 = HTTP.NameKey + Constants.EscapedQuote + name + Constants.EscapedQuote + Constants.SemiColonSpace
-        // filename="front.png"\r\n
-        let string3 = HTTP.FilenameKey + Constants.EscapedQuote + name + Constants.PNG + Constants.EscapedQuote + Constants.RN
-        body.appendFormat(string1 + string2 + string3 as NSString)
-     
-        // print("string", string)
-        body.appendFormat(
-            HTTP.ContentType +
-            Constants.ColonSpace +
-            HTTP.PNG +
-            Constants.RN +
-            Constants.RN as NSString)
-        
-        let end: String = Constants.RN + Constants.TwoDash + HTTP.BoundaryValue + Constants.TwoDash
-     
-        let myRequestData:NSMutableData = NSMutableData();
-        myRequestData.append(body.data(using: String.Encoding.utf8.rawValue)!)
-        myRequestData.append(data!)
-        myRequestData.append(end.data(using: String.Encoding.utf8)!)
-     
-        let content = HTTP.FormData + HTTP.BoundaryKey + HTTP.BoundaryValue
-        let request = NSMutableURLRequest(url: urlString!) //, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        request.httpMethod = HTTP.Post
-        request.setValue(content, forHTTPHeaderField: HTTP.ContentType)
-        request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
-        request.httpBody = myRequestData as Data
-     
-        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
-            data, response, error in
-            if error != nil {
-                print(error as Any)
-                return
-            }
-            guard let data = data else { return }
-            _ = self.unpackImageJSONObject( JSON(data: data) )
-        })
-        task.resume()
-    }
     
     private func postDelete(parameters : Dictionary<String, String>, url : String) {
         let urlString = URL(string: url)
@@ -601,7 +514,6 @@ class OFFUpdate {
         static let ImageIDKey = "imgid" // Int?
         static let ErrorKey = "error"
     }
-    
     private func unpackImageJSONObject(_ jsonObject: JSON) -> ProductUpdateStatus {
         
         // a json file is returned upon posting
@@ -640,7 +552,7 @@ class OFFUpdate {
                 return ProductUpdateStatus.success("Image upload succeeded")
             }
         }
-        return ProductUpdateStatus.failure(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
+        return ProductUpdateStatus.failure("Error: No verbose status")
     }
 
     
@@ -683,6 +595,12 @@ class OFFUpdate {
 
     
 }
+
+// Definition:
+extension Notification.Name {
+    static let OFFUpdateImageUploadSuccess = Notification.Name("OFFUpdate.Notification.ImageUploadSuccess")
+}
+
 
 extension UIImage {
     func fixOrientation() -> UIImage {

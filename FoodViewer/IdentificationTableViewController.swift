@@ -302,6 +302,7 @@ class IdentificationTableViewController: UITableViewController {
                         return cell!
                     }
                         // try to use the primary image
+                    /*
                 } else if let result = product!.frontImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
@@ -318,6 +319,7 @@ class IdentificationTableViewController: UITableViewController {
                         cell?.scheme = ColorSchemes.error
                         return cell!
                     }
+                     */
                 } else {
                     if editMode {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
@@ -677,6 +679,21 @@ class IdentificationTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    
+    func imageUploaded(_ notification: Notification) {
+        // Check if this image is relevant to this product
+        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
+            if barcode == product!.barcode.asString() {
+                // is it relevant to the main image?
+                if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
+                        // reload product data
+                        OFFProducts.manager.reload(self.product!)
+                    }
+                }
+            }
+        }
+    }
 
 
     func removeProduct() {
@@ -711,6 +728,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

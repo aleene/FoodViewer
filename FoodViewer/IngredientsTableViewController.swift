@@ -244,6 +244,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         return cell!
                     }
                     // try to use the primary image
+                    /*
                 } else if let result = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.fetch() {
                     switch result {
                     case .success:
@@ -260,6 +261,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         cell?.scheme = ColorSchemes.error
                         return cell!
                     }
+ */
                 } else {
                     if editMode {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
@@ -580,6 +582,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
 
+    func imageUploaded(_ notification: Notification) {
+        // Check if this image is relevant to this product
+        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
+            if barcode == product!.barcode.asString() {
+                // is it relevant to the main image?
+                if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
+                        // reload product data
+                        OFFProducts.manager.reload(self.product!)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+
     // MARK: - ViewController Lifecycle
     
     override func viewDidLoad() {
@@ -600,6 +619,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.takePhotoButtonTapped), name:.IngredientsTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.useCameraRollButtonTapped), name:.IngredientsSelectFromCameraRollButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
