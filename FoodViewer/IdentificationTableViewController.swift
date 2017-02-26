@@ -622,12 +622,23 @@ class IdentificationTableViewController: UITableViewController {
     func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+            }
+            /*
             let picker = UIImagePickerController()
             picker.sourceType = .camera
             picker.mediaTypes = [kUTTypeImage as String]
             picker.delegate = self
             picker.allowsEditing = true
             present(picker, animated: true, completion: nil)
+ */
         }
     }
     
@@ -635,7 +646,6 @@ class IdentificationTableViewController: UITableViewController {
         let picker = GKImagePicker.init()
         picker.imagePickerController = UIImagePickerController.init()
         picker.imagePickerController!.modalPresentationStyle = .formSheet
-        picker.sourceType = .savedPhotosAlbum
         // picker.mediaTypes = [kUTTypeImage as String]
         return picker
     }()
@@ -643,9 +653,10 @@ class IdentificationTableViewController: UITableViewController {
     func useCameraRollButtonTapped() {
 
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.cropSize = CGSize.init(width: 200, height: 200)
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
             imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
 
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
@@ -667,6 +678,7 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
+    
     fileprivate func newImageSelected(info: [String : Any]) {
         var image: UIImage? = nil
         image = info[UIImagePickerControllerEditedImage] as? UIImage
@@ -675,8 +687,12 @@ class IdentificationTableViewController: UITableViewController {
         }
         if image != nil {
             print("front image", image!.size)
+            
+
+            /*
             delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
             tableView.reloadData()
+             */
         }
     }
     

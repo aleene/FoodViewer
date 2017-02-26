@@ -531,12 +531,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+            }
+/*
             let picker = UIImagePickerController()
             picker.sourceType = .camera
             picker.mediaTypes = [kUTTypeImage as String]
             picker.delegate = self
             picker.allowsEditing = true
             present(picker, animated: true, completion: nil)
+ */
         }
     }
     
@@ -551,7 +562,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     func useCameraRollButtonTapped() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.cropSize = CGSize.init(width: 200, height: 200)
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
             imagePicker.delegate = self
             

@@ -18,8 +18,8 @@ class GKCropBorderView: UIView {
 // This class draws the resizable border with its handles
     
     private struct Constant {
-        static let kNumberOfBorderHandles = 8
-        static let kHandleDiameter = 24
+        // static let kNumberOfBorderHandles = 8
+        static let kHandleDiameter = 12
     }
     
     private var _calculateAllNeededHandleRects: [Any] = []

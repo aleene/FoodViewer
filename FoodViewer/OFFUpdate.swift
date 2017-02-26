@@ -420,9 +420,9 @@ class OFFUpdate {
                 let result = self.unpackImageJSONObject( JSON(data: data) )
                 switch result {
                 case .success(let error):
-                    let userInfo = [Notification.ImageUploadSuccessStatusKey:error,
-                                    Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey],
-                                    Notification.ImageUploadSuccessImagetypeKey: imageType]
+                    let userInfo = [Notification.ImageUploadSuccessStatusKey:error as Any,
+                                    Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
+                                    Notification.ImageUploadSuccessImagetypeKey: imageType as Any]
                     NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
                 default:
                     break

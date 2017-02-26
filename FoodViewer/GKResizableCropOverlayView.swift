@@ -74,7 +74,7 @@ class GKResizeableCropOverlayView: GKImageCropOverlayView {
     private var _startPoint = CGPoint.zero
     private var _resizeMultiplyer = GKResizeableViewBorderMultiplyer()
     
-    private let kBorderCorrectionValue = CGFloat(12.0)
+    private let kBorderCorrectionValue = CGFloat(6.0)
     
     private struct GKResizeableViewBorderMultiplyer {
         

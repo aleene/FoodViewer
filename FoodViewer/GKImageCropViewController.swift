@@ -104,7 +104,7 @@ open class GKImageCropViewController: UIViewController {
     }
 
     private func _setupToolbar() {
-        if UIDevice.current.userInterfaceIdiom == .phone {
+        // if UIDevice.current.userInterfaceIdiom == .phone {
             self.toolbar = UIToolbar.init(frame: CGRect.zero)
             if self.toolbar != nil {
                 self.toolbar!.isTranslucent = true
@@ -129,7 +129,7 @@ open class GKImageCropViewController: UIViewController {
             let lbl = UIBarButtonItem.init(customView: info)
             let use = UIBarButtonItem.init(customView: self.useButton!)
             self.toolbar?.setItems([cancel, flex, lbl, flex, use], animated: false)
-        }
+        // }
     }
     
     // MARK: - ViewController Lifecycle
@@ -140,18 +140,20 @@ open class GKImageCropViewController: UIViewController {
     
         self.title = NSLocalizedString("Move/Scale", comment: "GKResizePhoto")
     
+        /*
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.navigationController?.isNavigationBarHidden = true
         } else {
             self.navigationController?.isNavigationBarHidden = false
         }
+         */
     }
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // setup the interface here, as only now the right sizes are known.
-        self._setupNavigationBar()
+        // self._setupNavigationBar()
         self._setupCropView()
         self._setupToolbar()
     }
@@ -159,7 +161,7 @@ open class GKImageCropViewController: UIViewController {
     override open func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.imageCropView?.frame = self.view.bounds;
-        self.toolbar?.frame = CGRect.init(x:0, y:self.view.frame.height, width:320, height:54)
+        self.toolbar?.frame = CGRect.init(x:0, y:0, width:320, height:54)
     }
 
 }
