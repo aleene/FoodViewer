@@ -366,7 +366,31 @@ class OFFUpdate {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
-        let data: Data? = UIImagePNGRepresentation(image.fixOrientation())
+        /*
+        if image.imageOrientation == UIImageOrientation.left {
+            print("left")
+        } else if image.imageOrientation == UIImageOrientation.right {
+            print("right")
+        } else if image.imageOrientation == UIImageOrientation.down {
+            print("down")
+        } else if image.imageOrientation == UIImageOrientation.up {
+            print("up")
+        }
+        let ewImage = image.fixOrientation()
+        
+        if ewImage.imageOrientation == UIImageOrientation.left {
+            print("left")
+        } else if ewImage.imageOrientation == UIImageOrientation.right {
+            print("right")
+        } else if ewImage.imageOrientation == UIImageOrientation.down {
+            print("down")
+        } else if ewImage.imageOrientation == UIImageOrientation.up {
+            print("up")
+        }
+         */
+
+        let data: Data? = UIImagePNGRepresentation(image.setOrientationToLeftUpCorner())
+        
         guard data != nil else { return }
         
         
@@ -422,7 +446,7 @@ class OFFUpdate {
                 case .success(let error):
                     let userInfo = [Notification.ImageUploadSuccessStatusKey:error as Any,
                                     Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                                    Notification.ImageUploadSuccessImagetypeKey: imageType as Any]
+                                    Notification.ImageUploadSuccessImagetypeKey: imageType]
                     NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
                 default:
                     break
@@ -601,19 +625,27 @@ extension Notification.Name {
     static let OFFUpdateImageUploadSuccess = Notification.Name("OFFUpdate.Notification.ImageUploadSuccess")
 }
 
-
+/*
+//  The orientation of a UIIamge is determined by the orientation of the camera when the picture was taken.
+//  This consists of two parts:
+//  - the origin of the image wrt the device: origin is always top-left, 
+//      when the device is in landscape with the button on the right.
+//  - the imageOrientation (up/left/down/right)
+//
+//  External apps might not follow the imageOrientation, encoded in the EXIF.
+//  So better to fix the origin to the top-left of the image
+ */
 extension UIImage {
-    func fixOrientation() -> UIImage {
+    func setOrientationToLeftUpCorner() -> UIImage {
+        
+        // up images should not be fixed
+        guard self.imageOrientation != UIImageOrientation.up else { return self }
         
         // We need to calculate the proper transformation to make the image upright.
         // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
-        var transform = CGAffineTransform.identity
         // Rotate image clockwise by 90 degree
-        if (self.imageOrientation == UIImageOrientation.up) {
-            transform = transform.translatedBy(x: 0, y: self.size.height)
-            transform = transform.rotated(by: CGFloat(-M_PI_2))
-        }
-        
+
+        var transform = CGAffineTransform.identity
         if (self.imageOrientation == UIImageOrientation.down
             || self.imageOrientation == UIImageOrientation.downMirrored) {
             

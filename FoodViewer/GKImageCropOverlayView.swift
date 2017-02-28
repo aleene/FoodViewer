@@ -88,21 +88,7 @@ class GKImageCropOverlayView: UIView {
         UIColor.clear.set()
         UIRectFill(CGRect.init(x: widthSpan, y: heightSpan, width: cropSize.width, height: cropSize.height))
         
-        
-// if heightSpan > 30 && (UIDevice.current.userInterfaceIdiom == .pad) {
-            // UIColor.white.set()
-            
-            // let stringToDraw = NSLocalizedString("Move and scale", comment: "GKIMoveAndScale") as NSString
-            // stringToDraw.draw(in: CGRect.init(x: 10.0, y: (height - heightSpan) + (heightSpan / 2 - CGFloat(20.0) / 2), width: width - CGFloat(20.0), height: 20.0),
-            //                  withAttributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 20.0)] )
-                                // , NSLineBreakMode: .byTruncatingTail])
-            
-            //[NSLocalizedString(@"GKImoveAndScale", @"") drawInRect:CGRectMake(10, (height - heightSpan) + (heightSpan / 2 - 20 / 2) , width - 20, 20)
-            //    withFont:[UIFont boldSystemFontOfSize:20]
-            //    lineBreakMode:NSLineBreakByTruncatingTail
-            //    alignment:NSTextAlignmentCenter];
-// }
-    }
+        }
 
 }
 

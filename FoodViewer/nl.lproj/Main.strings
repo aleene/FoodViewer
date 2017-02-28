@@ -31,13 +31,13 @@
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "807-If-TeI"; */
 "807-If-TeI.text" = "Subtitel";
 
-/* Class = "UINavigationItem"; title = "Add Nutriment"; ObjectID = "A9l-Yd-38c"; */
+/* Class = "UINavigationItem"; title = "Select"; ObjectID = "A9l-Yd-38c"; */
 "A9l-Yd-38c.title" = "Titel";
 
 /* Class = "UILabel"; text = "Cr"; ObjectID = "BBX-6q-F2L"; */
 "BBX-6q-F2L.text" = "Cr";
 
-/* Class = "UIButton"; normalTitle = "language"; ObjectID = "C93-Fg-KRg"; */
+/* Class = "UIButton"; normalTitle = "en"; ObjectID = "C93-Fg-KRg"; */
 "C93-Fg-KRg.normalTitle" = "taal";
 
 /* Class = "UILabel"; text = "Salt"; ObjectID = "DFK-3b-hb1"; */
@@ -55,7 +55,7 @@
 /* Class = "UILabel"; text = "I"; ObjectID = "InB-zo-D4X"; */
 "InB-zo-D4X.text" = "I";
 
-/* Class = "UIButton"; normalTitle = "language"; ObjectID = "Iq0-G4-To0"; */
+/* Class = "UIButton"; normalTitle = "en"; ObjectID = "Iq0-G4-To0"; */
 "Iq0-G4-To0.normalTitle" = "taal";
 
 /* Class = "UILabel"; text = "10"; ObjectID = "KVB-N1-x8r"; */
@@ -67,7 +67,7 @@
 /* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[1] = "OFF account"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[1]" = "Tweede";
 
-/* Class = "UINavigationItem"; title = "Select Language"; ObjectID = "MGY-bs-Itx"; */
+/* Class = "UINavigationItem"; title = "Select"; ObjectID = "MGY-bs-Itx"; */
 "MGY-bs-Itx.title" = "Titel";
 
 /* Class = "UIButton"; normalTitle = "Add Nutrient"; ObjectID = "PU9-ny-duI"; */
@@ -166,6 +166,9 @@
 /* Class = "UINavigationItem"; title = "Set Warnings"; ObjectID = "mZf-5k-m2j"; */
 "mZf-5k-m2j.title" = "Stel waarschuwingen in";
 
+/* Class = "UIButton"; normalTitle = "en"; ObjectID = "mke-Kf-uJy"; */
+"mke-Kf-uJy.normalTitle" = "en";
+
 /* Class = "UILabel"; text = "Ingredients summary"; ObjectID = "nF2-es-Hkz"; */
 "nF2-es-Hkz.text" = "Samenvatting ingrediënten";
 
@@ -178,6 +181,9 @@
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";
 
+/* Class = "UIButton"; normalTitle = "en"; ObjectID = "pk1-yb-w1T"; */
+"pk1-yb-w1T.normalTitle" = "en";
+
 /* Class = "UISegmentedControl"; qLB-2k-Ecw.segmentTitles[0] = "Salt"; ObjectID = "qLB-2k-Ecw"; */
 "qLB-2k-Ecw.segmentTitles[0]" = "Eerste";
 
@@ -189,6 +195,9 @@
 
 /* Class = "UILabel"; text = " 11"; ObjectID = "tKL-Tg-nO5"; */
 "tKL-Tg-nO5.text" = "11";
+
+/* Class = "UINavigationItem"; title = "Select"; ObjectID = "uO9-18-9Hq"; */
+"uO9-18-9Hq.title" = "Selecteer";
 
 /* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
 "wEv-aO-bBx.title" = "Favoriete winkels";

@@ -534,6 +534,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
             imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
             imagePicker.sourceType = .camera
             
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
@@ -852,13 +853,10 @@ extension IngredientsTableViewController: UINavigationControllerDelegate, UIImag
 extension IngredientsTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
-        
-        print("ingredients image", image.size)
         delegate?.updated(ingredientsImage: image, languageCode: currentLanguageCode!)
         tableView.reloadData()
         
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
-
 

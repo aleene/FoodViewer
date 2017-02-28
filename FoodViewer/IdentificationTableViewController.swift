@@ -1071,4 +1071,3 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
-
