@@ -43,6 +43,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue && product != nil {
+                
+                // mergeNutritionFacts()
                 tableStructureForProduct = analyseProductForTable(product!)
                 tableView.reloadData()
             }
@@ -113,7 +115,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         displayFact.name = fact.itemName
         switch showNutrientsAs {
         case .perStandard:
-            let localizedValue = fact.localeStandardValue()
+            let localizedValue = fact.localeStandardValue() // editMode ? fact.standardValue : fact.localeStandardValue()
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
             displayFact.unit = fact.standardValueUnit
         case .perServing:

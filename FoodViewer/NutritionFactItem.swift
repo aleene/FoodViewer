@@ -42,18 +42,21 @@ struct NutritionFactItem {
     }
     
     struct Constants {
-        static let CaloriesPerJoule = 4.2
+        static let CaloriesPerJoule = Float(4.2)
     }
 
     func valueInCalories(_ stringValue: String?) -> String {
         
         if let value = stringValue {
             guard !value.isEmpty else { return "" }
-            if let doubleValue = Double.init(value.replacingOccurrences(of: ",", with: ".")) {
-                let division = doubleValue / Constants.CaloriesPerJoule
+            
+            let newValue = value.replacingOccurrences(of: "\u{a0}", with: "")
+
+            if let floatValue = newValue.floatValue {
+                let division = floatValue / Constants.CaloriesPerJoule
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
-                let str = numberFormatter.string(from: NSNumber(floatLiteral: division))
+                let str = numberFormatter.string(from: NSNumber(floatLiteral: Double(division)))
                 guard (str != nil) else { return "" }
                 return str!
             } else {
@@ -73,12 +76,21 @@ struct NutritionFactItem {
     fileprivate func localeValue(_ stringValue: String?) -> String {
 
         if let value = stringValue {
-            guard !value.isEmpty else { return value }
-            // change any comma numbers to point numbers
-            if let doubleValue = Double.init(value.replacingOccurrences(of: ",", with: ".")) {
+            // an empty string does not have to be analysed
+            guard !value.isEmpty else { return "" }
+            /*
+            for c in value.unicodeScalars {
+                print(String(c.value, radix: 16))
+            }
+             */
+            // remove any unicode a0 (non-breaking space)
+            let newValue = value.replacingOccurrences(of: "\u{a0}", with: "")
+
+            // accept numbers with a , or . separator
+            if let floatValue = newValue.floatValue {
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
-                let str = numberFormatter.string(from: NSNumber(floatLiteral: doubleValue))
+                let str = numberFormatter.string(from: NSNumber(value: floatValue))
                 guard (str != nil) else { return "" }
                 return str!
             } else {
@@ -103,6 +115,22 @@ struct NutritionFactItem {
         return ""
     }
 
+}
+
+extension String {
+    var floatValue: Float? {
+        let nf = NumberFormatter()
+        nf.decimalSeparator = "."
+        if let result = nf.number(from: self) {
+            return result.floatValue
+        } else {
+            nf.decimalSeparator = ","
+            if let result = nf.number(from: self) {
+                return result.floatValue
+            }
+        }
+        return nil
+    }
 }
 
 
