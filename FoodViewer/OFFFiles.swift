@@ -246,11 +246,16 @@ class OFFplists {
             var unit: NutritionFactUnit = .None
             if let validUnit = currentVertex.leaves["unit"] {
                 if !validUnit.isEmpty {
-                    unit = NutritionFactUnit(validUnit[0])
+                    if validUnit[0] == "none" {
+                        // for unitless nutrition facts
+                        unit = .None
+                    } else {
+                        unit = NutritionFactUnit(validUnit[0])
+                    }
                 }
             }
             if translatedValues == nil {
-                return englishValues != nil ? (currentVertex.key, englishValues![0], unit) : (key, NSLocalizedString("No english name", comment: "Text in a pickerView, when no translated text is available"), unit )
+                return englishValues != nil ? (currentVertex.key, englishValues![0], unit) : (key, currentVertex.key, unit )
             } else {
                 // return the first value of the translation array
                 return  !translatedValues!.isEmpty ? (currentVertex.key, translatedValues![0], unit) : (key, NSLocalizedString("No translation", comment: "Text in a pickerView, when no translated text is available"), unit )

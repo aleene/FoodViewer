@@ -34,7 +34,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>de</key>
 			<array>
@@ -1535,7 +1535,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1553,7 +1553,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1575,7 +1575,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1741,7 +1741,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1893,7 +1893,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -2273,7 +2273,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -2287,7 +2287,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string></string>
+				<string>none</string>
 			</array>
 			<key>fr</key>
 			<array>

@@ -154,7 +154,7 @@ class OpenFoodFactsRequest {
                         product.genericNameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
                     }
                 }
-                
+                // print(product.name)
                 if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionaryObject {
                     var images: [String:ProductImageData] = [:]
                     for element in valid {
@@ -466,54 +466,83 @@ class OpenFoodFactsRequest {
 
     fileprivate func nutritionDecode(_ fact: String, key: String, jsonObject: JSON, product: FoodProduct) {
         
-    //TBD decoding needs to be improved
+        var nutritionItem = NutritionFactItem()
+
         struct Appendix {
             static let HunderdKey = "_100g"
             static let ServingKey = "_serving"
             static let UnitKey = "_unit"
             static let ValueKey = "_value"
         }
-        var nutritionItem = NutritionFactItem()
+        
+        func decodeValues() {
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
+                nutritionItem.standardValue = value
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
+                nutritionItem.standardValue = value
+            } else {
+                nutritionItem.standardValue = nil
+            }
+            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
+                nutritionItem.servingValue = value
+            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
+                nutritionItem.servingValue = value
+            } else {
+                nutritionItem.servingValue = nil
+            }
+        }
+        
         let preferredLanguage = Locale.preferredLanguages[0]
         nutritionItem.key = key
         nutritionItem.itemName = OFFplists.manager.translateNutrients(key, language:preferredLanguage)
-        // we use only the values standerdized on g
-        if nutritionItem.key!.contains("energy") {
+        let nutUnit = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.UnitKey].string
+        
+        guard nutUnit != nil else { return }
+        
+        //if nutritionItem.itemName!.contains("pH") {
+        //    print(product.name, nutUnit!)
+        //}
+        
+        if nutUnit!.contains("kJ") {
             nutritionItem.standardValueUnit = NutritionFactUnit.Joule
             nutritionItem.servingValueUnit = NutritionFactUnit.Joule
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
-                nutritionItem.standardValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.standardValue = value
-            } else {
-                nutritionItem.standardValue = nil
-            }
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
-                nutritionItem.servingValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.servingValue = value
-            } else {
-                nutritionItem.servingValue = nil
-            }
-
-        } else if (nutritionItem.key!.contains("alcohol")) || (nutritionItem.key!.contains("cocoa")){
+            decodeValues()
+        } else if nutUnit!.contains("kcal") {
+            nutritionItem.standardValueUnit = NutritionFactUnit.Calories
+            nutritionItem.servingValueUnit = NutritionFactUnit.Calories
+            decodeValues()
+        } else if nutUnit!.contains("% vol") {
             nutritionItem.standardValueUnit = NutritionFactUnit.Percent
             nutritionItem.servingValueUnit = NutritionFactUnit.Percent
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
-                nutritionItem.standardValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.standardValue = value
+            decodeValues()
+        } else if nutUnit!.contains("mg") {
+            nutritionItem.standardValueUnit = NutritionFactUnit.Milligram
+            nutritionItem.servingValueUnit = NutritionFactUnit.Milligram
+            decodeValues()
+        } else if nutUnit!.contains("µg") {
+            nutritionItem.standardValueUnit = NutritionFactUnit.Microgram
+            nutritionItem.servingValueUnit = NutritionFactUnit.Microgram
+            decodeValues()
+            // check for unitless nutrients
+        } else if nutUnit!.contains("g") {
+            // resolves a bug th the json
+            if nutritionItem.itemName!.contains("pH") {
+                nutritionItem.standardValueUnit = NutritionFactUnit.None
+                nutritionItem.servingValueUnit = NutritionFactUnit.None
             } else {
-                nutritionItem.standardValue = nil
+                nutritionItem.standardValueUnit = NutritionFactUnit.Gram
+                nutritionItem.servingValueUnit = NutritionFactUnit.Gram
             }
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
-                nutritionItem.servingValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.servingValue = value
-            } else {
-                nutritionItem.servingValue = nil
-            }
-        } else {
+            decodeValues()
+        } else if nutUnit!.isEmpty {
+            
+            // resolves a bug the json
+            nutritionItem.standardValueUnit = NutritionFactUnit.Gram
+            nutritionItem.servingValueUnit = NutritionFactUnit.Gram
+            decodeValues()
+            // print(product.name, nutritionItem)
+        }
+        /*else {
             nutritionItem.standardValueUnit = NutritionFactUnit.Gram
             // let jsonVal = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string
             // print(product.name, key, key + Appendix.HunderdKey, jsonVal)
@@ -521,6 +550,8 @@ class OpenFoodFactsRequest {
             if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string {
                 // if key == "salt" { print("salt", value) }
                 // is the value translatable to a number?
+                // print(product.name,nutritionItem.itemName, value, Double(value))
+
                 if var doubleValue = Double(value) {
 
                     if doubleValue < 0.99 {
@@ -531,18 +562,21 @@ class OpenFoodFactsRequest {
                             doubleValue = doubleValue * 1000.0
                             // we use only the values standerdized on g
                             if doubleValue < 0.99 {
+                                // this is nanogram, probably the value is just 0
                                 nutritionItem.standardValueUnit = NutritionFactUnit.Gram
+                                print("1",product.name,nutritionItem.itemName, doubleValue, nutritionItem.standardValueUnit)
                             } else {
                                 nutritionItem.standardValueUnit = NutritionFactUnit.Microgram
+                                print("2",product.name,nutritionItem.itemName, doubleValue, nutritionItem.standardValueUnit)
                             }
                         } else {
-                            // we use only the values standerdized on g
+                            // more than 1 milligram, use milligram
                             nutritionItem.standardValueUnit = NutritionFactUnit.Milligram
+                            print("3",product.name,nutritionItem.itemName, doubleValue, nutritionItem.standardValueUnit)
                         }
                     } else {
-                        // we use only the values standerdized on g
+                        // larger than 1, use gram
                         nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-
                     }
                     // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
                     nutritionItem.standardValue = "\(doubleValue)"
@@ -644,7 +678,7 @@ class OpenFoodFactsRequest {
                 nutritionItem.servingValue = nil
             }
         }
-
+  */
         /*
         // what data is defined?
         if (nutritionItem.standardValue == nil) {
