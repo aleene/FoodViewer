@@ -625,6 +625,7 @@ class IdentificationTableViewController: UITableViewController {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
             imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
             imagePicker.sourceType = .camera
             
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
@@ -1064,7 +1065,7 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         
-        print("front image", image.size)
+        // print("front image", image.size)
         delegate?.updated(frontImage: image, languageCode: currentLanguageCode!)
         tableView.reloadData()
         
