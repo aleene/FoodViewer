@@ -9,11 +9,9 @@
 /* Begin PBXBuildFile section */
 		5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
 		5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */; };
-		510D9FAF1E7160F100B95B1B /* NutritionalScoreLevel.swift in Resources */ = {isa = PBXBuildFile; fileRef = 516B32861C75F6F30031EF80 /* NutritionalScoreLevel.swift */; };
-		510D9FB01E7160F100B95B1B /* NutritionEntryUnit.swift in Resources */ = {isa = PBXBuildFile; fileRef = 51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */; };
-		510D9FB11E7160F100B95B1B /* Status.swift in Resources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* Status.swift */; };
-		510D9FB21E7160F100B95B1B /* Tags.swift in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42CE1E069BDA00C9AD91 /* Tags.swift */; };
 		510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */; };
+		510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */; };
+		510D9FB81E719A1A00B95B1B /* MockNutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB71E719A1900B95B1B /* MockNutritionalScoreUK.swift */; };
 		5114592B1CB1368F00D25116 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* Status.swift */; };
 		5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592C1CB1385100D25116 /* Taxonomy.swift */; };
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
@@ -219,6 +217,8 @@
 		510A38EE1CD3B68200BAEB61 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		510A38EF1CD3B68300BAEB61 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantityTestSuite.swift; sourceTree = "<group>"; };
+		510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUKTestSuite.swift; sourceTree = "<group>"; };
+		510D9FB71E719A1900B95B1B /* MockNutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockNutritionalScoreUK.swift; sourceTree = "<group>"; };
 		5114592A1CB1368E00D25116 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		5114592C1CB1385100D25116 /* Taxonomy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Taxonomy.swift; sourceTree = "<group>"; };
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
@@ -700,6 +700,8 @@
 				51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */,
 				51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */,
 				510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */,
+				510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */,
+				510D9FB71E719A1900B95B1B /* MockNutritionalScoreUK.swift */,
 				51975CCF1E6EB8580075B57B /* Info.plist */,
 			);
 			path = FoodViewerTests;
@@ -960,10 +962,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				510D9FAF1E7160F100B95B1B /* NutritionalScoreLevel.swift in Resources */,
-				510D9FB01E7160F100B95B1B /* NutritionEntryUnit.swift in Resources */,
-				510D9FB11E7160F100B95B1B /* Status.swift in Resources */,
-				510D9FB21E7160F100B95B1B /* Tags.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1133,11 +1131,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				510D9FB81E719A1A00B95B1B /* MockNutritionalScoreUK.swift in Sources */,
 				51975CD61E6EB9120075B57B /* TagsTestSuite.swift in Sources */,
 				51975CE01E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift in Sources */,
 				510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */,
 				51975CDB1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift in Sources */,
 				51975CD91E6EC8510075B57B /* CompletionStatusTestSuite.swift in Sources */,
+				510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
