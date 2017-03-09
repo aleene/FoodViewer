@@ -475,232 +475,47 @@ class OpenFoodFactsRequest {
             static let ValueKey = "_value"
         }
         
-        func decodeValues() {
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
-                nutritionItem.standardValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.standardValue = value
-            } else {
-                nutritionItem.standardValue = nil
-            }
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
-                nutritionItem.servingValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                nutritionItem.servingValue = value
-            } else {
-                nutritionItem.servingValue = nil
-            }
-        }
-        
-        let preferredLanguage = Locale.preferredLanguages[0]
         nutritionItem.key = key
-        nutritionItem.itemName = OFFplists.manager.translateNutrients(key, language:preferredLanguage)
-        let nutUnit = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.UnitKey].string
-        
-        guard nutUnit != nil else { return }
-        
-        //if nutritionItem.itemName!.contains("pH") {
-        //    print(product.name, nutUnit!)
-        //}
-        
-        if nutUnit!.contains("kJ") {
-            nutritionItem.standardValueUnit = NutritionFactUnit.Joule
-            nutritionItem.servingValueUnit = NutritionFactUnit.Joule
-            decodeValues()
-        } else if nutUnit!.contains("kcal") {
-            nutritionItem.standardValueUnit = NutritionFactUnit.Calories
-            nutritionItem.servingValueUnit = NutritionFactUnit.Calories
-            decodeValues()
-        } else if nutUnit!.contains("% vol") {
-            nutritionItem.standardValueUnit = NutritionFactUnit.Percent
-            nutritionItem.servingValueUnit = NutritionFactUnit.Percent
-            decodeValues()
-        } else if nutUnit!.contains("mg") {
-            nutritionItem.standardValueUnit = NutritionFactUnit.Milligram
-            nutritionItem.servingValueUnit = NutritionFactUnit.Milligram
-            decodeValues()
-        } else if nutUnit!.contains("µg") {
-            nutritionItem.standardValueUnit = NutritionFactUnit.Microgram
-            nutritionItem.servingValueUnit = NutritionFactUnit.Microgram
-            decodeValues()
-            // check for unitless nutrients
-        } else if nutUnit!.contains("g") {
-            // resolves a bug th the json
-            if nutritionItem.itemName!.contains("pH") {
-                nutritionItem.standardValueUnit = NutritionFactUnit.None
-                nutritionItem.servingValueUnit = NutritionFactUnit.None
-            } else {
-                nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-                nutritionItem.servingValueUnit = NutritionFactUnit.Gram
-            }
-            decodeValues()
-        } else if nutUnit!.isEmpty {
-            
-            // resolves a bug the json
-            nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-            nutritionItem.servingValueUnit = NutritionFactUnit.Gram
-            decodeValues()
-            // print(product.name, nutritionItem)
+        nutritionItem.itemName = OFFplists.manager.translateNutrients(key, language:Locale.preferredLanguages[0])
+        switch OFFplists.manager.nutrientUnit(for: key) {
+        case .Milligram, .Microgram:
+            nutritionItem.standardValueUnit = .Gram
+        default:
+            nutritionItem.standardValueUnit = OFFplists.manager.nutrientUnit(for: key)
+
         }
-        /*else {
-            nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-            // let jsonVal = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string
-            // print(product.name, key, key + Appendix.HunderdKey, jsonVal)
-            
-            if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key + Appendix.HunderdKey].string {
-                // if key == "salt" { print("salt", value) }
-                // is the value translatable to a number?
-                // print(product.name,nutritionItem.itemName, value, Double(value))
-
-                if var doubleValue = Double(value) {
-
-                    if doubleValue < 0.99 {
-                        //change to the milli version
-                        doubleValue = doubleValue * 1000.0
-                        if doubleValue < 0.99 {
-                            // change to the microversion
-                            doubleValue = doubleValue * 1000.0
-                            // we use only the values standerdized on g
-                            if doubleValue < 0.99 {
-                                // this is nanogram, probably the value is just 0
-                                nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-                                print("1",product.name,nutritionItem.itemName, doubleValue, nutritionItem.standardValueUnit)
-                            } else {
-                                nutritionItem.standardValueUnit = NutritionFactUnit.Microgram
-                                print("2",product.name,nutritionItem.itemName, doubleValue, nutritionItem.standardValueUnit)
-                            }
-                        } else {
-                            // more than 1 milligram, use milligram
-                            nutritionItem.standardValueUnit = NutritionFactUnit.Milligram
-                            print("3",product.name,nutritionItem.itemName, doubleValue, nutritionItem.standardValueUnit)
-                        }
-                    } else {
-                        // larger than 1, use gram
-                        nutritionItem.standardValueUnit = NutritionFactUnit.Gram
-                    }
-                    // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
-                    nutritionItem.standardValue = "\(doubleValue)"
-                } else {
-                    // not a number, maybe some text
-                    nutritionItem.standardValue = value
-                }
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ValueKey].string {
-                // use the value key data if any
-                nutritionItem.standardValue = value
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key].string {
-                // use the value key data if any
-                nutritionItem.standardValue = value
-            }
+        nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
         
-            nutritionItem.servingValueUnit = NutritionFactUnit.Gram
-            if var value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].number?.doubleValue {
-                // is the value translatable to a number?
-                // use the original values to calculate the daily fraction
-                let dailyValue = ReferenceDailyIntakeList.manager.dailyValue(value: value, forKey:key)
-                // print("serving: \(key) \(doubleValue)" )
-                nutritionItem.dailyFractionPerServing = dailyValue
-                
-                if value < 0.99 {
-                    //change to the milli version
-                    value = value * 1000.0
-                    if value < 0.99 {
-                        // change to the microversion
-                        value = value * 1000.0
-                        if value < 0.99 {
-                            nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
-                        } else {
-                            // we use only the values standerdized on g
-                            if nutritionItem.servingValueUnit! == .Gram {
-                                nutritionItem.servingValueUnit = .Microgram
-//                            } else if nutritionItem.servingValueUnit! == .Liter {
-//                                nutritionItem.servingValueUnit = .Microliter
-                            }
-                        }
-                    } else {
-                        // we use only the values standerdized on g
-                        if nutritionItem.servingValueUnit! == .Gram {
-                            nutritionItem.servingValueUnit = .Milligram
-//                        } else if nutritionItem.servingValueUnit! == .Liter {
-//                            nutritionItem.servingValueUnit = .Milliliter
-                        }
-                    }
-                } else {
-                        // we use only the values standerdized on g
-                    nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
-                }
-
-                nutritionItem.servingValue = "\(value)"
-            } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
-                
-                // is the value translatable to a number?
-                if var doubleValue = Double(value) {
-
-                    // use the original values to calculate the daily fraction
-                    let dailyValue = ReferenceDailyIntakeList.manager.dailyValue(value: doubleValue, forKey:key)
-                    // print("serving: \(key) \(doubleValue)" )
-                    nutritionItem.dailyFractionPerServing = dailyValue
-                    
-                    if doubleValue < 0.99 {
-                        //change to the milli version
-                        doubleValue = doubleValue * 1000.0
-                        if doubleValue < 0.99 {
-                            // change to the microversion
-                            doubleValue = doubleValue * 1000.0
-                            if doubleValue < 0.99 {
-                                nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
-                            } else {
-                                // we use only the values standerdized on g
-                                if nutritionItem.servingValueUnit! == .Gram {
-                                    nutritionItem.servingValueUnit = .Microgram
-//                                } else if nutritionItem.servingValueUnit! == .Liter {
-//                                    nutritionItem.servingValueUnit = .Microliter
-                                }
-                            }
-                        } else {
-                            // we use only the values standerdized on g
-                            if nutritionItem.servingValueUnit! == .Gram {
-                                nutritionItem.servingValueUnit = .Milligram
-//                            } else if nutritionItem.servingValueUnit! == .Liter {
-//                                nutritionItem.servingValueUnit = .Milliliter
-                            }
-                        }
-                    } else {
-                        // we use only the values standerdized on g
-                        nutritionItem.servingValueUnit = nutritionItem.servingValueUnit!
-                    }
-                    
-                    nutritionItem.servingValue = "\(doubleValue)"
-                } else {
-                    nutritionItem.servingValue = value
-                }
-
-            } else {
-                nutritionItem.servingValue = nil
-            }
-        }
-  */
-        /*
-        // what data is defined?
-        if (nutritionItem.standardValue == nil) {
-            if (nutritionItem.servingValue == nil) {
-                if product.nutritionFactsImageUrl != nil {
-                // the user did ot enter the nutrition data
-                    product.nutritionFactsAreAvailable = .notIndicated
-                } else {
-                    product.nutritionFactsAreAvailable = .notAvailable
-                }
-                return
-            } else {
-                product.nutritionFactsAreAvailable = .perServing
-            }
+        // value of a _100g field is either a number or a string
+        if let doubleValue = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].double {
+            nutritionItem.standardValue = "\(doubleValue)"
+        } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
+            nutritionItem.standardValue = value
         } else {
-            if (nutritionItem.servingValue == nil) {
-                product.nutritionFactsAreAvailable = .perStandardUnit
-            } else {
-                product.nutritionFactsAreAvailable = .perServingAndStandardUnit
-            }
+            nutritionItem.standardValue = nil
         }
-        */
+        
+        if let doubleValue = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].double {
+            nutritionItem.servingValue = "\(doubleValue)"
+        } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
+            nutritionItem.servingValue = value
+        } else {
+            nutritionItem.servingValue = nil
+        }
+        
+        if nutritionItem.standardValueUnit == .Gram {
+            var value: String? = nil
+            var unit: NutritionFactUnit = .Gram
+            
+            (value, unit) = normalize(nutritionItem.standardValue)
+            nutritionItem.standardValue = value
+            nutritionItem.standardValueUnit = unit
+            
+            (value, unit) = normalize(nutritionItem.servingValue)
+            nutritionItem.servingValue = value
+            nutritionItem.servingValueUnit = unit
+        }
+
         // only add a fact if it has valid values
         if nutritionItem.standardValue != nil || nutritionItem.servingValue != nil {
             product.add(fact: nutritionItem)
@@ -1206,6 +1021,46 @@ class OpenFoodFactsRequest {
         } else {
             return nil
         }
+    }
+    
+    // assume we start with grams
+    func normalize(_ value: String?) -> (String?, NutritionFactUnit) {
+        var newValue: String? = nil
+        var newUnit: NutritionFactUnit = .None
+        
+        guard value != nil else { return (nil, NutritionFactUnit.Gram) }
+        
+         if var doubleValue = Double(value!) {
+            // the value can be converted to a number
+            if doubleValue < 0.99 {
+            //change to the milli version
+            doubleValue = doubleValue * 1000.0
+                if doubleValue < 0.99 {
+                    // change to the microversion
+                    doubleValue = doubleValue * 1000.0
+                    // we use only the values standerdized on g
+                    if doubleValue < 0.99 {
+                        // this is nanogram, probably the value is just 0
+                        newUnit = NutritionFactUnit.Gram
+                    } else {
+                        newUnit = NutritionFactUnit.Microgram
+                    }
+                } else {
+                    // more than 1 milligram, use milligram
+                    newUnit = NutritionFactUnit.Milligram
+                }
+            } else {
+                // larger than 1, use gram
+                newUnit = NutritionFactUnit.Gram
+            }
+            // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
+            newValue = "\(doubleValue)"
+        } else {
+            // not a number, maybe some text
+            newValue = value
+        }
+        
+        return (newValue, newUnit)
     }
 
 }

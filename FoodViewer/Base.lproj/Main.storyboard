@@ -570,7 +570,7 @@
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Identification Image" id="Bpf-rD-vDt"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" id="gUL-qK-f1G" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" rowHeight="44" id="gUL-qK-f1G" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="592" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gUL-qK-f1G" id="PNb-Ht-uqC">
@@ -2600,7 +2600,7 @@
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Nutrition Facts Image" id="EQr-JI-4QT"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" rowHeight="44" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u9d-nb-gSc" id="q8I-Mx-AJ4">
@@ -2608,38 +2608,28 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mke-Kf-uJy">
-                                            <rect key="frame" x="0.0" y="4.5" width="30" height="33"/>
+                                            <rect key="frame" x="0.0" y="5.5" width="30" height="33"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <state key="normal" title="en"/>
                                             <connections>
                                                 <action selector="languageButtonTapped:" destination="u9d-nb-gSc" eventType="touchUpInside" id="aa8-vH-KrI"/>
                                             </connections>
                                         </button>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMY-U0-pBv">
-                                            <rect key="frame" x="38" y="8" width="274" height="27.5"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-av-cA3" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
                                             <rect key="frame" x="38" y="8" width="274" height="27"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="trailing" secondItem="bMY-U0-pBv" secondAttribute="trailing" id="L8A-Xe-zJB"/>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="leading" secondItem="bMY-U0-pBv" secondAttribute="leading" id="MBj-Uk-goa"/>
-                                        <constraint firstItem="bMY-U0-pBv" firstAttribute="leading" secondItem="mke-Kf-uJy" secondAttribute="trailing" constant="8" id="PdW-tQ-gy7"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="bMY-U0-pBv" secondAttribute="bottom" id="dsm-CK-Tuy"/>
-                                        <constraint firstAttribute="leading" secondItem="mke-Kf-uJy" secondAttribute="leading" id="f1l-ra-gCw"/>
-                                        <constraint firstItem="mke-Kf-uJy" firstAttribute="centerY" secondItem="q8I-Mx-AJ4" secondAttribute="centerY" id="njr-8g-FjS"/>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="top" secondItem="bMY-U0-pBv" secondAttribute="top" id="tW7-ia-KqB"/>
-                                        <constraint firstItem="bMY-U0-pBv" firstAttribute="top" secondItem="q8I-Mx-AJ4" secondAttribute="topMargin" id="w3B-t2-KSk"/>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="bottom" secondItem="bMY-U0-pBv" secondAttribute="bottom" id="wMY-1c-9M7"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bMY-U0-pBv" secondAttribute="trailing" id="yag-TL-3g4"/>
+                                        <constraint firstItem="A5S-av-cA3" firstAttribute="leading" secondItem="mke-Kf-uJy" secondAttribute="trailing" constant="8" id="7BU-eL-icA"/>
+                                        <constraint firstItem="mke-Kf-uJy" firstAttribute="centerY" secondItem="A5S-av-cA3" secondAttribute="centerY" id="Bic-hI-KyA"/>
+                                        <constraint firstAttribute="topMargin" secondItem="A5S-av-cA3" secondAttribute="top" id="PA8-kO-7HD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="A5S-av-cA3" secondAttribute="trailing" id="VGc-Da-Coo"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="A5S-av-cA3" secondAttribute="bottom" id="Xhb-Tv-RB5"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="mke-Kf-uJy" firstAttribute="leading" secondItem="u9d-nb-gSc" secondAttribute="leading" constant="8" id="zUR-NM-U7H"/>
+                                    <constraint firstItem="mke-Kf-uJy" firstAttribute="leading" secondItem="u9d-nb-gSc" secondAttribute="leading" id="zUR-NM-U7H"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="languageButton" destination="mke-Kf-uJy" id="Pi5-QP-LYH"/>

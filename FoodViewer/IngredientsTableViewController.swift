@@ -555,8 +555,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
         picker.imagePickerController = UIImagePickerController.init()
-        picker.imagePickerController!.modalPresentationStyle = .formSheet
-        picker.sourceType = .savedPhotosAlbum
         // picker.mediaTypes = [kUTTypeImage as String]
         return picker
     }()
@@ -565,6 +563,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
+            imagePicker.imagePickerController!.modalPresentationStyle = .popover
+            imagePicker.sourceType = .savedPhotosAlbum
+
+
             imagePicker.delegate = self
             
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
@@ -815,13 +817,13 @@ extension IngredientsTableViewController: TagListViewDataSource {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .allergens:
-            return allergensToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
+            return allergensToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
         case .traces:
-            return tracesToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
+            return tracesToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
         case .additives:
-            return additivesToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
+            return additivesToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
         case .labels:
-            return labelsToDisplay.tagWithoutPrefix(index, language:Locale.preferredLanguages[0])!
+            return labelsToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
         case .image:
             return searchResult
         default: break

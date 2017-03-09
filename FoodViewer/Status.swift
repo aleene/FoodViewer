@@ -8,14 +8,15 @@
 
 import Foundation
 
-struct CompletionStatus: CustomStringConvertible {
-    var value = false
-    var text = "Missing state"
+public struct CompletionStatus: CustomStringConvertible {
+    public var value = false
+    public var text = "Missing state"
     
-    var description: String {
+    public var description: String {
         get {
             return text
         }
     }
 
+    public init() { }
 }

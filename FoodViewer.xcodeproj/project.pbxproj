@@ -117,6 +117,9 @@
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
 		51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */; };
+		51975CCE1E6EB8560075B57B /* FoodViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CCD1E6EB8560075B57B /* FoodViewerTests.swift */; };
+		51975CD61E6EB9120075B57B /* TagsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD51E6EB9120075B57B /* TagsTest.swift */; };
+		51975CD91E6EC8510075B57B /* CompletionStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD81E6EC8510075B57B /* CompletionStatusTest.swift */; };
 		519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */; };
 		519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */; };
 		5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */; };
@@ -179,6 +182,16 @@
 		51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */; };
 		51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		51975CD01E6EB8580075B57B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5180B8FC1C5D3B57002DBD21 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5180B9031C5D3B57002DBD21;
+			remoteInfo = FoodViewer;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		51578BF51DB11ECA005BEEF6 /* CopyFiles */ = {
@@ -321,6 +334,11 @@
 		51975CC41E68166E0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		51975CC51E68166E0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		51975CC61E68166F0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		51975CCD1E6EB8560075B57B /* FoodViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewerTests.swift; sourceTree = "<group>"; };
+		51975CCF1E6EB8580075B57B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		51975CD51E6EB9120075B57B /* TagsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsTest.swift; sourceTree = "<group>"; };
+		51975CD81E6EC8510075B57B /* CompletionStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatusTest.swift; sourceTree = "<group>"; };
 		519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionAvailability.swift; sourceTree = "<group>"; };
 		519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoServingSizeTableViewCell.swift; sourceTree = "<group>"; };
 		5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityTableViewCell.swift; sourceTree = "<group>"; };
@@ -391,6 +409,13 @@
 
 /* Begin PBXFrameworksBuildPhase section */
 		5180B9011C5D3B57002DBD21 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51975CC81E6EB84F0075B57B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -602,6 +627,7 @@
 			children = (
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
+				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
 				5180B9051C5D3B57002DBD21 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -610,6 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				5180B9041C5D3B57002DBD21 /* FoodViewer.app */,
+				51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -655,6 +682,17 @@
 				516BA58B1CC4E6BE008A094A /* 40111490.json */,
 			);
 			name = "Support files";
+			sourceTree = "<group>";
+		};
+		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
+			isa = PBXGroup;
+			children = (
+				51975CCD1E6EB8560075B57B /* FoodViewerTests.swift */,
+				51975CD51E6EB9120075B57B /* TagsTest.swift */,
+				51975CD81E6EC8510075B57B /* CompletionStatusTest.swift */,
+				51975CCF1E6EB8580075B57B /* Info.plist */,
+			);
+			path = FoodViewerTests;
 			sourceTree = "<group>";
 		};
 		519884E11CE4EA5E0020B3A1 /* Components */ = {
@@ -811,13 +849,31 @@
 			productReference = 5180B9041C5D3B57002DBD21 /* FoodViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		51975CCA1E6EB84F0075B57B /* FoodViewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 51975CD21E6EB85A0075B57B /* Build configuration list for PBXNativeTarget "FoodViewerTests" */;
+			buildPhases = (
+				51975CC71E6EB84F0075B57B /* Sources */,
+				51975CC81E6EB84F0075B57B /* Frameworks */,
+				51975CC91E6EB84F0075B57B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				51975CD11E6EB8580075B57B /* PBXTargetDependency */,
+			);
+			name = FoodViewerTests;
+			productName = FoodViewerTests;
+			productReference = 51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		5180B8FC1C5D3B57002DBD21 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Hovering Above";
 				TargetAttributes = {
@@ -834,6 +890,12 @@
 								enabled = 0;
 							};
 						};
+					};
+					51975CCA1E6EB84F0075B57B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Q4FXMVWJ7V;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5180B9031C5D3B57002DBD21;
 					};
 				};
 			};
@@ -852,6 +914,7 @@
 			projectRoot = "";
 			targets = (
 				5180B9031C5D3B57002DBD21 /* FoodViewer */,
+				51975CCA1E6EB84F0075B57B /* FoodViewerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -880,6 +943,13 @@
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		51975CC91E6EB84F0075B57B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1045,7 +1115,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		51975CC71E6EB84F0075B57B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51975CD61E6EB9120075B57B /* TagsTest.swift in Sources */,
+				51975CCE1E6EB8560075B57B /* FoodViewerTests.swift in Sources */,
+				51975CD91E6EC8510075B57B /* CompletionStatusTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		51975CD11E6EB8580075B57B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5180B9031C5D3B57002DBD21 /* FoodViewer */;
+			targetProxy = 51975CD01E6EB8580075B57B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		517FC92C1CD5009A00CB89ED /* InfoPlist.strings */ = {
@@ -1226,6 +1314,41 @@
 			};
 			name = Release;
 		};
+		51975CD31E6EB85A0075B57B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
+				INFOPLIST_FILE = FoodViewerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodViewer.app/FoodViewer";
+			};
+			name = Debug;
+		};
+		51975CD41E6EB85A0075B57B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
+				INFOPLIST_FILE = FoodViewerTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FoodViewer.app/FoodViewer";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1246,6 +1369,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		51975CD21E6EB85A0075B57B /* Build configuration list for PBXNativeTarget "FoodViewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51975CD31E6EB85A0075B57B /* Debug */,
+				51975CD41E6EB85A0075B57B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

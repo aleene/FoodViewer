@@ -235,6 +235,23 @@ class OFFplists {
         nutrients = nutrients.sorted { $0.1 < $1.1 }
         return nutrients
     }
+    
+    // function to find the unit for a specific nutrient
+    func nutrientUnit(for key: String) -> NutritionFactUnit {
+        // find nutrient
+        if let nutrientVerteces = OFFnutrients {
+            for vertex in nutrientVerteces {
+                if vertex.key == "en:" + key {
+                    if let validUnit = vertex.leaves["unit"] {
+                        if !validUnit.isEmpty {
+                            return NutritionFactUnit(validUnit[0])
+                        }
+                    }
+                }
+            }
+        }
+        return .None
+    }
 
     func nutrientText(at index: Int, languageCode key: String) -> (String, String, NutritionFactUnit)? {
         if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {

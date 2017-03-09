@@ -352,7 +352,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             cell!.languageCode = "??"
                         }
                         return cell!
-                        
                     default:
                         searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
@@ -375,6 +374,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = nil
                         cell?.editMode = editMode
+                        cell?.tag = indexPath.section
                         return cell!
                     } else {
                         searchResult = ImageFetchResult.noImageAvailable.description()
@@ -394,24 +394,25 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                 }
             } else {
+                // No image is available
                 if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                    cell?.nutritionFactsImage = nil
-                    cell?.editMode = editMode
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! NutrientsImageTableViewCell
+                    cell.nutritionFactsImage = nil
+                    cell.editMode = editMode
+                    cell.languageCode = currentLanguageCode
+                    cell.tag = indexPath.section
+                    return cell
                 } else {
                     searchResult = ImageFetchResult.noImageAvailable.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    cell?.editMode = editMode
-                    cell!.numberOfLanguages = product!.languageCodes.count
-                    if let validCurrentLanguageCode = currentLanguageCode {
-                        cell!.languageCode = validCurrentLanguageCode
-                    } else {
-                        cell!.languageCode = "??"
-                    }
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as! NoNutrientsImageTableViewCell
+                    cell.width = tableView.frame.size.width
+                    cell.scheme = ColorSchemes.error
+                    cell.editMode = editMode
+                    cell.datasource = self
+                    cell.tag = indexPath.section
+                    cell.numberOfLanguages = product!.languageCodes.count
+                    cell.languageCode = currentLanguageCode
+                    return cell
                 }
             }
 
@@ -904,6 +905,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
+            imagePicker.imagePickerController!.modalPresentationStyle = .popover
             imagePicker.delegate = self
             
             present(imagePicker.imagePickerController!, animated: true, completion: nil)

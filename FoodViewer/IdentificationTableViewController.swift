@@ -646,7 +646,6 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
         picker.imagePickerController = UIImagePickerController.init()
-        picker.imagePickerController!.modalPresentationStyle = .formSheet
         // picker.mediaTypes = [kUTTypeImage as String]
         return picker
     }()
@@ -658,6 +657,7 @@ class IdentificationTableViewController: UITableViewController {
             imagePicker.hasResizeableCropArea = true
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.imagePickerController!.modalPresentationStyle = .popover
 
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
