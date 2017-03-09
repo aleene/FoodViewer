@@ -24,7 +24,7 @@ class NutritionalScoreLevelTestSuite: XCTestCase {
     }
     
     //
-    // MARK - init() test
+    // MARK: - init() test
     //
     
     // test nutritionalScoreLevel.init()
@@ -38,7 +38,7 @@ class NutritionalScoreLevelTestSuite: XCTestCase {
     }
     
     //
-    // MARK - int(_:) tests of edge values
+    // MARK: - int(_:) tests of edge values
     //
     
     // test nutritionalScoreLevel.int(nil)
@@ -108,7 +108,7 @@ class NutritionalScoreLevelTestSuite: XCTestCase {
     }
 
     //
-    // MARK - string(_:) tests of edge values
+    // MARK: - string(_:) tests of edge values
     //
     
     // test nutritionalScoreLevel.string(nil)

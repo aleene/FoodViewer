@@ -8,13 +8,13 @@
 
 import Foundation
 
-enum NutritionLevelQuantity {
+public enum NutritionLevelQuantity {
     case low
     case moderate
     case high
     case undefined
     
-    mutating func string(_ s:String?) {
+    public mutating func string(_ s:String?) {
         if let newString = s {
             if newString == "high" {
                 self = .high
@@ -28,5 +28,9 @@ enum NutritionLevelQuantity {
         } else {
             self = .undefined
         }
+    }
+    
+    public init() {
+        self = .undefined
     }
 }
