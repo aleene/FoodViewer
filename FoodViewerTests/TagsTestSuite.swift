@@ -1,5 +1,5 @@
 //
-//  TagsTest.swift
+//  TagsTestSuite.swift
 //  FoodViewer
 //
 //  Created by arnaud on 07/03/17.
@@ -9,7 +9,7 @@
 import XCTest
 import FoodViewer
 
-class TagsTest: XCTestCase {
+class TagsTestSuite: XCTestCase {
     
     override func setUp() {
         super.setUp()

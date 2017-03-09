@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NutritionalScoreLevel {
+public enum NutritionalScoreLevel {
     case a
     case b
     case c
@@ -16,7 +16,7 @@ enum NutritionalScoreLevel {
     case e
     case undefined
     
-    mutating func int(_ value: Int?) {
+    public mutating func int(_ value: Int?) {
         if let existingValue = value {
             if existingValue <= -1 {
                 self = .a
@@ -34,7 +34,7 @@ enum NutritionalScoreLevel {
         }
     }
     
-    mutating func string(_ value: String?) {
+    public mutating func string(_ value: String?) {
         if let existingValue = value {
             if existingValue == "a" {
                 self = .a
@@ -54,7 +54,7 @@ enum NutritionalScoreLevel {
         }
     }
     
-    init() {
+    public init() {
         self = .undefined
     }
 }

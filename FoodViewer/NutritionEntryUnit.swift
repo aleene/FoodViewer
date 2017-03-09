@@ -11,7 +11,7 @@ import Foundation
 
 // this enum describes how the user entered the nutrition data
 
-enum NutritionEntryUnit {
+public enum NutritionEntryUnit {
     
     case perServing
     case perStandardUnit
@@ -24,10 +24,14 @@ enum NutritionEntryUnit {
         }
     }
     
-    func key() -> String {
+    public func key() -> String {
         switch self {
         case .perServing: return "serving"
         case .perStandardUnit: return "100g"
         }
+    }
+    
+    public init() {
+        self = .perStandardUnit
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CompletionStatusTest.swift
+//  CompletionStatusTestSuite.swift
 //  FoodViewer
 //
 //  Created by arnaud on 07/03/17.
@@ -9,7 +9,7 @@
 import FoodViewer
 import XCTest
 
-class CompletionStatusTest: XCTestCase {
+class CompletionStatusTestSuite: XCTestCase {
     
     var status: CompletionStatus = CompletionStatus()
 

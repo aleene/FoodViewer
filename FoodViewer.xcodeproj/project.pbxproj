@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
 		5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */; };
+		510D9FAF1E7160F100B95B1B /* NutritionalScoreLevel.swift in Resources */ = {isa = PBXBuildFile; fileRef = 516B32861C75F6F30031EF80 /* NutritionalScoreLevel.swift */; };
+		510D9FB01E7160F100B95B1B /* NutritionEntryUnit.swift in Resources */ = {isa = PBXBuildFile; fileRef = 51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */; };
+		510D9FB11E7160F100B95B1B /* Status.swift in Resources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* Status.swift */; };
+		510D9FB21E7160F100B95B1B /* Tags.swift in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42CE1E069BDA00C9AD91 /* Tags.swift */; };
 		5114592B1CB1368F00D25116 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* Status.swift */; };
 		5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592C1CB1385100D25116 /* Taxonomy.swift */; };
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
@@ -117,9 +121,10 @@
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
 		51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */; };
-		51975CCE1E6EB8560075B57B /* FoodViewerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CCD1E6EB8560075B57B /* FoodViewerTests.swift */; };
-		51975CD61E6EB9120075B57B /* TagsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD51E6EB9120075B57B /* TagsTest.swift */; };
-		51975CD91E6EC8510075B57B /* CompletionStatusTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD81E6EC8510075B57B /* CompletionStatusTest.swift */; };
+		51975CD61E6EB9120075B57B /* TagsTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD51E6EB9120075B57B /* TagsTestSuite.swift */; };
+		51975CD91E6EC8510075B57B /* CompletionStatusTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */; };
+		51975CDB1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */; };
+		51975CE01E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */; };
 		519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */; };
 		519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */; };
 		5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */; };
@@ -335,10 +340,11 @@
 		51975CC51E68166E0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		51975CC61E68166F0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		51975CCD1E6EB8560075B57B /* FoodViewerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewerTests.swift; sourceTree = "<group>"; };
 		51975CCF1E6EB8580075B57B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		51975CD51E6EB9120075B57B /* TagsTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsTest.swift; sourceTree = "<group>"; };
-		51975CD81E6EC8510075B57B /* CompletionStatusTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatusTest.swift; sourceTree = "<group>"; };
+		51975CD51E6EB9120075B57B /* TagsTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsTestSuite.swift; sourceTree = "<group>"; };
+		51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatusTestSuite.swift; sourceTree = "<group>"; };
+		51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionEntryUnitTestSuite.swift; sourceTree = "<group>"; };
+		51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreLevelTestSuite.swift; sourceTree = "<group>"; };
 		519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionAvailability.swift; sourceTree = "<group>"; };
 		519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoServingSizeTableViewCell.swift; sourceTree = "<group>"; };
 		5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityTableViewCell.swift; sourceTree = "<group>"; };
@@ -687,9 +693,10 @@
 		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
 			isa = PBXGroup;
 			children = (
-				51975CCD1E6EB8560075B57B /* FoodViewerTests.swift */,
-				51975CD51E6EB9120075B57B /* TagsTest.swift */,
-				51975CD81E6EC8510075B57B /* CompletionStatusTest.swift */,
+				51975CD51E6EB9120075B57B /* TagsTestSuite.swift */,
+				51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */,
+				51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */,
+				51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */,
 				51975CCF1E6EB8580075B57B /* Info.plist */,
 			);
 			path = FoodViewerTests;
@@ -950,6 +957,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				510D9FAF1E7160F100B95B1B /* NutritionalScoreLevel.swift in Resources */,
+				510D9FB01E7160F100B95B1B /* NutritionEntryUnit.swift in Resources */,
+				510D9FB11E7160F100B95B1B /* Status.swift in Resources */,
+				510D9FB21E7160F100B95B1B /* Tags.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,9 +1130,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51975CD61E6EB9120075B57B /* TagsTest.swift in Sources */,
-				51975CCE1E6EB8560075B57B /* FoodViewerTests.swift in Sources */,
-				51975CD91E6EC8510075B57B /* CompletionStatusTest.swift in Sources */,
+				51975CD61E6EB9120075B57B /* TagsTestSuite.swift in Sources */,
+				51975CE01E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift in Sources */,
+				51975CDB1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift in Sources */,
+				51975CD91E6EC8510075B57B /* CompletionStatusTestSuite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1377,6 +1389,7 @@
 				51975CD41E6EB85A0075B57B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
