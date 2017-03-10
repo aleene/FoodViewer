@@ -327,8 +327,8 @@ class FoodProduct {
     //MARK: - Supply chain variables
     
     var nutritionGrade: NutritionalScoreLevel? = nil
-    var nutritionalScoreUK = NutritionalScoreUK()
-    var nutritionalScoreFrance = NutritionalScoreFrance()
+    var nutritionalScoreUK = LocalizedNutritionalScoreUK()
+    var nutritionalScoreFR = LocalizedNutritionalScoreFR()
     var purchaseLocation: Address? = nil //or a set?
     
     func purchaseLocationElements(_ elements: [String]?) {

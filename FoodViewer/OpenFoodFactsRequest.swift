@@ -321,7 +321,7 @@ class OpenFoodFactsRequest {
                 let nutrientLevelsSugars = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
                 product.stores = jsonObject[jsonKeys.ProductKey][jsonKeys.StoresKey].string?.components(separatedBy: ",")
                 product.imageIngredientsUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsUrlKey].url
-                (product.nutritionalScoreUK, product.nutritionalScoreFrance) = decodeNutritionalScore(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionScoreDebugKey].string)
+                (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionScoreDebugKey].string)
                 product.imageNutritionSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionSmallUrlKey].url
                 product.correctors = jsonObject[jsonKeys.ProductKey][jsonKeys.CorrectorsTagsKey].stringArray
 
@@ -804,10 +804,10 @@ class OpenFoodFactsRequest {
         return nil
     }
     
-    func decodeNutritionalScore(_ jsonString: String?) -> (NutritionalScoreUK, NutritionalScoreFrance) {
+    func decodeNutritionalScore(_ jsonString: String?) -> (LocalizedNutritionalScoreUK, LocalizedNutritionalScoreFR) {
     
-        var nutrionalScoreUK = NutritionalScoreUK()
-        var nutrionalScoreFrance = NutritionalScoreFrance()
+        let nutrionalScoreUK = LocalizedNutritionalScoreUK()
+        let nutrionalScoreFrance = LocalizedNutritionalScoreFR()
         
         if let validJsonString = jsonString {
             /* now parse the jsonString to create the right values
