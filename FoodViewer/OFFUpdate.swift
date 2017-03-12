@@ -99,13 +99,17 @@ class OFFUpdate {
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
 
-        /*
         if let name = product!.name {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Name + name)
+            urlString.append(
+                OFFWriteAPI.Delimiter +
+                OFFWriteAPI.Name +
+                OFFWriteAPI.Equal +
+                name)
             productUpdated = true
         }
- */
-        
+ 
+        /*
+         // it seems OFF does not yet accept this
         if product!.nameLanguage.count > 0 {
             for name in product!.nameLanguage {
                 if let validName = name.value {
@@ -119,6 +123,7 @@ class OFFUpdate {
                 }
             }
         }
+ */
 
         if let genericName = product!.genericName {
             urlString.append(
