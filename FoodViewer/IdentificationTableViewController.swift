@@ -575,6 +575,7 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     func refreshProduct() {
+        delegate?.updateCurrentLanguage()
         tableView.reloadData()
     }
     
@@ -906,7 +907,6 @@ extension IdentificationTableViewController: TagListViewDataSource {
         default:
             break
         }
-        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
     /// Which text should be displayed when the TagListView is collapsed?
@@ -942,8 +942,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
         default:
             break
         }
-
-        // tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -960,7 +958,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(brandTags: list)
             }
-            // tableView.reloadData()
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
@@ -972,7 +969,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(packagingTags: list)
             }
-            // tableView.reloadData()
         default:
             break
         }

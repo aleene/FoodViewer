@@ -32,6 +32,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         
     var primaryLanguageCode: String? = nil
     
+    // Seems no longer used/relevant. Changing primary language is now elsewhere
     var updatedPrimaryLanguageCode: String? = nil {
         didSet {
             delegate?.updated(primaryLanguageCode: updatedPrimaryLanguageCode!)
@@ -87,10 +88,10 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         // use the selected language also as the primary language
-        if editMode {
-            updatedPrimaryLanguageCode = sortedLanguages[row].code
-            languagesPickerView.reloadComponent(0)
-        }
+        // if editMode {
+        //    updatedPrimaryLanguageCode = sortedLanguages[row].code
+        //    languagesPickerView.reloadComponent(0)
+        // }
         selectedLanguageCode = sortedLanguages[row].code
     }
     

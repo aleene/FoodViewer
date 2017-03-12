@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum NutritionFactUnit: Int, CaseCountable {
+public enum NutritionFactUnit: Int, CaseCountable {
     
     case Gram = 0
     case Milligram
@@ -18,7 +18,7 @@ enum NutritionFactUnit: Int, CaseCountable {
     case Percent
     case None
     
-    init(_ text: String) {
+    public init(_ text: String) {
         switch text {
         case Strings.Joule:
             self = .Joule
@@ -37,13 +37,13 @@ enum NutritionFactUnit: Int, CaseCountable {
         }
     }
 
-    static let caseCount = NutritionFactUnit.countCases()
+    public static let caseCount = NutritionFactUnit.countCases()
 
-    static func caseCount(key:String) -> Int {
+    public static func caseCount(key:String) -> Int {
         return key.hasPrefix(Energy.prefixKey) ? 4 : 5
     }
     
-    static func value(for row: Int, and key:String) -> Int {
+    public static func value(for row: Int, and key:String) -> Int {
         // is this an energy nutrient?
         if key.hasPrefix(Energy.prefixKey) {
             // This is an energy nutriment
@@ -65,7 +65,7 @@ enum NutritionFactUnit: Int, CaseCountable {
         }
     }
     
-    func short() -> String {
+    public func short() -> String {
         switch self {
         case .Joule:
             return Strings.Joule

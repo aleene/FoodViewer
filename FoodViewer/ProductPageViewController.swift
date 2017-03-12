@@ -548,6 +548,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             initUpdatedProductWith(product: product!)
             updatedProduct?.primaryLanguageCode = primaryLanguageCode
             saveUpdatedProduct()
+            setCurrentLanguage()
         }
     }
 

@@ -242,7 +242,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(categories: list)
             }
-            // tableView.reloadData()
         }
     }
     
@@ -261,7 +260,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(categories: list)
             }
-            // tableView.reloadData()
         }
     }
     
@@ -271,7 +269,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
         switch  currentProductSection {
         case .categories :
             delegate?.update(categories: [])
-            // tableView.reloadData()
         }
     }
 

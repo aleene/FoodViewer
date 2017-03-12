@@ -786,6 +786,7 @@ class FoodProduct {
         // is it really the same product?
         if barcode.asString() == product.barcode.asString() {
             // Do I need to replace things, or should I carry out a check first?
+            primaryLanguageCode = product.primaryLanguageCode
             nameLanguage = product.nameLanguage
             genericNameLanguage = product.genericNameLanguage
             brands = product.brands
@@ -824,7 +825,6 @@ class FoodProduct {
             expirationDateString = product.expirationDateString
             creator = product.creator
             state = product.state
-            primaryLanguageCode = product.primaryLanguageCode
             languageCodes = product.languageCodes
             categories = product.categories
             photographers = product.photographers

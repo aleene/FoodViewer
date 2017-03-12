@@ -605,7 +605,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .right)
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -670,7 +670,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .right)
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     
@@ -695,11 +695,11 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .right)
+        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .right)
+        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .right)
     }
 }
 

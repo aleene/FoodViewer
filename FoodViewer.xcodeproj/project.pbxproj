@@ -12,11 +12,12 @@
 		510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */; };
 		510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */; };
 		510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */; };
-		510D9FBE1E72B12D00B95B1B /* NutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB71E719A1900B95B1B /* NutritionalScoreUK.swift */; };
 		510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FBF1E72B20C00B95B1B /* NutritionalScore.swift */; };
 		510D9FC31E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC21E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift */; };
 		510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */; };
-		5114592B1CB1368F00D25116 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* Status.swift */; };
+		510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */; };
+		510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */; };
+		5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* CompletionStatus.swift */; };
 		5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592C1CB1385100D25116 /* Taxonomy.swift */; };
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
 		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
@@ -222,12 +223,13 @@
 		510A38EF1CD3B68300BAEB61 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantityTestSuite.swift; sourceTree = "<group>"; };
 		510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUKTestSuite.swift; sourceTree = "<group>"; };
-		510D9FB71E719A1900B95B1B /* NutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NutritionalScoreUK.swift; path = FoodViewerTests/NutritionalScoreUK.swift; sourceTree = SOURCE_ROOT; };
 		510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFranceTestSuite.swift; sourceTree = "<group>"; };
 		510D9FBF1E72B20C00B95B1B /* NutritionalScore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScore.swift; sourceTree = "<group>"; };
 		510D9FC21E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedNutritionalScoreFR.swift; sourceTree = "<group>"; };
 		510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreTestSuite.swift; sourceTree = "<group>"; };
-		5114592A1CB1368E00D25116 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnitTest.swift; sourceTree = "<group>"; };
+		510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUK.swift; sourceTree = "<group>"; };
+		5114592A1CB1368E00D25116 /* CompletionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		5114592C1CB1385100D25116 /* Taxonomy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Taxonomy.swift; sourceTree = "<group>"; };
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
 		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -478,10 +480,20 @@
 			isa = PBXGroup;
 			children = (
 				510D9FBF1E72B20C00B95B1B /* NutritionalScore.swift */,
-				510D9FB71E719A1900B95B1B /* NutritionalScoreUK.swift */,
+				510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */,
 				5125AB881D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift */,
 				511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */,
 				510D9FC21E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift */,
+			);
+			name = NutritionalScore;
+			sourceTree = "<group>";
+		};
+		510D9FC61E742D4A00B95B1B /* NutritionalScore */ = {
+			isa = PBXGroup;
+			children = (
+				510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */,
+				510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */,
+				510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */,
 			);
 			name = NutritionalScore;
 			sourceTree = "<group>";
@@ -715,14 +727,13 @@
 		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
 			isa = PBXGroup;
 			children = (
-				51975CD51E6EB9120075B57B /* TagsTestSuite.swift */,
+				510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */,
+				510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */,
+				51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */,
+				510D9FC61E742D4A00B95B1B /* NutritionalScore */,
 				51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */,
 				51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */,
-				51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */,
-				510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */,
-				510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */,
-				510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */,
-				510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */,
+				51975CD51E6EB9120075B57B /* TagsTestSuite.swift */,
 				51975CCF1E6EB8580075B57B /* Info.plist */,
 			);
 			path = FoodViewerTests;
@@ -748,7 +759,7 @@
 				516B32861C75F6F30031EF80 /* NutritionalScoreLevel.swift */,
 				510D9FC11E72B88600B95B1B /* NutritionalScore */,
 				51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */,
-				5114592A1CB1368E00D25116 /* Status.swift */,
+				5114592A1CB1368E00D25116 /* CompletionStatus.swift */,
 				51CF42CE1E069BDA00C9AD91 /* Tags.swift */,
 			);
 			name = Components;
@@ -992,7 +1003,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				510D9FBE1E72B12D00B95B1B /* NutritionalScoreUK.swift in Sources */,
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
 				512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
@@ -1049,6 +1059,7 @@
 				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
 				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
+				510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
 				517BF2C61E44AF3800876E24 /* DynamicCustomSegue.swift in Sources */,
 				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
@@ -1107,7 +1118,7 @@
 				511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */,
 				5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */,
 				519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */,
-				5114592B1CB1368F00D25116 /* Status.swift in Sources */,
+				5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */,
 				5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */,
 				516B32891C75F74F0031EF80 /* CompletionState.swift in Sources */,
 				5157426F1CDB63B200BE8E2D /* RSCodeLayer.swift in Sources */,
@@ -1155,6 +1166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */,
+				510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */,
 				510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */,
 				51975CD61E6EB9120075B57B /* TagsTestSuite.swift in Sources */,
 				51975CE01E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift in Sources */,

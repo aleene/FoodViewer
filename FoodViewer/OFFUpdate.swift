@@ -65,8 +65,6 @@ class OFFUpdate {
 
         }
         
-        //UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        //UIApplication.shared.isNetworkActivityIndicatorVisible = false
         if let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             if let url = URL(string: encodedString) {
                 do {
@@ -101,12 +99,13 @@ class OFFUpdate {
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
 
+        /*
         if let name = product!.name {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Name + name)
             productUpdated = true
         }
+ */
         
-        /* Not yet supported by OFF
         if product!.nameLanguage.count > 0 {
             for name in product!.nameLanguage {
                 if let validName = name.value {
@@ -120,14 +119,17 @@ class OFFUpdate {
                 }
             }
         }
-         */
 
         if let genericName = product!.genericName {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.GenericName + genericName)
+            urlString.append(
+                OFFWriteAPI.Delimiter +
+                OFFWriteAPI.GenericName +
+                OFFWriteAPI.Equal +
+                 genericName)
             productUpdated = true
         }
         
-        /* Not yet supported by OFF
+        /*
         if product!.genericNameLanguage.count > 0 {
             for genericName in product!.genericNameLanguage {
                 if let name = genericName.value {
@@ -135,22 +137,44 @@ class OFFUpdate {
                         OFFWriteAPI.GenericName +
                         OFFWriteAPI.LanguageSpacer +
                         genericName.key +
+                        OFFWriteAPI.Equal +
                         name)
                     productUpdated = true
                 }
             }
         }
-         */
+        */
         
         if let quantity = product!.quantity {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Quantity + quantity)
             productUpdated = true
         }
         
+        /*
+        // Using this for writing in a specific language (ingredients_text_fr=) has no effect
+        if product!.ingredientsLanguage.count > 0 {
+            for name in product!.ingredientsLanguage {
+                urlString.append(
+                    OFFWriteAPI.Delimiter +
+                    OFFWriteAPI.Ingredients +
+                    OFFWriteAPI.LanguageSpacer +
+                    name.key +
+                    OFFWriteAPI.Equal +
+                    name.value)
+                productUpdated = true
+            }
+        }
+        */
+        
         if let ingredients = product!.ingredients {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Ingredients + ingredients)
+            urlString.append(
+                OFFWriteAPI.Delimiter +
+                OFFWriteAPI.Ingredients +
+                OFFWriteAPI.Equal +
+                ingredients)
             productUpdated = true
         }
+        
 
         if let primaryLanguage = product!.primaryLanguageCode {
             // TODO - this is also updated if no change has taken place
@@ -322,7 +346,9 @@ class OFFUpdate {
             if let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 if let url = URL(string: encodedString) {
                     do {
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = true
                         let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         return unpackJSONObject( JSON(data: data) )
                     } catch let error as NSError {
                         print(error);
@@ -433,6 +459,7 @@ class OFFUpdate {
         request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
         request.httpBody = myRequestData as Data
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             data, response, error in
             if error != nil {
@@ -441,6 +468,7 @@ class OFFUpdate {
             }
             guard let data = data else { return }
             DispatchQueue.main.async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 let result = self.unpackImageJSONObject( JSON(data: data) )
                 switch result {
                 case .success(let error):
@@ -518,6 +546,7 @@ class OFFUpdate {
         request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
         request.httpBody = myRequestData as Data
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             data, response, error in
             if error != nil {
@@ -525,6 +554,7 @@ class OFFUpdate {
                 return
             }
             guard let data = data else { return }
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             _ = self.unpackImageJSONObject( JSON(data: data) )
         })
         task.resume()

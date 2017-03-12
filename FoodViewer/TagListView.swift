@@ -1443,31 +1443,28 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
 extension TagListView: UITextFieldDelegate {
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        // If the user enters a return, a new tag will be created
         
-        if string == "\n" {
-            if let newTag = textField.text {
-                if !newTag.isEmpty {
-                    delegate?.tagListView(self, didAddTagWith: newTag)
-                    reloadData(clearAll:true)
-                    textField.resignFirstResponder()
-                }
-            }
-            return false
-        } else if string == "," {
-            if let newTag = textField.text {
-                if !newTag.isEmpty {
-                    delegate?.tagListView(self, didAddTagWith: newTag)
-                    reloadData(clearAll:false)
-                }
-            }
+        // These characters provoke the acceptance of a tag
+        if string == "\n" || string == "," {
+            textField.resignFirstResponder()
             return false
         }
         return true
     }
     
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
     public func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+        if let newTag = textField.text {
+            if !newTag.isEmpty {
+                // inform the datasource of a new tag
+                delegate?.tagListView(self, didAddTagWith: newTag)
+                reloadData(clearAll: false)
+            }
+        }
     }
     
 }

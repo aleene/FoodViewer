@@ -1,5 +1,5 @@
 //
-//  Status.swift
+//  CompletionStatus.swift
 //  FoodViewer
 //
 //  Created by arnaud on 03/04/16.
