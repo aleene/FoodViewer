@@ -84,7 +84,7 @@ public enum NutritionFactUnit: Int, CaseCountable {
         }
     }
     
-    func short(key: String) -> String {
+    public func short(key: String) -> String {
         // is this an energy nutrient?
         if key.hasPrefix(Energy.prefixKey) {
             switch self {

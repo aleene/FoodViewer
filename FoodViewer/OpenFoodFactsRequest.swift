@@ -278,7 +278,12 @@ class OpenFoodFactsRequest {
                 
                 product.informers = jsonObject[jsonKeys.ProductKey][jsonKeys.InformersTagsKey].stringArray
                 product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
-                product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: product.primaryLanguageCode!)
+                // it happens that the primary language code is not defined
+                if let lc = product.primaryLanguageCode {
+                    product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc )
+                } else {
+                    product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
+                }
                 product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
                 
                 product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))

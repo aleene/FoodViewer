@@ -22,6 +22,11 @@
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
 		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
 		511459361CB1391300D25116 /* VertexNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459351CB1391300D25116 /* VertexNew.swift */; };
+		511B2C3B1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */; };
+		511B2C3D1E78648300336CE8 /* MassTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3C1E78648300336CE8 /* MassTestSuite.swift */; };
+		511B2C3F1E7866AA00336CE8 /* SIUnitTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */; };
+		511B2C411E78672900336CE8 /* SIUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C401E78672800336CE8 /* SIUnit.swift */; };
+		511B2C431E78687E00336CE8 /* Mass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C421E78687E00336CE8 /* Mass.swift */; };
 		511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */; };
 		511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */; };
 		511DB4341E09B615009D4A4B /* OFFjsonReadKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */; };
@@ -234,6 +239,11 @@
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
 		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		511459351CB1391300D25116 /* VertexNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertexNew.swift; sourceTree = "<group>"; };
+		511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItemTestSuite.swift; sourceTree = "<group>"; };
+		511B2C3C1E78648300336CE8 /* MassTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MassTestSuite.swift; sourceTree = "<group>"; };
+		511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnitTestSuite.swift; sourceTree = "<group>"; };
+		511B2C401E78672800336CE8 /* SIUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnit.swift; sourceTree = "<group>"; };
+		511B2C421E78687E00336CE8 /* Mass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mass.swift; path = FoodViewer/Mass.swift; sourceTree = "<group>"; };
 		511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFR.swift; sourceTree = "<group>"; };
 		511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFWriteAPI.swift; sourceTree = "<group>"; };
 		511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFjsonReadKeys.swift; sourceTree = "<group>"; };
@@ -665,6 +675,7 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
+				511B2C421E78687E00336CE8 /* Mass.swift */,
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
@@ -733,8 +744,11 @@
 				510D9FC61E742D4A00B95B1B /* NutritionalScore */,
 				51975CDA1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift */,
 				51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */,
+				511B2C3C1E78648300336CE8 /* MassTestSuite.swift */,
+				511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */,
 				51975CD51E6EB9120075B57B /* TagsTestSuite.swift */,
 				51975CCF1E6EB8580075B57B /* Info.plist */,
+				511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */,
 			);
 			path = FoodViewerTests;
 			sourceTree = "<group>";
@@ -761,6 +775,7 @@
 				51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */,
 				5114592A1CB1368E00D25116 /* CompletionStatus.swift */,
 				51CF42CE1E069BDA00C9AD91 /* Tags.swift */,
+				511B2C401E78672800336CE8 /* SIUnit.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1066,6 +1081,7 @@
 				5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
+				511B2C411E78672900336CE8 /* SIUnit.swift in Sources */,
 				5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
@@ -1126,6 +1142,7 @@
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
+				511B2C431E78687E00336CE8 /* Mass.swift in Sources */,
 				5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */,
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */,
@@ -1167,12 +1184,15 @@
 			files = (
 				510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */,
 				510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */,
+				511B2C3F1E7866AA00336CE8 /* SIUnitTestSuite.swift in Sources */,
 				510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */,
 				51975CD61E6EB9120075B57B /* TagsTestSuite.swift in Sources */,
 				51975CE01E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift in Sources */,
 				510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */,
 				51975CDB1E71538F0075B57B /* NutritionEntryUnitTestSuite.swift in Sources */,
 				51975CD91E6EC8510075B57B /* CompletionStatusTestSuite.swift in Sources */,
+				511B2C3B1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift in Sources */,
+				511B2C3D1E78648300336CE8 /* MassTestSuite.swift in Sources */,
 				510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

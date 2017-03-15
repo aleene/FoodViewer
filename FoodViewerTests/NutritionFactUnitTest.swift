@@ -151,25 +151,73 @@ class NutritionFactUnitTest: XCTestCase {
     
     func testShortGram() {
         let nfu = NutritionFactUnit.init("g")
-        XCTAssertEqual(nfu.short(), "g", "NutritionFactUnit.short() for .Calories correctly returns \"g\" ")
+        XCTAssertEqual(nfu.short(), "g", "NutritionFactUnit.short() for .Gram correctly returns \"g\" ")
     }
     
     func testShortMilliGram() {
         let nfu = NutritionFactUnit.init("mg")
-        XCTAssertEqual(nfu.short(), "mg", "NutritionFactUnit.short() for .Calories correctly returns \"mg\" ")
+        XCTAssertEqual(nfu.short(), "mg", "NutritionFactUnit.short() for .Milligram correctly returns \"mg\" ")
     }
     
     func testShortMicroGram() {
         let nfu = NutritionFactUnit.init("µg")
-        XCTAssertEqual(nfu.short(), "µg", "NutritionFactUnit.short() for .Calories correctly returns \"µg\" ")
+        XCTAssertEqual(nfu.short(), "µg", "NutritionFactUnit.short() for .Microgram correctly returns \"µg\" ")
     }
     func testShortPercent() {
         let nfu = NutritionFactUnit.init("%")
-        XCTAssertEqual(nfu.short(), "%", "NutritionFactUnit.short() for .Calories correctly returns \"%\" ")
+        XCTAssertEqual(nfu.short(), "%", "NutritionFactUnit.short() for .Percent correctly returns \"%\" ")
     }
     func testShortNone() {
         let nfu = NutritionFactUnit.init("")
-        XCTAssertEqual(nfu.short(), "", "NutritionFactUnit.short() for .Calories correctly returns \"\" ")
+        XCTAssertEqual(nfu.short(), "", "NutritionFactUnit.short() for .None correctly returns \"\" ")
+    }
+
+    //
+    // MARK: - short(key:)
+    //
+    
+
+    func testShortKeyEnergyJoule() {
+        let nfu = NutritionFactUnit("kJ")
+        XCTAssertEqual(nfu.short(key:"en:energy"), "kJ", "NutritionFactUnit.short(key:\"en:energy\") for .Joule correctly returns \"kJ\" ")
+    }
+    
+    func testShortKeyEnergyCalories() {
+        let nfu = NutritionFactUnit.init("kcal")
+        XCTAssertEqual(nfu.short(key:"en:energy"), "kcal", "NutritionFactUnit.short(key:\"en:energy\") for .Calories correctly returns \"kcal\" ")
+    }
+    
+    func testShortKeyEnergyPercent() {
+        let nfu = NutritionFactUnit.init("%")
+        XCTAssertEqual(nfu.short(key:"en:energy"), "%", "NutritionFactUnit.short(key:\"en:energy\") for .Percent correctly returns \"%\" ")
+    }
+
+    func testShortKeyEnergyDefault() {
+        let nfu = NutritionFactUnit.init("g")
+        XCTAssertEqual(nfu.short(key:"en:energy"), "", "NutritionFactUnit.short(key:\"en:energy\") for .Gram correctly returns \"\" ")
+    }
+
+    func testShortKeyNotEnergyGram() {
+        let nfu = NutritionFactUnit.init("g")
+        XCTAssertEqual(nfu.short(key:"something"), "g", "NutritionFactUnit.short(key:\"something\") for .Gram correctly returns \"g\" ")
+    }
+    
+    func testShortNotEnergyMilliGram() {
+        let nfu = NutritionFactUnit.init("mg")
+        XCTAssertEqual(nfu.short(key:"something"), "mg", "NutritionFactUnit.short(key:\"something\") for .Milligram correctly returns \"mg\" ")
+    }
+    
+    func testShortNotEnergyMicroGram() {
+        let nfu = NutritionFactUnit.init("µg")
+        XCTAssertEqual(nfu.short(key:"something"), "µg", "NutritionFactUnit.short(key:\"something\") for .Microgram correctly returns \"µg\" ")
+    }
+    func testShortNotEnergyPercent() {
+        let nfu = NutritionFactUnit.init("%")
+        XCTAssertEqual(nfu.short(key:"something"), "%", "NutritionFactUnit.short(key:\"something\") for .Percent correctly returns \"%\" ")
+    }
+    func testShortNotEnergyDefault() {
+        let nfu = NutritionFactUnit.init("kJ")
+        XCTAssertEqual(nfu.short(key:"something"), "", "NutritionFactUnit.short(key:\"something\") for .Gram correctly returns \"\" ")
     }
 
 }

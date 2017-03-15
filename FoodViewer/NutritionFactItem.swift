@@ -8,16 +8,16 @@
 
 import Foundation
 
-struct NutritionFactItem {
-    var itemName: String? = nil
-    var standardValue: String? = nil
-    var standardValueUnit: NutritionFactUnit? = nil
-    var servingValue: String? = nil
-    var servingValueUnit: NutritionFactUnit? = nil
-    var dailyFractionPerServing: Double? = nil
-    var key: String? = nil
+public struct NutritionFactItem {
+    public var itemName: String? = nil
+    public var standardValue: String? = nil
+    public var standardValueUnit: NutritionFactUnit? = nil
+    public var servingValue: String? = nil
+    public var servingValueUnit: NutritionFactUnit? = nil
+    public var dailyFractionPerServing: Double? = nil
+    public var key: String? = nil
 
-    init() {
+    public init() {
         itemName = nil
         standardValue = nil
         standardValueUnit = nil
@@ -26,7 +26,7 @@ struct NutritionFactItem {
         key = nil
     }
 
-    init(name: String?, standard: String?, serving: String?, unit: String?, key: String?) {
+    public init(name: String?, standard: String?, serving: String?, unit: String?, key: String?) {
         itemName = name
         standardValue = standard
         servingValue = serving

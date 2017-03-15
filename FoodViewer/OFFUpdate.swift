@@ -98,6 +98,7 @@ class OFFUpdate {
             + OFFWriteAPI.Barcode + product!.barcode.asString() + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
+        /*
 
         if let name = product!.name {
             urlString.append(
@@ -107,9 +108,8 @@ class OFFUpdate {
                 name)
             productUpdated = true
         }
- 
-        /*
-         // it seems OFF does not yet accept this
+         */
+
         if product!.nameLanguage.count > 0 {
             for name in product!.nameLanguage {
                 if let validName = name.value {
@@ -123,7 +123,8 @@ class OFFUpdate {
                 }
             }
         }
- */
+
+        /*
 
         if let genericName = product!.genericName {
             urlString.append(
@@ -133,8 +134,8 @@ class OFFUpdate {
                  genericName)
             productUpdated = true
         }
-        
-        /*
+         */
+
         if product!.genericNameLanguage.count > 0 {
             for genericName in product!.genericNameLanguage {
                 if let name = genericName.value {
@@ -148,14 +149,12 @@ class OFFUpdate {
                 }
             }
         }
-        */
-        
+ 
         if let quantity = product!.quantity {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Quantity + quantity)
             productUpdated = true
         }
         
-        /*
         // Using this for writing in a specific language (ingredients_text_fr=) has no effect
         if product!.ingredientsLanguage.count > 0 {
             for name in product!.ingredientsLanguage {
@@ -169,8 +168,8 @@ class OFFUpdate {
                 productUpdated = true
             }
         }
-        */
-        
+        /*
+
         if let ingredients = product!.ingredients {
             urlString.append(
                 OFFWriteAPI.Delimiter +
@@ -179,7 +178,8 @@ class OFFUpdate {
                 ingredients)
             productUpdated = true
         }
-        
+         */
+
 
         if let primaryLanguage = product!.primaryLanguageCode {
             // TODO - this is also updated if no change has taken place

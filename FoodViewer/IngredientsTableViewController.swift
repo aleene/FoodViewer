@@ -160,7 +160,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.textViewDelegate = self
             cell!.textViewTag = indexPath.section
-            cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
                 // has the product been edited?

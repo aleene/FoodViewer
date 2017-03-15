@@ -196,7 +196,7 @@ class IdentificationTableViewController: UITableViewController {
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
             cell!.tag = indexPath.section
-            cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
                 // has the product name been edited?
@@ -215,7 +215,7 @@ class IdentificationTableViewController: UITableViewController {
             cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
             cell!.tag = indexPath.section
-            cell!.editMode = currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 cell!.languageCode = validCurrentLanguageCode
                 if let validName = delegate?.updatedProduct?.genericNameLanguage[validCurrentLanguageCode] {

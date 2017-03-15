@@ -32,9 +32,11 @@ class TagsTestSuite: XCTestCase {
             XCTFail("Init does NOT give default value .undefined")
         }
     }
+    
     //
     // MARK: - test the value .empty
     //
+    
     func testEmptyValue() {
         var tags = Tags()
         tags = .empty
@@ -45,9 +47,11 @@ class TagsTestSuite: XCTestCase {
             XCTFail("Value does not give .empty")
         }
     }
+    
     //
     // MARK: - test the value .undefined
     //
+    
     func testUndefinedValue() {
         var tags = Tags()
         tags = .undefined
@@ -58,6 +62,7 @@ class TagsTestSuite: XCTestCase {
             XCTFail("Value does not give .undefined")
         }
     }
+    
     //
     // MARK: - test init with a list of strings
     //
@@ -107,7 +112,7 @@ class TagsTestSuite: XCTestCase {
     }
     
     //
-    // MARK: - test init with a comma delimited string
+    // MARK: - test init(string:) with a comma delimited string
     //
     
     // test with a correct string
