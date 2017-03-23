@@ -11,9 +11,9 @@ import UIKit
 class IngredientsTableViewCell: UITableViewCell {
     
     fileprivate struct Constants {
-        static let NoIngredientsText = NSLocalizedString("No ingredients listed.", comment: "Text to indicate that no ingredients are present in the product data.") 
-        static let IngredientsText = NSLocalizedString("There are %@ ingredients.", comment: "Text to indicate the number of ingredients in the product.")
-        static let IngredientsOneText = NSLocalizedString("There is 1 ingredient.", comment: "Text to indicate that there is one ingredient in the product.")
+        static let NoIngredientsText = NSLocalizedString("No ingredients listed", comment: "Text to indicate that no ingredients are present in the product data.")
+        static let IngredientsText = NSLocalizedString("There are %@ ingredients", comment: "Text to indicate the number of ingredients in the product.")
+        static let IngredientsOneText = NSLocalizedString("There is 1 ingredient", comment: "Text to indicate that there is one ingredient in the product.")
     }
 
     var product: FoodProduct? = nil {

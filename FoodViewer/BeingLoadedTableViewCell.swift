@@ -53,29 +53,4 @@ extension BeingLoadedTableViewCell: TagListViewDataSource {
             return ProductFetchStatus.loading.description()
         }
     }
-    
-    /*
-    /// Is it allowed to edit a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canEditTagAt index: Int) -> Bool {
-        return false
-    }
-    
-    /// Is it allowed to move a Tag object at a given index?
-    public func tagListView(_ tagListView: TagListView, canMoveTagAt index: Int) -> Bool {
-        return false
-    }
-    /// The Tag object at the source index has been moved to a destination index.
-    public func tagListView(_ tagListView: TagListView, moveTagAt sourceIndex: Int, to destinationIndex: Int) {
-    }
-    
-    /// Called if the user wants to delete all tags
-    public func didClear(_ tagListView: TagListView) {
-    }
-    
-    /// Which text should be displayed when the TagListView is collapsed?
-    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
-        return "Stub text"
-    }
-    */
-
 }

@@ -11,12 +11,12 @@ import UIKit
 class ProducerTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
-        static let NoProduct = NSLocalizedString("No product defined.", comment: "Text to indicate that no product is defined/setup.")
+        static let NoProduct = NSLocalizedString("No product defined", comment: "Text to indicate that no product is defined/setup.")
         static let EmptyString = ""
-        static let SoldBy = NSLocalizedString("Sold by %@.", comment: "Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE.")
+        static let SoldBy = NSLocalizedString("Sold by %@", comment: "Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE.")
         static let ProducedBy = NSLocalizedString("Produced in/by %@; ", comment: "Text to indicate the producer of the product.  ADD A TRAILING SPACE.")
         static let SoldIn = NSLocalizedString("Sold in ", comment: "Text to introduce where the product is sold.  ADD A TRAILING SPACE.")
-        static let NoInformation = NSLocalizedString("No supply chain info.", comment: "Text to indicate that no supply chain infor (origin, producer, etc.) are available.")
+        static let NoInformation = NSLocalizedString("No supply chain info", comment: "Text to indicate that no supply chain infor (origin, producer, etc.) are available.")
         static let Country = NSLocalizedString("%@", comment: "A list of countries seperated by a comma.")
         static let CountrySeparator = NSLocalizedString(", ", comment: "A separator of a list of countries. ADD A TRAILING SPACE")
         static let Separator = NSLocalizedString("; ", comment: "A sepator between sentence parts.  ADD A TRAILING SPACE.")

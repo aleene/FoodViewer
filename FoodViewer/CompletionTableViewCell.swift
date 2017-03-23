@@ -11,7 +11,7 @@ import UIKit
 class CompletionTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
-        static let CompletePostText = NSLocalizedString("Data is %@ complete.", comment: "Text to indicate how much the product data is filled in (available).")
+        static let CompletePostText = NSLocalizedString("Data is %@ complete", comment: "Text to indicate how much the product data is filled in (available).")
     }
     var product: FoodProduct? = nil {
         didSet {
