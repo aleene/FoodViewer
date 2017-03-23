@@ -9,7 +9,9 @@
 import Foundation
 
 public struct CompletionStatus: CustomStringConvertible {
+    
     public var value = false
+    
     public var text = "Missing state"
     
     public var description: String {

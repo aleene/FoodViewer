@@ -515,7 +515,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // set the next language in the array
         if currentLanguageCode != nextLanguageCode() {
             currentLanguageCode = nextLanguageCode()
-            // reload the first two rows
+            // reload the first row
             let indexPaths = [IndexPath.init(row: 0, section: 0)]
             tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
             tableView.deselectRow(at: indexPaths.first!, animated: true)

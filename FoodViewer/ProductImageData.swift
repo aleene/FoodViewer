@@ -9,15 +9,31 @@
 import Foundation
 import UIKit
 
-class ProductImageData {
+public class ProductImageData {
+    
+    public struct Notification {
+        static let ImageSizeCategoryKey = "ProductImageData.Notification.ImageSizeCategory.Key"
+        static let ImageTypeCategoryKey = "ProductImageData.Notification.ImageCategory.Key"
+        static let BarcodeKey = "ProductImageData.Notification.Barcode.Key"
+    }
+    
+
     var url: URL? = nil
     var fetchResult: ImageFetchResult? = nil {
         didSet {
             if fetchResult != nil {
                 switch fetchResult! {
                 case .success(let data):
-                    // encode the url, so it can be determined if the receiver need to act on it.
-                    NotificationCenter.default.post(name: .ImageSet, object: nil)
+                    // encode imageSize, imageType and barcode
+                    var userInfo: [String:Any] = [:]
+                    userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
+                    
+                    userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
+                    if let validBarcode = barcode() {
+                        userInfo[Notification.BarcodeKey] = validBarcode
+                    }
+
+                    NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                     image = UIImage(data:data)
                 default:
                     break
@@ -58,6 +74,43 @@ class ProductImageData {
     func reset() {
         fetchResult = nil
     }
+    
+    private func imageType() -> ImageTypeCategory {
+        guard url != nil else { return .unknown }
+        
+        if url!.absoluteString.contains(OFF.URL.ImageType.Front) {
+            return .front
+        } else if url!.absoluteString.contains(OFF.URL.ImageType.Ingredients) {
+            return .ingredients
+        } else if url!.absoluteString.contains(OFF.URL.ImageType.Nutrition) {
+            return .nutrition
+        }
+        return .unknown
+    }
+    
+    private func imageSize() -> ImageSizeCategory {
+        guard url != nil else { return .unknown }
+        
+        if url!.absoluteString.contains(OFF.URL.ImageSize.Thumb) {
+            return .thumb
+        } else if url!.absoluteString.contains(OFF.URL.ImageSize.Medium) {
+            return .small
+        } else if url!.absoluteString.contains(OFF.URL.ImageSize.Large) {
+            return .large
+        }
+        return .unknown
+    }
+
+    private func barcode() -> String? {
+        // decode the url to get the barcode
+        guard url != nil else { return nil }
+        // let separator = OFF.URL.Divider.Slash
+        let elements = url!.absoluteString.characters.split{ $0 == "/" }.map(String.init)
+        // https://static.openfoodfacts.org/images/products/327/019/002/5337/ingredients_fr.27.100.jpg
+        
+        return elements[4]+elements[5]+elements[6]+elements[7]
+    }
+
 }
 
 // Definition:

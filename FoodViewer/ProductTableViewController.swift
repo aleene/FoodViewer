@@ -195,7 +195,31 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         case let .available(list):
                             cell.productBrand = list
                         }
-                    
+                        /*
+                        if currentProduct.primaryLanguageCode != nil {
+                            cell.productImage = currentProduct.mainSmallImage
+                        }
+                        else {
+                            cell.productImage = nil
+                        }
+                         */
+                        if let language = currentProduct.primaryLanguageCode {
+                            if currentProduct.frontImages != nil && currentProduct.frontImages!.small.count > 0 {
+                                if let result = currentProduct.frontImages!.small[language]?.fetch() {
+                                    switch result {
+                                    case .success:
+                                        cell.productImage = currentProduct.frontImages!.small[language]?.image
+                                    default:
+                                    cell.productImage = nil
+                                    }
+                                }
+                            } else {
+                                cell.productImage = nil
+                            }
+                        } else {
+                            cell.productImage = nil
+                        }
+                        /*
                         // TBD I do not think the logic is right here
                         if let data = currentProduct.mainImageSmallData {
                             // try small image
@@ -216,6 +240,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         } else {
                             cell.productImage = nil
                         }
+                        */
                         return cell
                     case .ingredients:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientsCellIdentifier, for: indexPath) as! IngredientsTableViewCell
@@ -393,6 +418,37 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     // MARK: - Notification methods
     
+    // function is called if an product image has been retrieved via an asynchronous process
+    func imageSet(_ notification: Notification) {
+        let userInfo = (notification as NSNotification).userInfo
+        guard userInfo != nil else { return }
+        
+        // We are only interested in medium-sized front images
+        let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
+        let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
+        if imageSizeCategory == .small && imageTypeCategory == .front {
+            tableView.reloadData()
+            /*
+            let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String
+            for (index, fetchResult) in products.fetchResultList.enumerated() {
+                guard fetchResult != nil else { break }
+                switch fetchResult! {
+                case .success(let currentProduct):
+                    if currentProduct.barcode.asString() == barcodeString {
+                        // reload the section and row corresponding to this product
+                        let indexPath = IndexPath.init(row: 0, section: index)
+                        let indexPaths = [indexPath]
+                        tableView.reloadRows(at: indexPaths, with: .none)
+                        tableView.reloadSections(sections, with: .fade)
+                    }
+                default: break
+                }
+            }
+            */
+        }
+
+    }
+    
     func showAlertProductNotAvailable(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         let error = userInfo!["error"] as? String ?? "No valid error"
@@ -480,6 +536,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
         // listen if a product has been changed through an update
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdateSucceeded, object:nil)
+        // listen to see if any images have been retrieved asynchronously
+        NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
         
 
     }

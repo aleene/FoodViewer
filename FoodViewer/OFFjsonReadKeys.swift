@@ -10,6 +10,31 @@ import Foundation
 
 // JSON keys
 
+public struct OFF {
+    
+    public struct URL {
+        // structure of the url is:
+        // "https://static.openfoodfacts.org/images/products/40111490/ingredients_en.11.400.jpg"
+        //
+        public struct ImageType {
+            static let Front = "front"
+            static let Ingredients = "ingredients"
+            static let Nutrition = "nutrition"
+        }
+        public struct ImageSize {
+            static let Thumb = ".100."
+            static let Medium = ".200."
+            static let Large = ".400."
+        }
+        public struct Divider {
+            static let Slash = "/"
+        }
+        public struct PartNumber {
+            static let Barcode = 5
+        }
+    }
+}
+
 struct OFFReadAPIkeysJSON {
     static let StatusKey = "status"
     static let StatusVerboseKey = "status_verbose"

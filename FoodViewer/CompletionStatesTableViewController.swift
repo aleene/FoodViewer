@@ -51,16 +51,6 @@ class CompletionStatesTableViewController: UITableViewController {
     }
     
     struct Constants {
-        // static let NameCompletionCellTitle = NSLocalizedString("Product name complete?", comment: "Title of tableview cell, indicateding whether the productname has been completed.")
-        // static let BrandsCompletionCellTitle = NSLocalizedString("Brand(s) complete?", comment: "Title of tableview cell, indicateding whether the product brand field has been filled in.")
-        // static let QuantityCompletionCellTitle = NSLocalizedString("Quantity complete?", comment: "Title of tableview cell, indicating whether the product quantity field has been filled in.")
-        // static let PackagingCompletionCellTitle = NSLocalizedString("Packaging complete?", comment: "Title of tableview cell, indicating whether the product packaging field has been filled in.")
-        // static let IngredientsCompletionCellTitle = NSLocalizedString("Ingredients complete?", comment: "Title of tableview cell, indicating whether the product ingredients field have been filled in")
-        // static let CategoriesCompletionCellTitle = NSLocalizedString("Categories complete?", comment: "Title of tableview cell, indicating whether the product categories have been filled in.")
-        // static let ExpirationDateCompletionCellTitle = NSLocalizedString("Expiration date complete?", comment: "Title of tableview cell, indicating whether the product expiration date has been filled in.")
-        // static let NutritionFactsCompletionCellTitle = NSLocalizedString("Nutrition facts complete?", comment: "Title of tableview cell, indicating whether nutritional facts have been filled in.")
-        // static let PhotosUploadedCompletionCellTitle = NSLocalizedString("Photos uploaded complete?", comment: "Title of tableview cell, indicating whether prduct photos have been uploaded.")
-        // static let PhotosValidatedCompletionCellTitle = NSLocalizedString("Photos validated complete?", comment: "Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info.")
         static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
         static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
         static let LastEditDateHeaderTitle = NSLocalizedString("Edit Dates", comment: "Header title of the tableview section, indicating when the product data was edited.")

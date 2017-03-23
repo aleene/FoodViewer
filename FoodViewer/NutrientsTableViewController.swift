@@ -82,14 +82,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         default:
                             newFact = validFact
                         }
-                    } else if !editMode && ( validFact.key == Energy.key ) {
+                    } else if !editMode && ( validFact.key == LocalizedEnergy.key ) {
                         switch Preferences.manager.showCaloriesOrJoule {
                         // show energy as calories
                         case .calories:
-                            newFact = NutritionFactItem.init(name: Energy.calories.description(),
+                            newFact = NutritionFactItem.init(name: EnergyUnitUsed.calories.description(),
                                                              standard: validFact.valueInCalories(validFact.standardValue),
                                                              serving: validFact.valueInCalories(validFact.servingValue),
-                                                             unit: Energy.calories.unit(),
+                                                             unit: EnergyUnitUsed.calories.unit(),
                                                              key: validFact.key)
                         case .joule:
                             // this assumes that fact is in Joule
@@ -276,8 +276,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         doubleTapGestureRecognizer.cancelsTouchesInView = false
                         doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                         cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                    } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == Energy.key) ||
-                        (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == Energy.key) {
+                    } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) ||
+                        (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) {
                         let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                         doubleTapGestureRecognizer.numberOfTapsRequired = 2
                         doubleTapGestureRecognizer.numberOfTouchesRequired = 1

@@ -654,7 +654,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         invisibleTextField.removeFromSuperview()
         // rowViews.removeAll(keepingCapacity: true)
         clearView.removeFromSuperview()
-        // print(tag, allowsCreation)
+        print("clear", tag, allowsCreation)
     }
     
     fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
@@ -691,7 +691,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // print("after tagViews", currentY, frame.height)
 
-        // print(tag, allowsCreation)
+        print(tag, isEditable, allowsCreation)
         if isEditable && allowsCreation {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }

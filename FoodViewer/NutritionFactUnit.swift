@@ -40,12 +40,12 @@ public enum NutritionFactUnit: Int, CaseCountable {
     public static let caseCount = NutritionFactUnit.countCases()
 
     public static func caseCount(key:String) -> Int {
-        return key.hasPrefix(Energy.prefixKey) ? 4 : 5
+        return key.hasPrefix(LocalizedEnergy.prefixKey) ? 4 : 5
     }
     
     public static func value(for row: Int, and key:String) -> Int {
         // is this an energy nutrient?
-        if key.hasPrefix(Energy.prefixKey) {
+        if key.hasPrefix(LocalizedEnergy.prefixKey) {
             // This is an energy nutriment
             return row + 3
         } else {
@@ -86,7 +86,7 @@ public enum NutritionFactUnit: Int, CaseCountable {
     
     public func short(key: String) -> String {
         // is this an energy nutrient?
-        if key.hasPrefix(Energy.prefixKey) {
+        if key.hasPrefix(LocalizedEnergy.prefixKey) {
             switch self {
             case .Joule:
                 return Strings.Joule
@@ -116,13 +116,9 @@ public enum NutritionFactUnit: Int, CaseCountable {
     private struct Strings {
         static let Joule = "kJ"
         static let Calories = "kcal"
-        // static let Kilogram = "kg"
         static let Gram = "g"
         static let Milligram = "mg"
         static let Microgram = "µg"
-        //static let Liter = " L"
-        //static let Milliliter = "mL"
-        //static let Microliter = "µL"
         static let Percent = "%"
         static let None = ""
     }

@@ -50,6 +50,7 @@ class FoodProduct {
     
     var brands: Tags = .undefined
     
+    /*
     var mainUrlThumb: URL? {
         didSet {
             if let imageURL = mainUrlThumb {
@@ -65,9 +66,13 @@ class FoodProduct {
             }
         }
      }
+ */
 
+    /*
     var mainImageSmallData: Data? = nil
-
+    
+    // var mainSmallImage: UIImage? = nil
+    
     var mainImageUrl: URL? = nil
     var mainImageData: ImageFetchResult? = nil {
         didSet {
@@ -76,6 +81,7 @@ class FoodProduct {
             }
         }
     }
+    */
     
     var primaryLanguageCode: String? = nil {
         didSet {
@@ -140,6 +146,7 @@ class FoodProduct {
     var ingredientsLanguage = [String:String]()
     
     var numberOfIngredients: String? = nil
+    /*
     var imageIngredientsSmallUrl: URL?
     var imageIngredientsUrl: URL? = nil
     var ingredientsImageData: ImageFetchResult? = nil {
@@ -149,6 +156,7 @@ class FoodProduct {
             }
         }
     }
+ */
     // This includes the language prefix en:
     var allergenKeys: [String]? = nil
     
@@ -261,7 +269,7 @@ class FoodProduct {
             if hasNutritionFacts != nil {
                 return hasNutritionFacts!
             } else {
-                return nutritionFacts != nil || nutritionFactsImageUrl != nil ? true : false
+                return nutritionFacts != nil ? true : false
             }
         }
     }
@@ -280,6 +288,7 @@ class FoodProduct {
     }
     
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
+    /*
     var imageNutritionSmallUrl: URL? = nil
     var nutritionFactsImageUrl: URL? = nil
     var nutritionImageData: ImageFetchResult? {
@@ -289,7 +298,7 @@ class FoodProduct {
             }
         }
     }
-    
+
     func getNutritionImageData() -> ImageFetchResult? {
         if nutritionImageData == nil {
             nutritionImageData = .loading
@@ -311,6 +320,7 @@ class FoodProduct {
         }
         return mainImageData!
     }
+ 
 
     func getIngredientsImageData() -> ImageFetchResult {
         if ingredientsImageData == nil {
@@ -322,7 +332,7 @@ class FoodProduct {
         }
         return ingredientsImageData!
     }
-
+*/
     
     //MARK: - Supply chain variables
     
@@ -608,13 +618,13 @@ class FoodProduct {
     init() {
         barcode = BarcodeType.undefined("")
         brands = .undefined
-        mainUrlThumb = nil
-        mainImageUrl = nil
-        mainImageData = nil
+        //mainUrlThumb = nil
+        //mainImageUrl = nil
+        //mainImageData = nil
         packagingArray = .undefined
         quantity = nil
-        imageIngredientsSmallUrl = nil
-        imageIngredientsUrl = nil
+        //imageIngredientsSmallUrl = nil
+        //imageIngredientsUrl = nil
         allergenKeys = nil
         traceKeys = nil
         additives = .undefined
@@ -625,8 +635,8 @@ class FoodProduct {
         servingSize = nil
         nutritionFacts = []
         nutritionScore = nil
-        imageNutritionSmallUrl = nil
-        nutritionFactsImageUrl = nil
+        //imageNutritionSmallUrl = nil
+        //nutritionFactsImageUrl = nil
         nutritionGrade = nil
         purchaseLocation = nil
         stores = nil
@@ -790,9 +800,9 @@ class FoodProduct {
             nameLanguage = product.nameLanguage
             genericNameLanguage = product.genericNameLanguage
             brands = product.brands
-            mainUrlThumb = product.mainUrlThumb
-            mainImageUrl = product.mainImageUrl
-            mainImageData = nil
+            //mainUrlThumb = product.mainUrlThumb
+            //mainImageUrl = product.mainImageUrl
+            //mainImageData = nil
             frontImages = product.frontImages
             ingredientsImages = product.ingredientsImages
             //ingredientsImages.resetData()
@@ -800,9 +810,9 @@ class FoodProduct {
             packagingArray = product.packagingArray
             quantity = product.quantity
             ingredientsLanguage = product.ingredientsLanguage
-            imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
-            imageIngredientsUrl = product.imageIngredientsUrl
-            ingredientsImageData = nil
+            //imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
+            //imageIngredientsUrl = product.imageIngredientsUrl
+            //ingredientsImageData = nil
             numberOfIngredients = product.numberOfIngredients
             allergenKeys = product.allergenKeys
             traceKeys = product.traceKeys
@@ -814,9 +824,9 @@ class FoodProduct {
             servingSize = product.servingSize
             nutritionFacts = product.nutritionFacts
             nutritionScore = product.nutritionScore
-            imageNutritionSmallUrl = product.imageNutritionSmallUrl
-            nutritionFactsImageUrl = product.nutritionFactsImageUrl
-            nutritionImageData = nil
+            //imageNutritionSmallUrl = product.imageNutritionSmallUrl
+            //nutritionFactsImageUrl = product.nutritionFactsImageUrl
+            //nutritionImageData = nil
             nutritionGrade = product.nutritionGrade
             purchaseLocation = product.purchaseLocation
             stores = product.stores

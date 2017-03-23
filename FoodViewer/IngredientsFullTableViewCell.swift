@@ -84,6 +84,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         didSet {
             setupTextView()
             setTextViewClearButton()
+            setLanguageButton()
         }
     }
 
@@ -91,7 +92,11 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     var textViewTag: Int = 0
     
-    @IBOutlet weak var changeLanguageButton: UIButton!
+    @IBOutlet weak var changeLanguageButton: UIButton! {
+        didSet {
+            setLanguageButton()
+        }
+    }
     
     @IBAction func ChangeLanguageButtonTapped(_ sender: UIButton) {
         let userInfo = [Notification.ChangeLanguageButtonTappedKey:sender]
@@ -140,11 +145,18 @@ class IngredientsFullTableViewCell: UITableViewCell {
                     attributedIngredients = NSMutableAttributedString.init(string: "")
                     unAttributedIngredients = ""
                 }
+            } else {
+                attributedIngredients = NSMutableAttributedString.init(string: "")
+                unAttributedIngredients = ""
             }
             setupTextView()
         }
     }
     
+    private func setLanguageButton() {
+        changeLanguageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
+    }
+
     private var attributedIngredients = NSMutableAttributedString()
     
     private var unAttributedIngredients: String = ""
@@ -157,15 +169,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
 
     var numberOfLanguages: Int = 0 {
         didSet {
-            if editMode {
-                changeLanguageButton.isEnabled = true
-            } else {
-                if numberOfLanguages > 1 {
-                    changeLanguageButton?.isEnabled = true
-                } else {
-                    changeLanguageButton?.isEnabled = false
-                }
-            }
+            setLanguageButton()
         }
     }
 

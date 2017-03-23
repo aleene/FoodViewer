@@ -551,6 +551,7 @@ class IdentificationTableViewController: UITableViewController {
         if let vc = segue.source as? MainLanguageViewController {
             if let newLanguageCode = vc.selectedLanguageCode {
                 delegate?.updated(primaryLanguageCode: newLanguageCode)
+                currentLanguageCode = newLanguageCode
                 tableView.reloadData()
             }
         }

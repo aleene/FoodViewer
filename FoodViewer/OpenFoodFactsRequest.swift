@@ -13,7 +13,8 @@ class OpenFoodFactsRequest {
     
     fileprivate struct OpenFoodFacts {
         static let JSONExtension = ".json"
-        static let APIURLPrefixForProduct = "http://world.openfoodfacts.org/api/v0/product/"
+        static let APIURLPrefixForFoodProduct = "http://world.openfoodfacts.org/api/v0/product/"
+        static let APIURLPrefixForBeautyProduct = "http://world.openbeautyfacts.org/api/v0/product/"
         static let sampleProductBarcode = "40111490"
     }
     
@@ -30,7 +31,7 @@ class OpenFoodFactsRequest {
     
     func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
         // print("\(fetchUrl)")
@@ -49,7 +50,7 @@ class OpenFoodFactsRequest {
 
     func fetchJsonForBarcode(_ barcode: BarcodeType) -> FetchJsonResult {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
         if let url = fetchUrl {
@@ -127,7 +128,7 @@ class OpenFoodFactsRequest {
 
                 product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
                 
-                product.mainUrlThumb = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontSmallUrlKey].url
+                // product.mainUrlThumb = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontSmallUrlKey].url
 
                 decodeCompletionStates(jsonObject[jsonKeys.ProductKey][jsonKeys.StatesTagsKey].stringArray, product:product)
                 decodeLastEditDates(jsonObject[jsonKeys.ProductKey][jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
@@ -305,14 +306,14 @@ class OpenFoodFactsRequest {
                 }
                 
                 product.purchaseLocationString(jsonObject[jsonKeys.ProductKey][jsonKeys.PurchasePlacesKey].string)
-                product.nutritionFactsImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionUrlKey].url
+                //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionUrlKey].url
                 // product.ingredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsTextKey].string
                 
                 product.editors = jsonObject[jsonKeys.ProductKey][jsonKeys.EditorsTagsKey].stringArray
                 product.additionDate = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatedTKey].time
                 // product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
                 product.creator = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatorKey].string
-                product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
+                //product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
                 product.hasNutritionFacts = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
                 product.servingSize = jsonObject[jsonKeys.ProductKey][jsonKeys.ServingSizeKey].string
                 var grade: NutritionalScoreLevel = .undefined
@@ -325,12 +326,12 @@ class OpenFoodFactsRequest {
                 let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
                 let nutrientLevelsSugars = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
                 product.stores = jsonObject[jsonKeys.ProductKey][jsonKeys.StoresKey].string?.components(separatedBy: ",")
-                product.imageIngredientsUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsUrlKey].url
+                //product.imageIngredientsUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsUrlKey].url
                 (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionScoreDebugKey].string)
-                product.imageNutritionSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionSmallUrlKey].url
+                //product.imageNutritionSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionSmallUrlKey].url
                 product.correctors = jsonObject[jsonKeys.ProductKey][jsonKeys.CorrectorsTagsKey].stringArray
 
-                product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsSmallUrlKey].url
+                //product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsSmallUrlKey].url
                 product.ingredientsOriginElements(jsonObject[jsonKeys.ProductKey][jsonKeys.OriginsTagsKey].stringArray)
                 product.producerElements(jsonObject[jsonKeys.ProductKey][jsonKeys.ManufacturingPlacesKey].string)
                 product.categories = Tags(decodeCategories(jsonObject[jsonKeys.ProductKey][jsonKeys.CategoriesTagsKey].stringArray))

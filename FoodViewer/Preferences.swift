@@ -18,7 +18,7 @@ class Preferences {
     static let manager = Preferences()
     
     var showSaltOrSodium: NatriumChloride
-    var showCaloriesOrJoule: Energy
+    var showCaloriesOrJoule: EnergyUnitUsed
     var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
     var mapAddress: Address
     var allergenWarnings: [(String, Bool)] = []
@@ -27,7 +27,7 @@ class Preferences {
     
     init() {
         showSaltOrSodium = NatriumChloride.salt
-        showCaloriesOrJoule = Energy.joule
+        showCaloriesOrJoule = .joule
         showNutritionDataPerServingOrPerStandard = NutritionDisplayMode.perStandard
         
         mapAddress = Address()

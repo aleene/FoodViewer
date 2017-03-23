@@ -98,28 +98,32 @@ class OFFProducts {
         if let validFetchResult = fetchResultList[0] {
             switch validFetchResult {
             case .success(let sampleProduct):
+                let languageCode = sampleProduct.primaryLanguageCode ?? "en"
+                
                 if let image = UIImage(named: "SampleMain") {
                     if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.mainImageData = .success(data)
+                        sampleProduct.frontImages?.small[languageCode]?.fetchResult = .success(data)
+                        sampleProduct.frontImages?.display[languageCode]?.fetchResult = .success(data)
                     }
                 } else {
-                    sampleProduct.mainImageData = .noData
+                    sampleProduct.frontImages?.small[languageCode]?.fetchResult = .noData
+                    sampleProduct.frontImages?.display[languageCode]?.fetchResult = .noData
                 }
                 
                 if let image = UIImage(named: "SampleIngredients") {
                     if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.ingredientsImageData = .success(data)
+                        sampleProduct.ingredientsImages?.small[languageCode]?.fetchResult = .success(data)
                     }
                 } else {
-                    sampleProduct.ingredientsImageData = .noData
+                    sampleProduct.ingredientsImages?.small[languageCode]?.fetchResult = .noData
                 }
                 
                 if let image = UIImage(named: "SampleNutrition") {
                     if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.nutritionImageData = .success(data)
+                        sampleProduct.nutritionImages?.small[languageCode]?.fetchResult = .success(data)
                     }
                 } else {
-                    sampleProduct.nutritionImageData = .noData
+                    sampleProduct.nutritionImages?.small[languageCode]?.fetchResult = .noData
                 }
                 
                 sampleProduct.nameLanguage["en"] = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
@@ -349,9 +353,9 @@ class OFFProducts {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
                 case .success(let product):
-                    product.mainImageData = nil
-                    product.ingredientsImageData = nil
-                    product.nutritionImageData = nil
+                    // product.mainImageData = nil
+                    // product.ingredientsImageData = nil
+                    // product.nutritionImageData = nil
                     product.nutritionImages = ProductImageSize()
                     product.frontImages = ProductImageSize()
                     product.ingredientsImages = ProductImageSize()

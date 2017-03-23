@@ -53,12 +53,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let text = product?.name {
             sharingItems.append(text as AnyObject)
         }
-            
-        if let data = product?.mainImageSmallData,
-            let image = UIImage(data:data as Data) {
-            sharingItems.append(image)
+        // add the front image for the primary languageCode if any
+        if let languageCode = product?.primaryLanguageCode {
+            if let image = product?.frontImages?.small[languageCode]?.image {
+                sharingItems.append(image)
+            }
         }
-            
+        
         if let url = product?.regionURL() {
             sharingItems.append(url as AnyObject)
         }
@@ -546,9 +547,31 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         guard product != nil else { return }
         if !product!.contains(primaryLanguageCode: primaryLanguageCode) {
             initUpdatedProductWith(product: product!)
+            // what happens if the primary language is already an existing language?
+            if !product!.contains(languageCode: primaryLanguageCode) {
+                // add a NEW language
+                updatedProduct?.add(languageCode: primaryLanguageCode)
+            } else {
+                // use the existing language
+                // copy existing fields so that they can be edited
+                if let validName = product!.nameLanguage[primaryLanguageCode] {
+                    if let name = validName {
+                        updated(name: name, languageCode: primaryLanguageCode)
+                    }
+                }
+                if let name = product?.genericNameLanguage[primaryLanguageCode] {
+                    if let validGenericName = name  {
+                        updated(genericName: validGenericName, languageCode: primaryLanguageCode)
+                    }
+                }
+                if let validIngredients = product!.ingredientsLanguage[primaryLanguageCode]{
+                    updated(ingredients: validIngredients, languageCode: primaryLanguageCode)
+                }
+            }
+            // now it is possible to change the primary languageCode
             updatedProduct?.primaryLanguageCode = primaryLanguageCode
             saveUpdatedProduct()
-            setCurrentLanguage()
+            currentLanguageCode = primaryLanguageCode
         }
     }
 
@@ -964,8 +987,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     @IBAction func unwindSetLanguageForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.selectedLanguageCode
+//            update(addLanguageCode: vc.selectedLanguageCode!)
             pageIndex = vc.sourcePage
-            // updateCurrentLanguage()
         }
     }
     

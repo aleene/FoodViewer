@@ -443,8 +443,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // tableView.reloadData()
-        // print ("viewWillAppear", tableView.frame)
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
@@ -453,8 +451,6 @@ class SupplyChainTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // tableView.reloadData()
-        // print ("viewDidAppear", tableView.frame)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -605,7 +601,6 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -670,7 +665,6 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     
@@ -695,11 +689,11 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .right)
+        print("reloading section", tagListView.tag)
+        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
 }
 
