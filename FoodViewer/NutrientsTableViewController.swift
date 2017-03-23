@@ -307,7 +307,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell!
 
         case .nutritionImage:
+            
+            // first try the updated product images
             if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
+                // try the updated image corresponding to the current language
                 if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                     cell?.editMode = editMode
@@ -317,7 +320,17 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         cell!.languageCode = validCurrentLanguageCode
                     }
                     return cell!
-
+                // in non-editMode try to fall back to the updated primary language image
+                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.nutritionImages!.display[primaryLanguageCode]?.image {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
+                    cell?.editMode = editMode
+                    cell?.nutritionFactsImage = image
+                    cell!.numberOfLanguages = product!.languageCodes.count
+                    if let validCurrentLanguageCode = currentLanguageCode {
+                        cell!.languageCode = validCurrentLanguageCode
+                    }
+                    return cell!
+                // show an error
                 } else {
                     searchResult = ImageFetchResult.noImageAvailable.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
@@ -335,7 +348,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     return cell!
                     
                 }
-                // in all the front images find the display images
+            // try the regular nutrition images
             } else if product!.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
                 // is the data for the current language available?
                 // then fetch the image
@@ -367,8 +380,39 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             cell!.languageCode = "??"
                         }
                         return cell!
-                        
                     }
+                // try the nutrition image corresponding to the primary languagecode in non-editMode
+                } else if !editMode, let primaryLanguageCode = product!.primaryLanguageCode, let result = product!.nutritionImages!.display[primaryLanguageCode]?.fetch() {
+                    switch result {
+                    case .success:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
+                        cell?.nutritionFactsImage = product!.nutritionImages!.display[primaryLanguageCode]?.image
+                        cell?.editMode = editMode
+                        cell!.numberOfLanguages = product!.languageCodes.count
+                        if let validCurrentLanguageCode = currentLanguageCode {
+                            cell!.languageCode = validCurrentLanguageCode
+                        } else {
+                            cell!.languageCode = "??"
+                        }
+                        return cell!
+                    default:
+                        searchResult = result.description()
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
+                        cell?.datasource = self
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.scheme = ColorSchemes.error
+                        cell?.editMode = editMode
+                        cell!.numberOfLanguages = product!.languageCodes.count
+                        if let validCurrentLanguageCode = currentLanguageCode {
+                            cell!.languageCode = validCurrentLanguageCode
+                        } else {
+                            cell!.languageCode = "??"
+                        }
+                        return cell!
+                    }
+
+                // no image is available in either the current language or the primary language
                 } else {
                     if editMode {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
@@ -393,8 +437,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         return cell!
                     }
                 }
+            // No image is available at all
             } else {
-                // No image is available
                 if editMode {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! NutrientsImageTableViewCell
                     cell.nutritionFactsImage = nil

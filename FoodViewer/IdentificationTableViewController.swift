@@ -261,17 +261,21 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .image:
+            // are there updated images available?
             if delegate?.updatedProduct?.frontImages?.display != nil && delegate!.updatedProduct!.frontImages!.display.count > 0 {
+                // is the image available for the current language?
                 if let image = delegate!.updatedProduct!.frontImages!.display[currentLanguageCode!]?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                     cell?.editMode = editMode
                     cell?.identificationImage = image
                     return cell!
-                /*} else if let image = delegate!.updatedProduct!.frontImages!.display[primaryLanguageCode]?.image {
+                // in non-editMode show the primary language image
+                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.frontImages!.display[primaryLanguageCode]?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                     cell?.editMode = editMode
                     cell?.identificationImage = image
-                    return cell! */
+                    return cell!
+                // no image in the two languageCodes is available
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
                     cell?.datasource = self
@@ -301,13 +305,12 @@ class IdentificationTableViewController: UITableViewController {
                         cell?.scheme = ColorSchemes.error
                         return cell!
                     }
-                        // try to use the primary image
-                    /*
-                } else if let result = product!.frontImages!.display[product!.primaryLanguageCode!]?.fetch() {
+                // try to use the image corresponding to the primary language
+                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages!.display[primaryLanguageCode]?.fetch() {
                     switch result {
                     case .success:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages!.display[product!.primaryLanguageCode!]?.image
+                        cell?.identificationImage = product!.frontImages!.display[primaryLanguageCode]?.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -319,7 +322,7 @@ class IdentificationTableViewController: UITableViewController {
                         cell?.scheme = ColorSchemes.error
                         return cell!
                     }
-                     */
+                // no image is available in the currentLanguage or the primary language
                 } else {
                     if editMode {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
