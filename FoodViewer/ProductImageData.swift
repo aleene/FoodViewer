@@ -31,6 +31,8 @@ public class ProductImageData {
                     userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
                     if let validBarcode = barcode() {
                         userInfo[Notification.BarcodeKey] = validBarcode
+                    } else {
+                        userInfo[Notification.BarcodeKey] = "Dummy barcode"
                     }
 
                     NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
@@ -107,8 +109,11 @@ public class ProductImageData {
         // let separator = OFF.URL.Divider.Slash
         let elements = url!.absoluteString.characters.split{ $0 == "/" }.map(String.init)
         // https://static.openfoodfacts.org/images/products/327/019/002/5337/ingredients_fr.27.100.jpg
-        
-        return elements[4]+elements[5]+elements[6]+elements[7]
+        if elements.count >= 8 {
+            return elements[4] + elements[5] + elements[6] + elements[7]
+        } else {
+            return "No valid barcode"
+        }
     }
 
 }

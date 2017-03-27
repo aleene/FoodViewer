@@ -81,6 +81,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if editMode {
             // the user was editing AND tapped the save button
             userWantsToSave = true
+            // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
+            //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ProductPageViewController.saveUpdatedProduct), userInfo: nil, repeats: false)
+            self.view.endEditing(true)
             // Saving can be done
             saveUpdatedProduct()
         }
@@ -89,13 +92,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     private var userWantsToSave = false
     
-    private func saveUpdatedProduct() {
+    func saveUpdatedProduct() {
         // Current mode
         if editMode {
             if userWantsToSave {
                 // time to save
                 if let validUpdatedProduct = updatedProduct {
                     let update = OFFUpdate()
+                    
                     UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
                     // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
@@ -770,9 +774,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // editing or first nutrient of product
             if let originalFacts = product?.nutritionFacts {
                 // there were already some facts
-                if updatedProduct!.nutritionFacts == nil {
+                if updatedProduct?.nutritionFacts == nil {
                     // first edit
-                    updatedProduct!.nutritionFacts = Array.init(repeating: nil, count: originalFacts.count)
+                    updatedProduct?.nutritionFacts = Array.init(repeating: nil, count: originalFacts.count)
                 }
                 var factExists = false
                 // has an existing fact been edited?
