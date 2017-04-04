@@ -547,15 +547,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
             }
-/*
-            let picker = UIImagePickerController()
-            picker.sourceType = .camera
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
-            picker.allowsEditing = true
-            present(picker, animated: true, completion: nil)
- */
         }
     }
     
@@ -579,15 +572,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
             }
-            /*
-            let picker = UIImagePickerController()
-            picker.sourceType = .savedPhotosAlbum
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
-            picker.allowsEditing = false
-            present(picker, animated: true, completion: nil)
-             */
         }
     }
 

@@ -512,7 +512,7 @@ class IdentificationTableViewController: UITableViewController {
                         if button.superview?.superview as? BarcodeTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .up
+                                ppc.permittedArrowDirections = .any
                                 // I need the button coordinates in the coordinates of the current controller view
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
@@ -637,14 +637,6 @@ class IdentificationTableViewController: UITableViewController {
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
             }
-            /*
-            let picker = UIImagePickerController()
-            picker.sourceType = .camera
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
-            picker.allowsEditing = true
-            present(picker, animated: true, completion: nil)
- */
         }
     }
     
@@ -656,7 +648,6 @@ class IdentificationTableViewController: UITableViewController {
     }()
 
     func useCameraRollButtonTapped() {
-
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
@@ -667,20 +658,9 @@ class IdentificationTableViewController: UITableViewController {
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.permittedArrowDirections = .any
             }
-
-            /*
-             let picker = UIImagePickerController()
-            picker.sourceType = .savedPhotosAlbum
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
-            picker.allowsEditing = false
-            // picker.modalPresentationStyle = .popover
-            present(picker, animated: true, completion: nil)
-            // let popoverPresentationController = picker.popoverPresentationController
-            // popoverPresentationController?.sourceView = sender
-            // popoverPresentationController?.sourceRect = tableView.frame
-            */
         }
     }
 
@@ -690,15 +670,6 @@ class IdentificationTableViewController: UITableViewController {
         image = info[UIImagePickerControllerEditedImage] as? UIImage
         if image == nil {
             image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        }
-        if image != nil {
-            print("front image", image!.size)
-            
-
-            /*
-            delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
-            tableView.reloadData()
-             */
         }
     }
     
@@ -1068,7 +1039,6 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
         // print("front image", image.size)
         delegate?.updated(frontImage: image, languageCode: currentLanguageCode!)
         tableView.reloadData()
-        
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }

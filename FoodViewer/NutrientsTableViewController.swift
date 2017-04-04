@@ -741,7 +741,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         if button.superview?.superview as? AddNutrientTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .up
+                                ppc.permittedArrowDirections = .any
                                 // I need the button coordinates in the coordinates of the current controller view
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
@@ -759,7 +759,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         if button.superview?.superview as? NutrientsTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
+                                ppc.permittedArrowDirections = .any
                                 // I need the button coordinates in the coordinates of the current controller view
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
@@ -924,15 +924,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
             }
-/*
-            let picker = UIImagePickerController()
-            picker.sourceType = .camera
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
-            picker.allowsEditing = true
-            present(picker, animated: true, completion: nil)
- */
         }
     }
     
@@ -955,15 +948,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
             }
-            /*
-            let picker = UIImagePickerController()
-            picker.sourceType = .savedPhotosAlbum
-            picker.mediaTypes = [kUTTypeImage as String]
-            picker.delegate = self
-            picker.allowsEditing = false
-            present(picker, animated: true, completion: nil)
- */
         }
     }
     

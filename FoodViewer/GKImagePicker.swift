@@ -14,14 +14,14 @@ import Foundation
 import UIKit
 
 open class GKImagePicker: NSObject {
-
+    
     var imagePickerController: UIImagePickerController? = nil {
         didSet {
             self.imagePickerController?.delegate = self
             self.imagePickerController?.sourceType = sourceType
         }
     }
-
+    
     var cropSize = CGSize.zero
     
     var delegate: GKImagePickerDelegate? = nil
@@ -32,9 +32,9 @@ open class GKImagePicker: NSObject {
         }
     }
     var hasResizeableCropArea = false
-        
+    
     func dismiss(animated: Bool, completion: (() -> Void)?) {
-            imagePickerController?.dismiss(animated: animated, completion: nil)
+        imagePickerController?.dismiss(animated: animated, completion: nil)
     }
 }
 
@@ -68,7 +68,7 @@ extension GKImagePicker: UIImagePickerControllerDelegate, UINavigationController
             cropController.hasResizableCropArea = self.hasResizeableCropArea
             cropController.cropSize = self.cropSize
             cropController.delegate = self
-            
+            cropController.sourceType = self.sourceType
             picker.pushViewController(cropController, animated: false)
         }
         
@@ -81,5 +81,5 @@ extension GKImagePicker: UIImagePickerControllerDelegate, UINavigationController
         }
         
     }
-
+    
 }
