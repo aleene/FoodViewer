@@ -351,9 +351,7 @@ class OFFUpdate {
             if let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
                 if let url = URL(string: encodedString) {
                     do {
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = true
                         let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         return unpackJSONObject( JSON(data: data) )
                     } catch let error as NSError {
                         print(error);

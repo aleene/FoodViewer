@@ -51,8 +51,25 @@ class SettingsTableViewController: UITableViewController {
         enableClearHistoryButton()
     }
     
-    // MARK: - Salt Or Sodium Functions
+    @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
+        didSet {
+            saltOrSodiumSegmentedControl?.selectedSegmentIndex = Preferences.manager.useOpenBeautyFacts ? 1 : 0
+        }
+    }
     
+    @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.useOpenBeautyFacts = false
+        case 1:
+            Preferences.manager.useOpenBeautyFacts = true
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Salt Or Sodium Functions
+
     private func refreshAll() {
         refreshSaltOrSodium()
         refreshJouleOrCalories()

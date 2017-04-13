@@ -31,7 +31,9 @@ class OpenFoodFactsRequest {
     
     func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        let fetchUrl = Preferences.manager.useOpenBeautyFacts ?
+            URL(string: "\(OpenFoodFacts.APIURLPrefixForBeautyProduct + barcode.asString() + OpenFoodFacts.JSONExtension)") :
+            URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
         // print("\(fetchUrl)")

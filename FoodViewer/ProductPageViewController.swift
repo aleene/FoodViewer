@@ -35,6 +35,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let vc = pages[1] as? IngredientsTableViewController {
                     vc.currentLanguageCode = currentLanguageCode
                 }
+                
+                // not relevant for openBeautyFacts, but fails gently in that case
                 if let vc = pages[2] as? NutrientsTableViewController {
                     vc.currentLanguageCode = currentLanguageCode
                 }
@@ -99,7 +101,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 // time to save
                 if let validUpdatedProduct = updatedProduct {
                     let update = OFFUpdate()
-                    
+                    confirmBarButtonItem?.isEnabled = false
                     UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
                     // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
@@ -120,6 +122,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                 NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
                                 break
                             }
+                            self.confirmBarButtonItem?.isEnabled = true
                         })
                     })
                 }
@@ -139,13 +142,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let vc = pages[1] as? IngredientsTableViewController {
                     vc.editMode = editMode
                 }
+                // not relevant for openBeautyFacts, but fails gently in that case
                 if let vc = pages[2] as? NutrientsTableViewController {
                     vc.editMode = editMode
                 }
-                if let vc = pages[3] as? SupplyChainTableViewController {
+                let index = Preferences.manager.useOpenBeautyFacts ? 2 : 3
+                
+                if let vc = pages[index] as? SupplyChainTableViewController {
                     vc.editMode = editMode
                 }
-                if let vc = pages[4] as? CategoriesTableViewController {
+                if let vc = pages[index + 1] as? CategoriesTableViewController {
                     vc.editMode = editMode
                 }
             }
@@ -191,27 +197,40 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if pages.isEmpty {
             pages.append(page1)
             pages.append(page2)
-            pages.append(page3)
+            if !Preferences.manager.useOpenBeautyFacts {
+                pages.append(page3)
+            }
             pages.append(page4)
             pages.append(page5)
             pages.append(page6)
-            pages.append(page7)
-        
-            if let vc = pages[0] as? IdentificationTableViewController {
-                vc.delegate = self
-                title = titles[0]
+            if !Preferences.manager.useOpenBeautyFacts {
+                pages.append(page7)
             }
-            if let vc = pages[1] as? IngredientsTableViewController {
+
+            var index = 0
+            if let vc = pages[index] as? IdentificationTableViewController {
                 vc.delegate = self
+                title = titles[index]
+                index += 1
             }
-            if let vc = pages[2] as? NutrientsTableViewController {
+            if let vc = pages[index] as? IngredientsTableViewController {
                 vc.delegate = self
+                index += 1
             }
-            if let vc = pages[3] as? SupplyChainTableViewController {
-                vc.delegate = self
+            if !Preferences.manager.useOpenBeautyFacts {
+                
+                if let vc = pages[index] as? NutrientsTableViewController {
+                    vc.delegate = self
+                    index += 1
+                }
             }
-            if let vc = pages[4] as? CategoriesTableViewController {
+            if let vc = pages[index] as? SupplyChainTableViewController {
                 vc.delegate = self
+                index += 1
+            }
+            if let vc = pages[index] as? CategoriesTableViewController {
+                vc.delegate = self
+                index += 1
             }
 
         }
@@ -219,57 +238,45 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     private func initPage(_ index: Int) {
 
-        switch index {
-            // the values only need to be pushed to the page, if it needs to be opened
-        case 0:
-            if let vc = pages[0] as? IdentificationTableViewController {
-                vc.product = product
-                vc.currentLanguageCode = currentLanguageCode
-                vc.editMode = editMode
-            }
-        case 1:
-            if let vc = pages[1] as? IngredientsTableViewController {
-                vc.product = product
-                vc.editMode = editMode
-                vc.currentLanguageCode = currentLanguageCode
-            }
-        case 2:
-            if let vc = pages[2] as? NutrientsTableViewController {
-                vc.product = product
-                vc.currentLanguageCode = currentLanguageCode
-                vc.editMode = editMode
-            }
-        case 3:
-            if let vc = pages[3] as? SupplyChainTableViewController {
-                vc.product = product
-                vc.editMode = editMode
-            }
-        case 4:
-            if let vc = pages[4] as? CategoriesTableViewController {
-                vc.product = product
-                vc.editMode = editMode
-            }
-        case 5:
-            if let vc = pages[5] as? CompletionStatesTableViewController {
-                vc.product = product
-            }
-        case 6:
-            if let vc = pages[6] as? NutritionScoreTableViewController {
-                vc.product = product
-            }
-        default:
-            break
+        if let vc = pages[index] as? IdentificationTableViewController {
+            vc.product = product
+            vc.currentLanguageCode = currentLanguageCode
+            vc.editMode = editMode
+        } else if let vc = pages[index] as? IngredientsTableViewController {
+            vc.product = product
+            vc.editMode = editMode
+            vc.currentLanguageCode = currentLanguageCode
+        } else if let vc = pages[index] as? NutrientsTableViewController {
+            vc.product = product
+            vc.currentLanguageCode = currentLanguageCode
+            vc.editMode = editMode
+        } else if let vc = pages[index] as? SupplyChainTableViewController {
+            vc.product = product
+            vc.editMode = editMode
+        } else if let vc = pages[index] as? CategoriesTableViewController {
+            vc.product = product
+            vc.editMode = editMode
+        } else if let vc = pages[index] as? CompletionStatesTableViewController {
+            vc.product = product
+        } else if let vc = pages[index] as? NutritionScoreTableViewController {
+            vc.product = product
         }
     }
     
+    private struct Title {
+        static let Identification = NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info.")
+        static let Ingredients = NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product.")
+        static let Facts = NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product.")
+        static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product.")
+        static let Categories = NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product.")
+        static let Effort = NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")
+        static let Score = NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")
+    }
     
-    fileprivate var titles = [NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info."),
-                                NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product."),
-                                NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product."),
-                                NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product."),
-                                NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product."),
-                                NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product."),
-                                NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")]
+    fileprivate var titles = Preferences.manager.useOpenBeautyFacts ?[ Title.Identification, Title.Ingredients, Title.SupplyChain, Title.Categories, Title.Effort ] :
+        [ Title.Identification, Title.Ingredients, Title.Facts, Title.SupplyChain, Title.Categories, Title.Effort, Title.Score ]
+
+    
     
     fileprivate var page1: UIViewController {
         get {
@@ -313,44 +320,25 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 
                 setCurrentLanguage()
                 
-                // only set the field of a separate page if we have a valid page
+                // only set the field of a page if we have a valid page
                 
-                guard pageIndex != nil else { return }
-                switch pageIndex! {
-                case 0:
-                    if let vc = pages[0] as? IdentificationTableViewController {
+                if let index = pageIndex {
+                    if let vc = pages[index] as? IdentificationTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? IngredientsTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? NutrientsTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? SupplyChainTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? CategoriesTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? CompletionStatesTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? NutritionScoreTableViewController {
                         vc.product = product
                     }
-                case 1:
-                    if let vc = pages[1] as? IngredientsTableViewController {
-                        vc.product = product
-                    }
-                case 2:
-                    if let vc = pages[2] as? NutrientsTableViewController {
-                        vc.product = product
-                    }
-                case 3:
-                    if let vc = pages[3] as? SupplyChainTableViewController {
-                        vc.product = product
-                    }
-                case 4:
-                    if let vc = pages[4] as? CategoriesTableViewController {
-                        vc.product = product
-                    }
-                case 5:
-                    if let vc = pages[5] as? CompletionStatesTableViewController {
-                        vc.product = product
-                    }
-                case 6:
-                    if let vc = pages[6] as? NutritionScoreTableViewController {
-                        vc.product = product
-                    }
-                default:
-                    break
                 }
-
-                // initialise pages
-                // initPages()
             }
         }
     }

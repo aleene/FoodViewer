@@ -121,6 +121,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate var selectedIndex: Int? = nil // this indicates which part of the product must be shown
     
+    fileprivate var selectedRowType: RowType? = nil
+    
     fileprivate func showSelectedProduct() {
         // prevent that to many changes are pushed on the view stack
         // check the current presented controller
@@ -137,6 +139,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate enum RowType {
         case name
         case ingredients
+        case traces
+        case allergens
         case nutritionFacts
         case nutritionScore
         case categories
@@ -145,19 +149,26 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     // defines the order of the rows
-    fileprivate var tableStructure: [RowType] = [.name, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+    fileprivate var tableStructure: [RowType] = []
 
+    private func initTableStructure() {
+        self.tableStructure = Preferences.manager.useOpenBeautyFacts ? [.name, .ingredients, .allergens, .traces, .supplyChain, .categories, .completion ] :
+            [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+    }
+    
     fileprivate struct Storyboard {
         struct CellIdentifier {
-        static let Name = "Product Name Cell"
-        static let Ingredients = "Product Ingredients Cell"
-        static let Countries = "Countries Cell"
-        static let NutritionFacts = "Product Nutrition Facts Name Cell"
-        static let NutritionScore = "Product Nutrition Score Cell"
-        static let Categories = "Product Categories Cell"
-        static let Completion = "Product Completion State Cell"
-        static let Producer = "Product Producer Cell"
-        static let BeingLoaded = "Product Being Loaded Cell"
+            static let Name = "Product Name Cell"
+            static let Ingredients = "Product Ingredients Cell"
+            static let Traces = "Product Traces Cell"
+            static let Allergens = "Product Allergens Cell"
+            static let Countries = "Countries Cell"
+            static let NutritionFacts = "Product Nutrition Facts Name Cell"
+            static let NutritionScore = "Product Nutrition Score Cell"
+            static let Categories = "Product Categories Cell"
+            static let Completion = "Product Completion State Cell"
+            static let Producer = "Product Producer Cell"
+            static let BeingLoaded = "Product Being Loaded Cell"
         }
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
@@ -219,36 +230,84 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         return cell
                         
                     case .ingredients:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsTableViewCell
-                        cell.product = currentProduct
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+
+                        if let number = currentProduct.numberOfIngredients {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .decimal
+                            cell.badgeString = "\(number)"
+                        } else {
+                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no ingredients defined.")
+                        }
                         return cell
                         
+                    case .traces:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
+                        if let count = currentProduct.traceKeys?.count {
+                            cell.badgeString = "\(count)"
+                        } else {
+                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
+                        }
+                        return cell
+                        
+                    case .allergens:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
+                        if let count = currentProduct.allergenKeys?.count {
+                            cell.badgeString = "\(count)"
+                        } else {
+                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
+                        }
+                        return cell
+
                     case .nutritionFacts:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath)
-                        let formatter = NumberFormatter()
-                        formatter.numberStyle = .decimal
-                        let formattedCount = currentProduct.nutritionFacts != nil ? formatter.string(from: NSNumber.init(integerLiteral: currentProduct.nutritionFacts!.count)) :
-                        formatter.string(from: NSNumber.init(integerLiteral: 0))
-                    
-                        cell.textLabel!.text = String.localizedStringWithFormat(Constants.NumberOfNutritionalFactsText, formattedCount!)
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
+
+                        if let count = currentProduct.nutritionFacts?.count {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .decimal
+                            cell.badgeString = "\(count)"
+                        } else {
+                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no ingredients defined.")
+                        }
                         return cell
                         
                     case .nutritionScore:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
                         cell?.product = currentProduct
                         return cell!
+                        
                     case .categories:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! CategoriesTableViewCell
-                        cell.categories = currentProduct.categories
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Categories", comment: "Text to indicate the product belongs to a category.")
+
+                        switch currentProduct.categories {
+                        case .undefined, .empty:
+                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no categories defined.")
+                        case let .available(list):
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .decimal
+                            cell.badgeString = "\(list.count)"
+                        }
                         return cell
                     case .completion:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
                         cell?.product = currentProduct
                         return cell!
                     case .supplyChain:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as? ProducerTableViewCell
-                        cell?.product = currentProduct
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
+                        if let count = currentProduct.countries?.count {
+                            let formatter = NumberFormatter()
+                            formatter.numberStyle = .decimal
+                            cell.badgeString = "\(count)"
+                        } else {
+                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no sales countries defined.")
+                        }
+                        return cell
                     }
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BeingLoaded, for: indexPath) as? BeingLoadedTableViewCell
@@ -266,6 +325,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedIndex = (indexPath as NSIndexPath).row
+        if let index = selectedIndex {
+            selectedRowType = tableStructure[index]
+        }
         if !products.fetchResultList.isEmpty {
             if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch validProductFetchResult {
@@ -351,7 +413,26 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
-                        ppvc.pageIndex = selectedIndex
+                        if let validSelectedRowType = selectedRowType {
+                            switch validSelectedRowType {
+                            case .name:
+                                ppvc.pageIndex = 0
+                            case .ingredients, .allergens, .traces:
+                                ppvc.pageIndex = 1
+                            case .nutritionFacts:
+                                ppvc.pageIndex = 2
+                            case .supplyChain:
+                                ppvc.pageIndex = 3
+                            case .categories:
+                                ppvc.pageIndex = 4
+                            case .completion:
+                                ppvc.pageIndex = 5
+                            case .nutritionScore:
+                                ppvc.pageIndex = 6
+                            }
+                        } else {
+                            ppvc.pageIndex = 0
+                        }
                     }
                 }
             case Storyboard.SegueIdentifier.ShowSettings:
@@ -385,12 +466,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SettingsTableViewController {
+            initTableStructure()
             tableView.reloadData()
             if vc.historyHasBeenRemoved {
                 products.removeAll()
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
             }
-            
         }
     }
     
@@ -500,7 +581,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         initializeCustomKeyboard()
         // Preferences.manager
-        
+        initTableStructure()
         startInterface()
     }
     
@@ -508,6 +589,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         super.viewWillAppear(animated)
 
         title = Constants.ViewControllerTitle
+        
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)

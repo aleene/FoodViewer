@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -69,7 +70,7 @@ class CompletionStatesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 10
+            return Preferences.manager.useOpenBeautyFacts ? 9 : 10
         case 1:
             return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
         case 2:
@@ -116,12 +117,22 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.stateTitle = product!.state.expirationDateComplete.text
                 return cell
             case 7:
-                cell.state = product!.state.nutritionFactsComplete.value
-                cell.stateTitle = product!.state.nutritionFactsComplete.text
+                if Preferences.manager.useOpenBeautyFacts {
+                    cell.state = product!.state.photosUploadedComplete.value
+                    cell.stateTitle = product!.state.photosUploadedComplete.text
+                } else {
+                    cell.state = product!.state.nutritionFactsComplete.value
+                    cell.stateTitle = product!.state.nutritionFactsComplete.text
+                }
                 return cell
             case 8:
-                cell.state = product!.state.photosUploadedComplete.value
-                cell.stateTitle = product!.state.photosUploadedComplete.text
+                if Preferences.manager.useOpenBeautyFacts {
+                    cell.state = product!.state.photosValidatedComplete.value
+                    cell.stateTitle = product!.state.photosValidatedComplete.text
+                } else {
+                    cell.state = product!.state.photosUploadedComplete.value
+                    cell.stateTitle = product!.state.photosUploadedComplete.text
+                }
                 return cell
             default:
                 cell.state = product!.state.photosValidatedComplete.value

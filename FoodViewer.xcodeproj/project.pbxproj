@@ -22,6 +22,7 @@
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
 		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
 		511459361CB1391300D25116 /* VertexNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459351CB1391300D25116 /* VertexNew.swift */; };
+		511620CC1E9E7E2900C90358 /* TDBadgedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511620CB1E9E7E2800C90358 /* TDBadgedCell.swift */; };
 		511B2C3B1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */; };
 		511B2C3F1E7866AA00336CE8 /* SIUnitTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */; };
 		511B2C411E78672900336CE8 /* SIUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C401E78672800336CE8 /* SIUnit.swift */; };
@@ -246,6 +247,7 @@
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
 		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		511459351CB1391300D25116 /* VertexNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertexNew.swift; sourceTree = "<group>"; };
+		511620CB1E9E7E2800C90358 /* TDBadgedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDBadgedCell.swift; sourceTree = "<group>"; };
 		511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItemTestSuite.swift; sourceTree = "<group>"; };
 		511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnitTestSuite.swift; sourceTree = "<group>"; };
 		511B2C401E78672800336CE8 /* SIUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnit.swift; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 				510A38E51CD3B01B00BAEB61 /* TagListView */,
 				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
 				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
+				511620CB1E9E7E2800C90358 /* TDBadgedCell.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1139,6 +1142,7 @@
 				51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */,
 				51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */,
 				512039EC1E5B3E9500BE62CB /* GKImagePickerProtocol.swift in Sources */,
+				511620CC1E9E7E2900C90358 /* TDBadgedCell.swift in Sources */,
 				516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */,
 				512039F31E5B3E9500BE62CB /* GKCropBorderView.swift in Sources */,
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
