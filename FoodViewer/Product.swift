@@ -389,13 +389,13 @@ class FoodProduct {
     var links: [URL]? = nil
     
     var expirationDateString: String? = nil
-
+    
     var expirationDate: Date? {
         get {
             return decodeDate(expirationDateString)
         }
     }
-    
+
     fileprivate func decodeDate(_ date: String?) -> Date? {
         if let validDate = date {
             if !validDate.isEmpty {
@@ -434,7 +434,29 @@ class FoodProduct {
         }
         return nil
     }
+    
+    var periodAfterOpeningString: String? = ""
 
+    var periodAfterReferenceDate: Date? {
+        get {
+            return decodeInterval(periodAfterOpeningString)
+        }
+    }
+
+    private func decodeInterval(_ interval: String?) -> Date? {
+        if let validInterval = interval {
+            if !validInterval.isEmpty {
+                let intervalElements = validInterval.characters.split{$0 == " "}.map(String.init)
+                if intervalElements[1] == "M" {
+                    if let number = Double.init(intervalElements[0]) {
+                    return Date.init(timeIntervalSinceReferenceDate: number * 3600.0 * 24.0 * 30.0)
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
     func producerElements(_ elements: String?) {
         if elements != nil {
             let addressElements = elements?.characters.split{$0 == ","}.map(String.init)

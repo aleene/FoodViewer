@@ -158,12 +158,15 @@ class SupplyChainTableViewController: UITableViewController {
         static let CountriesCellIdentifier = "Countries TagListView Cell"
         static let ProducerCodeCellIdentifier = "ProducerCodes TagListView Cell"
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
+        static let PeriodAfterOpeningCellIdentifier = "Period After Opening Cell"
         static let SitesCellIdentifier = "Sites TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
         static let PurchasPlaceCellIdentifier = "Purchase Place Cell"
         static let StoreCellIdentifier = "Store Place Cell"
-        static let ShowExpirationDateViewControllerSegue = "Show ExpirationDate ViewController"
-        static let ShowFavoriteShopsSegue = "Show Favorite Shops Segue"
+        fileprivate struct SegueIdentifier {
+            static let ShowExpirationDateViewController = "Show ExpirationDate ViewController"
+            static let ShowFavoriteShops = "Show Favorite Shops Segue"
+        }
     }
     
 
@@ -329,18 +332,41 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .expirationDate:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath) as! ExpirationDateTableViewCell
+            if Preferences.manager.useOpenFactsServer == .beauty {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PeriodAfterOpeningCellIdentifier, for: indexPath)
+                
+                // has the product been edited?
+                if let validPeriod = delegate?.updatedProduct?.periodAfterReferenceDate {
+                    let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                    let formatter = DateComponentsFormatter()
+                    formatter.unitsStyle = .full
+                    formatter.allowedUnits = .month
+                    let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                    cell.textLabel?.text = formattedTimeLeft
+                } else if let validPeriod = product!.periodAfterReferenceDate {
+                    let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                    let formatter = DateComponentsFormatter()
+                    formatter.unitsStyle = .full
+                    formatter.allowedUnits = .month
+                    let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                    cell.textLabel?.text = formattedTimeLeft
+                }
+                cell.tag = indexPath.section
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath) as! ExpirationDateTableViewCell
             
-            // has the product been edited?
-            if let validDate = delegate?.updatedProduct?.expirationDate {
-                cell.date = validDate
-            } else if let validDate = product!.expirationDate {
-                cell.date = validDate
+                // has the product been edited?
+                if let validDate = delegate?.updatedProduct?.expirationDate {
+                    cell.date = validDate
+                } else if let validDate = product!.expirationDate {
+                    cell.date = validDate
+                }
+                cell.editMode = editMode
+                cell.delegate = self
+                cell.tag = indexPath.section
+                return cell
             }
-            cell.editMode = editMode
-            cell.delegate = self
-            cell.tag = indexPath.section
-            return cell
         }
     }
     
@@ -356,7 +382,7 @@ class SupplyChainTableViewController: UITableViewController {
         if editMode {
             switch currentProductSection {
             case .expirationDate:
-                performSegue(withIdentifier: Storyboard.ShowExpirationDateViewControllerSegue, sender: self)
+                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowExpirationDateViewController, sender: self)
             default:
                 break
             }
@@ -383,7 +409,7 @@ class SupplyChainTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowExpirationDateViewControllerSegue:
+            case Storyboard.SegueIdentifier.ShowExpirationDateViewController:
                 if  let vc = segue.destination as? SelectExpirationDateViewController {
                     if let validName = delegate?.updatedProduct?.expirationDate {
                         let formatter = DateFormatter()

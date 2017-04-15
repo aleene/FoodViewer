@@ -93,7 +93,9 @@ class OFFUpdate {
 
         guard product != nil else { return .failure("OFFUpdate: No product defined") }
 
-        var urlString = OFFWriteAPI.SecureServer
+        var urlString = OFFWriteAPI.SecurePrefix
+            + Preferences.manager.useOpenFactsServer.rawValue
+            + OFFWriteAPI.Domain
             + OFFWriteAPI.PostPrefix
             + OFFWriteAPI.Barcode + product!.barcode.asString() + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter

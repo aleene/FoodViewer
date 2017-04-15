@@ -146,7 +146,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let vc = pages[2] as? NutrientsTableViewController {
                     vc.editMode = editMode
                 }
-                let index = Preferences.manager.useOpenBeautyFacts ? 2 : 3
+                
+                var index = 0
+                switch Preferences.manager.useOpenFactsServer {
+                case .food, .petFood:
+                    index += 3
+                case .beauty:
+                    index += 2
+                }
                 
                 if let vc = pages[index] as? SupplyChainTableViewController {
                     vc.editMode = editMode
@@ -197,13 +204,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if pages.isEmpty {
             pages.append(page1)
             pages.append(page2)
-            if !Preferences.manager.useOpenBeautyFacts {
+            // Beauty products do not have nutriments
+            if Preferences.manager.useOpenFactsServer != .beauty {
                 pages.append(page3)
             }
             pages.append(page4)
             pages.append(page5)
             pages.append(page6)
-            if !Preferences.manager.useOpenBeautyFacts {
+            // Beauty products do not have a nutition score
+            if Preferences.manager.useOpenFactsServer != .beauty {
                 pages.append(page7)
             }
 
@@ -217,7 +226,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 vc.delegate = self
                 index += 1
             }
-            if !Preferences.manager.useOpenBeautyFacts {
+            
+            // Beauty products do not have nutriments
+            if Preferences.manager.useOpenFactsServer != .beauty {
                 
                 if let vc = pages[index] as? NutrientsTableViewController {
                     vc.delegate = self
@@ -273,10 +284,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let Score = NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")
     }
     
-    fileprivate var titles = Preferences.manager.useOpenBeautyFacts ?[ Title.Identification, Title.Ingredients, Title.SupplyChain, Title.Categories, Title.Effort ] :
-        [ Title.Identification, Title.Ingredients, Title.Facts, Title.SupplyChain, Title.Categories, Title.Effort, Title.Score ]
-
-    
+    fileprivate var titles: [String] {
+        get {
+            switch Preferences.manager.useOpenFactsServer {
+            case .food, .petFood:
+                return [ Title.Identification, Title.Ingredients, Title.Facts, Title.SupplyChain, Title.Categories, Title.Effort, Title.Score ]
+            case .beauty:
+                return [ Title.Identification, Title.Ingredients, Title.SupplyChain, Title.Categories, Title.Effort ]
+            }
+        }
+    }
     
     fileprivate var page1: UIViewController {
         get {

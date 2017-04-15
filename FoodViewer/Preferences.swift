@@ -24,7 +24,7 @@ class Preferences {
     var allergenWarnings: [(String, Bool)] = []
     var favoriteShops: [(String, Address)] = []
     var userDidAuthenticate = false
-    var useOpenBeautyFacts = false
+    var useOpenFactsServer = OFF.Server.food
     
     init() {
         showSaltOrSodium = NatriumChloride.salt

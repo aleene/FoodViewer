@@ -53,16 +53,26 @@ class SettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
         didSet {
-            saltOrSodiumSegmentedControl?.selectedSegmentIndex = Preferences.manager.useOpenBeautyFacts ? 1 : 0
+            switch Preferences.manager.useOpenFactsServer {
+            case .food:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 0
+            case .beauty:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 1
+            case .petFood:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 2
+
+            }
         }
     }
     
     @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            Preferences.manager.useOpenBeautyFacts = false
+            Preferences.manager.useOpenFactsServer = .food
         case 1:
-            Preferences.manager.useOpenBeautyFacts = true
+            Preferences.manager.useOpenFactsServer = .beauty
+        case 2:
+            Preferences.manager.useOpenFactsServer = .petFood
         default:
             break
         }

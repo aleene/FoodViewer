@@ -70,7 +70,7 @@ class CompletionStatesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return Preferences.manager.useOpenBeautyFacts ? 9 : 10
+            return Preferences.manager.useOpenFactsServer == .beauty ? 9 : 10
         case 1:
             return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
         case 2:
@@ -117,7 +117,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.stateTitle = product!.state.expirationDateComplete.text
                 return cell
             case 7:
-                if Preferences.manager.useOpenBeautyFacts {
+                if Preferences.manager.useOpenFactsServer == .beauty {
                     cell.state = product!.state.photosUploadedComplete.value
                     cell.stateTitle = product!.state.photosUploadedComplete.text
                 } else {
@@ -126,7 +126,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 }
                 return cell
             case 8:
-                if Preferences.manager.useOpenBeautyFacts {
+                if Preferences.manager.useOpenFactsServer == .beauty {
                     cell.state = product!.state.photosValidatedComplete.value
                     cell.stateTitle = product!.state.photosValidatedComplete.text
                 } else {

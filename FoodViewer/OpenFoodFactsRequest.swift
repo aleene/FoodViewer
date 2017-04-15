@@ -12,7 +12,7 @@ import UIKit
 class OpenFoodFactsRequest {
     
     fileprivate struct OpenFoodFacts {
-        static let JSONExtension = ".json"
+        // static let JSONExtension = ".json"
         static let APIURLPrefixForFoodProduct = "http://world.openfoodfacts.org/api/v0/product/"
         static let APIURLPrefixForBeautyProduct = "http://world.openbeautyfacts.org/api/v0/product/"
         static let sampleProductBarcode = "40111490"
@@ -31,12 +31,16 @@ class OpenFoodFactsRequest {
     
     func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let fetchUrl = Preferences.manager.useOpenBeautyFacts ?
-            URL(string: "\(OpenFoodFacts.APIURLPrefixForBeautyProduct + barcode.asString() + OpenFoodFacts.JSONExtension)") :
-            URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        var fetchUrlString = OFF.URL.Prefix
+        // add the right server
+        fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
+        fetchUrlString += OFF.URL.Postfix
+        fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
+        let fetchUrl = URL(string: fetchUrlString)
+        print("\(fetchUrl)")
+
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
-        // print("\(fetchUrl)")
         if let url = fetchUrl {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
@@ -52,7 +56,7 @@ class OpenFoodFactsRequest {
 
     func fetchJsonForBarcode(_ barcode: BarcodeType) -> FetchJsonResult {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OpenFoodFacts.JSONExtension)")
+        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OFF.URL.JSONExtension)")
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
         if let url = fetchUrl {
@@ -69,7 +73,7 @@ class OpenFoodFactsRequest {
     }
 
     func fetchSampleProduct() -> ProductFetchStatus {
-        let filePath  = Bundle.main.path(forResource: OpenFoodFacts.sampleProductBarcode, ofType:OpenFoodFacts.JSONExtension)
+        let filePath  = Bundle.main.path(forResource: OpenFoodFacts.sampleProductBarcode, ofType:OFF.URL.JSONExtension)
         let data = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
         if let validData = data {
             return unpackJSONObject(JSON(data: validData))
@@ -339,7 +343,8 @@ class OpenFoodFactsRequest {
                 product.categories = Tags(decodeCategories(jsonObject[jsonKeys.ProductKey][jsonKeys.CategoriesTagsKey].stringArray))
                 product.quantity = jsonObject[jsonKeys.ProductKey][jsonKeys.QuantityKey].string
                 product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionDataPerKey].string)
-                product.expirationDateString = jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string
+                product.expirationDateString = jsonObject[jsonKeys.ProductKey][jsonKeys.PeriodsAfterOpeningKey].string
+                product.periodAfterOpeningString = jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string
                 product.allergenKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.AllergensTagsKey].stringArray
                 if let ingredientsJSON = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsKey].array {
                     var ingredients: [ingredientsElement] = []

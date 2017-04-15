@@ -32,7 +32,19 @@ public struct OFF {
         public struct PartNumber {
             static let Barcode = 5
         }
+        
+        static let Prefix = "http://world."
+        static let Postfix = ".org/api/v0/product/"
+        static let JSONExtension = ".json"
+        
     }
+    
+    public enum Server: String {
+        case food = "openfoodfacts"
+        case beauty = "openbeautyfacts"
+        case petFood = "openpetfoodfacts"
+    }
+
 }
 
 struct OFFReadAPIkeysJSON {
@@ -274,4 +286,8 @@ struct OFFReadAPIkeysJSON {
     static let CompleteKey = "complete"
     static let AdditivesDebugTagsKey = "additives_debug_tags"
     static let IngredientsIdsDebugKey = "ingredients_ids_debug"
+    
+    static let PeriodsAfterOpeningKey = "periods_after_opening"
 }
+
+

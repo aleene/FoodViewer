@@ -152,8 +152,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate var tableStructure: [RowType] = []
 
     private func initTableStructure() {
-        self.tableStructure = Preferences.manager.useOpenBeautyFacts ? [.name, .ingredients, .allergens, .traces, .supplyChain, .categories, .completion ] :
-            [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+        switch Preferences.manager.useOpenFactsServer {
+        case .food, .petFood:
+            self.tableStructure = [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+        case .beauty:
+            self.tableStructure = [.name, .ingredients, .allergens, .traces, .supplyChain, .categories, .completion ]
+        }
     }
     
     fileprivate struct Storyboard {
