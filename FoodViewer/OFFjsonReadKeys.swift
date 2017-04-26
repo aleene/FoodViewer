@@ -288,6 +288,7 @@ struct OFFReadAPIkeysJSON {
     static let IngredientsIdsDebugKey = "ingredients_ids_debug"
     
     static let PeriodsAfterOpeningKey = "periods_after_opening"
+    static let NewServerKey = "new_server"
 }
 
 

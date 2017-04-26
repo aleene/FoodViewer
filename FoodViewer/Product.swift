@@ -388,6 +388,25 @@ class FoodProduct {
     
     var links: [URL]? = nil
     
+    // this encodes the type of product, i.e. .food / .petFood / .beauty
+    var server: String? = nil
+    
+    var type: ProductType? {
+        if let validServer = server {
+            var testType: ProductType = .petFood
+            if validServer == testType.rawValue {
+                return testType
+            }
+            
+            testType =  .beauty
+            if validServer == testType.rawValue {
+                return testType
+            }
+            return .food
+        }
+        return nil
+    }
+    
     var expirationDateString: String? = nil
     
     var expirationDate: Date? {

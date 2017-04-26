@@ -56,11 +56,11 @@ class OFFUpdate {
         }
         
         if let validPurchasePlace = location?.asSingleString(withSeparator: OFFWriteAPI.CommaDelimiter) {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PurchasePlaces + validPurchasePlace)
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PurchasePlaces + validPurchasePlace.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         }
         
         if let validShop = shop {
-            let theShops = product?.add(shop:validShop)
+            let theShops = product?.add(shop:validShop.addingPercentEncoding(withAllowedCharacters: .alphanumerics))
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + theShops!.flatMap{$0}.joined(separator: ","))
 
         }
@@ -114,7 +114,7 @@ class OFFUpdate {
 
         if product!.nameLanguage.count > 0 {
             for name in product!.nameLanguage {
-                if let validName = name.value {
+                if let validName = name.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(OFFWriteAPI.Delimiter +
                         OFFWriteAPI.Name +
                         OFFWriteAPI.LanguageSpacer +
@@ -140,13 +140,13 @@ class OFFUpdate {
 
         if product!.genericNameLanguage.count > 0 {
             for genericName in product!.genericNameLanguage {
-                if let name = genericName.value {
+                if let name = genericName.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(OFFWriteAPI.Delimiter +
                         OFFWriteAPI.GenericName +
                         OFFWriteAPI.LanguageSpacer +
                         genericName.key +
                         OFFWriteAPI.Equal +
-                        name)
+                        name )
                     productUpdated = true
                 }
             }
@@ -166,7 +166,7 @@ class OFFUpdate {
                     OFFWriteAPI.LanguageSpacer +
                     name.key +
                     OFFWriteAPI.Equal +
-                    name.value)
+                    name.value.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                 productUpdated = true
             }
         }
@@ -207,7 +207,7 @@ class OFFUpdate {
         }
         
         if let validShop = product!.stores {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.flatMap{$0}.joined(separator: ",") )
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         }
         
@@ -241,7 +241,7 @@ class OFFUpdate {
         
         switch product!.brands {
         case let .available(list):
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.flatMap{$0}.joined(separator: ","))
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands)
@@ -350,20 +350,17 @@ class OFFUpdate {
         }
 
         if productUpdated {
-            if let encodedString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
-                if let url = URL(string: encodedString) {
-                    do {
-                        let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                        return unpackJSONObject( JSON(data: data) )
-                    } catch let error as NSError {
-                        print(error);
-                        return .failure(error.description)
-                    }
-                } else {
-                    return .failure("OFFUpdate Error: URL is wrong somehow")
+            if let url = URL(string: urlString) {
+                
+                do {
+                    let data = try Data( contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe )
+                    return unpackJSONObject( JSON(data: data) )
+                } catch let error as NSError {
+                    print(error);
+                    return .failure(error.description)
                 }
             } else {
-                return .failure("OFFUpdate Error: URL encoding failed")
+                return .failure("OFFUpdate Error: URL is wrong somehow")
             }
         }
         return .failure("OFFUpdate Error: No product changes detected")

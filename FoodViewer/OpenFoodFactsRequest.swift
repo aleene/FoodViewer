@@ -310,6 +310,7 @@ class OpenFoodFactsRequest {
                         }
                     }
                 }
+                product.server = jsonObject[jsonKeys.ProductKey][jsonKeys.NewServerKey].string
                 
                 product.purchaseLocationString(jsonObject[jsonKeys.ProductKey][jsonKeys.PurchasePlacesKey].string)
                 //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionUrlKey].url

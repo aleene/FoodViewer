@@ -149,14 +149,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     // defines the order of the rows
-    fileprivate var tableStructure: [RowType] = []
-
-    private func initTableStructure() {
+    private var tableStructure: [RowType] {
         switch Preferences.manager.useOpenFactsServer {
         case .food, .petFood:
-            self.tableStructure = [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+            return [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
         case .beauty:
-            self.tableStructure = [.name, .ingredients, .allergens, .traces, .supplyChain, .categories, .completion ]
+            return [.name, .ingredients, .allergens, .traces, .supplyChain, .categories, .completion ]
         }
     }
     
@@ -470,7 +468,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SettingsTableViewController {
-            initTableStructure()
             tableView.reloadData()
             if vc.historyHasBeenRemoved {
                 products.removeAll()
@@ -585,7 +582,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         initializeCustomKeyboard()
         // Preferences.manager
-        initTableStructure()
         startInterface()
     }
     
