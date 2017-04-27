@@ -151,10 +151,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     // defines the order of the rows
     private var tableStructure: [RowType] {
         switch Preferences.manager.useOpenFactsServer {
-        case .food, .petFood:
+        case .food:
             return [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+        case .petFood:
+            return [.name, .ingredients, .allergens, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
         case .beauty:
-            return [.name, .ingredients, .allergens, .traces, .supplyChain, .categories, .completion ]
+            return [.name, .ingredients, .allergens, .supplyChain, .categories, .completion ]
         }
     }
     
