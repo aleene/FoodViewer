@@ -344,8 +344,8 @@ class OpenFoodFactsRequest {
                 product.categories = Tags(decodeCategories(jsonObject[jsonKeys.ProductKey][jsonKeys.CategoriesTagsKey].stringArray))
                 product.quantity = jsonObject[jsonKeys.ProductKey][jsonKeys.QuantityKey].string
                 product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionDataPerKey].string)
-                product.expirationDateString = jsonObject[jsonKeys.ProductKey][jsonKeys.PeriodsAfterOpeningKey].string
-                product.periodAfterOpeningString = jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string
+                product.periodAfterOpeningString  = jsonObject[jsonKeys.ProductKey][jsonKeys.PeriodsAfterOpeningKey].string
+                product.expirationDateString = jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string
                 product.allergenKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.AllergensTagsKey].stringArray
                 if let ingredientsJSON = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsKey].array {
                     var ingredients: [ingredientsElement] = []
