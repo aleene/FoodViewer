@@ -181,11 +181,25 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 } else if pageIndex! < 0 || pageIndex! > pages.count - 1 {
                     pageIndex = 0
                 }
-                // open de corresponding page
-                setViewControllers(
-                    [pages[pageIndex!]],
-                    direction: .forward,
-                    animated: true, completion: nil)
+                if oldValue != nil {
+                    // open de corresponding page
+                    if pageIndex! > oldValue! {
+                        setViewControllers(
+                            [pages[pageIndex!]],
+                            direction: .forward,
+                            animated: true, completion: nil)
+                    } else {
+                        setViewControllers(
+                            [pages[pageIndex!]],
+                            direction: .reverse,
+                            animated: true, completion: nil)
+                    }
+                } else {
+                    setViewControllers(
+                        [pages[pageIndex!]],
+                        direction: .forward,
+                        animated: true, completion: nil)
+                }
                 title = titles[pageIndex!]
                 
                 initPage(pageIndex!)
@@ -428,7 +442,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = pendingViewControllers.first {
             pageIndex = pages.index(of:vc)
         }
-    
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
