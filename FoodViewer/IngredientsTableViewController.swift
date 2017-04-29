@@ -570,7 +570,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
-            imagePicker.imagePickerController!.modalPresentationStyle = .popover
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
             imagePicker.sourceType = .savedPhotosAlbum
 
 

@@ -11,6 +11,8 @@ import Foundation
 struct OFFWriteAPI {
     static let Server = "http://world.openfoodfacts.org/"
     static let SecureServer = "https://ssl-api.openfoodfacts.org/"
+    // static let BeautySecureServer = "https://ssl-api.openbeautyfacts.org/"
+    // static let PetFoodSecureServer = "https://ssl-api.openpetfoodfacts.org/"
     static let PostPrefix = "cgi/product_jqm2.pl?"
     static let Prefix = "http://world."
     static let Domain = ".org/"

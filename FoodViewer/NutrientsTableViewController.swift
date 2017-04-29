@@ -934,7 +934,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         picker.imagePickerController = UIImagePickerController.init()
         picker.imagePickerController!.modalPresentationStyle = .formSheet
         picker.sourceType = .savedPhotosAlbum
-        // picker.mediaTypes = [kUTTypeImage as String]
+        // picker.mediaTypes = [kUTTypeImage as String] <
         return picker
     }()
 
@@ -942,7 +942,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
-            imagePicker.imagePickerController!.modalPresentationStyle = .popover
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
             imagePicker.delegate = self
             
             present(imagePicker.imagePickerController!, animated: true, completion: nil)

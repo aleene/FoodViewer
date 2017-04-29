@@ -11,8 +11,12 @@ import Foundation
 struct OFFHttpPost {
     
     struct URL {
-        static let Add = "https://world.openfoodfacts.org/cgi/product_image_upload.pl"
-        static let Unselect = "https://world.openfoodfacts.org/cgi/product_image_unselect.pl"
+        static let GetPostPrefix = "cgi/product_jqm2.pl?"
+        static let Prefix = "http://world."
+        static let Domain = ".org/"
+        static let SecurePrefix = "https://ssl-api."
+        static let AddPostFix = "cgi/product_image_upload.pl"
+        static let UnselectPostFix = "cgi/product_image_unselect.pl"
     }
     
     static let ImgUpload = "imgupload_"

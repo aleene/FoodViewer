@@ -128,6 +128,7 @@
 		5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */; };
 		5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91A1C5D3B9E002DBD21 /* Product.swift */; };
 		5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */; };
+		5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */; };
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518B70201EA2779D00AB35CC /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B701F1EA2779C00AB35CC /* ProductType.swift */; };
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
@@ -364,6 +365,7 @@
 		5180B9131C5D3B57002DBD21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5180B91A1C5D3B9E002DBD21 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
+		5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGaugeView.swift; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
@@ -586,6 +588,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */,
 				512039E31E5B3E7900BE62CB /* GKImagePickerSwift */,
 				5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */,
 				51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */,
@@ -1121,6 +1124,7 @@
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
 				511B2C411E78672900336CE8 /* SIUnit.swift in Sources */,
 				5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */,
+				5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				5127CDF51E48B64D00944FE8 /* ConfirmProductTableViewController.swift in Sources */,

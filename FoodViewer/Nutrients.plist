@@ -602,7 +602,7 @@
 		<dict>
 			<key>unit</key>
 			<array>
-				<string>mg</string>
+				<string>%</string>
 			</array>
 			<key>de</key>
 			<array>

@@ -232,11 +232,11 @@ class OFFUpdate {
                     if let validValueUnit = fact?.standardValueUnit?.short(),
                         let validKey = fact?.key {
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
-                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit)
+                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                     } else if let validValueUnit = fact?.servingValueUnit?.short(),
                         let validKey = fact?.key {
                         urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
-                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit)
+                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
                     }
 
                     productUpdated = true
@@ -386,13 +386,22 @@ class OFFUpdate {
                                 //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
                                 //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
                                         ],
-                            url: OFFHttpPost.URL.Unselect)
+                            url: OFFHttpPost.URL.SecurePrefix +
+                                Preferences.manager.useOpenFactsServer.rawValue +
+                                OFFHttpPost.URL.Domain +
+                                OFFHttpPost.URL.UnselectPostFix
+            )
+
             post(image: image.value.image!,
                       parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
                                    OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:image.key),
                                    OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
                                    OFFHttpPost.AddParameter.Password: OFFAccount().password],
-                      imageType: id, url: OFFHttpPost.URL.Add,
+                      imageType: id,
+                      url: OFFHttpPost.URL.SecurePrefix +
+                        Preferences.manager.useOpenFactsServer.rawValue +
+                        OFFHttpPost.URL.Domain +
+                        OFFHttpPost.URL.AddPostFix,
                       languageCode: image.key)
         
         }
