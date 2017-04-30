@@ -12,6 +12,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
 
     var product: FoodProduct? = nil {
         didSet {
+            self.backgroundColor = .white
             if let score = product?.nutritionScore {
                 for (item, level) in score {
                     switch item {
@@ -34,15 +35,20 @@ class NutritionScoreTableViewCell: UITableViewCell {
             if let score = product?.nutritionGrade {
                 switch  score {
                 case .a:
-                    self.backgroundColor = UIColor.green
+                    self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .green
+                    nutriScoreView.currentScore = NutriScoreView.Score.A
                 case .b:
-                    self.backgroundColor = UIColor.yellow
+                    self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .yellow
+                    nutriScoreView.currentScore = NutriScoreView.Score.B
                 case .c:
-                    self.backgroundColor = UIColor.orange
+                    self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .orange
+                    nutriScoreView.currentScore = NutriScoreView.Score.C
                 case .d:
-                    self.backgroundColor = UIColor.magenta
+                    self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .magenta
+                    nutriScoreView.currentScore = NutriScoreView.Score.D
                 case .e:
-                    self.backgroundColor = UIColor.red
+                    self.backgroundColor = regionHasNutritionalScoreLogo() ? .white : .red
+                    nutriScoreView.currentScore = NutriScoreView.Score.E
                 default:
                     self.backgroundColor = nil
                 }
@@ -50,13 +56,36 @@ class NutritionScoreTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var fatLabel: UILabel!
-    @IBOutlet weak var saturatedFatLabel: UILabel!
-    @IBOutlet weak var sugarLabel: UILabel!
-    @IBOutlet weak var saltLabel: UILabel!
+    @IBOutlet weak var fatLabel: UILabel! {
+        didSet {
+            fatLabel.isHidden = regionHasNutritionalScoreLogo()
+        }
+    }
+    @IBOutlet weak var saturatedFatLabel: UILabel! {
+        didSet {
+            saturatedFatLabel.isHidden = regionHasNutritionalScoreLogo()
+        }
+    }
+
+    @IBOutlet weak var sugarLabel: UILabel! {
+        didSet {
+            sugarLabel.isHidden = regionHasNutritionalScoreLogo()
+        }
+    }
+
+    @IBOutlet weak var saltLabel: UILabel! {
+        didSet {
+            saltLabel.isHidden = regionHasNutritionalScoreLogo()
+        }
+    }
     
+    @IBOutlet weak var nutriScoreView: NutriScoreView! {
+        didSet {
+            nutriScoreView.isHidden = !regionHasNutritionalScoreLogo()
+        }
+    }
     
-    fileprivate func colorForLevel(_ level: NutritionLevelQuantity) -> UIColor {
+    private func colorForLevel(_ level: NutritionLevelQuantity) -> UIColor {
         switch level {
         case .low:
             return UIColor.green
@@ -68,4 +97,10 @@ class NutritionScoreTableViewCell: UITableViewCell {
             return UIColor.white
         }
     }
+    
+    func regionHasNutritionalScoreLogo() -> Bool {
+        let inFrance = Locale.current.regionCode?.contains("FR")
+        return inFrance ?? false
+    }
+
 }

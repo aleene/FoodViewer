@@ -129,6 +129,8 @@
 		5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91A1C5D3B9E002DBD21 /* Product.swift */; };
 		5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */; };
 		5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */; };
+		5184F57F1EB5EF66009ECF73 /* NutriScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5184F57E1EB5EF66009ECF73 /* NutriScoreView.swift */; };
+		5184F5811EB5EF78009ECF73 /* NutriScoreView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5184F5801EB5EF78009ECF73 /* NutriScoreView.xib */; };
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518B70201EA2779D00AB35CC /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B701F1EA2779C00AB35CC /* ProductType.swift */; };
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
@@ -366,6 +368,8 @@
 		5180B91A1C5D3B9E002DBD21 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductTableViewController.swift; sourceTree = "<group>"; };
 		5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarGaugeView.swift; sourceTree = "<group>"; };
+		5184F57E1EB5EF66009ECF73 /* NutriScoreView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutriScoreView.swift; sourceTree = "<group>"; };
+		5184F5801EB5EF78009ECF73 /* NutriScoreView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NutriScoreView.xib; sourceTree = "<group>"; };
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
@@ -593,6 +597,7 @@
 				5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */,
 				51BED0C01CE0DC75006ED62B /* TUSafariActivity.swift */,
 				512403671D93DD10007FED5A /* SwiftyJSON.swift */,
+				5184F57E1EB5EF66009ECF73 /* NutriScoreView.swift */,
 				510A38E51CD3B01B00BAEB61 /* TagListView */,
 				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
 				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
@@ -739,6 +744,7 @@
 				51DCD3C91C6A110900D39898 /* ProductPages */,
 				51DAD3771C5F757A00895513 /* ProductTableCells */,
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
+				5184F5801EB5EF78009ECF73 /* NutriScoreView.xib */,
 				516BA5871CC3ADFD008A094A /* Launch Screen.storyboard */,
 				511459371CB1398F00D25116 /* Test files */,
 				5180B9191C5D3B75002DBD21 /* Support files */,
@@ -1044,6 +1050,7 @@
 				5174A6761D82F9AD00BA61F1 /* Languages.plist in Resources */,
 				5125AB8B1D096C2D000DCD29 /* GlobalLabels.plist in Resources */,
 				51B150031CB2DF9100A57D42 /* Allergens.plist in Resources */,
+				5184F5811EB5EF78009ECF73 /* NutriScoreView.xib in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
@@ -1088,6 +1095,7 @@
 				51E92B011E13D6970071B293 /* TagListView.swift in Sources */,
 				51B904881E7ADC7E004E3439 /* MetricPrefix.swift in Sources */,
 				515742721CDB63B200BE8E2D /* RSEANGenerator.swift in Sources */,
+				5184F57F1EB5EF66009ECF73 /* NutriScoreView.swift in Sources */,
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
 				512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */,
