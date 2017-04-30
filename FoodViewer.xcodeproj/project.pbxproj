@@ -770,6 +770,15 @@
 			name = "Support files";
 			sourceTree = "<group>";
 		};
+		5184F57D1EB5ED09009ECF73 /* NutrimentScoreCells */ = {
+			isa = PBXGroup;
+			children = (
+				5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */,
+				5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */,
+			);
+			name = NutrimentScoreCells;
+			sourceTree = "<group>";
+		};
 		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -864,13 +873,12 @@
 				51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */,
 				51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */,
 				51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */,
-				5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */,
-				5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */,
 				51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */,
 				51AFB0081C734CD900598444 /* IdentificationCells */,
 				517AAD4B1C7DB5B800B12F3C /* IngredientsCell */,
 				516B328E1C75FF2C0031EF80 /* NutrientsCells */,
 				51BED0C21CE1BF67006ED62B /* SupplyChainCells */,
+				5184F57D1EB5ED09009ECF73 /* NutrimentScoreCells */,
 				51AFB00F1C74877700598444 /* ContributorsCell */,
 				51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */,
 				517AAD261C7B4D0700B12F3C /* Product Cells */,

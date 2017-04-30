@@ -13,7 +13,7 @@ class ProductCategoryTableViewCell: UITableViewCell {
     
     var belongsToCategory: Bool = false {
         didSet {
-            belongsToCategorySwitch.isOn = belongsToCategory
+            setImage()
         }
     }
     
@@ -27,10 +27,15 @@ class ProductCategoryTableViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var belongsToCategoryLabel: UILabel!
-    @IBOutlet weak var belongsToCategorySwitch: UISwitch! {
+
+    @IBOutlet weak var belongsToCategoryImage: UIImageView! {
         didSet {
-            belongsToCategorySwitch.isEnabled = false
+            setImage()
         }
+    }
+    
+    private func setImage() {
+        belongsToCategoryImage?.image = belongsToCategory ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
     }
 
 }

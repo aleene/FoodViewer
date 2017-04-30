@@ -2011,25 +2011,30 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Belongs to category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxw-q6-4Vp">
-                                            <rect key="frame" x="8" y="11" width="154" height="21"/>
+                                            <rect key="frame" x="8" y="11" width="268.5" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ftq-Yo-1B7">
-                                            <rect key="frame" x="263" y="6" width="51" height="31"/>
-                                        </switch>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NotOK" translatesAutoresizingMaskIntoConstraints="NO" id="4b5-fh-yFA">
+                                            <rect key="frame" x="284.5" y="8" width="27.5" height="27.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="4b5-fh-yFA" secondAttribute="height" multiplier="1:1" id="1H4-fB-W0u"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="lxw-q6-4Vp" firstAttribute="centerY" secondItem="bcG-uu-Zaj" secondAttribute="centerY" id="2SG-sD-qjN"/>
+                                        <constraint firstItem="4b5-fh-yFA" firstAttribute="leading" secondItem="lxw-q6-4Vp" secondAttribute="trailing" constant="8" id="9to-V6-ezP"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="4b5-fh-yFA" secondAttribute="trailing" id="PfR-E2-bPJ"/>
+                                        <constraint firstItem="4b5-fh-yFA" firstAttribute="top" secondItem="bcG-uu-Zaj" secondAttribute="topMargin" id="QxZ-be-vbm"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="lxw-q6-4Vp" secondAttribute="leading" id="bA2-dw-jWc"/>
-                                        <constraint firstItem="Ftq-Yo-1B7" firstAttribute="top" secondItem="bcG-uu-Zaj" secondAttribute="topMargin" constant="-2" id="je4-Bt-VHK"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Ftq-Yo-1B7" secondAttribute="trailing" id="liq-5H-Gfo"/>
+                                        <constraint firstItem="4b5-fh-yFA" firstAttribute="bottom" secondItem="bcG-uu-Zaj" secondAttribute="bottomMargin" id="zLG-w8-HJO"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="belongsToCategoryImage" destination="4b5-fh-yFA" id="Mzs-eX-khG"/>
                                     <outlet property="belongsToCategoryLabel" destination="lxw-q6-4Vp" id="aYd-Bb-ocI"/>
-                                    <outlet property="belongsToCategorySwitch" destination="Ftq-Yo-1B7" id="YKB-qy-IKT"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Colour Coded Nutritional Score Cell" id="mMW-fi-nXC" customClass="ColourCodedNutritionalScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
