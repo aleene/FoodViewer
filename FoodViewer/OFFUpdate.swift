@@ -342,6 +342,13 @@ class OFFUpdate {
             }
         }
         
+        if let validPeriodAfterOpeningString = product!.periodAfterOpeningString {
+            if let encodedValidPeriodAfterOpeningString = validPeriodAfterOpeningString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+                urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PeriodAfterOpening + encodedValidPeriodAfterOpeningString )
+                productUpdated = true
+            }
+        }
+
         let languageCodeToUse = product!.primaryLanguageCode != nil ? product!.primaryLanguageCode! : interfaceLanguageCode
 
         if let frontImages = product!.frontImages?.display {

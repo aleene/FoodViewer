@@ -5,7 +5,7 @@
 "%@" = "%@";
 
 /* Cell text for the total number of nutritional facts available. */
-"%@ nutritional facts specified." = "%@ voedingswaarden aangegeven.";
+"%@ nutritional facts specified" = "%@ voedingswaarden vermeld";
 
 /* A separator of a list of countries. ADD A TRAILING SPACE */
 ", " = ", ";
@@ -31,14 +31,15 @@
 /* TableViewController title for the allergen warnings setting scene. */
 "Allergen warnings" = "Allergeen waarschuwingen";
 
-/* Header title for the product allergens section, i.e. the allergens derived from the ingredients. */
+/* Header title for the product allergens section, i.e. the allergens derived from the ingredients.
+   Text to indicate the allergens of a product. */
 "Allergens" = "Allergenen";
 
 /* Text to indicate the number of categories the product belongs to. */
-"Assigned to %@ categories." = "%@ categorieën toegekend.";
+"Assigned to %@ categories" = "Aan %@ categorieën toegewezen";
 
 /* Text to indicate the product belongs to ONE category. */
-"Assigned to 1 category." = "1 categorie toegekend.";
+"Assigned to 1 category" = "Aan 1 catégorie toegewezen";
 
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Authentication with TouchID failed. Specify your password" = "Authenticatie met TouchID mislukt, specificeer je wachtwoord:";
@@ -52,9 +53,6 @@
 /* Cell title indicating the product belongs to the beverages category */
 "Beverages category" = "Drankencategorie";
 
-/* Title of tableview cell, indicateding whether the product brand field has been filled in. */
-"Brand(s) complete?" = "Merken(en) ingevuld?";
-
 /* Tableview sectionheader for brands. */
 "Brands" = "Merken";
 
@@ -66,12 +64,10 @@
 "Cancel" = "Annuleer";
 
 /* Header title for table section with product Categories
+   Text to indicate the product belongs to a category.
    Title of ViewController with the categories the product belongs to.
    Viewcontroller title for page with categories for product. */
 "Categories" = "Categorieën";
-
-/* Title of tableview cell, indicating whether the product categories have been filled in. */
-"Categories complete?" = "Categorieën ingevuld?";
 
 /* Cell title indicating the product belongs to the cheeses category */
 "Cheeses category" = "Kazencategorie";
@@ -102,7 +98,7 @@
 "Daily Values (per serving)" = "Dagelijkse Hoeveelheid (per portie)";
 
 /* Text to indicate how much the product data is filled in (available). */
-"Data is %@ complete." = "Gegevens zijn %@ volledig.";
+"Data is %@ complete" = "Data is %@ volledig";
 
 /* Title of a tableView section, which lets the user select display options */
 "Display Prefs" = "Display instellingen";
@@ -161,9 +157,6 @@
 /* Header title of the tableview section, indicating the most recent expiration date. */
 "Expiration Date" = "Uiterste houdbaarheidsdatum";
 
-/* Title of tableview cell, indicating whether the product expiration date has been filled in. */
-"Expiration date complete?" = "Uiterste houdbaarheidsdatum ingevuld?";
-
 /* Header for Tableview section with product expiry date */
 "Expiry Date" = "Uiterste houdbaarheidsdatum";
 
@@ -192,15 +185,13 @@
 "Image was empty" = "Foto is leeg";
 
 /* Header title for the product ingredients section.
+   Text to indicate the ingredients of a product.
    Title for the ViewController with the product ingredients.
    Viewcontroller title for page with ingredients for product. */
 "Ingredients" = "Ingrediënten";
 
 /* Header title for the ingredients image section, i.e. the image of the package with the ingredients */
 "Ingredients Image" = "Ingrediëntenfoto";
-
-/* Title of tableview cell, indicating whether the product ingredients field have been filled in */
-"Ingredients complete?" = "Ingrediënten ingevuld?";
 
 /* String presented in a tagView if nothing has happened yet */
 "Initialized" = "Geïnitialiseerd";
@@ -237,16 +228,13 @@
 "No Favorites defined" = "Geen favorieten gedefinieerd";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
-"No brands indicated." = "Geen merken beschikbaar.";
+"No brands indicated" = "Geen merken vermeld";
 
 /* Text to indicate that No categories have been specified in the product data. */
-"No categories specified." = "Geen categoriën beschikbaar.";
+"No categories specified" = "Geen categorieën vermeld";
 
 /* String if no common name is available */
 "No common name available" = "Geen generieke naam beschikbaar.";
-
-/* Text in a pickerView, when no translated text is available */
-"No english name" = "Geen engelstalige naam";
 
 /* Title of cell when no expiration date is avalable */
 "No expiration date" = "Geen uiterste houdbaarheidsdatum aangegeven.";
@@ -255,7 +243,7 @@
 "No image available" = "Geen foto beschikbaar";
 
 /* Text to indicate that no ingredients are present in the product data. */
-"No ingredients listed." = "Geen ingrediënten beschikbaar.";
+"No ingredients listed" = "Geen ingrediënten vermeld";
 
 /* String if no name is available */
 "No name available" = "Geen productnaam beschikbaar.";
@@ -264,7 +252,7 @@
 "No nutrients" = "Geen voedingswaarden";
 
 /* Text to indicate that no product is defined/setup. */
-"No product defined." = "Geen product gedefinieerd.";
+"No product defined" = "Geen product gedefinieerd";
 
 /* Text in header of section, indicating that the product name is missing. */
 "No product name" = "Geen productnaam beschikbaar.";
@@ -276,7 +264,7 @@
 "No quantity available" = "Geen verpakkingsgrootte beschikbaar.";
 
 /* Text to indicate that no supply chain infor (origin, producer, etc.) are available. */
-"No supply chain info." = "Geen productie-/ verkoopketen info.";
+"No supply chain info" = "Geen verkoopketen info";
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Geen titel";
@@ -291,6 +279,7 @@
 "Nutriments Availability" = "Beschikbaarheid Voedingsstoffen";
 
 /* Tableview header section for the list of nutritional facts
+   Text to indicate the nutrition facts of a product.
    Title of the ViewController with the nutritional values */
 "Nutrition Facts" = "Voedingswaarden";
 
@@ -302,9 +291,6 @@
 
 /* Tableview header section for the image of the nutritional facts */
 "Nutrition Facts Image" = "Voedingswaardenfoto";
-
-/* Title of tableview cell, indicating whether nutritional facts have been filled in. */
-"Nutrition facts complete?" = "Voedingswaarden ingevuld?";
 
 /* Viewcontroller title for page with explanation of the nutritional score of the product. */
 "Nutritional Score" = "Voedingswaardenscore";
@@ -327,11 +313,11 @@
 /* Header for section of tableView with location(s) of ingredients. */
 "Origin ingredient" = "Oorsprong ingrediënten";
 
+/* String presented in a tagView if this is not the current product type */
+"Other product type" = "Ander product type";
+
 /* Tableview sectionheader for packaging. */
 "Packaging" = "Verpakking";
-
-/* Title of tableview cell, indicating whether the product packaging field has been filled in. */
-"Packaging complete?" = "Verpakkingsinformatie ingevuld?";
 
 /* String in textField placeholder, to show that the user has to enter his password */
 "Password" = "Wachtwoord";
@@ -342,14 +328,11 @@
 /* Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving */
 "Per serving" = "Per portie";
 
+/* Header title of tableview section, indicating period after opening for beauty products */
+"Period After Opening" = "Periode na opening";
+
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Persoonlijke account";
-
-/* Title of tableview cell, indicating whether prduct photos have been uploaded. */
-"Photos uploaded complete?" = "Foto's geupload?";
-
-/* Title of tableview cell, indicating whether the photos have been validated, i.e. photos have been selected for main product, ingredients and nutritional info. */
-"Photos validated complete?" = "Foto's gevalideerd?";
 
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
@@ -381,9 +364,6 @@
 /* String presented in a tagView if the product loading has failed */
 "Product loading  failed" = "Laden product mislukt";
 
-/* Title of tableview cell, indicateding whether the productname has been completed. */
-"Product name complete?" = "Productnaam compleet?";
-
 /* String presented in a tagView if no product is available on OFF */
 "Product not available" = "Product niet beschikbaar";
 
@@ -405,9 +385,6 @@
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Verpakkingsgrootte";
 
-/* Title of tableview cell, indicating whether the product quantity field has been filled in. */
-"Quantity complete?" = "Verpakkingsgrootte ingevuld?";
-
 /* String in button, to let the user indicate he wants to cancel username/password input.
    Title of a tableView section, which lets the user reset the history */
 "Reset" = "Reset";
@@ -417,6 +394,9 @@
 
 /* Header for section of tableView with Countries where the product is sold. */
 "Sales Countries" = "Verkooplanden";
+
+/* Text to indicate the sales countries of a product. */
+"Sales countries" = "Verkooplanden";
 
 /* Title of first segment in switch, which lets the user select between salt or sodium */
 "Salt" = "Zout";
@@ -446,7 +426,7 @@
 "Sodium" = "Natrium";
 
 /* Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE. */
-"Sold by %@." = "Verkocht door %@ ";
+"Sold by %@" = "Verkocht door %@";
 
 /* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
 "Sold in " = "Verkocht in ";
@@ -468,16 +448,20 @@
 "Sure" = "Doen";
 
 /* Text to indicate the number of ingredients in the product. */
-"There are %@ ingredients." = "Er zijn %@ verschillende ingrediënten.";
+"There are %@ ingredients" = "Er zijn %@ ingrediënten";
 
 /* Text to indicate that there is one ingredient in the product. */
-"There is 1 ingredient." = "Er is 1 ingrediënt.";
+"There is 1 ingredient" = "Er is 1 ingrediënt";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dit voorbeeldproduct laat zien hoe de productinformatie wordt getoond. Swipe naar de volgende pagina's om meer productdetails te zien. Na het scannen van het eerste product wordt dit voorbeeldproduct verwijderd.";
 
-/* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label. */
+/* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.
+   Text to indicate the traces of a product. */
 "Traces" = "Sporen";
+
+/* String presented in a tagView if an image is being uploaded */
+"Uploading image" = "Opladen foto";
 
 /* Popover which allows to select an image. Title for barButton to use a selected image
    Title of a button in a navigation bar, which allows the user to adapt an image and use the result. */
@@ -568,7 +552,12 @@
 /* Fraction of total by volume */
 "percentage (%)" = "percentage (%)";
 
-/* tag of cell when no date was in off */
+/* tag of cell when no date was in off
+   Text to indicate the product has no allergens defined.
+   Text to indicate the product has no categories defined.
+   Text to indicate the product has no ingredients defined.
+   Text to indicate the product has no sales countries defined.
+   Text to indicate the product has no traces defined. */
 "undefined" = "ongedefinieerd";
 
 /* Text in a TagListView, when the field in the json was empty. */

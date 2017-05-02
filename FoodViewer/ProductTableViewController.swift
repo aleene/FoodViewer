@@ -23,7 +23,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
 
-    fileprivate let products = OFFProducts.manager
+    fileprivate var products = OFFProducts.manager
     
     fileprivate var barcode: BarcodeType? = nil {
         didSet {
@@ -49,11 +49,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch validFetchResult {
                 case .success(let product):
                     selectedProduct = product
-                tableView.reloadData()
-                tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-            default: break
+                    tableView.reloadData()
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
+                default: break
+                }
             }
-        }
         }
     }
     
@@ -154,7 +154,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case .food:
             return [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
         case .petFood:
-            return [.name, .ingredients, .allergens, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+            return [.name, .ingredients, .allergens, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
             return [.name, .ingredients, .allergens, .supplyChain, .categories, .completion ]
         }
@@ -418,22 +418,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
                         if let validSelectedRowType = selectedRowType {
-                            switch validSelectedRowType {
-                            case .name:
-                                ppvc.pageIndex = 0
-                            case .ingredients, .allergens, .traces:
-                                ppvc.pageIndex = 1
-                            case .nutritionFacts:
-                                ppvc.pageIndex = 2
-                            case .supplyChain:
-                                ppvc.pageIndex = 3
-                            case .categories:
-                                ppvc.pageIndex = 4
-                            case .completion:
-                                ppvc.pageIndex = 5
-                            case .nutritionScore:
-                                ppvc.pageIndex = 6
-                            }
+                            ppvc.pageIndex = pageIndex(validSelectedRowType)
                         } else {
                             ppvc.pageIndex = 0
                         }
@@ -447,6 +432,60 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 }
 
             default: break
+            }
+        }
+    }
+    
+    private func pageIndex(_ rowType: RowType) -> Int {
+        switch Preferences.manager.useOpenFactsServer {
+        case .food:
+            switch rowType {
+            case .name:
+                return 0
+            case .ingredients, .allergens, .traces:
+                return 1
+            case .nutritionFacts:
+                return 2
+            case .supplyChain:
+                return 3
+            case .categories:
+                return 4
+            case .completion:
+                return 5
+            case .nutritionScore:
+                return 6
+            }
+        case .petFood:
+            switch rowType {
+            case .name:
+                return 0
+            case .ingredients, .allergens, .traces:
+                return 1
+            case .nutritionFacts:
+                return 2
+            case .supplyChain:
+                return 3
+            case .categories:
+                return 4
+            case .completion:
+                return 5
+            default:
+                return 0
+            }
+        case .beauty:
+            switch rowType {
+            case .name:
+                return 0
+            case .ingredients, .allergens, .traces:
+                return 1
+            case .supplyChain:
+                return 2
+            case .categories:
+                return 3
+            case .completion:
+                return 4
+            default:
+                return 0
             }
         }
     }
@@ -470,11 +509,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SettingsTableViewController {
-            tableView.reloadData()
             if vc.historyHasBeenRemoved {
                 products.removeAll()
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
             }
+            // force a reload of all products
+            if Preferences.manager.useOpenFactsServer != vc.changedUseOpenFoodFactsServer {
+                Preferences.manager.useOpenFactsServer = vc.changedUseOpenFoodFactsServer
+                products.reloadAll()
+            }
+            tableView.reloadData()
         }
     }
     

@@ -9,9 +9,10 @@
 import Foundation
 
 enum ProductType: String {
-    case food = "off"
-    case petFood = "opff"
-    case beauty = "obf"
+    // warning the values must be the same as in OFF.Server
+    case food = "openfoodfacts"
+    case petFood = "openpetfoodfacts"
+    case beauty = "openbeautyfacts"
     
     func description() -> String {
         switch self {

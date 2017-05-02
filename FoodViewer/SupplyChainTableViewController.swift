@@ -135,6 +135,7 @@ class SupplyChainTableViewController: UITableViewController {
         case map
         case expirationDate
         case sites
+        case periodAfterOpening
     }
     
     fileprivate struct Constants {
@@ -180,6 +181,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let MapSectionHeader = NSLocalizedString("Map", comment: "Header for section of tableView with a map of producer, origin and shop locations.")
         static let ExpirationDateSectionHeader = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
         static let SitesSectionHeader = NSLocalizedString("Product Websites", comment: "Header title of tableview section, indicating the websites for the product")
+        static let PAOSectionHeader = NSLocalizedString("Period After Opening", comment: "Header title of tableview section, indicating period after opening for beauty products")
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1
@@ -189,6 +191,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let MapSectionSize = 1
         static let ExpirationDateSectionSize = 1
         static let SitesSectionSize = 1
+        static let PAOSectionSize = 1
     }
     
     fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -199,10 +202,17 @@ class SupplyChainTableViewController: UITableViewController {
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        sectionsAndRows.append((
-            SectionType.expirationDate,
-            TableStructure.ExpirationDateSectionSize,
-            TableStructure.ExpirationDateSectionHeader))
+        if product.type == .beauty {
+            sectionsAndRows.append((
+                SectionType.periodAfterOpening,
+                TableStructure.PAOSectionSize,
+                TableStructure.PAOSectionHeader))
+        } else {
+            sectionsAndRows.append((
+                SectionType.expirationDate,
+                TableStructure.ExpirationDateSectionSize,
+                TableStructure.ExpirationDateSectionHeader))
+        }
         // ingredient origin section
         sectionsAndRows.append((
             SectionType.ingredientOrigin,
@@ -332,7 +342,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .expirationDate:
-            if Preferences.manager.useOpenFactsServer == .beauty {
+            if product!.type == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PeriodAfterOpeningCellIdentifier, for: indexPath)
                 
                 // has the product been edited?
@@ -367,6 +377,18 @@ class SupplyChainTableViewController: UITableViewController {
                 cell.tag = indexPath.section
                 return cell
             }
+        case .periodAfterOpening:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PeriodAfterOpeningCellIdentifier, for: indexPath) as! PeriodAfterOpeningTableViewCell
+
+            if let validPeriodAfterOpening = delegate?.updatedProduct?.periodAfterOpeningString {
+                cell.tekst = validPeriodAfterOpening
+            } else if let validPeriodAfterOpening = product?.periodAfterOpeningString {
+                cell.tekst = validPeriodAfterOpening
+            }
+            cell.editMode = editMode
+            cell.delegate = self
+            cell.tag = indexPath.section
+            return cell
         }
     }
     
@@ -739,6 +761,11 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
             // expiration date
             if let validText = textField.text {
                 delegate?.updated(expirationDateString: validText)
+            }
+        case .periodAfterOpening:
+            // period after opening
+            if let validText = textField.text {
+                delegate?.update(periodAfterOpeningString: validText + " M")
             }
         default:
             break

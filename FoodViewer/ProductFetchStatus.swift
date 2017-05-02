@@ -15,6 +15,7 @@ enum ProductFetchStatus {
     case productNotAvailable(String)
     case loadingFailed(String)
     case initialized
+    case other(String)
 
     func description() -> String {
         switch self {
@@ -23,6 +24,7 @@ enum ProductFetchStatus {
         case .loadingFailed: return NSLocalizedString("Product loading  failed", comment: "String presented in a tagView if the product loading has failed")
         case .initialized: return NSLocalizedString("Initialized", comment: "String presented in a tagView if nothing has happened yet")
         case .productNotAvailable: return NSLocalizedString("Product not available", comment: "String presented in a tagView if no product is available on OFF")
+        case .other: return NSLocalizedString("Other product type", comment: "String presented in a tagView if this is not the current product type")
 
         }
     }

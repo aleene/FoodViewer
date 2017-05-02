@@ -70,7 +70,7 @@ class CompletionStatesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return Preferences.manager.useOpenFactsServer == .beauty ? 9 : 10
+            return product!.type == .beauty ? 9 : 10
         case 1:
             return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
         case 2:

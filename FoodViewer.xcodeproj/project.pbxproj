@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
 		5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */; };
+		510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */; };
+		510A5B231EB8A7B90089AD01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510A5B251EB8A7B90089AD01 /* InfoPlist.strings */; };
 		510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */; };
 		510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */; };
 		510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */; };
@@ -238,6 +240,9 @@
 		510A38ED1CD3B67A00BAEB61 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		510A38EE1CD3B68200BAEB61 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		510A38EF1CD3B68300BAEB61 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodAfterOpeningTableViewCell.swift; sourceTree = "<group>"; };
+		510A5B241EB8A7B90089AD01 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		510A5B261EB8A8B50089AD01 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantityTestSuite.swift; sourceTree = "<group>"; };
 		510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUKTestSuite.swift; sourceTree = "<group>"; };
 		510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFranceTestSuite.swift; sourceTree = "<group>"; };
@@ -788,6 +793,7 @@
 		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
 			isa = PBXGroup;
 			children = (
+				510A5B251EB8A7B90089AD01 /* InfoPlist.strings */,
 				510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */,
 				510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */,
 				51975CDF1E715A1B0075B57B /* NutritionalScoreLevelTestSuite.swift */,
@@ -869,6 +875,7 @@
 				51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */,
 				51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */,
 				51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */,
+				510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */,
 			);
 			name = SupplyChainCells;
 			sourceTree = "<group>";
@@ -1061,6 +1068,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				510A5B231EB8A7B90089AD01 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1189,6 +1197,7 @@
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
 				51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */,
 				516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */,
+				510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */,
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
@@ -1272,6 +1281,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		510A5B251EB8A7B90089AD01 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				510A5B241EB8A7B90089AD01 /* fr */,
+				510A5B261EB8A8B50089AD01 /* nl */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		517FC92C1CD5009A00CB89ED /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

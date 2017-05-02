@@ -10,9 +10,6 @@
 /* Class = "UILabel"; text = " 0"; ObjectID = "2vd-fY-j8y"; */
 "2vd-fY-j8y.text" = "0";
 
-/* Class = "UILabel"; text = "Category summary"; ObjectID = "3Xm-aT-3Hv"; */
-"3Xm-aT-3Hv.text" = "Résumé catégories";
-
 /* Class = "UINavigationItem"; title = "Enter Shop details"; ObjectID = "4y8-hi-MjI"; */
 "4y8-hi-MjI.title" = "Entre détails du magasin";
 
@@ -58,9 +55,6 @@
 /* Class = "UIButton"; normalTitle = "en"; ObjectID = "Iq0-G4-To0"; */
 "Iq0-G4-To0.normalTitle" = "langue";
 
-/* Class = "UILabel"; text = "10"; ObjectID = "KVB-N1-x8r"; */
-"KVB-N1-x8r.text" = "10";
-
 /* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[0] = "foodviewer"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[0]" = "Premier";
 
@@ -79,7 +73,7 @@
 /* Class = "UIButton"; normalTitle = "g"; ObjectID = "Phy-lP-wsX"; */
 "Phy-lP-wsX.normalTitle" = "Bouton";
 
-/* Class = "UILabel"; text = "Community effort summary"; ObjectID = "R0A-Wg-8tw"; */
+/* Class = "UILabel"; text = "Completion"; ObjectID = "R0A-Wg-8tw"; */
 "R0A-Wg-8tw.text" = "Résumé effort de la communité";
 
 /* Class = "UILabel"; text = "Allergens / Traces"; ObjectID = "RFc-0b-oYh"; */
@@ -97,11 +91,23 @@
 /* Class = "UINavigationItem"; title = "Confirm Product"; ObjectID = "WA5-QR-fDF"; */
 "WA5-QR-fDF.title" = "Confirme produit";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "X8o-xL-JHq"; */
+"X8o-xL-JHq.text" = "Titre";
+
 /* Class = "UITextField"; text = "Serving Size (value + unit)"; ObjectID = "XeQ-CI-ELW"; */
 "XeQ-CI-ELW.text" = "Portion (valeur + unité)";
 
 /* Class = "UILabel"; text = "Edit Date"; ObjectID = "ZjT-hs-fGX"; */
 "ZjT-hs-fGX.text" = "Date d'édition";
+
+/* Class = "UISegmentedControl"; Zxj-MC-Q9J.segmentTitles[0] = "Food"; ObjectID = "Zxj-MC-Q9J"; */
+"Zxj-MC-Q9J.segmentTitles[0]" = "Food";
+
+/* Class = "UISegmentedControl"; Zxj-MC-Q9J.segmentTitles[1] = "Beauty"; ObjectID = "Zxj-MC-Q9J"; */
+"Zxj-MC-Q9J.segmentTitles[1]" = "Beauty";
+
+/* Class = "UISegmentedControl"; Zxj-MC-Q9J.segmentTitles[2] = "PetFood"; ObjectID = "Zxj-MC-Q9J"; */
+"Zxj-MC-Q9J.segmentTitles[2]" = "PetFood";
 
 /* Class = "UIButton"; normalTitle = "en"; ObjectID = "b5N-ax-YY5"; */
 "b5N-ax-YY5.normalTitle" = "en";
@@ -160,17 +166,20 @@
 /* Class = "UILabel"; text = "Barcode"; ObjectID = "lFH-LR-JHI"; */
 "lFH-LR-JHI.text" = "Code barre";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "lsH-yk-Roo"; */
+"lsH-yk-Roo.text" = "Label";
+
 /* Class = "UILabel"; text = "Belongs to category"; ObjectID = "lxw-q6-4Vp"; */
 "lxw-q6-4Vp.text" = "Fait partie de catégorie";
 
 /* Class = "UINavigationItem"; title = "Set Warnings"; ObjectID = "mZf-5k-m2j"; */
 "mZf-5k-m2j.title" = "Installe avertissement";
 
-/* Class = "UIButton"; normalTitle = "en"; ObjectID = "mke-Kf-uJy"; */
-"mke-Kf-uJy.normalTitle" = "en";
+/* Class = "UILabel"; text = "Title"; ObjectID = "ncG-ut-Pdi"; */
+"ncG-ut-Pdi.text" = "Titre";
 
-/* Class = "UILabel"; text = "Ingredients summary"; ObjectID = "nF2-es-Hkz"; */
-"nF2-es-Hkz.text" = "Résumé d'ingrédients";
+/* Class = "UILabel"; text = "Title"; ObjectID = "nva-Fb-0pI"; */
+"nva-Fb-0pI.text" = "Titre";
 
 /* Class = "UILabel"; text = "E"; ObjectID = "oIt-jg-rzb"; */
 "oIt-jg-rzb.text" = "E";
@@ -190,17 +199,20 @@
 /* Class = "UISegmentedControl"; qLB-2k-Ecw.segmentTitles[1] = "Sodium"; ObjectID = "qLB-2k-Ecw"; */
 "qLB-2k-Ecw.segmentTitles[1]" = "Deuxième";
 
-/* Class = "UILabel"; text = "Supply chain summary"; ObjectID = "syW-t8-eaP"; */
-"syW-t8-eaP.text" = "Résumé circuit logistique";
-
 /* Class = "UILabel"; text = " 11"; ObjectID = "tKL-Tg-nO5"; */
 "tKL-Tg-nO5.text" = "11";
 
 /* Class = "UINavigationItem"; title = "Select"; ObjectID = "uO9-18-9Hq"; */
 "uO9-18-9Hq.title" = "Langue principale";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "v3K-8N-MNq"; */
+"v3K-8N-MNq.text" = "Titre";
+
 /* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
 "wEv-aO-bBx.title" = "Magasins favoris";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "wud-xG-KwE"; */
+"wud-xG-KwE.text" = "Titre";
 
 /* Class = "UILabel"; text = "State category text"; ObjectID = "wvW-mK-iiF"; */
 "wvW-mK-iiF.text" = "Texte état catégorie";

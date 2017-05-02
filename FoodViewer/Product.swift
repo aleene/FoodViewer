@@ -391,20 +391,17 @@ class FoodProduct {
     // this encodes the type of product, i.e. .food / .petFood / .beauty
     var server: String? = nil
     
-    var type: ProductType? {
+    var type: ProductType {
         if let validServer = server {
-            var testType: ProductType = .petFood
-            if validServer == testType.rawValue {
-                return testType
+            if validServer == "opff" {
+                return .petFood
+            } else if validServer == "obf" {
+                return .beauty
+            } else {
+                return .food
             }
-            
-            testType =  .beauty
-            if validServer == testType.rawValue {
-                return testType
-            }
-            return .food
         }
-        return nil
+        return .food
     }
     
     var expirationDateString: String? = nil
@@ -454,7 +451,7 @@ class FoodProduct {
         return nil
     }
     
-    var periodAfterOpeningString: String? = ""
+    var periodAfterOpeningString: String? = nil
 
     var periodAfterReferenceDate: Date? {
         get {
@@ -657,7 +654,7 @@ class FoodProduct {
     // MARK: - Initialize functions
     
     init() {
-        barcode = BarcodeType.undefined("")
+        barcode = BarcodeType.undefined("", .food)
         brands = .undefined
         //mainUrlThumb = nil
         //mainImageUrl = nil
@@ -1094,6 +1091,10 @@ class FoodProduct {
 
     func contains(quantity: String) -> Bool {
         return quantity == self.quantity ? true : false
+    }
+    
+    func contains(periodAfterOpeningString: String) -> Bool {
+        return quantity == self.periodAfterOpeningString ? true : false
     }
 
     func contains(availability: Bool) -> Bool {

@@ -29,7 +29,7 @@ class SettingsTableViewController: UITableViewController {
 
     fileprivate func enableClearHistoryButton() {
         if clearHistoryButton != nil {
-            if storedHistory.barcodes.isEmpty {
+            if storedHistory.barcodeTuples.isEmpty {
                 clearHistoryButton.isEnabled = false
             } else {
                 clearHistoryButton.isEnabled = true
@@ -65,14 +65,16 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    var changedUseOpenFoodFactsServer: OFF.Server = Preferences.manager.useOpenFactsServer
+    
     @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            Preferences.manager.useOpenFactsServer = .food
+            changedUseOpenFoodFactsServer = .food
         case 1:
-            Preferences.manager.useOpenFactsServer = .beauty
+            changedUseOpenFoodFactsServer = .beauty
         case 2:
-            Preferences.manager.useOpenFactsServer = .petFood
+            changedUseOpenFoodFactsServer = .petFood
         default:
             break
         }

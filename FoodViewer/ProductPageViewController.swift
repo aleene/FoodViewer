@@ -300,12 +300,24 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     fileprivate var titles: [String] {
         get {
+            var titles: [String] = []
             switch Preferences.manager.useOpenFactsServer {
             case .food, .petFood:
-                return [ Title.Identification, Title.Ingredients, Title.Facts, Title.SupplyChain, Title.Categories, Title.Effort, Title.Score ]
+                titles.append("1 - " + Title.Identification)
+                titles.append("2 - " + Title.Ingredients)
+                titles.append("3 - " + Title.Facts)
+                titles.append("4 - " + Title.SupplyChain)
+                titles.append("5 - " + Title.Categories)
+                titles.append("6 - " + Title.Effort)
+                titles.append("7 - " + Title.Score)
             case .beauty:
-                return [ Title.Identification, Title.Ingredients, Title.SupplyChain, Title.Categories, Title.Effort ]
+                titles.append("1 - " + Title.Identification)
+                titles.append("2 - " + Title.Ingredients)
+                titles.append("3 - " + Title.SupplyChain)
+                titles.append("4 - " + Title.Categories)
+                titles.append("5 - " + Title.Effort)
             }
+            return titles
         }
     }
     
@@ -760,6 +772,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             saveUpdatedProduct()
         }
     }
+    
+    func update(periodAfterOpeningString: String) {
+        guard product != nil else { return }
+        if !product!.contains(periodAfterOpeningString: periodAfterOpeningString) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.periodAfterOpeningString = periodAfterOpeningString
+            saveUpdatedProduct()
+        }
+    }
+
 
     func update(links: [String]?) {
         if let validTags = links {
