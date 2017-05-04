@@ -37,6 +37,11 @@ class NutrimentsAvailableTableViewCell: UITableViewCell {
             NutrimentsAvailableSwitch?.isOn = hasNutrimentFacts ?? false
         }
     }
+    @IBOutlet weak var nutrimentsAvailableLabel: UILabel! {
+        didSet {
+            nutrimentsAvailableLabel.text = NSLocalizedString("Listed on package?", comment: "Label to indicate whether any nutrients are indicated on the package")
+        }
+    }
     
     var editMode = false {
         didSet {

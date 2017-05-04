@@ -54,7 +54,7 @@ class CompletionStatesTableViewController: UITableViewController {
     struct Constants {
         static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
         static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
-        static let LastEditDateHeaderTitle = NSLocalizedString("Edit Dates", comment: "Header title of the tableview section, indicating when the product data was edited.")
+        static let LastEditDateHeaderTitle = NSLocalizedString("Last edit Date", comment: "Header title of the tableview section, indicating when the product data was last edited.")
         static let CreationDateHeaderTitle = NSLocalizedString("Creation Date", comment: "Header title of the tableview section, indicating when the product data was created.")
         static let ViewControllerTitle = NSLocalizedString("Community Effort", comment: "Title of view controller, with information on the community that has contributed to the product data.")
         static let NoCreationDateAvailable = NSLocalizedString("no creation date available", comment: "Value of the creation date field, if no valid date is available.")
