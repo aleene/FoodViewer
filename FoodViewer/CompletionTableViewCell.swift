@@ -19,14 +19,24 @@ class CompletionTableViewCell: UITableViewCell {
                 completionBarGaugeView.maxLimit = 100.0
                 completionBarGaugeView.litEffect = false
                 completionBarGaugeView.normalBarColor = .red
-                completionBarGaugeView.warningBarColor = .orange
-                completionBarGaugeView.dangerBarColor = .green
-                completionBarGaugeView.warnThreshold = 0.70 * completionBarGaugeView.maxLimit
-                completionBarGaugeView.dangerThreshold = 0.90 * completionBarGaugeView.maxLimit
+                completionBarGaugeView.warnThreshold = completionBarGaugeView.maxLimit
+                completionBarGaugeView.dangerThreshold = completionBarGaugeView.maxLimit
                 completionBarGaugeView.outerBorderLineWidth = 0.0
                 completionBarGaugeView.outerBorderInsetWidth = 0.0
                 
                 completionBarGaugeView.value = Float(productState.completionPercentage())
+                if productState.completionPercentage() <= 60 {
+                    completionBarGaugeView.normalBarColor = .red
+                } else if productState.completionPercentage() <= 80 {
+                    completionBarGaugeView.normalBarColor = .orange
+                } else if productState.completionPercentage() <= 90 {
+                    completionBarGaugeView.normalBarColor = .yellow
+                } else {
+                    completionBarGaugeView.normalBarColor = .green
+                }
+
+
+
                 //let formatter = NumberFormatter()
                 //formatter.numberStyle = .percent
                 //formatter.maximumFractionDigits = 0
@@ -38,7 +48,17 @@ class CompletionTableViewCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var completionBarGaugeView: BarGaugeView!
+    @IBOutlet weak var completionBarGaugeView: BarGaugeView! {
+        didSet {
+            completionBarGaugeView.maxLimit = 100.0
+            completionBarGaugeView.litEffect = false
+            completionBarGaugeView.normalBarColor = .red
+            completionBarGaugeView.warnThreshold = completionBarGaugeView.maxLimit
+            completionBarGaugeView.dangerThreshold = completionBarGaugeView.maxLimit
+            completionBarGaugeView.outerBorderLineWidth = 0.0
+            completionBarGaugeView.outerBorderInsetWidth = 0.0
+        }
+    }
 
     @IBOutlet weak var completionLabel: UILabel!
 }

@@ -19,7 +19,7 @@ public struct History {
     fileprivate var defaults = UserDefaults()
     
     fileprivate struct Constants {
-        static let HistoryKey = "HistoryKey"
+        static let HistoryKey = "History Key"
         static let BarcodeNumberKey = "BarcodeNumberKey"
         static let BarcodeTypeKey = "BarcodeTypeKey"
         static let HistorySize = 100
@@ -28,21 +28,23 @@ public struct History {
     init() {
         // get the NSUserdefaults array with search strings
         defaults = UserDefaults.standard
+        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
+        }
         //if defaults.object(forKey: Constants.HistoryKey) != nil {
-            // is the original barcode structure stored?
-            if let barcodes = defaults.array(forKey: Constants.HistoryKey) as? [String] {
-                for barcode in barcodes {
-                    self.barcodeTuples.append((barcode, ProductType.food.rawValue))
-                }
-                update()
-            // use the new structure
-            } else if let barcodeDict = defaults.array(forKey: Constants.HistoryKey) as? [[String:AnyObject]] {
+            if let barcodeDict = defaults.array(forKey: Constants.HistoryKey) as? [[String:AnyObject]] {
                 for dict in barcodeDict {
                     let barcodeNumber = dict[Constants.BarcodeNumberKey] is String ? dict[Constants.BarcodeNumberKey] as! String : ""
                     let barcodeType = dict[Constants.BarcodeTypeKey] is String ? dict[Constants.BarcodeTypeKey] as! String : ""
                     barcodeTuples.append((barcodeNumber,barcodeType))
                 }
-            }
+            } else if let barcodes = defaults.array(forKey: Constants.HistoryKey) as? [String] {
+                for barcode in barcodes {
+                    self.barcodeTuples.append((barcode, ProductType.food.rawValue))
+                }
+                update()
+                // use the new structure
+        }
         //}
     }
         
