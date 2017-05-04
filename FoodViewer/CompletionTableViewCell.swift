@@ -15,15 +15,7 @@ class CompletionTableViewCell: UITableViewCell {
     }
     var product: FoodProduct? = nil {
         didSet {
-            if let productState = product?.state {
-                completionBarGaugeView.maxLimit = 100.0
-                completionBarGaugeView.litEffect = false
-                completionBarGaugeView.normalBarColor = .red
-                completionBarGaugeView.warnThreshold = completionBarGaugeView.maxLimit
-                completionBarGaugeView.dangerThreshold = completionBarGaugeView.maxLimit
-                completionBarGaugeView.outerBorderLineWidth = 0.0
-                completionBarGaugeView.outerBorderInsetWidth = 0.0
-                
+            if let productState = product?.state {                
                 completionBarGaugeView.value = Float(productState.completionPercentage())
                 if productState.completionPercentage() <= 60 {
                     completionBarGaugeView.normalBarColor = .red
@@ -34,8 +26,6 @@ class CompletionTableViewCell: UITableViewCell {
                 } else {
                     completionBarGaugeView.normalBarColor = .green
                 }
-
-
 
                 //let formatter = NumberFormatter()
                 //formatter.numberStyle = .percent
