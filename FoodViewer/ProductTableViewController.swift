@@ -152,7 +152,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     private var tableStructure: [RowType] {
         switch Preferences.manager.useOpenFactsServer {
         case .food:
-            return [.name, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion, .nutritionScore]
+            return [.name, .nutritionScore, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion]
         case .petFood:
             return [.name, .ingredients, .allergens, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:

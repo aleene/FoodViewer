@@ -744,10 +744,10 @@
 			children = (
 				5160C29A1DBCFE6A00CB3EF0 /* FoodViewer.entitlements */,
 				512403711D96C724007FED5A /* Preferences */,
-				5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */,
-				51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */,
 				5124013E1CDB84910051F120 /* Frameworks */,
 				51E925ED1C678FAC009C52E8 /* Model */,
+				51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */,
+				5180B91E1C5E5BB7002DBD21 /* ProductTableViewController.swift */,
 				51DCD3C91C6A110900D39898 /* ProductPages */,
 				51DAD3771C5F757A00895513 /* ProductTableCells */,
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
