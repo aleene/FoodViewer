@@ -1996,54 +1996,98 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutriment Score Cell" id="zPg-pw-1ZC" customClass="NutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Left Nutriment Score Cell" id="zPg-pw-1ZC" customClass="LeftNutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="56" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zPg-pw-1ZC" id="AcA-dG-PGX">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Nutrient" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gm4-Bw-AEu">
-                                            <rect key="frame" x="8" y="8" width="123" height="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gm4-Bw-AEu">
+                                            <rect key="frame" x="8" y="8" width="128" height="27.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPM-r4-zbF">
-                                            <rect key="frame" x="139" y="8" width="42" height="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPM-r4-zbF">
+                                            <rect key="frame" x="144" y="8" width="32" height="27.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iIT-aD-LLl" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="189" y="8" width="123" height="24"/>
+                                            <rect key="frame" x="176" y="8" width="136" height="27.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="vPM-r4-zbF" firstAttribute="centerY" secondItem="AcA-dG-PGX" secondAttribute="centerY" id="9ei-ht-9xz"/>
+                                        <constraint firstAttribute="topMargin" secondItem="gm4-Bw-AEu" secondAttribute="top" id="2MV-fa-ohU"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="gm4-Bw-AEu" secondAttribute="bottom" id="5TN-es-iWf"/>
                                         <constraint firstItem="vPM-r4-zbF" firstAttribute="leading" secondItem="gm4-Bw-AEu" secondAttribute="trailing" constant="8" id="APg-7d-Tx2"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="iIT-aD-LLl" secondAttribute="trailing" id="AZ8-qT-nIB"/>
-                                        <constraint firstItem="vPM-r4-zbF" firstAttribute="top" secondItem="gm4-Bw-AEu" secondAttribute="bottom" constant="-24" id="CBm-DN-8OZ"/>
-                                        <constraint firstItem="iIT-aD-LLl" firstAttribute="leading" secondItem="vPM-r4-zbF" secondAttribute="trailing" constant="8" id="Kt5-fg-Jb6"/>
+                                        <constraint firstItem="iIT-aD-LLl" firstAttribute="leading" secondItem="vPM-r4-zbF" secondAttribute="trailing" id="Kt5-fg-Jb6"/>
                                         <constraint firstItem="vPM-r4-zbF" firstAttribute="centerX" secondItem="AcA-dG-PGX" secondAttribute="centerX" id="RSH-3F-Y1c"/>
-                                        <constraint firstItem="vPM-r4-zbF" firstAttribute="baseline" secondItem="gm4-Bw-AEu" secondAttribute="baseline" id="dgH-TB-J4n"/>
+                                        <constraint firstItem="vPM-r4-zbF" firstAttribute="width" secondItem="AcA-dG-PGX" secondAttribute="width" multiplier="0.1" id="cWN-Pn-NUT"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="gm4-Bw-AEu" secondAttribute="leading" id="f17-8n-gtZ"/>
                                         <constraint firstItem="vPM-r4-zbF" firstAttribute="top" secondItem="AcA-dG-PGX" secondAttribute="topMargin" id="iEM-Ne-t8m"/>
-                                        <constraint firstItem="vPM-r4-zbF" firstAttribute="height" secondItem="iIT-aD-LLl" secondAttribute="height" id="jTU-vq-0FM"/>
-                                        <constraint firstItem="vPM-r4-zbF" firstAttribute="height" secondItem="gm4-Bw-AEu" secondAttribute="height" id="nRh-uY-JHV"/>
-                                        <constraint firstItem="iIT-aD-LLl" firstAttribute="centerY" secondItem="vPM-r4-zbF" secondAttribute="centerY" id="rUN-Nc-XNL"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="iIT-aD-LLl" secondAttribute="bottom" id="ikp-xo-uMi"/>
+                                        <constraint firstAttribute="topMargin" secondItem="iIT-aD-LLl" secondAttribute="top" id="qOj-FM-GWm"/>
                                         <constraint firstItem="vPM-r4-zbF" firstAttribute="bottom" secondItem="AcA-dG-PGX" secondAttribute="bottomMargin" id="tbf-Yx-54L"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nutrimentLabel" destination="gm4-Bw-AEu" id="1GW-de-Dgj"/>
-                                    <outlet property="nutrimentScoreBarGaugeView" destination="iIT-aD-LLl" id="SFl-yG-rIq"/>
-                                    <outlet property="nutrimentValue" destination="vPM-r4-zbF" id="uLN-LZ-wjm"/>
+                                    <outlet property="nutrimentScoreBarGaugeView" destination="iIT-aD-LLl" id="kIa-vF-jzG"/>
+                                    <outlet property="nutrimentValue" destination="vPM-r4-zbF" id="t2h-X1-pWZ"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Right Nutriment Score Cell" id="yDg-Oe-5wo" customClass="NutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yDg-Oe-5wo" id="3I3-TO-oex">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AmG-E5-bay" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="8" width="128" height="27.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-pb-eyV">
+                                            <rect key="frame" x="144" y="8" width="32" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xw1-5d-vpz">
+                                            <rect key="frame" x="184" y="8" width="128" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="AmG-E5-bay" secondAttribute="bottom" id="2QQ-C5-CD4"/>
+                                        <constraint firstItem="jjd-pb-eyV" firstAttribute="width" secondItem="3I3-TO-oex" secondAttribute="width" multiplier="0.1" id="AlX-8H-teg"/>
+                                        <constraint firstItem="AmG-E5-bay" firstAttribute="top" secondItem="3I3-TO-oex" secondAttribute="topMargin" id="Ant-vG-nHA"/>
+                                        <constraint firstItem="jjd-pb-eyV" firstAttribute="top" secondItem="3I3-TO-oex" secondAttribute="topMargin" id="D3N-JO-fSM"/>
+                                        <constraint firstItem="AmG-E5-bay" firstAttribute="leading" secondItem="3I3-TO-oex" secondAttribute="leadingMargin" id="QgP-Cg-cAX"/>
+                                        <constraint firstItem="jjd-pb-eyV" firstAttribute="centerX" secondItem="3I3-TO-oex" secondAttribute="centerX" id="Rz2-rx-mG9"/>
+                                        <constraint firstItem="xw1-5d-vpz" firstAttribute="top" secondItem="3I3-TO-oex" secondAttribute="topMargin" id="YfD-f2-xun"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="jjd-pb-eyV" secondAttribute="bottom" id="oV1-j8-99C"/>
+                                        <constraint firstItem="jjd-pb-eyV" firstAttribute="leading" secondItem="AmG-E5-bay" secondAttribute="trailing" constant="8" id="slR-F0-DDt"/>
+                                        <constraint firstItem="xw1-5d-vpz" firstAttribute="leading" secondItem="jjd-pb-eyV" secondAttribute="trailing" constant="8" id="v30-Td-lPM"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xw1-5d-vpz" secondAttribute="trailing" id="wVi-1w-khr"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="xw1-5d-vpz" secondAttribute="bottom" id="x2k-ti-kEZ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nutrimentLabel" destination="xw1-5d-vpz" id="EPb-PN-rsN"/>
+                                    <outlet property="nutrimentScoreBarGaugeView" destination="AmG-E5-bay" id="lau-aT-Fha"/>
+                                    <outlet property="nutrimentValue" destination="jjd-pb-eyV" id="Z0O-Cy-qvw"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Category Cell" id="6W2-KJ-661" customClass="ProductCategoryTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="100" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="144" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6W2-KJ-661" id="bcG-uu-Zaj">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2077,7 +2121,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Colour Coded Nutritional Score Cell" id="mMW-fi-nXC" customClass="ColourCodedNutritionalScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="188" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mMW-fi-nXC" id="Gal-15-pDB">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

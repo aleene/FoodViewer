@@ -53,6 +53,7 @@
 		512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */; };
 		512499A11C6CD0100061A083 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512499A01C6CD0100061A083 /* imageViewController.swift */; };
 		5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */; };
+		51255EA91EBB463E00A241E9 /* LeftNutrimentScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */; };
 		5125AB851D0864BB000DCD29 /* NutritionScoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */; };
 		5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */; };
 		5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB881D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift */; };
@@ -288,6 +289,7 @@
 		51243AA51CA93DCB003F6D88 /* APIDataFields.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = APIDataFields.txt; path = ../APIDataFields.txt; sourceTree = "<group>"; };
 		512499A01C6CD0100061A083 /* imageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
 		5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLanguageViewController.swift; sourceTree = "<group>"; };
+		51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNutrimentScoreTableViewCell.swift; sourceTree = "<group>"; };
 		5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewController.swift; sourceTree = "<group>"; };
 		5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentScoreTableViewCell.swift; sourceTree = "<group>"; };
 		5125AB881D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedNutritionalScoreUK.swift; sourceTree = "<group>"; };
@@ -786,6 +788,7 @@
 			children = (
 				5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */,
 				5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */,
+				51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */,
 			);
 			name = NutrimentScoreCells;
 			sourceTree = "<group>";
@@ -1119,6 +1122,7 @@
 				515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */,
 				515742751CDB63B200BE8E2D /* RSITF14Generator.swift in Sources */,
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
+				51255EA91EBB463E00A241E9 /* LeftNutrimentScoreTableViewCell.swift in Sources */,
 				515742711CDB63B200BE8E2D /* RSCornersLayer.swift in Sources */,
 				51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */,
 				511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */,
