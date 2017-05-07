@@ -165,7 +165,11 @@ class OFFProducts {
                         if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
                             fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodeTuples[index].0)), index:index)
                         } else {
-                            fetchResultList[index] = .other("Product type")
+                            if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
+                                fetchResultList[index] = .other(errorString)
+                            } else {
+                                fetchResultList[index] = .other("Error")
+                            }
                         }
                     }
                 } else if (currentLoadHistory == 0) {
@@ -179,7 +183,11 @@ class OFFProducts {
                         if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
                             fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodeTuples[index].0)), index:index)
                         } else {
-                            fetchResultList[index] = .other("Product type")
+                            if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
+                                fetchResultList[index] = .other(errorString)
+                            } else {
+                                fetchResultList[index] = .other("Error")
+                            }
                         }
                     }
                 }
@@ -322,7 +330,7 @@ class OFFProducts {
                         switch fetchResult {
                         case .success(let product):
                             if product.type.rawValue != Preferences.manager.useOpenFactsServer.rawValue {
-                                self.fetchResultList[0] = .other("Product type")
+                                self.fetchResultList[0] = .other(product.type.description())
                             }
                             NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                         case .loadingFailed(let error):
@@ -344,7 +352,7 @@ class OFFProducts {
             if Preferences.manager.useOpenFactsServer == .food {
                 loadSampleProduct()
             } else {
-                fetchResultList[0] = .other("Product type")
+                fetchResultList[0] = .other("No sample product")
             }
         }
     }

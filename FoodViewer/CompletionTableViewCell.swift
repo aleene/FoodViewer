@@ -50,5 +50,9 @@ class CompletionTableViewCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var completionLabel: UILabel!
+    @IBOutlet weak var completionLabel: UILabel! {
+        didSet {
+            completionLabel.text = NSLocalizedString("Completion", comment: "Label for a horizontal gauge that indicates the completion percentage of the product data.")
+        }
+    }
 }

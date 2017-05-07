@@ -338,6 +338,20 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         return nil
     }
+    
+    /*
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        let sectionHeaderView: UIView = UIView.init [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 33)];
+        UILabel *sectionHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
+        sectionHeaderLabel.text = [NSString stringWithFormat:@"Section %i",section+1];
+
+        switch currenProductSection {
+        case .image:
+        default:
+        }
+    }
+ */
 
     fileprivate func nextLanguageCode() -> String {
         let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
