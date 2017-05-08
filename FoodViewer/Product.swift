@@ -50,39 +50,6 @@ class FoodProduct {
     
     var brands: Tags = .undefined
     
-    /*
-    var mainUrlThumb: URL? {
-        didSet {
-            if let imageURL = mainUrlThumb {
-                do {
-                    let imageData = try Data(contentsOf: imageURL, options: NSData.ReadingOptions.mappedIfSafe)
-                    if imageData.count > 0 {
-                        mainImageSmallData = imageData
-                    }
-                }
-                catch {
-                    print(error)
-                }
-            }
-        }
-     }
- */
-
-    /*
-    var mainImageSmallData: Data? = nil
-    
-    // var mainSmallImage: UIImage? = nil
-    
-    var mainImageUrl: URL? = nil
-    var mainImageData: ImageFetchResult? = nil {
-        didSet {
-            if mainImageData != nil {
-                NotificationCenter.default.post(name: .MainImageSet, object:nil)
-            }
-        }
-    }
-    */
-    
     var primaryLanguageCode: String? = nil {
         didSet {
             if let validLanguage = primaryLanguageCode {
@@ -135,28 +102,10 @@ class FoodProduct {
         }
     }
     
-    /*
-    private func setIngredients() {
-        if primaryLanguageCode != nil && ingredients != nil {
-            ingredientsLanguage[primaryLanguageCode!] = ingredients
-        }
-    }
- */
-
     var ingredientsLanguage = [String:String]()
     
     var numberOfIngredients: String? = nil
-    /*
-    var imageIngredientsSmallUrl: URL?
-    var imageIngredientsUrl: URL? = nil
-    var ingredientsImageData: ImageFetchResult? = nil {
-        didSet {
-            if ingredientsImageData != nil {
-                NotificationCenter.default.post(name: .IngredientsImageSet, object: nil)
-            }
-        }
-    }
- */
+
     // This includes the language prefix en:
     var allergenKeys: [String]? = nil
     
@@ -173,11 +122,6 @@ class FoodProduct {
                         translatedAllergens.append(allergenKey)
                     }
                 }
-                /*
-                if primaryLanguageCode != nil {
-                    translatedAllergens = addPrefix(keys: translatedAllergens, languageCode: primaryLanguageCode!)!
-                }
-                */
                 return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens)
             }
             return .undefined
@@ -201,11 +145,6 @@ class FoodProduct {
                         translatedTraces.append(tracesKey)
                     }
                 }
-                /*
-                if primaryLanguageCode != nil {
-                    translatedTraces = addPrefix(keys: translatedTraces, languageCode: primaryLanguageCode!)!
-                }
-                 */
                 return translatedTraces.count == 0 ? .empty : .available(translatedTraces)
             }
             return .undefined
@@ -288,52 +227,6 @@ class FoodProduct {
     }
     
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
-    /*
-    var imageNutritionSmallUrl: URL? = nil
-    var nutritionFactsImageUrl: URL? = nil
-    var nutritionImageData: ImageFetchResult? {
-        didSet {
-            if nutritionImageData != nil {
-                NotificationCenter.default.post(name: .NutritionImageSet, object: nil)
-            }
-        }
-    }
-
-    func getNutritionImageData() -> ImageFetchResult? {
-        if nutritionImageData == nil {
-            nutritionImageData = .loading
-            // launch the image retrieval
-            nutritionImageData?.retrieveImageData(nutritionFactsImageUrl) { (fetchResult:ImageFetchResult?) in
-                self.nutritionImageData = fetchResult
-            }
-        }
-        return nutritionImageData
-    }
-    
-    func getMainImageData() -> ImageFetchResult {
-        if mainImageData == nil {
-            // launch the image retrieval
-            mainImageData = .loading
-            mainImageData?.retrieveImageData(mainImageUrl) { (fetchResult:ImageFetchResult?) in
-                self.mainImageData = fetchResult
-            }
-        }
-        return mainImageData!
-    }
- 
-
-    func getIngredientsImageData() -> ImageFetchResult {
-        if ingredientsImageData == nil {
-            // launch the image retrieval
-            ingredientsImageData = .loading
-            ingredientsImageData?.retrieveImageData(imageIngredientsUrl) { (fetchResult:ImageFetchResult?) in
-                self.ingredientsImageData = fetchResult
-            }
-        }
-        return ingredientsImageData!
-    }
-*/
-    
     //MARK: - Supply chain variables
     
     var nutritionGrade: NutritionalScoreLevel? = nil
@@ -391,17 +284,26 @@ class FoodProduct {
     // this encodes the type of product, i.e. .food / .petFood / .beauty
     var server: String? = nil
     
-    var type: ProductType {
+    var type: ProductType? {
+        
         if let validServer = server {
             if validServer == "opff" {
                 return .petFood
             } else if validServer == "obf" {
                 return .beauty
-            } else {
-                return .food
             }
         }
-        return .food
+        
+        // does the main image contain info on product type?
+        if let existingFrontImages = frontImages {
+            if let lan = primaryLanguageCode {
+                if let imageResult = existingFrontImages.small[lan] {
+                    return imageResult.type()
+                }
+            }
+        }
+
+        return nil
     }
     
     var expirationDateString: String? = nil
@@ -838,19 +740,12 @@ class FoodProduct {
             nameLanguage = product.nameLanguage
             genericNameLanguage = product.genericNameLanguage
             brands = product.brands
-            //mainUrlThumb = product.mainUrlThumb
-            //mainImageUrl = product.mainImageUrl
-            //mainImageData = nil
             frontImages = product.frontImages
             ingredientsImages = product.ingredientsImages
-            //ingredientsImages.resetData()
             nutritionImages = product.nutritionImages
             packagingArray = product.packagingArray
             quantity = product.quantity
             ingredientsLanguage = product.ingredientsLanguage
-            //imageIngredientsSmallUrl = product.imageIngredientsSmallUrl
-            //imageIngredientsUrl = product.imageIngredientsUrl
-            //ingredientsImageData = nil
             numberOfIngredients = product.numberOfIngredients
             allergenKeys = product.allergenKeys
             traceKeys = product.traceKeys
@@ -862,9 +757,6 @@ class FoodProduct {
             servingSize = product.servingSize
             nutritionFacts = product.nutritionFacts
             nutritionScore = product.nutritionScore
-            //imageNutritionSmallUrl = product.imageNutritionSmallUrl
-            //nutritionFactsImageUrl = product.nutritionFactsImageUrl
-            //nutritionImageData = nil
             nutritionGrade = product.nutritionGrade
             purchaseLocation = product.purchaseLocation
             stores = product.stores

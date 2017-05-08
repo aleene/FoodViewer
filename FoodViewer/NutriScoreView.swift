@@ -22,14 +22,20 @@ class NutriScoreView: UIView {
         // static let SelectedWidth = CGFloat(78.0)
         static let SelectedFontSize = CGFloat(80.0)
         static let EdgeRadius = CGFloat(30.0)
+        static let borderScale = CGFloat(0.6)
+        // note that the font scale drives the size of the view
+        static let fontScale = CGFloat(0.8)
+        static let largerFontScale = CGFloat(0.8)
+        static let cornerScale = CGFloat(0.5)
+        static let largeCornerScale = CGFloat(0.7)
     }
     
     private var scale: CGFloat {
         get {
-            return 0.7 * self.frame.size.width / Constant.StandardWidth
+            return self.frame.size.width / Constant.StandardWidth
         }
     }
-
+    
     @IBOutlet var view: UIView!
     
     @IBOutlet weak var AView: UIView!
@@ -121,34 +127,34 @@ class NutriScoreView: UIView {
     
     private func setupViews() {
         
-        ALabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.StandardFontSize)
-        BLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.StandardFontSize)
-        CLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.StandardFontSize)
-        DLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.StandardFontSize)
-        ELabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.StandardFontSize)
+        ALabel.font = UIFont.boldSystemFont(ofSize: Constant.fontScale * scale * Constant.StandardFontSize)
+        BLabel.font = UIFont.boldSystemFont(ofSize: Constant.fontScale * scale * Constant.StandardFontSize)
+        CLabel.font = UIFont.boldSystemFont(ofSize: Constant.fontScale * scale * Constant.StandardFontSize)
+        DLabel.font = UIFont.boldSystemFont(ofSize: Constant.fontScale * scale * Constant.StandardFontSize)
+        ELabel.font = UIFont.boldSystemFont(ofSize: Constant.fontScale * scale * Constant.StandardFontSize)
 
-        AView?.layer.cornerRadius = scale * Constant.EdgeRadius
-        EView?.layer.cornerRadius = scale * Constant.EdgeRadius
+        AView?.layer.cornerRadius = scale * Constant.cornerScale * Constant.EdgeRadius
+        EView?.layer.cornerRadius = scale * Constant.cornerScale * Constant.EdgeRadius
 
-        ASuperView?.layer.cornerRadius = scale * Constant.CornerRadius
-        ASuperView?.layer.borderWidth = scale * Constant.BorderWidth
-        ASelectedLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.SelectedFontSize)
+        ASuperView?.layer.cornerRadius = scale * Constant.largeCornerScale * Constant.CornerRadius
+        ASuperView?.layer.borderWidth = scale * Constant.borderScale * Constant.BorderWidth
+        ASelectedLabel.font = UIFont.boldSystemFont(ofSize: Constant.largerFontScale * scale * Constant.SelectedFontSize)
 
-        BSuperView?.layer.cornerRadius = scale * Constant.CornerRadius
-        BSuperView?.layer.borderWidth = scale * Constant.BorderWidth
-        BSelectedLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.SelectedFontSize)
+        BSuperView?.layer.cornerRadius = scale * Constant.largeCornerScale * Constant.CornerRadius
+        BSuperView?.layer.borderWidth = scale * Constant.borderScale * Constant.BorderWidth
+        BSelectedLabel.font = UIFont.boldSystemFont(ofSize: Constant.largerFontScale * scale * Constant.SelectedFontSize)
 
-        CSuperView?.layer.cornerRadius = scale * Constant.CornerRadius
-        CSuperView?.layer.borderWidth = scale * Constant.BorderWidth
-        CSelectedLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.SelectedFontSize)
+        CSuperView?.layer.cornerRadius = scale * Constant.largeCornerScale * Constant.CornerRadius
+        CSuperView?.layer.borderWidth = scale * Constant.borderScale * Constant.BorderWidth
+        CSelectedLabel.font = UIFont.boldSystemFont(ofSize: Constant.largerFontScale * scale * Constant.SelectedFontSize)
         
-        DSuperView?.layer.cornerRadius = scale * Constant.CornerRadius
-        DSuperView?.layer.borderWidth = scale * Constant.BorderWidth
-        DSelectedLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.SelectedFontSize)
+        DSuperView?.layer.cornerRadius = scale * Constant.largeCornerScale * Constant.CornerRadius
+        DSuperView?.layer.borderWidth = scale * Constant.borderScale * Constant.BorderWidth
+        DSelectedLabel.font = UIFont.boldSystemFont(ofSize: Constant.largerFontScale * scale * Constant.SelectedFontSize)
         
-        ESuperView?.layer.cornerRadius = scale * Constant.CornerRadius
-        ESuperView?.layer.borderWidth = scale * Constant.BorderWidth
-        ESelectedLabel.font = UIFont.boldSystemFont(ofSize: scale * Constant.SelectedFontSize)
+        ESuperView?.layer.cornerRadius = scale * Constant.largeCornerScale * Constant.CornerRadius
+        ESuperView?.layer.borderWidth = scale * Constant.borderScale * Constant.BorderWidth
+        ESelectedLabel.font = UIFont.boldSystemFont(ofSize: Constant.largerFontScale * scale * Constant.SelectedFontSize)
         
     }
 

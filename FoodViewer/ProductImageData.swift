@@ -19,6 +19,7 @@ public class ProductImageData {
     
 
     var url: URL? = nil
+    
     var fetchResult: ImageFetchResult? = nil {
         didSet {
             if fetchResult != nil {
@@ -77,6 +78,18 @@ public class ProductImageData {
         fetchResult = nil
     }
     
+    func type() -> ProductType? {
+        if let validUrl = url {
+            if validUrl.absoluteString.contains(ProductType.food.rawValue) {
+                return .food
+            } else if validUrl.absoluteString.contains(ProductType.petFood.rawValue) {
+                return .petFood
+            } else if validUrl.absoluteString.contains(ProductType.beauty.rawValue) {
+                return .beauty
+            }
+        }
+        return nil
+    }
     private func imageType() -> ImageTypeCategory {
         guard url != nil else { return .unknown }
         

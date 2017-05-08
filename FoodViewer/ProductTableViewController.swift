@@ -367,6 +367,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             }
                         }
                     }
+                case .other(let message):
+                    label.text = message
                 default:
                     label.text = validProductFetchResult.description()
                 }

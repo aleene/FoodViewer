@@ -119,32 +119,47 @@ class OFFProducts {
     var storedHistory = History()
 
     fileprivate func fetchHistoryProduct(_ product: FoodProduct?, index: Int) {
-        if let barcodeToFetch = product?.barcode {
-            let request = OpenFoodFactsRequest()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            // loading the product from internet will be done off the main queue
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                let fetchResult = request.fetchProductForBarcode(barcodeToFetch)
-                DispatchQueue.main.async(execute: { () -> Void in
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    self.fetchResultList[index] = fetchResult
-                    switch fetchResult {
-                    case .success:
-                        self.historyLoadCount! += 1
-                    case .loadingFailed(let error):
-                        self.historyLoadCount! += 1
-                        let userInfo = ["error":error]
-                        self.handleLoadingFailed(userInfo)
-                    case .productNotAvailable:
-                        // product barcode no longer exists
-                        self.historyLoadCount! += 1
-                        // let userInfo = ["error":error]
+        // only fetch the product if for current product type
+        
+        if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
+            if let barcodeToFetch = product?.barcode {
+                let request = OpenFoodFactsRequest()
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                // loading the product from internet will be done off the main queue
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                    let fetchResult = request.fetchProductForBarcode(barcodeToFetch)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        self.fetchResultList[index] = fetchResult
+                        switch fetchResult {
+                        case .success:
+                            self.historyLoadCount! += 1
+                            // This is a bit over the top
+                            // I should add the barcode of the product that has been loaded
+                            NotificationCenter.default.post(name: .ProductLoaded, object:nil)
+                        case .loadingFailed(let error):
+                            self.historyLoadCount! += 1
+                            let userInfo = ["error":error]
+                            self.handleLoadingFailed(userInfo)
+                        case .productNotAvailable:
+                            // product barcode no longer exists
+                            self.historyLoadCount! += 1
+                            // let userInfo = ["error":error]
                         // self.handleProductNotAvailable(userInfo)
-                    default: break
-                    }
+                        default: break
+                        }
+                    })
                 })
-            })
+            }
+        } else {
+            if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
+                fetchResultList[index] = .other(errorString)
+            } else {
+                fetchResultList[index] = .other("Error")
+            }
+            self.historyLoadCount! += 1
         }
+
     }
 
     // This function manages the loading of the history products. A load batch is never larger than 5 simultaneous threads
@@ -161,16 +176,7 @@ class OFFProducts {
                     let startIndex = currentLoadHistory + 1 <= storedHistory.barcodeTuples.count - 1 ? currentLoadHistory + 1 : storedHistory.barcodeTuples.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? startIndex + batchSize - 1 : storedHistory.barcodeTuples.count - 1
                     for index in startIndex...endIndex {
-                        // only fetch the product if for current product type
-                        if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
-                            fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodeTuples[index].0)), index:index)
-                        } else {
-                            if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
-                                fetchResultList[index] = .other(errorString)
-                            } else {
-                                fetchResultList[index] = .other("Error")
-                            }
-                        }
+                        fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodeTuples[index].0)), index:index)
                     }
                 } else if (currentLoadHistory == 0) {
                     // the first product is already there, so can be shown
@@ -180,15 +186,7 @@ class OFFProducts {
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? batchSize - 1 : storedHistory.barcodeTuples.count - 1
                     for index in startIndex...endIndex {
                         print(storedHistory.barcodeTuples[index].1, Preferences.manager.useOpenFactsServer.rawValue)
-                        if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
-                            fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodeTuples[index].0)), index:index)
-                        } else {
-                            if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
-                                fetchResultList[index] = .other(errorString)
-                            } else {
-                                fetchResultList[index] = .other("Error")
-                            }
-                        }
+                        fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(value: storedHistory.barcodeTuples[index].0)), index:index)
                     }
                 }
             }
@@ -214,7 +212,8 @@ class OFFProducts {
                         case .success(let newProduct):
                         // add product barcode to history
                             self.fetchResultList.insert(fetchResult, at:0)
-                            self.storedHistory.add((newProduct.barcode.asString(), newProduct.type.rawValue))
+                            print(newProduct.type?.rawValue)
+                            self.storedHistory.add((newProduct.barcode.asString(), newProduct.type?.rawValue ?? ProductType.food.rawValue) )
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
                             NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
@@ -318,41 +317,57 @@ class OFFProducts {
     private func loadAll() {
         if !storedHistory.barcodeTuples.isEmpty {
             initList()
-            
-            if let data = mostRecentProduct.jsonData {
-                var fetchResult = ProductFetchStatus.loading
-                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                    fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.historyLoadCount = 0
-                        self.historyLoadCount! += 1
-                        self.fetchResultList[0] = fetchResult
-                        switch fetchResult {
-                        case .success(let product):
-                            if product.type.rawValue != Preferences.manager.useOpenFactsServer.rawValue {
-                                self.fetchResultList[0] = .other(product.type.description())
+            // is the most recent product compatible with the current product type?
+            if storedHistory.barcodeTuples[0].1 == Preferences.manager.useOpenFactsServer.rawValue {
+                // then we can interpret the data
+                if let data = mostRecentProduct.jsonData {
+                    var fetchResult = ProductFetchStatus.loading
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                        fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            self.historyLoadCount = 0
+                            self.historyLoadCount! += 1
+                            self.fetchResultList[0] = fetchResult
+                            switch fetchResult {
+                            case .success:
+                                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                            case .loadingFailed(let error):
+                                let userInfo = ["error":error]
+                                self.handleLoadingFailed(userInfo)
+                            case .productNotAvailable(let error):
+                                let userInfo = ["error":error]
+                                self.handleProductNotAvailable(userInfo)
+                            default: break
                             }
-                            NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                        case .loadingFailed(let error):
-                            let userInfo = ["error":error]
-                            self.handleLoadingFailed(userInfo)
-                        case .productNotAvailable(let error):
-                            let userInfo = ["error":error]
-                            self.handleProductNotAvailable(userInfo)
-                        default: break
-                        }
+                        })
                     })
-                })
                 
+                } else {
+                    historyLoadCount = 0
+                }
             } else {
-                historyLoadCount = 0
+                // set the other product type description
+                if let message = ProductType.onServer(storedHistory.barcodeTuples[0].1.description) {
+                    self.fetchResultList[0] = .other(message)
+                } else {
+                    self.fetchResultList[0] = .other("What is wrong?")
+                }
+                // This starts the loading of the history
+                self.historyLoadCount = 0
+                self.historyLoadCount! += 1
             }
         } else {
             // I only have a food sample product
             if Preferences.manager.useOpenFactsServer == .food {
                 loadSampleProduct()
             } else {
-                fetchResultList[0] = .other("No sample product")
+                // is the history still empty?
+                if fetchResultList.count > 0 {
+                    fetchResultList[0] = .other("No sample product")
+                } else {
+                    fetchResultList.append(.other("No sample product"))
+                }
+
             }
         }
     }
