@@ -16,6 +16,8 @@ public struct History {
     // this is the new barcode structure
     public var barcodeTuples: [(String,String)] = []
     
+    private var debug = false
+    
     private var defaults = UserDefaults()
     
     private struct Constants {
@@ -44,8 +46,10 @@ public struct History {
     init() {
         // get the NSUserdefaults array with search strings
         defaults = UserDefaults.standard
-        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            print("\(key) = \(value) \n")
+        if debug {
+            for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+                print("\(key) = \(value) \n")
+            }
         }
         
         // get rid of old stuff

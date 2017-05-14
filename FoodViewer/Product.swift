@@ -778,13 +778,12 @@ class FoodProduct {
         }
     }
     
-    func worldURL() -> URL? {
-        return URL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
-    }
+    //func worldURL() -> URL? {
+    //    return URL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
+    //}
     
     func regionURL() -> URL? {
-        let region = Bundle.main.preferredLocalizations[0] as NSString
-        return URL(string: "http://\(region).openfoodfacts.org/en:product/" + barcode.asString() + "/")
+        return URL(string: OFF.webProductURLFor(barcode))
     }
     
     func add(shop: String?) -> [String]? {

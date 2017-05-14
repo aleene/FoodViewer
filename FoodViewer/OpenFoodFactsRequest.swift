@@ -829,7 +829,11 @@ class OpenFoodFactsRequest {
             } else if validCode.hasPrefix("DE ") {
                 newAddress.country = "Germany"
                 return newAddress
+            } else if validCode.hasPrefix("NL ") {
+                newAddress.country = "Netherlands"
+                return newAddress
             }
+
             print("Producer code '\(validCode)' could not be recognized")
         }
         return nil

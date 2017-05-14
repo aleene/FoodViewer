@@ -33,7 +33,10 @@ public struct OFF {
             static let Barcode = 5
         }
         
+        static let Scheme = "http://"
         static let Prefix = "http://world."
+        static let TopDomain = ".org/"
+        static let EnglishProduct = "en:product/"
         static let Postfix = ".org/api/v0/product/"
         static let JSONExtension = ".json"
         
@@ -45,6 +48,17 @@ public struct OFF {
         case petFood = "openpetfoodfacts"
     }
 
+    static func webProductURLFor(_ barcode:BarcodeType) -> String {
+        let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Scheme
+        urlString += "\(region)."
+        urlString += Preferences.manager.useOpenFactsServer.rawValue
+        urlString += OFF.URL.TopDomain
+        urlString += OFF.URL.EnglishProduct
+        urlString += barcode.asString()
+        urlString += "/"
+        return urlString
+    }
 }
 
 struct OFFReadAPIkeysJSON {
