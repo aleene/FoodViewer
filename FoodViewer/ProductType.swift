@@ -25,6 +25,17 @@ enum ProductType: String {
         return nil
     }
     
+    static func contains(_ server: String) -> ProductType? {
+        if server == ProductType.food.rawValue {
+            return .food
+        } else if server == ProductType.petFood.rawValue {
+            return .petFood
+        } else if server == ProductType.beauty.rawValue {
+            return .beauty
+        }
+        return nil
+    }
+    
     func description() -> String {
         switch self {
         case .food:

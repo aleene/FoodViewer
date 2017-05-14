@@ -16,13 +16,29 @@ public struct History {
     // this is the new barcode structure
     public var barcodeTuples: [(String,String)] = []
     
-    fileprivate var defaults = UserDefaults()
+    private var defaults = UserDefaults()
     
-    fileprivate struct Constants {
-        static let HistoryKey = "History Key"
+    private struct Constants {
+        static let HistoryKey = "History Key" // This is only needed for  upgrade
+        static let FoodHistoryKey = "FoodHistoryKey"
+        static let PetFoodHistoryKey = "PetFoodHistoryKey"
+        static let BeautyHistoryKey = "BeautyHistoryKey"
         static let BarcodeNumberKey = "BarcodeNumberKey"
         static let BarcodeTypeKey = "BarcodeTypeKey"
-        static let HistorySize = 100
+        static let HistorySize = 50
+    }
+    
+    private var historyKey: String {
+        get {
+            switch Preferences.manager.useOpenFactsServer {
+            case .food:
+                return Constants.FoodHistoryKey
+            case .petFood:
+                return Constants.PetFoodHistoryKey
+            case .beauty:
+                return Constants.BeautyHistoryKey
+            }
+        }
     }
 
     init() {
@@ -31,21 +47,24 @@ public struct History {
         for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
             print("\(key) = \(value) \n")
         }
-        //if defaults.object(forKey: Constants.HistoryKey) != nil {
-            if let barcodeDict = defaults.array(forKey: Constants.HistoryKey) as? [[String:AnyObject]] {
-                for dict in barcodeDict {
-                    let barcodeNumber = dict[Constants.BarcodeNumberKey] is String ? dict[Constants.BarcodeNumberKey] as! String : ""
-                    let barcodeType = dict[Constants.BarcodeTypeKey] is String ? dict[Constants.BarcodeTypeKey] as! String : ""
-                    barcodeTuples.append((barcodeNumber,barcodeType))
-                }
-            } else if let barcodes = defaults.array(forKey: Constants.HistoryKey) as? [String] {
-                for barcode in barcodes {
-                    self.barcodeTuples.append((barcode, ProductType.food.rawValue))
-                }
-                update()
-                // use the new structure
+        
+        // get rid of old stuff
+        barcodeTuples.removeAll()
+        defaults.set(barcodeTuples, forKey: Constants.HistoryKey)
+
+        if let barcodeDict = defaults.array(forKey: historyKey) as? [[String:AnyObject]] {
+            for dict in barcodeDict {
+                let barcodeNumber = dict[Constants.BarcodeNumberKey] is String ? dict[Constants.BarcodeNumberKey] as! String : ""
+                let barcodeType = dict[Constants.BarcodeTypeKey] is String ? dict[Constants.BarcodeTypeKey] as! String : ""
+                barcodeTuples.append((barcodeNumber,barcodeType))
+            }
+        } else if let barcodes = defaults.array(forKey: Constants.HistoryKey) as? [String] {
+            for barcode in barcodes {
+                self.barcodeTuples.append((barcode, ProductType.food.rawValue))
+            }
+            update()
+            // use the new structure
         }
-        //}
     }
         
     // see also http://stackoverflow.com/questions/30790882/unable-to-append-string-to-array-in-swift/30790932#30790932
@@ -96,7 +115,7 @@ public struct History {
     
     mutating func removeAll() {
         barcodeTuples.removeAll()
-        defaults.set(barcodeTuples, forKey: Constants.HistoryKey)
+        defaults.set(barcodeTuples, forKey: historyKey)
         defaults.synchronize()
         NotificationCenter.default.post(name: .HistoryHasBeenDeleted, object:nil)
     }
@@ -110,7 +129,7 @@ public struct History {
             dict[Constants.BarcodeTypeKey] = barcodeTuple.1
             newArray.append(dict)
         }
-        defaults.set(newArray, forKey: Constants.HistoryKey)
+        defaults.set(newArray, forKey: historyKey)
     }
 }
 

@@ -46,7 +46,7 @@ class SettingsTableViewController: UITableViewController {
 
     @IBAction func clearHistoryButtonTapped(_ sender: UIButton) {
         storedHistory.removeAll()
-        mostRecentProduct.remove()
+        mostRecentProduct.removeForCurrentProductType()
         historyHasBeenRemoved = true
         enableClearHistoryButton()
     }

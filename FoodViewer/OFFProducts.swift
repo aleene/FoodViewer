@@ -1,4 +1,4 @@
-//
+ //
 //  ProductsArray.swift
 //  FoodViewer
 //
@@ -24,7 +24,7 @@ class OFFProducts {
     var mostRecentProduct = MostRecentProduct()
 
     var fetchResultList = [ProductFetchStatus?]()
-    
+
     init() {
         // Initialize the products, multiple options are possible:
         // - there is no history, the user usese the app the first time for instance -> show a sample product
@@ -35,7 +35,8 @@ class OFFProducts {
     }
     
     private func loadSampleProduct() {
-        // no history available, load sample product
+        // If the user runs for the first time, then there is no history available
+        // Then a sample product will be shown, which is stored with the app
         historyLoadCount = nil
         var fetchResult = ProductFetchStatus.loading
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
@@ -119,8 +120,8 @@ class OFFProducts {
     var storedHistory = History()
 
     fileprivate func fetchHistoryProduct(_ product: FoodProduct?, index: Int) {
-        // only fetch the product if for current product type
         
+        // only fetch the product if for current product type
         if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
             if let barcodeToFetch = product?.barcode {
                 let request = OpenFoodFactsRequest()
@@ -212,8 +213,8 @@ class OFFProducts {
                         case .success(let newProduct):
                         // add product barcode to history
                             self.fetchResultList.insert(fetchResult, at:0)
-                            print(newProduct.type?.rawValue)
-                            self.storedHistory.add((newProduct.barcode.asString(), newProduct.type?.rawValue ?? ProductType.food.rawValue) )
+                            // try to get the product type out the json
+                            self.storedHistory.add((newProduct.barcode.asString(), newProduct.type?.rawValue ?? Preferences.manager.useOpenFactsServer.rawValue) )
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
                             NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
@@ -246,6 +247,7 @@ class OFFProducts {
                 DispatchQueue.main.async(execute: { () -> Void in
                     switch fetchResult {
                     case .success(let newData):
+                        // This will store the data in the user defaults file
                         self.mostRecentProduct.addMostRecentProduct(newData)
                     case .error(let error):
                         let userInfo = ["error":error]
@@ -311,6 +313,9 @@ class OFFProducts {
     
     func reloadAll() {
         fetchResultList = []
+        // get the latest history file
+        storedHistory = History()
+        historyLoadCount = nil
         loadAll()
     }
     
@@ -343,6 +348,9 @@ class OFFProducts {
                     })
                 
                 } else {
+                    // the data is not available
+                    // has to be loaded from the OFF-servers
+                    _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
                     historyLoadCount = 0
                 }
             } else {
@@ -357,7 +365,7 @@ class OFFProducts {
                 self.historyLoadCount! += 1
             }
         } else {
-            // I only have a food sample product
+            // I only have a food sample product at the moment
             if Preferences.manager.useOpenFactsServer == .food {
                 loadSampleProduct()
             } else {
@@ -367,7 +375,7 @@ class OFFProducts {
                 } else {
                     fetchResultList.append(.other("No sample product"))
                 }
-
+                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
             }
         }
     }

@@ -652,6 +652,10 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
+			<key>unit</key>
+			<array>
+				<string>mg</string>
+			</array>
 			<key>de</key>
 			<array>
 				<string>Kupfer</string>

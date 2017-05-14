@@ -11,6 +11,8 @@ import UIKit
 
 class OpenFoodFactsRequest {
     
+    private var debug = true
+    
     fileprivate struct OpenFoodFacts {
         // static let JSONExtension = ".json"
         static let APIURLPrefixForFoodProduct = "http://world.openfoodfacts.org/api/v0/product/"
@@ -37,7 +39,7 @@ class OpenFoodFactsRequest {
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
         let fetchUrl = URL(string: fetchUrlString)
-        print("\(fetchUrl)")
+        if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(fetchUrl)") }
 
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
@@ -46,7 +48,7 @@ class OpenFoodFactsRequest {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
                 return unpackJSONObject(JSON(data: data))
             } catch let error as NSError {
-                print(error);
+                if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
                 return ProductFetchStatus.loadingFailed(error.description)
             }
         } else {
@@ -56,9 +58,15 @@ class OpenFoodFactsRequest {
 
     func fetchJsonForBarcode(_ barcode: BarcodeType) -> FetchJsonResult {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OFF.URL.JSONExtension)")
+        //var fetchUrlString = OFF.URL.Prefix
+        // add the right server
+        //fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
+        //fetchUrlString += OFF.URL.Postfix
+        //fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
+        let fetchUrl = fetchURL(barcode) // URL(string: fetchUrlString)
+        // let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OFF.URL.JSONExtension)")
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
+        if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(fetchUrl)") }
         if let url = fetchUrl {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
@@ -70,6 +78,15 @@ class OpenFoodFactsRequest {
         } else {
             return FetchJsonResult.error(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
         }
+    }
+    
+    private func fetchURL(_ barcode: BarcodeType) -> URL? {
+        var fetchUrlString = OFF.URL.Prefix
+        // add the right server
+        fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
+        fetchUrlString += OFF.URL.Postfix
+        fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
+        return URL(string: fetchUrlString)
     }
 
     func fetchSampleProduct() -> ProductFetchStatus {

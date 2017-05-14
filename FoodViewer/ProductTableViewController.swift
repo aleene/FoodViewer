@@ -1,4 +1,4 @@
- //
+  //
 //  ProductTableViewController.swift
 //  FoodViewer
 //
@@ -12,6 +12,11 @@ import Foundation
 class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
 
     fileprivate struct Constants {
+        fileprivate struct Title {
+            static let Food = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
+            static let PetFood = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
+            static let Beauty = NSLocalizedString("Beauty Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
+        }
         static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
         static let AlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
         static let AlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
@@ -54,6 +59,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 default: break
                 }
             }
+        } else {
+            selectedProduct = nil
         }
     }
     
@@ -636,8 +643,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        title = Constants.ViewControllerTitle
-        
+        switch Preferences.manager.useOpenFactsServer {
+        case .food:
+            title = Constants.Title.Food
+        case .petFood:
+            title = Constants.Title.PetFood
+        case .beauty:
+            title = Constants.Title.Beauty
+        }
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)

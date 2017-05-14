@@ -92,6 +92,7 @@
 		515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */; };
 		5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
+		515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A29D11EC08FB000916F3D /* LastServerDefaults.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
 		515FF5A91E322C8700E85815 /* PerUnitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FF5A81E322C8700E85815 /* PerUnitTableViewCell.swift */; };
 		515FF5AB1E361AF100E85815 /* NutrimentsAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515FF5AA1E361AF000E85815 /* NutrimentsAvailableTableViewCell.swift */; };
@@ -329,6 +330,7 @@
 		515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUPCEGenerator.swift; path = RS/RSUPCEGenerator.swift; sourceTree = "<group>"; };
 		5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLanguageViewController.swift; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
+		515A29D11EC08FB000916F3D /* LastServerDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastServerDefaults.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
 		515FF5A81E322C8700E85815 /* PerUnitTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerUnitTableViewCell.swift; sourceTree = "<group>"; };
 		515FF5AA1E361AF000E85815 /* NutrimentsAvailableTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentsAvailableTableViewCell.swift; sourceTree = "<group>"; };
@@ -845,9 +847,11 @@
 		519ACDFE1D9960C100B81D11 /* Defaults */ = {
 			isa = PBXGroup;
 			children = (
+				516BA5931CC522D8008A094A /* MostRecentProduct.swift */,
 				51E614931C8349AD00DAEE6C /* History.swift */,
 				51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */,
 				515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */,
+				515A29D11EC08FB000916F3D /* LastServerDefaults.swift */,
 			);
 			name = Defaults;
 			sourceTree = "<group>";
@@ -942,7 +946,6 @@
 				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
 				5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */,
-				516BA5931CC522D8008A094A /* MostRecentProduct.swift */,
 				519ACDFE1D9960C100B81D11 /* Defaults */,
 			);
 			name = Model;
@@ -1157,6 +1160,7 @@
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				5127CDF51E48B64D00944FE8 /* ConfirmProductTableViewController.swift in Sources */,
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
+				515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */,
 				516B328D1C75FF100031EF80 /* NutrientsImageTableViewCell.swift in Sources */,
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
