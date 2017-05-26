@@ -14,7 +14,15 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var existingNutrients: [String]? = nil
     
-    @IBOutlet weak var nutrientsPickerView: UIPickerView!
+    @IBOutlet weak var navBar: UINavigationBar!
+    
+    @IBOutlet weak var nutrientsPickerView: UIPickerView! {
+        didSet {
+            nutrientsPickerView.delegate = self
+            nutrientsPickerView.dataSource = self
+            nutrientsPickerView.showsSelectionIndicator = true
+        }
+    }
     
     // MARK: - PickerView Datasource methods
     
@@ -37,13 +45,4 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
         addedNutrientTuple = OFFplists.manager.nutrients[row]
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.title = NSLocalizedString("Select Nutrient", comment: "Title of view controller, which allows the adding of a nutrient")
-
-        nutrientsPickerView.delegate = self
-        nutrientsPickerView.dataSource = self
-        nutrientsPickerView.showsSelectionIndicator = true
-    }    
-
 }

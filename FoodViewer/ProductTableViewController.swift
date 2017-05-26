@@ -33,9 +33,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate var barcode: BarcodeType? = nil {
         didSet {
             let indexInHistory = products.fetchProduct(barcode)
-            if  indexInHistory != nil,
-                let validFetchResult = products.fetchResultList[indexInHistory!] {
-                switch validFetchResult  {
+            if  indexInHistory != nil//,
+                //let validFetchResult = products.fetchResultList[indexInHistory!] 
+                {
+                switch products.fetchResultList[indexInHistory!]  {
                 case .success(let product):
                     selectedProduct = product
                     selectedIndex = 0
@@ -50,15 +51,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate func startInterface() {
         if !products.fetchResultList.isEmpty {
-            if let validFetchResult = products.fetchResultList[0] {
-                switch validFetchResult {
+            //if let validFetchResult = products.fetchResultList[0] {
+                switch products.fetchResultList[0] {
                 case .success(let product):
                     selectedProduct = product
                     tableView.reloadData()
                     tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                 default: break
                 }
-            }
+            //}
         } else {
             selectedProduct = nil
         }
@@ -193,14 +194,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let validProductFetchResult = products.fetchResultList[section] {
-            switch validProductFetchResult {
+        //if let validProductFetchResult = products.fetchResultList[section] {
+            switch products.fetchResultList[section] {
             case .success:
-                return products.fetchResultList[section] != nil ? tableStructure.count : 1
+                return tableStructure.count
             default:
                 break
             }
-        }
+        // }
         // no rows as the loading failed, the error message is in the header
         return 0
     }
@@ -209,8 +210,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         let currentProductSection = tableStructure[(indexPath as NSIndexPath).row]
         if !products.fetchResultList.isEmpty {
-            if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-                switch fetchResult {
+            //if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
+                switch products.fetchResultList[(indexPath as NSIndexPath).section] {
                 case .success(let currentProduct):
                     switch currentProductSection {
                     case .name:
@@ -322,9 +323,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BeingLoaded, for: indexPath) as? BeingLoadedTableViewCell
-                    cell?.status = fetchResult
+                    cell?.status = products.fetchResultList[(indexPath as NSIndexPath).section]
                 }
-            }
+            //}
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BeingLoaded, for: indexPath) as? BeingLoadedTableViewCell
             
@@ -340,13 +341,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             selectedRowType = tableStructure[index]
         }
         if !products.fetchResultList.isEmpty {
-            if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-                switch validProductFetchResult {
+            //if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
+                switch products.fetchResultList[(indexPath as NSIndexPath).section] {
                 case .success(let product):
                     selectedProduct = product
                 default: break
                 }
-            }
+            //}
         }
     }
     
@@ -358,8 +359,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
         if !products.fetchResultList.isEmpty {
-            if let validProductFetchResult = products.fetchResultList[section] {
-                switch validProductFetchResult {
+            if !products.fetchResultList.isEmpty{
+                switch products.fetchResultList[section] {
                 case .success(let product):
                     
                     label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
@@ -377,7 +378,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 case .other(let message):
                     label.text = message
                 default:
-                    label.text = validProductFetchResult.description()
+                    label.text = products.fetchResultList[section].description()
                 }
             } else {
                 label.text = Constants.BusyLoadingProduct

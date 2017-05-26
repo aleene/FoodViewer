@@ -483,8 +483,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 ppc.delegate = self
-                                
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                
                                 vc.currentLanguageCode = currentLanguageCode
                                 vc.languageCodes = product!.languageCodes
                                 vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []

@@ -1,30 +1,33 @@
-                                                                                                                                                    //
+//
 //  History.swift
 //  FoodViewer
 //
 //  Created by arnaud on 28/02/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
+//  This class manages the history of the products that the user viewed.
+//  This history is written to the standard user defaults
+//  There is a single HistoryKey for ALL product types. The product type is stored with the barcode.
 
 import Foundation
 
 public struct History {
 
-
-    // this is the old barcode structure set to pivate as we no longer need it
+    // this is the old barcode structure set to private as we no longer need it
     // private var barcodes = [String]()
-    // this is the new barcode structure
+    // this is the new barcode structure, each barcode also contains the product type
     public var barcodeTuples: [(String,String)] = []
     
-    private var debug = false
+    private var debug = true
     
     private var defaults = UserDefaults()
     
     private struct Constants {
         static let HistoryKey = "History Key" // This is only needed for  upgrade
-        static let FoodHistoryKey = "FoodHistoryKey"
-        static let PetFoodHistoryKey = "PetFoodHistoryKey"
-        static let BeautyHistoryKey = "BeautyHistoryKey"
+        static let NewHistoryKey = "HistoryKey"
+        // static let FoodHistoryKey = "FoodHistoryKey"
+        // static let PetFoodHistoryKey = "PetFoodHistoryKey"
+        // static let BeautyHistoryKey = "BeautyHistoryKey"
         static let BarcodeNumberKey = "BarcodeNumberKey"
         static let BarcodeTypeKey = "BarcodeTypeKey"
         static let HistorySize = 50
@@ -32,6 +35,8 @@ public struct History {
     
     private var historyKey: String {
         get {
+            return Constants.NewHistoryKey
+            /*
             switch Preferences.manager.useOpenFactsServer {
             case .food:
                 return Constants.FoodHistoryKey
@@ -40,6 +45,7 @@ public struct History {
             case .beauty:
                 return Constants.BeautyHistoryKey
             }
+            */
         }
     }
 
