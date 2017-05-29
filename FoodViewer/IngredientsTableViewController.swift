@@ -393,15 +393,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             TableSection.Size.Ingredients,
             TableSection.Header.Ingredients))
         
-        // 1:  allergens section
-        sectionsAndRows.append((
-            SectionType.allergens,
-            TableSection.Size.Allergens,
-            TableSection.Header.Allergens))
         
         // not needed for .petFood and .beauty
         switch Preferences.manager.useOpenFactsServer {
         case .food:
+            // 1:  allergens section
+            sectionsAndRows.append((
+                SectionType.allergens,
+                TableSection.Size.Allergens,
+                TableSection.Header.Allergens))
             // 2: traces section
             sectionsAndRows.append((
                 SectionType.traces,

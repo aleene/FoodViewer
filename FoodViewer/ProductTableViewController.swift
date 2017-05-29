@@ -163,9 +163,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case .food:
             return [.name, .nutritionScore, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion]
         case .petFood:
-            return [.name, .ingredients, .allergens, .nutritionFacts, .supplyChain, .categories, .completion]
+            return [.name, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
-            return [.name, .ingredients, .allergens, .supplyChain, .categories, .completion ]
+            return [.name, .ingredients, .supplyChain, .categories, .completion ]
         }
     }
     
