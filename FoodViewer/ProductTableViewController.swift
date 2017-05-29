@@ -36,6 +36,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             if  indexInHistory != nil//,
                 //let validFetchResult = products.fetchResultList[indexInHistory!] 
                 {
+                // let lijst = products.fetchResultList
                 switch products.fetchResultList[indexInHistory!]  {
                 case .success(let product):
                     selectedProduct = product
@@ -370,8 +371,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     } else {
                         if let validKeys = product.traceKeys {
-                            if AllergenWarningDefaults.manager.hasValidWarning(validKeys) {
-                                tempView.backgroundColor = UIColor.red
+                            if !validKeys.isEmpty {
+                                let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
+                                if warn {
+                                    tempView.backgroundColor = UIColor.red
+                                }
                             }
                         }
                     }

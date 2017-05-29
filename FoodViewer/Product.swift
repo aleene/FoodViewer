@@ -302,8 +302,10 @@ class FoodProduct {
                 }
             }
         }
-
-        return nil
+        // I should look in the history first to see if there is an associated type
+        
+        // Finally just return the current preference setting product type
+        return ProductType.contains(Preferences.manager.useOpenFactsServer.rawValue)
     }
     
     var expirationDateString: String? = nil

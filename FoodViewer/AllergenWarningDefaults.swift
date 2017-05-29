@@ -109,6 +109,10 @@ class AllergenWarningDefaults {
         }
 
         if let validKeys = keys {
+            if validKeys.isEmpty {
+                return false
+            }
+            
             for validKey in validKeys {
                 testKey = validKey
                 if !list.filter(keyHasWarning).isEmpty {

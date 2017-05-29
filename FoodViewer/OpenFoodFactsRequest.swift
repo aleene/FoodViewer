@@ -17,7 +17,9 @@ class OpenFoodFactsRequest {
         // static let JSONExtension = ".json"
         static let APIURLPrefixForFoodProduct = "http://world.openfoodfacts.org/api/v0/product/"
         static let APIURLPrefixForBeautyProduct = "http://world.openbeautyfacts.org/api/v0/product/"
-        static let sampleProductBarcode = "40111490"
+        static let FoodSampleProductBarcode = "40111490"
+        static let BeautySampleProductBarcode = "4005900122063"
+        static let PetFoodSampleProductBarcode = "3166780740950"
     }
     
     enum FetchJsonResult {
@@ -35,7 +37,7 @@ class OpenFoodFactsRequest {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         var fetchUrlString = OFF.URL.Prefix
         // add the right server
-        fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
+        fetchUrlString += barcode.productType().rawValue
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
         let fetchUrl = URL(string: fetchUrlString)
@@ -90,7 +92,16 @@ class OpenFoodFactsRequest {
     }
 
     func fetchSampleProduct() -> ProductFetchStatus {
-        let filePath  = Bundle.main.path(forResource: OpenFoodFacts.sampleProductBarcode, ofType:OFF.URL.JSONExtension)
+        var resource: String = ""
+        switch Preferences.manager.useOpenFactsServer {
+        case .food:
+            resource = OpenFoodFacts.FoodSampleProductBarcode
+        case .petFood:
+            resource = OpenFoodFacts.PetFoodSampleProductBarcode
+        case .beauty:
+            resource = OpenFoodFacts.BeautySampleProductBarcode
+        }
+        let filePath  = Bundle.main.path(forResource: resource, ofType:OFF.URL.JSONExtension)
         let data = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
         if let validData = data {
             return unpackJSONObject(JSON(data: validData))

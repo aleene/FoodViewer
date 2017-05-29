@@ -38,6 +38,14 @@ enum BarcodeType {
         self = .undefined(value, .food)
     }
     
+    init(barcodeTuple: (String, String)) {
+        if let productType = ProductType.contains(barcodeTuple.1) {
+            self = .undefined(barcodeTuple.0, productType)
+        } else {
+            self = .undefined(barcodeTuple.0, .food)
+        }
+    }
+    
     mutating func string(_ s: String?) {
         if let newString = s {
             self = .undefined(newString, .food)
@@ -51,6 +59,17 @@ enum BarcodeType {
         case .ean8(let s, _):
             return s
         case .undefined(let s, _):
+            return s
+        }
+    }
+    
+    func productType() -> ProductType {
+        switch self {
+        case .ean13(_, let s):
+            return s
+        case .ean8(_, let s):
+            return s
+        case .undefined(_, let s):
             return s
         }
     }
