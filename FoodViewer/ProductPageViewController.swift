@@ -225,8 +225,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             pages.append(page4)
             pages.append(page5)
             pages.append(page6)
-            // Beauty products do not have a nutition score
-            if Preferences.manager.useOpenFactsServer != .beauty {
+            // Only food products do have a nutition score
+            if Preferences.manager.useOpenFactsServer == .food {
                 pages.append(page7)
             }
 
@@ -302,7 +302,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         get {
             var titles: [String] = []
             switch Preferences.manager.useOpenFactsServer {
-            case .food, .petFood:
+            case .food:
                 titles.append("1 - " + Title.Identification)
                 titles.append("2 - " + Title.Ingredients)
                 titles.append("3 - " + Title.Facts)
@@ -310,6 +310,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 titles.append("5 - " + Title.Categories)
                 titles.append("6 - " + Title.Effort)
                 titles.append("7 - " + Title.Score)
+            case .petFood:
+                titles.append("1 - " + Title.Identification)
+                titles.append("2 - " + Title.Ingredients)
+                titles.append("3 - " + Title.Facts)
+                titles.append("4 - " + Title.SupplyChain)
+                titles.append("5 - " + Title.Categories)
+                titles.append("6 - " + Title.Effort)
+
             case .beauty:
                 titles.append("1 - " + Title.Identification)
                 titles.append("2 - " + Title.Ingredients)

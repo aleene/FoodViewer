@@ -740,7 +740,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        print("reloading section", tagListView.tag)
+        // print("reloading section", tagListView.tag)
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
 }
