@@ -691,7 +691,9 @@ extension Notification.Name {
 //  External apps might not follow the imageOrientation, encoded in the EXIF.
 //  So better to fix the origin to the top-left of the image
  */
+
 extension UIImage {
+    
     func setOrientationToLeftUpCorner() -> UIImage {
         
         // up images should not be fixed

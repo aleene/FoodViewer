@@ -30,7 +30,6 @@ enum ImageFetchResult {
     
     func retrieveImageData(_ url: URL?, cont: ((ImageFetchResult) -> Void)?) {
         if let imageURL = url {
-            // self.nutritionImageData = .Loading
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                 do {
                     // This only works if you add a line to your Info.plist

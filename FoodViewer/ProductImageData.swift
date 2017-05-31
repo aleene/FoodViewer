@@ -28,8 +28,8 @@ public class ProductImageData {
                     // encode imageSize, imageType and barcode
                     var userInfo: [String:Any] = [:]
                     userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
-                    
                     userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
+                    
                     if let validBarcode = barcode() {
                         userInfo[Notification.BarcodeKey] = validBarcode
                     } else {
@@ -37,7 +37,11 @@ public class ProductImageData {
                     }
 
                     NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
-                    image = UIImage(data:data)
+                    
+                    if let ciImage = CIImage(data: data) {
+                        image = UIImage.init(ciImage: ciImage)
+                        // image = UIImage.init(data: data) // Gives the wrong orientation
+                    }
                 default:
                     break
                 }
@@ -90,6 +94,7 @@ public class ProductImageData {
         }
         return nil
     }
+    
     private func imageType() -> ImageTypeCategory {
         guard url != nil else { return .unknown }
         
@@ -128,11 +133,9 @@ public class ProductImageData {
             return "No valid barcode"
         }
     }
-
 }
 
 // Definition:
 extension Notification.Name {
     static let ImageSet = Notification.Name("ProductImageData.Notification.ImageSet")
 }
-
