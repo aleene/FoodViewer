@@ -25,7 +25,7 @@ class OFFProducts {
     var mostRecentProduct = MostRecentProduct()
 
     //  Contains all the fetch results for all product types
-    private var allProductFetchResultList = [ProductFetchStatus?]()
+    private var allProductFetchResultList: [ProductFetchStatus?] = []
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
@@ -142,8 +142,11 @@ class OFFProducts {
             }
     
     fileprivate func initList() {
-        for _ in 0..<storedHistory.barcodeTuples.count {
-            allProductFetchResultList.append(nil)
+        // I need a nillified list of the correct size, because I want to access items through the index.
+        if allProductFetchResultList.isEmpty {
+            for _ in 0..<storedHistory.barcodeTuples.count {
+                allProductFetchResultList.append(nil)
+            }
         }
     }
     
@@ -157,8 +160,9 @@ class OFFProducts {
 
     fileprivate func fetchHistoryProduct(_ product: FoodProduct?, index: Int) {
         
-        // only fetch the product if for current product type
-        //if storedHistory.barcodeTuples[index].1 == Preferences.manager.useOpenFactsServer.rawValue {
+        // only fetch if we do not started the loading yet
+        if allProductFetchResultList[index] == nil {
+            allProductFetchResultList[index] = .loading
             if let barcodeToFetch = product?.barcode {
                 let request = OpenFoodFactsRequest()
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -191,6 +195,7 @@ class OFFProducts {
                     })
                 })
             }
+        }
         /*} else {
             if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
                 allProductFetchResultList[index] = .other(errorString)
@@ -368,49 +373,42 @@ class OFFProducts {
         // If there is no history, we are in the cold start case
         if !storedHistory.barcodeTuples.isEmpty {
             initList()
-            // is the most recent product compatible with the current product type?
-            //if storedHistory.barcodeTuples[0].1 == Preferences.manager.useOpenFactsServer.rawValue {
-                // then we can interpret the data
-                if let data = mostRecentProduct.jsonData {
-                    var fetchResult = ProductFetchStatus.loading
-                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                        fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            self.historyLoadCount = 0
-                            self.historyLoadCount! += 1
-                            self.allProductFetchResultList[0] = fetchResult
-                            self.setCurrentProducts()
-                            switch fetchResult {
-                            case .success:
+            // load the most recent product from the local storage
+            if let data = mostRecentProduct.jsonData {
+                var fetchResult = ProductFetchStatus.loading
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                    fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.historyLoadCount = 0
+                        self.historyLoadCount! += 1
+                        switch fetchResult {
+                        case .success(let product):
+                            // the stored product might not correspond to the first product in the history
+                            // so it should be stored in the right spot
+                            if let index = self.storedHistory.index(for:product.barcode) {
+                                self.allProductFetchResultList[index] = fetchResult
+                                self.setCurrentProducts()
                                 NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                            case .loadingFailed(let error):
-                                let userInfo = ["error":error]
-                                self.handleLoadingFailed(userInfo)
-                            case .productNotAvailable(let error):
-                                let userInfo = ["error":error]
-                                self.handleProductNotAvailable(userInfo)
-                            default: break
                             }
-                        })
+                        case .loadingFailed(let error):
+                            let userInfo = ["error":error]
+                            self.handleLoadingFailed(userInfo)
+                        case .productNotAvailable:
+                            // if the product is not available there is an error in storage
+                            // and can be removed
+                            self.mostRecentProduct.removeForCurrentProductType()
+                            // let userInfo = ["error":error]
+                            // self.handleProductNotAvailable(userInfo)
+                        default: break
+                        }
                     })
-                
-                } else {
-                    // the data is not available
-                    // has to be loaded from the OFF-servers
-                    _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
-                    historyLoadCount = 0
-                }
-            /*} else {
-                // set the other product type description
-                if let message = ProductType.onServer(storedHistory.barcodeTuples[0].1.description) {
-                    self.allProductFetchResultList[0] = .other(message)
-                } else {
-                    self.allProductFetchResultList[0] = .other("What is wrong?")
-                }
-                // This starts the loading of the history
-                self.historyLoadCount = 0
-                self.historyLoadCount! += 1
-            }*/
+                })
+            } else {
+                // the data is not available
+                // has to be loaded from the OFF-servers
+                _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
+                historyLoadCount = 0
+            }
         } else {
             // The cold start case when the user has not yet used the app
             loadSampleProduct()
