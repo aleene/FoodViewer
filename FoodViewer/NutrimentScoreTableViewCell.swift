@@ -22,16 +22,16 @@ class NutrimentScoreTableViewCell: UITableViewCell {
             nutrimentScoreBarGaugeView.maxLimit = Float(nutrimentScore.2)
             nutrimentScoreBarGaugeView.numBars = nutrimentScore.2
             nutrimentScoreBarGaugeView.value = Float(nutrimentScore.1)
-            nutrimentValue.text = "\(nutrimentScore.1)"
+            nutrimentValue.text = "\(-nutrimentScore.1)"
             nutrimentScoreBarGaugeView.dangerThreshold = nutrimentScoreBarGaugeView.maxLimit
             nutrimentScoreBarGaugeView.warnThreshold = nutrimentScoreBarGaugeView.maxLimit
 
             switch nutrimentScore.4 {
             case .bad:
-                nutrimentScoreBarGaugeView.reverse = true
+                nutrimentScoreBarGaugeView.reverse = false
                 nutrimentScoreBarGaugeView.normalBarColor = .red
             case .good:
-                nutrimentScoreBarGaugeView.reverse = false
+                nutrimentScoreBarGaugeView.reverse = true
                 nutrimentScoreBarGaugeView.normalBarColor = .green
             }
         }
