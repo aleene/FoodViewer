@@ -441,21 +441,33 @@ class SupplyChainTableViewController: UITableViewController {
             switch identifier {
             case Storyboard.SegueIdentifier.ShowExpirationDateViewController:
                 if  let vc = segue.destination as? SelectExpirationDateViewController {
-                    if let validName = delegate?.updatedProduct?.expirationDate {
-                        let formatter = DateFormatter()
-                        formatter.dateStyle = .medium
-                        formatter.timeStyle = .none
-                        vc.currentDate = validName
-                    } else if let validName = product!.expirationDate {
-                        let formatter = DateFormatter()
-                        formatter.dateStyle = .medium
-                        formatter.timeStyle = .none
-                        vc.currentDate = validName
-                    } else {
-                        vc.currentDate = nil
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? ExpirationDateTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                if let validName = delegate?.updatedProduct?.expirationDate {
+                                    let formatter = DateFormatter()
+                                    formatter.dateStyle = .medium
+                                    formatter.timeStyle = .none
+                                    vc.currentDate = validName
+                                } else if let validName = product!.expirationDate {
+                                    let formatter = DateFormatter()
+                                    formatter.dateStyle = .medium
+                                    formatter.timeStyle = .none
+                                    vc.currentDate = validName
+                                } else {
+                                    vc.currentDate = nil
+                                }
+                            }
+                        }
                     }
-
                 }
+
             default: break
             }
         }

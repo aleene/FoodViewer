@@ -13,6 +13,11 @@ class ExpirationDateTableViewCell: UITableViewCell {
     fileprivate struct Constants {
         static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
+    
+    fileprivate struct Notification {
+        static let ExpirationDateButtonTappedKey = "ExpirationDateTableViewCell.Notification.ExpirationDateButtonTapped.Key"
+
+    }
 
     var date: Date? = nil {
         didSet {
@@ -64,6 +69,12 @@ class ExpirationDateTableViewCell: UITableViewCell {
             }
     }
     
+    @IBAction func expirationDateButtonTapped(_ sender: UIButton) {
+        // let userInfo = [Notification.ExpirationDateButtonTappedKey:sender]
+        // NotificationCenter.default.post(name: .LanguageTapped, object: nil, userInfo: userInfo)
+    }
+    
+
     @IBOutlet weak var expirationDateTextField: UITextField! {
         didSet {
             setTextFieldStyle()
