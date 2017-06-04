@@ -843,7 +843,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-        return UIModalPresentationStyle.overFullScreen
+        return UIModalPresentationStyle.none
     }
     
     func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {

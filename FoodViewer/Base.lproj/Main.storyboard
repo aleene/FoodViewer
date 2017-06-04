@@ -24,30 +24,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-RI-BND">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Vz-ruS">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-RI-BND">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Select" id="Xob-8V-DfG">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="9z3-Gr-bX9"/>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDX-Vz-ruS">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PDX-Vz-ruS" firstAttribute="leading" secondItem="0hk-6M-W3a" secondAttribute="leading" id="2Wr-HX-Yvf"/>
                             <constraint firstItem="eHS-nQ-Fdi" firstAttribute="top" secondItem="PDX-Vz-ruS" secondAttribute="bottom" id="CFa-wE-QNs"/>
                             <constraint firstItem="PDX-Vz-ruS" firstAttribute="top" secondItem="2Ii-RI-BND" secondAttribute="bottom" id="JBe-73-UNk"/>
-                            <constraint firstItem="2Ii-RI-BND" firstAttribute="top" secondItem="3xe-t4-5Ai" secondAttribute="bottom" id="QrT-6m-0Ml"/>
                             <constraint firstAttribute="trailing" secondItem="PDX-Vz-ruS" secondAttribute="trailing" id="XOx-A6-myt"/>
+                            <constraint firstItem="2Ii-RI-BND" firstAttribute="top" secondItem="0hk-6M-W3a" secondAttribute="top" id="Zmx-jX-5ZD"/>
                             <constraint firstAttribute="trailing" secondItem="2Ii-RI-BND" secondAttribute="trailing" id="wG1-bm-gE6"/>
                             <constraint firstItem="2Ii-RI-BND" firstAttribute="leading" secondItem="0hk-6M-W3a" secondAttribute="leading" id="yXp-KL-2A6"/>
                         </constraints>
                     </view>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="nutrientUnitsPickerView" destination="PDX-Vz-ruS" id="Fhv-dV-bpu"/>
                         <segue destination="QhO-Bq-K34" kind="unwind" identifier="Unwind Set Nutrient Unit" unwindAction="unwindSetNutrientUnit:" id="F4h-Cu-izd"/>
@@ -1615,8 +1614,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-vd-gTt">
-                                <rect key="frame" x="-4" y="20" width="328" height="44"/>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-NT-FaZ">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <gestureRecognizers/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-vd-gTt">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Select" id="MGY-bs-Itx">
                                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="cFk-ea-6EH">
@@ -1634,20 +1637,16 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-NT-FaZ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                                <gestureRecognizers/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="bEj-vd-gTt" firstAttribute="top" secondItem="I9G-k1-O9X" secondAttribute="top" id="3nb-CM-jkD"/>
                             <constraint firstItem="GY8-NT-FaZ" firstAttribute="top" secondItem="bEj-vd-gTt" secondAttribute="bottom" id="8PZ-TT-wiN"/>
                             <constraint firstItem="GY8-NT-FaZ" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leading" id="Cto-jH-Prt"/>
-                            <constraint firstItem="bEj-vd-gTt" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leadingMargin" constant="-20" id="K9X-5T-QzE"/>
+                            <constraint firstItem="bEj-vd-gTt" firstAttribute="leading" secondItem="I9G-k1-O9X" secondAttribute="leading" id="K9X-5T-QzE"/>
                             <constraint firstAttribute="trailing" secondItem="GY8-NT-FaZ" secondAttribute="trailing" id="RbI-zh-L1z"/>
-                            <constraint firstItem="bEj-vd-gTt" firstAttribute="top" secondItem="hKm-Px-anF" secondAttribute="bottom" id="s0F-ms-Cia"/>
                             <constraint firstItem="iBf-Wf-WZA" firstAttribute="top" secondItem="GY8-NT-FaZ" secondAttribute="bottom" id="txE-kB-MbI"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="bEj-vd-gTt" secondAttribute="trailing" constant="-20" id="zaJ-qO-yu8"/>
+                            <constraint firstAttribute="trailing" secondItem="bEj-vd-gTt" secondAttribute="trailing" id="zaJ-qO-yu8"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1659,7 +1658,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dq4-Hi-4HJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="IDv-on-CqZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1001" y="4109"/>
+            <point key="canvasLocation" x="999.375" y="4108.75"/>
         </scene>
         <!--Add Language View Controller-->
         <scene sceneID="VdE-p6-Qdz">
@@ -2975,7 +2974,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1688" y="4309"/>
+            <point key="canvasLocation" x="1697" y="4109"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -2989,8 +2988,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35y-j3-Xby">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="pfI-Vf-yJ5">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Select" id="A9l-Yd-38c">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VhW-UR-XJh">
@@ -3006,9 +3008,6 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35y-j3-Xby">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -3016,9 +3015,9 @@
                             <constraint firstItem="gKk-dg-c7v" firstAttribute="top" secondItem="35y-j3-Xby" secondAttribute="bottom" id="7vi-Tj-KXD"/>
                             <constraint firstItem="pfI-Vf-yJ5" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="CYQ-qG-3ci"/>
                             <constraint firstItem="35y-j3-Xby" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="L8h-hf-qdp"/>
+                            <constraint firstItem="pfI-Vf-yJ5" firstAttribute="top" secondItem="UCd-Ts-NY0" secondAttribute="top" id="dAj-XH-fmH"/>
                             <constraint firstAttribute="trailing" secondItem="35y-j3-Xby" secondAttribute="trailing" id="v4L-4b-mMP"/>
                             <constraint firstAttribute="trailing" secondItem="pfI-Vf-yJ5" secondAttribute="trailing" id="vGB-x0-8dM"/>
-                            <constraint firstItem="pfI-Vf-yJ5" firstAttribute="top" secondItem="XBk-Ku-i65" secondAttribute="bottom" id="vKB-LO-qSv"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3029,7 +3028,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hN1-hb-NjU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2385" y="4109"/>
+            <point key="canvasLocation" x="2385" y="4108.75"/>
         </scene>
         <!--Select Expiration Date View Controller-->
         <scene sceneID="z2H-NT-F1c">
@@ -3141,8 +3140,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="APZ-VN-DIT">
-                                <rect key="frame" x="-4" y="20" width="324" height="44"/>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="29H-HT-btt">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <gestureRecognizers/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="APZ-VN-DIT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Select" id="uO9-18-9Hq">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="RIx-Dx-Ekh">
@@ -3153,17 +3156,13 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="29H-HT-btt">
-                                <rect key="frame" x="0.0" y="64" width="320" height="416"/>
-                                <gestureRecognizers/>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="APZ-VN-DIT" firstAttribute="leading" secondItem="gg7-Ca-Lm5" secondAttribute="leadingMargin" constant="-20" id="H7q-3e-epa"/>
+                            <constraint firstItem="APZ-VN-DIT" firstAttribute="leading" secondItem="gg7-Ca-Lm5" secondAttribute="leading" id="H7q-3e-epa"/>
                             <constraint firstAttribute="trailing" secondItem="APZ-VN-DIT" secondAttribute="trailing" id="M5B-uF-yoV"/>
-                            <constraint firstItem="APZ-VN-DIT" firstAttribute="top" secondItem="pRI-5n-G4X" secondAttribute="bottom" id="XLw-dx-Xa0"/>
                             <constraint firstItem="bMk-JX-aFc" firstAttribute="top" secondItem="29H-HT-btt" secondAttribute="bottom" id="gMe-Hz-XSd"/>
+                            <constraint firstItem="APZ-VN-DIT" firstAttribute="top" secondItem="gg7-Ca-Lm5" secondAttribute="top" id="hMk-bP-0i7"/>
                             <constraint firstItem="29H-HT-btt" firstAttribute="leading" secondItem="gg7-Ca-Lm5" secondAttribute="leading" id="lI8-bg-80y"/>
                             <constraint firstAttribute="trailing" secondItem="29H-HT-btt" secondAttribute="trailing" id="p7f-fW-yzP"/>
                             <constraint firstItem="29H-HT-btt" firstAttribute="top" secondItem="APZ-VN-DIT" secondAttribute="bottom" id="vOU-RS-OOc"/>

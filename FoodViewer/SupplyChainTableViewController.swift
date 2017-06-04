@@ -445,10 +445,11 @@ class SupplyChainTableViewController: UITableViewController {
                         if button.superview?.superview as? ExpirationDateTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
+                                ppc.permittedArrowDirections = .right
                                 // I need the button coordinates in the coordinates of the current controller view
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 if let validName = delegate?.updatedProduct?.expirationDate {
                                     let formatter = DateFormatter()
@@ -531,6 +532,27 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
 }
+
+// MARK: - UIPopoverPresentationControllerDelegate Functions
+
+extension SupplyChainTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+    
+}
+
 
 // MARK: - TagListView DataSource Functions
 
