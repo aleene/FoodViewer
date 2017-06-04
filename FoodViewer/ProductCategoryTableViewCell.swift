@@ -11,7 +11,7 @@ import UIKit
 class ProductCategoryTableViewCell: UITableViewCell {
 
     
-    var belongsToCategory: Bool = false {
+    var belongsToCategory: Bool? = nil {
         didSet {
             setImage()
         }
@@ -35,7 +35,8 @@ class ProductCategoryTableViewCell: UITableViewCell {
     }
     
     private func setImage() {
-        belongsToCategoryImage?.image = belongsToCategory ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
+        guard belongsToCategory != nil else { return }
+        belongsToCategoryImage?.image = belongsToCategory! ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
     }
 
 }

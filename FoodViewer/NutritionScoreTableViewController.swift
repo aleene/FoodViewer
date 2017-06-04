@@ -54,10 +54,10 @@ class NutritionScoreTableViewController: UITableViewController {
             switch section {
             // section with bad nutriments
             case 0:
-                return product != nil ? product!.nutritionalScoreUK.pointsA.count : 0
+                return product?.nutritionalScoreUK != nil ? product!.nutritionalScoreUK!.pointsA.count : 0
             // section with good nutriments
             case 1:
-                return product != nil ? product!.nutritionalScoreUK.pointsC.count : 0
+                return product?.nutritionalScoreUK != nil ? product!.nutritionalScoreUK!.pointsC.count : 0
             default:
                 return 1
             } 
@@ -66,10 +66,10 @@ class NutritionScoreTableViewController: UITableViewController {
             switch section {
             // section with bad nutriments
             case 0:
-                return product != nil ? product!.nutritionalScoreFR.pointsA.count : 0
+                return product?.nutritionalScoreFR != nil ? product!.nutritionalScoreFR!.pointsA.count : 0
             // section with good nutriments
             case 1:
-                return product != nil ? product!.nutritionalScoreFR.pointsC.count : 0
+                return product?.nutritionalScoreFR != nil ? product!.nutritionalScoreFR!.pointsC.count : 0
             case 2:
                 return 2
             default:
@@ -85,43 +85,59 @@ class NutritionScoreTableViewController: UITableViewController {
             switch (indexPath as NSIndexPath).section {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LeftNutrimentScoreCellIdentifier, for: indexPath)as? LeftNutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsA[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreUK.pointsA[(indexPath as NSIndexPath).row].points, 10, 0, .bad)
+                if product?.nutritionalScoreUK != nil {
+                    cell!.nutrimentScore = (product!.nutritionalScoreUK!.pointsA[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreUK!.pointsA[(indexPath as NSIndexPath).row].points, 10, 0, .bad)
+                } else {
+                    cell!.nutrimentScore = nil
+                }
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.RightNutrimentScoreCellIdentifier, for: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreUK.pointsC[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreUK.pointsC[(indexPath as NSIndexPath).row].points, 5, 0, .good)
+                if product?.nutritionalScoreUK != nil {
+                    cell!.nutrimentScore = (product!.nutritionalScoreUK!.pointsC[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreUK!.pointsC[(indexPath as NSIndexPath).row].points, 5, 0, .good)
+                } else {
+                    cell!.nutrimentScore = nil
+                }
                 return cell!
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ColourCodedNutritionalScoreCellIdentifier, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
-                cell!.score = product?.nutritionalScoreUK.total
+                cell!.score = product?.nutritionalScoreUK?.total
                 return cell!
             }
         case .france:
             switch (indexPath as NSIndexPath).section {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.LeftNutrimentScoreCellIdentifier, for: indexPath)as? LeftNutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreFR.pointsA[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreFR.pointsA[(indexPath as NSIndexPath).row].points, 10, 0, .bad)
+                if product?.nutritionalScoreFR != nil {
+                    cell!.nutrimentScore = (product!.nutritionalScoreFR!.pointsA[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreFR!.pointsA[(indexPath as NSIndexPath).row].points, 10, 0, .bad)
+                } else {
+                    cell!.nutrimentScore = nil
+                }
                 return cell!
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.RightNutrimentScoreCellIdentifier, for: indexPath)as? NutrimentScoreTableViewCell
-                cell!.nutrimentScore = (product!.nutritionalScoreFR.pointsC[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreFR.pointsC[(indexPath as NSIndexPath).row].points, 5, 0, .good)
+                if product?.nutritionalScoreFR != nil {
+                cell!.nutrimentScore = (product!.nutritionalScoreFR!.pointsC[(indexPath as NSIndexPath).row].nutriment, product!.nutritionalScoreFR!.pointsC[(indexPath as NSIndexPath).row].points, 5, 0, .good)
+                } else {
+                    cell!.nutrimentScore = nil
+                }
                 return cell!
             case 2:
                 switch (indexPath as NSIndexPath).row {
                 case 0:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BelongsToCategoryCellIdentifier, for: indexPath)as? ProductCategoryTableViewCell
-                    cell!.belongsToCategory = product!.nutritionalScoreFR.cheese
+                    cell!.belongsToCategory = product?.nutritionalScoreFR?.cheese
                     cell!.belongsToCategoryTitle = Constants.CheesesCategory
                     return cell!
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.BelongsToCategoryCellIdentifier, for: indexPath)as? ProductCategoryTableViewCell
-                    cell!.belongsToCategory = product!.nutritionalScoreFR.beverage
+                    cell!.belongsToCategory = product?.nutritionalScoreFR?.beverage
                     cell?.belongsToCategoryTitle = Constants.BeveragesCategory
                     return cell!
                 }
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ColourCodedNutritionalScoreCellIdentifier, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
-                cell!.score = product?.nutritionalScoreFR.total
+                cell!.score = product?.nutritionalScoreFR?.total
                 return cell!
             }
         }

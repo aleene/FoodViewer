@@ -51,6 +51,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
                     nutriScoreView.currentScore = NutriScoreView.Score.E
                 default:
                     self.backgroundColor = nil
+                    nutriScoreView.currentScore = nil
                 }
             }
         }

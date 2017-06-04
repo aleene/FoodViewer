@@ -794,6 +794,7 @@
 		5184F57D1EB5ED09009ECF73 /* NutrimentScoreCells */ = {
 			isa = PBXGroup;
 			children = (
+				51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */,
 				5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */,
 				5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */,
 				51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */,
@@ -898,7 +899,6 @@
 			children = (
 				51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */,
 				51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */,
-				51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */,
 				51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */,
 				51AFB0081C734CD900598444 /* IdentificationCells */,
 				517AAD4B1C7DB5B800B12F3C /* IngredientsCell */,

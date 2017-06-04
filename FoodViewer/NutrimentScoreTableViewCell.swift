@@ -15,24 +15,26 @@ class NutrimentScoreTableViewCell: UITableViewCell {
         case bad
     }
 
-    var nutrimentScore: (String, Int, Int, Int, NutritionScoreType) = ("", 0, 1, 0, .bad) {
+    var nutrimentScore: (String, Int, Int, Int, NutritionScoreType)? = nil {
         didSet {
-            nutrimentLabel.text = nutrimentScore.0
+            if nutrimentScore != nil {
+                nutrimentLabel.text = nutrimentScore!.0
             
-            nutrimentScoreBarGaugeView.maxLimit = Float(nutrimentScore.2)
-            nutrimentScoreBarGaugeView.numBars = nutrimentScore.2
-            nutrimentScoreBarGaugeView.value = Float(nutrimentScore.1)
-            nutrimentValue.text = "\(-nutrimentScore.1)"
-            nutrimentScoreBarGaugeView.dangerThreshold = nutrimentScoreBarGaugeView.maxLimit
-            nutrimentScoreBarGaugeView.warnThreshold = nutrimentScoreBarGaugeView.maxLimit
+                nutrimentScoreBarGaugeView.maxLimit = Float(nutrimentScore!.2)
+                nutrimentScoreBarGaugeView.numBars = nutrimentScore!.2
+                nutrimentScoreBarGaugeView.value = Float(nutrimentScore!.1)
+                nutrimentValue.text = "\(-nutrimentScore!.1)"
+                nutrimentScoreBarGaugeView.dangerThreshold = nutrimentScoreBarGaugeView.maxLimit
+                nutrimentScoreBarGaugeView.warnThreshold = nutrimentScoreBarGaugeView.maxLimit
 
-            switch nutrimentScore.4 {
-            case .bad:
-                nutrimentScoreBarGaugeView.reverse = false
-                nutrimentScoreBarGaugeView.normalBarColor = .red
-            case .good:
-                nutrimentScoreBarGaugeView.reverse = true
-                nutrimentScoreBarGaugeView.normalBarColor = .green
+                switch nutrimentScore!.4 {
+                case .bad:
+                    nutrimentScoreBarGaugeView.reverse = false
+                    nutrimentScoreBarGaugeView.normalBarColor = .red
+                case .good:
+                    nutrimentScoreBarGaugeView.reverse = true
+                    nutrimentScoreBarGaugeView.normalBarColor = .green
+                }
             }
         }
     }
