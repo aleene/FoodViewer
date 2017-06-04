@@ -82,6 +82,10 @@ class CompletionStatesTableViewController: UITableViewController {
         }
         
     }
+    
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
@@ -117,7 +121,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.stateTitle = product!.state.expirationDateComplete.text
                 return cell
             case 7:
-                if Preferences.manager.useOpenFactsServer == .beauty {
+                if currentProductType == .beauty {
                     cell.state = product!.state.photosUploadedComplete.value
                     cell.stateTitle = product!.state.photosUploadedComplete.text
                 } else {
@@ -126,7 +130,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 }
                 return cell
             case 8:
-                if Preferences.manager.useOpenFactsServer == .beauty {
+                if currentProductType == .beauty {
                     cell.state = product!.state.photosValidatedComplete.value
                     cell.stateTitle = product!.state.photosValidatedComplete.text
                 } else {

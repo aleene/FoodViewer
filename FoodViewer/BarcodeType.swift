@@ -9,22 +9,21 @@
 import Foundation
 
 enum BarcodeType {
-    case ean13(String, ProductType)
-    case ean8(String, ProductType)
-    case undefined(String, ProductType)
+    case ean13(String, ProductType?)
+    case ean8(String, ProductType?)
+    case undefined(String, ProductType?)
     
     init(typeCode: String, value: String) {
-        let defaultProductType: ProductType = .food
         if typeCode == "org.gs1.EAN-13" {
-            self = .ean13(value, defaultProductType)
+            self = .ean13(value, nil)
         } else if typeCode == "org.gs1.EAN-8" {
-            self = .ean8(value, defaultProductType)
+            self = .ean8(value, nil)
         } else {
-            self = .undefined(value, defaultProductType)
+            self = .undefined(value, nil)
         }
     }
     
-    init(typeCode: String, value: String, type: ProductType) {
+    init(typeCode: String, value: String, type: ProductType?) {
         if typeCode == "org.gs1.EAN-13" {
             self = .ean13(value, type)
         } else if typeCode == "org.gs1.EAN-8" {
@@ -42,13 +41,13 @@ enum BarcodeType {
         if let productType = ProductType.contains(barcodeTuple.1) {
             self = .undefined(barcodeTuple.0, productType)
         } else {
-            self = .undefined(barcodeTuple.0, .food)
+            self = .undefined(barcodeTuple.0, nil)
         }
     }
     
     mutating func string(_ s: String?) {
         if let newString = s {
-            self = .undefined(newString, .food)
+            self = .undefined(newString, nil)
         }
     }
     
@@ -63,7 +62,7 @@ enum BarcodeType {
         }
     }
     
-    func productType() -> ProductType {
+    func productType() -> ProductType? {
         switch self {
         case .ean13(_, let s):
             return s
@@ -72,5 +71,17 @@ enum BarcodeType {
         case .undefined(_, let s):
             return s
         }
+    }
+    
+    mutating func setType(_ type:ProductType?) {
+        switch self {
+        case .ean13(let code, _):
+            self = .ean13(code, type)
+        case .ean8(let code, _):
+            self = .ean8(code, type)
+        case .undefined(let code, _):
+            self = .undefined(code, type)
+        }
+        
     }
 }

@@ -51,9 +51,13 @@ class SettingsTableViewController: UITableViewController {
         enableClearHistoryButton()
     }
     
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+
     @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
         didSet {
-            switch Preferences.manager.useOpenFactsServer {
+            switch currentProductType {
             case .food:
                 foodOrBeautySgmentedControl?.selectedSegmentIndex = 0
             case .beauty:
@@ -65,16 +69,16 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    var changedUseOpenFoodFactsServer: OFF.Server = Preferences.manager.useOpenFactsServer
+    var changedCurrentProductType: ProductType = .food
     
     @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
-            changedUseOpenFoodFactsServer = .food
+            changedCurrentProductType = .food
         case 1:
-            changedUseOpenFoodFactsServer = .beauty
+            changedCurrentProductType = .beauty
         case 2:
-            changedUseOpenFoodFactsServer = .petFood
+            changedCurrentProductType = .petFood
         default:
             break
         }

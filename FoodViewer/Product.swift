@@ -15,7 +15,13 @@ class FoodProduct {
     
     // MARK: - Identification variables
     
-    var barcode: BarcodeType
+    var barcode: BarcodeType {
+        didSet {
+            if barcode.productType() == nil {
+                barcode.setType(type)
+            }
+        }
+    }
     
     // This variable returns the product name for the primary language
     var name: String? {
@@ -305,9 +311,13 @@ class FoodProduct {
         // I should look in the history first to see if there is an associated type
         
         // Finally just return the current preference setting product type
-        return ProductType.contains(Preferences.manager.useOpenFactsServer.rawValue)
+        return currentProductType
     }
     
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+
     var expirationDateString: String? = nil
     
     var expirationDate: Date? {
@@ -558,7 +568,7 @@ class FoodProduct {
     // MARK: - Initialize functions
     
     init() {
-        barcode = BarcodeType.undefined("", .food)
+        barcode = BarcodeType.undefined("", Preferences.manager.showProductType)
         brands = .undefined
         //mainUrlThumb = nil
         //mainImageUrl = nil

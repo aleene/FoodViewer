@@ -33,11 +33,15 @@ class OpenFoodFactsRequest {
         return unpackJSONObject(JSON(data: data))
     }
     
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+
     func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         var fetchUrlString = OFF.URL.Prefix
         // add the right server
-        fetchUrlString += barcode.productType().rawValue
+        fetchUrlString += barcode.productType() != nil ? barcode.productType()!.rawValue : currentProductType.rawValue
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
         let fetchUrl = URL(string: fetchUrlString)
@@ -85,15 +89,15 @@ class OpenFoodFactsRequest {
     private func fetchURL(_ barcode: BarcodeType) -> URL? {
         var fetchUrlString = OFF.URL.Prefix
         // add the right server
-        fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
+        fetchUrlString += currentProductType.rawValue
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
         return URL(string: fetchUrlString)
     }
-
+    
     func fetchSampleProduct() -> ProductFetchStatus {
         var resource: String = ""
-        switch Preferences.manager.useOpenFactsServer {
+        switch currentProductType {
         case .food:
             resource = OpenFoodFacts.FoodSampleProductBarcode
         case .petFood:

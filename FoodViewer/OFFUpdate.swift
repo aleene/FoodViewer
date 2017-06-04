@@ -83,6 +83,10 @@ class OFFUpdate {
         }
     }
     
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+    
     func update(product: FoodProduct?) -> ProductUpdateStatus {
         // update the product on OFF
         
@@ -94,7 +98,7 @@ class OFFUpdate {
         guard product != nil else { return .failure("OFFUpdate: No product defined") }
 
         var urlString = OFFWriteAPI.SecurePrefix
-            + Preferences.manager.useOpenFactsServer.rawValue
+            + currentProductType.rawValue
             + OFFWriteAPI.Domain
             + OFFWriteAPI.PostPrefix
             + OFFWriteAPI.Barcode + product!.barcode.asString() + OFFWriteAPI.Delimiter
@@ -394,7 +398,7 @@ class OFFUpdate {
                                 //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
                                         ],
                             url: OFFHttpPost.URL.SecurePrefix +
-                                Preferences.manager.useOpenFactsServer.rawValue +
+                                currentProductType.rawValue +
                                 OFFHttpPost.URL.Domain +
                                 OFFHttpPost.URL.UnselectPostFix
             )
@@ -406,7 +410,7 @@ class OFFUpdate {
                                    OFFHttpPost.AddParameter.Password: OFFAccount().password],
                       imageType: id,
                       url: OFFHttpPost.URL.SecurePrefix +
-                        Preferences.manager.useOpenFactsServer.rawValue +
+                        currentProductType.rawValue +
                         OFFHttpPost.URL.Domain +
                         OFFHttpPost.URL.AddPostFix,
                       languageCode: image.key)

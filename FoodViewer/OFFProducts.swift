@@ -31,6 +31,10 @@ class OFFProducts {
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
     var fetchResultList: [ProductFetchStatus] = []
     
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+
     private func setCurrentProducts() {
         var list: [ProductFetchStatus] = []
         for fetchResult in allProductFetchResultList {
@@ -38,7 +42,7 @@ class OFFProducts {
                 switch fetchResult! {
                 case .success(let product):
                     if let producttype = product.type?.rawValue {
-                        if producttype == Preferences.manager.useOpenFactsServer.rawValue {
+                        if producttype == currentProductType.rawValue {
                             list.append(fetchResult!)
                         }
                     }
@@ -230,7 +234,7 @@ class OFFProducts {
                     let startIndex = 1 <= storedHistory.barcodeTuples.count ? 1 : storedHistory.barcodeTuples.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? batchSize - 1 : storedHistory.barcodeTuples.count - 1
                     for index in startIndex...endIndex {
-                        print(storedHistory.barcodeTuples[index].1, Preferences.manager.useOpenFactsServer.rawValue)
+                        print(storedHistory.barcodeTuples[index].1, currentProductType.rawValue)
                         fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(barcodeTuple: storedHistory.barcodeTuples[index])), index:index)
                     }
                 }
@@ -251,7 +255,7 @@ class OFFProducts {
                 // loading the product from internet will be done off the main queue
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    let fetchResult = request.fetchProductForBarcode(barcode!)
+                    let fetchResult = request.fetchProductForBarcode(newBarcode)
                     DispatchQueue.main.async(execute: { () -> Void in
                         switch fetchResult {
                         case .success(let newProduct):
@@ -259,7 +263,7 @@ class OFFProducts {
                             self.allProductFetchResultList.insert(fetchResult, at:0)
                             self.setCurrentProducts()
                             // try to get the product type out the json
-                            self.storedHistory.add((newProduct.barcode.asString(), newProduct.type?.rawValue ?? Preferences.manager.useOpenFactsServer.rawValue) )
+                            self.storedHistory.add((newProduct.barcode.asString(), newProduct.type?.rawValue ?? self.currentProductType.rawValue) )
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
                             NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)

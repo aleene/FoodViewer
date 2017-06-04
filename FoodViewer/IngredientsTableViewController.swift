@@ -379,6 +379,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+    
     fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
@@ -395,7 +399,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         
         // not needed for .petFood and .beauty
-        switch Preferences.manager.useOpenFactsServer {
+        switch currentProductType {
         case .food:
             // 1:  allergens section
             sectionsAndRows.append((

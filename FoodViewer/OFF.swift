@@ -1,5 +1,5 @@
 //
-//  OFFReadAPIkeysJSON.swift
+//  OFF.swift
 //  FoodViewer
 //
 //  Created by arnaud on 20/12/16.
@@ -52,14 +52,27 @@ public struct OFF {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
         urlString += "\(region)."
-        urlString += Preferences.manager.useOpenFactsServer.rawValue
+        urlString += server(for:barcode.productType() ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.EnglishProduct
         urlString += barcode.asString()
         urlString += "/"
         return urlString
     }
+    
+    static func server(for productType: ProductType) -> String {
+        switch productType {
+        case .food:
+            return OFF.Server.food.rawValue
+        case .petFood:
+            return OFF.Server.petFood.rawValue
+        case .beauty:
+            return OFF.Server.beauty.rawValue
+        }
+    }
+
 }
+
 
 struct OFFReadAPIkeysJSON {
     static let StatusKey = "status"

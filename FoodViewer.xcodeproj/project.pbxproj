@@ -31,7 +31,7 @@
 		511B2C431E78687E00336CE8 /* Mass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C421E78687E00336CE8 /* Mass.swift */; };
 		511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */; };
 		511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */; };
-		511DB4341E09B615009D4A4B /* OFFjsonReadKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */; };
+		511DB4341E09B615009D4A4B /* OFF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4331E09B615009D4A4B /* OFF.swift */; };
 		511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */; };
 		511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4401E0ADC03009D4A4B /* ColorScheme.swift */; };
 		511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4421E0AE994009D4A4B /* ColorSchemes.swift */; };
@@ -267,7 +267,7 @@
 		511B2C421E78687E00336CE8 /* Mass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mass.swift; path = FoodViewer/Mass.swift; sourceTree = "<group>"; };
 		511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFR.swift; sourceTree = "<group>"; };
 		511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFWriteAPI.swift; sourceTree = "<group>"; };
-		511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFjsonReadKeys.swift; sourceTree = "<group>"; };
+		511DB4331E09B615009D4A4B /* OFF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFF.swift; sourceTree = "<group>"; };
 		511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentsFactKeys.swift; sourceTree = "<group>"; };
 		511DB43F1E0AD533009D4A4B /* TagListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
 		511DB4401E0ADC03009D4A4B /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
@@ -652,7 +652,7 @@
 				513D16AF1DB4C02D005B1971 /* OFFAccount.swift */,
 				5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */,
 				511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */,
-				511DB4331E09B615009D4A4B /* OFFjsonReadKeys.swift */,
+				511DB4331E09B615009D4A4B /* OFF.swift */,
 				51B11D271E4F37C400823630 /* OFFHttpPost.swift */,
 			);
 			name = OFF;
@@ -1258,7 +1258,7 @@
 				512039F01E5B3E9500BE62CB /* ScrollView.swift in Sources */,
 				51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */,
 				512039F11E5B3E9500BE62CB /* GKImageCropOverlayView.swift in Sources */,
-				511DB4341E09B615009D4A4B /* OFFjsonReadKeys.swift in Sources */,
+				511DB4341E09B615009D4A4B /* OFF.swift in Sources */,
 				516B32921C76043D0031EF80 /* NutrientsTableViewCell.swift in Sources */,
 				5125AB8F1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift in Sources */,
 				515742761CDB63B200BE8E2D /* RSITFGenerator.swift in Sources */,

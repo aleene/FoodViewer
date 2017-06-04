@@ -248,10 +248,10 @@ class SupplyChainTableViewController: UITableViewController {
             SectionType.country,
             TableStructure.CountriesSectionSize,
             TableStructure.CountriesSectionHeader))
-        sectionsAndRows.append((
-            SectionType.map,
-            TableStructure.MapSectionSize,
-            TableStructure.MapSectionHeader))
+        //sectionsAndRows.append((
+        //    SectionType.map,
+        //    TableStructure.MapSectionSize,
+        //    TableStructure.MapSectionHeader))
 
         return sectionsAndRows
     }
@@ -337,8 +337,16 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .map:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
-            cell.product = product!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.tag = indexPath.section
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
+
+            
+            //let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
+            //cell.product = product!
             return cell
             
         case .expirationDate:

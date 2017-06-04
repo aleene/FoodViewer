@@ -17,8 +17,10 @@ public struct MostRecentProduct {
         return storedJsonData[currentProductType] ?? nil
     }
     
+    
+    
     private var currentProductType: String {
-        return Preferences.manager.useOpenFactsServer.rawValue
+        return Preferences.manager.showProductType.rawValue
     }
         
     private var storedJsonData: [String:Data] = [:]

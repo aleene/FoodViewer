@@ -130,6 +130,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
         }
     }
+    
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
 
     fileprivate var editMode: Bool = false {
         didSet {
@@ -148,7 +152,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 }
                 
                 var index = 0
-                switch Preferences.manager.useOpenFactsServer {
+                switch currentProductType {
                 case .food, .petFood:
                     index += 3
                 case .beauty:
@@ -219,14 +223,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             pages.append(page1)
             pages.append(page2)
             // Beauty products do not have nutriments
-            if Preferences.manager.useOpenFactsServer != .beauty {
+            if currentProductType != .beauty {
                 pages.append(page3)
             }
             pages.append(page4)
             pages.append(page5)
             pages.append(page6)
             // Only food products do have a nutition score
-            if Preferences.manager.useOpenFactsServer == .food {
+            if currentProductType == .food {
                 pages.append(page7)
             }
 
@@ -242,7 +246,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             
             // Beauty products do not have nutriments
-            if Preferences.manager.useOpenFactsServer != .beauty {
+            if currentProductType != .beauty {
                 
                 if let vc = pages[index] as? NutrientsTableViewController {
                     vc.delegate = self
@@ -301,7 +305,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     fileprivate var titles: [String] {
         get {
             var titles: [String] = []
-            switch Preferences.manager.useOpenFactsServer {
+            switch currentProductType {
             case .food:
                 titles.append("1 - " + Title.Identification)
                 titles.append("2 - " + Title.Ingredients)

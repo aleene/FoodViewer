@@ -113,8 +113,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func enter() {
         view.endEditing(true)
         if !searchTextField.text!.isEmpty {
-            barcode = BarcodeType(value:searchTextField.text!)
+            barcode = BarcodeType(barcodeTuple: (searchTextField.text!, currentProductType.rawValue))
         }
+    }
+
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
     }
 
     // MARK: - Table view methods and vars
@@ -159,7 +163,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     // defines the order of the rows
     private var tableStructure: [RowType] {
-        switch Preferences.manager.useOpenFactsServer {
+        switch currentProductType {
         case .food:
             return [.name, .nutritionScore, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion]
         case .petFood:
@@ -451,7 +455,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     private func pageIndex(_ rowType: RowType) -> Int {
-        switch Preferences.manager.useOpenFactsServer {
+        switch currentProductType {
         case .food:
             switch rowType {
             case .name:
@@ -514,7 +518,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
-            barcode = BarcodeType(typeCode:vc.type, value:vc.barcode)
+            barcode = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
             searchTextField.text = vc.barcode
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         }
@@ -528,8 +532,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
             }
             // force a reload of all products
-            if Preferences.manager.useOpenFactsServer != vc.changedUseOpenFoodFactsServer {
-                Preferences.manager.useOpenFactsServer = vc.changedUseOpenFoodFactsServer
+            if currentProductType != vc.changedCurrentProductType {
+                Preferences.manager.showProductType = vc.changedCurrentProductType
                 products.reloadAll()
             }
             tableView.reloadData()
@@ -584,7 +588,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let validBarcodeString = barcodeString {
             // if there is a valid barcode, allow the user to add it
             alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitleForAdd, style: .destructive) { (action: UIAlertAction) -> Void in
-                let newProduct = FoodProduct.init(withBarcode: BarcodeType(value: validBarcodeString))
+                let newProduct = FoodProduct.init(withBarcode: BarcodeType(barcodeTuple: (validBarcodeString,self.currentProductType.rawValue)))
                 let preferredLanguage = Locale.preferredLanguages[0]
                 let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
 
@@ -599,7 +603,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         switch fetchResult {
                         case .success:
-                            self.barcode = BarcodeType(value: validBarcodeString)
+                            self.barcode = BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue))
                             self.searchTextField.text = validBarcodeString
                             self.performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
                             break
@@ -648,7 +652,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        switch Preferences.manager.useOpenFactsServer {
+        switch currentProductType {
         case .food:
             title = Constants.Title.Food
         case .petFood:
