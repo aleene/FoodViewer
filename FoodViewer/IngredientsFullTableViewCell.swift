@@ -84,7 +84,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
         didSet {
             setupTextView()
             setTextViewClearButton()
-            setLanguageButton()
         }
     }
 
@@ -92,21 +91,9 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     var textViewTag: Int = 0
     
-    @IBOutlet weak var changeLanguageButton: UIButton! {
-        didSet {
-            setLanguageButton()
-        }
-    }
-    
-    @IBAction func ChangeLanguageButtonTapped(_ sender: UIButton) {
-        let userInfo = [Notification.ChangeLanguageButtonTappedKey:sender]
-        NotificationCenter.default.post(name: .LanguageTapped, object: nil, userInfo: userInfo)
-    }
-    
     private struct Constants {
         static let NoIngredientsText = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
         static let UnbalancedWarning = NSLocalizedString(" (WARNING: check brackets, they are unbalanced)", comment: "a warning to check the brackets used, they are unbalanced")
-        static let NoLanguageText = NSLocalizedString("none defined", comment: "the ingredients text has no associated language defined")
     }
     
     var ingredients: String? = nil {
@@ -153,26 +140,10 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
     
-    private func setLanguageButton() {
-        changeLanguageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
-    }
-
     private var attributedIngredients = NSMutableAttributedString()
     
     private var unAttributedIngredients: String = ""
     
-    var languageCode: String? = nil {
-        didSet {
-            changeLanguageButton.setTitle(languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0])  : Constants.NoLanguageText, for: UIControlState())
-        }
-    }
-
-    var numberOfLanguages: Int = 0 {
-        didSet {
-            setLanguageButton()
-        }
-    }
-
     func ingredientsTapped() {
         NotificationCenter.default.post(name: .IngredientsTextViewTapped, object: nil)
     }
@@ -204,6 +175,5 @@ extension String {
 // Definition:
 extension Notification.Name {
     static let IngredientsTextViewTapped = Notification.Name("IngredientsFullTableViewCell.Notification.IngredientsTextViewTapped")
-    static let IngredientsLanguageTapped = Notification.Name("IngredientsFullTableViewCell.Notification.IngredientsLanguageTapped")
 }
 

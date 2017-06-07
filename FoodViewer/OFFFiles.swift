@@ -43,6 +43,7 @@ class OFFplists {
     
     fileprivate struct TextConstants {
         static let FileNotAvailable = NSLocalizedString("Error: file %@ not available", comment: "Error to indicate that a file can not be read.")
+        static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
     }
 
     
@@ -311,6 +312,19 @@ class OFFplists {
         return languages
     }
     
+    func languageName(for languageCode:String?) -> String {
+        var language: Language? = nil
+        guard languageCode != nil else { return TextConstants.NoLanguage }
+        let allLanguages: [Language] = self.allLanguages(Locale.preferredLanguages[0])
+        if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+            s.code == languageCode!
+        }){
+            language = allLanguages[validIndex]
+        }
+        
+        return language != nil ? language!.name : TextConstants.NoLanguage
+    }
+
 // MARK: - Read functions
     
     fileprivate func readPlist(_ fileName: String) -> Set <VertexNew>? {

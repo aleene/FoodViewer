@@ -157,12 +157,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         switch currentProductSection {
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as? IngredientsFullTableViewCell
-            cell!.numberOfLanguages = product!.languageCodes.count
             cell!.textViewDelegate = self
             cell!.textViewTag = indexPath.section
             cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
-                cell!.languageCode = validCurrentLanguageCode
                 // has the product been edited?
                 if let validName = delegate?.updatedProduct?.ingredientsLanguage[validCurrentLanguageCode] {
                     cell!.ingredients = validName
@@ -307,23 +305,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
-        return header
+        let (currentProductSection, _, _) = tableStructureForProduct[section]
+        
+        switch currentProductSection {
+        case .image, .ingredients:
+            return nil
+        default:
+            return header
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         selectedSection = indexPath.section
-        /*
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
-        
-        switch currentProductSection {
-        case .ingredients:
-            changeLanguage()
-        default:
-            break
-        }
-        return
- */
     }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -339,19 +332,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return nil
     }
     
-    /*
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
-        let sectionHeaderView: UIView = UIView.init [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 33)];
-        UILabel *sectionHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 30)];
-        sectionHeaderLabel.text = [NSString stringWithFormat:@"Section %i",section+1];
-
-        switch currenProductSection {
-        case .image:
+        let (currentProductSection, _, _) = tableStructureForProduct[section]
+        
+        switch currentProductSection {
+        case .image, .ingredients :
+            let (_, _, header) = tableStructureForProduct[section]
+            
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+            
+            headerView.section = section
+            headerView.delegate = self
+            headerView.title = header
+            headerView.languageCode = currentLanguageCode
+            headerView.buttonIsEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
+            
+            return headerView
         default:
+            return nil
         }
     }
- */
 
     fileprivate func nextLanguageCode() -> String {
         let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
@@ -479,7 +479,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
-                        if button.superview?.superview as? IngredientsFullTableViewCell != nil {
+                        // The button should be in a view,
+                        // which is in a TableHeaderFooterView,
+                        // which is in a TableView
+                        if button.superview?.superview?.superview as? UITableView != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .right
@@ -554,12 +557,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    func showLanguageSelector(_ notification: Notification) {
-        if let sender = notification.userInfo?[IngredientsFullTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectLanguage, sender: sender)
-        }
-    }
-
     func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -637,6 +634,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         super.viewDidLoad()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
+        
+        // For custom tableView headers
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 70
+        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -647,7 +650,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeLanguage), name:.IngredientsTextViewTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.showLanguageSelector), name:.IngredientsLanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.takePhotoButtonTapped), name:.IngredientsTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.useCameraRollButtonTapped), name:.IngredientsSelectFromCameraRollButtonTapped, object:nil)
@@ -879,4 +881,16 @@ extension IngredientsTableViewController: GKImagePickerDelegate {
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - LanguageHeaderDelegate Functions
+
+extension IngredientsTableViewController: LanguageHeaderDelegate {
+    
+    func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectLanguage, sender: sender)
+    }
+}
+
+
+
 

@@ -193,12 +193,10 @@ class IdentificationTableViewController: UITableViewController {
             
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
-            cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
             cell!.tag = indexPath.section
             cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
-                cell!.languageCode = validCurrentLanguageCode
                 // has the product name been edited?
                 if let validName = delegate?.updatedProduct?.nameLanguage[validCurrentLanguageCode]  {
                     cell!.name = validName
@@ -212,12 +210,10 @@ class IdentificationTableViewController: UITableViewController {
             
         case .genericName:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
-            cell!.numberOfLanguages = product!.languageCodes.count
             cell!.delegate = self
             cell!.tag = indexPath.section
             cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
-                cell!.languageCode = validCurrentLanguageCode
                 if let validName = delegate?.updatedProduct?.genericNameLanguage[validCurrentLanguageCode] {
                     cell!.name = validName
                 } else if let validName = product!.genericNameLanguage[validCurrentLanguageCode] {
@@ -386,7 +382,30 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return tableStructure[section].header()
+        let currentProductSection = tableStructure[section]
+        switch currentProductSection {
+        case .image, .name, .genericName :
+            return nil
+        default:
+            return tableStructure[section].header()
+        }
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let currentProductSection = tableStructure[section]
+        
+        switch currentProductSection {
+        case .image, .name, .genericName :
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+            headerView.section = section
+            headerView.delegate = self
+            headerView.title = tableStructure[section].header()
+            headerView.languageCode = currentLanguageCode
+            headerView.buttonIsEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
+            return headerView
+        default:
+            return nil
+        }
     }
 
     fileprivate struct TableSection {
@@ -484,7 +503,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let vc = segue.destination as? SelectLanguageViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
-                        if button.superview?.superview as? ProductNameTableViewCell != nil {
+                        if button.superview?.superview?.superview as? UITableView != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .right
@@ -600,12 +619,6 @@ class IdentificationTableViewController: UITableViewController {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSelectMainLanguage, sender: sender)
         }
     }
-
-    func showLanguageSelector(_ notification: Notification) {
-        if let sender = notification.userInfo?[ProductNameTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
-        }
-    }
     
     /*
     func imageHasBeenUpdated(_ notification: Notification) {
@@ -704,6 +717,11 @@ class IdentificationTableViewController: UITableViewController {
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 70
+        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+
 }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -717,7 +735,6 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showLanguageSelector), name:.LanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
@@ -1042,3 +1059,15 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
+
+
+// MARK: - LanguageHeaderDelegate Functions
+
+extension IdentificationTableViewController: LanguageHeaderDelegate {
+    
+    func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
+    }
+}
+
+

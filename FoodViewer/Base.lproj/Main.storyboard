@@ -404,20 +404,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOZ-Hm-Mnd">
-                                            <rect key="frame" x="8" y="8" width="321" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="359" height="28"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textView>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iq0-G4-To0">
-                                            <rect key="frame" x="337" y="0.0" width="30" height="44"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <connections>
-                                                <action selector="changeLanguageButtonTapped:" destination="cxD-3X-5h8" eventType="touchUpInside" id="ReV-Tn-RNJ"/>
-                                            </connections>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxF-Vk-wdN">
-                                            <rect key="frame" x="301" y="12" width="20" height="20"/>
+                                            <rect key="frame" x="339" y="12" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="NxF-Vk-wdN" secondAttribute="height" id="uFW-8l-1iu"/>
                                                 <constraint firstAttribute="width" constant="20" id="wBt-hq-UyN"/>
@@ -432,17 +425,12 @@
                                         <constraint firstItem="LOZ-Hm-Mnd" firstAttribute="leading" secondItem="xEb-a5-r3f" secondAttribute="leadingMargin" id="1F7-Ad-g9v"/>
                                         <constraint firstItem="NxF-Vk-wdN" firstAttribute="trailing" secondItem="LOZ-Hm-Mnd" secondAttribute="trailing" constant="-8" id="9Ki-yR-HfW"/>
                                         <constraint firstItem="NxF-Vk-wdN" firstAttribute="centerY" secondItem="LOZ-Hm-Mnd" secondAttribute="centerY" id="Htv-Pp-vPs"/>
-                                        <constraint firstAttribute="bottom" secondItem="Iq0-G4-To0" secondAttribute="bottom" id="csw-e7-gaf"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="LOZ-Hm-Mnd" secondAttribute="trailing" id="bFh-hB-GHJ"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="LOZ-Hm-Mnd" secondAttribute="bottom" id="j31-rd-eYG"/>
                                         <constraint firstItem="LOZ-Hm-Mnd" firstAttribute="top" secondItem="xEb-a5-r3f" secondAttribute="topMargin" id="kXG-Jt-7FB"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Iq0-G4-To0" secondAttribute="trailing" id="me7-Qb-gFv"/>
-                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="top" secondItem="xEb-a5-r3f" secondAttribute="top" id="nsA-En-qqP"/>
-                                        <constraint firstItem="Iq0-G4-To0" firstAttribute="leading" secondItem="LOZ-Hm-Mnd" secondAttribute="trailing" constant="8" id="pgi-Ep-NNg"/>
-                                        <constraint firstItem="LOZ-Hm-Mnd" firstAttribute="centerY" secondItem="Iq0-G4-To0" secondAttribute="centerY" id="uOI-ct-HW0"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="changeLanguageButton" destination="Iq0-G4-To0" id="p8c-PH-adU"/>
                                     <outlet property="clearTextViewButton" destination="NxF-Vk-wdN" id="Qs8-8U-lhU"/>
                                     <outlet property="nameTextView" destination="LOZ-Hm-Mnd" id="qAI-as-Tcy"/>
                                 </connections>
@@ -989,7 +977,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="43" y="0.0" width="201" height="44"/>
+                                            <rect key="frame" x="43" y="0.0" width="202" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1107,13 +1095,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
+                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -2350,12 +2338,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xD7-Nn-Z60">
-                                            <rect key="frame" x="8" y="8" width="258" height="159"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="159"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ir1-3L-TcJ">
-                                            <rect key="frame" x="238" y="78" width="20" height="20"/>
+                                            <rect key="frame" x="284" y="78" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="5QX-A5-wEL"/>
                                                 <constraint firstAttribute="width" secondItem="ir1-3L-TcJ" secondAttribute="height" id="GuG-fL-MRt"/>
@@ -2365,30 +2353,17 @@
                                                 <action selector="clearTextViewButtonTapped:" destination="0kc-iQ-EHA" eventType="touchUpInside" id="JZj-ML-A2W"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="252" horizontalCompressionResistancePriority="760" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C93-Fg-KRg">
-                                            <rect key="frame" x="274" y="71" width="30" height="33"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <connections>
-                                                <action selector="ChangeLanguageButtonTapped:" destination="0kc-iQ-EHA" eventType="touchUpInside" id="AxF-eK-Z3g"/>
-                                                <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Ingredients Languages" popoverAnchorView="f3R-Uq-Nld" id="4zk-rY-uLr">
-                                                    <popoverArrowDirection key="popoverArrowDirection" right="YES"/>
-                                                </segue>
-                                            </connections>
-                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="xD7-Nn-Z60" firstAttribute="top" secondItem="nc2-Pr-oS2" secondAttribute="topMargin" id="79Z-Ll-CnG"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="xD7-Nn-Z60" secondAttribute="trailing" id="8gR-b0-KsP"/>
                                         <constraint firstItem="xD7-Nn-Z60" firstAttribute="trailing" secondItem="ir1-3L-TcJ" secondAttribute="trailing" constant="8" id="KMX-Nh-Sew"/>
                                         <constraint firstItem="xD7-Nn-Z60" firstAttribute="leading" secondItem="nc2-Pr-oS2" secondAttribute="leadingMargin" id="VgC-oT-0Qs"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="xD7-Nn-Z60" secondAttribute="bottom" id="YJx-M6-Yma"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="C93-Fg-KRg" secondAttribute="trailing" constant="8" id="f2m-4x-p8w"/>
-                                        <constraint firstItem="C93-Fg-KRg" firstAttribute="centerY" secondItem="nc2-Pr-oS2" secondAttribute="centerY" id="jgM-Kj-u2C"/>
-                                        <constraint firstItem="C93-Fg-KRg" firstAttribute="leading" secondItem="xD7-Nn-Z60" secondAttribute="trailing" constant="8" id="pxv-Vo-2uM"/>
                                         <constraint firstItem="ir1-3L-TcJ" firstAttribute="centerY" secondItem="xD7-Nn-Z60" secondAttribute="centerY" id="q5S-21-JPV"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="changeLanguageButton" destination="C93-Fg-KRg" id="n6j-nx-4ZD"/>
                                     <outlet property="clearTextViewButton" destination="ir1-3L-TcJ" id="ldD-cP-UE9"/>
                                     <outlet property="textView" destination="xD7-Nn-Z60" id="SRz-5w-jHi"/>
                                 </connections>
@@ -2573,6 +2548,11 @@
                             <action selector="refresh:" destination="B4s-Qn-7FN" eventType="valueChanged" id="Ce3-Ue-XIA"/>
                         </connections>
                     </refreshControl>
+                    <connections>
+                        <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Ingredients Languages" popoverAnchorView="f3R-Uq-Nld" id="Jg3-Zr-U6z">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jrg-Ju-tn5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2704,14 +2684,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="241" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pk1-yb-w1T">
-                                            <rect key="frame" x="16" y="45.5" width="30" height="33"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <state key="normal" title="en"/>
-                                            <connections>
-                                                <action selector="changeLanguageButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="0Ee-GY-AmQ"/>
-                                            </connections>
-                                        </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="258" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-Iy-n3f">
                                             <rect key="frame" x="38" y="8" width="241" height="107.5"/>
                                         </imageView>
@@ -2744,16 +2716,13 @@
                                         <constraint firstItem="UNm-Ld-LTE" firstAttribute="trailing" secondItem="bPg-Iy-n3f" secondAttribute="trailing" id="8TF-a7-xZR"/>
                                         <constraint firstItem="bPg-Iy-n3f" firstAttribute="top" secondItem="pbH-bk-fc1" secondAttribute="topMargin" id="9zT-9t-Qmb"/>
                                         <constraint firstItem="Qcy-nj-zO3" firstAttribute="width" secondItem="UNm-Ld-LTE" secondAttribute="width" id="AQf-Kp-RSh"/>
-                                        <constraint firstItem="pk1-yb-w1T" firstAttribute="centerY" secondItem="bPg-Iy-n3f" secondAttribute="centerY" id="EB8-Ma-lPU"/>
                                         <constraint firstItem="Qcy-nj-zO3" firstAttribute="centerX" secondItem="UNm-Ld-LTE" secondAttribute="centerX" id="Yrp-AZ-cgI"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Qcy-nj-zO3" secondAttribute="bottom" constant="8" id="feP-pR-But"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bPg-Iy-n3f" secondAttribute="bottom" id="kX1-Rd-rR1"/>
                                         <constraint firstItem="UNm-Ld-LTE" firstAttribute="centerY" secondItem="bPg-Iy-n3f" secondAttribute="centerY" id="pXe-BI-kW1"/>
-                                        <constraint firstItem="pk1-yb-w1T" firstAttribute="leading" secondItem="pbH-bk-fc1" secondAttribute="leadingMargin" constant="8" id="u87-qW-hnO"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="changeLanguageButton" destination="pk1-yb-w1T" id="Lk5-gg-H8b"/>
                                     <outlet property="nutrientsImageView" destination="bPg-Iy-n3f" id="c0A-eS-h01"/>
                                     <outlet property="takePhotoButton" destination="UNm-Ld-LTE" id="hGE-mw-Y3d"/>
                                     <outlet property="useCameraRollButton" destination="Qcy-nj-zO3" id="Mn4-4d-zAi"/>
@@ -2767,32 +2736,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mke-Kf-uJy">
-                                            <rect key="frame" x="0.0" y="5" width="30" height="33"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <connections>
-                                                <action selector="languageButtonTapped:" destination="u9d-nb-gSc" eventType="touchUpInside" id="aa8-vH-KrI"/>
-                                            </connections>
-                                        </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-av-cA3" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="38" y="8" width="274" height="27"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="27"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="A5S-av-cA3" firstAttribute="leading" secondItem="mke-Kf-uJy" secondAttribute="trailing" constant="8" id="7BU-eL-icA"/>
-                                        <constraint firstItem="mke-Kf-uJy" firstAttribute="centerY" secondItem="A5S-av-cA3" secondAttribute="centerY" id="Bic-hI-KyA"/>
                                         <constraint firstAttribute="topMargin" secondItem="A5S-av-cA3" secondAttribute="top" id="PA8-kO-7HD"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="A5S-av-cA3" secondAttribute="trailing" id="VGc-Da-Coo"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="A5S-av-cA3" secondAttribute="bottom" id="Xhb-Tv-RB5"/>
+                                        <constraint firstItem="A5S-av-cA3" firstAttribute="leading" secondItem="q8I-Mx-AJ4" secondAttribute="leadingMargin" id="xBx-gp-Ghm"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="mke-Kf-uJy" firstAttribute="leading" secondItem="u9d-nb-gSc" secondAttribute="leading" id="zUR-NM-U7H"/>
-                                </constraints>
                                 <connections>
-                                    <outlet property="languageButton" destination="mke-Kf-uJy" id="Pi5-QP-LYH"/>
                                     <outlet property="tagListView" destination="A5S-av-cA3" id="rVa-Ep-PMP"/>
                                 </connections>
                             </tableViewCell>
@@ -2938,14 +2895,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -3192,7 +3149,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
         <segue reference="GUZ-MJ-1ik"/>
-        <segue reference="z8D-RP-i6i"/>
-        <segue reference="EQr-JI-4QT"/>
+        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="Bpf-rD-vDt"/>
     </inferredMetricsTieBreakers>
 </document>

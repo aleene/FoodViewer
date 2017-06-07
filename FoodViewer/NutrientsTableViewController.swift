@@ -197,6 +197,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         static let PortionTag = 100
     }
     
+    fileprivate struct Constants {
+        static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
+    }
+    
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     // The different sections of the tableView
@@ -315,20 +319,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                     cell?.editMode = editMode
                     cell?.nutritionFactsImage = image
-                    cell!.numberOfLanguages = product!.languageCodes.count
-                    if let validCurrentLanguageCode = currentLanguageCode {
-                        cell!.languageCode = validCurrentLanguageCode
-                    }
                     return cell!
                 // in non-editMode try to fall back to the updated primary language image
                 } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.nutritionImages!.display[primaryLanguageCode]?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                     cell?.editMode = editMode
                     cell?.nutritionFactsImage = image
-                    cell!.numberOfLanguages = product!.languageCodes.count
-                    if let validCurrentLanguageCode = currentLanguageCode {
-                        cell!.languageCode = validCurrentLanguageCode
-                    }
                     return cell!
                 // show an error
                 } else {
@@ -339,12 +335,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.editMode = editMode
                     cell?.datasource = self
                     cell?.tag = indexPath.section
-                    cell!.numberOfLanguages = product!.languageCodes.count
-                    if let validCurrentLanguageCode = currentLanguageCode {
-                        cell!.languageCode = validCurrentLanguageCode
-                    } else {
-                        cell!.languageCode = "??"
-                    }
                     return cell!
                     
                 }
@@ -358,12 +348,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = product!.nutritionImages!.display[currentLanguageCode!]?.image
                         cell?.editMode = editMode
-                        cell!.numberOfLanguages = product!.languageCodes.count
-                        if let validCurrentLanguageCode = currentLanguageCode {
-                            cell!.languageCode = validCurrentLanguageCode
-                        } else {
-                            cell!.languageCode = "??"
-                        }
                         return cell!
                     default:
                         searchResult = result.description()
@@ -373,12 +357,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         cell?.width = tableView.frame.size.width
                         cell?.scheme = ColorSchemes.error
                         cell?.editMode = editMode
-                        cell!.numberOfLanguages = product!.languageCodes.count
-                        if let validCurrentLanguageCode = currentLanguageCode {
-                            cell!.languageCode = validCurrentLanguageCode
-                        } else {
-                            cell!.languageCode = "??"
-                        }
                         return cell!
                     }
                 // try the nutrition image corresponding to the primary languagecode in non-editMode
@@ -388,12 +366,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = product!.nutritionImages!.display[primaryLanguageCode]?.image
                         cell?.editMode = editMode
-                        cell!.numberOfLanguages = product!.languageCodes.count
-                        if let validCurrentLanguageCode = currentLanguageCode {
-                            cell!.languageCode = validCurrentLanguageCode
-                        } else {
-                            cell!.languageCode = "??"
-                        }
                         return cell!
                     default:
                         searchResult = result.description()
@@ -403,12 +375,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         cell?.width = tableView.frame.size.width
                         cell?.scheme = ColorSchemes.error
                         cell?.editMode = editMode
-                        cell!.numberOfLanguages = product!.languageCodes.count
-                        if let validCurrentLanguageCode = currentLanguageCode {
-                            cell!.languageCode = validCurrentLanguageCode
-                        } else {
-                            cell!.languageCode = "??"
-                        }
                         return cell!
                     }
 
@@ -428,12 +394,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         cell?.editMode = editMode
                         cell?.datasource = self
                         cell?.tag = indexPath.section
-                        cell!.numberOfLanguages = product!.languageCodes.count
-                        if let validCurrentLanguageCode = currentLanguageCode {
-                            cell!.languageCode = validCurrentLanguageCode
-                        } else {
-                            cell!.languageCode = "??"
-                        }
                         return cell!
                     }
                 }
@@ -443,7 +403,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! NutrientsImageTableViewCell
                     cell.nutritionFactsImage = nil
                     cell.editMode = editMode
-                    cell.languageCode = currentLanguageCode
                     cell.tag = indexPath.section
                     return cell
                 } else {
@@ -454,8 +413,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell.editMode = editMode
                     cell.datasource = self
                     cell.tag = indexPath.section
-                    cell.numberOfLanguages = product!.languageCodes.count
-                    cell.languageCode = currentLanguageCode
                     return cell
                 }
             }
@@ -469,9 +426,80 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
-        return header
+        let (currentProductSection, _, _) = tableStructureForProduct[section]
+        switch currentProductSection {
+        case .nutritionImage :
+            return nil
+        default:
+            return header
+
+        }
     }
     
+    private struct Header {
+        static let FontSize = CGFloat(18.0)
+        static let HorizontalOffSet = CGFloat(20.0)
+        static let VerticalOffSet = CGFloat(4.0)
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let (currentProductSection, _, _) = tableStructureForProduct[section]
+        
+        switch currentProductSection {
+        case .nutritionImage :
+            let (_, _, header) = tableStructureForProduct[section]
+
+            /*
+            let frame: CGRect = tableView.frame
+            
+            let headerLabel = UILabel.init(frame: CGRect.init(x: Header.HorizontalOffSet, y: Header.VerticalOffSet, width: 100.0, height: tableView.sectionHeaderHeight))
+            headerLabel.text = (header != nil ? header! : "No header") + " - "
+            headerLabel.font = UIFont.boldSystemFont(ofSize: Header.FontSize)
+            headerLabel.sizeToFit()
+            
+            let changeCurrentLanguageButton = UIButton(frame: CGRect.init(x: Header.HorizontalOffSet + headerLabel.frame.size.width, y: -1.0, width: 50.0, height: tableView.sectionHeaderHeight)) //
+            changeCurrentLanguageButton.setTitle(OFFplists.manager.languageName(for:currentLanguageCode), for: .normal)
+            changeCurrentLanguageButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: Header.FontSize - 2.0)
+            changeCurrentLanguageButton.addTarget(self, action: #selector(NutrientsTableViewController.changeLanguageButtonTapped(sender:)), for: .touchUpInside)
+            changeCurrentLanguageButton.sizeToFit()
+            changeCurrentLanguageButton.isEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
+            changeCurrentLanguageButton.isEnabled ? changeCurrentLanguageButton.setTitleColor(.blue, for: .normal) : changeCurrentLanguageButton.setTitleColor(.darkGray, for: .normal)
+            */
+            
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+            
+            // headerView.customLabel.text = content[section].name  // set this however is appropriate for your app's model
+            headerView.section = section
+            headerView.delegate = self
+
+            /*
+            let headerView: LanguageHeaderView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)) as! LanguageHeaderView
+            */
+            headerView.title = header
+            headerView.languageCode = currentLanguageCode
+            headerView.buttonIsEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
+
+            return headerView
+        default:
+            return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        
+        if indexPath.section >= 0 && indexPath.section < tableStructureForProduct.count {
+            let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+            
+            switch currentProductSection {
+            case .nutritionImage :
+                return indexPath
+            default:
+                break
+            }
+        }
+        return nil
+    }
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedIndexPath = indexPath
     }
@@ -653,21 +681,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
         return sectionsAndRows
     }
-    
-    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        
-        if indexPath.section >= 0 && indexPath.section < tableStructureForProduct.count {
-            let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        
-            switch currentProductSection {
-            case .nutritionImage :
-                return indexPath
-            default:
-                break
-            }
-        }
-        return nil
-    }
 
     // MARK: - Segue functions
     
@@ -688,6 +701,27 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 ppc.delegate = self
                                 
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentLanguageCode = currentLanguageCode
+                                vc.primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
+                                vc.languageCodes = product!.languageCodes
+                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.editMode = editMode
+                                vc.delegate = delegate
+                                vc.sourcePage = 2
+                            }
+                            // The button should be in a view,
+                            // which is in a TableHeaderFooterView,
+                            // which is in a TableView
+                        } else if button.superview?.superview?.superview as? UITableView != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                ppc.delegate = self
+                                    
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = currentLanguageCode
                                 vc.primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
@@ -774,32 +808,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         }
                     }
                 }
-/*
-            case Storyboard.SelectNutrientUnitSegue:
-                if let vc = segue.destination as? SelectNutrientUnitViewController {
-                    if let button = sender as? UIButton {
-                        if selectedIndexPath != nil {
-                            if let currentCell = tableView.cellForRow(at: selectedIndexPath!) as? NutrientsTableViewCell {
-                                // are we in a popovercontroller?
-                                // define the anchor point
-                                if let ppc = vc.popoverPresentationController {
-                                    // set the main language button as the anchor of the popOver
-                                    ppc.permittedArrowDirections = .any
-                                    ppc.sourceRect = currentCell.unitButton.frame
-                                    ppc.delegate = self
-                                    vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                }
-                            }
-                            // the current nutrient is found by the button tag
-                            // it has to be passed on, so that it can be updated later
-                            vc.nutrientRow = button.tag
-                            vc.currentNutritionFactKey = adaptedNutritionFacts[button.tag].key
-                        }
-                        // Corresponds this to the cell with the language button?
-                    }
-
-                }
- */
             default: break
             }
         }
@@ -892,14 +900,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
-    func showLanguageSelector(_ notification: Notification) {
-        if let sender = notification.userInfo?[NutrientsImageTableViewCell.Notification.ChangeLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
-        } else if let sender = notification.userInfo?[NoNutrientsImageTableViewCell.Notification.NoNutrientsImageChangeLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
-        }
-    }
-
     func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
     }
@@ -995,6 +995,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
+        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.estimatedSectionHeaderHeight = 70
+        
+        tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -1015,8 +1020,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showLanguageSelector), name:.NutrientsImageLanguageTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showLanguageSelector), name:.NoNutritionImageLanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)
@@ -1172,6 +1175,15 @@ extension NutrientsTableViewController: GKImagePickerDelegate {
         tableView.reloadData()
         
         imagePicker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - LanguageHeaderDelegate Functions
+
+extension NutrientsTableViewController: LanguageHeaderDelegate {
+    
+    func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
     }
 }
 

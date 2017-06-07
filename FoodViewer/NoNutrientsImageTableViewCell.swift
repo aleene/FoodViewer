@@ -11,16 +11,6 @@ import UIKit
 
 class NoNutrientsImageTableViewCell: UITableViewCell {
     
-    internal struct Notification {
-        static let NoNutrientsImageChangeLanguageButtonTappedKey = "NoNutrientsImageTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
-    }
-
-    fileprivate struct Constants {
-        static let NoLanguage = NSLocalizedString("no", comment: "Text for language of product, when there is no language defined.")
-        // Correct width for language button width (32) and trailing margin (8)
-        static let Margin = CGFloat( 44.0 )
-    }
-
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
@@ -28,24 +18,6 @@ class NoNutrientsImageTableViewCell: UITableViewCell {
             tagListView.cornerRadius = 10
             tagListView.datasource = datasource
         }
-    }
-    
-    @IBOutlet weak var languageButton: UIButton! {
-        didSet {
-            setLanguageButton()
-        }
-    }
-
-    
-    @IBAction func languageButtonTapped(_ sender: UIButton) {
-        let userInfo = [Notification.NoNutrientsImageChangeLanguageButtonTappedKey:sender]
-        NotificationCenter.default.post(name: .NoNutritionImageLanguageTapped, object: nil, userInfo: userInfo)
-    }
-    
-    private func setLanguageButton() {
-        languageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
-        let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0]) : Constants.NoLanguage
-        languageButton.setTitle(verboseLanguage, for: UIControlState())
     }
     
     var datasource: TagListViewDataSource? = nil {
@@ -59,19 +31,10 @@ class NoNutrientsImageTableViewCell: UITableViewCell {
             tagListView?.delegate = delegate
         }
     }
+
+    var editMode: Bool = false
     
-
-    var editMode: Bool = false {
-        didSet {
-            setLanguageButton()
-        }
-    }
-
-    var width: CGFloat = CGFloat(320.0) {
-        didSet {
-            tagListView?.frame.size.width = width - Constants.Margin
-        }
-    }
+    var width: CGFloat = CGFloat(320.0)
     
     var scheme = ColorSchemes.normal {
         didSet {
@@ -79,17 +42,7 @@ class NoNutrientsImageTableViewCell: UITableViewCell {
         }
     }
     
-    var languageCode: String? = nil {
-        didSet {
-            setLanguageButton()
-        }
-    }
-    
-    var numberOfLanguages: Int = 0 {
-        didSet {
-            setLanguageButton()
-        }
-    }
+    var languageCode: String? = nil
     
     override var tag: Int {
         didSet {
@@ -102,10 +55,4 @@ class NoNutrientsImageTableViewCell: UITableViewCell {
     }
     
 }
-
-// Definition:
-extension Notification.Name {
-    static let NoNutritionImageLanguageTapped = Notification.Name("NoNutrientsImageTableViewCell.Notification.ChangeLanguageButtonTapped")
-}
-
 

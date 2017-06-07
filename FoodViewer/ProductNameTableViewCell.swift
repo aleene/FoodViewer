@@ -9,21 +9,6 @@
 import UIKit
 
 class ProductNameTableViewCell: UITableViewCell {
-
-    internal struct Notification {
-        static let ChangeLanguageButtonTappedKey = "ProductNameTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
-    }
-
-    @IBOutlet weak var changeLanguageButton: UIButton! {
-        didSet {
-            setLanguageButton()
-        }
-    }
-    
-    @IBAction func changeLanguageButtonTapped(_ sender: UIButton) {
-        let userInfo = [Notification.ChangeLanguageButtonTappedKey:sender]
-        NotificationCenter.default.post(name: .LanguageTapped, object: nil, userInfo: userInfo)
-    }
     
     @IBOutlet weak var nameTextView: UITextView! {
         didSet {
@@ -38,10 +23,6 @@ class ProductNameTableViewCell: UITableViewCell {
     }
     @IBAction func clearTextViewButtonTapped(_ sender: UIButton) {
         name = ""
-    }
-    
-    private func setLanguageButton() {
-        changeLanguageButton?.isEnabled = editMode ? true : ( numberOfLanguages > 1 ? true : false )
     }
     
     private func setTextViewStyle() {
@@ -74,7 +55,6 @@ class ProductNameTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
         static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
-        static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
     }
     
     var name: String? = nil {
@@ -85,22 +65,8 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet {
-            setLanguageButton()
             setTextViewStyle()
             setTextViewClearButton()
-        }
-    }
-    
-    var languageCode: String? = nil {
-        didSet {
-            let verboseLanguage = languageCode != nil ? OFFplists.manager.translateLanguage(languageCode!, language:Locale.preferredLanguages[0]) : Constants.NoLanguage
-            changeLanguageButton.setTitle(verboseLanguage, for: UIControlState())
-        }
-    }
-    
-    var numberOfLanguages: Int = 0 {
-        didSet {
-            setTextViewStyle()
         }
     }
     
@@ -128,6 +94,5 @@ class ProductNameTableViewCell: UITableViewCell {
 // Definition:
 extension Notification.Name {
     static let NameTextFieldTapped = Notification.Name("ProductNameTableViewCell.Notification.NameTextFieldTapped")
-    static let LanguageTapped = Notification.Name("ProductNameTableViewCell.Notification.LanguageTapped")
 }
 

@@ -17,6 +17,7 @@ class Preferences {
     
     static let manager = Preferences()
     
+    
     var showSaltOrSodium: NatriumChloride
     var showCaloriesOrJoule: EnergyUnitUsed
     var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
