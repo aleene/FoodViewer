@@ -50,6 +50,9 @@
 /* Tableview sectionheader for Barcode */
 "Barcode" = "Streepjescode";
 
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Beauty Products" = "Beauty producten";
+
 /* Cell title indicating the product belongs to the beverages category */
 "Beverages category" = "Drankencategorie";
 
@@ -85,6 +88,9 @@
 /* Header title of the tableview section, indicating whether the productdata is complete. */
 "Completeness" = "Volledigheid";
 
+/* Label for a horizontal gauge that indicates the completion percentage of the product data. */
+"Completion" = "Compleetheid";
+
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Bijdragers";
 
@@ -108,9 +114,6 @@
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Bewerk";
-
-/* Header title of the tableview section, indicating when the product data was edited. */
-"Edit Dates" = "Bewerkdatums";
 
 /* Title of view controller, which allows editing of the nutrients */
 "Edit Nutrient" = "Bewerk voedingswaarde";
@@ -160,6 +163,9 @@
 /* Header for Tableview section with product expiry date */
 "Expiry Date" = "Uiterste houdbaarheidsdatum";
 
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Food Products" = "Voedingsproducten";
+
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
 
@@ -204,6 +210,12 @@
 
 /* Header title for the product labels section, i.e. images, logos, etc. */
 "Labels" = "Keur- en kenmerken";
+
+/* Header title of the tableview section, indicating when the product data was last edited. */
+"Last edit Date" = "Laatste wijzigingsdatum";
+
+/* Label to indicate whether any nutrients are indicated on the package */
+"Listed on package?" = "Vermeldt op de verpakking?";
 
 /* Text to indicate that the it is trying to load. */
 "Loading product" = "Bezig met laden product";
@@ -333,6 +345,9 @@
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Persoonlijke account";
+
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Petfood Products" = "Dierenvoedsel";
 
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
@@ -491,9 +506,6 @@
 /* Standard weight unit divided by thousand. */
 "milligram (mg)" = "milligram (mg)";
 
-/* Text for language of product, when there is no language defined. */
-"no" = "geen";
-
 /* Value of the creation date field, if no valid date is available. */
 "no creation date available" = "geen creatiedatum beschikbaar";
 
@@ -527,9 +539,6 @@
    Text in a TagListView, when the json provided an empty string.
    Unitless */
 "none" = "geen";
-
-/* the ingredients text has no associated language defined */
-"none defined" = "geen gedefinieerd";
 
 /* TextField text to indicate the serving size is not available */
 "not available" = "niet beschikbaar";

@@ -50,6 +50,9 @@
 /* Tableview sectionheader for Barcode */
 "Barcode" = "Code barre";
 
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Beauty Products" = "Beauté";
+
 /* Cell title indicating the product belongs to the beverages category */
 "Beverages category" = "Bon nutriments";
 
@@ -85,6 +88,9 @@
 /* Header title of the tableview section, indicating whether the productdata is complete. */
 "Completeness" = "Exhaustivité";
 
+/* Label for a horizontal gauge that indicates the completion percentage of the product data. */
+"Completion" = "Taux de complèté";
+
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Contributeurs";
 
@@ -108,9 +114,6 @@
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Edité";
-
-/* Header title of the tableview section, indicating when the product data was edited. */
-"Edit Dates" = "Dates d'éditions";
 
 /* Title of view controller, which allows editing of the nutrients */
 "Edit Nutrient" = "Modifie nutriment";
@@ -160,6 +163,9 @@
 /* Header for Tableview section with product expiry date */
 "Expiry Date" = "Date Lime d'Utilisation";
 
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Food Products" = "Alimentaire";
+
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Bons nutriments";
 
@@ -204,6 +210,12 @@
 
 /* Header title for the product labels section, i.e. images, logos, etc. */
 "Labels" = "Labels, certifications, récompenses";
+
+/* Header title of the tableview section, indicating when the product data was last edited. */
+"Last edit Date" = "Dernière date de modif.";
+
+/* Label to indicate whether any nutrients are indicated on the package */
+"Listed on package?" = "Noté sur l'emballage?";
 
 /* Text to indicate that the it is trying to load. */
 "Loading product" = "Chargement produit";
@@ -333,6 +345,9 @@
 
 /* Title in AlertViewController, which lets the user enter his username/password. */
 "Personal Account" = "Compte personel";
+
+/* Title of ViewController with a list of all food products that has been viewed. */
+"Petfood Products" = "Animaux";
 
 /* TableViewController title for the settings scene. */
 "Preferences" = "Réglages";
@@ -491,9 +506,6 @@
 /* Standard weight unit divided by thousand. */
 "milligram (mg)" = "milligramme (mg)";
 
-/* Text for language of product, when there is no language defined. */
-"no" = "non";
-
 /* Value of the creation date field, if no valid date is available. */
 "no creation date available" = "pas de date de création disponible";
 
@@ -527,9 +539,6 @@
    Text in a TagListView, when the json provided an empty string.
    Unitless */
 "none" = "aucun";
-
-/* the ingredients text has no associated language defined */
-"none defined" = "aucun défini";
 
 /* TextField text to indicate the serving size is not available */
 "not available" = "pas disponible";

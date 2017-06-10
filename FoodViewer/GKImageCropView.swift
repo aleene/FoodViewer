@@ -15,7 +15,7 @@ import UIKit
 class GKImageCropView: UIView {
     
     private func rad(_ angle: CGFloat) -> CGFloat {
-        return angle / CGFloat(180.0) * CGFloat(M_PI)
+        return angle / CGFloat(180.0) * CGFloat(Double.pi)
     }
     
     private func GKScaleRect(rect: CGRect, scale: CGFloat) -> CGRect {

@@ -208,6 +208,10 @@ class NutritionScoreTableViewController: UITableViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }

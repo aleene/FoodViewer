@@ -27,7 +27,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return OFFplists.manager.nutrients.count
+        return OFFplists.manager.nutrients.count + 1
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -37,12 +37,18 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     // MARK: - PickerView delegate methods
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return OFFplists.manager.nutrients[row].1
+        if row == 0 {
+            return NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a nutrient.")
+        } else {
+            return OFFplists.manager.nutrients[row - 1].1
+        }
         
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        addedNutrientTuple = OFFplists.manager.nutrients[row]
+        if row > 0 {
+            addedNutrientTuple = OFFplists.manager.nutrients[row - 1]
+        }
     }
     
 }

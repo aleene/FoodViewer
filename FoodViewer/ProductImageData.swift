@@ -1,4 +1,4 @@
-//
+ //
 //  ProductImageData.swift
 //  FoodViewer
 //

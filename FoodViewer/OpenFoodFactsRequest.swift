@@ -11,7 +11,7 @@ import UIKit
 
 class OpenFoodFactsRequest {
     
-    private var debug = true
+    private var debug = false
     
     fileprivate struct OpenFoodFacts {
         // static let JSONExtension = ".json"
@@ -45,7 +45,7 @@ class OpenFoodFactsRequest {
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
         let fetchUrl = URL(string: fetchUrlString)
-        if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(fetchUrl)") }
+        if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(String(describing: fetchUrl))") }
 
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
@@ -72,7 +72,7 @@ class OpenFoodFactsRequest {
         let fetchUrl = fetchURL(barcode) // URL(string: fetchUrlString)
         // let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OFF.URL.JSONExtension)")
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(fetchUrl)") }
+        if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(String(describing: fetchUrl))") }
         if let url = fetchUrl {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)

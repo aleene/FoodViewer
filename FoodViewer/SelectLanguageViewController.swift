@@ -57,6 +57,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     fileprivate struct Constants {
         static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
+        static let Select = NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
     }
     
     private var languageCodesToUse: [String] {
@@ -92,7 +93,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         //    updatedPrimaryLanguageCode = sortedLanguages[row].code
         //    languagesPickerView.reloadComponent(0)
         // }
-        selectedLanguageCode = sortedLanguages[row].code
+        selectedLanguageCode = sortedLanguages[row - 1].code
     }
     
     
@@ -104,15 +105,17 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         if sortedLanguages.isEmpty {
             return 1
         } else {
-            return sortedLanguages.count
+            return sortedLanguages.count + 1
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if sortedLanguages.isEmpty {
             return Constants.NoLanguage
+        } else if row == 0 {
+            return Constants.Select
         } else {
-            return sortedLanguages[row].name
+            return sortedLanguages[row - 1].name
         }
     }
 
@@ -124,17 +127,19 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
         if sortedLanguages.isEmpty {
             attributedRowText = NSMutableAttributedString(string: Constants.NoLanguage)
+        } else if row == 0 {
+            attributedRowText = NSMutableAttributedString(string: Constants.Select)
         } else {
-            attributedRowText = NSMutableAttributedString(string: sortedLanguages[row].name)
+            attributedRowText = NSMutableAttributedString(string: sortedLanguages[row - 1].name)
         }
 
         myLabel?.textAlignment = .center
 
         // has the primary languageCode been updated?
         let currentLanguageCode = updatedPrimaryLanguageCode != nil ? updatedPrimaryLanguageCode : primaryLanguageCode
-        if !sortedLanguages.isEmpty {
+        if !sortedLanguages.isEmpty && row > 0 {
             // is this the primary language?
-            if (sortedLanguages[row].code == currentLanguageCode) {
+            if (sortedLanguages[row - 1].code == currentLanguageCode) {
                 attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
             } else {
                 attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))

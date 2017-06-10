@@ -389,10 +389,6 @@
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
 		51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDisplayMode.swift; sourceTree = "<group>"; };
-		51975CC31E68166D0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		51975CC41E68166E0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		51975CC51E68166E0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		51975CC61E68166F0075B57B /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51975CCF1E6EB8580075B57B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		51975CD51E6EB9120075B57B /* TagsTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsTestSuite.swift; sourceTree = "<group>"; };
@@ -1041,7 +1037,6 @@
 			knownRegions = (
 				en,
 				Base,
-				es,
 			);
 			mainGroup = 5180B8FB1C5D3B57002DBD21;
 			productRefGroup = 5180B9051C5D3B57002DBD21 /* Products */;
@@ -1319,7 +1314,6 @@
 			children = (
 				517FC92B1CD5009A00CB89ED /* fr */,
 				517FC9341CD5037000CB89ED /* nl */,
-				51975CC61E68166F0075B57B /* es */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1329,7 +1323,6 @@
 			children = (
 				517FC9321CD500C100CB89ED /* fr */,
 				517FC9351CD5037200CB89ED /* nl */,
-				51975CC51E68166E0075B57B /* es */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1340,7 +1333,6 @@
 				5180B9111C5D3B57002DBD21 /* Base */,
 				510A38ED1CD3B67A00BAEB61 /* fr */,
 				510A38EF1CD3B68300BAEB61 /* nl */,
-				51975CC41E68166E0075B57B /* es */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1351,7 +1343,6 @@
 				51E3069F1C68E0B900485A8D /* Base */,
 				510A38EC1CD3B67900BAEB61 /* fr */,
 				510A38EE1CD3B68200BAEB61 /* nl */,
-				51975CC31E68166D0075B57B /* es */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

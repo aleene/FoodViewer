@@ -51,7 +51,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        selectedLanguageCode = sortedLanguages[row].code
+        selectedLanguageCode = row > 0 ? sortedLanguages[row - 1].code : nil
     }
     
     
@@ -60,12 +60,16 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     internal func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return allLanguages.count
+        return allLanguages.count + 1
     }
     
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return sortedLanguages[row].name
+        if row == 0 {
+            return NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a nutrient.")
+        } else {
+            return sortedLanguages[row - 1].name
+        }
     }
     
     // MARK: - ViewController Lifecycle
