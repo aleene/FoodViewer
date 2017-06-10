@@ -24,7 +24,7 @@ public class ProductImageData {
         didSet {
             if fetchResult != nil {
                 switch fetchResult! {
-                case .success(let data):
+                case .success:
                     // encode imageSize, imageType and barcode
                     var userInfo: [String:Any] = [:]
                     userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
@@ -38,10 +38,6 @@ public class ProductImageData {
 
                     NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                     
-                    if let ciImage = CIImage(data: data) {
-                        image = UIImage.init(ciImage: ciImage)
-                        // image = UIImage.init(data: data) // Gives the wrong orientation
-                    }
                 default:
                     break
                 }
@@ -49,7 +45,20 @@ public class ProductImageData {
         }
     }
 
-    var image: UIImage? = nil
+    var image: UIImage? {
+        if fetchResult != nil {
+            switch fetchResult! {
+            case .success(let data):
+                if let ciImage = CIImage(data: data) {
+                    return UIImage.init(ciImage: ciImage)
+                    // image = UIImage.init(data: data) // Gives the wrong orientation
+                }
+            default:
+                break
+            }
+        }
+        return nil
+    }
     
     init() {
         url = nil
@@ -63,8 +72,11 @@ public class ProductImageData {
     
     init(image: UIImage) {
         self.url = nil
-        fetchResult = nil
-        self.image = image
+        if let data = UIImagePNGRepresentation(image) {
+            fetchResult = .success(data)
+        } else {
+            fetchResult = .noData
+        }
     }
     
     func fetch() -> ImageFetchResult? {
