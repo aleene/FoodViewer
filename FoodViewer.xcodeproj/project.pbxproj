@@ -500,6 +500,7 @@
 				5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */,
 				51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */,
 				5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */,
+				518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */,
 				51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
 				5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */,
@@ -922,7 +923,6 @@
 				513982481C89CEB800250FB1 /* Pages */,
 				512499A01C6CD0100061A083 /* imageViewController.swift */,
 				516B327E1C74D9560031EF80 /* EditProductViewController.swift */,
-				518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */,
 				517BF2C51E44AF3700876E24 /* DynamicCustomSegue.swift */,
 			);
 			name = ProductPages;

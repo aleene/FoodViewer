@@ -214,6 +214,8 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
             case Storyboard.AddLanguageSegueIdentifier:
                 if let vc = segue.destination as? AddLanguageViewController {
                     vc.currentLanguageCodes = languageCodesToUse
+                    vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+
                     // are we in a popovercontroller?
                     // define the anchor point
                     /*
@@ -224,7 +226,6 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
                         // anchorFrame.origin.x += currentCell.frame.origin.x
                         // anchorFrame.origin.y += currentCell.frame.origin.y
                         ppc.sourceRect = bottomCenter(anchorFrame)
-                        vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                         }
  */
 
