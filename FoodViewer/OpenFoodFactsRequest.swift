@@ -29,6 +29,8 @@ class OpenFoodFactsRequest {
 
     var fetched: ProductFetchStatus = .initialized
     
+    var currentBarcode: BarcodeType? = nil
+    
     func fetchStoredProduct(_ data: Data) -> ProductFetchStatus {
         return unpackJSONObject(JSON(data: data))
     }
@@ -38,6 +40,7 @@ class OpenFoodFactsRequest {
     }
 
     func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
+        self.currentBarcode = barcode
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         var fetchUrlString = OFF.URL.Prefix
         // add the right server
@@ -63,6 +66,7 @@ class OpenFoodFactsRequest {
     }
 
     func fetchJsonForBarcode(_ barcode: BarcodeType) -> FetchJsonResult {
+        self.currentBarcode = barcode
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         //var fetchUrlString = OFF.URL.Prefix
         // add the right server
@@ -164,7 +168,15 @@ class OpenFoodFactsRequest {
                 // print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
                 product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
 
-                product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
+                if let validCurrentBarcode = currentBarcode,
+                    let validJsonBarcodeString = jsonObject[jsonKeys.CodeKey].string{
+                    if  validJsonBarcodeString == validCurrentBarcode.asString() {
+                        product.barcode = validCurrentBarcode
+                    } else {
+                        product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
+                    }
+                }
+                
                 
                 // product.mainUrlThumb = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontSmallUrlKey].url
 

@@ -39,5 +39,15 @@ class Preferences {
         mapAddress.setCoordinates()
     }
     
+    func cycleProductType() {
+        switch showProductType {
+        case .food:
+            showProductType = .beauty
+        case .beauty:
+            showProductType = .petFood
+        case .petFood:
+            showProductType = .food
+        }
+    }
 }
 

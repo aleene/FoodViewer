@@ -399,23 +399,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tempView.tag = section;
         return tempView;
     }
-   
-    /*
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if !products.fetchResultList.isEmpty {
-            if let validProductFetchResult = products.fetchResultList[section] {
-                switch validProductFetchResult {
-                case .Success(let product):
-                    return product.name != nil ? product.name! : Constants.ProductNameMissing
-                default:
-                    return validProductFetchResult.description()
-                }
-            }
-            return Constants.BusyLoadingProduct
-        }
-        return Constants.NoProductsInHistory
-    }
-  */
 
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -631,6 +614,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         startInterface()
     }
 
+//    func addGesture() {
+//        let swipeGestureRecognizer = UISwipeGestureRecognizer.init(target: self, action:#selector(ProductTableViewController.nextProductType))
+//        swipeGestureRecognizer.numberOfTouchesRequired = 2
+//        swipeGestureRecognizer.direction = .down
+//        swipeGestureRecognizer.delegate = self
+//        tableView?.addGestureRecognizer(swipeGestureRecognizer)
+//    }
+    
+    @IBAction func nextProdyctType(_ sender: UISwipeGestureRecognizer) {
+        Preferences.manager.cycleProductType()
+        refreshInterface()
+    }
+    
     // MARK: - Viewcontroller lifecycle
     
 
@@ -651,7 +647,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        // addGesture()
         switch currentProductType {
         case .food:
             title = Constants.Title.Food
@@ -686,6 +682,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
+    }
+}
+   
+extension ProductTableViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
 

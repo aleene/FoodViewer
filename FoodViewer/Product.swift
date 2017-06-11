@@ -292,6 +292,12 @@ class FoodProduct {
     
     var type: ProductType? {
         
+        // I should look in the history first to see if there is an associated type
+        // If the product is created from the history there should be a product type
+        if barcode.productType() != nil {
+            return barcode.productType()
+        }
+        
         if let validServer = server {
             if validServer == "opff" {
                 return .petFood
@@ -308,7 +314,6 @@ class FoodProduct {
                 }
             }
         }
-        // I should look in the history first to see if there is an associated type
         
         // Finally just return the current preference setting product type
         return currentProductType
