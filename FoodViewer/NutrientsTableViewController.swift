@@ -214,13 +214,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // should return all sections (7)
+        // should return all sections
         return tableStructureForProduct.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (_, numberOfRows, _) = tableStructureForProduct[section]
-        return numberOfRows
+        let (currentProductSection, numberOfRows, _) = tableStructureForProduct[section]
+        // in editMode the nutritionFacts have a button added
+        return currentProductSection  == .nutritionFacts && editMode ? numberOfRows + 1 : numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -242,58 +243,65 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // print(showNutrientsAs, product!.nutritionFactsAreAvailable)
             return cell
         case .nutritionFacts:
-            if adaptedNutritionFacts.isEmpty {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as? TagListViewTableViewCell
-                cell?.tag = indexPath.section
-                cell?.width = tableView.frame.size.width
-                cell?.datasource = self
-                // cell?.delegate = self // no manipulations on tags possible
-                // cell?.editMode = editMode // cell is not editable
-                if let available = product?.nutritionFactsAreAvailable {
-                    nutritionFactsTagTitle = available.description()
-                    switch available {
-                    case .perServing, .perStandardUnit, .perServingAndStandardUnit:
-                        cell?.scheme = ColorSchemes.normal
-                    case .notOnPackage:
-                        cell?.scheme = ColorSchemes.error
-                    case .notIndicated, .notAvailable:
-                        cell?.scheme = ColorSchemes.error
-                    }
-                } else {
-                    nutritionFactsTagTitle = NutritionAvailability.notIndicated.description()
-                    cell?.scheme = ColorSchemes.error
-                }
-                return cell!
+            let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
+            if indexPath.row == numberOfRows && editMode {
+                // This cell should only be added when in editMode and as the last row
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
+                cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+                return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
-                // warning set FIRST the saltOrSodium
-                cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
-                cell?.delegate = self
-                cell?.tag = indexPath.section * 100 + indexPath.row
-                // only add taps gestures when NOT in editMode
-                if !editMode {
-                    if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.salt.key()) ||
-                        (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key()) {
-                        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
-                        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-                        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-                        doubleTapGestureRecognizer.cancelsTouchesInView = false
-                        doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
-                        cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                    } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) ||
-                        (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) {
-                        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
-                        doubleTapGestureRecognizer.numberOfTapsRequired = 2
-                        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
-                        doubleTapGestureRecognizer.cancelsTouchesInView = false
-                        doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
-                        cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                if adaptedNutritionFacts.isEmpty {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as? TagListViewTableViewCell
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.datasource = self
+                    // cell?.delegate = self // no manipulations on tags possible
+                    // cell?.editMode = editMode // cell is not editable
+                    if let available = product?.nutritionFactsAreAvailable {
+                        nutritionFactsTagTitle = available.description()
+                        switch available {
+                        case .perServing, .perStandardUnit, .perServingAndStandardUnit:
+                            cell?.scheme = ColorSchemes.normal
+                        case .notOnPackage:
+                            cell?.scheme = ColorSchemes.error
+                        case .notIndicated, .notAvailable:
+                            cell?.scheme = ColorSchemes.error
+                        }
+                    } else {
+                        nutritionFactsTagTitle = NutritionAvailability.notIndicated.description()
+                        cell?.scheme = ColorSchemes.error
                     }
+                    return cell!
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
+                    // warning set FIRST the saltOrSodium
+                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
+                    cell?.delegate = self
+                    cell?.tag = indexPath.section * 100 + indexPath.row
+                    // only add taps gestures when NOT in editMode
+                    if !editMode {
+                        if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key ==   NatriumChloride.salt.key()) ||
+                            (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key()) {
+                            let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
+                            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                            doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+                            doubleTapGestureRecognizer.cancelsTouchesInView = false
+                            doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+                            cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                        } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) ||
+                            (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) {
+                            let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
+                            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+                            doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+                            doubleTapGestureRecognizer.cancelsTouchesInView = false
+                            doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
+                            cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                        }
+                    }
+                    cell?.editMode = editMode
+                    return cell!
                 }
-                cell?.editMode = editMode
-                return cell!
             }
-            
         case .servingSize:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ServingSize, for: indexPath) as? ServingSizeTableViewCell
             cell!.servingSizeTextField.delegate = self
@@ -656,14 +664,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         
             // Section 2 or 3 : Add nutrient Button only in editMode
-        
-            if editMode {
-                sectionsAndRows.append((
-                    SectionType.addNutrient,
-                    TableSections.Size.AddNutrient,
-                    TableSections.Header.AddNutrient))
-            }
-    
+//        
+//            if editMode {
+//                sectionsAndRows.append((
+//                    SectionType.addNutrient,
+//                    TableSections.Size.AddNutrient,
+//                    TableSections.Header.AddNutrient))
+//            }
+//    
             // Section 2 or 3 or 4 : serving size
             
             sectionsAndRows.append((
