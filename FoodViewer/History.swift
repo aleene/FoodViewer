@@ -18,7 +18,7 @@ public struct History {
     // this is the new barcode structure, each barcode also contains the product type
     public var barcodeTuples: [(String,String)] = []
     
-    private var debug = true
+    private var debug = false
     
     private var defaults = UserDefaults()
     

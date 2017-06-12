@@ -649,6 +649,7 @@
 		51578C081DB23177005BEEF6 /* OFF */ = {
 			isa = PBXGroup;
 			children = (
+				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				51F057FC1CB6AFEF00849532 /* OFFProducts.swift */,
 				513D16AF1DB4C02D005B1971 /* OFFAccount.swift */,
@@ -951,7 +952,6 @@
 				51578C081DB23177005BEEF6 /* OFF */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				511459301CB1389C00D25116 /* Taxonomy */,
-				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
 				5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */,
 				519ACDFE1D9960C100B81D11 /* Defaults */,

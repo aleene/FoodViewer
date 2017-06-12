@@ -621,10 +621,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 //        swipeGestureRecognizer.delegate = self
 //        tableView?.addGestureRecognizer(swipeGestureRecognizer)
 //    }
+    @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
-    @IBAction func nextProdyctType(_ sender: UISwipeGestureRecognizer) {
+    @IBAction func nextProductType(_ sender: UISwipeGestureRecognizer) {
         Preferences.manager.cycleProductType()
-        refreshInterface()
+        startInterface()
     }
     
     // MARK: - Viewcontroller lifecycle
@@ -689,6 +690,11 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        //Identify gesture recognizer and return true else false.
+        return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
     }
 }
 

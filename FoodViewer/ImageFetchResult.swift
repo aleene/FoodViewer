@@ -10,6 +10,7 @@
 import Foundation
 
 enum ImageFetchResult {
+    case available
     case success(Data)
     case loading
     case loadingFailed(Error)
@@ -19,7 +20,8 @@ enum ImageFetchResult {
     
     func description() -> String {
         switch self {
-        case .success: return NSLocalizedString("Image is loaded", comment: "String presented in a tagView if the image has been loaded")
+        case .available: return NSLocalizedString("Image is available", comment: "String presented in a tagView if the image is available")
+        case .success: return NSLocalizedString("Data is loaded", comment: "String presented in a tagView if the data has been loaded")
         case .loading: return NSLocalizedString("Image is being loaded", comment: "String presented in a tagView if the image is currently being loaded")
         case .loadingFailed: return NSLocalizedString("Image loading has failed", comment: "String presented in a tagView if the image loading has failed")
         case .noData: return NSLocalizedString("Image was empty", comment: "String presented in a tagView if the image data contained no data")

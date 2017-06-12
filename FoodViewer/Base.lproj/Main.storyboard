@@ -1200,15 +1200,16 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="downTwoFingerSwipe" destination="T79-dC-ES5" id="6DG-fw-mjU"/>
                         <outlet property="searchTextField" destination="gZ8-Lt-wU3" id="dnT-WO-YO7"/>
                         <segue destination="bDa-Ia-c5K" kind="showDetail" identifier="Show Page Controller" id="GR8-bW-x6k"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8b-LA-YmP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="down" numberOfTouchesRequired="2" id="T79-dC-ES5">
+                <swipeGestureRecognizer delaysTouchesBegan="YES" direction="down" numberOfTouchesRequired="2" id="T79-dC-ES5">
                     <connections>
-                        <action selector="nextProdyctType:" destination="gMe-4s-6cz" id="D0T-qo-inr"/>
-                        <outlet property="delegate" destination="D6F-oT-6RW" id="vng-tV-Ak1"/>
+                        <action selector="nextProductType:" destination="gMe-4s-6cz" id="3dh-jY-woT"/>
+                        <outlet property="delegate" destination="gMe-4s-6cz" id="oU4-Bh-qJt"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
