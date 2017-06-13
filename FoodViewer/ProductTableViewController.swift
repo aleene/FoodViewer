@@ -232,7 +232,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             if currentProduct.frontImages != nil && currentProduct.frontImages!.small.count > 0 {
                                 if let result = currentProduct.frontImages!.small[language]?.fetch() {
                                     switch result {
-                                    case .success:
+                                    case .available:
                                         cell.productImage = currentProduct.frontImages!.small[language]?.image
                                     default:
                                     cell.productImage = nil

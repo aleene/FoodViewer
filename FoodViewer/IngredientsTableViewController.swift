@@ -234,7 +234,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // is there a current language image
                 if let result = product!.ingredientsImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
-                    case .success:
+                    case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
                         cell?.ingredientsImage = product!.ingredientsImages!.display[currentLanguageCode!]?.image
                         cell?.editMode = editMode
@@ -251,7 +251,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // if not in editMode show the image in the primary language
                 } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.ingredientsImages!.display[primaryLanguageCode]?.fetch() {
                     switch result {
-                    case .success:
+                    case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
                         cell?.ingredientsImage = product!.ingredientsImages!.display[primaryLanguageCode]?.image
                         cell?.editMode = editMode

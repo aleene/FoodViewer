@@ -25,19 +25,6 @@ public class ProductImageData {
             if fetchResult != nil {
                 switch fetchResult! {
                 case .success(let data):
-                    // encode imageSize, imageType and barcode
-                    var userInfo: [String:Any] = [:]
-                    userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
-                    userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
-                    
-                    if let validBarcode = barcode() {
-                        userInfo[Notification.BarcodeKey] = validBarcode
-                    } else {
-                        userInfo[Notification.BarcodeKey] = "Dummy barcode"
-                    }
-
-                    NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
-                    
                     if let ciImage = CIImage(data: data) {
                         image = UIImage.init(ciImage: ciImage)
                         // image = UIImage.init(data: data) // Gives the wrong orientation
@@ -49,7 +36,27 @@ public class ProductImageData {
         }
     }
 
-    var image: UIImage? = nil
+    var image: UIImage? = nil {
+        didSet {
+            if image == nil {
+                fetchResult = nil
+            } else {
+                fetchResult = .available
+                // encode imageSize, imageType and barcode
+                var userInfo: [String:Any] = [:]
+                userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
+                userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
+                
+                if let validBarcode = barcode() {
+                    userInfo[Notification.BarcodeKey] = validBarcode
+                } else {
+                    userInfo[Notification.BarcodeKey] = "Dummy barcode"
+                }
+                
+                NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
+            }
+        }
+    }
     
     init() {
         url = nil
@@ -63,7 +70,6 @@ public class ProductImageData {
     
     init(image: UIImage) {
         self.url = nil
-        fetchResult = nil
         self.image = image
     }
     

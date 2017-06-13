@@ -287,7 +287,7 @@ class IdentificationTableViewController: UITableViewController {
                     // then fetch the image
                 if let result = product!.frontImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
-                    case .success:
+                    case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                         cell?.identificationImage = product!.frontImages!.display[currentLanguageCode!]?.image
                         cell?.editMode = editMode
@@ -304,7 +304,7 @@ class IdentificationTableViewController: UITableViewController {
                 // try to use the image corresponding to the primary language
                 } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages!.display[primaryLanguageCode]?.fetch() {
                     switch result {
-                    case .success:
+                    case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                         cell?.identificationImage = product!.frontImages!.display[primaryLanguageCode]?.image
                         cell?.editMode = editMode

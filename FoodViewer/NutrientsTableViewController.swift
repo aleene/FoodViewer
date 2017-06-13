@@ -352,7 +352,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // then fetch the image
                 if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
                     switch result {
-                    case .success:
+                    case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = product!.nutritionImages!.display[currentLanguageCode!]?.image
                         cell?.editMode = editMode
@@ -370,7 +370,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // try the nutrition image corresponding to the primary languagecode in non-editMode
                 } else if !editMode, let primaryLanguageCode = product!.primaryLanguageCode, let result = product!.nutritionImages!.display[primaryLanguageCode]?.fetch() {
                     switch result {
-                    case .success:
+                    case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                         cell?.nutritionFactsImage = product!.nutritionImages!.display[primaryLanguageCode]?.image
                         cell?.editMode = editMode
