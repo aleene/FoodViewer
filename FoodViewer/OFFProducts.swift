@@ -383,8 +383,6 @@ class OFFProducts {
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                     fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
                     DispatchQueue.main.async(execute: { () -> Void in
-                        self.historyLoadCount = 0
-                        self.historyLoadCount! += 1
                         switch fetchResult {
                         case .success(let product):
                             // the stored product might not correspond to the first product in the history
@@ -393,6 +391,8 @@ class OFFProducts {
                                 self.allProductFetchResultList[index] = fetchResult
                                 self.setCurrentProducts()
                                 NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                            } else {
+                                print("OFFProducts - stored product not in history file")
                             }
                         case .loadingFailed(let error):
                             let userInfo = ["error":error]
@@ -405,6 +405,8 @@ class OFFProducts {
                             // self.handleProductNotAvailable(userInfo)
                         default: break
                         }
+                        self.historyLoadCount = 0
+                        self.historyLoadCount! += 1
                     })
                 })
             } else {
@@ -446,13 +448,20 @@ class OFFProducts {
     }
     
     func flushImages() {
+        print("error: OFFProducts.flushImages - flushing")
         for fetchResult in allProductFetchResultList {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
                 case .success(let product):
-                    product.nutritionImages = ProductImageSize()
-                    product.frontImages = ProductImageSize()
-                    product.ingredientsImages = ProductImageSize()
+                    if product.nutritionImages != nil {
+                        product.nutritionImages!.reset()
+                    }
+                    if product.frontImages != nil {
+                        product.frontImages!.reset()
+                    }
+                    if product.ingredientsImages != nil {
+                        product.ingredientsImages!.reset()
+                    }
                 default:
                     break
                 }

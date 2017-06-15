@@ -57,7 +57,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     fileprivate struct Constants {
         static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
-        static let Select = NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
+        static let Select = "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
     }
     
     private var languageCodesToUse: [String] {
@@ -93,7 +93,9 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         //    updatedPrimaryLanguageCode = sortedLanguages[row].code
         //    languagesPickerView.reloadComponent(0)
         // }
-        selectedLanguageCode = sortedLanguages[row - 1].code
+        if row > 0 {
+            selectedLanguageCode = sortedLanguages[row - 1].code
+        }
     }
     
     
@@ -113,7 +115,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         if sortedLanguages.isEmpty {
             return Constants.NoLanguage
         } else if row == 0 {
-            return Constants.Select
+            return  Constants.Select
         } else {
             return sortedLanguages[row - 1].name
         }

@@ -66,7 +66,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if row == 0 {
-            return NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a nutrient.")
+            return "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a nutrient.")
         } else {
             return sortedLanguages[row - 1].name
         }
