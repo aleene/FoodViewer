@@ -246,7 +246,7 @@ class OFFProducts {
         
         if let newBarcode = barcode {
             // is the product already in the history list?
-            if let productIndexInHistory = isProductInHistory(newBarcode) {
+            if let productIndexInHistory = isProductinList(newBarcode) {
                 return productIndexInHistory
             } else {
                 // retrieve this new product
@@ -286,6 +286,21 @@ class OFFProducts {
         }
     }
     
+    private func isProductinList(_ barcode: BarcodeType) -> Int? {
+        for (index, fetchResult) in allProductFetchResultList.enumerated() {
+            guard fetchResult != nil else { return nil }
+            switch fetchResult! {
+            case .success(let product):
+                if product.barcode.asString() == barcode.asString() {
+                    return index
+                }
+            default:
+                break
+            }
+        }
+        return nil
+    }
+    
     func saveMostRecentProduct(_ barcode: BarcodeType?) {
         if barcode != nil {
             let request = OpenFoodFactsRequest()
@@ -318,7 +333,7 @@ class OFFProducts {
         NotificationCenter.default.post(name: .ProductLoadingError, object:nil, userInfo: userInfo)
     }
 
-    fileprivate func isProductInHistory(_ newBarcode: BarcodeType) -> Int? {
+    fileprivate func isProductInList(_ newBarcode: BarcodeType) -> Int? {
         for (index, fetchResult) in allProductFetchResultList.enumerated() {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
