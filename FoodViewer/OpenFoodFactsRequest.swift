@@ -32,7 +32,8 @@ class OpenFoodFactsRequest {
     var currentBarcode: BarcodeType? = nil
     
     func fetchStoredProduct(_ data: Data) -> ProductFetchStatus {
-        return unpackJSONObject(JSON(data: data))
+        let test = unpackJSONObject(JSON(data: data))
+        return test
     }
     
     private var currentProductType: ProductType {
@@ -175,6 +176,9 @@ class OpenFoodFactsRequest {
                     } else {
                         product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
                     }
+                } else {
+                    let test = jsonObject[jsonKeys.CodeKey].string
+                    product.barcode.string(test)
                 }
                 
                 

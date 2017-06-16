@@ -144,6 +144,7 @@ public struct History {
             newArray.append(dict)
         }
         defaults.set(newArray, forKey: historyKey)
+        defaults.synchronize()
     }
 }
 
