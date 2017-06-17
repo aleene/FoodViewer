@@ -1099,6 +1099,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
+
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }

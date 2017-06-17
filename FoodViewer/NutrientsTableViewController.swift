@@ -1059,10 +1059,12 @@ extension NutrientsTableViewController: UITextFieldDelegate {
         return true
     }
     
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         
         var section = textField.tag
-        if section != 4 {
+        // is this the nutrients section?
+        if section > 100 {
             // the tag is a combination of the section and the row
             // section*100 + row
             section = (section - section % 100) / 100
@@ -1074,7 +1076,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
             if let validText = textField.text {
                 delegate?.updated(portion: validText)
             }
-        default:
+        case .nutritionFacts:
             // decode the actual row from the tag by subtracting the section*100
             let row = textField.tag % 100
             print(textField.tag, row)
@@ -1107,6 +1109,8 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 mergeNutritionFacts()
                 tableView.reloadData()
             }
+        default:
+            break
         }
     }
     

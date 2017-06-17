@@ -32,7 +32,8 @@ class OFFProducts {
     var fetchResultList: [ProductFetchStatus] = []
     
     private var currentProductType: ProductType {
-        return Preferences.manager.showProductType
+        let test = Preferences.manager.showProductType
+        return test
     }
 
     private func setCurrentProducts() {
@@ -67,6 +68,15 @@ class OFFProducts {
         //      check first if the most recent product has been stored and load that one
         //      then load the rest of the history products
         loadAll()
+        // NotificationCenter.default.addObserver(self, selector:#selector(OFFProducts.reset(_:)), name:.ShowProductTypeSet, object:nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func resetCurrentProducts() {
+        setCurrentProducts()
     }
     
     var sampleProduct: ProductFetchStatus? = nil

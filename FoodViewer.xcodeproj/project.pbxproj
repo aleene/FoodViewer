@@ -624,6 +624,7 @@
 		512403711D96C724007FED5A /* Preferences */ = {
 			isa = PBXGroup;
 			children = (
+				5150C0651CBCD66F00161616 /* Preferences.swift */,
 				516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */,
 				51FB322E1CF7589700A17312 /* AllergenWarningsTableViewController.swift */,
 				5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */,
@@ -944,7 +945,6 @@
 			children = (
 				519884E11CE4EA5E0020B3A1 /* Components */,
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
-				5150C0651CBCD66F00161616 /* Preferences.swift */,
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,

@@ -15,6 +15,10 @@ class Preferences {
     // Unfortunately moving to another VC deletes the products, so it must be stored somewhere more permanently.
     // A singleton limits however the number of file loads
     
+//    public struct Notification {
+//        static let ShowProductTypeSetKey = "Preferences.Notification.ShowProductTypeSe.Key"
+//    }
+
     static let manager = Preferences()
     
     
@@ -25,7 +29,13 @@ class Preferences {
     var allergenWarnings: [(String, Bool)] = []
     var favoriteShops: [(String, Address)] = []
     var userDidAuthenticate = false
-    var showProductType = ProductType.food
+    var showProductType = ProductType.food {
+        didSet {
+            if showProductType != oldValue {
+                OFFProducts.manager.resetCurrentProducts()
+            }
+        }
+    }
     
     init() {
         showSaltOrSodium = NatriumChloride.salt
@@ -50,4 +60,9 @@ class Preferences {
         }
     }
 }
+
+// Definition:
+//extension Notification.Name {
+//    static let ShowProductTypeSet = Notification.Name("Preferences.Notification.ShowProductTypeSet")
+//}
 
