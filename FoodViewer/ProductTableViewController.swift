@@ -51,6 +51,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     fileprivate func startInterface() {
+        let test = tableStructure
         if !products.fetchResultList.isEmpty {
             //if let validFetchResult = products.fetchResultList[0] {
                 switch products.fetchResultList[0] {
@@ -58,11 +59,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     selectedProduct = product
                     tableView.reloadData()
                     tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                default: break
+                default:
+                    selectedProduct = nil
+                    tableView.reloadData()
                 }
             //}
         } else {
             selectedProduct = nil
+            tableView.reloadData()
         }
     }
     
@@ -213,7 +217,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentProductSection = tableStructure[(indexPath as NSIndexPath).row]
+        let currentProductSection = tableStructure[indexPath.row]
         if !products.fetchResultList.isEmpty {
             //if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch products.fetchResultList[(indexPath as NSIndexPath).section] {
