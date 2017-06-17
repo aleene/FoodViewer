@@ -51,7 +51,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     fileprivate func startInterface() {
-        let test = tableStructure
         if !products.fetchResultList.isEmpty {
             //if let validFetchResult = products.fetchResultList[0] {
                 switch products.fetchResultList[0] {

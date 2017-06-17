@@ -114,7 +114,8 @@ class OFFProducts {
         // The images are read from the assets catalog as UIImage
         // this ensure that the right resolution will be read
         // and then they are internally stored as PNG data
-        
+        /*
+        // I need to find where the demo product is.
         if let validFetchResult = allProductFetchResultList[0] {
             switch validFetchResult {
             case .success(let sampleProduct):
@@ -152,8 +153,8 @@ class OFFProducts {
             default: break
             }
         }
-        
-            }
+         */
+    }
     
     fileprivate func initList() {
         // I need a nillified list of the correct size, because I want to access items through the index.
