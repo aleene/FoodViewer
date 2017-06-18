@@ -106,6 +106,9 @@
 /* Text to indicate how much the product data is filled in (available). */
 "Data is %@ complete" = "Data is %@ volledig";
 
+/* String presented in a tagView if the data has been loaded */
+"Data is loaded" = "Data geladen";
+
 /* Title of a tableView section, which lets the user select display options */
 "Display Prefs" = "Display instellingen";
 
@@ -178,11 +181,11 @@
    Title of the ViewController with package image of the nutritional values */
 "Image" = "Foto";
 
+/* String presented in a tagView if the image is available */
+"Image is available" = "Foto beschikbaar";
+
 /* String presented in a tagView if the image is currently being loaded */
 "Image is being loaded" = "Foto wordt geladen";
-
-/* String presented in a tagView if the image has been loaded */
-"Image is loaded" = "Foto geladen";
 
 /* String presented in a tagView if the image loading has failed */
 "Image loading has failed" = "Laden foto mislukt";
@@ -421,6 +424,10 @@
 
 /* Title in cell with the saturated fat to all fat ratio */
 "Saturated Fat to Total Fat ratio" = "Verzadigde t.o.v. alle vetten";
+
+/* First element of a pickerView, where the user has to select a language.
+   First element of a pickerView, where the user has to select a nutrient. */
+"Select" = "Kies";
 
 /* Title of view controller, which allows the adding of a nutrient */
 "Select Nutrient" = "Selecteer voedingswaarde";
