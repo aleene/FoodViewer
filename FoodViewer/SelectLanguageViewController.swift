@@ -39,7 +39,11 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
-    var selectedLanguageCode: String? = nil
+    var selectedLanguageCode: String? = nil {
+        didSet {
+            positionPickerView()
+        }
+    }
 
     var editMode = false {
         didSet {
@@ -57,7 +61,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     fileprivate struct Constants {
         static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
-        static let Select = "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
+        // static let Select = "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
     }
     
     private var languageCodesToUse: [String] {
@@ -88,14 +92,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        // use the selected language also as the primary language
-        // if editMode {
-        //    updatedPrimaryLanguageCode = sortedLanguages[row].code
-        //    languagesPickerView.reloadComponent(0)
-        // }
-        if row > 0 {
-            selectedLanguageCode = sortedLanguages[row - 1].code
-        }
+        selectedLanguageCode = sortedLanguages[row].code
     }
     
     
@@ -104,20 +101,21 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if sortedLanguages.isEmpty {
-            return 1
-        } else {
-            return sortedLanguages.count + 1
-        }
+        return sortedLanguages.isEmpty ? 1 : sortedLanguages.count
+//        if sortedLanguages.isEmpty {
+//            return 1
+//        } else {
+//            return sortedLanguages.count + 1
+//        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if sortedLanguages.isEmpty {
             return Constants.NoLanguage
-        } else if row == 0 {
-            return  Constants.Select
+        //} else if row == 0 {
+        //    return  Constants.Select
         } else {
-            return sortedLanguages[row - 1].name
+            return sortedLanguages[row].name
         }
     }
 
@@ -129,10 +127,10 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
         if sortedLanguages.isEmpty {
             attributedRowText = NSMutableAttributedString(string: Constants.NoLanguage)
-        } else if row == 0 {
-            attributedRowText = NSMutableAttributedString(string: Constants.Select)
+        //} else if row == 0 {
+        //    attributedRowText = NSMutableAttributedString(string: Constants.Select)
         } else {
-            attributedRowText = NSMutableAttributedString(string: sortedLanguages[row - 1].name)
+            attributedRowText = NSMutableAttributedString(string: sortedLanguages[row].name)
         }
 
         myLabel?.textAlignment = .center
@@ -141,7 +139,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         let currentLanguageCode = updatedPrimaryLanguageCode != nil ? updatedPrimaryLanguageCode : primaryLanguageCode
         if !sortedLanguages.isEmpty && row > 0 {
             // is this the primary language?
-            if (sortedLanguages[row - 1].code == currentLanguageCode) {
+            if (sortedLanguages[row].code == currentLanguageCode) {
                 attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
             } else {
                 attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
@@ -154,21 +152,11 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     private func positionPickerView() {
-        if editMode {
-            if let validCurrentLanguageCode = primaryLanguageCode {
-                if let validIndex = sortedLanguages.index(where: { (s: Language) -> Bool in
-                    s.code == validCurrentLanguageCode
-                }){
-                    languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
-                }
-            }
-        } else {
-            if let validCurrentLanguageCode = currentLanguageCode {
-                if let validIndex = sortedLanguages.index(where: { (s: Language) -> Bool in
-                    s.code == validCurrentLanguageCode
-                }){
-                    languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
-                }
+        if let validCurrentLanguageCode = selectedLanguageCode {
+            if let validIndex = sortedLanguages.index(where: { (s: Language) -> Bool in
+                s.code == validCurrentLanguageCode
+            }){
+                languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
             }
         }
     }
@@ -205,6 +193,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
                 }
                 updatedLanguageCodes.append(newLanguageCode)
                 languagesPickerView.reloadComponent(0)
+                selectedLanguageCode = newLanguageCode
                 positionPickerView()
             }
         }
@@ -217,41 +206,21 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
                 if let vc = segue.destination as? AddLanguageViewController {
                     vc.currentLanguageCodes = languageCodesToUse
                     vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-
-                    // are we in a popovercontroller?
-                    // define the anchor point
-                    /*
-                    if let ppc = vc.popoverPresentationController {
-                        // set the main language button as the anchor of the popOver
-                        ppc.permittedArrowDirections = .right
-                        var anchorFrame = vc.navBar.frame
-                        // anchorFrame.origin.x += currentCell.frame.origin.x
-                        // anchorFrame.origin.y += currentCell.frame.origin.y
-                        ppc.sourceRect = bottomCenter(anchorFrame)
-                        }
- */
-
                 }
             default: break
             }
         }
     }
-    
-    private func bottomCenter(_ frame: CGRect) -> CGRect {
-        var newFrame = frame
-        newFrame.origin.y += frame.size.height * 1.5
-        newFrame.origin.x += frame.size.width / 2
-        newFrame.size.height = 1
-        newFrame.size.width = 1
-        return newFrame
-    }
-
 
     // MARK: - ViewController Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         positionPickerView()
     }
 
