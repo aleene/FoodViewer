@@ -493,7 +493,7 @@ class IdentificationTableViewController: UITableViewController {
                             // then fetch the image
                         if let result = product!.frontImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
-                            case .success:
+                            case .available:
                                 vc.image = product!.frontImages!.display[currentLanguageCode!]?.image
                             default:
                                 break
@@ -501,7 +501,7 @@ class IdentificationTableViewController: UITableViewController {
                                 // try to use the primary image
                 } else if let result = product!.frontImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
-                            case .success:
+                            case .available:
                                 vc.image = product!.frontImages!.display[product!.primaryLanguageCode!]?.image
                             default:
                                 vc.image = nil

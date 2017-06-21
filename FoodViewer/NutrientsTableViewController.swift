@@ -756,7 +756,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         // then fetch the image
                         if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
-                            case .success:
+                            case .available:
                                 vc.image = product!.nutritionImages!.display[currentLanguageCode!]?.image
                                 vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             default:
@@ -765,7 +765,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             // try to use the primary image
                         } else if let result = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
-                            case .success:
+                            case .available:
                                 vc.image = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.image
                                 vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             default:

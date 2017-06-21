@@ -470,7 +470,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         // then fetch the image
                         if let result = product!.ingredientsImages!.display[currentLanguageCode!]?.fetch() {
                             switch result {
-                            case .success:
+                            case .available:
                                 vc.image = product!.ingredientsImages!.display[currentLanguageCode!]?.image
                             default:
                                 break
@@ -478,7 +478,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                             // try to use the primary image
                         } else if let result = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.fetch() {
                             switch result {
-                            case .success:
+                            case .available:
                                 vc.image = product!.ingredientsImages!.display[product!.primaryLanguageCode!]?.image
                             default:
                                 vc.image = nil
