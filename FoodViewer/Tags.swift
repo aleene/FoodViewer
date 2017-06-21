@@ -39,7 +39,7 @@ public enum Tags {
         }
     }
     
-    public init(_ list: [String]?, languageCode: String) {
+    public init(withList list: [String]?, and languageCode: String) {
         self.init()
         guard list != nil else { return }
         decode(addPrefix(list!, prefix: languageCode))
@@ -135,6 +135,9 @@ public enum Tags {
         for tag in list {
             if tag.contains(":") {
                 // there is already a prefix
+                prefixedList.append(tag)
+                // is there an language prefex encoded?
+            } else if tag[2] == "-" {
                 prefixedList.append(tag)
             } else {
                 prefixedList.append(prefix + ":" + tag)

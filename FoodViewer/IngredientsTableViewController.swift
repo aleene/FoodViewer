@@ -48,19 +48,32 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    enum tagsType {
+        case original
+        case interpreted
+    }
+    
+    private var showLabelsTagsType: tagsType = .original
+    
+
     fileprivate var labelsToDisplay: Tags {
         get {
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.labelArray {
-                case .available, .empty:
-                    return delegate!.updatedProduct!.labelArray
-                default:
-                    break
+            switch showLabelsTagsType {
+            case .interpreted:
+                // is an updated product available?
+                if delegate?.updatedProduct != nil {
+                    // does it have brands defined?
+                    switch delegate!.updatedProduct!.labelArray {
+                    case .available, .empty:
+                        return delegate!.updatedProduct!.labelArray
+                    default:
+                        break
+                    }
                 }
+                return product!.labelArray
+            case .original:
+                return product!.originalLabels
             }
-            return product!.labelArray
         }
     }
 
@@ -151,7 +164,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
         
         // we assume that product exists
         switch currentProductSection {
@@ -532,6 +545,20 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     // MARK: - Notification handler
     
+    func changeShowLabelsTagsType() {
+        showLabelsTagsType = showLabelsTagsType == .interpreted ? .original : .interpreted
+        for (index, (currentProductSection, _, _)) in tableStructureForProduct.enumerated() {
+            // let (currentProductSection, _, _) = tableStructureForProduct[index]
+            switch currentProductSection {
+            case .labels:
+                tableView.reloadSections(IndexSet.init(integer: index), with: .fade)
+                break
+            default:
+                continue
+            }
+        }
+    }
+
     func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
         // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -653,7 +680,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.takePhotoButtonTapped), name:.IngredientsTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.useCameraRollButtonTapped), name:.IngredientsSelectFromCameraRollButtonTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeShowLabelsTagsType), name:.TagListViewTapped, object:nil)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -121,19 +121,31 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    enum tagsType {
+        case original
+        case interpreted
+    }
+    
+    private var showPackagingTagsType: tagsType = .original
+    
     fileprivate var packagingToDisplay: Tags {
         get {
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.packagingArray {
-                case .available, .empty:
-                    return delegate!.updatedProduct!.packagingArray
-                default:
-                    break
+            switch showPackagingTagsType {
+            case .interpreted:
+                // is an updated product available?
+                if delegate?.updatedProduct != nil {
+                    // does it have brands defined?
+                    switch delegate!.updatedProduct!.packagingArray {
+                    case .available, .empty:
+                        return delegate!.updatedProduct!.packagingArray
+                    default:
+                        break
+                    }
                 }
+                return product!.packagingArray
+            case .original:
+                return product!.originalPackagingTags
             }
-            return product!.packagingArray
         }
     }
     
@@ -181,7 +193,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentProductSection = tableStructure[(indexPath as NSIndexPath).section]
+        let currentProductSection = tableStructure[indexPath.section]
         
         switch currentProductSection {
         case .barcode:
@@ -581,6 +593,19 @@ class IdentificationTableViewController: UITableViewController {
 
     // MARK: - Notification handler
     
+    func changeShowPackagingTagsType() {
+        showPackagingTagsType = showPackagingTagsType == .interpreted ? .original : .interpreted
+        for (index, sectionType) in tableStructure.enumerated() {
+            switch sectionType {
+            case .packaging:
+                tableView.reloadSections(IndexSet.init(integer: index), with: .fade)
+                break
+            default:
+                continue
+            }
+        }
+    }
+    
     func reloadImageSection() {
         tableView.reloadData()
     }
@@ -739,6 +764,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeShowPackagingTagsType), name:.TagListViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -92,6 +92,7 @@ class FoodProduct {
     
     var quantity: String? = nil
     var packagingArray: Tags = .undefined
+    var originalPackagingTags: Tags = .undefined
     
     // MARK: - Ingredients variables
     
@@ -176,6 +177,7 @@ class FoodProduct {
     
     var additives: Tags = .undefined
     var labelArray: Tags = .undefined
+    var originalLabels: Tags = .undefined
     
     // usage parameters
     var servingSize: String? = nil
