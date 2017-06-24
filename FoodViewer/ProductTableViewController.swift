@@ -32,17 +32,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate var barcode: BarcodeType? = nil {
         didSet {
-            let indexInHistory = products.fetchProduct(barcode)
-            if  indexInHistory != nil//,
+            let index = products.fetchProduct(barcode)
+            if  let validIndex = index //,
                 //let validFetchResult = products.fetchResultList[indexInHistory!] 
                 {
                 // let lijst = products.fetchResultList
-                switch products.fetchResultList[indexInHistory!]  {
+                switch products.fetchResultList[validIndex]  {
                 case .success(let product):
                     selectedProduct = product
                     selectedIndex = 0
                     tableView.reloadData()
-                    tableView.scrollToRow(at: IndexPath(row: 0, section: indexInHistory!), at: .middle, animated: true)
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .top, animated: true)
                 default:
                     break
                 }

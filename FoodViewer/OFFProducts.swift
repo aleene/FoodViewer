@@ -255,10 +255,10 @@ class OFFProducts {
 
     func fetchProduct(_ barcode: BarcodeType?) -> Int? {
         
-        if let newBarcode = barcode {
-            // is the product already in the history list?
-            if let productIndexInHistory = isProductinList(newBarcode) {
-                return productIndexInHistory
+        if let validBarcode = barcode {
+            // is the product already fetched?
+            if let validIndex = index(validBarcode) {
+                return validIndex
             } else {
                 // retrieve this new product
                 let request = OpenFoodFactsRequest()
@@ -266,7 +266,7 @@ class OFFProducts {
                 // loading the product from internet will be done off the main queue
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    let fetchResult = request.fetchProductForBarcode(newBarcode)
+                    let fetchResult = request.fetchProductForBarcode(validBarcode)
                     DispatchQueue.main.async(execute: { () -> Void in
                         switch fetchResult {
                         case .success(let newProduct):
@@ -284,7 +284,7 @@ class OFFProducts {
                             let userInfo = ["error":error]
                             self.handleLoadingFailed(userInfo)
                         case .productNotAvailable(let error):
-                            let userInfo = [Notification.BarcodeDoesNotExistKey:newBarcode.asString(), "error":error]
+                            let userInfo = [Notification.BarcodeDoesNotExistKey:validBarcode.asString(), "error":error]
                             self.handleProductNotAvailable(userInfo)
                         default: break
                         }
@@ -310,6 +310,22 @@ class OFFProducts {
             }
         }
         return nil
+    }
+    
+    func index(_ barcode: BarcodeType?) -> Int? {
+        guard barcode != nil else { return nil }
+        for (index, fetchResult) in fetchResultList.enumerated() {
+            switch fetchResult {
+            case .success(let product):
+                if product.barcode.asString() == barcode!.asString() {
+                    return index
+                }
+            default:
+                break
+            }
+        }
+        return nil
+
     }
     
     func saveMostRecentProduct(_ barcode: BarcodeType?) {

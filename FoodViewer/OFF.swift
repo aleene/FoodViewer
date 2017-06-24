@@ -39,6 +39,7 @@ public struct OFF {
         static let EnglishProduct = "en:product/"
         static let Postfix = ".org/api/v0/product/"
         static let JSONExtension = ".json"
+        static let Images = "images/products/"
         
     }
     
@@ -48,7 +49,7 @@ public struct OFF {
         case petFood = "openpetfoodfacts"
     }
 
-    static func webProductURLFor(_ barcode:BarcodeType) -> String {
+    static func webProductURLFor(_ barcode: BarcodeType) -> String {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
         urlString += "\(region)."
@@ -59,6 +60,41 @@ public struct OFF {
         urlString += "/"
         return urlString
     }
+    
+    static func imageURLFor(_ barcode: BarcodeType) -> String {
+        let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Scheme
+        urlString += "\(region)."
+        urlString += server(for:barcode.productType() ?? .food)
+        urlString += OFF.URL.TopDomain
+        urlString += OFF.URL.Images
+        if let str = imageURLComponentFor(barcode.asString()) {
+            urlString += str
+        }
+        urlString += "/"
+        return urlString
+    }
+    
+    static func imageURLComponentFor(_ barcode: String) -> String? {
+        if barcode.characters.count == 8 {
+            // Lidl product
+            return barcode
+        } else if barcode.characters.count == 13 {
+//            let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
+//            let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
+//            let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
+//            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.endIndex)
+//
+//            return barcode[part1] + "/" +
+//                barcode[part2] + "/" +
+//                barcode[part3] + "/" +
+//                barcode[part4] + "/"
+            return "no"
+        }
+        print("OFF.imageURLFor : barcode can not be translated to url-string")
+        return nil
+    }
+
     
     static func server(for productType: ProductType) -> String {
         switch productType {
