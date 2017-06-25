@@ -666,7 +666,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 initUpdatedProductWith(product: product!)
                 let preferredLanguage = Locale.preferredLanguages[0]
                 let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
-                updatedProduct?.packagingArray = Tags.init(withList: validTags, and:currentLanguage[0])
+                updatedProduct?.packagingArray = Tags.init(validTags, language:currentLanguage[0])
                 saveUpdatedProduct()
             }
         }

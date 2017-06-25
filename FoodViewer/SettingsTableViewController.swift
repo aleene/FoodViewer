@@ -29,7 +29,7 @@ class SettingsTableViewController: UITableViewController {
 
     fileprivate func enableClearHistoryButton() {
         if clearHistoryButton != nil {
-            if storedHistory.barcodes.isEmpty {
+            if storedHistory.barcodeTuples.isEmpty {
                 clearHistoryButton.isEnabled = false
             } else {
                 clearHistoryButton.isEnabled = true
@@ -40,13 +40,13 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var clearHistoryButton: UIButton! {
         didSet {
             enableClearHistoryButton()
-            clearHistoryButton.setTitle(NSLocalizedString("Clear History", comment: "Title of a button, which removes all ites in the product search history."), for: .normal)
+            clearHistoryButton.setTitle(NSLocalizedString("Clear History", comment: "Title of a button, which removes all items in the product search history."), for: .normal)
         }
     }
 
     @IBAction func clearHistoryButtonTapped(_ sender: UIButton) {
         storedHistory.removeAll()
-        mostRecentProduct.remove()
+        mostRecentProduct.removeAll()
         historyHasBeenRemoved = true
         enableClearHistoryButton()
     }
