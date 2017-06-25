@@ -63,8 +63,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         static let defaultshadowOpacity: Float = 0
         /// Default image used for the Clear and Remove button, similar to the one used in UITextField
         static let clearRemoveImage: UIImage? = UIImage.init(named: "Clear")
-        // Error margin for updated frame height
-        static let ErrorMarginFrameHeight = 0.2
     }
     
     // MARK: - Inspectable Variables
@@ -598,12 +596,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         guard datasource?.numberOfTagsIn(self) != nil else { return }
         
         // TODO what should be cleared when?
-        // if clearAll {
+        if clearAll {
             clearTagListView()
-        //} else {
-        //    tagViews.forEach { $0.removeFromSuperview() }
-        //    tagViews = []
-        //}
+        } else {
+            tagViews.forEach { $0.removeFromSuperview() }
+            tagViews = []
+        }
         
         // Setup the tagView array and load the data here
         for index in 0..<datasource!.numberOfTagsIn(self) {
@@ -654,7 +652,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         invisibleTextField.removeFromSuperview()
         // rowViews.removeAll(keepingCapacity: true)
         clearView.removeFromSuperview()
-        // print("clear", tag, allowsCreation)
     }
     
     fileprivate func rearrangeViews(_ shouldAdjustFrame: Bool) {
@@ -691,7 +688,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // print("after tagViews", currentY, frame.height)
 
-        // print(tag, isEditable, allowsCreation)
         if isEditable && allowsCreation {
             layoutInputTextViewWith(currentX: &currentX, currentY: &currentY, clearInput: shouldAdjustFrame)
         }
@@ -992,6 +988,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // The height of the TagListView frame should be adjusted
         let oldHeight = frame.height
+        // print("old", oldHeight)
+        
         var newFrame = frame
         newFrame.size.height = currentY + tagViewHeight + Constants.defaultVerticalMargin
 
@@ -1024,9 +1022,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
  */
  
-        // print(tag, "old", oldHeight, "new", newFrame.size.height, abs(oldHeight - newFrame.size.height),CGFloat(Constants.ErrorMarginFrameHeight))
-        // If the frame height has changed to much, inform the user, so he can repaint
-        if abs(oldHeight - newFrame.size.height) > CGFloat(Constants.ErrorMarginFrameHeight) {
+        if oldHeight < newFrame.height {
             frame = newFrame
             // print("new",frame.height)
             delegate?.tagListView(self, didChange: frame.height)
@@ -1142,7 +1138,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     open var allowsRemoval = false {
         didSet {
             if allowsRemoval != oldValue {
-                rearrangeViews(true)
+                reloadData(clearAll: true)
             }
         }
     }
@@ -1443,28 +1439,31 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
 extension TagListView: UITextFieldDelegate {
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // If the user enters a return, a new tag will be created
         
-        // These characters provoke the acceptance of a tag
-        if string == "\n" || string == "," {
-            textField.resignFirstResponder()
+        if string == "\n" {
+            if let newTag = textField.text {
+                if !newTag.isEmpty {
+                    delegate?.tagListView(self, didAddTagWith: newTag)
+                    reloadData(clearAll:true)
+                    textField.resignFirstResponder()
+                }
+            }
+            return false
+        } else if string == "," {
+            if let newTag = textField.text {
+                if !newTag.isEmpty {
+                    delegate?.tagListView(self, didAddTagWith: newTag)
+                    reloadData(clearAll:false)
+                }
+            }
             return false
         }
         return true
     }
     
-    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
     public func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
-        if let newTag = textField.text {
-            if !newTag.isEmpty {
-                // inform the datasource of a new tag
-                delegate?.tagListView(self, didAddTagWith: newTag)
-                reloadData(clearAll: false)
-            }
-        }
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum Tags {
+enum Tags {
     
     case undefined
     case empty
@@ -22,38 +22,45 @@ public enum Tags {
             return NSLocalizedString("available", comment: "Text in a TagListView, when tags are available the product data.")        }
     }
     
-    public init() {
+    init() {
         self = .undefined
     }
     
-    public init(_ list: [String]?) {
+    init(_ list: [String]?) {
         self.init()
         decode(list)
     }
     
     // initialise with a comma delimited string
-    public init(_ string: String?) {
+    init(_ string: String?) {
         self.init()
         if let validString = string {
             decode(validString.characters.split{ $0 == "," }.map(String.init))
         }
     }
     
-    public init(withList list: [String]?, and languageCode: String) {
+    init(_ string: String?, in language: String) {
         self.init()
-        guard list != nil else { return }
-        decode(addPrefix(list!, prefix: languageCode))
-    }
-    
-    public init(_ string: String?, with languageCode: String) {
-        self.init()
-        guard string != nil else { return }
-        let list = string!.characters.split{ $0 == "," }.map(String.init)
-        decode(addPrefix(list, prefix: languageCode))
+        if let validString = string {
+            decode(validString.characters.split{ $0 == "," }.map(String.init))
+            switch self {
+            case .available(var list):
+                list = addPrefix(list, prefix: language)
+                self = .available(list)
+            default:
+                break
+            }
+
+        }
     }
 
+    init(_ list: [String]?, language: String) {
+        self.init()
+        guard list != nil else { return }
+        decode(addPrefix(list!, prefix: language))
+    }
     
-    public func tag(_ index: Int) -> String? {
+    func tag(_ index: Int) -> String? {
         switch self {
         case .undefined, .empty:
             return self.description()
@@ -67,25 +74,11 @@ public enum Tags {
         return nil
     }
     
-    public func tagWithoutPrefix(_ index: Int, locale:String) -> String? {
-        if let currentTag = self.tag(index) {
-            let interfaceLanguage = locale.characters.split{ $0 == "-" }.map(String.init)[0]
-            if currentTag.hasPrefix(interfaceLanguage + ":") {
-                return currentTag.characters.split{ $0 == ":" }.map(String.init)[1]
-            } else {
-                return currentTag
-            }
-        } else {
-            return nil
-        }
-    }
-    
-    public mutating func remove(_ index: Int) {
+    func remove(_ index: Int) {
         switch self {
-        case .available(var newList):
-            guard index >= 0 && index < newList.count else { break }
-            newList.remove(at: index)
-            self = .available(newList)
+        case var .available(list):
+            guard index >= 0 && index < list.count else { break }
+            list.remove(at: index)
         default:
             break
         }
@@ -118,7 +111,7 @@ public enum Tags {
     }
     
     // returns the tag-list with a language-prefix
-    public func prefixedList(_ language: String) -> [String] {
+    func prefixedList(_ language: String) -> [String] {
         switch self {
         case let .available(list):
             if !list.isEmpty {
@@ -135,9 +128,6 @@ public enum Tags {
         for tag in list {
             if tag.contains(":") {
                 // there is already a prefix
-                prefixedList.append(tag)
-                // is there an language prefex encoded?
-            } else if tag[2] == "-" {
                 prefixedList.append(tag)
             } else {
                 prefixedList.append(prefix + ":" + tag)

@@ -29,7 +29,7 @@ class SettingsTableViewController: UITableViewController {
 
     fileprivate func enableClearHistoryButton() {
         if clearHistoryButton != nil {
-            if storedHistory.barcodeTuples.isEmpty {
+            if storedHistory.barcodes.isEmpty {
                 clearHistoryButton.isEnabled = false
             } else {
                 clearHistoryButton.isEnabled = true
@@ -46,46 +46,13 @@ class SettingsTableViewController: UITableViewController {
 
     @IBAction func clearHistoryButtonTapped(_ sender: UIButton) {
         storedHistory.removeAll()
-        mostRecentProduct.removeForCurrentProductType()
+        mostRecentProduct.remove()
         historyHasBeenRemoved = true
         enableClearHistoryButton()
     }
     
-    private var currentProductType: ProductType {
-        return Preferences.manager.showProductType
-    }
-
-    @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
-        didSet {
-            switch currentProductType {
-            case .food:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 0
-            case .beauty:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 1
-            case .petFood:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 2
-
-            }
-        }
-    }
-    
-    var changedCurrentProductType: ProductType = .food
-    
-    @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            changedCurrentProductType = .food
-        case 1:
-            changedCurrentProductType = .beauty
-        case 2:
-            changedCurrentProductType = .petFood
-        default:
-            break
-        }
-    }
-    
     // MARK: - Salt Or Sodium Functions
-
+    
     private func refreshAll() {
         refreshSaltOrSodium()
         refreshJouleOrCalories()

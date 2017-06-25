@@ -337,8 +337,8 @@ class OpenFoodFactsRequest {
                 product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
                 // it happens that the primary language code is not defined
                 if let lc = product.primaryLanguageCode {
-                    product.packagingArray = Tags.init(withList:jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, and: lc)
-                    product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc)
+                    product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, language: lc)
+                    product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, in: lc)
                 } else {
                     product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray)
                     product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)

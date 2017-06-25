@@ -30,10 +30,6 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
             tagListView.tag = tag
-            
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewTapped))
-            tapGestureRecognizer.numberOfTapsRequired = 2
-            tagListView.addGestureRecognizer(tapGestureRecognizer)
         }
     }
     
@@ -76,19 +72,9 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView?.tag = tag
         }
     }
-        
+    
     func reloadData() {
         tagListView.reloadData(clearAll: true)
     }
     
-    func tagListViewTapped() {
-        NotificationCenter.default.post(name: .TagListViewTapped, object: nil)
-    }
-
 }
-
-// Definition:
-extension Notification.Name {
-    static let TagListViewTapped = Notification.Name("TagListViewTableViewCell.Notification.TagListViewTapped")
-}
-

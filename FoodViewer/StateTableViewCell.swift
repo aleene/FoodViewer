@@ -12,7 +12,7 @@ class StateTableViewCell: UITableViewCell {
 
     var state: Bool = false {
         didSet {
-            setImage()
+            stateSwitch.isOn = state
         }
     }
     
@@ -26,15 +26,10 @@ class StateTableViewCell: UITableViewCell {
     }
     
     @IBOutlet weak var stateLabel: UILabel!
-    
-    @IBOutlet weak var stateImage: UIImageView! {
+    @IBOutlet weak var stateSwitch: UISwitch! {
         didSet {
-            setImage()
+            stateSwitch.isEnabled = false
         }
-    }
-    
-    private func setImage() {
-        stateImage?.image = state ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
     }
     
 }
