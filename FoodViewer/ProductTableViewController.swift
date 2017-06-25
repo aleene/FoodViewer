@@ -518,7 +518,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
             }
             // force a reload of all products
-            if currentProductType != vc. {
+            if currentProductType != vc.changedCurrentProductType {
                 Preferences.manager.showProductType = vc.changedCurrentProductType
                 products.reloadAll()
             }

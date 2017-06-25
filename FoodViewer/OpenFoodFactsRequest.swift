@@ -190,7 +190,7 @@ class OpenFoodFactsRequest {
                 // the labels as interpreted by OFF (a list of strings)
                 product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsTagsKey].stringArray))
                 // the labels as the user has entered them (a comma delimited string)
-                product.originalLabels = Tags(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsKey].string)
+                product.originalLabels = Tags(string: jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsKey].string)
                 
                 product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
 
@@ -337,12 +337,11 @@ class OpenFoodFactsRequest {
                 product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
                 // it happens that the primary language code is not defined
                 if let lc = product.primaryLanguageCode {
-                    product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, language: lc)
-                    product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, in: lc)
+                    product.packagingArray = Tags.init(list: jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, with: lc)
+                    product.originalPackagingTags = Tags.init(string: jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc)
                 } else {
                     product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray)
-                    product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
-
+                    product.originalPackagingTags = Tags.init(string: jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
                 }
 
                 product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
@@ -350,7 +349,7 @@ class OpenFoodFactsRequest {
                 product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
                 product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string)
                 
-                product.brands = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
+                product.brands = Tags.init(string: jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
                 
                 // The links for the producer are stored as a string. This string might contain multiple links.
                 let linksString = jsonObject[jsonKeys.ProductKey][jsonKeys.LinkKey].string

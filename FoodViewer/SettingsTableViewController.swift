@@ -46,13 +46,46 @@ class SettingsTableViewController: UITableViewController {
 
     @IBAction func clearHistoryButtonTapped(_ sender: UIButton) {
         storedHistory.removeAll()
-        mostRecentProduct.removeAll()
+        mostRecentProduct.removeForCurrentProductType()
         historyHasBeenRemoved = true
         enableClearHistoryButton()
     }
     
-    // MARK: - Salt Or Sodium Functions
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
+    }
+
+    @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
+        didSet {
+            switch currentProductType {
+            case .food:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 0
+            case .beauty:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 1
+            case .petFood:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 2
+
+            }
+        }
+    }
     
+    var changedCurrentProductType: ProductType = .food
+    
+    @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            changedCurrentProductType = .food
+        case 1:
+            changedCurrentProductType = .beauty
+        case 2:
+            changedCurrentProductType = .petFood
+        default:
+            break
+        }
+    }
+    
+    // MARK: - Salt Or Sodium Functions
+
     private func refreshAll() {
         refreshSaltOrSodium()
         refreshJouleOrCalories()
