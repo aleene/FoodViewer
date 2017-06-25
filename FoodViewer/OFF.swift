@@ -49,6 +49,39 @@ public struct OFF {
         case petFood = "openpetfoodfacts"
     }
 
+    public enum SearchComponent: String {
+        case brand = "brand"
+        case category = "category"
+        case codes = "codes"
+        case country = "country"
+        case label = "label"
+        case language = "language"
+        case purchasePlace = "purchasePlace"
+    }
+
+    static func fetchString(for barcode: BarcodeType, with productType: ProductType) -> String {
+        var fetchUrlString = URL.Prefix
+        // add the right server
+        fetchUrlString += productType.rawValue
+        fetchUrlString += URL.Postfix
+        fetchUrlString += barcode.asString() + URL.JSONExtension
+        return fetchUrlString
+    }
+
+    static func searchString(for component: SearchComponent, with value: String ) -> String {
+        let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Scheme
+        urlString += "\(region)."
+        // use the currrent product type
+        urlString += server(for:Preferences.manager.showProductType)
+        urlString += URL.TopDomain
+        urlString += component.rawValue
+        urlString += "/"
+        urlString += value
+        urlString += URL.JSONExtension
+        return urlString
+    }
+    
     static func webProductURLFor(_ barcode: BarcodeType) -> String {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
@@ -352,6 +385,13 @@ struct OFFReadAPIkeysJSON {
     
     static let PeriodsAfterOpeningKey = "periods_after_opening"
     static let NewServerKey = "new_server"
+    
+    // specific keys for product lists
+    static let SkipKey = "skip"  // Int
+    static let PageSizeKey = "page_size" // Int
+    static let ProductsKey = "products" //Array
+    static let PagKey = "page" // Int
+    static let CountKey = "count" // Int
 }
 
 

@@ -636,6 +636,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            // start out with the history tab
+            tabVC.selectedIndex = 0
+        }
     }
     
     override func viewDidLoad() {
@@ -645,6 +649,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         self.tableView.estimatedRowHeight = 80.0
         
         initializeCustomKeyboard()
+        
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            if tabVC.selectedIndex == 0 {
+                // show history products
+                products.list = .recent
+            } else if tabVC.selectedIndex == 1 {
+                // show search products
+                products.list = .search
+            }
+        }
         // Preferences.manager
         startInterface()
     }

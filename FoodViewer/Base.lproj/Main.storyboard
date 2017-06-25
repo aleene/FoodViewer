@@ -289,7 +289,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47q-wK-1CI" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="7oq-ZG-7TM" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1806" y="-464"/>
+            <point key="canvasLocation" x="2715" y="-465"/>
         </scene>
         <!--Barcode Scan View Controller-->
         <scene sceneID="Qts-qL-Rig">
@@ -332,7 +332,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wKV-Qy-Uqz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="h1P-hs-FQC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="439"/>
+            <point key="canvasLocation" x="2715" y="438.75"/>
         </scene>
         <!--Identification Table View Controller-->
         <scene sceneID="AnZ-mD-Bvd">
@@ -875,14 +875,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L7h-nT-Kym" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Qre-lC-csc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="870" y="-463"/>
+            <point key="canvasLocation" x="1755" y="-465"/>
         </scene>
         <!--Products-->
         <scene sceneID="B20-Pm-QF1">
             <objects>
                 <tableViewController title="Products" id="gMe-4s-6cz" customClass="ProductTableViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="D6F-oT-6RW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -899,7 +899,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="76" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Name Cell" rowHeight="101" id="bWZ-hV-bq2" customClass="NameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="320" height="101"/>
+                                <rect key="frame" x="0.0" y="85.5" width="320" height="101"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bWZ-hV-bq2" id="ent-l2-AXm">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="100"/>
@@ -937,7 +937,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Ingredients Cell" textLabel="X8o-xL-JHq" style="IBUITableViewCellStyleDefault" id="g3L-y0-JWY" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="187" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="186.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g3L-y0-JWY" id="6bU-jH-Edw">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -954,7 +954,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Nutrition Facts Name Cell" textLabel="eWS-0h-9I9" style="IBUITableViewCellStyleDefault" id="u6b-Yx-iDU" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="231" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="230.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u6b-Yx-iDU" id="Qok-7i-4Pu">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -971,7 +971,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Nutrition Score Cell" id="boP-ux-vyF" customClass="NutritionScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="275" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="274.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="boP-ux-vyF" id="fbs-DK-n1R">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1055,7 +1055,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Producer Cell" textLabel="wud-xG-KwE" style="IBUITableViewCellStyleDefault" id="Fde-me-f3L" userLabel="Production Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="319" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="318.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fde-me-f3L" id="E1b-fC-kgQ">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1072,7 +1072,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Categories Cell" textLabel="v3K-8N-MNq" style="IBUITableViewCellStyleDefault" id="oa3-dE-ble" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="363" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="362.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oa3-dE-ble" id="s44-5e-9qk">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1089,7 +1089,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Completion State Cell" rowHeight="44" id="aDa-2B-qYf" userLabel="Product Completion Cell" customClass="CompletionTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="407" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="406.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aDa-2B-qYf" id="pgA-Rg-zGf">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1123,7 +1123,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Being Loaded Cell" id="KO8-HA-oMU" userLabel="Being Loaded Cell" customClass="BeingLoadedTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="451" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="450.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KO8-HA-oMU" id="Sn6-4w-I0S">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1146,7 +1146,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Traces Cell" textLabel="nva-Fb-0pI" style="IBUITableViewCellStyleDefault" id="diJ-34-7ph" userLabel="Product Traces Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="495" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="494.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="diJ-34-7ph" id="hAt-o5-ItA">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1163,7 +1163,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Allergens Cell" textLabel="ncG-ut-Pdi" style="IBUITableViewCellStyleDefault" id="3H7-hv-cau" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="539" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="538.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3H7-hv-cau" id="kzY-hI-bhS">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1199,6 +1199,8 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="700"/>
                     <connections>
                         <outlet property="downTwoFingerSwipe" destination="T79-dC-ES5" id="6DG-fw-mjU"/>
                         <outlet property="searchTextField" destination="gZ8-Lt-wU3" id="dnT-WO-YO7"/>
@@ -1213,14 +1215,14 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-616.875" y="408.75"/>
+            <point key="canvasLocation" x="774" y="409"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="ehe-4M-pkI">
             <objects>
                 <splitViewController id="a8d-2e-7z8" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="hYb-mr-zvw" kind="relationship" relationship="masterViewController" id="Lkr-7r-F0u"/>
+                        <segue destination="7r7-kU-whP" kind="relationship" relationship="masterViewController" id="Lkr-7r-F0u"/>
                         <segue destination="bDa-Ia-c5K" kind="relationship" relationship="detailViewController" id="1lc-8h-qsb"/>
                     </connections>
                 </splitViewController>
@@ -1798,7 +1800,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aiJ-g5-BQo" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="zGj-D5-9J3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3761" y="1595"/>
+            <point key="canvasLocation" x="4756.875" y="1595"/>
         </scene>
         <!--Product Page View Controller-->
         <scene sceneID="46m-HG-jtN">
@@ -1826,7 +1828,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2AQ-b9-qBA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2745" y="1595"/>
+            <point key="canvasLocation" x="3742.5" y="1595"/>
         </scene>
         <!--Completion States Table View Controller-->
         <scene sceneID="8lG-vS-ghb">
@@ -3061,6 +3063,7 @@
         <scene sceneID="RSI-qe-sXU">
             <objects>
                 <navigationController title="Products" automaticallyAdjustsScrollViewInsets="NO" id="hYb-mr-zvw" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="recents" id="qml-Z8-ZBg"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tRv-W4-6M9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3073,7 +3076,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vci-B7-nEW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1758" y="409"/>
+            <point key="canvasLocation" x="-405" y="-184"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="RGQ-Fq-Xl5">
@@ -3092,7 +3095,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N7K-18-z0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1856" y="1596"/>
+            <point key="canvasLocation" x="2851.875" y="1595"/>
         </scene>
         <!--Main Language View Controller-->
         <scene sceneID="Gtb-19-kfH">
@@ -3143,6 +3146,43 @@
             </objects>
             <point key="canvasLocation" x="296.25" y="4108.75"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="1tT-hh-KEW">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7r7-kU-whP" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="eqY-je-PQ9">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="hYb-mr-zvw" kind="relationship" relationship="viewControllers" id="pzp-ZT-wkH"/>
+                        <segue destination="6Uk-YA-eXo" kind="relationship" relationship="viewControllers" id="ksv-G5-RF5"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W3W-yb-fJZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1494.375" y="408.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oZk-M4-j50">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="6Uk-YA-eXo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" systemItem="search" id="68B-S3-i18"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l6d-JL-jka">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="gMe-4s-6cz" kind="relationship" relationship="rootViewController" id="ssy-1Q-8zi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2GN-no-qde" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-405" y="888"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Agenda" width="25" height="25"/>
@@ -3156,9 +3196,10 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GR8-bW-x6k"/>
+        <segue reference="GUZ-MJ-1ik"/>
         <segue reference="Bpf-rD-vDt"/>
         <segue reference="TJD-zt-Jpp"/>
-        <segue reference="GUZ-MJ-1ik"/>
+        <segue reference="bL1-eB-rEY"/>
+        <segue reference="GR8-bW-x6k"/>
     </inferredMetricsTieBreakers>
 </document>
