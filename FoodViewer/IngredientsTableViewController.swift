@@ -51,6 +51,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     enum tagsType {
         case original
         case interpreted
+        case edited
     }
     
     private var showLabelsTagsType: tagsType = .original
@@ -60,6 +61,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch showLabelsTagsType {
             case .interpreted:
+                return product!.labelArray
+            case .original:
+                return product!.originalLabels
+            default:
                 // is an updated product available?
                 if delegate?.updatedProduct != nil {
                     // does it have brands defined?
@@ -70,8 +75,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         break
                     }
                 }
-                return product!.labelArray
-            case .original:
                 return product!.originalLabels
             }
         }
@@ -105,6 +108,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
+                // show in editMode the edited tags, as entered by the user
+                if delegate?.updatedProduct?.originalLabels == nil {
+                    showLabelsTagsType = editMode ? .edited : .original
+                } else {
+                    showLabelsTagsType = .edited
+                }
+
                 tableView.reloadData()
             }
         }

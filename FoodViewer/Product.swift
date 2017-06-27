@@ -763,6 +763,7 @@ class FoodProduct {
             ingredientsImages = product.ingredientsImages
             nutritionImages = product.nutritionImages
             packagingArray = product.packagingArray
+            originalPackagingTags = product.originalPackagingTags
             quantity = product.quantity
             ingredientsLanguage = product.ingredientsLanguage
             numberOfIngredients = product.numberOfIngredients
@@ -770,6 +771,7 @@ class FoodProduct {
             traceKeys = product.traceKeys
             additives = product.additives
             labelArray = product.labelArray
+            originalLabels = product.originalLabels
             producer = product.producer
             ingredientsOrigin = product.ingredientsOrigin
             producerCode = product.producerCode

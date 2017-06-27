@@ -27,7 +27,11 @@ class OFFProducts {
         case search
     }
     
-    var list = ProductsTab.recent
+    var list = ProductsTab.recent {
+        didSet {
+            loadAll()
+        }
+    }
     
     // no search has been set at the start
     var search: OFF.SearchComponent? = nil

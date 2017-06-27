@@ -219,7 +219,8 @@ class OpenFoodFactsRequest {
         // the labels as interpreted by OFF (a list of strings)
         product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsTagsKey].stringArray))
         // the labels as the user has entered them (a comma delimited string)
-        product.originalLabels = Tags(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsKey].string)
+        let tags = Tags(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsKey].string)
+        product.originalLabels = tags
         
         product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
         
@@ -366,12 +367,12 @@ class OpenFoodFactsRequest {
         product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
         // it happens that the primary language code is not defined
         if let lc = product.primaryLanguageCode {
+            let tags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc)
             product.packagingArray = Tags.init(withList:jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, and: lc)
-            product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc)
+            product.originalPackagingTags = tags
         } else {
             product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray)
             product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
-            
         }
         
         product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string

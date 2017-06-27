@@ -639,6 +639,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let tabVC = self.parent?.parent as? UITabBarController {
             // start out with the history tab
             tabVC.selectedIndex = 0
+            // show history products
+            products.list = .recent
+            products.search = nil
+            products.searchValue = nil
         }
     }
     
@@ -651,13 +655,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         initializeCustomKeyboard()
         
         if let tabVC = self.parent?.parent as? UITabBarController {
-            if tabVC.selectedIndex == 0 {
-                // show history products
-                products.list = .recent
-            } else if tabVC.selectedIndex == 1 {
-                // show search products
-                products.list = .search
-            }
+            tabVC.delegate = self
         }
         // Preferences.manager
         startInterface()
@@ -713,6 +711,26 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
         //Identify gesture recognizer and return true else false.
         return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
     }
+}
+   
+extension ProductTableViewController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if tabBarController.selectedIndex == 0 {
+            // show history products
+            products.list = .recent
+            // reset the search
+            products.search = nil
+            products.searchValue = nil
+        } else {
+            products.list = .search
+            // try out with this
+            products.search = OFF.SearchComponent.purchasePlace
+            products.searchValue = "veynes"
+        }
+        startInterface()
+    }
+    
 }
 
 

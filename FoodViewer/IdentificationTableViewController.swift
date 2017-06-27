@@ -89,6 +89,14 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
+                
+                // show in editMode the edited tags, as entered by the user
+                if delegate?.updatedProduct?.originalPackagingTags == nil {
+                    showPackagingTagsType = editMode ? .edited : .original
+                } else {
+                    showPackagingTagsType = .edited
+                }
+                
                 tableView.reloadData()
             }
         }
@@ -124,6 +132,7 @@ class IdentificationTableViewController: UITableViewController {
     enum tagsType {
         case original
         case interpreted
+        case edited
     }
     
     private var showPackagingTagsType: tagsType = .original
@@ -132,6 +141,10 @@ class IdentificationTableViewController: UITableViewController {
         get {
             switch showPackagingTagsType {
             case .interpreted:
+                return product!.packagingArray
+            case .original:
+                return product!.originalPackagingTags
+            default:
                 // is an updated product available?
                 if delegate?.updatedProduct != nil {
                     // does it have brands defined?
@@ -142,8 +155,6 @@ class IdentificationTableViewController: UITableViewController {
                         break
                     }
                 }
-                return product!.packagingArray
-            case .original:
                 return product!.originalPackagingTags
             }
         }
@@ -644,23 +655,6 @@ class IdentificationTableViewController: UITableViewController {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSelectMainLanguage, sender: sender)
         }
     }
-    
-    /*
-    func imageHasBeenUpdated(_ notification: Notification) {
-        if notification.userInfo?[SelectImageSourceViewController.Notification.ImageTypeKey] as! String == SelectImageSourceViewController.Notification.FrontValue {
-            // update the updatedProduct with the new image
-            var image: UIImage? = nil
-            image = notification.userInfo?[UIImagePickerControllerEditedImage] as? UIImage
-            if image == nil {
-                image = notification.userInfo?[UIImagePickerControllerOriginalImage] as? UIImage
-            }
-            if image != nil {
-                delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
-                tableView.reloadData()
-            }
-        }
-    }
-     */
     
     func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
