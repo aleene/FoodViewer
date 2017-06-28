@@ -56,7 +56,7 @@ public struct OFF {
         case country = "country"
         case label = "label"
         case language = "language"
-        case purchasePlace = "purchasePlace"
+        case purchasePlace = "purchase-place"
     }
 
     static func fetchString(for barcode: BarcodeType, with productType: ProductType) -> String {

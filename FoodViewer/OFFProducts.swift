@@ -41,6 +41,7 @@ class OFFProducts {
 
     //  Contains all the fetch results for all product types
     private var allProductFetchResultList: [ProductFetchStatus?] = []
+    private var allSearchFetchResultList: [ProductFetchStatus?] = []
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
@@ -52,16 +53,33 @@ class OFFProducts {
 
     private func setCurrentProducts() {
         var list: [ProductFetchStatus] = []
-        for fetchResult in allProductFetchResultList {
-            if fetchResult != nil {
-                switch fetchResult! {
-                case .success(let product):
-                    if let producttype = product.type?.rawValue {
-                        if producttype == currentProductType.rawValue {
-                            list.append(fetchResult!)
+        switch self.list {
+        case .recent:
+            for fetchResult in allProductFetchResultList {
+                if fetchResult != nil {
+                    switch fetchResult! {
+                    case .success(let product):
+                        if let producttype = product.type?.rawValue {
+                            if producttype == currentProductType.rawValue {
+                                list.append(fetchResult!)
+                            }
                         }
+                    default: break
                     }
-                default: break
+                }
+            }
+        case .search:
+            for fetchResult in allSearchFetchResultList {
+                if fetchResult != nil {
+                    switch fetchResult! {
+                    case .success(let product):
+                        if let producttype = product.type?.rawValue {
+                            if producttype == currentProductType.rawValue {
+                                list.append(fetchResult!)
+                            }
+                        }
+                    default: break
+                    }
                 }
             }
         }
@@ -249,7 +267,7 @@ class OFFProducts {
                     let startIndex = 1 <= storedHistory.barcodeTuples.count ? 1 : storedHistory.barcodeTuples.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? batchSize - 1 : storedHistory.barcodeTuples.count - 1
                     for index in startIndex...endIndex {
-                        print(storedHistory.barcodeTuples[index].1, currentProductType.rawValue)
+                        // print(storedHistory.barcodeTuples[index].1, currentProductType.rawValue)
                         fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(barcodeTuple: storedHistory.barcodeTuples[index])), index:index)
                     }
                 }
@@ -471,7 +489,7 @@ class OFFProducts {
         case .search:
             // Is there a search setup?
             if search != nil {
-                allProductFetchResultList = []
+                allSearchFetchResultList = []
                 // load the most recent product from the local storage
                 if let validSearchComponent = search,
                     let validSearchValue = searchValue {
@@ -482,7 +500,7 @@ class OFFProducts {
                             switch fetchResult {
                             case .list(let productList):
                                 for product in productList {
-                                    self.allProductFetchResultList.append(.success(product))
+                                    self.allSearchFetchResultList.append(.success(product))
                                 }
                                 self.setCurrentProducts()
                                 NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
@@ -512,7 +530,7 @@ class OFFProducts {
                     if product.barcode.asString() == updatedProduct.barcode.asString() {
                         // replace the existing product with the data of the new product
                         product.updateDataWith(updatedProduct)
-                        // i sthis the first product in the list
+                        // is this the first product in the list
                         if index == 0 {
                             // then the stored version must also be updated with this new product
                             saveMostRecentProduct(product.barcode)

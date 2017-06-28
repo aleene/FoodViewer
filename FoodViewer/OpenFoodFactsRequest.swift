@@ -154,7 +154,7 @@ class OpenFoodFactsRequest {
         // All the fields available in the barcode.json are listed below
         // Those that are not used at the moment are edited out
         
-        
+        // is this a single product page
         if let resultStatus = jsonObject[jsonKeys.StatusKey].int {
             if resultStatus == 0 {
                 // barcode NOT found in database
@@ -168,11 +168,12 @@ class OpenFoodFactsRequest {
             } else if resultStatus == 1 {
                 // barcode exists in OFF database
                 // print(product.name, product.nutritionFacts)
-                return ProductFetchStatus.success(decode(jsonObject))
+                return ProductFetchStatus.success(decode(JSON.init(jsonObject[jsonKeys.ProductKey].dictionaryValue) ))
             } else {
                 return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Other (>1) result status", comment: "A JSON status which is not supported."))
             }
-        } else if let jsonProducts = jsonObject[jsonKeys.ProductsKey].arrayObject as? [JSON] {
+        // is this a multi product page?
+        } else if let jsonProducts = jsonObject[jsonKeys.ProductsKey].array {
             var products: [FoodProduct] = []
             for jsonProduct in jsonProducts {
                 let product = decode(jsonProduct)
@@ -180,7 +181,7 @@ class OpenFoodFactsRequest {
             }
             return ProductFetchStatus.list(products)
         } else {
-            return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: No result status in JSON", comment: "Error message when the json input file does not contain any information") )
+            return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Not a valid OFF JSON", comment: "Error message when the json input file does not contain any information") )
         }
 
     }
@@ -195,8 +196,8 @@ class OpenFoodFactsRequest {
 
         let product = FoodProduct()
         
-        // print(jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string)
-        product.primaryLanguageCode = jsonObject[jsonKeys.ProductKey][jsonKeys.LangKey].string
+        // print(jsonObject[jsonKeys.LangKey].string)
+        product.primaryLanguageCode = jsonObject[jsonKeys.LangKey].string
         
         if let validCurrentBarcode = currentBarcode,
             let validJsonBarcodeString = jsonObject[jsonKeys.CodeKey].string{
@@ -211,21 +212,21 @@ class OpenFoodFactsRequest {
         }
         
         
-        // product.mainUrlThumb = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontSmallUrlKey].url
+        // product.mainUrlThumb = jsonObject[jsonKeys.ImageFrontSmallUrlKey].url
         
-        decodeCompletionStates(jsonObject[jsonKeys.ProductKey][jsonKeys.StatesTagsKey].stringArray, product:product)
-        decodeLastEditDates(jsonObject[jsonKeys.ProductKey][jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
+        decodeCompletionStates(jsonObject[jsonKeys.StatesTagsKey].stringArray, product:product)
+        decodeLastEditDates(jsonObject[jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
-        product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsTagsKey].stringArray))
+        product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.LabelsTagsKey].stringArray))
         // the labels as the user has entered them (a comma delimited string)
-        let tags = Tags(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsKey].string)
+        let tags = Tags(jsonObject[jsonKeys.LabelsKey].string)
         product.originalLabels = tags
         
-        product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
+        product.traceKeys = jsonObject[jsonKeys.TracesTagsKey].stringArray
         
         
-        if let languages = jsonObject[jsonKeys.ProductKey][jsonKeys.LanguagesHierarchy].stringArray {
+        if let languages = jsonObject[jsonKeys.LanguagesHierarchy].stringArray {
             // product.languageCodes = []
             for language in languages {
                 let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
@@ -234,15 +235,15 @@ class OpenFoodFactsRequest {
                     product.languageCodes.append(isoCode)
                 }
                 var key = jsonKeys.IngredientsTextKey + "_" + isoCode
-                product.ingredientsLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
+                product.ingredientsLanguage[isoCode] = jsonObject[key].string
                 key = jsonKeys.ProductNameKey + "_" + isoCode
-                product.nameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
+                product.nameLanguage[isoCode] = jsonObject[key].string
                 key = jsonKeys.GenericNameKey + "_" + isoCode
-                product.genericNameLanguage[isoCode] = jsonObject[jsonKeys.ProductKey][key].string
+                product.genericNameLanguage[isoCode] = jsonObject[key].string
             }
         }
         // print(product.name)
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -255,7 +256,7 @@ class OpenFoodFactsRequest {
             product.frontImages?.display = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.ThumbKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.ThumbKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -268,7 +269,7 @@ class OpenFoodFactsRequest {
             product.frontImages?.thumb = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.SmallKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.SmallKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -281,7 +282,7 @@ class OpenFoodFactsRequest {
             product.frontImages?.small = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.DisplayKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.DisplayKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -294,7 +295,7 @@ class OpenFoodFactsRequest {
             product.nutritionImages?.display = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.ThumbKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.ThumbKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -307,7 +308,7 @@ class OpenFoodFactsRequest {
             product.nutritionImages?.thumb = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.SmallKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.SmallKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -320,7 +321,7 @@ class OpenFoodFactsRequest {
             product.nutritionImages?.small = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.DisplayKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.DisplayKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -333,7 +334,7 @@ class OpenFoodFactsRequest {
             product.ingredientsImages?.display = images
         }
         
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.ThumbKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.ThumbKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -345,7 +346,7 @@ class OpenFoodFactsRequest {
             if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
             product.ingredientsImages?.thumb = images
         }
-        if let valid = jsonObject[jsonKeys.ProductKey][jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
             var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
@@ -360,30 +361,30 @@ class OpenFoodFactsRequest {
         
         // print(product.name, product.languageCodes, product.nameLanguage)
         // Is no longer needed, is part of the language array
-        // product.genericName = jsonObject[jsonKeys.ProductKey][jsonKeys.GenericNameKey].string
-        product.additives = Tags(decodeAdditives(jsonObject[jsonKeys.ProductKey][jsonKeys.AdditivesTagsKey].stringArray))
+        // product.genericName = jsonObject[jsonKeys.GenericNameKey].string
+        product.additives = Tags(decodeAdditives(jsonObject[jsonKeys.AdditivesTagsKey].stringArray))
         
-        product.informers = jsonObject[jsonKeys.ProductKey][jsonKeys.InformersTagsKey].stringArray
-        product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
+        product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
+        product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
         // it happens that the primary language code is not defined
         if let lc = product.primaryLanguageCode {
-            let tags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc)
-            product.packagingArray = Tags.init(withList:jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, and: lc)
+            let tags = Tags.init(jsonObject[jsonKeys.PackagingKey].string, with: lc)
+            product.packagingArray = Tags.init(withList:jsonObject[jsonKeys.PackagingTagsKey].stringArray, and: lc)
             product.originalPackagingTags = tags
         } else {
-            product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray)
-            product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
+            product.packagingArray = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
+            product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
         }
         
-        product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
+        product.numberOfIngredients = jsonObject[jsonKeys.IngredientsNKey].string
         
-        product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
-        product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string)
+        product.set(countries:decodeCountries(jsonObject[jsonKeys.CountriesTagsKey].stringArray))
+        product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesKey].string)
         
-        product.brands = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
+        product.brands = Tags.init(jsonObject[jsonKeys.BrandsKey].string)
         
         // The links for the producer are stored as a string. This string might contain multiple links.
-        let linksString = jsonObject[jsonKeys.ProductKey][jsonKeys.LinkKey].string
+        let linksString = jsonObject[jsonKeys.LinkKey].string
         if let validLinksString = linksString {
             // assume that the links are separated by a comma ","
             let validLinksComponents = validLinksString.characters.split{$0 == ","}.map(String.init)
@@ -394,44 +395,44 @@ class OpenFoodFactsRequest {
                 }
             }
         }
-        product.server = jsonObject[jsonKeys.ProductKey][jsonKeys.NewServerKey].string
+        product.server = jsonObject[jsonKeys.NewServerKey].string
         
-        product.purchaseLocationString(jsonObject[jsonKeys.ProductKey][jsonKeys.PurchasePlacesKey].string)
-        //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionUrlKey].url
-        // product.ingredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsTextKey].string
+        product.purchaseLocationString(jsonObject[jsonKeys.PurchasePlacesKey].string)
+        //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ImageNutritionUrlKey].url
+        // product.ingredients = jsonObject[jsonKeys.IngredientsTextKey].string
         
-        product.editors = jsonObject[jsonKeys.ProductKey][jsonKeys.EditorsTagsKey].stringArray
-        product.additionDate = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatedTKey].time
-        // product.name = jsonObject[jsonKeys.ProductKey][jsonKeys.ProductNameKey].string
-        product.creator = jsonObject[jsonKeys.ProductKey][jsonKeys.CreatorKey].string
-        //product.mainImageUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageFrontUrlKey].url
-        product.hasNutritionFacts = decodeNutritionDataAvalailable(jsonObject[jsonKeys.ProductKey][jsonKeys.NoNutritionDataKey].string)
-        product.servingSize = jsonObject[jsonKeys.ProductKey][jsonKeys.ServingSizeKey].string
+        product.editors = jsonObject[jsonKeys.EditorsTagsKey].stringArray
+        product.additionDate = jsonObject[jsonKeys.CreatedTKey].time
+        // product.name = jsonObject[jsonKeys.ProductNameKey].string
+        product.creator = jsonObject[jsonKeys.CreatorKey].string
+        //product.mainImageUrl = jsonObject[jsonKeys.ImageFrontUrlKey].url
+        product.hasNutritionFacts = decodeNutritionDataAvalailable(jsonObject[jsonKeys.NoNutritionDataKey].string)
+        product.servingSize = jsonObject[jsonKeys.ServingSizeKey].string
         var grade: NutritionalScoreLevel = .undefined
-        grade.string(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionGradeFrKey].string)
+        grade.string(jsonObject[jsonKeys.NutritionGradeFrKey].string)
         product.nutritionGrade = grade
         
         
-        let nutrientLevelsSalt = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaltKey].string
-        let nutrientLevelsFat = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
-        let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
-        let nutrientLevelsSugars = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
-        product.stores = jsonObject[jsonKeys.ProductKey][jsonKeys.StoresKey].string?.components(separatedBy: ",")
-        //product.imageIngredientsUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsUrlKey].url
-        (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionScoreDebugKey].string)
-        //product.imageNutritionSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageNutritionSmallUrlKey].url
-        product.correctors = jsonObject[jsonKeys.ProductKey][jsonKeys.CorrectorsTagsKey].stringArray
+        let nutrientLevelsSalt = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaltKey].string
+        let nutrientLevelsFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
+        let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
+        let nutrientLevelsSugars = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
+        product.stores = jsonObject[jsonKeys.StoresKey].string?.components(separatedBy: ",")
+        //product.imageIngredientsUrl = jsonObject[jsonKeys.ImageIngredientsUrlKey].url
+        (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.NutritionScoreDebugKey].string)
+        //product.imageNutritionSmallUrl = jsonObject[jsonKeys.ImageNutritionSmallUrlKey].url
+        product.correctors = jsonObject[jsonKeys.CorrectorsTagsKey].stringArray
         
-        //product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ProductKey][jsonKeys.ImageIngredientsSmallUrlKey].url
-        product.ingredientsOriginElements(jsonObject[jsonKeys.ProductKey][jsonKeys.OriginsTagsKey].stringArray)
-        product.producerElements(jsonObject[jsonKeys.ProductKey][jsonKeys.ManufacturingPlacesKey].string)
-        product.categories = Tags(decodeCategories(jsonObject[jsonKeys.ProductKey][jsonKeys.CategoriesTagsKey].stringArray))
-        product.quantity = jsonObject[jsonKeys.ProductKey][jsonKeys.QuantityKey].string
-        product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.ProductKey][jsonKeys.NutritionDataPerKey].string)
-        product.periodAfterOpeningString  = jsonObject[jsonKeys.ProductKey][jsonKeys.PeriodsAfterOpeningKey].string
-        product.expirationDateString = jsonObject[jsonKeys.ProductKey][jsonKeys.ExpirationDateKey].string
-        product.allergenKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.AllergensTagsKey].stringArray
-        if let ingredientsJSON = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsKey].array {
+        //product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ImageIngredientsSmallUrlKey].url
+        product.ingredientsOriginElements(jsonObject[jsonKeys.OriginsTagsKey].stringArray)
+        product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
+        product.categories = Tags(decodeCategories(jsonObject[jsonKeys.CategoriesTagsKey].stringArray))
+        product.quantity = jsonObject[jsonKeys.QuantityKey].string
+        product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.NutritionDataPerKey].string)
+        product.periodAfterOpeningString  = jsonObject[jsonKeys.PeriodsAfterOpeningKey].string
+        product.expirationDateString = jsonObject[jsonKeys.ExpirationDateKey].string
+        product.allergenKeys = jsonObject[jsonKeys.AllergensTagsKey].stringArray
+        if let ingredientsJSON = jsonObject[jsonKeys.IngredientsKey].array {
             var ingredients: [ingredientsElement] = []
             for ingredientsJSONElement in ingredientsJSON {
                 var element = ingredientsElement()
@@ -578,17 +579,17 @@ class OpenFoodFactsRequest {
         nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
         
         // value of a _100g field is either a number or a string
-        if let doubleValue = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].double {
+        if let doubleValue = jsonObject[jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].double {
             nutritionItem.standardValue = "\(doubleValue)"
-        } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
+        } else if let value = jsonObject[jsonKeys.NutrimentsKey][key+Appendix.HunderdKey].string {
             nutritionItem.standardValue = value
         } else {
             nutritionItem.standardValue = nil
         }
         
-        if let doubleValue = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].double {
+        if let doubleValue = jsonObject[jsonKeys.NutrimentsKey][key+Appendix.ServingKey].double {
             nutritionItem.servingValue = "\(doubleValue)"
-        } else if let value = jsonObject[jsonKeys.ProductKey][jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
+        } else if let value = jsonObject[jsonKeys.NutrimentsKey][key+Appendix.ServingKey].string {
             nutritionItem.servingValue = value
         } else {
             nutritionItem.servingValue = nil

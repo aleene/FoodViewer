@@ -723,10 +723,11 @@ extension ProductTableViewController: UITabBarControllerDelegate {
             products.search = nil
             products.searchValue = nil
         } else {
-            products.list = .search
             // try out with this
             products.search = OFF.SearchComponent.purchasePlace
             products.searchValue = "veynes"
+
+            products.list = .search
         }
         startInterface()
     }
