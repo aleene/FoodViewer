@@ -55,6 +55,7 @@ class FoodProduct {
     var genericNameLanguage = [String:String?]()
     
     var brands: Tags = .undefined
+    var brandsTags: Tags = .undefined
     
     var primaryLanguageCode: String? = nil {
         didSet {
@@ -577,6 +578,7 @@ class FoodProduct {
     init() {
         barcode = BarcodeType.undefined("", Preferences.manager.showProductType)
         brands = .undefined
+        brandsTags = .undefined
         //mainUrlThumb = nil
         //mainImageUrl = nil
         //mainImageData = nil
@@ -759,6 +761,7 @@ class FoodProduct {
             nameLanguage = product.nameLanguage
             genericNameLanguage = product.genericNameLanguage
             brands = product.brands
+            brandsTags = product.brandsTags
             frontImages = product.frontImages
             ingredientsImages = product.ingredientsImages
             nutritionImages = product.nutritionImages

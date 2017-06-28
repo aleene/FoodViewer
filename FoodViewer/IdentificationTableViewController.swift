@@ -990,6 +990,34 @@ extension IdentificationTableViewController: TagListViewDelegate {
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
+            switch product!.brandsTags {
+            case .available:
+                let rawTag = product!.brandsTags.tagWithoutPrefix(index)
+                OFFProducts.manager.searchValue = rawTag
+                OFFProducts.manager.search = OFF.SearchComponent.brand
+                OFFProducts.manager.list = .search
+            default:
+                break
+            }
+        case .packaging:
+            switch product!.packagingArray {
+            case .available:
+                let rawTag = product!.packagingArray.tagWithoutPrefix(index)
+                OFFProducts.manager.searchValue = rawTag
+                OFFProducts.manager.search = OFF.SearchComponent.packaging
+                OFFProducts.manager.list = .search
+            default:
+                break
+            }
+        default:
+            break
+        }
+    }
+    
 }
 
 // MARK: - UITextField Delegate Functions

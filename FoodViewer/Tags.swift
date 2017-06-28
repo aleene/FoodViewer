@@ -80,6 +80,18 @@ public enum Tags {
         }
     }
     
+    public func tagWithoutPrefix(_ index: Int) -> String? {
+        if let currentTag = self.tag(index) {
+            if currentTag.hasPrefix(":") {
+                return currentTag.characters.split{ $0 == ":" }.map(String.init)[1]
+            } else {
+                return currentTag
+            }
+        } else {
+            return nil
+        }
+    }
+
     public mutating func remove(_ index: Int) {
         switch self {
         case .available(var newList):

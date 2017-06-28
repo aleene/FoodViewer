@@ -18,6 +18,7 @@ class OFFProducts {
     
     internal struct Notification {
         static let BarcodeDoesNotExistKey = "OFFProducts.Notification.BarcodeDoesNotExist.Key"
+        static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
     }
     
     static let manager = OFFProducts()
@@ -503,7 +504,8 @@ class OFFProducts {
                                     self.allSearchFetchResultList.append(.success(product))
                                 }
                                 self.setCurrentProducts()
-                                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                                let userInfo = [Notification.SearchStringKey:validSearchValue]
+                                NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
                             case .loadingFailed(let error):
                                 let userInfo = ["error":error]
                                 self.handleLoadingFailed(userInfo)
@@ -572,12 +574,13 @@ class OFFProducts {
 // Notification definitions
 
 extension Notification.Name {
-    static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.Product Not Available")
+    static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.ProductNotAvailable")
     static let ProductLoaded = Notification.Name("OFFProducts.Notification.Product Loaded")
-    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.First Product Loaded")
-    static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.History Is Loaded")
-    static let ProductUpdated = Notification.Name("OFFProducts.Notification.Product Updated")
-    static let ProductLoadingError = Notification.Name("OFFProducts.Notification.Product Loading Error")
+    static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
+    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProduct oaded")
+    static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
+    static let ProductUpdated = Notification.Name("OFFProducts.Notification.ProductUpdated")
+    static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")
 }
 
 

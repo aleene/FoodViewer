@@ -93,7 +93,8 @@ class OpenFoodFactsRequest {
     func fetchProducts(for component: OFF.SearchComponent, with value:String) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // encode the url-string
-        let fetchUrl = URL(string: OFF.searchString(for: component, with: value))
+        let search = OFF.searchString(for: component, with: value)
+        let fetchUrl = URL(string:search)
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         if let url = fetchUrl {
             do {
@@ -382,6 +383,7 @@ class OpenFoodFactsRequest {
         product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesKey].string)
         
         product.brands = Tags.init(jsonObject[jsonKeys.BrandsKey].string)
+        product.brandsTags = Tags.init(jsonObject[jsonKeys.BrandsTagsKey].stringArray)
         
         // The links for the producer are stored as a string. This string might contain multiple links.
         let linksString = jsonObject[jsonKeys.LinkKey].string

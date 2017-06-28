@@ -616,6 +616,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func firstProductLoaded(_ notification: Notification) {
         startInterface()
     }
+    
+    func searchLoaded(_ notification: Notification) {
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            // start out with the history tab
+            tabVC.selectedIndex = 1
+        }
+        if let search = notification.userInfo?[OFFProducts.Notification.SearchStringKey] as? String {
+            self.title = search
+        }
+        startInterface()
+    }
+
 
 //    func addGesture() {
 //        let swipeGestureRecognizer = UISwipeGestureRecognizer.init(target: self, action:#selector(ProductTableViewController.nextProductType))
@@ -676,14 +688,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
-        // listen if a product has been changed through an update
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdateSucceeded, object:nil)
-        // listen to see if any images have been retrieved asynchronously
         NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
-        
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -723,10 +731,6 @@ extension ProductTableViewController: UITabBarControllerDelegate {
             products.search = nil
             products.searchValue = nil
         } else {
-            // try out with this
-            products.search = OFF.SearchComponent.purchasePlace
-            products.searchValue = "veynes"
-
             products.list = .search
         }
         startInterface()

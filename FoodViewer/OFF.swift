@@ -56,6 +56,7 @@ public struct OFF {
         case country = "country"
         case label = "label"
         case language = "language"
+        case packaging = "packaging"
         case purchasePlace = "purchase-place"
     }
 
