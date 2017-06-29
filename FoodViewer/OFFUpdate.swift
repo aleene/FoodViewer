@@ -95,6 +95,8 @@ class OFFUpdate {
         
         let interfaceLanguageCode = Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
 
+        let languageCodeToUse = product!.primaryLanguageCode != nil ? product!.primaryLanguageCode! : interfaceLanguageCode
+
         guard product != nil else { return .failure("OFFUpdate: No product defined") }
 
         var urlString = OFFWriteAPI.SecurePrefix
@@ -262,7 +264,9 @@ class OFFUpdate {
         switch product!.packagingArray {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + product!.packagingArray.prefixedList(interfaceLanguageCode).flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            // if a tag has no prefix, a profix must be added
+            let list = product!.packagingArray.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging)
@@ -274,7 +278,8 @@ class OFFUpdate {
         switch product!.labelArray {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + product!.labelArray.prefixedList(interfaceLanguageCode).flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            let list = product!.labelArray.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels)
@@ -286,7 +291,8 @@ class OFFUpdate {
         switch product!.traces {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + product!.traces.prefixedList(interfaceLanguageCode).flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            let list = product!.traces.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces)
@@ -298,7 +304,8 @@ class OFFUpdate {
         switch product!.categories {
         case .available:
             // take into account the language of the tags
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + product!.categories.prefixedList(interfaceLanguageCode).flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            let list = product!.categories.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories)
@@ -353,7 +360,6 @@ class OFFUpdate {
             }
         }
 
-        let languageCodeToUse = product!.primaryLanguageCode != nil ? product!.primaryLanguageCode! : interfaceLanguageCode
 
         if let frontImages = product!.frontImages?.display {
             uploadImages(frontImages, barcode: product!.barcode.asString(), id:"front", primaryLanguageCode: languageCodeToUse)

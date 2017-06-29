@@ -54,7 +54,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case edited
     }
     
-    private var showLabelsTagsType: tagsType = .original
+    // The interpreted labels have been translated to the interface language
+    private var showLabelsTagsType: tagsType = .interpreted
     
 
     fileprivate var labelsToDisplay: Tags {
@@ -876,13 +877,15 @@ extension IngredientsTableViewController: TagListViewDataSource {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .allergens:
-            return allergensToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return allergensToDisplay.tag(at:index)!
         case .traces:
-            return tracesToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return tracesToDisplay.tag(at:index)!
         case .additives:
-            return additivesToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return additivesToDisplay.tag(at:index)!
         case .labels:
-            return labelsToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            // remove any prefix for the interface language
+            let tit = labelsToDisplay.tag(at:index, in:Locale.interfaceLanguageCode())!
+            return tit
         case .image:
             return searchResult
         default: break
@@ -930,6 +933,10 @@ extension IngredientsTableViewController: LanguageHeaderDelegate {
     }
 }
 
-
+extension Locale {
+    static func interfaceLanguageCode() -> String {
+        return Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
+    }
+}
 
 

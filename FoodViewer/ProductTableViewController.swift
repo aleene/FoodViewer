@@ -623,7 +623,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             tabVC.selectedIndex = 1
         }
         if let search = notification.userInfo?[OFFProducts.Notification.SearchStringKey] as? String {
-            self.title = search
+            title = search
         }
         startInterface()
     }
@@ -676,14 +676,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // addGesture()
-        switch currentProductType {
-        case .food:
-            title = Constants.Title.Food
-        case .petFood:
-            title = Constants.Title.PetFood
-        case .beauty:
-            title = Constants.Title.Beauty
-        }
+        if OFFProducts.manager.list == .recent {
+            switch currentProductType {
+            case .food:
+                title = Constants.Title.Food
+            case .petFood:
+                title = Constants.Title.PetFood
+            case .beauty:
+                title = Constants.Title.Beauty
+            }
+        } // otherwise the search string will be used
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
