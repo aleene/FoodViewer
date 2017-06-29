@@ -139,24 +139,26 @@ class IdentificationTableViewController: UITableViewController {
     
     fileprivate var packagingToDisplay: Tags {
         get {
-            switch showPackagingTagsType {
-            case .interpreted:
-                return product!.packagingArray
-            case .original:
-                return product!.originalPackagingTags
-            default:
-                // is an updated product available?
-                if delegate?.updatedProduct != nil {
-                    // does it have brands defined?
-                    switch delegate!.updatedProduct!.packagingArray {
-                    case .available, .empty:
-                        return delegate!.updatedProduct!.packagingArray
-                    default:
-                        break
-                    }
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have edited packaging tags defined?
+                switch delegate!.updatedProduct!.originalPackagingTags {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.originalPackagingTags
+                default:
+                    break
                 }
-                return product!.originalPackagingTags
+            } else {
+                switch showPackagingTagsType {
+                case .interpreted:
+                    return product!.packagingArray
+                default:
+                    break
+                }
             }
+            // add the primary languagecode to tags without a languageCode and 
+            // remove the languageCode for tags that are in the interface languageCode
+            return product!.originalPackagingTags.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
         }
     }
     
@@ -854,38 +856,20 @@ extension IdentificationTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         // print("height", tagListView.frame.size.height)
+        
         func title(_ tags: Tags) -> String {
             switch tags {
             case .undefined, .empty:
                 return tags.description()
-            case let .available(list):
-                if index >= 0 && index < list.count {
-                    let tagParts = list[index].characters.split{ $0 == ":" }.map(String.init)
-                    if tagParts.isEmpty {
-                        // I guess this should not happen
-                        return "No tags"
-                    } else if tagParts.count == 1 {
-                        // Can this happen?
-                        return tagParts[0]
-                    }
-                    let preferredLanguage = Locale.preferredLanguages[0]
-                    let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
-                    if tagParts[0] == currentLanguage[0] {
-                        // strip the language part
-                        return tagParts[1]
-                    }
-                    // just use the entire string
-                    return list[index]
-                } else {
-                    assert(true, "Tags array - index out of bounds")
-                }
+            case .available:
+                return tags.tag(at:index) ?? "Tag index out of bounds"
             }
-            return "Tags array - index out of bounds"
         }
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brands:
+            // no language adjustments need to be done
             return title(brandsToDisplay)
         case .packaging:
             return title(packagingToDisplay)

@@ -80,6 +80,20 @@ public enum Tags {
 //    }
     
     // add a languageCode to tags that have no language and remove languageCode for another language
+    public func prefixed(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> Tags {
+        switch self {
+        case let .available(list):
+            if !list.isEmpty {
+                let newList = addPrefix(list, prefix: languageCode)
+                return .available(strip(newList, of:otherLanguageCode))
+            }
+        default:
+            break
+        }
+        return self
+    }
+
+    // add a languageCode to tags that have no language and remove languageCode for another language
     public func tags(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> [String] {
         switch self {
         case let .available(list):
@@ -117,6 +131,13 @@ public enum Tags {
         return self.tag(at: index) != nil ? strip(self.tag(at: index)!, of: languageCode) : nil
     }
     
+    // If the tag has a languageCode, remove it. And add
+    public func tag(at index: Int, withAdded languageCode: String, andRemoved otherLanguageCode: String) -> String? {
+        guard self.tag(at: index) != nil else { return nil }
+        let newString = strip(self.tag(at: index)!, of: otherLanguageCode)
+        return add(languageCode, to: newString)
+    }
+
     // remove a tag at an index if available
     public mutating func remove(_ index: Int) {
         switch self {
@@ -253,6 +274,11 @@ public enum Tags {
         return string.contains(":") ? string.characters.split{ $0 == ":" }.map(String.init)[1]
             : string
     }
+    
+    private func add(_ prefix: String, to string: String) -> String {
+        return string.contains(":") ? string : prefix + ":" + string
+    }
+
     
 //    private func tagWithoutPrefix(_ index: Int, locale:String) -> String? {
 //        if let currentTag = self.tag(index) {

@@ -261,11 +261,11 @@ class OFFUpdate {
             break
         }
 
-        switch product!.packagingArray {
+        switch product!.originalPackagingTags {
         case .available:
             // take into account the language of the tags
-            // if a tag has no prefix, a profix must be added
-            let list = product!.packagingArray.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            // if a tag has no prefix, a prefix must be added
+            let list = product!.originalPackagingTags.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -275,10 +275,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.labelArray {
+        switch product!.originalLabels {
         case .available:
             // take into account the language of the tags
-            let list = product!.labelArray.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product!.originalLabels.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:

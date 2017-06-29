@@ -52,32 +52,37 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case original
         case interpreted
         case edited
+        case translated
     }
     
     // The interpreted labels have been translated to the interface language
-    private var showLabelsTagsType: tagsType = .interpreted
+    private var showLabelsTagsType: tagsType = .translated
     
 
     fileprivate var labelsToDisplay: Tags {
         get {
-            switch showLabelsTagsType {
-            case .interpreted:
-                return product!.labelArray
-            case .original:
-                return product!.originalLabels
-            default:
-                // is an updated product available?
-                if delegate?.updatedProduct != nil {
-                    // does it have brands defined?
-                    switch delegate!.updatedProduct!.labelArray {
-                    case .available, .empty:
-                        return delegate!.updatedProduct!.labelArray
-                    default:
-                        break
-                    }
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have edited labels defined?
+                switch delegate!.updatedProduct!.originalLabels {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.originalLabels
+                default:
+                    break
                 }
-                return product!.originalLabels
+            } else {
+                switch showLabelsTagsType {
+                case .interpreted:
+                    return product!.labelArray
+                case .translated:
+                    return product!.translatedLabels()
+                default:
+                    break
+                }
             }
+            // add the primary languagecode to tags without a languageCode and
+            // remove the languageCode for tags that are in the interface languageCode
+            return product!.originalLabels.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
         }
     }
 
@@ -557,7 +562,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     // MARK: - Notification handler
     
     func changeShowLabelsTagsType() {
-        showLabelsTagsType = showLabelsTagsType == .interpreted ? .original : .interpreted
+        switch showLabelsTagsType {
+        case .original:
+            showLabelsTagsType = .translated
+        case .translated:
+            showLabelsTagsType = .interpreted
+        case .interpreted:
+            showLabelsTagsType = .original
+        case .edited:
+            return
+        }
+        
         for (index, (currentProductSection, _, _)) in tableStructureForProduct.enumerated() {
             // let (currentProductSection, _, _) = tableStructureForProduct[index]
             switch currentProductSection {
@@ -883,9 +898,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .additives:
             return additivesToDisplay.tag(at:index)!
         case .labels:
-            // remove any prefix for the interface language
-            let tit = labelsToDisplay.tag(at:index, in:Locale.interfaceLanguageCode())!
-            return tit
+            return labelsToDisplay.tag(at:index)!
         case .image:
             return searchResult
         default: break

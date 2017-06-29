@@ -219,7 +219,7 @@ class OpenFoodFactsRequest {
         decodeLastEditDates(jsonObject[jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
-        product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.LabelsTagsKey].stringArray))
+        product.labelArray = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray)
         // the labels as the user has entered them (a comma delimited string)
         let tags = Tags(jsonObject[jsonKeys.LabelsKey].string)
         product.originalLabels = tags
@@ -367,7 +367,7 @@ class OpenFoodFactsRequest {
         
         product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
         product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
-        // it happens that the primary language code is not defined
+
         product.packagingArray = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
         product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
         
@@ -663,18 +663,6 @@ class OpenFoodFactsRequest {
                 translatedCountries!.append(OFFplists.manager.translateCountries(country, language:preferredLanguage))
             }
             return translatedCountries
-        }
-        return nil
-    }
-
-    fileprivate func decodeGlobalLabels(_ labels: [String]?) -> [String]? {
-        if let labelsArray = labels {
-            var translatedLabels:[String]? = []
-            let preferredLanguage = Locale.preferredLanguages[0]
-            for label in labelsArray {
-                translatedLabels!.append(OFFplists.manager.translateGlobalLabels(label, language:preferredLanguage))
-            }
-            return translatedLabels
         }
         return nil
     }

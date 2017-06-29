@@ -1015,6 +1015,25 @@ class FoodProduct {
     func contains(availability: Bool) -> Bool {
         return availability == self.hasNutritionFacts ? true : false
     }
+    
+    func translatedLabels() -> Tags {
+        switch labelArray {
+        case let .available(list):
+            if !list.isEmpty {
+                var translatedLabels:[String] = []
+                let preferredLanguage = Locale.preferredLanguages[0]
+                for label in list {
+                        translatedLabels.append(OFFplists.manager.translateGlobalLabels(label, language:preferredLanguage))
+                }
+                return .available(translatedLabels)
+            } else {
+                return .empty
+            }
+        default:
+            return labelArray
+        }
+    }
+
 
 // End product
 }
