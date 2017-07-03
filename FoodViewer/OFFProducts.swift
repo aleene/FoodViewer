@@ -498,9 +498,9 @@ class OFFProducts {
                 NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
             }
         case .search:
+            allSearchFetchResultList = []
             // Is there a search setup?
             if search != nil {
-                allSearchFetchResultList = []
                 // load the most recent product from the local storage
                 if let validSearchComponent = search,
                     let validSearchValue = searchValue {
@@ -527,7 +527,12 @@ class OFFProducts {
                         })
                     })
                 }
+            } else {
+                setCurrentProducts()
+                let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
+                NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
             }
+
         }
     }
     

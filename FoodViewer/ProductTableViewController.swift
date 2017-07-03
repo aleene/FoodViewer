@@ -16,8 +16,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let Food = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
             static let PetFood = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
             static let Beauty = NSLocalizedString("Beauty Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
+            static let NoSearch = NSLocalizedString("Search Undefined", comment: "Title of ViewController when no search has been defined.")
         }
-        static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
+        // static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
         static let AlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
         static let AlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
         static let AlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
@@ -67,6 +68,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             selectedProduct = nil
             tableView.reloadData()
         }
+        setTitle()
     }
     
     fileprivate func refreshInterface() {
@@ -88,7 +90,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 title = Constants.Title.Beauty
             }
         } else {
-            title = products.searchValue
+            title = products.searchValue ?? Constants.Title.NoSearch
         }
     }
     
@@ -733,17 +735,7 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
 extension ProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if tabBarController.selectedIndex == 0 {
-            // show history products
-            products.list = .recent
-            // reset the search
-            products.search = nil
-            products.searchValue = nil
-            setTitle()
-        } else {
-            products.list = .search
-            setTitle()
-        }
+        products.list = tabBarController.selectedIndex == 0 ? .recent : .search
         startInterface()
     }
     
