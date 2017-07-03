@@ -80,12 +80,20 @@ public enum Tags {
 //    }
     
     // add a languageCode to tags that have no language and remove languageCode for another language
-    public func prefixed(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> Tags {
+    public func prefixed(withAdded languageCode: String?, andRemoved otherLanguageCode: String?) -> Tags {
         switch self {
         case let .available(list):
             if !list.isEmpty {
-                let newList = addPrefix(list, prefix: languageCode)
-                return .available(strip(newList, of:otherLanguageCode))
+                var newList: [String] = []
+                if languageCode != nil {
+                    newList = addPrefix(list, prefix: languageCode!) }
+                else {
+                    newList = list
+                }
+                if otherLanguageCode != nil {
+                    newList = strip(newList, of:otherLanguageCode!)
+                }
+                return .available(newList)
             }
         default:
             break

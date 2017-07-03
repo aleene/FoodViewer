@@ -266,9 +266,19 @@ extension CategoriesTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
         switch  currentProductSection {
-        case .categories :
+        case .categories:
             delegate?.update(categories: [])
         }
     }
+    
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+                
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .categories:
+            OFFProducts.manager.search(product!.categoriesTags.tag(at:index), in:.category)
+        }
+    }
+
 
 }

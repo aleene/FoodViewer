@@ -205,6 +205,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
+            cell.delegate = self
             cell.tag = indexPath.section
             return cell
             
@@ -221,6 +222,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Additives, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
+            cell.delegate = self
             cell.tag = indexPath.section
             return cell
             
@@ -231,6 +233,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
+            switch showLabelsTagsType {
+            case .original:
+                cell.prefixLabelText = "Original:"
+            case .translated:
+                cell.prefixLabelText = "Translated:"
+            case .interpreted:
+                cell.prefixLabelText = "Interpreted:"
+            default:
+                cell.prefixLabelText = nil
+            }
             return cell
             
         case .image:
@@ -823,6 +835,40 @@ extension IngredientsTableViewController: TagListViewDelegate {
             break
         }
     }
+    
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .allergens:
+            guard product!.allergenKeys != nil else { break }
+            OFFProducts.manager.search(product!.allergenKeys![index], in: .allergen)
+        case .traces:
+            // the taxonomy key is used to define the search value
+            guard product!.traceKeys != nil else { break }
+            OFFProducts.manager.search(product!.traceKeys![index], in: .trace)
+//        case .additives:
+//            switch product!.additives {
+//            case .available:
+//                let rawTag = product!.additives.tag(at: index)
+//                OFFProducts.manager.searchValue = rawTag
+//                OFFProducts.manager.search = OFF.SearchComponent.additive
+//                OFFProducts.manager.list = .search
+//            default:
+//                break
+//            }
+        case .labels:
+            switch product!.labelArray {
+            case .available:
+                OFFProducts.manager.search( product!.labelArray.tag(at: index), in: .label)
+            default:
+                break
+            }
+        default:
+            break
+        }
+    }
+
 }
 
 // MARK: - TagListView DataSource Functions

@@ -373,8 +373,10 @@ class OpenFoodFactsRequest {
         
         product.numberOfIngredients = jsonObject[jsonKeys.IngredientsNKey].string
         
-        product.set(countries:decodeCountries(jsonObject[jsonKeys.CountriesTagsKey].stringArray))
+        product.setWithRaw(countries:decodeCountries(jsonObject[jsonKeys.CountriesTagsKey].stringArray))
         product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesKey].string)
+        product.originalProducerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesOrigKey].string)
+        product.tagsProducerCode = Tags.init(jsonObject[jsonKeys.EmbCodesTagsKey].stringArray)
         
         product.brands = Tags.init(jsonObject[jsonKeys.BrandsKey].string)
         product.brandsTags = Tags.init(jsonObject[jsonKeys.BrandsTagsKey].stringArray)
@@ -394,6 +396,7 @@ class OpenFoodFactsRequest {
         product.server = jsonObject[jsonKeys.NewServerKey].string
         
         product.purchaseLocationString(jsonObject[jsonKeys.PurchasePlacesKey].string)
+        product.purchaseLocationTags = Tags.init(jsonObject[jsonKeys.PurchasePlacesTagsKey].stringArray)
         //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ImageNutritionUrlKey].url
         // product.ingredients = jsonObject[jsonKeys.IngredientsTextKey].string
         
@@ -414,6 +417,7 @@ class OpenFoodFactsRequest {
         let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
         let nutrientLevelsSugars = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
         product.stores = jsonObject[jsonKeys.StoresKey].string?.components(separatedBy: ",")
+        product.storesTags = Tags.init(jsonObject[jsonKeys.StoresTagsKey].stringArray)
         //product.imageIngredientsUrl = jsonObject[jsonKeys.ImageIngredientsUrlKey].url
         (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.NutritionScoreDebugKey].string)
         //product.imageNutritionSmallUrl = jsonObject[jsonKeys.ImageNutritionSmallUrlKey].url
@@ -422,7 +426,9 @@ class OpenFoodFactsRequest {
         //product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ImageIngredientsSmallUrlKey].url
         product.ingredientsOriginElements(jsonObject[jsonKeys.OriginsTagsKey].stringArray)
         product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
+        product.producerTags = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
         product.categories = Tags(decodeCategories(jsonObject[jsonKeys.CategoriesTagsKey].stringArray))
+        product.categoriesTags = Tags.init(jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
         product.quantity = jsonObject[jsonKeys.QuantityKey].string
         product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.NutritionDataPerKey].string)
         product.periodAfterOpeningString  = jsonObject[jsonKeys.PeriodsAfterOpeningKey].string
@@ -522,7 +528,7 @@ class OpenFoodFactsRequest {
         nutritionDecode(nutrimentKeys.CaprylicAcidKey, key: jsonKeys.CaprylicAcidKey, jsonObject: jsonObject, product: product)
         nutritionDecode(nutrimentKeys.CeroticAcidKey, key: jsonKeys.CeroticAcidKey, jsonObject: jsonObject, product: product)
         nutritionDecode(nutrimentKeys.DihomoGammaLinolenicAcidKey, key: jsonKeys.DihomoGammaLinolenicAcidKey, jsonObject: jsonObject, product: product)
-        nutritionDecode(nutrimentKeys.DocosahexaenoicAcidKey, key: jsonKeys.EicosapentaenoicAcidKey, jsonObject: jsonObject, product: product)
+        nutritionDecode(nutrimentKeys.DocosahexaenoicAcidKey, key: jsonKeys.DocosahexaenoicAcidKey, jsonObject: jsonObject, product: product)
         nutritionDecode(nutrimentKeys.EicosapentaenoicAcidKey, key: jsonKeys.EicosapentaenoicAcidKey, jsonObject: jsonObject, product: product)
         nutritionDecode(nutrimentKeys.ElaidicAcidKey, key: jsonKeys.ElaidicAcidKey, jsonObject: jsonObject, product: product)
         nutritionDecode(nutrimentKeys.ErucicAcidKey, key: jsonKeys.ErucicAcidKey, jsonObject: jsonObject, product: product)
@@ -655,12 +661,12 @@ class OpenFoodFactsRequest {
         return nil
     }
     
-    fileprivate func decodeCountries(_ countries: [String]?) -> [String]? {
+    fileprivate func decodeCountries(_ countries: [String]?) -> [(String,String)]? {
         if let countriesArray = countries {
-            var translatedCountries:[String]? = []
+            var translatedCountries:[(String,String)]? = []
             let preferredLanguage = Locale.preferredLanguages[0]
             for country in countriesArray {
-                translatedCountries!.append(OFFplists.manager.translateCountries(country, language:preferredLanguage))
+                translatedCountries!.append((country,OFFplists.manager.translateCountries(country, language:preferredLanguage)))
             }
             return translatedCountries
         }

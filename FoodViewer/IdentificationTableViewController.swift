@@ -158,7 +158,7 @@ class IdentificationTableViewController: UITableViewController {
             }
             // add the primary languagecode to tags without a languageCode and 
             // remove the languageCode for tags that are in the interface languageCode
-            return product!.originalPackagingTags.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
+            return product!.originalPackagingTags.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
         }
     }
     
@@ -975,26 +975,21 @@ extension IdentificationTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+                
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brands:
             // use the handled tags for search !!!!
             switch product!.brandsTags {
             case .available:
-                let rawTag = product!.brandsTags.tag(at: index)
-                OFFProducts.manager.searchValue = rawTag
-                OFFProducts.manager.search = OFF.SearchComponent.brand
-                OFFProducts.manager.list = .search
+                OFFProducts.manager.search(product!.brandsTags.tag(at: index), in:.brand)
             default:
                 break
             }
         case .packaging:
             switch product!.packagingArray {
             case .available:
-                let rawTag = product!.packagingArray.tag(at: index)
-                OFFProducts.manager.searchValue = rawTag
-                OFFProducts.manager.search = OFF.SearchComponent.packaging
-                OFFProducts.manager.list = .search
+                OFFProducts.manager.search(product!.packagingArray.tag(at: index), in: .packaging)
             default:
                 break
             }

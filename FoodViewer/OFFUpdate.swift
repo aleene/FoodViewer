@@ -330,7 +330,8 @@ class OFFUpdate {
         }
 
         if let validCountries = product!.countries {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + validCountries.flatMap{ $0.country.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",") )
+            let string = validCountries.flatMap{ $0.raw.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",")
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + string )
             productUpdated = true
         }
 

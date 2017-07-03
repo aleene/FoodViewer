@@ -1,4 +1,4 @@
-   //
+    //
 //  ProductTableViewController.swift
 //  FoodViewer
 //
@@ -76,7 +76,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     var productPageViewController: ProductPageViewController? = nil
-     
+    
+    fileprivate func setTitle() {
+        if OFFProducts.manager.list == .recent {
+            switch currentProductType {
+            case .food:
+                title = Constants.Title.Food
+            case .petFood:
+                title = Constants.Title.PetFood
+            case .beauty:
+                title = Constants.Title.Beauty
+            }
+        } else {
+            title = products.searchValue
+        }
+    }
+    
     // MARK: - TextField Methods
     
     var activeTextField = UITextField()
@@ -622,9 +637,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // start out with the history tab
             tabVC.selectedIndex = 1
         }
-        if let search = notification.userInfo?[OFFProducts.Notification.SearchStringKey] as? String {
-            title = search
-        }
         startInterface()
     }
 
@@ -639,8 +651,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
     @IBAction func nextProductType(_ sender: UISwipeGestureRecognizer) {
-        Preferences.manager.cycleProductType()
-        startInterface()
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            // start out with the history tab
+            if tabVC.selectedIndex == 0 {
+                Preferences.manager.cycleProductType()
+                startInterface()
+            }
+        }
     }
     
     // MARK: - Viewcontroller lifecycle
@@ -648,9 +665,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         if let tabVC = self.parent?.parent as? UITabBarController {
-            // start out with the history tab
+            // start out with the recents tab
             tabVC.selectedIndex = 0
+            tabVC.delegate = self
+
             // show history products
             products.list = .recent
             products.search = nil
@@ -666,26 +686,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         initializeCustomKeyboard()
         
-        if let tabVC = self.parent?.parent as? UITabBarController {
-            tabVC.delegate = self
-        }
-        // Preferences.manager
         startInterface()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // addGesture()
-        if OFFProducts.manager.list == .recent {
-            switch currentProductType {
-            case .food:
-                title = Constants.Title.Food
-            case .petFood:
-                title = Constants.Title.PetFood
-            case .beauty:
-                title = Constants.Title.Beauty
-            }
-        } // otherwise the search string will be used
+        setTitle()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
@@ -732,8 +739,10 @@ extension ProductTableViewController: UITabBarControllerDelegate {
             // reset the search
             products.search = nil
             products.searchValue = nil
+            setTitle()
         } else {
             products.list = .search
+            setTitle()
         }
         startInterface()
     }

@@ -320,6 +320,16 @@ class OFFProducts {
         }
     }
     
+    func search(_ string: String?, in category: OFF.SearchComponent) {
+        guard string != nil else { return }
+        let validString = string!.contains(":") ?
+            string!.characters.split{ $0 == ":" }.map(String.init)[1] : string!
+        searchValue = validString
+        search = category
+        list = .search
+    }
+    
+
     private func isProductinList(_ barcode: BarcodeType) -> Int? {
         for (index, fetchResult) in allProductFetchResultList.enumerated() {
             guard fetchResult != nil else { return nil }

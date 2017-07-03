@@ -98,7 +98,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let validAddresses = delegate?.updatedProduct?.countries {
                 var tags: [String] = []
                 for address in validAddresses {
-                    tags += address.elements
+                    tags.append(address.raw)
                 }
                 return tags
             } else if let validAddresses = product?.countries {
@@ -785,6 +785,52 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         // print("reloading section", tagListView.tag)
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
+    
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .country:
+            guard product!.countries != nil else { break }
+            OFFProducts.manager.search(product!.countries![index].raw, in:.country)
+            
+        case .producerCode:
+            switch product!.tagsProducerCode {
+            case .available:
+                OFFProducts.manager.search(product!.tagsProducerCode.tag(at: index), in:.producerCode)
+            default:
+                break
+            }
+            
+        case .location:
+            guard product!.purchaseLocation != nil else { break }
+            switch product!.purchaseLocationTags {
+            case .available:
+                OFFProducts.manager.search(product!.purchaseLocationTags.tag(at: index), in:.purchasePlace)
+            default:
+                break
+            }
+            
+        case .producer:
+            switch product!.producerTags {
+            case .available:
+                OFFProducts.manager.search(product!.producerTags.tag(at: index), in: .manufacturingPlaces)
+            default:
+                break
+            }
+            
+        case .store:
+            switch product!.storesTags {
+            case .available:
+                OFFProducts.manager.search(product!.storesTags.tag(at: index), in:.store)
+            default:
+                break
+            }
+        default:
+            break
+        }
+    }
+    
 }
 
 // MARK: - UITextFieldDelegate Functions
