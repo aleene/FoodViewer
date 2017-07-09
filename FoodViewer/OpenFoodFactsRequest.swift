@@ -94,18 +94,24 @@ class OpenFoodFactsRequest {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // encode the url-string
         let search = OFF.searchString(for: component, with: value)
-        let fetchUrl = URL(string:search)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        if let url = fetchUrl {
-            do {
+        if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
+
+            let fetchUrl = URL(string:escapedSearch)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            if let url = fetchUrl {
+                do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                return unpackJSONObject(JSON(data: data))
-            } catch let error as NSError {
-                print(error);
-                return ProductFetchStatus.loadingFailed(error.description)
+                    return unpackJSONObject(JSON(data: data))
+                } catch let error as NSError {
+                    print(error);
+                    return ProductFetchStatus.loadingFailed(error.description)
+                }
+            } else {
+                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
             }
+
         } else {
-            return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
+            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
         }
     }
     
