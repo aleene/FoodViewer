@@ -46,12 +46,9 @@ public enum Tags {
         decode(list)
     }
     
-    // initialise with a comma delimited string
-    public init(string: String?) {
-        self.init()
-        if let validString = string {
-            decode(validString.characters.split{ $0 == "," }.map(String.init))
-        }
+    // initialise tags with a comma delimited string
+    public init(_ string: String?) {
+        self.init(string?.characters.split{ $0 == "," }.map(String.init))
     }
 //    
 //    // initialise with a list of strings with a languageCode for unlanguaged strings
@@ -69,26 +66,58 @@ public enum Tags {
     // MARK: - Tags functions
     //
     
-    public init(string: String?, with languageCode: String) {
-        self.init()
-        if let validString = string {
-            decode(validString.characters.split{ $0 == "," }.map(String.init))
-            switch self {
-            case .available(var list):
-                list = addPrefix(list, prefix: languageCode)
-                self = .available(list)
-            default:
-                break
+//    // add a languageCode to individual tags that have no language
+//    public func tags(with languageCode: String) -> [String] {
+//        switch self {
+//        case let .available(list):
+//            if !list.isEmpty {
+//                return addPrefix(list, prefix: languageCode)
+//            }
+//        default:
+//            break
+//        }
+//        return []
+//    }
+    
+    // add a languageCode to tags that have no language and remove languageCode for another language
+    public func prefixed(withAdded languageCode: String?, andRemoved otherLanguageCode: String?) -> Tags {
+        switch self {
+        case let .available(list):
+            if !list.isEmpty {
+                var newList: [String] = []
+                if languageCode != nil {
+                    newList = addPrefix(list, prefix: languageCode!) }
+                else {
+                    newList = list
+                }
+                if otherLanguageCode != nil {
+                    newList = strip(newList, of:otherLanguageCode!)
+                }
+                return .available(newList)
             }
-
+        default:
+            break
         }
+        return self
     }
 
-    public init(list: [String]?, with languageCode: String) {
-        self.init()
-        guard list != nil else { return }
-        decode(addPrefix(list!, prefix: languageCode))
+    // add a languageCode to tags that have no language and remove languageCode for another language
+    public func tags(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> [String] {
+        switch self {
+        case let .available(list):
+            if !list.isEmpty {
+                let newList = addPrefix(list, prefix: languageCode)
+                return strip(newList, of:otherLanguageCode)
+            }
+        default:
+            break
+        }
+        return []
     }
+
+//
+// MARK: - Single tag functions
+//
     
     // returns the tag string at an index if available
     public func tag(at index: Int) -> String? {
@@ -249,30 +278,13 @@ public enum Tags {
         return string.hasPrefix(prefix + ":") ? stripAnyPrefix(string) : string
     }
     
-    // returns the tag-list with a language-prefix
-    func prefixedList(_ language: String) -> [String] {
-        switch self {
-        case let .available(list):
-            if !list.isEmpty {
-                return addPrefix(list, prefix: language)
-            }
-        default:
-            break
-        }
-        return []
+    private func stripAnyPrefix(_ string: String) -> String {
+        return string.contains(":") ? string.characters.split{ $0 == ":" }.map(String.init)[1]
+            : string
     }
     
-    private func addPrefix(_ list: [String], prefix: String) -> [String] {
-        var prefixedList: [String] = []
-        for tag in list {
-            if tag.contains(":") {
-                // there is already a prefix
-                prefixedList.append(tag)
-            } else {
-                prefixedList.append(prefix + ":" + tag)
-            }
-        }
-        return prefixedList
+    private func add(_ prefix: String, to string: String) -> String {
+        return string.contains(":") ? string : prefix + ":" + string
     }
 
     

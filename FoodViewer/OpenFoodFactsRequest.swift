@@ -191,15 +191,15 @@ class OpenFoodFactsRequest {
             return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Not a valid OFF JSON", comment: "Error message when the json input file does not contain any information") )
         }
 
-                decodeCompletionStates(jsonObject[jsonKeys.ProductKey][jsonKeys.StatesTagsKey].stringArray, product:product)
-                decodeLastEditDates(jsonObject[jsonKeys.ProductKey][jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
-                
-                // the labels as interpreted by OFF (a list of strings)
-                product.labelArray = Tags(decodeGlobalLabels(jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsTagsKey].stringArray))
-                // the labels as the user has entered them (a comma delimited string)
-                product.originalLabels = Tags(string: jsonObject[jsonKeys.ProductKey][jsonKeys.LabelsKey].string)
-                
-                product.traceKeys = jsonObject[jsonKeys.ProductKey][jsonKeys.TracesTagsKey].stringArray
+    }
+    
+    private func decode(_ jsonObject: JSON) -> FoodProduct {
+        
+        struct ingredientsElement {
+            var text: String? = nil
+            var id: String? = nil
+            var rank: Int? = nil
+        }
 
         let product = FoodProduct()
         
@@ -349,40 +349,16 @@ class OpenFoodFactsRequest {
                         images[element.key] = ProductImageData.init(url: url)
                     }
                 }
-
-                // print(product.name, product.languageCodes, product.nameLanguage)
-                // Is no longer needed, is part of the language array
-                // product.genericName = jsonObject[jsonKeys.ProductKey][jsonKeys.GenericNameKey].string
-                product.additives = Tags(decodeAdditives(jsonObject[jsonKeys.ProductKey][jsonKeys.AdditivesTagsKey].stringArray))
-                
-                product.informers = jsonObject[jsonKeys.ProductKey][jsonKeys.InformersTagsKey].stringArray
-                product.photographers = jsonObject[jsonKeys.ProductKey][jsonKeys.PhotographersTagsKey].stringArray
-                // it happens that the primary language code is not defined
-                if let lc = product.primaryLanguageCode {
-                    product.packagingArray = Tags.init(list: jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray, with: lc)
-                    product.originalPackagingTags = Tags.init(string: jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string, with: lc)
-                } else {
-                    product.packagingArray = Tags.init(jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingTagsKey].stringArray)
-                    product.originalPackagingTags = Tags.init(string: jsonObject[jsonKeys.ProductKey][jsonKeys.PackagingKey].string)
-                }
-
-                product.numberOfIngredients = jsonObject[jsonKeys.ProductKey][jsonKeys.IngredientsNKey].string
-                
-                product.set(countries:decodeCountries(jsonObject[jsonKeys.ProductKey][jsonKeys.CountriesTagsKey].stringArray))
-                product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.ProductKey][jsonKeys.EmbCodesKey].string)
-                
-                product.brands = Tags.init(string: jsonObject[jsonKeys.ProductKey][jsonKeys.BrandsKey].string)
-                
-                // The links for the producer are stored as a string. This string might contain multiple links.
-                let linksString = jsonObject[jsonKeys.ProductKey][jsonKeys.LinkKey].string
-                if let validLinksString = linksString {
-                    // assume that the links are separated by a comma ","
-                    let validLinksComponents = validLinksString.characters.split{$0 == ","}.map(String.init)
-                    product.links = []
-                    for component in validLinksComponents {
-                        if let validFirstURL = URL.init(string: component) {
-                            product.links!.append(validFirstURL)
-                        }
+            }
+            if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
+            product.ingredientsImages?.thumb = images
+        }
+        if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
+            var images: [String:ProductImageData] = [:]
+            for element in valid {
+                if let validString = element.value as? String {
+                    if let url = URL.init(string: validString) {
+                        images[element.key] = ProductImageData.init(url: url)
                     }
                 }
             }

@@ -664,9 +664,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(packaging: validTags) {
                 initUpdatedProductWith(product: product!)
-                let preferredLanguage = Locale.preferredLanguages[0]
-                let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
-                updatedProduct?.packagingArray = Tags.init(list: validTags, with: currentLanguage[0])
+                updatedProduct?.originalPackagingTags = Tags.init(validTags)
                 saveUpdatedProduct()
             }
         }
