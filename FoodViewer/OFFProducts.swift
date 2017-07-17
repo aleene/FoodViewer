@@ -79,6 +79,8 @@ class OFFProducts {
                                 list.append(fetchResult!)
                             }
                         }
+                    case .searchLoading:
+                        list.append(.searchLoading)
                     default: break
                     }
                 }
@@ -505,11 +507,16 @@ class OFFProducts {
                 if let validSearchComponent = search,
                     let validSearchValue = searchValue {
                     var fetchResult = ProductFetchStatus.loading
+                    self.allSearchFetchResultList.append(.searchLoading)
+                    self.setCurrentProducts()
+                    let userInfo = [Notification.SearchStringKey:validSearchValue]
+                    NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
                     DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                         fetchResult = OpenFoodFactsRequest().fetchProducts(for:validSearchComponent, with:validSearchValue)
                         DispatchQueue.main.async(execute: { () -> Void in
                             switch fetchResult {
                             case .list(let productList):
+                                self.allSearchFetchResultList = []
                                 for product in productList {
                                     self.allSearchFetchResultList.append(.success(product))
                                 }
