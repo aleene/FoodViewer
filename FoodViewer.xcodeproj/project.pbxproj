@@ -197,6 +197,7 @@
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
+		51DD35861EFEAB60000A8484 /* emb-30569c in Resources */ = {isa = PBXBuildFile; fileRef = 51DD35851EFEAB60000A8484 /* emb-30569c */; };
 		51E13F061D9BCB7F000F71C5 /* PickerViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */; };
 		51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
@@ -449,6 +450,7 @@
 		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
+		51DD35851EFEAB60000A8484 /* emb-30569c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "emb-30569c"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
 		51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewTableViewCell.swift; sourceTree = "<group>"; };
 		51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiryDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 				51FB32261CF1F4D100A17312 /* Macadamia.json */,
 				512C368D1D89A7850004C297 /* 5411788045285.json */,
 				51B11D4F1E509DE900823630 /* test.json */,
+				51DD35851EFEAB60000A8484 /* emb-30569c */,
 			);
 			name = "Test files";
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				513D16AF1DB4C02D005B1971 /* OFFAccount.swift */,
 				5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */,
 				511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */,
+				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
 				511DB4331E09B615009D4A4B /* OFF.swift */,
 				51B11D271E4F37C400823630 /* OFFHttpPost.swift */,
 			);
@@ -952,7 +956,6 @@
 				51578C081DB23177005BEEF6 /* OFF */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				511459301CB1389C00D25116 /* Taxonomy */,
-				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
 				5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */,
 				519ACDFE1D9960C100B81D11 /* Defaults */,
 			);
@@ -1075,6 +1078,7 @@
 				5184F5811EB5EF78009ECF73 /* NutriScoreView.xib in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
 				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
+				51DD35861EFEAB60000A8484 /* emb-30569c in Resources */,
 				514EEF9C1ED9B79100C4CF54 /* 3166780740950.json in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
 			);

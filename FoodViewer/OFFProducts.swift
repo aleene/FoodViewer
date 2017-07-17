@@ -14,40 +14,75 @@ class OFFProducts {
     // This class is implemented as a singleton
     // The productsArray is only needed by the ProductsViewController
     // Unfortunately moving to another VC deletes the products, so it must be stored somewhere more permanently.
-    // A singleton limits however the number of file loads
+    // The use of a singleton limits thus the number of file loads
     
     internal struct Notification {
         static let BarcodeDoesNotExistKey = "OFFProducts.Notification.BarcodeDoesNotExist.Key"
+        static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
     }
     
     static let manager = OFFProducts()
+    
+    enum ProductsTab {
+        case recent
+        case search
+    }
+    
+    var list = ProductsTab.recent {
+        didSet {
+            loadAll()
+        }
+    }
+    
+    // no search has been set at the start
+    var search: OFF.SearchComponent? = nil
+    var searchValue: String? = nil
     
     var mostRecentProduct = MostRecentProduct()
 
     //  Contains all the fetch results for all product types
     private var allProductFetchResultList: [ProductFetchStatus?] = []
+    private var allSearchFetchResultList: [ProductFetchStatus?] = []
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
     var fetchResultList: [ProductFetchStatus] = []
     
     private var currentProductType: ProductType {
-        let test = Preferences.manager.showProductType
-        return test
+        return Preferences.manager.showProductType
     }
 
     private func setCurrentProducts() {
         var list: [ProductFetchStatus] = []
-        for fetchResult in allProductFetchResultList {
-            if fetchResult != nil {
-                switch fetchResult! {
-                case .success(let product):
-                    if let producttype = product.type?.rawValue {
-                        if producttype == currentProductType.rawValue {
-                            list.append(fetchResult!)
+        switch self.list {
+        case .recent:
+            for fetchResult in allProductFetchResultList {
+                if fetchResult != nil {
+                    switch fetchResult! {
+                    case .success(let product):
+                        if let producttype = product.type?.rawValue {
+                            if producttype == currentProductType.rawValue {
+                                list.append(fetchResult!)
+                            }
                         }
+                    default: break
                     }
-                default: break
+                }
+            }
+        case .search:
+            for fetchResult in allSearchFetchResultList {
+                if fetchResult != nil {
+                    switch fetchResult! {
+                    case .success(let product):
+                        if let producttype = product.type?.rawValue {
+                            if producttype == currentProductType.rawValue {
+                                list.append(fetchResult!)
+                            }
+                        }
+                    case .searchLoading:
+                        list.append(.searchLoading)
+                    default: break
+                    }
                 }
             }
         }
@@ -68,7 +103,6 @@ class OFFProducts {
         //      check first if the most recent product has been stored and load that one
         //      then load the rest of the history products
         loadAll()
-        // NotificationCenter.default.addObserver(self, selector:#selector(OFFProducts.reset(_:)), name:.ShowProductTypeSet, object:nil)
     }
     
     deinit {
@@ -211,15 +245,6 @@ class OFFProducts {
                 })
             }
         }
-        /*} else {
-            if let errorString = ProductType.onServer(storedHistory.barcodeTuples[index].1) {
-                allProductFetchResultList[index] = .other(errorString)
-            } else {
-                allProductFetchResultList[index] = .other("Error")
-            }
-            self.historyLoadCount! += 1
-        }*/
-
     }
 
     // This function manages the loading of the history products. A load batch is never larger than 5 simultaneous threads
@@ -245,7 +270,7 @@ class OFFProducts {
                     let startIndex = 1 <= storedHistory.barcodeTuples.count ? 1 : storedHistory.barcodeTuples.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? batchSize - 1 : storedHistory.barcodeTuples.count - 1
                     for index in startIndex...endIndex {
-                        print(storedHistory.barcodeTuples[index].1, currentProductType.rawValue)
+                        // print(storedHistory.barcodeTuples[index].1, currentProductType.rawValue)
                         fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(barcodeTuple: storedHistory.barcodeTuples[index])), index:index)
                     }
                 }
@@ -297,6 +322,16 @@ class OFFProducts {
         }
     }
     
+    func search(_ string: String?, in category: OFF.SearchComponent) {
+        guard string != nil else { return }
+        let validString = string!.contains(":") ?
+            string!.characters.split{ $0 == ":" }.map(String.init)[1] : string!
+        searchValue = validString
+        search = category
+        list = .search
+    }
+    
+
     private func isProductinList(_ barcode: BarcodeType) -> Int? {
         for (index, fetchResult) in allProductFetchResultList.enumerated() {
             guard fetchResult != nil else { return nil }
@@ -416,51 +451,95 @@ class OFFProducts {
     }
     
     private func loadAll() {
-        // If there is no history, we are in the cold start case
-        if !storedHistory.barcodeTuples.isEmpty {
-            initList()
-            // load the most recent product from the local storage
-            if let data = mostRecentProduct.jsonData {
-                var fetchResult = ProductFetchStatus.loading
-                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                    fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        switch fetchResult {
-                        case .success(let product):
-                            // the stored product might not correspond to the first product in the history
-                            // so it should be stored in the right spot
-                            if let index = self.storedHistory.index(for:product.barcode) {
-                                self.allProductFetchResultList[index] = fetchResult
-                                self.setCurrentProducts()
-                                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                            } else {
-                                print("OFFProducts - stored product not in history file")
-                            }
-                        case .loadingFailed(let error):
-                            let userInfo = ["error":error]
-                            self.handleLoadingFailed(userInfo)
-                        case .productNotAvailable:
-                            // if the product is not available there is an error in storage
-                            // and can be removed
-                            self.mostRecentProduct.removeForCurrentProductType()
-                            // let userInfo = ["error":error]
+        switch list {
+        case .recent:
+            // If there is no history, we are in the cold start case
+            if !storedHistory.barcodeTuples.isEmpty {
+                initList()
+                // load the most recent product from the local storage
+                if let data = mostRecentProduct.jsonData {
+                    var fetchResult = ProductFetchStatus.loading
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                        fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            switch fetchResult {
+                            case .success(let product):
+                                // the stored product might not correspond to the first product in the history
+                                // so it should be stored in the right spot
+                                if let index = self.storedHistory.index(for:product.barcode) {
+                                    self.allProductFetchResultList[index] = fetchResult
+                                    self.setCurrentProducts()
+                                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                                } else {
+                                    print("OFFProducts - stored product not in history file")
+                                }
+                            case .loadingFailed(let error):
+                                let userInfo = ["error":error]
+                                self.handleLoadingFailed(userInfo)
+                            case .productNotAvailable:
+                                // if the product is not available there is an error in storage
+                                // and can be removed
+                                self.mostRecentProduct.removeForCurrentProductType()
+                                // let userInfo = ["error":error]
                             // self.handleProductNotAvailable(userInfo)
-                        default: break
-                        }
-                        self.historyLoadCount = 0
-                        self.historyLoadCount! += 1
+                            default: break
+                            }
+                            self.historyLoadCount = 0
+                            self.historyLoadCount! += 1
+                        })
                     })
-                })
+                } else {
+                    // the data is not available
+                    // has to be loaded from the OFF-servers
+                    _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
+                    historyLoadCount = 0
+                }
             } else {
-                // the data is not available
-                // has to be loaded from the OFF-servers
-                _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
-                historyLoadCount = 0
+                // The cold start case when the user has not yet used the app
+                loadSampleProduct()
+                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
             }
-        } else {
-            // The cold start case when the user has not yet used the app
-            loadSampleProduct()
-            NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+        case .search:
+            allSearchFetchResultList = []
+            // Is there a search setup?
+            if search != nil {
+                // load the most recent product from the local storage
+                if let validSearchComponent = search,
+                    let validSearchValue = searchValue {
+                    var fetchResult = ProductFetchStatus.loading
+                    self.allSearchFetchResultList.append(.searchLoading)
+                    self.setCurrentProducts()
+                    let userInfo = [Notification.SearchStringKey:validSearchValue]
+                    NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                        fetchResult = OpenFoodFactsRequest().fetchProducts(for:validSearchComponent, with:validSearchValue)
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            switch fetchResult {
+                            case .list(let productList):
+                                self.allSearchFetchResultList = []
+                                for product in productList {
+                                    self.allSearchFetchResultList.append(.success(product))
+                                }
+                                self.setCurrentProducts()
+                                let userInfo = [Notification.SearchStringKey:validSearchValue]
+                                NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+                            case .loadingFailed(let error):
+                                let userInfo = ["error":error]
+                                self.handleLoadingFailed(userInfo)
+                            case .productNotAvailable(let error):
+                                let userInfo = ["error":error]
+                                self.handleLoadingFailed(userInfo)
+                            default: break
+                            }
+                        })
+                    })
+                }
+            } else {
+                setCurrentProducts()
+                let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
+                NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+            }
+
         }
     }
     
@@ -475,7 +554,7 @@ class OFFProducts {
                     if product.barcode.asString() == updatedProduct.barcode.asString() {
                         // replace the existing product with the data of the new product
                         product.updateDataWith(updatedProduct)
-                        // i sthis the first product in the list
+                        // is this the first product in the list
                         if index == 0 {
                             // then the stored version must also be updated with this new product
                             saveMostRecentProduct(product.barcode)
@@ -517,12 +596,13 @@ class OFFProducts {
 // Notification definitions
 
 extension Notification.Name {
-    static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.Product Not Available")
+    static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.ProductNotAvailable")
     static let ProductLoaded = Notification.Name("OFFProducts.Notification.Product Loaded")
-    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.First Product Loaded")
-    static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.History Is Loaded")
-    static let ProductUpdated = Notification.Name("OFFProducts.Notification.Product Updated")
-    static let ProductLoadingError = Notification.Name("OFFProducts.Notification.Product Loading Error")
+    static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
+    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProduct oaded")
+    static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
+    static let ProductUpdated = Notification.Name("OFFProducts.Notification.ProductUpdated")
+    static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")
 }
 
 

@@ -757,7 +757,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     private func layoutPrefixLabel(origin: CGPoint, currentX: inout CGFloat) {
         guard prefixLabel != nil else { return }
         
-        // prefixLabel!.removeFromSuperview()
+        prefixLabel!.removeFromSuperview()
         
         // Define the prefix label frame
         prefixLabel!.frame.origin.x = currentX

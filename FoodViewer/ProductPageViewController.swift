@@ -688,7 +688,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(labels: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.labelArray = Tags.init(validTags)
+                updatedProduct?.originalLabels = Tags.init(validTags)
                 saveUpdatedProduct()
             }
         }

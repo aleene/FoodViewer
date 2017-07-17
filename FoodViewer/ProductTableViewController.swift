@@ -1,4 +1,4 @@
-   //
+    //
 //  ProductTableViewController.swift
 //  FoodViewer
 //
@@ -16,8 +16,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let Food = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
             static let PetFood = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
             static let Beauty = NSLocalizedString("Beauty Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
+            static let NoSearch = NSLocalizedString("Search Undefined", comment: "Title of ViewController when no search has been defined.")
         }
-        static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
+        // static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
         static let AlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
         static let AlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
         static let AlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
@@ -67,6 +68,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             selectedProduct = nil
             tableView.reloadData()
         }
+        setTitle()
     }
     
     fileprivate func refreshInterface() {
@@ -76,7 +78,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     var productPageViewController: ProductPageViewController? = nil
-     
+    
+    fileprivate func setTitle() {
+        if OFFProducts.manager.list == .recent {
+            switch currentProductType {
+            case .food:
+                title = Constants.Title.Food
+            case .petFood:
+                title = Constants.Title.PetFood
+            case .beauty:
+                title = Constants.Title.Beauty
+            }
+        } else {
+            title = products.searchValue ?? Constants.Title.NoSearch
+        }
+    }
+    
     // MARK: - TextField Methods
     
     var activeTextField = UITextField()
@@ -232,20 +249,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
 
                         if let language = currentProduct.primaryLanguageCode {
+                            cell.productImage = nil
                             if currentProduct.frontImages != nil && currentProduct.frontImages!.small.count > 0 {
                                 if let result = currentProduct.frontImages!.small[language]?.fetch() {
                                     switch result {
                                     case .available:
                                         cell.productImage = currentProduct.frontImages!.small[language]?.image
                                     default:
-                                    cell.productImage = nil
+                                        break
                                     }
                                 }
-                            } else {
-                                cell.productImage = nil
                             }
-                        } else {
-                            cell.productImage = nil
                         }
                         return cell
                         
@@ -616,6 +630,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func firstProductLoaded(_ notification: Notification) {
         startInterface()
     }
+    
+    func searchLoaded(_ notification: Notification) {
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            // start out with the history tab
+            tabVC.selectedIndex = 1
+        }
+        startInterface()
+    }
+
 
 //    func addGesture() {
 //        let swipeGestureRecognizer = UISwipeGestureRecognizer.init(target: self, action:#selector(ProductTableViewController.nextProductType))
@@ -627,8 +650,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
     @IBAction func nextProductType(_ sender: UISwipeGestureRecognizer) {
-        Preferences.manager.cycleProductType()
-        startInterface()
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            // start out with the history tab
+            if tabVC.selectedIndex == 0 {
+                Preferences.manager.cycleProductType()
+                startInterface()
+            }
+        }
     }
     
     // MARK: - Viewcontroller lifecycle
@@ -636,6 +664,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            // start out with the recents tab
+            tabVC.selectedIndex = 0
+            tabVC.delegate = self
+
+            // show history products
+            products.list = .recent
+            products.search = nil
+            products.searchValue = nil
+        }
     }
     
     override func viewDidLoad() {
@@ -645,33 +684,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         self.tableView.estimatedRowHeight = 80.0
         
         initializeCustomKeyboard()
-        // Preferences.manager
+        
         startInterface()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // addGesture()
-        switch currentProductType {
-        case .food:
-            title = Constants.Title.Food
-        case .petFood:
-            title = Constants.Title.PetFood
-        case .beauty:
-            title = Constants.Title.Beauty
-        }
+        setTitle()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
-        // listen if a product has been changed through an update
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdateSucceeded, object:nil)
-        // listen to see if any images have been retrieved asynchronously
         NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
-        
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -699,6 +727,15 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
         //Identify gesture recognizer and return true else false.
         return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
     }
+}
+   
+extension ProductTableViewController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        products.list = tabBarController.selectedIndex == 0 ? .recent : .search
+        startInterface()
+    }
+    
 }
 
 

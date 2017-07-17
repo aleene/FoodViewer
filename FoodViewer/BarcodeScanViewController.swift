@@ -46,7 +46,7 @@ class BarcodeScanViewController: RSCodeReaderViewController {
                 for barcode in barcodes {
                     self.barcode = barcode.stringValue
                     self.type = barcode.type
-                    print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
+                    // print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
                     
                     DispatchQueue.main.async(execute: {
                         self.performSegue(withIdentifier: "Unwind New Search", sender: self)

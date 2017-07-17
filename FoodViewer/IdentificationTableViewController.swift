@@ -89,6 +89,14 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
+                
+                // show in editMode the edited tags, as entered by the user
+                if delegate?.updatedProduct?.originalPackagingTags == nil {
+                    showPackagingTagsType = editMode ? .edited : .original
+                } else {
+                    showPackagingTagsType = .edited
+                }
+                
                 tableView.reloadData()
             }
         }
@@ -124,28 +132,33 @@ class IdentificationTableViewController: UITableViewController {
     enum tagsType {
         case original
         case interpreted
+        case edited
     }
     
     private var showPackagingTagsType: tagsType = .original
     
     fileprivate var packagingToDisplay: Tags {
         get {
-            switch showPackagingTagsType {
-            case .interpreted:
-                // is an updated product available?
-                if delegate?.updatedProduct != nil {
-                    // does it have brands defined?
-                    switch delegate!.updatedProduct!.packagingArray {
-                    case .available, .empty:
-                        return delegate!.updatedProduct!.packagingArray
-                    default:
-                        break
-                    }
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have edited packaging tags defined?
+                switch delegate!.updatedProduct!.originalPackagingTags {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.originalPackagingTags
+                default:
+                    break
                 }
-                return product!.packagingArray
-            case .original:
-                return product!.originalPackagingTags
+            } else {
+                switch showPackagingTagsType {
+                case .interpreted:
+                    return product!.packagingArray
+                default:
+                    break
+                }
             }
+            // add the primary languagecode to tags without a languageCode and 
+            // remove the languageCode for tags that are in the interface languageCode
+            return product!.originalPackagingTags.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
         }
     }
     
@@ -645,23 +658,6 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    /*
-    func imageHasBeenUpdated(_ notification: Notification) {
-        if notification.userInfo?[SelectImageSourceViewController.Notification.ImageTypeKey] as! String == SelectImageSourceViewController.Notification.FrontValue {
-            // update the updatedProduct with the new image
-            var image: UIImage? = nil
-            image = notification.userInfo?[UIImagePickerControllerEditedImage] as? UIImage
-            if image == nil {
-                image = notification.userInfo?[UIImagePickerControllerOriginalImage] as? UIImage
-            }
-            if image != nil {
-                delegate?.updated(frontImage: image!, languageCode: currentLanguageCode!)
-                tableView.reloadData()
-            }
-        }
-    }
-     */
-    
     func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -860,38 +856,20 @@ extension IdentificationTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         // print("height", tagListView.frame.size.height)
+        
         func title(_ tags: Tags) -> String {
             switch tags {
             case .undefined, .empty:
                 return tags.description()
-            case let .available(list):
-                if index >= 0 && index < list.count {
-                    let tagParts = list[index].characters.split{ $0 == ":" }.map(String.init)
-                    if tagParts.isEmpty {
-                        // I guess this should not happen
-                        return "No tags"
-                    } else if tagParts.count == 1 {
-                        // Can this happen?
-                        return tagParts[0]
-                    }
-                    let preferredLanguage = Locale.preferredLanguages[0]
-                    let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
-                    if tagParts[0] == currentLanguage[0] {
-                        // strip the language part
-                        return tagParts[1]
-                    }
-                    // just use the entire string
-                    return list[index]
-                } else {
-                    assert(true, "Tags array - index out of bounds")
-                }
+            case .available:
+                return tags.tag(at:index) ?? "Tag index out of bounds"
             }
-            return "Tags array - index out of bounds"
         }
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brands:
+            // no language adjustments need to be done
             return title(brandsToDisplay)
         case .packaging:
             return title(packagingToDisplay)
@@ -994,6 +972,30 @@ extension IdentificationTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+    }
+    
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+                
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .brands:
+            // use the handled tags for search !!!!
+            switch product!.brandsTags {
+            case .available:
+                OFFProducts.manager.search(product!.brandsTags.tag(at: index), in:.brand)
+            default:
+                break
+            }
+        case .packaging:
+            switch product!.packagingArray {
+            case .available:
+                OFFProducts.manager.search(product!.packagingArray.tag(at: index), in: .packaging)
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
     
 }

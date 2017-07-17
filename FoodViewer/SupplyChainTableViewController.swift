@@ -98,7 +98,7 @@ class SupplyChainTableViewController: UITableViewController {
             if let validAddresses = delegate?.updatedProduct?.countries {
                 var tags: [String] = []
                 for address in validAddresses {
-                    tags += address.elements
+                    tags.append(address.raw)
                 }
                 return tags
             } else if let validAddresses = product?.countries {

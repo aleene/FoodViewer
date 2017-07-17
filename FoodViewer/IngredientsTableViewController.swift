@@ -51,29 +51,38 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     enum tagsType {
         case original
         case interpreted
+        case edited
+        case translated
     }
     
-    private var showLabelsTagsType: tagsType = .original
+    // The interpreted labels have been translated to the interface language
+    private var showLabelsTagsType: tagsType = .translated
     
 
     fileprivate var labelsToDisplay: Tags {
         get {
-            switch showLabelsTagsType {
-            case .interpreted:
-                // is an updated product available?
-                if delegate?.updatedProduct != nil {
-                    // does it have brands defined?
-                    switch delegate!.updatedProduct!.labelArray {
-                    case .available, .empty:
-                        return delegate!.updatedProduct!.labelArray
-                    default:
-                        break
-                    }
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have edited labels defined?
+                switch delegate!.updatedProduct!.originalLabels {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.originalLabels
+                default:
+                    break
                 }
-                return product!.labelArray
-            case .original:
-                return product!.originalLabels
+            } else {
+                switch showLabelsTagsType {
+                case .interpreted:
+                    return product!.labelArray
+                case .translated:
+                    return product!.translatedLabels()
+                default:
+                    break
+                }
             }
+            // add the primary languagecode to tags without a languageCode and
+            // remove the languageCode for tags that are in the interface languageCode
+            return product!.originalLabels.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
         }
     }
 
@@ -105,6 +114,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
+                // show in editMode the edited tags, as entered by the user
+                if delegate?.updatedProduct?.originalLabels == nil {
+                    showLabelsTagsType = editMode ? .edited : .original
+                } else {
+                    showLabelsTagsType = .edited
+                }
+
                 tableView.reloadData()
             }
         }
@@ -189,6 +205,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
+            cell.delegate = self
             cell.tag = indexPath.section
             return cell
             
@@ -205,6 +222,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Additives, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
+            cell.delegate = self
             cell.tag = indexPath.section
             return cell
             
@@ -215,6 +233,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
+            switch showLabelsTagsType {
+            case .original:
+                cell.prefixLabelText = "Original:"
+            case .translated:
+                cell.prefixLabelText = "Translated:"
+            case .interpreted:
+                cell.prefixLabelText = "Interpreted:"
+            default:
+                cell.prefixLabelText = nil
+            }
             return cell
             
         case .image:
@@ -546,7 +574,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     // MARK: - Notification handler
     
     func changeShowLabelsTagsType() {
-        showLabelsTagsType = showLabelsTagsType == .interpreted ? .original : .interpreted
+        switch showLabelsTagsType {
+        case .original:
+            showLabelsTagsType = .translated
+        case .translated:
+            showLabelsTagsType = .interpreted
+        case .interpreted:
+            showLabelsTagsType = .original
+        case .edited:
+            return
+        }
+        
         for (index, (currentProductSection, _, _)) in tableStructureForProduct.enumerated() {
             // let (currentProductSection, _, _) = tableStructureForProduct[index]
             switch currentProductSection {
@@ -797,6 +835,40 @@ extension IngredientsTableViewController: TagListViewDelegate {
             break
         }
     }
+    
+    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .allergens:
+            guard product!.allergenKeys != nil else { break }
+            OFFProducts.manager.search(product!.allergenKeys![index], in: .allergen)
+        case .traces:
+            // the taxonomy key is used to define the search value
+            guard product!.traceKeys != nil else { break }
+            OFFProducts.manager.search(product!.traceKeys![index], in: .trace)
+//        case .additives:
+//            switch product!.additives {
+//            case .available:
+//                let rawTag = product!.additives.tag(at: index)
+//                OFFProducts.manager.searchValue = rawTag
+//                OFFProducts.manager.search = OFF.SearchComponent.additive
+//                OFFProducts.manager.list = .search
+//            default:
+//                break
+//            }
+        case .labels:
+            switch product!.labelArray {
+            case .available:
+                OFFProducts.manager.search( product!.labelArray.tag(at: index), in: .label)
+            default:
+                break
+            }
+        default:
+            break
+        }
+    }
+
 }
 
 // MARK: - TagListView DataSource Functions
@@ -866,13 +938,13 @@ extension IngredientsTableViewController: TagListViewDataSource {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .allergens:
-            return allergensToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return allergensToDisplay.tag(at:index)!
         case .traces:
-            return tracesToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return tracesToDisplay.tag(at:index)!
         case .additives:
-            return additivesToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return additivesToDisplay.tag(at:index)!
         case .labels:
-            return labelsToDisplay.tagWithoutPrefix(index, locale:Locale.preferredLanguages[0])!
+            return labelsToDisplay.tag(at:index)!
         case .image:
             return searchResult
         default: break
@@ -920,6 +992,10 @@ extension IngredientsTableViewController: LanguageHeaderDelegate {
     }
 }
 
-
+extension Locale {
+    static func interfaceLanguageCode() -> String {
+        return Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
+    }
+}
 
 

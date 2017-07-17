@@ -30,6 +30,7 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
             tagListView.tag = tag
+            tagListView.prefixLabelText = nil
             
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewTapped))
             tapGestureRecognizer.numberOfTapsRequired = 2
@@ -74,6 +75,12 @@ class TagListViewTableViewCell: UITableViewCell {
     override var tag: Int {
         didSet {
             tagListView?.tag = tag
+        }
+    }
+    
+    var prefixLabelText: String? = nil {
+        didSet {
+            tagListView?.prefixLabelText = prefixLabelText
         }
     }
         

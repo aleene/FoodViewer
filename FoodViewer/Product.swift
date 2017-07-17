@@ -55,6 +55,7 @@ class FoodProduct {
     var genericNameLanguage = [String:String?]()
     
     var brands: Tags = .undefined
+    var brandsTags: Tags = .undefined
     
     var primaryLanguageCode: String? = nil {
         didSet {
@@ -242,6 +243,7 @@ class FoodProduct {
     var nutritionalScoreUK: LocalizedNutritionalScoreUK? = nil
     var nutritionalScoreFR: LocalizedNutritionalScoreFR? = nil
     var purchaseLocation: Address? = nil //or a set?
+    var purchaseLocationTags: Tags = .undefined
     
     func purchaseLocationElements(_ elements: [String]?) {
         if elements != nil {
@@ -267,6 +269,8 @@ class FoodProduct {
         }
     }
     
+    var storesTags: Tags = .undefined
+    
     var countries: [Address]? = nil //or a set?
     
     func set(countries:[String]?) {
@@ -276,7 +280,25 @@ class FoodProduct {
                 for element in array {
                     if !element.isEmpty {
                         let newAddress = Address()
-                        newAddress.country = element
+                        newAddress.raw = element
+                        self.countries!.append(newAddress)
+                    }
+                }
+            } else {
+                self.countries = []
+            }
+        }
+    }
+
+    func setWithRaw(countries:[(String, String)]?) {
+        if let array = countries {
+            if !array.isEmpty {
+                self.countries = []
+                for element in array {
+                    if !element.1.isEmpty {
+                        let newAddress = Address()
+                        newAddress.country = element.1
+                        newAddress.raw = element.0
                         self.countries!.append(newAddress)
                     }
                 }
@@ -287,6 +309,7 @@ class FoodProduct {
     }
 
     var producer: Address? = nil
+    var producerTags: Tags = .undefined
     
     var links: [URL]? = nil
     
@@ -417,6 +440,8 @@ class FoodProduct {
     }
 
     var producerCode: [Address]? = nil
+    var originalProducerCode: [Address]? = nil
+    var tagsProducerCode: Tags = .undefined
     
     var producerCodeArray: [String]? = nil {
         didSet {
@@ -463,6 +488,7 @@ class FoodProduct {
 
     // group parameters
     var categories: Tags = .undefined
+    var categoriesTags: Tags = .undefined
     
     // community parameters
     var photographers: [String]? = nil {
@@ -578,6 +604,7 @@ class FoodProduct {
     init() {
         barcode = BarcodeType.undefined("", Preferences.manager.showProductType)
         brands = .undefined
+        brandsTags = .undefined
         //mainUrlThumb = nil
         //mainImageUrl = nil
         //mainImageData = nil
@@ -590,6 +617,7 @@ class FoodProduct {
         additives = .undefined
         labelArray = .undefined
         producer = nil
+        producerTags = .undefined
         ingredientsOrigin = nil
         producerCode = nil
         servingSize = nil
@@ -599,13 +627,16 @@ class FoodProduct {
         //nutritionFactsImageUrl = nil
         nutritionGrade = nil
         purchaseLocation = nil
+        purchaseLocationTags = .undefined
         stores = nil
+        storesTags = .undefined
         countries = nil
         additionDate = nil
         creator = nil
         state = CompletionState()
         primaryLanguageCode = nil
         categories = .undefined
+        categoriesTags = .undefined
         photographers = nil
         correctors = nil
         editors = nil
@@ -760,10 +791,12 @@ class FoodProduct {
             nameLanguage = product.nameLanguage
             genericNameLanguage = product.genericNameLanguage
             brands = product.brands
+            brandsTags = product.brandsTags
             frontImages = product.frontImages
             ingredientsImages = product.ingredientsImages
             nutritionImages = product.nutritionImages
             packagingArray = product.packagingArray
+            originalPackagingTags = product.originalPackagingTags
             quantity = product.quantity
             ingredientsLanguage = product.ingredientsLanguage
             numberOfIngredients = product.numberOfIngredients
@@ -771,7 +804,9 @@ class FoodProduct {
             traceKeys = product.traceKeys
             additives = product.additives
             labelArray = product.labelArray
+            originalLabels = product.originalLabels
             producer = product.producer
+            producerTags = product.producerTags
             ingredientsOrigin = product.ingredientsOrigin
             producerCode = product.producerCode
             servingSize = product.servingSize
@@ -779,7 +814,9 @@ class FoodProduct {
             nutritionScore = product.nutritionScore
             nutritionGrade = product.nutritionGrade
             purchaseLocation = product.purchaseLocation
+            purchaseLocationTags = product.purchaseLocationTags
             stores = product.stores
+            storesTags = product.storesTags
             countries = product.countries
             additionDate = product.additionDate
             expirationDateString = product.expirationDateString
@@ -787,6 +824,7 @@ class FoodProduct {
             state = product.state
             languageCodes = product.languageCodes
             categories = product.categories
+            categoriesTags = product.categoriesTags
             photographers = product.photographers
             correctors = product.correctors
             editors = product.editors
@@ -1011,6 +1049,25 @@ class FoodProduct {
     func contains(availability: Bool) -> Bool {
         return availability == self.hasNutritionFacts ? true : false
     }
+    
+    func translatedLabels() -> Tags {
+        switch labelArray {
+        case let .available(list):
+            if !list.isEmpty {
+                var translatedLabels:[String] = []
+                let preferredLanguage = Locale.preferredLanguages[0]
+                for label in list {
+                        translatedLabels.append(OFFplists.manager.translateGlobalLabels(label, language:preferredLanguage))
+                }
+                return .available(translatedLabels)
+            } else {
+                return .empty
+            }
+        default:
+            return labelArray
+        }
+    }
+
 
 // End product
 }
