@@ -89,9 +89,9 @@ class CompletionStatesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if (indexPath as NSIndexPath).section == 0 {
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionStateCellIdentifier, for: indexPath) as! StateTableViewCell
-            switch (indexPath as NSIndexPath).row {
+            switch indexPath.row {
             case 0:
                 cell.state = product!.state.productNameComplete.value
                 cell.stateTitle = product!.state.productNameComplete.text
