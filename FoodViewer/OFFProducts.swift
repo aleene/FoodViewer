@@ -37,11 +37,14 @@ class OFFProducts {
     // no search has been set at the start
     var search: OFF.SearchComponent? = nil
     var searchValue: String? = nil
+    var searchResultSize: Int? = nil
     
     var mostRecentProduct = MostRecentProduct()
 
     //  Contains all the fetch results for all product types
     private var allProductFetchResultList: [ProductFetchStatus?] = []
+    
+    // Contains all the search fetch results
     private var allSearchFetchResultList: [ProductFetchStatus?] = []
     
     // This list contains the product fetch results for the current product type
@@ -545,7 +548,7 @@ class OFFProducts {
     
     fileprivate func update(_ updatedProduct: FoodProduct) {
         // only update the updated product
-        // need to find it first in the history.
+        // need to find it first in the history or in the search list.
         var index = 0
         for fetchResult in allProductFetchResultList {
             if let validFetchResult = fetchResult {
@@ -564,8 +567,24 @@ class OFFProducts {
                 default:
                     break
                 }
-            } 
+            }
+            
         }
+        for fetchResult in allSearchFetchResultList {
+            if let validFetchResult = fetchResult {
+                switch validFetchResult {
+                case .success(let product):
+                    if product.barcode.asString() == updatedProduct.barcode.asString() {
+                        // replace the existing product with the data of the new product
+                        product.updateDataWith(updatedProduct)
+                    }
+                default:
+                    break
+                }
+            }
+            
+        }
+
     }
     
     func flushImages() {

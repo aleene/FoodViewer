@@ -93,7 +93,7 @@ class OpenFoodFactsRequest {
     func fetchProducts(for component: OFF.SearchComponent, with value:String) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // encode the url-string
-        let search = OFF.searchString(for: component, with: value)
+        let search = OFF.searchString(for: component, with: value, on: 1)
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
 
             let fetchUrl = URL(string:escapedSearch)
@@ -180,13 +180,19 @@ class OpenFoodFactsRequest {
                 return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Other (>1) result status", comment: "A JSON status which is not supported."))
             }
         // is this a multi product page?
-        } else if let jsonProducts = jsonObject[jsonKeys.ProductsKey].array {
-            var products: [FoodProduct] = []
-            for jsonProduct in jsonProducts {
-                let product = decode(jsonProduct)
-                products.append(product)
+        } else if let count = jsonObject[jsonKeys.CountKey].int {
+            // total number of results for search
+            print(count)
+            if let jsonProducts = jsonObject[jsonKeys.ProductsKey].array {
+                var products: [FoodProduct] = []
+                for jsonProduct in jsonProducts {
+                    let product = decode(jsonProduct)
+                    products.append(product)
+                }
+                return ProductFetchStatus.list(products)
+            } else {
+                return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Not a valid Search array", comment: "Error message when the json input file does not contain any information") )
             }
-            return ProductFetchStatus.list(products)
         } else {
             return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Not a valid OFF JSON", comment: "Error message when the json input file does not contain any information") )
         }

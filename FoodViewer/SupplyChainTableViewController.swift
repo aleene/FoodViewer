@@ -135,6 +135,7 @@ class SupplyChainTableViewController: UITableViewController {
         case map
         case expirationDate
         case sites
+        case periodAfterOpening
     }
     
     fileprivate struct Constants {
@@ -158,12 +159,15 @@ class SupplyChainTableViewController: UITableViewController {
         static let CountriesCellIdentifier = "Countries TagListView Cell"
         static let ProducerCodeCellIdentifier = "ProducerCodes TagListView Cell"
         static let ExpirationDateCellIdentifier = "Expiration Date Cell"
+        static let PeriodAfterOpeningCellIdentifier = "Period After Opening Cell"
         static let SitesCellIdentifier = "Sites TagListView Cell"
         static let MapCellIdentifier = "Map Cell"
         static let PurchasPlaceCellIdentifier = "Purchase Place Cell"
         static let StoreCellIdentifier = "Store Place Cell"
-        static let ShowExpirationDateViewControllerSegue = "Show ExpirationDate ViewController"
-        static let ShowFavoriteShopsSegue = "Show Favorite Shops Segue"
+        fileprivate struct SegueIdentifier {
+            static let ShowExpirationDateViewController = "Show ExpirationDate ViewController"
+            static let ShowFavoriteShops = "Show Favorite Shops Segue"
+        }
     }
     
 
@@ -176,7 +180,8 @@ class SupplyChainTableViewController: UITableViewController {
         static let StoresSectionHeader = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
         static let MapSectionHeader = NSLocalizedString("Map", comment: "Header for section of tableView with a map of producer, origin and shop locations.")
         static let ExpirationDateSectionHeader = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
-        static let SitesSectionHeader = NSLocalizedString("Producer Sites", comment: "Header title of tableview section, indicating the sites for the product")
+        static let SitesSectionHeader = NSLocalizedString("Product Websites", comment: "Header title of tableview section, indicating the websites for the product")
+        static let PAOSectionHeader = NSLocalizedString("Period After Opening", comment: "Header title of tableview section, indicating period after opening for beauty products")
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1
@@ -186,6 +191,7 @@ class SupplyChainTableViewController: UITableViewController {
         static let MapSectionSize = 1
         static let ExpirationDateSectionSize = 1
         static let SitesSectionSize = 1
+        static let PAOSectionSize = 1
     }
     
     fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
@@ -196,10 +202,17 @@ class SupplyChainTableViewController: UITableViewController {
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        sectionsAndRows.append((
-            SectionType.expirationDate,
-            TableStructure.ExpirationDateSectionSize,
-            TableStructure.ExpirationDateSectionHeader))
+        if product.type == .beauty {
+            sectionsAndRows.append((
+                SectionType.periodAfterOpening,
+                TableStructure.PAOSectionSize,
+                TableStructure.PAOSectionHeader))
+        } else {
+            sectionsAndRows.append((
+                SectionType.expirationDate,
+                TableStructure.ExpirationDateSectionSize,
+                TableStructure.ExpirationDateSectionHeader))
+        }
         // ingredient origin section
         sectionsAndRows.append((
             SectionType.ingredientOrigin,
@@ -235,10 +248,10 @@ class SupplyChainTableViewController: UITableViewController {
             SectionType.country,
             TableStructure.CountriesSectionSize,
             TableStructure.CountriesSectionHeader))
-        sectionsAndRows.append((
-            SectionType.map,
-            TableStructure.MapSectionSize,
-            TableStructure.MapSectionHeader))
+        //sectionsAndRows.append((
+        //    SectionType.map,
+        //    TableStructure.MapSectionSize,
+        //    TableStructure.MapSectionHeader))
 
         return sectionsAndRows
     }
@@ -256,14 +269,14 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
         
         // we assume that product exists
         switch currentProductSection {
         case .producer:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerTagListViewCell, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 0
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
@@ -272,7 +285,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .producerCode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ProducerCodeCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 1
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
@@ -281,17 +294,16 @@ class SupplyChainTableViewController: UITableViewController {
         case .sites:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.SitesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 6
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
-            // print ("sites 2", cell.frame.size)
             return cell
             
         case .ingredientOrigin:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.IngredientOriginCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 2
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
@@ -300,7 +312,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.StoreCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 3
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
@@ -309,7 +321,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PurchasPlaceCellIdentifier, for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 4
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
@@ -318,29 +330,72 @@ class SupplyChainTableViewController: UITableViewController {
         case .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            cell.tag = 5
+            cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
             cell.editMode = editMode
             return cell
             
         case .map:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
-            cell.product = product!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CountriesCellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.tag = indexPath.section
+            cell.delegate = self
+            cell.datasource = self
+            cell.editMode = editMode
+
+            
+            //let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.MapCellIdentifier, for: indexPath) as! MapTableViewCell
+            //cell.product = product!
             return cell
             
         case .expirationDate:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath) as! ExpirationDateTableViewCell
+            if product!.type == .beauty {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PeriodAfterOpeningCellIdentifier, for: indexPath)
+                
+                // has the product been edited?
+                if let validPeriod = delegate?.updatedProduct?.periodAfterReferenceDate {
+                    let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                    let formatter = DateComponentsFormatter()
+                    formatter.unitsStyle = .full
+                    formatter.allowedUnits = .month
+                    let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                    cell.textLabel?.text = formattedTimeLeft
+                } else if let validPeriod = product!.periodAfterReferenceDate {
+                    let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                    let formatter = DateComponentsFormatter()
+                    formatter.unitsStyle = .full
+                    formatter.allowedUnits = .month
+                    let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                    cell.textLabel?.text = formattedTimeLeft
+                }
+                cell.tag = indexPath.section
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ExpirationDateCellIdentifier, for: indexPath) as! ExpirationDateTableViewCell
             
-            // has the product been edited?
-            if let validDate = delegate?.updatedProduct?.expirationDate {
-                cell.date = validDate
-            } else if let validDate = product!.expirationDate {
-                cell.date = validDate
+                // has the product been edited?
+                if let validDate = delegate?.updatedProduct?.expirationDate {
+                    cell.date = validDate
+                } else if let validDate = product!.expirationDate {
+                    cell.date = validDate
+                }
+                cell.editMode = editMode
+                cell.delegate = self
+                cell.tag = indexPath.section
+                return cell
+            }
+        case .periodAfterOpening:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.PeriodAfterOpeningCellIdentifier, for: indexPath) as! PeriodAfterOpeningTableViewCell
+
+            if let validPeriodAfterOpening = delegate?.updatedProduct?.periodAfterOpeningString {
+                cell.tekst = validPeriodAfterOpening
+            } else if let validPeriodAfterOpening = product?.periodAfterOpeningString {
+                cell.tekst = validPeriodAfterOpening
             }
             cell.editMode = editMode
             cell.delegate = self
-            cell.tag = 6
+            cell.tag = indexPath.section
             return cell
         }
     }
@@ -357,7 +412,7 @@ class SupplyChainTableViewController: UITableViewController {
         if editMode {
             switch currentProductSection {
             case .expirationDate:
-                performSegue(withIdentifier: Storyboard.ShowExpirationDateViewControllerSegue, sender: self)
+                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowExpirationDateViewController, sender: self)
             default:
                 break
             }
@@ -384,23 +439,36 @@ class SupplyChainTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.ShowExpirationDateViewControllerSegue:
+            case Storyboard.SegueIdentifier.ShowExpirationDateViewController:
                 if  let vc = segue.destination as? SelectExpirationDateViewController {
-                    if let validName = delegate?.updatedProduct?.expirationDate {
-                        let formatter = DateFormatter()
-                        formatter.dateStyle = .medium
-                        formatter.timeStyle = .none
-                        vc.currentDate = validName
-                    } else if let validName = product!.expirationDate {
-                        let formatter = DateFormatter()
-                        formatter.dateStyle = .medium
-                        formatter.timeStyle = .none
-                        vc.currentDate = validName
-                    } else {
-                        vc.currentDate = nil
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? ExpirationDateTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                if let validName = delegate?.updatedProduct?.expirationDate {
+                                    let formatter = DateFormatter()
+                                    formatter.dateStyle = .medium
+                                    formatter.timeStyle = .none
+                                    vc.currentDate = validName
+                                } else if let validName = product!.expirationDate {
+                                    let formatter = DateFormatter()
+                                    formatter.dateStyle = .medium
+                                    formatter.timeStyle = .none
+                                    vc.currentDate = validName
+                                } else {
+                                    vc.currentDate = nil
+                                }
+                            }
+                        }
                     }
-
                 }
+
             default: break
             }
         }
@@ -444,8 +512,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // tableView.reloadData()
-        // print ("viewWillAppear", tableView.frame)
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
@@ -454,8 +520,6 @@ class SupplyChainTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // tableView.reloadData()
-        // print ("viewDidAppear", tableView.frame)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
@@ -468,6 +532,27 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
 }
+
+// MARK: - UIPopoverPresentationControllerDelegate Functions
+
+extension SupplyChainTableViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+    
+}
+
 
 // MARK: - TagListView DataSource Functions
 
@@ -495,20 +580,21 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             }
         }
         
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
             return count(producerTagsToDisplay)
-        case 1:
+        case .producerCode:
             return count(producerCodeTagsToDisplay)
-        case 2:
+        case .ingredientOrigin:
             return count(ingredientOriginLocationTagsToDisplay)
-        case 3:
+        case .store:
             return count(storeTagsToDisplay)
-        case 4:
+        case .location:
             return count(purchaseLocationTagsToDisplay)
-        case 5:
+        case .country:
             return count(countriesToDisplay)
-        case 6:
+        case .sites:
             return count(linksToDisplay)
         default: break
         }
@@ -524,20 +610,21 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             return TagConstants.Undefined
         }
         
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
             return title(producerTagsToDisplay)
-        case 1:
+        case .producerCode:
             return title(producerCodeTagsToDisplay)
-        case 2:
+        case .ingredientOrigin:
             return title(ingredientOriginLocationTagsToDisplay)
-        case 3:
+        case .store:
             return title(storeTagsToDisplay)
-        case 4:
+        case .location:
             return title(purchaseLocationTagsToDisplay)
-        case 5:
+        case .country:
             return title(countriesToDisplay)
-        case 6:
+        case .sites:
             return title(linksToDisplay)
         default: break
         }
@@ -550,50 +637,51 @@ extension SupplyChainTableViewController: TagListViewDataSource {
 extension SupplyChainTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
             if var tags = producerTagsToDisplay {
                 tags.append(title)
                 delegate?.update(producer: tags)
             } else {
                 delegate?.update(producer: [title])
             }
-        case 1:
+        case .producerCode:
             if var tags = producerCodeTagsToDisplay {
                 tags.append(title)
                 delegate?.update(producerCode: tags)
             } else {
                 delegate?.update(producerCode: [title])
             }
-        case 2:
+        case .ingredientOrigin:
             if var tags = ingredientOriginLocationTagsToDisplay {
                 tags.append(title)
                 delegate?.update(ingredientsOrigin: tags)
             } else {
                 delegate?.update(ingredientsOrigin: [title])
             }
-        case 3:
+        case .store:
             if var tags = storeTagsToDisplay {
                 tags.append(title)
                 delegate?.update(stores: tags)
             } else {
                 delegate?.update(stores: [title])
             }
-        case 4:
+        case .location:
             if var tags = purchaseLocationTagsToDisplay {
                 tags.append(title)
                 delegate?.update(purchaseLocation: tags)
             } else {
                 delegate?.update(purchaseLocation: [title])
             }
-        case 5:
+        case .country:
             if var tags = countriesToDisplay {
                 tags.append(title)
                 delegate?.update(countries: tags)
             } else {
                 delegate?.update(countries: [title])
             }
-        case 6:
+        case .sites:
             if var tags = linksToDisplay {
                 tags.append(title)
                 delegate?.update(links: tags)
@@ -603,12 +691,12 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        // tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
             if var validTags = producerTagsToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -616,7 +704,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(producer: validTags)
             }
-        case 1:
+        case .producerCode:
             if var validTags = producerCodeTagsToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -624,7 +712,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(producerCode: validTags)
             }
-        case 2:
+        case .ingredientOrigin:
             if var validTags = ingredientOriginLocationTagsToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -632,7 +720,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(ingredientsOrigin: validTags)
             }
-        case 3:
+        case .store:
             if var validTags = storeTagsToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -640,7 +728,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(stores: validTags)
             }
-        case 4:
+        case .location:
             if var validTags = purchaseLocationTagsToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -648,7 +736,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(purchaseLocation: validTags)
             }
-        case 5:
+        case .country:
             if var validTags = countriesToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -656,7 +744,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 validTags.remove(at: index)
                 delegate?.update(countries: validTags)
             }
-        case 6:
+        case .sites:
             if var validTags = linksToDisplay {
                 guard index >= 0 && index < validTags.count else {
                     break
@@ -667,31 +755,30 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         default:
             break
         }
-        tableView.reloadData()
     }
     
     
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
-        switch tagListView.tag {
-        case 0:
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
             delegate?.update(producer: [])
-        case 1:
+        case .producerCode:
             delegate?.update(producerCode: [])
-        case 2:
+        case .ingredientOrigin:
             delegate?.update(ingredientsOrigin: [])
-        case 3:
+        case .store:
             delegate?.update(stores: [])
-        case 4:
+        case .location:
             delegate?.update(purchaseLocation: [])
-        case 5:
+        case .country:
             delegate?.update(countries: [])
-        case 6:
+        case .sites:
             delegate?.update(links: [])
         default:
             break
         }
-        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
@@ -756,11 +843,17 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        switch textField.tag {
-        case 6:
+        let (currentProductSection, _, _) = tableStructureForProduct[textField.tag]
+        switch currentProductSection {
+        case .expirationDate:
             // expiration date
             if let validText = textField.text {
                 delegate?.updated(expirationDateString: validText)
+            }
+        case .periodAfterOpening:
+            // period after opening
+            if let validText = textField.text {
+                delegate?.update(periodAfterOpeningString: validText + " M")
             }
         default:
             break

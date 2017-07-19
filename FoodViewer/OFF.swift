@@ -89,6 +89,23 @@ public struct OFF {
         return urlString
     }
     
+    static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
+        let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Scheme
+        urlString += "\(region)."
+        // use the currrent product type
+        urlString += server(for:Preferences.manager.showProductType)
+        urlString += URL.TopDomain
+        urlString += component.rawValue
+        urlString += "/"
+        urlString += value
+        urlString += "/"
+        urlString += "\(page)"
+        urlString += URL.JSONExtension
+        return urlString
+    }
+
+    
     static func webProductURLFor(_ barcode: BarcodeType) -> String {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
@@ -397,7 +414,7 @@ struct OFFReadAPIkeysJSON {
     static let SkipKey = "skip"  // Int
     static let PageSizeKey = "page_size" // Int
     static let ProductsKey = "products" //Array
-    static let PagKey = "page" // Int
+    static let PageKey = "page" // Int
     static let CountKey = "count" // Int
 }
 

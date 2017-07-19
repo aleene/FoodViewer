@@ -1058,8 +1058,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             vc.currentLanguageCode = currentLanguageCode
         }
         if let vc = pages[2] as? NutrientsTableViewController {
-            let test = currentLanguageCode!
-            vc.currentLanguageCode = test
+            vc.currentLanguageCode = currentLanguageCode
         }
 
     }

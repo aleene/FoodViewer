@@ -518,9 +518,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
+            switchToTab(withIndex: 0)
             barcode = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
             searchTextField.text = vc.barcode
+            products.list = .recent
+            startInterface()
+
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+        } else {
+            assert(true, "ProductTableViewController: BarcodeScanViewController hierarchy error")
         }
     }
     
@@ -537,6 +543,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 products.reloadAll()
             }
             tableView.reloadData()
+        }
+    }
+    
+    private func switchToTab(withIndex index: Int) {
+        if let tabVC = self.parent?.parent as? UITabBarController {
+            tabVC.selectedIndex = index
+        } else {
+            assert(true, "ProductTableViewController: TabBar hierarchy error")
         }
     }
     
@@ -632,10 +646,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     func searchLoaded(_ notification: Notification) {
-        if let tabVC = self.parent?.parent as? UITabBarController {
-            // start out with the history tab
-            tabVC.selectedIndex = 1
-        }
+        switchToTab(withIndex: 1)
         startInterface()
     }
 
