@@ -51,19 +51,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    fileprivate func startInterface() {
-        if !products.fetchResultList.isEmpty {
-            //if let validFetchResult = products.fetchResultList[0] {
-                switch products.fetchResultList[0] {
-                case .success(let product):
-                    selectedProduct = product
-                    tableView.reloadData()
-                    tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
-                default:
-                    selectedProduct = nil
-                    tableView.reloadData()
-                }
-            //}
+    fileprivate func startInterface(at index:Int) {
+        if !products.fetchResultList.isEmpty && index < products.fetchResultList.count {
+            switch products.fetchResultList[index] {
+            case .success(let product):
+                selectedProduct = product
+                tableView.reloadData()
+                tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
+            default:
+                selectedProduct = nil
+                tableView.reloadData()
+            }
         } else {
             selectedProduct = nil
             tableView.reloadData()
@@ -205,7 +203,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let Categories = "Product Categories Cell"
             static let Completion = "Product Completion State Cell"
             static let Producer = "Product Producer Cell"
-            static let BeingLoaded = "Product Being Loaded Cell"
+            static let TagListView = "Product TagListView Cell"
         }
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
@@ -223,6 +221,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switch products.fetchResultList[section] {
             case .success:
                 return tableStructure.count
+            case .more:
+                // allow a cell with a button
+                return 1
             default:
                 break
             }
@@ -234,9 +235,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let currentProductSection = tableStructure[indexPath.row]
-        if !products.fetchResultList.isEmpty {
+        if !products.fetchResultList.isEmpty && indexPath.section < products.fetchResultList.count {
             //if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-                switch products.fetchResultList[(indexPath as NSIndexPath).section] {
+                switch products.fetchResultList[indexPath.section] {
                 case .success(let currentProduct):
                     switch currentProductSection {
                     case .name:
@@ -343,35 +344,48 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                         return cell
                     }
+                case .more:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = 1
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    return cell!
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BeingLoaded, for: indexPath) as? BeingLoadedTableViewCell
-                    cell?.status = products.fetchResultList[(indexPath as NSIndexPath).section]
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = 0
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.normal
+                    return cell!
                 }
             //}
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BeingLoaded, for: indexPath) as? BeingLoadedTableViewCell
-            
-        cell?.status = nil
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
         return cell!
     }
     
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        selectedIndex = (indexPath as NSIndexPath).row
+        selectedIndex = indexPath.row
         if let index = selectedIndex {
             selectedRowType = tableStructure[index]
         }
         if !products.fetchResultList.isEmpty {
             //if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-                switch products.fetchResultList[(indexPath as NSIndexPath).section] {
+                switch products.fetchResultList[indexPath.section] {
                 case .success(let product):
                     selectedProduct = product
+                case .more:
+                    // The next set should be loaded
+                    products.fetchSearchProductsForNextPage()
                 default: break
                 }
             //}
         }
     }
+    
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
@@ -413,8 +427,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
         
         tempView.addSubview(label)
-        tempView.tag = section;
-        return tempView;
+        tempView.tag = section
+        return tempView
     }
 
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
@@ -511,7 +525,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
         if let _ = segue.source as? BarcodeScanViewController {
             if products.fetchResultList.count > 0 {
-                tableView.reloadData()
+                tableView.reloadData() 
             }
         }
     }
@@ -522,7 +536,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             barcode = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
             searchTextField.text = vc.barcode
             products.list = .recent
-            startInterface()
+            startInterface(at: 0)
 
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
@@ -642,12 +656,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     // 
     func firstProductLoaded(_ notification: Notification) {
-        startInterface()
+        startInterface(at: 0)
     }
     
     func searchLoaded(_ notification: Notification) {
         switchToTab(withIndex: 1)
-        startInterface()
+        if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
+            startInterface(at:index)
+        }
     }
 
 
@@ -665,7 +681,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // start out with the history tab
             if tabVC.selectedIndex == 0 {
                 Preferences.manager.cycleProductType()
-                startInterface()
+                startInterface(at: 0)
             }
         }
     }
@@ -696,7 +712,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         initializeCustomKeyboard()
         
-        startInterface()
+        startInterface(at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -744,9 +760,47 @@ extension ProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         products.list = tabBarController.selectedIndex == 0 ? .recent : .search
-        startInterface()
+        startInterface(at: 0)
     }
     
 }
+    
+    
+// MARK: - TagListView DataSource Functions
+    
+extension ProductTableViewController: TagListViewDataSource {
+        
+    public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        return 1
+    }
+        
+    public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
+        if tagListView.tag == 0 {
+            let fetchStatus = ProductFetchStatus.loading
+            return fetchStatus.description()
+        } else if tagListView.tag == 1 {
+            let fetchStatus = ProductFetchStatus.more(0)
+            return fetchStatus.description()
+        }
+        return "ProductTableViewController: tagListView.tag not recognized"
+    }
+    
+    /// Which text should be displayed when the TagListView is collapsed?
+    public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
+        return "Collapsed"
+    }
+        
+}
+    
+// MARK: - TagListView Delegate Functions
+    
+extension ProductTableViewController: TagListViewDelegate {
+    
+    public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
+        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+    }
+    
+}
+
 
 

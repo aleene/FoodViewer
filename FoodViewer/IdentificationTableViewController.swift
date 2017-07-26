@@ -79,10 +79,34 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             if product != nil {
                 tableView.reloadData()
+                // check if the currentLanguage needs to be updated
+                setCurrentLanguage()
             }
         }
     }
     
+    // This function finds the language that must be used to display the product
+    private func setCurrentLanguage() {
+        // is there already a current language?
+        guard currentLanguageCode == nil else { return }
+        // find the first preferred language that can be used
+        for languageLocale in Locale.preferredLanguages {
+            // split language and locale
+            let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
+            if let languageCodes = product?.languageCodes {
+                if languageCodes.contains(preferredLanguage) {
+                    currentLanguageCode = preferredLanguage
+                    // found a valid code
+                    return
+                }
+            }
+        }
+        // there is no match between preferred languages and product languages
+        if currentLanguageCode == nil {
+            currentLanguageCode = product?.primaryLanguageCode
+        }
+    }
+
     var delegate: ProductPageViewController? = nil
     
     var editMode: Bool = false {

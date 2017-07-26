@@ -552,7 +552,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     func updated(ingredients: String, languageCode: String) {
         guard product != nil else { return }
-        if !product!.contains(ingredients: ingredients) {
+        if !product!.contains(ingredients: ingredients, in:languageCode) {
             initUpdatedProductWith(product: product!)
             updatedProduct?.set(newIngredients: ingredients, for: languageCode)
             saveUpdatedProduct()

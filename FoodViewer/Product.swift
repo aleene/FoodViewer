@@ -909,8 +909,8 @@ class FoodProduct {
         return false
     }
     
-    func contains(ingredients: String) -> Bool {
-        return ingredients == self.ingredients ? true : false
+    func contains(ingredients: String, in languageCode:String) -> Bool {
+        return ingredients == self.ingredientsLanguage[languageCode] ? true : false
     }
     
     func contains(servingSize: String) -> Bool {

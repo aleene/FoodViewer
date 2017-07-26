@@ -82,7 +82,8 @@ class GKImageCropView: UIView {
     
         //finally crop image
         if let imageRef = (self.imageToCrop!.cgImage)!.cropping(to: visibleRect) {
-            return UIImage.init(cgImage: imageRef, scale: self.imageToCrop!.scale, orientation: self.imageToCrop!.imageOrientation)
+            let newImage = UIImage.init(cgImage: imageRef, scale: self.imageToCrop!.scale, orientation: self.imageToCrop!.imageOrientation)
+            return newImage
         } else {
             return nil
         }
