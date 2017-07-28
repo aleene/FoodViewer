@@ -187,7 +187,6 @@ class OpenFoodFactsRequest {
             }
             let searchPageSize: Int = jsonObject[jsonKeys.PageSizeKey].int ?? 1
             // total number of results for search
-print(searchResultSize)
             if let jsonProducts = jsonObject[jsonKeys.ProductsKey].array {
                 var products: [FoodProduct] = []
                 for jsonProduct in jsonProducts {

@@ -20,6 +20,7 @@ class OFFProducts {
         static let BarcodeDoesNotExistKey = "OFFProducts.Notification.BarcodeDoesNotExist.Key"
         static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
         static let SearchOffsetKey = "OFFProducts.Notification.SearchOffset.Key"
+        static let SearchPageKey = "OFFProducts.Notification.SearchPage.Key"
     }
     
     
@@ -507,18 +508,31 @@ class OFFProducts {
                 NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
             }
         case .search:
-            // allSearchFetchResultList = []
-            // Is there a search setup?
+            // Has a search been setup?
             if search != nil {
-                // reset search page
-                currentSearchPage = 0
-                fetchSearchProductsForNextPage()
+                startFreshSearch()
             } else {
                 setCurrentProducts()
                 let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
                 NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
             }
 
+        }
+    }
+    
+    private func startFreshSearch() {
+        if let validSearchString = searchValue {
+            // reset search page
+            currentSearchPage = 0
+            allSearchFetchResultList = []
+            allSearchFetchResultList.append(.searchLoading)
+            setCurrentProducts()
+            // send a notification to inform that a search has started
+            let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchString,
+                                      Notification.SearchPageKey:currentSearchPage]
+            NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
+        
+            fetchSearchProductsForNextPage()
         }
     }
     
@@ -546,8 +560,11 @@ class OFFProducts {
                 }
             }
             setCurrentProducts()
-            //let userInfo = [Notification.SearchStringKey:validSearchValue]
-            //NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+            // send a notification to inform that a search has started
+            let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchValue,
+                                          Notification.SearchPageKey:currentSearchPage]
+            NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
+            
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                 fetchResult = OpenFoodFactsRequest().fetchProducts(for:validSearchComponent, with:validSearchValue, on:self.currentSearchPage)
                 DispatchQueue.main.async(execute: { () -> Void in
@@ -668,9 +685,10 @@ class OFFProducts {
 
 extension Notification.Name {
     static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.ProductNotAvailable")
-    static let ProductLoaded = Notification.Name("OFFProducts.Notification.Product Loaded")
+    static let ProductLoaded = Notification.Name("OFFProducts.Notification.ProductLoaded")
+    static let SearchStarted = Notification.Name("OFFProducts.Notification.SearchStarted")
     static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
-    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProduct oaded")
+    static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProductLoaded")
     static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
     static let ProductUpdated = Notification.Name("OFFProducts.Notification.ProductUpdated")
     static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")

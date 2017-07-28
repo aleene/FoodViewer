@@ -43,7 +43,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     selectedProduct = product
                     selectedIndex = 0
                     tableView.reloadData()
-                    tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .top, animated: true)
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .middle, animated: true)
                 default:
                     break
                 }
@@ -350,6 +350,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell?.tag = 1
                     cell?.width = tableView.frame.size.width
                     cell?.scheme = ColorSchemes.error
+                    cell?.accessoryType = .none
                     return cell!
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
@@ -395,32 +396,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
         if !products.fetchResultList.isEmpty {
-            if !products.fetchResultList.isEmpty{
-                switch products.fetchResultList[section] {
-                case .success(let product):
-                    
-                    label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
-                    if let validKeys = product.allergenKeys {
-                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                            tempView.backgroundColor = UIColor.red
-                        }
-                    } else {
-                        if let validKeys = product.traceKeys {
-                            if !validKeys.isEmpty {
-                                let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                                if warn {
-                                    tempView.backgroundColor = UIColor.red
-                                }
+            switch products.fetchResultList[section] {
+            case .success(let product):
+                label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
+                if let validKeys = product.allergenKeys {
+                    if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
+                        tempView.backgroundColor = UIColor.red
+                    }
+                } else {
+                    if let validKeys = product.traceKeys {
+                        if !validKeys.isEmpty {
+                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
+                            if warn {
+                                tempView.backgroundColor = UIColor.red
                             }
                         }
                     }
-                case .other(let message):
-                    label.text = message
-                default:
-                    label.text = products.fetchResultList[section].description()
                 }
-            } else {
-                label.text = Constants.BusyLoadingProduct
+            case .other(let message):
+                label.text = message
+            case .more:
+                // no header required in this case
+                return nil
+            default:
+                label.text = products.fetchResultList[section].description()
             }
         } else {
             label.text = Constants.NoProductsInHistory
@@ -437,10 +436,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableViewAutomaticDimension
+        switch products.fetchResultList[section] {
+        case .more:
+            // no header required in this case
+            return 0.0
+        default:
+            return UITableViewAutomaticDimension
+        }
     }
     
-    // MARK: - Scene changes
+// MARK: - Scene changes
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -666,6 +671,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
+    func searchStarted(_ notification: Notification) {
+        switchToTab(withIndex: 1)
+        if let firstPage = notification.userInfo?[OFFProducts.Notification.SearchPageKey] as? Int {
+            // if there is no SearchOffSet, then the search just started
+            // If it is the first page, position the interface on the first section
+            if firstPage == 0 {
+                startInterface(at:0)
+            }
+        }
+    }
+
 
 //    func addGesture() {
 //        let swipeGestureRecognizer = UISwipeGestureRecognizer.init(target: self, action:#selector(ProductTableViewController.nextProductType))
@@ -724,6 +740,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
