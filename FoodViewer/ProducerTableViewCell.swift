@@ -30,24 +30,33 @@ class ProducerTableViewCell: UITableViewCell {
             if let newProduct = product {
                 textToDisplay = Constants.EmptyString
                 // "Produced by France, Sold in France by Shop"
-                if let producer = newProduct.producer {
-                    textToDisplay += !producer.elements.isEmpty ? String(format: Constants.ProducedBy ,producer.elements[0]) : Constants.EmptyString
+                switch newProduct.manufacturingPlacesOriginal {
+                case .available(let places):
+                    textToDisplay += !places.isEmpty ? String(format: Constants.ProducedBy ,places[0]) : Constants.EmptyString
+                default:
+                    break
                 }
-                if let countries = newProduct.countries {
+                switch newProduct.countriesTranslated {
+                case .available(let countries):
                     if !countries.isEmpty {
                         textToDisplay += Constants.SoldIn
-                        for listItem in countries {
-                            textToDisplay += String(format:Constants.Country, listItem.country)
-                            if listItem.country == countries.last!.country {
+                        for country in countries {
+                            textToDisplay += String(format:Constants.Country, country)
+                            if country == countries.last {
                                 textToDisplay += Constants.Separator
                             } else {
                                 textToDisplay += Constants.CountrySeparator
                             }
                         }
                     }
+                default:
+                    break
                 }
-                if let stores = newProduct.stores {
+                switch newProduct.storesOriginal {
+                case .available(let stores):
                     textToDisplay += !stores.isEmpty ? String(format:Constants.SoldBy, stores[0]) : Constants.EmptyString
+                default:
+                    break
                 }
 
             } else {

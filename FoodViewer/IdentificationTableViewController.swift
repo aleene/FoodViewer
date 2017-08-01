@@ -115,7 +115,7 @@ class IdentificationTableViewController: UITableViewController {
             if editMode != oldValue {
                 
                 // show in editMode the edited tags, as entered by the user
-                if delegate?.updatedProduct?.originalPackagingTags == nil {
+                if delegate?.updatedProduct?.packagingOriginal == nil {
                     showPackagingTagsType = editMode ? .edited : .original
                 } else {
                     showPackagingTagsType = .edited
@@ -142,47 +142,63 @@ class IdentificationTableViewController: UITableViewController {
             // is an updated product available?
             if delegate?.updatedProduct != nil {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.brands {
+                switch delegate!.updatedProduct!.brandsOriginal {
                 case .available, .empty:
-                    return delegate!.updatedProduct!.brands
+                    return delegate!.updatedProduct!.brandsOriginal
+                default:
+                    break
+                }
+            } else {
+                switch showBrandTagsType {
+                case .interpreted:
+                    return product!.brandsInterpreted
+                case .original:
+                    return product!.brandsOriginal
                 default:
                     break
                 }
             }
-            return product!.brands
+            return .undefined
         }
     }
     
-    enum tagsType {
-        case original
-        case interpreted
-        case edited
+    private var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
+    private var showBrandTagsType: TagsType = TagsTypeDefault.Brands
+    
+    private struct TagsTypeDefault {
+        static let Brands: TagsType = .original
+        static let Packaging: TagsType = .edited
     }
-    
-    private var showPackagingTagsType: tagsType = .original
-    
     fileprivate var packagingToDisplay: Tags {
         get {
             // is an updated product available?
             if delegate?.updatedProduct != nil {
                 // does it have edited packaging tags defined?
-                switch delegate!.updatedProduct!.originalPackagingTags {
+                switch delegate!.updatedProduct!.packagingOriginal {
                 case .available, .empty:
-                    return delegate!.updatedProduct!.originalPackagingTags
+                    showPackagingTagsType = .original
+                    return delegate!.updatedProduct!.packagingOriginal
                 default:
                     break
                 }
             } else {
                 switch showPackagingTagsType {
                 case .interpreted:
-                    return product!.packagingArray
-                default:
-                    break
+                    return product!.packagingInterpreted
+                case .original:
+                    return product!.packagingOriginal
+                case .hierarchy:
+                    return product!.packagingHierarchy
+                case .edited:
+                    return product!.packagingOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                case .translated:
+                    return .undefined
                 }
             }
             // add the primary languagecode to tags without a languageCode and 
             // remove the languageCode for tags that are in the interface languageCode
-            return product!.originalPackagingTags.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            //
+            return .undefined
         }
     }
     
@@ -435,6 +451,31 @@ class IdentificationTableViewController: UITableViewController {
         switch currentProductSection {
         case .image, .name, .genericName :
             return nil
+            
+        case .brands:
+            switch showBrandTagsType {
+            case TagsTypeDefault.Brands:
+                return tableStructure[section].header()
+            default:
+                return tableStructure[section].header() +
+                    " " +
+                    "(" +
+                    showBrandTagsType.description() +
+                    ")"
+            }
+            
+        case .packaging:
+            switch showPackagingTagsType {
+            case TagsTypeDefault.Packaging:
+                return tableStructure[section].header()
+            default:
+                return tableStructure[section].header() +
+                    " " +
+                    "(" +
+                    showPackagingTagsType.description() +
+                    ")"
+            }
+
         default:
             return tableStructure[section].header()
         }
@@ -630,15 +671,18 @@ class IdentificationTableViewController: UITableViewController {
 
     // MARK: - Notification handler
     
-    func changeShowPackagingTagsType() {
-        showPackagingTagsType = showPackagingTagsType == .interpreted ? .original : .interpreted
-        for (index, sectionType) in tableStructure.enumerated() {
-            switch sectionType {
+    func changeTagsTypeShown(_ notification: Notification) {
+        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
+            let currentProductSection = tableStructure[tag]
+            switch currentProductSection {
             case .packaging:
-                tableView.reloadSections(IndexSet.init(integer: index), with: .fade)
-                break
+                showPackagingTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            case .brands:
+                showBrandTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
             default:
-                continue
+                break
             }
         }
     }
@@ -784,7 +828,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeShowPackagingTagsType), name:.TagListViewTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1003,17 +1047,17 @@ extension IdentificationTableViewController: TagListViewDelegate {
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
         case .brands:
-            // use the handled tags for search !!!!
-            switch product!.brandsTags {
+            // use the interpreted tags for search !!!!
+            switch product!.brandsInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.brandsTags.tag(at: index), in:.brand)
+                OFFProducts.manager.search(product!.brandsInterpreted.tag(at: index), in:.brand)
             default:
                 break
             }
         case .packaging:
-            switch product!.packagingArray {
+            switch product!.packagingInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.packagingArray.tag(at: index), in: .packaging)
+                OFFProducts.manager.search(product!.packagingInterpreted.tag(at: index), in: .packaging)
             default:
                 break
             }

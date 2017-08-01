@@ -13,6 +13,10 @@ class PurchacePlaceTableViewCell: UITableViewCell {
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
     }
+    
+    internal struct Notification {
+        static let TagKey = "PurchacePlaceTableViewCell.Notification.Tag.Key"
+    }
 
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
@@ -30,6 +34,11 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
             tagListView?.frame.size.width = editMode ? width - Constants.Margin - CGFloat(40.0) : width - Constants.Margin
+            
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(PurchacePlaceTableViewCell.tagListViewTapped))
+            tapGestureRecognizer.numberOfTapsRequired = 2
+            tagListView.addGestureRecognizer(tapGestureRecognizer)
+
         }
     }
 
@@ -75,5 +84,17 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             // print("Cell", tagListView.frame.size.width)
         }
     }
+    
+    func tagListViewTapped() {
+        let userInfo: [String:Any] = [Notification.TagKey:tag]
+        NotificationCenter.default.post(name: .TagListViewTapped, object:nil, userInfo: userInfo)
+    }
+    
 
 }
+
+// Definition:
+extension Notification.Name {
+    static let PurchasePlaceTagListViewTapped = Notification.Name("TagListViewTableViewCell.Notification.PurchasePlaceTagListViewTapped")
+}
+

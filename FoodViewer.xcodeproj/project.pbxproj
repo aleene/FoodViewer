@@ -205,6 +205,7 @@
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
 		51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51E5CC9A1CB1105E00216868 /* Keyboard.xib */; };
 		51E614941C8349AD00DAEE6C /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E614931C8349AD00DAEE6C /* History.swift */; };
+		51E8BA2A1F2FA50900D3C742 /* TagsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E8BA291F2FA50900D3C742 /* TagsType.swift */; };
 		51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92AFC1E13D60E0071B293 /* TagListViewDelegate.swift */; };
 		51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92AFE1E13D6210071B293 /* TagListViewDatasource.swift */; };
 		51E92B011E13D6970071B293 /* TagListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E92B001E13D6970071B293 /* TagListView.swift */; };
@@ -460,6 +461,7 @@
 		51E5CC9A1CB1105E00216868 /* Keyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Keyboard.xib; sourceTree = "<group>"; };
 		51E614911C821EFE00DAEE6C /* 6524654176.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 6524654176.json; sourceTree = "<group>"; };
 		51E614931C8349AD00DAEE6C /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
+		51E8BA291F2FA50900D3C742 /* TagsType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsType.swift; sourceTree = "<group>"; };
 		51E92AFC1E13D60E0071B293 /* TagListViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewDelegate.swift; sourceTree = "<group>"; };
 		51E92AFE1E13D6210071B293 /* TagListViewDatasource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewDatasource.swift; sourceTree = "<group>"; };
 		51E92B001E13D6970071B293 /* TagListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListView.swift; sourceTree = "<group>"; };
@@ -856,6 +858,7 @@
 				5114592A1CB1368E00D25116 /* CompletionStatus.swift */,
 				512390F81E7BE8E000A5D6FD /* Units */,
 				51CF42CE1E069BDA00C9AD91 /* Tags.swift */,
+				51E8BA291F2FA50900D3C742 /* TagsType.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1152,6 +1155,7 @@
 				5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */,
 				516B328B1C75FE4B0031EF80 /* NutrientsTableViewController.swift in Sources */,
 				519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */,
+				51E8BA2A1F2FA50900D3C742 /* TagsType.swift in Sources */,
 				51A056FA1E2D23340099092E /* SelectNutrientUnitViewController.swift in Sources */,
 				511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */,
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,

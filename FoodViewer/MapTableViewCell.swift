@@ -37,30 +37,30 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
             mapView.removeAnnotations(mapView.annotations)
             
             if let currentProduct = product {
-                if let coordinates = currentProduct.purchaseLocation?.getCoordinates() {
+                if let coordinates = currentProduct.purchasePlacesAddress?.getCoordinates() {
                     switch coordinates {
                     case .success(let coordinateValues):
-                        let annotation = SupplyChainLocation(title: product!.purchaseLocation!.joined()!, locationName: product!.purchaseLocation!.joined()!, discipline: MapPinCategories.PurchaseLocation, coordinate: coordinateValues[0])
+                        let annotation = SupplyChainLocation(title: product!.purchasePlacesAddress!.joined()!, locationName: product!.purchasePlacesAddress!.joined()!, discipline: MapPinCategories.PurchaseLocation, coordinate: coordinateValues[0])
                         annotations.append(annotation)
                     default:
                         break
                     }
                 }
                 
-                if let coordinates = currentProduct.producer?.getCoordinates() {
+                if let coordinates = currentProduct.manufacturingPlacesAddress?.getCoordinates() {
                     switch coordinates {
                     case .success(let coordinateValues):
-                        let annotation = SupplyChainLocation(title: product!.producer!.joined()!, locationName: product!.producer!.joined()!, discipline: MapPinCategories.ProducerLocation, coordinate: coordinateValues[0])
+                        let annotation = SupplyChainLocation(title: product!.manufacturingPlacesAddress!.joined()!, locationName: product!.manufacturingPlacesAddress!.joined()!, discipline: MapPinCategories.ProducerLocation, coordinate: coordinateValues[0])
                         annotations.append(annotation)
                     default:
                         break
                     }
                 }
                 
-                if let coordinates = currentProduct.ingredientsOrigin?.getCoordinates() {
+                if let coordinates = currentProduct.originsAddress?.getCoordinates() {
                     switch coordinates {
                     case .success(let coordinateValues):
-                        let annotation = SupplyChainLocation(title: product!.ingredientsOrigin!.joined()!, locationName: product!.ingredientsOrigin!.joined()!, discipline: MapPinCategories.IngredientOriginLocation, coordinate: coordinateValues[0])
+                        let annotation = SupplyChainLocation(title: product!.originsAddress!.joined()!, locationName: product!.originsAddress!.joined()!, discipline: MapPinCategories.IngredientOriginLocation, coordinate: coordinateValues[0])
                         annotations.append(annotation)
                     default:
                         break
@@ -86,9 +86,8 @@ class MapTableViewCell: UITableViewCell, MKMapViewDelegate {
                 }
 */
 
-                
-                if let countries = currentProduct.countries {
-                    for country in countries {
+                if !currentProduct.countriesAddress.isEmpty {
+                    for country in currentProduct.countriesAddress {
                         if let coordinates = country.getCoordinates() {
                             switch coordinates {
                             case .success(let coordinateValues):

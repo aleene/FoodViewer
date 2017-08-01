@@ -390,6 +390,8 @@ struct OFFReadAPIkeysJSON {
     static let ExpirationDateKey = "expiration_date"
     static let StatesHierarchyKey = "states_hierarchy"
     static let AllergensTagsKey = "allergens_tags"
+    static let AllergensKey = "allergens"
+    static let AllergensHierarchyKey = "allergens_hierarchy"
     static let IngredientsThatMayBeFromPalmOilNKey = "ingredients_that_may_be_from_palm_oil_n"
     static let ImageIngredientsThumbUrlKey = "image_ingredients_thumb_url"
     static let IngredientsFromPalmOilNKey = "ingredients_from_palm_oil_n"

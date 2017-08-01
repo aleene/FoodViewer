@@ -208,18 +208,25 @@ class OFFUpdate {
             productUpdated = true
         }
         
-        if let validPurchasePlace = product?.purchaseLocation?.asSingleString(withSeparator: ",")?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.PurchasePlaces + validPurchasePlace )
-            productUpdated = true
-            // maybe the location is available as raw data
-        } else if let validPurchasePlace = product!.purchaseLocation?.rawArray {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.PurchasePlaces + validPurchasePlace.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
-            productUpdated = true
+        switch product!.purchasePlacesOriginal {
+        case .available(let location):
+            let string = location.flatMap{
+                    $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
+                }.joined(separator: ",")
+                urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.PurchasePlaces + string )
+                productUpdated = true
+                // maybe the location is available as raw data
+        default:
+            break
         }
         
-        if let validShop = product!.stores {
+        switch product!.storesOriginal {
+        case .available(let validShop):
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
+
+        default:
+            break
         }
         
         if let validNutritionFacts = product!.nutritionFacts {
@@ -250,7 +257,7 @@ class OFFUpdate {
             }
         }
         
-        switch product!.brands {
+        switch product!.brandsOriginal {
         case let .available(list):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
@@ -261,11 +268,11 @@ class OFFUpdate {
             break
         }
 
-        switch product!.originalPackagingTags {
+        switch product!.packagingOriginal {
         case .available:
             // take into account the language of the tags
             // if a tag has no prefix, a prefix must be added
-            let list = product!.originalPackagingTags.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product!.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -275,10 +282,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.originalLabels {
+        switch product!.labelsOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product!.originalLabels.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product!.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -288,10 +295,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.traces {
+        switch product!.tracesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product!.traces.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product!.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -314,25 +321,37 @@ class OFFUpdate {
             break
         }
         
-        if let validManufacturingLocation = product?.producer?.rawArray {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + validManufacturingLocation.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
+        switch product!.manufacturingPlacesOriginal {
+        case .available(let places):
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
+        default:
+            break
         }
 
-        if let validIngredientsOrigin = product?.ingredientsOrigin?.rawArray {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + validIngredientsOrigin.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
+        switch product!.originsOriginal {
+        case .available(let places):
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + places.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
             productUpdated = true
+        default:
+            break
         }
         
-        if let validProducerCodes = product?.producerCode {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + validProducerCodes.flatMap{ $0.raw.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
+        switch product!.manufacturingPlacesOriginal {
+        case .available(let places):
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
+        default:
+            break
         }
 
-        if let validCountries = product!.countries {
-            let string = validCountries.flatMap{ $0.raw.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",")
+        switch product!.countriesOriginal {
+        case .available(let validCountries):
+            let string = validCountries.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",")
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + string )
             productUpdated = true
+        default:
+            break
         }
 
         if let validLinks = product!.links {

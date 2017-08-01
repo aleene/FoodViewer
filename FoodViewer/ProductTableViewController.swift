@@ -242,9 +242,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     switch currentProductSection {
                     case .name:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
-                        switch currentProduct.brands {
+                        switch currentProduct.brandsOriginal {
                         case .undefined, .empty:
-                            cell.productBrand = [currentProduct.brands.description()]
+                            cell.productBrand = [currentProduct.brandsOriginal.description()]
                         case let .available(list):
                             cell.productBrand = list
                         }
@@ -280,9 +280,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     case .traces:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
-                        if let count = currentProduct.traceKeys?.count {
-                            cell.badgeString = "\(count)"
-                        } else {
+                        switch currentProduct.tracesInterpreted {
+                        case .available(let traces):
+                            cell.badgeString = "\(traces.count)"
+                        default:
                             cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
                         }
                         return cell
@@ -290,9 +291,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     case .allergens:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
-                        if let count = currentProduct.allergenKeys?.count {
-                            cell.badgeString = "\(count)"
-                        } else {
+                        switch currentProduct.allergensTranslated {
+                        case .available(let allergens):
+                            cell.badgeString = "\(allergens.count)"
+                        default:
                             cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
                         }
                         return cell
@@ -335,11 +337,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     case .supplyChain:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
-                        if let count = currentProduct.countries?.count {
+                        switch currentProduct.countriesTranslated {
+                        case .available(let countries):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
-                            cell.badgeString = "\(count)"
-                        } else {
+                            cell.badgeString = "\(countries.count)"
+                        default:
                             cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no sales countries defined.")
                         }
                         return cell
@@ -395,23 +398,28 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tempView.backgroundColor = UIColor.gray
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
-        if !products.fetchResultList.isEmpty {
+        if !products.fetchResultList.isEmpty && (section < products.fetchResultList.count) {
             switch products.fetchResultList[section] {
             case .success(let product):
                 label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
-                if let validKeys = product.allergenKeys {
+                switch product.tracesInterpreted {
+                case .available(let validKeys):
                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
                         tempView.backgroundColor = UIColor.red
                     }
-                } else {
-                    if let validKeys = product.traceKeys {
-                        if !validKeys.isEmpty {
-                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                            if warn {
-                                tempView.backgroundColor = UIColor.red
-                            }
+                default:
+                    break
+                }
+                switch product.tracesInterpreted {
+                case .available(let validKeys):
+                    if !validKeys.isEmpty {
+                        let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
+                        if warn {
+                            tempView.backgroundColor = UIColor.red
                         }
                     }
+                default:
+                    break
                 }
             case .other(let message):
                 label.text = message

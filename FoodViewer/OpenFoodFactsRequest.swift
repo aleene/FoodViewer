@@ -235,13 +235,14 @@ class OpenFoodFactsRequest {
         decodeLastEditDates(jsonObject[jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
-        product.labelArray = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray)
+        product.labelsInterpreted = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray)
         // the labels as the user has entered them (a comma delimited string)
-        let tags = Tags(jsonObject[jsonKeys.LabelsKey].string)
-        product.originalLabels = tags
-        
-        product.traceKeys = jsonObject[jsonKeys.TracesTagsKey].stringArray
-        
+        product.labelsOriginal = Tags(jsonObject[jsonKeys.LabelsKey].string)
+        product.labelsHierarchy = Tags(jsonObject[jsonKeys.LabelsHierarchyKey].stringArray)
+            
+        product.tracesOriginal = Tags.init(jsonObject[jsonKeys.TracesKey].string)
+        product.tracesHierarchy = Tags.init(jsonObject[jsonKeys.TracesHierarchyKey].stringArray)
+        product.tracesInterpreted = Tags.init(jsonObject[jsonKeys.TracesTagsKey].stringArray)
         
         if let languages = jsonObject[jsonKeys.LanguagesHierarchy].stringArray {
             // product.languageCodes = []
@@ -384,18 +385,22 @@ class OpenFoodFactsRequest {
         product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
         product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
 
-        product.packagingArray = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
-        product.originalPackagingTags = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
+        product.packagingInterpreted = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
+        product.packagingOriginal = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
         
         product.numberOfIngredients = jsonObject[jsonKeys.IngredientsNKey].string
         
-        product.setWithRaw(countries:decodeCountries(jsonObject[jsonKeys.CountriesTagsKey].stringArray))
-        product.producerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesKey].string)
-        product.originalProducerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesOrigKey].string)
-        product.tagsProducerCode = Tags.init(jsonObject[jsonKeys.EmbCodesTagsKey].stringArray)
+        // product.setWithRaw(countries:decodeCountries(jsonObject[jsonKeys.CountriesTagsKey].stringArray))
+        product.countriesOriginal = Tags.init(jsonObject[jsonKeys.CountriesKey].string)
+        product.countriesInterpreted = Tags.init(jsonObject[jsonKeys.CountriesTagsKey].stringArray)
+        product.countriesHierarchy = Tags.init(jsonObject[jsonKeys.CountriesHierarchyKey].stringArray)
         
-        product.brands = Tags.init(jsonObject[jsonKeys.BrandsKey].string)
-        product.brandsTags = Tags.init(jsonObject[jsonKeys.BrandsTagsKey].stringArray)
+        product.embCodesOriginal = Tags.init(jsonObject[jsonKeys.EmbCodesKey].string)
+        // product.originalProducerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesOrigKey].string)
+        product.embCodesInterpreted = Tags.init(jsonObject[jsonKeys.EmbCodesTagsKey].stringArray)
+        
+        product.brandsOriginal = Tags.init(jsonObject[jsonKeys.BrandsKey].string)
+        product.brandsInterpreted = Tags.init(jsonObject[jsonKeys.BrandsTagsKey].stringArray)
         
         // The links for the producer are stored as a string. This string might contain multiple links.
         let linksString = jsonObject[jsonKeys.LinkKey].string
@@ -412,7 +417,8 @@ class OpenFoodFactsRequest {
         product.server = jsonObject[jsonKeys.NewServerKey].string
         
         product.purchaseLocationString(jsonObject[jsonKeys.PurchasePlacesKey].string)
-        product.purchaseLocationTags = Tags.init(jsonObject[jsonKeys.PurchasePlacesTagsKey].stringArray)
+        product.purchasePlacesInterpreted = Tags.init(jsonObject[jsonKeys.PurchasePlacesTagsKey].stringArray)
+        product.purchasePlacesOriginal = Tags.init(jsonObject[jsonKeys.PurchasePlacesKey].string)
         //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ImageNutritionUrlKey].url
         // product.ingredients = jsonObject[jsonKeys.IngredientsTextKey].string
         
@@ -432,24 +438,28 @@ class OpenFoodFactsRequest {
         let nutrientLevelsFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
         let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
         let nutrientLevelsSugars = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
-        product.stores = jsonObject[jsonKeys.StoresKey].string?.components(separatedBy: ",")
-        product.storesTags = Tags.init(jsonObject[jsonKeys.StoresTagsKey].stringArray)
+        product.storesOriginal = Tags.init(jsonObject[jsonKeys.StoresKey].string)
+        product.storesInterpreted = Tags.init(jsonObject[jsonKeys.StoresTagsKey].stringArray)
         //product.imageIngredientsUrl = jsonObject[jsonKeys.ImageIngredientsUrlKey].url
         (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.NutritionScoreDebugKey].string)
         //product.imageNutritionSmallUrl = jsonObject[jsonKeys.ImageNutritionSmallUrlKey].url
         product.correctors = jsonObject[jsonKeys.CorrectorsTagsKey].stringArray
         
         //product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ImageIngredientsSmallUrlKey].url
-        product.ingredientsOriginElements(jsonObject[jsonKeys.OriginsTagsKey].stringArray)
-        product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
-        product.producerTags = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
+        product.originsInterpreted = Tags.init(jsonObject[jsonKeys.OriginsTagsKey].stringArray)
+        product.originsOriginal = Tags.init(jsonObject[jsonKeys.OriginsKey].string)
+        //product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
+        product.manufacturingPlacesInterpreted = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
+        product.manufacturingPlacesOriginal = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
         product.categories = Tags(decodeCategories(jsonObject[jsonKeys.CategoriesTagsKey].stringArray))
         product.categoriesTags = Tags.init(jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
         product.quantity = jsonObject[jsonKeys.QuantityKey].string
         product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.NutritionDataPerKey].string)
         product.periodAfterOpeningString  = jsonObject[jsonKeys.PeriodsAfterOpeningKey].string
         product.expirationDateString = jsonObject[jsonKeys.ExpirationDateKey].string
-        product.allergenKeys = jsonObject[jsonKeys.AllergensTagsKey].stringArray
+        product.allergensInterpreted = Tags.init(jsonObject[jsonKeys.AllergensTagsKey].stringArray)
+        product.allergensOriginal = Tags.init(jsonObject[jsonKeys.AllergensKey].string)
+        product.allergensHierarchy = Tags.init(jsonObject[jsonKeys.AllergensHierarchyKey].stringArray)
         if let ingredientsJSON = jsonObject[jsonKeys.IngredientsKey].array {
             var ingredients: [ingredientsElement] = []
             for ingredientsJSONElement in ingredientsJSON {
@@ -677,17 +687,17 @@ class OpenFoodFactsRequest {
         return nil
     }
     
-    fileprivate func decodeCountries(_ countries: [String]?) -> [(String,String)]? {
-        if let countriesArray = countries {
-            var translatedCountries:[(String,String)]? = []
-            let preferredLanguage = Locale.preferredLanguages[0]
-            for country in countriesArray {
-                translatedCountries!.append((country,OFFplists.manager.translateCountries(country, language:preferredLanguage)))
-            }
-            return translatedCountries
-        }
-        return nil
-    }
+//    fileprivate func decodeCountries(_ countries: [String]?) -> [(String,String)]? {
+//        if let countriesArray = countries {
+//            var translatedCountries:[(String,String)]? = []
+//            let preferredLanguage = Locale.preferredLanguages[0]
+//            for country in countriesArray {
+//                translatedCountries!.append((country,OFFplists.manager.translateCountries(country, language:preferredLanguage)))
+//            }
+//            return translatedCountries
+//        }
+//        return nil
+//    }
     
     fileprivate func decodeCategories(_ labels: [String]?) -> [String]? {
         if let labelsArray = labels {

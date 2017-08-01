@@ -14,6 +14,10 @@ class TagListViewTableViewCell: UITableViewCell {
         static let Margin = CGFloat( 8.0 )
     }
     
+    internal struct Notification {
+        static let TagKey = "TagListViewTableViewCell.Notification.Tag.Key"
+    }
+    
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
@@ -89,7 +93,8 @@ class TagListViewTableViewCell: UITableViewCell {
     }
     
     func tagListViewTapped() {
-        NotificationCenter.default.post(name: .TagListViewTapped, object: nil)
+        let userInfo: [String:Any] = [Notification.TagKey:tag]
+        NotificationCenter.default.post(name: .TagListViewTapped, object:nil, userInfo: userInfo)
     }
 
 }

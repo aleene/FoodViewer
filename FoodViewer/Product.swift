@@ -54,8 +54,8 @@ class FoodProduct {
     
     var genericNameLanguage = [String:String?]()
     
-    var brands: Tags = .undefined
-    var brandsTags: Tags = .undefined
+    var brandsOriginal: Tags = .undefined
+    var brandsInterpreted: Tags = .undefined
     
     var primaryLanguageCode: String? = nil {
         didSet {
@@ -92,9 +92,9 @@ class FoodProduct {
     // MARK: - Packaging variables
     
     var quantity: String? = nil
-    var packagingArray: Tags = .undefined
-    var originalPackagingTags: Tags = .undefined
-    var packagingHierarchyTags: Tags = .undefined
+    var packagingInterpreted: Tags = .undefined
+    var packagingOriginal: Tags = .undefined
+    var packagingHierarchy: Tags = .undefined
     
     // MARK: - Ingredients variables
     
@@ -116,15 +116,16 @@ class FoodProduct {
     var numberOfIngredients: String? = nil
 
     // This includes the language prefix en:
-    var allergenKeys: [String]? = nil
+    // var allergenKeys: [String]? = nil
     
     // returns the allergenKeys array in the current locale
-    var translatedAllergens: Tags {
+    var allergensTranslated: Tags {
         get {
-            if let validAllergenKeys = allergenKeys {
+            switch allergensInterpreted {
+            case .available(let allergens):
                 var translatedAllergens:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
-                for allergenKey in validAllergenKeys {
+                for allergenKey in allergens {
                     if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
                         translatedAllergens.append(translatedKey)
                     } else {
@@ -132,54 +133,65 @@ class FoodProduct {
                     }
                 }
                 return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens)
+            default:
+                break
             }
             return .undefined
         }
     }
     
-    var allergens: Tags = .undefined
+    var allergensOriginal: Tags = .undefined
+    var allergensHierarchy: Tags = .undefined
+    var allergensInterpreted: Tags = .undefined
     
-    var traceKeys: [String]? = nil
+    var tracesOriginal: Tags = .undefined
+    var tracesHierarchy: Tags = .undefined
+    var tracesInterpreted: Tags = .undefined
     
     // returns the allergenKeys array in the current locale
-    var translatedTraces: Tags {
+    var tracesTranslated: Tags {
         get {
-            if let validTracesKeys = traceKeys {
+            switch tracesOriginal {
+            case .available(let traces):
                 var translatedTraces:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
-                for tracesKey in validTracesKeys {
-                    if let translatedKey = OFFplists.manager.translateAllergens(tracesKey, language:preferredLanguage) {
+                for trace in traces {
+                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:preferredLanguage) {
                         translatedTraces.append(translatedKey)
                     } else {
-                        translatedTraces.append(tracesKey)
+                        translatedTraces.append(trace)
                     }
                 }
                 return translatedTraces.count == 0 ? .empty : .available(translatedTraces)
+            default:
+                break
             }
             return .undefined
         }
     }
 
-    private func addPrefix(keys:[String]?, languageCode: String) -> [String]?  {
-        if keys != nil {
-            var newKeys: [String] = []
-            for key in keys! {
-                if !key.contains(":") {
-                    newKeys.append(languageCode + key)
-                } else {
-                    newKeys.append(key)
-                }
-            }
-            return newKeys
-        }
-        return nil
-    }
+//    private func addPrefix(keys:[String]?, languageCode: String) -> [String]?  {
+//        if keys != nil {
+//            var newKeys: [String] = []
+//            for key in keys! {
+//                if !key.contains(":") {
+//                    newKeys.append(languageCode + key)
+//                } else {
+//                    newKeys.append(key)
+//                }
+//            }
+//            return newKeys
+//        }
+//        return nil
+//    }
 
-    var traces: Tags = .undefined
+//    var traces: Tags = .undefined
     
     var additives: Tags = .undefined
-    var labelArray: Tags = .undefined
-    var originalLabels: Tags = .undefined
+    
+    var labelsInterpreted: Tags = .undefined
+    var labelsOriginal: Tags = .undefined
+    var labelsHierarchy: Tags = .undefined
     
     // usage parameters
     var servingSize: String? = nil
@@ -242,74 +254,92 @@ class FoodProduct {
     var nutritionGrade: NutritionalScoreLevel? = nil
     var nutritionalScoreUK: LocalizedNutritionalScoreUK? = nil
     var nutritionalScoreFR: LocalizedNutritionalScoreFR? = nil
-    var purchaseLocation: Address? = nil //or a set?
-    var purchaseLocationTags: Tags = .undefined
+    
+    var purchasePlacesAddress: Address? = nil //or a set?
+    var purchasePlacesInterpreted: Tags = .undefined
+    var purchasePlacesOriginal: Tags = .undefined
     
     func purchaseLocationElements(_ elements: [String]?) {
         if elements != nil {
-            if self.purchaseLocation == nil {
-                self.purchaseLocation = Address()
+            if self.purchasePlacesAddress == nil {
+                self.purchasePlacesAddress = Address()
             }
-            self.purchaseLocation?.rawArray = clean(elements!)
+            self.purchasePlacesAddress?.rawArray = clean(elements!)
         }
     }
     
     func purchaseLocationString(_ location: String?) {
         if let validLocationString = location {
-            self.purchaseLocation = Address()
-            self.purchaseLocation!.locationString = validLocationString
+            self.purchasePlacesAddress = Address()
+            self.purchasePlacesAddress!.locationString = validLocationString
         }
     }
     
-    var stores: [String]? = nil {
-        didSet {
-            if stores != nil {
-                self.stores = clean(stores!)
-            }
-        }
-    }
+    var storesOriginal: Tags = .undefined
+    var storesInterpreted: Tags = .undefined
     
-    var storesTags: Tags = .undefined
-    
-    var countries: [Address]? = nil //or a set?
-    
-    func set(countries:[String]?) {
-        if let array = countries {
-            if !array.isEmpty {
-                self.countries = []
-                for element in array {
-                    if !element.isEmpty {
-                        let newAddress = Address()
-                        newAddress.raw = element
-                        self.countries!.append(newAddress)
+    var countriesAddress: [Address] {
+        get {
+            switch countriesOriginal {
+            case .available(let countries):
+                if !countries.isEmpty {
+                    var addresses: [Address] = []
+                    for country in countries {
+                        if !country.isEmpty {
+                            let newAddress = Address()
+                            newAddress.raw = country
+                            newAddress.country = country
+                            addresses.append(newAddress)
+                        }
                     }
+                    return addresses
                 }
-            } else {
-                self.countries = []
+                break
+            default:
+                break
             }
+            return []
         }
     }
-
-    func setWithRaw(countries:[(String, String)]?) {
-        if let array = countries {
-            if !array.isEmpty {
-                self.countries = []
-                for element in array {
-                    if !element.1.isEmpty {
-                        let newAddress = Address()
-                        newAddress.country = element.1
-                        newAddress.raw = element.0
-                        self.countries!.append(newAddress)
-                    }
+    
+    var countriesOriginal: Tags = .undefined
+    var countriesInterpreted: Tags = .undefined
+    var countriesHierarchy: Tags = .undefined
+    var countriesTranslated: Tags {
+        get {
+            switch countriesOriginal {
+            case .available(let countries):
+                var translatedCountries:[String] = []
+                let preferredLanguage = Locale.preferredLanguages[0]
+                for country in countries {
+                    let translatedKey = OFFplists.manager.translateCountries(country, language: preferredLanguage)
+                    translatedCountries.append(translatedKey)
                 }
-            } else {
-                self.countries = []
+                return translatedCountries.count == 0 ? .empty : Tags.init(translatedCountries)
+            default:
+                break
             }
+            return .undefined
         }
     }
-
-    var producer: Address? = nil
-    var producerTags: Tags = .undefined
+    
+    var manufacturingPlacesAddress: Address? {
+        get {
+            switch manufacturingPlacesOriginal {
+            case .available(let manufacturingPlace):
+                if !manufacturingPlace.isEmpty {
+                    let newAddress = Address()
+                    newAddress.raw = manufacturingPlace.flatMap{ $0 }.joined(separator: ",")
+                    return newAddress
+                }
+            default:
+                break
+            }
+            return nil
+        }
+    }
+    var manufacturingPlacesOriginal: Tags = .undefined
+    var manufacturingPlacesInterpreted: Tags = .undefined
     
     var links: [URL]? = nil
     
@@ -418,43 +448,60 @@ class FoodProduct {
         return nil
     }
     
-    func producerElements(_ elements: String?) {
-        if elements != nil {
-            let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
-            self.producer = Address()
-            self.producer!.rawArray = addressElements
+//    func producerElements(_ elements: String?) {
+//        if elements != nil {
+//            let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
+//            self.producer = Address()
+//            self.producer!.rawArray = addressElements
+//        }
+//    }
+//    
+//    func producerElementsArray(_ elements: [String]?) {
+//        if let validElements = elements {
+//            self.producer = Address()
+//            self.producer!.rawArray = validElements
+//        }
+//    }
+    var originsOriginal: Tags = .undefined
+    var originsInterpreted: Tags = .undefined
+    var originsAddress: Address? {
+        get {
+            switch originsOriginal {
+            case .available(let origin):
+                if !origin.isEmpty {
+                    let newAddress = Address()
+                    newAddress.raw = origin.flatMap{ $0 }.joined(separator: ",")
+                    return newAddress
+                }
+            default:
+                break
+            }
+            return nil
         }
-    }
-    
-    func producerElementsArray(_ elements: [String]?) {
-        if let validElements = elements {
-            self.producer = Address()
-            self.producer!.rawArray = validElements
-        }
-    }
-    var ingredientsOrigin: Address? = nil
-    
-    func ingredientsOriginElements(_ elements: [String]?) {
-        self.ingredientsOrigin = Address()
-        self.ingredientsOrigin!.rawArray = elements
     }
 
-    var producerCode: [Address]? = nil
-    var originalProducerCode: [Address]? = nil
-    var tagsProducerCode: Tags = .undefined
+//    func ingredientsOriginElements(_ elements: [String]?) {
+//        self.ingredientsOrigin = Address()
+//        self.ingredientsOrigin!.rawArray = elements
+//    }
+
+    //var producerCode: [Address]? = nil
+    //var originalProducerCode: [Address]? = nil
+    var embCodesInterpreted: Tags = .undefined
+    var embCodesOriginal: Tags = .undefined
     
-    var producerCodeArray: [String]? = nil {
-        didSet {
-            if let validProducerCodes = producerCodeArray {
-                producerCode = []
-                for code in validProducerCodes {
-                    let newAddress = Address()
-                    newAddress.raw = code
-                    producerCode?.append(newAddress)
-                }
-            }
-        }
-    }
+//    var producerCodeArray: [String]? = nil {
+//        didSet {
+//            if let validProducerCodes = producerCodeArray {
+//                producerCode = []
+//                for code in validProducerCodes {
+//                    let newAddress = Address()
+//                    newAddress.raw = code
+//                    producerCode?.append(newAddress)
+//                }
+//            }
+//        }
+//    }
     
     // remove any empty items from the list
     private func clean(_ list: [String]) -> [String] {
@@ -603,34 +650,47 @@ class FoodProduct {
     
     init() {
         barcode = BarcodeType.undefined("", Preferences.manager.showProductType)
-        brands = .undefined
-        brandsTags = .undefined
+        brandsOriginal = .undefined
+        brandsInterpreted = .undefined
         //mainUrlThumb = nil
         //mainImageUrl = nil
         //mainImageData = nil
-        packagingArray = .undefined
+        packagingHierarchy = .undefined
+        packagingInterpreted = .undefined
+        packagingOriginal = .undefined
         quantity = nil
         //imageIngredientsSmallUrl = nil
         //imageIngredientsUrl = nil
-        allergenKeys = nil
-        traceKeys = nil
+        allergensOriginal = .undefined
+        allergensInterpreted = .undefined
+        allergensHierarchy = .undefined
+        tracesHierarchy = .undefined
+        tracesOriginal = .undefined
+        tracesInterpreted = .undefined
         additives = .undefined
-        labelArray = .undefined
-        producer = nil
-        producerTags = .undefined
-        ingredientsOrigin = nil
-        producerCode = nil
+        labelsOriginal = .undefined
+        labelsHierarchy = .undefined
+        labelsInterpreted = .undefined
+        manufacturingPlacesOriginal = .undefined
+        manufacturingPlacesInterpreted = .undefined
+        originsOriginal = .undefined
+        originsInterpreted = .undefined
+        embCodesInterpreted = .undefined
+        embCodesOriginal = .undefined
         servingSize = nil
         nutritionFacts = []
         nutritionScore = nil
         //imageNutritionSmallUrl = nil
         //nutritionFactsImageUrl = nil
         nutritionGrade = nil
-        purchaseLocation = nil
-        purchaseLocationTags = .undefined
-        stores = nil
-        storesTags = .undefined
-        countries = nil
+        purchasePlacesAddress = nil
+        purchasePlacesOriginal = .undefined
+        purchasePlacesInterpreted = .undefined
+        storesOriginal = .undefined
+        storesInterpreted = .undefined
+        countriesOriginal = .undefined
+        countriesInterpreted = .undefined
+        countriesHierarchy = .undefined
         additionDate = nil
         creator = nil
         state = CompletionState()
@@ -790,34 +850,45 @@ class FoodProduct {
             primaryLanguageCode = product.primaryLanguageCode
             nameLanguage = product.nameLanguage
             genericNameLanguage = product.genericNameLanguage
-            brands = product.brands
-            brandsTags = product.brandsTags
+            brandsOriginal = product.brandsOriginal
+            brandsInterpreted = product.brandsInterpreted
             frontImages = product.frontImages
             ingredientsImages = product.ingredientsImages
             nutritionImages = product.nutritionImages
-            packagingArray = product.packagingArray
-            originalPackagingTags = product.originalPackagingTags
+            packagingInterpreted = product.packagingInterpreted
+            packagingOriginal = product.packagingOriginal
+            packagingHierarchy = product.packagingHierarchy
             quantity = product.quantity
             ingredientsLanguage = product.ingredientsLanguage
             numberOfIngredients = product.numberOfIngredients
-            allergenKeys = product.allergenKeys
-            traceKeys = product.traceKeys
+            allergensOriginal = product.allergensOriginal
+            allergensInterpreted = product.allergensInterpreted
+            allergensHierarchy = product.allergensHierarchy
+            tracesInterpreted = product.tracesInterpreted
+            tracesHierarchy = product.tracesHierarchy
+            tracesOriginal = product.tracesOriginal
             additives = product.additives
-            labelArray = product.labelArray
-            originalLabels = product.originalLabels
-            producer = product.producer
-            producerTags = product.producerTags
-            ingredientsOrigin = product.ingredientsOrigin
-            producerCode = product.producerCode
+            labelsInterpreted = product.labelsInterpreted
+            labelsOriginal = product.labelsOriginal
+            labelsHierarchy = product.labelsHierarchy
+            manufacturingPlacesInterpreted = product.manufacturingPlacesInterpreted
+            manufacturingPlacesOriginal = product.manufacturingPlacesOriginal
+            originsOriginal = product.originsOriginal
+            originsInterpreted = product.originsInterpreted
+            embCodesInterpreted  = product.embCodesInterpreted
+            embCodesOriginal  = product.embCodesOriginal
             servingSize = product.servingSize
             nutritionFacts = product.nutritionFacts
             nutritionScore = product.nutritionScore
             nutritionGrade = product.nutritionGrade
-            purchaseLocation = product.purchaseLocation
-            purchaseLocationTags = product.purchaseLocationTags
-            stores = product.stores
-            storesTags = product.storesTags
-            countries = product.countries
+            purchasePlacesOriginal = product.purchasePlacesOriginal
+            purchasePlacesAddress = product.purchasePlacesAddress
+            purchasePlacesInterpreted = product.purchasePlacesInterpreted
+            storesOriginal = product.storesOriginal
+            storesInterpreted = product.storesInterpreted
+            countriesOriginal = product.countriesOriginal
+            countriesInterpreted = product.countriesInterpreted
+            countriesHierarchy = product.countriesHierarchy
             additionDate = product.additionDate
             expirationDateString = product.expirationDateString
             creator = product.creator
@@ -847,22 +918,27 @@ class FoodProduct {
     func add(shop: String?) -> [String]? {
         if let validShop = shop {
             // are there any shops yet?
-            if let validStores = stores {
-                // is this shop not listed?
-                if !validStores.contains(validShop) {
-                    // there might be a shop with an empty string
-                    if validStores.count == 1 && validStores[0].characters.count == 0 {
-                        stores = [validShop]
-                    } else {
-                        stores!.append(validShop)
+            switch storesOriginal {
+            case .available(var stores):
+                if !stores.isEmpty {
+                    if !stores.contains(validShop) {
+                        // there might be a shop with an empty string
+                        if stores.count == 1 && stores[0].characters.count == 0 {
+                            stores = [validShop]
+                        } else {
+                            stores.append(validShop)
+                        }
                     }
+                } else {
+                    storesOriginal = Tags.init(stores)
                 }
-            } else {
-                // add the first shop
-                stores = [validShop]
+                storesOriginal = Tags.init(stores)
+                return stores
+            default:
+                break
             }
         }
-        return stores
+        return nil
     }
     
     func set(newName: String, for languageCode: String) {
@@ -934,12 +1010,16 @@ class FoodProduct {
     }
 
     func contains(shop: String) -> Bool {
-        guard stores != nil else { return false }
-        return stores!.contains(shop) ? true : false
+        switch storesOriginal {
+        case .available(let stores):
+            return stores.contains(shop) ? true : false
+        default:
+            return false
+        }
     }
     
     func contains(brands: [String]) -> Bool {
-        switch self.brands {
+        switch self.brandsOriginal {
         case .available(let currentBrands):
             return Set.init(currentBrands) == Set.init(brands) ? true : false
         default:
@@ -949,7 +1029,7 @@ class FoodProduct {
     }
     
     func contains(packaging: [String]) -> Bool {
-        switch self.packagingArray {
+        switch self.packagingInterpreted {
         case .available(let currentpackagingArray):
             return Set.init(currentpackagingArray) == Set.init(packaging) ? true : false
         default:
@@ -959,7 +1039,7 @@ class FoodProduct {
     }
 
     func contains(traces: [String]) -> Bool {
-        switch self.traces {
+        switch self.tracesOriginal {
         case .available(let currentTraces):
             return Set.init(currentTraces) == Set.init(traces) ? true : false
         default:
@@ -969,7 +1049,7 @@ class FoodProduct {
     }
 
     func contains(labels: [String]) -> Bool {
-        switch self.labelArray {
+        switch self.labelsInterpreted {
         case .available(let currentLabels):
             return Set.init(currentLabels) == Set.init(labels) ? true : false
         default:
@@ -989,44 +1069,61 @@ class FoodProduct {
     }
     
     func contains(producer: [String]) -> Bool {
-        if let validProducerArray = self.producer?.elements {
-            return Set.init(validProducerArray) == Set.init(producer) ? true : false
+        switch self.manufacturingPlacesOriginal {
+        case .available(let currentManufacturingPlaces):
+            return Set.init(currentManufacturingPlaces) == Set.init(producer) ? true : false
+        default:
+            break
         }
         return false
     }
 
     func contains(producerCode: [String]) -> Bool {
-        // assume that the producerCode only contains a raw
-        if let validProducerCodeArray = self.producerCode?.map( { $0.raw } ) {
-            return Set.init(validProducerCodeArray) == Set.init(producerCode) ? true : false
+        switch self.embCodesOriginal {
+        case .available(let embCodes):
+            return Set.init(embCodes) == Set.init(producerCode) ? true : false
+        default:
+            break
         }
         return false
     }
 
     func contains(ingredientsOrigin: [String]) -> Bool {
-        if let validIngredientsOriginArray = self.ingredientsOrigin?.elements {
-            return Set.init(validIngredientsOriginArray) == Set.init(ingredientsOrigin) ? true : false
+        switch self.originsOriginal {
+        case .available(let origins):
+            return Set.init(origins) == Set.init(ingredientsOrigin) ? true : false
+        default:
+            break
         }
         return false
     }
     
     func contains(stores: [String]) -> Bool {
-        if let validStoresArray = self.stores {
-            return Set.init(validStoresArray) == Set.init(stores) ? true : false
+        switch self.storesOriginal {
+        case .available(let existingStores):
+            return Set.init(existingStores) == Set.init(stores) ? true : false
+        default:
+            break
         }
         return false
     }
 
     func contains(purchaseLocation: [String]) -> Bool {
-        if let validPurchaseLocationArray = self.purchaseLocation?.elements {
-            return Set.init(validPurchaseLocationArray) == Set.init(purchaseLocation) ? true : false
+        switch self.purchasePlacesOriginal {
+        case .available(let existingPurchasePlaces):
+            return Set.init(existingPurchasePlaces) == Set.init(purchaseLocation) ? true : false
+        default:
+            break
         }
         return false
     }
     
     func contains(countries: [String]) -> Bool {
-        if let validCountriesArray = self.countries?.map( { $0.title } ) {
-            return Set.init(validCountriesArray) == Set.init(countries) ? true : false
+        switch self.countriesOriginal {
+        case .available(let validCountries):
+            return Set.init(validCountries) == Set.init(countries) ? true : false
+        default:
+            break
         }
         return false
     }
@@ -1051,7 +1148,7 @@ class FoodProduct {
     }
     
     func translatedLabels() -> Tags {
-        switch labelArray {
+        switch labelsInterpreted {
         case let .available(list):
             if !list.isEmpty {
                 var translatedLabels:[String] = []
@@ -1064,7 +1161,7 @@ class FoodProduct {
                 return .empty
             }
         default:
-            return labelArray
+            return .undefined
         }
     }
 

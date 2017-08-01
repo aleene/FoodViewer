@@ -34,81 +34,155 @@ class SupplyChainTableViewController: UITableViewController {
     
 // MARK: Private Functions/Variables
     
-    fileprivate var producerTagsToDisplay: [String]? {
+    fileprivate var producerTagsToDisplay: Tags {
         get {
-            if let validTags = delegate?.updatedProduct?.producer?.rawArray {
-                return validTags
-            } else if let validTags = product?.producer?.rawArray {
-                return validTags
-            }
-            return nil
-        }
-    }
-    
-    fileprivate var producerCodeTagsToDisplay: [String]? {
-        get {
-            if let tags = delegate?.updatedProduct?.producerCodeArray {
-                return tags
-            } else if let validAddresses = product?.producerCode {
-                var tags: [String] = []
-                for address in validAddresses {
-                    tags.append(address.raw)
+            if delegate?.updatedProduct != nil {
+                switch delegate!.updatedProduct!.manufacturingPlacesOriginal {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.manufacturingPlacesOriginal
+                default:
+                    break
                 }
-                return tags
-            }
-            return nil
-        }
-    }
-    
-    fileprivate var ingredientOriginLocationTagsToDisplay: [String]? {
-        get {
-            if let validTags = delegate?.updatedProduct?.ingredientsOrigin?.rawArray {
-                return validTags
-            } else if let validTags = product?.ingredientsOrigin?.rawArray {
-                return validTags
-            }
-            return nil
-        }
-    }
-    
-    fileprivate var purchaseLocationTagsToDisplay: [String]? {
-        get {
-            if let validTags = delegate?.updatedProduct?.purchaseLocation?.rawArray {
-                return validTags
-            } else if let validTags = product?.purchaseLocation?.rawArray {
-                return validTags
-            }
-            return nil
-        }
-    }
-    
-    fileprivate var storeTagsToDisplay: [String]? {
-        get {
-            if let validTags = delegate?.updatedProduct?.stores {
-                return validTags
-            } else if let validTags = product?.stores {
-                return validTags
-            }
-            return nil
-        }
-    }
-    
-    fileprivate var countriesToDisplay: [String]? {
-        get {
-            if let validAddresses = delegate?.updatedProduct?.countries {
-                var tags: [String] = []
-                for address in validAddresses {
-                    tags.append(address.raw)
+            } else {
+                switch showProducerTagsType {
+                case .interpreted:
+                    return product!.manufacturingPlacesInterpreted
+                case .original:
+                    return product!.manufacturingPlacesOriginal
+                case .edited:
+                    return product!.manufacturingPlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                default:
+                    break
                 }
-                return tags
-            } else if let validAddresses = product?.countries {
-                var tags: [String] = []
-                for address in validAddresses {
-                    tags += address.elements
-                }
-                return tags
             }
-            return nil
+            return .undefined
+        }
+    }
+    
+    fileprivate var producerCodeTagsToDisplay: Tags {
+        get {
+            if delegate?.updatedProduct != nil {
+                switch delegate!.updatedProduct!.embCodesOriginal {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.embCodesOriginal
+                default:
+                    break
+                }
+            } else {
+                switch showProducerCodeTagsType {
+                case .interpreted:
+                    return product!.embCodesInterpreted
+                case .original:
+                    return product!.embCodesOriginal
+                case .edited:
+                    return product!.embCodesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
+        get {
+            if delegate?.updatedProduct != nil {
+                switch delegate!.updatedProduct!.originsOriginal {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.originsOriginal
+                default:
+                    break
+                }
+            } else {
+                switch showIngredientOriginTagsType {
+                case .interpreted:
+                    return product!.originsInterpreted
+                case .original:
+                    return product!.originsOriginal
+                case .edited:
+                    return product!.originsOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var purchaseLocationTagsToDisplay: Tags {
+        get {
+            if delegate?.updatedProduct != nil {
+                switch delegate!.updatedProduct!.purchasePlacesOriginal {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.purchasePlacesOriginal
+                default:
+                    break
+                }
+            } else {
+                switch showPurchaseLocationTagsType {
+                case .interpreted:
+                    return product!.purchasePlacesInterpreted
+                case .original:
+                    return product!.purchasePlacesOriginal
+                case .edited:
+                    return product!.purchasePlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var storeTagsToDisplay: Tags {
+        get {
+            if delegate?.updatedProduct != nil {
+                switch delegate!.updatedProduct!.storesOriginal {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.storesOriginal
+                default:
+                    break
+                }
+            } else {
+                switch showStoresTagsType {
+                case .interpreted:
+                    return product!.storesInterpreted
+                case .original:
+                    return product!.storesOriginal
+                case .edited:
+                    return product!.storesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var countriesToDisplay: Tags {
+        get {
+            if delegate?.updatedProduct != nil {
+                switch delegate!.updatedProduct!.storesOriginal {
+                case .available, .empty:
+                    return delegate!.updatedProduct!.countriesOriginal
+                default:
+                    break
+                }
+            } else {
+                switch showCountriesTagsType {
+                case .interpreted:
+                    return product!.countriesInterpreted
+                case .translated:
+                    return product!.countriesTranslated
+                case .original:
+                    return product!.countriesOriginal
+                case .edited:
+                    return product!.countriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                default:
+                    break
+                }
+            }
+            return .undefined
         }
     }
 
@@ -123,6 +197,22 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
     
+    private struct TagsTypeDefault {
+        static let Countries: TagsType = .translated
+        static let Stores: TagsType = .original
+        static let PurchaseLocation: TagsType = .original
+        static let IngredientOrigin: TagsType = .original
+        static let ProducerCode: TagsType = .original
+        static let Producer: TagsType = .original
+    }
+    
+    private var showCountriesTagsType: TagsType = TagsTypeDefault.Countries
+    private var showStoresTagsType: TagsType = TagsTypeDefault.Stores
+    private var showPurchaseLocationTagsType: TagsType = TagsTypeDefault.PurchaseLocation
+    private var showIngredientOriginTagsType: TagsType = TagsTypeDefault.IngredientOrigin
+    private var showProducerCodeTagsType: TagsType = TagsTypeDefault.ProducerCode
+    private var showProducerTagsType: TagsType = TagsTypeDefault.Producer
+
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
@@ -402,9 +492,72 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (_, _, header) = tableStructureForProduct[section]
-        return header
+        let (currentProductSection, _, _) = tableStructureForProduct[section]
+        guard header != nil else { return "No header" }
+
+        switch currentProductSection {
+        case .ingredientOrigin:
+            switch showIngredientOriginTagsType {
+            case TagsTypeDefault.IngredientOrigin:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showIngredientOriginTagsType.description() +
+                ")"
+            }
+            
+        case .producer:
+            switch showProducerTagsType {
+            case TagsTypeDefault.Producer:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showProducerTagsType.description() +
+                ")"
+            }
+        case .store:
+            switch showStoresTagsType {
+            case TagsTypeDefault.Stores:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showStoresTagsType.description() +
+                ")"
+            }
+        case .location:
+            switch showPurchaseLocationTagsType {
+            case TagsTypeDefault.PurchaseLocation:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showPurchaseLocationTagsType.description() +
+                ")"
+            }
+        case .country:
+            switch showCountriesTagsType {
+            case TagsTypeDefault.Countries:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showCountriesTagsType.description() +
+                ")"
+            }
+            
+        default:
+            return header
+        }
     }
-        
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
@@ -434,6 +587,42 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    func changeTagsTypeToShow(_ notification: Notification) {
+        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
+            let (currentProductSection, _, _) = tableStructureForProduct[tag]
+            switch currentProductSection {
+            case .producer:
+                showProducerTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            case .producerCode:
+                showProducerCodeTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            case .country:
+                showCountriesTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            case .ingredientOrigin:
+                showIngredientOriginTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            default:
+                break
+            }
+        } else if let tag = notification.userInfo?[PurchacePlaceTableViewCell.Notification.TagKey] as? Int {
+            let (currentProductSection, _, _) = tableStructureForProduct[tag]
+            switch currentProductSection {
+            case .location:
+                showPurchaseLocationTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            case .store:
+                showStoresTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            default:
+                break
+            }
+        }
+    }
+    
+    
+
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -516,6 +705,8 @@ class SupplyChainTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.PurchasePlaceTagListViewTapped, object:nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -580,23 +771,37 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             }
         }
         
+        func countTags(_ tags: Tags) -> Int {
+            switch tags {
+            case .undefined:
+                tagListView.normalColorScheme = ColorSchemes.error
+                return editMode ? 0 : 1
+            case .empty:
+                tagListView.normalColorScheme = ColorSchemes.none
+                return editMode ? 0 : 1
+            case let .available(list):
+                tagListView.normalColorScheme = ColorSchemes.normal
+                return list.count
+            }
+        }
+
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
-        case .producer:
-            return count(producerTagsToDisplay)
-        case .producerCode:
-            return count(producerCodeTagsToDisplay)
-        case .ingredientOrigin:
-            return count(ingredientOriginLocationTagsToDisplay)
-        case .store:
-            return count(storeTagsToDisplay)
-        case .location:
-            return count(purchaseLocationTagsToDisplay)
-        case .country:
-            return count(countriesToDisplay)
-        case .sites:
-            return count(linksToDisplay)
-        default: break
+            case .producer:
+                return countTags(producerTagsToDisplay)
+            case .producerCode:
+                return countTags(producerCodeTagsToDisplay)
+            case .ingredientOrigin:
+                return countTags(ingredientOriginLocationTagsToDisplay)
+            case .store:
+                return countTags(storeTagsToDisplay)
+            case .location:
+                return countTags(purchaseLocationTagsToDisplay)
+            case .country:
+                return countTags(countriesToDisplay)
+            case .sites:
+                return count(linksToDisplay)
+            default: break
         }
         return 0
     }
@@ -610,20 +815,29 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             return TagConstants.Undefined
         }
         
+        func tagTitle(_ tags: Tags) -> String {
+            switch tags {
+            case .undefined, .empty:
+                return tags.description()
+            case .available:
+                return tags.tag(at:index) ?? "Tag index out of bounds"
+            }
+        }
+
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .producer:
-            return title(producerTagsToDisplay)
+            return tagTitle(producerTagsToDisplay)
         case .producerCode:
-            return title(producerCodeTagsToDisplay)
+            return tagTitle(producerCodeTagsToDisplay)
         case .ingredientOrigin:
-            return title(ingredientOriginLocationTagsToDisplay)
+            return tagTitle(ingredientOriginLocationTagsToDisplay)
         case .store:
-            return title(storeTagsToDisplay)
+            return tagTitle(storeTagsToDisplay)
         case .location:
-            return title(purchaseLocationTagsToDisplay)
+            return tagTitle(purchaseLocationTagsToDisplay)
         case .country:
-            return title(countriesToDisplay)
+            return tagTitle(countriesToDisplay)
         case .sites:
             return title(linksToDisplay)
         default: break
@@ -640,46 +854,52 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .producer:
-            if var tags = producerTagsToDisplay {
-                tags.append(title)
-                delegate?.update(producer: tags)
-            } else {
+            switch producerTagsToDisplay {
+            case .undefined, .empty:
                 delegate?.update(producer: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(producer: list)
             }
         case .producerCode:
-            if var tags = producerCodeTagsToDisplay {
-                tags.append(title)
-                delegate?.update(producerCode: tags)
-            } else {
+            switch producerCodeTagsToDisplay {
+            case .undefined, .empty:
                 delegate?.update(producerCode: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(producerCode: list)
             }
         case .ingredientOrigin:
-            if var tags = ingredientOriginLocationTagsToDisplay {
-                tags.append(title)
-                delegate?.update(ingredientsOrigin: tags)
-            } else {
+            switch ingredientOriginLocationTagsToDisplay {
+            case .undefined, .empty:
                 delegate?.update(ingredientsOrigin: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(ingredientsOrigin: list)
             }
         case .store:
-            if var tags = storeTagsToDisplay {
-                tags.append(title)
-                delegate?.update(stores: tags)
-            } else {
+            switch storeTagsToDisplay {
+            case .undefined, .empty:
                 delegate?.update(stores: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(stores: list)
             }
         case .location:
-            if var tags = purchaseLocationTagsToDisplay {
-                tags.append(title)
-                delegate?.update(purchaseLocation: tags)
-            } else {
+            switch purchaseLocationTagsToDisplay {
+            case .undefined, .empty:
                 delegate?.update(purchaseLocation: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(purchaseLocation: list)
             }
         case .country:
-            if var tags = countriesToDisplay {
-                tags.append(title)
-                delegate?.update(countries: tags)
-            } else {
+            switch countriesToDisplay {
+            case .undefined, .empty:
                 delegate?.update(countries: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(countries: list)
             }
         case .sites:
             if var tags = linksToDisplay {
@@ -697,53 +917,78 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .producer:
-            if var validTags = producerTagsToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch producerTagsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(producer: validTags)
+                list.remove(at: index)
+                delegate?.update(producer: list)
             }
+            tableView.reloadData()
         case .producerCode:
-            if var validTags = producerCodeTagsToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch producerCodeTagsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(producerCode: validTags)
+                list.remove(at: index)
+                delegate?.update(producerCode: list)
             }
+            tableView.reloadData()
         case .ingredientOrigin:
-            if var validTags = ingredientOriginLocationTagsToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch ingredientOriginLocationTagsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(ingredientsOrigin: validTags)
+                list.remove(at: index)
+                delegate?.update(ingredientsOrigin: list)
             }
+            tableView.reloadData()
+
         case .store:
-            if var validTags = storeTagsToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch storeTagsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(stores: validTags)
+                list.remove(at: index)
+                delegate?.update(stores: list)
             }
+            tableView.reloadData()
         case .location:
-            if var validTags = purchaseLocationTagsToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch purchaseLocationTagsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(purchaseLocation: validTags)
+                list.remove(at: index)
+                delegate?.update(purchaseLocation: list)
             }
+            tableView.reloadData()
         case .country:
-            if var validTags = countriesToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch countriesToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(countries: validTags)
+                list.remove(at: index)
+                delegate?.update(countries: list)
             }
+            tableView.reloadData()
         case .sites:
             if var validTags = linksToDisplay {
                 guard index >= 0 && index < validTags.count else {
@@ -791,38 +1036,41 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .country:
-            guard product!.countries != nil else { break }
-            OFFProducts.manager.search(product!.countries![index].raw, in:.country)
+            switch product!.countriesInterpreted {
+            case .available(let countries):
+                OFFProducts.manager.search(countries[index], in:.country)
+            default:
+                break
+            }
             
         case .producerCode:
-            switch product!.tagsProducerCode {
+            switch product!.manufacturingPlacesOriginal {
             case .available:
-                OFFProducts.manager.search(product!.tagsProducerCode.tag(at: index), in:.producerCode)
+                OFFProducts.manager.search(product!.manufacturingPlacesOriginal.tag(at: index), in:.producerCode)
             default:
                 break
             }
             
         case .location:
-            guard product!.purchaseLocation != nil else { break }
-            switch product!.purchaseLocationTags {
+            switch product!.purchasePlacesOriginal {
             case .available:
-                OFFProducts.manager.search(product!.purchaseLocationTags.tag(at: index), in:.purchasePlace)
+                OFFProducts.manager.search(product!.purchasePlacesOriginal.tag(at: index), in:.purchasePlace)
             default:
                 break
             }
             
         case .producer:
-            switch product!.producerTags {
+            switch product!.manufacturingPlacesOriginal {
             case .available:
-                OFFProducts.manager.search(product!.producerTags.tag(at: index), in: .manufacturingPlaces)
+                OFFProducts.manager.search(product!.manufacturingPlacesOriginal.tag(at: index), in: .manufacturingPlaces)
             default:
                 break
             }
             
         case .store:
-            switch product!.storesTags {
+            switch product!.storesInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.storesTags.tag(at: index), in:.store)
+                OFFProducts.manager.search(product!.storesInterpreted.tag(at: index), in:.store)
             default:
                 break
             }
