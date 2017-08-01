@@ -337,7 +337,7 @@ class OFFUpdate {
             break
         }
         
-        switch product!.manufacturingPlacesOriginal {
+        switch product!.embCodesOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
