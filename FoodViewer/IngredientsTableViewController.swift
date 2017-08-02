@@ -22,31 +22,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate var allergensToDisplay: Tags {
         get {
-            // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
-                switch delegate!.updatedProduct!.allergensOriginal {
-                case .available, .empty:
-                    return delegate!.updatedProduct!.allergensOriginal
-                default:
-                    break
-                }
-            } else {
-                switch allergensTagsTypeToShow {
-                case .interpreted:
-                    return product!.allergensInterpreted
-                case .hierarchy:
-                    return product!.allergensHierarchy
-                case .translated:
-                    return product!.allergensTranslated
-                case .edited:
-                    return product!.allergensTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
-                case .original:
-                    return product!.allergensOriginal
-                }
+            switch allergensTagsTypeToShow {
+            case .interpreted:
+                return product!.allergensInterpreted
+            case .hierarchy:
+                return product!.allergensHierarchy
+            case .translated:
+                return product!.allergensTranslated
+            case .edited:
+                return product!.allergensTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
+            case .original:
+                return product!.allergensOriginal
             }
-            //
-            return .undefined
         }
     }
     
@@ -57,6 +44,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.tracesOriginal {
                 case .available, .empty:
+                    tracesTagsTypeToShow = .original
                     return delegate!.updatedProduct!.tracesOriginal
                 default:
                     break
@@ -86,7 +74,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     private struct TagsTypeDefault {
-        static let Labels: TagsType = .translated
+        static let Labels: TagsType = .edited
         static let Traces: TagsType = .edited
         static let Allergens: TagsType = .translated
     }
@@ -103,6 +91,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // does it have edited labels defined?
                 switch delegate!.updatedProduct!.labelsOriginal {
                 case .available, .empty:
+                    labelsTagsTypeToShow = .original
                     return delegate!.updatedProduct!.labelsOriginal
                 default:
                     break
@@ -156,16 +145,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
-                // show in editMode the edited tags, as entered by the user
-                if delegate?.updatedProduct?.labelsOriginal == nil {
-                    labelsTagsTypeToShow = editMode ? .edited : .original
-                } else {
-                    labelsTagsTypeToShow = .edited
-                }
-                if delegate?.updatedProduct?.tracesOriginal == nil {
-                    tracesTagsTypeToShow = editMode ? .edited : .original
-                } else {
-                    tracesTagsTypeToShow = .edited
+                if !editMode {
+                    labelsTagsTypeToShow = TagsTypeDefault.Labels
+                    tracesTagsTypeToShow = TagsTypeDefault.Traces
+                    allergensTagsTypeToShow = TagsTypeDefault.Allergens
                 }
 
                 tableView.reloadData()
@@ -392,8 +375,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
-        let (currentProductSection, _, _) = tableStructureForProduct[section]
+        let (currentProductSection, _, header) = tableStructureForProduct[section]
         
         guard header != nil else { return "No header" }
         switch currentProductSection {

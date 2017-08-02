@@ -451,8 +451,9 @@ class OpenFoodFactsRequest {
         //product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
         product.manufacturingPlacesInterpreted = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
         product.manufacturingPlacesOriginal = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
-        product.categories = Tags(decodeCategories(jsonObject[jsonKeys.CategoriesTagsKey].stringArray))
-        product.categoriesTags = Tags.init(jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
+        product.categoriesOriginal = Tags.init(jsonObject[jsonKeys.CategoriesKey].string)
+        product.categoriesHierarchy = Tags.init(jsonObject[jsonKeys.CategoriesHierarchyKey].stringArray)
+        product.categoriesInterpreted = Tags.init(jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
         product.quantity = jsonObject[jsonKeys.QuantityKey].string
         product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.NutritionDataPerKey].string)
         product.periodAfterOpeningString  = jsonObject[jsonKeys.PeriodsAfterOpeningKey].string
@@ -699,17 +700,17 @@ class OpenFoodFactsRequest {
 //        return nil
 //    }
     
-    fileprivate func decodeCategories(_ labels: [String]?) -> [String]? {
-        if let labelsArray = labels {
-            var translatedTags:[String]? = []
-            let preferredLanguage = Locale.preferredLanguages[0]
-            for label in labelsArray {
-                translatedTags!.append(OFFplists.manager.translateCategories(label, language:preferredLanguage))
-            }
-            return translatedTags
-        }
-        return nil
-    }
+//    fileprivate func decodeCategories(_ labels: [String]?) -> [String]? {
+//        if let labelsArray = labels {
+//            var translatedTags:[String]? = []
+//            let preferredLanguage = Locale.preferredLanguages[0]
+//            for label in labelsArray {
+//                translatedTags!.append(OFFplists.manager.translateCategories(label, language:preferredLanguage))
+//            }
+//            return translatedTags
+//        }
+//        return nil
+//    }
 
 
     fileprivate func decodeCompletionStates(_ states: [String]?, product:FoodProduct) {

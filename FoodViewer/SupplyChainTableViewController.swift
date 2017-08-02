@@ -15,6 +15,14 @@ class SupplyChainTableViewController: UITableViewController {
     var editMode = false {
         didSet {
             if editMode != oldValue {
+                if !editMode {
+                    showCountriesTagsType = TagsTypeDefault.Countries
+                    showStoresTagsType = TagsTypeDefault.Stores
+                    showPurchaseLocationTagsType = TagsTypeDefault.PurchaseLocation
+                    showIngredientOriginTagsType = TagsTypeDefault.IngredientOrigin
+                    showProducerCodeTagsType = TagsTypeDefault.ProducerCode
+                    showProducerTagsType = TagsTypeDefault.Producer
+                }
                 // vc changed from/to editMode, need to repaint
                 tableView.reloadData()
             }
@@ -39,6 +47,7 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.manufacturingPlacesOriginal {
                 case .available, .empty:
+                    showProducerTagsType = .original
                     return delegate!.updatedProduct!.manufacturingPlacesOriginal
                 default:
                     break
@@ -64,6 +73,7 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.embCodesOriginal {
                 case .available, .empty:
+                    showProducerCodeTagsType = .original
                     return delegate!.updatedProduct!.embCodesOriginal
                 default:
                     break
@@ -89,6 +99,7 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.originsOriginal {
                 case .available, .empty:
+                    showIngredientOriginTagsType = .original
                     return delegate!.updatedProduct!.originsOriginal
                 default:
                     break
@@ -114,6 +125,7 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.purchasePlacesOriginal {
                 case .available, .empty:
+                    showPurchaseLocationTagsType = .original
                     return delegate!.updatedProduct!.purchasePlacesOriginal
                 default:
                     break
@@ -139,6 +151,7 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.storesOriginal {
                 case .available, .empty:
+                    showStoresTagsType = .original
                     return delegate!.updatedProduct!.storesOriginal
                 default:
                     break
@@ -164,6 +177,7 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.storesOriginal {
                 case .available, .empty:
+                    showCountriesTagsType = .original
                     return delegate!.updatedProduct!.countriesOriginal
                 default:
                     break

@@ -44,19 +44,39 @@ class CategoriesTableViewController: UITableViewController {
         case categories
     }
     
+    private struct TagsTypeDefault {
+        static let Categories: TagsType = .translated
+    }
+
+    private var showCategoriesTagsType: TagsType = TagsTypeDefault.Categories
+
     fileprivate var categoriesToDisplay: Tags {
         get {
             // is an updated product available?
             if delegate?.updatedProduct != nil {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.categories {
+                switch delegate!.updatedProduct!.categoriesOriginal {
                 case .available, .empty:
-                    return delegate!.updatedProduct!.categories
+                    showCategoriesTagsType = .original
+                    return delegate!.updatedProduct!.categoriesOriginal
                 default:
                     break
                 }
+            } else {
+                switch showCategoriesTagsType {
+                case .interpreted:
+                    return product!.categoriesInterpreted
+                case .original:
+                    return product!.categoriesOriginal
+                case .hierarchy:
+                    return product!.categoriesHierarchy
+                case .edited:
+                    return product!.categoriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                case .translated:
+                    return product!.categoriesTranslated
+                }
             }
-            return product!.categories
+            return .undefined
         }
     }
     
@@ -102,8 +122,22 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
-        return header
+        let (currentProductSection, _, header) = tableStructureForProduct[section]
+        
+        guard header != nil else { return "No header" }
+        switch currentProductSection {
+        case .categories:
+            switch showCategoriesTagsType {
+            case TagsTypeDefault.Categories:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showCategoriesTagsType.description() +
+                ")"
+            }
+        }
     }
     
     struct TableStructure {
@@ -137,6 +171,17 @@ class CategoriesTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
+    func changeTagsTypeToShow(_ notification: Notification) {
+        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
+            let (currentProductSection, _, _) = tableStructureForProduct[tag]
+            switch currentProductSection {
+            case .categories:
+                showCategoriesTagsType.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            }
+        }
+    }
+
     // MARK: - Controller Lifecycle
 
     override func viewDidLoad() {
@@ -157,6 +202,7 @@ class CategoriesTableViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -276,7 +322,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .categories:
-            OFFProducts.manager.search(product!.categoriesTags.tag(at:index), in:.category)
+            OFFProducts.manager.search(product!.categoriesOriginal.tag(at:index), in:.category)
         }
     }
 

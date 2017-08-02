@@ -534,8 +534,28 @@ class FoodProduct {
     
 
     // group parameters
-    var categories: Tags = .undefined
-    var categoriesTags: Tags = .undefined
+    var categoriesOriginal: Tags = .undefined
+    var categoriesInterpreted: Tags = .undefined
+    var categoriesHierarchy: Tags = .undefined
+    var categoriesTranslated: Tags {
+        get {
+            switch categoriesInterpreted {
+            case let .available(list):
+                if !list.isEmpty {
+                    var translatedList:[String] = []
+                    let preferredLanguage = Locale.preferredLanguages[0]
+                    for item in list {
+                        translatedList.append(OFFplists.manager.translateCategories(item, language:preferredLanguage))
+                    }
+                    return .available(translatedList)
+                } else {
+                    return .empty
+                }
+            default:
+                return .undefined
+            }
+        }
+    }
     
     // community parameters
     var photographers: [String]? = nil {
@@ -695,8 +715,9 @@ class FoodProduct {
         creator = nil
         state = CompletionState()
         primaryLanguageCode = nil
-        categories = .undefined
-        categoriesTags = .undefined
+        categoriesOriginal = .undefined
+        categoriesInterpreted = .undefined
+        categoriesHierarchy = .undefined
         photographers = nil
         correctors = nil
         editors = nil
@@ -894,8 +915,9 @@ class FoodProduct {
             creator = product.creator
             state = product.state
             languageCodes = product.languageCodes
-            categories = product.categories
-            categoriesTags = product.categoriesTags
+            categoriesOriginal = product.categoriesOriginal
+            categoriesInterpreted = product.categoriesInterpreted
+            categoriesHierarchy = product.categoriesHierarchy
             photographers = product.photographers
             correctors = product.correctors
             editors = product.editors
@@ -1059,7 +1081,7 @@ class FoodProduct {
     }
 
     func contains(categories: [String]) -> Bool {
-        switch self.categories {
+        switch self.categoriesOriginal {
         case .available(let currentCategories):
             return Set.init(currentCategories) == Set.init(categories) ? true : false
         default:

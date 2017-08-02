@@ -321,7 +321,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Categories", comment: "Text to indicate the product belongs to a category.")
 
-                        switch currentProduct.categories {
+                        switch currentProduct.categoriesHierarchy {
                         case .undefined, .empty:
                             cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no categories defined.")
                         case let .available(list):

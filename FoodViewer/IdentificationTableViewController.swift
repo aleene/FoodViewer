@@ -113,14 +113,10 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
-                
-                // show in editMode the edited tags, as entered by the user
-                if delegate?.updatedProduct?.packagingOriginal == nil {
-                    showPackagingTagsType = editMode ? .edited : .original
-                } else {
-                    showPackagingTagsType = .edited
+                if !editMode {
+                    showPackagingTagsType = TagsTypeDefault.Packaging
+                    showBrandTagsType = TagsTypeDefault.Brands
                 }
-                
                 tableView.reloadData()
             }
         }
@@ -144,6 +140,7 @@ class IdentificationTableViewController: UITableViewController {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.brandsOriginal {
                 case .available, .empty:
+                    showBrandTagsType = .original
                     return delegate!.updatedProduct!.brandsOriginal
                 default:
                     break

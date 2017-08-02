@@ -701,9 +701,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             if !product!.contains(categories: validTags) {
                 initUpdatedProductWith(product: product!)
                 if validTags.isEmpty {
-                    updatedProduct?.categories = .empty
+                    updatedProduct?.categoriesOriginal = .empty
                 } else {
-                    updatedProduct?.categories = .available(validTags)
+                    updatedProduct?.categoriesOriginal = .available(validTags)
                 }
                 saveUpdatedProduct()
             }
@@ -1074,10 +1074,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        navigationItem.leftItemsSupplementBackButton = true
-            
+        
+        // navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         dataSource = self
         delegate = self
             
@@ -1096,6 +1094,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationItem.leftItemsSupplementBackButton = true
 
         if OFFAccount().personalExists() {
             // maybe the user has to authenticate himself before continuing

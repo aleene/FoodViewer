@@ -308,10 +308,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.categories {
+        switch product!.categoriesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product!.categories.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product!.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
