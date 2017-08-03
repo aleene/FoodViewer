@@ -74,8 +74,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     private struct TagsTypeDefault {
-        static let Labels: TagsType = .edited
-        static let Traces: TagsType = .edited
+        static let Labels: TagsType = .translated
+        static let Traces: TagsType = .translated
         static let Allergens: TagsType = .translated
     }
     
@@ -145,11 +145,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
-                if !editMode {
-                    labelsTagsTypeToShow = TagsTypeDefault.Labels
-                    tracesTagsTypeToShow = TagsTypeDefault.Traces
-                    allergensTagsTypeToShow = TagsTypeDefault.Allergens
-                }
 
                 tableView.reloadData()
             }
@@ -662,6 +657,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     func refreshProduct() {
+        labelsTagsTypeToShow = TagsTypeDefault.Labels
+        tracesTagsTypeToShow = TagsTypeDefault.Traces
+        allergensTagsTypeToShow = TagsTypeDefault.Allergens
         tableView.reloadData()
     }
     

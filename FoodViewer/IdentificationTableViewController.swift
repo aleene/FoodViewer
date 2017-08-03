@@ -113,10 +113,6 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
-                if !editMode {
-                    showPackagingTagsType = TagsTypeDefault.Packaging
-                    showBrandTagsType = TagsTypeDefault.Brands
-                }
                 tableView.reloadData()
             }
         }
@@ -702,6 +698,8 @@ class IdentificationTableViewController: UITableViewController {
     
     func refreshProduct() {
         delegate?.updateCurrentLanguage()
+        showPackagingTagsType = TagsTypeDefault.Packaging
+        showBrandTagsType = TagsTypeDefault.Brands
         tableView.reloadData()
     }
     
@@ -941,7 +939,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .image:
             return searchResult
         default:
-            return("error")
+            return("TagListView titleForTagAt error")
         }
     }
 

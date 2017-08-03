@@ -124,10 +124,11 @@ class FoodProduct {
             switch allergensInterpreted {
             case .available(let allergens):
                 var translatedAllergens:[String] = []
-                let preferredLanguage = Locale.preferredLanguages[0]
                 for allergenKey in allergens {
-                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:preferredLanguage) {
+                    if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:Locale.interfaceLanguageCode()) {
                         translatedAllergens.append(translatedKey)
+                    } else if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:Locale.preferredLanguages[0]) {
+                            translatedAllergens.append(translatedKey)
                     } else {
                         translatedAllergens.append(allergenKey)
                     }
@@ -151,13 +152,15 @@ class FoodProduct {
     // returns the allergenKeys array in the current locale
     var tracesTranslated: Tags {
         get {
-            switch tracesOriginal {
+            switch tracesInterpreted {
             case .available(let traces):
                 var translatedTraces:[String] = []
-                let preferredLanguage = Locale.preferredLanguages[0]
                 for trace in traces {
-                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:preferredLanguage) {
-                        translatedTraces.append(translatedKey)
+//                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.interfaceLanguageCode()) {
+//                        translatedTraces.append(translatedKey)
+//                    } else
+                        if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.preferredLanguages[0]) {
+                            translatedTraces.append(translatedKey)
                     } else {
                         translatedTraces.append(trace)
                     }

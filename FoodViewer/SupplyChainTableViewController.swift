@@ -15,14 +15,6 @@ class SupplyChainTableViewController: UITableViewController {
     var editMode = false {
         didSet {
             if editMode != oldValue {
-                if !editMode {
-                    showCountriesTagsType = TagsTypeDefault.Countries
-                    showStoresTagsType = TagsTypeDefault.Stores
-                    showPurchaseLocationTagsType = TagsTypeDefault.PurchaseLocation
-                    showIngredientOriginTagsType = TagsTypeDefault.IngredientOrigin
-                    showProducerCodeTagsType = TagsTypeDefault.ProducerCode
-                    showProducerTagsType = TagsTypeDefault.Producer
-                }
                 // vc changed from/to editMode, need to repaint
                 tableView.reloadData()
             }
@@ -593,6 +585,13 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
     func refreshProduct() {
+        showCountriesTagsType = TagsTypeDefault.Countries
+        showStoresTagsType = TagsTypeDefault.Stores
+        showPurchaseLocationTagsType = TagsTypeDefault.PurchaseLocation
+        showIngredientOriginTagsType = TagsTypeDefault.IngredientOrigin
+        showProducerCodeTagsType = TagsTypeDefault.ProducerCode
+        showProducerTagsType = TagsTypeDefault.Producer
+        
         tableView.reloadData()
     }
 

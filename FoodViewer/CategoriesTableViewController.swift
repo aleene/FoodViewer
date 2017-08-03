@@ -163,6 +163,8 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - Notification Handler Functions
         
     func refreshProduct() {
+        showCategoriesTagsType = TagsTypeDefault.Categories
+
         tableView.reloadData()
     }
 
