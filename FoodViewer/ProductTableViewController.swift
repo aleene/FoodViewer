@@ -41,7 +41,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch products.fetchResultList[validIndex]  {
                 case .success(let product):
                     selectedProduct = product
-                    selectedIndex = 0
+                    selectedIndex = validIndex
                     tableView.reloadData()
                     tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .middle, animated: true)
                 default:
@@ -549,7 +549,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             barcode = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
             searchTextField.text = vc.barcode
             products.list = .recent
-            startInterface(at: 0)
+            startInterface(at: selectedIndex ?? 0)
+                
 
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
@@ -592,7 +593,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
         let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
         if imageSizeCategory == .small && imageTypeCategory == .front {
-            tableView.reloadData()
+            startInterface(at: selectedIndex ?? 0)
             /*
             // I would like to load only the section with the image
             // results in a NSException
