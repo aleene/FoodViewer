@@ -940,7 +940,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(producer: list)
             }
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            
         case .producerCode:
             switch producerCodeTagsToDisplay {
             case .undefined, .empty:
@@ -952,7 +953,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(producerCode: list)
             }
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
             case .undefined, .empty:
@@ -964,7 +966,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(ingredientsOrigin: list)
             }
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
 
         case .store:
             switch storeTagsToDisplay {
@@ -977,7 +979,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(stores: list)
             }
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            
         case .location:
             switch purchaseLocationTagsToDisplay {
             case .undefined, .empty:
@@ -989,7 +992,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(purchaseLocation: list)
             }
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            
         case .country:
             switch countriesToDisplay {
             case .undefined, .empty:
@@ -1001,7 +1005,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(countries: list)
             }
-            tableView.reloadData()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            
         case .sites:
             if var validTags = linksToDisplay {
                 guard index >= 0 && index < validTags.count else {

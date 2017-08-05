@@ -593,28 +593,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
         let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
         if imageSizeCategory == .small && imageTypeCategory == .front {
-            startInterface(at: selectedIndex ?? 0)
-            /*
-            // I would like to load only the section with the image
-            // results in a NSException
-            let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String
-            for (index, fetchResult) in products.fetchResultList.enumerated() {
-                guard fetchResult != nil else { break }
-                switch fetchResult! {
-                case .success(let currentProduct):
-                    if currentProduct.barcode.asString() == barcodeString {
-                        // reload the section and row corresponding to this product
-                        let indexPath = IndexPath.init(row: 0, section: index)
-                        let indexPaths = [indexPath]
-                        tableView.reloadRows(at: indexPaths, with: .none)
-                        tableView.reloadSections(sections, with: .fade)
-                    }
-                default: break
+            if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String {
+                if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+                    let indexPaths = [IndexPath.init(row: 0, section: index)]
+                    tableView.reloadRows(at: indexPaths, with: .top)
                 }
             }
-            */
         }
-
     }
     
     func showAlertProductNotAvailable(_ notification: Notification) {

@@ -1808,7 +1808,6 @@
                 <pageViewController storyboardIdentifier="ProductPageViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="PaB-Sk-wD0" customClass="ProductPageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="fIR-X2-BuT">
-                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="1IZ-bU-7nP"/>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="action" id="Vtz-UH-8R1">
                                 <connections>

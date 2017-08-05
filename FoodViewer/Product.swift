@@ -310,7 +310,7 @@ class FoodProduct {
     var countriesHierarchy: Tags = .undefined
     var countriesTranslated: Tags {
         get {
-            switch countriesOriginal {
+            switch countriesInterpreted {
             case .available(let countries):
                 var translatedCountries:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]

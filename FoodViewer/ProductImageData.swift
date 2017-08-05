@@ -135,6 +135,8 @@ public class ProductImageData {
         // https://static.openfoodfacts.org/images/products/327/019/002/5337/ingredients_fr.27.100.jpg
         if elements.count >= 8 {
             return elements[4] + elements[5] + elements[6] + elements[7]
+        } else if elements.count == 6 {
+            return elements[4]
         } else {
             return "No valid barcode"
         }

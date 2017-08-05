@@ -91,6 +91,23 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         editMode = !editMode
     }
+        
+    private func setProductListButton() {
+        // if the productTableViewController is not visible, it should be shown afer a button tap
+        if let navController = self.parent as? UINavigationController {
+            if navController.parent is UISplitViewController {
+                navigationItem.setLeftBarButtonItems(nil, animated: false)
+            } else if navController.parent is ProductTableViewController {
+                if let items = navigationItem.leftBarButtonItems {
+                    if items.isEmpty {
+                        let barButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: #selector(ProductTableViewController.unwindForCancel(_:)))
+                        navigationItem.setLeftBarButton(barButton, animated: true)
+                    }
+                }
+            }
+        }
+
+    }
     
     private var userWantsToSave = false
     
@@ -1075,7 +1092,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        setProductListButton()
+        
         dataSource = self
         delegate = self
             
@@ -1085,7 +1103,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-            
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
@@ -1094,7 +1111,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationItem.leftItemsSupplementBackButton = true
 
         if OFFAccount().personalExists() {
             // maybe the user has to authenticate himself before continuing
