@@ -543,6 +543,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
+    func unwindForBack() {
+        tableView.reloadData()
+    }
+    
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
             switchToTab(withIndex: 0)

@@ -91,24 +91,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         editMode = !editMode
     }
-        
-    private func setProductListButton() {
-        // if the productTableViewController is not visible, it should be shown afer a button tap
-        if let navController = self.parent as? UINavigationController {
-            if navController.parent is UISplitViewController {
-                navigationItem.setLeftBarButtonItems(nil, animated: false)
-            } else if navController.parent is ProductTableViewController {
-                if let items = navigationItem.leftBarButtonItems {
-                    if items.isEmpty {
-                        let barButton = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: #selector(ProductTableViewController.unwindForCancel(_:)))
-                        navigationItem.setLeftBarButton(barButton, animated: true)
-                    }
-                }
-            }
-        }
-
-    }
     
+        
     private var userWantsToSave = false
     
     func saveUpdatedProduct() {
@@ -1092,7 +1076,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setProductListButton()
+        // setProductListButton()
         
         dataSource = self
         delegate = self
