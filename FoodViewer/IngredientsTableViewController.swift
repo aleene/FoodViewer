@@ -29,10 +29,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return product!.allergensHierarchy
             case .translated:
                 return product!.allergensTranslated
-            case .edited:
+            case .prefixed:
                 return product!.allergensTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
                 return product!.allergensOriginal
+            case .edited:
+                return .undefined
             }
         }
     }
@@ -44,32 +46,39 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.tracesOriginal {
                 case .available, .empty:
-                    tracesTagsTypeToShow = .original
+                    tracesTagsTypeToShow = .edited
                     return delegate!.updatedProduct!.tracesOriginal
                 default:
                     break
                 }
-            } else {
-                switch tracesTagsTypeToShow {
-                case .interpreted:
-                    return product!.tracesInterpreted
-                case .hierarchy:
-                    return product!.tracesHierarchy
-                case .translated:
-                    return product!.tracesTranslated
-                case .edited:
-                    return product!.tracesTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
-                case .original:
-                    return product!.tracesOriginal
-                }
             }
-            return .undefined
+            switch tracesTagsTypeToShow {
+            case .interpreted:
+                return product!.tracesInterpreted
+            case .hierarchy:
+                return product!.tracesHierarchy
+            case .translated:
+                return product!.tracesTranslated
+            case .prefixed:
+                return product!.tracesTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
+            case .original:
+                return product!.tracesOriginal
+            case .edited:
+                return .undefined
+            }
         }
     }
     
     fileprivate var additivesToDisplay: Tags {
         get {
-            return product!.additives
+            switch additivesTagsTypeToShow {
+            case .interpreted:
+                return product!.additivesInterpreted
+            case .hierarchy, .edited, .original, .prefixed:
+                return .undefined
+            case .translated:
+                return product!.additivesTranslated
+            }
         }
     }
     
@@ -77,12 +86,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         static let Labels: TagsType = .translated
         static let Traces: TagsType = .translated
         static let Allergens: TagsType = .translated
+        static let Additives: TagsType = .translated
     }
     
     // The interpreted labels have been translated to the interface language
     private var labelsTagsTypeToShow: TagsType = TagsTypeDefault.Labels
     private var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
     private var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
+    private var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
 
     fileprivate var labelsToDisplay: Tags {
         get {
@@ -91,29 +102,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // does it have edited labels defined?
                 switch delegate!.updatedProduct!.labelsOriginal {
                 case .available, .empty:
-                    labelsTagsTypeToShow = .original
+                    labelsTagsTypeToShow = .edited
                     return delegate!.updatedProduct!.labelsOriginal
                 default:
                     break
                 }
-            } else {
-                switch labelsTagsTypeToShow {
-                case .interpreted:
-                    return product!.labelsInterpreted
-                case .translated:
-                    return product!.translatedLabels()
-                case .hierarchy:
-                    return product!.labelsHierarchy
-                case .edited:
-                    return product!.labelsOriginal.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
-                case .original:
-                    return product!.labelsOriginal
-                }
             }
-            // add the primary languagecode to tags without a languageCode and
-            // remove the languageCode for tags that are in the interface languageCode
-            //
-            return .undefined
+            switch labelsTagsTypeToShow {
+            case .interpreted:
+                return product!.labelsInterpreted
+            case .translated:
+                return product!.translatedLabels()
+            case .hierarchy:
+                return product!.labelsHierarchy
+            case .prefixed:
+                return product!.labelsOriginal.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
+            case .original:
+                return product!.labelsOriginal
+            case .edited:
+                return .undefined
+            }
         }
     }
 
@@ -409,9 +417,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     labelsTagsTypeToShow.description() +
                     ")"
             }
-
-        default:
-            return header
+        case .additives:
+            switch additivesTagsTypeToShow {
+            case TagsTypeDefault.Additives:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    additivesTagsTypeToShow.description() +
+                ")"
+            }
         }
     }
     
@@ -645,6 +661,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .allergens:
                 allergensTagsTypeToShow.cycle()
                 tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            case .additives:
+                additivesTagsTypeToShow.cycle()
+                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
             default:
                 break
             }
@@ -660,6 +679,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         labelsTagsTypeToShow = TagsTypeDefault.Labels
         tracesTagsTypeToShow = TagsTypeDefault.Traces
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
+        additivesTagsTypeToShow = TagsTypeDefault.Additives
         tableView.reloadData()
     }
     
@@ -912,10 +932,11 @@ extension IngredientsTableViewController: TagListViewDelegate {
             default:
                 break
             }
+            // OFF does not allow searching by additive at the moment
 //        case .additives:
-//            switch product!.additives {
+//            switch product!.additivesInterpreted {
 //            case .available:
-//                let rawTag = product!.additives.tag(at: index)
+//                let rawTag = product!.additivesInterpreted.tag(at: index)
 //                OFFProducts.manager.searchValue = rawTag
 //                OFFProducts.manager.search = OFF.SearchComponent.additive
 //                OFFProducts.manager.list = .search

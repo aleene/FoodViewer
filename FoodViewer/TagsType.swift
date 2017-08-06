@@ -14,6 +14,7 @@ enum TagsType {
     case translated
     case hierarchy
     case edited
+    case prefixed
     
     public mutating func cycle() {
         switch self {
@@ -24,6 +25,8 @@ enum TagsType {
         case .translated:
             self = .hierarchy
         case .hierarchy:
+            self = .prefixed
+        case .prefixed:
             self = .edited
         case .edited:
             self = .original
@@ -40,6 +43,8 @@ enum TagsType {
             return NSLocalizedString("Translated", comment: "Description of the interpreted tags in the json as translated by the taxonomy")
         case .hierarchy:
             return NSLocalizedString("Hierarchy", comment: "Description of the hierarchy tags in the json")
+        case .prefixed:
+            return NSLocalizedString("Prefix corrected", comment: "Description of the prefixed corrected tags")
         case .edited:
             return NSLocalizedString("Edited", comment: "Description of the edited tags as will be uploaded")
         }

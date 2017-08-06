@@ -380,7 +380,7 @@ class OpenFoodFactsRequest {
         // print(product.name, product.languageCodes, product.nameLanguage)
         // Is no longer needed, is part of the language array
         // product.genericName = jsonObject[jsonKeys.GenericNameKey].string
-        product.additives = Tags(decodeAdditives(jsonObject[jsonKeys.AdditivesTagsKey].stringArray))
+        product.additivesInterpreted = Tags.init(jsonObject[jsonKeys.AdditivesTagsKey].stringArray)
         
         product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
         product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
@@ -666,17 +666,17 @@ class OpenFoodFactsRequest {
         static let PhotosUploadedTBD = "en:photos-to-be-uploaded"
     }
     
-    fileprivate func decodeAdditives(_ additives: [String]?) -> [String]? {
-        if let adds = additives {
-            var translatedAdds:[String]? = []
-            let preferredLanguage = Locale.preferredLanguages[0]
-            for add in adds {
-                translatedAdds!.append(OFFplists.manager.translateAdditives(add, language:preferredLanguage))
-            }
-            return translatedAdds
-        }
-        return nil
-    }
+//    fileprivate func decodeAdditives(_ additives: [String]?) -> [String]? {
+//        if let adds = additives {
+//            var translatedAdds:[String]? = []
+//            let preferredLanguage = Locale.preferredLanguages[0]
+//            for add in adds {
+//                translatedAdds!.append(OFFplists.manager.translateAdditives(add, language:preferredLanguage))
+//            }
+//            return translatedAdds
+//        }
+//        return nil
+//    }
     
     // checks whether a valid value is in the json-data
     fileprivate func decodeNutritionDataAvalailable(_ code: String?) -> Bool? {

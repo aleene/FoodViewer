@@ -39,24 +39,22 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.manufacturingPlacesOriginal {
                 case .available, .empty:
-                    showProducerTagsType = .original
+                    showProducerTagsType = .edited
                     return delegate!.updatedProduct!.manufacturingPlacesOriginal
                 default:
                     break
                 }
-            } else {
-                switch showProducerTagsType {
-                case .interpreted:
-                    return product!.manufacturingPlacesInterpreted
-                case .original:
-                    return product!.manufacturingPlacesOriginal
-                case .edited:
-                    return product!.manufacturingPlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                default:
-                    break
-                }
             }
-            return .undefined
+            switch showProducerTagsType {
+            case .interpreted:
+                return product!.manufacturingPlacesInterpreted
+            case .original:
+                return product!.manufacturingPlacesOriginal
+            case .prefixed:
+                return product!.manufacturingPlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            default:
+                return .undefined
+            }
         }
     }
     
@@ -65,24 +63,22 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.embCodesOriginal {
                 case .available, .empty:
-                    showProducerCodeTagsType = .original
+                    showProducerCodeTagsType = .edited
                     return delegate!.updatedProduct!.embCodesOriginal
                 default:
                     break
                 }
-            } else {
-                switch showProducerCodeTagsType {
-                case .interpreted:
-                    return product!.embCodesInterpreted
-                case .original:
-                    return product!.embCodesOriginal
-                case .edited:
-                    return product!.embCodesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                default:
-                    break
-                }
             }
-            return .undefined
+            switch showProducerCodeTagsType {
+            case .interpreted:
+                return product!.embCodesInterpreted
+            case .original:
+                return product!.embCodesOriginal
+            case .prefixed:
+                return product!.embCodesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            default:
+                return .undefined
+            }
         }
     }
     
@@ -91,24 +87,22 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.originsOriginal {
                 case .available, .empty:
-                    showIngredientOriginTagsType = .original
+                    showIngredientOriginTagsType = .edited
                     return delegate!.updatedProduct!.originsOriginal
                 default:
                     break
                 }
-            } else {
-                switch showIngredientOriginTagsType {
-                case .interpreted:
-                    return product!.originsInterpreted
-                case .original:
-                    return product!.originsOriginal
-                case .edited:
-                    return product!.originsOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                default:
-                    break
-                }
             }
-            return .undefined
+            switch showIngredientOriginTagsType {
+            case .interpreted:
+                return product!.originsInterpreted
+            case .original:
+                return product!.originsOriginal
+            case .prefixed:
+                return product!.originsOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            default:
+                return .undefined
+            }
         }
     }
     
@@ -117,24 +111,22 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.purchasePlacesOriginal {
                 case .available, .empty:
-                    showPurchaseLocationTagsType = .original
+                    showPurchaseLocationTagsType = .edited
                     return delegate!.updatedProduct!.purchasePlacesOriginal
                 default:
                     break
                 }
-            } else {
-                switch showPurchaseLocationTagsType {
-                case .interpreted:
-                    return product!.purchasePlacesInterpreted
-                case .original:
-                    return product!.purchasePlacesOriginal
-                case .edited:
-                    return product!.purchasePlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                default:
-                    break
-                }
             }
-            return .undefined
+            switch showPurchaseLocationTagsType {
+            case .interpreted:
+                return product!.purchasePlacesInterpreted
+            case .original:
+                return product!.purchasePlacesOriginal
+            case .prefixed:
+                return product!.purchasePlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            default:
+                return .undefined
+            }
         }
     }
     
@@ -143,24 +135,22 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.storesOriginal {
                 case .available, .empty:
-                    showStoresTagsType = .original
+                    showStoresTagsType = .edited
                     return delegate!.updatedProduct!.storesOriginal
                 default:
                     break
                 }
-            } else {
-                switch showStoresTagsType {
-                case .interpreted:
-                    return product!.storesInterpreted
-                case .original:
-                    return product!.storesOriginal
-                case .edited:
-                    return product!.storesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                default:
-                    break
-                }
             }
-            return .undefined
+            switch showStoresTagsType {
+            case .interpreted:
+                return product!.storesInterpreted
+            case .original:
+                return product!.storesOriginal
+            case .prefixed:
+                return product!.storesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            default:
+                return .undefined
+            }
         }
     }
     
@@ -169,26 +159,24 @@ class SupplyChainTableViewController: UITableViewController {
             if delegate?.updatedProduct != nil {
                 switch delegate!.updatedProduct!.storesOriginal {
                 case .available, .empty:
-                    showCountriesTagsType = .original
+                    showCountriesTagsType = .edited
                     return delegate!.updatedProduct!.countriesOriginal
                 default:
                     break
                 }
-            } else {
-                switch showCountriesTagsType {
-                case .interpreted:
-                    return product!.countriesInterpreted
-                case .translated:
-                    return product!.countriesTranslated
-                case .original:
-                    return product!.countriesOriginal
-                case .edited:
-                    return product!.countriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                default:
-                    break
-                }
             }
-            return .undefined
+            switch showCountriesTagsType {
+            case .interpreted:
+                return product!.countriesInterpreted
+            case .translated:
+                return product!.countriesTranslated
+            case .original:
+                return product!.countriesOriginal
+            case .edited:
+                return product!.countriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            default:
+                return .undefined
+            }
         }
     }
 

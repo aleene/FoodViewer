@@ -57,26 +57,26 @@ class CategoriesTableViewController: UITableViewController {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.categoriesOriginal {
                 case .available, .empty:
-                    showCategoriesTagsType = .original
+                    showCategoriesTagsType = .edited
                     return delegate!.updatedProduct!.categoriesOriginal
                 default:
                     break
                 }
-            } else {
-                switch showCategoriesTagsType {
-                case .interpreted:
-                    return product!.categoriesInterpreted
-                case .original:
-                    return product!.categoriesOriginal
-                case .hierarchy:
-                    return product!.categoriesHierarchy
-                case .edited:
-                    return product!.categoriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                case .translated:
-                    return product!.categoriesTranslated
-                }
             }
-            return .undefined
+            switch showCategoriesTagsType {
+            case .interpreted:
+                return product!.categoriesInterpreted
+            case .original:
+                return product!.categoriesOriginal
+            case .hierarchy:
+                return product!.categoriesHierarchy
+            case .prefixed:
+                return product!.categoriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            case .translated:
+                return product!.categoriesTranslated
+            case .edited:
+                return .undefined
+            }
         }
     }
     

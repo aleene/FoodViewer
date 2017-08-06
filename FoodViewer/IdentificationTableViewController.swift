@@ -132,36 +132,37 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var brandsToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
-                // does it have brands defined?
+            if delegate?.updatedProduct?.brandsOriginal != nil  {
+                // does it have brands redefined?
                 switch delegate!.updatedProduct!.brandsOriginal {
                 case .available, .empty:
-                    showBrandTagsType = .original
+                    showBrandTagsType = .edited
                     return delegate!.updatedProduct!.brandsOriginal
                 default:
                     break
                 }
-            } else {
-                switch showBrandTagsType {
-                case .interpreted:
-                    return product!.brandsInterpreted
-                case .original:
-                    return product!.brandsOriginal
-                default:
+            }
+            switch showBrandTagsType {
+            case .interpreted:
+                return product!.brandsInterpreted
+            case .original:
+                return product!.brandsOriginal
+            default:
                     break
-                }
             }
             return .undefined
         }
     }
     
-    private var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
-    private var showBrandTagsType: TagsType = TagsTypeDefault.Brands
-    
     private struct TagsTypeDefault {
         static let Brands: TagsType = .original
-        static let Packaging: TagsType = .edited
+        static let Packaging: TagsType = .prefixed
     }
+    
+    private var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
+    
+    private var showBrandTagsType: TagsType = TagsTypeDefault.Brands
+    
     fileprivate var packagingToDisplay: Tags {
         get {
             // is an updated product available?
@@ -169,29 +170,24 @@ class IdentificationTableViewController: UITableViewController {
                 // does it have edited packaging tags defined?
                 switch delegate!.updatedProduct!.packagingOriginal {
                 case .available, .empty:
-                    showPackagingTagsType = .original
+                    showPackagingTagsType = .edited
                     return delegate!.updatedProduct!.packagingOriginal
                 default:
                     break
                 }
-            } else {
-                switch showPackagingTagsType {
-                case .interpreted:
-                    return product!.packagingInterpreted
-                case .original:
-                    return product!.packagingOriginal
-                case .hierarchy:
-                    return product!.packagingHierarchy
-                case .edited:
-                    return product!.packagingOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-                case .translated:
-                    return .undefined
-                }
             }
-            // add the primary languagecode to tags without a languageCode and 
-            // remove the languageCode for tags that are in the interface languageCode
-            //
-            return .undefined
+            switch showPackagingTagsType {
+            case .interpreted:
+                    return product!.packagingInterpreted
+            case .original:
+                    return product!.packagingOriginal
+            case .hierarchy:
+                    return product!.packagingHierarchy
+            case .prefixed:
+                return product!.packagingOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            case .translated, .edited:
+                return .undefined
+            }
         }
     }
     

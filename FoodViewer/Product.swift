@@ -190,8 +190,22 @@ class FoodProduct {
 
 //    var traces: Tags = .undefined
     
-    var additives: Tags = .undefined
-    
+    var additivesInterpreted: Tags = .undefined
+    var additivesTranslated: Tags {
+        get {
+            switch additivesInterpreted {
+            case .available(let additives):
+                var translatedAdditives:[String] = []
+                for additive in additives {
+                    translatedAdditives.append(OFFplists.manager.translateAdditives(additive, language:Locale.preferredLanguages[0]))
+                }
+            return translatedAdditives.count == 0 ? .empty : .available(translatedAdditives)
+            default:
+                break
+            }
+            return .undefined
+        }
+    }
     var labelsInterpreted: Tags = .undefined
     var labelsOriginal: Tags = .undefined
     var labelsHierarchy: Tags = .undefined
@@ -690,7 +704,7 @@ class FoodProduct {
         tracesHierarchy = .undefined
         tracesOriginal = .undefined
         tracesInterpreted = .undefined
-        additives = .undefined
+        additivesInterpreted = .undefined
         labelsOriginal = .undefined
         labelsHierarchy = .undefined
         labelsInterpreted = .undefined
@@ -891,7 +905,7 @@ class FoodProduct {
             tracesInterpreted = product.tracesInterpreted
             tracesHierarchy = product.tracesHierarchy
             tracesOriginal = product.tracesOriginal
-            additives = product.additives
+            additivesInterpreted = product.additivesInterpreted
             labelsInterpreted = product.labelsInterpreted
             labelsOriginal = product.labelsOriginal
             labelsHierarchy = product.labelsHierarchy
