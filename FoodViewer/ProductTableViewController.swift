@@ -437,14 +437,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 // no header required in this case
                 return nil
             case.loadingFailed(let error):
-                // The error message when the server can not be reached:
-                // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
+                label.text = error
+                // Can we supply a specific error message?
                 if error.contains("NSCocoaErrorDomain Code=256") {
+                    // The error message when the server can not be reached:
+                    // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
                     let parts = error.components(separatedBy: ".json")
-                    let partsTwo = parts[0].components(separatedBy:"The file “")
-                    label.text = partsTwo[1]
-                } else {
-                    label.text = error
+                    if !parts.isEmpty {
+                        let partsTwo = parts[0].components(separatedBy:"The file “")
+                        if partsTwo.count > 0 {
+                            label.text = partsTwo[1]
+                        }
+                    }
                 }
             default:
                 label.text = products.fetchResultList[section].description()
@@ -620,7 +624,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String {
                 if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
                     let indexPaths = [IndexPath.init(row: 0, section: index)]
-                    tableView.reloadRows(at: indexPaths, with: .top)
+                    tableView.reloadRows(at: indexPaths, with: .automatic)
                 }
             }
         }
@@ -671,11 +675,36 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     func productLoaded(_ notification: Notification) {
-        refreshInterface()
+        tableView.reloadData()
+//
+//  THIS PART RESULTS IN AN EXCEPTION on reloadSections
+//
+//        let userInfo = (notification as NSNotification).userInfo
+//        guard userInfo != nil else { return }
+//        if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
+//            if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+//                if self.tableView.numberOfSections > index + 1 {
+//                    let path = IndexPath.init(row: 0, section: index)
+//                    self.tableView.reloadSections([index], with: .none)
+//                } else {
+//                    self.tableView.reloadData()
+//                }
+//            }
+//        }
     }
     
     func productUpdated(_ notification: Notification) {
-        refreshInterface()
+        let userInfo = (notification as NSNotification).userInfo
+        guard userInfo != nil else { return }
+        if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
+            if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+                if self.tableView.numberOfSections > index + 1 {
+                    self.tableView.reloadSections([index], with: .automatic)
+                } else {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     // 
     func firstProductLoaded(_ notification: Notification) {

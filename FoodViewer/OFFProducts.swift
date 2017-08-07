@@ -21,6 +21,7 @@ class OFFProducts {
         static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
         static let SearchOffsetKey = "OFFProducts.Notification.SearchOffset.Key"
         static let SearchPageKey = "OFFProducts.Notification.SearchPage.Key"
+        static let BarcodeKey = "OFFProducts.Notification.Barcode.Key"
     }
     
     
@@ -235,12 +236,13 @@ class OFFProducts {
                         self.allProductFetchResultList[index] = fetchResult
                         self.setCurrentProducts()
                         switch fetchResult {
-                        case .success:
+                        case .success(let product):
                             if self.historyLoadCount != nil {
                                 self.historyLoadCount! += 1
-                                // This is a bit over the top
-                                // I should add the barcode of the product that has been loaded
-                                NotificationCenter.default.post(name: .ProductLoaded, object:nil)
+
+                                var userInfo: [String:Any] = [:]
+                                userInfo[Notification.BarcodeKey] = product.barcode.asString()
+                                NotificationCenter.default.post(name: .ProductLoaded, object:nil, userInfo: userInfo)
                             }
                         case .loadingFailed(let error):
                             self.historyLoadCount! += 1
@@ -268,7 +270,7 @@ class OFFProducts {
                     // all products have been loaded from history
                     NotificationCenter.default.post(name: .ProductLoaded, object:nil)
                 } else if (currentLoadHistory >= 4) && ((currentLoadHistory + 1 ) % batchSize == 0) {
-                    NotificationCenter.default.post(name: .ProductLoaded, object:nil)
+//NotificationCenter.default.post(name: .ProductLoaded, object:nil)
                     // load next batch
                     let startIndex = currentLoadHistory + 1 <= storedHistory.barcodeTuples.count - 1 ? currentLoadHistory + 1 : storedHistory.barcodeTuples.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? startIndex + batchSize - 1 : storedHistory.barcodeTuples.count - 1
@@ -435,7 +437,10 @@ class OFFProducts {
                 switch fetchResult {
                 case .success(let newProduct):
                     self.update(newProduct)
-                    NotificationCenter.default.post(name: .ProductUpdated, object:nil)
+                    // encode barcode
+                    var userInfo: [String:Any] = [:]
+                    userInfo[Notification.BarcodeKey] = newProduct.barcode.asString()
+                    NotificationCenter.default.post(name: .ProductUpdated, object:nil, userInfo: userInfo)
                 case .loadingFailed(let error):
                     let userInfo = ["error":error]
                     self.handleLoadingFailed(userInfo)
