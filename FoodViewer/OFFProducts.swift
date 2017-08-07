@@ -33,7 +33,9 @@ class OFFProducts {
     
     var list = ProductsTab.recent {
         didSet {
-            loadAll()
+            if allProductFetchResultList.isEmpty {
+                loadAll()
+            }
         }
     }
     
@@ -71,6 +73,8 @@ class OFFProducts {
                                 list.append(fetchResult!)
                             }
                         }
+                    case .loadingFailed:
+                        list.append(fetchResult!)
                     default: break
                     }
                 }
@@ -287,7 +291,6 @@ class OFFProducts {
     }
 
     func fetchProduct(_ barcode: BarcodeType?) -> Int? {
-        
         if let validBarcode = barcode {
             // is the product already fetched?
             if let validIndex = index(validBarcode) {

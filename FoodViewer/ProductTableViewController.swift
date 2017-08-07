@@ -221,7 +221,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switch products.fetchResultList[section] {
             case .success:
                 return tableStructure.count
-            case .more:
+            case .more, .loadingFailed:
                 // allow a cell with a button
                 return 1
             default:
@@ -355,6 +355,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell?.scheme = ColorSchemes.error
                     cell?.accessoryType = .none
                     return cell!
+                    
+                case .loadingFailed:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
+                    cell?.datasource = self
+                    cell?.tag = 2
+                    cell?.width = tableView.frame.size.width
+                    cell?.scheme = ColorSchemes.error
+                    cell?.accessoryType = .none
+                    return cell!
+
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
                     cell?.datasource = self
@@ -426,6 +436,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .more:
                 // no header required in this case
                 return nil
+            case.loadingFailed(let error):
+                // The error message when the server can not be reached:
+                // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
+                if error.contains("NSCocoaErrorDomain Code=256") {
+                    let parts = error.components(separatedBy: ".json")
+                    let partsTwo = parts[0].components(separatedBy:"The file “")
+                    label.text = partsTwo[1]
+                } else {
+                    label.text = error
+                }
             default:
                 label.text = products.fetchResultList[section].description()
             }
@@ -795,6 +815,9 @@ extension ProductTableViewController: TagListViewDataSource {
             return fetchStatus.description()
         } else if tagListView.tag == 1 {
             let fetchStatus = ProductFetchStatus.more(0)
+            return fetchStatus.description()
+        } else if tagListView.tag == 2 {
+            let fetchStatus = ProductFetchStatus.loadingFailed("loading Failed")
             return fetchStatus.description()
         }
         return "ProductTableViewController: tagListView.tag not recognized"
