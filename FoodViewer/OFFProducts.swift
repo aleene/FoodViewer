@@ -34,7 +34,7 @@ class OFFProducts {
     
     var list = ProductsTab.recent {
         didSet {
-            if allProductFetchResultList.isEmpty {
+            if list != oldValue {
                 loadAll()
             }
         }
@@ -469,51 +469,56 @@ class OFFProducts {
     private func loadAll() {
         switch list {
         case .recent:
-            // If there is no history, we are in the cold start case
-            if !storedHistory.barcodeTuples.isEmpty {
-                initList()
-                // load the most recent product from the local storage
-                if let data = mostRecentProduct.jsonData {
-                    var fetchResult = ProductFetchStatus.loading
-                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                        fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            switch fetchResult {
-                            case .success(let product):
-                                // the stored product might not correspond to the first product in the history
-                                // so it should be stored in the right spot
-                                if let index = self.storedHistory.index(for:product.barcode) {
-                                    self.allProductFetchResultList[index] = fetchResult
-                                    self.setCurrentProducts()
-                                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                                } else {
-                                    print("OFFProducts - stored product not in history file")
+            if allProductFetchResultList.isEmpty {
+                // If there is no history, we are in the cold start case
+                if !storedHistory.barcodeTuples.isEmpty {
+                    initList()
+                    // load the most recent product from the local storage
+                    if let data = mostRecentProduct.jsonData {
+                        var fetchResult = ProductFetchStatus.loading
+                        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                            fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+                            DispatchQueue.main.async(execute: { () -> Void in
+                                switch fetchResult {
+                                case .success(let product):
+                                    // the stored product might not correspond to the first product in the history
+                                    // so it should be stored in the right spot
+                                    if let index = self.storedHistory.index(for:product.barcode) {
+                                        self.allProductFetchResultList[index] = fetchResult
+                                        self.setCurrentProducts()
+                                        NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                                    } else {
+                                        print("OFFProducts - stored product not in history file")
+                                    }
+                                case .loadingFailed(let error):
+                                    let userInfo = ["error":error]
+                                    self.handleLoadingFailed(userInfo)
+                                case .productNotAvailable:
+                                    // if the product is not available there is an error in storage
+                                    // and can be removed
+                                    self.mostRecentProduct.removeForCurrentProductType()
+                                    // let userInfo = ["error":error]
+                                    // self.handleProductNotAvailable(userInfo)
+                                default: break
                                 }
-                            case .loadingFailed(let error):
-                                let userInfo = ["error":error]
-                                self.handleLoadingFailed(userInfo)
-                            case .productNotAvailable:
-                                // if the product is not available there is an error in storage
-                                // and can be removed
-                                self.mostRecentProduct.removeForCurrentProductType()
-                                // let userInfo = ["error":error]
-                            // self.handleProductNotAvailable(userInfo)
-                            default: break
-                            }
-                            self.historyLoadCount = 0
-                            self.historyLoadCount! += 1
+                                self.historyLoadCount = 0
+                                self.historyLoadCount! += 1
+                            })
                         })
-                    })
+                    } else {
+                        // the data is not available
+                        // has to be loaded from the OFF-servers
+                        _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
+                        historyLoadCount = 0
+                    }
                 } else {
-                    // the data is not available
-                    // has to be loaded from the OFF-servers
-                    _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
-                    historyLoadCount = 0
+                    // The cold start case when the user has not yet used the app
+                    loadSampleProduct()
+                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                 }
             } else {
-                // The cold start case when the user has not yet used the app
-                loadSampleProduct()
-                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                setCurrentProducts()
+                NotificationCenter.default.post(name: .ProductLoaded, object:nil)
             }
         case .search:
             // Has a search been setup?
