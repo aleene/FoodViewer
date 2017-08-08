@@ -268,7 +268,7 @@
 		511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItemTestSuite.swift; sourceTree = "<group>"; };
 		511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnitTestSuite.swift; sourceTree = "<group>"; };
 		511B2C401E78672800336CE8 /* SIUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnit.swift; sourceTree = "<group>"; };
-		511B2C421E78687E00336CE8 /* Mass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mass.swift; path = FoodViewer/Mass.swift; sourceTree = "<group>"; };
+		511B2C421E78687E00336CE8 /* Mass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mass.swift; sourceTree = "<group>"; };
 		511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFR.swift; sourceTree = "<group>"; };
 		511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFWriteAPI.swift; sourceTree = "<group>"; };
 		511DB4331E09B615009D4A4B /* OFF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFF.swift; sourceTree = "<group>"; };
@@ -738,7 +738,6 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
-				511B2C421E78687E00336CE8 /* Mass.swift */,
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
@@ -836,6 +835,7 @@
 			isa = PBXGroup;
 			children = (
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
+				511B2C421E78687E00336CE8 /* Mass.swift */,
 				5127CDEE1E48A03600944FE8 /* ProductImageData.swift */,
 				5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */,
 				519A8E021E827F23001C026A /* ImageSizeCategory.swift */,

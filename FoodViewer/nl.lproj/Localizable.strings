@@ -75,7 +75,7 @@
 /* Cell title indicating the product belongs to the cheeses category */
 "Cheeses category" = "Kazencategorie";
 
-/* Title of a button, which removes all ites in the product search history. */
+/* Title of a button, which removes all items in the product search history. */
 "Clear History" = "Verwijder historie";
 
 /* Tableview sectionheader for long product name */
@@ -121,6 +121,9 @@
 /* Title of view controller, which allows editing of the nutrients */
 "Edit Nutrient" = "Bewerk voedingswaarde";
 
+/* Description of the edited tags as will be uploaded */
+"Edited" = "Bewerkt";
+
 /* Placeholder text for field where user should enter a city name. */
 "Enter city name" = "Voer stad in";
 
@@ -136,14 +139,17 @@
 /* Placeholder text for field where user should enter a street name. */
 "Enter street name" = "Voer straat in";
 
-/* Error message when the json input file does not contain any information */
-"Error: No result status in JSON" = "Fout: geen resultaat status in JSON";
-
 /* No valid data has been received */
 "Error: No valid data" = "Fout: geen valide data";
 
 /* The JSON file is wrongly formatted. */
 "Error: No verbose status" = "Fout: verbose status mist";
+
+/* Error message when the json input file does not contain any information */
+"Error: Not a valid OFF JSON" = "Fout: geen valide OFF json";
+
+/* Error message when the json input file does not contain any information */
+"Error: Not a valid Search array" = "Fout: geen goede zoekvraag";
 
 /* A JSON status which is not supported. */
 "Error: Other (>1) result status" = "Fout: andere (>1) resultaat status";
@@ -171,6 +177,9 @@
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
+
+/* Description of the hierarchy tags in the json */
+"Hierarchy" = "Hierarchie";
 
 /* Title for the view controller with the product image, title, etc.
    Viewcontroller title for page with product identification info. */
@@ -205,6 +214,9 @@
 /* String presented in a tagView if nothing has happened yet */
 "Initialized" = "Geïnitialiseerd";
 
+/* Description of the by OFF interpreted tags in the json */
+"Interpreted" = "Geïnterpreteerd";
+
 /* Title of first segment in switch, which lets the user select between joule or calories */
 "Joule" = "Joule";
 
@@ -219,6 +231,9 @@
 
 /* Label to indicate whether any nutrients are indicated on the package */
 "Listed on package?" = "Vermeldt op de verpakking?";
+
+/* String presented in a tagView if there are more results available */
+"Load more results" = "Laad meer resultaten";
 
 /* Text to indicate that the it is trying to load. */
 "Loading product" = "Bezig met laden product";
@@ -328,6 +343,9 @@
 /* Header for section of tableView with location(s) of ingredients. */
 "Origin ingredient" = "Oorsprong ingrediënten";
 
+/* Description of the original tags in the json */
+"Original" = "Oorspronkelijk";
+
 /* String presented in a tagView if this is not the current product type */
 "Other product type" = "Ander product type";
 
@@ -355,6 +373,9 @@
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
 
+/* Description of the prefixed corrected tags */
+"Prefix corrected" = "Gecorrigeerde prefix";
+
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Presentatie format";
 
@@ -375,6 +396,9 @@
 
 /* String presented in a tagView if the product has been loaded */
 "Product is loaded" = "Product is geladen";
+
+/* String presented in a tagView if the product list has been loaded */
+"Product list is loaded" = "Producten worden geladen";
 
 /* String presented in a tagView if the product is currently being loaded */
 "Product loading" = "Product wordt geladen";
@@ -424,6 +448,12 @@
 
 /* Title in cell with the saturated fat to all fat ratio */
 "Saturated Fat to Total Fat ratio" = "Verzadigde t.o.v. alle vetten";
+
+/* Title of ViewController when no search has been defined. */
+"Search Undefined" = "Zoekvraag ongedefinieerd";
+
+/* String presented in a tagView if the search query is currently being loaded */
+"Search loading" = "Voer uit zoekvraag";
 
 /* First element of a pickerView, where the user has to select a language.
    First element of a pickerView, where the user has to select a nutrient. */
@@ -481,6 +511,9 @@
 /* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.
    Text to indicate the traces of a product. */
 "Traces" = "Sporen";
+
+/* Description of the interpreted tags in the json as translated by the taxonomy */
+"Translated" = "Vertaald";
 
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Opladen foto";
@@ -576,7 +609,7 @@
    Text to indicate the product has no traces defined. */
 "undefined" = "ongedefinieerd";
 
-/* Text in a TagListView, when the field in the json was empty. */
+/* Text in a TagListView, when the field in the json was not present. */
 "unknown" = "onbekend";
 
 /* Image to indicate that the user who created the product. */
