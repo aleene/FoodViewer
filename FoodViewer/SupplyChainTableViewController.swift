@@ -172,8 +172,8 @@ class SupplyChainTableViewController: UITableViewController {
                 return product!.countriesTranslated
             case .original:
                 return product!.countriesOriginal
-            case .edited:
-                return product!.countriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+            case .prefixed:
+                return product!.countriesTranslated.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }

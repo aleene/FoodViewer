@@ -362,10 +362,10 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Île de l'Ascension</string>
-				<string> Île d'Ascension</string>
+				<string>Île de l&apos;Ascension</string>
+				<string> Île d&apos;Ascension</string>
 				<string> Ile d’Ascension</string>
-				<string> Ile de l'Ascension</string>
+				<string> Ile de l&apos;Ascension</string>
 				<string> Île de l’Ascension</string>
 				<string> Ascension</string>
 				<string> Ile de l’Ascension</string>
@@ -493,7 +493,7 @@
 			<array>
 				<string>Bangladesh</string>
 				<string> East Pakistan</string>
-				<string> People's Republic of Bangladesh</string>
+				<string> People&apos;s Republic of Bangladesh</string>
 				<string> East Bengal</string>
 				<string> BD</string>
 				<string> BGD</string>
@@ -875,11 +875,11 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Territoire britannique de l'océan Indien</string>
+				<string>Territoire britannique de l&apos;océan Indien</string>
 				<string> Territoire britannique de l’Océan indien</string>
-				<string> Territoire britannique de l'ocean Indien</string>
+				<string> Territoire britannique de l&apos;ocean Indien</string>
 				<string> British Indian Ocean Territory</string>
-				<string> Territoires britanniques de l'océan Indien</string>
+				<string> Territoires britanniques de l&apos;océan Indien</string>
 				<string> BIOT</string>
 			</array>
 			<key>nl</key>
@@ -1313,7 +1313,7 @@
 			<array>
 				<string>China</string>
 				<string> PRC</string>
-				<string> People's Republic of China</string>
+				<string> People&apos;s Republic of China</string>
 				<string> CN</string>
 				<string> CHN</string>
 			</array>
@@ -1483,7 +1483,7 @@
 				<string> Archipel Cook</string>
 				<string> Îles-Cook</string>
 				<string> Cook Islands</string>
-				<string> Kūki 'Āirani</string>
+				<string> Kūki &apos;Āirani</string>
 				<string> Cook</string>
 				<string> Iles Cook</string>
 			</array>
@@ -1677,7 +1677,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:côte-d'ivoire</key>
+	<key>en:côte-d&apos;ivoire</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -1687,15 +1687,15 @@
 			</array>
 			<key>en</key>
 			<array>
-				<string>Côte d'Ivoire</string>
+				<string>Côte d&apos;Ivoire</string>
 				<string> Ivory Coast</string>
-				<string> Republic of Côte d'Ivoire</string>
+				<string> Republic of Côte d&apos;Ivoire</string>
 				<string> CI</string>
 				<string> CIV</string>
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Côte d'Ivoire</string>
+				<string>Côte d&apos;Ivoire</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2045,7 +2045,7 @@
 			<key>fr</key>
 			<array>
 				<string>Éthiopie</string>
-				<string> République fédérale démocratique d'Éthiopie</string>
+				<string> République fédérale démocratique d&apos;Éthiopie</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2308,10 +2308,10 @@
 			<array>
 				<string>France</string>
 				<string> République française</string>
-				<string> L'Hexagone</string>
+				<string> L&apos;Hexagone</string>
 				<string> Hexagone</string>
 				<string> fille aînée de l’Église</string>
-				<string> patrie des droits de l'Homme</string>
+				<string> patrie des droits de l&apos;Homme</string>
 				<string> pays des Lumières</string>
 			</array>
 			<key>nl</key>
@@ -2368,7 +2368,7 @@
 			<key>fr</key>
 			<array>
 				<string>Polynésie française</string>
-				<string> Établissements français de l'Océanie</string>
+				<string> Établissements français de l&apos;Océanie</string>
 				<string> Polynésie Francaise</string>
 				<string> Établissements français de l’Océanie</string>
 				<string> F-OH</string>
@@ -2895,7 +2895,7 @@
 			<key>fr</key>
 			<array>
 				<string>Haïti</string>
-				<string> République d'Haïti</string>
+				<string> République d&apos;Haïti</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2980,7 +2980,7 @@
 			<key>de</key>
 			<array>
 				<string>Hongkong</string>
-				<string> Hong Kong Special Administrative Region of the People's Republic of China</string>
+				<string> Hong Kong Special Administrative Region of the People&apos;s Republic of China</string>
 				<string> Hong Kong</string>
 				<string> CN-91</string>
 				<string> Sonderverwaltungszone Hongkong</string>
@@ -3055,7 +3055,7 @@
 			<key>fr</key>
 			<array>
 				<string>Islande</string>
-				<string> République d'Islande</string>
+				<string> République d&apos;Islande</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3082,7 +3082,7 @@
 			<key>fr</key>
 			<array>
 				<string>Inde</string>
-				<string> République d'Inde</string>
+				<string> République d&apos;Inde</string>
 				<string> Bharat</string>
 			</array>
 			<key>nl</key>
@@ -3565,7 +3565,7 @@
 			<key>en</key>
 			<array>
 				<string>Laos</string>
-				<string> Lao People's Democratic Republic</string>
+				<string> Lao People&apos;s Democratic Republic</string>
 				<string> LA</string>
 				<string> LAO</string>
 			</array>
@@ -3805,7 +3805,7 @@
 				<string>Macau</string>
 				<string> Macao</string>
 				<string> Macau Special Administrative Region</string>
-				<string> Macau Special Administrative Region of the People's Republic of China</string>
+				<string> Macau Special Administrative Region of the People&apos;s Republic of China</string>
 				<string> Aomen</string>
 				<string> MO</string>
 				<string> MAC</string>
@@ -4351,7 +4351,7 @@
 			<array>
 				<string>Birmanie</string>
 				<string> Myanmar</string>
-				<string> République de l'Union du Myanmar</string>
+				<string> République de l&apos;Union du Myanmar</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4438,7 +4438,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Organisation du traité de l'Atlantique Nord</string>
+				<string>Organisation du traité de l&apos;Atlantique Nord</string>
 				<string> OTAN</string>
 			</array>
 			<key>nl</key>
@@ -4725,7 +4725,7 @@
 			<array>
 				<string>Île Norfolk</string>
 				<string> Ile Norfolk</string>
-				<string> L'île Norfolk</string>
+				<string> L&apos;île Norfolk</string>
 				<string> Norfolk</string>
 				<string> Île de Norfolk</string>
 				<string> Norfolk Island</string>
@@ -4751,7 +4751,7 @@
 			<key>en</key>
 			<array>
 				<string>North Korea</string>
-				<string> Democratic People's Republic of Korea</string>
+				<string> Democratic People&apos;s Republic of Korea</string>
 				<string> DPRK</string>
 				<string> PRK</string>
 				<string> KP</string>
@@ -4845,7 +4845,7 @@
 			<key>fr</key>
 			<array>
 				<string>Oman</string>
-				<string> Sultanat d'Oman</string>
+				<string> Sultanat d&apos;Oman</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -5204,7 +5204,7 @@
 			<key>fr</key>
 			<array>
 				<string>Irlande</string>
-				<string> République d'Irlande</string>
+				<string> République d&apos;Irlande</string>
 				<string> Eire</string>
 				<string> Éire</string>
 			</array>
@@ -5236,8 +5236,8 @@
 				<string>République de Macédoine</string>
 				<string> ARYM</string>
 				<string> FYROM</string>
-				<string> L'Ancienne République yougoslave de Macédoine</string>
-				<string> L'ex-République yougoslave de Macédoine</string>
+				<string> L&apos;Ancienne République yougoslave de Macédoine</string>
+				<string> L&apos;ex-République yougoslave de Macédoine</string>
 				<string> Macédoine</string>
 			</array>
 			<key>nl</key>
@@ -5485,8 +5485,8 @@
 				<string>Saint-Barthélemy</string>
 				<string> Saint Barthélemy</string>
 				<string> St Barth</string>
-				<string> Collectivite d'outre-mer de Saint-Barthelemy</string>
-				<string> Collectivité d'outre-mer de Saint-Barthélemy</string>
+				<string> Collectivite d&apos;outre-mer de Saint-Barthelemy</string>
+				<string> Collectivité d&apos;outre-mer de Saint-Barthélemy</string>
 				<string> Saint-Barthélémy</string>
 				<string> Saint-Barth</string>
 				<string> Saint Barth</string>
@@ -5494,9 +5494,9 @@
 			<key>nl</key>
 			<array>
 				<string>Saint-Barthélemy</string>
-				<string> Collectivité d'outre-mer de Saint-Barthélemy</string>
+				<string> Collectivité d&apos;outre-mer de Saint-Barthélemy</string>
 				<string> Saint Barthelemy</string>
-				<string> Collectivite d'outre-mer de Saint-Barthelemy</string>
+				<string> Collectivite d&apos;outre-mer de Saint-Barthelemy</string>
 				<string> Saint Barthélemy</string>
 			</array>
 		</dict>
@@ -6316,7 +6316,7 @@
 			<key>fr</key>
 			<array>
 				<string>Espagne</string>
-				<string> Royaume d'Espagne</string>
+				<string> Royaume d&apos;Espagne</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -6369,7 +6369,7 @@
 			<array>
 				<string>État de Palestine</string>
 				<string> Palestine</string>
-				<string> Propositions pour la création d'un État palestinien</string>
+				<string> Propositions pour la création d&apos;un État palestinien</string>
 				<string> Etat palestinien</string>
 				<string> Etat de Palestine</string>
 				<string> État palestinien</string>
@@ -6718,7 +6718,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Bahama's</string>
+				<string>Bahama&apos;s</string>
 			</array>
 		</dict>
 	</dict>
@@ -6803,7 +6803,7 @@
 				<string> TKL</string>
 				<string> Tokélaou</string>
 				<string> Tokelao</string>
-				<string> Îles de l'Union</string>
+				<string> Îles de l&apos;Union</string>
 				<string> Union Islands</string>
 				<string> Îles Tokélaou</string>
 			</array>
@@ -7146,9 +7146,56 @@
 			<key>fr</key>
 			<array>
 				<string>États-Unis</string>
-				<string> Pays de l'Oncle Sam</string>
+				<string> Pays de l&apos;Oncle Sam</string>
 				<string> USA</string>
-				<string> États-Unis d'Amérique</string>
+				<string> États-Unis d&apos;Amérique</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Verenigde Staten van Amerika</string>
+				<string> VS</string>
+				<string> USA</string>
+				<string> US</string>
+				<string> U.S.A.</string>
+				<string> U.S.</string>
+				<string> the States</string>
+				<string> Verenigde Staten</string>
+				<string> V.S.</string>
+			</array>
+		</dict>
+	</dict>
+	<key>en:united-states</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Vereinigte Staaten von Amerika</string>
+				<string> USA</string>
+				<string> Vereinigte Staaten</string>
+				<string> Amerika</string>
+				<string> Staaten</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>United States of America</string>
+				<string> USA</string>
+				<string> America</string>
+				<string> the States</string>
+				<string> U.S.</string>
+				<string> U.S.A.</string>
+				<string> United States</string>
+				<string> US</string>
+				<string> 🇺🇸</string>
+				<string> US</string>
+				<string> USA</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>États-Unis</string>
+				<string> Pays de l&apos;Oncle Sam</string>
+				<string> USA</string>
+				<string> États-Unis d&apos;Amérique</string>
 			</array>
 			<key>nl</key>
 			<array>

@@ -116,7 +116,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .hierarchy:
                 return product!.labelsHierarchy
             case .prefixed:
-                return product!.labelsOriginal.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
+                return product!.translatedLabels().prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
                 return product!.labelsOriginal
             case .edited:
