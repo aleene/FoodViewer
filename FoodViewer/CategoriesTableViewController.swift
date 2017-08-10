@@ -70,11 +70,9 @@ class CategoriesTableViewController: UITableViewController {
                 return product!.categoriesOriginal
             case .hierarchy:
                 return product!.categoriesHierarchy
-            case .prefixed:
-                return product!.categoriesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             case .translated:
                 return product!.categoriesTranslated
-            case .edited:
+            case .edited, .prefixed:
                 return .undefined
             }
         }
@@ -113,7 +111,7 @@ class CategoriesTableViewController: UITableViewController {
         case .categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
-            // cell.id = section // TagListView id, not needed at the moment
+            cell.tag = indexPath.section
             cell.editMode = editMode
             cell.delegate = self
             cell.datasource = self
@@ -179,7 +177,8 @@ class CategoriesTableViewController: UITableViewController {
             switch currentProductSection {
             case .categories:
                 showCategoriesTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+                tableView.reloadData()
+                // tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
             }
         }
     }

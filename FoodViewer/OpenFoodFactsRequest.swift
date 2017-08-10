@@ -449,18 +449,23 @@ class OpenFoodFactsRequest {
         product.originsInterpreted = Tags.init(jsonObject[jsonKeys.OriginsTagsKey].stringArray)
         product.originsOriginal = Tags.init(jsonObject[jsonKeys.OriginsKey].string)
         //product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
+        
         product.manufacturingPlacesInterpreted = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
         product.manufacturingPlacesOriginal = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
+        
         product.categoriesOriginal = Tags.init(jsonObject[jsonKeys.CategoriesKey].string)
         product.categoriesHierarchy = Tags.init(jsonObject[jsonKeys.CategoriesHierarchyKey].stringArray)
         product.categoriesInterpreted = Tags.init(jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
+        
         product.quantity = jsonObject[jsonKeys.QuantityKey].string
         product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.NutritionDataPerKey].string)
         product.periodAfterOpeningString  = jsonObject[jsonKeys.PeriodsAfterOpeningKey].string
         product.expirationDateString = jsonObject[jsonKeys.ExpirationDateKey].string
+        
         product.allergensInterpreted = Tags.init(jsonObject[jsonKeys.AllergensTagsKey].stringArray)
         product.allergensOriginal = Tags.init(jsonObject[jsonKeys.AllergensKey].string)
         product.allergensHierarchy = Tags.init(jsonObject[jsonKeys.AllergensHierarchyKey].stringArray)
+        
         if let ingredientsJSON = jsonObject[jsonKeys.IngredientsKey].array {
             var ingredients: [ingredientsElement] = []
             for ingredientsJSONElement in ingredientsJSON {
