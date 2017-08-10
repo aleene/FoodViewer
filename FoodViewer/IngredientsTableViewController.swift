@@ -29,11 +29,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return product!.allergensHierarchy
             case .translated:
                 return product!.allergensTranslated
-            case .prefixed:
-                return product!.allergensTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
                 return product!.allergensOriginal
-            case .edited:
+            case .edited, .prefixed:
                 return .undefined
             }
         }
@@ -59,11 +57,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return product!.tracesHierarchy
             case .translated:
                 return product!.tracesTranslated
-            case .prefixed:
-                return product!.tracesTranslated.prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
                 return product!.tracesOriginal
-            case .edited:
+            case .edited, .prefixed:
                 return .undefined
             }
         }
@@ -115,11 +111,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return product!.translatedLabels()
             case .hierarchy:
                 return product!.labelsHierarchy
-            case .prefixed:
-                return product!.translatedLabels().prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
+                // return product!.translatedLabels().prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
                 return product!.labelsOriginal
-            case .edited:
+            case .edited, .prefixed:
                 return .undefined
             }
         }
