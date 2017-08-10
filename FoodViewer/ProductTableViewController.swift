@@ -621,12 +621,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
         let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
         if imageSizeCategory == .small && imageTypeCategory == .front {
-            if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String {
-                if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
-                    let indexPaths = [IndexPath.init(row: 0, section: index)]
-                    tableView.reloadRows(at: indexPaths, with: .automatic)
-                }
-            }
+            tableView.reloadData()
+
+// being more specific on what is reloaded results in a very jittery interface
+//            if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String {
+//                if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+//                    let indexPaths = [IndexPath.init(row: 0, section: index)]
+//                    tableView.beginUpdates()
+//                    tableView.reloadRows(at: indexPaths, with: .fade)
+//                    //tableView.reloadSections([index], with: .none)
+//
+//                    tableView.endUpdates()
+//                }
+//            }
         }
     }
     
