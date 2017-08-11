@@ -2333,6 +2333,76 @@
             </objects>
             <point key="canvasLocation" x="6894.375" y="2745"/>
         </scene>
+        <!--Product Images Collection View Controller-->
+        <scene sceneID="8A8-1p-UDU">
+            <objects>
+                <collectionViewController storyboardIdentifier="ProductImagesCollectionViewController" id="8yh-Vs-DnU" customClass="ProductImagesCollectionViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="tKr-4F-rmF">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mdN-hT-V5V">
+                            <size key="itemSize" width="200" height="200"/>
+                            <size key="headerReferenceSize" width="50" height="50"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Gallery Image Cell" id="ze3-ij-q0C" customClass="GalleryCollectionViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="60" y="50" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g1X-rw-oCv">
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="g1X-rw-oCv" firstAttribute="leading" secondItem="ze3-ij-q0C" secondAttribute="leading" id="Cen-en-uK8"/>
+                                    <constraint firstAttribute="bottom" secondItem="g1X-rw-oCv" secondAttribute="bottom" id="HT8-hX-Fxf"/>
+                                    <constraint firstAttribute="trailing" secondItem="g1X-rw-oCv" secondAttribute="trailing" id="Neu-ab-gvW"/>
+                                    <constraint firstItem="g1X-rw-oCv" firstAttribute="top" secondItem="ze3-ij-q0C" secondAttribute="top" id="uF2-Hm-mPr"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="g1X-rw-oCv" id="zOw-ey-Z2I"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SectionHeaderView" id="G5m-9R-XVv" customClass="GalleryCollectionReusableView" customModule="FoodViewer" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yt-pe-JoG">
+                                    <rect key="frame" x="8" y="8" width="304" height="34"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="bottomMargin" secondItem="3Yt-pe-JoG" secondAttribute="bottom" id="KIP-XU-8jn"/>
+                                <constraint firstItem="3Yt-pe-JoG" firstAttribute="leading" secondItem="G5m-9R-XVv" secondAttribute="leadingMargin" id="mfC-hT-YgL"/>
+                                <constraint firstItem="3Yt-pe-JoG" firstAttribute="top" secondItem="G5m-9R-XVv" secondAttribute="topMargin" id="zCA-4H-Agd"/>
+                                <constraint firstAttribute="trailingMargin" secondItem="3Yt-pe-JoG" secondAttribute="trailing" id="zag-oQ-NhE"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="label" destination="3Yt-pe-JoG" id="S70-l2-X3u"/>
+                            </connections>
+                        </collectionReusableView>
+                        <connections>
+                            <outlet property="dataSource" destination="8yh-Vs-DnU" id="lCB-Qg-kHu"/>
+                            <outlet property="delegate" destination="8yh-Vs-DnU" id="VPQ-Fb-6o1"/>
+                        </connections>
+                    </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7760.625" y="2745"/>
+        </scene>
         <!--Ingredients Table View Controller-->
         <scene sceneID="2bd-NI-S3Q">
             <objects>

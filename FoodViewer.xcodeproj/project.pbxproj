@@ -140,6 +140,9 @@
 		518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B2FAB1CB13BB5007D8AB9 /* Section.swift */; };
 		518B70201EA2779D00AB35CC /* ProductType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518B701F1EA2779C00AB35CC /* ProductType.swift */; };
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
+		5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */; };
+		5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */; };
+		5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */; };
 		51974E671CE61F2C0008585D /* NutritionDisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */; };
 		51975CD61E6EB9120075B57B /* TagsTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD51E6EB9120075B57B /* TagsTestSuite.swift */; };
 		51975CD91E6EC8510075B57B /* CompletionStatusTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51975CD81E6EC8510075B57B /* CompletionStatusTestSuite.swift */; };
@@ -390,6 +393,9 @@
 		518B2FAB1CB13BB5007D8AB9 /* Section.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
+		5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImagesCollectionViewController.swift; path = Identification/ProductImagesCollectionViewController.swift; sourceTree = "<group>"; };
+		5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = FoodViewer/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionReusableView.swift; sourceTree = "<group>"; };
 		51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDisplayMode.swift; sourceTree = "<group>"; };
 		51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		51975CCF1E6EB8580075B57B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -648,6 +654,7 @@
 				51C29E411C708BAA00271708 /* CategoriesTableViewController.swift */,
 				51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */,
 				5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */,
+				5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */,
 			);
 			name = Pages;
 			sourceTree = "<group>";
@@ -738,6 +745,7 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
+				5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */,
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
@@ -927,6 +935,7 @@
 		51DCD3C91C6A110900D39898 /* ProductPages */ = {
 			isa = PBXGroup;
 			children = (
+				5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */,
 				5107C82B1D9D07AB006A628C /* EditPages */,
 				51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */,
 				513982481C89CEB800250FB1 /* Pages */,
@@ -1134,6 +1143,7 @@
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
 				51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */,
+				5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */,
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
@@ -1162,6 +1172,7 @@
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
 				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
+				5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */,
 				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
 				510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
@@ -1188,6 +1199,7 @@
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */,
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
+				5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,

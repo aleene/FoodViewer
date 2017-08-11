@@ -20,6 +20,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let CategoriesVCIdentifier = "CategoriesTableViewController"
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
         static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
+        static let ProductImagesVCIndentifier = "ProductImagesCollectionViewController"
         static let ConfirmProductViewControllerSegue = "Confirm Product Segue"
     }
     
@@ -234,6 +235,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             if currentProductType == .food {
                 pages.append(page7)
             }
+            pages.append(page8)
 
             var index = 0
             if let vc = pages[index] as? IdentificationTableViewController {
@@ -290,6 +292,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             vc.product = product
         } else if let vc = pages[index] as? NutritionScoreTableViewController {
             vc.product = product
+        } else if let vc = pages[index] as? ProductImagesCollectionViewController {
+            vc.product = product
         }
     }
     
@@ -301,6 +305,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let Categories = NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product.")
         static let Effort = NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")
         static let Score = NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")
+        static let Gallery = NSLocalizedString("Gallery", comment: "Viewcontroller title for page with images of the product")
     }
     
     fileprivate var titles: [String] {
@@ -315,6 +320,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 titles.append("5 - " + Title.Categories)
                 titles.append("6 - " + Title.Effort)
                 titles.append("7 - " + Title.Score)
+                titles.append("8 - " + Title.Gallery)
+                
             case .petFood:
                 titles.append("1 - " + Title.Identification)
                 titles.append("2 - " + Title.Ingredients)
@@ -322,6 +329,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 titles.append("4 - " + Title.SupplyChain)
                 titles.append("5 - " + Title.Categories)
                 titles.append("6 - " + Title.Effort)
+                titles.append("7 - " + Title.Gallery)
 
             case .beauty:
                 titles.append("1 - " + Title.Identification)
@@ -329,6 +337,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 titles.append("3 - " + Title.SupplyChain)
                 titles.append("4 - " + Title.Categories)
                 titles.append("5 - " + Title.Effort)
+                titles.append("6 - " + Title.Gallery)
             }
             return titles
         }
@@ -369,7 +378,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier)
         }
     }
-        
+    fileprivate var page8: UIViewController {
+        get {
+            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.ProductImagesVCIndentifier)
+        }
+    }
+
     var product: FoodProduct? = nil {
         didSet {
             if product != nil {
@@ -392,6 +406,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     } else if let vc = pages[index] as? CompletionStatesTableViewController {
                         vc.product = product
                     } else if let vc = pages[index] as? NutritionScoreTableViewController {
+                        vc.product = product
+                    } else if let vc = pages[index] as? ProductImagesCollectionViewController {
                         vc.product = product
                     }
                 }
