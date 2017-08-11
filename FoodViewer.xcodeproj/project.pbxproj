@@ -394,7 +394,7 @@
 		518B701F1EA2779C00AB35CC /* ProductType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductType.swift; sourceTree = "<group>"; };
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
 		5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImagesCollectionViewController.swift; path = Identification/ProductImagesCollectionViewController.swift; sourceTree = "<group>"; };
-		5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryCollectionViewCell.swift; path = FoodViewer/GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionReusableView.swift; sourceTree = "<group>"; };
 		51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDisplayMode.swift; sourceTree = "<group>"; };
 		51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -745,7 +745,6 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
-				5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */,
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
@@ -818,6 +817,15 @@
 				51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */,
 			);
 			name = NutrimentScoreCells;
+			sourceTree = "<group>";
+		};
+		5193DC131F3E293A009EE70B /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				512499A01C6CD0100061A083 /* imageViewController.swift */,
+				5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */,
+			);
+			name = Gallery;
 			sourceTree = "<group>";
 		};
 		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
@@ -939,7 +947,7 @@
 				5107C82B1D9D07AB006A628C /* EditPages */,
 				51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */,
 				513982481C89CEB800250FB1 /* Pages */,
-				512499A01C6CD0100061A083 /* imageViewController.swift */,
+				5193DC131F3E293A009EE70B /* Gallery */,
 				516B327E1C74D9560031EF80 /* EditProductViewController.swift */,
 				517BF2C51E44AF3700876E24 /* DynamicCustomSegue.swift */,
 			);
