@@ -58,7 +58,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         // add the front image for the primary languageCode if any
         if let languageCode = product?.primaryLanguageCode {
-            if let image = product?.frontImages?.small[languageCode]?.image {
+            if let image = product?.frontImages[languageCode]?.small.image {
                 sharingItems.append(image)
             }
         }
@@ -933,32 +933,20 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     func updated(frontImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
-        if updatedProduct!.frontImages == nil { updatedProduct!.frontImages = ProductImageSize() }
-
-        var images: [String:ProductImageData] = [:]
-        images[languageCode] = ProductImageData.init(image: frontImage)
-        updatedProduct?.frontImages?.display = images
+        updatedProduct!.frontImages[languageCode]?.display = ProductImageData.init(image: frontImage)
         saveUpdatedProduct()
     }
 
     func updated(nutritionImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
-        if updatedProduct!.nutritionImages == nil { updatedProduct!.nutritionImages = ProductImageSize() }
         
-        var images: [String:ProductImageData] = [:]
-        images[languageCode] = ProductImageData.init(image: nutritionImage)
-        updatedProduct?.nutritionImages?.display = images
+        updatedProduct!.nutritionImages[languageCode]?.display = ProductImageData.init(image: nutritionImage)
         saveUpdatedProduct()
     }
 
     func updated(ingredientsImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
-        if updatedProduct!.ingredientsImages == nil { updatedProduct!.ingredientsImages = ProductImageSize() }
-        
-        var images: [String:ProductImageData] = [:]
-        images[languageCode] = ProductImageData.init(image: ingredientsImage)
-
-        updatedProduct?.ingredientsImages?.display = images
+        updatedProduct!.ingredientsImages[languageCode]?.display = ProductImageData.init(image: ingredientsImage)
         saveUpdatedProduct()
     }
 

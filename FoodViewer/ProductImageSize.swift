@@ -11,20 +11,18 @@ import Foundation
 struct ProductImageSize {
     // The selected images for a specific languageCode. 
     // The images come in 3 sizes
-    var display: [String:ProductImageData] = [:]
-    var small: [String:ProductImageData] = [:]
-    var thumb: [String:ProductImageData] = [:]
+    var display = ProductImageData()
+    var small = ProductImageData()
+    var thumb = ProductImageData()
+    var hasBarcode = false
+    var suppliesFront = false
+    var suppliesNutrition = false
+    var suppliesIngredients = false
  
     mutating func reset() {
-        for pair in display {
-            pair.value.fetchResult = nil
-        }
-        for pair in small {
-            pair.value.fetchResult = nil
-        }
-        for pair in thumb {
-            pair.value.fetchResult = nil
-        }
-
+            display.fetchResult = nil
+            small.fetchResult = nil
+            thumb.fetchResult = nil
     }
+    
 }

@@ -321,15 +321,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .nutritionImage:
             
             // first try the updated product images
-            if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
+            if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty  {
                 // try the updated image corresponding to the current language
-                if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
+                if let image = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]!.display.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                     cell?.editMode = editMode
                     cell?.nutritionFactsImage = image
                     return cell!
                 // in non-editMode try to fall back to the updated primary language image
-                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.nutritionImages!.display[primaryLanguageCode]?.image {
+                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.nutritionImages[primaryLanguageCode]!.display.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
                     cell?.editMode = editMode
                     cell?.nutritionFactsImage = image
@@ -347,14 +347,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     
                 }
             // try the regular nutrition images
-            } else if product!.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
+            } else if !product!.nutritionImages.isEmpty {
                 // is the data for the current language available?
                 // then fetch the image
-                if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
+                if let result = product!.nutritionImages[currentLanguageCode!]?.display.fetch() {
                     switch result {
                     case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = product!.nutritionImages!.display[currentLanguageCode!]?.image
+                        cell?.nutritionFactsImage = product!.nutritionImages[currentLanguageCode!]?.display.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -368,11 +368,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         return cell!
                     }
                 // try the nutrition image corresponding to the primary languagecode in non-editMode
-                } else if !editMode, let primaryLanguageCode = product!.primaryLanguageCode, let result = product!.nutritionImages!.display[primaryLanguageCode]?.fetch() {
+                } else if !editMode, let primaryLanguageCode = product!.primaryLanguageCode, let result = product!.nutritionImages[primaryLanguageCode]?.display.fetch() {
                     switch result {
                     case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = product!.nutritionImages!.display[primaryLanguageCode]?.image
+                        cell?.nutritionFactsImage = product!.nutritionImages[primaryLanguageCode]?.display.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -744,29 +744,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 }
             case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
                 if let vc = segue.destination as? imageViewController {
-                    if delegate?.updatedProduct?.nutritionImages?.display != nil && delegate!.updatedProduct!.nutritionImages!.display.count > 0 {
-                        if let image = delegate!.updatedProduct!.nutritionImages!.display[currentLanguageCode!]?.image {
+                    if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty {
+                        if let image = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]?.display.image {
                             vc.image = image
-                        } else if let image = delegate!.updatedProduct!.nutritionImages!.display[delegate!.updatedProduct!.primaryLanguageCode!]?.image {
+                        } else if let image = delegate!.updatedProduct!.nutritionImages[delegate!.updatedProduct!.primaryLanguageCode!]?.display.image {
                             vc.image = image
                         }
                         vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
-                    } else if product?.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
+                    } else if !product!.nutritionImages.isEmpty {
                         // is the data for the current language available?
                         // then fetch the image
-                        if let result = product!.nutritionImages!.display[currentLanguageCode!]?.fetch() {
+                        if let result = product!.nutritionImages[currentLanguageCode!]?.display.fetch() {
                             switch result {
                             case .available:
-                                vc.image = product!.nutritionImages!.display[currentLanguageCode!]?.image
+                                vc.image = product!.nutritionImages[currentLanguageCode!]?.display.image
                                 vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             default:
                                 vc.image = nil
                             }
                             // try to use the primary image
-                        } else if let result = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.fetch() {
+                        } else if let result = product!.nutritionImages[product!.primaryLanguageCode!]?.display.fetch() {
                             switch result {
                             case .available:
-                                vc.image = product!.nutritionImages!.display[product!.primaryLanguageCode!]?.image
+                                vc.image = product!.nutritionImages[product!.primaryLanguageCode!]?.display.image
                                 vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             default:
                                 vc.image = nil

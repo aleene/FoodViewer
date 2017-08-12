@@ -48,12 +48,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var validImages: [UIImage] = []
             
-            if product!.frontImages != nil && product!.frontImages!.display.count > 0 {
-                for display in product!.frontImages!.display {
-                    if let result = display.value.fetch() {
+            if !product!.frontImages.isEmpty {
+                for dict in product!.frontImages {
+                    if let result = dict.value.small.fetch() {
                         switch result {
                         case .available:
-                            if let validImage = display.value.image {
+                            if let validImage = dict.value.small.image {
                                 validImages.append(validImage)
                             }
                         default:
@@ -71,12 +71,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var validImages: [UIImage] = []
             
-            if product!.ingredientsImages != nil && product!.ingredientsImages!.display.count > 0 {
-                for display in product!.ingredientsImages!.display {
-                    if let result = display.value.fetch() {
+            if !product!.ingredientsImages.isEmpty {
+                for dict in product!.ingredientsImages {
+                    if let result = dict.value.small.fetch() {
                         switch result {
                         case .available:
-                            if let validImage = display.value.image {
+                            if let validImage = dict.value.small.image {
                                 validImages.append(validImage)
                             }
                         default:
@@ -93,12 +93,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var validImages: [UIImage] = []
             
-            if product!.nutritionImages != nil && product!.nutritionImages!.display.count > 0 {
-                for display in product!.nutritionImages!.display {
-                    if let result = display.value.fetch() {
+            if !product!.nutritionImages.isEmpty {
+                for dict in product!.nutritionImages {
+                    if let result = dict.value.small.fetch() {
                         switch result {
                         case .available:
-                            if let validImage = display.value.image {
+                            if let validImage = dict.value.small.image {
                                 validImages.append(validImage)
                             }
                         default:
@@ -118,16 +118,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             
             if !product!.images.isEmpty {
                 for productImageSize in product!.images {
-                    for displayImage in productImageSize.small {
-                        if let result = displayImage.value.fetch() {
-                            switch result {
-                            case .available:
-                                if let validImage = displayImage.value.image {
-                                    validImages.append(validImage)
-                                }
-                            default:
-                                break
+                    if let result = productImageSize.value.small.fetch() {
+                        switch result {
+                        case .available:
+                            if let validImage = productImageSize.value.small.image {
+                                validImages.append(validImage)
                             }
+                        default:
+                            break
                         }
                     }
                 }

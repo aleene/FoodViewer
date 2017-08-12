@@ -262,119 +262,101 @@ class OpenFoodFactsRequest {
         }
         // print(product.name)
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
+                        product.frontImages[element.key]?.display = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.frontImages == nil { product.frontImages = ProductImageSize() }
-            product.frontImages?.display = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.ThumbKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
+                        product.frontImages[element.key]?.thumb = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.frontImages == nil { product.frontImages = ProductImageSize() }
-            product.frontImages?.thumb = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.SmallKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
+                        product.frontImages[element.key]?.small = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.frontImages == nil { product.frontImages = ProductImageSize() }
-            product.frontImages?.small = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.DisplayKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
+                        product.nutritionImages[element.key]?.display = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.nutritionImages == nil { product.nutritionImages = ProductImageSize() }
-            product.nutritionImages?.display = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.ThumbKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
+                        product.nutritionImages[element.key]?.thumb = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.nutritionImages == nil { product.nutritionImages = ProductImageSize() }
-            product.nutritionImages?.thumb = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.NutritionImageKey][jsonKeys.SmallKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
+                        product.nutritionImages[element.key]?.small = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.nutritionImages == nil { product.nutritionImages = ProductImageSize() }
-            product.nutritionImages?.small = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.DisplayKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
+                        product.ingredientsImages[element.key]?.display = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
-            product.ingredientsImages?.display = images
         }
         
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.ThumbKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
+                        product.ingredientsImages[element.key]?.thumb = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
-            product.ingredientsImages?.thumb = images
         }
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.IngredientsImageKey][jsonKeys.SmallKey].dictionaryObject {
-            var images: [String:ProductImageData] = [:]
             for element in valid {
                 if let validString = element.value as? String {
                     if let url = URL.init(string: validString) {
-                        images[element.key] = ProductImageData.init(url: url)
+                        if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
+                        product.ingredientsImages[element.key]?.small = ProductImageData.init(url: url)
                     }
                 }
             }
-            if product.ingredientsImages == nil { product.ingredientsImages = ProductImageSize() }
-            product.ingredientsImages?.small = images
         }
         
         if let imagesDict = jsonObject[jsonKeys.ImagesKey].dictionaryObject {
@@ -383,22 +365,16 @@ class OpenFoodFactsRequest {
                 if !element.key.contains("ingredients") && !element.key.contains("front") && !element.key.contains("nutrition") {
                     index += 1
                     if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.thumb)) {
-                        var images: [String:ProductImageData] = [:]
-                        images["original"] = ProductImageData.init(url: url)
-                        if index > product.images.count - 1 { product.images.append(ProductImageSize()) }
-                        product.images[index].thumb = images
+                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
+                        product.images[element.key]?.thumb = ProductImageData.init(url: url)
                     }
                     if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.small)) {
-                        var images: [String:ProductImageData] = [:]
-                        images["original"] = ProductImageData.init(url: url)
-                        if index > product.images.count - 1 { product.images.append(ProductImageSize()) }
-                        product.images[index].small = images
+                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
+                        product.images[element.key]?.small = ProductImageData.init(url: url)
                     }
                     if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.large)) {
-                        var images: [String:ProductImageData] = [:]
-                        images["original"] = ProductImageData.init(url: url)
-                        if index > product.images.count - 1 { product.images.append(ProductImageSize()) }
-                        product.images[index].display = images
+                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
+                        product.images[element.key]?.display = ProductImageData.init(url: url)
                     }
                 }
             }

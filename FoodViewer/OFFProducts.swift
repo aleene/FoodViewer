@@ -675,15 +675,10 @@ class OFFProducts {
             if let validFetchResult = fetchResult {
                 switch validFetchResult {
                 case .success(let product):
-                    if product.nutritionImages != nil {
-                        product.nutritionImages!.reset()
-                    }
-                    if product.frontImages != nil {
-                        product.frontImages!.reset()
-                    }
-                    if product.ingredientsImages != nil {
-                        product.ingredientsImages!.reset()
-                    }
+                    product.nutritionImages.removeAll()
+                    product.frontImages.removeAll()
+                    product.ingredientsImages.removeAll()
+                    product.images.removeAll()
                 default:
                     break
                 }

@@ -71,11 +71,12 @@ class FoodProduct {
         }
     }
     
-    // a complex structure with all the images
-    var frontImages: ProductImageSize? = nil
-    var nutritionImages: ProductImageSize? = nil
-    var ingredientsImages: ProductImageSize? = nil
-    var images: [ProductImageSize] = []
+    // dictionaries with languageCode as key
+    var frontImages: [String:ProductImageSize] = [:]
+    var nutritionImages: [String:ProductImageSize] = [:]
+    var ingredientsImages: [String:ProductImageSize] = [:]
+    // dictionary with image ID as key and the images in varipus sizes as value
+    var images: [String:ProductImageSize] = [:]
     
     var languageCodes: [String] = []
     
@@ -381,11 +382,9 @@ class FoodProduct {
         }
         
         // does the main image contain info on product type?
-        if let existingFrontImages = frontImages {
-            if let lan = primaryLanguageCode {
-                if let imageResult = existingFrontImages.small[lan] {
-                    return imageResult.type()
-                }
+        if let lan = primaryLanguageCode {
+            if let imageResult = frontImages[lan]?.small {
+                return imageResult.type()
             }
         }
         

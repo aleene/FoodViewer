@@ -251,11 +251,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
                         if let language = currentProduct.primaryLanguageCode {
                             cell.productImage = nil
-                            if currentProduct.frontImages != nil && currentProduct.frontImages!.small.count > 0 {
-                                if let result = currentProduct.frontImages!.small[language]?.fetch() {
+                            if !currentProduct.frontImages.isEmpty {
+                                if let result = currentProduct.frontImages[language]?.small.fetch() {
                                     switch result {
                                     case .available:
-                                        cell.productImage = currentProduct.frontImages!.small[language]?.image
+                                        cell.productImage = currentProduct.frontImages[language]?.small.image
                                     default:
                                         break
                                     }

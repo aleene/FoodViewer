@@ -381,17 +381,11 @@ class OFFUpdate {
         }
 
 
-        if let frontImages = product!.frontImages?.display {
-            uploadImages(frontImages, barcode: product!.barcode.asString(), id:"front", primaryLanguageCode: languageCodeToUse)
-        }
+        uploadImages(product!.frontImages, barcode: product!.barcode.asString(), id:"front", primaryLanguageCode: languageCodeToUse)
 
-        if let ingredientsImages = product!.ingredientsImages?.display {
-            uploadImages(ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients", primaryLanguageCode: languageCodeToUse)
-        }
+        uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients", primaryLanguageCode: languageCodeToUse)
 
-        if let nutritionImages = product!.nutritionImages?.display {
-            uploadImages(nutritionImages, barcode: product!.barcode.asString(), id:"nutrition", primaryLanguageCode: languageCodeToUse)
-        }
+        uploadImages(product!.nutritionImages, barcode: product!.barcode.asString(), id:"nutrition", primaryLanguageCode: languageCodeToUse)
 
         if productUpdated {
             if let url = URL(string: urlString) {
@@ -411,14 +405,14 @@ class OFFUpdate {
         }
     }
 
-    private func uploadImages(_ images: [String:ProductImageData], barcode: String, id: String, primaryLanguageCode: String) {
+    private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String, primaryLanguageCode: String) {
 
-        for image in images {
-            guard image.value.image != nil else { return }
+        for element in dict {
+            guard element.value.display.image != nil else { return }
 
             // start by unselecting any existing image
             postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
-                                         OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:image.key)
+                                         OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
                                 // Adding credentials are not accepted
                                 //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
                                 //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
@@ -429,9 +423,9 @@ class OFFUpdate {
                                 OFFHttpPost.URL.UnselectPostFix
             )
 
-            post(image: image.value.image!,
+            post(image: element.value.display.image!,
                       parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
-                                   OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:image.key),
+                                   OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:element.key),
                                    OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
                                    OFFHttpPost.AddParameter.Password: OFFAccount().password],
                       imageType: id,
@@ -439,7 +433,7 @@ class OFFUpdate {
                         currentProductType.rawValue +
                         OFFHttpPost.URL.Domain +
                         OFFHttpPost.URL.AddPostFix,
-                      languageCode: image.key)
+                      languageCode: element.key)
         
         }
     }
