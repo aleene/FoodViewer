@@ -117,11 +117,11 @@ public class ProductImageData {
     private func imageSize() -> ImageSizeCategory {
         guard url != nil else { return .unknown }
         
-        if url!.absoluteString.contains(OFF.URL.ImageSize.Thumb) {
+        if url!.absoluteString.contains(OFF.ImageSize.thumb.rawValue) {
             return .thumb
-        } else if url!.absoluteString.contains(OFF.URL.ImageSize.Medium) {
+        } else if url!.absoluteString.contains(OFF.ImageSize.medium.rawValue) {
             return .small
-        } else if url!.absoluteString.contains(OFF.URL.ImageSize.Large) {
+        } else if url!.absoluteString.contains(OFF.ImageSize.large.rawValue) {
             return .large
         }
         return .unknown

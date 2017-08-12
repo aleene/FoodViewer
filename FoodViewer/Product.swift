@@ -75,6 +75,7 @@ class FoodProduct {
     var frontImages: ProductImageSize? = nil
     var nutritionImages: ProductImageSize? = nil
     var ingredientsImages: ProductImageSize? = nil
+    var images: [ProductImageSize] = []
     
     var languageCodes: [String] = []
     

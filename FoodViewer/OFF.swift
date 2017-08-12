@@ -22,12 +22,13 @@ public struct OFF {
             static let Nutrition = "nutrition"
         }
         public struct ImageSize {
-            static let Thumb = ".100."
-            static let Medium = ".200."
-            static let Large = ".400."
+            static let Thumb = ".100"
+            static let Small = ".400"
+            static let Original = ""
         }
         public struct Divider {
             static let Slash = "/"
+            static let Dot = "."
         }
         public struct PartNumber {
             static let Barcode = 5
@@ -39,6 +40,7 @@ public struct OFF {
         static let EnglishProduct = "en:product/"
         static let Postfix = ".org/api/v0/product/"
         static let JSONExtension = ".json"
+        static let JPGextension = ".jpg"
         static let Images = "images/products/"
         
     }
@@ -48,7 +50,13 @@ public struct OFF {
         case beauty = "openbeautyfacts"
         case petFood = "openpetfoodfacts"
     }
-
+    
+    public enum ImageSize: String {
+        case thumb = "100"
+        case medium = "200"
+        case large = "400"
+    }
+    
     public enum SearchComponent: String {
         case brand = "brand"
         case category = "category"
@@ -132,21 +140,48 @@ public struct OFF {
         return urlString
     }
     
+    // https://world.openfoodfacts.org/images/products/803/409/462/0006/3.100.jpg
+    
+    static func imageURLFor(_ barcode: BarcodeType, with id:String, size:ImageSizeCategory) -> String {
+        let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Scheme
+        urlString += "\(region)."
+        urlString += server(for:barcode.productType() ?? .food)
+        urlString += OFF.URL.TopDomain
+        urlString += OFF.URL.Images
+        if let str = imageURLComponentFor(barcode.asString()) {
+            urlString += str
+        }
+        urlString += "/"
+        urlString += id
+        switch size {
+        case .thumb:
+            urlString += OFF.URL.ImageSize.Thumb
+        case .small:
+            urlString += OFF.URL.ImageSize.Small
+        case .large:
+            urlString += OFF.URL.ImageSize.Original
+        default:
+            assert(false, "OFF.imageURLFor(_:with:size:)")
+        }
+        urlString += OFF.URL.JPGextension
+        return urlString
+    }
+
     static func imageURLComponentFor(_ barcode: String) -> String? {
         if barcode.characters.count == 8 {
             // Lidl product
             return barcode
         } else if barcode.characters.count == 13 {
-//            let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
-//            let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
-//            let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
-//            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.endIndex)
+            let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
+            let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
+            let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
+            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: 12)
 //
-//            return barcode[part1] + "/" +
-//                barcode[part2] + "/" +
-//                barcode[part3] + "/" +
-//                barcode[part4] + "/"
-            return "no"
+            return barcode[part1] + OFF.URL.Divider.Slash +
+                barcode[part2] + OFF.URL.Divider.Slash +
+                barcode[part3] + OFF.URL.Divider.Slash  +
+                barcode[part4]
         }
         print("OFF.imageURLFor : barcode can not be translated to url-string")
         return nil
@@ -183,6 +218,7 @@ struct OFFReadAPIkeysJSON {
     static let CheckersTagsKey = "checkers_tags"
     static let LabelsTagsKey = "labels_tags"
     static let ImageSmallUrlKey = "image_small_url"
+    static let ImagesKey = "images"
     static let ProductCodeKey = "code"
     static let AdditivesTagsNKey = "additives_tags_n"
     static let TracesTagsKey = "traces_tags"

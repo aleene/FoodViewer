@@ -822,6 +822,7 @@
 		5193DC131F3E293A009EE70B /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */,
 				512499A01C6CD0100061A083 /* imageViewController.swift */,
 				5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */,
 			);
@@ -943,7 +944,6 @@
 		51DCD3C91C6A110900D39898 /* ProductPages */ = {
 			isa = PBXGroup;
 			children = (
-				5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */,
 				5107C82B1D9D07AB006A628C /* EditPages */,
 				51352FBA1DA6570E008FF151 /* ProductPageViewController.swift */,
 				513982481C89CEB800250FB1 /* Pages */,

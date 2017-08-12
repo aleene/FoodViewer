@@ -34,6 +34,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let Front = NSLocalizedString("Selected Front Images", comment: "Gallery header text presenting the selected front images")
             static let Ingredients = NSLocalizedString("Selected Ingredients Images", comment: "Gallery header text presenting the selected ingredients images")
             static let Nutrition = NSLocalizedString("Selected Nutrition Images", comment: "Gallery header text presenting the selected nutrition images")
+            static let Original = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
         }
 //        struct SegueIdentifier {
 //            static let ShowIdentificationImage = "Show Identification Image"
@@ -111,8 +112,33 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
+    private var originalImages: [UIImage] {
+        get {
+            var validImages: [UIImage] = []
+            
+            if !product!.images.isEmpty {
+                for productImageSize in product!.images {
+                    for displayImage in productImageSize.small {
+                        if let result = displayImage.value.fetch() {
+                            switch result {
+                            case .available:
+                                if let validImage = displayImage.value.image {
+                                    validImages.append(validImage)
+                                }
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return validImages
+        }
+    }
+
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 4
     }
 
 
@@ -124,6 +150,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return selectedIngredientsImages.count
         case 2:
             return selectedNutritionImages.count
+        case 3:
+            return originalImages.count
         default:
             assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
         }
@@ -141,6 +169,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.imageView.image = selectedIngredientsImages[indexPath.row]
         case 2:
             cell.imageView.image = selectedNutritionImages[indexPath.row]
+        case 3:
+            cell.imageView.image = originalImages[indexPath.row]
         default:
             assert(false, "ProductImagesCollectionViewController: inexisting section")
         }
@@ -169,6 +199,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 headerView.label.text = Storyboard.HeaderTitle.Ingredients
             case 2:
                 headerView.label.text = Storyboard.HeaderTitle.Nutrition
+            case 3:
+                headerView.label.text = Storyboard.HeaderTitle.Original
             default:
                 assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
             }

@@ -377,7 +377,33 @@ class OpenFoodFactsRequest {
             product.ingredientsImages?.small = images
         }
         
-        // print(product.name, product.languageCodes, product.nameLanguage)
+        if let imagesDict = jsonObject[jsonKeys.ImagesKey].dictionaryObject {
+            var index = -1
+            for element in imagesDict {
+                if !element.key.contains("ingredients") && !element.key.contains("front") && !element.key.contains("nutrition") {
+                    index += 1
+                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.thumb)) {
+                        var images: [String:ProductImageData] = [:]
+                        images["original"] = ProductImageData.init(url: url)
+                        if index > product.images.count - 1 { product.images.append(ProductImageSize()) }
+                        product.images[index].thumb = images
+                    }
+                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.small)) {
+                        var images: [String:ProductImageData] = [:]
+                        images["original"] = ProductImageData.init(url: url)
+                        if index > product.images.count - 1 { product.images.append(ProductImageSize()) }
+                        product.images[index].small = images
+                    }
+                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.large)) {
+                        var images: [String:ProductImageData] = [:]
+                        images["original"] = ProductImageData.init(url: url)
+                        if index > product.images.count - 1 { product.images.append(ProductImageSize()) }
+                        product.images[index].display = images
+                    }
+                }
+            }
+        }
+
         // Is no longer needed, is part of the language array
         // product.genericName = jsonObject[jsonKeys.GenericNameKey].string
         product.additivesInterpreted = Tags.init(jsonObject[jsonKeys.AdditivesTagsKey].stringArray)

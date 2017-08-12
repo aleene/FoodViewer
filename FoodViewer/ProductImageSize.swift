@@ -9,7 +9,9 @@
 import Foundation
 
 struct ProductImageSize {
-    var display:[String:ProductImageData] = [:]
+    // The selected images for a specific languageCode. 
+    // The images come in 3 sizes
+    var display: [String:ProductImageData] = [:]
     var small: [String:ProductImageData] = [:]
     var thumb: [String:ProductImageData] = [:]
  
