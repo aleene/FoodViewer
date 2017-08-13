@@ -823,7 +823,6 @@
 			isa = PBXGroup;
 			children = (
 				5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */,
-				512499A01C6CD0100061A083 /* imageViewController.swift */,
 				5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */,
 			);
 			name = Gallery;
@@ -949,6 +948,7 @@
 				513982481C89CEB800250FB1 /* Pages */,
 				5193DC131F3E293A009EE70B /* Gallery */,
 				516B327E1C74D9560031EF80 /* EditProductViewController.swift */,
+				512499A01C6CD0100061A083 /* imageViewController.swift */,
 				517BF2C51E44AF3700876E24 /* DynamicCustomSegue.swift */,
 			);
 			name = ProductPages;

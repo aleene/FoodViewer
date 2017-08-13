@@ -381,11 +381,11 @@ class OFFUpdate {
         }
 
 
-        uploadImages(product!.frontImages, barcode: product!.barcode.asString(), id:"front", primaryLanguageCode: languageCodeToUse)
+        uploadImages(product!.frontImages, barcode: product!.barcode.asString(), id:"front")
 
-        uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients", primaryLanguageCode: languageCodeToUse)
+        uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients")
 
-        uploadImages(product!.nutritionImages, barcode: product!.barcode.asString(), id:"nutrition", primaryLanguageCode: languageCodeToUse)
+        uploadImages(product!.nutritionImages, barcode: product!.barcode.asString(), id:"nutrition")
 
         if productUpdated {
             if let url = URL(string: urlString) {
@@ -405,7 +405,7 @@ class OFFUpdate {
         }
     }
 
-    private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String, primaryLanguageCode: String) {
+    private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String) {
 
         for element in dict {
             guard element.value.display.image != nil else { return }

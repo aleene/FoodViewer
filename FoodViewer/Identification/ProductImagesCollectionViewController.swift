@@ -20,8 +20,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
-    fileprivate let itemsPerRow: CGFloat = 3
-    fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    fileprivate let itemsPerRow: CGFloat = 5
+    fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
 
     // MARK: UICollectionViewDataSource
 
@@ -36,105 +36,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let Nutrition = NSLocalizedString("Selected Nutrition Images", comment: "Gallery header text presenting the selected nutrition images")
             static let Original = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
         }
-//        struct SegueIdentifier {
-//            static let ShowIdentificationImage = "Show Identification Image"
-//            static let ShowNamesLanguages = "Show Names Languages"
-//            static let ShowSelectMainLanguage = "Show Select Main Language Segue"
-//            static let ShowImageSourceSelector = "Show Select Image Source Segue"
-//        }
-    }
-
-    private var selectedFrontImages: [UIImage] {
-        get {
-            var validImages: [UIImage] = []
-            
-            if !product!.frontImages.isEmpty {
-                for dict in product!.frontImages {
-                    if let result = dict.value.small.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = dict.value.small.image {
-                                validImages.append(validImage)
-                            }
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-            
-            return validImages
-        }
     }
     
-    private var selectedIngredientsImages: [UIImage] {
-        get {
-            var validImages: [UIImage] = []
-            
-            if !product!.ingredientsImages.isEmpty {
-                for dict in product!.ingredientsImages {
-                    if let result = dict.value.small.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = dict.value.small.image {
-                                validImages.append(validImage)
-                            }
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-            
-            return validImages
-        }
-    }
-    private var selectedNutritionImages: [UIImage] {
-        get {
-            var validImages: [UIImage] = []
-            
-            if !product!.nutritionImages.isEmpty {
-                for dict in product!.nutritionImages {
-                    if let result = dict.value.small.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = dict.value.small.image {
-                                validImages.append(validImage)
-                            }
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-            
-            return validImages
-        }
-    }
-
-    private var originalImages: [UIImage] {
-        get {
-            var validImages: [UIImage] = []
-            
-            if !product!.images.isEmpty {
-                for productImageSize in product!.images {
-                    if let result = productImageSize.value.small.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = productImageSize.value.small.image {
-                                validImages.append(validImage)
-                            }
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-            
-            return validImages
-        }
-    }
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
@@ -143,13 +46,13 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return selectedFrontImages.count
+            return product!.frontImages.count
         case 1:
-            return selectedIngredientsImages.count
+            return product!.nutritionImages.count
         case 2:
-            return selectedNutritionImages.count
+            return product!.ingredientsImages.count
         case 3:
-            return originalImages.count
+            return product!.images.count
         default:
             assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
         }
@@ -162,13 +65,61 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         cell.backgroundColor = UIColor.white
         switch indexPath.section {
         case 0:
-            cell.imageView.image = selectedFrontImages[indexPath.row]
+            let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
+            if let result = product!.nutritionImages[key]?.small.fetch() {
+                switch result {
+                case .available:
+                    if let validImage = product!.nutritionImages[key]?.small.image {
+                        cell.imageView.image = validImage
+                    }
+                default:
+                    break
+                }
+                cell.label.text = OFFplists.manager.languageName(for:key)
+            }
+            
         case 1:
-            cell.imageView.image = selectedIngredientsImages[indexPath.row]
+            let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
+            if let result = product!.frontImages[key]?.small.fetch() {
+                switch result {
+                case .available:
+                    if let validImage = product!.frontImages[key]?.small.image {
+                        cell.imageView.image = validImage
+                    }
+                default:
+                    break
+                }
+                cell.label.text = OFFplists.manager.languageName(for:key)
+            }
         case 2:
-            cell.imageView.image = selectedNutritionImages[indexPath.row]
+            let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
+            if let result = product!.ingredientsImages[key]?.small.fetch() {
+                switch result {
+                case .available:
+                    if let validImage = product!.ingredientsImages[key]?.small.image {
+                        cell.imageView.image = validImage
+                    }
+                default:
+                    break
+                }
+                cell.label.text = OFFplists.manager.languageName(for:key)
+            }
+            
         case 3:
-            cell.imageView.image = originalImages[indexPath.row]
+            let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
+            
+            if let result = product!.images[key]?.small.fetch() {
+            switch result {
+            case .available:
+                if let validImage = product!.images[key]?.small.image {
+                    cell.imageView.image = validImage
+                }
+            default:
+                break
+            }
+            cell.label.text = key
+        }
+            
         default:
             assert(false, "ProductImagesCollectionViewController: inexisting section")
         }
