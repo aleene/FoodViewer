@@ -314,13 +314,13 @@ class IdentificationTableViewController: UITableViewController {
             // are there updated images available?
             if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
                 // is the image available for the current language?
-                if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
+                if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                     cell?.editMode = editMode
                     cell?.identificationImage = image
                     return cell!
                 // in non-editMode show the primary language image
-                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.frontImages[primaryLanguageCode]?.display.image {
+                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.frontImages[primaryLanguageCode]?.display?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
                     cell?.editMode = editMode
                     cell?.identificationImage = image
@@ -339,11 +339,11 @@ class IdentificationTableViewController: UITableViewController {
             } else if !product!.frontImages.isEmpty {
                     // is the data for the current language available?
                     // then fetch the image
-                if let result = product!.frontImages[currentLanguageCode!]?.display.fetch() {
+                if let result = product!.frontImages[currentLanguageCode!]?.display?.fetch() {
                     switch result {
                     case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages[currentLanguageCode!]?.display.image
+                        cell?.identificationImage = product!.frontImages[currentLanguageCode!]?.display?.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -356,11 +356,11 @@ class IdentificationTableViewController: UITableViewController {
                         return cell!
                     }
                 // try to use the image corresponding to the primary language
-                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages[primaryLanguageCode]?.display.fetch() {
+                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages[primaryLanguageCode]?.display.image
+                        cell?.identificationImage = product!.frontImages[primaryLanguageCode]?.display?.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -550,26 +550,26 @@ class IdentificationTableViewController: UITableViewController {
                 if let vc = segue.destination as? imageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-                        if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
+                        if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()?.image {
                             vc.image = image
-                        } else if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
+                        } else if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()?.image {
                             vc.image = image
                         }
                     } else if !product!.frontImages.isEmpty {
                         // is the data for the current language available?
                             // then fetch the image
-                        if let result = product!.frontImages[currentLanguageCode!]?.display.fetch() {
+                        if let result = product!.frontImages[currentLanguageCode!]?.largest()?.fetch() {
                             switch result {
                             case .available:
-                                vc.image = product!.frontImages[currentLanguageCode!]?.display.image
+                                vc.image = product!.frontImages[currentLanguageCode!]?.largest()?.image
                             default:
                                 break
                             }
                                 // try to use the primary image
-                } else if let result = product!.frontImages[product!.primaryLanguageCode!]?.display.fetch() {
+                } else if let result = product!.frontImages[product!.primaryLanguageCode!]?.largest()?.fetch() {
                             switch result {
                             case .available:
-                                vc.image = product!.frontImages[product!.primaryLanguageCode!]?.display.image
+                                vc.image = product!.frontImages[product!.primaryLanguageCode!]?.largest()?.image
                             default:
                                 vc.image = nil
                             }

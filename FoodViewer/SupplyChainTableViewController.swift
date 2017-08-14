@@ -157,7 +157,7 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var countriesToDisplay: Tags {
         get {
             if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.storesOriginal {
+                switch delegate!.updatedProduct!.countriesOriginal {
                 case .available, .empty:
                     showCountriesTagsType = .edited
                     return delegate!.updatedProduct!.countriesOriginal

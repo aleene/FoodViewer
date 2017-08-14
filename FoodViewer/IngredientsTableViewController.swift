@@ -277,13 +277,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // are there any updated images?
             if delegate?.updatedProduct != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
                 // is there an updated image for the current language?
-                if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.display.image {
+                if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.display?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
                     cell?.editMode = editMode
                     cell?.ingredientsImage = image
                     return cell!
                 // in non-editMode show the updated image for the primary language
-                } else if !editMode, let primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode, let image = delegate!.updatedProduct!.ingredientsImages[primaryLanguageCode]?.display.image {
+                } else if !editMode, let primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode, let image = delegate!.updatedProduct!.ingredientsImages[primaryLanguageCode]?.display?.image {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
                     cell?.editMode = editMode
                     cell?.ingredientsImage = image
@@ -301,11 +301,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // are there any ingredients images?
             } else if !product!.ingredientsImages.isEmpty {
                 // is there a current language image
-                if let result = product!.ingredientsImages[currentLanguageCode!]?.display.fetch() {
+                if let result = product!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
                     switch result {
                     case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
-                        cell?.ingredientsImage = product!.ingredientsImages[currentLanguageCode!]?.display.image
+                        cell?.ingredientsImage = product!.ingredientsImages[currentLanguageCode!]?.display?.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -318,11 +318,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         return cell!
                     }
                 // if not in editMode show the image in the primary language
-                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.ingredientsImages[primaryLanguageCode]?.display.fetch() {
+                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IngredientsImageTableViewCell
-                        cell?.ingredientsImage = product!.ingredientsImages[primaryLanguageCode]?.display.image
+                        cell?.ingredientsImage = product!.ingredientsImages[primaryLanguageCode]?.display?.image
                         cell?.editMode = editMode
                         return cell!
                     default:
@@ -558,26 +558,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let vc = segue.destination as? imageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
-                        if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.display.image {
+                        if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.largest()?.image {
                             vc.image = image
-                        } else if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.display.image {
+                        } else if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.largest()?.image {
                             vc.image = image
                         }
                     } else if !product!.ingredientsImages.isEmpty {
                         // is the data for the current language available?
                         // then fetch the image
-                        if let result = product!.ingredientsImages[currentLanguageCode!]?.display.fetch() {
+                        if let result = product!.ingredientsImages[currentLanguageCode!]?.largest()?.fetch() {
                             switch result {
                             case .available:
-                                vc.image = product!.ingredientsImages[currentLanguageCode!]?.display.image
+                                vc.image = product!.ingredientsImages[currentLanguageCode!]?.largest()?.image
                             default:
                                 break
                             }
                             // try to use the primary image
-                        } else if let result = product!.ingredientsImages[product!.primaryLanguageCode!]?.display.fetch() {
+                        } else if let result = product!.ingredientsImages[product!.primaryLanguageCode!]?.largest()?.fetch() {
                             switch result {
                             case .available:
-                                vc.image = product!.ingredientsImages[product!.primaryLanguageCode!]?.display.image
+                                vc.image = product!.ingredientsImages[product!.primaryLanguageCode!]?.largest()?.image
                             default:
                                 vc.image = nil
                             }

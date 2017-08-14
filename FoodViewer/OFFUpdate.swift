@@ -408,7 +408,7 @@ class OFFUpdate {
     private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String) {
 
         for element in dict {
-            guard element.value.display.image != nil else { return }
+            guard element.value.largest()?.image != nil else { return }
 
             // start by unselecting any existing image
             postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
@@ -423,7 +423,7 @@ class OFFUpdate {
                                 OFFHttpPost.URL.UnselectPostFix
             )
 
-            post(image: element.value.display.image!,
+            post(image: element.value.largest()!.image!,
                       parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
                                    OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:element.key),
                                    OFFHttpPost.AddParameter.UserId: OFFAccount().userId,

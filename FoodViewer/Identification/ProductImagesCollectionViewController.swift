@@ -23,6 +23,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     fileprivate let itemsPerRow: CGFloat = 5
     fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
 
+    private var selectedImage: IndexPath? = nil
+    
     // MARK: UICollectionViewDataSource
 
     fileprivate struct Storyboard {
@@ -36,6 +38,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let Nutrition = NSLocalizedString("Selected Nutrition Images", comment: "Gallery header text presenting the selected nutrition images")
             static let Original = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
         }
+        struct SegueIdentifier {
+            static let ShowImage = "Show Image"
+            //static let ShowImageSourceSelector = "Show Select Image Source Segue"
+        }
+
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -62,45 +69,45 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-        cell.backgroundColor = UIColor.white
+        // cell.backgroundColor = UIColor.white
         switch indexPath.section {
         case 0:
-            let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
-            if let result = product!.nutritionImages[key]?.small.fetch() {
+            let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
+            if let result = product!.frontImages[key]?.display?.fetch() {
                 switch result {
                 case .available:
-                    if let validImage = product!.nutritionImages[key]?.small.image {
+                    if let validImage = product!.frontImages[key]?.display?.image {
                         cell.imageView.image = validImage
                     }
                 default:
-                    break
+                    cell.imageView.image = UIImage.init(named:"NotOK")
                 }
                 cell.label.text = OFFplists.manager.languageName(for:key)
             }
             
         case 1:
-            let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
-            if let result = product!.frontImages[key]?.small.fetch() {
+            let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
+            if let result = product!.ingredientsImages[key]?.display?.fetch() {
                 switch result {
                 case .available:
-                    if let validImage = product!.frontImages[key]?.small.image {
+                    if let validImage = product!.ingredientsImages[key]?.display?.image {
                         cell.imageView.image = validImage
                     }
                 default:
-                    break
+                    cell.imageView.image = UIImage.init(named:"NotOK")
                 }
                 cell.label.text = OFFplists.manager.languageName(for:key)
             }
         case 2:
-            let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
-            if let result = product!.ingredientsImages[key]?.small.fetch() {
+            let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
+            if let result = product!.nutritionImages[key]?.display?.fetch() {
                 switch result {
                 case .available:
-                    if let validImage = product!.ingredientsImages[key]?.small.image {
+                    if let validImage = product!.nutritionImages[key]?.display?.image {
                         cell.imageView.image = validImage
                     }
                 default:
-                    break
+                    cell.imageView.image = UIImage.init(named:"NotOK")
                 }
                 cell.label.text = OFFplists.manager.languageName(for:key)
             }
@@ -108,14 +115,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case 3:
             let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
             
-            if let result = product!.images[key]?.small.fetch() {
+            if let result = product!.images[key]?.display?.fetch() {
+                 
             switch result {
             case .available:
-                if let validImage = product!.images[key]?.small.image {
+                if let validImage = product!.images[key]?.display?.image {
                     cell.imageView.image = validImage
                 }
             default:
-                break
+                cell.imageView.image = UIImage.init(named:"NotOK")
             }
             cell.label.text = key
         }
@@ -169,12 +177,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     */
 
-    /*
     // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
-    */
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedImage = indexPath
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImage, sender: self)
+    }
 
     /*
     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
@@ -191,6 +202,129 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     */
 
+    
+    // MARK: - Segue stuff
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case Storyboard.SegueIdentifier.ShowImage:
+                if let vc = segue.destination as? imageViewController {
+                    guard selectedImage != nil else { return }
+                    switch selectedImage!.section {
+                    case 0:
+                        let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        if let result = product!.frontImages[key]?.largest()?.fetch() {
+                            switch result {
+                            case .available:
+                                if let validImage = product!.frontImages[key]?.largest()?.image {
+                                    vc.image = validImage
+                                }
+                            default:
+                                break
+                            }
+                            vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        }
+                        
+                    case 1:
+                        let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        if let result = product!.ingredientsImages[key]?.largest()?.fetch() {
+                            switch result {
+                            case .available:
+                                if let validImage = product!.ingredientsImages[key]?.largest()?.image {
+                                    vc.image = validImage
+                                }
+                            default:
+                                break
+                            }
+                            vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        }
+                    case 2:
+                        let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        if let result = product!.nutritionImages[key]?.largest()?.fetch() {
+                            switch result {
+                            case .available:
+                                if let validImage = product!.nutritionImages[key]?.largest()?.image {
+                                    vc.image = validImage
+                                }
+                            default:
+                                break
+                            }
+                            vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        }
+                        
+                    case 3:
+                        let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
+                        
+                        if let result = product!.images[key]?.largest()?.fetch() {
+                            switch result {
+                            case .available:
+                                if let validImage = product!.images[key]?.largest()?.image {
+                                    vc.image = validImage
+                                }
+                            default:
+                                break
+                            }
+                            vc.imageTitle = key
+                        }
+                        
+                    default:
+                        assert(false, "ProductImagesCollectionViewController: inexisting section")
+                    }
+                    
+
+//                    if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
+//                        if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
+//                            vc.image = image
+//                        } else if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
+//                            vc.image = image
+//                        }
+//                    } else if !product!.frontImages.isEmpty {
+//                        // is the data for the current language available?
+//                        // then fetch the image
+//                        if let result = product!.frontImages[currentLanguageCode!]?.display.fetch() {
+//                            switch result {
+//                            case .available:
+//                                vc.image = product!.frontImages[currentLanguageCode!]?.display.image
+//                            default:
+//                                break
+//                            }
+//                            // try to use the primary image
+//                        } else if let result = product!.frontImages[product!.primaryLanguageCode!]?.display.fetch() {
+//                            switch result {
+//                            case .available:
+//                                vc.image = product!.frontImages[product!.primaryLanguageCode!]?.display.image
+//                            default:
+//                                vc.image = nil
+//                            }
+//                        } else {
+//                            vc.image = nil
+//                        }
+//                    }
+                }
+//            case Storyboard.SegueIdentifier.ShowImageSourceSelector:
+//                if let vc = segue.destination as? SelectImageSourceViewController {
+//                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+//                    if let button = sender as? UIButton {
+//                        if button.superview?.superview as? IdentificationImageTableViewCell != nil {
+//                            if let ppc = vc.popoverPresentationController {
+//                                // set the main language button as the anchor of the popOver
+//                                ppc.permittedArrowDirections = .any
+//                                // I need the button coordinates in the coordinates of the current controller view
+//                                let anchorFrame = button.convert(button.bounds, to: self.view)
+//                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+//                                ppc.delegate = self
+//                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+//                                vc.delegate = self
+//                            }
+//                        }
+//                    }
+//                }
+            default: break
+            }
+        }
+    }
+
     func reloadImages() {
         collectionView?.reloadData()
     }
@@ -198,6 +332,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView?.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         

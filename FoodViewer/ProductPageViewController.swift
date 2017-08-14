@@ -58,7 +58,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         // add the front image for the primary languageCode if any
         if let languageCode = product?.primaryLanguageCode {
-            if let image = product?.frontImages[languageCode]?.small.image {
+            if let image = product?.frontImages[languageCode]?.small?.image {
                 sharingItems.append(image)
             }
         }

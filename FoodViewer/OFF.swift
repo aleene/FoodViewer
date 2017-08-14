@@ -23,7 +23,8 @@ public struct OFF {
         }
         public struct ImageSize {
             static let Thumb = ".100"
-            static let Small = ".400"
+            static let Small = ".200"
+            static let Display = ".400"
             static let Original = ""
         }
         public struct Divider {
@@ -55,6 +56,7 @@ public struct OFF {
         case thumb = "100"
         case medium = "200"
         case large = "400"
+        case original = "original"
     }
     
     public enum SearchComponent: String {
@@ -160,6 +162,8 @@ public struct OFF {
         case .small:
             urlString += OFF.URL.ImageSize.Small
         case .large:
+            urlString += OFF.URL.ImageSize.Display
+        case .original:
             urlString += OFF.URL.ImageSize.Original
         default:
             assert(false, "OFF.imageURLFor(_:with:size:)")

@@ -12,6 +12,7 @@ enum ImageSizeCategory: Int {
     case thumb = 0
     case small
     case large
+    case original
     case unknown
     
     func description() -> String {
@@ -22,6 +23,8 @@ enum ImageSizeCategory: Int {
             return "medium-sized image"
         case .large:
             return "large-sized image"
+        case .original:
+            return "original-sized image"
         case .unknown:
             return "unknown-sized image"
         }

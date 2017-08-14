@@ -260,7 +260,7 @@ class OpenFoodFactsRequest {
                 product.genericNameLanguage[isoCode] = jsonObject[key].string
             }
         }
-        // print(product.name)
+
         if let valid = jsonObject[jsonKeys.SelectedImagesKey][jsonKeys.FrontImageKey][jsonKeys.DisplayKey].dictionaryObject {
             for element in valid {
                 if let validString = element.value as? String {
@@ -375,6 +375,10 @@ class OpenFoodFactsRequest {
                     if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.large)) {
                         if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
                         product.images[element.key]?.display = ProductImageData.init(url: url)
+                    }
+                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.original)) {
+                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
+                        product.images[element.key]?.original = ProductImageData.init(url: url)
                     }
                 }
             }

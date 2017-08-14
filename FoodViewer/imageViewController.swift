@@ -12,7 +12,7 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
     
     struct Constants {
         static let DefaultImageTitle = NSLocalizedString("No title", comment: "Title for viewcontroller with detailed product images, when no title is given. ")
-        static let MinimumZoomScale = CGFloat(50) //%
+        static let MinimumZoomScale = CGFloat(5) //%
         static let MaximumZoomScale = CGFloat(500) // %
     }
     
@@ -74,6 +74,10 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func reloadImage() {
+        refresh()
+    }
+    
     // Adopted from: http://www.raywenderlich.com/76436/use-uiscrollview-scroll-zoom-content-swift
     //
     // The point of this function is to get around a slight annoyance with UIScrollView: if the scroll view content size is smaller than its bounds, then it sits at the top-left rather than in the center. Since you’ll be allowing the user to zoom out fully, it would be nice if the image sat in the center of the view. This function accomplishes that by positioning the image view such that it is always in the center of the scroll view’s bounds.
@@ -102,6 +106,9 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
 
         refresh()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(imageViewController.reloadImage), name:.ImageSet, object:nil)
+
     }
 
 }
