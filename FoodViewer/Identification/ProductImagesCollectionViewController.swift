@@ -55,9 +55,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case 0:
             return product!.frontImages.count
         case 1:
-            return product!.nutritionImages.count
-        case 2:
             return product!.ingredientsImages.count
+        case 2:
+            return product!.nutritionImages.count
         case 3:
             return product!.images.count
         default:
@@ -72,44 +72,59 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // cell.backgroundColor = UIColor.white
         switch indexPath.section {
         case 0:
-            let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
-            if let result = product!.frontImages[key]?.display?.fetch() {
-                switch result {
-                case .available:
-                    if let validImage = product!.frontImages[key]?.display?.image {
-                        cell.imageView.image = validImage
+            let sortedKeys = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))
+            if indexPath.row < sortedKeys.count {
+                let key = sortedKeys[indexPath.row]
+                if let result = product!.frontImages[key]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        if let validImage = product!.frontImages[key]?.display?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                default:
-                    cell.imageView.image = UIImage.init(named:"NotOK")
+                    cell.label.text = OFFplists.manager.languageName(for:key)
+                } else {
+                    assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
                 }
-                cell.label.text = OFFplists.manager.languageName(for:key)
             }
-            
+        
         case 1:
-            let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
-            if let result = product!.ingredientsImages[key]?.display?.fetch() {
-                switch result {
-                case .available:
-                    if let validImage = product!.ingredientsImages[key]?.display?.image {
-                        cell.imageView.image = validImage
+            let sortedKeys = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))
+            if indexPath.row < sortedKeys.count {
+                let key = sortedKeys[indexPath.row]
+                if let result = product!.ingredientsImages[key]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        if let validImage = product!.ingredientsImages[key]?.display?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                default:
-                    cell.imageView.image = UIImage.init(named:"NotOK")
+                    cell.label.text = OFFplists.manager.languageName(for:key)
+                } else {
+                    assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
                 }
-                cell.label.text = OFFplists.manager.languageName(for:key)
             }
         case 2:
-            let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[indexPath.row]
-            if let result = product!.nutritionImages[key]?.display?.fetch() {
-                switch result {
-                case .available:
-                    if let validImage = product!.nutritionImages[key]?.display?.image {
-                        cell.imageView.image = validImage
+            let sortedKeys = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))
+            if indexPath.row < sortedKeys.count {
+                let key = sortedKeys[indexPath.row]
+                if let result = product!.nutritionImages[key]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        if let validImage = product!.nutritionImages[key]?.display?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                default:
-                    cell.imageView.image = UIImage.init(named:"NotOK")
+                    cell.label.text = OFFplists.manager.languageName(for:key)
                 }
-                cell.label.text = OFFplists.manager.languageName(for:key)
+            } else {
+                assert(false, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
             }
             
         case 3:
@@ -166,7 +181,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return headerView
         default:
             //4
-            assert(false, "Unexpected element kind")
+            assert(false, "ProductImagesCollectionViewController: Unexpected element kind")
         }
     }
 
