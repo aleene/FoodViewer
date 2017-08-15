@@ -743,37 +743,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
-                if let vc = segue.destination as? imageViewController {
+                if let vc = segue.destination as? ImageViewController {
                     if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty {
-                        if let image = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]?.display?.image {
-                            vc.image = image
-                        } else if let image = delegate!.updatedProduct!.nutritionImages[delegate!.updatedProduct!.primaryLanguageCode!]?.display?.image {
-                            vc.image = image
+                        if let imageData = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]?.display {
+                            vc.imageData = imageData
+                        } else if let imageData = delegate!.updatedProduct!.nutritionImages[delegate!.updatedProduct!.primaryLanguageCode!]?.display {
+                            vc.imageData = imageData
                         }
                         vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                     } else if !product!.nutritionImages.isEmpty {
                         // is the data for the current language available?
                         // then fetch the image
-                        if let result = product!.nutritionImages[currentLanguageCode!]?.display?.fetch() {
-                            switch result {
-                            case .available:
-                                vc.image = product!.nutritionImages[currentLanguageCode!]?.display?.image
-                                vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
-                            default:
-                                vc.image = nil
-                            }
+                        if let imageData = product!.nutritionImages[currentLanguageCode!]?.largest() {
+                            vc.imageData = imageData
+                            vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                             // try to use the primary image
-                        } else if let result = product!.nutritionImages[product!.primaryLanguageCode!]?.display?.fetch() {
-                            switch result {
-                            case .available:
-                                vc.image = product!.nutritionImages[product!.primaryLanguageCode!]?.display?.image
-                                vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
-                            default:
-                                vc.image = nil
-                            }
+                        } else if let imageData = product!.nutritionImages[product!.primaryLanguageCode!]?.largest() {
+                            vc.imageData = imageData
+                            vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
                         } else {
-                            vc.image = nil
+                            vc.imageData = nil
                         }
+                    } else {
+                        vc.imageData = nil
                     }
                 }
             case Storyboard.SegueIdentifier.AddNutrient:

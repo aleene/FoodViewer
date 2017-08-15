@@ -547,35 +547,20 @@ class IdentificationTableViewController: UITableViewController {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentificationImage:
-                if let vc = segue.destination as? imageViewController {
+                if let vc = segue.destination as? ImageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
+                    // is there an updated image?
                     if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-                        if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()?.image {
-                            vc.image = image
-                        } else if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()?.image {
-                            vc.image = image
-                        }
+                        vc.imageData = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display
                     } else if !product!.frontImages.isEmpty {
                         // is the data for the current language available?
                             // then fetch the image
-                        if let result = product!.frontImages[currentLanguageCode!]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                vc.image = product!.frontImages[currentLanguageCode!]?.largest()?.image
-                            default:
-                                break
-                            }
+                        vc.imageData = product!.frontImages[currentLanguageCode!]?.largest()
                                 // try to use the primary image
-                } else if let result = product!.frontImages[product!.primaryLanguageCode!]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                vc.image = product!.frontImages[product!.primaryLanguageCode!]?.largest()?.image
-                            default:
-                                vc.image = nil
-                            }
-                        } else {
-                            vc.image = nil
-                        }
+                    } else if let imageData = product!.frontImages[product!.primaryLanguageCode!]?.largest() {
+                        vc.imageData = imageData
+                    } else {
+                        vc.imageData = nil
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:

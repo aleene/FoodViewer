@@ -1,5 +1,5 @@
 //
-//  imageViewController.swift
+//  ImageViewController.swift
 //  FoodViewer
 //
 //  Created by arnaud on 11/02/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class imageViewController: UIViewController, UIScrollViewDelegate {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     struct Constants {
         static let DefaultImageTitle = NSLocalizedString("No title", comment: "Title for viewcontroller with detailed product images, when no title is given. ")
@@ -16,9 +16,9 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
         static let MaximumZoomScale = CGFloat(500) // %
     }
     
-    var image: UIImage? {
+    var imageData: ProductImageData? {
         didSet {
-            refresh()
+            setImage()
         }
     }
     
@@ -30,52 +30,85 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
     
     // .Center in the Storyboard
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView! {
+        didSet {
+            refresh()
+        }
+    }
         
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView! {
+        didSet {
+            refresh()
+        }
+    }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-
-    fileprivate func refresh() {
-        if let newImage = image {
-            if imageView != nil {
-                if scrollView != nil {
-                    imageView?.image = newImage
-                    // The scrollView contentSize should have the size of the image
-                    scrollView!.contentSize = newImage.size
-                    // The scrollView should be scaled such that the image fits just in the view
-                    // either in height or in width
-                    // print("scrollView: frame size \(scrollView!.frame.size); bounds size \(scrollView!.bounds.size)")
-                    // print("image size: \(newImage.size)")
-                    // width image larger than width scrollView
-                    let widthScale = image!.size.width / scrollView!.frame.size.width
-                    let heightScale = image!.size.height / scrollView!.frame.size.height
-                    if (widthScale > 1.0) || (heightScale > 1.0) {
-                        if widthScale > heightScale {
-                            // fit the width
-                            scrollView!.zoomScale = 1 / widthScale
-                        } else {
-                            // fit the height
-                            scrollView!.zoomScale = 1 / heightScale
-                        }
-                    } else {
-                        // no zoom needed
-                        scrollView!.zoomScale = 1.0
-                    }
-                    scrollView!.minimumZoomScale = scrollView!.zoomScale * Constants.MinimumZoomScale / 100
-                    scrollView!.maximumZoomScale = scrollView!.zoomScale * Constants.MaximumZoomScale / 100
-
-                    // height image larger than height scrollView
-                    // centerScrollViewContents()
+    
+    private func setImage() {
+        if imageData != nil {
+            if let result = imageData!.fetch() {
+                switch result {
+                case .available:
+                    imageToShow = imageData!.image
+                // in the other case I should show a loading or impossible image
+                case .loading:
+                    imageToShow = UIImage.init(named:"Loading")
+                default:
+                    imageToShow = UIImage.init(named:"NotOK")
                 }
+            } else {
+                imageToShow = UIImage.init(named:"NotOK")
             }
+        } else {
+            imageToShow = UIImage.init(named:"NotOK")
+        }
+        refresh()
+    }
+
+    private var imageToShow = UIImage.init(named:"NotOK")
+    
+    fileprivate func refresh() {
+        guard imageView != nil else { return }
+        guard scrollView != nil else { return }
+
+        if let validSize = imageToShow?.size {
+            imageView!.image = imageToShow
+            // The scrollView contentSize should have the size of the image
+            scrollView!.contentSize = validSize
+            
+            // The scrollView should be scaled such that the image fits just in the view
+            // either in height or in width
+            // print("scrollView: frame size \(scrollView!.frame.size); bounds size \(scrollView!.bounds.size)")
+            // print("image size: \(newImage.size)")
+            let widthScale = validSize.width / scrollView!.frame.size.width
+            let heightScale = validSize.height / scrollView!.frame.size.height
+            
+            // width image larger than width scrollView ?
+            if widthScale > 1.0 || heightScale > 1.0 {
+                if widthScale > heightScale {
+                    // fit the width
+                    scrollView!.zoomScale = 1 / widthScale
+                } else {
+                    // fit the height
+                    scrollView!.zoomScale = 1 / heightScale
+                }
+            } else {
+                // no zoom needed
+                scrollView!.zoomScale = 1.0
+            }
+            scrollView!.minimumZoomScale = scrollView!.zoomScale * Constants.MinimumZoomScale / 100
+            scrollView!.maximumZoomScale = scrollView!.zoomScale * Constants.MaximumZoomScale / 100
+            
+            // height image larger than height scrollView
+            centerScrollViewContents()
+
         }
     }
     
     func reloadImage() {
-        refresh()
+        setImage()
     }
     
     // Adopted from: http://www.raywenderlich.com/76436/use-uiscrollview-scroll-zoom-content-swift
@@ -104,10 +137,8 @@ class imageViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-
-        refresh()
         
-        NotificationCenter.default.addObserver(self, selector:#selector(imageViewController.reloadImage), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ImageViewController.reloadImage), name:.ImageSet, object:nil)
 
     }
 

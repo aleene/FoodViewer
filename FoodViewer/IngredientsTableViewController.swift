@@ -555,34 +555,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentification:
-                if let vc = segue.destination as? imageViewController {
+                if let vc = segue.destination as? ImageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
-                        if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.largest()?.image {
-                            vc.image = image
-                        } else if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.largest()?.image {
-                            vc.image = image
+                        if let imageData = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.largest() {
+                            vc.imageData = imageData
+                        } else if let imageData = delegate!.updatedProduct!.ingredientsImages[product!.primaryLanguageCode!]?.largest() {
+                            vc.imageData = imageData
+                        } else {
+                            vc.imageData = nil
                         }
                     } else if !product!.ingredientsImages.isEmpty {
                         // is the data for the current language available?
                         // then fetch the image
-                        if let result = product!.ingredientsImages[currentLanguageCode!]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                vc.image = product!.ingredientsImages[currentLanguageCode!]?.largest()?.image
-                            default:
-                                break
-                            }
+                        if let imageData = product!.ingredientsImages[currentLanguageCode!]?.largest() {
+                            vc.imageData = imageData
                             // try to use the primary image
-                        } else if let result = product!.ingredientsImages[product!.primaryLanguageCode!]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                vc.image = product!.ingredientsImages[product!.primaryLanguageCode!]?.largest()?.image
-                            default:
-                                vc.image = nil
-                            }
+                        } else if let imageData = product!.ingredientsImages[product!.primaryLanguageCode!]?.largest() {
+                            vc.imageData = imageData
                         } else {
-                            vc.image = nil
+                            vc.imageData = nil
                         }
                     }
                 }

@@ -224,64 +224,28 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.SegueIdentifier.ShowImage:
-                if let vc = segue.destination as? imageViewController {
+                if let vc = segue.destination as? ImageViewController {
                     guard selectedImage != nil else { return }
                     switch selectedImage!.section {
                     case 0:
                         let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        if let result = product!.frontImages[key]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                if let validImage = product!.frontImages[key]?.largest()?.image {
-                                    vc.image = validImage
-                                }
-                            default:
-                                break
-                            }
-                            vc.imageTitle = OFFplists.manager.languageName(for:key)
-                        }
+                        vc.imageData = product!.frontImages[key]?.largest()
+                        vc.imageTitle = OFFplists.manager.languageName(for:key)
                         
                     case 1:
                         let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        if let result = product!.ingredientsImages[key]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                if let validImage = product!.ingredientsImages[key]?.largest()?.image {
-                                    vc.image = validImage
-                                }
-                            default:
-                                break
-                            }
-                            vc.imageTitle = OFFplists.manager.languageName(for:key)
-                        }
+                        vc.imageData = product!.ingredientsImages[key]?.largest()
+                        vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        
                     case 2:
                         let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        if let result = product!.nutritionImages[key]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                if let validImage = product!.nutritionImages[key]?.largest()?.image {
-                                    vc.image = validImage
-                                }
-                            default:
-                                break
-                            }
-                            vc.imageTitle = OFFplists.manager.languageName(for:key)
-                        }
+                        vc.imageData = product!.nutritionImages[key]?.largest()
+                        vc.imageTitle = OFFplists.manager.languageName(for:key)
                         
                     case 3:
                         let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
-                        
-                        if let result = product!.images[key]?.largest()?.fetch() {
-                            switch result {
-                            case .available:
-                                if let validImage = product!.images[key]?.largest()?.image {
-                                    vc.image = validImage
-                                }
-                            default:
-                                break
-                            }
-                            vc.imageTitle = key
-                        }
+                        vc.imageData = product!.images[key]?.largest()
+                        vc.imageTitle = key
                         
                     default:
                         assert(false, "ProductImagesCollectionViewController: inexisting section")

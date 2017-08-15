@@ -51,7 +51,7 @@
 		5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */; };
 		5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */; };
 		512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */; };
-		512499A11C6CD0100061A083 /* imageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512499A01C6CD0100061A083 /* imageViewController.swift */; };
+		512499A11C6CD0100061A083 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512499A01C6CD0100061A083 /* ImageViewController.swift */; };
 		5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */; };
 		51255EA91EBB463E00A241E9 /* LeftNutrimentScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */; };
 		5125AB851D0864BB000DCD29 /* NutritionScoreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */; };
@@ -297,7 +297,7 @@
 		5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldTableViewCell.swift; sourceTree = "<group>"; };
 		51243AA41CA92906003F6D88 /* 20454456.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = 20454456.json; sourceTree = "<group>"; };
 		51243AA51CA93DCB003F6D88 /* APIDataFields.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = APIDataFields.txt; path = ../APIDataFields.txt; sourceTree = "<group>"; };
-		512499A01C6CD0100061A083 /* imageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageViewController.swift; sourceTree = "<group>"; };
+		512499A01C6CD0100061A083 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainLanguageViewController.swift; sourceTree = "<group>"; };
 		51255EA81EBB463D00A241E9 /* LeftNutrimentScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftNutrimentScoreTableViewCell.swift; sourceTree = "<group>"; };
 		5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewController.swift; sourceTree = "<group>"; };
@@ -948,7 +948,7 @@
 				513982481C89CEB800250FB1 /* Pages */,
 				5193DC131F3E293A009EE70B /* Gallery */,
 				516B327E1C74D9560031EF80 /* EditProductViewController.swift */,
-				512499A01C6CD0100061A083 /* imageViewController.swift */,
+				512499A01C6CD0100061A083 /* ImageViewController.swift */,
 				517BF2C51E44AF3700876E24 /* DynamicCustomSegue.swift */,
 			);
 			name = ProductPages;
@@ -1126,7 +1126,7 @@
 				51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */,
 				5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
-				512499A11C6CD0100061A083 /* imageViewController.swift in Sources */,
+				512499A11C6CD0100061A083 /* ImageViewController.swift in Sources */,
 				51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */,
 				517AAD531C7DB63A00B12F3C /* IngredientsImageTableViewCell.swift in Sources */,
 				51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */,

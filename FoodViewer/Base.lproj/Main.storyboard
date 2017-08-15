@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -55,7 +56,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uvp-sU-I6h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="QhO-Bq-K34" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3030" y="4108.75"/>
+            <point key="canvasLocation" x="3041" y="4109"/>
         </scene>
         <!--Add Favorite Shop Table View Controller-->
         <scene sceneID="XYb-tx-zRY">
@@ -564,7 +565,7 @@
                                     <outlet property="identificationImageView" destination="XzH-J4-r9F" id="0mj-Uf-xbe"/>
                                     <outlet property="takePhotoButton" destination="ele-zO-pK9" id="anS-ot-uKc"/>
                                     <outlet property="useCameraRollButton" destination="nRE-8R-gnq" id="mH5-Aw-WJY"/>
-                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Identification Image" id="Bpf-rD-vDt"/>
+                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Identification Image" id="NIk-rX-rWX"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" rowHeight="44" id="gUL-qK-f1G" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -2366,7 +2367,7 @@
                                         </label>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" red="0.87058823529999996" green="0.14901960780000001" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="d97-Pg-D0G" secondAttribute="trailing" id="341-9P-bN4"/>
                                     <constraint firstItem="g1X-rw-oCv" firstAttribute="leading" secondItem="ze3-ij-q0C" secondAttribute="leading" id="Cen-en-uK8"/>
@@ -2412,7 +2413,7 @@
                     </collectionView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
-                        <segue destination="oCr-2A-ZDa" kind="showDetail" identifier="Show Image" action="showViewController:sender:" id="Vng-FS-eS4"/>
+                        <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Image" id="w6I-Mb-BbL"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2612,7 +2613,7 @@
                                     <outlet property="ingredientsImageView" destination="2Rx-n8-WDV" id="VRM-v0-agh"/>
                                     <outlet property="selectFromCameraRollButton" destination="jWz-fA-YUG" id="BhL-nC-1gH"/>
                                     <outlet property="takePhotoButton" destination="64u-QN-3dx" id="0iu-mX-LoO"/>
-                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Ingredients Image" id="oZb-AL-Fkm"/>
+                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Ingredients Image" id="LXh-Zn-OsY"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" id="VKP-I4-yuk" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -2829,7 +2830,7 @@
                                     <outlet property="nutrientsImageView" destination="bPg-Iy-n3f" id="c0A-eS-h01"/>
                                     <outlet property="takePhotoButton" destination="UNm-Ld-LTE" id="hGE-mw-Y3d"/>
                                     <outlet property="useCameraRollButton" destination="Qcy-nj-zO3" id="Mn4-4d-zAi"/>
-                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Nutrition Facts Image" id="EQr-JI-4QT"/>
+                                    <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Nutrition Facts Image" id="ntk-NT-VGC"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Nutrition Image Cell" rowHeight="44" id="u9d-nb-gSc" customClass="NoNutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -2992,30 +2993,30 @@
         <!--Image View Controller-->
         <scene sceneID="NCZ-i8-lPe">
             <objects>
-                <viewController id="oCr-2A-ZDa" customClass="imageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="oCr-2A-ZDa" customClass="ImageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="u9n-FR-iSu"/>
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="600" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
+                                <rect key="frame" x="0.0" y="12" width="375" height="788"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="788"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" id="49g-yN-tyv"/>
                                     <constraint firstItem="PnH-HO-Mzj" firstAttribute="centerX" secondItem="KL0-pq-7Ws" secondAttribute="centerX" id="89J-5w-gd2"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="top" id="9Jf-WC-UNx"/>
                                     <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="Gwq-Mh-rfb"/>
                                     <constraint firstItem="PnH-HO-Mzj" firstAttribute="leading" secondItem="KL0-pq-7Ws" secondAttribute="leading" id="PsL-HA-Vkv"/>
                                     <constraint firstItem="PnH-HO-Mzj" firstAttribute="centerY" secondItem="KL0-pq-7Ws" secondAttribute="centerY" id="otd-cZ-zkj"/>
+                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="top" id="v4K-59-JqI"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -3023,8 +3024,8 @@
                         <constraints>
                             <constraint firstItem="KL0-pq-7Ws" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" id="B6t-wv-fFT"/>
                             <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" id="GqL-Lu-wYW"/>
-                            <constraint firstItem="KL0-pq-7Ws" firstAttribute="top" secondItem="uFx-FY-aLO" secondAttribute="top" id="J3t-zv-w9y"/>
                             <constraint firstAttribute="trailing" secondItem="KL0-pq-7Ws" secondAttribute="trailing" id="Wyp-w7-Scw"/>
+                            <constraint firstItem="KL0-pq-7Ws" firstAttribute="topMargin" secondItem="u9n-FR-iSu" secondAttribute="bottom" id="zIz-WL-MeP"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3034,7 +3035,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1681" y="4309"/>
+            <point key="canvasLocation" x="2353" y="4109"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -3088,7 +3089,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hN1-hb-NjU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2385" y="4108.75"/>
+            <point key="canvasLocation" x="1674" y="4109"/>
         </scene>
         <!--Select Expiration Date View Controller-->
         <scene sceneID="z2H-NT-F1c">
@@ -3293,10 +3294,10 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GUZ-MJ-1ik"/>
+        <segue reference="NgB-UV-Avc"/>
         <segue reference="bL1-eB-rEY"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="oZb-AL-Fkm"/>
-        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="NIk-rX-rWX"/>
+        <segue reference="z8D-RP-i6i"/>
     </inferredMetricsTieBreakers>
 </document>

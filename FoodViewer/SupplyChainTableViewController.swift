@@ -546,7 +546,17 @@ class SupplyChainTableViewController: UITableViewController {
                     showCountriesTagsType.description() +
                 ")"
             }
-            
+        case .producerCode:
+            switch showProducerCodeTagsType {
+            case TagsTypeDefault.ProducerCode:
+                return header
+            default:
+                return header! +
+                    " " +
+                    "(" +
+                    showProducerCodeTagsType.description() +
+                ")"
+            }
         default:
             return header
         }
@@ -1050,9 +1060,9 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             }
             
         case .producerCode:
-            switch product!.manufacturingPlacesOriginal {
+            switch product!.embCodesInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.manufacturingPlacesOriginal.tag(at: index), in:.producerCode)
+                OFFProducts.manager.search(product!.embCodesInterpreted.tag(at: index), in:.producerCode)
             default:
                 break
             }
