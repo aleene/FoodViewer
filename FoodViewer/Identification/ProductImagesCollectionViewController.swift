@@ -20,7 +20,19 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
+    // This variable returns an array with tuples.
+    // A tuple consists of a languageCode and the corresponding language in the interface language.
+    // The array is sorted on the corresponding language
+    private func keyTuples(for keys: [String]) -> [(String, String)] {
+        var tuples: [(String, String)] = []
+        for key in keys {
+            tuples.append((key,OFFplists.manager.languageName(for:key)))
+        }
+        return tuples.sorted(by: { $0.1 < $1.1 } )
+    }
+    
     fileprivate let itemsPerRow: CGFloat = 5
+    
     fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
 
     private var selectedImage: IndexPath? = nil
@@ -72,9 +84,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // cell.backgroundColor = UIColor.white
         switch indexPath.section {
         case 0:
-            let sortedKeys = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))
-            if indexPath.row < sortedKeys.count {
-                let key = sortedKeys[indexPath.row]
+            if indexPath.row < product!.frontImages.count {
+                let key = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].0
                 if let result = product!.frontImages[key]?.display?.fetch() {
                     switch result {
                     case .available:
@@ -84,16 +95,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                    cell.label.text = OFFplists.manager.languageName(for:key)
+                    cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
                 } else {
                     assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
                 }
             }
         
         case 1:
-            let sortedKeys = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))
-            if indexPath.row < sortedKeys.count {
-                let key = sortedKeys[indexPath.row]
+            if indexPath.row < product!.ingredientsImages.count {
+                let key = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].0
                 if let result = product!.ingredientsImages[key]?.display?.fetch() {
                     switch result {
                     case .available:
@@ -103,15 +113,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                    cell.label.text = OFFplists.manager.languageName(for:key)
+                    cell.label.text = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].1
                 } else {
                     assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
                 }
             }
         case 2:
-            let sortedKeys = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))
-            if indexPath.row < sortedKeys.count {
-                let key = sortedKeys[indexPath.row]
+            if indexPath.row < product!.nutritionImages.count {
+                let key = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].0
                 if let result = product!.nutritionImages[key]?.display?.fetch() {
                     switch result {
                     case .available:
@@ -121,7 +130,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                    cell.label.text = OFFplists.manager.languageName(for:key)
+                    cell.label.text = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].1
                 }
             } else {
                 assert(false, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")

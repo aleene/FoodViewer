@@ -58,6 +58,8 @@ public class ProductImageData {
         }
     }
     
+    var hasBarcode: String? = nil
+    
     init() {
         url = nil
         fetchResult = nil
@@ -123,6 +125,8 @@ public class ProductImageData {
             return .small
         } else if url!.absoluteString.contains(OFF.ImageSize.large.rawValue) {
             return .large
+        } else if url!.absoluteString.contains(OFF.ImageSize.original.rawValue) {
+            return .original
         }
         return .unknown
     }
