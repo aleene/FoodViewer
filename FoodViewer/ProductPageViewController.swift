@@ -167,6 +167,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let vc = pages[index + 1] as? CategoriesTableViewController {
                     vc.editMode = editMode
                 }
+                // index+2 is the CompletionStatesTableViewController
+                
+                // index+3 is the NutritionScoreTableViewController
+                
+                if let vc = pages[index + 4] as? ProductImagesCollectionViewController {
+                    vc.editMode = editMode
+                }
+
             }
         }
     }
@@ -262,7 +270,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             if let vc = pages[index] as? CategoriesTableViewController {
                 vc.delegate = self
-                index += 1
+                index += 3
+            }
+            if let vc = pages[index] as? ProductImagesCollectionViewController {
+                vc.delegate = self
             }
 
         }
@@ -294,6 +305,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             vc.product = product
         } else if let vc = pages[index] as? ProductImagesCollectionViewController {
             vc.product = product
+            vc.editMode = editMode
         }
     }
     
@@ -934,21 +946,28 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func updated(frontImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct!.frontImages[languageCode] = ProductImageSize()
-        updatedProduct!.frontImages[languageCode]?.display = ProductImageData.init(image: frontImage)
+        updatedProduct!.frontImages[languageCode]?.original = ProductImageData.init(image: frontImage)
         saveUpdatedProduct()
     }
 
     func updated(nutritionImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct!.nutritionImages[languageCode] = ProductImageSize()
-        updatedProduct!.nutritionImages[languageCode]?.display = ProductImageData.init(image: nutritionImage)
+        updatedProduct!.nutritionImages[languageCode]?.original = ProductImageData.init(image: nutritionImage)
         saveUpdatedProduct()
     }
 
     func updated(ingredientsImage: UIImage, languageCode: String) {
         initUpdatedProductWith(product: product!)
         updatedProduct!.ingredientsImages[languageCode] = ProductImageSize()
-        updatedProduct!.ingredientsImages[languageCode]?.display = ProductImageData.init(image: ingredientsImage)
+        updatedProduct!.ingredientsImages[languageCode]?.original = ProductImageData.init(image: ingredientsImage)
+        saveUpdatedProduct()
+    }
+
+    func updated(image: UIImage, id: String) {
+        initUpdatedProductWith(product: product!)
+        updatedProduct!.images[id] = ProductImageSize()
+        updatedProduct!.images[id]?.display = ProductImageData.init(image: image)
         saveUpdatedProduct()
     }
 

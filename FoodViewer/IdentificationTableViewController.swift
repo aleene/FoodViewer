@@ -27,6 +27,7 @@ class IdentificationTableViewController: UITableViewController {
         case barcode(Int, String)
         case name(Int, String)
         case genericName(Int, String)
+        case languages(Int, String)
         case brands(Int, String)
         case packaging(Int, String)
         case quantity(Int, String)
@@ -39,6 +40,8 @@ class IdentificationTableViewController: UITableViewController {
             case .name(_, let headerTitle):
                 return headerTitle
             case .genericName(_, let headerTitle):
+                return headerTitle
+            case .languages(_, let headerTitle):
                 return headerTitle
             case .brands(_, let headerTitle):
                 return headerTitle
@@ -58,6 +61,8 @@ class IdentificationTableViewController: UITableViewController {
             case .name(let numberOfRows, _):
                 return numberOfRows
             case .genericName(let numberOfRows, _):
+                return numberOfRows
+            case .languages(let numberOfRows, _):
                 return numberOfRows
             case .brands(let numberOfRows, _):
                 return numberOfRows
@@ -191,6 +196,23 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    fileprivate var languagesToDisplay: Tags {
+        get {
+            // is an updated product available?
+            if delegate?.updatedProduct != nil {
+                // does it have edited packaging tags defined?
+                switch delegate!.updatedProduct!.languageTags {
+                case .available, .empty:
+                    showPackagingTagsType = .edited
+                    return delegate!.updatedProduct!.languageTags
+                default:
+                    break
+                }
+            }
+            return product!.languageTags
+        }
+    }
+
     fileprivate var searchResult: String = ""
 
     // MARK: - Action methods
@@ -263,20 +285,27 @@ class IdentificationTableViewController: UITableViewController {
             return cell!
             
         case .genericName:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
-            cell!.delegate = self
-            cell!.tag = indexPath.section
-            cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+            cell.delegate = self
+            cell.tag = indexPath.section
+            cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 if let validName = delegate?.updatedProduct?.genericNameLanguage[validCurrentLanguageCode] {
-                    cell!.name = validName
+                    cell.name = validName
                 } else if let validName = product!.genericNameLanguage[validCurrentLanguageCode] {
-                        cell!.name = validName
+                        cell.name = validName
                 } else {
-                    cell!.name = nil
+                    cell.name = nil
                 }
             }
-            return cell!
+            return cell
+
+        case .languages:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.tag = indexPath.section
+            return cell
 
         case .brands:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
@@ -492,6 +521,7 @@ class IdentificationTableViewController: UITableViewController {
             static let Barcode = 1
             static let Name = 1
             static let CommonName = 1
+            static let Languages = 1
             static let Brands = 1
             static let Packaging = 1
             static let Quantity = 1
@@ -501,6 +531,7 @@ class IdentificationTableViewController: UITableViewController {
             static let Barcode = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
             static let Name = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
             static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
+            static let Languages = NSLocalizedString("Languages", comment: "Tableview sectionheader for languages on product")
             static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
             static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
             static let Quantity = NSLocalizedString("Quantity", comment: "Tableview sectionheader for size of package.")
@@ -525,16 +556,19 @@ class IdentificationTableViewController: UITableViewController {
         // 2: common name section
         sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
         
-        // 3: brands section
+        // 3: language tags section
+        sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
+
+        // 4: brands section
         sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
         
-        // 4: packaging section
+        // 5: packaging section
         sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         
-        // 5: quantity section
+        // 6: quantity section
         sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
         
-        // 6: image section
+        // 7: image section
         sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
         
         // print("\(sectionsAndRows)")
@@ -714,6 +748,8 @@ class IdentificationTableViewController: UITableViewController {
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
                 popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.permittedArrowDirections = .any
+
             }
         }
     }
@@ -731,7 +767,7 @@ class IdentificationTableViewController: UITableViewController {
             imagePicker.hasResizeableCropArea = true
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum
-            imagePicker.imagePickerController!.modalPresentationStyle = .popover
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
 
             present(imagePicker.imagePickerController!, animated: true, completion: nil)
             if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
@@ -893,6 +929,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return count(brandsToDisplay)
         case .packaging:
             return count(packagingToDisplay)
+        case .languages:
+            return count(languagesToDisplay)
         default:
             return 0
         }
@@ -917,6 +955,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return title(brandsToDisplay)
         case .packaging:
             return title(packagingToDisplay)
+        case .languages:
+            return title(languagesToDisplay)
         case .image:
             return searchResult
         default:

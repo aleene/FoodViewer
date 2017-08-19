@@ -20,6 +20,21 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
+    // Needed to show or hide buttons
+    var editMode: Bool = false {
+        didSet {
+            // vc changed from/to editMode, need to repaint
+            if editMode != oldValue {
+                collectionView?.reloadData()
+            }
+        }
+    }
+    
+    var languageCode: String? = nil
+    
+    // Needed to add new images
+    var delegate: ProductPageViewController? = nil
+    
     // This variable returns an array with tuples.
     // A tuple consists of a languageCode and the corresponding language in the interface language.
     // The array is sorted on the corresponding language
@@ -31,17 +46,37 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         return tuples.sorted(by: { $0.1 < $1.1 } )
     }
     
+    private var originalImages: [String:ProductImageSize] {
+        get {
+            var images = product!.images
+            if let updatedImages = delegate?.updatedProduct?.images {
+                updatedImages.forEach( { images[$0.key] = $0.value } )
+            }
+            return images
+        }
+    }
     fileprivate let itemsPerRow: CGFloat = 5
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
 
     private var selectedImage: IndexPath? = nil
     
+    @IBOutlet weak var addImageFromCameraButton: UIButton!
+    
+    @IBAction func addImageFromCameraButtonTapped(_ sender: UIButton) {
+    }
+    
+    @IBOutlet weak var addImageFromCameraRollButton: UIButton!
+    
+    @IBAction func addImageFromCameraRollButtonTapped(_ sender: UIButton) {
+    }
+    
     // MARK: UICollectionViewDataSource
 
     fileprivate struct Storyboard {
         struct CellIdentifier {
             static let GalleryImageCell = "Gallery Image Cell"
+            static let AddImageCell = "Add Image Cell"
             static let SectionHeader =  "SectionHeaderView"
         }
         struct HeaderTitle {
@@ -49,6 +84,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let Ingredients = NSLocalizedString("Selected Ingredients Images", comment: "Gallery header text presenting the selected ingredients images")
             static let Nutrition = NSLocalizedString("Selected Nutrition Images", comment: "Gallery header text presenting the selected nutrition images")
             static let Original = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
+        }
+        struct NibIdentifier {
+            static let AddImageCollectionCell = "AddImageCollectionViewCell"
         }
         struct SegueIdentifier {
             static let ShowImage = "Show Image"
@@ -71,7 +109,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case 2:
             return product!.nutritionImages.count
         case 3:
-            return product!.images.count
+            // Allow the user to add an image when in editMode
+            return editMode ? originalImages.count + 1 : originalImages.count
         default:
             assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
         }
@@ -80,10 +119,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-        // cell.backgroundColor = UIColor.white
+        
         switch indexPath.section {
         case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+
             if indexPath.row < product!.frontImages.count {
                 let key = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].0
                 if let result = product!.frontImages[key]?.display?.fetch() {
@@ -100,8 +140,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
                 }
             }
+            return cell
         
         case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+
             if indexPath.row < product!.ingredientsImages.count {
                 let key = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].0
                 if let result = product!.ingredientsImages[key]?.display?.fetch() {
@@ -118,7 +161,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
                 }
             }
+            return cell
+            
         case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+            
             if indexPath.row < product!.nutritionImages.count {
                 let key = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].0
                 if let result = product!.nutritionImages[key]?.display?.fetch() {
@@ -135,29 +182,35 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             } else {
                 assert(false, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
             }
-            
-        case 3:
-            let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
-            
-            if let result = product!.images[key]?.display?.fetch() {
-                 
-            switch result {
-            case .available:
-                if let validImage = product!.images[key]?.display?.image {
-                    cell.imageView.image = validImage
-                }
-            default:
-                cell.imageView.image = UIImage.init(named:"NotOK")
-            }
-            cell.label.text = key
-        }
+            return cell
             
         default:
-            assert(false, "ProductImagesCollectionViewController: inexisting section")
-        }
+            // in editMode the last element of a row is an add button
+            if editMode && indexPath.row == originalImages.count {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.AddImageCell, for: indexPath) as! AddImageCollectionViewCell
+                cell.addImageFromCameraButton?.addTarget(self, action: #selector(ProductImagesCollectionViewController.takePhotoButtonTapped), for: .touchUpInside)
+                cell.addImageFromCameraRoll?.addTarget(self, action: #selector(ProductImagesCollectionViewController.useCameraRollButtonTapped), for: .touchUpInside)
 
-        
-        return cell
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
+                let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
+            
+                if let result = originalImages[key]?.display?.fetch() {
+                 
+                    switch result {
+                    case .available:
+                        if let validImage = originalImages[key]?.display?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
+                    }
+                    cell.label.text = key
+                }
+                return cell
+            }
+        }
     }
 
     // MARK: UICollectionViewDelegate
@@ -207,8 +260,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectedImage = indexPath
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImage, sender: self)
+        if editMode && indexPath.row == originalImages.count {
+        } else {
+            selectedImage = indexPath
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImage, sender: self)
+        }
     }
 
     /*
@@ -259,57 +315,65 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     default:
                         assert(false, "ProductImagesCollectionViewController: inexisting section")
                     }
-                    
-
-//                    if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-//                        if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
-//                            vc.image = image
-//                        } else if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display.image {
-//                            vc.image = image
-//                        }
-//                    } else if !product!.frontImages.isEmpty {
-//                        // is the data for the current language available?
-//                        // then fetch the image
-//                        if let result = product!.frontImages[currentLanguageCode!]?.display.fetch() {
-//                            switch result {
-//                            case .available:
-//                                vc.image = product!.frontImages[currentLanguageCode!]?.display.image
-//                            default:
-//                                break
-//                            }
-//                            // try to use the primary image
-//                        } else if let result = product!.frontImages[product!.primaryLanguageCode!]?.display.fetch() {
-//                            switch result {
-//                            case .available:
-//                                vc.image = product!.frontImages[product!.primaryLanguageCode!]?.display.image
-//                            default:
-//                                vc.image = nil
-//                            }
-//                        } else {
-//                            vc.image = nil
-//                        }
-//                    }
                 }
-//            case Storyboard.SegueIdentifier.ShowImageSourceSelector:
-//                if let vc = segue.destination as? SelectImageSourceViewController {
-//                    // The segue can only be initiated from a button within a BarcodeTableViewCell
-//                    if let button = sender as? UIButton {
-//                        if button.superview?.superview as? IdentificationImageTableViewCell != nil {
-//                            if let ppc = vc.popoverPresentationController {
-//                                // set the main language button as the anchor of the popOver
-//                                ppc.permittedArrowDirections = .any
-//                                // I need the button coordinates in the coordinates of the current controller view
-//                                let anchorFrame = button.convert(button.bounds, to: self.view)
-//                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-//                                ppc.delegate = self
-//                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-//                                vc.delegate = self
-//                            }
-//                        }
-//                    }
-//                }
-            default: break
+                default: break
             }
+        }
+    }
+
+    
+    func takePhotoButtonTapped() {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                if let frame = collectionView?.frame {
+                    popoverPresentationController.sourceRect = frame
+                }
+                popoverPresentationController.permittedArrowDirections = .any
+            }
+        }
+    }
+    
+    
+    fileprivate lazy var imagePicker: GKImagePicker = {
+        let picker = GKImagePicker.init()
+        picker.imagePickerController = UIImagePickerController.init()
+        // picker.mediaTypes = [kUTTypeImage as String]
+        return picker
+    }()
+
+    func useCameraRollButtonTapped() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                if let frame = collectionView?.frame {
+                    popoverPresentationController.sourceRect = frame
+                }
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.permittedArrowDirections = .any
+            }
+        }
+    }
+    
+    
+    fileprivate func newImageSelected(info: [String : Any]) {
+        var image: UIImage? = nil
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if image == nil {
+            image = info[UIImagePickerControllerOriginalImage] as? UIImage
         }
     }
 
@@ -317,17 +381,28 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         collectionView?.reloadData()
     }
 
+    func registerCollectionViewCell()
+    {
+        guard let collectionView = self.collectionView else
+        {
+            print("We don't have a reference to the collection view.")
+            return
+        }
+        
+        let nib = UINib(nibName: Storyboard.NibIdentifier.AddImageCollectionCell, bundle: Bundle.main)
+        
+        collectionView.register(nib, forCellWithReuseIdentifier: Storyboard.CellIdentifier.AddImageCell)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         collectionView?.delegate = self
+        
+        registerCollectionViewCell()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -343,6 +418,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
 
 }
+
+
+// MARK: - UICollectionViewDelegateFlowLayout Functions
 
 extension ProductImagesCollectionViewController : UICollectionViewDelegateFlowLayout {
     //1
@@ -371,4 +449,38 @@ extension ProductImagesCollectionViewController : UICollectionViewDelegateFlowLa
         return sectionInsets.left
     }
 }
+
+// MARK: - UIPopoverPresentationControllerDelegate Functions
+
+extension ProductImagesCollectionViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: - Popover delegation functions
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+    
+}
+
+extension ProductImagesCollectionViewController: GKImagePickerDelegate {
+    
+    func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
+        
+        // print("front image", image.size)
+        let newImageID = "\(product!.images.count + 1)"
+        delegate?.updated(image: image, id: newImageID)
+        
+        collectionView?.reloadData()
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+}
+
 

@@ -387,6 +387,8 @@ class OFFUpdate {
 
         uploadImages(product!.nutritionImages, barcode: product!.barcode.asString(), id:"nutrition")
 
+        uploadImages(product!.images, barcode: product!.barcode.asString(), id:"general")
+
         if productUpdated {
             if let url = URL(string: urlString) {
                 
@@ -410,18 +412,20 @@ class OFFUpdate {
         for element in dict {
             guard element.value.largest()?.image != nil else { return }
 
-            // start by unselecting any existing image
-            postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
+            if id != "general" {
+                // start by unselecting any existing image
+                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
                                          OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
-                                // Adding credentials are not accepted
-                                //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
-                                //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
+                                    // Adding credentials are not accepted
+                                    //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
+                                    //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
                                         ],
-                            url: OFFHttpPost.URL.SecurePrefix +
-                                currentProductType.rawValue +
-                                OFFHttpPost.URL.Domain +
-                                OFFHttpPost.URL.UnselectPostFix
-            )
+                                url: OFFHttpPost.URL.SecurePrefix +
+                                    currentProductType.rawValue +
+                                    OFFHttpPost.URL.Domain +
+                                    OFFHttpPost.URL.UnselectPostFix
+                )
+            }
 
             post(image: element.value.largest()!.image!,
                       parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,

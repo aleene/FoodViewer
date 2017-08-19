@@ -80,14 +80,20 @@ class FoodProduct {
     
     var languageCodes: [String] = []
     
-    var languages: [String:String] {
+    var languages: [String] {
         get {
-            var languageList: [String:String] = [:]
+            var languageList: [String] = []
             for languageCode in self.languageCodes {
                 // TBD can this be set in the locale language?
-                languageList[languageCode] = OFFplists.manager.translateLanguage(languageCode, language: "en")
+                languageList.append(OFFplists.manager.languageName(for:languageCode))
             }
-            return languageList
+            return languageList.sorted(by: { $0 < $1 })
+        }
+    }
+    
+    var languageTags: Tags {
+        get {
+            return .available(languages)
         }
     }
     
@@ -893,6 +899,7 @@ class FoodProduct {
             frontImages = product.frontImages
             ingredientsImages = product.ingredientsImages
             nutritionImages = product.nutritionImages
+            images = product.images
             packagingInterpreted = product.packagingInterpreted
             packagingOriginal = product.packagingOriginal
             packagingHierarchy = product.packagingHierarchy

@@ -73,6 +73,7 @@ public class ProductImageData {
     init(image: UIImage) {
         self.url = nil
         self.image = image
+        self.fetchResult = .available
     }
     
     func fetch() -> ImageFetchResult? {
