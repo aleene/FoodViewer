@@ -75,7 +75,7 @@ class FoodProduct {
     var frontImages: [String:ProductImageSize] = [:]
     var nutritionImages: [String:ProductImageSize] = [:]
     var ingredientsImages: [String:ProductImageSize] = [:]
-    // dictionary with image ID as key and the images in varipus sizes as value
+    // dictionary with image ID as key and the images in various sizes as value
     var images: [String:ProductImageSize] = [:]
     
     var languageCodes: [String] = []
