@@ -52,11 +52,11 @@ public struct History {
     init() {
         // get the NSUserdefaults array with search strings
         defaults = UserDefaults.standard
-        if debug {
-            for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-                print("\(key) = \(value) \n")
-            }
-        }
+//        if debug {
+//            for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+//                print("\(key) = \(value) \n")
+//            }
+//        }
         
         // get rid of old stuff
         barcodeTuples.removeAll()

@@ -10,8 +10,9 @@
 import UIKit
 
 /// TDBadgedCell is a table view cell class that adds a badge, similar to the badges in Apple's own apps
-/// The badge is generated as image data and drawn as a sub view to the table view sell. This is hopefully
+/// The badge is generated as image data and drawn as a sub view to the table view cell. This is hopefully
 /// most resource effective that a manual draw(rect:) call would be
+
 class TDBadgedCell: UITableViewCell {
     
     /// Badge value
@@ -28,7 +29,7 @@ class TDBadgedCell: UITableViewCell {
     }
     
     /// Badge background color for normal states
-    public var badgeColor : UIColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1.0)
+    public var badgeColor : UIColor = UIColor(red: 0, green: 0.478, blue: 1, alpha: 1.0) // 007AFF
     /// Badge background color for highlighted states
     public var badgeColorHighlighted : UIColor = .darkGray
     

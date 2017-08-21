@@ -169,9 +169,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     fileprivate enum RowType {
         case name
+        case ingredientsAllergensTraces
         case ingredients
-        case traces
-        case allergens
         case nutritionFacts
         case nutritionScore
         case categories
@@ -183,7 +182,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     private var tableStructure: [RowType] {
         switch currentProductType {
         case .food:
-            return [.name, .nutritionScore, .ingredients, .allergens, .traces, .nutritionFacts, .supplyChain, .categories, .completion]
+            return [.name, .nutritionScore, .ingredientsAllergensTraces, .nutritionFacts, .supplyChain, .categories, .completion]
         case .petFood:
             return [.name, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
@@ -195,6 +194,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         struct CellIdentifier {
             static let Name = "Product Name Cell"
             static let Ingredients = "Product Ingredients Cell"
+            static let IngredientsPage = "Ingredients Page Cell"
             static let Traces = "Product Traces Cell"
             static let Allergens = "Product Allergens Cell"
             static let Countries = "Countries Cell"
@@ -264,41 +264,44 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                         return cell
                         
-                    case .ingredients:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+                    case .ingredientsAllergensTraces:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
+                        
+                        cell.ingredientsLabel?.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
 
                         if let number = currentProduct.numberOfIngredients {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
-                            cell.badgeString = "\(number)"
+                            cell.ingredientsBadgeString = "\(number)"
                         } else {
-                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no ingredients defined.")
+                            cell.ingredientsBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no ingredients defined.")
                         }
-                        return cell
                         
-                    case .traces:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
-                        switch currentProduct.tracesInterpreted {
-                        case .available(let traces):
-                            cell.badgeString = "\(traces.count)"
-                        default:
-                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
-                        }
-                        return cell
-                        
-                    case .allergens:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
+                        cell.allergensLabel?.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
                         switch currentProduct.allergensTranslated {
                         case .available(let allergens):
-                            cell.badgeString = "\(allergens.count)"
+                            cell.allergensBadgeString = "\(allergens.count)"
                         default:
-                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
+                            cell.allergensBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
+                        }
+                        
+                        cell.tracesLabel?.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
+                        switch currentProduct.tracesInterpreted {
+                        case .available(let traces):
+                            cell.tracesBadgeString = "\(traces.count)"
+                        default:
+                            cell.tracesBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
                         }
                         return cell
-
+                        
+                    case .ingredients:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TDBadgedCell
+                        cell.textLabel!.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+                        if let number = currentProduct.numberOfIngredients {
+                            cell.badgeString = number
+                        }
+                        return cell
+                        
                     case .nutritionFacts:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
@@ -511,7 +514,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switch rowType {
             case .name:
                 return 0
-            case .ingredients, .allergens, .traces:
+            case .ingredientsAllergensTraces:
                 return 1
             case .nutritionFacts:
                 return 2
@@ -523,12 +526,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 return 5
             case .nutritionScore:
                 return 6
+            default:
+                return 0
             }
         case .petFood:
             switch rowType {
             case .name:
                 return 0
-            case .ingredients, .allergens, .traces:
+            case .ingredients:
                 return 1
             case .nutritionFacts:
                 return 2
@@ -545,7 +550,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switch rowType {
             case .name:
                 return 0
-            case .ingredients, .allergens, .traces:
+            case .ingredients:
                 return 1
             case .supplyChain:
                 return 2
