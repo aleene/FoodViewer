@@ -894,21 +894,18 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                         </textField>
                         <view key="tableFooterView" contentMode="scaleToFill" id="pLB-EC-tip">
-                            <rect key="frame" x="0.0" y="736.5" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="783.5" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="76" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Name Cell" rowHeight="101" id="bWZ-hV-bq2" customClass="NameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="320" height="101"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="76" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Name Cell" rowHeight="100" id="bWZ-hV-bq2" customClass="NameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="85.5" width="320" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bWZ-hV-bq2" id="ent-l2-AXm">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="249" placeholderIntrinsicWidth="535" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="u25-xF-kot">
-                                            <rect key="frame" x="23" y="16" width="248" height="60"/>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hyf-DH-VMK">
                                             <rect key="frame" x="15" y="84" width="264" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -917,28 +914,86 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="u25-xF-kot" firstAttribute="top" secondItem="ent-l2-AXm" secondAttribute="topMargin" constant="8" id="5qv-1t-F7c"/>
-                                        <constraint firstItem="u25-xF-kot" firstAttribute="leading" secondItem="ent-l2-AXm" secondAttribute="leadingMargin" constant="15" id="NOv-wf-YBD"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Hyf-DH-VMK" secondAttribute="trailing" id="P0K-Gm-9cX"/>
-                                        <constraint firstItem="Hyf-DH-VMK" firstAttribute="top" secondItem="u25-xF-kot" secondAttribute="bottom" constant="8" id="Yk6-iK-Ix7"/>
                                         <constraint firstItem="Hyf-DH-VMK" firstAttribute="leading" secondItem="ent-l2-AXm" secondAttribute="leadingMargin" constant="7" id="hTB-IF-AkD"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="u25-xF-kot" secondAttribute="trailing" constant="8" id="n8R-TU-QHP"/>
-                                        <constraint firstItem="u25-xF-kot" firstAttribute="centerX" secondItem="ent-l2-AXm" secondAttribute="centerX" id="uim-tY-VLC"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="Hyf-DH-VMK" secondAttribute="bottom" constant="8" id="upm-4W-28b"/>
                                     </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="uim-tY-VLC"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="brandLabel" destination="Hyf-DH-VMK" id="HDk-q9-8KV"/>
-                                    <outlet property="productImageView" destination="u25-xF-kot" id="8Xd-jn-X0C"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Images Page Cell" rowHeight="136" id="97z-Ep-ilv" customClass="ImagesPageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="185.5" width="320" height="136"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="97z-Ep-ilv" id="dH9-5F-Km3">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="135"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pQd-bz-h1h">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="135.5"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="pQd-bz-h1h" firstAttribute="top" secondItem="dH9-5F-Km3" secondAttribute="top" id="Cak-vH-47p"/>
+                                        <constraint firstItem="pQd-bz-h1h" firstAttribute="leading" secondItem="dH9-5F-Km3" secondAttribute="leading" id="P1F-9V-19H"/>
+                                        <constraint firstAttribute="bottom" secondItem="pQd-bz-h1h" secondAttribute="bottom" id="oxm-ET-T9M"/>
+                                        <constraint firstAttribute="trailing" secondItem="pQd-bz-h1h" secondAttribute="trailing" id="tWF-4K-OMS"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="productImageView" destination="pQd-bz-h1h" id="P1F-aX-vxa"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ingredients Page Cell" rowHeight="136" id="kyC-qV-C8y" customClass="IngredientsPageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="321.5" width="320" height="136"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kyC-qV-C8y" id="2wP-b6-GaC">
+                                    <rect key="frame" x="0.0" y="0.0" width="287" height="135"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdQ-cz-UZT" userLabel="Ingredients">
+                                            <rect key="frame" x="16" y="8" width="263" height="34.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKh-Yc-0M2" userLabel="Allergens">
+                                            <rect key="frame" x="16" y="50.5" width="263" height="34.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUq-0m-0ts" userLabel="Traces">
+                                            <rect key="frame" x="16" y="93" width="263" height="34.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="leading" secondItem="2wP-b6-GaC" secondAttribute="leadingMargin" constant="8" id="25F-Hk-zs2"/>
+                                        <constraint firstItem="zKh-Yc-0M2" firstAttribute="leading" secondItem="2wP-b6-GaC" secondAttribute="leadingMargin" constant="8" id="5or-K9-A1A"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="zKh-Yc-0M2" secondAttribute="trailing" id="DZj-No-b7z"/>
+                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="height" secondItem="zKh-Yc-0M2" secondAttribute="height" id="GeS-Uw-TaC"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="EUq-0m-0ts" secondAttribute="trailing" id="IsU-xA-e8U"/>
+                                        <constraint firstItem="EUq-0m-0ts" firstAttribute="top" secondItem="zKh-Yc-0M2" secondAttribute="bottom" constant="8" id="KGM-T8-hXP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="EUq-0m-0ts" secondAttribute="bottom" id="QzZ-j0-PB5"/>
+                                        <constraint firstItem="zKh-Yc-0M2" firstAttribute="top" secondItem="NdQ-cz-UZT" secondAttribute="bottom" constant="8" id="k09-Y0-ftk"/>
+                                        <constraint firstItem="EUq-0m-0ts" firstAttribute="leading" secondItem="2wP-b6-GaC" secondAttribute="leadingMargin" constant="8" id="kDb-pw-76R"/>
+                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="top" secondItem="2wP-b6-GaC" secondAttribute="topMargin" id="u4L-fx-XVV"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="NdQ-cz-UZT" secondAttribute="trailing" id="ucJ-y2-wAL"/>
+                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="height" secondItem="EUq-0m-0ts" secondAttribute="height" id="y63-fm-Fgu"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="allergensLabel" destination="zKh-Yc-0M2" id="tC2-Gd-4iH"/>
+                                    <outlet property="ingredientsLabel" destination="NdQ-cz-UZT" id="156-1Y-ACr"/>
+                                    <outlet property="tracesLabel" destination="EUq-0m-0ts" id="yvl-4k-9LV"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Ingredients Cell" textLabel="X8o-xL-JHq" style="IBUITableViewCellStyleDefault" id="g3L-y0-JWY" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="187" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="457.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g3L-y0-JWY" id="6bU-jH-Edw">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -955,7 +1010,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Nutrition Facts Name Cell" textLabel="eWS-0h-9I9" style="IBUITableViewCellStyleDefault" id="u6b-Yx-iDU" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="231" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="501.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u6b-Yx-iDU" id="Qok-7i-4Pu">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -972,7 +1027,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Nutrition Score Cell" id="boP-ux-vyF" customClass="NutritionScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="275" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="545.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="boP-ux-vyF" id="fbs-DK-n1R">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1056,7 +1111,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Producer Cell" textLabel="wud-xG-KwE" style="IBUITableViewCellStyleDefault" id="Fde-me-f3L" userLabel="Production Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="319" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="589.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fde-me-f3L" id="E1b-fC-kgQ">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1073,7 +1128,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Categories Cell" textLabel="v3K-8N-MNq" style="IBUITableViewCellStyleDefault" id="oa3-dE-ble" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="363" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="633.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oa3-dE-ble" id="s44-5e-9qk">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
@@ -1090,7 +1145,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Completion State Cell" rowHeight="44" id="aDa-2B-qYf" userLabel="Product Completion Cell" customClass="CompletionTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="407" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="677.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aDa-2B-qYf" id="pgA-Rg-zGf">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1124,7 +1179,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product TagListView Cell" id="KO8-HA-oMU" userLabel="Being Loaded Cell" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="451" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="721.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KO8-HA-oMU" id="Sn6-4w-I0S">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -1144,87 +1199,6 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="tagListView" destination="azO-Z3-sl3" id="IzY-Qx-3fo"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Traces Cell" textLabel="nva-Fb-0pI" style="IBUITableViewCellStyleDefault" id="diJ-34-7ph" userLabel="Product Traces Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="495" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="diJ-34-7ph" id="hAt-o5-ItA">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nva-Fb-0pI">
-                                            <rect key="frame" x="15" y="0.0" width="270" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Allergens Cell" textLabel="ncG-ut-Pdi" style="IBUITableViewCellStyleDefault" id="3H7-hv-cau" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="539" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3H7-hv-cau" id="kzY-hI-bhS">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ncG-ut-Pdi">
-                                            <rect key="frame" x="15" y="0.0" width="270" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ingredients Page Cell" rowHeight="136" id="kyC-qV-C8y" customClass="IngredientsPageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="583" width="320" height="136"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kyC-qV-C8y" id="2wP-b6-GaC">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="135"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdQ-cz-UZT" userLabel="Ingredients">
-                                            <rect key="frame" x="16" y="8" width="263" height="34.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKh-Yc-0M2" userLabel="Allergens">
-                                            <rect key="frame" x="16" y="50.5" width="263" height="34.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EUq-0m-0ts" userLabel="Traces">
-                                            <rect key="frame" x="16" y="93" width="263" height="34.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="leading" secondItem="2wP-b6-GaC" secondAttribute="leadingMargin" constant="8" id="25F-Hk-zs2"/>
-                                        <constraint firstItem="zKh-Yc-0M2" firstAttribute="leading" secondItem="2wP-b6-GaC" secondAttribute="leadingMargin" constant="8" id="5or-K9-A1A"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="zKh-Yc-0M2" secondAttribute="trailing" id="DZj-No-b7z"/>
-                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="height" secondItem="zKh-Yc-0M2" secondAttribute="height" id="GeS-Uw-TaC"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="EUq-0m-0ts" secondAttribute="trailing" id="IsU-xA-e8U"/>
-                                        <constraint firstItem="EUq-0m-0ts" firstAttribute="top" secondItem="zKh-Yc-0M2" secondAttribute="bottom" constant="8" id="KGM-T8-hXP"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="EUq-0m-0ts" secondAttribute="bottom" id="QzZ-j0-PB5"/>
-                                        <constraint firstItem="zKh-Yc-0M2" firstAttribute="top" secondItem="NdQ-cz-UZT" secondAttribute="bottom" constant="8" id="k09-Y0-ftk"/>
-                                        <constraint firstItem="EUq-0m-0ts" firstAttribute="leading" secondItem="2wP-b6-GaC" secondAttribute="leadingMargin" constant="8" id="kDb-pw-76R"/>
-                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="top" secondItem="2wP-b6-GaC" secondAttribute="topMargin" id="u4L-fx-XVV"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="NdQ-cz-UZT" secondAttribute="trailing" id="ucJ-y2-wAL"/>
-                                        <constraint firstItem="NdQ-cz-UZT" firstAttribute="height" secondItem="EUq-0m-0ts" secondAttribute="height" id="y63-fm-Fgu"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="allergensLabel" destination="zKh-Yc-0M2" id="tC2-Gd-4iH"/>
-                                    <outlet property="ingredientsLabel" destination="NdQ-cz-UZT" id="156-1Y-ACr"/>
-                                    <outlet property="tracesLabel" destination="EUq-0m-0ts" id="yvl-4k-9LV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

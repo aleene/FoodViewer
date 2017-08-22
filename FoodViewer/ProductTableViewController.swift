@@ -169,6 +169,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     fileprivate enum RowType {
         case name
+        case image
         case ingredientsAllergensTraces
         case ingredients
         case nutritionFacts
@@ -182,21 +183,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     private var tableStructure: [RowType] {
         switch currentProductType {
         case .food:
-            return [.name, .nutritionScore, .ingredientsAllergensTraces, .nutritionFacts, .supplyChain, .categories, .completion]
+            return [.name, .image, .nutritionScore, .ingredientsAllergensTraces, .nutritionFacts, .supplyChain, .categories, .completion]
         case .petFood:
-            return [.name, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
+            return [.name, .image, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
-            return [.name, .ingredients, .supplyChain, .categories, .completion ]
+            return [.name, .image, .ingredients, .supplyChain, .categories, .completion ]
         }
     }
     
     fileprivate struct Storyboard {
         struct CellIdentifier {
             static let Name = "Product Name Cell"
+            static let Image = "Images Page Cell"
             static let Ingredients = "Product Ingredients Cell"
             static let IngredientsPage = "Ingredients Page Cell"
-            static let Traces = "Product Traces Cell"
-            static let Allergens = "Product Allergens Cell"
+            // static let Traces = "Product Traces Cell"
+            // static let Allergens = "Product Allergens Cell"
             static let Countries = "Countries Cell"
             static let NutritionFacts = "Product Nutrition Facts Name Cell"
             static let NutritionScore = "Product Nutrition Score Cell"
@@ -248,7 +250,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         case let .available(list):
                             cell.productBrand = list
                         }
-
+                        return cell
+                        
+                    case .image:
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
                         if let language = currentProduct.primaryLanguageCode {
                             cell.productImage = nil
                             if !currentProduct.frontImages.isEmpty {
@@ -263,7 +268,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             }
                         }
                         return cell
-                        
+
                     case .ingredientsAllergensTraces:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                         
@@ -295,7 +300,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         return cell
                         
                     case .ingredients:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TDBadgedCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
                         if let number = currentProduct.numberOfIngredients {
                             cell.badgeString = number
@@ -526,6 +531,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 return 5
             case .nutritionScore:
                 return 6
+            case .image:
+                return 7
             default:
                 return 0
             }
@@ -543,6 +550,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 return 4
             case .completion:
                 return 5
+            case .image:
+                return 6
             default:
                 return 0
             }
@@ -558,6 +567,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 return 3
             case .completion:
                 return 4
+            case .image:
+                return 5
             default:
                 return 0
             }

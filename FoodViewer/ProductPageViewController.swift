@@ -797,6 +797,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func update(countries: [String]?) {
         if let validTags = countries {
             guard product != nil else { return }
+            guard !validTags.isEmpty else { return }
             switch product!.countriesOriginal {
             case .available:
                 if !product!.contains(purchaseLocation: validTags) {
@@ -805,7 +806,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     saveUpdatedProduct()
                 }
             default:
-                break
+                initUpdatedProductWith(product: product!)
+                updatedProduct?.countriesOriginal = .available(validTags)
+                saveUpdatedProduct()
             }
         }
     }

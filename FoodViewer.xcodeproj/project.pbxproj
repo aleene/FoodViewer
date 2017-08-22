@@ -218,6 +218,7 @@
 		51F669391F4499190074AACB /* AddImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F669371F4499190074AACB /* AddImageCollectionViewCell.swift */; };
 		51F6693A1F4499190074AACB /* AddImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */; };
 		51F669411F49CB620074AACB /* IngredientsPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F669401F49CB620074AACB /* IngredientsPageTableViewCell.swift */; };
+		51F669431F4B164D0074AACB /* ImagesPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F669421F4B164C0074AACB /* ImagesPageTableViewCell.swift */; };
 		51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */; };
 		51FB322D1CF44E8A00A17312 /* BarcodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB322C1CF44E8A00A17312 /* BarcodeTableViewCell.swift */; };
 		51FB322F1CF7589700A17312 /* AllergenWarningsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51FB322E1CF7589700A17312 /* AllergenWarningsTableViewController.swift */; };
@@ -480,6 +481,7 @@
 		51F669371F4499190074AACB /* AddImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		51F669401F49CB620074AACB /* IngredientsPageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsPageTableViewCell.swift; sourceTree = "<group>"; };
+		51F669421F4B164C0074AACB /* ImagesPageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagesPageTableViewCell.swift; sourceTree = "<group>"; };
 		51FB32261CF1F4D100A17312 /* Macadamia.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Macadamia.json; sourceTree = "<group>"; };
 		51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReferenceDailyIntakeList.swift; sourceTree = "<group>"; };
 		51FB322C1CF44E8A00A17312 /* BarcodeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeTableViewCell.swift; sourceTree = "<group>"; };
@@ -728,6 +730,7 @@
 			children = (
 				516BA5891CC3F06C008A094A /* BeingLoadedTableViewCell.swift */,
 				5159D8A61C6666C60082C60E /* NameTableViewCell.swift */,
+				51F669421F4B164C0074AACB /* ImagesPageTableViewCell.swift */,
 				51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */,
 				516D0C301C906E9E00C1C789 /* NutritionFactsTableViewCell.swift */,
 				51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */,
@@ -1165,6 +1168,7 @@
 				5157426C1CDB63B200BE8E2D /* RSCode128Generator.swift in Sources */,
 				515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */,
 				512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */,
+				51F669431F4B164D0074AACB /* ImagesPageTableViewCell.swift in Sources */,
 				518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */,
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
