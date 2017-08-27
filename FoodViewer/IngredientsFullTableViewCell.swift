@@ -62,6 +62,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
         
         if editMode {
             if unAttributedIngredients.characters.count > 0 {
+                // needed to reset the color of the text. It is not actually shown.
+                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSForegroundColorAttributeName : UIColor.black,  NSFontAttributeName: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
                 textView?.text = unAttributedIngredients
                 textView?.sizeToFit()
             } else {
@@ -108,7 +110,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
                     let allergenAttributes = [NSForegroundColorAttributeName : UIColor.red, NSFontAttributeName: UIFont.systemFont(ofSize: fontSize)]
                     let noAttributes = [NSForegroundColorAttributeName : UIColor.black,  NSFontAttributeName: UIFont.systemFont(ofSize: fontSize)]
                     // create a attributable string
-                    let myString = NSMutableAttributedString(string: "", attributes: allergenAttributes)
+                    let myString = NSMutableAttributedString(string: "", attributes: noAttributes)
                     let components = text.components(separatedBy: "_")
                     for (index, component) in components.enumerated() {
                         // if the text starts with a "_", then there will be an empty string component
