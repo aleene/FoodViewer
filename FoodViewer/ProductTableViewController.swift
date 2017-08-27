@@ -167,6 +167,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
+    // The row types are mapped onto custom cells
     fileprivate enum RowType {
         case name
         case image
@@ -177,6 +178,28 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case categories
         case completion
         case supplyChain
+        
+        // map the row types to corresponding product sections
+        func productSection() -> ProductSection {
+            switch self {
+            case .name:
+                return .identification
+            case .image:
+                return .gallery
+            case .ingredientsAllergensTraces, .ingredients:
+                return .ingredients
+            case .nutritionFacts:
+                return .nutritionFacts
+            case .nutritionScore:
+                return .nutritionScore
+            case .categories:
+                return .categories
+            case .completion:
+                return .completion
+            case .supplyChain:
+                return .supplyChain
+            }
+        }
     }
 
     // defines the order of the rows
@@ -495,9 +518,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.product = selectedProduct
                         if let validSelectedRowType = selectedRowType {
-                            ppvc.pageIndex = pageIndex(validSelectedRowType)
+                            ppvc.pageIndex = validSelectedRowType.productSection()
                         } else {
-                            ppvc.pageIndex = 0
+                            ppvc.pageIndex = .identification
                         }
                     }
                 }
@@ -797,8 +820,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         self.tableView.estimatedRowHeight = 80.0
         
         initializeCustomKeyboard()
-        
-        startInterface(at: 0)
+        // DO WE NEED THIS?
+        // startInterface(at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {

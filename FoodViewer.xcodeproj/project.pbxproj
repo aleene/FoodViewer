@@ -75,6 +75,7 @@
 		5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0631CBAC3F800161616 /* NutritionFactItem.swift */; };
 		5150C0661CBCD66F00161616 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0651CBCD66F00161616 /* Preferences.swift */; };
 		5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */; };
+		5153FDC51F5016A100F3E20F /* ProductSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5153FDC41F5016A100F3E20F /* ProductSection.swift */; };
 		515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742581CDB63B100BE8E2D /* RSCode39Generator.swift */; };
 		5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */; };
 		5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */; };
@@ -326,6 +327,7 @@
 		5150C0631CBAC3F800161616 /* NutritionFactItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItem.swift; sourceTree = "<group>"; };
 		5150C0651CBCD66F00161616 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReferenceDailyIntakeValues.plist; sourceTree = "<group>"; };
+		5153FDC41F5016A100F3E20F /* ProductSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSection.swift; sourceTree = "<group>"; };
 		515742581CDB63B100BE8E2D /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Generator.swift; path = RS/RSCode39Generator.swift; sourceTree = "<group>"; };
 		515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Mod43Generator.swift; path = RS/RSCode39Mod43Generator.swift; sourceTree = "<group>"; };
 		5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode93Generator.swift; path = RS/RSCode93Generator.swift; sourceTree = "<group>"; };
@@ -857,6 +859,7 @@
 		519884E11CE4EA5E0020B3A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				5153FDC41F5016A100F3E20F /* ProductSection.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
 				511B2C421E78687E00336CE8 /* Mass.swift */,
 				5127CDEE1E48A03600944FE8 /* ProductImageData.swift */,
@@ -1285,6 +1288,7 @@
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
 				511B2C431E78687E00336CE8 /* Mass.swift in Sources */,
 				5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */,
+				5153FDC51F5016A100F3E20F /* ProductSection.swift in Sources */,
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,

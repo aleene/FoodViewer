@@ -1,4 +1,4 @@
-//
+ //
 //  ProductPageViewController.swift
 //  FoodViewer
 //
@@ -10,42 +10,8 @@ import UIKit
 import LocalAuthentication
 
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ProductUpdatedProtocol {
-
-    fileprivate struct Constants {
-        static let StoryBoardIdentifier = "Main"
-        static let IdentificationVCIdentifier = "IdentificationTableViewController"
-        static let IngredientsVCIdentifier = "IngredientsTableViewController"
-        static let NutrientsVCIdentifier = "NutrientsTableViewController"
-        static let SupplyChainVCIdentifier = "SupplyChainTableViewController"
-        static let CategoriesVCIdentifier = "CategoriesTableViewController"
-        static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
-        static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
-        static let ProductImagesVCIndentifier = "ProductImagesCollectionViewController"
-        static let ConfirmProductViewControllerSegue = "Confirm Product Segue"
-    }
     
-    // The languageCode for the language in which the fields are shown
-    fileprivate var currentLanguageCode: String? = nil {
-        didSet {
-            // if a valid page is presented, the currentLanguageCode can be passed on
-            guard pageIndex != nil else { return }
-            if currentLanguageCode != oldValue {
-                if let vc = pages[0] as? IdentificationTableViewController {
-                    vc.currentLanguageCode = currentLanguageCode
-                }
-                if let vc = pages[1] as? IngredientsTableViewController {
-                    vc.currentLanguageCode = currentLanguageCode
-                }
-                
-                // not relevant for openBeautyFacts, but fails gently in that case
-                if let vc = pages[2] as? NutrientsTableViewController {
-                    vc.currentLanguageCode = currentLanguageCode
-                }
-            }
-        }
-    }
-    
-    // MARK: - Interface Actions
+// MARK: - Interface Actions
     
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem!
     
@@ -93,7 +59,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         editMode = !editMode
     }
     
-        
+// MARK: - Save product functions
+
     private var userWantsToSave = false
     
     func saveUpdatedProduct() {
@@ -132,303 +99,169 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
         }
     }
-    
-    private var currentProductType: ProductType {
-        return Preferences.manager.showProductType
-    }
-
-    fileprivate var editMode: Bool = false {
+//
+// MARK: - Public variables and functions
+//
+    var product: FoodProduct? = nil {
         didSet {
-            if editMode != oldValue {
-                confirmBarButtonItem.image = editMode ? UIImage.init(named: "CheckMark") : UIImage.init(named: "Edit")
-                // pushdown any change
-                if let vc = pages[0] as? IdentificationTableViewController {
-                    vc.editMode = editMode
-                }
-                if let vc = pages[1] as? IngredientsTableViewController {
-                    vc.editMode = editMode
-                }
-                // not relevant for openBeautyFacts, but fails gently in that case
-                if let vc = pages[2] as? NutrientsTableViewController {
-                    vc.editMode = editMode
-                }
-                
-                var index = 0
-                switch currentProductType {
-                case .food, .petFood:
-                    index += 3
-                case .beauty:
-                    index += 2
-                }
-                
-                if let vc = pages[index] as? SupplyChainTableViewController {
-                    vc.editMode = editMode
-                }
-                if let vc = pages[index + 1] as? CategoriesTableViewController {
-                    vc.editMode = editMode
-                }
-                // index+2 is the CompletionStatesTableViewController
-                
-                // index+3 is the NutritionScoreTableViewController
-                
-                if let vc = pages[index + 4] as? ProductImagesCollectionViewController {
-                    vc.editMode = editMode
-                }
-
-            }
+            if oldValue == nil && product != nil {
+            // has the product been initailised?
+                setCurrentLanguage()
+                //setupProduct()
+            } else if oldValue != nil && product != nil && oldValue!.barcode.asString() != product!.barcode.asString() {
+            // was there a product change?
+                setCurrentLanguage()
+            } // otherwise the language can not be set
         }
     }
 
-    // MARK: - Pages initialization
-    
-    var pageIndex: Int? = nil {
+    var pageIndex: ProductSection = .identification {
         didSet {
             if pageIndex != oldValue {
                 // has the initialisation been done?
                 if pages.isEmpty {
                     initPages()
                 }
-                
-                // do we have a valid pageIndex?
-                if pageIndex == nil {
-                    pageIndex = 0
-                } else if pageIndex! < 0 || pageIndex! > pages.count - 1 {
-                    pageIndex = 0
-                }
-                if oldValue != nil {
+                if let oldIndex = pages.index(where: { $0 == oldValue } ),
+                    let newIndex = pages.index(where: { $0 == pageIndex } ) {
                     // open de corresponding page
-                    if pageIndex! > oldValue! {
+                    if newIndex > oldIndex {
                         setViewControllers(
-                            [pages[pageIndex!]],
+                            [viewController(for:pageIndex)],
                             direction: .forward,
                             animated: true, completion: nil)
                     } else {
                         setViewControllers(
-                            [pages[pageIndex!]],
+                            [viewController(for:pageIndex)],
                             direction: .reverse,
                             animated: true, completion: nil)
                     }
-                } else {
-                    setViewControllers(
-                        [pages[pageIndex!]],
-                        direction: .forward,
-                        animated: true, completion: nil)
                 }
-                title = titles[pageIndex!]
-                
-                initPage(pageIndex!)
-            }
-        }
-    }
-    
-    
-    fileprivate var pages: [UIViewController] = []
-    
-    fileprivate func initPages () {
-        
-        // only initialise when a page needs to be shown
-        guard pageIndex != nil else { return }
-        // initialise pages
-        if pages.isEmpty {
-            pages.append(page1)
-            pages.append(page2)
-            // Beauty products do not have nutriments
-            if currentProductType != .beauty {
-                pages.append(page3)
-            }
-            pages.append(page4)
-            pages.append(page5)
-            pages.append(page6)
-            // Only food products do have a nutition score
-            if currentProductType == .food {
-                pages.append(page7)
-            }
-            pages.append(page8)
-
-            var index = 0
-            if let vc = pages[index] as? IdentificationTableViewController {
-                vc.delegate = self
-                title = titles[index]
-                index += 1
-            }
-            if let vc = pages[index] as? IngredientsTableViewController {
-                vc.delegate = self
-                index += 1
+            } else {
+                setViewControllers(
+                    [viewController(for:pageIndex)],
+                    direction: .forward,
+                    animated: true, completion: nil)
             }
             
-            // Beauty products do not have nutriments
-            if currentProductType != .beauty {
-                
-                if let vc = pages[index] as? NutrientsTableViewController {
-                    vc.delegate = self
-                    index += 1
-                }
-            }
-            if let vc = pages[index] as? SupplyChainTableViewController {
-                vc.delegate = self
-                index += 1
-            }
-            if let vc = pages[index] as? CategoriesTableViewController {
-                vc.delegate = self
-                index += 3
-            }
-            if let vc = pages[index] as? ProductImagesCollectionViewController {
-                vc.delegate = self
-            }
-
+            initPage(pageIndex)
+            // title = pageIndex.description()
         }
     }
     
-    private func initPage(_ index: Int) {
-
-        if let vc = pages[index] as? IdentificationTableViewController {
-            vc.product = product
-            vc.currentLanguageCode = currentLanguageCode
-            vc.editMode = editMode
-        } else if let vc = pages[index] as? IngredientsTableViewController {
-            vc.product = product
-            vc.editMode = editMode
-            vc.currentLanguageCode = currentLanguageCode
-        } else if let vc = pages[index] as? NutrientsTableViewController {
-            vc.product = product
-            vc.currentLanguageCode = currentLanguageCode
-            vc.editMode = editMode
-        } else if let vc = pages[index] as? SupplyChainTableViewController {
-            vc.product = product
-            vc.editMode = editMode
-        } else if let vc = pages[index] as? CategoriesTableViewController {
-            vc.product = product
-            vc.editMode = editMode
-        } else if let vc = pages[index] as? CompletionStatesTableViewController {
-            vc.product = product
-        } else if let vc = pages[index] as? NutritionScoreTableViewController {
-            vc.product = product
-        } else if let vc = pages[index] as? ProductImagesCollectionViewController {
-            vc.product = product
-            vc.editMode = editMode
-        }
-    }
-    
-    private struct Title {
-        static let Identification = NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info.")
-        static let Ingredients = NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product.")
-        static let Facts = NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product.")
-        static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product.")
-        static let Categories = NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product.")
-        static let Effort = NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")
-        static let Score = NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")
-        static let Gallery = NSLocalizedString("Gallery", comment: "Viewcontroller title for page with images of the product")
-    }
-    
-    fileprivate var titles: [String] {
-        get {
-            var titles: [String] = []
-            switch currentProductType {
-            case .food:
-                titles.append("1 - " + Title.Identification)
-                titles.append("2 - " + Title.Ingredients)
-                titles.append("3 - " + Title.Facts)
-                titles.append("4 - " + Title.SupplyChain)
-                titles.append("5 - " + Title.Categories)
-                titles.append("6 - " + Title.Effort)
-                titles.append("7 - " + Title.Score)
-                titles.append("8 - " + Title.Gallery)
-                
-            case .petFood:
-                titles.append("1 - " + Title.Identification)
-                titles.append("2 - " + Title.Ingredients)
-                titles.append("3 - " + Title.Facts)
-                titles.append("4 - " + Title.SupplyChain)
-                titles.append("5 - " + Title.Categories)
-                titles.append("6 - " + Title.Effort)
-                titles.append("7 - " + Title.Gallery)
-
-            case .beauty:
-                titles.append("1 - " + Title.Identification)
-                titles.append("2 - " + Title.Ingredients)
-                titles.append("3 - " + Title.SupplyChain)
-                titles.append("4 - " + Title.Categories)
-                titles.append("5 - " + Title.Effort)
-                titles.append("6 - " + Title.Gallery)
-            }
-            return titles
-        }
-    }
-    
-    fileprivate var page1: UIViewController {
-        get {
-            return storyboard!.instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier)
-        }
-    }
-    fileprivate var page2: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IngredientsVCIdentifier)
-        }
-    }
-    fileprivate var page3: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutrientsVCIdentifier)
-        }
-    }
-    fileprivate var page4: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.SupplyChainVCIdentifier)
-        }
-    }
-    fileprivate var page5: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CategoriesVCIdentifier)
-        }
-    }
-    fileprivate var page6: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CommunityEffortVCIdentifier)
-        }
-    }
-    fileprivate var page7: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier)
-        }
-    }
-    fileprivate var page8: UIViewController {
-        get {
-            return UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.ProductImagesVCIndentifier)
-        }
+    private var currentProductType: ProductType {
+        return Preferences.manager.showProductType
     }
 
-    var product: FoodProduct? = nil {
+    
+    // The languageCode for the language in which the fields are shown
+    fileprivate var currentLanguageCode: String? = nil {
         didSet {
-            if product != nil {
-                
-                setCurrentLanguage()
-                
-                // only set the field of a page if we have a valid page
-                
-                if let index = pageIndex {
-                    if let vc = pages[index] as? IdentificationTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? IngredientsTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? NutrientsTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? SupplyChainTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? CategoriesTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? CompletionStatesTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? NutritionScoreTableViewController {
-                        vc.product = product
-                    } else if let vc = pages[index] as? ProductImagesCollectionViewController {
-                        vc.product = product
-                    }
-                }
+            // pass the changed language on
+            if currentLanguageCode != oldValue {
+                setupCurrentLanguage()
             }
         }
     }
+
+    fileprivate var editMode: Bool = false {
+        didSet {
+            if editMode != oldValue {
+                // change look edit button
+                confirmBarButtonItem.image = editMode ? UIImage.init(named: "CheckMark") : UIImage.init(named: "Edit")
+                
+                setupEditMode()
+            }
+        }
+    }
+    
+    private func type(for viewController: UIViewController) -> ProductSection {
         
+        if viewController is IdentificationTableViewController {
+            return .identification
+        
+        } else if viewController is IngredientsTableViewController {
+            return .ingredients
+                
+        } else if viewController is NutrientsTableViewController {
+            return .nutritionFacts
+                
+        } else if viewController is SupplyChainTableViewController {
+            return .supplyChain
+                
+        } else if viewController is CategoriesTableViewController {
+            return .categories
+                
+        } else if viewController is NutritionScoreTableViewController {
+            return .nutritionScore
+                
+        } else if viewController is CompletionStatesTableViewController {
+            return .completion
+                
+        } else if viewController is ProductImagesCollectionViewController {
+                return .gallery
+            
+        } else {
+            return .identification
+        }
+
+    }
+    //
+    // MARK: - Init the individual pages
+    //
+
+    private var pages: [ProductSection] = []
+
+    private func initPages() {
+        // define the pages (and order), which will be shown
+        switch currentProductType {
+        case .food:
+            pages = [.identification, .gallery, .ingredients, .nutritionFacts, .supplyChain, .categories, .nutritionScore, .completion]
+        case .beauty:
+            pages = [.identification, .gallery, .ingredients, .supplyChain, .categories, .completion]
+        case .petFood:
+            pages = [.identification, .gallery, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
+        }
+    }
+    
+    private func setupDelegates() {
+        identificationVC.delegate = self
+        ingredientsVC.delegate = self
+        nutritionFactsVC.delegate = self
+        supplyChainVC.delegate = self
+        categoriesVC.delegate = self
+        galleryVC.delegate = self
+    }
+    
+    private func setupProduct() {
+        ingredientsVC.product = product
+        identificationVC.product = product
+        nutritionFactsVC.product = product
+        supplyChainVC.product = product
+        categoriesVC.product = product
+        nutritionScoreVC.product = product
+        completionStatusVC.product = product
+        galleryVC.product = product
+    }
+
+    private func setupEditMode() {
+        // pass changed value on
+        identificationVC.editMode = editMode
+        ingredientsVC.editMode = editMode
+        nutritionFactsVC.editMode = editMode
+        supplyChainVC.editMode = editMode
+        categoriesVC.editMode = editMode
+        galleryVC.editMode = editMode
+    }
+    
+    private func setupCurrentLanguage() {
+        identificationVC.currentLanguageCode = currentLanguageCode
+        ingredientsVC.currentLanguageCode = currentLanguageCode
+        nutritionFactsVC.currentLanguageCode = currentLanguageCode
+    }
+
     // This function finds the language that must be used to display the product
-    func setCurrentLanguage() {
+    private func setCurrentLanguage() {
         // is there already a current language?
         guard currentLanguageCode == nil else { return }
         // find the first preferred language that can be used
@@ -448,52 +281,154 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             currentLanguageCode = product?.primaryLanguageCode
         }
     }
+
+    private func initPage(_ page: ProductSection) {
         
-// MARK: - Pageview Controller DataSource Functions
+        // setup individual pages
+        switch page {
+        case .identification:
+            identificationVC.delegate = self
+            identificationVC.product = product
+            identificationVC.currentLanguageCode = currentLanguageCode
+            identificationVC.editMode = editMode
+            
+        case .ingredients:
+            ingredientsVC.delegate = self
+            ingredientsVC.product = product
+            ingredientsVC.editMode = editMode
+            ingredientsVC.currentLanguageCode = currentLanguageCode
+            
+        case .nutritionFacts:
+            nutritionFactsVC.delegate = self
+            nutritionFactsVC.product = product
+            nutritionFactsVC.currentLanguageCode = currentLanguageCode
+            nutritionFactsVC.editMode = editMode
+            
+        case .supplyChain:
+            supplyChainVC.delegate = self
+            supplyChainVC.product = product
+            supplyChainVC.editMode = editMode
+            
+        case .categories:
+            categoriesVC.delegate = self
+            categoriesVC.product = product
+            categoriesVC.editMode = editMode
+            
+        case .nutritionScore:
+            nutritionScoreVC.product = product
+            
+        case .completion :
+            completionStatusVC.product = product
+            
+        case .gallery:
+            galleryVC.delegate = self
+            galleryVC.product = product
+            galleryVC.editMode = editMode
+        }
         
+    }
+    
+    // MARK: - ViewController
+    
+    fileprivate struct Constants {
+        static let StoryBoardIdentifier = "Main"
+        static let IdentificationVCIdentifier = "IdentificationTableViewController"
+        static let IngredientsVCIdentifier = "IngredientsTableViewController"
+        static let NutrientsVCIdentifier = "NutrientsTableViewController"
+        static let SupplyChainVCIdentifier = "SupplyChainTableViewController"
+        static let CategoriesVCIdentifier = "CategoriesTableViewController"
+        static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
+        static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
+        static let ProductImagesVCIndentifier = "ProductImagesCollectionViewController"
+        static let ConfirmProductViewControllerSegue = "Confirm Product Segue"
+    }
+    
+
+    private func viewController(for section: ProductSection) -> UIViewController {
+        switch section {
+        case .identification:
+            return identificationVC
+        case .ingredients:
+            return ingredientsVC
+        case .gallery:
+            return galleryVC
+        case .nutritionFacts:
+            return nutritionFactsVC
+        case .nutritionScore:
+            return nutritionScoreVC
+        case .categories:
+            return categoriesVC
+        case .completion:
+            return completionStatusVC
+        case .supplyChain:
+            return supplyChainVC
+        }
+    }
+    
+    fileprivate let identificationVC: IdentificationTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier) as! IdentificationTableViewController
+
+    fileprivate let ingredientsVC: IngredientsTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IngredientsVCIdentifier) as! IngredientsTableViewController
+    
+    fileprivate let nutritionFactsVC: NutrientsTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutrientsVCIdentifier) as! NutrientsTableViewController
+    
+    fileprivate let supplyChainVC: SupplyChainTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.SupplyChainVCIdentifier) as! SupplyChainTableViewController
+    
+    fileprivate let categoriesVC: CategoriesTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CategoriesVCIdentifier) as! CategoriesTableViewController
+    
+    fileprivate let completionStatusVC: CompletionStatesTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.CommunityEffortVCIdentifier) as! CompletionStatesTableViewController
+    
+    fileprivate let nutritionScoreVC: NutritionScoreTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier) as! NutritionScoreTableViewController
+
+    fileprivate let galleryVC: ProductImagesCollectionViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.ProductImagesVCIndentifier) as! ProductImagesCollectionViewController
+
+//
+//          MARK: - Pageview Controller DataSource Functions
+//
+
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        
+        if let viewControllerIndex = pages.index(where: { $0 == type(for: viewController) } ) {
             
-        guard let viewControllerIndex = pages.index(of: viewController) else {
+            guard pages.count != viewControllerIndex + 1 else {
+                return nil
+            }
+            
+            guard pages.count > viewControllerIndex + 1 else {
+                return nil
+            }
+            return self.viewController(for:pages[viewControllerIndex + 1])
+
+        } else {
             return nil
         }
-            
-        let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = pages.count
-            
-        guard orderedViewControllersCount != nextIndex else {
-            return nil
-        }
-            
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
-        return pages[nextIndex]
+        
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-            
-        guard let viewControllerIndex = pages.index(of: viewController) else {
-            return nil
-        }
-            
-        let previousIndex = viewControllerIndex - 1
-            
-        guard previousIndex >= 0 else {
-            return nil
-        }
-            
-        guard pages.count > previousIndex else {
-            return nil
-        }
         
-        return pages[previousIndex]
+        if let viewControllerIndex = pages.index(where: { $0 == type(for: viewController) } ) {
+
+            let previousIndex = viewControllerIndex - 1
+            
+            guard previousIndex >= 0 else {
+            return nil
+            }
+            
+            guard pages.count > previousIndex else {
+                return nil
+            }
+        
+            return self.viewController(for:pages[previousIndex])
+        } else {
+            return nil
+        }
     }
 
     func pageViewController(_ pageViewController: UIPageViewController,
                                      willTransitionTo pendingViewControllers: [UIViewController]) {
         // inform us what is happening, so the page can be setup
-        if let vc = pendingViewControllers.first {
-            pageIndex = pages.index(of:vc)
+        if !pendingViewControllers.isEmpty && pendingViewControllers.first != nil {
+            pageIndex = type(for: pendingViewControllers.first!)
         }
     }
     
@@ -502,21 +437,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
         
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        guard let firstViewController = viewControllers?.first,
-            let firstViewControllerIndex = pages.index(of: firstViewController) else {
-                return 0
-        }
-            
-        return firstViewControllerIndex
+        return pages.index(where: { $0 == pageIndex } ) ?? 0
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if let current = viewControllers?.first,
-            let viewControllerIndex = pages.index(of: current) {
-            title = titles[viewControllerIndex]
-        }
+        title = pageIndex.description()
     }
-        
+    
     // MARK: - Notification Functions
         
     func loadFirstProduct() {
@@ -527,7 +454,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             switch products.fetchResultList[0] {
             case .success(let firstProduct):
                 product = firstProduct
-                pageIndex = 0
+                pageIndex = .identification
+                initPage(pageIndex)
             default: break
             }
         }
@@ -671,12 +599,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 default:
                     updatedProduct?.storesOriginal = .available([validShop.0])
                 }
-                updatedProduct?.purchasePlacesAddress = Address.init(with: validShop)
-                if let purchasePlace = updatedProduct?.purchasePlacesAddress?.asSingleString(withSeparator: ",") {
-                    updatedProduct?.purchasePlacesOriginal = Tags.init(purchasePlace)
-                }
             }
-            saveUpdatedProduct() 
+            // replace the new product place in all cases 
+            updatedProduct?.purchasePlacesAddress = Address.init(with: validShop)
+            if let purchasePlace = updatedProduct?.purchasePlacesAddress?.asSingleString(withSeparator: ",") {
+                updatedProduct?.purchasePlacesOriginal = Tags.init(purchasePlace)
+            }
+            saveUpdatedProduct()
         }
     }
     
@@ -1070,7 +999,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = segue.source as? SelectLanguageViewController {
             // currentLanguageCode = vc.currentLanguageCode
             // updateCurrentLanguage()
-            pageIndex = vc.sourcePage
+            if vc.sourcePage > 0 && vc.sourcePage < pages.count {
+                pageIndex = pages[vc.sourcePage]
+            } else {
+                pageIndex = .identification
+            }
         }
     }
         
@@ -1078,7 +1011,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         if let vc = segue.source as? SelectLanguageViewController {
             currentLanguageCode = vc.selectedLanguageCode
 //            update(addLanguageCode: vc.selectedLanguageCode!)
-            pageIndex = vc.sourcePage
+            if vc.sourcePage > 0 && vc.sourcePage < pages.count {
+                pageIndex = pages[vc.sourcePage]
+            } else {
+                pageIndex = .identification
+            }
         }
     }
     
@@ -1087,13 +1024,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         
     func updateCurrentLanguage() {
-        if let vc = pages[0] as? IdentificationTableViewController {
+        if let index = pages.index(where: { $0 == .identification } ),
+            let vc = viewController(for: pages[index]) as? IdentificationTableViewController {
             vc.currentLanguageCode = currentLanguageCode
         }
-        if let vc = pages[1] as? IngredientsTableViewController {
+        if let index = pages.index(where: { $0 == .ingredients } ),
+            let vc = viewController(for: pages[index]) as? IngredientsTableViewController {
             vc.currentLanguageCode = currentLanguageCode
         }
-        if let vc = pages[2] as? NutrientsTableViewController {
+        if let index = pages.index(where: { $0 == .nutritionFacts } ),
+            let vc = viewController(for: pages[index]) as? NutrientsTableViewController {
             vc.currentLanguageCode = currentLanguageCode
         }
 
@@ -1108,13 +1048,17 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
         dataSource = self
         delegate = self
-            
-        initPages()
+        
+        if pages.isEmpty {
+            initPages()
+        }
     }
     
-        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        title = pageIndex.description() // Make sure there is an initial title
+
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)

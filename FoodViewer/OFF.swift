@@ -186,6 +186,17 @@ public struct OFF {
                 barcode[part2] + OFF.URL.Divider.Slash +
                 barcode[part3] + OFF.URL.Divider.Slash  +
                 barcode[part4]
+        } else if barcode.characters.count == 11 {
+            // US products
+            let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
+            let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
+            let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
+            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: 10)
+            //
+            return barcode[part1] + OFF.URL.Divider.Slash +
+                barcode[part2] + OFF.URL.Divider.Slash +
+                barcode[part3] + OFF.URL.Divider.Slash  +
+                barcode[part4]
         }
         print("OFF.imageURLFor : barcode can not be translated to url-string")
         return nil

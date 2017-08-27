@@ -277,9 +277,9 @@ class OFFProducts {
                     for index in startIndex...endIndex {
                         fetchHistoryProduct(FoodProduct(withBarcode: BarcodeType(barcodeTuple: storedHistory.barcodeTuples[index])), index:index)
                     }
-                } else if (currentLoadHistory == 0) {
+                } else if currentLoadHistory == 0 {
                     // the first product is already there, so can be shown
-                    NotificationCenter.default.post(name:  .FirstProductLoaded, object:nil)
+                    // NotificationCenter.default.post(name:  .FirstProductLoaded, object:nil)
                     // load first batch up to product 4
                     let startIndex = 1 <= storedHistory.barcodeTuples.count ? 1 : storedHistory.barcodeTuples.count - 1
                     let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? batchSize - 1 : storedHistory.barcodeTuples.count - 1

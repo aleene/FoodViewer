@@ -101,6 +101,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard product != nil else { return 0 }
         switch section {
         case 0:
             return product!.frontImages.count
