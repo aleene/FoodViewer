@@ -10,6 +10,10 @@ import UIKit
 
 class ContributorTableViewCell: UITableViewCell {
 
+    internal struct Notification {
+        static let SearchContributorKey = "ContributorTableViewCell.Notification.SearchCOntributor.Key"
+    }
+
     var contributor: FoodProduct.Contributor? = nil {
         didSet {
             if let existingContributor = contributor {
@@ -23,7 +27,13 @@ class ContributorTableViewCell: UITableViewCell {
         }
     }
 
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.contributorLongPress))
+            self.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
     
     @IBOutlet weak var photographerLabel: UILabel! {
         didSet {
@@ -52,4 +62,17 @@ class ContributorTableViewCell: UITableViewCell {
         }
     }
 
+    func contributorLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard contributor != nil else { return }
+        let userInfo = [Notification.SearchContributorKey: contributor!.name]
+        NotificationCenter.default.post(name: .LongPressInContributorCell, object: nil, userInfo: userInfo)
+    }
+
+}
+
+// Definition:
+extension Notification.Name {
+    static let LongPressInContributorCell = Notification.Name("StateTableViewCell.Notification.LongPressInContributorCell")
 }

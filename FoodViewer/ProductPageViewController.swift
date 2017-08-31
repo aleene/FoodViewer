@@ -1039,6 +1039,50 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     }
     
+    func handleLongPress(_ notification: Notification) {
+        // The notification's userInfo is used to determine where the notification came from
+        // With this info the right search can be launched
+        if let string = notification.userInfo?[StateTableViewCell.Notification.SearchStatusKey] as? String {
+            askUserToSearch(for: string, in: .state)
+        } else if let string = notification.userInfo?[ContributorTableViewCell.Notification.SearchContributorKey] as? String {
+            askUserToSearch(for: string, in: .contributor)
+        } else if let string = notification.userInfo?[CompletionStatesTableViewController.Notification.SearchLastEditDateKey] as? String {
+            askUserToSearch(for: string, in: .lastEditDate)
+        } else if let string = notification.userInfo?[CompletionStatesTableViewController.Notification.SearchCreationDateKey] as? String {
+            askUserToSearch(for: string, in: .entryDates)
+        }
+
+    }
+    
+    func askUserToSearch(for string: String, in component: OFF.SearchComponent) {
+        let searchMessage = NSLocalizedString("for %@ in %@",
+                                              comment: "Explanatory text in AlertViewController, which shows the intended search")
+        
+        let alertController = UIAlertController(title: NSLocalizedString("Start Search?",
+                                                                         comment: "Title in AlertViewController, which lets the user decide if he wants to start a search."),
+                                                message: String(format: searchMessage, string, OFF.description(for: component)),
+                                                preferredStyle:.alert)
+        let ok = UIAlertAction(title: NSLocalizedString("OK",
+                                                        comment: "String in button, to let the user indicate he wants to start the search."),
+                               style: .default)
+        { action -> Void in
+            self.startSearch(for: string, in: component)
+        }
+        
+        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: "String in button, to let the user indicate he does NOT want to search."), style: .default)
+        { action -> Void in
+            
+        }
+        
+        alertController.addAction(cancel)
+        alertController.addAction(ok)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    private func startSearch(for string: String, in component: OFF.SearchComponent) {
+        OFFProducts.manager.search(string, in:component)
+    }
+
     // MARK: - ViewController Lifecycle
         
     override func viewDidLoad() {
@@ -1063,6 +1107,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.handleLongPress), name:.LongPressInStateCell, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.handleLongPress), name:.LongPressInContributorCell, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.handleLongPress), name:.LongPressInLastEditDateCell, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.handleLongPress), name:.LongPressInCreationDateCell, object:nil)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -60,6 +60,7 @@ public struct OFF {
     }
     
     public enum SearchComponent: String {
+        case name = "name"
         case brand = "brand"
         case category = "category"
         case codes = "codes"
@@ -74,7 +75,80 @@ public struct OFF {
         case producerCode = "packager-code"
         case manufacturingPlaces = "manufacturing-place"
         case store = "store"
+        case entryDates = "entry-dates"
+        case lastEditDate = "last-edit-date"
+        case contributor = "contributor"
+        case state = "state"
     }
+    
+    static func description(for component: SearchComponent) -> String {
+    switch component {
+    case .name:
+        return "name"
+    case .brand:
+        return "brand"
+    case .category:
+        return "category"
+    case .codes:
+        return "codes"
+    case .country:
+        return "country"
+    case .label:
+        return "label"
+    case .language:
+        return "language"
+    case .packaging:
+        return "packaging"
+    case .purchasePlace:
+        return "purchase-place"
+    case .additive:
+        return "additive"
+    case .trace:
+        return "trace"
+    case .allergen:
+        return "allergen"
+    case .producerCode:
+        return "packager-code"
+    case .manufacturingPlaces:
+        return "manufacturing-place"
+    case .store:
+        return "store"
+    case .entryDates:
+        return "entry-dates"
+    case .lastEditDate:
+        return "last-edit-date"
+    case .contributor:
+        return "contributor"
+    case .state:
+        return "state"
+
+    }
+    }
+    
+    public enum SearchStatus: String {
+        case productNameCompleted = "product-name-completed"
+        case productNameNotCompleted = "product-name-to-be-completed"
+        case brandsCompleted = "brands-completed"
+        case brandsNotCompleted = "brands-to-be-completed"
+        case quantityCompleted = "quantity-completed"
+        case quantityNotCompleted = "quantity-to-be-completed"
+        case packagingCompleted = "packaging-code-completed"
+        case packagingNotCompleted = "packaging-code-to-be-completed"
+        case ingredientsCompleted = "ingredients-completed"
+        case ingredientsNotCompleted = "ingredients-to-be-completed"
+        case categoriesCompleted = "categories-completed"
+        case categoriesNotCompleted = "categories-to-be-completed"
+        case expirationDateCompleted = "expiration-date-completed"
+        case expirationDateNotCompleted = "expiration-date-to-be-completed"
+        case nutritionFactsCompleted = "nutrition-facts-completed"
+        case nutritionFactsNotCompleted = "nutrition-facts-to-be-completed"
+        case photosUploadedCompleted = "photos-uploaded"
+        case photosUploadedNotCompleted = "photos-to-be-uploaded"
+        case photosValidatedCompleted = "photos-validated"
+        case photosValidatedNotCompleted = "photos-to-be-validated"
+    }
+
+    
 
     static func fetchString(for barcode: BarcodeType, with productType: ProductType) -> String {
         var fetchUrlString = URL.Prefix

@@ -10,11 +10,17 @@ import UIKit
 
 class StateTableViewCell: UITableViewCell {
 
+    internal struct Notification {
+        static let SearchStatusKey = "StateTableViewCell.Notification.SearchStatus.Key"
+    }
+
     var state: Bool = false {
         didSet {
             setImage()
         }
     }
+    
+    var searchString: String? = nil
     
     var stateTitle: String? = nil {
         didSet {
@@ -25,7 +31,14 @@ class StateTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var stateLabel: UILabel!
+    @IBOutlet weak var stateLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(StateTableViewCell.stateLongPress))
+                self.addGestureRecognizer(longPressGestureRecognizer)
+
+        }
+    }
     
     @IBOutlet weak var stateImage: UIImageView! {
         didSet {
@@ -37,4 +50,18 @@ class StateTableViewCell: UITableViewCell {
         stateImage?.image = state ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
     }
     
+    func stateLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard searchString != nil else { return }
+        let userInfo = [Notification.SearchStatusKey: searchString!]
+        NotificationCenter.default.post(name: .LongPressInStateCell, object: nil, userInfo: userInfo)
+    }
+
 }
+
+// Definition:
+extension Notification.Name {
+    static let LongPressInStateCell = Notification.Name("StateTableViewCell.Notification.LongPressInStateCell")
+}
+

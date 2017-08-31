@@ -261,16 +261,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
-//            switch showLabelsTagsType {
-//            case .original:
-//                cell.prefixLabelText = "Original:"
-//            case .translated:
-//                cell.prefixLabelText = "Translated:"
-//            case .interpreted:
-//                cell.prefixLabelText = "Interpreted:"
-//            default:
-//                cell.prefixLabelText = nil
-//            }
             return cell
             
         case .image:
