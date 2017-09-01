@@ -13,6 +13,8 @@ public protocol TagViewDelegate: class {
     func didTapTagView(_ tagView: TagView)
     /// Returns when the remove button of the tagView was tapped
     func didTapRemoveButton(_ tagView: TagView)
+    // Returns when a tagView is long pressed
+    func didLongPressTagView(_ tagView: TagView)
 }
 
 open class TagView: UIView {
@@ -53,62 +55,6 @@ open class TagView: UIView {
             shadow?.layer.borderWidth = borderWidth
         }
     }
-    
-    /*
-     @IBInspectable open var borderColor = Constants.defaultBorderColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     
-     @IBInspectable var textColor = Constants.defaultTextColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     @IBInspectable var selectedTextColor = Constants.defaultTextColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     @IBInspectable var highlightedTextColor = Constants.defaultTextColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     // beware that this UIView also has an attribute backgroundColor
-     @IBInspectable var tagBackgroundColor = Constants.defaultBackgroundColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     
-     @IBInspectable var tagHighlightedBackgroundColor = Constants.defaultBackgroundColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     
-     @IBInspectable var highlightedBorderColor = Constants.defaultBackgroundColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     
-     
-     @IBInspectable var selectedBorderColor = Constants.defaultBackgroundColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     
-     @IBInspectable var tagSelectedBackgroundColor = Constants.defaultBackgroundColor {
-     didSet {
-     reloadStyles()
-     }
-     }
-     
-     */
     
     @IBInspectable open dynamic var shadowColor = Constants.defaultBackgroundColor {
         didSet {
@@ -230,7 +176,9 @@ open class TagView: UIView {
     public weak var delegate: TagViewDelegate?
     
     private var tapGestureRecognizer: UITapGestureRecognizer!
-    
+
+    private var longPressGestureRecognizer: UILongPressGestureRecognizer!
+
     /// TagView's title.
     public var title = "" {
         didSet {
@@ -244,6 +192,11 @@ open class TagView: UIView {
         delegate?.didTapTagView(self)
     }
     
+    /// function that responds to the Token's longPressGestureRecognizer.
+    func didLongPressTagView(_ sender: UILongPressGestureRecognizer) {
+        delegate?.didLongPressTagView(self)
+    }
+
     // MARK: remove button
     
     open var removeButtonIsEnabled = false {
@@ -260,7 +213,6 @@ open class TagView: UIView {
                 setRemoveImageViewColor()
                 tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagView.removeButtonTapped(_:)))
                 removeImageView.addGestureRecognizer(tapGestureRecognizer)
-                
             } else {
                 // make imageView to small to see
                 removeImageViewWidthConstraint.constant = 0
@@ -298,7 +250,9 @@ open class TagView: UIView {
         
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagView.didTapTagView(_:)))
         addGestureRecognizer(tapGestureRecognizer)
-        
+        longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(TagView.didLongPressTagView(_:)))
+        addGestureRecognizer(longPressGestureRecognizer)
+
     }
     
     // MARK: - layout

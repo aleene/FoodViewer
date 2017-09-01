@@ -10,10 +10,6 @@ import UIKit
 
 class ContributorTableViewCell: UITableViewCell {
 
-    internal struct Notification {
-        static let SearchContributorKey = "ContributorTableViewCell.Notification.SearchCOntributor.Key"
-    }
-
     var contributor: FoodProduct.Contributor? = nil {
         didSet {
             if let existingContributor = contributor {
@@ -26,6 +22,8 @@ class ContributorTableViewCell: UITableViewCell {
             }
         }
     }
+
+    var delegate: ProductPageViewController? = nil
 
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
@@ -66,13 +64,8 @@ class ContributorTableViewCell: UITableViewCell {
         // I should encode the search component
         // And the search status
         guard contributor != nil else { return }
-        let userInfo = [Notification.SearchContributorKey: contributor!.name]
-        NotificationCenter.default.post(name: .LongPressInContributorCell, object: nil, userInfo: userInfo)
+        delegate?.search(for: contributor!.name, in: .contributor)
     }
 
 }
 
-// Definition:
-extension Notification.Name {
-    static let LongPressInContributorCell = Notification.Name("StateTableViewCell.Notification.LongPressInContributorCell")
-}

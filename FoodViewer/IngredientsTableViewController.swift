@@ -890,14 +890,14 @@ extension IngredientsTableViewController: TagListViewDelegate {
         }
     }
     
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .allergens:
             switch product!.allergensInterpreted {
             case .available:
-            OFFProducts.manager.search(product!.allergensInterpreted.tag(at: index), in: .allergen)
+                delegate?.search(for: product!.allergensInterpreted.tag(at: index), in: .allergen)
             default:
                 break
             }
@@ -905,7 +905,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             // the taxonomy key is used to define the search value
             switch product!.tracesInterpreted {
             case .available:
-                OFFProducts.manager.search( product!.tracesInterpreted.tag(at: index), in: .trace)
+                delegate?.search(for: product!.tracesInterpreted.tag(at: index), in: .trace)
             default:
                 break
             }
@@ -923,7 +923,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
         case .labels:
             switch product!.labelsInterpreted {
             case .available:
-                OFFProducts.manager.search( product!.labelsInterpreted.tag(at: index), in: .label)
+                delegate?.search(for: product!.labelsInterpreted.tag(at: index), in: .label)
             default:
                 break
             }

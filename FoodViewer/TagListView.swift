@@ -1044,70 +1044,14 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         tagPressed(tagView)
     }
     
+    public func didLongPressTagView(_ tagView: TagView) {
+        delegate?.tagListView(self, didLongPressTagAt: tagView.tag)
+    }
+
     public func didTapRemoveButton(_ tagView: TagView) {
         removeTag(at: tagView.tag)
     }
-    
-    /*
-     private func createNewTagView(_ title: String) -> TagView {
-     let tagView = self.tagView
-     tagView.title = title
-     return addTagView(tagView)
-     }
-     
-     
-     
-     @discardableResult
-     private func addTag(_ title: String) -> TagView {
-     let tagView = self.tagView
-     tagView.title = title
-     return addTagView(tagView)
-     }
-     
-     @discardableResult
-     private func addTags(_ titles: [String]) -> [TagView] {
-     var tagViews: [TagView] = []
-     for title in titles {
-     tagViews.append(createNewTagView(title))
-     }
-     return addTagViews(tagViews)
-     }
-     
-     @discardableResult
-     private func addTagViews(_ tagViews: [TagView]) -> [TagView] {
-     for tagView in tagViews {
-     self.tagViews.append(tagView)
-     tagBackgroundViews.append(UIView(frame: tagView.bounds))
-     }
-     rearrangeViews(true)
-     return tagViews
-     }
-     
-     @discardableResult
-     private func insertTag(_ title: String, at index: Int) -> TagView {
-     return insertTagView(createNewTagView(title), at: index)
-     }
-     
-     @discardableResult
-     private func addTagView(_ tagView: TagView) -> TagView {
-     tagViews.append(tagView)
-     tagBackgroundViews.append(UIView(frame: tagView.bounds))
-     rearrangeViews(true)
-     
-     return tagView
-     }
-     
-     @discardableResult
-     private func insertTagView(_ tagView: TagView, at index: Int) -> TagView {
-     tagViews.insert(tagView, at: index)
-     tagBackgroundViews.insert(UIView(frame: tagView.bounds), at: index)
-     rearrangeViews(true)
-     
-     return tagView
-     }
-     */
-    
-    // MARK: - State variables
+        // MARK: - State variables
     
     open var isCollapsed = false {
         didSet {
@@ -1224,7 +1168,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     // MARK: - Events
     
-    // Maybe this should be deprecated as it exposes to TagView
+    // TBD: Maybe this should be deprecated as it exposes to TagView
     private func tagPressed(_ sender: TagView!) {
         // sender.onTap?(sender)
         if isEditable {

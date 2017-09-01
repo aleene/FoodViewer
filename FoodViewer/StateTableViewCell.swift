@@ -10,10 +10,6 @@ import UIKit
 
 class StateTableViewCell: UITableViewCell {
 
-    internal struct Notification {
-        static let SearchStatusKey = "StateTableViewCell.Notification.SearchStatus.Key"
-    }
-
     var state: Bool = false {
         didSet {
             setImage()
@@ -31,6 +27,8 @@ class StateTableViewCell: UITableViewCell {
         }
     }
     
+    var delegate: ProductPageViewController? = nil
+
     @IBOutlet weak var stateLabel: UILabel! {
         didSet {
             // Long press allows to start a search
@@ -54,14 +52,8 @@ class StateTableViewCell: UITableViewCell {
         // I should encode the search component
         // And the search status
         guard searchString != nil else { return }
-        let userInfo = [Notification.SearchStatusKey: searchString!]
-        NotificationCenter.default.post(name: .LongPressInStateCell, object: nil, userInfo: userInfo)
+        delegate?.search(for: searchString!, in: .state)
     }
 
-}
-
-// Definition:
-extension Notification.Name {
-    static let LongPressInStateCell = Notification.Name("StateTableViewCell.Notification.LongPressInStateCell")
 }
 

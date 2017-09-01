@@ -22,6 +22,8 @@ public protocol TagListViewDelegate {
     
     func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int)
     
+    func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int)
+
     func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int)
     
     func tagListView(_ tagListView: TagListView, didEndEditingTagAt index: Int)
@@ -61,6 +63,9 @@ extension TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, willDeselectTagAt index: Int) {
     }
     
+    public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
+    }
+
     public func tagListView(_ tagListView: TagListView, willBeginEditingTagAt index: Int) {
     }
     

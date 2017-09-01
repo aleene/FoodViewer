@@ -304,6 +304,7 @@ class IdentificationTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
+            cell.delegate = self
             cell.tag = indexPath.section
             return cell
 
@@ -1058,31 +1059,37 @@ extension IdentificationTableViewController: TagListViewDelegate {
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
-                
+    public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
+        
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
+        case .languages:
+            delegate?.search(for: product!.languages[index], in: .language)
         case .brands:
             // use the interpreted tags for search !!!!
             switch product!.brandsInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.brandsInterpreted.tag(at: index), in:.brand)
+                delegate?.search(for: product?.brandsInterpreted.tag(at: index), in: .brand)
             default:
                 break
             }
         case .packaging:
             switch product!.packagingInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.packagingInterpreted.tag(at: index), in: .packaging)
+                delegate?.search(for: product!.packagingInterpreted.tag(at: index), in: .packaging)
             default:
                 break
             }
+
         default:
             break
+
         }
     }
-    
+
 }
+
+
 
 // MARK: - UITextField Delegate Functions
 

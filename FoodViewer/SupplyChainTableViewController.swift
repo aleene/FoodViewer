@@ -1047,14 +1047,14 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
-    public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
+    public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
         
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .country:
             switch product!.countriesInterpreted {
             case .available(let countries):
-                OFFProducts.manager.search(countries[index], in:.country)
+                delegate?.search(for: countries[index], in: .country)
             default:
                 break
             }
@@ -1062,7 +1062,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         case .producerCode:
             switch product!.embCodesInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.embCodesInterpreted.tag(at: index), in:.producerCode)
+                delegate?.search(for: product!.embCodesInterpreted.tag(at:index), in: .producerCode)
             default:
                 break
             }
@@ -1070,7 +1070,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         case .location:
             switch product!.purchasePlacesOriginal {
             case .available:
-                OFFProducts.manager.search(product!.purchasePlacesOriginal.tag(at: index), in:.purchasePlace)
+                delegate?.search(for: product!.purchasePlacesOriginal.tag(at:index), in: .purchasePlace)
             default:
                 break
             }
@@ -1078,7 +1078,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         case .producer:
             switch product!.manufacturingPlacesOriginal {
             case .available:
-                OFFProducts.manager.search(product!.manufacturingPlacesOriginal.tag(at: index), in: .manufacturingPlaces)
+                delegate?.search(for: product!.manufacturingPlacesOriginal.tag(at:index), in: .manufacturingPlaces)
             default:
                 break
             }
@@ -1086,7 +1086,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         case .store:
             switch product!.storesInterpreted {
             case .available:
-                OFFProducts.manager.search(product!.storesInterpreted.tag(at: index), in:.store)
+                delegate?.search(for: product!.storesInterpreted.tag(at:index), in: .store)
             default:
                 break
             }

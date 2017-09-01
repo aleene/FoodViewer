@@ -30,18 +30,14 @@ import UIKit
 
 
 class CompletionStatesTableViewController: UITableViewController {
-
-    internal struct Notification {
-        static let SearchLastEditDateKey = "StateTableViewCell.Notification.SearchLastEditDate.Key"
-        static let SearchCreationDateKey = "StateTableViewCell.Notification.SearchCreationDate.Key"
-    }
-
     
     var product: FoodProduct? = nil {
         didSet {
             refreshProduct()
         }
     }
+    
+    var delegate: ProductPageViewController? = nil
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
@@ -96,6 +92,7 @@ class CompletionStatesTableViewController: UITableViewController {
 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionStateCellIdentifier, for: indexPath) as! StateTableViewCell
+            cell.delegate = delegate
             switch indexPath.row {
             case 0:
                 cell.state = product!.state.productNameComplete.value
@@ -183,7 +180,7 @@ class CompletionStatesTableViewController: UITableViewController {
             }
         } else if (indexPath as NSIndexPath).section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.ContributorsCellIdentifier, for: indexPath) as? ContributorTableViewCell
-            
+            cell?.delegate = delegate
             cell?.contributor = product!.productContributors.contributors[indexPath.row]
             return cell!
         } else if (indexPath as NSIndexPath).section == 2 {
@@ -372,9 +369,7 @@ class CompletionStatesTableViewController: UITableViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let searchString = formatter.string(from: product!.additionDate! as Date)
-
-        let userInfo = [Notification.SearchCreationDateKey: searchString]
-        NotificationCenter.default.post(name: .LongPressInCreationDateCell, object: nil, userInfo: userInfo)
+        delegate?.search(for: searchString, in: .entryDates)
     }
 
     func lastEditDateLongPress() {
@@ -385,8 +380,7 @@ class CompletionStatesTableViewController: UITableViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         let searchString = formatter.string(from: product!.lastEditDates![0] as Date)
-        let userInfo = [Notification.SearchLastEditDateKey: searchString]
-        NotificationCenter.default.post(name: .LongPressInLastEditDateCell, object: nil, userInfo: userInfo)
+        delegate?.search(for: searchString, in: .lastEditDate)
     }
 
     // MARK: - Notification handler
@@ -437,9 +431,4 @@ class CompletionStatesTableViewController: UITableViewController {
 
 }
 
-// Definition:
-extension Notification.Name {
-    static let LongPressInCreationDateCell = Notification.Name("StateTableViewCell.Notification.LongPressInCreationDateCell")
-    static let LongPressInLastEditDateCell = Notification.Name("StateTableViewCell.Notification.LongPressInLastEditDateCell")
-}
 

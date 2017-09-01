@@ -20,4 +20,6 @@ protocol ProductUpdatedProtocol: class {
     func updated(ingredients: String, languageCode: String)
     
     func updated(facts: [NutritionFactItem?])
+    
+    func search(for string: String?, in component: OFF.SearchComponent)
 }
