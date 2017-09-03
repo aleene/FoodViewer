@@ -19,6 +19,46 @@ class ContributorTableViewCell: UITableViewCell {
                 editorLabel.isHidden = !existingContributor.role.isEditor
                 informerLabel.isHidden = !existingContributor.role.isInformer
                 creatorLabel.isHidden = !existingContributor.role.isCreator
+                
+                if !nameLabel.isHidden {
+                    // Long press allows to start a search
+                    let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.contributorLongPress))
+                    nameLabel.addGestureRecognizer(longPressGestureRecognizer)
+                }
+                nameLabel.isUserInteractionEnabled = !nameLabel.isHidden
+                
+                /* not yet available by OFF
+                if !creatorLabel.isHidden {
+                    let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.creatorLongPress))
+                    creatorLabel.addGestureRecognizer(longPressGestureRecognizer)
+                }
+                creatorLabel.isUserInteractionEnabled = !creatorLabel.isHidden
+                */
+                
+                if !informerLabel.isHidden {
+                    let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.informerLongPress))
+                    informerLabel.addGestureRecognizer(longPressGestureRecognizer)
+                }
+                informerLabel.isUserInteractionEnabled = !informerLabel.isHidden
+                
+                if !editorLabel.isHidden {
+                    let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.editorLongPress))
+                    editorLabel.addGestureRecognizer(longPressGestureRecognizer)
+                }
+                editorLabel.isUserInteractionEnabled = !editorLabel.isHidden
+                
+                if !photographerLabel.isHidden {
+                    let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.photographerLongPress))
+                    photographerLabel.addGestureRecognizer(longPressGestureRecognizer)
+                }
+                photographerLabel.isUserInteractionEnabled = !photographerLabel.isHidden
+                
+                if !correctorLabel.isHidden {
+                    let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.correctorLongPress))
+                    correctorLabel.addGestureRecognizer(longPressGestureRecognizer)
+                }
+                correctorLabel.isUserInteractionEnabled = !correctorLabel.isHidden
+
             }
         }
     }
@@ -27,9 +67,6 @@ class ContributorTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel! {
         didSet {
-            // Long press allows to start a search
-            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.contributorLongPress))
-            self.addGestureRecognizer(longPressGestureRecognizer)
         }
     }
     
@@ -65,6 +102,41 @@ class ContributorTableViewCell: UITableViewCell {
         // And the search status
         guard contributor != nil else { return }
         delegate?.search(for: contributor!.name, in: .contributor)
+    }
+
+    func creatorLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard contributor != nil else { return }
+        delegate?.search(for: contributor!.name, in: .creator)
+    }
+    
+    func photographerLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard contributor != nil else { return }
+        delegate?.search(for: contributor!.name, in: .photographer)
+    }
+
+    func informerLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard contributor != nil else { return }
+        delegate?.search(for: contributor!.name, in: .informer)
+    }
+
+    func editorLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard contributor != nil else { return }
+        delegate?.search(for: contributor!.name, in: .editor)
+    }
+
+    func correctorLongPress() {
+        // I should encode the search component
+        // And the search status
+        guard contributor != nil else { return }
+        delegate?.search(for: contributor!.name, in: .corrector)
     }
 
 }

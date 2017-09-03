@@ -59,6 +59,7 @@ public struct OFF {
         case original = "original"
     }
     
+    // The strings are used in the URL's of the search query, so we look for the right thing
     public enum SearchComponent: String {
         case name = "name"
         case brand = "brand"
@@ -78,51 +79,65 @@ public struct OFF {
         case entryDates = "entry-dates"
         case lastEditDate = "last-edit-date"
         case contributor = "contributor"
+        case creator = "creator"
+        case informer = "informer"
+        case editor = "editor"
+        case photographer = "photographer"
+        case corrector = "corrector"
         case state = "state"
     }
     
     static func description(for component: SearchComponent) -> String {
-    switch component {
-    case .name:
-        return "name"
-    case .brand:
-        return "brand"
-    case .category:
-        return "category"
-    case .codes:
-        return "codes"
-    case .country:
-        return "country"
-    case .label:
-        return "label"
-    case .language:
-        return "language"
-    case .packaging:
-        return "packaging"
-    case .purchasePlace:
-        return "purchase-place"
-    case .additive:
-        return "additive"
-    case .trace:
-        return "trace"
-    case .allergen:
-        return "allergen"
-    case .producerCode:
-        return "packager-code"
-    case .manufacturingPlaces:
-        return "manufacturing-place"
-    case .store:
-        return "store"
-    case .entryDates:
-        return "entry-dates"
-    case .lastEditDate:
-        return "last-edit-date"
-    case .contributor:
-        return "contributor"
-    case .state:
-        return "state"
-
-    }
+        switch component {
+        case .name:
+            return "name"
+        case .brand:
+            return "brand"
+        case .category:
+            return "category"
+        case .codes:
+            return "codes"
+        case .country:
+            return "country"
+        case .label:
+            return "label"
+        case .language:
+            return "language"
+        case .packaging:
+            return "packaging"
+        case .purchasePlace:
+            return "purchase-place"
+        case .additive:
+            return "additive"
+        case .trace:
+            return "trace"
+        case .allergen:
+            return "allergen"
+        case .producerCode:
+            return "packager-code"
+        case .manufacturingPlaces:
+            return "manufacturing-place"
+        case .store:
+            return "store"
+        case .entryDates:
+            return "entry-dates"
+        case .lastEditDate:
+            return "last-edit-date"
+        case .contributor:
+            return "contributor"
+        case .creator:
+            return "creator"
+        case .informer:
+            return "informer"
+        case .editor:
+            return "editor"
+        case .photographer:
+            return "photographer"
+        case .corrector:
+            return "corrector"
+        case .state:
+            return "state"
+        }
     }
     
     public enum SearchStatus: String {
