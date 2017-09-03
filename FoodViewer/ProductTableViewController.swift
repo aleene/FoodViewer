@@ -88,7 +88,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 title = Constants.Title.Beauty
             }
         } else {
-            title = products.searchValue ?? Constants.Title.NoSearch
+            title = products.search?.1 ?? Constants.Title.NoSearch
         }
     }
     
@@ -809,7 +809,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // show history products
             products.list = .recent
             products.search = nil
-            products.searchValue = nil
         }
     }
     

@@ -216,11 +216,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
-            pages = [.identification, .gallery, .ingredients, .nutritionFacts, .supplyChain, .categories, .nutritionScore, .completion]
+            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .completion]
         case .beauty:
-            pages = [.identification, .gallery, .ingredients, .supplyChain, .categories, .completion]
+            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
         case .petFood:
-            pages = [.identification, .gallery, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
+            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
         }
     }
     

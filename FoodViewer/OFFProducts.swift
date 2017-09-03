@@ -34,6 +34,7 @@ class OFFProducts {
     
     var list = ProductsTab.recent {
         didSet {
+            // reload if there is a change of tabs
             if list != oldValue {
                 loadAll()
             }
@@ -41,8 +42,22 @@ class OFFProducts {
     }
     
     // no search has been set at the start
-    var search: OFF.SearchComponent? = nil
-    var searchValue: String? = nil
+    var search: (OFF.SearchComponent?, String?)? = nil {
+        didSet {
+            if search != nil {
+                loadAll()
+            }
+        }
+    }
+//    var searchValue: String? = nil {
+//        didSet {
+//            // reload if there is a change in the search value
+//            if searchValue != nil && searchValue! != oldValue {
+//                loadAll()
+//            }
+//        }
+//    }
+    
     var searchResultSize: Int? = nil
     
     var mostRecentProduct = MostRecentProduct()
@@ -339,9 +354,8 @@ class OFFProducts {
         guard string != nil else { return }
         let validString = string!.contains(":") ?
             string!.characters.split{ $0 == ":" }.map(String.init)[1] : string!
-        searchValue = validString
-        search = category
         list = .search
+        search = (category, validString)
     }
     
 
@@ -526,15 +540,17 @@ class OFFProducts {
                 startFreshSearch()
             } else {
                 setCurrentProducts()
-                let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
-                NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+                if allProductFetchResultList.count > 0 {
+                    let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
+                    NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+                }
             }
 
         }
     }
     
     private func startFreshSearch() {
-        if let validSearchString = searchValue {
+        if let validSearchString = search?.1 {
             // reset search page
             currentSearchPage = 0
             allSearchFetchResultList = []
@@ -553,8 +569,8 @@ class OFFProducts {
     
     public func fetchSearchProductsForNextPage() {
         // load the most recent product from the local storage
-        if let validSearchComponent = search,
-            let validSearchValue = searchValue
+        if let validSearchComponent = search?.0,
+            let validSearchValue = search?.1
         {
             currentSearchPage += 1
             var fetchResult = ProductFetchStatus.loading
