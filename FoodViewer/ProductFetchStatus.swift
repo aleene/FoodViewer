@@ -14,6 +14,7 @@ enum ProductFetchStatus {
     // The searchList returns a facet of the search result, 
     // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
     case searchList((Int, Int, Int, [FoodProduct]))
+    case searchQuery(FoodProduct)
     case loading
     case searchLoading
     // The more parameter defines the search next page to retrieve
@@ -26,6 +27,7 @@ enum ProductFetchStatus {
     func description() -> String {
         switch self {
         case .success: return NSLocalizedString("Product is loaded", comment: "String presented in a tagView if the product has been loaded")
+        case .searchQuery: return NSLocalizedString("Search query", comment: "String presented in a tagView for the search query")
         case .searchList: return NSLocalizedString("Product list is loaded", comment: "String presented in a tagView if the product list has been loaded")
         case .loading: return NSLocalizedString("Product loading", comment: "String presented in a tagView if the product is currently being loaded")
         case .searchLoading: return NSLocalizedString("Search loading", comment: "String presented in a tagView if the search query is currently being loaded")

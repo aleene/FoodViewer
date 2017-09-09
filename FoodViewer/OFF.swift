@@ -174,34 +174,54 @@ public struct OFF {
         return fetchUrlString
     }
 
-    static func searchString(for component: SearchComponent, with value: String ) -> String {
-        let region = Bundle.main.preferredLocalizations[0] as NSString
-        var urlString = OFF.URL.Scheme
-        urlString += "\(region)."
-        // use the currrent product type
-        urlString += server(for:Preferences.manager.showProductType)
-        urlString += URL.TopDomain
-        urlString += component.rawValue
-        urlString += "/"
-        urlString += value
-        urlString += URL.JSONExtension
-        return urlString
-    }
+//    static func searchString(for component: SearchComponent, with value: String ) -> String {
+//        let region = Bundle.main.preferredLocalizations[0] as NSString
+//        var urlString = OFF.URL.Scheme
+//        urlString += "\(region)."
+//        // use the currrent product type
+//        urlString += server(for:Preferences.manager.showProductType)
+//        urlString += URL.TopDomain
+//        urlString += component.rawValue
+//        urlString += "/"
+//        urlString += value
+//        urlString += URL.JSONExtension
+//        return urlString
+//    }
     
-    static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
+    static func searchString(with pairs: [(SearchComponent, String)], on page: Int ) -> String {
+        guard !pairs.isEmpty else { return "" }
+        
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
         urlString += "\(region)."
         // use the currrent product type
         urlString += server(for:Preferences.manager.showProductType)
         urlString += URL.TopDomain
-        urlString += component.rawValue
-        urlString += "/"
-        urlString += value
-        urlString += "/"
+        for pair in pairs {
+            urlString += pair.0.rawValue
+            urlString += "/"
+            urlString += pair.1
+            urlString += "/"
+        }
         urlString += "\(page)"
         urlString += URL.JSONExtension
         return urlString
+    }
+
+    static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
+//        let region = Bundle.main.preferredLocalizations[0] as NSString
+//        var urlString = OFF.URL.Scheme
+//        urlString += "\(region)."
+//        // use the currrent product type
+//        urlString += server(for:Preferences.manager.showProductType)
+//        urlString += URL.TopDomain
+//        urlString += component.rawValue
+//        urlString += "/"
+//        urlString += value
+//        urlString += "/"
+//        urlString += "\(page)"
+//        urlString += URL.JSONExtension
+        return searchString(with: [(component, value)], on: page )
     }
 
     

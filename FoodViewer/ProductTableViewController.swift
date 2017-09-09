@@ -34,10 +34,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate var barcode: BarcodeType? = nil {
         didSet {
             let index = products.fetchProduct(barcode)
-            if  let validIndex = index //,
-                //let validFetchResult = products.fetchResultList[indexInHistory!] 
-                {
-                // let lijst = products.fetchResultList
+            if  let validIndex = index {
                 switch products.fetchResultList[validIndex]  {
                 case .success(let product):
                     selectedProduct = product
@@ -54,7 +51,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate func startInterface(at index:Int) {
         if !products.fetchResultList.isEmpty && index < products.fetchResultList.count {
             switch products.fetchResultList[index] {
-            case .success(let product):
+            case .success(let product), .searchQuery(let product):
                 selectedProduct = product
                 tableView.reloadData()
                 tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
@@ -244,7 +241,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if let validProductFetchResult = products.fetchResultList[section] {
             switch products.fetchResultList[section] {
-            case .success:
+            case .success, .searchQuery:
                 return tableStructure.count
             case .more, .loadingFailed:
                 // allow a cell with a button
@@ -263,7 +260,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if !products.fetchResultList.isEmpty && indexPath.section < products.fetchResultList.count {
             //if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch products.fetchResultList[indexPath.section] {
-                case .success(let currentProduct):
+                case .success(let currentProduct), .searchQuery(let currentProduct):
                     switch currentProductSection {
                     case .name:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
@@ -420,7 +417,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if !products.fetchResultList.isEmpty {
             //if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch products.fetchResultList[indexPath.section] {
-                case .success(let product):
+                case .success(let product), .searchQuery(let product):
                     selectedProduct = product
                 case .more:
                     // The next set should be loaded

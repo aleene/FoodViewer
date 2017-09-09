@@ -75,6 +75,21 @@ class OFFProducts {
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
+    
+    private var searchQueryAsProduct: ProductFetchStatus? {
+        get {
+            let product = FoodProduct()
+            if let validSearch = search,
+                let validComponent = validSearch.0,
+                let validString = validSearch.1 {
+                product.setSearchPair(validComponent, with: validString)
+                // This will be the first product in the search results
+                // It represents the query buy example product
+                return ProductFetchStatus.searchQuery(product)
+            }
+            return nil
+        }
+    }
 
     private func setCurrentProducts() {
         var list: [ProductFetchStatus] = []
@@ -96,6 +111,12 @@ class OFFProducts {
                 }
             }
         case .search:
+            // show the search query as the first product in the search results
+            if let validQuery = searchQueryAsProduct {
+                list.append(validQuery)
+            }
+            
+            // add the search results
             for fetchResult in allSearchFetchResultList {
                 if fetchResult != nil {
                     switch fetchResult! {

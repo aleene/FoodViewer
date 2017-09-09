@@ -1211,6 +1211,63 @@ class FoodProduct {
         }
     }
 
+    func setSearchPair(_ component: OFF.SearchComponent, with string: String) {
+        switch component {
+        case .name:
+            nameLanguage[Locale.interfaceLanguageCode()] = string
+        case .brand:
+            brandsOriginal = Tags.init(string)
+        case .category:
+            categoriesOriginal = Tags.init(string)
+        case .codes:
+            embCodesOriginal = Tags.init(string)
+        case .country:
+            countriesOriginal = Tags.init(string)
+        case .label:
+            labelsOriginal = Tags.init(string)
+        case .language:
+            add(languageCode: string)
+        case .packaging:
+            packagingOriginal = Tags.init(string)
+        case .purchasePlace:
+            purchasePlacesOriginal = Tags.init(string)
+        case .additive:
+            additivesInterpreted = Tags.init(string)
+        case .trace:
+            tracesOriginal = Tags.init(string)
+        case .allergen:
+            allergensOriginal = Tags.init(string)
+        case .producerCode:
+            embCodesOriginal = Tags.init(string)
+        case .manufacturingPlaces:
+            manufacturingPlacesOriginal = Tags.init(string)
+        case .store:
+            storesOriginal = Tags.init(string)
+        case .entryDates:
+            additionDate = Date.init()
+        case .lastEditDate:
+            lastEditDates = [Date.init()]
+        case .contributor:
+            creator = string
+            informers = [string]
+            editors = [string]
+            photographers = [string]
+            correctors = [string]
+        case .creator:
+            creator = string
+        case .informer:
+            informers = [string]
+        case .editor:
+            editors = [string]
+        case .photographer:
+            photographers = [string]
+        case .corrector:
+            correctors = [string]
+        case .state:
+            state = CompletionState()
+        }
+        
+    }
 
 // End product
 }
