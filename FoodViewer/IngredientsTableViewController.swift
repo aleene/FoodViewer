@@ -530,11 +530,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             TableSection.Header.Labels))
         
         
-        // 5: image section
-        sectionsAndRows.append((
-            SectionType.image,
-            TableSection.Size.Image,
-            TableSection.Header.Image))
+        if !product.barcode.isSearch() {
+            // 5: image section
+            sectionsAndRows.append((
+                SectionType.image,
+                TableSection.Size.Image,
+                TableSection.Header.Image))
+        }
         
         return sectionsAndRows
     }

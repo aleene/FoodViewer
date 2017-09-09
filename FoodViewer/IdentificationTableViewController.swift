@@ -569,8 +569,10 @@ class IdentificationTableViewController: UITableViewController {
         // 6: quantity section
         sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
         
-        // 7: image section
-        sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
+        if product != nil && !product!.barcode.isSearch() {
+            // 7: image section only needed if teh product is not a search query
+            sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
+        }
         
         // print("\(sectionsAndRows)")
         return sectionsAndRows

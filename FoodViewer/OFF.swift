@@ -209,18 +209,6 @@ public struct OFF {
     }
 
     static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
-//        let region = Bundle.main.preferredLocalizations[0] as NSString
-//        var urlString = OFF.URL.Scheme
-//        urlString += "\(region)."
-//        // use the currrent product type
-//        urlString += server(for:Preferences.manager.showProductType)
-//        urlString += URL.TopDomain
-//        urlString += component.rawValue
-//        urlString += "/"
-//        urlString += value
-//        urlString += "/"
-//        urlString += "\(page)"
-//        urlString += URL.JSONExtension
         return searchString(with: [(component, value)], on: page )
     }
 

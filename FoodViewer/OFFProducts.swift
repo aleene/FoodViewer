@@ -78,10 +78,12 @@ class OFFProducts {
     
     private var searchQueryAsProduct: ProductFetchStatus? {
         get {
-            let product = FoodProduct()
             if let validSearch = search,
                 let validComponent = validSearch.0,
                 let validString = validSearch.1 {
+                let product = FoodProduct()
+                // Define the product as a search product of current product type
+                product.barcode = .search("", OFFProducts.manager.currentProductType)
                 product.setSearchPair(validComponent, with: validString)
                 // This will be the first product in the search results
                 // It represents the query buy example product

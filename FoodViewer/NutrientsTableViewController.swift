@@ -680,11 +680,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 TableSections.Header.ServingSize))
         
             // Section 3 or 4 or 5: image section
-            
-            sectionsAndRows.append((
-                SectionType.nutritionImage,
-                TableSections.Size.NutritionFactsImage,
-                TableSections.Header.NutritionFactsImage))
+            if !product.barcode.isSearch() {
+                sectionsAndRows.append((
+                    SectionType.nutritionImage,
+                    TableSections.Size.NutritionFactsImage,
+                    TableSections.Header.NutritionFactsImage))
+            }
         
         }
         return sectionsAndRows

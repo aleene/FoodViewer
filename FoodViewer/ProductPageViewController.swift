@@ -216,11 +216,28 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
-            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .completion]
+            if product?.barcode != nil && product!.barcode.isSearch() {
+                // search page has no gallery
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories,
+                         .nutritionScore, .completion]
+            } else {
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories,
+                         .gallery, .nutritionScore, .completion]
+            }
         case .beauty:
-            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+            if product?.barcode != nil && product!.barcode.isSearch() {
+                // search page has no gallery
+                pages = [.identification, .ingredients, .supplyChain, .categories, .completion]
+            } else {
+                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+            }
         case .petFood:
-            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
+            if product?.barcode != nil && product!.barcode.isSearch() {
+                // search page has no gallery
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
+            } else {
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
+            }
         }
     }
     

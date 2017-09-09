@@ -12,6 +12,7 @@ enum BarcodeType {
     case ean13(String, ProductType?)
     case ean8(String, ProductType?)
     case undefined(String, ProductType?)
+    case search(String, ProductType?) // To indicate a search product, which does not have to have a barcode
     
     init(typeCode: String, value: String) {
         if typeCode == "org.gs1.EAN-13" {
@@ -59,6 +60,8 @@ enum BarcodeType {
             return s
         case .undefined(let s, _):
             return s
+        case .search(let s, _):
+            return s
         }
     }
     
@@ -69,6 +72,8 @@ enum BarcodeType {
         case .ean8(_, let s):
             return s
         case .undefined(_, let s):
+            return s
+        case .search(_, let s):
             return s
         }
     }
@@ -81,7 +86,18 @@ enum BarcodeType {
             self = .ean8(code, type)
         case .undefined(let code, _):
             self = .undefined(code, type)
+        default:
+            return
         }
         
+    }
+    
+    func isSearch() -> Bool {
+        switch self {
+        case .search:
+            return true
+        default:
+            return false
+        }
     }
 }
