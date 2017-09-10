@@ -53,8 +53,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
             //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ProductPageViewController.saveUpdatedProduct), userInfo: nil, repeats: false)
             self.view.endEditing(true)
-            // Saving can be done
-            saveUpdatedProduct()
+            if product?.barcode != nil && product!.barcode.isSearch() {
+                // start a new search
+            } else {
+                // Saving can be done
+                saveUpdatedProduct()
+            }
         }
         editMode = !editMode
     }

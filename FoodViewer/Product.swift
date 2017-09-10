@@ -553,7 +553,7 @@ class FoodProduct {
             }
         }
     }
-    var state = CompletionState()
+    var state = CompletionState(states: [:])
     
 
     // group parameters
@@ -736,7 +736,7 @@ class FoodProduct {
         countriesHierarchy = .undefined
         additionDate = nil
         creator = nil
-        state = CompletionState()
+        state = CompletionState(states: [:])
         primaryLanguageCode = nil
         categoriesOriginal = .undefined
         categoriesInterpreted = .undefined
@@ -1264,10 +1264,170 @@ class FoodProduct {
         case .corrector:
             correctors = [string]
         case .state:
-            state = CompletionState()
+            if let validStates = CompletionState.stateForSearchString(string) {
+                state = CompletionState.init(states: validStates)
+            }
         }
-        
     }
+    
+    func searchPairs() -> [(OFF.SearchComponent, String)] {
+        var pairs: [(OFF.SearchComponent, String)] = []
+        // name
+        // brand
+        for item in brandsOriginal.asList() {
+            pairs.append((.brand, item))
+        }
+        // categories
+        for item in categoriesOriginal.asList() {
+            pairs.append((.category, item))
+        }
+        // producer codes
+        for item in embCodesOriginal.asList() {
+            pairs.append((.producerCode, item))
+        }
+        // country:
+        for item in countriesOriginal.asList() {
+            pairs.append((.country, item))
+        }
+        // label
+        for item in labelsOriginal.asList() {
+            pairs.append((.label, item))
+        }
+        // language on product
+        for item in languageCodes {
+            pairs.append((.language, item))
+        }
+        // packaging
+        for item in packagingOriginal.asList() {
+            pairs.append((.packaging, item))
+        }
+        // purchasePlace:
+        for item in purchasePlacesOriginal.asList() {
+            pairs.append((.purchasePlace, item))
+        }
+
+        // additive
+        for item in additivesInterpreted.asList() {
+            pairs.append((.packaging, item))
+        }
+        // trace
+        for item in tracesOriginal.asList() {
+            pairs.append((.trace, item))
+        }
+        // allergen
+        for item in allergensOriginal.asList() {
+            pairs.append((.allergen, item))
+        }
+        // producerCode:
+        for item in embCodesOriginal.asList() {
+            pairs.append((.codes, item))
+        }
+        // manufacturingPlaces
+        for item in manufacturingPlacesOriginal.asList() {
+            pairs.append((.manufacturingPlaces, item))
+        }
+        // store
+        for item in storesOriginal.asList() {
+            pairs.append((.store, item))
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let validDate = additionDate {
+            // entryDates:
+            let searchString = formatter.string(from: validDate as Date)
+            pairs.append((.entryDates, searchString))
+        }
+        // lastEditDate:
+        if let validDates = lastEditDates {
+            if !validDates.isEmpty {
+                let searchString = formatter.string(from: validDates[0] as Date)
+                pairs.append((.lastEditDate, searchString))
+            }
+        }
+
+        // creator:
+        //if let validCreator = creator {
+        //    pairs.append((.creator, validCreator))
+        //}
+        // informer:
+        if let validInformers = informers {
+            for item in validInformers {
+                pairs.append((.informer, item))
+            }
+        }
+        // editor:
+        if let validEditors = editors {
+            for item in validEditors {
+                pairs.append((.editor, item))
+            }
+        }
+        // photographer:
+        if let validPhotographers = photographers {
+            for item in validPhotographers {
+                pairs.append((.photographer, item))
+            }
+        }
+        // corrector
+        if let validCorrectors = correctors {
+            for item in validCorrectors {
+                pairs.append((.corrector, item))
+            }
+        }
+        // states:
+        if state.states[CompletionState.Keys.PhotosValidatedComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.PhotosValidatedComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.ProductNameComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.ProductNameComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.BrandsComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.BrandsComplete) {
+                pairs.append((.state, validString ))
+            }
+        }
+        if state.states[CompletionState.Keys.QuantityComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.QuantityComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.PackagingComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.PackagingComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.CategoriesComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.CategoriesComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.NutritionFactsComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.NutritionFactsComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.PhotosUploadedComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.PhotosUploadedComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.IngredientsComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.IngredientsComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+        if state.states[CompletionState.Keys.ExpirationDateComplete] != nil {
+            if let validString = state.searchStringForState(with: CompletionState.Keys.ExpirationDateComplete) {
+                pairs.append((.state, validString))
+            }
+        }
+
+        return pairs
+    }
+
 
 // End product
 }

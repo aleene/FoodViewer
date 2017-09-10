@@ -83,9 +83,10 @@ class IdentificationTableViewController: UITableViewController {
     var product: FoodProduct? {
         didSet {
             if product != nil {
-                tableView.reloadData()
+                tableStructure = setupSections()
                 // check if the currentLanguage needs to be updated
                 setCurrentLanguage()
+                tableView.reloadData()
             }
         }
     }
@@ -816,7 +817,6 @@ class IdentificationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableStructure = setupSections()
         
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true

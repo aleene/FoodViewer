@@ -50,34 +50,6 @@ public enum Tags {
     public init(_ string: String?) {
         self.init(string?.characters.split{ $0 == "," }.map(String.init))
     }
-//    
-//    // initialise with a list of strings with a languageCode for unlanguaged strings
-//    public init(withList list: [String]?, and languageCode: String) {
-//        self.init(list)
-//        addPrefix(languageCode)
-//    }
-//    
-//    // initialise with a comma delimited string with a languageCode for unlanguaged strings
-//    public init(_ string: String?, with languageCode: String) {
-//        self.init(string)
-//        addPrefix(languageCode)
-//    }
-    //
-    // MARK: - Tags functions
-    //
-    
-//    // add a languageCode to individual tags that have no language
-//    public func tags(with languageCode: String) -> [String] {
-//        switch self {
-//        case let .available(list):
-//            if !list.isEmpty {
-//                return addPrefix(list, prefix: languageCode)
-//            }
-//        default:
-//            break
-//        }
-//        return []
-//    }
     
     // add a languageCode to tags that have no language and remove languageCode for another language
     public func prefixed(withAdded languageCode: String?, andRemoved otherLanguageCode: String?) -> Tags {
@@ -158,6 +130,20 @@ public enum Tags {
         }
     }
     
+//
+// MARK: - Multi tag functions
+//
+    
+    public func asList() -> [String] {
+        switch self {
+        case .available(let list):
+            return list
+        default:
+            break
+        }
+        return []
+    }
+
 
 //
 // MARK: - Private Tags functions
@@ -188,20 +174,6 @@ public enum Tags {
         return []
     }
     
-//    
-//    // If there are any tag strings, add a language code.
-//    private mutating func stripPrefix(_ languageCode: String) {
-//        switch self {
-//        case let .available(list):
-//            if !list.isEmpty {
-//                self = .available(strip(list, of: languageCode))
-//            }
-//        default:
-//            break
-//        }
-//    }
-
-
 //
 // MARK: - Private tag-list functions
 //
@@ -213,20 +185,6 @@ public enum Tags {
         }
         return newList
     }
-
-//    private func setPrefix(_ list: [String], prefix: String) -> [String] {
-//        var prefixedList: [String] = []
-//        for tag in list {
-//            if tag.contains(":") {
-//                // there is already a prefix
-//                prefixedList.append(tag)
-//                // is there an language prefix encoded?
-//            } else {
-//                prefixedList.append(prefix + ":" + tag)
-//            }
-//        }
-//        return prefixedList
-//    }
     
     private func addPrefix(_ list: [String], prefix: String) -> [String] {
         var prefixedList: [String] = []
@@ -287,18 +245,4 @@ public enum Tags {
         return string.contains(":") ? string : prefix + ":" + string
     }
 
-    
-//    private func tagWithoutPrefix(_ index: Int, locale:String) -> String? {
-//        if let currentTag = self.tag(index) {
-//            let interfaceLanguage = locale.characters.split{ $0 == "-" }.map(String.init)[0]
-//            if currentTag.hasPrefix(interfaceLanguage + ":") {
-//                return currentTag.characters.split{ $0 == ":" }.map(String.init)[1]
-//            } else {
-//                return currentTag
-//            }
-//        } else {
-//            return nil
-//        }
-//    }
-//
 }

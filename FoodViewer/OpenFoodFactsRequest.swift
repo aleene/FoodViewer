@@ -90,17 +90,42 @@ class OpenFoodFactsRequest {
         }
     }
     
-    func fetchProducts(for component: OFF.SearchComponent, with value:String, on page:Int) -> ProductFetchStatus {
+//    func fetchProducts(for component: OFF.SearchComponent, with value:String, on page:Int) -> ProductFetchStatus {
+//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+//        // encode the url-string
+//        let search = OFF.searchString(for: component, with: value, on: page)
+//        if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
+//
+//            let fetchUrl = URL(string:escapedSearch)
+//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+//            if let url = fetchUrl {
+//                do {
+//                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
+//                    return unpackJSONObject(JSON(data: data))
+//                } catch let error as NSError {
+//                    print(error);
+//                    return ProductFetchStatus.loadingFailed(error.description)
+//                }
+//            } else {
+//                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
+//            }
+//
+//        } else {
+//            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
+//        }
+//    }
+    
+    func fetchProducts(for pairs: [(OFF.SearchComponent, String)], on page:Int) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // encode the url-string
-        let search = OFF.searchString(for: component, with: value, on: page)
+        let search = OFF.searchString(with: pairs, on: page)
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
-
+            
             let fetchUrl = URL(string:escapedSearch)
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if let url = fetchUrl {
                 do {
-                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
+                    let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
                     return unpackJSONObject(JSON(data: data))
                 } catch let error as NSError {
                     print(error);
@@ -109,12 +134,12 @@ class OpenFoodFactsRequest {
             } else {
                 return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
             }
-
+            
         } else {
             return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
         }
     }
-    
+
     func fetchSampleProduct() -> ProductFetchStatus {
         var resource: String = ""
         switch currentProductType {
@@ -653,30 +678,7 @@ class OpenFoodFactsRequest {
             product.add(fact: nutritionItem)
         }
     }
-    
-    fileprivate struct StateCompleteKey {
-        static let nutrimentKeys = "en:nutrition-facts-completed"
-        static let nutrimentKeysTBD = "en:nutrition-facts-to-be-completed"
-        static let Ingredients = "en:ingredients-completed"
-        static let IngredientsTBD = "en:ingredients-to-be-completed"
-        static let ExpirationDate = "en:expiration-date-completed"
-        static let ExpirationDateTBD = "en:expiration-date-to-be-completed"
-        static let PhotosValidated = "en:photos-validated"
-        static let PhotosValidatedTBD = "en:photos-to-be-validated"
-        static let Categories = "en:categories-completed"
-        static let CategoriesTBD = "en:categories-to-be-completed"
-        static let Brands = "en:brands-completed"
-        static let BrandsTBD = "en:brands-to-be-completed"
-        static let Packaging = "en:packaging-completed"
-        static let PackagingTBD = "en:packaging-to-be-completed"
-        static let Quantity = "en:quantity-completed"
-        static let QuantityTBD = "en:quantity-to-be-completed"
-        static let ProductName = "en:product-name-completed"
-        static let ProductNameTBD = "en:product-name-to-be-completed"
-        static let PhotosUploaded = "en:photos-uploaded"
-        static let PhotosUploadedTBD = "en:photos-to-be-uploaded"
-    }
-    
+        
 //    fileprivate func decodeAdditives(_ additives: [String]?) -> [String]? {
 //        if let adds = additives {
 //            var translatedAdds:[String]? = []
@@ -728,85 +730,66 @@ class OpenFoodFactsRequest {
         if let statesArray = states {
             for currentState in statesArray {
                 let preferredLanguage = Locale.preferredLanguages[0]
-                if currentState.contains(StateCompleteKey.PhotosUploaded) {
-                    product.state.photosUploadedComplete.value = true
-                    product.state.photosUploadedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosUploaded, language:preferredLanguage)
+                if currentState.contains(OFF.StateCompleteKey.PhotosUploaded) {
+                    product.state.states[CompletionState.Keys.PhotosUploadedComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosUploaded, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.PhotosUploadedTBD) {
-                    product.state.photosUploadedComplete.value =  false
-                    product.state.photosUploadedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosUploadedTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.PhotosUploadedTBD) {
+                    product.state.states[CompletionState.Keys.PhotosUploadedComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosUploaded, language:preferredLanguage))
                     
 
-                } else if currentState.contains(StateCompleteKey.ProductName) {
-                    product.state.productNameComplete.value =  true
-                    product.state.productNameComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ProductName, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.ProductName) {
+                    product.state.states[CompletionState.Keys.ProductNameComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.ProductName, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.ProductNameTBD) {
-                    product.state.productNameComplete.value =  false
-                    product.state.productNameComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ProductNameTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.ProductNameTBD) {
+                    product.state.states[CompletionState.Keys.ProductNameComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.ProductNameTBD, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.Brands) {
-                    product.state.brandsComplete.value =  true
-                    product.state.brandsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Brands, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.Brands) {
+                    product.state.states[CompletionState.Keys.BrandsComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Brands, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.BrandsTBD) {
-                    product.state.brandsComplete.value =  false
-                    product.state.brandsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.BrandsTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.BrandsTBD) {
+                    product.state.states[CompletionState.Keys.BrandsComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.BrandsTBD, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.Quantity) {
-                    product.state.quantityComplete.value =  true
-                    product.state.quantityComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Quantity, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.Quantity) {
+                    product.state.states[CompletionState.Keys.QuantityComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Quantity, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.QuantityTBD) {
-                    product.state.quantityComplete.value =  false
-                    product.state.quantityComplete.text = OFFplists.manager.translateStates(StateCompleteKey.QuantityTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.QuantityTBD) {
+                    product.state.states[CompletionState.Keys.QuantityComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.QuantityTBD, language:preferredLanguage))
 
-                } else if currentState.contains(StateCompleteKey.Packaging) {
-                    product.state.packagingComplete.value = true
-                    product.state.packagingComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Packaging, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.Packaging) {
+                    product.state.states[CompletionState.Keys.PackagingComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Packaging, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.PackagingTBD) {
-                    product.state.packagingComplete.value = false
-                    product.state.packagingComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PackagingTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.PackagingTBD) {
+                    product.state.states[CompletionState.Keys.PackagingComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.PackagingTBD, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.Categories) {
-                    product.state.categoriesComplete.value = true
-                    product.state.categoriesComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Categories, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.Categories) {
+                    product.state.states[CompletionState.Keys.CategoriesComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Categories, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.CategoriesTBD) {
-                    product.state.categoriesComplete.value = false
-                    product.state.categoriesComplete.text = OFFplists.manager.translateStates(StateCompleteKey.CategoriesTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.CategoriesTBD) {
+                    product.state.states[CompletionState.Keys.CategoriesComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.CategoriesTBD, language:preferredLanguage))
 
-                } else if currentState.contains(StateCompleteKey.nutrimentKeys) {
-                    product.state.nutritionFactsComplete.value = true
-                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.nutrimentKeys, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.nutrimentKeys) {
+                    product.state.states[CompletionState.Keys.NutritionFactsComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.nutrimentKeys, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.nutrimentKeysTBD) {
-                    product.state.nutritionFactsComplete.value = false
-                    product.state.nutritionFactsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.nutrimentKeysTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.nutrimentKeysTBD) {
+                    product.state.states[CompletionState.Keys.NutritionFactsComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.nutrimentKeysTBD, language:preferredLanguage))
 
-                } else if currentState.contains(StateCompleteKey.PhotosValidated) {
-                    product.state.photosValidatedComplete.value = true
-                    product.state.photosValidatedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosValidated, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.PhotosValidated) {
+                    product.state.states[CompletionState.Keys.PhotosValidatedComplete] = CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosValidated, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.PhotosValidatedTBD) {
-                    product.state.photosValidatedComplete.value = false
-                    product.state.photosValidatedComplete.text = OFFplists.manager.translateStates(StateCompleteKey.PhotosValidatedTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.PhotosValidatedTBD) {
+                    product.state.states[CompletionState.Keys.PhotosValidatedComplete] = CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosValidatedTBD, language:preferredLanguage))
 
-                } else if currentState.contains(StateCompleteKey.Ingredients) {
-                    product.state.ingredientsComplete.value = true
-                    product.state.ingredientsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.Ingredients, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.Ingredients) {
+                    product.state.states[CompletionState.Keys.IngredientsComplete] = CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.Ingredients, language:preferredLanguage))
                     
-                } else if currentState.contains(StateCompleteKey.IngredientsTBD) {
-                    product.state.ingredientsComplete.value = false
-                    product.state.ingredientsComplete.text = OFFplists.manager.translateStates(StateCompleteKey.IngredientsTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.IngredientsTBD) {
+                    product.state.states[CompletionState.Keys.IngredientsComplete] = CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.IngredientsTBD, language:preferredLanguage))
 
-                } else if currentState.contains(StateCompleteKey.ExpirationDate) {
-                    product.state.expirationDateComplete.value = true
-                    product.state.expirationDateComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ExpirationDate, language:preferredLanguage)
-                } else if currentState.contains(StateCompleteKey.ExpirationDateTBD) {
-                    product.state.expirationDateComplete.value = false
-                    product.state.expirationDateComplete.text = OFFplists.manager.translateStates(StateCompleteKey.ExpirationDateTBD, language:preferredLanguage)
+                } else if currentState.contains(OFF.StateCompleteKey.ExpirationDate) {
+                    product.state.states[CompletionState.Keys.ExpirationDateComplete] = CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.ExpirationDate, language:preferredLanguage))
+                    
+                } else if currentState.contains(OFF.StateCompleteKey.ExpirationDateTBD) {
+                    product.state.states[CompletionState.Keys.ExpirationDateComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.ExpirationDateTBD, language:preferredLanguage))
                 }
             }
         }

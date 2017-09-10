@@ -45,18 +45,26 @@ class OFFProducts {
     var search: (OFF.SearchComponent?, String?)? = nil {
         didSet {
             if search != nil {
+                createSearchQueryProduct()
                 loadAll()
             }
         }
     }
-//    var searchValue: String? = nil {
-//        didSet {
-//            // reload if there is a change in the search value
-//            if searchValue != nil && searchValue! != oldValue {
-//                loadAll()
-//            }
-//        }
-//    }
+    
+    private var searchQueryProduct: FoodProduct? = nil
+    
+    private func createSearchQueryProduct() {
+        if let validSearch = search,
+            let validComponent = validSearch.0,
+            let validString = validSearch.1 {
+            searchQueryProduct = FoodProduct()
+            // Define the product as a search product of current product type
+            searchQueryProduct?.barcode = .search("", OFFProducts.manager.currentProductType)
+            searchQueryProduct?.setSearchPair(validComponent, with: validString)
+        } else {
+            searchQueryProduct = nil
+        }
+    }
     
     var searchResultSize: Int? = nil
     
@@ -76,23 +84,6 @@ class OFFProducts {
         return Preferences.manager.showProductType
     }
     
-    private var searchQueryAsProduct: ProductFetchStatus? {
-        get {
-            if let validSearch = search,
-                let validComponent = validSearch.0,
-                let validString = validSearch.1 {
-                let product = FoodProduct()
-                // Define the product as a search product of current product type
-                product.barcode = .search("", OFFProducts.manager.currentProductType)
-                product.setSearchPair(validComponent, with: validString)
-                // This will be the first product in the search results
-                // It represents the query buy example product
-                return ProductFetchStatus.searchQuery(product)
-            }
-            return nil
-        }
-    }
-
     private func setCurrentProducts() {
         var list: [ProductFetchStatus] = []
         switch self.list {
@@ -114,8 +105,8 @@ class OFFProducts {
             }
         case .search:
             // show the search query as the first product in the search results
-            if let validQuery = searchQueryAsProduct {
-                list.append(validQuery)
+            if let validProduct = searchQueryProduct {
+                list.append(.searchQuery(validProduct))
             }
             
             // add the search results
@@ -573,97 +564,104 @@ class OFFProducts {
     }
     
     private func startFreshSearch() {
-        if let validSearchString = search?.1 {
-            // reset search page
-            currentSearchPage = 0
-            allSearchFetchResultList = []
-            allSearchFetchResultList.append(.searchLoading)
-            setCurrentProducts()
-            // send a notification to inform that a search has started
-            let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchString,
-                                      Notification.SearchPageKey:currentSearchPage]
-            NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
-        
-            fetchSearchProductsForNextPage()
+        if let validProduct = searchQueryProduct {
+            let validSearchPairs = validProduct.searchPairs()
+            if !validSearchPairs.isEmpty {
+                let validSearchString = validSearchPairs[0].1
+                // reset search page
+                currentSearchPage = 0
+                allSearchFetchResultList = []
+                allSearchFetchResultList.append(.searchLoading)
+                setCurrentProducts()
+                // send a notification to inform that a search has started
+                let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchString,
+                                                  Notification.SearchPageKey:currentSearchPage]
+                NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
+                    
+                fetchSearchProductsForNextPage()
+                
+            }
         }
     }
     
     private var currentSearchPage: Int = 0
     
     public func fetchSearchProductsForNextPage() {
-        // load the most recent product from the local storage
-        if let validSearchComponent = search?.0,
-            let validSearchValue = search?.1
-        {
-            currentSearchPage += 1
-            var fetchResult = ProductFetchStatus.loading
-            if allSearchFetchResultList.isEmpty {
-                allSearchFetchResultList.append(.searchLoading)
-            } else {
-                if let lastItem = allSearchFetchResultList.last {
-                    if let validLastItem = lastItem {
-                        switch validLastItem {
-                        case .more:
-                            allSearchFetchResultList[allSearchFetchResultList.count - 1] = .searchLoading
-                        default:
-                            break
-                        }
-                    }
-                }
-            }
-            setCurrentProducts()
-            // send a notification to inform that a search has started
-            let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchValue,
-                                          Notification.SearchPageKey:currentSearchPage]
-            NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
-            
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                fetchResult = OpenFoodFactsRequest().fetchProducts(for:validSearchComponent, with:validSearchValue, on:self.currentSearchPage)
-                DispatchQueue.main.async(execute: { () -> Void in
-                switch fetchResult {
-                case .searchList(let searchResult):
-                    // searchResult is a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-                    
-                    // is this the first page of a search?
-                    if searchResult.1 == 1 {
-                        // Then we should restart with an empty product list
-                        self.allSearchFetchResultList = []
-                        self.currentSearchPage = 1
-                        // if the last result in the file is a more instruction remove it
-                    } else if let lastItem = self.allSearchFetchResultList.last {
+        if let validProduct = searchQueryProduct {
+            let validSearchPairs = validProduct.searchPairs()
+            if !validSearchPairs.isEmpty {
+                //let validSearchComponent = validSearchPairs[0].0
+                //let validSearchValue = validSearchPairs[0].1
+                currentSearchPage += 1
+                var fetchResult = ProductFetchStatus.loading
+                if allSearchFetchResultList.isEmpty {
+                    allSearchFetchResultList.append(.searchLoading)
+                } else {
+                    if let lastItem = allSearchFetchResultList.last {
                         if let validLastItem = lastItem {
                             switch validLastItem {
-                            case .more, .searchLoading:
-                                self.allSearchFetchResultList.remove(at: self.allSearchFetchResultList.count - 1)
+                            case .more:
+                                allSearchFetchResultList[allSearchFetchResultList.count - 1] = .searchLoading
                             default:
                                 break
                             }
                         }
                     }
-                    
-                    // Add the search results to the new product list
-                    for product in searchResult.3 {
-                        self.allSearchFetchResultList.append(.success(product))
-                    }
-                    // are there more products available?
-                    if searchResult.0 > self.allSearchFetchResultList.count + 1 {
-                        self.allSearchFetchResultList.append(.more(searchResult.1 + 1))
-                    }
-                    
-                    self.setCurrentProducts()
-                    let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchValue,
-                                    Notification.SearchOffsetKey:(searchResult.1 - 1) * searchResult.2]
-                    NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
-                case .loadingFailed(let error):
-                    let userInfo = ["error":error]
-                    self.handleLoadingFailed(userInfo)
-                case .productNotAvailable(let error):
-                    let userInfo = ["error":error]
-                    self.handleLoadingFailed(userInfo)
-                default: break
                 }
+                setCurrentProducts()
+                // send a notification to inform that a search has started
+                let userInfo: [String:Any] = [Notification.SearchStringKey:"Search set",
+                                          Notification.SearchPageKey:currentSearchPage]
+                NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
+            
+                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                    fetchResult = OpenFoodFactsRequest().fetchProducts(for:validSearchPairs, on:self.currentSearchPage)
+                    DispatchQueue.main.async(execute: { () -> Void in
+                    switch fetchResult {
+                    case .searchList(let searchResult):
+                        // searchResult is a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
+                    
+                        // is this the first page of a search?
+                        if searchResult.1 == 1 {
+                            // Then we should restart with an empty product list
+                            self.allSearchFetchResultList = []
+                            self.currentSearchPage = 1
+                            // if the last result in the file is a more instruction remove it
+                        } else if let lastItem = self.allSearchFetchResultList.last {
+                            if let validLastItem = lastItem {
+                                switch validLastItem {
+                                case .more, .searchLoading:
+                                    self.allSearchFetchResultList.remove(at: self.allSearchFetchResultList.count - 1)
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                    
+                        // Add the search results to the new product list
+                        for product in searchResult.3 {
+                            self.allSearchFetchResultList.append(.success(product))
+                        }
+                        // are there more products available?
+                        if searchResult.0 > self.allSearchFetchResultList.count + 1 {
+                            self.allSearchFetchResultList.append(.more(searchResult.1 + 1))
+                        }
+                    
+                        self.setCurrentProducts()
+                        let userInfo: [String:Any] = [Notification.SearchStringKey:"What to put here?",
+                                    Notification.SearchOffsetKey:(searchResult.1 - 1) * searchResult.2]
+                        NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+                    case .loadingFailed(let error):
+                        let userInfo = ["error":error]
+                        self.handleLoadingFailed(userInfo)
+                    case .productNotAvailable(let error):
+                        let userInfo = ["error":error]
+                        self.handleLoadingFailed(userInfo)
+                    default: break
+                    }
+                })
             })
-        })
+            }
         }
     }
     

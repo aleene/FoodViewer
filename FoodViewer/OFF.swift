@@ -59,6 +59,29 @@ public struct OFF {
         case original = "original"
     }
     
+    public struct StateCompleteKey {
+        static let nutrimentKeys = "en:nutrition-facts-completed"
+        static let nutrimentKeysTBD = "en:nutrition-facts-to-be-completed"
+        static let Ingredients = "en:ingredients-completed"
+        static let IngredientsTBD = "en:ingredients-to-be-completed"
+        static let ExpirationDate = "en:expiration-date-completed"
+        static let ExpirationDateTBD = "en:expiration-date-to-be-completed"
+        static let PhotosValidated = "en:photos-validated"
+        static let PhotosValidatedTBD = "en:photos-to-be-validated"
+        static let Categories = "en:categories-completed"
+        static let CategoriesTBD = "en:categories-to-be-completed"
+        static let Brands = "en:brands-completed"
+        static let BrandsTBD = "en:brands-to-be-completed"
+        static let Packaging = "en:packaging-completed"
+        static let PackagingTBD = "en:packaging-to-be-completed"
+        static let Quantity = "en:quantity-completed"
+        static let QuantityTBD = "en:quantity-to-be-completed"
+        static let ProductName = "en:product-name-completed"
+        static let ProductNameTBD = "en:product-name-to-be-completed"
+        static let PhotosUploaded = "en:photos-uploaded"
+        static let PhotosUploadedTBD = "en:photos-to-be-uploaded"
+    }
+
     // The strings are used in the URL's of the search query, so we look for the right thing
     public enum SearchComponent: String {
         case name = "name"
@@ -173,27 +196,12 @@ public struct OFF {
         fetchUrlString += barcode.asString() + URL.JSONExtension
         return fetchUrlString
     }
-
-//    static func searchString(for component: SearchComponent, with value: String ) -> String {
-//        let region = Bundle.main.preferredLocalizations[0] as NSString
-//        var urlString = OFF.URL.Scheme
-//        urlString += "\(region)."
-//        // use the currrent product type
-//        urlString += server(for:Preferences.manager.showProductType)
-//        urlString += URL.TopDomain
-//        urlString += component.rawValue
-//        urlString += "/"
-//        urlString += value
-//        urlString += URL.JSONExtension
-//        return urlString
-//    }
     
     static func searchString(with pairs: [(SearchComponent, String)], on page: Int ) -> String {
         guard !pairs.isEmpty else { return "" }
         
-        let region = Bundle.main.preferredLocalizations[0] as NSString
-        var urlString = OFF.URL.Scheme
-        urlString += "\(region)."
+        // let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Prefix
         // use the currrent product type
         urlString += server(for:Preferences.manager.showProductType)
         urlString += URL.TopDomain
@@ -208,9 +216,9 @@ public struct OFF {
         return urlString
     }
 
-    static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
-        return searchString(with: [(component, value)], on: page )
-    }
+    //static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
+    //    return searchString(with: [(component, value)], on: page )
+    //}
 
     
     static func webProductURLFor(_ barcode: BarcodeType) -> String {

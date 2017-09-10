@@ -21,4 +21,9 @@ public struct CompletionStatus: CustomStringConvertible {
     }
 
     public init() { }
+    
+    public init(_ value: Bool, and text: String) {
+        self.text = text
+        self.value = value
+    }
 }
