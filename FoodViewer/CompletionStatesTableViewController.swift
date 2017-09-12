@@ -93,10 +93,10 @@ class CompletionStatesTableViewController: UITableViewController {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CompletionStateCellIdentifier, for: indexPath) as! StateTableViewCell
             cell.delegate = delegate
-            let key = product!.state.keys()[indexPath.row]
-            cell.state = product?.state.states[key]?.value ?? false
-            cell.stateTitle = product!.state.states[key]?.text ?? "No title"
-            cell.searchString = product!.state.searchStringForState(with:key)
+            let completion = product!.state.array[indexPath.row]
+            cell.state = completion.value
+            cell.stateTitle = completion.description()
+            cell.searchString = OFF.searchKey(for: completion)
             return cell
             
         } else if indexPath.section == 1 {

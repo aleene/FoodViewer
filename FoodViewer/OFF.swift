@@ -59,28 +59,6 @@ public struct OFF {
         case original = "original"
     }
     
-    public struct StateCompleteKey {
-        static let nutrimentKeys = "en:nutrition-facts-completed"
-        static let nutrimentKeysTBD = "en:nutrition-facts-to-be-completed"
-        static let Ingredients = "en:ingredients-completed"
-        static let IngredientsTBD = "en:ingredients-to-be-completed"
-        static let ExpirationDate = "en:expiration-date-completed"
-        static let ExpirationDateTBD = "en:expiration-date-to-be-completed"
-        static let PhotosValidated = "en:photos-validated"
-        static let PhotosValidatedTBD = "en:photos-to-be-validated"
-        static let Categories = "en:categories-completed"
-        static let CategoriesTBD = "en:categories-to-be-completed"
-        static let Brands = "en:brands-completed"
-        static let BrandsTBD = "en:brands-to-be-completed"
-        static let Packaging = "en:packaging-completed"
-        static let PackagingTBD = "en:packaging-to-be-completed"
-        static let Quantity = "en:quantity-completed"
-        static let QuantityTBD = "en:quantity-to-be-completed"
-        static let ProductName = "en:product-name-completed"
-        static let ProductNameTBD = "en:product-name-to-be-completed"
-        static let PhotosUploaded = "en:photos-uploaded"
-        static let PhotosUploadedTBD = "en:photos-to-be-uploaded"
-    }
 
     // The strings are used in the URL's of the search query, so we look for the right thing
     public enum SearchComponent: String {
@@ -162,16 +140,16 @@ public struct OFF {
             return "state"
         }
     }
-    
-    public enum SearchStatus: String {
+    /*
+    public enum CompletionStatus: String {
         case productNameCompleted = "product-name-completed"
         case productNameNotCompleted = "product-name-to-be-completed"
         case brandsCompleted = "brands-completed"
         case brandsNotCompleted = "brands-to-be-completed"
         case quantityCompleted = "quantity-completed"
         case quantityNotCompleted = "quantity-to-be-completed"
-        case packagingCompleted = "packaging-code-completed"
-        case packagingNotCompleted = "packaging-code-to-be-completed"
+        case packagingCompleted = "packaging-completed"
+        case packagingNotCompleted = "packaging-to-be-completed"
         case ingredientsCompleted = "ingredients-completed"
         case ingredientsNotCompleted = "ingredients-to-be-completed"
         case categoriesCompleted = "categories-completed"
@@ -185,8 +163,128 @@ public struct OFF {
         case photosValidatedCompleted = "photos-validated"
         case photosValidatedNotCompleted = "photos-to-be-validated"
     }
+    
+    static func completionKey(for status:CompletionStatus) -> String {
+        return "en:" + status.rawValue
+    }
+     */
+
+    // The base strings which represent the various states on OFF
+    public static func string(for completion: Completion) -> String {
+        switch completion.category {
+        case .productName: // in JSON and search
+            return "product-name"
+        case .brands:
+            return "brands" // in JSON and search
+        case .quantity:
+            return "quantity" // in JSON and search
+        case .packaging:
+            return "packaging" // in JSON and search
+        case .ingredients:
+            return "ingredients" // in JSON and search
+        case .categories:
+            return "categories" // in JSON and search
+        case .expirationDate:
+            return "expiration-date" // in JSON and search
+        case .nutritionFacts:
+            return "nutrition-facts" // in JSON and search
+        case .photosUploaded:
+            return "photos-uploaded" // in JSON and search
+        case .photosValidated:
+            return "photos-validated" // in JSON and search
+        }
+    }
+
+    // The value strings needed for searching a status
+    public static func searchKey(for completion:Completion) -> String {
+        var test = ""
+        switch completion.category {
+        case .photosUploaded:
+            test = completion.value ? string(for:completion) : "photos-to-be-uploaded"
+        case .photosValidated:
+            test = completion.value ? string(for:completion) : "photos-to-be-validated"
+        default:
+            test = string(for:completion) + ( completion.value ? "-completed" : "-to-be-completed" )
+        }
+        return test
+    }
+
+    // The strings used to encode the status values in the product JSON
+    // These are also the keys in the taxonomy
+    public static func JSONkey(for completion:Completion) -> String {
+        return "en:" + searchKey(for:completion)
+    }
+    
+    // Convert the key values found in the JSON to a Completion
+    public static func JSONcompletion(for string: String) -> Completion? {
+        // remove the language component
+        let elements = string.characters.split{$0 == ":"}.map(String.init)
+        if elements.count > 1 {
+            return completion(for:elements[1])
+        }
+        return nil
+    }
 
     
+    // Converts the status searchKey back to a Completion object
+    public static func completion(for string: String) -> Completion? {
+        
+        if string == searchKey(for: Completion.init(.productName, isCompleted:true)) {
+            return Completion.init(.productName, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.productName, isCompleted:false)) {
+            return Completion.init(.productName, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.brands, isCompleted:true)) {
+            return Completion.init(.brands, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.brands, isCompleted:false)) {
+            return Completion.init(.brands, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:true)) {
+            return Completion.init(.quantity, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:false)) {
+            return Completion.init(.quantity, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:true)) {
+            return Completion.init(.quantity, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:false)) {
+            return Completion.init(.quantity, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.packaging, isCompleted:true)) {
+            return Completion.init(.packaging, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.packaging, isCompleted:false)) {
+            return Completion.init(.packaging, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.ingredients, isCompleted:true)) {
+            return Completion.init(.ingredients, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.ingredients, isCompleted:false)) {
+            return Completion.init(.ingredients, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.categories, isCompleted:true)) {
+            return Completion.init(.categories, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.categories, isCompleted:false)) {
+            return Completion.init(.categories, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.expirationDate, isCompleted:true)) {
+            return Completion.init(.expirationDate, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.expirationDate, isCompleted:false)) {
+            return Completion.init(.expirationDate, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.nutritionFacts, isCompleted:true)) {
+            return Completion.init(.nutritionFacts, isCompleted:true)
+        } else if string == searchKey(for: .init(.nutritionFacts, isCompleted:false)) {
+            return Completion.init(.nutritionFacts, isCompleted:false)
+        } else if string == searchKey(for: Completion.init(.photosUploaded, isCompleted:true)) {
+            return Completion.init(.photosUploaded, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.photosUploaded, isCompleted:false)) {
+            return Completion.init(.photosUploaded, isCompleted:false)
+            
+        } else if string == searchKey(for: Completion.init(.photosValidated, isCompleted:true)) {
+            return Completion.init(.photosValidated, isCompleted:true)
+        } else if string == searchKey(for: Completion.init(.photosValidated, isCompleted:false)) {
+            return Completion.init(.photosValidated, isCompleted:false)
+        }
+        return nil
+    }
 
     static func fetchString(for barcode: BarcodeType, with productType: ProductType) -> String {
         var fetchUrlString = URL.Prefix

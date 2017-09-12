@@ -553,7 +553,7 @@ class FoodProduct {
             }
         }
     }
-    var state = CompletionState(states: [:])
+    var state = CompletionState()
     
 
     // group parameters
@@ -736,7 +736,7 @@ class FoodProduct {
         countriesHierarchy = .undefined
         additionDate = nil
         creator = nil
-        state = CompletionState(states: [:])
+        state = CompletionState()
         primaryLanguageCode = nil
         categoriesOriginal = .undefined
         categoriesInterpreted = .undefined
@@ -1264,8 +1264,8 @@ class FoodProduct {
         case .corrector:
             correctors = [string]
         case .state:
-            if let validStates = CompletionState.stateForSearchString(string) {
-                state = CompletionState.init(states: validStates)
+            if let validState = OFF.completion(for: string) {
+                state.states.insert(validState)
             }
         }
     }
@@ -1374,6 +1374,10 @@ class FoodProduct {
             }
         }
         // states:
+        for item in state.states {
+            pairs.append((.state,OFF.searchKey(for: item)))
+        }
+        /*
         if state.states[CompletionState.Keys.PhotosValidatedComplete] != nil {
             if let validString = state.searchStringForState(with: CompletionState.Keys.PhotosValidatedComplete) {
                 pairs.append((.state, validString))
@@ -1424,6 +1428,7 @@ class FoodProduct {
                 pairs.append((.state, validString))
             }
         }
+        */
 
         return pairs
     }

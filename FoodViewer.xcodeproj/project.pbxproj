@@ -193,6 +193,8 @@
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
 		51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */; };
+		51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8A6CD1F6677C400B3C361 /* Completion.swift */; };
+		51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8A6CF1F67C38700B3C361 /* CompletionCategory.swift */; };
 		51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */; };
 		51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42C61E02F48600C9AD91 /* TagView.xib */; };
 		51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C81E02F4A200C9AD91 /* TagView.swift */; };
@@ -454,6 +456,8 @@
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
 		51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTableViewCell.swift; sourceTree = "<group>"; };
+		51C8A6CD1F6677C400B3C361 /* Completion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Completion.swift; path = Model/Completion.swift; sourceTree = "<group>"; };
+		51C8A6CF1F67C38700B3C361 /* CompletionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionCategory.swift; sourceTree = "<group>"; };
 		51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
 		51CF42C61E02F48600C9AD91 /* TagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		51CF42C81E02F4A200C9AD91 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -859,6 +863,8 @@
 		519884E11CE4EA5E0020B3A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				51C8A6CF1F67C38700B3C361 /* CompletionCategory.swift */,
+				51C8A6CD1F6677C400B3C361 /* Completion.swift */,
 				5153FDC41F5016A100F3E20F /* ProductSection.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
 				511B2C421E78687E00336CE8 /* Mass.swift */,
@@ -1204,6 +1210,7 @@
 				516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */,
 				51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */,
 				511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */,
+				51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
 				5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */,
 				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
@@ -1260,6 +1267,7 @@
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
 				519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */,
 				5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */,
+				51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
 				516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,

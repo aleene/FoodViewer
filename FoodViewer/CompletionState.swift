@@ -11,234 +11,189 @@ import Foundation
 // completion states parameters
 struct CompletionState {
     
-    struct Keys {
-        static let BrandsComplete = "brandsComplete"
-        static let CategoriesComplete = "categoriesComplete"
-        static let ExpirationDateComplete = "expirationDateComplete"
-        static let IngredientsComplete = "ingredientsComplete"
-        static let NutritionFactsComplete = "nutritionFactsComplete"
-        static let PhotosValidatedComplete = "photosValidatedComplete"
-        static let ProductNameComplete = "productNameComplete"
-        static let QuantityComplete = "quantityComplete"
-        static let PackagingComplete = "packagingComplete"
-        static let PhotosUploadedComplete = "photosUploadedComplete"
-    }
-    var states: [String:CompletionStatus]
-   //var photosValidatedComplete: CompletionStatus = nil
-    //var productNameComplete: CompletionStatus  = nil
-    //var brandsComplete: CompletionStatus = nil
-    //var quantityComplete: CompletionStatus = nil
-    //var packagingComplete: CompletionStatus = nil
-    //var categoriesComplete: CompletionStatus = nil
-    //var nutritionFactsComplete: CompletionStatus = nil
-    //var photosUploadedComplete: CompletionStatus = nil
-    //var ingredientsComplete: CompletionStatus = nil
-    //var expirationDateComplete: CompletionStatus = nil
+    var states = Set<Completion>()
     
     func completionPercentage() -> Int {
-        var val = 0
-        if states[Keys.PhotosValidatedComplete] != nil && states[Keys.PhotosValidatedComplete]!.value { val = val + 10 }
-        if states[Keys.ProductNameComplete] != nil && states[Keys.ProductNameComplete]!.value { val = val + 10 }
-        if states[Keys.BrandsComplete] != nil && states[Keys.BrandsComplete]!.value { val = val + 10 }
-        if states[Keys.QuantityComplete] != nil && states[Keys.QuantityComplete]!.value { val = val + 10 }
-        if states[Keys.PackagingComplete] != nil && states[Keys.PackagingComplete]!.value { val = val + 10 }
-        if states[Keys.CategoriesComplete] != nil && states[Keys.CategoriesComplete]!.value { val = val + 10 }
-        if states[Keys.NutritionFactsComplete] != nil && states[Keys.NutritionFactsComplete]!.value { val = val + 10 }
-        if states[Keys.PhotosUploadedComplete] != nil && states[Keys.PhotosUploadedComplete]!.value { val = val + 10 }
-        if states[Keys.IngredientsComplete] != nil && states[Keys.IngredientsComplete]!.value { val = val + 10 }
-        if states[Keys.ExpirationDateComplete] != nil && states[Keys.ExpirationDateComplete]!.value { val = val + 10 }
-        return val
+        var val = 0.0
+        let fraction = 100.0 / Double(states.count)
+        for state in states {
+            if state.value { val += fraction }
+        }
+        return Int(val)
     }
     
     func keys() -> [String] {
-        var keys: [String] = []
-        if states[Keys.PhotosValidatedComplete] != nil {
-            keys.append(Keys.PhotosValidatedComplete)
-        }
-        if states[Keys.ProductNameComplete] != nil {
-            keys.append(Keys.ProductNameComplete)
-        }
-        if states[Keys.BrandsComplete] != nil {
-            keys.append(Keys.BrandsComplete)
-        }
-        if states[Keys.QuantityComplete] != nil {
-            keys.append(Keys.QuantityComplete)
-        }
-        if states[Keys.PackagingComplete] != nil {
-            keys.append(Keys.PackagingComplete)
-        }
-        if states[Keys.CategoriesComplete] != nil {
-            keys.append(Keys.CategoriesComplete)
-        }
-        if states[Keys.NutritionFactsComplete] != nil {
-            keys.append(Keys.NutritionFactsComplete)
-        }
-        if states[Keys.PhotosUploadedComplete] != nil {
-            keys.append(Keys.PhotosUploadedComplete)
-        }
-        if states[Keys.IngredientsComplete] != nil {
-            keys.append(Keys.IngredientsComplete)
-        }
-        if states[Keys.ExpirationDateComplete] != nil {
-            keys.append(Keys.ExpirationDateComplete)
-        }
-        return keys
+        return states.map( { OFF.string(for: $0) } )
     }
     
     func completionPercentageAsDouble() -> Double {
         return Double(completionPercentage()) / 100.0
     }
     
+    var array: [Completion] {
+        var array: [Completion] = []
+        for item in self.states {
+            array.append(item)
+        }
+        return array
+    }
+    
+    /*
     func searchStringForState(with key:String) -> String? {
+        
         if key == Keys.PhotosValidatedComplete && states[key] != nil {
             return states[key]!.value ?
-                OFF.SearchStatus.photosValidatedCompleted.rawValue :
-                OFF.SearchStatus.photosValidatedNotCompleted.rawValue
+                OFF.CompletionStatus.photosValidatedCompleted.rawValue :
+                OFF.CompletionStatus.photosValidatedNotCompleted.rawValue
         }
         if key == Keys.ProductNameComplete && states[Keys.ProductNameComplete] != nil {
             return states[Keys.ProductNameComplete]!.value ?
-                OFF.SearchStatus.productNameCompleted.rawValue :
-                OFF.SearchStatus.productNameNotCompleted.rawValue
+                OFF.CompletionStatus.productNameCompleted.rawValue :
+                OFF.CompletionStatus.productNameNotCompleted.rawValue
             
         }
         if key == Keys.BrandsComplete && states[Keys.BrandsComplete] != nil {
             return states[Keys.BrandsComplete]!.value ?
-                OFF.SearchStatus.brandsCompleted.rawValue :
-                OFF.SearchStatus.brandsNotCompleted.rawValue
+                OFF.CompletionStatus.brandsCompleted.rawValue :
+                OFF.CompletionStatus.brandsNotCompleted.rawValue
             
         }
         if key == Keys.QuantityComplete && states[Keys.QuantityComplete] != nil {
             return states[Keys.QuantityComplete]!.value ?
-                OFF.SearchStatus.quantityCompleted.rawValue :
-                OFF.SearchStatus.quantityNotCompleted.rawValue
+                OFF.CompletionStatus.quantityCompleted.rawValue :
+                OFF.CompletionStatus.quantityNotCompleted.rawValue
             
         }
         if key == Keys.PackagingComplete && states[Keys.PackagingComplete] != nil {
             return states[Keys.PackagingComplete]!.value ?
-                OFF.SearchStatus.packagingCompleted.rawValue :
-                OFF.SearchStatus.packagingNotCompleted.rawValue
+                OFF.CompletionStatus.packagingCompleted.rawValue :
+                OFF.CompletionStatus.packagingNotCompleted.rawValue
             
         }
         if key == Keys.IngredientsComplete  && states[Keys.IngredientsComplete] != nil {
             return states[Keys.IngredientsComplete]!.value ?
-                OFF.SearchStatus.ingredientsCompleted.rawValue :
-                OFF.SearchStatus.ingredientsNotCompleted.rawValue
+                OFF.CompletionStatus.ingredientsCompleted.rawValue :
+                OFF.CompletionStatus.ingredientsNotCompleted.rawValue
             
         }
         if key == Keys.CategoriesComplete  && states[Keys.CategoriesComplete] != nil {
             return states[Keys.CategoriesComplete]!.value ?
-                OFF.SearchStatus.categoriesCompleted.rawValue :
-                OFF.SearchStatus.categoriesNotCompleted.rawValue
+                OFF.CompletionStatus.categoriesCompleted.rawValue :
+                OFF.CompletionStatus.categoriesNotCompleted.rawValue
             
         }
         if key == Keys.ExpirationDateComplete  && states[Keys.ExpirationDateComplete] != nil {
             return states[Keys.ExpirationDateComplete]!.value ?
-                OFF.SearchStatus.expirationDateCompleted.rawValue :
-                OFF.SearchStatus.expirationDateNotCompleted.rawValue
+                OFF.CompletionStatus.expirationDateCompleted.rawValue :
+                OFF.CompletionStatus.expirationDateNotCompleted.rawValue
             
         }
         if key == Keys.PhotosUploadedComplete  && states[Keys.PhotosUploadedComplete] != nil {
             return states[Keys.PhotosUploadedComplete]!.value ?
-                OFF.SearchStatus.photosUploadedCompleted.rawValue :
-                OFF.SearchStatus.photosUploadedNotCompleted.rawValue
+                OFF.CompletionStatus.photosUploadedCompleted.rawValue :
+                OFF.CompletionStatus.photosUploadedNotCompleted.rawValue
             
         }
         if key == Keys.NutritionFactsComplete  && states[Keys.NutritionFactsComplete] != nil {
             return states[Keys.NutritionFactsComplete]!.value ?
-                OFF.SearchStatus.nutritionFactsCompleted.rawValue :
-                OFF.SearchStatus.nutritionFactsNotCompleted.rawValue
+                OFF.CompletionStatus.nutritionFactsCompleted.rawValue :
+                OFF.CompletionStatus.nutritionFactsNotCompleted.rawValue
             
         }
         return nil
     }
+    */
     
+    /*
     static func stateForSearchString(_ string:String) -> [String:CompletionStatus]? {
         let preferredLanguage = Locale.preferredLanguages[0]
         switch string {
-        case OFF.SearchStatus.photosUploadedCompleted.rawValue:
+        case OFF.CompletionStatus.photosUploadedCompleted.rawValue:
             return [CompletionState.Keys.PhotosUploadedComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosUploaded, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.nutritionFactsNotCompleted.rawValue:
+        case OFF.CompletionStatus.photosUploadedNotCompleted.rawValue:
             return [CompletionState.Keys.PhotosUploadedComplete:
-                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosUploaded, language:preferredLanguage))]
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedNotCompleted), language:preferredLanguage))]
         
             
-        case OFF.SearchStatus.productNameCompleted.rawValue:
+        case OFF.CompletionStatus.productNameCompleted.rawValue:
             return [CompletionState.Keys.ProductNameComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.ProductName, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .productNameCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.productNameNotCompleted.rawValue:
+        case OFF.CompletionStatus.productNameNotCompleted.rawValue:
             return [CompletionState.Keys.ProductNameComplete:
-                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.ProductNameTBD, language:preferredLanguage))]
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .productNameNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.brandsCompleted.rawValue:
+        case OFF.CompletionStatus.brandsCompleted.rawValue:
             return [CompletionState.Keys.BrandsComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Brands, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .brandsCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.brandsNotCompleted.rawValue:
+        case OFF.CompletionStatus.brandsNotCompleted.rawValue:
             return [CompletionState.Keys.BrandsComplete:
-                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.BrandsTBD, language:preferredLanguage))]
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .brandsNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.quantityCompleted.rawValue:
+        case OFF.CompletionStatus.quantityCompleted.rawValue:
             return [CompletionState.Keys.QuantityComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Quantity, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .quantityCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.quantityNotCompleted.rawValue:
+        case OFF.CompletionStatus.quantityNotCompleted.rawValue:
             return [CompletionState.Keys.QuantityComplete:
-                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.QuantityTBD, language:preferredLanguage))]
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .quantityNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.packagingCompleted.rawValue:
+        case OFF.CompletionStatus.packagingCompleted.rawValue:
             return [CompletionState.Keys.PackagingComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Packaging, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .packagingCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.packagingNotCompleted.rawValue:
+        case OFF.CompletionStatus.packagingNotCompleted.rawValue:
             return [CompletionState.Keys.PackagingComplete:
-                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.PackagingTBD, language:preferredLanguage))]
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .packagingNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.categoriesCompleted.rawValue:
+        case OFF.CompletionStatus.categoriesCompleted.rawValue:
             return [CompletionState.Keys.CategoriesComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.Categories, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .categoriesCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.categoriesNotCompleted.rawValue:
+        case OFF.CompletionStatus.categoriesNotCompleted.rawValue:
             return [CompletionState.Keys.CategoriesComplete:
-                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.CategoriesTBD, language:preferredLanguage))]
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .categoriesNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.nutritionFactsCompleted.rawValue:
+        case OFF.CompletionStatus.nutritionFactsCompleted.rawValue:
             return [CompletionState.Keys.NutritionFactsComplete:
-                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.nutrimentKeys, language:preferredLanguage))]
+                    CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .nutritionFactsCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.nutritionFactsNotCompleted.rawValue:
+        case OFF.CompletionStatus.nutritionFactsNotCompleted.rawValue:
             return [CompletionState.Keys.NutritionFactsComplete:
-                CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.nutrimentKeysTBD, language:preferredLanguage))]
+                CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .nutritionFactsNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.photosValidatedCompleted.rawValue:
+        case OFF.CompletionStatus.photosValidatedCompleted.rawValue:
             return [CompletionState.Keys.PhotosValidatedComplete:
-                    CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosValidated, language:preferredLanguage))]
+                    CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.completionKey(for: .photosValidatedCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.photosValidatedNotCompleted.rawValue:
+        case OFF.CompletionStatus.photosValidatedNotCompleted.rawValue:
             return [CompletionState.Keys.PhotosValidatedComplete:
-                CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.PhotosValidatedTBD, language:preferredLanguage))]
+                CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.completionKey(for: .photosValidatedNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.ingredientsCompleted.rawValue:
+        case OFF.CompletionStatus.ingredientsCompleted.rawValue:
             return [CompletionState.Keys.IngredientsComplete:
-                CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.Ingredients, language:preferredLanguage))]
+                CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.completionKey(for: .ingredientsCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.ingredientsNotCompleted.rawValue:
+        case OFF.CompletionStatus.ingredientsNotCompleted.rawValue:
             return [CompletionState.Keys.IngredientsComplete:
-                CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.IngredientsTBD, language:preferredLanguage))]
+                CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.completionKey(for: .ingredientsNotCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.expirationDateCompleted.rawValue:
+        case OFF.CompletionStatus.expirationDateCompleted.rawValue:
             return [CompletionState.Keys.ExpirationDateComplete:
-                    CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.StateCompleteKey.ExpirationDate, language:preferredLanguage))]
+                    CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.completionKey(for: .expirationDateCompleted), language:preferredLanguage))]
             
-        case OFF.SearchStatus.expirationDateNotCompleted.rawValue:
-            return [CompletionState.Keys.ExpirationDateComplete: CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.StateCompleteKey.ExpirationDateTBD, language:preferredLanguage))]
+        case OFF.CompletionStatus.expirationDateNotCompleted.rawValue:
+            return [CompletionState.Keys.ExpirationDateComplete:
+                    CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .expirationDateNotCompleted), language:preferredLanguage))]
         default:
             break
         }
         return nil
     }
+     */
 }
 
 
