@@ -737,7 +737,7 @@ class OpenFoodFactsRequest {
                 /*
                 let preferredLanguage = Locale.preferredLanguages[0]
                 if currentState.contains(OFF.completionKey(for: .photosUploadedCompleted)) {
-                    product.state.states[CompletionState.Keys.PhotosUploadedComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedCompleted), language:preferredLanguage))
+                    product.state.states[CompletionState.Keys.PhotosUploadedComplete] = Comple tionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedCompleted), language:preferredLanguage))
                     
                 } else if currentState.contains(OFF.completionKey(for: .photosUploadedNotCompleted)) {
                     product.state.states[CompletionState.Keys.PhotosUploadedComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedNotCompleted), language:preferredLanguage))

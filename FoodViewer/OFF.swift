@@ -313,11 +313,6 @@ public struct OFF {
         urlString += URL.JSONExtension
         return urlString
     }
-
-    //static func searchString(for component: SearchComponent, with value: String, on page:Int ) -> String {
-    //    return searchString(with: [(component, value)], on: page )
-    //}
-
     
     static func webProductURLFor(_ barcode: BarcodeType) -> String {
         let region = Bundle.main.preferredLocalizations[0] as NSString

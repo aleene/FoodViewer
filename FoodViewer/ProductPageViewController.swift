@@ -55,6 +55,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             self.view.endEditing(true)
             if product?.barcode != nil && product!.barcode.isSearch() {
                 // start a new search
+                product?.mergeUpdates(from: updatedProduct)
+                OFFProducts.manager.startSearch(for: product)
             } else {
                 // Saving can be done
                 saveUpdatedProduct()

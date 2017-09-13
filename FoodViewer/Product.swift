@@ -953,6 +953,162 @@ class FoodProduct {
         }
     }
     
+    // updates a product with new product data
+    func mergeUpdates(from product: FoodProduct?) {
+
+        guard product != nil else { return }
+        
+        if product!.primaryLanguageCode != nil {
+            primaryLanguageCode = product!.primaryLanguageCode
+        }
+        for languageSet in product!.nameLanguage {
+            if languageSet.value != nil {
+                nameLanguage[languageSet.key] = languageSet.value!
+            }
+        }
+        for languageSet in product!.genericNameLanguage {
+            if languageSet.value != nil {
+                genericNameLanguage[languageSet.key] = languageSet.value!
+            }
+        }
+        switch product!.brandsOriginal {
+        case .available(let list):
+            brandsOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // brandsInterpreted = product.brandsInterpreted
+        // frontImages = product.frontImages
+        // ingredientsImages = product.ingredientsImages
+        // nutritionImages = product.nutritionImages
+        // images = product.images
+        switch product!.packagingOriginal {
+        case .available(let list):
+            packagingOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // packagingInterpreted = product.packagingInterpreted
+        // packagingHierarchy = product.packagingHierarchy
+        // quantity = product.quantity
+        for languageSet in product!.ingredientsLanguage {
+            ingredientsLanguage[languageSet.key] = languageSet.value
+        }
+        // numberOfIngredients = product.numberOfIngredients
+        switch product!.allergensOriginal {
+        case .available(let list):
+            allergensOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // allergensInterpreted = product.allergensInterpreted
+        // allergensHierarchy = product.allergensHierarchy
+        switch product!.tracesOriginal {
+        case .available(let list):
+            tracesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // tracesInterpreted = product.tracesInterpreted
+        // tracesHierarchy = product.tracesHierarchy
+// additivesInterpreted = product.additivesInterpreted
+        switch product!.labelsOriginal {
+        case .available(let list):
+            labelsOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // labelsInterpreted = product.labelsInterpreted
+        // labelsHierarchy = product.labelsHierarchy
+        switch product!.manufacturingPlacesOriginal {
+        case .available(let list):
+            manufacturingPlacesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // manufacturingPlacesInterpreted = product.manufacturingPlacesInterpreted
+        switch product!.originsOriginal {
+        case .available(let list):
+            originsOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // originsInterpreted = product.originsInterpreted
+        switch product!.embCodesOriginal {
+        case .available(let list):
+            embCodesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // embCodesInterpreted  = product.embCodesInterpreted
+        // servingSize = product.servingSize
+        // nutritionFacts = product.nutritionFacts
+        // nutritionScore = product.nutritionScore
+        // nutritionGrade = product.nutritionGrade
+        switch product!.purchasePlacesOriginal {
+        case .available(let list):
+            purchasePlacesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // purchasePlacesAddress = product.purchasePlacesAddress
+        // purchasePlacesInterpreted = product.purchasePlacesInterpreted
+        switch product!.storesOriginal {
+        case .available(let list):
+            storesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // storesInterpreted = product.storesInterpreted
+        switch product!.countriesOriginal {
+        case .available(let list):
+            countriesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // countriesInterpreted = product.countriesInterpreted
+        // countriesHierarchy = product.countriesHierarchy
+        if product!.additionDate != nil {
+            additionDate = product!.additionDate
+        }
+        if product!.expirationDateString != nil {
+            expirationDateString = product!.expirationDateString
+        }
+        if !product!.languageCodes.isEmpty {
+            languageCodes = product!.languageCodes
+        }
+        switch product!.categoriesOriginal {
+        case .available(let list):
+            categoriesOriginal = Tags.init(list)
+        default:
+            break
+        }
+        // categoriesInterpreted = product.categoriesInterpreted
+        // categoriesHierarchy = product.categoriesHierarchy
+        if !product!.state.array.isEmpty {
+            state = product!.state
+        }
+        if product!.creator != nil {
+            creator = product!.creator
+        }
+        if product!.photographers != nil && !product!.photographers!.isEmpty {
+            photographers = product!.photographers!
+        }
+        if product!.correctors != nil && !product!.correctors!.isEmpty {
+            correctors = product!.correctors!
+        }
+        if product!.editors != nil && !product!.editors!.isEmpty {
+            editors = product!.editors!
+        }
+        if product!.informers != nil && !product!.informers!.isEmpty {
+            informers = product!.informers!
+        }
+        // productContributors = product.productContributors
+        // contributorsArray = product.contributorsArray
+        // hasNutritionFacts = product.hasNutritionFacts
+    }
+
+    
     //func worldURL() -> URL? {
     //    return URL(string: "http://world.openfoodfacts.org/product/" + barcode.asString() + "/")
     //}
@@ -1275,60 +1431,60 @@ class FoodProduct {
         // name
         // brand
         for item in brandsOriginal.asList() {
-            pairs.append((.brand, item))
+            pairs.append((.brand, item.replacingOccurrences(of: " ", with: "-")))
         }
         // categories
         for item in categoriesOriginal.asList() {
-            pairs.append((.category, item))
+            pairs.append((.category, item.replacingOccurrences(of: " ", with: "-")))
         }
         // producer codes
         for item in embCodesOriginal.asList() {
-            pairs.append((.producerCode, item))
+            pairs.append((.producerCode, item.replacingOccurrences(of: " ", with: "-")))
         }
         // country:
         for item in countriesOriginal.asList() {
-            pairs.append((.country, item))
+            pairs.append((.country, item.replacingOccurrences(of: " ", with: "-")))
         }
         // label
         for item in labelsOriginal.asList() {
-            pairs.append((.label, item))
+            pairs.append((.label, item.replacingOccurrences(of: " ", with: "-")))
         }
         // language on product
         for item in languageCodes {
-            pairs.append((.language, item))
+            pairs.append((.language, item.replacingOccurrences(of: " ", with: "-")))
         }
         // packaging
         for item in packagingOriginal.asList() {
-            pairs.append((.packaging, item))
+            pairs.append((.packaging, item.replacingOccurrences(of: " ", with: "-")))
         }
         // purchasePlace:
         for item in purchasePlacesOriginal.asList() {
-            pairs.append((.purchasePlace, item))
+            pairs.append((.purchasePlace, item.replacingOccurrences(of: " ", with: "-")))
         }
 
         // additive
         for item in additivesInterpreted.asList() {
-            pairs.append((.packaging, item))
+            pairs.append((.packaging, item.replacingOccurrences(of: " ", with: "-")))
         }
         // trace
         for item in tracesOriginal.asList() {
-            pairs.append((.trace, item))
+            pairs.append((.trace, item.replacingOccurrences(of: " ", with: "-")))
         }
         // allergen
         for item in allergensOriginal.asList() {
-            pairs.append((.allergen, item))
+            pairs.append((.allergen, item.replacingOccurrences(of: " ", with: "-")))
         }
         // producerCode:
         for item in embCodesOriginal.asList() {
-            pairs.append((.codes, item))
+            pairs.append((.codes, item.replacingOccurrences(of: " ", with: "-")))
         }
         // manufacturingPlaces
         for item in manufacturingPlacesOriginal.asList() {
-            pairs.append((.manufacturingPlaces, item))
+            pairs.append((.manufacturingPlaces, item.replacingOccurrences(of: " ", with: "-")))
         }
         // store
         for item in storesOriginal.asList() {
-            pairs.append((.store, item))
+            pairs.append((.store, item.replacingOccurrences(of: " ", with: "-")))
         }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -1352,25 +1508,25 @@ class FoodProduct {
         // informer:
         if let validInformers = informers {
             for item in validInformers {
-                pairs.append((.informer, item))
+                pairs.append((.informer, item.replacingOccurrences(of: " ", with: "-")))
             }
         }
         // editor:
         if let validEditors = editors {
             for item in validEditors {
-                pairs.append((.editor, item))
+                pairs.append((.editor, item.replacingOccurrences(of: " ", with: "-")))
             }
         }
         // photographer:
         if let validPhotographers = photographers {
             for item in validPhotographers {
-                pairs.append((.photographer, item))
+                pairs.append((.photographer, item.replacingOccurrences(of: " ", with: "-")))
             }
         }
         // corrector
         if let validCorrectors = correctors {
             for item in validCorrectors {
-                pairs.append((.corrector, item))
+                pairs.append((.corrector, item.replacingOccurrences(of: " ", with: "-")))
             }
         }
         // states:
