@@ -134,7 +134,7 @@ public enum Tags {
 // MARK: - Multi tag functions
 //
     
-    public func asList() -> [String] {
+    public var list: [String] {
         switch self {
         case .available(let list):
             return list
@@ -143,7 +143,6 @@ public enum Tags {
         }
         return []
     }
-
 
 //
 // MARK: - Private Tags functions
@@ -246,3 +245,4 @@ public enum Tags {
     }
 
 }
+

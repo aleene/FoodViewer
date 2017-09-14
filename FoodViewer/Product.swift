@@ -1367,6 +1367,9 @@ class FoodProduct {
         }
     }
 
+    // If the product is a description of a searchquery, then this will contain the number of results
+    var numberOfSearchResults: Int? = nil
+    
     func setSearchPair(_ component: OFF.SearchComponent, with string: String) {
         switch component {
         case .name:
@@ -1425,167 +1428,120 @@ class FoodProduct {
             }
         }
     }
-    
-    func searchPairs() -> [(OFF.SearchComponent, String)] {
-        var pairs: [(OFF.SearchComponent, String)] = []
-        // name
+    func searchPairsWithArray() -> [(OFF.SearchComponent, [String])] {
+        var pairs: [(OFF.SearchComponent, [String])] = []
+        
         // brand
-        for item in brandsOriginal.asList() {
-            pairs.append((.brand, item.replacingOccurrences(of: " ", with: "-")))
+        if !brandsOriginal.list.isEmpty {
+            pairs.append((.brand, cleanChars(brandsOriginal.list)))
         }
         // categories
-        for item in categoriesOriginal.asList() {
-            pairs.append((.category, item.replacingOccurrences(of: " ", with: "-")))
+        if !categoriesOriginal.list.isEmpty {
+            pairs.append((.category, cleanChars(categoriesOriginal.list)))
         }
         // producer codes
-        for item in embCodesOriginal.asList() {
-            pairs.append((.producerCode, item.replacingOccurrences(of: " ", with: "-")))
+        if !embCodesOriginal.list.isEmpty {
+            pairs.append((.producerCode, cleanChars(embCodesOriginal.list)))
         }
         // country:
-        for item in countriesOriginal.asList() {
-            pairs.append((.country, item.replacingOccurrences(of: " ", with: "-")))
+        if !countriesOriginal.list.isEmpty {
+            pairs.append((.country, cleanChars(countriesOriginal.list)))
         }
         // label
-        for item in labelsOriginal.asList() {
-            pairs.append((.label, item.replacingOccurrences(of: " ", with: "-")))
+        if !labelsOriginal.list.isEmpty {
+            pairs.append((.label, cleanChars(labelsOriginal.list)))
         }
         // language on product
-        for item in languageCodes {
-            pairs.append((.language, item.replacingOccurrences(of: " ", with: "-")))
+        if !languageCodes.isEmpty {
+            pairs.append((.language, cleanChars(languageCodes)))
         }
         // packaging
-        for item in packagingOriginal.asList() {
-            pairs.append((.packaging, item.replacingOccurrences(of: " ", with: "-")))
+        if !packagingOriginal.list.isEmpty {
+            pairs.append((.packaging, cleanChars(packagingOriginal.list)))
         }
         // purchasePlace:
-        for item in purchasePlacesOriginal.asList() {
-            pairs.append((.purchasePlace, item.replacingOccurrences(of: " ", with: "-")))
+        if !purchasePlacesOriginal.list.isEmpty {
+            pairs.append((.purchasePlace, cleanChars(purchasePlacesOriginal.list)))
         }
-
         // additive
-        for item in additivesInterpreted.asList() {
-            pairs.append((.packaging, item.replacingOccurrences(of: " ", with: "-")))
+        if !additivesInterpreted.list.isEmpty {
+            pairs.append((.packaging, cleanChars(additivesInterpreted.list)))
         }
         // trace
-        for item in tracesOriginal.asList() {
-            pairs.append((.trace, item.replacingOccurrences(of: " ", with: "-")))
+        if !tracesOriginal.list.isEmpty {
+            pairs.append((.trace, cleanChars(tracesOriginal.list)))
         }
         // allergen
-        for item in allergensOriginal.asList() {
-            pairs.append((.allergen, item.replacingOccurrences(of: " ", with: "-")))
-        }
-        // producerCode:
-        for item in embCodesOriginal.asList() {
-            pairs.append((.codes, item.replacingOccurrences(of: " ", with: "-")))
+        if !allergensOriginal.list.isEmpty {
+            pairs.append((.allergen, cleanChars(allergensOriginal.list)))
         }
         // manufacturingPlaces
-        for item in manufacturingPlacesOriginal.asList() {
-            pairs.append((.manufacturingPlaces, item.replacingOccurrences(of: " ", with: "-")))
+        if !manufacturingPlacesOriginal.list.isEmpty {
+            pairs.append((.manufacturingPlaces, cleanChars(manufacturingPlacesOriginal.list)))
         }
         // store
-        for item in storesOriginal.asList() {
-            pairs.append((.store, item.replacingOccurrences(of: " ", with: "-")))
+        if !storesOriginal.list.isEmpty {
+            pairs.append((.store, cleanChars(storesOriginal.list)))
         }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         if let validDate = additionDate {
-            // entryDates:
+        // entryDates:
             let searchString = formatter.string(from: validDate as Date)
-            pairs.append((.entryDates, searchString))
+            pairs.append((.entryDates, [searchString]))
         }
         // lastEditDate:
         if let validDates = lastEditDates {
             if !validDates.isEmpty {
                 let searchString = formatter.string(from: validDates[0] as Date)
-                pairs.append((.lastEditDate, searchString))
+                pairs.append((.lastEditDate, [searchString]))
             }
         }
-
+        
         // creator:
         //if let validCreator = creator {
         //    pairs.append((.creator, validCreator))
         //}
         // informer:
         if let validInformers = informers {
-            for item in validInformers {
-                pairs.append((.informer, item.replacingOccurrences(of: " ", with: "-")))
-            }
+            pairs.append((.informer, cleanChars(validInformers)))
         }
         // editor:
         if let validEditors = editors {
-            for item in validEditors {
-                pairs.append((.editor, item.replacingOccurrences(of: " ", with: "-")))
-            }
+            pairs.append((.editor, cleanChars(validEditors)))
         }
         // photographer:
         if let validPhotographers = photographers {
-            for item in validPhotographers {
-                pairs.append((.photographer, item.replacingOccurrences(of: " ", with: "-")))
-            }
+            pairs.append((.photographer, cleanChars(validPhotographers)))
         }
         // corrector
         if let validCorrectors = correctors {
-            for item in validCorrectors {
-                pairs.append((.corrector, item.replacingOccurrences(of: " ", with: "-")))
-            }
+            pairs.append((.corrector, cleanChars(validCorrectors)))
         }
         // states:
         for item in state.states {
-            pairs.append((.state,OFF.searchKey(for: item)))
+            pairs.append((.state, [OFF.searchKey(for: item)]))
         }
-        /*
-        if state.states[CompletionState.Keys.PhotosValidatedComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.PhotosValidatedComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.ProductNameComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.ProductNameComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.BrandsComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.BrandsComplete) {
-                pairs.append((.state, validString ))
-            }
-        }
-        if state.states[CompletionState.Keys.QuantityComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.QuantityComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.PackagingComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.PackagingComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.CategoriesComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.CategoriesComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.NutritionFactsComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.NutritionFactsComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.PhotosUploadedComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.PhotosUploadedComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.IngredientsComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.IngredientsComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        if state.states[CompletionState.Keys.ExpirationDateComplete] != nil {
-            if let validString = state.searchStringForState(with: CompletionState.Keys.ExpirationDateComplete) {
-                pairs.append((.state, validString))
-            }
-        }
-        */
 
+        return pairs
+    }
+
+    private func cleanChars(_ array: [String]) -> [String] {
+        var newList: [String] = []
+        for item in array {
+            newList.append(item.replacingOccurrences(of: " ", with: "-") )
+        }
+        return newList
+    }
+
+    func searchPairs() -> [(OFF.SearchComponent, String)] {
+        let searchPairs = searchPairsWithArray()
+        var pairs: [(OFF.SearchComponent, String)] = []
+        for pair in searchPairs {
+            for item in pair.1 {
+                pairs.append((pair.0, item))
+            }
+        }
         return pairs
     }
 

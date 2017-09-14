@@ -53,7 +53,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
             //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ProductPageViewController.saveUpdatedProduct), userInfo: nil, repeats: false)
             self.view.endEditing(true)
-            if product?.barcode != nil && product!.barcode.isSearch() {
+            if isSearchTemplate {
                 // start a new search
                 product?.mergeUpdates(from: updatedProduct)
                 OFFProducts.manager.startSearch(for: product)
@@ -121,6 +121,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
 
+    var isSearchTemplate: Bool {
+        return product?.barcode != nil && product!.barcode.isSearch()
+    }
     var pageIndex: ProductSection = .identification {
         didSet {
             if pageIndex != oldValue {
@@ -174,8 +177,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         didSet {
             if editMode != oldValue {
                 // change look edit button
-                confirmBarButtonItem.image = editMode ? UIImage.init(named: "CheckMark") : UIImage.init(named: "Edit")
-                
+                confirmBarButtonItem.image = UIImage.init(named: editMode ? ( isSearchTemplate ? "Search" : "CheckMark" ) : "Edit")
+
                 setupEditMode()
             }
         }
@@ -222,7 +225,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
-            if product?.barcode != nil && product!.barcode.isSearch() {
+            if isSearchTemplate {
                 // search page has no gallery
                 pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories,
                          .nutritionScore, .completion]
@@ -231,14 +234,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                          .gallery, .nutritionScore, .completion]
             }
         case .beauty:
-            if product?.barcode != nil && product!.barcode.isSearch() {
+            if isSearchTemplate {
                 // search page has no gallery
                 pages = [.identification, .ingredients, .supplyChain, .categories, .completion]
             } else {
                 pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
             }
         case .petFood:
-            if product?.barcode != nil && product!.barcode.isSearch() {
+            if isSearchTemplate {
                 // search page has no gallery
                 pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
             } else {

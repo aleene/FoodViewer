@@ -627,7 +627,7 @@ class OFFProducts {
                     switch fetchResult {
                     case .searchList(let searchResult):
                         // searchResult is a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-                    
+                        self.searchQueryProduct?.numberOfSearchResults = searchResult.0
                         // is this the first page of a search?
                         if searchResult.1 == 1 {
                             // Then we should restart with an empty product list

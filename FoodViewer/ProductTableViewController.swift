@@ -241,7 +241,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if let validProductFetchResult = products.fetchResultList[section] {
             switch products.fetchResultList[section] {
-            case .success, .searchQuery:
+            case .success:
+                return tableStructure.count
+            case .searchQuery:
+                if section == 0 {
+                    switch products.fetchResultList[0] {
+                    case .searchQuery(let product):
+                        return product.searchPairsWithArray().count
+                    default:
+                        break
+                    }
+                }
                 return tableStructure.count
             case .more, .loadingFailed:
                 // allow a cell with a button
@@ -256,11 +266,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentProductSection = tableStructure[indexPath.row]
         if !products.fetchResultList.isEmpty && indexPath.section < products.fetchResultList.count {
             //if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch products.fetchResultList[indexPath.section] {
-                case .success(let currentProduct), .searchQuery(let currentProduct):
+                case .success(let currentProduct):
+                    let currentProductSection = tableStructure[indexPath.row]
                     switch currentProductSection {
                     case .name:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
@@ -392,6 +402,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell?.scheme = ColorSchemes.error
                     cell?.accessoryType = .none
                     return cell!
+                    
+                case .searchQuery(let currentProduct):
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+                    cell.datasource = self
+                    // The hundreds define a searchQuery section, the rest is just the row
+                    cell.tag = 300 + indexPath.row
+                    cell.prefixLabelText = currentProduct.searchPairsWithArray()[indexPath.row].0.rawValue
+                    cell.width = tableView.frame.size.width
+                    cell.scheme = ColorSchemes.error
+                    cell.accessoryType = .none
+                    return cell
 
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
@@ -477,6 +498,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             label.text = partsTwo[1]
                         }
                     }
+                }
+            case .searchQuery(let product):
+                if let validResults = product.numberOfSearchResults {
+                    label.text = "#Results \(validResults)"
+                } else {
+                    label.text = NSLocalizedString("Searching", comment: "Title of a tableViewController section, which indicates the no search results have been obtaned yet")
                 }
             default:
                 label.text = products.fetchResultList[section].description()
@@ -877,6 +904,21 @@ extension ProductTableViewController: UITabBarControllerDelegate {
 extension ProductTableViewController: TagListViewDataSource {
         
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        
+        // is this a searchQuery section?
+        if tagListView.tag >= 300 {
+            switch products.fetchResultList[0] {
+            case .searchQuery:
+                switch products.fetchResultList[0] {
+                case .searchQuery(let product):
+                    return product.searchPairsWithArray()[tagListView.tag - 300].1.count
+                default:
+                    break
+                }
+            default:
+                break
+            }
+        }
         return 1
     }
         
@@ -890,6 +932,19 @@ extension ProductTableViewController: TagListViewDataSource {
         } else if tagListView.tag == 2 {
             let fetchStatus = ProductFetchStatus.loadingFailed("loading Failed")
             return fetchStatus.description()
+        } else if tagListView.tag >= 300 {
+            switch products.fetchResultList[0] {
+            case .searchQuery:
+                switch products.fetchResultList[0] {
+                case .searchQuery(let product):
+                    let array = product.searchPairsWithArray()[tagListView.tag - 300].1
+                    return array[index]
+                default:
+                    break
+                }
+            default:
+                break
+            }
         }
         return "ProductTableViewController: tagListView.tag not recognized"
     }

@@ -1072,7 +1072,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
         case .nutritionFacts:
             // decode the actual row from the tag by subtracting the section*100
             let row = textField.tag % 100
-            print(textField.tag, row)
+            // print(textField.tag, row)
             if row >= 0 && row < adaptedNutritionFacts.count {
                 // The new nutrient unit should be set to the nutrient that was edited
                 // copy the existing nutrient and change the unit
