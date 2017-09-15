@@ -145,7 +145,7 @@ class IdentificationTableViewController: UITableViewController {
                     showBrandTagsType = .edited
                     return delegate!.updatedProduct!.brandsOriginal
                 default:
-                    break
+                    showBrandTagsType = TagsTypeDefault.Brands
                 }
             }
             switch showBrandTagsType {
@@ -163,12 +163,15 @@ class IdentificationTableViewController: UITableViewController {
     private struct TagsTypeDefault {
         static let Brands: TagsType = .original
         static let Packaging: TagsType = .prefixed
+        static let Languages: TagsType = .translated
     }
     
     private var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
     
     private var showBrandTagsType: TagsType = TagsTypeDefault.Brands
-    
+
+    private var showLanguagesTagsType: TagsType = TagsTypeDefault.Languages
+
     fileprivate var packagingToDisplay: Tags {
         get {
             // is an updated product available?
@@ -179,7 +182,7 @@ class IdentificationTableViewController: UITableViewController {
                     showPackagingTagsType = .edited
                     return delegate!.updatedProduct!.packagingOriginal
                 default:
-                    break
+                    showPackagingTagsType = TagsTypeDefault.Packaging
                 }
             }
             switch showPackagingTagsType {
@@ -204,13 +207,19 @@ class IdentificationTableViewController: UITableViewController {
                 // does it have edited packaging tags defined?
                 switch delegate!.updatedProduct!.languageTags {
                 case .available, .empty:
-                    showPackagingTagsType = .edited
-                    return delegate!.updatedProduct!.languageTags
+                    showLanguagesTagsType = .edited
+                    return delegate!.updatedProduct!.languageCodeTags
                 default:
-                    break
+                    showLanguagesTagsType = TagsTypeDefault.Languages
                 }
             }
-            return product!.languageTags
+            switch showLanguagesTagsType {
+            case .translated:
+                // show the languageCode in a localized language
+                return product!.languageTags
+            default:
+                return .undefined
+            }
         }
     }
 
@@ -306,6 +315,8 @@ class IdentificationTableViewController: UITableViewController {
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
+            // print("\(product!.isSearchTemplate), \(product!.isSearchTemplate ? editMode : false)")
+            cell.editMode = product!.isSearchTemplate ? editMode : false
             cell.tag = indexPath.section
             return cell
 
@@ -959,6 +970,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .packaging:
             return title(packagingToDisplay)
         case .languages:
+            // print("\(languagesToDisplay)")
             return title(languagesToDisplay)
         case .image:
             return searchResult
@@ -1021,6 +1033,11 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(packagingTags: list)
+            }
+        case .languages:
+            switch languagesToDisplay {
+            case .undefined, .empty, .available:
+                delegate?.update(addLanguageCode: title)
             }
         default:
             break

@@ -97,6 +97,12 @@ class FoodProduct {
         }
     }
     
+    var languageCodeTags: Tags {
+        get {
+            return .available(languageCodes)
+        }
+    }
+
     // MARK: - Packaging variables
     
     var quantity: String? = nil
@@ -180,25 +186,9 @@ class FoodProduct {
             return .undefined
         }
     }
-
-//    private func addPrefix(keys:[String]?, languageCode: String) -> [String]?  {
-//        if keys != nil {
-//            var newKeys: [String] = []
-//            for key in keys! {
-//                if !key.contains(":") {
-//                    newKeys.append(languageCode + key)
-//                } else {
-//                    newKeys.append(key)
-//                }
-//            }
-//            return newKeys
-//        }
-//        return nil
-//    }
-
-//    var traces: Tags = .undefined
     
     var additivesInterpreted: Tags = .undefined
+    var additivesOriginal: Tags = .undefined
     var additivesTranslated: Tags {
         get {
             switch additivesInterpreted {
@@ -738,6 +728,7 @@ class FoodProduct {
         creator = nil
         state = CompletionState()
         primaryLanguageCode = nil
+        languageCodes = []
         categoriesOriginal = .undefined
         categoriesInterpreted = .undefined
         categoriesHierarchy = .undefined
@@ -772,117 +763,6 @@ class FoodProduct {
         }
         return false
     }
-    
-    /*
-    private func retrieveImageData(url: NSURL?, cont: ((ImageFetchResult?) -> Void)?) {
-        if let imageURL = url {
-            // self.nutritionImageData = .Loading
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            cont?(.Success(imageData))
-                            return
-                        })
-                    } else {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            cont?(.NoData)
-                            return
-                        })
-                    }
-                }
-                catch {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        // set the received image data to the current product if valid
-                        cont?(.LoadingFailed(error))
-                        return
-                    })
-                }
-            })
-        } else {
-            cont?(.NoData)
-            return
-        }
-    }
-
-    private func retrieveMainImageData() {
-        if let imageURL = mainUrl {
-            self.mainImageData = .Loading
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            self.mainImageData = .Success(imageData)
-                        })
-                    } else {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            self.mainImageData = .NoData
-                        })
-                    }
-                }
-                catch {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        // set the received image data to the current product if valid
-                        self.mainImageData = .LoadingFailed(error)
-                    })
-                }
-            })
-        } else {
-            self.mainImageData = .NoData
-        }
-    }
-
-    private func retrieveIngredientsImageData() {
-        if let imageURL = imageIngredientsUrl {
-            self.ingredientsImageData = .Loading
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try NSData(contentsOfURL: imageURL, options: NSDataReadingOptions.DataReadingMappedIfSafe)
-                    if imageData.length > 0 {
-                        // if we have the image data we can go back to the main thread
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            self.ingredientsImageData = .Success(imageData)
-                        })
-                    } else {
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            // set the received image data to the current product if valid
-                            self.ingredientsImageData = .NoData
-                        })
-
-                    }
-                    
-                }
-                catch {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        // set the received image data to the current product if valid
-                        self.ingredientsImageData = .LoadingFailed(error)
-                    })
-                }
-            })
-        } else {
-            self.mainImageData = .NoData
-
-        }
-    }
-     */
     
     // updates a product with new product data
     func updateDataWith(_ product: FoodProduct) {
@@ -1366,11 +1246,16 @@ class FoodProduct {
             return .undefined
         }
     }
-
+    
+    // MARK: - Search Template functions and variables
+    
+    public var isSearchTemplate: Bool = false
+    
     // If the product is a description of a searchquery, then this will contain the number of results
     var numberOfSearchResults: Int? = nil
     
     func setSearchPair(_ component: OFF.SearchComponent, with string: String) {
+        isSearchTemplate = true
         switch component {
         case .name:
             nameLanguage[Locale.interfaceLanguageCode()] = string
@@ -1428,6 +1313,7 @@ class FoodProduct {
             }
         }
     }
+    
     func searchPairsWithArray() -> [(OFF.SearchComponent, [String])] {
         var pairs: [(OFF.SearchComponent, [String])] = []
         

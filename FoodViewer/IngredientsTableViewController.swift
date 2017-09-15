@@ -19,9 +19,36 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+// MARK: - Tags variables
     
+    private struct TagsTypeDefault {
+        static let Labels: TagsType = .translated
+        static let Traces: TagsType = .translated
+        static let Allergens: TagsType = .translated
+        static let Additives: TagsType = .translated
+    }
+    
+    // The interpreted labels have been translated to the interface language
+    private var labelsTagsTypeToShow: TagsType = TagsTypeDefault.Labels
+    private var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
+    private var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
+    private var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
+    
+
     fileprivate var allergensToDisplay: Tags {
         get {
+            // is an updated product available? Is only relevant for the template
+            if product != nil && product!.isSearchTemplate && delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.allergensOriginal {
+                case .available, .empty:
+                    allergensTagsTypeToShow = .edited
+                    return delegate!.updatedProduct!.allergensOriginal
+                default:
+                    allergensTagsTypeToShow = TagsTypeDefault.Allergens
+                }
+            }
+
             switch allergensTagsTypeToShow {
             case .interpreted:
                 return product!.allergensInterpreted
@@ -67,6 +94,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate var additivesToDisplay: Tags {
         get {
+            // is an updated product available?
+            if product != nil && product!.isSearchTemplate && delegate?.updatedProduct != nil {
+                // does it have brands defined?
+                switch delegate!.updatedProduct!.additivesOriginal {
+                case .available, .empty:
+                    additivesTagsTypeToShow = .edited
+                    return delegate!.updatedProduct!.additivesOriginal
+                default:
+                    additivesTagsTypeToShow = TagsTypeDefault.Additives
+                }
+            }
+
             switch additivesTagsTypeToShow {
             case .interpreted:
                 return product!.additivesInterpreted
@@ -77,20 +116,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
         }
     }
-    
-    private struct TagsTypeDefault {
-        static let Labels: TagsType = .translated
-        static let Traces: TagsType = .translated
-        static let Allergens: TagsType = .translated
-        static let Additives: TagsType = .translated
-    }
-    
-    // The interpreted labels have been translated to the interface language
-    private var labelsTagsTypeToShow: TagsType = TagsTypeDefault.Labels
-    private var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
-    private var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
-    private var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
-
     fileprivate var labelsToDisplay: Tags {
         get {
             // is an updated product available?
@@ -234,6 +259,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = product!.isSearchTemplate ? editMode : false
             cell.tag = indexPath.section
             return cell
             
@@ -251,6 +277,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = product!.isSearchTemplate ? editMode : false
             cell.tag = indexPath.section
             return cell
             

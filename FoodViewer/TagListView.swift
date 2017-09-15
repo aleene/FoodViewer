@@ -787,7 +787,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // var startedNewRow = false
         // var currentRowWidth: CGFloat = 0
         // print("TagListView frame", frame.size, "super", superview?.frame.size)
-        
+        tagViewHeight = textFont.pointSize + verticalPadding * 2
         // are there any tags?
         guard tagViews.count > 0 else { return }
         
@@ -926,6 +926,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             width: frame.width - inputTextViewOrigin.x - clearButtonWidth,
             height: tagViewHeight //  + Constants.defaultVerticalPadding
         )
+        // print("\(inputTextField.frame)")
 
         /*
          var exclusionPaths: [UIBezierPath] = []
@@ -1075,6 +1076,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         didSet {
             if allowsCreation != oldValue {
                 rearrangeViews(true)
+                
             }
         }
     }

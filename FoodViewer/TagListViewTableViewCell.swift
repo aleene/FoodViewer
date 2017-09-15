@@ -56,10 +56,8 @@ class TagListViewTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet {
-            if editMode != oldValue {
-                tagListView?.allowsRemoval = editMode
-                tagListView?.allowsCreation = editMode
-            }
+            tagListView?.allowsRemoval = editMode
+            tagListView?.allowsCreation = editMode
         }
     }
     
