@@ -838,6 +838,14 @@ class FoodProduct {
 
         guard product != nil else { return }
         
+        switch product!.barcode {
+        case .search:
+            if !product!.barcode.asString().isEmpty {
+                barcode.string(product!.barcode.asString())
+            }
+        default:
+            break
+        }
         if product!.primaryLanguageCode != nil {
             primaryLanguageCode = product!.primaryLanguageCode
         }
@@ -1075,6 +1083,11 @@ class FoodProduct {
         return servingSize == self.servingSize ? true : false
     }
     
+    func contains(barcode: String) -> Bool {
+        return barcode == self.barcode.asString() ? true : false
+    }
+
+    
     func contains(expirationDate: Date) -> Bool {
         return expirationDate == self.expirationDate ? true : false
     }
@@ -1249,14 +1262,18 @@ class FoodProduct {
     
     // MARK: - Search Template functions and variables
     
-    public var isSearchTemplate: Bool = false
+    public var isSearchTemplate: Bool {
+        return barcode.isSearch()
+    }
     
     // If the product is a description of a searchquery, then this will contain the number of results
     var numberOfSearchResults: Int? = nil
     
     func setSearchPair(_ component: OFF.SearchComponent, with string: String) {
-        isSearchTemplate = true
+        // isSearchTemplate = true
         switch component {
+        case .barcode:
+            barcode = BarcodeType.init(value: string)
         case .name:
             nameLanguage[Locale.interfaceLanguageCode()] = string
         case .brand:
@@ -1317,6 +1334,10 @@ class FoodProduct {
     func searchPairsWithArray() -> [(OFF.SearchComponent, [String])] {
         var pairs: [(OFF.SearchComponent, [String])] = []
         
+        // barcode
+        if !barcode.asString().isEmpty {
+            pairs.append((.barcode, [barcode.asString()]))
+        }
         // brand
         if !brandsOriginal.list.isEmpty {
             pairs.append((.brand, cleanChars(brandsOriginal.list)))

@@ -54,7 +54,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .success(let product), .searchQuery(let product):
                 selectedProduct = product
                 tableView.reloadData()
-                tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
+                //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
             default:
                 selectedProduct = nil
                 tableView.reloadData()
@@ -501,9 +501,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 }
             case .searchQuery(let product):
                 if let validResults = product.numberOfSearchResults {
-                    label.text = "#Results \(validResults)"
+                    label.text = "\(validResults) search results"
                 } else {
-                    label.text = NSLocalizedString("Searching", comment: "Title of a tableViewController section, which indicates the no search results have been obtaned yet")
+                    label.text = NSLocalizedString("Search Definition", comment: "Title of a tableViewController section, which indicates the the search query template have been obtaned yet")
                 }
             default:
                 label.text = products.fetchResultList[section].description()

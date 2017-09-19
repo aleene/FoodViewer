@@ -94,7 +94,7 @@
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ClR-5h-8jc" id="wLp-Lk-j1U">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ijR-p7-i6Q">
@@ -345,7 +345,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
-                            <rect key="frame" x="0.0" y="724" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="812" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -397,8 +397,32 @@
                                     <outlet property="mainLanguageButton" destination="b5N-ax-YY5" id="K49-8g-DUA"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Barcode Edit Cell" rowHeight="88" id="DgJ-1g-psZ" userLabel="Barcode Edit Cell" customClass="BarcodeEditTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="116" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DgJ-1g-psZ" id="STO-3f-kJd">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kRx-hP-7I5">
+                                            <rect key="frame" x="8" y="29" width="359" height="30"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="kRx-hP-7I5" firstAttribute="centerY" secondItem="STO-3f-kJd" secondAttribute="centerY" id="63p-o0-O35"/>
+                                        <constraint firstItem="kRx-hP-7I5" firstAttribute="trailing" secondItem="STO-3f-kJd" secondAttribute="trailingMargin" id="9GB-eh-kgN"/>
+                                        <constraint firstItem="kRx-hP-7I5" firstAttribute="leading" secondItem="STO-3f-kJd" secondAttribute="leadingMargin" id="U7c-oe-f0J"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="barcodeTextField" destination="kRx-hP-7I5" id="s20-mS-kGC"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Name Cell" id="cxD-3X-5h8" customClass="ProductNameTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="204" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cxD-3X-5h8" id="xEb-a5-r3f">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -437,7 +461,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification TagList Cell" id="8wF-U4-oRG" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="160" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="248" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8wF-U4-oRG" id="BaI-t0-8tn">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -466,7 +490,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Packaging Cell" id="Fb8-d1-VzC" userLabel="Identification Packaging TagList Cell" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="204" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="292" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="Fb8-d1-VzC" id="x6I-fF-xLp">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -489,7 +513,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Quantity Cell" id="XV5-xE-vwP" customClass="QuantityTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="248" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="336" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XV5-xE-vwP" id="McC-tN-MSx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -514,7 +538,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Identification Image Cell" rowHeight="300" id="E19-gY-jRk" customClass="IdentificationImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="292" width="375" height="300"/>
+                                <rect key="frame" x="0.0" y="380" width="375" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E19-gY-jRk" id="gm3-mZ-YUW">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="300"/>
@@ -569,7 +593,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="No Image Cell" rowHeight="44" id="gUL-qK-f1G" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="592" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="680" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gUL-qK-f1G" id="PNb-Ht-uqC">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -592,7 +616,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identification Basic Cell" textLabel="1rX-wX-DbL" rowHeight="88" style="IBUITableViewCellStyleDefault" id="CZN-Jn-Vn9" customClass="BarcodeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="636" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="724" width="375" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CZN-Jn-Vn9" id="S5k-o3-wDT">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
@@ -1034,7 +1058,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="43" y="0.0" width="202" height="44"/>
+                                            <rect key="frame" x="43" y="0.0" width="201" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1152,13 +1176,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
+                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -3020,14 +3044,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="12" width="320" height="468"/>
+                                <rect key="frame" x="0.0" y="12" width="375" height="788"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="468"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="788"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -3315,10 +3339,10 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NgB-UV-Avc"/>
         <segue reference="bL1-eB-rEY"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="NgB-UV-Avc"/>
         <segue reference="TJD-zt-Jpp"/>
+        <segue reference="NIk-rX-rWX"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -25,21 +25,28 @@ class IdentificationTableViewController: UITableViewController {
     
     fileprivate enum SectionType {
         case barcode(Int, String)
+        case barcodeSearch(Int, String)
         case name(Int, String)
         case genericName(Int, String)
+        case genericNameSearch(Int, String)
         case languages(Int, String)
         case brands(Int, String)
         case packaging(Int, String)
         case quantity(Int, String)
+        case quantitySearch(Int, String)
         case image(Int, String)
         
         func header() -> String {
             switch self {
             case .barcode(_, let headerTitle):
                 return headerTitle
+            case .barcodeSearch(_, let headerTitle):
+                return headerTitle
             case .name(_, let headerTitle):
                 return headerTitle
             case .genericName(_, let headerTitle):
+                return headerTitle
+            case .genericNameSearch(_, let headerTitle):
                 return headerTitle
             case .languages(_, let headerTitle):
                 return headerTitle
@@ -48,6 +55,8 @@ class IdentificationTableViewController: UITableViewController {
             case .packaging(_, let headerTitle):
                 return headerTitle
             case .quantity(_, let headerTitle):
+                return headerTitle
+            case .quantitySearch(_, let headerTitle):
                 return headerTitle
             case .image(_, let headerTitle):
                 return headerTitle
@@ -58,9 +67,13 @@ class IdentificationTableViewController: UITableViewController {
             switch self {
             case .barcode(let numberOfRows, _):
                 return numberOfRows
+            case .barcodeSearch(let numberOfRows, _):
+                return numberOfRows
             case .name(let numberOfRows, _):
                 return numberOfRows
             case .genericName(let numberOfRows, _):
+                return numberOfRows
+            case .genericNameSearch(let numberOfRows, _):
                 return numberOfRows
             case .languages(let numberOfRows, _):
                 return numberOfRows
@@ -69,6 +82,8 @@ class IdentificationTableViewController: UITableViewController {
             case .packaging(let numberOfRows, _):
                 return numberOfRows
             case .quantity(let numberOfRows, _):
+                return numberOfRows
+            case .quantitySearch(let numberOfRows, _):
                 return numberOfRows
             case .image(let numberOfRows, _):
                 return numberOfRows
@@ -242,6 +257,7 @@ class IdentificationTableViewController: UITableViewController {
             static let TextField = "Identification Basic Cell"
             static let ProductName = "Product Name Cell"
             static let Barcode = "Barcode Cell"
+            static let BarcodeEdit = "Barcode Edit Cell"
             static let Quantity = "Quantity Cell"
             static let TagList = "Identification TagList Cell"
             static let Packaging = "Identification Packaging Cell"
@@ -277,6 +293,14 @@ class IdentificationTableViewController: UITableViewController {
             cell!.editMode = editMode
             return cell!
             
+        case .barcodeSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
+            cell.barcode = product?.barcode.asString()
+            cell.editMode = editMode
+            cell.delegate = self
+            cell.tag = indexPath.section
+            return cell
+
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
             cell!.delegate = self
@@ -308,6 +332,15 @@ class IdentificationTableViewController: UITableViewController {
                     cell.name = nil
                 }
             }
+            return cell
+
+        case .genericNameSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.editMode = false
+            cell.scheme = ColorSchemes.error
+            cell.tag = indexPath.section
             return cell
 
         case .languages:
@@ -352,6 +385,15 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             return cell
             
+        case .quantitySearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.editMode = false
+            cell.scheme = ColorSchemes.error
+            cell.tag = indexPath.section
+            return cell
+
         case .image:
             // are there updated images available?
             if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
@@ -561,13 +603,21 @@ class IdentificationTableViewController: UITableViewController {
         
         // All sections are always presented
         // 0: barcode section
-        sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
+        if product!.isSearchTemplate {
+            sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
+        } else {
+            sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
+        }
         
         // 1:  name section
         sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
         
         // 2: common name section
-        sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
+        if product!.isSearchTemplate {
+            sectionsAndRows.append(.genericNameSearch(TableSection.Size.CommonName, TableSection.Header.CommonName))
+        } else {
+            sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
+        }
         
         // 3: language tags section
         sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
@@ -579,9 +629,13 @@ class IdentificationTableViewController: UITableViewController {
         sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         
         // 6: quantity section
-        sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
+        if product!.isSearchTemplate {
+            sectionsAndRows.append(.quantitySearch(TableSection.Size.Quantity, TableSection.Header.Quantity))
+        } else {
+            sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
+        }
         
-        if product != nil && !product!.barcode.isSearch() {
+        if product != nil && !product!.isSearchTemplate  {
             // 7: image section only needed if teh product is not a search query
             sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
         }
@@ -895,12 +949,15 @@ extension IdentificationTableViewController: UITextViewDelegate {
         case .name:
             // productname
             if let validText = textView.text {
-                delegate?.updated(name: validText, languageCode: currentLanguageCode!)
+                if let validCurrentLanguageCode = currentLanguageCode {
+                    delegate?.updated(name: validText, languageCode: validCurrentLanguageCode)
+                }
             }
         case .genericName:
             // generic name updated?
-            if let validText = textView.text {
-                delegate?.updated(genericName: validText, languageCode: currentLanguageCode!)
+            if let validText = textView.text,
+                let validCurrentLanguageCode = currentLanguageCode {
+                    delegate?.updated(genericName: validText, languageCode: validCurrentLanguageCode)
             }
         default:
             break
@@ -939,6 +996,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         
         switch currentProductSection {
+        case .genericNameSearch, .quantitySearch:
+            return 1
         case .brands:
             return count(brandsToDisplay)
         case .packaging:
@@ -964,6 +1023,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
+        case .genericNameSearch, .quantitySearch:
+            return NSLocalizedString("Not searchable",comment: "String of a tag in a TagListView, to indicate the field can not be used for defining a search")
         case .brands:
             // no language adjustments need to be done
             return title(brandsToDisplay)
@@ -1126,6 +1187,11 @@ extension IdentificationTableViewController: UITextFieldDelegate {
             // quantity updated?
             if let validText = textField.text {
                 delegate?.update(quantity: validText)
+            }
+        case .barcodeSearch:
+            // barcode updated?
+            if let validText = textField.text {
+                delegate?.updated(barcode: validText)
             }
         default:
             break

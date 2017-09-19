@@ -62,6 +62,7 @@ public struct OFF {
 
     // The strings are used in the URL's of the search query, so we look for the right thing
     public enum SearchComponent: String {
+        case barcode = "code"
         case name = "name"
         case brand = "brand"
         case category = "category"
@@ -90,6 +91,8 @@ public struct OFF {
     
     static func description(for component: SearchComponent) -> String {
         switch component {
+        case .barcode:
+            return "barcode"
         case .name:
             return "name"
         case .brand:

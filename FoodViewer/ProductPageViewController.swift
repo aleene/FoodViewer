@@ -553,6 +553,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
 
+    func updated(barcode: String) {
+        guard product != nil else { return }
+        if !product!.contains(barcode: barcode) {
+            initUpdatedProductWith(product: product!)
+            updatedProduct?.barcode.string(barcode)
+            saveUpdatedProduct()
+        }
+    }
+    
     func updated(expirationDate: Date) {
         guard product != nil else { return }
         if !product!.contains(expirationDate: expirationDate) {

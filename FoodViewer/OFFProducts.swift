@@ -41,39 +41,6 @@ class OFFProducts {
         }
     }
     
-    // no search has been set at the start
-    var search: (OFF.SearchComponent?, String?)? = nil {
-        didSet {
-            if search != nil {
-                createSearchQueryProduct()
-                loadAll()
-            }
-        }
-    }
-    
-    func startSearch(for product: FoodProduct?) {
-        if product != nil {
-                searchQueryProduct = product
-                loadAll()
-            }
-    }
-    
-    private var searchQueryProduct: FoodProduct? = nil
-    
-    private func createSearchQueryProduct() {
-        if let validSearch = search,
-            let validComponent = validSearch.0,
-            let validString = validSearch.1 {
-            searchQueryProduct = FoodProduct()
-            // Define the product as a search product of current product type
-            searchQueryProduct?.barcode = .search("", OFFProducts.manager.currentProductType)
-            searchQueryProduct?.setSearchPair(validComponent, with: validString)
-        } else {
-            searchQueryProduct = nil
-        }
-    }
-    
-    var searchResultSize: Int? = nil
     
     var mostRecentProduct = MostRecentProduct()
 
@@ -110,10 +77,24 @@ class OFFProducts {
                     }
                 }
             }
+            // If there is nothing on the list add the sample product
+            if list.isEmpty {
+                loadSampleProduct()
+                if let sample = sampleProduct {
+                    list.append(sample)
+                }
+            }
         case .search:
             // show the search query as the first product in the search results
             if let validProduct = searchQueryProduct {
                 list.append(.searchQuery(validProduct))
+            } else {
+                // setup the first product, without a previous search defined
+                // with an empty searchQueryProduct
+                searchQueryProduct = FoodProduct(withBarcode: .search("", currentProductType))
+                if let validSearchQueryProduct = searchQueryProduct {
+                    list.append(.searchQuery(validSearchQueryProduct))
+                }
             }
             
             // add the search results
@@ -133,13 +114,6 @@ class OFFProducts {
                     default: break
                     }
                 }
-            }
-        }
-        // no product avalaible for current product category
-        if list.isEmpty {
-            loadSampleProduct()
-            if let sample = sampleProduct {
-                list.append(sample)
             }
         }
         self.fetchResultList = list
@@ -557,7 +531,7 @@ class OFFProducts {
             }
         case .search:
             // Has a search been setup?
-            if search != nil {
+            if searchQueryProduct != nil {
                 startFreshSearch()
             } else {
                 setCurrentProducts()
@@ -570,6 +544,44 @@ class OFFProducts {
         }
     }
     
+    
+    // MARK: - Search Specific functions and variables
+    
+
+    // no search has been set at the start
+    var search: (OFF.SearchComponent?, String?)? = nil {
+        didSet {
+            if search != nil {
+                createSearchQueryProduct()
+                loadAll()
+            }
+        }
+    }
+    
+    func startSearch(for product: FoodProduct?) {
+        if product != nil {
+            searchQueryProduct = product
+            loadAll()
+        }
+    }
+    
+    private var searchQueryProduct: FoodProduct? = nil
+    
+    private func createSearchQueryProduct() {
+        if let validSearch = search,
+            let validComponent = validSearch.0,
+            let validString = validSearch.1 {
+            searchQueryProduct = FoodProduct()
+            // Define the product as a search product of current product type
+            searchQueryProduct?.barcode = .search("", OFFProducts.manager.currentProductType)
+            searchQueryProduct?.setSearchPair(validComponent, with: validString)
+        } else {
+            searchQueryProduct = nil
+        }
+    }
+    
+    var searchResultSize: Int? = nil
+
     private func startFreshSearch() {
         if let validProduct = searchQueryProduct {
             let validSearchPairs = validProduct.searchPairs()

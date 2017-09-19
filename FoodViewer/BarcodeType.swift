@@ -48,7 +48,16 @@ enum BarcodeType {
     
     mutating func string(_ s: String?) {
         if let newString = s {
-            self = .undefined(newString, nil)
+            switch self {
+            case .ean13:
+                self = .ean13(newString, nil)
+            case .ean8:
+                self = .ean8(newString, nil)
+            case .undefined:
+                self = .undefined(newString, nil)
+            case .search:
+                self = .search(newString, nil)
+            }
         }
     }
     
@@ -86,8 +95,8 @@ enum BarcodeType {
             self = .ean8(code, type)
         case .undefined(let code, _):
             self = .undefined(code, type)
-        default:
-            return
+        case .search(let code, _):
+            self = .search(code, type)
         }
         
     }
