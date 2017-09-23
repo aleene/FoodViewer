@@ -86,14 +86,14 @@ class OFFProducts {
             }
         case .search:
             // show the search query as the first product in the search results
-            if let validProduct = searchQueryProduct {
-                list.append(.searchQuery(validProduct))
+            if let validQuery = searchQuery {
+                list.append(.searchQuery(validQuery))
             } else {
                 // setup the first product, without a previous search defined
                 // with an empty searchQueryProduct
-                searchQueryProduct = FoodProduct(withBarcode: .search("", currentProductType))
-                if let validSearchQueryProduct = searchQueryProduct {
-                    list.append(.searchQuery(validSearchQueryProduct))
+                searchQuery = SearchTemplate()
+                if let validSearchQuery = searchQuery {
+                    list.append(.searchQuery(validSearchQuery))
                 }
             }
             
@@ -531,7 +531,7 @@ class OFFProducts {
             }
         case .search:
             // Has a search been setup?
-            if searchQueryProduct != nil {
+            if searchQuery != nil {
                 startFreshSearch()
             } else {
                 setCurrentProducts()
@@ -552,7 +552,7 @@ class OFFProducts {
     var search: (OFF.SearchComponent?, String?)? = nil {
         didSet {
             if search != nil {
-                createSearchQueryProduct()
+                createSearchQuery()
                 loadAll()
             }
         }
@@ -560,40 +560,40 @@ class OFFProducts {
     
     func startSearch(for product: FoodProduct?) {
         if product != nil {
-            searchQueryProduct = product
+            // searchQueryProduct = product
             loadAll()
         }
     }
     
-    private var searchQueryProduct: FoodProduct? = nil
+    // private var searchQueryProduct: FoodProduct? = nil
     
-    private func createSearchQueryProduct() {
+    var searchQuery: SearchTemplate? = nil
+    
+    private func createSearchQuery() {
         if let validSearch = search,
             let validComponent = validSearch.0,
             let validString = validSearch.1 {
-            searchQueryProduct = FoodProduct()
+            searchQuery = SearchTemplate(for:validString, in:validComponent)
             // Define the product as a search product of current product type
-            searchQueryProduct?.barcode = .search("", OFFProducts.manager.currentProductType)
-            searchQueryProduct?.setSearchPair(validComponent, with: validString)
+            // searchQueryProduct?.barcode = .search("", OFFProducts.manager.currentProductType)
         } else {
-            searchQueryProduct = nil
+            searchQuery = nil
         }
     }
     
     var searchResultSize: Int? = nil
 
     private func startFreshSearch() {
-        if let validProduct = searchQueryProduct {
-            let validSearchPairs = validProduct.searchPairs()
-            if !validSearchPairs.isEmpty {
-                let validSearchString = validSearchPairs[0].1
+        if let validQuery = searchQuery {
+            if !validQuery.isEmpty {
+                // let validSearchString = validSearchPairs[0].1
                 // reset search page
                 currentSearchPage = 0
                 allSearchFetchResultList = []
                 allSearchFetchResultList.append(.searchLoading)
                 setCurrentProducts()
                 // send a notification to inform that a search has started
-                let userInfo: [String:Any] = [Notification.SearchStringKey:validSearchString,
+                let userInfo: [String:Any] = [Notification.SearchStringKey:"Search Defined",
                                                   Notification.SearchPageKey:currentSearchPage]
                 NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
                     
@@ -606,9 +606,8 @@ class OFFProducts {
     private var currentSearchPage: Int = 0
     
     public func fetchSearchProductsForNextPage() {
-        if let validProduct = searchQueryProduct {
-            let validSearchPairs = validProduct.searchPairs()
-            if !validSearchPairs.isEmpty {
+        if let validQuery = searchQuery {
+            if !validQuery.isEmpty {
                 //let validSearchComponent = validSearchPairs[0].0
                 //let validSearchValue = validSearchPairs[0].1
                 currentSearchPage += 1
@@ -634,12 +633,12 @@ class OFFProducts {
                 NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
             
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                    fetchResult = OpenFoodFactsRequest().fetchProducts(for:validSearchPairs, on:self.currentSearchPage)
+                    fetchResult = OpenFoodFactsRequest().fetchProducts(for:validQuery, on:self.currentSearchPage)
                     DispatchQueue.main.async(execute: { () -> Void in
                     switch fetchResult {
                     case .searchList(let searchResult):
                         // searchResult is a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-                        self.searchQueryProduct?.numberOfSearchResults = searchResult.0
+                        self.searchQuery?.numberOfSearchResults = searchResult.0
                         // is this the first page of a search?
                         if searchResult.1 == 1 {
                             // Then we should restart with an empty product list

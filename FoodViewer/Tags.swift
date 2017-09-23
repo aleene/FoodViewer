@@ -22,7 +22,7 @@ public enum Tags {
     
     case undefined
     case empty
-    case available([String])
+    case available([String], Bool)
     
     func description() -> String {
         switch self {
@@ -41,20 +41,25 @@ public enum Tags {
     }
     
     // initialise tags with a list of strings
-    public init(_ list: [String]?) {
+    public init(_ list: [String]?, state: Bool) {
         self.init()
         decode(list)
+        setState(state)
     }
     
+    public init(_ list: [String]?) {
+        self.init(list, state: true)
+    }
+
     // initialise tags with a comma delimited string
     public init(_ string: String?) {
-        self.init(string?.characters.split{ $0 == "," }.map(String.init))
+        self.init(string?.characters.split{ $0 == "," }.map(String.init), state: true)
     }
     
     // add a languageCode to tags that have no language and remove languageCode for another language
     public func prefixed(withAdded languageCode: String?, andRemoved otherLanguageCode: String?) -> Tags {
         switch self {
-        case let .available(list):
+        case let .available(list, state):
             if !list.isEmpty {
                 var newList: [String] = []
                 if languageCode != nil {
@@ -65,7 +70,7 @@ public enum Tags {
                 if otherLanguageCode != nil {
                     newList = strip(newList, of:otherLanguageCode!)
                 }
-                return .available(newList)
+                return .available(newList, state)
             }
         default:
             break
@@ -76,7 +81,7 @@ public enum Tags {
     // add a languageCode to tags that have no language and remove languageCode for another language
     public func tags(withAdded languageCode: String, andRemoved otherLanguageCode: String) -> [String] {
         switch self {
-        case let .available(list):
+        case let .available(list, _):
             if !list.isEmpty {
                 let newList = addPrefix(list, prefix: languageCode)
                 return strip(newList, of:otherLanguageCode)
@@ -86,6 +91,32 @@ public enum Tags {
         }
         return []
     }
+    
+    
+    //
+    // MARK: - State functions
+    //
+
+    // The state is used for defining an OFF search query
+    func state() -> Bool? {
+        switch self {
+        case let .available(_, state):
+            return state
+        default:
+            break
+        }
+        return nil
+    }
+    
+    mutating func setState(_ state:Bool) {
+        switch self {
+        case let .available(list, _):
+            self = .available(list, state)
+        default:
+            return
+        }
+    }
+
 
 //
 // MARK: - Single tag functions
@@ -96,7 +127,7 @@ public enum Tags {
         switch self {
         case .undefined, .empty:
             return self.description()
-        case let .available(list):
+        case let .available(list, _):
             if index >= 0 && index < list.count {
                 return list[index]
             } else {
@@ -121,10 +152,10 @@ public enum Tags {
     // remove a tag at an index if available
     public mutating func remove(_ index: Int) {
         switch self {
-        case .available(var newList):
+        case .available(var newList, let state):
             guard index >= 0 && index < newList.count else { break }
             newList.remove(at: index)
-            self = .available(newList)
+            self = .available(newList, state)
         default:
             break
         }
@@ -136,7 +167,7 @@ public enum Tags {
     
     public var list: [String] {
         switch self {
-        case .available(let list):
+        case .available(let list, _):
             return list
         default:
             break
@@ -163,7 +194,7 @@ public enum Tags {
     // If there are any tag strings, add a language code.
     private func addPrefix(_ prefix: String) -> [String] {
         switch self {
-        case let .available(list):
+        case let .available(list, _):
             if !list.isEmpty {
                 return addPrefix(list, prefix: prefix)
             }
@@ -220,7 +251,7 @@ public enum Tags {
             if newList.isEmpty {
                 self = .empty
             } else {
-                self = .available(newList)
+                self = .available(newList, true)
             }
         } else {
             self = .undefined

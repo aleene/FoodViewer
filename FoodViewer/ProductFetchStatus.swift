@@ -14,7 +14,7 @@ enum ProductFetchStatus {
     // The searchList returns a facet of the search result, 
     // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
     case searchList((Int, Int, Int, [FoodProduct]))
-    case searchQuery(FoodProduct)
+    case searchQuery(SearchTemplate)
     case loading
     case searchLoading
     // The more parameter defines the search next page to retrieve

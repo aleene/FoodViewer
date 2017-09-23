@@ -30,6 +30,7 @@ public struct OFF {
         public struct Divider {
             static let Slash = "/"
             static let Dot = "."
+            static let Equal = "="
         }
         public struct PartNumber {
             static let Barcode = 5
@@ -38,12 +39,18 @@ public struct OFF {
         static let Scheme = "http://"
         static let Prefix = "http://world."
         static let TopDomain = ".org/"
+        static let AdvancedSearch = "cgi/search.pl?action=process"
         static let EnglishProduct = "en:product/"
         static let Postfix = ".org/api/v0/product/"
         static let JSONExtension = ".json"
+        static let JSONSearchExtension = "&json=1"
+        static let SearchPage = "&page="
         static let JPGextension = ".jpg"
         static let Images = "images/products/"
-        
+        static let SearchTagType = "&tagtype_"
+        static let SearchTagContains = "&tag_contains_"
+        static let SearchTagValue = "&tag_"
+        static let SearchTerms = "&search_terms="
     }
     
     public enum Server: String {
@@ -63,21 +70,21 @@ public struct OFF {
     // The strings are used in the URL's of the search query, so we look for the right thing
     public enum SearchComponent: String {
         case barcode = "code"
-        case name = "name"
-        case brand = "brand"
-        case category = "category"
-        case codes = "codes"
-        case country = "country"
-        case label = "label"
+        case searchText = "searchText"
+        case brand = "brands"
+        case category = "categories"
+        case country = "countries"
+        case label = "labels"
         case language = "language"
         case packaging = "packaging"
-        case purchasePlace = "purchase-place"
-        case additive = "additive"
-        case trace = "trace"
-        case allergen = "allergen"
-        case producerCode = "packager-code"
+        case origin = "origins"
+        case purchasePlace = "purchase_places"
+        case additive = "additives"
+        case trace = "traces"
+        case allergen = "allergens"
+        case producerCode = "emb_codes"
         case manufacturingPlaces = "manufacturing-place"
-        case store = "store"
+        case store = "stores"
         case entryDates = "entry-dates"
         case lastEditDate = "last-edit-date"
         case contributor = "contributor"
@@ -86,21 +93,20 @@ public struct OFF {
         case editor = "editor"
         case photographer = "photographer"
         case corrector = "corrector"
-        case state = "state"
+        case state = "states"
+        case nutrionGrade = "nutrition_grades"
     }
     
     static func description(for component: SearchComponent) -> String {
         switch component {
         case .barcode:
             return "barcode"
-        case .name:
-            return "name"
+        case .searchText:
+            return "search text"
         case .brand:
             return "brand"
         case .category:
             return "category"
-        case .codes:
-            return "codes"
         case .country:
             return "country"
         case .label:
@@ -109,6 +115,8 @@ public struct OFF {
             return "language"
         case .packaging:
             return "packaging"
+        case .origin:
+            return "origin"
         case .purchasePlace:
             return "purchase-place"
         case .additive:
@@ -141,36 +149,10 @@ public struct OFF {
             return "corrector"
         case .state:
             return "state"
+        case .nutrionGrade:
+            return "nutrition grade"
         }
     }
-    /*
-    public enum CompletionStatus: String {
-        case productNameCompleted = "product-name-completed"
-        case productNameNotCompleted = "product-name-to-be-completed"
-        case brandsCompleted = "brands-completed"
-        case brandsNotCompleted = "brands-to-be-completed"
-        case quantityCompleted = "quantity-completed"
-        case quantityNotCompleted = "quantity-to-be-completed"
-        case packagingCompleted = "packaging-completed"
-        case packagingNotCompleted = "packaging-to-be-completed"
-        case ingredientsCompleted = "ingredients-completed"
-        case ingredientsNotCompleted = "ingredients-to-be-completed"
-        case categoriesCompleted = "categories-completed"
-        case categoriesNotCompleted = "categories-to-be-completed"
-        case expirationDateCompleted = "expiration-date-completed"
-        case expirationDateNotCompleted = "expiration-date-to-be-completed"
-        case nutritionFactsCompleted = "nutrition-facts-completed"
-        case nutritionFactsNotCompleted = "nutrition-facts-to-be-completed"
-        case photosUploadedCompleted = "photos-uploaded"
-        case photosUploadedNotCompleted = "photos-to-be-uploaded"
-        case photosValidatedCompleted = "photos-validated"
-        case photosValidatedNotCompleted = "photos-to-be-validated"
-    }
-    
-    static func completionKey(for status:CompletionStatus) -> String {
-        return "en:" + status.rawValue
-    }
-     */
 
     // The base strings which represent the various states on OFF
     public static func string(for completion: Completion) -> String {
@@ -317,6 +299,113 @@ public struct OFF {
         return urlString
     }
     
+    static func advancedSearchString(with pairs: [(SearchComponent, String, Bool)], on page: Int ) -> String {
+        // https://world.openfoodfacts.org/cgi/search.pl?search_terms=banania&search_simple=1&action=process&json=1
+        // https://world.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=brands&tag_contains_0=contains&tag_0=Coca
+        
+        guard !pairs.isEmpty else { return "" }
+        
+        // let region = Bundle.main.preferredLocalizations[0] as NSString
+        var urlString = OFF.URL.Prefix
+        // use the currrent product type
+        urlString += server(for:Preferences.manager.showProductType)
+        urlString += URL.TopDomain
+        urlString += URL.AdvancedSearch
+        for (index,pair) in pairs.enumerated() {
+            switch pair.0 {
+            case .additive, .allergen, .brand, .category, .country, .label, .manufacturingPlaces, .origin, .nutrionGrade, .packaging, .state, .store, .trace:
+                urlString += URL.SearchTagType
+                urlString += "\(index)"
+                urlString += URL.Divider.Equal
+                urlString += pair.0.rawValue
+                
+                urlString += URL.SearchTagContains
+                urlString += "\(index)"
+                urlString += URL.Divider.Equal
+                
+                urlString += pair.2 ? "contains" : "does_not_contain"
+                
+                urlString += URL.SearchTagValue
+                urlString += "\(index)"
+                urlString += URL.Divider.Equal
+                urlString += pair.1
+            case .searchText:
+                urlString += URL.SearchTerms
+                urlString += pair.1
+            default:
+                return ""
+            }
+        }
+        urlString += URL.SearchPage + "\(page)"
+        urlString += URL.JSONSearchExtension
+        return urlString
+    }
+
+    
+    static func advancedSearchString(for template: SearchTemplate, on page: Int ) -> String {
+        // https://world.openfoodfacts.org/cgi/search.pl?search_terms=banania&search_simple=1&action=process&json=1
+        // https://world.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=brands&tag_contains_0=contains&tag_0=Coca
+        
+        var urlString = OFF.URL.Prefix
+        // use the currrent product type
+        urlString += server(for:Preferences.manager.showProductType)
+        urlString += URL.TopDomain
+        urlString += URL.AdvancedSearch
+        
+        if let validText = template.text {
+            urlString += URL.SearchTerms
+            urlString += validText
+        }
+        
+        var search_tag_index = 0
+        
+        urlString += addSearchTag(template.labels, in: OFF.SearchComponent.label, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.brands, in: OFF.SearchComponent.brand, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.packaging, in: OFF.SearchComponent.packaging, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.origins, in: OFF.SearchComponent.origin, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.manufacturing_places, in: OFF.SearchComponent.manufacturingPlaces, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.emb_codes, in: OFF.SearchComponent.producerCode, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.purchase_places, in: OFF.SearchComponent.purchasePlace, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.stores, in: OFF.SearchComponent.store, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.countries, in: OFF.SearchComponent.country, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.additives, in: OFF.SearchComponent.additive, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.allergens, in: OFF.SearchComponent.allergen, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.traces, in: OFF.SearchComponent.trace, index: &search_tag_index) ?? ""
+      
+        urlString += URL.SearchPage + "\(page)"
+        urlString += URL.JSONSearchExtension
+        return urlString
+    }
+    
+    static private func addSearchTag(_ pair: (Tags, Bool)?, in component:OFF.SearchComponent, index: inout Int) -> String? {
+        if let (tags, shouldContain) = pair {
+            if !tags.list.isEmpty {
+                var urlString = ""
+                for item in tags.list {
+                    urlString += URL.SearchTagType
+                    urlString += "\(index)"
+                    urlString += URL.Divider.Equal
+                    urlString += component.rawValue
+                    
+                    urlString += URL.SearchTagContains
+                    urlString += "\(index)"
+                    urlString += URL.Divider.Equal
+                    
+                    urlString += shouldContain ? "contains" : "does_not_contain"
+                    
+                    urlString += URL.SearchTagValue
+                    urlString += "\(index)"
+                    urlString += URL.Divider.Equal
+                    urlString += item
+                    index += 1
+                }
+                return urlString
+            }
+        }
+        return nil
+    }
+
     static func webProductURLFor(_ barcode: BarcodeType) -> String {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme

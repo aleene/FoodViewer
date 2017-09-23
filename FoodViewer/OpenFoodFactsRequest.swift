@@ -114,11 +114,36 @@ class OpenFoodFactsRequest {
 //            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
 //        }
 //    }
-    
-    func fetchProducts(for pairs: [(OFF.SearchComponent, String)], on page:Int) -> ProductFetchStatus {
+    /*
+    func fetchProducts(for pairs: [(OFF.SearchComponent, String, Bool)], on page:Int) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // encode the url-string
-        let search = OFF.searchString(with: pairs, on: page)
+        let search = OFF.advancedSearchString(with: pairs, on: page)
+        if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
+            
+            let fetchUrl = URL(string:escapedSearch)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            if let url = fetchUrl {
+                do {
+                    let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
+                    return unpackJSONObject(JSON(data: data))
+                } catch let error as NSError {
+                    print(error);
+                    return ProductFetchStatus.loadingFailed(error.description)
+                }
+            } else {
+                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
+            }
+            
+        } else {
+            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
+        }
+    }
+    */
+    func fetchProducts(for query: SearchTemplate, on page:Int) -> ProductFetchStatus {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        // encode the url-string
+        let search = OFF.advancedSearchString(for: query, on: page)
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
             
             let fetchUrl = URL(string:escapedSearch)
@@ -260,14 +285,14 @@ class OpenFoodFactsRequest {
         decodeLastEditDates(jsonObject[jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
-        product.labelsInterpreted = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray)
+        product.labelsInterpreted = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray, state: true)
         // the labels as the user has entered them (a comma delimited string)
         product.labelsOriginal = Tags(jsonObject[jsonKeys.LabelsKey].string)
-        product.labelsHierarchy = Tags(jsonObject[jsonKeys.LabelsHierarchyKey].stringArray)
+        product.labelsHierarchy = Tags(jsonObject[jsonKeys.LabelsHierarchyKey].stringArray, state: true)
             
         product.tracesOriginal = Tags.init(jsonObject[jsonKeys.TracesKey].string)
-        product.tracesHierarchy = Tags.init(jsonObject[jsonKeys.TracesHierarchyKey].stringArray)
-        product.tracesInterpreted = Tags.init(jsonObject[jsonKeys.TracesTagsKey].stringArray)
+        product.tracesHierarchy = Tags.init(jsonObject[jsonKeys.TracesHierarchyKey].stringArray, state: true)
+        product.tracesInterpreted = Tags.init(jsonObject[jsonKeys.TracesTagsKey].stringArray, state: true)
         
         if let languages = jsonObject[jsonKeys.LanguagesHierarchy].stringArray {
             // product.languageCodes = []
@@ -416,7 +441,7 @@ class OpenFoodFactsRequest {
         product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
         product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
 
-        product.packagingInterpreted = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
+        product.packagingInterpreted = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray, state: true)
         product.packagingOriginal = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
         
         product.numberOfIngredients = jsonObject[jsonKeys.IngredientsNKey].string

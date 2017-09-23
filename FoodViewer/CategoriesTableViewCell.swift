@@ -23,7 +23,7 @@ class CategoriesTableViewCell: UITableViewCell {
             switch categories {
             case .undefined, .empty:
                 categorySummaryLabel.text = Constants.NoInformation
-            case let .available(list):
+            case let .available(list, _):
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
                                 categorySummaryLabel.text = list.count == 1 ? Constants.CategoryOneText : String(format: Constants.CategoryText, formatter.string(from: NSNumber(integerLiteral: list.count))!)

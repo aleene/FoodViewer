@@ -51,10 +51,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate func startInterface(at index:Int) {
         if !products.fetchResultList.isEmpty && index < products.fetchResultList.count {
             switch products.fetchResultList[index] {
-            case .success(let product), .searchQuery(let product):
+            case .success(let product):
                 selectedProduct = product
                 tableView.reloadData()
-                //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
+            //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
+            case .searchQuery(let _):
+                tableView.reloadData()
+            //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
             default:
                 selectedProduct = nil
                 tableView.reloadData()
@@ -247,6 +250,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 if section == 0 {
                     switch products.fetchResultList[0] {
                     case .searchQuery(let product):
+                        print(product.searchPairsWithArray().count)
                         return product.searchPairsWithArray().count
                     default:
                         break
@@ -277,7 +281,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         switch currentProduct.brandsOriginal {
                         case .undefined, .empty:
                             cell.productBrand = [currentProduct.brandsOriginal.description()]
-                        case let .available(list):
+                        case let .available(list, _):
                             cell.productBrand = list
                         }
                         return cell
@@ -314,7 +318,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                         cell.allergensLabel?.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
                         switch currentProduct.allergensTranslated {
-                        case .available(let allergens):
+                        case .available(let allergens, _):
                             cell.allergensBadgeString = "\(allergens.count)"
                         default:
                             cell.allergensBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
@@ -322,7 +326,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                         cell.tracesLabel?.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
                         switch currentProduct.tracesInterpreted {
-                        case .available(let traces):
+                        case .available(let traces, _):
                             cell.tracesBadgeString = "\(traces.count)"
                         default:
                             cell.tracesBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
@@ -362,7 +366,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         switch currentProduct.categoriesHierarchy {
                         case .undefined, .empty:
                             cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no categories defined.")
-                        case let .available(list):
+                        case let .available(list, _):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(list.count)"
@@ -376,7 +380,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
                         switch currentProduct.countriesTranslated {
-                        case .available(let countries):
+                        case .available(let countries, _):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(countries.count)"
@@ -438,8 +442,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if !products.fetchResultList.isEmpty {
             //if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch products.fetchResultList[indexPath.section] {
-                case .success(let product), .searchQuery(let product):
+                case .success(let product):
                     selectedProduct = product
+                // case .searchQuery(let query):
                 case .more:
                     // The next set should be loaded
                     products.fetchSearchProductsForNextPage()
@@ -462,7 +467,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .success(let product):
                 label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
                 switch product.tracesInterpreted {
-                case .available(let validKeys):
+                case .available(let validKeys, _):
                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
                         tempView.backgroundColor = UIColor.red
                     }
@@ -470,7 +475,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     break
                 }
                 switch product.tracesInterpreted {
-                case .available(let validKeys):
+                case .available(let validKeys, _):
                     if !validKeys.isEmpty {
                         let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
                         if warn {
@@ -499,12 +504,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                 }
-            case .searchQuery(let product):
-                if let validResults = product.numberOfSearchResults {
-                    label.text = "\(validResults) search results"
-                } else {
-                    label.text = NSLocalizedString("Search Definition", comment: "Title of a tableViewController section, which indicates the the search query template have been obtaned yet")
-                }
+            case .searchQuery(let query):
+                label.text = "\(query.numberOfSearchResults) search results"
+//                } else {
+//                    label.text = NSLocalizedString("Search Definition", comment: "Title of a tableViewController section, which indicates the the search query template have been obtaned yet")
+//                }
             default:
                 label.text = products.fetchResultList[section].description()
             }
@@ -910,8 +914,9 @@ extension ProductTableViewController: TagListViewDataSource {
             switch products.fetchResultList[0] {
             case .searchQuery:
                 switch products.fetchResultList[0] {
-                case .searchQuery(let product):
-                    return product.searchPairsWithArray()[tagListView.tag - 300].1.count
+                case .searchQuery(let query):
+                    // print(tagListView.tag, product.searchPairsWithArray())
+                    return query.searchPairsWithArray()[tagListView.tag - 300].1.count
                 default:
                     break
                 }
@@ -936,8 +941,8 @@ extension ProductTableViewController: TagListViewDataSource {
             switch products.fetchResultList[0] {
             case .searchQuery:
                 switch products.fetchResultList[0] {
-                case .searchQuery(let product):
-                    let array = product.searchPairsWithArray()[tagListView.tag - 300].1
+                case .searchQuery(let query):
+                    let array = query.searchPairsWithArray()[tagListView.tag - 300].1
                     return array[index]
                 default:
                     break

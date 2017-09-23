@@ -27,11 +27,14 @@ class IdentificationTableViewController: UITableViewController {
         case barcode(Int, String)
         case barcodeSearch(Int, String)
         case name(Int, String)
+        case nameSearch(Int, String)
         case genericName(Int, String)
         case genericNameSearch(Int, String)
         case languages(Int, String)
         case brands(Int, String)
+        case brandsSearch(Int, String)
         case packaging(Int, String)
+        case packagingSearch(Int, String)
         case quantity(Int, String)
         case quantitySearch(Int, String)
         case image(Int, String)
@@ -44,6 +47,8 @@ class IdentificationTableViewController: UITableViewController {
                 return headerTitle
             case .name(_, let headerTitle):
                 return headerTitle
+            case .nameSearch(_, let headerTitle):
+                return headerTitle
             case .genericName(_, let headerTitle):
                 return headerTitle
             case .genericNameSearch(_, let headerTitle):
@@ -52,7 +57,11 @@ class IdentificationTableViewController: UITableViewController {
                 return headerTitle
             case .brands(_, let headerTitle):
                 return headerTitle
+            case .brandsSearch(_, let headerTitle):
+                return headerTitle
             case .packaging(_, let headerTitle):
+                return headerTitle
+            case .packagingSearch(_, let headerTitle):
                 return headerTitle
             case .quantity(_, let headerTitle):
                 return headerTitle
@@ -71,6 +80,8 @@ class IdentificationTableViewController: UITableViewController {
                 return numberOfRows
             case .name(let numberOfRows, _):
                 return numberOfRows
+            case .nameSearch(let numberOfRows, _):
+                return numberOfRows
             case .genericName(let numberOfRows, _):
                 return numberOfRows
             case .genericNameSearch(let numberOfRows, _):
@@ -79,7 +90,11 @@ class IdentificationTableViewController: UITableViewController {
                 return numberOfRows
             case .brands(let numberOfRows, _):
                 return numberOfRows
+            case .brandsSearch(let numberOfRows, _):
+                return numberOfRows
             case .packaging(let numberOfRows, _):
+                return numberOfRows
+            case .packagingSearch(let numberOfRows, _):
                 return numberOfRows
             case .quantity(let numberOfRows, _):
                 return numberOfRows
@@ -261,6 +276,7 @@ class IdentificationTableViewController: UITableViewController {
             static let Quantity = "Quantity Cell"
             static let TagList = "Identification TagList Cell"
             static let Packaging = "Identification Packaging Cell"
+            static let TagListViewSwitch = "TagListView Switch Cell"
             static let Image = "Identification Image Cell"
             static let NoIdentificationImage = "No Image Cell"
         }
@@ -300,6 +316,15 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             return cell
+            
+        case .nameSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+            cell.delegate = self
+            cell.nameTextView.text = product!.searchText
+            cell.tag = indexPath.section
+            cell.editMode = editMode
+            
+            return cell
 
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
@@ -335,12 +360,12 @@ class IdentificationTableViewController: UITableViewController {
             return cell
 
         case .genericNameSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.editMode = false
-            cell.scheme = ColorSchemes.error
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+            cell.delegate = self
+            cell.nameTextView.text = product!.searchText
             cell.tag = indexPath.section
+            cell.editMode = editMode
+            
             return cell
 
         case .languages:
@@ -362,6 +387,16 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             return cell
             
+        case .brandsSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewSwitch, for: indexPath) as! TagListViewSwitchTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = product!.brandsOriginal.state() ?? true
+            return cell
+            
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Packaging, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -369,6 +404,16 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
+            return cell
+            
+        case .packagingSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewSwitch, for: indexPath) as! TagListViewSwitchTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = product!.packagingOriginal.state() ?? true
             return cell
             
         case .quantity:
@@ -610,7 +655,11 @@ class IdentificationTableViewController: UITableViewController {
         }
         
         // 1:  name section
-        sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
+        if product!.isSearchTemplate {
+            sectionsAndRows.append(.nameSearch(TableSection.Size.Name, TableSection.Header.Name))
+        } else {
+            sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
+        }
         
         // 2: common name section
         if product!.isSearchTemplate {
@@ -623,10 +672,18 @@ class IdentificationTableViewController: UITableViewController {
         sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
 
         // 4: brands section
-        sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
+        if product!.isSearchTemplate {
+            sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
+        } else {
+            sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
+        }
         
         // 5: packaging section
-        sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
+        if product!.isSearchTemplate {
+            sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
+        } else {
+            sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
+        }
         
         // 6: quantity section
         if product!.isSearchTemplate {
@@ -764,6 +821,25 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    func changeInclusion(_ notification: Notification) {
+        if let tag = notification.userInfo?[TagListViewSwitchTableViewCell.Notification.TagKey] as? Int {
+            if let inclusion = notification.userInfo?[TagListViewSwitchTableViewCell.Notification.InclusionKey] as? Bool {
+
+                let currentProductSection = tableStructure[tag]
+                switch currentProductSection {
+                case .packagingSearch:
+                    delegate?.update(packagingTags: nil, to:inclusion)
+                    tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+                case .brandsSearch:
+                    delegate?.update(brandTags: nil, to:inclusion)
+                    tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+                default:
+                    break
+                }
+            }
+        }
+    }
+
     func reloadImageSection() {
         tableView.reloadData()
     }
@@ -909,6 +985,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeInclusion), name:.TagListViewSwitchToggled, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -959,6 +1036,12 @@ extension IdentificationTableViewController: UITextViewDelegate {
                 let validCurrentLanguageCode = currentLanguageCode {
                     delegate?.updated(genericName: validText, languageCode: validCurrentLanguageCode)
             }
+        case .nameSearch, .genericNameSearch:
+            // generic name updated?
+            if let validText = textView.text {
+                delegate?.updated(searchText: validText)
+            }
+
         default:
             break
         }
@@ -987,7 +1070,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
-            case let .available(list):
+            case let .available(list, _):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -998,9 +1081,9 @@ extension IdentificationTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .genericNameSearch, .quantitySearch:
             return 1
-        case .brands:
+        case .brands, .brandsSearch:
             return count(brandsToDisplay)
-        case .packaging:
+        case .packaging, .packagingSearch:
             return count(packagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
@@ -1025,10 +1108,10 @@ extension IdentificationTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .genericNameSearch, .quantitySearch:
             return NSLocalizedString("Not searchable",comment: "String of a tag in a TagListView, to indicate the field can not be used for defining a search")
-        case .brands:
+        case .brands, .brandsSearch:
             // no language adjustments need to be done
             return title(brandsToDisplay)
-        case .packaging:
+        case .packaging, .packagingSearch:
             return title(packagingToDisplay)
         case .languages:
             // print("\(languagesToDisplay)")
@@ -1048,17 +1131,17 @@ extension IdentificationTableViewController: TagListViewDataSource {
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I clear a tag when there are none")
-            case var .available(list):
+            case .available(var list, let state):
                 list.removeAll()
-                delegate?.update(brandTags: list)
+                delegate?.update(brandTags: list, to: state)
             }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
+            case .available(var list, let state):
                 list.removeAll()
-                delegate?.update(packagingTags: list)
+                delegate?.update(packagingTags: list, to: state)
             }
         default:
             break
@@ -1082,18 +1165,18 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
-                delegate?.update(brandTags: [title])
-            case var .available(list):
+                delegate?.update(brandTags: [title], to: true)
+            case .available(var list, let state):
                 list.append(title)
-                delegate?.update(brandTags: list)
+                delegate?.update(brandTags: list, to: state)
             }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
-                delegate?.update(packagingTags: [title])
-            case var .available(list):
+                delegate?.update(packagingTags: [title], to: true)
+            case .available(var list, let state):
                 list.append(title)
-                delegate?.update(packagingTags: list)
+                delegate?.update(packagingTags: list, to: state)
             }
         case .languages:
             switch languagesToDisplay {
@@ -1112,23 +1195,23 @@ extension IdentificationTableViewController: TagListViewDelegate {
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
+            case .available(var list, let state):
                 guard index >= 0 && index < list.count else {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(brandTags: list)
+                delegate?.update(brandTags: list, to: state)
             }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
+            case .available(var list, let state):
                 guard index >= 0 && index < list.count else {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(packagingTags: list)
+                delegate?.update(packagingTags: list, to: state)
             }
         default:
             break

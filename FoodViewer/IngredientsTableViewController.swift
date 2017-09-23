@@ -868,7 +868,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             switch tracesToDisplay {
             case .undefined, .empty:
                 delegate?.update(tracesTags: [title])
-            case var .available(list):
+            case var .available(list, _):
                 list.append(title)
                 delegate?.update(tracesTags: list)
             }
@@ -877,7 +877,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             switch labelsToDisplay {
             case .undefined, .empty:
                 delegate?.update(labelTags: [title])
-            case var .available(list):
+            case var .available(list, _):
                 list.append(title)
                 delegate?.update(labelTags: list)
             }
@@ -894,7 +894,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             switch tracesToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
+            case var .available(list, _):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -906,7 +906,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             switch labelsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list):
+            case var .available(list, _):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -978,7 +978,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return 1
-            case let .available(list):
+            case let .available(list, _):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -991,7 +991,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
-            case let .available(list):
+            case let .available(list, _):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -1003,7 +1003,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return 1
-            case let .available(list):
+            case let .available(list, _):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -1015,7 +1015,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
-            case let .available(list):
+            case let .available(list, _):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }

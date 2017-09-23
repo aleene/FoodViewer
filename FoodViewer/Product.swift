@@ -93,13 +93,13 @@ class FoodProduct {
     
     var languageTags: Tags {
         get {
-            return .available(languages)
+            return .available(languages, true)
         }
     }
     
     var languageCodeTags: Tags {
         get {
-            return .available(languageCodes)
+            return .available(languageCodes, true)
         }
     }
 
@@ -136,7 +136,7 @@ class FoodProduct {
     var allergensTranslated: Tags {
         get {
             switch allergensInterpreted {
-            case .available(let allergens):
+            case .available(let allergens, _):
                 var translatedAllergens:[String] = []
                 for allergenKey in allergens {
                     if let translatedKey = OFFplists.manager.translateAllergens(allergenKey, language:Locale.interfaceLanguageCode()) {
@@ -147,7 +147,7 @@ class FoodProduct {
                         translatedAllergens.append(allergenKey)
                     }
                 }
-                return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens)
+                return translatedAllergens.count == 0 ? .empty : .available(translatedAllergens, true)
             default:
                 break
             }
@@ -167,7 +167,7 @@ class FoodProduct {
     var tracesTranslated: Tags {
         get {
             switch tracesInterpreted {
-            case .available(let traces):
+            case .available(let traces, _):
                 var translatedTraces:[String] = []
                 for trace in traces {
 //                    if let translatedKey = OFFplists.manager.translateAllergens(trace, language:Locale.interfaceLanguageCode()) {
@@ -179,7 +179,7 @@ class FoodProduct {
                         translatedTraces.append(trace)
                     }
                 }
-                return translatedTraces.count == 0 ? .empty : .available(translatedTraces)
+                return translatedTraces.count == 0 ? .empty : .available(translatedTraces, true)
             default:
                 break
             }
@@ -192,12 +192,12 @@ class FoodProduct {
     var additivesTranslated: Tags {
         get {
             switch additivesInterpreted {
-            case .available(let additives):
+            case .available(let additives, _):
                 var translatedAdditives:[String] = []
                 for additive in additives {
                     translatedAdditives.append(OFFplists.manager.translateAdditives(additive, language:Locale.preferredLanguages[0]))
                 }
-            return translatedAdditives.count == 0 ? .empty : .available(translatedAdditives)
+            return translatedAdditives.count == 0 ? .empty : .available(translatedAdditives, true)
             default:
                 break
             }
@@ -296,7 +296,7 @@ class FoodProduct {
     var countriesAddress: [Address] {
         get {
             switch countriesOriginal {
-            case .available(let countries):
+            case .available(let countries, _):
                 if !countries.isEmpty {
                     var addresses: [Address] = []
                     for country in countries {
@@ -323,7 +323,7 @@ class FoodProduct {
     var countriesTranslated: Tags {
         get {
             switch countriesInterpreted {
-            case .available(let countries):
+            case .available(let countries, _):
                 var translatedCountries:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
                 for country in countries {
@@ -341,7 +341,7 @@ class FoodProduct {
     var manufacturingPlacesAddress: Address? {
         get {
             switch manufacturingPlacesOriginal {
-            case .available(let manufacturingPlace):
+            case .available(let manufacturingPlace, _):
                 if !manufacturingPlace.isEmpty {
                     let newAddress = Address()
                     newAddress.raw = manufacturingPlace.flatMap{ $0 }.joined(separator: ",")
@@ -480,7 +480,7 @@ class FoodProduct {
     var originsAddress: Address? {
         get {
             switch originsOriginal {
-            case .available(let origin):
+            case .available(let origin, _):
                 if !origin.isEmpty {
                     let newAddress = Address()
                     newAddress.raw = origin.flatMap{ $0 }.joined(separator: ",")
@@ -553,14 +553,14 @@ class FoodProduct {
     var categoriesTranslated: Tags {
         get {
             switch categoriesInterpreted {
-            case let .available(list):
+            case let .available(list, _):
                 if !list.isEmpty {
                     var translatedList:[String] = []
                     let preferredLanguage = Locale.preferredLanguages[0]
                     for item in list {
                         translatedList.append(OFFplists.manager.translateCategories(item, language:preferredLanguage))
                     }
-                    return .available(translatedList)
+                    return .available(translatedList, true)
                 } else {
                     return .empty
                 }
@@ -859,8 +859,13 @@ class FoodProduct {
                 genericNameLanguage[languageSet.key] = languageSet.value!
             }
         }
+        
+        if let validText = product!.searchText {
+            searchText = validText
+        }
+        
         switch product!.brandsOriginal {
-        case .available(let list):
+        case .available(let list, _):
             brandsOriginal = Tags.init(list)
         default:
             break
@@ -871,7 +876,7 @@ class FoodProduct {
         // nutritionImages = product.nutritionImages
         // images = product.images
         switch product!.packagingOriginal {
-        case .available(let list):
+        case .available(let list, _):
             packagingOriginal = Tags.init(list)
         default:
             break
@@ -884,7 +889,7 @@ class FoodProduct {
         }
         // numberOfIngredients = product.numberOfIngredients
         switch product!.allergensOriginal {
-        case .available(let list):
+        case .available(let list, _):
             allergensOriginal = Tags.init(list)
         default:
             break
@@ -892,7 +897,7 @@ class FoodProduct {
         // allergensInterpreted = product.allergensInterpreted
         // allergensHierarchy = product.allergensHierarchy
         switch product!.tracesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             tracesOriginal = Tags.init(list)
         default:
             break
@@ -901,7 +906,7 @@ class FoodProduct {
         // tracesHierarchy = product.tracesHierarchy
 // additivesInterpreted = product.additivesInterpreted
         switch product!.labelsOriginal {
-        case .available(let list):
+        case .available(let list, _):
             labelsOriginal = Tags.init(list)
         default:
             break
@@ -909,21 +914,21 @@ class FoodProduct {
         // labelsInterpreted = product.labelsInterpreted
         // labelsHierarchy = product.labelsHierarchy
         switch product!.manufacturingPlacesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             manufacturingPlacesOriginal = Tags.init(list)
         default:
             break
         }
         // manufacturingPlacesInterpreted = product.manufacturingPlacesInterpreted
         switch product!.originsOriginal {
-        case .available(let list):
+        case .available(let list, _):
             originsOriginal = Tags.init(list)
         default:
             break
         }
         // originsInterpreted = product.originsInterpreted
         switch product!.embCodesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             embCodesOriginal = Tags.init(list)
         default:
             break
@@ -934,7 +939,7 @@ class FoodProduct {
         // nutritionScore = product.nutritionScore
         // nutritionGrade = product.nutritionGrade
         switch product!.purchasePlacesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             purchasePlacesOriginal = Tags.init(list)
         default:
             break
@@ -942,14 +947,14 @@ class FoodProduct {
         // purchasePlacesAddress = product.purchasePlacesAddress
         // purchasePlacesInterpreted = product.purchasePlacesInterpreted
         switch product!.storesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             storesOriginal = Tags.init(list)
         default:
             break
         }
         // storesInterpreted = product.storesInterpreted
         switch product!.countriesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             countriesOriginal = Tags.init(list)
         default:
             break
@@ -966,7 +971,7 @@ class FoodProduct {
             languageCodes = product!.languageCodes
         }
         switch product!.categoriesOriginal {
-        case .available(let list):
+        case .available(let list, _):
             categoriesOriginal = Tags.init(list)
         default:
             break
@@ -1009,7 +1014,7 @@ class FoodProduct {
         if let validShop = shop {
             // are there any shops yet?
             switch storesOriginal {
-            case .available(var stores):
+            case .available(var stores, _):
                 if !stores.isEmpty {
                     if !stores.contains(validShop) {
                         // there might be a shop with an empty string
@@ -1106,7 +1111,7 @@ class FoodProduct {
 
     func contains(shop: String) -> Bool {
         switch storesOriginal {
-        case .available(let stores):
+        case .available(let stores, _):
             return stores.contains(shop) ? true : false
         default:
             return false
@@ -1115,7 +1120,7 @@ class FoodProduct {
     
     func contains(brands: [String]) -> Bool {
         switch self.brandsOriginal {
-        case .available(let currentBrands):
+        case .available(let currentBrands, _):
             return Set.init(currentBrands) == Set.init(brands) ? true : false
         default:
             break
@@ -1125,7 +1130,7 @@ class FoodProduct {
     
     func contains(packaging: [String]) -> Bool {
         switch self.packagingInterpreted {
-        case .available(let currentpackagingArray):
+        case .available(let currentpackagingArray, _):
             return Set.init(currentpackagingArray) == Set.init(packaging) ? true : false
         default:
             break
@@ -1135,7 +1140,7 @@ class FoodProduct {
 
     func contains(traces: [String]) -> Bool {
         switch self.tracesOriginal {
-        case .available(let currentTraces):
+        case .available(let currentTraces, _):
             return Set.init(currentTraces) == Set.init(traces) ? true : false
         default:
             break
@@ -1145,7 +1150,7 @@ class FoodProduct {
 
     func contains(labels: [String]) -> Bool {
         switch self.labelsInterpreted {
-        case .available(let currentLabels):
+        case .available(let currentLabels, _):
             return Set.init(currentLabels) == Set.init(labels) ? true : false
         default:
             break
@@ -1155,7 +1160,7 @@ class FoodProduct {
 
     func contains(categories: [String]) -> Bool {
         switch self.categoriesOriginal {
-        case .available(let currentCategories):
+        case .available(let currentCategories, _):
             return Set.init(currentCategories) == Set.init(categories) ? true : false
         default:
             break
@@ -1165,7 +1170,7 @@ class FoodProduct {
     
     func contains(producer: [String]) -> Bool {
         switch self.manufacturingPlacesOriginal {
-        case .available(let currentManufacturingPlaces):
+        case .available(let currentManufacturingPlaces, _):
             return Set.init(currentManufacturingPlaces) == Set.init(producer) ? true : false
         default:
             break
@@ -1175,7 +1180,7 @@ class FoodProduct {
 
     func contains(producerCode: [String]) -> Bool {
         switch self.embCodesOriginal {
-        case .available(let embCodes):
+        case .available(let embCodes, _):
             return Set.init(embCodes) == Set.init(producerCode) ? true : false
         default:
             break
@@ -1185,7 +1190,7 @@ class FoodProduct {
 
     func contains(ingredientsOrigin: [String]) -> Bool {
         switch self.originsOriginal {
-        case .available(let origins):
+        case .available(let origins, _):
             return Set.init(origins) == Set.init(ingredientsOrigin) ? true : false
         default:
             break
@@ -1195,7 +1200,7 @@ class FoodProduct {
     
     func contains(stores: [String]) -> Bool {
         switch self.storesOriginal {
-        case .available(let existingStores):
+        case .available(let existingStores, _):
             return Set.init(existingStores) == Set.init(stores) ? true : false
         default:
             break
@@ -1205,7 +1210,7 @@ class FoodProduct {
 
     func contains(purchaseLocation: [String]) -> Bool {
         switch self.purchasePlacesOriginal {
-        case .available(let existingPurchasePlaces):
+        case .available(let existingPurchasePlaces, _):
             return Set.init(existingPurchasePlaces) == Set.init(purchaseLocation) ? true : false
         default:
             break
@@ -1215,7 +1220,7 @@ class FoodProduct {
     
     func contains(countries: [String]) -> Bool {
         switch self.countriesOriginal {
-        case .available(let validCountries):
+        case .available(let validCountries, _):
             return Set.init(validCountries) == Set.init(countries) ? true : false
         default:
             break
@@ -1244,14 +1249,14 @@ class FoodProduct {
     
     func translatedLabels() -> Tags {
         switch labelsInterpreted {
-        case let .available(list):
+        case let .available(list, _):
             if !list.isEmpty {
                 var translatedLabels:[String] = []
                 let preferredLanguage = Locale.preferredLanguages[0]
                 for label in list {
                         translatedLabels.append(OFFplists.manager.translateGlobalLabels(label, language:preferredLanguage))
                 }
-                return .available(translatedLabels)
+                return .available(translatedLabels, true)
             } else {
                 return .empty
             }
@@ -1261,147 +1266,100 @@ class FoodProduct {
     }
     
     // MARK: - Search Template functions and variables
+    //
+    // The product class is also used to define a search template as it shares many data
+    // Howerver this might not be the best solution
     
+    // Whether a product is used as template is encoded in the barcode
     public var isSearchTemplate: Bool {
         return barcode.isSearch()
     }
+
+    // Used to perform a generic search in name, generic name, brands, categories, origins and labels
+    // This seems to be language independent
+    public var searchText: String? = nil
     
     // If the product is a description of a searchquery, then this will contain the number of results
     var numberOfSearchResults: Int? = nil
     
-    func setSearchPair(_ component: OFF.SearchComponent, with string: String) {
-        // isSearchTemplate = true
-        switch component {
-        case .barcode:
-            barcode = BarcodeType.init(value: string)
-        case .name:
-            nameLanguage[Locale.interfaceLanguageCode()] = string
-        case .brand:
-            brandsOriginal = Tags.init(string)
-        case .category:
-            categoriesOriginal = Tags.init(string)
-        case .codes:
-            embCodesOriginal = Tags.init(string)
-        case .country:
-            countriesOriginal = Tags.init(string)
-        case .label:
-            labelsOriginal = Tags.init(string)
-        case .language:
-            add(languageCode: string)
-        case .packaging:
-            packagingOriginal = Tags.init(string)
-        case .purchasePlace:
-            purchasePlacesOriginal = Tags.init(string)
-        case .additive:
-            additivesInterpreted = Tags.init(string)
-        case .trace:
-            tracesOriginal = Tags.init(string)
-        case .allergen:
-            allergensOriginal = Tags.init(string)
-        case .producerCode:
-            embCodesOriginal = Tags.init(string)
-        case .manufacturingPlaces:
-            manufacturingPlacesOriginal = Tags.init(string)
-        case .store:
-            storesOriginal = Tags.init(string)
-        case .entryDates:
-            additionDate = Date.init()
-        case .lastEditDate:
-            lastEditDates = [Date.init()]
-        case .contributor:
-            creator = string
-            informers = [string]
-            editors = [string]
-            photographers = [string]
-            correctors = [string]
-        case .creator:
-            creator = string
-        case .informer:
-            informers = [string]
-        case .editor:
-            editors = [string]
-        case .photographer:
-            photographers = [string]
-        case .corrector:
-            correctors = [string]
-        case .state:
-            if let validState = OFF.completion(for: string) {
-                state.states.insert(validState)
-            }
-        }
-    }
     
-    func searchPairsWithArray() -> [(OFF.SearchComponent, [String])] {
-        var pairs: [(OFF.SearchComponent, [String])] = []
+    func searchPairsWithArray() -> [(OFF.SearchComponent, [String], Bool)] {
+        var pairs: [(OFF.SearchComponent, [String], Bool)] = []
         
         // barcode
         if !barcode.asString().isEmpty {
-            pairs.append((.barcode, [barcode.asString()]))
+            pairs.append((.barcode, [barcode.asString()], true))
         }
+        
+        // search text
+        if searchText != nil && !searchText!.isEmpty {
+            pairs.append((.searchText, [searchText!], true))
+        }
+        
         // brand
         if !brandsOriginal.list.isEmpty {
-            pairs.append((.brand, cleanChars(brandsOriginal.list)))
+            pairs.append((.brand, cleanChars(brandsOriginal.list), brandsOriginal.state() ?? true ))
         }
         // categories
         if !categoriesOriginal.list.isEmpty {
-            pairs.append((.category, cleanChars(categoriesOriginal.list)))
+            pairs.append((.category, cleanChars(categoriesOriginal.list), categoriesOriginal.state() ?? true ))
         }
         // producer codes
         if !embCodesOriginal.list.isEmpty {
-            pairs.append((.producerCode, cleanChars(embCodesOriginal.list)))
+            pairs.append((.producerCode, cleanChars(embCodesOriginal.list), embCodesOriginal.state() ?? true ))
         }
         // country:
         if !countriesOriginal.list.isEmpty {
-            pairs.append((.country, cleanChars(countriesOriginal.list)))
+            pairs.append((.country, cleanChars(countriesOriginal.list), embCodesOriginal.state() ?? true ))
         }
         // label
         if !labelsOriginal.list.isEmpty {
-            pairs.append((.label, cleanChars(labelsOriginal.list)))
+            pairs.append((.label, cleanChars(labelsOriginal.list), labelsOriginal.state() ?? true ))
         }
         // language on product
-        if !languageCodes.isEmpty {
-            pairs.append((.language, cleanChars(languageCodes)))
-        }
+        // if !languageCodes.isEmpty {
+        //    pairs.append((.language, cleanChars(languageCodes), true))
+        //}
         // packaging
         if !packagingOriginal.list.isEmpty {
-            pairs.append((.packaging, cleanChars(packagingOriginal.list)))
+            pairs.append((.packaging, cleanChars(packagingOriginal.list), packagingOriginal.state() ?? true ))
         }
         // purchasePlace:
         if !purchasePlacesOriginal.list.isEmpty {
-            pairs.append((.purchasePlace, cleanChars(purchasePlacesOriginal.list)))
+            pairs.append((.purchasePlace, cleanChars(purchasePlacesOriginal.list), purchasePlacesOriginal.state() ?? true ))
         }
         // additive
         if !additivesInterpreted.list.isEmpty {
-            pairs.append((.packaging, cleanChars(additivesInterpreted.list)))
+            pairs.append((.packaging, cleanChars(additivesInterpreted.list), additivesInterpreted.state() ?? true ))
         }
         // trace
         if !tracesOriginal.list.isEmpty {
-            pairs.append((.trace, cleanChars(tracesOriginal.list)))
+            pairs.append((.trace, cleanChars(tracesOriginal.list), tracesOriginal.state() ?? true ))
         }
         // allergen
         if !allergensOriginal.list.isEmpty {
-            pairs.append((.allergen, cleanChars(allergensOriginal.list)))
+            pairs.append((.allergen, cleanChars(allergensOriginal.list), allergensOriginal.state() ?? true ))
         }
         // manufacturingPlaces
         if !manufacturingPlacesOriginal.list.isEmpty {
-            pairs.append((.manufacturingPlaces, cleanChars(manufacturingPlacesOriginal.list)))
+            pairs.append((.manufacturingPlaces, cleanChars(manufacturingPlacesOriginal.list), manufacturingPlacesOriginal.state() ?? true ))
         }
         // store
         if !storesOriginal.list.isEmpty {
-            pairs.append((.store, cleanChars(storesOriginal.list)))
+            pairs.append((.store, cleanChars(storesOriginal.list), storesOriginal.state() ?? true ))
         }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         if let validDate = additionDate {
         // entryDates:
             let searchString = formatter.string(from: validDate as Date)
-            pairs.append((.entryDates, [searchString]))
+            pairs.append((.entryDates, [searchString], true))
         }
         // lastEditDate:
         if let validDates = lastEditDates {
             if !validDates.isEmpty {
                 let searchString = formatter.string(from: validDates[0] as Date)
-                pairs.append((.lastEditDate, [searchString]))
+                pairs.append((.lastEditDate, [searchString], true))
             }
         }
         
@@ -1411,23 +1369,23 @@ class FoodProduct {
         //}
         // informer:
         if let validInformers = informers {
-            pairs.append((.informer, cleanChars(validInformers)))
+            pairs.append((.informer, cleanChars(validInformers), true))
         }
         // editor:
         if let validEditors = editors {
-            pairs.append((.editor, cleanChars(validEditors)))
+            pairs.append((.editor, cleanChars(validEditors), true))
         }
         // photographer:
         if let validPhotographers = photographers {
-            pairs.append((.photographer, cleanChars(validPhotographers)))
+            pairs.append((.photographer, cleanChars(validPhotographers), true))
         }
         // corrector
         if let validCorrectors = correctors {
-            pairs.append((.corrector, cleanChars(validCorrectors)))
+            pairs.append((.corrector, cleanChars(validCorrectors), true))
         }
         // states:
         for item in state.states {
-            pairs.append((.state, [OFF.searchKey(for: item)]))
+            pairs.append((.state, [OFF.searchKey(for: item)], true))
         }
 
         return pairs
@@ -1441,12 +1399,12 @@ class FoodProduct {
         return newList
     }
 
-    func searchPairs() -> [(OFF.SearchComponent, String)] {
+    func searchPairs() -> [(OFF.SearchComponent, String, Bool)] {
         let searchPairs = searchPairsWithArray()
-        var pairs: [(OFF.SearchComponent, String)] = []
+        var pairs: [(OFF.SearchComponent, String, Bool)] = []
         for pair in searchPairs {
             for item in pair.1 {
-                pairs.append((pair.0, item))
+                pairs.append((pair.0, item, true))
             }
         }
         return pairs
