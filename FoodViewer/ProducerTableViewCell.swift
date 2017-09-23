@@ -31,13 +31,13 @@ class ProducerTableViewCell: UITableViewCell {
                 textToDisplay = Constants.EmptyString
                 // "Produced by France, Sold in France by Shop"
                 switch newProduct.manufacturingPlacesOriginal {
-                case .available(let places, _):
+                case .available(let places):
                     textToDisplay += !places.isEmpty ? String(format: Constants.ProducedBy ,places[0]) : Constants.EmptyString
                 default:
                     break
                 }
                 switch newProduct.countriesTranslated {
-                case .available(let countries, _):
+                case .available(let countries):
                     if !countries.isEmpty {
                         textToDisplay += Constants.SoldIn
                         for country in countries {
@@ -53,7 +53,7 @@ class ProducerTableViewCell: UITableViewCell {
                     break
                 }
                 switch newProduct.storesOriginal {
-                case .available(let stores, _):
+                case .available(let stores):
                     textToDisplay += !stores.isEmpty ? String(format:Constants.SoldBy, stores[0]) : Constants.EmptyString
                 default:
                     break

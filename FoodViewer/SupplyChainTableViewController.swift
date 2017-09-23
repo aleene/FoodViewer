@@ -790,7 +790,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
-            case let .available(list, _):
+            case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -868,7 +868,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch producerTagsToDisplay {
             case .undefined, .empty:
                 delegate?.update(producer: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(producer: list)
             }
@@ -876,7 +876,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch producerCodeTagsToDisplay {
             case .undefined, .empty:
                 delegate?.update(producerCode: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(producerCode: list)
             }
@@ -884,7 +884,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch ingredientOriginLocationTagsToDisplay {
             case .undefined, .empty:
                 delegate?.update(ingredientsOrigin: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(ingredientsOrigin: list)
             }
@@ -892,7 +892,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch storeTagsToDisplay {
             case .undefined, .empty:
                 delegate?.update(stores: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(stores: list)
             }
@@ -900,7 +900,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch purchaseLocationTagsToDisplay {
             case .undefined, .empty:
                 delegate?.update(purchaseLocation: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(purchaseLocation: list)
             }
@@ -908,7 +908,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch countriesToDisplay {
             case .undefined, .empty:
                 delegate?.update(countries: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(countries: list)
             }
@@ -931,7 +931,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch producerTagsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -944,7 +944,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch producerCodeTagsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -957,7 +957,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch ingredientOriginLocationTagsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -970,7 +970,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch storeTagsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -983,7 +983,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch purchaseLocationTagsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -996,7 +996,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             switch countriesToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
@@ -1053,7 +1053,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         switch currentProductSection {
         case .country:
             switch product!.countriesInterpreted {
-            case .available(let countries, _):
+            case .available(let countries):
                 delegate?.search(for: countries[index], in: .country)
             default:
                 break

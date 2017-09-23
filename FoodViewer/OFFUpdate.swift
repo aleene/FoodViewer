@@ -209,7 +209,7 @@ class OFFUpdate {
         }
         
         switch product!.purchasePlacesOriginal {
-        case .available(let location, _):
+        case .available(let location):
             let string = location.flatMap{
                     $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
                 }.joined(separator: ",")
@@ -221,7 +221,7 @@ class OFFUpdate {
         }
         
         switch product!.storesOriginal {
-        case .available(let validShop, _):
+        case .available(let validShop):
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
 
@@ -258,7 +258,7 @@ class OFFUpdate {
         }
         
         switch product!.brandsOriginal {
-        case let .available(list, _):
+        case let .available(list):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
         case .empty:
@@ -322,7 +322,7 @@ class OFFUpdate {
         }
         
         switch product!.manufacturingPlacesOriginal {
-        case .available(let places, _):
+        case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
         default:
@@ -330,7 +330,7 @@ class OFFUpdate {
         }
 
         switch product!.originsOriginal {
-        case .available(let places, _):
+        case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + places.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
             productUpdated = true
         default:
@@ -338,7 +338,7 @@ class OFFUpdate {
         }
         
         switch product!.embCodesOriginal {
-        case .available(let places, _):
+        case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
         default:
@@ -346,7 +346,7 @@ class OFFUpdate {
         }
 
         switch product!.countriesOriginal {
-        case .available(let validCountries, _):
+        case .available(let validCountries):
             let string = validCountries.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",")
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + string )
             productUpdated = true

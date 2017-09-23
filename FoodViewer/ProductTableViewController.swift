@@ -281,7 +281,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         switch currentProduct.brandsOriginal {
                         case .undefined, .empty:
                             cell.productBrand = [currentProduct.brandsOriginal.description()]
-                        case let .available(list, _):
+                        case let .available(list):
                             cell.productBrand = list
                         }
                         return cell
@@ -318,7 +318,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                         cell.allergensLabel?.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
                         switch currentProduct.allergensTranslated {
-                        case .available(let allergens, _):
+                        case .available(let allergens):
                             cell.allergensBadgeString = "\(allergens.count)"
                         default:
                             cell.allergensBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
@@ -326,7 +326,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                         cell.tracesLabel?.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
                         switch currentProduct.tracesInterpreted {
-                        case .available(let traces, _):
+                        case .available(let traces):
                             cell.tracesBadgeString = "\(traces.count)"
                         default:
                             cell.tracesBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
@@ -366,7 +366,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         switch currentProduct.categoriesHierarchy {
                         case .undefined, .empty:
                             cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no categories defined.")
-                        case let .available(list, _):
+                        case let .available(list):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(list.count)"
@@ -380,7 +380,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
                         switch currentProduct.countriesTranslated {
-                        case .available(let countries, _):
+                        case .available(let countries):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(countries.count)"
@@ -467,7 +467,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .success(let product):
                 label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
                 switch product.tracesInterpreted {
-                case .available(let validKeys, _):
+                case .available(let validKeys):
                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
                         tempView.backgroundColor = UIColor.red
                     }
@@ -475,7 +475,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     break
                 }
                 switch product.tracesInterpreted {
-                case .available(let validKeys, _):
+                case .available(let validKeys):
                     if !validKeys.isEmpty {
                         let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
                         if warn {

@@ -637,11 +637,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             if !product!.contains(shop: validShop.0) {
                 initUpdatedProductWith(product: product!)
                 switch product!.storesOriginal {
-                case .available(var currentStores, _):
+                case .available(var currentStores):
                     currentStores.append(validShop.0)
-                    updatedProduct?.storesOriginal = .available(currentStores, true)
+                    updatedProduct?.storesOriginal = .available(currentStores)
                 default:
-                    updatedProduct?.storesOriginal = .available([validShop.0], true)
+                    updatedProduct?.storesOriginal = .available([validShop.0])
                 }
             }
             // replace the new product place in all cases 
@@ -661,7 +661,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 // create an updated product if needed
                 initUpdatedProductWith(product: product!)
                 // should the include be added
-                updatedProduct?.brandsOriginal = .available(validTags, include ?? true)
+                updatedProduct?.brandsOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         } else {
@@ -670,8 +670,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 initUpdatedProductWith(product: product!)
                 // use the existing product tags
                 switch product!.brandsOriginal {
-                case .available(let list, _):
-                    updatedProduct?.brandsOriginal = .available(list, validInclude)
+                case .available(let list):
+                    updatedProduct?.brandsOriginal = .available(list)
                 default:
                     break
                 }
@@ -684,7 +684,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(packaging: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.packagingOriginal = .available(validTags, true)
+                updatedProduct?.packagingOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -695,7 +695,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(traces: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.tracesOriginal = .available(validTags, true)
+                updatedProduct?.tracesOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -706,7 +706,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(labels: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.labelsOriginal = .available(validTags, true)
+                updatedProduct?.labelsOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -720,7 +720,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if validTags.isEmpty {
                     updatedProduct?.categoriesOriginal = .empty
                 } else {
-                    updatedProduct?.categoriesOriginal = .available(validTags, true)
+                    updatedProduct?.categoriesOriginal = .available(validTags)
                 }
                 saveUpdatedProduct()
             }
@@ -732,7 +732,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(producer: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.manufacturingPlacesOriginal = .available(validTags, true)
+                updatedProduct?.manufacturingPlacesOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -743,7 +743,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(producerCode: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.embCodesOriginal = .available(validTags, true)
+                updatedProduct?.embCodesOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -754,7 +754,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(ingredientsOrigin: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.originsOriginal = .available(validTags, true)
+                updatedProduct?.originsOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -765,7 +765,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(stores: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.storesOriginal = .available(validTags, true)
+                updatedProduct?.storesOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -776,7 +776,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             guard product != nil else { return }
             if !product!.contains(purchaseLocation: validTags) {
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.purchasePlacesOriginal = .available(validTags, true)
+                updatedProduct?.purchasePlacesOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }
@@ -790,12 +790,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             case .available:
                 if !product!.contains(purchaseLocation: validTags) {
                     initUpdatedProductWith(product: product!)
-                    updatedProduct?.countriesOriginal = .available(validTags, true)
+                    updatedProduct?.countriesOriginal = .available(validTags)
                     saveUpdatedProduct()
                 }
             default:
                 initUpdatedProductWith(product: product!)
-                updatedProduct?.countriesOriginal = .available(validTags, true)
+                updatedProduct?.countriesOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
         }

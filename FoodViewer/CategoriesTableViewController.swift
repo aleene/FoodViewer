@@ -237,7 +237,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
-            case let .available(list, _):
+            case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -252,7 +252,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
             switch categoriesToDisplay {
             case .undefined, .empty:
                 return categoriesToDisplay.description()
-            case let .available(list, _):
+            case let .available(list):
                 if index >= 0 && index < list.count {
                     return list[index]
                 } else {
@@ -284,7 +284,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
             switch categoriesToDisplay {
             case .undefined, .empty:
                 delegate?.update(categories: [title])
-            case var .available(list, _):
+            case var .available(list):
                 list.append(title)
                 delegate?.update(categories: list)
             }
@@ -299,7 +299,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
             switch categoriesToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case var .available(list, _):
+            case var .available(list):
                 guard index >= 0 && index < list.count else {
                     break
                 }

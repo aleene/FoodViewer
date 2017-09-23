@@ -394,7 +394,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
-            cell.inclusion = product!.brandsOriginal.state() ?? true
+            cell.inclusion = true
             return cell
             
         case .packaging:
@@ -413,7 +413,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
-            cell.inclusion = product!.packagingOriginal.state() ?? true
+            cell.inclusion = true
             return cell
             
         case .quantity:
@@ -1070,7 +1070,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
                 return editMode ? 0 : 1
-            case let .available(list, _):
+            case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             }
@@ -1131,17 +1131,17 @@ extension IdentificationTableViewController: TagListViewDataSource {
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I clear a tag when there are none")
-            case .available(var list, let state):
+            case .available(var list):
                 list.removeAll()
-                delegate?.update(brandTags: list, to: state)
+                delegate?.update(brandTags: list, to: true)
             }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case .available(var list, let state):
+            case .available(var list):
                 list.removeAll()
-                delegate?.update(packagingTags: list, to: state)
+                delegate?.update(packagingTags: list, to: true)
             }
         default:
             break
@@ -1166,17 +1166,17 @@ extension IdentificationTableViewController: TagListViewDelegate {
             switch brandsToDisplay {
             case .undefined, .empty:
                 delegate?.update(brandTags: [title], to: true)
-            case .available(var list, let state):
+            case .available(var list):
                 list.append(title)
-                delegate?.update(brandTags: list, to: state)
+                delegate?.update(brandTags: list, to: true)
             }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 delegate?.update(packagingTags: [title], to: true)
-            case .available(var list, let state):
+            case .available(var list):
                 list.append(title)
-                delegate?.update(packagingTags: list, to: state)
+                delegate?.update(packagingTags: list, to: true)
             }
         case .languages:
             switch languagesToDisplay {
@@ -1195,23 +1195,23 @@ extension IdentificationTableViewController: TagListViewDelegate {
             switch brandsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case .available(var list, let state):
+            case .available(var list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(brandTags: list, to: state)
+                delegate?.update(brandTags: list, to: true)
             }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
-            case .available(var list, let state):
+            case .available(var list):
                 guard index >= 0 && index < list.count else {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(packagingTags: list, to: state)
+                delegate?.update(packagingTags: list, to: true)
             }
         default:
             break

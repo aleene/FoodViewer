@@ -280,6 +280,7 @@ public struct OFF {
         return fetchUrlString
     }
     
+    /*
     static func searchString(with pairs: [(SearchComponent, String)], on page: Int ) -> String {
         guard !pairs.isEmpty else { return "" }
         
@@ -298,7 +299,7 @@ public struct OFF {
         urlString += URL.JSONExtension
         return urlString
     }
-    
+ 
     static func advancedSearchString(with pairs: [(SearchComponent, String, Bool)], on page: Int ) -> String {
         // https://world.openfoodfacts.org/cgi/search.pl?search_terms=banania&search_simple=1&action=process&json=1
         // https://world.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=brands&tag_contains_0=contains&tag_0=Coca
@@ -340,6 +341,7 @@ public struct OFF {
         urlString += URL.JSONSearchExtension
         return urlString
     }
+     */
 
     
     static func advancedSearchString(for template: SearchTemplate, on page: Int ) -> String {

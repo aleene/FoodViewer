@@ -285,14 +285,14 @@ class OpenFoodFactsRequest {
         decodeLastEditDates(jsonObject[jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
-        product.labelsInterpreted = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray, state: true)
+        product.labelsInterpreted = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray)
         // the labels as the user has entered them (a comma delimited string)
         product.labelsOriginal = Tags(jsonObject[jsonKeys.LabelsKey].string)
-        product.labelsHierarchy = Tags(jsonObject[jsonKeys.LabelsHierarchyKey].stringArray, state: true)
+        product.labelsHierarchy = Tags(jsonObject[jsonKeys.LabelsHierarchyKey].stringArray)
             
         product.tracesOriginal = Tags.init(jsonObject[jsonKeys.TracesKey].string)
-        product.tracesHierarchy = Tags.init(jsonObject[jsonKeys.TracesHierarchyKey].stringArray, state: true)
-        product.tracesInterpreted = Tags.init(jsonObject[jsonKeys.TracesTagsKey].stringArray, state: true)
+        product.tracesHierarchy = Tags.init(jsonObject[jsonKeys.TracesHierarchyKey].stringArray)
+        product.tracesInterpreted = Tags.init(jsonObject[jsonKeys.TracesTagsKey].stringArray)
         
         if let languages = jsonObject[jsonKeys.LanguagesHierarchy].stringArray {
             // product.languageCodes = []
@@ -441,7 +441,7 @@ class OpenFoodFactsRequest {
         product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
         product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
 
-        product.packagingInterpreted = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray, state: true)
+        product.packagingInterpreted = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
         product.packagingOriginal = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
         
         product.numberOfIngredients = jsonObject[jsonKeys.IngredientsNKey].string
