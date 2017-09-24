@@ -833,6 +833,7 @@ class FoodProduct {
         }
     }
     
+    
     // updates a product with new product data
     func mergeUpdates(from product: FoodProduct?) {
 
@@ -860,9 +861,9 @@ class FoodProduct {
             }
         }
         
-        if let validText = product!.searchText {
-            searchText = validText
-        }
+        //if let validText = product!.searchText {
+        //    searchText = validText
+        //}
         
         switch product!.brandsOriginal {
         case .available(let list):
@@ -1271,18 +1272,18 @@ class FoodProduct {
     // Howerver this might not be the best solution
     
     // Whether a product is used as template is encoded in the barcode
-    public var isSearchTemplate: Bool {
-        return barcode.isSearch()
-    }
+    //public var isSearchTemplate: Bool {
+    //    return barcode.isSearch()
+    //}
 
     // Used to perform a generic search in name, generic name, brands, categories, origins and labels
     // This seems to be language independent
-    public var searchText: String? = nil
+    // public var searchText: String? = nil
     
     // If the product is a description of a searchquery, then this will contain the number of results
-    var numberOfSearchResults: Int? = nil
+    // var numberOfSearchResults: Int? = nil
     
-    
+    /*
     func searchPairsWithArray() -> [(OFF.SearchComponent, [String], Bool)] {
         var pairs: [(OFF.SearchComponent, [String], Bool)] = []
         
@@ -1292,9 +1293,9 @@ class FoodProduct {
         }
         
         // search text
-        if searchText != nil && !searchText!.isEmpty {
-            pairs.append((.searchText, [searchText!], true))
-        }
+        //if search?.text != nil && !search!.text!.isEmpty {
+         //   pairs.append((.searchText, [search!.text!], true))
+        //}
         
         // brand
         if !brandsOriginal.list.isEmpty {
@@ -1390,7 +1391,9 @@ class FoodProduct {
 
         return pairs
     }
+    */
 
+    /*
     private func cleanChars(_ array: [String]) -> [String] {
         var newList: [String] = []
         for item in array {
@@ -1398,7 +1401,9 @@ class FoodProduct {
         }
         return newList
     }
+ */
 
+    /*
     func searchPairs() -> [(OFF.SearchComponent, String, Bool)] {
         let searchPairs = searchPairsWithArray()
         var pairs: [(OFF.SearchComponent, String, Bool)] = []
@@ -1409,6 +1414,7 @@ class FoodProduct {
         }
         return pairs
     }
+     */
 
 
 // End product

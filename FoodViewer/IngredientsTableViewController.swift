@@ -38,7 +38,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var allergensToDisplay: Tags {
         get {
             // is an updated product available? Is only relevant for the template
-            if product != nil && product!.isSearchTemplate && delegate?.updatedProduct != nil {
+            if product != nil && search != nil && delegate?.updatedProduct != nil {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.allergensOriginal {
                 case .available, .empty:
@@ -95,7 +95,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var additivesToDisplay: Tags {
         get {
             // is an updated product available?
-            if product != nil && product!.isSearchTemplate && delegate?.updatedProduct != nil {
+            if product != nil && search != nil && delegate?.updatedProduct != nil {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.additivesOriginal {
                 case .available, .empty:
@@ -116,6 +116,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
         }
     }
+    
     fileprivate var labelsToDisplay: Tags {
         get {
             // is an updated product available?
@@ -146,6 +147,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate var searchResult: String = ""
+    
+    var search = OFFProducts.manager.searchQuery
     
     private var selectedSection: Int? = nil
 
@@ -259,7 +262,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            cell.editMode = product!.isSearchTemplate ? editMode : false
+            cell.editMode = search != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
             
@@ -277,7 +280,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            cell.editMode = product!.isSearchTemplate ? editMode : false
+            cell.editMode = search != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
             

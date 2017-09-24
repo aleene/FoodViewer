@@ -121,6 +121,8 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    var search = OFFProducts.manager.searchQuery
+    
     // This function finds the language that must be used to display the product
     private func setCurrentLanguage() {
         // is there already a current language?
@@ -238,14 +240,14 @@ class IdentificationTableViewController: UITableViewController {
                 switch delegate!.updatedProduct!.languageTags {
                 case .available, .empty:
                     showLanguagesTagsType = .edited
-                    return delegate!.updatedProduct!.languageCodeTags
+                    return delegate!.updatedProduct!.languageTags
                 default:
                     showLanguagesTagsType = TagsTypeDefault.Languages
                 }
             }
             switch showLanguagesTagsType {
             case .translated:
-                // show the languageCode in a localized language
+                // show the languageCodes in a localized language
                 return product!.languageTags
             default:
                 return .undefined
@@ -320,7 +322,7 @@ class IdentificationTableViewController: UITableViewController {
         case .nameSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
-            cell.nameTextView.text = product!.searchText
+            cell.nameTextView.text = search?.text ?? ""
             cell.tag = indexPath.section
             cell.editMode = editMode
             
@@ -362,7 +364,7 @@ class IdentificationTableViewController: UITableViewController {
         case .genericNameSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
-            cell.nameTextView.text = product!.searchText
+            cell.nameTextView.text = search?.text ?? ""
             cell.tag = indexPath.section
             cell.editMode = editMode
             
@@ -374,7 +376,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             // print("\(product!.isSearchTemplate), \(product!.isSearchTemplate ? editMode : false)")
-            cell.editMode = product!.isSearchTemplate ? editMode : false
+            cell.editMode = search != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
 
@@ -648,21 +650,21 @@ class IdentificationTableViewController: UITableViewController {
         
         // All sections are always presented
         // 0: barcode section
-        if product!.isSearchTemplate {
+        if search != nil {
             sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
         } else {
             sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
         }
         
         // 1:  name section
-        if product!.isSearchTemplate {
+        if search != nil {
             sectionsAndRows.append(.nameSearch(TableSection.Size.Name, TableSection.Header.Name))
         } else {
             sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
         }
         
         // 2: common name section
-        if product!.isSearchTemplate {
+        if search != nil {
             sectionsAndRows.append(.genericNameSearch(TableSection.Size.CommonName, TableSection.Header.CommonName))
         } else {
             sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
@@ -672,27 +674,27 @@ class IdentificationTableViewController: UITableViewController {
         sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
 
         // 4: brands section
-        if product!.isSearchTemplate {
+        if search != nil {
             sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
         } else {
             sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
         }
         
         // 5: packaging section
-        if product!.isSearchTemplate {
+        if search != nil {
             sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
         } else {
             sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
         }
         
         // 6: quantity section
-        if product!.isSearchTemplate {
+        if search != nil {
             sectionsAndRows.append(.quantitySearch(TableSection.Size.Quantity, TableSection.Header.Quantity))
         } else {
             sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
         }
         
-        if product != nil && !product!.isSearchTemplate  {
+        if product != nil && search != nil  {
             // 7: image section only needed if teh product is not a search query
             sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
         }

@@ -538,7 +538,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func updated(searchText: String) {
         guard product != nil else { return }
         initUpdatedProductWith(product: product!)
-        updatedProduct?.searchText = searchText
+        // updatedProduct?.searchText = searchText
         saveUpdatedProduct()
     }
 
