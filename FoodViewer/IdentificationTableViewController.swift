@@ -110,7 +110,17 @@ class IdentificationTableViewController: UITableViewController {
     
     // MARK: - public variables
     
-    var product: FoodProduct? {
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+    
+    fileprivate var product: FoodProduct? {
         didSet {
             if product != nil {
                 tableStructure = setupSections()
@@ -121,7 +131,16 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    var search = OFFProducts.manager.searchQuery
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                tableStructure = setupSections()
+                // check if the currentLanguage needs to be updated
+                setCurrentLanguage()
+                tableView.reloadData()
+            }
+        }
+    }
     
     // This function finds the language that must be used to display the product
     private func setCurrentLanguage() {
@@ -192,6 +211,24 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    fileprivate var searchBrandsToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.brands {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
+    fileprivate var searchPackagingToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.packaging {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
     private struct TagsTypeDefault {
         static let Brands: TagsType = .original
         static let Packaging: TagsType = .prefixed
@@ -262,7 +299,9 @@ class IdentificationTableViewController: UITableViewController {
     // should redownload the current product and reload it in this scene
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            if let validProduct = product {
+                OFFProducts.manager.reload(validProduct)
+            }
             refreshControl?.endRefreshing()
         }
     }
@@ -313,7 +352,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .barcodeSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
-            cell.barcode = product?.barcode.asString()
+            cell.barcode = "TBD"
             cell.editMode = editMode
             cell.delegate = self
             cell.tag = indexPath.section
@@ -322,7 +361,7 @@ class IdentificationTableViewController: UITableViewController {
         case .nameSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
-            cell.nameTextView.text = search?.text ?? ""
+            cell.nameTextView.text = query?.text ?? "TBD name"
             cell.tag = indexPath.section
             cell.editMode = editMode
             
@@ -364,7 +403,7 @@ class IdentificationTableViewController: UITableViewController {
         case .genericNameSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
-            cell.nameTextView.text = search?.text ?? ""
+            cell.nameTextView.text = query?.text ?? "TBD genericName"
             cell.tag = indexPath.section
             cell.editMode = editMode
             
@@ -376,7 +415,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             // print("\(product!.isSearchTemplate), \(product!.isSearchTemplate ? editMode : false)")
-            cell.editMode = search != nil ? editMode : false
+            cell.editMode = query != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
 
@@ -648,56 +687,24 @@ class IdentificationTableViewController: UITableViewController {
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
         
-        // All sections are always presented
-        // 0: barcode section
-        if search != nil {
+        if query != nil {
             sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
+            sectionsAndRows.append(.nameSearch(TableSection.Size.Name, TableSection.Header.Name))
+            sectionsAndRows.append(.genericNameSearch(TableSection.Size.CommonName, TableSection.Header.CommonName))
+            sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
+            sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
+            sectionsAndRows.append(.quantitySearch(TableSection.Size.Quantity, TableSection.Header.Quantity))
+
         } else {
             sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
-        }
-        
-        // 1:  name section
-        if search != nil {
-            sectionsAndRows.append(.nameSearch(TableSection.Size.Name, TableSection.Header.Name))
-        } else {
             sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
-        }
-        
-        // 2: common name section
-        if search != nil {
-            sectionsAndRows.append(.genericNameSearch(TableSection.Size.CommonName, TableSection.Header.CommonName))
-        } else {
             sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
-        }
-        
-        // 3: language tags section
-        sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
-
-        // 4: brands section
-        if search != nil {
-            sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
-        } else {
+            sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
             sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
-        }
-        
-        // 5: packaging section
-        if search != nil {
-            sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
-        } else {
             sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
-        }
-        
-        // 6: quantity section
-        if search != nil {
-            sectionsAndRows.append(.quantitySearch(TableSection.Size.Quantity, TableSection.Header.Quantity))
-        } else {
             sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
-        }
-        
-        if product != nil && search != nil  {
-            // 7: image section only needed if teh product is not a search query
             sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
-        }
+       }
         
         // print("\(sectionsAndRows)")
         return sectionsAndRows
@@ -937,12 +944,14 @@ class IdentificationTableViewController: UITableViewController {
     func imageUploaded(_ notification: Notification) {
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
-                // is it relevant to the main image?
-                if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
-                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
-                        // reload product data
-                        OFFProducts.manager.reload(self.product!)
+            if let productBarcode = product?.barcode.asString() {
+                if barcode == productBarcode {
+                    // is it relevant to the main image?
+                    if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
+                        if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
+                            // reload product data
+                            OFFProducts.manager.reload(self.product!)
+                        }
                     }
                 }
             }
@@ -1083,9 +1092,13 @@ extension IdentificationTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .genericNameSearch, .quantitySearch:
             return 1
-        case .brands, .brandsSearch:
+        case .brands:
+            return count(searchBrandsToDisplay)
+        case .brandsSearch:
             return count(brandsToDisplay)
-        case .packaging, .packagingSearch:
+        case .packaging:
+            return count(searchPackagingToDisplay)
+        case .packagingSearch:
             return count(packagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
@@ -1110,11 +1123,15 @@ extension IdentificationTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .genericNameSearch, .quantitySearch:
             return NSLocalizedString("Not searchable",comment: "String of a tag in a TagListView, to indicate the field can not be used for defining a search")
-        case .brands, .brandsSearch:
+        case .brands:
             // no language adjustments need to be done
             return title(brandsToDisplay)
-        case .packaging, .packagingSearch:
+        case .brandsSearch:
+            return title(searchBrandsToDisplay)
+        case .packaging:
             return title(packagingToDisplay)
+        case .packagingSearch:
+            return title(searchPackagingToDisplay)
         case .languages:
             // print("\(languagesToDisplay)")
             return title(languagesToDisplay)
@@ -1171,6 +1188,15 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case .available(var list):
                 list.append(title)
                 delegate?.update(brandTags: list, to: true)
+            }
+        case .brandsSearch:
+            switch searchBrandsToDisplay {
+            case .undefined, .empty:
+                break
+                //delegate?.update(brandTags: [title], to: true)
+            case .available(var list):
+                list.append(title)
+                //delegate?.update(brandTags: list, to: true)
             }
         case .packaging:
             switch packagingToDisplay {

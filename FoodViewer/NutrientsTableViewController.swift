@@ -329,11 +329,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.nutritionFactsImage = image
                     return cell!
                 // in non-editMode try to fall back to the updated primary language image
-                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.nutritionImages[primaryLanguageCode]!.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                    cell?.editMode = editMode
-                    cell?.nutritionFactsImage = image
-                    return cell!
+                } else if !editMode,
+                    let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode,
+                    let image = delegate!.updatedProduct!.nutritionImages[primaryLanguageCode]?.display?.image {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
+                        cell?.editMode = editMode
+                        cell?.nutritionFactsImage = image
+                        return cell!
                 // show an error
                 } else {
                     searchResult = ImageFetchResult.noImageAvailable.description()

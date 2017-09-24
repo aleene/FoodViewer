@@ -55,7 +55,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 selectedProduct = product
                 tableView.reloadData()
             //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
-            case .searchQuery(let _):
+            case .searchQuery(let query):
+                selectedProduct = query
                 tableView.reloadData()
             //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
             default:
@@ -141,7 +142,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     // MARK: - Table view methods and vars
     
-    fileprivate var selectedProduct: FoodProduct? = nil {
+    fileprivate var selectedProduct: Any? = nil {
         didSet {
             if selectedIndex == nil {
                 selectedIndex = 0
@@ -544,7 +545,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case Storyboard.SegueIdentifier.ToPageViewController:
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
-                        ppvc.product = selectedProduct
+                        ppvc.tableItem = selectedProduct
                         if let validSelectedRowType = selectedRowType {
                             ppvc.pageIndex = validSelectedRowType.productSection()
                         } else {

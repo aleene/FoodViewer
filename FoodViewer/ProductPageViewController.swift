@@ -53,7 +53,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
             //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ProductPageViewController.saveUpdatedProduct), userInfo: nil, repeats: false)
             self.view.endEditing(true)
-            if isSearchTemplate {
+            if isQuery {
                 // start a new search
                 product?.mergeUpdates(from: updatedProduct)
                 OFFProducts.manager.startSearch(for: product)
@@ -108,7 +108,20 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 //
 // MARK: - Public variables and functions
 //
-    var product: FoodProduct? = nil {
+    
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+                self.query = nil
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+                self.product = nil
+            }
+        }
+    }
+
+    private var product: FoodProduct? = nil {
         didSet {
             if oldValue == nil && product != nil {
             // has the product been initailised?
@@ -120,10 +133,17 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             } // otherwise the language can not be set
         }
     }
-
-    var isSearchTemplate: Bool {
-        return product?.barcode != nil && product!.barcode.isSearch()
+    
+    private var query: SearchTemplate? = nil {
+        didSet {
+            
+        }
     }
+    
+    private var isQuery: Bool {
+        return query != nil
+    }
+
     var pageIndex: ProductSection = .identification {
         didSet {
             if pageIndex != oldValue {
@@ -177,7 +197,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         didSet {
             if editMode != oldValue {
                 // change look edit button
-                confirmBarButtonItem.image = UIImage.init(named: editMode ? ( isSearchTemplate ? "Search" : "CheckMark" ) : "Edit")
+                confirmBarButtonItem.image = UIImage.init(named: editMode ? ( isQuery ? "Search" : "CheckMark" ) : "Edit")
 
                 setupEditMode()
             }
@@ -225,7 +245,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
-            if isSearchTemplate {
+            if isQuery {
                 // search page has no gallery
                 pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories,
                          .nutritionScore, .completion]
@@ -234,14 +254,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                          .gallery, .nutritionScore, .completion]
             }
         case .beauty:
-            if isSearchTemplate {
+            if isQuery {
                 // search page has no gallery
                 pages = [.identification, .ingredients, .supplyChain, .categories, .completion]
             } else {
                 pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
             }
         case .petFood:
-            if isSearchTemplate {
+            if isQuery {
                 // search page has no gallery
                 pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
             } else {
@@ -262,7 +282,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     private func setupProduct() {
         ingredientsVC.product = product
-        identificationVC.product = product
+        identificationVC.tableItem = product
         nutritionFactsVC.product = product
         supplyChainVC.product = product
         categoriesVC.product = product
@@ -315,7 +335,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         switch page {
         case .identification:
             identificationVC.delegate = self
-            identificationVC.product = product
+            identificationVC.tableItem = tableItem
             identificationVC.currentLanguageCode = currentLanguageCode
             identificationVC.editMode = editMode
             
