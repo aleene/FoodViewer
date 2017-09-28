@@ -38,7 +38,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var allergensToDisplay: Tags {
         get {
             // is an updated product available? Is only relevant for the template
-            if product != nil && search != nil && delegate?.updatedProduct != nil {
+            if product != nil && delegate?.updatedProduct != nil {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.allergensOriginal {
                 case .available, .empty:
@@ -64,6 +64,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    fileprivate var searchAllergensToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.allergens {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
     fileprivate var tracesToDisplay: Tags {
         get {
             // is an updated product available?
@@ -92,10 +101,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    fileprivate var searchTracesToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.traces {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
     fileprivate var additivesToDisplay: Tags {
         get {
             // is an updated product available?
-            if product != nil && search != nil && delegate?.updatedProduct != nil {
+            if product != nil && delegate?.updatedProduct != nil {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.additivesOriginal {
                 case .available, .empty:
@@ -117,6 +135,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
+    fileprivate var searchAdditivesToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.additives {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
     fileprivate var labelsToDisplay: Tags {
         get {
             // is an updated product available?
@@ -146,24 +173,57 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
 
+    fileprivate var searchLabelsToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.labels {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
     fileprivate var searchResult: String = ""
-    
-    var search = OFFProducts.manager.searchQuery
-    
+        
     private var selectedSection: Int? = nil
 
     // MARK: - Public variables
     
-    var product: FoodProduct? {
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+    
+
+    fileprivate var product: FoodProduct? {
         didSet {
             if product != nil {
                 ingredientsImage = nil
-                tableStructureForProduct = analyseProductForTable(product!)
+                tableStructureForProduct = analyseProductForTable()
                 refreshProduct()
             }
         }
     }
     
+    
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                product = nil
+                tableStructureForProduct = analyseProductForTable()
+                refreshProduct()
+            }
+        }
+    }
+    
+    private var isQuery: Bool {
+        return query != nil
+    }
+
     var currentLanguageCode: String? = nil {
         didSet {
             if currentLanguageCode != oldValue {
@@ -198,9 +258,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate enum SectionType {
         case ingredients
         case allergens
+        case allergensSearch
         case traces
+        case tracesSearch
         case additives
+        case additivesSearch
         case labels
+        case labelsSearch
         case image
     }
 
@@ -262,7 +326,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            cell.editMode = search != nil ? editMode : false
+            cell.editMode = product != nil ? editMode : false
+            cell.tag = indexPath.section
+            return cell
+            
+        case .allergensSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = product != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
             
@@ -275,15 +348,33 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
             
+        case .tracesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = product != nil ? editMode : false
+            cell.tag = indexPath.section
+            return cell
+
         case .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Additives, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            cell.editMode = search != nil ? editMode : false
+            cell.editMode = product != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
             
+        case .additivesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = product != nil ? editMode : false
+            cell.tag = indexPath.section
+            return cell
+
         case .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Labels, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -293,6 +384,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
             
+        case .labelsSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = product != nil ? editMode : false
+            cell.tag = indexPath.section
+            return cell
+
         case .image:
             // are there any updated images?
             if delegate?.updatedProduct != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
@@ -399,7 +499,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         switch currentProductSection {
         case .image, .ingredients:
             return nil
-        case .allergens:
+        case .allergens, .allergensSearch:
             switch allergensTagsTypeToShow {
             case TagsTypeDefault.Allergens:
                 return header
@@ -410,7 +510,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     allergensTagsTypeToShow.description() +
                     ")"
             }
-        case .traces:
+        case .traces, .tracesSearch:
             switch tracesTagsTypeToShow {
             case TagsTypeDefault.Traces:
                 return header
@@ -421,7 +521,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     tracesTagsTypeToShow.description() +
                     ")"
             }
-        case .labels:
+        case .labels, .labelsSearch:
             switch labelsTagsTypeToShow {
             case TagsTypeDefault.Labels:
                 return header
@@ -432,7 +532,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     labelsTagsTypeToShow.description() +
                     ")"
             }
-        case .additives:
+        case .additives, .additivesSearch:
             switch additivesTagsTypeToShow {
             case TagsTypeDefault.Additives:
                 return header
@@ -514,7 +614,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return Preferences.manager.showProductType
     }
     
-    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType,Int, String?)] {
+    fileprivate func analyseProductForTable() -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
@@ -523,8 +623,41 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
-        // 0: ingredients
-        sectionsAndRows.append((SectionType.ingredients,
+        if isQuery {
+            
+            // not needed for .petFood and .beauty
+            switch currentProductType {
+            case .food:
+                // 1:  allergens section
+                sectionsAndRows.append((
+                    SectionType.allergensSearch,
+                    TableSection.Size.Allergens,
+                    TableSection.Header.Allergens))
+                // 2: traces section
+                sectionsAndRows.append((
+                    SectionType.tracesSearch,
+                    TableSection.Size.Traces,
+                    TableSection.Header.Traces))
+            default :
+                break
+            }
+            
+            
+            // 3: additives section
+            sectionsAndRows.append((
+                SectionType.additivesSearch,
+                TableSection.Size.Additives,
+                TableSection.Header.Additives))
+            
+            // 4: labels section
+            sectionsAndRows.append((
+                SectionType.labelsSearch,
+                TableSection.Size.Labels,
+                TableSection.Header.Labels))
+            
+        } else {
+            // 0: ingredients
+            sectionsAndRows.append((SectionType.ingredients,
             TableSection.Size.Ingredients,
             TableSection.Header.Ingredients))
         
@@ -559,15 +692,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             TableSection.Size.Labels,
             TableSection.Header.Labels))
         
-        
-        if !product.barcode.isSearch() {
-            // 5: image section
+        // 5: image section
             sectionsAndRows.append((
                 SectionType.image,
                 TableSection.Size.Image,
                 TableSection.Header.Image))
         }
-        
         return sectionsAndRows
     }
     
@@ -971,57 +1101,39 @@ extension IngredientsTableViewController: TagListViewDelegate {
 extension IngredientsTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
+        
+        func count(_ tags: Tags) -> Int {
+            switch tags {
+            case .undefined:
+                tagListView.normalColorScheme = ColorSchemes.error
+                return editMode ? 0 : 1
+            case .empty:
+                tagListView.normalColorScheme = ColorSchemes.none
+                return editMode ? 0 : 1
+            case let .available(list):
+                tagListView.normalColorScheme = ColorSchemes.normal
+                return list.count
+            }
+        }
+
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .allergens:
-            switch allergensToDisplay {
-            case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return 1
-            case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
-                return 1
-            case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
-                return list.count
-            }
-            
+            return count(allergensToDisplay)
+        case .allergensSearch:
+            return count(searchAllergensToDisplay)
         case .traces:
-            switch tracesToDisplay {
-            case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return editMode ? 0 : 1
-            case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
-                return editMode ? 0 : 1
-            case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
-                return list.count
-            }
+            return count(tracesToDisplay)
+        case .tracesSearch:
+            return count(searchTracesToDisplay)
         case .additives:
-            switch additivesToDisplay {
-            case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return 1
-            case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
-                return 1
-            case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
-                return list.count
-            }
+            return count(additivesToDisplay)
+        case .additivesSearch:
+            return count(searchAdditivesToDisplay)
         case .labels:
-            switch labelsToDisplay {
-            case .undefined:
-                tagListView.normalColorScheme = ColorSchemes.error
-                return editMode ? 0 : 1
-            case .empty:
-                tagListView.normalColorScheme = ColorSchemes.none
-                return editMode ? 0 : 1
-            case let .available(list):
-                tagListView.normalColorScheme = ColorSchemes.normal
-                return list.count
-            }
+            return count(labelsToDisplay)
+        case .labelsSearch:
+            return count(searchLabelsToDisplay)
         case .image:
             return 1
         default: break

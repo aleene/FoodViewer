@@ -250,9 +250,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .searchQuery:
                 if section == 0 {
                     switch products.fetchResultList[0] {
-                    case .searchQuery(let product):
-                        print(product.searchPairsWithArray().count)
-                        return product.searchPairsWithArray().count
+                    case .searchQuery(let query):
+                        return query.searchPairsWithArray().count
                     default:
                         break
                     }
@@ -408,14 +407,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell?.accessoryType = .none
                     return cell!
                     
-                case .searchQuery(let currentProduct):
+                case .searchQuery(let query):
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
                     // The hundreds define a searchQuery section, the rest is just the row
                     cell.tag = 300 + indexPath.row
-                    cell.prefixLabelText = currentProduct.searchPairsWithArray()[indexPath.row].0.rawValue
+                    cell.prefixLabelText = query.searchPairsWithArray()[indexPath.row].0.rawValue
                     cell.width = tableView.frame.size.width
-                    cell.scheme = ColorSchemes.error
                     cell.accessoryType = .none
                     return cell
 
@@ -445,7 +443,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch products.fetchResultList[indexPath.section] {
                 case .success(let product):
                     selectedProduct = product
-                // case .searchQuery(let query):
+                case .searchQuery(let query):
+                    selectedProduct = query
                 case .more:
                     // The next set should be loaded
                     products.fetchSearchProductsForNextPage()

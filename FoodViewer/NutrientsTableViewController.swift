@@ -29,16 +29,39 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         var key: String? = nil
     }
     
-    var product: FoodProduct? {
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+
+    fileprivate var product: FoodProduct? {
         didSet {
             if product != nil {
                 mergeNutritionFacts()
+                query = nil
                 tableStructureForProduct = analyseProductForTable(product!)
                 tableView.reloadData()
             }
         }
     }
     
+    
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                tableStructureForProduct = analyseProductForTable(product!)
+                product = nil
+                tableView.reloadData()
+            }
+        }
+    }
+    
+
     var editMode = false {
         didSet {
             // vc changed from/to editMode, need to repaint

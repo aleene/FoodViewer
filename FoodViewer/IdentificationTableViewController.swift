@@ -330,8 +330,8 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // should return all sections (7)
-        return product == nil ? 0 : tableStructure.count
+        // should return all sections
+        return tableStructure.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -476,7 +476,6 @@ class IdentificationTableViewController: UITableViewController {
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
-            cell.scheme = ColorSchemes.error
             cell.tag = indexPath.section
             return cell
 
@@ -501,7 +500,6 @@ class IdentificationTableViewController: UITableViewController {
                     cell?.datasource = self
                     cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
                     searchResult = "No image in the right language"
                     return cell!
                 }
@@ -522,7 +520,6 @@ class IdentificationTableViewController: UITableViewController {
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
-                        cell?.scheme = ColorSchemes.error
                         return cell!
                     }
                 // try to use the image corresponding to the primary language
@@ -539,7 +536,6 @@ class IdentificationTableViewController: UITableViewController {
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
-                        cell?.scheme = ColorSchemes.error
                         return cell!
                     }
                 // no image is available in the currentLanguage or the primary language
@@ -556,7 +552,6 @@ class IdentificationTableViewController: UITableViewController {
                         cell?.datasource = self
                         cell?.tag = indexPath.section
                         cell?.width = tableView.frame.size.width
-                        cell?.scheme = ColorSchemes.error
                         return cell!
                     }
                 }
@@ -572,7 +567,6 @@ class IdentificationTableViewController: UITableViewController {
                     cell?.datasource = self
                     cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
                     return cell!
                 }
             }
@@ -1093,13 +1087,13 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .genericNameSearch, .quantitySearch:
             return 1
         case .brands:
-            return count(searchBrandsToDisplay)
-        case .brandsSearch:
             return count(brandsToDisplay)
+        case .brandsSearch:
+            return count(searchBrandsToDisplay)
         case .packaging:
-            return count(searchPackagingToDisplay)
-        case .packagingSearch:
             return count(packagingToDisplay)
+        case .packagingSearch:
+            return count(searchPackagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
         default:

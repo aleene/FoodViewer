@@ -16,19 +16,19 @@ class SearchTemplate {
     // whether the corresponding tag should be contained in the answer or 
     // should be excluded from the answer
     // For the moment it is assumed that the Bool holds for ALL tags
-    var labels: (Tags, Bool)? = nil
-    var categories: (Tags, Bool)? = nil
-    var brands: (Tags, Bool)? = nil
-    var packaging: (Tags, Bool)? = nil
-    var origins: (Tags, Bool)? = nil
-    var manufacturing_places: (Tags, Bool)? = nil
-    var emb_codes: (Tags, Bool)? = nil
-    var purchase_places: (Tags, Bool)? = nil
-    var stores: (Tags, Bool)? = nil
-    var countries: (Tags, Bool)? = nil
-    var additives: (Tags, Bool)? = nil
-    var allergens: (Tags, Bool)? = nil
-    var traces: (Tags, Bool)? = nil
+    var labels: (Tags, Bool) = (.empty, true)
+    var categories: (Tags, Bool) = (.empty, true)
+    var brands: (Tags, Bool) = (.empty, true)
+    var packaging: (Tags, Bool) = (.empty, true)
+    var origins: (Tags, Bool) = (.empty, true)
+    var manufacturing_places: (Tags, Bool) = (.empty, true)
+    var emb_codes: (Tags, Bool) = (.empty, true)
+    var purchase_places: (Tags, Bool) = (.empty, true)
+    var stores: (Tags, Bool) = (.empty, true)
+    var countries: (Tags, Bool) = (.empty, true)
+    var additives: (Tags, Bool) = (.empty, true)
+    var allergens: (Tags, Bool) = (.empty, true)
+    var traces: (Tags, Bool) = (.empty, true)
     
     // nutrition_grades: Tags? = nil
     // states: Tags? = nil
@@ -36,20 +36,21 @@ class SearchTemplate {
     var numberOfSearchResults: Int = 0
     
     var isEmpty: Bool {
+        
         return text == nil &&
-        labels == nil &&
-        categories == nil &&
-        brands == nil &&
-        packaging == nil &&
-        origins == nil &&
-        manufacturing_places == nil &&
-        emb_codes == nil &&
-        purchase_places == nil &&
-        stores == nil &&
-        countries == nil &&
-        additives == nil &&
-        allergens == nil &&
-        traces == nil
+        labels.0 == Tags.empty &&
+        categories.0 == .empty &&
+        brands.0 == .empty &&
+        packaging.0 == .empty &&
+        origins.0 == .empty &&
+        manufacturing_places.0 == .empty &&
+        emb_codes.0 == .empty &&
+        purchase_places.0 == .empty &&
+        stores.0 == .empty &&
+        countries.0 == .empty &&
+        additives.0 == .empty &&
+        allergens.0 == .empty &&
+        traces.0 == .empty
     }
     
     init() {
@@ -143,74 +144,63 @@ class SearchTemplate {
         }
         
         // brand
-        if let (validTags, shouldContain) = brands {
-            if !validTags.list.isEmpty {
-                pairs.append((.brand, cleanChars(validTags.list), shouldContain ))
-            }
+        var (validTags, shouldContain) = brands
+        if !validTags.list.isEmpty {
+            pairs.append((.brand, cleanChars(validTags.list), shouldContain ))
         }
         // categories
-        if let (validTags, shouldContain) = categories {
-            if !validTags.list.isEmpty {
-                pairs.append((.category, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = categories
+        if !validTags.list.isEmpty {
+            pairs.append((.category, cleanChars(validTags.list),  shouldContain ))
         }
         // producer codes
-        if let (validTags, shouldContain) = emb_codes {
-            if !validTags.list.isEmpty {
-                pairs.append((.producerCode, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = emb_codes
+        if !validTags.list.isEmpty {
+            pairs.append((.producerCode, cleanChars(validTags.list),  shouldContain ))
         }
         // country:
-        if let (validTags, shouldContain) = countries {
-            if !validTags.list.isEmpty {
-                pairs.append((.country, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = countries
+        if !validTags.list.isEmpty {
+            pairs.append((.country, cleanChars(validTags.list),  shouldContain ))
         }
         // label
-        if let (validTags, shouldContain) = labels {
-            if !validTags.list.isEmpty {
-                pairs.append((.label, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = labels
+        if !validTags.list.isEmpty {
+            pairs.append((.label, cleanChars(validTags.list),  shouldContain ))
         }
         // language on product
         // if !languageCodes.isEmpty {
         //    pairs.append((.language, cleanChars(languageCodes), true))
         //}
         // packaging
-        if let (validTags, shouldContain) = packaging {
-            if !validTags.list.isEmpty {
-                pairs.append((.packaging, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = packaging
+        if !validTags.list.isEmpty {
+            pairs.append((.packaging, cleanChars(validTags.list),  shouldContain ))
         }
         // purchasePlace:
-        if let (validTags, shouldContain) = purchase_places {
-            if !validTags.list.isEmpty {
-                pairs.append((.purchasePlace, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = purchase_places
+        if !validTags.list.isEmpty {
+            pairs.append((.purchasePlace, cleanChars(validTags.list),  shouldContain ))
         }
         // additive
-        if let (validTags, shouldContain) = additives {
-            if !validTags.list.isEmpty {
-                pairs.append((.additive, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = additives
+        if !validTags.list.isEmpty {
+            pairs.append((.additive, cleanChars(validTags.list),  shouldContain ))
         }
         // trace
-        if let (validTags, shouldContain) = traces {
-            if !validTags.list.isEmpty {
-                pairs.append((.trace, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = traces
+        if !validTags.list.isEmpty {
+            pairs.append((.trace, cleanChars(validTags.list),  shouldContain ))
         }
         // allergen
-        if let (validTags, shouldContain) = allergens {
-            if !validTags.list.isEmpty {
-                pairs.append((.allergen, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = allergens
+        if !validTags.list.isEmpty {
+            pairs.append((.allergen, cleanChars(validTags.list),  shouldContain ))
         }
         // manufacturingPlaces
-        if let (validTags, shouldContain) = manufacturing_places {
-            if !validTags.list.isEmpty {
-                pairs.append((.manufacturingPlaces, cleanChars(validTags.list),  shouldContain ))
-            }
+        (validTags, shouldContain) = manufacturing_places
+        if !validTags.list.isEmpty {
+            pairs.append((.manufacturingPlaces, cleanChars(validTags.list),  shouldContain ))
         }
         // store
         //if !storesOriginal.list.isEmpty {

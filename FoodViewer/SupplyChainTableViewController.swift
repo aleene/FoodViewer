@@ -23,7 +23,17 @@ class SupplyChainTableViewController: UITableViewController {
     
     var delegate: ProductPageViewController? = nil
 
-    var product: FoodProduct? {
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+
+    fileprivate var product: FoodProduct? {
         didSet {
             if product != nil {
                 tableStructureForProduct = analyseProductForTable(product!)
@@ -32,6 +42,15 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
     
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                tableStructureForProduct = analyseProductForTable(product!)
+                refreshProduct()
+            }
+        }
+    }
+
 // MARK: Private Functions/Variables
     
     fileprivate var producerTagsToDisplay: Tags {

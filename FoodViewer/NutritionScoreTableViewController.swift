@@ -16,12 +16,32 @@ class NutritionScoreTableViewController: UITableViewController {
         case uk
         case france
     }
-    var product: FoodProduct? {
+    
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+
+    fileprivate var product: FoodProduct? {
         didSet {
             refreshProduct()
         }
     }
     
+    
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                refreshProduct()
+            }
+        }
+    }
+
     fileprivate struct Constants {
         static let TitleForSectionWithBadNutrients = NSLocalizedString("Bad nutrients", comment: "Header for a table section showing the appreciations of the bad nutrients")
         static let TitleForSectionWithGoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")

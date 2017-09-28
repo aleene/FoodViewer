@@ -281,13 +281,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     private func setupProduct() {
-        ingredientsVC.product = product
-        identificationVC.tableItem = product
-        nutritionFactsVC.product = product
-        supplyChainVC.product = product
-        categoriesVC.product = product
-        nutritionScoreVC.product = product
-        completionStatusVC.product = product
+        ingredientsVC.tableItem = tableItem
+        identificationVC.tableItem = tableItem
+        nutritionFactsVC.tableItem = tableItem
+        supplyChainVC.tableItem = tableItem
+        categoriesVC.tableItem = tableItem
+        nutritionScoreVC.tableItem = tableItem
+        completionStatusVC.tableItem = tableItem
         galleryVC.product = product
     }
 
@@ -341,31 +341,31 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         case .ingredients:
             ingredientsVC.delegate = self
-            ingredientsVC.product = product
+            ingredientsVC.tableItem = tableItem
             ingredientsVC.editMode = editMode
             ingredientsVC.currentLanguageCode = currentLanguageCode
             
         case .nutritionFacts:
             nutritionFactsVC.delegate = self
-            nutritionFactsVC.product = product
+            nutritionFactsVC.tableItem = tableItem
             nutritionFactsVC.currentLanguageCode = currentLanguageCode
             nutritionFactsVC.editMode = editMode
             
         case .supplyChain:
             supplyChainVC.delegate = self
-            supplyChainVC.product = product
+            supplyChainVC.tableItem = tableItem
             supplyChainVC.editMode = editMode
             
         case .categories:
             categoriesVC.delegate = self
-            categoriesVC.product = product
+            categoriesVC.tableItem = tableItem
             categoriesVC.editMode = editMode
             
         case .nutritionScore:
-            nutritionScoreVC.product = product
+            nutritionScoreVC.tableItem = tableItem
             
         case .completion :
-            completionStatusVC.product = product
+            completionStatusVC.tableItem = tableItem
             completionStatusVC.delegate = self
             
         case .gallery:
@@ -500,8 +500,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         let products = OFFProducts.manager
         if !products.fetchResultList.isEmpty {
             switch products.fetchResultList[0] {
-            case .success(let firstProduct):
-                product = firstProduct
+            case .success(let firstItem):
+                tableItem = firstItem
                 pageIndex = .identification
                 initPage(pageIndex)
             default: break

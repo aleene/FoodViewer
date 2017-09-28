@@ -12,7 +12,17 @@ class CategoriesTableViewController: UITableViewController {
 
     // MARK: - Public functions / variables
     
-    var product: FoodProduct? {
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+
+    fileprivate var product: FoodProduct? {
         didSet {
             if product != nil {
                 tableStructureForProduct = analyseProductForTable(product!)
@@ -20,6 +30,16 @@ class CategoriesTableViewController: UITableViewController {
             }
         }
     }
+    
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                tableStructureForProduct = analyseProductForTable(product!)
+                tableView.reloadData()
+            }
+        }
+    }
+    
 
     var editMode = false {
         didSet {

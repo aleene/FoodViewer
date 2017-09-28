@@ -18,8 +18,8 @@
 
 import Foundation
 
-public enum Tags {
-    
+public enum Tags : Equatable {
+
     case undefined
     case empty
     case available([String])
@@ -70,6 +70,37 @@ public enum Tags {
             break
         }
         return self
+    }
+    
+    public static func ==(leftTag: Tags, rightTag: Tags) -> Bool {
+        switch leftTag {
+        case .available(let leftList):
+            switch rightTag {
+            case .available(let rightList):
+                for item in leftList {
+                    if !rightList.contains(item) {
+                        return false
+                    }
+                }
+                return true
+            case .empty, .undefined:
+                return false
+            }
+        case .empty:
+            switch rightTag {
+            case .empty:
+                return true
+            case .available, .undefined:
+                return false
+            }
+        case .undefined:
+            switch rightTag {
+            case .undefined:
+                return true
+            case .empty, .available:
+                return false
+            }
+        }
     }
 
     // add a languageCode to tags that have no language and remove languageCode for another language

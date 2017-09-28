@@ -31,12 +31,30 @@ import UIKit
 
 class CompletionStatesTableViewController: UITableViewController {
     
-    var product: FoodProduct? = nil {
+    public var tableItem: Any? = nil {
+        didSet {
+            if let item = tableItem as? FoodProduct {
+                self.product = item
+            } else if let item = tableItem as? SearchTemplate {
+                self.query = item
+            }
+        }
+    }
+
+    fileprivate var product: FoodProduct? = nil {
         didSet {
             refreshProduct()
         }
     }
     
+    private var query: SearchTemplate? = nil {
+        didSet {
+            if query != nil {
+                refreshProduct()
+            }
+        }
+    }
+
     var delegate: ProductPageViewController? = nil
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
