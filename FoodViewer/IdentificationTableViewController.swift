@@ -435,7 +435,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
-            cell.inclusion = true
+            cell.inclusion = OFFProducts.manager.searchQuery?.brands.1 ?? true
             return cell
             
         case .packaging:
@@ -454,7 +454,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
-            cell.inclusion = true
+            cell.inclusion = OFFProducts.manager.searchQuery?.packaging.1 ?? true
             return cell
             
         case .quantity:
@@ -831,10 +831,16 @@ class IdentificationTableViewController: UITableViewController {
                 let currentProductSection = tableStructure[tag]
                 switch currentProductSection {
                 case .packagingSearch:
-                    delegate?.update(packagingTags: nil, to:inclusion)
+                    if OFFProducts.manager.searchQuery == nil {
+                        OFFProducts.manager.searchQuery = SearchTemplate.init()
+                    }
+                    OFFProducts.manager.searchQuery!.packaging.1 = inclusion
                     tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
                 case .brandsSearch:
-                    delegate?.update(brandTags: nil, to:inclusion)
+                    if OFFProducts.manager.searchQuery == nil {
+                        OFFProducts.manager.searchQuery = SearchTemplate.init()
+                    }
+                    OFFProducts.manager.searchQuery!.brands.1 = inclusion
                     tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
                 default:
                     break
@@ -1151,6 +1157,17 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 list.removeAll()
                 delegate?.update(brandTags: list, to: true)
             }
+        case .brandsSearch:
+            switch searchBrandsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I clear a tag when there are none")
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.brands.0 = .available(list)
+            }
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
@@ -1159,6 +1176,18 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 list.removeAll()
                 delegate?.update(packagingTags: list, to: true)
             }
+        case .packagingSearch:
+            switch searchBrandsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I clear a tag when there are none")
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.packaging.0 = .available(list)
+            }
+
         default:
             break
         }
@@ -1192,13 +1221,13 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.brands.0 = Tags.init([title])
+                OFFProducts.manager.searchQuery!.brands.0 = .available([title])
             case .available(var list):
                 list.append(title)
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.brands.0 = .available(list)
             }
         case .packaging:
             switch packagingToDisplay {

@@ -27,6 +27,7 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     
     @IBAction func toggleTapped(_ sender: UISwitch) {
         inclusion = toggle.isOn
+        switchToggled()
     }
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -75,6 +76,7 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
         didSet {
             tagListView?.allowsRemoval = editMode
             tagListView?.allowsCreation = editMode
+            toggle.isEnabled = editMode
         }
     }
         
