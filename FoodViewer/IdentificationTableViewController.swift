@@ -1041,12 +1041,15 @@ extension IdentificationTableViewController: UITextViewDelegate {
                 let validCurrentLanguageCode = currentLanguageCode {
                     delegate?.updated(genericName: validText, languageCode: validCurrentLanguageCode)
             }
-        case .nameSearch, .genericNameSearch:
+        case .nameSearch:
             // generic name updated?
             if let validText = textView.text {
-                delegate?.updated(searchText: validText)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.text = validText
             }
-
+            
         default:
             break
         }

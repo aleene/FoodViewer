@@ -559,7 +559,7 @@ class OFFProducts {
     }
     
     func startSearch(for product: FoodProduct?) {
-        if product != nil {
+        if searchQuery != nil {
             // searchQueryProduct = product
             loadAll()
         }

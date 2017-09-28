@@ -55,7 +55,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             self.view.endEditing(true)
             if isQuery {
                 // start a new search
-                product?.mergeUpdates(from: updatedProduct)
                 OFFProducts.manager.startSearch(for: product)
             } else {
                 // Saving can be done
