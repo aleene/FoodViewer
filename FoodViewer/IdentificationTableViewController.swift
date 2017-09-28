@@ -1189,11 +1189,16 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .brandsSearch:
             switch searchBrandsToDisplay {
             case .undefined, .empty:
-                break
-                //delegate?.update(brandTags: [title], to: true)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.brands.0 = Tags.init([title])
             case .available(var list):
                 list.append(title)
-                //delegate?.update(brandTags: list, to: true)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list)
             }
         case .packaging:
             switch packagingToDisplay {
