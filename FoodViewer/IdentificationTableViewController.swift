@@ -1213,6 +1213,22 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case .undefined, .empty, .available:
                 delegate?.update(addLanguageCode: title)
             }
+            
+        case .packagingSearch:
+            switch searchPackagingToDisplay {
+            case .undefined, .empty:
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init([title])
+            case .available(var list):
+                list.append(title)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
+            }
+
         default:
             break
         }
@@ -1232,6 +1248,19 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(brandTags: list, to: true)
             }
+            
+        case .brandsSearch:
+            switch searchBrandsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case .available(var list):
+                list.remove(at: index)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list)
+            }
+
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
@@ -1242,6 +1271,17 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(packagingTags: list, to: true)
+            }
+        case .packagingSearch:
+            switch searchPackagingToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case .available(var list):
+                list.remove(at: index)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
             }
         default:
             break
