@@ -1004,6 +1004,8 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(tracesTags: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             // tableView.reloadData()
         case .labels:
@@ -1013,6 +1015,8 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(labelTags: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             // tableView.reloadData()
         default:
@@ -1033,6 +1037,8 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(tracesTags: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadData()
         case .labels:
@@ -1045,6 +1051,8 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(labelTags: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadData()
         default:
@@ -1113,6 +1121,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
             case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
+            case .notSearchable:
+                return 1
             }
         }
 

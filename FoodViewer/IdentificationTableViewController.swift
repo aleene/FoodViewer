@@ -31,6 +31,7 @@ class IdentificationTableViewController: UITableViewController {
         case genericName(Int, String)
         case genericNameSearch(Int, String)
         case languages(Int, String)
+        case languagesSearch(Int, String)
         case brands(Int, String)
         case brandsSearch(Int, String)
         case packaging(Int, String)
@@ -38,6 +39,7 @@ class IdentificationTableViewController: UITableViewController {
         case quantity(Int, String)
         case quantitySearch(Int, String)
         case image(Int, String)
+        case imageSearch(Int, String)
         
         func header() -> String {
             switch self {
@@ -55,6 +57,8 @@ class IdentificationTableViewController: UITableViewController {
                 return headerTitle
             case .languages(_, let headerTitle):
                 return headerTitle
+            case .languagesSearch(_, let headerTitle):
+                return headerTitle
             case .brands(_, let headerTitle):
                 return headerTitle
             case .brandsSearch(_, let headerTitle):
@@ -68,6 +72,8 @@ class IdentificationTableViewController: UITableViewController {
             case .quantitySearch(_, let headerTitle):
                 return headerTitle
             case .image(_, let headerTitle):
+                return headerTitle
+            case .imageSearch(_, let headerTitle):
                 return headerTitle
             }
         }
@@ -88,6 +94,8 @@ class IdentificationTableViewController: UITableViewController {
                 return numberOfRows
             case .languages(let numberOfRows, _):
                 return numberOfRows
+            case .languagesSearch(let numberOfRows, _):
+                return numberOfRows
             case .brands(let numberOfRows, _):
                 return numberOfRows
             case .brandsSearch(let numberOfRows, _):
@@ -101,6 +109,8 @@ class IdentificationTableViewController: UITableViewController {
             case .quantitySearch(let numberOfRows, _):
                 return numberOfRows
             case .image(let numberOfRows, _):
+                return numberOfRows
+            case .imageSearch(let numberOfRows, _):
                 return numberOfRows
             }
         }
@@ -217,6 +227,12 @@ class IdentificationTableViewController: UITableViewController {
                 return tags
             }
             return .undefined
+        }
+    }
+
+    fileprivate var notSearchableToDisplay: Tags {
+        get {
+            return .notSearchable
         }
     }
 
@@ -350,21 +366,25 @@ class IdentificationTableViewController: UITableViewController {
             cell!.editMode = editMode
             return cell!
             
-        case .barcodeSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
-            cell.barcode = "TBD"
-            cell.editMode = editMode
-            cell.delegate = self
+        case .barcodeSearch, .quantitySearch, .imageSearch, .languagesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.editMode = false
             cell.tag = indexPath.section
+            cell.tagListView.normalColorScheme = ColorSchemes.error
             return cell
             
-        case .nameSearch:
+        case .nameSearch, .genericNameSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
-            cell.nameTextView.text = query?.text ?? "TBD name"
+            if let validQueryText = query?.text {
+                cell.name =  validQueryText
+            } else {
+                cell.name =  editMode ? nil : NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
+            }
             cell.tag = indexPath.section
             cell.editMode = editMode
-            
             return cell
 
         case .name:
@@ -398,15 +418,6 @@ class IdentificationTableViewController: UITableViewController {
                     cell.name = nil
                 }
             }
-            return cell
-
-        case .genericNameSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
-            cell.delegate = self
-            cell.nameTextView.text = query?.text ?? "TBD genericName"
-            cell.tag = indexPath.section
-            cell.editMode = editMode
-            
             return cell
 
         case .languages:
@@ -471,14 +482,6 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             return cell
             
-        case .quantitySearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.editMode = false
-            cell.tag = indexPath.section
-            return cell
-
         case .image:
             // are there updated images available?
             if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
@@ -570,6 +573,7 @@ class IdentificationTableViewController: UITableViewController {
                     return cell!
                 }
             }
+
         }
     }
     
@@ -685,9 +689,11 @@ class IdentificationTableViewController: UITableViewController {
             sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
             sectionsAndRows.append(.nameSearch(TableSection.Size.Name, TableSection.Header.Name))
             sectionsAndRows.append(.genericNameSearch(TableSection.Size.CommonName, TableSection.Header.CommonName))
+            sectionsAndRows.append(.languagesSearch(TableSection.Size.Languages, TableSection.Header.Languages))
             sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
             sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
             sectionsAndRows.append(.quantitySearch(TableSection.Size.Quantity, TableSection.Header.Quantity))
+            sectionsAndRows.append(.imageSearch(TableSection.Size.Image, TableSection.Header.Image))
 
         } else {
             sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
@@ -1078,7 +1084,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         func count(_ tags: Tags) -> Int {
             switch tags {
-            case .undefined:
+            case .undefined, .notSearchable:
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
@@ -1093,7 +1099,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         
         switch currentProductSection {
-        case .genericNameSearch, .quantitySearch:
+        case .barcodeSearch, .quantitySearch, .imageSearch, .languagesSearch:
             return 1
         case .brands:
             return count(brandsToDisplay)
@@ -1115,7 +1121,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         func title(_ tags: Tags) -> String {
             switch tags {
-            case .undefined, .empty:
+            case .undefined, .empty, .notSearchable:
                 return tags.description()
             case .available:
                 return tags.tag(at:index) ?? "Tag index out of bounds"
@@ -1124,8 +1130,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
-        case .genericNameSearch, .quantitySearch:
-            return NSLocalizedString("Not searchable",comment: "String of a tag in a TagListView, to indicate the field can not be used for defining a search")
+        case .quantitySearch, .barcodeSearch, .imageSearch, .languagesSearch:
+            return title(notSearchableToDisplay)
         case .brands:
             // no language adjustments need to be done
             return title(brandsToDisplay)
@@ -1151,41 +1157,45 @@ extension IdentificationTableViewController: TagListViewDataSource {
         switch currentProductSection {
         case .brands:
             switch brandsToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I clear a tag when there are none")
             case .available(var list):
                 list.removeAll()
                 delegate?.update(brandTags: list, to: true)
+            default:
+                assert(true, "How can I clear a tag when there are none")
             }
         case .brandsSearch:
             switch searchBrandsToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I clear a tag when there are none")
             case .available(var list):
                 list.removeAll()
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.brands.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+
             }
+            
         case .packaging:
             switch packagingToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.removeAll()
                 delegate?.update(packagingTags: list, to: true)
+            default:
+                assert(true, "How can I delete a tag when there are none")
+
             }
+            
         case .packagingSearch:
             switch searchBrandsToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I clear a tag when there are none")
             case .available(var list):
                 list.removeAll()
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.packaging.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
             }
 
         default:
@@ -1214,6 +1224,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case .available(var list):
                 list.append(title)
                 delegate?.update(brandTags: list, to: true)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .brandsSearch:
             switch searchBrandsToDisplay {
@@ -1228,6 +1240,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.brands.0 = .available(list)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .packaging:
             switch packagingToDisplay {
@@ -1236,11 +1250,15 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case .available(var list):
                 list.append(title)
                 delegate?.update(packagingTags: list, to: true)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .languages:
             switch languagesToDisplay {
             case .undefined, .empty, .available:
                 delegate?.update(addLanguageCode: title)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             
         case .packagingSearch:
@@ -1256,6 +1274,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
 
         default:
@@ -1276,6 +1296,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(brandTags: list, to: true)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             
         case .brandsSearch:
@@ -1288,6 +1310,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
 
         case .packaging:
@@ -1300,6 +1324,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(packagingTags: list, to: true)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .packagingSearch:
             switch searchPackagingToDisplay {
@@ -1311,6 +1337,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         default:
             break

@@ -23,13 +23,17 @@ public enum Tags : Equatable {
     case undefined
     case empty
     case available([String])
+    case notSearchable
     
     func description() -> String {
         switch self {
         case .undefined: return NSLocalizedString("unknown", comment: "Text in a TagListView, when the field in the json was not present.")
         case .empty: return NSLocalizedString("none", comment: "Text in a TagListView, when the json provided an empty string.")
         case .available:
-            return NSLocalizedString("available", comment: "Text in a TagListView, when tags are available the product data.")        }
+            return NSLocalizedString("available", comment: "Text in a TagListView, when tags are available the product data.")
+        case .notSearchable:
+            return NSLocalizedString("not searchable", comment: "Text in a search TagListView, when tags can not be set up.")
+        }
     }
     
     //
@@ -83,21 +87,28 @@ public enum Tags : Equatable {
                     }
                 }
                 return true
-            case .empty, .undefined:
+            case .empty, .undefined, .notSearchable:
                 return false
             }
         case .empty:
             switch rightTag {
             case .empty:
                 return true
-            case .available, .undefined:
+            case .available, .undefined, .notSearchable:
                 return false
             }
         case .undefined:
             switch rightTag {
             case .undefined:
                 return true
-            case .empty, .available:
+            case .empty, .available, .notSearchable:
+                return false
+            }
+        case .notSearchable:
+            switch rightTag {
+            case .notSearchable:
+                return true
+            case .empty, .available, .undefined:
                 return false
             }
         }
@@ -125,7 +136,7 @@ public enum Tags : Equatable {
     // returns the tag string at an index if available
     public func tag(at index: Int) -> String? {
         switch self {
-        case .undefined, .empty:
+        case .undefined, .empty, .notSearchable:
             return self.description()
         case let .available(list):
             if index >= 0 && index < list.count {

@@ -27,6 +27,8 @@ class CategoriesTableViewCell: UITableViewCell {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
                                 categorySummaryLabel.text = list.count == 1 ? Constants.CategoryOneText : String(format: Constants.CategoryText, formatter.string(from: NSNumber(integerLiteral: list.count))!)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         }
     }

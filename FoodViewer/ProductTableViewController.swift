@@ -283,6 +283,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             cell.productBrand = [currentProduct.brandsOriginal.description()]
                         case let .available(list):
                             cell.productBrand = list
+                        case .notSearchable:
+                            assert(true, "How can I set a brand a tag when the field is non-editable")
                         }
                         return cell
                         
@@ -370,6 +372,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(list.count)"
+                        case .notSearchable:
+                            assert(true, "How can I set a categorie is non-editable")
                         }
                         return cell
                     case .completion:

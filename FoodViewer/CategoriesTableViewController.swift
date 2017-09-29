@@ -260,6 +260,8 @@ extension CategoriesTableViewController: TagListViewDataSource {
             case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
+            case .notSearchable:
+                return 1
             }
         }
     }
@@ -270,7 +272,7 @@ extension CategoriesTableViewController: TagListViewDataSource {
         switch  currentProductSection {
         case .categories :
             switch categoriesToDisplay {
-            case .undefined, .empty:
+            case .undefined, .empty, .notSearchable:
                 return categoriesToDisplay.description()
             case let .available(list):
                 if index >= 0 && index < list.count {
@@ -307,6 +309,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(categories: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         }
     }
@@ -325,7 +329,11 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(categories: list)
+            case .notSearchable:
+                assert(true, "How can I deleted a tag when the field is non-editable")
+
             }
+
         }
     }
     

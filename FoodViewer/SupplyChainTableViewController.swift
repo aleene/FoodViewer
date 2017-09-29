@@ -812,6 +812,8 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
+            case .notSearchable:
+                return 1
             }
         }
 
@@ -847,7 +849,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         
         func tagTitle(_ tags: Tags) -> String {
             switch tags {
-            case .undefined, .empty:
+            case .undefined, .empty, .notSearchable:
                 return tags.description()
             case .available:
                 return tags.tag(at:index) ?? "Tag index out of bounds"
@@ -890,6 +892,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(producer: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .producerCode:
             switch producerCodeTagsToDisplay {
@@ -898,6 +902,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(producerCode: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
@@ -906,6 +912,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(ingredientsOrigin: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .store:
             switch storeTagsToDisplay {
@@ -914,6 +922,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(stores: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .location:
             switch purchaseLocationTagsToDisplay {
@@ -922,6 +932,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(purchaseLocation: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .country:
             switch countriesToDisplay {
@@ -930,6 +942,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case var .available(list):
                 list.append(title)
                 delegate?.update(countries: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
         case .sites:
             if var tags = linksToDisplay {
@@ -956,6 +970,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(producer: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
@@ -969,6 +985,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(producerCode: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
@@ -982,6 +1000,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(ingredientsOrigin: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
 
@@ -995,6 +1015,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(stores: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
@@ -1008,6 +1030,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(purchaseLocation: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
@@ -1021,6 +1045,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 }
                 list.remove(at: index)
                 delegate?.update(countries: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
