@@ -1084,7 +1084,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         func count(_ tags: Tags) -> Int {
             switch tags {
-            case .undefined, .notSearchable:
+            case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
             case .empty:
@@ -1093,6 +1093,9 @@ extension IdentificationTableViewController: TagListViewDataSource {
             case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
+            case .notSearchable:
+                tagListView.normalColorScheme = ColorSchemes.error
+                return 1
             }
         }
         
@@ -1159,7 +1162,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             switch brandsToDisplay {
             case .available(var list):
                 list.removeAll()
-                delegate?.update(brandTags: list, to: true)
+                delegate?.update(brandTags: list)
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
@@ -1180,7 +1183,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             switch packagingToDisplay {
             case .available(var list):
                 list.removeAll()
-                delegate?.update(packagingTags: list, to: true)
+                delegate?.update(packagingTags: list)
             default:
                 assert(true, "How can I delete a tag when there are none")
 
@@ -1220,10 +1223,10 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
-                delegate?.update(brandTags: [title], to: true)
+                delegate?.update(brandTags: [title])
             case .available(var list):
                 list.append(title)
-                delegate?.update(brandTags: list, to: true)
+                delegate?.update(brandTags: list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1246,10 +1249,10 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
-                delegate?.update(packagingTags: [title], to: true)
+                delegate?.update(packagingTags: [title])
             case .available(var list):
                 list.append(title)
-                delegate?.update(packagingTags: list, to: true)
+                delegate?.update(packagingTags: list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1295,7 +1298,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(brandTags: list, to: true)
+                delegate?.update(brandTags: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1323,7 +1326,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(packagingTags: list, to: true)
+                delegate?.update(packagingTags: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }

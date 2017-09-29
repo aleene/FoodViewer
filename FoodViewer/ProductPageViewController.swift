@@ -672,7 +672,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    func update(brandTags: [String]?, to include:Bool?) {
+    func update(brandTags: [String]?) {
         if let validTags = brandTags {
             guard product != nil else { return }
             // Have the tags changed?
@@ -683,22 +683,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 updatedProduct?.brandsOriginal = .available(validTags)
                 saveUpdatedProduct()
             }
-        } else {
-            // no change to tags, but the include might have changed
-            if let validInclude = include {
-                initUpdatedProductWith(product: product!)
-                // use the existing product tags
-                switch product!.brandsOriginal {
-                case .available(let list):
-                    updatedProduct?.brandsOriginal = .available(list)
-                default:
-                    break
-                }
-            }
         }
     }
 
-    func update(packagingTags: [String]?, to include:Bool?) {
+    func update(packagingTags: [String]?) {
         if let validTags = packagingTags {
             guard product != nil else { return }
             if !product!.contains(packaging: validTags) {
