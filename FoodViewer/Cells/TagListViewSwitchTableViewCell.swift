@@ -12,6 +12,10 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
+        struct SegmentedControl {
+            static let Left = NSLocalizedString("Include", comment: "Test of a segmented control, which indicates that the corresponding tag(s) should be included in an advanced search")
+            static let Right = NSLocalizedString("Exclude", comment: "Test of a segmented control, which indicates that the corresponding tag(s) should be included in an advanced search")
+        }
     }
         
     internal struct Notification {
@@ -19,15 +23,18 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
         static let InclusionKey = "Inclusion"
     }
     
-    @IBOutlet weak var toggle: UISwitch! {
+    @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            toggle.isOn = inclusion
+            segmentedControl.setTitle(Constants.SegmentedControl.Left, forSegmentAt: 0)
+            segmentedControl.setTitle(Constants.SegmentedControl.Right, forSegmentAt: 1)
+            segmentedControl.selectedSegmentIndex = 0
         }
     }
     
-    @IBAction func toggleTapped(_ sender: UISwitch) {
-        inclusion = toggle.isOn
+    @IBAction func segmentedControlTapped(_ sender: UISegmentedControl) {
+        inclusion = segmentedControl.selectedSegmentIndex == 0 ? true: false
         switchToggled()
+
     }
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -56,7 +63,7 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     
     var inclusion: Bool = true {
         didSet {
-            toggle.isOn = inclusion
+            segmentedControl.selectedSegmentIndex = inclusion ? 0 : 1
         }
     }
     
@@ -76,13 +83,13 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
         didSet {
             tagListView?.allowsRemoval = editMode
             tagListView?.allowsCreation = editMode
-            toggle.isEnabled = editMode
+            segmentedControl.isEnabled = editMode
         }
     }
         
     var width: CGFloat = CGFloat(320.0) {
         didSet {
-            tagListView?.frame.size.width = width - Constants.Margin
+            tagListView?.frame.size.width = width - Constants.Margin - segmentedControl.frame.size.width
         }
     }
         

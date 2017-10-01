@@ -44,7 +44,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if product != nil {
                 mergeNutritionFacts()
                 query = nil
-                tableStructureForProduct = analyseProductForTable(product!)
+                tableStructureForProduct = setupTableSections()
                 tableView.reloadData()
             }
         }
@@ -54,7 +54,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
-                tableStructureForProduct = analyseProductForTable(product!)
+                tableStructureForProduct = setupTableSections()
                 product = nil
                 tableView.reloadData()
             }
@@ -68,7 +68,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if editMode != oldValue && product != nil {
                 
                 // mergeNutritionFacts()
-                tableStructureForProduct = analyseProductForTable(product!)
+                tableStructureForProduct = setupTableSections()
                 tableView.reloadData()
             }
         }
@@ -81,6 +81,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if currentLanguageCode != oldValue {
                 tableView.reloadData()
             }
+        }
+    }
+
+    fileprivate var notSearchableToDisplay: Tags {
+        get {
+            return .notSearchable
         }
     }
 
@@ -229,10 +235,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // The different sections of the tableView
     fileprivate enum SectionType {
         case perUnit
+        case perUnitSearch
         case nutritionFacts
+        case nutritionFactsSearch
         case addNutrient
         case servingSize
+        case servingSizeSearch
         case nutritionImage
+        case imageSearch
         case noNutrimentsAvailable
     }
 
@@ -253,6 +263,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
         // we assume that product exists
         switch currentProductSection {
+        case .perUnitSearch, .servingSizeSearch, .imageSearch, .nutritionFactsSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as! TagListViewTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.editMode = false
+            cell.tag = indexPath.section
+            cell.tagListView.normalColorScheme = ColorSchemes.error
+            return cell
+            
         case .noNutrimentsAvailable:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
             cell.editMode = editMode
@@ -597,7 +616,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
  */
     
-    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType, Int, String?)] {
+    fileprivate func setupTableSections() -> [(SectionType, Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
@@ -606,11 +625,35 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         //  The order of each element determines the order in the table
         var sectionsAndRows: [(SectionType, Int, String?)] = []
         
+        if query != nil {
+            sectionsAndRows.append(
+                ( SectionType.perUnitSearch,
+                  TableSections.Size.PerUnit,
+                  TableSections.Header.PerUnit )
+            )
+            sectionsAndRows.append((
+                SectionType.nutritionFactsSearch,
+                TableSections.Size.NutritionFactsEmpty,
+                TableSections.Header.NutritionFactItems))
+            sectionsAndRows.append((
+                SectionType.servingSizeSearch,
+                TableSections.Size.ServingSize,
+                TableSections.Header.ServingSize))
+            
+            // Section 3 or 4 or 5: image section
+            sectionsAndRows.append((
+                SectionType.imageSearch,
+                TableSections.Size.NutritionFactsImage,
+                TableSections.Header.NutritionFactsImage))
+
+
+        } else {
+
         // how does the user want the data presented
         switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
         case .perStandard:
             // what is possible?
-            switch product.nutritionFactsAreAvailable {
+            switch product!.nutritionFactsAreAvailable {
             case .perStandardUnit, .perServingAndStandardUnit:
                 showNutrientsAs = .perStandard
             case .perServing:
@@ -619,7 +662,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 break
             }
         case .perServing:
-            switch product.nutritionFactsAreAvailable {
+            switch product!.nutritionFactsAreAvailable {
                 // what is possible?
             case .perStandardUnit:
                 showNutrientsAs = .perStandard
@@ -629,7 +672,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 break
             }
         case .perDailyValue:
-            switch product.nutritionFactsAreAvailable {
+            switch product!.nutritionFactsAreAvailable {
             case .perStandardUnit:
                 // force showing perStandard as perServing is not available
                 showNutrientsAs = .perStandard
@@ -645,7 +688,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         // Which sections are shown depends on whether the product has nutriment data
         
         // Are there any nutriments
-        if ( !editMode && product.hasNutritionFacts != nil && !product.hasNutritionFacts! ) {
+        if ( !editMode && product!.hasNutritionFacts != nil && !product!.hasNutritionFacts! ) {
             // the product has no nutriments indicated
             sectionsAndRows.append(
                 ( SectionType.noNutrimentsAvailable,
@@ -674,7 +717,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
             // Section 1 or 2 : nutrition facts
             
-            if product.nutritionFacts == nil || product.nutritionFacts!.isEmpty {
+            if product!.nutritionFacts == nil || product!.nutritionFacts!.isEmpty {
                 // Show a tag indicating no nutrition facts have been specified
                 sectionsAndRows.append((
                     SectionType.nutritionFacts,
@@ -705,13 +748,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 TableSections.Header.ServingSize))
         
             // Section 3 or 4 or 5: image section
-            if !product.barcode.isSearch() {
-                sectionsAndRows.append((
-                    SectionType.nutritionImage,
-                    TableSections.Size.NutritionFactsImage,
-                    TableSections.Header.NutritionFactsImage))
-            }
+            sectionsAndRows.append((
+                SectionType.nutritionImage,
+                TableSections.Size.NutritionFactsImage,
+                TableSections.Header.NutritionFactsImage))
         
+        }
         }
         return sectionsAndRows
     }
@@ -934,7 +976,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         guard product != nil else { return }
         // recalculate the nutritionfacts that must be shown
         mergeNutritionFacts()
-        tableStructureForProduct = analyseProductForTable(product!)
+        tableStructureForProduct = setupTableSections()
         tableView.reloadData()
     }
 
@@ -1157,6 +1199,8 @@ extension NutrientsTableViewController: TagListViewDataSource {
             switch currentProductSection {
             case .nutritionImage, .nutritionFacts:
                 return 1
+            case .servingSizeSearch, .nutritionFactsSearch, .imageSearch, .perUnitSearch:
+                return 1
             default:
                 break
             }
@@ -1172,6 +1216,8 @@ extension NutrientsTableViewController: TagListViewDataSource {
             return searchResult
         case .nutritionFacts:
             return nutritionFactsTagTitle
+        case .servingSizeSearch, .nutritionFactsSearch, .imageSearch, .perUnitSearch:
+            return notSearchableToDisplay.tag(at: index)!
         default:
             return("tagListView error")
         }

@@ -331,9 +331,9 @@ class IdentificationTableViewController: UITableViewController {
             static let Barcode = "Barcode Cell"
             static let BarcodeEdit = "Barcode Edit Cell"
             static let Quantity = "Quantity Cell"
-            static let TagList = "Identification TagList Cell"
+            static let TagListView = "TagListView Cell"
             static let Packaging = "Identification Packaging Cell"
-            static let TagListViewSwitch = "TagListView Switch Cell"
+            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
             static let Image = "Identification Image Cell"
             static let NoIdentificationImage = "No Image Cell"
         }
@@ -367,7 +367,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell!
             
         case .barcodeSearch, .quantitySearch, .imageSearch, .languagesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
@@ -421,7 +421,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
 
         case .languages:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -431,7 +431,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
 
         case .brands:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagList, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -440,7 +440,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .brandsSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewSwitch, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -459,7 +459,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .packagingSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewSwitch, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self

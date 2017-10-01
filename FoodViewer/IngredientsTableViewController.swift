@@ -279,10 +279,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate struct Storyboard {
         struct CellIdentifier {
             static let Ingredients = "Ingredients Full Cell"
-            static let Allergens = "Allergens TagList Cell"
-            static let Traces = "Traces TagList Cell"
-            static let Additives = "Additives TagList Cell"
-            static let Labels = "Labels TagList Cell"
+            static let TagListView = "TagListView Cell"
+            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
             static let Image = "Ingredients Image Cell"
             static let NoImage = "No Image Cell"
         }
@@ -314,7 +312,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         switch currentProductSection {
             
         case .ingredientsSearch, .imageSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
@@ -339,8 +337,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             return cell!
             
-        case .allergens:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
+        case .allergens, .additives:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -348,8 +346,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
             
-        case .allergensSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
+        case .allergensSearch, .tracesSearch, .additivesSearch, .labelsSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -357,8 +355,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
             
-        case .traces:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Traces, for: indexPath) as! TagListViewTableViewCell
+        case .traces, .labels:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -366,7 +364,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
             
-        case .tracesSearch:
+        /*case .tracesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -383,7 +381,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = product != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
-            
+ 
         case .additivesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -401,7 +399,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             return cell
-            
         case .labelsSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -410,6 +407,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             return cell
+             */
 
         case .image:
             // are there any updated images?

@@ -62,6 +62,7 @@ class CategoriesTableViewController: UITableViewController {
     
     fileprivate enum SectionType {
         case categories
+        case categoriesSearch
     }
     
     private struct TagsTypeDefault {
@@ -98,6 +99,16 @@ class CategoriesTableViewController: UITableViewController {
         }
     }
     
+    fileprivate var searchCategoriesToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.categories {
+                return tags
+            }
+            return .undefined
+        }
+    }
+    
+
     // MARK: - Interface Functions
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
@@ -110,7 +121,10 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - TableView Datasource Functions
     
     fileprivate struct Storyboard {
-        static let CellIdentifier = "Categories Cell Identifier"
+        struct CellIdentifier {
+            static let TagListView = "TagListView Cell Identifier"
+            static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell Identifier"
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -129,14 +143,26 @@ class CategoriesTableViewController: UITableViewController {
         // we assume that product exists
         switch currentProductSection {
         case .categories:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier, for: indexPath) as! TagListViewTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.editMode = editMode
             cell.delegate = self
             cell.datasource = self
             return cell
+            
+        case .categoriesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = OFFProducts.manager.searchQuery?.categories.1 ?? true
+            return cell
+
         }
+
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -155,6 +181,8 @@ class CategoriesTableViewController: UITableViewController {
                     showCategoriesTagsType.description() +
                 ")"
             }
+        case .categoriesSearch:
+            return header
         }
     }
     
@@ -199,6 +227,8 @@ class CategoriesTableViewController: UITableViewController {
                 showCategoriesTagsType.cycle()
                 tableView.reloadData()
                 // tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
+            default:
+                break
             }
         }
     }
@@ -246,11 +276,9 @@ class CategoriesTableViewController: UITableViewController {
 extension CategoriesTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-
-        switch  currentProductSection {
-        case .categories :
-            switch categoriesToDisplay {
+        
+        func count(_ tags: Tags) -> Int {
+            switch tags {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
                 return editMode ? 0 : 1
@@ -261,8 +289,18 @@ extension CategoriesTableViewController: TagListViewDataSource {
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
             case .notSearchable:
+                tagListView.normalColorScheme = ColorSchemes.error
                 return 1
             }
+        }
+
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+
+        switch  currentProductSection {
+        case .categories :
+            return count(categoriesToDisplay)
+        case .categoriesSearch:
+            return count(searchCategoriesToDisplay)
         }
     }
     
@@ -271,18 +309,10 @@ extension CategoriesTableViewController: TagListViewDataSource {
         
         switch  currentProductSection {
         case .categories :
-            switch categoriesToDisplay {
-            case .undefined, .empty, .notSearchable:
-                return categoriesToDisplay.description()
-            case let .available(list):
-                if index >= 0 && index < list.count {
-                    return list[index]
-                } else {
-                    assert(true, "categories array - index out of bounds")
-                }
-            }
+            return categoriesToDisplay.tag(at: index)!
+        case .categoriesSearch:
+            return searchCategoriesToDisplay.tag(at: index)!
         }
-        return("TagListView titleForTagAt error")
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
@@ -312,7 +342,25 @@ extension CategoriesTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+        case .categoriesSearch:
+            switch searchCategoriesToDisplay {
+            case .undefined, .empty:
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.brands.0 = .available([title])
+            case .available(var list):
+                list.append(title)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.categories.0 = .available(list)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
+            }
+
         }
+        
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
@@ -333,6 +381,19 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 assert(true, "How can I deleted a tag when the field is non-editable")
 
             }
+        case .categoriesSearch:
+            switch searchCategoriesToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case .available(var list):
+                list.remove(at: index)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.categories.0 = Tags.init(list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
+            }
 
         }
     }
@@ -343,6 +404,19 @@ extension CategoriesTableViewController: TagListViewDelegate {
         switch  currentProductSection {
         case .categories:
             delegate?.update(categories: [])
+        case .categoriesSearch:
+            switch searchCategoriesToDisplay {
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.categories.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+                
+            }
+
         }
     }
     
@@ -352,6 +426,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
         switch currentProductSection {
         case .categories:
             delegate?.search(for: product!.categoriesInterpreted.tag(at:index), in: .category)
+        default:
+            break
         }
     }
 
