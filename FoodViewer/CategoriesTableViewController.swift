@@ -25,7 +25,7 @@ class CategoriesTableViewController: UITableViewController {
     fileprivate var product: FoodProduct? {
         didSet {
             if product != nil {
-                tableStructureForProduct = analyseProductForTable(product!)
+                tableStructureForProduct = setupTableSections()
                 tableView.reloadData()
             }
         }
@@ -34,12 +34,15 @@ class CategoriesTableViewController: UITableViewController {
     private var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
-                tableStructureForProduct = analyseProductForTable(product!)
+                tableStructureForProduct = setupTableSections()
                 tableView.reloadData()
             }
         }
     }
     
+    private var isQuery: Bool {
+        return query != nil
+    }
 
     var editMode = false {
         didSet {
@@ -191,19 +194,26 @@ class CategoriesTableViewController: UITableViewController {
         static let CategoriesSectionSize = 1
     }
 
-    fileprivate func analyseProductForTable(_ product: FoodProduct) -> [(SectionType, Int, String?)] {
+    fileprivate func setupTableSections() -> [(SectionType, Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
         // And each element is a tuple with the section type and number of rows
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
-        // nutritionFacts section
-        sectionsAndRows.append((
-            SectionType.categories,
-            TableStructure.CategoriesSectionSize,
-            TableStructure.CategoriesSectionHeader))
+        if isQuery {
+            sectionsAndRows.append((
+                SectionType.categoriesSearch,
+                TableStructure.CategoriesSectionSize,
+                TableStructure.CategoriesSectionHeader))
+        } else {
+            sectionsAndRows.append((
+                SectionType.categories,
+                TableStructure.CategoriesSectionSize,
+                TableStructure.CategoriesSectionHeader))
+        }
         return sectionsAndRows
+            
     }
     
     // MARK: - Notification Handler Functions
