@@ -535,7 +535,7 @@ class OFFProducts {
                 startFreshSearch()
             } else {
                 setCurrentProducts()
-                if allProductFetchResultList.count > 0 {
+                if allSearchFetchResultList.count > 0 {
                     let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
                     NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
                 }
@@ -598,8 +598,8 @@ class OFFProducts {
                 NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
                     
                 fetchSearchProductsForNextPage()
-                
             }
+            setCurrentProducts()
         }
     }
     

@@ -6,6 +6,10 @@
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
 
+//  This class contains all the product-data necesssary to perform a search on OFF
+
+//  Note that the actual encoding of this data happens in the struct OFF
+
 import Foundation
 
 class SearchTemplate {
@@ -33,7 +37,27 @@ class SearchTemplate {
     // nutrition_grades: Tags? = nil
     // states: Tags? = nil
     
+    // https://world.openfoodfacts.org/cgi/search.pl?action=process&additives=with
+    // https://world.openfoodfacts.org/cgi/search.pl?action=process&ingredients_from_palm_oil=with
+    // https://world.openfoodfacts.org/cgi/search.pl?action=process&ingredients_from_or_that_may_be_from_palm_oil=with
+    enum IngredientsInclusion {
+        case with
+        case without
+        case indifferent
+    }
+    
+    var ingredientsAdditives: IngredientsInclusion = .indifferent
+    var ingredientsFromPalmOil: IngredientsInclusion = .indifferent
+    var ingredientsThatMayBeFromPalmOil: IngredientsInclusion = .indifferent
+    var ingredientsFromOrThatMayBeFromPalmOil: IngredientsInclusion = .indifferent
+    
     var numberOfSearchResults: Int = 0
+    
+    // Nutriments
+    // https://world.openfoodfacts.org/cgi/search.pl?action=process&nutriment_0=energy&nutriment_compare_0=lt&nutriment_value_0=100
+    
+    
+    var allNutrimentsSearch: [NutrimentSearch] = []
     
     var isEmpty: Bool {
         
@@ -50,7 +74,8 @@ class SearchTemplate {
         countries.0 == .empty &&
         additives.0 == .empty &&
         allergens.0 == .empty &&
-        traces.0 == .empty
+        traces.0 == .empty &&
+        allNutrimentsSearch.isEmpty
     }
     
     init() {

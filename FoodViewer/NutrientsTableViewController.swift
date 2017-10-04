@@ -51,7 +51,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     
-    private var query: SearchTemplate? = nil {
+    fileprivate var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
                 tableStructureForProduct = setupTableSections()
@@ -65,9 +65,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     var editMode = false {
         didSet {
             // vc changed from/to editMode, need to repaint
-            if editMode != oldValue && product != nil {
-                
-                // mergeNutritionFacts()
+            if editMode != oldValue {
                 tableStructureForProduct = setupTableSections()
                 tableView.reloadData()
             }
@@ -211,6 +209,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let AddNutrient = "Add Nutrient Cell"
             static let PerUnit = "Per Unit Cell"
             static let NoNutrimentsAvailable = "Nutriments Available Cell"
+            static let SearchNutritionFact = "Search Nutrition Fact Cell Identifier"
         }
         
         struct SegueIdentifier {
@@ -218,6 +217,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let AddNutrient = "Add Nutrient Segue"
             static let SelectNutrientUnit = "Select Nutrient Unit Segue"
             static let ShowNutritionImageLanguages = "Show Nutrition Image Languages"
+            static let SelectComparisonOperator = "Select Comparison Operator Segue Identifier"
         }
         struct Title {
             static let ShowNutritionFactsImage = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
@@ -254,7 +254,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let (currentProductSection, numberOfRows, _) = tableStructureForProduct[section]
         // in editMode the nutritionFacts have a button added
-        return currentProductSection  == .nutritionFacts && editMode ? numberOfRows + 1 : numberOfRows
+        let noRows = (currentProductSection  == .nutritionFacts || currentProductSection  == .nutritionFactsSearch ) && editMode ? numberOfRows + 1 : numberOfRows
+        return noRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -263,7 +264,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
         // we assume that product exists
         switch currentProductSection {
-        case .perUnitSearch, .servingSizeSearch, .imageSearch, .nutritionFactsSearch:
+        case .perUnitSearch, .servingSizeSearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -277,6 +278,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.editMode = editMode
             cell.hasNutrimentFacts = delegate?.updatedProduct?.hasNutritionFacts != nil ? delegate!.updatedProduct!.nutrimentFactsAvailability : product!.nutrimentFactsAvailability
             return cell
+            
         case .perUnit:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PerUnit, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = showNutrientsAs
@@ -284,6 +286,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.nutritionFactsAvailability = product!.nutritionFactsAreAvailable
             // print(showNutrientsAs, product!.nutritionFactsAreAvailable)
             return cell
+            
         case .nutritionFacts:
             let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
             if indexPath.row == numberOfRows && editMode {
@@ -344,6 +347,31 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     return cell!
                 }
             }
+        case .nutritionFactsSearch:
+            let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
+            if indexPath.row == numberOfRows && editMode {
+                // This cell should only be added when in editMode and as the last row
+                // and allows the user to add a nutrient
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
+                cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+                return cell
+            } else {
+                if query!.allNutrimentsSearch.isEmpty {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as? TagListViewTableViewCell
+                    cell?.tag = indexPath.section
+                    cell?.width = tableView.frame.size.width
+                    cell?.datasource = self
+                    return cell!
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SearchNutritionFact, for: indexPath) as! SearchNutrientsTableViewCell
+                    cell.searchNutrition = query!.allNutrimentsSearch[indexPath.row]
+                    cell.delegate = self
+                    cell.tag = indexPath.section * 100 + indexPath.row
+                    cell.editMode = editMode
+                    return cell
+                }
+            }
+
         case .servingSize:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ServingSize, for: indexPath) as? ServingSizeTableViewCell
             cell!.servingSizeTextField.delegate = self
@@ -626,15 +654,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         var sectionsAndRows: [(SectionType, Int, String?)] = []
         
         if query != nil {
+            
             sectionsAndRows.append(
                 ( SectionType.perUnitSearch,
                   TableSections.Size.PerUnit,
-                  TableSections.Header.PerUnit )
-            )
-            sectionsAndRows.append((
-                SectionType.nutritionFactsSearch,
-                TableSections.Size.NutritionFactsEmpty,
-                TableSections.Header.NutritionFactItems))
+                  TableSections.Header.PerUnit ))
+            
+            if query!.allNutrimentsSearch.isEmpty {
+                // Show a tag indicating no nutrition facts search has been specified
+                sectionsAndRows.append((
+                    SectionType.nutritionFactsSearch,
+                    TableSections.Size.NutritionFactsEmpty,
+                    TableSections.Header.NutritionFactItems))
+            } else {
+                // show a list with defined nutrition facts search
+                sectionsAndRows.append((
+                    SectionType.nutritionFactsSearch,
+                    query!.allNutrimentsSearch.count,
+                    TableSections.Header.NutritionFactItems))
+            }
+            
             sectionsAndRows.append((
                 SectionType.servingSizeSearch,
                 TableSections.Size.ServingSize,
@@ -731,15 +770,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     TableSections.Header.NutritionFactItems))
             }
         
-            // Section 2 or 3 : Add nutrient Button only in editMode
-//        
-//            if editMode {
-//                sectionsAndRows.append((
-//                    SectionType.addNutrient,
-//                    TableSections.Size.AddNutrient,
-//                    TableSections.Header.AddNutrient))
-//            }
-//    
             // Section 2 or 3 or 4 : serving size
             
             sectionsAndRows.append((
@@ -876,6 +906,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         }
                     }
                 }
+            case Storyboard.SegueIdentifier.SelectComparisonOperator:
+                if let vc = segue.destination as? SelectCompareViewController {
+                    // The segue can only be initiated from a button within a BarcodeTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? SearchNutrientsTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                let row = button.tag % 100
+                                vc.nutrientRow = row
+                                if query != nil && row >= 0 && row < query!.allNutrimentsSearch.count  {
+                                    vc.currentCompareOperator = query!.allNutrimentsSearch[row].searchOperator
+                                }
+                            }
+                        }
+                    }
+                }
+
             default: break
             }
         }
@@ -888,13 +941,20 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @IBAction func unwindAddNutrientForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? AddNutrientViewController {
             if let newNutrientTuple = vc.addedNutrientTuple {
-                var newNutrient = NutritionFactItem()
-                newNutrient.key = newNutrientTuple.0
-                newNutrient.itemName = newNutrientTuple.1
-                newNutrient.servingValueUnit = newNutrientTuple.2
-                newNutrient.standardValueUnit = newNutrientTuple.2
-                delegate?.updated(fact: newNutrient)
-                refreshProductWithNewNutritionFacts()
+                if query != nil {
+                    var nutrimentSearch = NutrimentSearch()
+                    nutrimentSearch.key = newNutrientTuple.0
+                    query!.allNutrimentsSearch.append(nutrimentSearch)
+                    tableView.reloadData()
+                } else {
+                    var newNutrient = NutritionFactItem()
+                    newNutrient.key = newNutrientTuple.0
+                    newNutrient.itemName = newNutrientTuple.1
+                    newNutrient.servingValueUnit = newNutrientTuple.2
+                    newNutrient.standardValueUnit = newNutrientTuple.2
+                    delegate?.updated(fact: newNutrient)
+                    refreshProductWithNewNutritionFacts()
+                }
             }
         }
     }
@@ -916,6 +976,17 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
+    @IBAction func unwindSetComparisonOperator(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectCompareViewController {
+            // The new comparison operator should be set to the nutrient that was edited
+            if let nutrientRow = vc.nutrientRow,
+            let selectedOperator = vc.selectedCompareOperator {
+                query!.allNutrimentsSearch[nutrientRow].searchOperator = selectedOperator
+                tableView.reloadData()
+            }
+        }
+    }
+
     // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -1216,11 +1287,22 @@ extension NutrientsTableViewController: TagListViewDataSource {
             return searchResult
         case .nutritionFacts:
             return nutritionFactsTagTitle
-        case .servingSizeSearch, .nutritionFactsSearch, .imageSearch, .perUnitSearch:
+        case .nutritionFactsSearch:
+            if query != nil {
+                if query!.allNutrimentsSearch.isEmpty {
+                    return "none"
+                } else {
+                    if tagListView.tag >= 0 && tagListView.tag < query!.allNutrimentsSearch.count {
+                        return query!.allNutrimentsSearch[tagListView.tag].key
+                    }
+                }
+            }
+        case .servingSizeSearch, .imageSearch, .perUnitSearch:
             return notSearchableToDisplay.tag(at: index)!
         default:
-            return("tagListView error")
+            break
         }
+        return("tagListView error")
     }
 }
 

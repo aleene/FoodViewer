@@ -47,10 +47,29 @@ public struct OFF {
         static let SearchPage = "&page="
         static let JPGextension = ".jpg"
         static let Images = "images/products/"
-        static let SearchTagType = "&tagtype_"
-        static let SearchTagContains = "&tag_contains_"
-        static let SearchTagValue = "&tag_"
-        static let SearchTerms = "&search_terms="
+        struct Search {
+            struct Tag {
+                static let Tiep = "&tagtype_"
+                static let Contains = "&tag_contains_"
+                static let Value = "&tag_"
+                static let DoesContain = "contains"
+                static let DoesNotContain = "does_not_contain"
+            }
+            struct Nutriments {
+                static let Tiep = "&nutriment_"
+                static let Compare = "&nutriment_compare_"
+                struct Operator {
+                    static let LT = "lt"
+                    static let LTE = "lte"
+                    static let GT = "gt"
+                    static let GTE = "gte"
+                    static let EQ = "eq"
+                }
+                static let Value = "&nutriment_value_"
+            }
+            static let Terms = "&search_terms="
+
+        }
     }
     
     public enum Server: String {
@@ -354,13 +373,16 @@ public struct OFF {
         urlString += URL.TopDomain
         urlString += URL.AdvancedSearch
         
+        // Set a generic search
+        
         if let validText = template.text {
-            urlString += URL.SearchTerms
+            urlString += URL.Search.Terms
             urlString += validText
         }
         
-        var search_tag_index = 0
+        // Set search tags
         
+        var search_tag_index = 0
         urlString += addSearchTag(template.labels, in: OFF.SearchComponent.label, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.brands, in: OFF.SearchComponent.brand, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
@@ -375,8 +397,41 @@ public struct OFF {
         urlString += addSearchTag(template.allergens, in: OFF.SearchComponent.allergen, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.traces, in: OFF.SearchComponent.trace, index: &search_tag_index) ?? ""
       
+        // Add the search parts for all nutriments
+        
+        search_tag_index = 0
+        for nutriment in template.allNutrimentsSearch {
+            urlString += URL.Search.Nutriments.Tiep
+            urlString += "\(index)"
+            urlString += URL.Divider.Equal
+            urlString += nutriment.key
+            
+            urlString += URL.Search.Nutriments.Compare
+            urlString += "\(index)"
+            urlString += URL.Divider.Equal
+            switch nutriment.searchOperator {
+            case .lessThan:
+                urlString += URL.Search.Nutriments.Operator.LT
+            case .lessThanOrEqual:
+                urlString += URL.Search.Nutriments.Operator.LTE
+            case .greaterThan:
+                urlString += URL.Search.Nutriments.Operator.GT
+            case .greaterThanOrEqual:
+                urlString += URL.Search.Nutriments.Operator.GTE
+            case .equal:
+                urlString += URL.Search.Nutriments.Operator.EQ
+            }
+            urlString += URL.Search.Nutriments.Value
+            urlString += "\(index)"
+            urlString += URL.Divider.Equal
+            urlString += "\(nutriment.value)"
+
+            search_tag_index += 1
+        }
+        
         urlString += URL.SearchPage + "\(page)"
         urlString += URL.JSONSearchExtension
+        
         return urlString
     }
     
@@ -385,18 +440,18 @@ public struct OFF {
             if !tags.list.isEmpty {
                 var urlString = ""
                 for item in tags.list {
-                    urlString += URL.SearchTagType
+                    urlString += URL.Search.Tag.Tiep
                     urlString += "\(index)"
                     urlString += URL.Divider.Equal
                     urlString += component.rawValue
                     
-                    urlString += URL.SearchTagContains
+                    urlString += URL.Search.Tag.Contains
                     urlString += "\(index)"
                     urlString += URL.Divider.Equal
                     
-                    urlString += shouldContain ? "contains" : "does_not_contain"
+                    urlString += shouldContain ? URL.Search.Tag.DoesContain : URL.Search.Tag.DoesNotContain
                     
-                    urlString += URL.SearchTagValue
+                    urlString += URL.Search.Tag.Value
                     urlString += "\(index)"
                     urlString += URL.Divider.Equal
                     urlString += item
