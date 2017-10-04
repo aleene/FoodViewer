@@ -688,6 +688,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
         } else {
 
+            guard product != nil else { return [] }
         // how does the user want the data presented
         switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
         case .perStandard:

@@ -25,17 +25,17 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var compareButton: UIButton! {
+    @IBOutlet weak var comparisonOperatorButton: UIButton! {
         didSet {
             setCompareTitle()
         }
     }
     
     private func setCompareTitle() {
-        compareButton.setTitle(searchNutrition?.searchOperator.rawValue ?? "?", for: .normal)
+        comparisonOperatorButton.setTitle(searchNutrition?.searchOperator.rawValue ?? "?", for: .normal)
     }
     
-    @IBAction func compareButtonTapped(_ sender: UIButton) {
+    @IBAction func comparisonOperatorButtonTapped(_ sender: UIButton) {
         
     }
     
