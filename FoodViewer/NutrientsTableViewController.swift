@@ -216,6 +216,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let ShowNutritionFactsImage = "Show Nutrition Facts Image"
             static let AddNutrient = "Add Nutrient Segue"
             static let SelectNutrientUnit = "Select Nutrient Unit Segue"
+            static let SelectNutrientUnitForSearch = "Select Nutrient Unit For Search Nutrition Fact Segue Identifier"
             static let ShowNutritionImageLanguages = "Show Nutrition Image Languages"
             static let SelectComparisonOperator = "Select Comparison Operator Segue Identifier"
         }
@@ -885,6 +886,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         }
                     }
                 }
+                
             case Storyboard.SegueIdentifier.SelectNutrientUnit:
                 if let vc = segue.destination as? SelectNutrientUnitViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
@@ -904,9 +906,25 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                     vc.currentNutritionFactKey = adaptedNutritionFacts[row].key
                                 }
                             }
+                        } else if button.superview?.superview as? SearchNutrientsTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                let row = button.tag % 100
+                                vc.nutrientRow = row
+                                if row >= 0 && row < query!.allNutrimentsSearch.count  {
+                                    vc.currentNutritionUnit = query!.allNutrimentsSearch[row].unit
+                                }
+                            }
                         }
                     }
                 }
+                
             case Storyboard.SegueIdentifier.SelectComparisonOperator:
                 if let vc = segue.destination as? SelectCompareViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
@@ -964,18 +982,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         if let vc = segue.source as? SelectNutrientUnitViewController {
             // The new nutrient unit should be set to the nutrient that was edited
             if let nutrientRow = vc.nutrientRow {
-                // copy the existing nutrient and change the unit
-                var editedNutritionFact = NutritionFactItem()
-                editedNutritionFact.key = adaptedNutritionFacts[nutrientRow].key
-                editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
-                // this value has been changed
-                editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
-                editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
-                delegate?.updated(fact: editedNutritionFact)
-                refreshProductWithNewNutritionFacts()
+                if product != nil {
+                    // copy the existing nutrient and change the unit
+                    var editedNutritionFact = NutritionFactItem()
+                    editedNutritionFact.key = adaptedNutritionFacts[nutrientRow].key
+                    editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
+                    // this value has been changed
+                    editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
+                    editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
+                    delegate?.updated(fact: editedNutritionFact)
+                    refreshProductWithNewNutritionFacts()
+                } else if query != nil {
+                    if let validUnit = vc.selectedNutritionUnit {
+                        query!.allNutrimentsSearch[nutrientRow].unit = validUnit
+                        tableView.reloadData()
+                    }
+                }
             }
         }
     }
+
     
     @IBAction func unwindSetComparisonOperator(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectCompareViewController {
@@ -1037,6 +1063,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     func showNutrimentUnitSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTappedKey] {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: sender)
+        } else if let sender = notification.userInfo?[SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTappedKey] {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: sender)
         }
     }
     
@@ -1045,11 +1073,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
     func refreshProductWithNewNutritionFacts() {
-        guard product != nil else { return }
+        if product != nil {
         // recalculate the nutritionfacts that must be shown
         mergeNutritionFacts()
         tableStructureForProduct = setupTableSections()
         tableView.reloadData()
+        } else if query != nil {
+            tableStructureForProduct = setupTableSections()
+            tableView.reloadData()
+        }
     }
 
     func takePhotoButtonTapped() {
@@ -1160,6 +1192,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeSearchNutrientUnitButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)

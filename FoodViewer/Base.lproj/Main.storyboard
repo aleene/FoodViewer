@@ -2840,6 +2840,9 @@
                                         </textField>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YUQ-ul-7BK">
                                             <rect key="frame" x="282" y="7" width="30" height="30"/>
+                                            <connections>
+                                                <action selector="unitButtonTapped:" destination="uEk-f2-0zR" eventType="touchUpInside" id="ErX-iX-ptk"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

@@ -120,7 +120,7 @@ public enum NutritionFactUnit: Int, CaseCountable {
         static let Milligram = "mg"
         static let Microgram = "µg"
         static let Percent = "%"
-        static let None = ""
+        static let None = "-"
     }
 
 }

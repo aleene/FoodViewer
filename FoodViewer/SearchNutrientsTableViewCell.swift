@@ -35,10 +35,6 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         comparisonOperatorButton.setTitle(searchNutrition?.searchOperator.rawValue ?? "?", for: .normal)
     }
     
-    @IBAction func comparisonOperatorButtonTapped(_ sender: UIButton) {
-        
-    }
-    
     @IBOutlet weak var textField: UITextField! {
         didSet {
             setText()
@@ -59,6 +55,11 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         didSet {
             unitButton.tag = tag
         }
+    }
+    
+    @IBAction func unitButtonTapped(_ sender: UIButton) {
+        let userInfo = [Notification.ChangeSearchNutrientUnitButtonTappedKey:sender]
+        NotificationCenter.default.post(name:.ChangeSearchNutrientUnitButtonTapped, object:nil, userInfo: userInfo)
     }
     
     private func setUnit() {
@@ -113,7 +114,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
 
 // Definition:
 extension Notification.Name {
-    static let ChangeSearchNutrientUnitButtonTapped = Notification.Name("NutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTapped")
-    static let ChangeSearchNutrientCompareButtonTapped = Notification.Name("NutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped")
+    static let ChangeSearchNutrientUnitButtonTapped = Notification.Name("SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTapped")
+    static let ChangeSearchNutrientCompareButtonTapped = Notification.Name("SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped")
 }
 
