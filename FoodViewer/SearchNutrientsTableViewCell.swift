@@ -73,7 +73,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
     var searchNutrition: NutrimentSearch? = nil {
         didSet {
             if let item = searchNutrition {
-                itemLabel.text = item.key
+                itemLabel.text = item.name
                 setText()
                 setUnit()
                 setCompareTitle()

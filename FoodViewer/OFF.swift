@@ -401,32 +401,35 @@ public struct OFF {
         
         search_tag_index = 0
         for nutriment in template.allNutrimentsSearch {
-            urlString += URL.Search.Nutriments.Tiep
-            urlString += "\(index)"
-            urlString += URL.Divider.Equal
-            urlString += nutriment.key
-            
-            urlString += URL.Search.Nutriments.Compare
-            urlString += "\(index)"
-            urlString += URL.Divider.Equal
-            switch nutriment.searchOperator {
-            case .lessThan:
-                urlString += URL.Search.Nutriments.Operator.LT
-            case .lessThanOrEqual:
-                urlString += URL.Search.Nutriments.Operator.LTE
-            case .greaterThan:
-                urlString += URL.Search.Nutriments.Operator.GT
-            case .greaterThanOrEqual:
-                urlString += URL.Search.Nutriments.Operator.GTE
-            case .equal:
-                urlString += URL.Search.Nutriments.Operator.EQ
+            // only add if there is a valid nutrient key
+            let elements = nutriment.key.characters.split{$0 == ":"}.map(String.init)
+            if elements[0] == "en" && elements.count > 1 {
+                urlString += URL.Search.Nutriments.Tiep
+                urlString += "\(search_tag_index)"
+                urlString += URL.Divider.Equal
+                urlString += elements[1]
+                urlString += URL.Search.Nutriments.Compare
+                urlString += "\(search_tag_index)"
+                urlString += URL.Divider.Equal
+                switch nutriment.searchOperator {
+                case .lessThan:
+                    urlString += URL.Search.Nutriments.Operator.LT
+                case .lessThanOrEqual:
+                    urlString += URL.Search.Nutriments.Operator.LTE
+                case .greaterThan:
+                    urlString += URL.Search.Nutriments.Operator.GT
+                case .greaterThanOrEqual:
+                    urlString += URL.Search.Nutriments.Operator.GTE
+                case .equal:
+                    urlString += URL.Search.Nutriments.Operator.EQ
+                }
+                urlString += URL.Search.Nutriments.Value
+                urlString += "\(search_tag_index)"
+                urlString += URL.Divider.Equal
+                urlString += "\(nutriment.value)"
+                
+                search_tag_index += 1
             }
-            urlString += URL.Search.Nutriments.Value
-            urlString += "\(index)"
-            urlString += URL.Divider.Equal
-            urlString += "\(nutriment.value)"
-
-            search_tag_index += 1
         }
         
         urlString += URL.SearchPage + "\(page)"

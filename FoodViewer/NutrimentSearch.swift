@@ -13,6 +13,7 @@ struct NutrimentSearch {
     var searchOperator: Operator = .equal
     var value: Double = 0.0
     var unit: NutritionFactUnit = .None
+    var name: String = ""
     
     // # Operator
     //      lt # less than

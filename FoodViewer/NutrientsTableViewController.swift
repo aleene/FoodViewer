@@ -962,7 +962,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if let newNutrientTuple = vc.addedNutrientTuple {
                 if query != nil {
                     var nutrimentSearch = NutrimentSearch()
-                    nutrimentSearch.key = newNutrientTuple.0
+                    nutrimentSearch.key = newNutrientTuple.0 // key with en: prefix
+                    nutrimentSearch.name = newNutrientTuple.1 // name in local language
+                    nutrimentSearch.unit = newNutrientTuple.2 // default unit
                     query!.allNutrimentsSearch.append(nutrimentSearch)
                     tableView.reloadData()
                 } else {
@@ -1146,7 +1148,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     func imageUploaded(_ notification: Notification) {
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
+            if product != nil && barcode == product!.barcode.asString() {
                 // is it relevant to the main image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {

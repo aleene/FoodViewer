@@ -55,7 +55,7 @@ class OFFplists {
     lazy var OFFcategories: Set <VertexNew>? = nil
     lazy var OFFnutrients: Set <VertexNew>? = nil
     lazy var OFFlanguages: Set <VertexNew>? = nil
-    lazy var nutrients: [(String, String, NutritionFactUnit)] = [] // tuple (nutrient key, nutrient name in local language)
+    lazy var nutrients: [(String, String, NutritionFactUnit)] = [] // tuple (nutrient key, nutrient name in local language, default nutrien unit?)
     
     init() {
         // read all necessary plists in the background
