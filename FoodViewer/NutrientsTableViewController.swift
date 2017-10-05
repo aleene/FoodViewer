@@ -218,7 +218,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let SelectNutrientUnit = "Select Nutrient Unit Segue"
             static let SelectNutrientUnitForSearch = "Select Nutrient Unit For Search Nutrition Fact Segue Identifier"
             static let ShowNutritionImageLanguages = "Show Nutrition Image Languages"
-            static let SelectComparisonOperator = "Select Comparison Operator Segue Identifier"
+            static let SelectComparisonOperator = "Show Select Comparison Operator Segue Identifier"
         }
         struct Title {
             static let ShowNutritionFactsImage = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")

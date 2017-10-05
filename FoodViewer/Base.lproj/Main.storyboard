@@ -129,7 +129,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0na-7c-rwo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4457" y="4985"/>
+            <point key="canvasLocation" x="4986" y="4979"/>
         </scene>
         <!--Favorite Shops Table View Controller-->
         <scene sceneID="0ro-al-cXx">
@@ -217,7 +217,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ac-sw-5AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9Mk-6V-ku1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4457" y="4109"/>
+            <point key="canvasLocation" x="4986" y="4109"/>
         </scene>
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
@@ -2826,7 +2826,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9iZ-4y-azf">
                                             <rect key="frame" x="186" y="6.5" width="30" height="30"/>
                                             <connections>
-                                                <action selector="comparisonOperatorButtonTapped:" destination="uEk-f2-0zR" eventType="touchUpInside" id="RtK-jl-khf"/>
+                                                <segue destination="3Hw-TV-715" kind="popoverPresentation" identifier="Show Select Comparison Operator Segue Identifier" popoverAnchorView="jbQ-6K-nWx" id="AUB-5j-Yvd">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tyl-pw-JuE">
@@ -3099,7 +3101,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXN-b8-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2868.75" y="2745"/>
+            <point key="canvasLocation" x="2976" y="2745"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="NCZ-i8-lPe">
@@ -3146,7 +3148,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2365" y="4309"/>
+            <point key="canvasLocation" x="1708" y="4109"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -3200,7 +3202,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsc-Fz-YkJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="hN1-hb-NjU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1674" y="4109"/>
+            <point key="canvasLocation" x="2364" y="4109"/>
         </scene>
         <!--Select Expiration Date View Controller-->
         <scene sceneID="z2H-NT-F1c">
@@ -3261,7 +3263,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1D5-2L-NQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cjF-Ec-3gy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3690" y="4109"/>
+            <point key="canvasLocation" x="4311" y="4109"/>
         </scene>
         <!--Products-->
         <scene sceneID="RSI-qe-sXU">
@@ -3391,6 +3393,51 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2GN-no-qde" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-405" y="888"/>
+        </scene>
+        <!--Select Compare View Controller-->
+        <scene sceneID="5xe-4j-1zU">
+            <objects>
+                <viewController id="3Hw-TV-715" customClass="SelectCompareViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c1J-gr-MC5"/>
+                        <viewControllerLayoutGuide type="bottom" id="b6e-bF-KWI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DLG-g9-d5t">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="ejL-dZ-KoW">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ehY-Qy-AV7">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Select" id="CYD-9l-kKz">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="9um-nQ-Tvr"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ehY-Qy-AV7" secondAttribute="trailing" id="2dx-sd-8BL"/>
+                            <constraint firstItem="ejL-dZ-KoW" firstAttribute="leading" secondItem="DLG-g9-d5t" secondAttribute="leading" id="JxF-6p-7SE"/>
+                            <constraint firstAttribute="trailing" secondItem="ejL-dZ-KoW" secondAttribute="trailing" id="NeI-41-rmZ"/>
+                            <constraint firstItem="ehY-Qy-AV7" firstAttribute="top" secondItem="DLG-g9-d5t" secondAttribute="top" id="fcb-V0-XHF"/>
+                            <constraint firstItem="b6e-bF-KWI" firstAttribute="top" secondItem="ejL-dZ-KoW" secondAttribute="bottom" id="hqH-hc-yxw"/>
+                            <constraint firstItem="ehY-Qy-AV7" firstAttribute="leading" secondItem="DLG-g9-d5t" secondAttribute="leading" id="sgD-km-NB7"/>
+                            <constraint firstItem="ejL-dZ-KoW" firstAttribute="top" secondItem="ehY-Qy-AV7" secondAttribute="bottom" id="wPj-6Q-UAy"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="compareOperatorsPickerView" destination="ejL-dZ-KoW" id="vJR-EH-d5j"/>
+                        <segue destination="WFj-eC-tCc" kind="unwind" identifier="Unwind Set Comparison Operator For Done Segue Identifier" unwindAction="unwindSetComparisonOperator:" id="XlA-S7-oD0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nBB-MI-hjt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="WFj-eC-tCc" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3658" y="4109"/>
         </scene>
     </scenes>
     <resources>
