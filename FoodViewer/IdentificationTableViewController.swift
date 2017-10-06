@@ -245,6 +245,15 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
+    fileprivate var searchLanguagesToDisplay: Tags {
+        get {
+            if let (tags, _) = query?.languages {
+                return tags
+            }
+            return .undefined
+        }
+    }
+
     private struct TagsTypeDefault {
         static let Brands: TagsType = .original
         static let Packaging: TagsType = .prefixed
@@ -366,7 +375,7 @@ class IdentificationTableViewController: UITableViewController {
             cell!.editMode = editMode
             return cell!
             
-        case .barcodeSearch, .quantitySearch, .imageSearch, .languagesSearch:
+        case .barcodeSearch, .quantitySearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -448,7 +457,15 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.brands.1 ?? true
             return cell
-            
+        case  .languagesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = OFFProducts.manager.searchQuery?.languages.1 ?? true
+            return cell
         case .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Packaging, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -1102,7 +1119,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         
         switch currentProductSection {
-        case .barcodeSearch, .quantitySearch, .imageSearch, .languagesSearch:
+        case .barcodeSearch, .quantitySearch, .imageSearch:
             return 1
         case .brands:
             return count(brandsToDisplay)
@@ -1114,6 +1131,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
             return count(searchPackagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
+        case .languagesSearch:
+            return count(searchLanguagesToDisplay)
         default:
             return 0
         }
@@ -1133,7 +1152,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
-        case .quantitySearch, .barcodeSearch, .imageSearch, .languagesSearch:
+        case .quantitySearch, .barcodeSearch, .imageSearch:
             return title(notSearchableToDisplay)
         case .brands:
             // no language adjustments need to be done
@@ -1147,6 +1166,8 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .languages:
             // print("\(languagesToDisplay)")
             return title(languagesToDisplay)
+        case .languagesSearch:
+            return title(searchLanguagesToDisplay)
         case .image:
             return searchResult
         default:
@@ -1179,6 +1200,18 @@ extension IdentificationTableViewController: TagListViewDataSource {
 
             }
             
+        case .languagesSearch:
+            switch searchLanguagesToDisplay {
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.languages.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+
         case .packaging:
             switch packagingToDisplay {
             case .available(var list):
@@ -1263,7 +1296,22 @@ extension IdentificationTableViewController: TagListViewDelegate {
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            
+        case .languagesSearch:
+            switch searchLanguagesToDisplay {
+            case .undefined, .empty:
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.languages.0 = .available([title])
+            case .available(var list):
+                list.append(title)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.languages.0 = .available(list)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
+            }
         case .packagingSearch:
             switch searchPackagingToDisplay {
             case .undefined, .empty:

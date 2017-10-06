@@ -89,7 +89,8 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
         
     var width: CGFloat = CGFloat(320.0) {
         didSet {
-            tagListView?.frame.size.width = width - Constants.Margin - segmentedControl.frame.size.width
+            // also correct for the clear tags button
+            tagListView?.frame.size.width = width - 2 * Constants.Margin - segmentedControl.frame.size.width
         }
     }
         

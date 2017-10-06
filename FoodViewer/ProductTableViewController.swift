@@ -230,6 +230,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let Completion = "Product Completion State Cell"
             static let Producer = "Product Producer Cell"
             static let TagListView = "Product TagListView Cell"
+            static let TagListViewWithLabel = "TagListView With Label Cell Identifier"
         }
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
@@ -394,32 +395,54 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         return cell
                     }
                 case .more:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = 1
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    cell?.accessoryType = .none
-                    return cell!
-                    
-                case .loadingFailed:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = 2
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    cell?.accessoryType = .none
-                    return cell!
-                    
-                case .searchQuery(let query):
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
-                    // The hundreds define a searchQuery section, the rest is just the row
-                    cell.tag = 300 + indexPath.row
-                    cell.prefixLabelText = query.searchPairsWithArray()[indexPath.row].0.rawValue
+                    cell.tag = 1
                     cell.width = tableView.frame.size.width
+                    cell.scheme = ColorSchemes.error
                     cell.accessoryType = .none
                     return cell
+                    
+                case .loadingFailed:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+                    cell.datasource = self
+                    cell.tag = 2
+                    cell.width = tableView.frame.size.width
+                    cell.scheme = ColorSchemes.error
+                    cell.accessoryType = .none
+                    return cell
+                    
+                case .searchQuery(let query):
+                    // What should appear in this cell depends on the search query element
+                    
+                    let searchPairs = query.searchPairsWithArray()
+                    if searchPairs.count > 0 {
+                        switch searchPairs[indexPath.row].0 {
+                        case .searchText:
+                            // Search text
+                            // -- element name as prefix, search text value as tag
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+                            cell.datasource = self
+                            // The hundreds define a searchQuery section, the rest is just the row
+                            cell.tag = 300 + indexPath.row
+                            cell.prefixLabelText = searchPairs[indexPath.row].0.rawValue
+                            cell.width = tableView.frame.size.width
+                            cell.accessoryType = .none
+                            return cell
+                        default:
+                            // Search labels with switches to include or exclude the label
+                            //  -- tag values as tags and inclusion as labelText
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+                            cell.datasource = self
+                            // The hundreds define a searchQuery section, the rest is just the row
+                            cell.tag = 300 + indexPath.row
+                            cell.prefixLabelText = searchPairs[indexPath.row].0.rawValue
+                            cell.labelText = searchPairs[indexPath.row].2
+                            cell.width = tableView.frame.size.width
+                            cell.accessoryType = .none
+                            return cell
+                        }
+                    }
 
                 default:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
@@ -550,7 +573,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.tableItem = selectedProduct
                         if let validSelectedRowType = selectedRowType {
-                            ppvc.pageIndex = validSelectedRowType.productSection()
+                            if selectedProduct != nil && selectedProduct! is FoodProduct {
+                                ppvc.pageIndex = validSelectedRowType.productSection()
+                            } else if let search = selectedProduct as? SearchTemplate {
+                                guard selectedIndex != nil else { return }
+                                ppvc.pageIndex = searchRowType(search.searchPairsWithArray()[selectedIndex!].0)
+                            }
                         } else {
                             ppvc.pageIndex = .identification
                         }
@@ -568,6 +596,28 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
+    // convert between the search categories and the display pages type
+    private func searchRowType(_ component: OFF.SearchComponent) -> ProductSection {
+        switch component {
+        case .barcode, .searchText, .brand, .language, .packaging:
+            return .identification
+        case .category:
+            return .categories
+        case .country, .origin, .purchasePlace, .producerCode, .manufacturingPlaces, .store:
+            return .supplyChain
+        case .label, .additive, .trace, .allergen:
+            return .ingredients
+        case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .lastEditDate, .entryDates:
+            return .completion
+        case .nutrionGrade:
+            return .nutritionScore
+        case .nutrient:
+            return .nutritionFacts
+
+        }
+    }
+    
+    /*
     private func pageIndex(_ rowType: RowType) -> Int {
         switch currentProductType {
         case .food:
@@ -629,6 +679,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
+     */
 
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
         if let _ = segue.source as? BarcodeScanViewController {

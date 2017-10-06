@@ -14,8 +14,21 @@ import Foundation
 
 class SearchTemplate {
     
-    var text: String? = nil
+    private struct Constants {
+        static let Include = NSLocalizedString("Include", comment: "String to indicate whether the corresponding tags shlould included in the search")
+        static let Exclude = NSLocalizedString("Exclude", comment: "String to indicate whether the corresponding tags shlould exluded from the search")
+    }
     
+    enum SearchType {
+        case simple
+        case advanced
+    }
+    
+    // This determines the kind of search we are going to submit to OFF
+    var type: SearchType = .advanced
+    
+    var text: String? = nil
+    // var barcode: BarcodeType? = nil // simple search
     // Searching for tags, also allows to specify, 
     // whether the corresponding tag should be contained in the answer or 
     // should be excluded from the answer
@@ -33,6 +46,7 @@ class SearchTemplate {
     var additives: (Tags, Bool) = (.empty, true)
     var allergens: (Tags, Bool) = (.empty, true)
     var traces: (Tags, Bool) = (.empty, true)
+    var languages: (Tags, Bool) = (.empty, true)
     
     // nutrition_grades: Tags? = nil
     // states: Tags? = nil
@@ -75,6 +89,7 @@ class SearchTemplate {
         additives.0 == .empty &&
         allergens.0 == .empty &&
         traces.0 == .empty &&
+        languages.0 == .empty &&
         allNutrimentsSearch.isEmpty
     }
     
@@ -96,14 +111,14 @@ class SearchTemplate {
             text = string
         case .brand:
             brands = (Tags.init(string), true)
+        case .language:
+            languages = (Tags.init(string), true)
         case .category:
             categories = (Tags.init(string), true)
         case .country:
             countries = (Tags.init(string), true)
         case .label:
             labels = (Tags.init(string), true)
-        //case .language:
-        //    add(languageCode: string)
         case .packaging:
             packaging = (Tags.init(string), true)
         case .purchasePlace:
@@ -154,9 +169,10 @@ class SearchTemplate {
             break
         }
     }
+    
 
-    func searchPairsWithArray() -> [(OFF.SearchComponent, [String], Bool)] {
-        var pairs: [(OFF.SearchComponent, [String], Bool)] = []
+    func searchPairsWithArray() -> [(OFF.SearchComponent, [String], String)] {
+        var pairs: [(OFF.SearchComponent, [String], String)] = []
         
         // barcode
         //if !barcode.asString().isEmpty {
@@ -165,67 +181,69 @@ class SearchTemplate {
         
         // search text
         if text != nil && !text!.isEmpty {
-            pairs.append((.searchText, [text!], true))
+            pairs.append((.searchText, [text!], ""))
         }
         
         // brand
         var (validTags, shouldContain) = brands
         if !validTags.list.isEmpty {
-            pairs.append((.brand, cleanChars(validTags.list), shouldContain ))
+            pairs.append((.brand, cleanChars(validTags.list), display(shouldContain) ))
         }
         // categories
         (validTags, shouldContain) = categories
         if !validTags.list.isEmpty {
-            pairs.append((.category, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.category, cleanChars(validTags.list), display(shouldContain) ))
         }
         // producer codes
         (validTags, shouldContain) = emb_codes
         if !validTags.list.isEmpty {
-            pairs.append((.producerCode, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.producerCode, cleanChars(validTags.list), display(shouldContain) ))
         }
         // country:
         (validTags, shouldContain) = countries
         if !validTags.list.isEmpty {
-            pairs.append((.country, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.country, cleanChars(validTags.list), display(shouldContain) ))
         }
+        
         // label
         (validTags, shouldContain) = labels
         if !validTags.list.isEmpty {
-            pairs.append((.label, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.label, cleanChars(validTags.list), display(shouldContain) ))
         }
         // language on product
-        // if !languageCodes.isEmpty {
-        //    pairs.append((.language, cleanChars(languageCodes), true))
-        //}
+        (validTags, shouldContain) = languages
+        if !validTags.list.isEmpty {
+            pairs.append((.language, cleanChars(validTags.list),  display(shouldContain)))
+        }
         // packaging
         (validTags, shouldContain) = packaging
         if !validTags.list.isEmpty {
-            pairs.append((.packaging, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.packaging, cleanChars(validTags.list), display(shouldContain) ))
         }
         // purchasePlace:
         (validTags, shouldContain) = purchase_places
         if !validTags.list.isEmpty {
-            pairs.append((.purchasePlace, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.purchasePlace, cleanChars(validTags.list),  display(shouldContain) ))
         }
         // additive
         (validTags, shouldContain) = additives
         if !validTags.list.isEmpty {
-            pairs.append((.additive, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.additive, cleanChars(validTags.list),  display(shouldContain) ))
         }
         // trace
         (validTags, shouldContain) = traces
         if !validTags.list.isEmpty {
-            pairs.append((.trace, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.trace, cleanChars(validTags.list),  display(shouldContain) ))
         }
         // allergen
         (validTags, shouldContain) = allergens
         if !validTags.list.isEmpty {
-            pairs.append((.allergen, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.allergen, cleanChars(validTags.list),  display(shouldContain) ))
         }
         // manufacturingPlaces
         (validTags, shouldContain) = manufacturing_places
         if !validTags.list.isEmpty {
-            pairs.append((.manufacturingPlaces, cleanChars(validTags.list),  shouldContain ))
+            pairs.append((.manufacturingPlaces, cleanChars(validTags.list),  display(shouldContain) ))
         }
         // store
         //if !storesOriginal.list.isEmpty {
@@ -270,9 +288,17 @@ class SearchTemplate {
         //for item in state.states {
         //    pairs.append((.state, [OFF.searchKey(for: item)], true))
         //}
+            
+        for nutrient in allNutrimentsSearch {
+            pairs.append(( .nutrient, [nutrient.name], nutrient.searchOperator.rawValue + " " + "\(nutrient.value)" + nutrient.unit.short() ))
+        }
         
         return pairs
     }
+
+        private func display(_ val: Bool) -> String {
+            return val ? "(" + Constants.Include + ")" : "(" + Constants.Exclude + ")"
+        }
 
         private func cleanChars(_ array: [String]) -> [String] {
             var newList: [String] = []

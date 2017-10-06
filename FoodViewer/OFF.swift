@@ -94,7 +94,7 @@ public struct OFF {
         case category = "categories"
         case country = "countries"
         case label = "labels"
-        case language = "language"
+        case language = "languages"
         case packaging = "packaging"
         case origin = "origins"
         case purchasePlace = "purchase_places"
@@ -114,6 +114,7 @@ public struct OFF {
         case corrector = "corrector"
         case state = "states"
         case nutrionGrade = "nutrition_grades"
+        case nutrient = "nutrient"
     }
     
     static func description(for component: SearchComponent) -> String {
@@ -170,6 +171,8 @@ public struct OFF {
             return "state"
         case .nutrionGrade:
             return "nutrition grade"
+        case .nutrient:
+            return "nutrient"
         }
     }
 
@@ -383,19 +386,20 @@ public struct OFF {
         // Set search tags
         
         var search_tag_index = 0
-        urlString += addSearchTag(template.labels, in: OFF.SearchComponent.label, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.brands, in: OFF.SearchComponent.brand, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.languages, in: OFF.SearchComponent.language, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.packaging, in: OFF.SearchComponent.packaging, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.additives, in: OFF.SearchComponent.additive, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.allergens, in: OFF.SearchComponent.allergen, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.traces, in: OFF.SearchComponent.trace, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.labels, in: OFF.SearchComponent.label, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.origins, in: OFF.SearchComponent.origin, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.manufacturing_places, in: OFF.SearchComponent.manufacturingPlaces, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.emb_codes, in: OFF.SearchComponent.producerCode, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.purchase_places, in: OFF.SearchComponent.purchasePlace, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.stores, in: OFF.SearchComponent.store, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.countries, in: OFF.SearchComponent.country, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.additives, in: OFF.SearchComponent.additive, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.allergens, in: OFF.SearchComponent.allergen, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.traces, in: OFF.SearchComponent.trace, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
       
         // Add the search parts for all nutriments
         
