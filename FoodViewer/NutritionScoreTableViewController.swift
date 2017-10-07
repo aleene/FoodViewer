@@ -125,6 +125,7 @@ class NutritionScoreTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.level = query!.level ?? .undefined
+            cell.shouldInclude = query!.includeLevel 
             return cell
 
         } else {
@@ -273,4 +274,12 @@ class NutritionScoreTableViewController: UITableViewController {
             query!.level = level
         }
     }
+
+    public func setShouldInclude(_ include: Bool) {
+        if query != nil {
+            query!.includeLevel = include
+        }
+    }
+
 }
+

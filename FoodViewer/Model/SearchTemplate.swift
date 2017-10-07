@@ -49,6 +49,7 @@ class SearchTemplate {
     var languages: (Tags, Bool) = (.empty, true)
     
     var level: NutritionalScoreLevel? = nil
+    var includeLevel: Bool = true
     
     // states: Tags? = nil
     
@@ -187,7 +188,7 @@ class SearchTemplate {
         }
         
         if level != nil && level! != .undefined {
-            pairs.append((.nutritionGrade, [level!.rawValue], ""))
+            pairs.append((.nutritionGrade, [level!.rawValue], display(includeLevel)))
         }
         
         // brand

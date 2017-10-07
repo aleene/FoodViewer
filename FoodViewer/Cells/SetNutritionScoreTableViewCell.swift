@@ -12,12 +12,12 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.setTitle("A", forSegmentAt: 0)
-            segmentedControl.setTitle("B", forSegmentAt: 1)
-            segmentedControl.setTitle("C", forSegmentAt: 2)
-            segmentedControl.setTitle("D", forSegmentAt: 3)
-            segmentedControl.setTitle("E", forSegmentAt: 4)
-            segmentedControl.setTitle("Undefined", forSegmentAt: 5)
+            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.A, forSegmentAt: 0)
+            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.B, forSegmentAt: 1)
+            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.C, forSegmentAt: 2)
+            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.D, forSegmentAt: 3)
+            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.E, forSegmentAt: 4)
+            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.Undefined, forSegmentAt: 5)
 
             setLevel()
         }
@@ -42,9 +42,36 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var inclusionSegmentedControl: UISegmentedControl! {
+        didSet {
+            inclusionSegmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.Exclude, forSegmentAt: 0)
+            inclusionSegmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.Include, forSegmentAt: 1)
+            inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? 1 : 0
+        }
+    }
+    
+    @IBAction func inclusionSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            shouldInclude = false
+        case 1:
+            shouldInclude = true
+        default:
+            break
+        }
+        delegate?.setShouldInclude(shouldInclude)
+    }
+    
+    var shouldInclude = false {
+        didSet {
+            inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? 1 : 0
+        }
+    }
+    
     var editMode: Bool = false {
         didSet {
             segmentedControl.isEnabled = editMode
+            inclusionSegmentedControl.isEnabled = editMode
         }
     }
 

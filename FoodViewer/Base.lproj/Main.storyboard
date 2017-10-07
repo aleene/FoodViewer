@@ -2446,7 +2446,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VzL-aI-oNU">
-                                            <rect key="frame" x="8" y="8" width="304" height="29"/>
+                                            <rect key="frame" x="8" y="8" width="267" height="29"/>
                                             <segments>
                                                 <segment title=""/>
                                                 <segment title=""/>
@@ -2459,15 +2459,29 @@
                                                 <action selector="segmentedControlChanged:" destination="mxu-zG-iRu" eventType="valueChanged" id="NJa-TP-NPG"/>
                                             </connections>
                                         </segmentedControl>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gxl-mY-4Tu">
+                                            <rect key="frame" x="283" y="8" width="29" height="29"/>
+                                            <segments>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="inclusionSegmentedControlTapped:" destination="mxu-zG-iRu" eventType="valueChanged" id="uc5-FN-SNU"/>
+                                            </connections>
+                                        </segmentedControl>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="VzL-aI-oNU" secondAttribute="trailing" constant="8" id="UTD-HE-xAM"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="gxl-mY-4Tu" secondAttribute="trailing" id="2g2-fU-yKw"/>
+                                        <constraint firstItem="gxl-mY-4Tu" firstAttribute="leading" secondItem="VzL-aI-oNU" secondAttribute="trailing" constant="8" id="Nau-xn-f7f"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="gxl-mY-4Tu" secondAttribute="bottom" constant="-0.5" id="UXE-KS-8dh"/>
                                         <constraint firstItem="VzL-aI-oNU" firstAttribute="leading" secondItem="9jv-2b-OqK" secondAttribute="leading" constant="8" id="Um7-Gb-JaJ"/>
                                         <constraint firstAttribute="bottom" secondItem="VzL-aI-oNU" secondAttribute="bottom" constant="8" id="e0D-tC-bFn"/>
                                         <constraint firstItem="VzL-aI-oNU" firstAttribute="top" secondItem="9jv-2b-OqK" secondAttribute="top" constant="8" id="pPD-ED-tL5"/>
+                                        <constraint firstAttribute="topMargin" secondItem="gxl-mY-4Tu" secondAttribute="top" id="veV-jD-02b"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="inclusionSegmentedControl" destination="gxl-mY-4Tu" id="sfB-F6-Xvx"/>
                                     <outlet property="segmentedControl" destination="VzL-aI-oNU" id="Tfi-ia-Xxe"/>
                                 </connections>
                             </tableViewCell>
