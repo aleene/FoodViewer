@@ -297,6 +297,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         nutritionFactsVC.editMode = editMode
         supplyChainVC.editMode = editMode
         categoriesVC.editMode = editMode
+        nutritionScoreVC.editMode = editMode
         galleryVC.editMode = editMode
     }
     

@@ -48,7 +48,8 @@ class SearchTemplate {
     var traces: (Tags, Bool) = (.empty, true)
     var languages: (Tags, Bool) = (.empty, true)
     
-    // nutrition_grades: Tags? = nil
+    var level: NutritionalScoreLevel? = nil
+    
     // states: Tags? = nil
     
     // https://world.openfoodfacts.org/cgi/search.pl?action=process&additives=with
@@ -76,21 +77,22 @@ class SearchTemplate {
     var isEmpty: Bool {
         
         return text == nil &&
-        labels.0 == Tags.empty &&
-        categories.0 == .empty &&
-        brands.0 == .empty &&
-        packaging.0 == .empty &&
-        origins.0 == .empty &&
-        manufacturing_places.0 == .empty &&
-        emb_codes.0 == .empty &&
-        purchase_places.0 == .empty &&
-        stores.0 == .empty &&
-        countries.0 == .empty &&
-        additives.0 == .empty &&
-        allergens.0 == .empty &&
-        traces.0 == .empty &&
-        languages.0 == .empty &&
-        allNutrimentsSearch.isEmpty
+            labels.0 == Tags.empty &&
+            categories.0 == .empty &&
+            brands.0 == .empty &&
+            packaging.0 == .empty &&
+            origins.0 == .empty &&
+            manufacturing_places.0 == .empty &&
+            emb_codes.0 == .empty &&
+            purchase_places.0 == .empty &&
+            stores.0 == .empty &&
+            countries.0 == .empty &&
+            additives.0 == .empty &&
+            allergens.0 == .empty &&
+            traces.0 == .empty &&
+            languages.0 == .empty &&
+            level == nil &&
+            allNutrimentsSearch.isEmpty
     }
     
     init() {
@@ -163,7 +165,7 @@ class SearchTemplate {
         */
         case .origin:
             origins = (Tags.init(string), true)
-        case .nutrionGrade:
+        case .nutritionGrade:
             break
         default:
             break
@@ -184,11 +186,16 @@ class SearchTemplate {
             pairs.append((.searchText, [text!], ""))
         }
         
+        if level != nil && level! != .undefined {
+            pairs.append((.nutritionGrade, [level!.rawValue], ""))
+        }
+        
         // brand
         var (validTags, shouldContain) = brands
         if !validTags.list.isEmpty {
             pairs.append((.brand, cleanChars(validTags.list), display(shouldContain) ))
         }
+        
         // categories
         (validTags, shouldContain) = categories
         if !validTags.list.isEmpty {
@@ -288,6 +295,7 @@ class SearchTemplate {
         //for item in state.states {
         //    pairs.append((.state, [OFF.searchKey(for: item)], true))
         //}
+        
             
         for nutrient in allNutrimentsSearch {
             pairs.append(( .nutrient, [nutrient.name], nutrient.searchOperator.rawValue + " " + "\(nutrient.value)" + nutrient.unit.short() ))

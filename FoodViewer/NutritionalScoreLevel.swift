@@ -8,12 +8,12 @@
 
 import Foundation
 
-public enum NutritionalScoreLevel {
-    case a
-    case b
-    case c
-    case d
-    case e
+public enum NutritionalScoreLevel: String {
+    case a = "A"
+    case b = "B"
+    case c = "C"
+    case d = "D"
+    case e = "E"
     case undefined
     
     public mutating func int(_ value: Int?) {

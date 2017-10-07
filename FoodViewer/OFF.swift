@@ -113,7 +113,7 @@ public struct OFF {
         case photographer = "photographer"
         case corrector = "corrector"
         case state = "states"
-        case nutrionGrade = "nutrition_grades"
+        case nutritionGrade = "nutrition_grades"
         case nutrient = "nutrient"
     }
     
@@ -169,7 +169,7 @@ public struct OFF {
             return "corrector"
         case .state:
             return "state"
-        case .nutrionGrade:
+        case .nutritionGrade:
             return "nutrition grade"
         case .nutrient:
             return "nutrient"
@@ -400,6 +400,10 @@ public struct OFF {
         urlString += addSearchTag(template.stores, in: OFF.SearchComponent.store, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.countries, in: OFF.SearchComponent.country, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
+        if template.level != .undefined {
+            let tags = Tags.init([template.level!.rawValue])
+            urlString += addSearchTag((tags, true), in: OFF.SearchComponent.nutritionGrade, index: &search_tag_index) ?? ""
+        }
       
         // Add the search parts for all nutriments
         

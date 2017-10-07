@@ -2438,6 +2438,39 @@
                                     <outlet property="thirdRightLabel" destination="dtb-c8-qF9" id="FhV-ne-KqV"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Nutrition Score Level Cell Identifier" id="mxu-zG-iRu" userLabel="Set Nutrition Score Level" customClass="SetNutritionScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="231.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mxu-zG-iRu" id="9jv-2b-OqK">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VzL-aI-oNU">
+                                            <rect key="frame" x="8" y="8" width="304" height="29"/>
+                                            <segments>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentedControlChanged:" destination="mxu-zG-iRu" eventType="valueChanged" id="NJa-TP-NPG"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="VzL-aI-oNU" secondAttribute="trailing" constant="8" id="UTD-HE-xAM"/>
+                                        <constraint firstItem="VzL-aI-oNU" firstAttribute="leading" secondItem="9jv-2b-OqK" secondAttribute="leading" constant="8" id="Um7-Gb-JaJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="VzL-aI-oNU" secondAttribute="bottom" constant="8" id="e0D-tC-bFn"/>
+                                        <constraint firstItem="VzL-aI-oNU" firstAttribute="top" secondItem="9jv-2b-OqK" secondAttribute="top" constant="8" id="pPD-ED-tL5"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="segmentedControl" destination="VzL-aI-oNU" id="Tfi-ia-Xxe"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="mKp-hG-V97" id="9Zh-vr-QAV"/>
