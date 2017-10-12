@@ -1134,7 +1134,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="43.5" y="0.0" width="201" height="44"/>
+                                            <rect key="frame" x="42.5" y="0.0" width="202" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1252,13 +1252,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
+                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -1962,7 +1962,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Yha-XE-NCI">
-                            <rect key="frame" x="0.0" y="160" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="292" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -2102,6 +2102,111 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Completion State Cell Identifier" id="A0Q-Nh-7Yn" customClass="ButtonWithSwitchTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="160" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A0Q-Nh-7Yn" id="AqF-CW-gnc">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXy-Iw-rue">
+                                            <rect key="frame" x="8" y="8" width="267" height="27.5"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="A0Q-Nh-7Yn" eventType="touchUpInside" id="Hca-ca-Q0b"/>
+                                                <segue destination="XNl-I2-gwv" kind="popoverPresentation" identifier="Show Select Completion State Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="x9B-37-hvM">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
+                                            </connections>
+                                        </button>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WWA-RF-t6p">
+                                            <rect key="frame" x="283" y="8" width="29" height="29"/>
+                                            <segments>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentedControlTapped:" destination="A0Q-Nh-7Yn" eventType="valueChanged" id="nEL-bV-KN7"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="leadingMargin" secondItem="LXy-Iw-rue" secondAttribute="leading" id="GDa-uN-QA1"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="LXy-Iw-rue" secondAttribute="bottom" id="TDg-vK-4UT"/>
+                                        <constraint firstItem="WWA-RF-t6p" firstAttribute="centerY" secondItem="LXy-Iw-rue" secondAttribute="centerY" id="h7V-pc-7K7"/>
+                                        <constraint firstItem="LXy-Iw-rue" firstAttribute="top" secondItem="AqF-CW-gnc" secondAttribute="topMargin" id="j5w-h9-fF8"/>
+                                        <constraint firstItem="WWA-RF-t6p" firstAttribute="leading" secondItem="LXy-Iw-rue" secondAttribute="trailing" constant="8" id="lJ6-nK-Eca"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="WWA-RF-t6p" secondAttribute="trailing" id="ylO-DU-Aol"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="LXy-Iw-rue" id="EWD-3e-8vW"/>
+                                    <outlet property="segmentedControl" destination="WWA-RF-t6p" id="94F-Xi-Ymc"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Completion State TagListView Cell Identifier" id="PbA-Fp-MQq" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="204" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PbA-Fp-MQq" id="cFy-JD-t8l">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I9z-hq-fAJ" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="0.0" width="304" height="35.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="I9z-hq-fAJ" firstAttribute="trailing" secondItem="cFy-JD-t8l" secondAttribute="trailingMargin" id="A4K-88-zcT"/>
+                                        <constraint firstItem="I9z-hq-fAJ" firstAttribute="leading" secondItem="cFy-JD-t8l" secondAttribute="leadingMargin" id="FKV-wt-c7Y"/>
+                                        <constraint firstItem="I9z-hq-fAJ" firstAttribute="top" secondItem="cFy-JD-t8l" secondAttribute="top" id="KEY-Li-Irm"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="I9z-hq-fAJ" secondAttribute="bottom" id="oCa-yB-Hgl"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="tagListView" destination="I9z-hq-fAJ" id="MFj-zT-aTK"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextField With Button Cell Identifier" id="0Rx-b4-WxH" customClass="TextFieldWithButtonTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="248" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Rx-b4-WxH" id="xC2-4U-OYo">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w46-aw-3N6">
+                                            <rect key="frame" x="8" y="8" width="266" height="28"/>
+                                            <nil key="textColor"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldTapped:" destination="0Rx-b4-WxH" eventType="editingDidEnd" id="e02-Bp-5TO"/>
+                                            </connections>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3AT-gZ-pdk">
+                                            <rect key="frame" x="282" y="8" width="30" height="28"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="0Rx-b4-WxH" eventType="touchUpInside" id="8hd-l1-jrN"/>
+                                                <segue destination="kAE-ID-W6P" kind="popoverPresentation" identifier="Show Select Role Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="pL1-9T-GCe">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3AT-gZ-pdk" secondAttribute="trailing" id="2p7-r9-19k"/>
+                                        <constraint firstItem="w46-aw-3N6" firstAttribute="top" secondItem="xC2-4U-OYo" secondAttribute="topMargin" id="7qD-3l-ueo"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="3AT-gZ-pdk" secondAttribute="bottom" id="Ig1-pv-53S"/>
+                                        <constraint firstItem="3AT-gZ-pdk" firstAttribute="leading" secondItem="w46-aw-3N6" secondAttribute="trailing" constant="8" id="JhS-6m-KmP"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="w46-aw-3N6" secondAttribute="leading" id="ObR-IL-7i9"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="w46-aw-3N6" secondAttribute="bottom" id="e75-fM-Z0H"/>
+                                        <constraint firstItem="3AT-gZ-pdk" firstAttribute="top" secondItem="xC2-4U-OYo" secondAttribute="topMargin" id="zVi-Ck-QXD"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="3AT-gZ-pdk" id="D0a-Ir-0gZ"/>
+                                    <outlet property="textField" destination="w46-aw-3N6" id="jQ3-Bq-5qa"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="dDL-vj-e9c" id="3ec-wF-2AN"/>
@@ -2118,7 +2223,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RF7-RF-gTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5966" y="2745"/>
+            <point key="canvasLocation" x="5964.375" y="2745"/>
         </scene>
         <!--Nutrition Score Table View Controller-->
         <scene sceneID="bSp-xL-aQg">
@@ -3521,6 +3626,96 @@
                 <exit id="WFj-eC-tCc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3658" y="4109"/>
+        </scene>
+        <!--Select Completion State View Controller-->
+        <scene sceneID="tPV-6K-Ih2">
+            <objects>
+                <viewController id="XNl-I2-gwv" customClass="SelectCompletionStateViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eON-CQ-RxU"/>
+                        <viewControllerLayoutGuide type="bottom" id="d2d-nD-vZM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hkk-p1-bTW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="vJz-da-4Gb">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="iAH-XT-PFm">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Select" id="eKj-QZ-5MW">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="p28-V6-coW"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="vJz-da-4Gb" secondAttribute="trailing" id="3mV-1L-Cqg"/>
+                            <constraint firstItem="vJz-da-4Gb" firstAttribute="leading" secondItem="hkk-p1-bTW" secondAttribute="leading" id="93Y-tu-Tpb"/>
+                            <constraint firstAttribute="trailing" secondItem="iAH-XT-PFm" secondAttribute="trailing" id="LGp-7S-t1B"/>
+                            <constraint firstItem="iAH-XT-PFm" firstAttribute="top" secondItem="hkk-p1-bTW" secondAttribute="top" id="WAB-EE-YnH"/>
+                            <constraint firstItem="vJz-da-4Gb" firstAttribute="top" secondItem="iAH-XT-PFm" secondAttribute="bottom" id="YR0-bF-GvD"/>
+                            <constraint firstItem="d2d-nD-vZM" firstAttribute="top" secondItem="vJz-da-4Gb" secondAttribute="bottom" id="fLr-RG-e76"/>
+                            <constraint firstItem="iAH-XT-PFm" firstAttribute="leading" secondItem="hkk-p1-bTW" secondAttribute="leading" id="onc-4C-5dP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="vJz-da-4Gb" id="qP0-Z3-ax7"/>
+                        <segue destination="nx9-lU-Bg8" kind="unwind" identifier="Unwind Set Completion State For Done" unwindAction="unwindSetCompletionStateForDone:" id="8Th-RV-FRl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FNM-j5-4uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="nx9-lU-Bg8" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="5964" y="4109"/>
+        </scene>
+        <!--Select Completion State View Controller-->
+        <scene sceneID="zvJ-8j-Kqa">
+            <objects>
+                <viewController id="kAE-ID-W6P" customClass="SelectCompletionStateViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Y6G-pr-wbQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="sdf-Ud-t0K"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KYz-vM-cpt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Y7H-3M-asn">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="iiI-6A-u2d">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Select" id="u8q-T4-CZQ">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="AIW-rI-MM4"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sdf-Ud-t0K" firstAttribute="top" secondItem="Y7H-3M-asn" secondAttribute="bottom" id="0Ef-ZY-wwh"/>
+                            <constraint firstAttribute="trailing" secondItem="iiI-6A-u2d" secondAttribute="trailing" id="FGS-ud-StS"/>
+                            <constraint firstItem="Y7H-3M-asn" firstAttribute="leading" secondItem="KYz-vM-cpt" secondAttribute="leading" id="Rzt-yq-Cr6"/>
+                            <constraint firstItem="iiI-6A-u2d" firstAttribute="top" secondItem="KYz-vM-cpt" secondAttribute="top" id="Y7q-2l-mCx"/>
+                            <constraint firstAttribute="trailing" secondItem="Y7H-3M-asn" secondAttribute="trailing" id="dOR-a6-Uhr"/>
+                            <constraint firstItem="iiI-6A-u2d" firstAttribute="leading" secondItem="KYz-vM-cpt" secondAttribute="leading" id="lxL-oL-aP3"/>
+                            <constraint firstItem="Y7H-3M-asn" firstAttribute="top" secondItem="iiI-6A-u2d" secondAttribute="bottom" id="rns-Va-NAd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="Y7H-3M-asn" id="byE-bx-ltH"/>
+                        <segue destination="S7V-7U-QTJ" kind="unwind" identifier="Unwind Set Completion State For Done" unwindAction="unwindSetCompletionStateForDone:" id="5g2-wi-9GI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cue-8U-B4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="S7V-7U-QTJ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="6304" y="4109"/>
         </scene>
     </scenes>
     <resources>

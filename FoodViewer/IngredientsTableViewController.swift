@@ -342,7 +342,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            cell.editMode = product != nil ? editMode : false
             cell.tag = indexPath.section
             return cell
             

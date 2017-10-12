@@ -51,16 +51,6 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
 
-    fileprivate struct Constants {
-        static let TitleForSectionWithBadNutrients = NSLocalizedString("Bad nutrients", comment: "Header for a table section showing the appreciations of the bad nutrients")
-        static let TitleForSectionWithGoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
-        static let TitleForSectionWithExceptionCategory = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
-        static let TitleForSectionWithResultUK = NSLocalizedString("Nutritional Score UK", comment: "Header for a table section showing the total results UK")
-        static let TitleForSectionWithResultFrance = NSLocalizedString("Nutritional Score France", comment: "Header for a table section showing the total results France")
-        static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
-        static let BeveragesCategory = NSLocalizedString("Beverages category", comment: "Cell title indicating the product belongs to the beverages category")
-    }
-
     fileprivate struct Storyboard {
         struct CellIdentifier {
             static let LeftNutrimentScore = "Left Nutriment Score Cell"
@@ -176,12 +166,12 @@ class NutritionScoreTableViewController: UITableViewController {
                     case 0:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
                         cell!.belongsToCategory = product?.nutritionalScoreFR?.cheese
-                        cell!.belongsToCategoryTitle = Constants.CheesesCategory
+                        cell!.belongsToCategoryTitle = TranslatableStrings.NutritionScoreTableViewController.CheesesCategory
                         return cell!
                     default:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
                         cell!.belongsToCategory = product?.nutritionalScoreFR?.beverage
-                        cell?.belongsToCategoryTitle = Constants.BeveragesCategory
+                        cell?.belongsToCategoryTitle = TranslatableStrings.NutritionScoreTableViewController.BeveragesCategory
                         return cell!
                     }
                 default:
@@ -195,29 +185,29 @@ class NutritionScoreTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if query != nil {
-            return Constants.TitleForSectionWithResultUK
+            return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithNutritionalScore
         } else {
             switch showNutritionalScore {
             case .uk:
                 switch section {
                 case 0:
-                    return Constants.TitleForSectionWithBadNutrients
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithBadNutrients
                 case 1:
-                    return Constants.TitleForSectionWithGoodNutrients
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithGoodNutrients
                 default:
-                    return Constants.TitleForSectionWithResultUK
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithResultUK
                 }
                 
             case .france:
                 switch section {
                 case 0:
-                    return Constants.TitleForSectionWithBadNutrients
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithBadNutrients
                 case 1:
-                    return Constants.TitleForSectionWithGoodNutrients
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithGoodNutrients
                 case 2:
-                    return Constants.TitleForSectionWithExceptionCategory
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithExceptionCategory
                 default:
-                    return Constants.TitleForSectionWithResultFrance
+                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithResultFrance
                 }
             }
         }

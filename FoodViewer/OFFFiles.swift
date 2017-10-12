@@ -91,6 +91,17 @@ class OFFplists {
         return String(format:TextConstants.FileNotAvailable, Constants.StatesFileName)
     }
     
+    var allStateKeys: [String] {
+        guard OFFstates != nil else { return [] }
+        var stateKeys: [String] = []
+        for state in OFFstates! {
+            let currentVertex = state.leaves
+            let values = currentVertex["en"]
+            stateKeys.append(values![0])
+        }
+        return stateKeys
+    }
+    
     func translateAdditives(_ key: String, language:String) -> String {
         if OFFadditives != nil {
             let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)

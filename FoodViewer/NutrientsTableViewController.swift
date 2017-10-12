@@ -285,7 +285,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.displayMode = showNutrientsAs
             cell.editMode = editMode
             cell.nutritionFactsAvailability = product!.nutritionFactsAreAvailable
-            // print(showNutrientsAs, product!.nutritionFactsAreAvailable)
             return cell
             
         case .nutritionFacts:
@@ -301,8 +300,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
                     cell?.datasource = self
-                    // cell?.delegate = self // no manipulations on tags possible
-                    // cell?.editMode = editMode // cell is not editable
                     if let available = product?.nutritionFactsAreAvailable {
                         nutritionFactsTagTitle = available.description()
                         switch available {

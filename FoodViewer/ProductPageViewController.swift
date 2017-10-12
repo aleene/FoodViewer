@@ -196,7 +196,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         didSet {
             if editMode != oldValue {
                 // change look edit button
-                confirmBarButtonItem.image = UIImage.init(named: editMode ? ( isQuery ? "Search" : "CheckMark" ) : "Edit")
+                let test = isQuery ? "Search" : "CheckMark"
+                if let image = UIImage.init(named: editMode ? test : "Edit") {
+                    confirmBarButtonItem.image = image
+                }
 
                 setupEditMode()
             }
@@ -298,6 +301,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         supplyChainVC.editMode = editMode
         categoriesVC.editMode = editMode
         nutritionScoreVC.editMode = editMode
+        completionStatusVC.editMode = editMode
         galleryVC.editMode = editMode
     }
     

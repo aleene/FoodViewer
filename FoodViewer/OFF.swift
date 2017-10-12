@@ -201,6 +201,19 @@ public struct OFF {
             return "photos-validated" // in JSON and search
         }
     }
+    
+    public static var allCompletionStates: [Completion] {
+        return [Completion.init(.productName, isCompleted: true),
+            Completion.init(.brands, isCompleted: true),
+            Completion.init(.quantity, isCompleted: true),
+            Completion.init(.packaging, isCompleted: true),
+            Completion.init(.ingredients, isCompleted: true),
+            Completion.init(.categories, isCompleted: true),
+            Completion.init(.expirationDate, isCompleted: true),
+            Completion.init(.nutritionFacts, isCompleted: true),
+            Completion.init(.photosUploaded, isCompleted: true),
+            Completion.init(.photosValidated, isCompleted: true)]
+    }
 
     // The value strings needed for searching a status
     public static func searchKey(for completion:Completion) -> String {
@@ -366,6 +379,7 @@ public struct OFF {
      */
 
     
+    // This functions builds an url for an advanced search
     static func advancedSearchString(for template: SearchTemplate, on page: Int ) -> String {
         // https://world.openfoodfacts.org/cgi/search.pl?search_terms=banania&search_simple=1&action=process&json=1
         // https://world.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=brands&tag_contains_0=contains&tag_0=Coca
@@ -400,11 +414,19 @@ public struct OFF {
         urlString += addSearchTag(template.stores, in: OFF.SearchComponent.store, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.countries, in: OFF.SearchComponent.country, index: &search_tag_index) ?? ""
         urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
-        if template.level != .undefined {
+        
+        if template.level != nil && template.level! != .undefined {
             let tags = Tags.init([template.level!.rawValue])
-            urlString += addSearchTag((tags, template.includeLevel), in: OFF.SearchComponent.nutritionGrade, index: &search_tag_index) ?? ""
+            // The contain value is always set to true as it is encoded in the tags value.
+            urlString += addSearchTag((tags, true), in: OFF.SearchComponent.nutritionGrade, index: &search_tag_index) ?? ""
         }
       
+        // encode completion to: 
+        //      tagtype_0=states&tag_contains_0=contains&tag_0=Product%20name%20to%20be%20completed
+        //
+        if let completion = template.completion {
+            urlString += addSearchTag((Tags.init([searchKey(for:completion).replacingOccurrences(of: "-", with: " ")]), true), in: OFF.SearchComponent.state, index: &search_tag_index) ?? ""
+        }
         // Add the search parts for all nutriments
         
         search_tag_index = 0
@@ -446,6 +468,7 @@ public struct OFF {
         return urlString
     }
     
+    // Convert a search tag pair to a part of an advanced search url
     static private func addSearchTag(_ pair: (Tags, Bool)?, in component:OFF.SearchComponent, index: inout Int) -> String? {
         if let (tags, shouldContain) = pair {
             if !tags.list.isEmpty {

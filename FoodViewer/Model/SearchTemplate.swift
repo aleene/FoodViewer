@@ -51,7 +51,7 @@ class SearchTemplate {
     var level: NutritionalScoreLevel? = nil
     var includeLevel: Bool = true
     
-    // states: Tags? = nil
+    var completion: Completion? = nil
     
     // https://world.openfoodfacts.org/cgi/search.pl?action=process&additives=with
     // https://world.openfoodfacts.org/cgi/search.pl?action=process&ingredients_from_palm_oil=with
@@ -92,6 +92,7 @@ class SearchTemplate {
             allergens.0 == .empty &&
             traces.0 == .empty &&
             languages.0 == .empty &&
+            completion == nil &&
             level == nil &&
             allNutrimentsSearch.isEmpty
     }

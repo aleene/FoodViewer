@@ -576,8 +576,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             if selectedProduct != nil && selectedProduct! is FoodProduct {
                                 ppvc.pageIndex = validSelectedRowType.productSection()
                             } else if let search = selectedProduct as? SearchTemplate {
-                                guard selectedIndex != nil else { return }
-                                ppvc.pageIndex = searchRowType(search.searchPairsWithArray()[selectedIndex!].0)
+                                if let validIndex = selectedIndex {
+                                    let array = search.searchPairsWithArray()
+                                    if array.count > 0 && validIndex < array.count {
+                                        ppvc.pageIndex = searchRowType(array[validIndex].0)
+                                    }
+                                }
                             }
                         } else {
                             ppvc.pageIndex = .identification
