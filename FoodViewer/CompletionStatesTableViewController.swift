@@ -113,7 +113,7 @@ class CompletionStatesTableViewController: UITableViewController {
             case 0:
                 return product!.state.states.count
             case 1:
-                return product?.productContributors.contributors != nil ? product!.productContributors.contributors.count : 0
+                return product?.contributors != nil ? product!.contributors.count : 0
             case 2:
                 return product?.lastEditDates?.count != nil ? product!.lastEditDates!.count : 0
             case 3:
@@ -162,7 +162,7 @@ class CompletionStatesTableViewController: UITableViewController {
             } else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Contributors, for: indexPath) as? ContributorTableViewCell
                 cell?.delegate = delegate
-                cell?.contributor = product!.productContributors.contributors[indexPath.row]
+                cell?.contributor = product!.contributors[indexPath.row]
                 return cell!
                 
             } else if indexPath.section == 2 {
@@ -203,7 +203,7 @@ class CompletionStatesTableViewController: UITableViewController {
             return Constants.CompletenessHeaderTitle
         case 1:
             if product != nil {
-                if section < product!.contributorsArray.count {
+                if section < product!.contributors.count {
                     return Constants.ContributorsHeaderTitle
                 }
             } else if query != nil {

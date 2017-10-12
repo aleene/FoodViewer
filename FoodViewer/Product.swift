@@ -529,20 +529,9 @@ class FoodProduct {
         return newList
     }
 
-    // contributor parameters
     var additionDate: Date? = nil
     var lastEditDates: [Date]? = nil
-    var creator: String? = nil {
-        didSet {
-            if let user = creator {
-                if !productContributors.contains(user) {
-                    productContributors.add(user)
-                }
-                productContributors.contributors[productContributors.indexOf(user)!].role.isCreator = true
-                contributorsArray.append((ContributorTypes.CreatorKey, [user]))
-            }
-        }
-    }
+    
     var state = CompletionState()
     
 
@@ -570,17 +559,19 @@ class FoodProduct {
         }
     }
     
+    var creator: String? = nil {
+        didSet {
+            guard photographers != nil else { return }
+            addUserRole(creator!, role: .creator)
+        }
+    }
+    
     // community parameters
     var photographers: [String]? = nil {
         didSet {
-            if let users = photographers {
-                for user in users {
-                    if !productContributors.contains(user) {
-                        productContributors.add(user)
-                    }
-                    productContributors.contributors[productContributors.indexOf(user)!].role.isPhotographer = true
-                }
-                contributorsArray.append((ContributorTypes.PhotographersKey, users))
+            guard photographers != nil else { return }
+            for name in photographers! {
+                addUserRole(name, role: .photographer)
             }
         }
     }
@@ -588,14 +579,9 @@ class FoodProduct {
     // community parameters
     var correctors: [String]? = nil {
         didSet {
-            if let users = correctors {
-                for user in users {
-                    if !productContributors.contains(user) {
-                        productContributors.add(user)
-                    }
-                    productContributors.contributors[productContributors.indexOf(user)!].role.isCorrector = true
-                }
-                contributorsArray.append((ContributorTypes.PhotographersKey, users))
+            guard correctors != nil else { return }
+            for name in correctors! {
+                addUserRole(name, role: .corrector)
             }
         }
     }
@@ -603,41 +589,40 @@ class FoodProduct {
     
     var editors: [String]? = nil {
         didSet {
-            if let users = editors {
-                for user in users {
-                    if !productContributors.contains(user) {
-                        productContributors.add(user)
-                    }
-                    productContributors.contributors[productContributors.indexOf(user)!].role.isEditor = true
-                }
-                contributorsArray.append((ContributorTypes.EditorsKey, users))
+            guard editors != nil else { return }
+            for name in editors! {
+                addUserRole(name, role: .editor)
             }
         }
     }
 
     var informers: [String]? = nil {
         didSet {
-            if let users = informers {
-                for user in users {
-                    if !productContributors.contains(user) {
-                        productContributors.add(user)
-                    }
-                    productContributors.contributors[productContributors.indexOf(user)!].role.isInformer = true
-                }
-                contributorsArray.append((ContributorTypes.InformersKey, users))
+            guard informers != nil else { return }
+            for name in informers! {
+                addUserRole(name, role: .informer)
             }
         }
     }
-    
-    var productContributors = UniqueContributors()
-    
-    
-    var contributorsArray: [(String,[String]?)] = []
 
+    var contributors: [Contributor] = []
     
+    func addUserRole(_ name: String, role: ContributorRole) {
+        for (index, contributor) in contributors.enumerated() {
+            if let validContributorName = contributor.name {
+                if validContributorName == name {
+                    contributors[index].add(role)
+                    return
+                }
+            }
+        }
+        contributors.append(Contributor(name, role: role))
+    }
+    
+    /*
     struct UniqueContributors {
         var contributors: [Contributor] = []
-        
+     
         func indexOf(_ name: String) -> Int? {
             for index in 0 ..< contributors.count {
                 if contributors[index].name == name {
@@ -652,33 +637,11 @@ class FoodProduct {
         }
         
         mutating func add(_ name: String) {
-            contributors.append(Contributor(name: name, role: ContributorRole()))
+            contributors.append(Contributor(name, role: .undefined))
         }
     }
+ */
 
-    
-    struct Contributor {
-        var name: String
-        var role: ContributorRole
-    }
-    
-    struct ContributorRole {
-        var isPhotographer: Bool = false
-        var isCreator: Bool = false
-        var isCorrector: Bool = false
-        var isEditor: Bool = false
-        var isInformer: Bool = false
-    }
-        
-    struct ContributorTypes {
-        static let CheckersKey = "Checkers"
-        static let InformersKey = "Informers"
-        static let EditorsKey = "Editors"
-        static let PhotographersKey = "Photographers"
-        static let CreatorKey = "Creator"
-        static let CorrectorKey = "Correctors"
-    }
-    
     // MARK: - Initialize functions
     
     init() {
@@ -737,8 +700,7 @@ class FoodProduct {
         editors = nil
         informers = nil
         hasNutritionFacts = nil
-        productContributors = UniqueContributors()
-        contributorsArray = []
+        contributors = []
     }
     
     init(withBarcode: BarcodeType) {
@@ -826,8 +788,7 @@ class FoodProduct {
             correctors = product.correctors
             editors = product.editors
             informers = product.informers
-            productContributors = product.productContributors
-            contributorsArray = product.contributorsArray
+            contributors = product.contributors
             hasNutritionFacts = product.hasNutritionFacts
             // did I miss something?
         }
@@ -997,9 +958,6 @@ class FoodProduct {
         if product!.informers != nil && !product!.informers!.isEmpty {
             informers = product!.informers!
         }
-        // productContributors = product.productContributors
-        // contributorsArray = product.contributorsArray
-        // hasNutritionFacts = product.hasNutritionFacts
     }
 
     
@@ -1265,157 +1223,6 @@ class FoodProduct {
             return .undefined
         }
     }
-    
-    // MARK: - Search Template functions and variables
-    //
-    // The product class is also used to define a search template as it shares many data
-    // Howerver this might not be the best solution
-    
-    // Whether a product is used as template is encoded in the barcode
-    //public var isSearchTemplate: Bool {
-    //    return barcode.isSearch()
-    //}
-
-    // Used to perform a generic search in name, generic name, brands, categories, origins and labels
-    // This seems to be language independent
-    // public var searchText: String? = nil
-    
-    // If the product is a description of a searchquery, then this will contain the number of results
-    // var numberOfSearchResults: Int? = nil
-    
-    /*
-    func searchPairsWithArray() -> [(OFF.SearchComponent, [String], Bool)] {
-        var pairs: [(OFF.SearchComponent, [String], Bool)] = []
-        
-        // barcode
-        if !barcode.asString().isEmpty {
-            pairs.append((.barcode, [barcode.asString()], true))
-        }
-        
-        // search text
-        //if search?.text != nil && !search!.text!.isEmpty {
-         //   pairs.append((.searchText, [search!.text!], true))
-        //}
-        
-        // brand
-        if !brandsOriginal.list.isEmpty {
-            pairs.append((.brand, cleanChars(brandsOriginal.list), true ))
-        }
-        // categories
-        if !categoriesOriginal.list.isEmpty {
-            pairs.append((.category, cleanChars(categoriesOriginal.list), true ))
-        }
-        // producer codes
-        if !embCodesOriginal.list.isEmpty {
-            pairs.append((.producerCode, cleanChars(embCodesOriginal.list), true ))
-        }
-        // country:
-        if !countriesOriginal.list.isEmpty {
-            pairs.append((.country, cleanChars(countriesOriginal.list), true ))
-        }
-        // label
-        if !labelsOriginal.list.isEmpty {
-            pairs.append((.label, cleanChars(labelsOriginal.list), true ))
-        }
-        // language on product
-        // if !languageCodes.isEmpty {
-        //    pairs.append((.language, cleanChars(languageCodes), true))
-        //}
-        // packaging
-        if !packagingOriginal.list.isEmpty {
-            pairs.append((.packaging, cleanChars(packagingOriginal.list), true ))
-        }
-        // purchasePlace:
-        if !purchasePlacesOriginal.list.isEmpty {
-            pairs.append((.purchasePlace, cleanChars(purchasePlacesOriginal.list), true ))
-        }
-        // additive
-        if !additivesInterpreted.list.isEmpty {
-            pairs.append((.packaging, cleanChars(additivesInterpreted.list), true ))
-        }
-        // trace
-        if !tracesOriginal.list.isEmpty {
-            pairs.append((.trace, cleanChars(tracesOriginal.list), true ))
-        }
-        // allergen
-        if !allergensOriginal.list.isEmpty {
-            pairs.append((.allergen, cleanChars(allergensOriginal.list), true ))
-        }
-        // manufacturingPlaces
-        if !manufacturingPlacesOriginal.list.isEmpty {
-            pairs.append((.manufacturingPlaces, cleanChars(manufacturingPlacesOriginal.list), true ))
-        }
-        // store
-        if !storesOriginal.list.isEmpty {
-            pairs.append((.store, cleanChars(storesOriginal.list), true ))
-        }
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        if let validDate = additionDate {
-        // entryDates:
-            let searchString = formatter.string(from: validDate as Date)
-            pairs.append((.entryDates, [searchString], true))
-        }
-        // lastEditDate:
-        if let validDates = lastEditDates {
-            if !validDates.isEmpty {
-                let searchString = formatter.string(from: validDates[0] as Date)
-                pairs.append((.lastEditDate, [searchString], true))
-            }
-        }
-        
-        // creator:
-        //if let validCreator = creator {
-        //    pairs.append((.creator, validCreator))
-        //}
-        // informer:
-        if let validInformers = informers {
-            pairs.append((.informer, cleanChars(validInformers), true))
-        }
-        // editor:
-        if let validEditors = editors {
-            pairs.append((.editor, cleanChars(validEditors), true))
-        }
-        // photographer:
-        if let validPhotographers = photographers {
-            pairs.append((.photographer, cleanChars(validPhotographers), true))
-        }
-        // corrector
-        if let validCorrectors = correctors {
-            pairs.append((.corrector, cleanChars(validCorrectors), true))
-        }
-        // states:
-        for item in state.states {
-            pairs.append((.state, [OFF.searchKey(for: item)], true))
-        }
-
-        return pairs
-    }
-    */
-
-    /*
-    private func cleanChars(_ array: [String]) -> [String] {
-        var newList: [String] = []
-        for item in array {
-            newList.append(item.replacingOccurrences(of: " ", with: "-") )
-        }
-        return newList
-    }
- */
-
-    /*
-    func searchPairs() -> [(OFF.SearchComponent, String, Bool)] {
-        let searchPairs = searchPairsWithArray()
-        var pairs: [(OFF.SearchComponent, String, Bool)] = []
-        for pair in searchPairs {
-            for item in pair.1 {
-                pairs.append((pair.0, item, true))
-            }
-        }
-        return pairs
-    }
-     */
-
 
 // End product
 }

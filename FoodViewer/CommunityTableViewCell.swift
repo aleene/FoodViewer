@@ -29,18 +29,19 @@ extension CommunityTableViewCell: TagListViewDataSource {
     // MARK: - TagListView Datasource functions
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        if let users = product?.productContributors.contributors {
+        if let users = product?.contributors {
             return users.count
         }
         return 1
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if let users = product?.productContributors.contributors {
-            return users[index].name
+        if let users = product?.contributors,
+            let validName = users[index].name {
+                return validName
         }
         // TODO:
-        return "No users"
+        return "CommunityTableViewCell: No users"
     }
 
 }

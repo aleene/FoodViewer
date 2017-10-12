@@ -10,15 +10,15 @@ import UIKit
 
 class ContributorTableViewCell: UITableViewCell {
 
-    var contributor: FoodProduct.Contributor? = nil {
+    var contributor: Contributor? = nil {
         didSet {
             if let existingContributor = contributor {
                 nameLabel.text = existingContributor.name
-                photographerLabel.isHidden = !existingContributor.role.isPhotographer
-                correctorLabel.isHidden = !existingContributor.role.isCorrector
-                editorLabel.isHidden = !existingContributor.role.isEditor
-                informerLabel.isHidden = !existingContributor.role.isInformer
-                creatorLabel.isHidden = !existingContributor.role.isCreator
+                photographerLabel.isHidden = !existingContributor.isPhotographer
+                correctorLabel.isHidden = !existingContributor.isCorrector
+                editorLabel.isHidden = !existingContributor.isEditor
+                informerLabel.isHidden = !existingContributor.isInformer
+                creatorLabel.isHidden = !existingContributor.isCreator
                 
                 if !nameLabel.isHidden {
                     // Long press allows to start a search
