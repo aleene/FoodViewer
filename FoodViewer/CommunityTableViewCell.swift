@@ -36,9 +36,8 @@ extension CommunityTableViewCell: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if let users = product?.contributors,
-            let validName = users[index].name {
-                return validName
+        if let users = product?.contributors {
+            return !users[index].name.isEmpty ? users[index].name : "contributor name not set"
         }
         // TODO:
         return "CommunityTableViewCell: No users"

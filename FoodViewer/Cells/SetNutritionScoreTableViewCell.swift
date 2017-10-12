@@ -12,12 +12,12 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.A, forSegmentAt: 0)
-            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.B, forSegmentAt: 1)
-            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.C, forSegmentAt: 2)
-            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.D, forSegmentAt: 3)
-            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.E, forSegmentAt: 4)
-            segmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.Undefined, forSegmentAt: 5)
+            segmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.A, forSegmentAt: 0)
+            segmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.B, forSegmentAt: 1)
+            segmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.C, forSegmentAt: 2)
+            segmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.D, forSegmentAt: 3)
+            segmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.E, forSegmentAt: 4)
+            segmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.Undefined, forSegmentAt: 5)
 
             setLevel()
         }
@@ -44,8 +44,8 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
     
     @IBOutlet weak var inclusionSegmentedControl: UISegmentedControl! {
         didSet {
-            inclusionSegmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.Exclude, forSegmentAt: 0)
-            inclusionSegmentedControl.setTitle(TranslatableStrings.SetNutritionScoreTableViewCell.Include, forSegmentAt: 1)
+            inclusionSegmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.Exclude, forSegmentAt: 0)
+            inclusionSegmentedControl.setTitle(TranslatableStrings.TableViewCell.SetNutritionScore.Include, forSegmentAt: 1)
             inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? 1 : 0
         }
     }

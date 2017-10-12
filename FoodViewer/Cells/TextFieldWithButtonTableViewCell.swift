@@ -40,10 +40,14 @@ class TextFieldWithButtonTableViewCell: UITableViewCell {
             button.isEnabled = editMode
         }
     }
-    var delegate: CompletionStatesTableViewController? = nil
+    var delegate: CompletionStatesTableViewController? = nil {
+        didSet {
+            textField.delegate = delegate
+        }
+    }
     
     private func buttonTapped() {
-        delegate?.setRole("")
+        delegate?.setRole()
     }
     
 }

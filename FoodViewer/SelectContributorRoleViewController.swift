@@ -1,17 +1,17 @@
 //
-//  SelectCompletionStateViewController.swift
+//  SelectContributorRoleViewController.swift
 //  FoodViewer
 //
-//  Created by arnaud on 09/10/2017.
+//  Created by arnaud on 12/10/2017.
 //  Copyright © 2017 Hovering Above. All rights reserved.
 //
 
 import UIKit
 
-class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     private struct Storyboard {
-        static let UnwindSegue = "Show Select Completion State Segue Identifier"
+        static let UnwindSegue = "Unwind Set Contributor Role For Done"
     }
     
     @IBOutlet weak var pickerView: UIPickerView! {
@@ -21,15 +21,17 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
             pickerView.showsSelectionIndicator = true
         }
     }
+    // at the momentt the search supports only two roles
+    var validRoles: [ContributorRole] = [.creator, .editor]
     
-    var currentCompletion: Completion? = nil
+    var currentContributor: Contributor? = nil
     
-    var selectedCompletion: Completion? = nil
+    var updatedContributor: Contributor? = nil
     
     // MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return OFF.allCompletionStates.count + 1
+        return validRoles.count + 1
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -40,17 +42,18 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 {
-            return "none"
+            return TranslatableStrings.ViewController.SelectContributorRole.SelectRole
         } else {
-            return OFF.allCompletionStates[row - 1].description()
+            return validRoles[row - 1].description
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if row > 0 {
-            selectedCompletion = OFF.allCompletionStates[row - 1]
-            performSegue(withIdentifier: Storyboard.UnwindSegue, sender: self)
-
+            if let validContributor = currentContributor {
+                updatedContributor = Contributor.init(validContributor.name, role: validRoles[row - 1])
+                performSegue(withIdentifier: Storyboard.UnwindSegue, sender: self)
+            }
         }
     }
     

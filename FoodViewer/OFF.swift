@@ -106,12 +106,12 @@ public struct OFF {
         case store = "stores"
         case entryDates = "entry-dates"
         case lastEditDate = "last-edit-date"
-        case contributor = "contributor"
-        case creator = "creator"
-        case informer = "informer"
-        case editor = "editor"
-        case photographer = "photographer"
-        case corrector = "corrector"
+        case contributor = "contributors"
+        case creator = "creators"
+        case informer = "informers"
+        case editor = "editors"
+        case photographer = "photographers"
+        case corrector = "correctors"
         case state = "states"
         case nutritionGrade = "nutrition_grades"
         case nutrient = "nutrient"
@@ -229,6 +229,7 @@ public struct OFF {
         return test
     }
 
+    /*
     struct ContributorTypes {
         static let CheckersKey = "Checkers"
         static let InformersKey = "Informers"
@@ -237,6 +238,7 @@ public struct OFF {
         static let CreatorKey = "Creator"
         static let CorrectorKey = "Correctors"
     }
+    */
 
     // The strings used to encode the status values in the product JSON
     // These are also the keys in the taxonomy
@@ -471,6 +473,16 @@ public struct OFF {
             }
         }
         
+        for contributor in template.contributors {
+            if contributor.isCreator {
+                // &tagtype_0=creator&tag_contains_0=contains&tag_0=aleene
+                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .creator, index: &search_tag_index) ?? ""
+            }
+            if contributor.isEditor {
+                // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
+                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .editor, index: &search_tag_index) ?? ""
+            }
+        }
         urlString += URL.SearchPage + "\(page)"
         urlString += URL.JSONSearchExtension
         

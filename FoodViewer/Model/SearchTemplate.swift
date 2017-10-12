@@ -62,6 +62,8 @@ class SearchTemplate {
         case indifferent
     }
     
+    var contributors: [Contributor] = []
+    
     var ingredientsAdditives: IngredientsInclusion = .indifferent
     var ingredientsFromPalmOil: IngredientsInclusion = .indifferent
     var ingredientsThatMayBeFromPalmOil: IngredientsInclusion = .indifferent
@@ -75,6 +77,7 @@ class SearchTemplate {
     
     var allNutrimentsSearch: [NutrimentSearch] = []
     
+    // No search has been set up
     var isEmpty: Bool {
         
         return text == nil &&
@@ -94,7 +97,8 @@ class SearchTemplate {
             languages.0 == .empty &&
             completion == nil &&
             level == nil &&
-            allNutrimentsSearch.isEmpty
+            allNutrimentsSearch.isEmpty &&
+            contributors.isEmpty
     }
     
     init() {

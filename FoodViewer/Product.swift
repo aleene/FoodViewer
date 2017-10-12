@@ -609,14 +609,14 @@ class FoodProduct {
     
     func addUserRole(_ name: String, role: ContributorRole) {
         for (index, contributor) in contributors.enumerated() {
-            if let validContributorName = contributor.name {
-                if validContributorName == name {
-                    contributors[index].add(role)
-                    return
-                }
+            if contributor.name == name {
+                contributors[index].add(role)
+                return
             }
         }
-        contributors.append(Contributor(name, role: role))
+        if !name.isEmpty {
+            contributors.append(Contributor(name, role: role))
+        }
     }
     
     /*

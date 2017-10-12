@@ -166,12 +166,12 @@ class NutritionScoreTableViewController: UITableViewController {
                     case 0:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
                         cell!.belongsToCategory = product?.nutritionalScoreFR?.cheese
-                        cell!.belongsToCategoryTitle = TranslatableStrings.NutritionScoreTableViewController.CheesesCategory
+                        cell!.belongsToCategoryTitle = TranslatableStrings.TableViewController.NutritionScore.CheesesCategory
                         return cell!
                     default:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
                         cell!.belongsToCategory = product?.nutritionalScoreFR?.beverage
-                        cell?.belongsToCategoryTitle = TranslatableStrings.NutritionScoreTableViewController.BeveragesCategory
+                        cell?.belongsToCategoryTitle = TranslatableStrings.TableViewController.NutritionScore.BeveragesCategory
                         return cell!
                     }
                 default:
@@ -185,29 +185,29 @@ class NutritionScoreTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if query != nil {
-            return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithNutritionalScore
+            return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithNutritionalScore
         } else {
             switch showNutritionalScore {
             case .uk:
                 switch section {
                 case 0:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithBadNutrients
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithBadNutrients
                 case 1:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithGoodNutrients
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithGoodNutrients
                 default:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithResultUK
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithResultUK
                 }
                 
             case .france:
                 switch section {
                 case 0:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithBadNutrients
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithBadNutrients
                 case 1:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithGoodNutrients
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithGoodNutrients
                 case 2:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithExceptionCategory
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithExceptionCategory
                 default:
-                    return TranslatableStrings.NutritionScoreTableViewController.TitleForSectionWithResultFrance
+                    return TranslatableStrings.TableViewController.NutritionScore.TitleForSectionWithResultFrance
                 }
             }
         }

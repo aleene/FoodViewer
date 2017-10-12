@@ -72,7 +72,7 @@ class ContributorTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photographerLabel: UILabel! {
         didSet {
-            photographerLabel.text = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")
+            photographerLabel.text = TranslatableStrings.TableViewCell.Contributor.PhotographerUnicode
         }
     }
     @IBOutlet weak var correctorLabel: UILabel! {

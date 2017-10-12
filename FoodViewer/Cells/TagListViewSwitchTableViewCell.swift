@@ -13,8 +13,8 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
         struct SegmentedControl {
-            static let Left = NSLocalizedString("Include", comment: "Test of a segmented control, which indicates that the corresponding tag(s) should be included in an advanced search")
-            static let Right = NSLocalizedString("Exclude", comment: "Test of a segmented control, which indicates that the corresponding tag(s) should be included in an advanced search")
+            static let Left = TranslatableStrings.TableViewCell.TagListViewSwitch.Exclude
+            static let Right = TranslatableStrings.TableViewCell.TagListViewSwitch.Include
         }
     }
         

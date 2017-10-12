@@ -2186,7 +2186,7 @@
                                             <rect key="frame" x="282" y="8" width="30" height="28"/>
                                             <connections>
                                                 <action selector="buttonTapped:" destination="0Rx-b4-WxH" eventType="touchUpInside" id="8hd-l1-jrN"/>
-                                                <segue destination="kAE-ID-W6P" kind="popoverPresentation" identifier="Show Select Role Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="pL1-9T-GCe">
+                                                <segue destination="kAE-ID-W6P" kind="popoverPresentation" identifier="Show Select Contributor Role Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="pL1-9T-GCe">
                                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                                 </segue>
                                             </connections>
@@ -3672,10 +3672,10 @@
             </objects>
             <point key="canvasLocation" x="5964" y="4109"/>
         </scene>
-        <!--Select Completion State View Controller-->
+        <!--Select Contributor Role View Controller-->
         <scene sceneID="zvJ-8j-Kqa">
             <objects>
-                <viewController id="kAE-ID-W6P" customClass="SelectCompletionStateViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="kAE-ID-W6P" customClass="SelectContributorRoleViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Y6G-pr-wbQ"/>
                         <viewControllerLayoutGuide type="bottom" id="sdf-Ud-t0K"/>
@@ -3708,14 +3708,14 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pickerView" destination="Y7H-3M-asn" id="byE-bx-ltH"/>
-                        <segue destination="S7V-7U-QTJ" kind="unwind" identifier="Unwind Set Completion State For Done" unwindAction="unwindSetCompletionStateForDone:" id="5g2-wi-9GI"/>
+                        <outlet property="pickerView" destination="Y7H-3M-asn" id="jmT-qk-67e"/>
+                        <segue destination="S7V-7U-QTJ" kind="unwind" identifier="Unwind Set Contributor Role For Done" unwindAction="unwindSetContributorRoleForDone:" id="qRr-hv-V87"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cue-8U-B4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="S7V-7U-QTJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6304" y="4109"/>
+            <point key="canvasLocation" x="6613" y="4109"/>
         </scene>
     </scenes>
     <resources>

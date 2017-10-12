@@ -132,6 +132,7 @@
 		517907F81F8E55580017FCA0 /* TextFieldWithButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907F71F8E55570017FCA0 /* TextFieldWithButtonTableViewCell.swift */; };
 		517907FA1F8F6C950017FCA0 /* Contributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907F91F8F6C940017FCA0 /* Contributor.swift */; };
 		517907FC1F8F6CDC0017FCA0 /* ContributorRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907FB1F8F6CDC0017FCA0 /* ContributorRole.swift */; };
+		517907FE1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907FD1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift */; };
 		517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */; };
 		517AAD4A1C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */; };
 		517AAD531C7DB63A00B12F3C /* IngredientsImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD521C7DB63A00B12F3C /* IngredientsImageTableViewCell.swift */; };
@@ -402,6 +403,7 @@
 		517907F71F8E55570017FCA0 /* TextFieldWithButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextFieldWithButtonTableViewCell.swift; path = Cells/TextFieldWithButtonTableViewCell.swift; sourceTree = "<group>"; };
 		517907F91F8F6C940017FCA0 /* Contributor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contributor.swift; sourceTree = "<group>"; };
 		517907FB1F8F6CDC0017FCA0 /* ContributorRole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContributorRole.swift; path = Model/ContributorRole.swift; sourceTree = "<group>"; };
+		517907FD1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContributorRoleViewController.swift; sourceTree = "<group>"; };
 		517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewController.swift; sourceTree = "<group>"; };
 		517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsFullTableViewCell.swift; sourceTree = "<group>"; };
 		517AAD521C7DB63A00B12F3C /* IngredientsImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 		5107C82B1D9D07AB006A628C /* EditPages */ = {
 			isa = PBXGroup;
 			children = (
+				517907FD1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift */,
 				51B721731DD5F268003AF608 /* AddNutrientViewController.swift */,
 				517907F51F8BBC730017FCA0 /* SelectCompletionStateViewController.swift */,
 				512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */,
@@ -1321,6 +1324,7 @@
 				516D0C311C906E9F00C1C789 /* NutritionFactsTableViewCell.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,
 				5125AB851D0864BB000DCD29 /* NutritionScoreTableViewController.swift in Sources */,
+				517907FE1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift in Sources */,
 				519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */,

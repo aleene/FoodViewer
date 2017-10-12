@@ -8,27 +8,6 @@
 
 import UIKit
 
-//fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-//  switch (lhs, rhs) {
-//  case let (l?, r?):
-//    return l < r
-//  case (nil, _?):
-//    return true
-//  default:
-//    return false
-//  }
-//}
-//
-//fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-//  switch (lhs, rhs) {
-//  case let (l?, r?):
-//    return l <= r
-//  default:
-//    return !(rhs < lhs)
-//  }
-//}
-
-
 class CompletionStatesTableViewController: UITableViewController {
     
     public var editMode: Bool = false {
@@ -56,7 +35,7 @@ class CompletionStatesTableViewController: UITableViewController {
         }
     }
     
-    private var query: SearchTemplate? = nil {
+    fileprivate var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
                 refreshProduct()
@@ -80,9 +59,11 @@ class CompletionStatesTableViewController: UITableViewController {
             static let LastEditDate = "Edit Date Cell"
             static let SetCompletionState = "Set Completion State Cell Identifier"
             static let TagListView = "Completion State TagListView Cell Identifier"
+            static let SetContributorRole = "TextField With Button Cell Identifier"
         }
         struct SegueIdentifier {
             static let SelectCompletionState = "Show Select Completion State Segue Identifier"
+            static let SelectContriburRole = "Show Select Contributor Role Segue Identifier"
         }
     }
     
@@ -140,6 +121,14 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.editMode = editMode
                 cell.isCompleted = query?.completion?.value ?? true
                 cell.buttonText = query?.completion?.description()
+                return cell
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetContributorRole, for: indexPath) as! TextFieldWithButtonTableViewCell
+                cell.delegate = self
+                cell.tag = indexPath.row // At the moment only 1 row is supported
+                cell.editMode = editMode
+                cell.username = query!.contributors.count > 0 ? query!.contributors[indexPath.row].name : nil
+                cell.buttonText = query!.contributors.count > 0 ? query!.contributors[indexPath.row].roles[0].description : nil
                 return cell
             default:
                 break
@@ -262,7 +251,28 @@ class CompletionStatesTableViewController: UITableViewController {
                         }
                     }
                 }
-                
+            case Storyboard.SegueIdentifier.SelectContriburRole:
+                if  let vc = segue.destination as? SelectContributorRoleViewController {
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? TextFieldWithButtonTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .right
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                if query!.contributors.count > 0 {
+                                    vc.currentContributor = query!.contributors[0]
+                                } else {
+                                    vc.currentContributor = nil
+                                }
+                            }
+                        }
+                    }
+                }
+
             default: break
             }
         }
@@ -272,6 +282,15 @@ class CompletionStatesTableViewController: UITableViewController {
         guard query != nil else { return }
         if let vc = segue.source as? SelectCompletionStateViewController {
             query!.completion = vc.selectedCompletion
+            tableView.reloadData()
+        }
+    }
+
+    @IBAction func unwindSetContributorRoleForDone(_ segue:UIStoryboardSegue) {
+        guard query != nil else { return }
+        if let vc = segue.source as? SelectContributorRoleViewController,
+            let validContributor = vc.updatedContributor {
+            query!.contributors[0] = validContributor
             tableView.reloadData()
         }
     }
@@ -332,8 +351,8 @@ class CompletionStatesTableViewController: UITableViewController {
         query?.completion?.value = value
     }
     
-    func setRole(_ value: String) {
-        // query?.
+    func setRole() {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContriburRole, sender: self)
     }
     
 
@@ -389,10 +408,45 @@ extension CompletionStatesTableViewController: TagListViewDataSource {
         return Tags.notSearchable.description()
     }
     
+    
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         // Assume that the tag value corresponds to the section
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
+    
+}
+
+
+// MARK: - TextField delegate functions
+
+extension CompletionStatesTableViewController: UITextFieldDelegate {
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let validText = textField.text {
+            // does this contributor exist already?
+            if query!.contributors.index(where: { $0.name == validText } ) == nil {
+                query!.contributors.append(Contributor.init(validText, role: .creator))
+            }
+            tableView.reloadData()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return editMode
+    }
+    
     
 }
 
