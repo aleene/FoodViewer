@@ -304,8 +304,10 @@ class IdentificationTableViewController: UITableViewController {
                     showLanguagesTagsType = .edited
                     return delegate!.updatedProduct!.languageTags
                 default:
-                    showLanguagesTagsType = TagsTypeDefault.Languages
+                    break
                 }
+            } else {
+                showLanguagesTagsType = TagsTypeDefault.Languages
             }
             switch showLanguagesTagsType {
             case .translated:
@@ -520,7 +522,7 @@ class IdentificationTableViewController: UITableViewController {
                     cell?.datasource = self
                     cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
-                    searchResult = "No image in the right language"
+                    searchResult = TranslatableStrings.NoImageInTheRightLanguage
                     return cell!
                 }
             // in all the front images find the display images
@@ -684,14 +686,14 @@ class IdentificationTableViewController: UITableViewController {
             static let Image = 1
         }
         struct Header {
-            static let Barcode = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
-            static let Name = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
-            static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
-            static let Languages = NSLocalizedString("Languages", comment: "Tableview sectionheader for languages on product")
-            static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
-            static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
-            static let Quantity = NSLocalizedString("Quantity", comment: "Tableview sectionheader for size of package.")
-            static let Image = NSLocalizedString("Main Image", comment: "Tableview sectionheader for main image of package.")
+            static let Barcode = TranslatableStrings.Barcode
+            static let Name = TranslatableStrings.Name
+            static let CommonName = TranslatableStrings.CommonName
+            static let Languages = TranslatableStrings.Languages
+            static let Brands = TranslatableStrings.Brands
+            static let Packaging = TranslatableStrings.Packaging
+            static let Quantity = TranslatableStrings.Quantity
+            static let Image = TranslatableStrings.MainImage
         }
     }
 
@@ -1146,7 +1148,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             case .undefined, .empty, .notSearchable:
                 return tags.description()
             case .available:
-                return tags.tag(at:index) ?? "Tag index out of bounds"
+                return tags.tag(at:index) ?? "IdentificationTableViewController: Tag index out of bounds"
             }
         }
         
@@ -1171,7 +1173,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .image:
             return searchResult
         default:
-            return("TagListView titleForTagAt error")
+            return("IdentificationTableViewController: TagListView titleForTagAt error")
         }
     }
 
@@ -1185,7 +1187,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 list.removeAll()
                 delegate?.update(brandTags: list)
             default:
-                assert(true, "How can I clear a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
             }
         case .brandsSearch:
             switch searchBrandsToDisplay {
@@ -1196,7 +1198,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 }
                 OFFProducts.manager.searchQuery!.brands.0 = .available(list)
             default:
-                assert(true, "How can I clear a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
 
             }
             
@@ -1209,7 +1211,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 }
                 OFFProducts.manager.searchQuery!.languages.0 = .available(list)
             default:
-                assert(true, "How can I clear a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
             }
 
         case .packaging:
@@ -1218,7 +1220,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 list.removeAll()
                 delegate?.update(packagingTags: list)
             default:
-                assert(true, "How can I delete a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
 
             }
             
@@ -1231,7 +1233,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 }
                 OFFProducts.manager.searchQuery!.packaging.0 = .available(list)
             default:
-                assert(true, "How can I clear a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
             }
 
         default:
@@ -1261,7 +1263,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(brandTags: list)
             default:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
         case .brandsSearch:
             switch searchBrandsToDisplay {
@@ -1277,7 +1279,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 OFFProducts.manager.searchQuery!.brands.0 = .available(list)
             default:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
         case .packaging:
             switch packagingToDisplay {
@@ -1287,14 +1289,14 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.append(title)
                 delegate?.update(packagingTags: list)
             default:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a packaging tag when the field is non-editable")
             }
         case .languages:
             switch languagesToDisplay {
             case .undefined, .empty, .available:
                 delegate?.update(addLanguageCode: title)
             default:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a languages tag when the field is non-editable")
             }
         case .languagesSearch:
             switch searchLanguagesToDisplay {
@@ -1310,7 +1312,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 OFFProducts.manager.searchQuery!.languages.0 = .available(list)
             default:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a search languages tag when the field is non-editable")
             }
         case .packagingSearch:
             switch searchPackagingToDisplay {
@@ -1326,7 +1328,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
             default:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a packaging tag when the field is non-editable")
             }
 
         default:
@@ -1340,7 +1342,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
             case .available(var list):
                 guard index >= 0 && index < list.count else {
                     break
@@ -1348,13 +1350,13 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(brandTags: list)
             case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
             
         case .brandsSearch:
             switch searchBrandsToDisplay {
             case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
                 if OFFProducts.manager.searchQuery == nil {
@@ -1362,13 +1364,13 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list)
             case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
 
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
             case .available(var list):
                 guard index >= 0 && index < list.count else {
                     break
@@ -1376,12 +1378,12 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 list.remove(at: index)
                 delegate?.update(packagingTags: list)
             case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
         case .packagingSearch:
             switch searchPackagingToDisplay {
             case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
+                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
                 if OFFProducts.manager.searchQuery == nil {
@@ -1389,7 +1391,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 }
                 OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
             case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
+                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
         default:
             break
