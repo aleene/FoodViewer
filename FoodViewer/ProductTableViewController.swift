@@ -12,20 +12,17 @@ import Foundation
 class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
 
     fileprivate struct Constants {
-        fileprivate struct Title {
-            static let Food = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-            static let PetFood = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-            static let Beauty = NSLocalizedString("Beauty Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-            static let NoSearch = NSLocalizedString("Search Undefined", comment: "Title of ViewController when no search has been defined.")
+
+        struct AlertSheet {
+            static let Message = TranslatableStrings.ProductDoesNotExistAlertSheetMessage
+            static let ActionTitleForCancel = TranslatableStrings.ProductDoesNotExistAlertSheetActionTitleForCancel
+            static let ActionTitleForAdd = TranslatableStrings.ProductDoesNotExistAlertSheetActionTitleForAdd
         }
-        // static let ViewControllerTitle = NSLocalizedString("Products", comment: "Title of ViewController with a list of all products that has been viewed.")
-        static let AlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
-        static let AlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
-        static let AlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
-        static let NoProductsInHistory = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
-        static let BusyLoadingProduct = NSLocalizedString("Loading product", comment: "Text to indicate that the it is trying to load.")
-        static let ProductNameMissing = NSLocalizedString("No product name", comment: "Text in header of section, indicating that the product name is missing.")
-        static let NumberOfNutritionalFactsText = NSLocalizedString("%@ nutritional facts specified", comment: "Cell text for the total number of nutritional facts available.")
+        
+        struct Tag {
+            static let NoProductsInHistory = TranslatableStrings.NoProductsListed
+            static let ProductNameMissing = TranslatableStrings.ProductNameMissing
+        }
     }
     
 
@@ -78,19 +75,32 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     var productPageViewController: ProductPageViewController? = nil
     
+    // Function to set the title of this viewController
+    // It is important to set the title at the right moment in the lifecycle
+    // Just after reloading the data seems to be the best moment.
+    
     fileprivate func setTitle() {
-        if OFFProducts.manager.list == .recent {
+        if tabBarController!.selectedIndex == 0 {
             switch currentProductType {
             case .food:
-                title = Constants.Title.Food
+                title = TranslatableStrings.FoodProducts
             case .petFood:
-                title = Constants.Title.PetFood
+                title = TranslatableStrings.PetFoodProducts
             case .beauty:
-                title = Constants.Title.Beauty
+                title = TranslatableStrings.BeautyProducts
             }
         } else {
-            title = products.search?.1 ?? Constants.Title.NoSearch
+            switch currentProductType {
+            case .food:
+                title = TranslatableStrings.SearchFoodProducts
+            case .petFood:
+                title = TranslatableStrings.SearchPetFoodProducts
+            case .beauty:
+                title = TranslatableStrings.SearchBeautyProducts
+            }
         }
+        guard title != nil else { return }
+        
     }
     
     // MARK: - TextField Methods
@@ -106,7 +116,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
- 
+    
     func textFieldDidBeginEditing(_ textFieldUser: UITextField) {
         activeTextField = textFieldUser
     }
@@ -309,36 +319,36 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     case .ingredientsAllergensTraces:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                         
-                        cell.ingredientsLabel?.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+                        cell.ingredientsLabel?.text = TranslatableStrings.Ingredients
 
                         if let number = currentProduct.numberOfIngredients {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.ingredientsBadgeString = "\(number)"
                         } else {
-                            cell.ingredientsBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no ingredients defined.")
+                            cell.ingredientsBadgeString = TranslatableStrings.Undefined
                         }
                         
-                        cell.allergensLabel?.text = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
+                        cell.allergensLabel?.text = TranslatableStrings.Allergens
                         switch currentProduct.allergensTranslated {
                         case .available(let allergens):
                             cell.allergensBadgeString = "\(allergens.count)"
                         default:
-                            cell.allergensBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no allergens defined.")
+                            cell.allergensBadgeString = TranslatableStrings.Undefined
                         }
                         
-                        cell.tracesLabel?.text = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
+                        cell.tracesLabel?.text = TranslatableStrings.Traces
                         switch currentProduct.tracesInterpreted {
                         case .available(let traces):
                             cell.tracesBadgeString = "\(traces.count)"
                         default:
-                            cell.tracesBadgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no traces defined.")
+                            cell.tracesBadgeString = TranslatableStrings.Undefined
                         }
                         return cell
                         
                     case .ingredients:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+                        cell.textLabel!.text = TranslatableStrings.Ingredients
                         if let number = currentProduct.numberOfIngredients {
                             cell.badgeString = number
                         }
@@ -346,14 +356,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                     case .nutritionFacts:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
+                        cell.textLabel!.text = TranslatableStrings.NutritionFacts
 
                         if let count = currentProduct.nutritionFacts?.count {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(count)"
                         } else {
-                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no ingredients defined.")
+                            cell.badgeString = TranslatableStrings.Undefined
                         }
                         return cell
                         
@@ -364,11 +374,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                     case .categories:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Categories", comment: "Text to indicate the product belongs to a category.")
+                        cell.textLabel!.text = TranslatableStrings.Categories
 
                         switch currentProduct.categoriesHierarchy {
                         case .undefined, .empty:
-                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no categories defined.")
+                            cell.badgeString = TranslatableStrings.Undefined
                         case let .available(list):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
@@ -383,14 +393,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         return cell!
                     case .supplyChain:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
+                        cell.textLabel!.text = TranslatableStrings.SalesCountries
                         switch currentProduct.countriesTranslated {
                         case .available(let countries):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(countries.count)"
                         default:
-                            cell.badgeString = NSLocalizedString("undefined", comment: "Text to indicate the product has no sales countries defined.")
+                            cell.badgeString = TranslatableStrings.Undefined
                         }
                         return cell
                     }
@@ -492,7 +502,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if !products.fetchResultList.isEmpty && (section < products.fetchResultList.count) {
             switch products.fetchResultList[section] {
             case .success(let product):
-                label.text = product.name != nil ? product.name! : Constants.ProductNameMissing
+                label.text = product.name != nil ? product.name! : Constants.Tag.ProductNameMissing
                 switch product.tracesInterpreted {
                 case .available(let validKeys):
                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
@@ -532,7 +542,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                 }
             case .searchQuery(let query):
-                label.text = "\(query.numberOfSearchResults) search results"
+                label.text = "\(query.numberOfSearchResults)" + " " +  TranslatableStrings.SearchResults
 //                } else {
 //                    label.text = NSLocalizedString("Search Definition", comment: "Title of a tableViewController section, which indicates the the search query template have been obtaned yet")
 //                }
@@ -540,7 +550,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 label.text = products.fetchResultList[section].description()
             }
         } else {
-            label.text = Constants.NoProductsInHistory
+            label.text = Constants.Tag.NoProductsInHistory
         }
         
         tempView.addSubview(label)
@@ -621,70 +631,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    /*
-    private func pageIndex(_ rowType: RowType) -> Int {
-        switch currentProductType {
-        case .food:
-            switch rowType {
-            case .name:
-                return 0
-            case .ingredientsAllergensTraces:
-                return 1
-            case .nutritionFacts:
-                return 2
-            case .supplyChain:
-                return 3
-            case .categories:
-                return 4
-            case .completion:
-                return 5
-            case .nutritionScore:
-                return 6
-            case .image:
-                return 7
-            default:
-                return 0
-            }
-        case .petFood:
-            switch rowType {
-            case .name:
-                return 0
-            case .ingredients:
-                return 1
-            case .nutritionFacts:
-                return 2
-            case .supplyChain:
-                return 3
-            case .categories:
-                return 4
-            case .completion:
-                return 5
-            case .image:
-                return 6
-            default:
-                return 0
-            }
-        case .beauty:
-            switch rowType {
-            case .name:
-                return 0
-            case .ingredients:
-                return 1
-            case .supplyChain:
-                return 2
-            case .categories:
-                return 3
-            case .completion:
-                return 4
-            case .image:
-                return 5
-            default:
-                return 0
-            }
-        }
-    }
-     */
-
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
         if let _ = segue.source as? BarcodeScanViewController {
             if products.fetchResultList.count > 0 {
@@ -734,6 +680,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         } else {
             assert(true, "ProductTableViewController: TabBar hierarchy error")
         }
+        setTitle()
     }
     
     // MARK: - Notification methods
@@ -765,17 +712,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     func showAlertProductNotAvailable(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
-        let error = userInfo!["error"] as? String ?? "No valid error"
+        let error = userInfo!["error"] as? String ?? "ProductTableViewController: No valid error"
         let barcodeString = userInfo![OFFProducts.Notification.BarcodeDoesNotExistKey] as? String
         let alert = UIAlertController(
-            title: Constants.AlertSheetMessage,
+            title: Constants.AlertSheet.Message,
             message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in // do nothing )
+        alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in // do nothing )
             }
         )
         if let validBarcodeString = barcodeString {
             // if there is a valid barcode, allow the user to add it
-            alert.addAction(UIAlertAction(title: Constants.AlertSheetActionTitleForAdd, style: .destructive) { (action: UIAlertAction) -> Void in
+            alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForAdd, style: .destructive) { (action: UIAlertAction) -> Void in
                 let newProduct = FoodProduct.init(withBarcode: BarcodeType(barcodeTuple: (validBarcodeString,self.currentProductType.rawValue)))
                 let preferredLanguage = Locale.preferredLanguages[0]
                 let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
@@ -862,14 +809,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
-
-//    func addGesture() {
-//        let swipeGestureRecognizer = UISwipeGestureRecognizer.init(target: self, action:#selector(ProductTableViewController.nextProductType))
-//        swipeGestureRecognizer.numberOfTouchesRequired = 2
-//        swipeGestureRecognizer.direction = .down
-//        swipeGestureRecognizer.delegate = self
-//        tableView?.addGestureRecognizer(swipeGestureRecognizer)
-//    }
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
     @IBAction func nextProductType(_ sender: UISwipeGestureRecognizer) {
@@ -913,7 +852,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // addGesture()
-        setTitle()
+        // setTitle()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
@@ -956,6 +895,7 @@ extension ProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         products.list = tabBarController.selectedIndex == 0 ? .recent : .search
+        // setTitle()
         startInterface(at: 0)
     }
     
@@ -994,7 +934,7 @@ extension ProductTableViewController: TagListViewDataSource {
             let fetchStatus = ProductFetchStatus.more(0)
             return fetchStatus.description()
         } else if tagListView.tag == 2 {
-            let fetchStatus = ProductFetchStatus.loadingFailed("loading Failed")
+            let fetchStatus = ProductFetchStatus.loadingFailed(TranslatableStrings.LoadingFailed)
             return fetchStatus.description()
         } else if tagListView.tag >= 300 {
             switch products.fetchResultList[0] {

@@ -24,17 +24,17 @@ enum ContributorRole {
     public var description: String {
         switch self {
         case .checker:
-            return TranslatableStrings.Model.ContributorRole.Checker
+            return TranslatableStrings.Checker
         case .informer:
-            return TranslatableStrings.Model.ContributorRole.Informer
+            return TranslatableStrings.Informer
         case .editor:
-            return TranslatableStrings.Model.ContributorRole.Editor
+            return TranslatableStrings.Editor
         case .photographer:
-            return TranslatableStrings.Model.ContributorRole.Photographer
+            return TranslatableStrings.Photographer
         case .creator:
-            return TranslatableStrings.Model.ContributorRole.Creator
+            return TranslatableStrings.Creator
         case .corrector:
-            return TranslatableStrings.Model.ContributorRole.Corrector
+            return TranslatableStrings.Corrector
         }
     }
 }

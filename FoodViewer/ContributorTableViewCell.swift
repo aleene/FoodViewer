@@ -72,7 +72,7 @@ class ContributorTableViewCell: UITableViewCell {
     
     @IBOutlet weak var photographerLabel: UILabel! {
         didSet {
-            photographerLabel.text = TranslatableStrings.TableViewCell.Contributor.PhotographerUnicode
+            photographerLabel.text = TranslatableStrings.PhotographerUnicode
         }
     }
     @IBOutlet weak var correctorLabel: UILabel! {

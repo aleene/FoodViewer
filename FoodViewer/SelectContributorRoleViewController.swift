@@ -42,7 +42,7 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 {
-            return TranslatableStrings.ViewController.SelectContributorRole.SelectRole
+            return TranslatableStrings.SelectRole
         } else {
             return validRoles[row - 1].description
         }

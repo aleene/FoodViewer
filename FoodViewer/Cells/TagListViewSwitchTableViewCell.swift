@@ -13,8 +13,8 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
         struct SegmentedControl {
-            static let Left = TranslatableStrings.TableViewCell.TagListViewSwitch.Exclude
-            static let Right = TranslatableStrings.TableViewCell.TagListViewSwitch.Include
+            static let Left = TranslatableStrings.Exclude
+            static let Right = TranslatableStrings.Include
         }
     }
         
