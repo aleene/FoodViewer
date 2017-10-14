@@ -52,7 +52,7 @@ class CompletionStatesTableViewController: UITableViewController {
         }
     }
     
-    private struct Storyboard {
+    fileprivate struct Storyboard {
         struct CellIdentifier {
             static let CompletionState = "Completion State Cell"
             static let Contributors = "Contributor Cell"
@@ -351,11 +351,24 @@ class CompletionStatesTableViewController: UITableViewController {
         query?.completion?.value = value
     }
     
-    func setRole() {
+    /*
+ func setRole() {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContriburRole, sender: self)
     }
+ */
     
 
+}
+
+
+// MARK: - TextFieldWithButtonCellDelegate Functions
+
+extension CompletionStatesTableViewController: TextFieldWithButtonCellDelegate {
+    
+    func buttonTapped(_ sender: UIButton) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContriburRole, sender: sender)
+    }
+    
 }
 
 // MARK: - UIPopoverPresentationControllerDelegate Functions
