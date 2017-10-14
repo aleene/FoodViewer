@@ -36,7 +36,7 @@ class OFFProducts {
         didSet {
             // reload if there is a change of tabs
             if list != oldValue {
-                loadAll()
+                setCurrentProducts()
             }
         }
     }

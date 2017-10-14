@@ -895,7 +895,7 @@ extension ProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         products.list = tabBarController.selectedIndex == 0 ? .recent : .search
-        // setTitle()
+        // refreshInterface()
         startInterface(at: 0)
     }
     

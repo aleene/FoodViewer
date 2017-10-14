@@ -133,11 +133,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    private var query: SearchTemplate? = nil {
-        didSet {
-            
-        }
-    }
+    private var query: SearchTemplate? = nil
     
     private var isQuery: Bool {
         return query != nil
