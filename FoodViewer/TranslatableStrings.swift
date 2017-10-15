@@ -27,30 +27,57 @@ struct TranslatableStrings {
     static let BeveragesCategory = NSLocalizedString("Beverages category", comment: "Cell title indicating the product belongs to the beverages category")
     static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
     
+    //
+    // MARK: - CCCCCCCCCCCCCCCCCCCCCC strings
+    //
     
     static let C = NSLocalizedString("C", comment: "String in Segmented Control to indicate the thrid best nutritional score level")
     static let Categories = NSLocalizedString("Categories", comment: "Text to indicate the product belongs to a category.")
     static let Checker = NSLocalizedString("Checker", comment: "String in PickerViewController to indicate the checker role of a contributor")
     static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
     static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
-    static let Creator = NSLocalizedString("❤️ - Creator", comment: "String in PickerViewController to indicate the creator role of a contributor")
-    static let Corrector = NSLocalizedString("🔦 - Corrector", comment: "String in PickerViewController to indicate the corrector role of a contributor")
+    static let Creator = NSLocalizedString("Creator", comment: "String in PickerViewController to indicate the creator role of a contributor")
+    static let Corrector = NSLocalizedString("Corrector", comment: "String in PickerViewController to indicate the corrector role of a contributor")
     
-
+    //
+    // MARK: - DDDDDDDDDDDDDDDD strings
+    //
+    
     static let D = NSLocalizedString("D", comment: "String in Segmented Control to indicate the fourth best nutritional score level")
     
+    
+    //
+    // MARK: - EEEEEEEEEEEEEEEEE strings
+    //
+    
+
     static let E = NSLocalizedString("E", comment: "String in Segmented Control to indicate the fifth best (and last) nutritional score level")
-    static let Editor = NSLocalizedString("📝 - Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
+    static let Editor = NSLocalizedString("Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
     static let Exclude = NSLocalizedString("Exclude", comment: "String in Segmented Control to indicate whether the corresponding tag should be EXCLUDED from the search.")
     
+    //
+    // MARK: - FFFFFFFFFFFFFF strings
+    //
+    
     static let FoodProducts = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-
+    
+    //
+    // MARK: - GGGGGGGGGGGGGGG strings
+    //
+    
     static let GoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
-
+    
+    //
+    // MARK: - IIIIIIIIIIIIIIII strings
+    //
+    
     static let Include = NSLocalizedString("Include", comment: "String in Segmented Control to indicate whether the corresponding tag should be INCLUDED in the search.")
-    static let Informer = NSLocalizedString("💭 - Informer", comment: "String in PickerViewController to indicate the informer role of a contributor")
+    static let Informer = NSLocalizedString("Informer", comment: "String in PickerViewController to indicate the informer role of a contributor")
     static let Ingredients = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
     
+    //
+    // MARK: - LLLLLLLLLLLLLLLL strings
+    //
     
     static let Languages = NSLocalizedString("Languages", comment: "Tableview sectionheader for languages on product")
     static let LoadingFailed = NSLocalizedString("Loading Failed", comment: "Error message when the product failed to load.")
@@ -70,7 +97,7 @@ struct TranslatableStrings {
     
     static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
     static let PetFoodProducts = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-    static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor")
+    static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + " " + TranslatableStrings.PhotographerUnicode
     static let PhotographerUnicode = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")
     static let ProductDoesNotExistAlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
     static let ProductDoesNotExistAlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")

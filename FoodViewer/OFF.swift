@@ -68,7 +68,6 @@ public struct OFF {
                 static let Value = "&nutriment_value_"
             }
             static let Terms = "&search_terms="
-
         }
     }
     
@@ -108,6 +107,7 @@ public struct OFF {
         case lastEditDate = "last-edit-date"
         case contributor = "contributors"
         case creator = "creators"
+        case checker = "checkers"
         case informer = "informers"
         case editor = "editors"
         case photographer = "photographers"
@@ -159,6 +159,8 @@ public struct OFF {
             return "contributor"
         case .creator:
             return "creator"
+        case .checker:
+            return "checker"
         case .informer:
             return "informer"
         case .editor:
@@ -482,6 +484,24 @@ public struct OFF {
                 // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
                 urlString += addSearchTag((Tags.init([contributor.name]), true), in: .editor, index: &search_tag_index) ?? ""
             }
+            if contributor.isInformer {
+                // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
+                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .informer, index: &search_tag_index) ?? ""
+            }
+            if contributor.isCorrector {
+                // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
+                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .corrector, index: &search_tag_index) ?? ""
+            }
+            if contributor.isChecker {
+                // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
+                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .checker, index: &search_tag_index) ?? ""
+            }
+
+            if contributor.isPhotographer {
+                // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
+                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .photographer, index: &search_tag_index) ?? ""
+            }
+
         }
         urlString += URL.SearchPage + "\(page)"
         urlString += URL.JSONSearchExtension

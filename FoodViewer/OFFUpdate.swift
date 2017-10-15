@@ -379,6 +379,11 @@ class OFFUpdate {
                 productUpdated = true
             }
         }
+        
+        if let validID = UIDevice.current.identifierForVendor?.uuidString {
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + " FoodViewer-" + validID )
+        }
+
 
 
         uploadImages(product!.frontImages, barcode: product!.barcode.asString(), id:"front")

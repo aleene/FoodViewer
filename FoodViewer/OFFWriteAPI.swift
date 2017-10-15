@@ -50,4 +50,5 @@ struct OFFWriteAPI {
     static let CommaDelimiter = ", "
     static let LanguageSpacer = "_"
     static let Equal = "="
+    static let Comment = "comment="
 }

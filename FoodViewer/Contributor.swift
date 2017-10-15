@@ -55,7 +55,19 @@ class Contributor : Equatable {
         }
         return false
     }
-    
+
+    public var isChecker: Bool {
+        for role in roles {
+            switch role {
+            case .checker:
+                return true
+            default:
+                break
+            }
+        }
+        return false
+    }
+
     public var isCorrector: Bool {
         for role in roles {
             switch role {

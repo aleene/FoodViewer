@@ -24,6 +24,10 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
     // at the momentt the search supports only two roles
     var validRoles: [ContributorRole] = [.creator, .editor]
     
+    var roles: [String] {
+        return validRoles.map( { $0.description } ).sorted()
+    }
+    
     var currentContributor: Contributor? = nil
     
     var updatedContributor: Contributor? = nil

@@ -621,7 +621,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             return .supplyChain
         case .label, .additive, .trace, .allergen:
             return .ingredients
-        case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .lastEditDate, .entryDates:
+        case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
             return .completion
         case .nutritionGrade:
             return .nutritionScore
