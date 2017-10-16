@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol SetNutritionScoreCellDelegate: class {
+    // function to let the delegate know that the switch changed
+    func firstSegmentedControlToggled(_ sender: UISegmentedControl)
+    func secondSegmentedControlToggled(_ sender: UISegmentedControl)
+}
+
 class SetNutritionScoreTableViewCell: UITableViewCell {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
@@ -24,22 +30,7 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
     }
     
     @IBAction func segmentedControlChanged(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            delegate?.setLevel(NutritionalScoreLevel.a)
-        case 1:
-            delegate?.setLevel(NutritionalScoreLevel.b)
-        case 2:
-            delegate?.setLevel(NutritionalScoreLevel.c)
-        case 3:
-            delegate?.setLevel(NutritionalScoreLevel.d)
-        case 4:
-            delegate?.setLevel(NutritionalScoreLevel.e)
-        case 5:
-            delegate?.setLevel(NutritionalScoreLevel.undefined)
-        default:
-            break
-        }
+        delegate?.firstSegmentedControlToggled(segmentedControl)
     }
     
     @IBOutlet weak var inclusionSegmentedControl: UISegmentedControl! {
@@ -51,15 +42,7 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
     }
     
     @IBAction func inclusionSegmentedControlTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            shouldInclude = false
-        case 1:
-            shouldInclude = true
-        default:
-            break
-        }
-        delegate?.setShouldInclude(shouldInclude)
+        delegate?.secondSegmentedControlToggled(inclusionSegmentedControl)
     }
     
     var shouldInclude = false {
@@ -98,6 +81,6 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: NutritionScoreTableViewController? = nil
+    var delegate: SetNutritionScoreCellDelegate? = nil
     
 }

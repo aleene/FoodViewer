@@ -43,7 +43,7 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     
     
-    private var query: SearchTemplate? = nil {
+    fileprivate var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
                 refreshProduct()
@@ -258,18 +258,45 @@ class NutritionScoreTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         OFFProducts.manager.flushImages()
     }
+
+}
+
+// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+
+extension NutritionScoreTableViewController: SetNutritionScoreCellDelegate {
     
-    public func setLevel(_ level: NutritionalScoreLevel) {
-        if query != nil {
-            query!.level = level
+    func firstSegmentedControlToggled(_ sender: UISegmentedControl) {
+        guard query != nil else { return }
+        switch sender.selectedSegmentIndex {
+        case 0:
+            query!.level = .a
+        case 1:
+            query!.level = .b
+        case 2:
+            query!.level = .c
+        case 3:
+            query!.level = .d
+        case 4:
+            query!.level = .e
+        case 5:
+            query!.level = .undefined
+        default:
+            break
         }
     }
-
-    public func setShouldInclude(_ include: Bool) {
-        if query != nil {
-            query!.includeLevel = include
+    
+    func secondSegmentedControlToggled(_ sender: UISegmentedControl) {
+        guard query != nil else { return }
+        switch sender.selectedSegmentIndex {
+        case 0:
+            query!.includeLevel = false
+        case 1:
+            query!.includeLevel = true
+        default:
+            break
         }
     }
 
 }
+
 

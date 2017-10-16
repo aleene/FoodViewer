@@ -381,7 +381,7 @@ class OFFUpdate {
         }
         
         if let validID = UIDevice.current.identifierForVendor?.uuidString {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + " FoodViewer-" + validID )
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + "FoodViewer-" + validID )
         }
 
 

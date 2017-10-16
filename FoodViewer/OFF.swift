@@ -590,7 +590,7 @@ public struct OFF {
                 barcode[part3] + OFF.URL.Divider.Slash  +
                 barcode[part4]
         }
-        print("OFF.imageURLFor : barcode can not be translated to url-string")
+        print("OFF.imageURLFor(_ barcode) : barcode can not be translated to url-string")
         return nil
     }
 
