@@ -515,7 +515,7 @@
                                     <outlet property="tagListView" destination="Uzv-hg-1Pm" id="B5d-Al-gSC"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell" id="fKD-Ny-Tsj" userLabel="TagListView Switch Cell" customClass="TagListViewSwitchTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell" id="fKD-Ny-Tsj" customClass="TagListViewSegmentedControlTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="336" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="fKD-Ny-Tsj" id="Cgw-ZK-iJn">
@@ -533,7 +533,7 @@
                                                 <segment title="Second"/>
                                             </segments>
                                             <connections>
-                                                <action selector="segmentedControlTapped:" destination="fKD-Ny-Tsj" eventType="valueChanged" id="ATX-Cf-SUR"/>
+                                                <action selector="segmentedControlTapped:" destination="fKD-Ny-Tsj" eventType="valueChanged" id="Dxx-lR-luR"/>
                                             </connections>
                                         </segmentedControl>
                                     </subviews>
@@ -548,8 +548,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="segmentedControl" destination="BY8-EL-Fn9" id="pQH-jx-lwf"/>
-                                    <outlet property="tagListView" destination="EM4-1o-6FO" id="wEr-QC-qfg"/>
+                                    <outlet property="segmentedControl" destination="BY8-EL-Fn9" id="IRf-29-9Pa"/>
+                                    <outlet property="tagListView" destination="EM4-1o-6FO" id="vI0-gd-HaQ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Quantity Cell" id="XV5-xE-vwP" customClass="QuantityTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -1134,7 +1134,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="43.5" y="0.0" width="201" height="44"/>
+                                            <rect key="frame" x="42.5" y="0.0" width="202" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1252,13 +1252,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
+                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -1451,7 +1451,7 @@
                                     <outlet property="tagListView" destination="Dyb-tq-jkw" id="VVQ-SO-gFh"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell Identifier" id="icw-Tk-lKi" customClass="TagListViewSwitchTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell Identifier" id="icw-Tk-lKi" customClass="TagListViewSegmentedControlTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="160" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="icw-Tk-lKi" id="BcU-jz-K82">
@@ -1469,7 +1469,7 @@
                                                 <segment title="Second"/>
                                             </segments>
                                             <connections>
-                                                <action selector="segmentedControlTapped:" destination="icw-Tk-lKi" eventType="valueChanged" id="clQ-vD-Vlu"/>
+                                                <action selector="segmentedControlTapped:" destination="icw-Tk-lKi" eventType="valueChanged" id="2Xa-Jj-aWs"/>
                                             </connections>
                                         </segmentedControl>
                                     </subviews>
@@ -1484,8 +1484,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="segmentedControl" destination="Wax-qz-3UA" id="SDf-Ky-0iI"/>
-                                    <outlet property="tagListView" destination="8kh-y9-OHe" id="8sO-PX-WpA"/>
+                                    <outlet property="segmentedControl" destination="Wax-qz-3UA" id="HhP-pl-k5Q"/>
+                                    <outlet property="tagListView" destination="8kh-y9-OHe" id="OW6-UH-1at"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="600" placeholderIntrinsicHeight="316" selectionStyle="default" indentationWidth="10" reuseIdentifier="Sites TagListView Cell" id="4hJ-8H-QVY" userLabel="Sites Cell" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -1663,7 +1663,7 @@
                                     <outlet property="tagListView" destination="cPa-Pt-LjZ" id="cNw-jj-2jC"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell Identifier" id="nOi-Ut-SXg" customClass="TagListViewSwitchTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell Identifier" id="nOi-Ut-SXg" customClass="TagListViewSegmentedControlTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nOi-Ut-SXg" id="9fa-RA-oiu">
@@ -1681,7 +1681,7 @@
                                                 <segment title="Second"/>
                                             </segments>
                                             <connections>
-                                                <action selector="segmentedControlTapped:" destination="nOi-Ut-SXg" eventType="valueChanged" id="HfJ-We-Bff"/>
+                                                <action selector="segmentedControlTapped:" destination="nOi-Ut-SXg" eventType="valueChanged" id="qLt-mO-cWX"/>
                                             </connections>
                                         </segmentedControl>
                                     </subviews>
@@ -1696,8 +1696,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="segmentedControl" destination="RU8-Nk-J4S" id="ouB-EB-nxJ"/>
-                                    <outlet property="tagListView" destination="PCq-e5-Yzo" id="kqX-Or-Lx2"/>
+                                    <outlet property="segmentedControl" destination="RU8-Nk-J4S" id="ySu-PW-Em2"/>
+                                    <outlet property="tagListView" destination="PCq-e5-Yzo" id="k02-tU-EXg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -2763,7 +2763,7 @@
                                     <outlet property="tagListView" destination="fF8-kh-meL" id="9U1-g9-ZdH"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell" id="T5Y-Ku-072" customClass="TagListViewSwitchTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView With SegmentedControl Cell" id="T5Y-Ku-072" customClass="TagListViewSegmentedControlTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="248" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T5Y-Ku-072" id="0G9-KE-QMW">
@@ -2781,7 +2781,7 @@
                                                 <segment title="Second"/>
                                             </segments>
                                             <connections>
-                                                <action selector="segmentedControlTapped:" destination="T5Y-Ku-072" eventType="valueChanged" id="2Ul-hp-l4u"/>
+                                                <action selector="segmentedControlTapped:" destination="T5Y-Ku-072" eventType="valueChanged" id="I6P-Qp-N52"/>
                                             </connections>
                                         </segmentedControl>
                                     </subviews>
@@ -2800,8 +2800,8 @@
                                     <constraint firstAttribute="trailing" secondItem="6Rd-m2-Nl1" secondAttribute="trailing" constant="8" id="Fla-HK-Bbv"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="segmentedControl" destination="6Rd-m2-Nl1" id="cnF-1J-K1y"/>
-                                    <outlet property="tagListView" destination="iLT-b2-JWJ" id="EkQ-WO-f3d"/>
+                                    <outlet property="segmentedControl" destination="6Rd-m2-Nl1" id="KXU-86-sZT"/>
+                                    <outlet property="tagListView" destination="iLT-b2-JWJ" id="LuG-B5-BOb"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ingredients Image Cell" id="ae1-IC-EpV" customClass="IngredientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">

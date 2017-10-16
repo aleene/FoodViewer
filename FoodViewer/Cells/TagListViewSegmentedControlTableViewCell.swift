@@ -1,5 +1,5 @@
 //
-//  TagListViewSwitchTableViewCell.swift
+//  TagListViewSegmentedControlTableViewCell.swift
 //  FoodViewer
 //
 //  Created by arnaud on 22/09/2017.
@@ -8,13 +8,24 @@
 
 import UIKit
 
-class TagListViewSwitchTableViewCell: UITableViewCell {
+
+protocol TagListViewSegmentedControlCellDelegate: class {
+    // function to let the delegate know that the switch changed
+    func segmentedControlToggled(_ sender: UISegmentedControl)
+}
+
+
+class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
-        struct SegmentedControl {
+        struct SegmentedControlStrings {
             static let Left = TranslatableStrings.Exclude
             static let Right = TranslatableStrings.Include
+        }
+        struct SegmentedControlIndex {
+            static let Excluded = 0
+            static let Included = 1
         }
     }
         
@@ -25,16 +36,15 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.setTitle(Constants.SegmentedControl.Left, forSegmentAt: 0)
-            segmentedControl.setTitle(Constants.SegmentedControl.Right, forSegmentAt: 1)
-            segmentedControl.selectedSegmentIndex = 0
+            segmentedControl.setTitle(Constants.SegmentedControlStrings.Left, forSegmentAt: Constants.SegmentedControlIndex.Excluded)
+            segmentedControl.setTitle(Constants.SegmentedControlStrings.Right, forSegmentAt: Constants.SegmentedControlIndex.Included)
+            segmentedControl.selectedSegmentIndex = Constants.SegmentedControlIndex.Included
         }
     }
     
     @IBAction func segmentedControlTapped(_ sender: UISegmentedControl) {
-        inclusion = segmentedControl.selectedSegmentIndex == 0 ? true: false
-        switchToggled()
-
+        inclusion = segmentedControl.selectedSegmentIndex == Constants.SegmentedControlIndex.Included ? true : false
+        delegate?.segmentedControlToggled(sender)
     }
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -49,7 +59,7 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
             tagListView.frame.size.width = self.frame.size.width
                 
             tagListView.datasource = datasource
-            tagListView.delegate = delegate
+            setupTagListViewDelegate()
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
             tagListView.tag = tag
@@ -63,7 +73,7 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
     
     var inclusion: Bool = true {
         didSet {
-            segmentedControl.selectedSegmentIndex = inclusion ? 0 : 1
+            segmentedControl.selectedSegmentIndex = inclusion ? Constants.SegmentedControlIndex.Included : Constants.SegmentedControlIndex.Excluded
         }
     }
     
@@ -73,12 +83,20 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
         }
     }
         
-    var delegate: TagListViewDelegate? = nil {
+    var delegate: TagListViewSegmentedControlCellDelegate? = nil {
         didSet {
-            tagListView?.delegate = delegate
+            setupTagListViewDelegate()
         }
     }
-        
+    
+    private func setupTagListViewDelegate() {
+        if delegate is TagListViewDelegate {
+            tagListView?.delegate = delegate as? TagListViewDelegate
+        } else {
+            assert(true, "Setup TagListViewDelegate")
+        }
+    }
+    
     var editMode: Bool = false {
         didSet {
             tagListView?.allowsRemoval = editMode
@@ -94,38 +112,34 @@ class TagListViewSwitchTableViewCell: UITableViewCell {
         }
     }
         
-        var scheme = ColorSchemes.normal {
-            didSet {
-                tagListView?.normalColorScheme = scheme
-            }
+    var scheme = ColorSchemes.normal {
+        didSet {
+            tagListView?.normalColorScheme = scheme
         }
-        
-        override var tag: Int {
-            didSet {
-                tagListView?.tag = tag
-            }
-        }
-        
-        var prefixLabelText: String? = nil {
-            didSet {
-                tagListView?.prefixLabelText = prefixLabelText
-            }
-        }
-        
-        func reloadData() {
-            tagListView.reloadData(clearAll: true)
-        }
-        
-    func tagListViewTapped() {
-        let userInfo: [String:Any] = [Notification.TagKey:tag]
-        NotificationCenter.default.post(name: .TagListViewSwitchTapped, object:nil, userInfo: userInfo)
     }
-    
+        
+    override var tag: Int {
+        didSet {
+            tagListView?.tag = tag
+            segmentedControl.tag = tag
+        }
+    }
+        
+    var prefixLabelText: String? = nil {
+        didSet {
+            tagListView?.prefixLabelText = prefixLabelText
+        }
+    }
+        
+    func reloadData() {
+        tagListView.reloadData(clearAll: true)
+    }
+    /*
     func switchToggled() {
         let userInfo: [String:Any] = [Notification.TagKey:tag, Notification.InclusionKey:inclusion]
         NotificationCenter.default.post(name: .TagListViewSwitchToggled, object:nil, userInfo: userInfo)
     }
-    
+    */
 }
     
     // Definition:

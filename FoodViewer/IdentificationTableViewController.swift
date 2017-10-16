@@ -451,7 +451,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .brandsSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -460,7 +460,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.inclusion = OFFProducts.manager.searchQuery?.brands.1 ?? true
             return cell
         case  .languagesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -478,7 +478,7 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .packagingSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -848,31 +848,6 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-    
-    func changeInclusion(_ notification: Notification) {
-        if let tag = notification.userInfo?[TagListViewSwitchTableViewCell.Notification.TagKey] as? Int {
-            if let inclusion = notification.userInfo?[TagListViewSwitchTableViewCell.Notification.InclusionKey] as? Bool {
-
-                let currentProductSection = tableStructure[tag]
-                switch currentProductSection {
-                case .packagingSearch:
-                    if OFFProducts.manager.searchQuery == nil {
-                        OFFProducts.manager.searchQuery = SearchTemplate.init()
-                    }
-                    OFFProducts.manager.searchQuery!.packaging.1 = inclusion
-                    tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-                case .brandsSearch:
-                    if OFFProducts.manager.searchQuery == nil {
-                        OFFProducts.manager.searchQuery = SearchTemplate.init()
-                    }
-                    OFFProducts.manager.searchQuery!.brands.1 = inclusion
-                    tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-                default:
-                    break
-                }
-            }
-        }
-    }
 
     func reloadImageSection() {
         tableView.reloadData()
@@ -1021,7 +996,6 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeInclusion), name:.TagListViewSwitchToggled, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1039,6 +1013,38 @@ class IdentificationTableViewController: UITableViewController {
         OFFProducts.manager.flushImages()
     }
 
+}
+
+// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+
+extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
+    
+    func segmentedControlToggled(_ sender: UISegmentedControl) {
+        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
+        let currentProductSection = tableStructure[sender.tag]
+        switch currentProductSection {
+        case .languagesSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.languages.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .packagingSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.packaging.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .brandsSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.brands.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - TextView Delegate Functions

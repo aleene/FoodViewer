@@ -213,7 +213,7 @@
 		51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42CE1E069BDA00C9AD91 /* Tags.swift */; };
 		51D3B3E61F6C3B6600050DA8 /* BarcodeEditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D3B3E51F6C3B6600050DA8 /* BarcodeEditTableViewCell.swift */; };
 		51D50F171CE78904008DD98C /* NutritionEntryUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */; };
-		51DA03231F754FC4000C5F93 /* TagListViewSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA03221F754FC4000C5F93 /* TagListViewSwitchTableViewCell.swift */; };
+		51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */; };
 		51DA03251F7674BF000C5F93 /* SearchTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DA03241F7674BF000C5F93 /* SearchTemplate.swift */; };
 		51DAD3701C5F63CD00895513 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */; };
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
@@ -491,7 +491,7 @@
 		51CF42CE1E069BDA00C9AD91 /* Tags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tags.swift; sourceTree = "<group>"; };
 		51D3B3E51F6C3B6600050DA8 /* BarcodeEditTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarcodeEditTableViewCell.swift; path = Cells/BarcodeEditTableViewCell.swift; sourceTree = "<group>"; };
 		51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionEntryUnit.swift; sourceTree = "<group>"; };
-		51DA03221F754FC4000C5F93 /* TagListViewSwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewSwitchTableViewCell.swift; path = Cells/TagListViewSwitchTableViewCell.swift; sourceTree = "<group>"; };
+		51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewSegmentedControlTableViewCell.swift; path = Cells/TagListViewSegmentedControlTableViewCell.swift; sourceTree = "<group>"; };
 		51DA03241F7674BF000C5F93 /* SearchTemplate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchTemplate.swift; path = Model/SearchTemplate.swift; sourceTree = "<group>"; };
 		51DAD36F1C5F63CD00895513 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
@@ -994,7 +994,7 @@
 				5184F57D1EB5ED09009ECF73 /* NutrimentScoreCells */,
 				51AFB00F1C74877700598444 /* ContributorsCell */,
 				51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */,
-				51DA03221F754FC4000C5F93 /* TagListViewSwitchTableViewCell.swift */,
+				51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */,
 				513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */,
 				517AAD261C7B4D0700B12F3C /* Product Cells */,
 			);
@@ -1276,7 +1276,7 @@
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				5127CDF51E48B64D00944FE8 /* ConfirmProductTableViewController.swift in Sources */,
-				51DA03231F754FC4000C5F93 /* TagListViewSwitchTableViewCell.swift in Sources */,
+				51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */,
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
 				515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */,
 				516B328D1C75FF100031EF80 /* NutrientsImageTableViewCell.swift in Sources */,

@@ -155,7 +155,7 @@ class CategoriesTableViewController: UITableViewController {
             return cell
             
         case .categoriesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
@@ -281,6 +281,28 @@ class CategoriesTableViewController: UITableViewController {
 
 }
 
+// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+
+extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate {
+    
+    func segmentedControlToggled(_ sender: UISegmentedControl) {
+        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
+        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
+        
+        switch currentProductSection {
+        case .categoriesSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.categories.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        default:
+            break
+        }
+    }
+}
+
+
 // MARK: - TagListView Datasource Functions
 
 extension CategoriesTableViewController: TagListViewDataSource {
@@ -358,7 +380,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.brands.0 = .available([title])
+                OFFProducts.manager.searchQuery!.categories.0 = .available([title])
             case .available(var list):
                 list.append(title)
                 if OFFProducts.manager.searchQuery == nil {

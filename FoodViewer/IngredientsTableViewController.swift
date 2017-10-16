@@ -345,13 +345,44 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             return cell
             
-        case .allergensSearch, .tracesSearch, .additivesSearch, .labelsSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+        case .allergensSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
+            cell.inclusion = OFFProducts.manager.searchQuery?.allergens.1 ?? true
+            return cell
+            
+        case .tracesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = OFFProducts.manager.searchQuery?.traces.1 ?? true
+            return cell
+            
+        case .additivesSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = OFFProducts.manager.searchQuery?.additives.1 ?? true
+            return cell
+            
+        case .labelsSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
+            cell.width = tableView.frame.size.width
+            cell.datasource = self
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.inclusion = OFFProducts.manager.searchQuery?.labels.1 ?? true
             return cell
             
         case .traces, .labels:
@@ -362,52 +393,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             return cell
-            
-        /*case .tracesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            return cell
-
-        case .additives:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Additives, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = product != nil ? editMode : false
-            cell.tag = indexPath.section
-            return cell
- 
-        case .additivesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            return cell
-
-        case .labels:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Labels, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            return cell
-        case .labelsSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Allergens, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            return cell
-             */
-
+        
         case .image:
             // are there any updated images?
             if delegate?.updatedProduct != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
@@ -980,6 +966,46 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
 }
+
+// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+
+extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegate {
+    
+    func segmentedControlToggled(_ sender: UISegmentedControl) {
+        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
+        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
+        
+        switch currentProductSection {
+        case .labelsSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.labels.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .tracesSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.traces.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .additivesSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.additives.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .allergensSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.allergens.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        default:
+            break
+        }
+    }
+}
+
 
 // MARK: - TextView Delegate Functions
 

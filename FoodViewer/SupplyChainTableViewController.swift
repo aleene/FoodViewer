@@ -528,13 +528,28 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
 
         case .producerSearch, .producerCodeSearch, .ingredientOriginSearch, .storeSearch, .locationSearch, .countrySearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.brands.1 ?? true
+            switch currentProductSection {
+            case .producerSearch:
+                cell.inclusion = OFFProducts.manager.searchQuery?.manufacturing_places.1 ?? true
+            case .producerCodeSearch:
+                cell.inclusion = OFFProducts.manager.searchQuery?.emb_codes.1 ?? true
+            case .ingredientOriginSearch:
+                cell.inclusion = OFFProducts.manager.searchQuery?.origins.1 ?? true
+            case .storeSearch:
+                cell.inclusion = OFFProducts.manager.searchQuery?.stores.1 ?? true
+            case .locationSearch:
+                cell.inclusion = OFFProducts.manager.searchQuery?.purchase_places.1 ?? true
+            case .countrySearch:
+                cell.inclusion = OFFProducts.manager.searchQuery?.countries.1 ?? true
+            default:
+                break
+            }
             return cell
 
         case .map:
@@ -859,6 +874,57 @@ class SupplyChainTableViewController: UITableViewController {
         OFFProducts.manager.flushImages()
     }
 
+}
+
+// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+
+extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
+    
+    func segmentedControlToggled(_ sender: UISegmentedControl) {
+        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
+        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
+        
+        switch currentProductSection {
+        case .ingredientOriginSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.origins.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .producerSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.manufacturing_places.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .producerCodeSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.emb_codes.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .storeSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.stores.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .locationSearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.purchase_places.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        case .countrySearch:
+            if OFFProducts.manager.searchQuery == nil {
+                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            }
+            OFFProducts.manager.searchQuery!.countries.1 = inclusion
+            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - UIPopoverPresentationControllerDelegate Functions
@@ -1272,7 +1338,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .countrySearch:
-            switch countriesToDisplay {
+            switch searchCountriesToDisplay {
             case .undefined, .empty:
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
