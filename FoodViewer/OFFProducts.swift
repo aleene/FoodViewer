@@ -345,7 +345,7 @@ class OFFProducts {
         }
     }
     
-    func search(_ string: String?, in category: OFF.SearchComponent) {
+    func search(_ string: String?, in category: SearchComponent) {
         guard string != nil else { return }
         let validString = string!.contains(":") ?
             string!.characters.split{ $0 == ":" }.map(String.init)[1] : string!
@@ -549,7 +549,7 @@ class OFFProducts {
     
 
     // no search has been set at the start
-    var search: (OFF.SearchComponent?, String?)? = nil {
+    var search: (SearchComponent?, String?)? = nil {
         didSet {
             if search != nil {
                 createSearchQuery()

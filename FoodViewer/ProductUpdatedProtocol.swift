@@ -21,5 +21,5 @@ protocol ProductUpdatedProtocol: class {
     
     func updated(facts: [NutritionFactItem?])
     
-    func search(for string: String?, in component: OFF.SearchComponent)
+    func search(for string: String?, in component: SearchComponent)
 }

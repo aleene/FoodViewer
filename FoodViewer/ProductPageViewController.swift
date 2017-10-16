@@ -1106,19 +1106,19 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     }
     
-    func search(for string: String?, in component: OFF.SearchComponent) {
+    func search(for string: String?, in component: SearchComponent) {
         if let validString = string {
             askUserToSearch(for: validString, in: component)
         }
     }
     
-    func askUserToSearch(for string: String, in component: OFF.SearchComponent) {
+    func askUserToSearch(for string: String, in component: SearchComponent) {
         let searchMessage = NSLocalizedString("for %@ in %@",
                                               comment: "Explanatory text in AlertViewController, which shows the intended search")
         
         let alertController = UIAlertController(title: NSLocalizedString("Start Search?",
                                                                          comment: "Title in AlertViewController, which lets the user decide if he wants to start a search."),
-                                                message: String(format: searchMessage, string, OFF.description(for: component)),
+                                                message: String(format: searchMessage, string, component.description),
                                                 preferredStyle:.alert)
         let ok = UIAlertAction(title: NSLocalizedString("OK",
                                                         comment: "String in button, to let the user indicate he wants to start the search."),
@@ -1137,7 +1137,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         self.present(alertController, animated: true, completion: nil)
     }
     
-    internal func startSearch(for string: String, in component: OFF.SearchComponent) {
+    internal func startSearch(for string: String, in component: SearchComponent) {
         OFFProducts.manager.search(string, in:component)
     }
 

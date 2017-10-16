@@ -435,7 +435,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             cell.datasource = self
                             // The hundreds define a searchQuery section, the rest is just the row
                             cell.tag = 300 + indexPath.row
-                            cell.prefixLabelText = searchPairs[indexPath.row].0.rawValue
+                            cell.prefixLabelText = searchPairs[indexPath.row].0.description
                             cell.width = tableView.frame.size.width
                             cell.accessoryType = .none
                             return cell
@@ -446,7 +446,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             cell.datasource = self
                             // The hundreds define a searchQuery section, the rest is just the row
                             cell.tag = 300 + indexPath.row
-                            cell.prefixLabelText = searchPairs[indexPath.row].0.rawValue
+                            cell.prefixLabelText = searchPairs[indexPath.row].0.description
                             cell.labelText = searchPairs[indexPath.row].2
                             cell.width = tableView.frame.size.width
                             cell.accessoryType = .none
@@ -611,7 +611,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     // convert between the search categories and the display pages type
-    private func searchRowType(_ component: OFF.SearchComponent) -> ProductSection {
+    private func searchRowType(_ component: SearchComponent) -> ProductSection {
         switch component {
         case .barcode, .searchText, .brand, .language, .packaging:
             return .identification

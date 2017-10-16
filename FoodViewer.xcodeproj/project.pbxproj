@@ -187,6 +187,7 @@
 		51B3838E1F8936D30086581C /* ButtonWithSwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B3838D1F8936D30086581C /* ButtonWithSwitchTableViewCell.swift */; };
 		51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B721711DD5D208003AF608 /* NutritionFactUnit.swift */; };
 		51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B721731DD5F268003AF608 /* AddNutrientViewController.swift */; };
+		51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B7416F1F949E280025F8A1 /* SearchComponent.swift */; };
 		51B904881E7ADC7E004E3439 /* MetricPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B904871E7ADC7E004E3439 /* MetricPrefix.swift */; };
 		51B9048A1E7AEC9C004E3439 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B904891E7AEC9B004E3439 /* Weight.swift */; };
 		51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048B1E7AEE38004E3439 /* Energy.swift */; };
@@ -464,6 +465,7 @@
 		51B63CFE1CA80C4000391C34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		51B721711DD5D208003AF608 /* NutritionFactUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnit.swift; sourceTree = "<group>"; };
 		51B721731DD5F268003AF608 /* AddNutrientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNutrientViewController.swift; sourceTree = "<group>"; };
+		51B7416F1F949E280025F8A1 /* SearchComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchComponent.swift; sourceTree = "<group>"; };
 		51B904871E7ADC7E004E3439 /* MetricPrefix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricPrefix.swift; sourceTree = "<group>"; };
 		51B904891E7AEC9B004E3439 /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		51B9048B1E7AEE38004E3439 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
@@ -899,6 +901,7 @@
 		519884E11CE4EA5E0020B3A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				51B7416F1F949E280025F8A1 /* SearchComponent.swift */,
 				517907F91F8F6C940017FCA0 /* Contributor.swift */,
 				517907FB1F8F6CDC0017FCA0 /* ContributorRole.swift */,
 				5150D9C31F8133FE0003DE8E /* NutrimentSearch.swift */,
@@ -1309,6 +1312,7 @@
 				516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */,
 				512039F31E5B3E9500BE62CB /* GKCropBorderView.swift in Sources */,
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
+				51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */,
 				511459341CB138DC00D25116 /* Node.swift in Sources */,
 				510D9FC31E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift in Sources */,
 				512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */,

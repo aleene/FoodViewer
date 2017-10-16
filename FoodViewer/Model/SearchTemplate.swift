@@ -105,12 +105,12 @@ class SearchTemplate {
         
     }
     
-    convenience init(for string: String, in component: OFF.SearchComponent) {
+    convenience init(for string: String, in component: SearchComponent) {
         self.init()
         setSearchPair(component, with: string)
     }
     
-    private func setSearchPair(_ component: OFF.SearchComponent, with string: String) {
+    private func setSearchPair(_ component: SearchComponent, with string: String) {
         // isSearchTemplate = true
         switch component {
         // case .barcode:
@@ -179,8 +179,8 @@ class SearchTemplate {
     }
     
 
-    func searchPairsWithArray() -> [(OFF.SearchComponent, [String], String)] {
-        var pairs: [(OFF.SearchComponent, [String], String)] = []
+    func searchPairsWithArray() -> [(SearchComponent, [String], String)] {
+        var pairs: [(SearchComponent, [String], String)] = []
         
         // barcode
         //if !barcode.asString().isEmpty {
@@ -322,9 +322,9 @@ class SearchTemplate {
             return newList
         }
         
-        func searchPairs() -> [(OFF.SearchComponent, String, Bool)] {
+        func searchPairs() -> [(SearchComponent, String, Bool)] {
             let searchPairs = searchPairsWithArray()
-            var pairs: [(OFF.SearchComponent, String, Bool)] = []
+            var pairs: [(SearchComponent, String, Bool)] = []
             for pair in searchPairs {
                 for item in pair.1 {
                     pairs.append((pair.0, item, true))

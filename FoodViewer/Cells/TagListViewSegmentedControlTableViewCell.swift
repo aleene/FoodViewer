@@ -28,11 +28,6 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
             static let Included = 1
         }
     }
-        
-    internal struct Notification {
-        static let TagKey = "TagListViewSwitchTableViewCell.Notification.Tag.Key"
-        static let InclusionKey = "Inclusion"
-    }
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
@@ -134,18 +129,6 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     func reloadData() {
         tagListView.reloadData(clearAll: true)
     }
-    /*
-    func switchToggled() {
-        let userInfo: [String:Any] = [Notification.TagKey:tag, Notification.InclusionKey:inclusion]
-        NotificationCenter.default.post(name: .TagListViewSwitchToggled, object:nil, userInfo: userInfo)
-    }
-    */
+
 }
     
-    // Definition:
-    extension Notification.Name {
-        static let TagListViewSwitchTapped = Notification.Name("TagListViewSwitchTableViewCell.Notification.TagListViewSwitchTapped")
-        static let TagListViewSwitchToggled = Notification.Name("TagListViewSwitchTableViewCell.Notification.TagListViewSwitchToggled")
-
-}
-

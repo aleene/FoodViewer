@@ -84,95 +84,62 @@ public struct OFF {
         case original = "original"
     }
     
-
-    // The strings are used in the URL's of the search query, so we look for the right thing
-    public enum SearchComponent: String {
-        case barcode = "code"
-        case searchText = "searchText"
-        case brand = "brands"
-        case category = "categories"
-        case country = "countries"
-        case label = "labels"
-        case language = "languages"
-        case packaging = "packaging"
-        case origin = "origins"
-        case purchasePlace = "purchase_places"
-        case additive = "additives"
-        case trace = "traces"
-        case allergen = "allergens"
-        case producerCode = "emb_codes"
-        case manufacturingPlaces = "manufacturing-place"
-        case store = "stores"
-        case entryDates = "entry-dates"
-        case lastEditDate = "last-edit-date"
-        case contributor = "contributors"
-        case creator = "creators"
-        case checker = "checkers"
-        case informer = "informers"
-        case editor = "editors"
-        case photographer = "photographers"
-        case corrector = "correctors"
-        case state = "states"
-        case nutritionGrade = "nutrition_grades"
-        case nutrient = "nutrient"
-    }
-    
-    static func description(for component: SearchComponent) -> String {
+    private static func string(for component: SearchComponent) -> String? {
         switch component {
         case .barcode:
-            return "barcode"
+            return "code"
         case .searchText:
-            return "search text"
+            return "searchText"
         case .brand:
-            return "brand"
+            return "brands"
         case .category:
-            return "category"
+            return "categories"
         case .country:
-            return "country"
+            return "countries"
         case .label:
-            return "label"
+            return "labels"
         case .language:
-            return "language"
+            return "languages"
         case .packaging:
             return "packaging"
         case .origin:
-            return "origin"
+            return "origins"
         case .purchasePlace:
-            return "purchase-place"
+            return "purchase_places"
         case .additive:
-            return "additive"
+            return "additives"
         case .trace:
-            return "trace"
+            return "traces"
         case .allergen:
-            return "allergen"
+            return "allergens"
         case .producerCode:
-            return "packager-code"
+            return "emb_codes"
         case .manufacturingPlaces:
             return "manufacturing-place"
         case .store:
-            return "store"
+            return "stores"
         case .entryDates:
             return "entry-dates"
         case .lastEditDate:
             return "last-edit-date"
         case .contributor:
-            return "contributor"
+            return "contributors"
         case .creator:
-            return "creator"
+            return "creators"
         case .checker:
-            return "checker"
+            return "checkers"
         case .informer:
-            return "informer"
+            return "informers"
         case .editor:
-            return "editor"
+            return "editors"
         case .photographer:
-            return "photographer"
+            return "photographers"
         case .corrector:
-            return "corrector"
+            return "correctors"
         case .state:
-            return "state"
+            return "states"
         case .nutritionGrade:
-            return "nutrition grade"
+            return "nutrition_grades"
         case .nutrient:
             return "nutrient"
         }
@@ -413,32 +380,32 @@ public struct OFF {
         // Set search tags
         
         var search_tag_index = 0
-        urlString += addSearchTag(template.brands, in: OFF.SearchComponent.brand, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.languages, in: OFF.SearchComponent.language, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.packaging, in: OFF.SearchComponent.packaging, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.additives, in: OFF.SearchComponent.additive, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.allergens, in: OFF.SearchComponent.allergen, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.traces, in: OFF.SearchComponent.trace, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.labels, in: OFF.SearchComponent.label, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.origins, in: OFF.SearchComponent.origin, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.manufacturing_places, in: OFF.SearchComponent.manufacturingPlaces, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.emb_codes, in: OFF.SearchComponent.producerCode, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.purchase_places, in: OFF.SearchComponent.purchasePlace, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.stores, in: OFF.SearchComponent.store, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.countries, in: OFF.SearchComponent.country, index: &search_tag_index) ?? ""
-        urlString += addSearchTag(template.categories, in: OFF.SearchComponent.category, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.brands, in: .brand, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.languages, in: .language, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.packaging, in: .packaging, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.additives, in: .additive, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.allergens, in: .allergen, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.traces, in: .trace, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.labels, in: .label, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.origins, in: .origin, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.manufacturing_places, in: .manufacturingPlaces, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.emb_codes, in: .producerCode, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.purchase_places, in: .purchasePlace, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.stores, in: .store, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.countries, in: .country, index: &search_tag_index) ?? ""
+        urlString += addSearchTag(template.categories, in: .category, index: &search_tag_index) ?? ""
         
         if template.level != nil && template.level! != .undefined {
             let tags = Tags.init([template.level!.rawValue])
             // The contain value is always set to true as it is encoded in the tags value.
-            urlString += addSearchTag((tags, true), in: OFF.SearchComponent.nutritionGrade, index: &search_tag_index) ?? ""
+            urlString += addSearchTag((tags, true), in: .nutritionGrade, index: &search_tag_index) ?? ""
         }
       
         // encode completion to: 
         //      tagtype_0=states&tag_contains_0=contains&tag_0=Product%20name%20to%20be%20completed
         //
         if let completion = template.completion {
-            urlString += addSearchTag((Tags.init([searchKey(for:completion).replacingOccurrences(of: "-", with: " ")]), true), in: OFF.SearchComponent.state, index: &search_tag_index) ?? ""
+            urlString += addSearchTag((Tags.init([searchKey(for:completion).replacingOccurrences(of: "-", with: " ")]), true), in: .state, index: &search_tag_index) ?? ""
         }
         // Add the search parts for all nutriments
         
@@ -510,7 +477,7 @@ public struct OFF {
     }
     
     // Convert a search tag pair to a part of an advanced search url
-    static private func addSearchTag(_ pair: (Tags, Bool)?, in component:OFF.SearchComponent, index: inout Int) -> String? {
+    static private func addSearchTag(_ pair: (Tags, Bool)?, in component:SearchComponent, index: inout Int) -> String? {
         if let (tags, shouldContain) = pair {
             if !tags.list.isEmpty {
                 var urlString = ""
@@ -518,8 +485,11 @@ public struct OFF {
                     urlString += URL.Search.Tag.Tiep
                     urlString += "\(index)"
                     urlString += URL.Divider.Equal
-                    urlString += component.rawValue
-                    
+                    if let validString = string(for:component) {
+                        urlString += validString
+                    } else {
+                        continue
+                    }
                     urlString += URL.Search.Tag.Contains
                     urlString += "\(index)"
                     urlString += URL.Divider.Equal
