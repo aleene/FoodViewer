@@ -98,6 +98,7 @@ struct TranslatableStrings {
     
     static let Name = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
     static let NoImageInTheRightLanguage = NSLocalizedString("No image in the right language", comment: "Tag indicating that no image in the correct language is available")
+    static let NoIngredients = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
     static let None = NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
     static let NutritionFacts = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
     static let NoProductsListed = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
@@ -142,8 +143,18 @@ struct TranslatableStrings {
     //
     
     static let Traces = NSLocalizedString("Traces", comment: "Text to indicate the traces of a product.")
+    
+    //
+    // MARK: - UUUUUUUUUUUUUUUU strings
+    //
+    
+    static let UnbalancedWarning = NSLocalizedString(" (WARNING: check brackets, they are unbalanced)", comment: "a warning to check the brackets used, they are unbalanced")
     static let Undefined = NSLocalizedString("Undefined", comment: "String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search)")
-    }
+    static let UnknownValue = TranslatableStrings.QuestionMark
+    
+    static let QuestionMark = NSLocalizedString("?", comment: "a questionmark used for several purposes")
+
+}
 
 
 

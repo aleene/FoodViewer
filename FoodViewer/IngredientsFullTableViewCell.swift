@@ -10,15 +10,11 @@ import UIKit
 
 protocol IngredientsFullCellDelegate: class {
     
-    func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn button:UITextView)
+    func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView)
 }
 
 
 class IngredientsFullTableViewCell: UITableViewCell {
-
-    internal struct Notification {
-        static let ChangeLanguageButtonTappedKey = "IngredientsFullTableViewCell.Notification.ChangeLanguageButtonTapped.Key"
-    }
 
     @IBOutlet weak var textView: UITextView! {
         didSet {
@@ -98,7 +94,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     var delegate: IngredientsFullCellDelegate? = nil {
         didSet {
             if delegate != nil && delegate! is UITextViewDelegate {
-                textView.delegate = delegate as! UITextViewDelegate
+                textView.delegate = delegate as? UITextViewDelegate
             }
         }
     }
@@ -106,8 +102,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
     var textViewTag: Int = 0
     
     private struct Constants {
-        static let NoIngredientsText = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
-        static let UnbalancedWarning = NSLocalizedString(" (WARNING: check brackets, they are unbalanced)", comment: "a warning to check the brackets used, they are unbalanced")
+        static let NoIngredientsText = TranslatableStrings.NoIngredients
+        static let UnbalancedWarning = TranslatableStrings.UnbalancedWarning
     }
     
     var ingredients: String? = nil {
@@ -159,7 +155,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
     private var unAttributedIngredients: String = ""
     
     func ingredientsTapped() {
-        NotificationCenter.default.post(name: .IngredientsTextViewTapped, object: nil)
+        delegate?.ingredientsFullTableViewCell(self, receivedActionOn: textView)
+        // NotificationCenter.default.post(name: .IngredientsTextViewTapped, object: nil)
     }
 
 }
@@ -185,9 +182,3 @@ extension String {
         return (fraction > 0)
     }
 }
-
-// Definition:
-extension Notification.Name {
-    static let IngredientsTextViewTapped = Notification.Name("IngredientsFullTableViewCell.Notification.IngredientsTextViewTapped")
-}
-

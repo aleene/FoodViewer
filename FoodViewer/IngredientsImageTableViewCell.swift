@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol IngredientsImageCellDelegate: class {
+    
+    func ingredientsImageTableViewCell(_ sender: IngredientsImageTableViewCell, receivedActionOnCamera button:UIButton)
+    func ingredientsImageTableViewCell(_ sender: IngredientsImageTableViewCell, receivedActionOnCameraRoll button:UIButton)
+}
+
 class IngredientsImageTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
@@ -53,7 +59,10 @@ class IngredientsImageTableViewCell: UITableViewCell {
         }
     }
 
+    var delegate: IngredientsImageCellDelegate? = nil
+
     @IBOutlet weak var ingredientsImageView: UIImageView!
+    
     @IBOutlet weak var takePhotoButton: UIButton! {
         didSet {
             takePhotoButton.isHidden = !editMode
@@ -62,7 +71,7 @@ class IngredientsImageTableViewCell: UITableViewCell {
 
     
     @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .IngredientsTakePhotoButtonTapped, object: nil)
+        delegate?.ingredientsImageTableViewCell(self, receivedActionOnCamera: sender)
     }
     
     @IBOutlet weak var selectFromCameraRollButton: UIButton! {
@@ -73,13 +82,6 @@ class IngredientsImageTableViewCell: UITableViewCell {
 
     
     @IBAction func selectFromCamerRollButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .IngredientsSelectFromCameraRollButtonTapped, object: nil)
+        delegate?.ingredientsImageTableViewCell(self, receivedActionOnCameraRoll: sender)
     }
-}
-
-// Definition:
-extension Notification.Name {
-    // static let AddImageTapped = Notification.Name("IdentificationImageTableViewCell.Notification.AddImageTapped")
-    static let IngredientsTakePhotoButtonTapped = Notification.Name("IngredientsImageTableViewCell.Notification.TakePhotoButtonTapped")
-    static let IngredientsSelectFromCameraRollButtonTapped = Notification.Name("IngredientsImageTableViewCell.Notification.SelectCameraFromRollButtonTapped")
 }
