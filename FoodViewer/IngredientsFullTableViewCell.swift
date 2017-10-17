@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol IngredientsFullCellDelegate: class {
+    
+    func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn button:UITextView)
+}
+
+
 class IngredientsFullTableViewCell: UITableViewCell {
 
     internal struct Notification {
@@ -44,7 +50,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         textView?.addGestureRecognizer(tapGestureRecognizer)
         
         textView?.layer.borderWidth = 0.5
-        textView?.delegate = textViewDelegate
+        textView?.delegate = delegate as? UITextViewDelegate
         textView?.tag = textViewTag
         textView?.isEditable = editMode
 
@@ -89,7 +95,13 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
     }
 
-    var textViewDelegate: IngredientsTableViewController? = nil
+    var delegate: IngredientsFullCellDelegate? = nil {
+        didSet {
+            if delegate != nil && delegate! is UITextViewDelegate {
+                textView.delegate = delegate as! UITextViewDelegate
+            }
+        }
+    }
     
     var textViewTag: Int = 0
     

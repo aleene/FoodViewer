@@ -506,16 +506,18 @@ class IdentificationTableViewController: UITableViewController {
             if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
                 // is the image available for the current language?
                 if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                    cell?.editMode = editMode
-                    cell?.identificationImage = image
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                    cell.editMode = editMode
+                    cell.identificationImage = image
+                    cell.delegate = self
+                    return cell
                 // in non-editMode show the primary language image
                 } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.frontImages[primaryLanguageCode]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                    cell?.editMode = editMode
-                    cell?.identificationImage = image
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                    cell.editMode = editMode
+                    cell.identificationImage = image
+                    cell.delegate = self
+                    return cell
                 // no image in the two languageCodes is available
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
@@ -532,10 +534,11 @@ class IdentificationTableViewController: UITableViewController {
                 if let result = product!.frontImages[currentLanguageCode!]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages[currentLanguageCode!]?.display?.image
-                        cell?.editMode = editMode
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                        cell.identificationImage = product!.frontImages[currentLanguageCode!]?.display?.image
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        return cell
                     default:
                         searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
@@ -548,10 +551,11 @@ class IdentificationTableViewController: UITableViewController {
                 } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = product!.frontImages[primaryLanguageCode]?.display?.image
-                        cell?.editMode = editMode
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                        cell.identificationImage = product!.frontImages[primaryLanguageCode]?.display?.image
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        return cell
                     default:
                         searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
@@ -563,10 +567,11 @@ class IdentificationTableViewController: UITableViewController {
                 // no image is available in the currentLanguage or the primary language
                 } else {
                     if editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                        cell?.identificationImage = nil
-                        cell?.editMode = editMode
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                        cell.identificationImage = nil
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        return cell
                     } else {
                         // image could not be found (yet)
                         searchResult = ImageFetchResult.noImageAvailable.description()
@@ -579,10 +584,11 @@ class IdentificationTableViewController: UITableViewController {
                 }
             } else {
                 if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? IdentificationImageTableViewCell
-                    cell?.identificationImage = nil
-                    cell?.editMode = editMode
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                    cell.identificationImage = nil
+                    cell.editMode = editMode
+                    cell.delegate = self
+                    return cell
                 } else {
                     searchResult = ImageFetchResult.noImageAvailable.description()
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
@@ -890,48 +896,12 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    func takePhotoButtonTapped() {
-        // opens the camera and allows the user to take an image and crop
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.delegate = self
-            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
-            imagePicker.sourceType = .camera
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.permittedArrowDirections = .any
-
-            }
-        }
-    }
-    
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
         picker.imagePickerController = UIImagePickerController.init()
         // picker.mediaTypes = [kUTTypeImage as String]
         return picker
     }()
-
-    func useCameraRollButtonTapped() {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum
-            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
-
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.sourceView = self.view
-                popoverPresentationController.permittedArrowDirections = .any
-            }
-        }
-    }
-
     
     fileprivate func newImageSelected(info: [String : Any]) {
         var image: UIImage? = nil
@@ -992,8 +962,8 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
@@ -1014,6 +984,45 @@ class IdentificationTableViewController: UITableViewController {
     }
 
 }
+
+// MARK: - IdentificationImageCellDelegate Delegate Functions
+
+extension IdentificationTableViewController: IdentificationImageCellDelegate {
+    
+    func identificationImageTableViewCell(_ sender: IdentificationImageTableViewCell, receivedActionOnCamera button:UIButton) {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.permittedArrowDirections = .any
+            }
+        }
+    }
+    func identificationImageTableViewCell(_ sender: IdentificationImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+                popoverPresentationController.permittedArrowDirections = .any
+            }
+        }
+    }
+}
+
 
 // MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
 

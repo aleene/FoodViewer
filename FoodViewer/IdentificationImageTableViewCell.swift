@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol IdentificationImageCellDelegate: class {
+    
+    func identificationImageTableViewCell(_ sender: IdentificationImageTableViewCell, receivedActionOnCamera button:UIButton)
+    func identificationImageTableViewCell(_ sender: IdentificationImageTableViewCell, receivedActionOnCameraRoll button:UIButton)
+}
+
 class IdentificationImageTableViewCell: UITableViewCell {
 
 
@@ -22,7 +28,7 @@ class IdentificationImageTableViewCell: UITableViewCell {
     }
     
     @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .FrontTakePhotoButtonTapped, object: nil)
+        delegate?.identificationImageTableViewCell(self, receivedActionOnCamera: sender)
     }
     
     @IBOutlet weak var useCameraRollButton: UIButton! {
@@ -32,7 +38,7 @@ class IdentificationImageTableViewCell: UITableViewCell {
     }
     
     @IBAction func useCameraRollTapped(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .FrontSelectFromCameraRollButtonTapped, object: nil)
+        delegate?.identificationImageTableViewCell(self, receivedActionOnCameraRoll: sender)
     }
 
     var editMode: Bool = false {
@@ -42,6 +48,7 @@ class IdentificationImageTableViewCell: UITableViewCell {
         }
     }
     
+    var delegate: IdentificationImageCellDelegate? = nil
 
     var identificationImage: UIImage? = nil {
         didSet {
@@ -84,10 +91,3 @@ class IdentificationImageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var identificationImageView: UIImageView!
 }
-
-// Definition:
-extension Notification.Name {
-    static let FrontTakePhotoButtonTapped = Notification.Name("IdentificationImageTableViewCell.Notification.FrontTakePhotoButtonTapped")
-    static let FrontSelectFromCameraRollButtonTapped = Notification.Name("IdentificationImageTableViewCell.Notification.FrontSelectFromCameraRollButtonTapped")
-}
-
