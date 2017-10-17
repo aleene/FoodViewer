@@ -880,9 +880,9 @@ class SupplyChainTableViewController: UITableViewController {
 
 extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
     
-    func segmentedControlToggled(_ sender: UISegmentedControl) {
-        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
-        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
+    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
+        let (currentProductSection, _, _) = tableStructureForProduct[segmentedControl.tag]
         
         switch currentProductSection {
         case .ingredientOriginSearch:
@@ -890,37 +890,37 @@ extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegat
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.origins.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .producerSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.manufacturing_places.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .producerCodeSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.emb_codes.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .storeSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.stores.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .locationSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.purchase_places.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .countrySearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.countries.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }

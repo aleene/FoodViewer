@@ -10,8 +10,9 @@ import UIKit
 
 
 protocol TagListViewSegmentedControlCellDelegate: class {
+    
     // function to let the delegate know that the switch changed
-    func segmentedControlToggled(_ sender: UISegmentedControl)
+    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl)
 }
 
 
@@ -39,7 +40,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     @IBAction func segmentedControlTapped(_ sender: UISegmentedControl) {
         inclusion = segmentedControl.selectedSegmentIndex == Constants.SegmentedControlIndex.Included ? true : false
-        delegate?.segmentedControlToggled(sender)
+        delegate?.tagListViewSegmentedControlTableViewCell(self, receivedActionOn:sender)
     }
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -88,7 +89,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         if delegate is TagListViewDelegate {
             tagListView?.delegate = delegate as? TagListViewDelegate
         } else {
-            assert(true, "Setup TagListViewDelegate")
+            assert(true, "TagListViewSegmentedControlTableViewCell: setup TagListViewDelegate")
         }
     }
     

@@ -285,8 +285,8 @@ class CategoriesTableViewController: UITableViewController {
 
 extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate {
     
-    func segmentedControlToggled(_ sender: UISegmentedControl) {
-        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
+    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
         let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
         
         switch currentProductSection {
@@ -295,7 +295,7 @@ extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.categories.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }

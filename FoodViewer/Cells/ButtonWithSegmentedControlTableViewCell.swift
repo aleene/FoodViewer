@@ -1,5 +1,5 @@
 //
-//  ButtonWithSwitchTableViewCell.swift
+//  ButtonWithSegmentedControlTableViewCell.swift
 //  FoodViewer
 //
 //  Created by arnaud on 07/10/2017.
@@ -8,7 +8,13 @@
 
 import UIKit
 
-class ButtonWithSwitchTableViewCell: UITableViewCell {
+protocol ButtonWithSegmentedControlCellDelegate: class {
+    // function to let the delegate know that the switch changed
+    func buttonTapped(_ sender: ButtonWithSegmentedControlTableViewCell, button: UIButton)
+    func segmentedControlToggled(_ sender: ButtonWithSegmentedControlTableViewCell, segmentedControl: UISegmentedControl)
+}
+
+class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
 
     @IBOutlet weak var button: UIButton! {
         didSet {
@@ -17,13 +23,13 @@ class ButtonWithSwitchTableViewCell: UITableViewCell {
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-        buttonTapped()
+        delegate?.buttonTapped(self, button: sender)
     }
     
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     @IBAction func segmentedControlTapped(_ sender: UISegmentedControl) {
-        setInclusion()
+        delegate?.segmentedControlToggled(self, segmentedControl: sender)
     }
     
     var buttonText: String? = nil {
@@ -55,13 +61,14 @@ class ButtonWithSwitchTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: CompletionStatesTableViewController? = nil
+    var delegate: ButtonWithSegmentedControlCellDelegate? = nil
     
-    private func buttonTapped() {
+    /*private func buttonTapped() {
         delegate?.setCompletion()
     }
     
     func setInclusion() {
         delegate?.setInclusion(segmentedControl.selectedSegmentIndex == 1)
     }
+ */
 }

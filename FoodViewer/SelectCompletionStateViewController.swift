@@ -11,7 +11,7 @@ import UIKit
 class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     private struct Storyboard {
-        static let UnwindSegue = "Show Select Completion State Segue Identifier"
+        static let UnwindSegue = "Unwind Select Completion State"
     }
     
     @IBOutlet weak var pickerView: UIPickerView! {

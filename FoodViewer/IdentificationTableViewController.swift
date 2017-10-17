@@ -1019,8 +1019,8 @@ class IdentificationTableViewController: UITableViewController {
 
 extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
     
-    func segmentedControlToggled(_ sender: UISegmentedControl) {
-        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
+    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
+        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
         let currentProductSection = tableStructure[sender.tag]
         switch currentProductSection {
         case .languagesSearch:
@@ -1028,19 +1028,19 @@ extension IdentificationTableViewController: TagListViewSegmentedControlCellDele
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.languages.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .packagingSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.packaging.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .brandsSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.brands.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }

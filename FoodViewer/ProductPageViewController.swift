@@ -516,7 +516,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
         updatedProduct = nil
     }
-        
+  
     func changeConfirmButtonToFailure() {
         confirmBarButtonItem.tintColor = .red
         Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
@@ -1048,7 +1048,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     // MARK: - Segues
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    /*
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
             case Constants.ConfirmProductViewControllerSegue:
@@ -1059,6 +1060,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
         }
     }
+  */
         
     // MARK: TBD This is not very elegant
         
@@ -1185,6 +1187,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         OFFProducts.manager.flushImages()
     }
         
+}
+
+// Definition:
+extension Notification.Name {
+    static let ProductUpdateSucceeded = Notification.Name("Product Update Succeeded")
+    static let ProductUpdateFailed = Notification.Name("Product Update Failed")
 }
 
 // MARK: - TextField Delegation Functions

@@ -63,7 +63,7 @@ class CompletionStatesTableViewController: UITableViewController {
         }
         struct SegueIdentifier {
             static let SelectCompletionState = "Show Select Completion State Segue Identifier"
-            static let SelectContriburRole = "Show Select Contributor Role Segue Identifier"
+            static let SelectContributorRole = "Show Select Contributor Role Segue Identifier"
         }
     }
     
@@ -116,7 +116,7 @@ class CompletionStatesTableViewController: UITableViewController {
         if query != nil {
             switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCompletionState, for: indexPath) as! ButtonWithSwitchTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCompletionState, for: indexPath) as! ButtonWithSegmentedControlTableViewCell
                 cell.delegate = self
                 cell.editMode = editMode
                 cell.isCompleted = query?.completion?.value ?? true
@@ -237,10 +237,10 @@ class CompletionStatesTableViewController: UITableViewController {
             case Storyboard.SegueIdentifier.SelectCompletionState:
                 if  let vc = segue.destination as? SelectCompletionStateViewController {
                     if let button = sender as? UIButton {
-                        if button.superview?.superview as? ButtonWithSwitchTableViewCell != nil {
+                        if button.superview?.superview as? ButtonWithSegmentedControlTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
+                                ppc.permittedArrowDirections = .any
                                 // I need the button coordinates in the coordinates of the current controller view
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
@@ -251,7 +251,7 @@ class CompletionStatesTableViewController: UITableViewController {
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.SelectContriburRole:
+            case Storyboard.SegueIdentifier.SelectContributorRole:
                 if  let vc = segue.destination as? SelectContributorRoleViewController {
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? TextFieldWithButtonTableViewCell != nil {
@@ -350,23 +350,28 @@ class CompletionStatesTableViewController: UITableViewController {
     func setInclusion(_ value: Bool) {
         query?.completion?.value = value
     }
-    
-    /*
- func setRole() {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContriburRole, sender: self)
-    }
- */
-    
 
 }
 
+// MARK: - ButtonWithSegmentedControlCellDelegate Functions
+
+extension CompletionStatesTableViewController: ButtonWithSegmentedControlCellDelegate {
+    
+    func buttonTapped(_ sender: ButtonWithSegmentedControlTableViewCell, button: UIButton) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCompletionState, sender: button)
+    }
+    
+    func segmentedControlToggled(_ sender: ButtonWithSegmentedControlTableViewCell, segmentedControl: UISegmentedControl) {
+        query?.completion?.value = segmentedControl.selectedSegmentIndex == 1 ? true : false
+    }
+}
 
 // MARK: - TextFieldWithButtonCellDelegate Functions
 
 extension CompletionStatesTableViewController: TextFieldWithButtonCellDelegate {
     
-    func buttonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContriburRole, sender: sender)
+    func textFieldWithButtonTableViewCell(_ sender: TextFieldWithButtonTableViewCell, receivedActionOn button:UIButton) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectContributorRole, sender: button)
     }
     
 }

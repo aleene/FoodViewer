@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TextFieldWithButtonCellDelegate: class {
-    func buttonTapped(_ sender: UIButton)
+    func textFieldWithButtonTableViewCell(_ sender: TextFieldWithButtonTableViewCell, receivedActionOn button:UIButton)
 }
 
 class TextFieldWithButtonTableViewCell: UITableViewCell {
@@ -21,7 +21,8 @@ class TextFieldWithButtonTableViewCell: UITableViewCell {
     @IBOutlet weak var button: UIButton!
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-        delegate?.buttonTapped(sender)
+        delegate?.textFieldWithButtonTableViewCell(self, receivedActionOn:sender)
+
     }
     
     var username: String? {

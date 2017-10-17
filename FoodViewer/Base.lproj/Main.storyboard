@@ -2102,22 +2102,33 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Completion State Cell Identifier" id="A0Q-Nh-7Yn" customClass="ButtonWithSwitchTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Completion State Cell Identifier" id="A0Q-Nh-7Yn" customClass="ButtonWithSegmentedControlTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="160" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A0Q-Nh-7Yn" id="AqF-CW-gnc">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXy-Iw-rue">
-                                            <rect key="frame" x="8" y="8" width="267" height="27.5"/>
+                                        <view contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="csi-N7-VgA">
+                                            <rect key="frame" x="0.0" y="0.0" width="126.5" height="44"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXy-Iw-rue">
+                                            <rect key="frame" x="126.5" y="8" width="30" height="27.5"/>
                                             <connections>
-                                                <action selector="buttonTapped:" destination="A0Q-Nh-7Yn" eventType="touchUpInside" id="Hca-ca-Q0b"/>
-                                                <segue destination="XNl-I2-gwv" kind="popoverPresentation" identifier="Show Select Completion State Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="x9B-37-hvM">
+                                                <action selector="buttonTapped:" destination="A0Q-Nh-7Yn" eventType="touchUpInside" id="gY1-ar-vvC"/>
+                                                <segue destination="XNl-I2-gwv" kind="popoverPresentation" identifier="Show Select Completion State Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="yqe-wh-PDX">
                                                     <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                                                 </segue>
                                             </connections>
                                         </button>
+                                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ORk-C6-pqk">
+                                            <rect key="frame" x="156.5" y="0.0" width="126.5" height="43.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="10" id="vhm-xg-X5p"/>
+                                            </constraints>
+                                        </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WWA-RF-t6p">
                                             <rect key="frame" x="283" y="8" width="29" height="29"/>
                                             <segments>
@@ -2125,22 +2136,29 @@
                                                 <segment title=""/>
                                             </segments>
                                             <connections>
-                                                <action selector="segmentedControlTapped:" destination="A0Q-Nh-7Yn" eventType="valueChanged" id="nEL-bV-KN7"/>
+                                                <action selector="segmentedControlTapped:" destination="A0Q-Nh-7Yn" eventType="valueChanged" id="TEm-ax-q8s"/>
                                             </connections>
                                         </segmentedControl>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="leadingMargin" secondItem="LXy-Iw-rue" secondAttribute="leading" id="GDa-uN-QA1"/>
+                                        <constraint firstItem="ORk-C6-pqk" firstAttribute="leading" secondItem="LXy-Iw-rue" secondAttribute="trailing" id="5Gv-h5-dB8"/>
+                                        <constraint firstItem="csi-N7-VgA" firstAttribute="leading" secondItem="AqF-CW-gnc" secondAttribute="leading" id="BV2-4b-Pvv"/>
+                                        <constraint firstAttribute="bottom" secondItem="csi-N7-VgA" secondAttribute="bottom" id="L3w-pY-QmC"/>
+                                        <constraint firstAttribute="bottom" secondItem="ORk-C6-pqk" secondAttribute="bottom" id="Lpb-Ap-OZa"/>
+                                        <constraint firstItem="csi-N7-VgA" firstAttribute="width" secondItem="ORk-C6-pqk" secondAttribute="width" id="M5u-cK-53M"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="LXy-Iw-rue" secondAttribute="bottom" id="TDg-vK-4UT"/>
+                                        <constraint firstItem="csi-N7-VgA" firstAttribute="top" secondItem="AqF-CW-gnc" secondAttribute="top" id="bld-oA-zCB"/>
                                         <constraint firstItem="WWA-RF-t6p" firstAttribute="centerY" secondItem="LXy-Iw-rue" secondAttribute="centerY" id="h7V-pc-7K7"/>
+                                        <constraint firstItem="LXy-Iw-rue" firstAttribute="leading" secondItem="csi-N7-VgA" secondAttribute="trailing" id="iXJ-2x-N2K"/>
                                         <constraint firstItem="LXy-Iw-rue" firstAttribute="top" secondItem="AqF-CW-gnc" secondAttribute="topMargin" id="j5w-h9-fF8"/>
-                                        <constraint firstItem="WWA-RF-t6p" firstAttribute="leading" secondItem="LXy-Iw-rue" secondAttribute="trailing" constant="8" id="lJ6-nK-Eca"/>
+                                        <constraint firstItem="WWA-RF-t6p" firstAttribute="leading" secondItem="ORk-C6-pqk" secondAttribute="trailing" id="pT8-um-7cd"/>
+                                        <constraint firstItem="ORk-C6-pqk" firstAttribute="top" secondItem="AqF-CW-gnc" secondAttribute="top" id="xAF-9k-9ZM"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="WWA-RF-t6p" secondAttribute="trailing" id="ylO-DU-Aol"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="button" destination="LXy-Iw-rue" id="EWD-3e-8vW"/>
-                                    <outlet property="segmentedControl" destination="WWA-RF-t6p" id="94F-Xi-Ymc"/>
+                                    <outlet property="button" destination="LXy-Iw-rue" id="bhr-6t-5zb"/>
+                                    <outlet property="segmentedControl" destination="WWA-RF-t6p" id="2ui-jm-wcu"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Completion State TagListView Cell Identifier" id="PbA-Fp-MQq" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -3664,7 +3682,7 @@
                     </view>
                     <connections>
                         <outlet property="pickerView" destination="vJz-da-4Gb" id="qP0-Z3-ax7"/>
-                        <segue destination="nx9-lU-Bg8" kind="unwind" identifier="Unwind Set Completion State For Done" unwindAction="unwindSetCompletionStateForDone:" id="8Th-RV-FRl"/>
+                        <segue destination="nx9-lU-Bg8" kind="unwind" identifier="Unwind Select Completion State" unwindAction="unwindSetCompletionStateForDone:" id="3UM-ju-LK0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNM-j5-4uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3709,7 +3727,7 @@
                     </view>
                     <connections>
                         <outlet property="pickerView" destination="Y7H-3M-asn" id="jmT-qk-67e"/>
-                        <segue destination="S7V-7U-QTJ" kind="unwind" identifier="Unwind Set Contributor Role For Done" unwindAction="unwindSetContributorRoleForDone:" id="qRr-hv-V87"/>
+                        <segue destination="S7V-7U-QTJ" kind="unwind" identifier="Unwind Set Contributor Role For Done" unwindAction="unwindSetContributorRoleForDone:" id="5WH-6e-zLt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cue-8U-B4h" userLabel="First Responder" sceneMemberID="firstResponder"/>

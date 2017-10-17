@@ -971,9 +971,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
 extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegate {
     
-    func segmentedControlToggled(_ sender: UISegmentedControl) {
-        let inclusion = sender.selectedSegmentIndex == 0 ? false : true
-        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
+    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
+        let (currentProductSection, _, _) = tableStructureForProduct[segmentedControl.tag]
         
         switch currentProductSection {
         case .labelsSearch:
@@ -981,25 +981,25 @@ extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegat
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.labels.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .tracesSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.traces.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .additivesSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.additives.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .allergensSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.allergens.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: sender.tag), with: .fade)
+            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }

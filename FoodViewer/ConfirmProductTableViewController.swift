@@ -5,7 +5,7 @@
 //  Created by arnaud on 27/09/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 import LocalAuthentication
 
@@ -268,13 +268,15 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(forName: .ExpirydateHasBeenSet,
+        /*
+         NotificationCenter.default.addObserver(forName: .ExpirydateHasBeenSet,
                                                object:nil, queue:OperationQueue.main) {
                                                 notification in
                                                 guard let userInfo = notification.userInfo,
                                                     let _  = userInfo[ExpiryDatePickerTableViewCell.Notification.ExpiryDateHasBeenSetKey] as? Date else { return }
                                                 self.selectedDate = notification.userInfo?[ExpiryDatePickerTableViewCell.Notification.ExpiryDateHasBeenSetKey] as? Date
-        }
+ 
+    }*/
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -292,10 +294,5 @@ class ConfirmProductTableViewController: UITableViewController, UIPickerViewDele
     
 }
 
-// Definition:
-    extension Notification.Name {
-        static let ProductUpdateSucceeded = Notification.Name("Product Update Succeeded")
-        static let ProductUpdateFailed = Notification.Name("Product Update Failed")
-}
 
-
+*/

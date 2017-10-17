@@ -18,7 +18,7 @@ class SetWarningTableViewCell: UITableViewCell {
     
     var stateTitle: String? = nil {
         didSet {
-            var stateLabelText = stateTitle != nil ? stateTitle! : NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
+            var stateLabelText = stateTitle != nil ? stateTitle! : TranslatableStrings.None
             // add a question mark
             stateLabelText += "?"
             stateLabel.text = stateLabelText
