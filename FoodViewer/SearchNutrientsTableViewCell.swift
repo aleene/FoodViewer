@@ -15,13 +15,9 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         static let ChangeSearchNutrientCompareButtonTappedKey = "SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped.Key"
     }
     
-    fileprivate struct Constants {
-        static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specified.")
-    }
-    
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
-            itemLabel.text = searchNutrition?.key ?? Constants.UnknownValue
+            itemLabel.text = searchNutrition?.key ?? TranslatableStrings.UnknownValue
         }
     }
     
@@ -66,7 +62,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         if let validUnit = searchNutrition?.unit {
             unitButton.setTitle(validUnit.short(), for: .normal)
         } else {
-            unitButton.setTitle(Constants.UnknownValue, for: .normal)
+            unitButton.setTitle(TranslatableStrings.UnknownValue, for: .normal)
         }
     }
     

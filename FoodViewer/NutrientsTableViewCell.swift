@@ -10,23 +10,15 @@ import UIKit
 
 class NutrientsTableViewCell: UITableViewCell {
     
-    internal struct Notification {
-        static let ChangeNutrientUnitButtonTappedKey = "NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTapped.Key"
-    }
-
-    fileprivate struct Constants {
-        static let UnknownValue = NSLocalizedString("?", comment: "Text when no value for nutritional facts have been specified.")
-    }
-    
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
-            itemLabel.text = nutritionDisplayFactItem?.name != nil ? nutritionDisplayFactItem!.name! : Constants.UnknownValue
+            itemLabel.text = nutritionDisplayFactItem?.name != nil ? nutritionDisplayFactItem!.name! : TranslatableStrings.UnknownValue
         }
     }
     
     @IBOutlet weak var textField: UITextField! {
         didSet {
-            textField.text = nutritionDisplayFactItem?.value != nil ? nutritionDisplayFactItem!.value! : Constants.UnknownValue
+            textField.text = nutritionDisplayFactItem?.value != nil ? nutritionDisplayFactItem!.value! : TranslatableStrings.UnknownValue
             textField.tag = tag
             textField.delegate = delegate
         }
@@ -42,9 +34,9 @@ class NutrientsTableViewCell: UITableViewCell {
     var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
         didSet {
             if let item = nutritionDisplayFactItem {
-                itemLabel.text = item.name != nil ? item.name! : Constants.UnknownValue
-                textField?.text = item.value != nil ? item.value! : Constants.UnknownValue
-                item.unit != nil ? unitButton.setTitle(item.unit!.short(), for: .normal) : unitButton.setTitle(Constants.UnknownValue, for: .normal)
+                itemLabel.text = item.name != nil ? item.name! : TranslatableStrings.UnknownValue
+                textField?.text = item.value != nil ? item.value! : TranslatableStrings.UnknownValue
+                item.unit != nil ? unitButton.setTitle(item.unit!.short(), for: .normal) : unitButton.setTitle(TranslatableStrings.UnknownValue, for: .normal)
             }
         }
     }
@@ -79,9 +71,3 @@ class NutrientsTableViewCell: UITableViewCell {
         }
     }
 }
-
-// Definition:
-extension Notification.Name {
-    static let ChangeNutrientUnitButtonTapped = Notification.Name("NutrientsTableViewCell.Notification.ChangeNutrientUnitButtonTapped")
-}
-
