@@ -1058,12 +1058,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             performSegue(withIdentifier: Storyboard.SegueIdentifier.AddNutrient, sender: sender)
         }
     }
-
+    /*
     func showNutrimentUnitSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTappedKey] {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: sender)
         }
     }
+ */
     
     func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
@@ -1189,7 +1190,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeSearchNutrientUnitButtonTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeSearchNutrientUnitButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)
@@ -1212,7 +1213,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
 }
 
-// MARK: - TextField delegate functions
+// MARK: - SearchNutrientsCellDelegate functions
+
+extension NutrientsTableViewController: SearchNutrientsCellDelegate {
+    
+    func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnUnit button:UIButton) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: button)
+    }
+}
+
+// MARK: - TextFieldDelegate functions
 
 extension NutrientsTableViewController: UITextFieldDelegate {
     

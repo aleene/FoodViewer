@@ -114,7 +114,7 @@ struct TranslatableStrings {
     static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
     static let PackagerCodes = NSLocalizedString("Packager Code", comment: "Gneric string to indicate the packager codes.")
     static let PetFoodProducts = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-    static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + " " + TranslatableStrings.PhotographerUnicode
+    static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + TranslatableStrings.Space + TranslatableStrings.PhotographerUnicode
     static let PhotographerUnicode = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")
     static let ProductDoesNotExistAlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
     static let ProductDoesNotExistAlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
@@ -153,6 +153,7 @@ struct TranslatableStrings {
     static let UnknownValue = TranslatableStrings.QuestionMark
     
     static let QuestionMark = NSLocalizedString("?", comment: "a questionmark used for several purposes")
+    static let Space = NSLocalizedString(" ", comment: "a space used for several purposes")
 
 }
 

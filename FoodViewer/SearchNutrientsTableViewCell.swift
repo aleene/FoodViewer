@@ -8,12 +8,23 @@
 
 import UIKit
 
+// IN principle no protocol is needed for letting a button segue into another vc
+// But not with two buttons in separate cells, which go to the same vc
+
+protocol SearchNutrientsCellDelegate: class {
+    
+    func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnUnit button:UIButton)
+    // func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnCompare button:UIButton)
+}
+
 class SearchNutrientsTableViewCell: UITableViewCell {
     
-    internal struct Notification {
+    /*
+ internal struct Notification {
         static let ChangeSearchNutrientUnitButtonTappedKey = "SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTapped.Key"
         static let ChangeSearchNutrientCompareButtonTappedKey = "SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped.Key"
     }
+ */
     
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
@@ -35,7 +46,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         didSet {
             setText()
             textField.tag = tag
-            textField.delegate = delegate
+            textField.delegate = delegate as? UITextFieldDelegate
         }
     }
     
@@ -43,7 +54,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         if let validValue = searchNutrition?.value {
             textField.text = "\(validValue)"
         } else {
-            textField.text = Constants.UnknownValue
+            textField.text = TranslatableStrings.UnknownValue
         }
     }
     
@@ -54,8 +65,9 @@ class SearchNutrientsTableViewCell: UITableViewCell {
     }
     
     @IBAction func unitButtonTapped(_ sender: UIButton) {
-        let userInfo = [Notification.ChangeSearchNutrientUnitButtonTappedKey:sender]
-        NotificationCenter.default.post(name:.ChangeSearchNutrientUnitButtonTapped, object:nil, userInfo: userInfo)
+        delegate?.searchNutrientsTableViewCell(self, receivedActionOnUnit: sender)
+        //let userInfo = [Notification.ChangeSearchNutrientUnitButtonTappedKey:sender]
+        //NotificationCenter.default.post(name:.ChangeSearchNutrientUnitButtonTapped, object:nil, userInfo: userInfo)
     }
     
     private func setUnit() {
@@ -101,16 +113,17 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: NutrientsTableViewController? = nil {
+    var delegate: SearchNutrientsCellDelegate? = nil {
         didSet {
-            textField?.delegate = delegate
+            textField?.delegate = delegate as? UITextFieldDelegate
         }
     }
 }
-
+/*
 // Definition:
 extension Notification.Name {
     static let ChangeSearchNutrientUnitButtonTapped = Notification.Name("SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTapped")
     static let ChangeSearchNutrientCompareButtonTapped = Notification.Name("SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped")
 }
+ */
 
