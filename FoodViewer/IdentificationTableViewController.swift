@@ -506,16 +506,16 @@ class IdentificationTableViewController: UITableViewController {
             if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
                 // is the image available for the current language?
                 if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                     cell.editMode = editMode
-                    cell.identificationImage = image
+                    cell.productImage = image
                     cell.delegate = self
                     return cell
                 // in non-editMode show the primary language image
                 } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.frontImages[primaryLanguageCode]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                     cell.editMode = editMode
-                    cell.identificationImage = image
+                    cell.productImage = image
                     cell.delegate = self
                     return cell
                 // no image in the two languageCodes is available
@@ -534,8 +534,8 @@ class IdentificationTableViewController: UITableViewController {
                 if let result = product!.frontImages[currentLanguageCode!]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
-                        cell.identificationImage = product!.frontImages[currentLanguageCode!]?.display?.image
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = product!.frontImages[currentLanguageCode!]?.display?.image
                         cell.editMode = editMode
                         cell.delegate = self
                         return cell
@@ -551,8 +551,8 @@ class IdentificationTableViewController: UITableViewController {
                 } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
-                        cell.identificationImage = product!.frontImages[primaryLanguageCode]?.display?.image
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = product!.frontImages[primaryLanguageCode]?.display?.image
                         cell.editMode = editMode
                         cell.delegate = self
                         return cell
@@ -567,8 +567,8 @@ class IdentificationTableViewController: UITableViewController {
                 // no image is available in the currentLanguage or the primary language
                 } else {
                     if editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
-                        cell.identificationImage = nil
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = nil
                         cell.editMode = editMode
                         cell.delegate = self
                         return cell
@@ -584,8 +584,8 @@ class IdentificationTableViewController: UITableViewController {
                 }
             } else {
                 if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IdentificationImageTableViewCell
-                    cell.identificationImage = nil
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                    cell.productImage = nil
                     cell.editMode = editMode
                     cell.delegate = self
                     return cell
@@ -804,7 +804,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let vc = segue.destination as? SelectImageSourceViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
-                        if button.superview?.superview as? IdentificationImageTableViewCell != nil {
+                        if button.superview?.superview as? ProductImageTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .any
@@ -987,9 +987,9 @@ class IdentificationTableViewController: UITableViewController {
 
 // MARK: - IdentificationImageCellDelegate Delegate Functions
 
-extension IdentificationTableViewController: IdentificationImageCellDelegate {
+extension IdentificationTableViewController: ProductImageCellDelegate {
     
-    func identificationImageTableViewCell(_ sender: IdentificationImageTableViewCell, receivedActionOnCamera button:UIButton) {
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
@@ -1005,7 +1005,7 @@ extension IdentificationTableViewController: IdentificationImageCellDelegate {
             }
         }
     }
-    func identificationImageTableViewCell(_ sender: IdentificationImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true

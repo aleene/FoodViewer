@@ -188,6 +188,7 @@
 		51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B721711DD5D208003AF608 /* NutritionFactUnit.swift */; };
 		51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B721731DD5F268003AF608 /* AddNutrientViewController.swift */; };
 		51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B7416F1F949E280025F8A1 /* SearchComponent.swift */; };
+		51B741721F966ECD0025F8A1 /* ProductImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B741711F966EC90025F8A1 /* ProductImageTableViewCell.swift */; };
 		51B904881E7ADC7E004E3439 /* MetricPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B904871E7ADC7E004E3439 /* MetricPrefix.swift */; };
 		51B9048A1E7AEC9C004E3439 /* Weight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B904891E7AEC9B004E3439 /* Weight.swift */; };
 		51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51B9048B1E7AEE38004E3439 /* Energy.swift */; };
@@ -466,6 +467,7 @@
 		51B721711DD5D208003AF608 /* NutritionFactUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnit.swift; sourceTree = "<group>"; };
 		51B721731DD5F268003AF608 /* AddNutrientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNutrientViewController.swift; sourceTree = "<group>"; };
 		51B7416F1F949E280025F8A1 /* SearchComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchComponent.swift; sourceTree = "<group>"; };
+		51B741711F966EC90025F8A1 /* ProductImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImageTableViewCell.swift; path = Cells/ProductImageTableViewCell.swift; sourceTree = "<group>"; };
 		51B904871E7ADC7E004E3439 /* MetricPrefix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetricPrefix.swift; sourceTree = "<group>"; };
 		51B904891E7AEC9B004E3439 /* Weight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weight.swift; sourceTree = "<group>"; };
 		51B9048B1E7AEE38004E3439 /* Energy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Energy.swift; sourceTree = "<group>"; };
@@ -1000,6 +1002,7 @@
 				51DA03221F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift */,
 				513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */,
 				517AAD261C7B4D0700B12F3C /* Product Cells */,
+				51B741711F966EC90025F8A1 /* ProductImageTableViewCell.swift */,
 			);
 			name = ProductTableCells;
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
 				51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */,
 				5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */,
+				51B741721F966ECD0025F8A1 /* ProductImageTableViewCell.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
 				512499A11C6CD0100061A083 /* ImageViewController.swift in Sources */,
 				51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */,

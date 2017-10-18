@@ -1,28 +1,29 @@
 //
-//  IngredientsImageTableViewCell.swift
+//  ProductImageTableViewCell.swift
 //  FoodViewer
 //
-//  Created by arnaud on 24/02/16.
-//  Copyright © 2016 Hovering Above. All rights reserved.
+//  Created by arnaud on 17/10/2017.
+//  Copyright © 2017 Hovering Above. All rights reserved.
 //
-/*
+
 import UIKit
 
-protocol IngredientsImageCellDelegate: class {
+protocol ProductImageCellDelegate: class {
     
-    func ingredientsImageTableViewCell(_ sender: IngredientsImageTableViewCell, receivedActionOnCamera button:UIButton)
-    func ingredientsImageTableViewCell(_ sender: IngredientsImageTableViewCell, receivedActionOnCameraRoll button:UIButton)
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton)
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton)
 }
 
-class IngredientsImageTableViewCell: UITableViewCell {
+class ProductImageTableViewCell: UITableViewCell {
 
+    
     fileprivate struct Constants {
         static let CellContentViewMargin = CGFloat(8)
     }
-
-    var ingredientsImage: UIImage? = nil {
+    
+    var productImage: UIImage? = nil {
         didSet {
-            if let newImage = ingredientsImage {
+            if let newImage = productImage {
                 // print("\(brandLabel): product image size \(newImage.size)")
                 // what to do if the image is wider than the contentView area of the cell's contentView?
                 let widthScale = (newImage.size.width) / (self.contentView.frame.size.width - Constants.CellContentViewMargin * 2)
@@ -33,45 +34,45 @@ class IngredientsImageTableViewCell: UITableViewCell {
                         // width is the determining factor
                         let newSize = CGSize(width: newImage.size.width / widthScale, height: newImage.size.height / widthScale)
                         let scaledImage = newImage.imageResize(newSize)
-                        ingredientsImageView?.image = scaledImage
+                        productImageView?.image = scaledImage
                     } else {
                         // height is the determining factor
                         let newSize = CGSize(width: newImage.size.width / heightScale, height: newImage.size.height / heightScale)
                         let scaledImage = newImage.imageResize(newSize)
-                        ingredientsImageView?.image = scaledImage
+                        productImageView?.image = scaledImage
                     }
                 } else {
-                    ingredientsImageView?.image = newImage
+                    productImageView?.image = newImage
                 }
                 // still need to solved what happens when the image is very high
                 
-                ingredientsImageView.contentMode = .center
+                imageView?.contentMode = .center
             } else {
-                ingredientsImageView?.image = UIImage(named: "ImageLoading")
+                imageView?.image = UIImage(named: "ImageLoading")
             }
         }
     }
-
+    
     var editMode: Bool = false {
         didSet {
             takePhotoButton?.isHidden = !editMode
             selectFromCameraRollButton?.isHidden = !editMode
         }
     }
-
-    var delegate: IngredientsImageCellDelegate? = nil
-
-    @IBOutlet weak var ingredientsImageView: UIImageView!
+    
+    var delegate: ProductImageCellDelegate? = nil
+    
+    @IBOutlet weak var productImageView: UIImageView!
     
     @IBOutlet weak var takePhotoButton: UIButton! {
         didSet {
             takePhotoButton.isHidden = !editMode
         }
     }
-
+    
     
     @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
-        delegate?.ingredientsImageTableViewCell(self, receivedActionOnCamera: sender)
+        delegate?.productImageTableViewCell(self, receivedActionOnCamera: sender)
     }
     
     @IBOutlet weak var selectFromCameraRollButton: UIButton! {
@@ -79,10 +80,11 @@ class IngredientsImageTableViewCell: UITableViewCell {
             selectFromCameraRollButton.isHidden = !editMode
         }
     }
-
+    
     
     @IBAction func selectFromCamerRollButtonTapped(_ sender: UIButton) {
-        delegate?.ingredientsImageTableViewCell(self, receivedActionOnCameraRoll: sender)
+        delegate?.productImageTableViewCell(self, receivedActionOnCameraRoll: sender)
     }
+
+
 }
- */

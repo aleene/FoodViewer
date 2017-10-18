@@ -577,7 +577,7 @@
                                     <outlet property="textField" destination="m2c-cB-pz9" id="t7d-fF-JQf"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Identification Image Cell" rowHeight="300" id="E19-gY-jRk" customClass="IdentificationImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Identification Image Cell" rowHeight="300" id="E19-gY-jRk" customClass="ProductImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="424" width="375" height="300"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E19-gY-jRk" id="gm3-mZ-YUW">
@@ -598,7 +598,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <state key="normal" image="Camera"/>
                                             <connections>
-                                                <action selector="takePhotoButtonTapped:" destination="E19-gY-jRk" eventType="touchUpInside" id="Mh4-TF-n84"/>
+                                                <action selector="takePhotoButtonTapped:" destination="E19-gY-jRk" eventType="touchUpInside" id="Xdg-lE-1DP"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="nRE-8R-gnq">
@@ -608,7 +608,7 @@
                                             </constraints>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
-                                                <action selector="useCameraRollTapped:" destination="E19-gY-jRk" eventType="touchUpInside" id="o61-u6-jvy"/>
+                                                <action selector="selectFromCamerRollButtonTapped:" destination="E19-gY-jRk" eventType="touchUpInside" id="w2p-kr-g3D"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -626,9 +626,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="identificationImageView" destination="XzH-J4-r9F" id="0mj-Uf-xbe"/>
-                                    <outlet property="takePhotoButton" destination="ele-zO-pK9" id="anS-ot-uKc"/>
-                                    <outlet property="useCameraRollButton" destination="nRE-8R-gnq" id="mH5-Aw-WJY"/>
+                                    <outlet property="productImageView" destination="XzH-J4-r9F" id="jEd-q5-IMO"/>
+                                    <outlet property="selectFromCameraRollButton" destination="nRE-8R-gnq" id="ciN-1v-3Vk"/>
+                                    <outlet property="takePhotoButton" destination="ele-zO-pK9" id="wme-F8-LPu"/>
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Identification Image" id="NIk-rX-rWX"/>
                                 </connections>
                             </tableViewCell>
@@ -2822,7 +2822,7 @@
                                     <outlet property="tagListView" destination="iLT-b2-JWJ" id="LuG-B5-BOb"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ingredients Image Cell" id="ae1-IC-EpV" customClass="IngredientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Ingredients Image Cell" id="ae1-IC-EpV" customClass="ProductImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="292" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ae1-IC-EpV" id="ELm-nP-Bga">
@@ -2840,7 +2840,7 @@
                                             </constraints>
                                             <state key="normal" image="Camera"/>
                                             <connections>
-                                                <action selector="takePhotoButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="hcr-Ny-I76"/>
+                                                <action selector="takePhotoButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="mLE-Xe-VYH"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWz-fA-YUG">
@@ -2850,7 +2850,7 @@
                                             </constraints>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
-                                                <action selector="selectFromCamerRollButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="HBn-cd-zeL"/>
+                                                <action selector="selectFromCamerRollButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="OHE-45-gJb"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2868,9 +2868,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="ingredientsImageView" destination="2Rx-n8-WDV" id="VRM-v0-agh"/>
-                                    <outlet property="selectFromCameraRollButton" destination="jWz-fA-YUG" id="BhL-nC-1gH"/>
-                                    <outlet property="takePhotoButton" destination="64u-QN-3dx" id="0iu-mX-LoO"/>
+                                    <outlet property="productImageView" destination="2Rx-n8-WDV" id="bFq-iZ-qMG"/>
+                                    <outlet property="selectFromCameraRollButton" destination="jWz-fA-YUG" id="PNe-nk-tnQ"/>
+                                    <outlet property="takePhotoButton" destination="64u-QN-3dx" id="YcN-gN-0dS"/>
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Ingredients Image" id="LXh-Zn-OsY"/>
                                 </connections>
                             </tableViewCell>
@@ -3100,7 +3100,7 @@
                                     <outlet property="servingSizeTextField" destination="XeQ-CI-ELW" id="tak-4m-dCW"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Nutrition Facts Image Cell" id="S31-TZ-O7G" customClass="NutrientsImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Nutrition Facts Image Cell" id="S31-TZ-O7G" customClass="ProductImageTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="204" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S31-TZ-O7G" id="pbH-bk-fc1">
@@ -3118,7 +3118,7 @@
                                             </constraints>
                                             <state key="normal" image="Camera"/>
                                             <connections>
-                                                <action selector="takePhotoButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="8MN-qB-SsL"/>
+                                                <action selector="takePhotoButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="7W6-f3-ZTw"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qcy-nj-zO3">
@@ -3128,7 +3128,7 @@
                                             </constraints>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
-                                                <action selector="useCameraRollTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="9UN-qo-Fxf"/>
+                                                <action selector="selectFromCamerRollButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="Iio-VL-Ah8"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -3146,9 +3146,9 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="nutrientsImageView" destination="bPg-Iy-n3f" id="c0A-eS-h01"/>
-                                    <outlet property="takePhotoButton" destination="UNm-Ld-LTE" id="hGE-mw-Y3d"/>
-                                    <outlet property="useCameraRollButton" destination="Qcy-nj-zO3" id="Mn4-4d-zAi"/>
+                                    <outlet property="productImageView" destination="bPg-Iy-n3f" id="YGO-xU-T8L"/>
+                                    <outlet property="selectFromCameraRollButton" destination="Qcy-nj-zO3" id="cof-Np-9RQ"/>
+                                    <outlet property="takePhotoButton" destination="UNm-Ld-LTE" id="QrD-NO-Bls"/>
                                     <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Nutrition Facts Image" id="ntk-NT-VGC"/>
                                 </connections>
                             </tableViewCell>
@@ -3318,14 +3318,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="12" width="320" height="468"/>
+                                <rect key="frame" x="0.0" y="12" width="375" height="788"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="468"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="788"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -3748,9 +3748,9 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bL1-eB-rEY"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="ntk-NT-VGC"/>
-        <segue reference="z8D-RP-i6i"/>
+        <segue reference="bL1-eB-rEY"/>
+        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="NIk-rX-rWX"/>
     </inferredMetricsTieBreakers>
 </document>

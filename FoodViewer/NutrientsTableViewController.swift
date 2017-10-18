@@ -392,18 +392,20 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty  {
                 // try the updated image corresponding to the current language
                 if let image = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]!.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                    cell?.editMode = editMode
-                    cell?.nutritionFactsImage = image
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                    cell.editMode = editMode
+                    cell.productImage = image
+                    cell.delegate = self
+                    return cell
                 // in non-editMode try to fall back to the updated primary language image
                 } else if !editMode,
                     let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode,
                     let image = delegate!.updatedProduct!.nutritionImages[primaryLanguageCode]?.display?.image {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.editMode = editMode
-                        cell?.nutritionFactsImage = image
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.editMode = editMode
+                        cell.productImage = image
+                        cell.delegate = self
+                        return cell
                 // show an error
                 } else {
                     searchResult = ImageFetchResult.noImageAvailable.description()
@@ -423,10 +425,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if let result = product!.nutritionImages[currentLanguageCode!]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = product!.nutritionImages[currentLanguageCode!]?.display?.image
-                        cell?.editMode = editMode
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = product!.nutritionImages[currentLanguageCode!]?.display?.image
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        return cell
                     default:
                         searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
@@ -441,10 +444,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else if !editMode, let primaryLanguageCode = product!.primaryLanguageCode, let result = product!.nutritionImages[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = product!.nutritionImages[primaryLanguageCode]?.display?.image
-                        cell?.editMode = editMode
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = product!.nutritionImages[primaryLanguageCode]?.display?.image
+                        cell.editMode = editMode
+                        cell.delegate = self
+                        return cell
                     default:
                         searchResult = result.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
@@ -459,11 +463,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // no image is available in either the current language or the primary language
                 } else {
                     if editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as? NutrientsImageTableViewCell
-                        cell?.nutritionFactsImage = nil
-                        cell?.editMode = editMode
-                        cell?.tag = indexPath.section
-                        return cell!
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = nil
+                        cell.editMode = editMode
+                        cell.tag = indexPath.section
+                        return cell
                     } else {
                         searchResult = ImageFetchResult.noImageAvailable.description()
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? NoNutrientsImageTableViewCell //
@@ -478,10 +482,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // No image is available at all
             } else {
                 if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! NutrientsImageTableViewCell
-                    cell.nutritionFactsImage = nil
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                    cell.productImage = nil
                     cell.editMode = editMode
                     cell.tag = indexPath.section
+                    cell.delegate = self
                     return cell
                 } else {
                     searchResult = ImageFetchResult.noImageAvailable.description()
@@ -797,7 +802,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? NoNutrientsImageTableViewCell != nil ||
-                            button.superview?.superview as? NutrientsImageTableViewCell != nil {
+                            button.superview?.superview as? ProductImageTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .right
@@ -1082,22 +1087,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
 
-    func takePhotoButtonTapped() {
-        // opens the camera and allows the user to take an image and crop
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.delegate = self
-            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
-            imagePicker.sourceType = .camera
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.sourceView = self.view
-            }
-        }
-    }
+    //func takePhotoButtonTapped() {
+    //}
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -1108,20 +1099,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return picker
     }()
 
-    func useCameraRollButtonTapped() {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
-            imagePicker.delegate = self
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.sourceView = self.view
-            }
-        }
-    }
+    //func useCameraRollButtonTapped() {
+    //}
     
     fileprivate func newImageSelected(info: [String : Any]) {
         var image: UIImage? = nil
@@ -1192,8 +1171,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeSearchNutrientUnitButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.takePhotoButtonTapped), name:.NutritionTakePhotoButtonTapped, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.useCameraRollButtonTapped), name:.NutritionSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
 
     }
@@ -1212,6 +1191,42 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
 }
+
+extension NutrientsTableViewController:  ProductImageCellDelegate {
+    
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+    }
+    
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
+            imagePicker.delegate = self
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+    }
+}
+
 
 // MARK: - SearchNutrientsCellDelegate functions
 

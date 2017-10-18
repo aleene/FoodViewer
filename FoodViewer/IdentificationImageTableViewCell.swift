@@ -5,7 +5,7 @@
 //  Created by arnaud on 16/02/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 protocol IdentificationImageCellDelegate: class {
@@ -91,3 +91,4 @@ class IdentificationImageTableViewCell: UITableViewCell {
     
     @IBOutlet weak var identificationImageView: UIImageView!
 }
+ */

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+/*
 class NutrientsImageTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
@@ -85,4 +85,4 @@ extension Notification.Name {
     static let NutritionTakePhotoButtonTapped = Notification.Name("NutrientsImageTableViewCell.Notification.NutritionTakePhotoButtonTapped")
     static let NutritionSelectFromCameraRollButtonTapped = Notification.Name("NutrientsImageTableViewCell.Notification.NutritionSelectFromCameraRollButtonTapped")
 }
-
+*/

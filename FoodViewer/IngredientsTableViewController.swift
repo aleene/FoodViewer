@@ -399,16 +399,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if delegate?.updatedProduct != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
                 // is there an updated image for the current language?
                 if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IngredientsImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                     cell.editMode = editMode
-                    cell.ingredientsImage = image
+                    cell.productImage = image
                     cell.delegate = self
                     return cell
                 // in non-editMode show the updated image for the primary language
                 } else if !editMode, let primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode, let image = delegate!.updatedProduct!.ingredientsImages[primaryLanguageCode]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IngredientsImageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                     cell.editMode = editMode
-                    cell.ingredientsImage = image
+                    cell.productImage = image
                     cell.delegate = self
                     return cell
                 // otherwise show an error
@@ -427,8 +427,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let result = product!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IngredientsImageTableViewCell
-                        cell.ingredientsImage = product!.ingredientsImages[currentLanguageCode!]?.display?.image
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = product!.ingredientsImages[currentLanguageCode!]?.display?.image
                         cell.editMode = editMode
                         cell.delegate = self
                         return cell
@@ -445,8 +445,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IngredientsImageTableViewCell
-                        cell.ingredientsImage = product!.ingredientsImages[primaryLanguageCode]?.display?.image
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = product!.ingredientsImages[primaryLanguageCode]?.display?.image
                         cell.editMode = editMode
                         cell.delegate = self
                         return cell
@@ -462,8 +462,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // neither an image in the chose languageCodes are available
                 } else {
                     if editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IngredientsImageTableViewCell
-                        cell.ingredientsImage = nil
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                        cell.productImage = nil
                         cell.editMode = editMode
                         cell.delegate = self
                         return cell
@@ -481,8 +481,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // no language available at all
             } else {
                 if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! IngredientsImageTableViewCell
-                    cell.ingredientsImage = nil
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                    cell.productImage = nil
                     cell.editMode = editMode
                     cell.delegate = self
                     return cell
@@ -941,8 +941,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
 // MARK: - IngredientsImageCellDelegate Delegate Functions
 
-extension IngredientsTableViewController: IngredientsImageCellDelegate {
-    func ingredientsImageTableViewCell(_ sender: IngredientsImageTableViewCell, receivedActionOnCamera button:UIButton) {
+extension IngredientsTableViewController: ProductImageCellDelegate {
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
@@ -959,7 +959,7 @@ extension IngredientsTableViewController: IngredientsImageCellDelegate {
         }
     }
     
-    func ingredientsImageTableViewCell(_ sender: IngredientsImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
