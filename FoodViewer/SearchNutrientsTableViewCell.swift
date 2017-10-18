@@ -14,17 +14,9 @@ import UIKit
 protocol SearchNutrientsCellDelegate: class {
     
     func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnUnit button:UIButton)
-    // func searchNutrientsTableViewCell(_ sender: SearchNutrientsTableViewCell, receivedActionOnCompare button:UIButton)
 }
 
 class SearchNutrientsTableViewCell: UITableViewCell {
-    
-    /*
- internal struct Notification {
-        static let ChangeSearchNutrientUnitButtonTappedKey = "SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTapped.Key"
-        static let ChangeSearchNutrientCompareButtonTappedKey = "SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped.Key"
-    }
- */
     
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
@@ -66,8 +58,6 @@ class SearchNutrientsTableViewCell: UITableViewCell {
     
     @IBAction func unitButtonTapped(_ sender: UIButton) {
         delegate?.searchNutrientsTableViewCell(self, receivedActionOnUnit: sender)
-        //let userInfo = [Notification.ChangeSearchNutrientUnitButtonTappedKey:sender]
-        //NotificationCenter.default.post(name:.ChangeSearchNutrientUnitButtonTapped, object:nil, userInfo: userInfo)
     }
     
     private func setUnit() {
@@ -119,11 +109,4 @@ class SearchNutrientsTableViewCell: UITableViewCell {
         }
     }
 }
-/*
-// Definition:
-extension Notification.Name {
-    static let ChangeSearchNutrientUnitButtonTapped = Notification.Name("SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTapped")
-    static let ChangeSearchNutrientCompareButtonTapped = Notification.Name("SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientCompareButtonTapped")
-}
- */
 

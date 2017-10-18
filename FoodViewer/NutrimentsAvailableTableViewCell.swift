@@ -13,12 +13,14 @@
 
 import UIKit
 
+protocol NutrimentsAvailableCellDelegate: class {
+    
+    // function to let the delegate know that the switch changed
+    func nutrimentsAvailableTableViewCell(_ sender: NutrimentsAvailableTableViewCell, receivedActionOn mySwitch: UISwitch)
+}
+
+
 class NutrimentsAvailableTableViewCell: UITableViewCell {
-
-    internal struct Notification {
-        static let NutrimentsAvailability = "NutrimentsAvailableTableViewCell.Notification.NutrimentsAvailability.Key"
-    }
-
 
     @IBOutlet weak var NutrimentsAvailableSwitch: UISwitch! {
         didSet {
@@ -28,8 +30,7 @@ class NutrimentsAvailableTableViewCell: UITableViewCell {
     }
     
     @IBAction func NutrimentsAvailableSwitchTapped(_ sender: UISwitch) {
-        let data = [Notification.NutrimentsAvailability: NutrimentsAvailableSwitch.isOn]
-        NotificationCenter.default.post(name: .NutrimentsAvailabilityTapped, object:nil, userInfo: data)
+        delegate?.nutrimentsAvailableTableViewCell(self, receivedActionOn: sender)
     }
     
     var hasNutrimentFacts: Bool? = nil {
@@ -37,6 +38,9 @@ class NutrimentsAvailableTableViewCell: UITableViewCell {
             NutrimentsAvailableSwitch?.isOn = hasNutrimentFacts ?? false
         }
     }
+    
+    var delegate: NutrimentsAvailableCellDelegate? = nil
+    
     @IBOutlet weak var nutrimentsAvailableLabel: UILabel! {
         didSet {
             nutrimentsAvailableLabel.text = NSLocalizedString("Listed on package?", comment: "Label to indicate whether any nutrients are indicated on the package")
@@ -48,9 +52,4 @@ class NutrimentsAvailableTableViewCell: UITableViewCell {
             NutrimentsAvailableSwitch?.isEnabled = editMode
         }
     }
-}
-
-// Definition:
-extension Notification.Name {
-    static let NutrimentsAvailabilityTapped = Notification.Name("NutrimentsAvailableTableViewCell.Notification.NutrimentsAvailabilityTapped")
 }

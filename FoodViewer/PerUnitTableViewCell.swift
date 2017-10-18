@@ -7,22 +7,23 @@
 //
 
 import UIKit
-import Foundation
+
+protocol PerUnitCellDelegate: class {
+    
+    // function to let the delegate know that the switch changed
+    func perUnitTableViewCell(_ sender: PerUnitTableViewCell, receivedActionOn segmentedControl:UISegmentedControl)
+}
 
 class PerUnitTableViewCell: UITableViewCell {
-
-    internal struct Notification {
-        static let PerUnitHasBeenSetKey = "PerUnitTableViewCell.Notification.PerUnitHasBeenSet.Key"
-    }
 
     @IBOutlet weak var perUnitSegmentedControl: UISegmentedControl!
     
     @IBAction func PerUnitSegmentedControlTapped(_ sender: UISegmentedControl) {
-        // send a notification to indicate a change has occurred
+        // call the delegate to indicate a change has occurred
         // and include the segment that has been changed
         // 0 is perStandard
         // 1 is perPortion
-        notifyUser()
+        delegate?.perUnitTableViewCell(self, receivedActionOn: perUnitSegmentedControl)
     }
     
     var displayMode: NutritionDisplayMode = .perStandard {
@@ -50,6 +51,8 @@ class PerUnitTableViewCell: UITableViewCell {
         }
     }
     
+    var delegate: PerUnitCellDelegate? = nil
+    
     private func setView() {
         if editMode {
             perUnitSegmentedControl.isEnabled = true
@@ -72,16 +75,4 @@ class PerUnitTableViewCell: UITableViewCell {
             }
         }
     }
-    
-    private func notifyUser() {
-        if let index = perUnitSegmentedControl?.selectedSegmentIndex {
-            let data = [Notification.PerUnitHasBeenSetKey: index]
-            NotificationCenter.default.post(name: .PerUnitChanged, object:nil, userInfo: data)
-        }
-    }
-}
-
-// Definition:
-extension Notification.Name {
-    static let PerUnitChanged = Notification.Name("PerUnitTableViewCell.Notification.PerUnitChanged")
 }

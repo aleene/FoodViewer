@@ -11,7 +11,7 @@ import UIKit
 class ServingSizeTableViewCell: UITableViewCell {
     
    private struct Constants {
-        static let ServingSizeNotAvailable = NSLocalizedString("not available", comment: "TextField text to indicate the serving size is not available")
+        static let ServingSizeNotAvailable = TranslatableStrings.NoServingSizeAvailable
     }
     
     var servingSize: String? = nil {

@@ -277,6 +277,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .noNutrimentsAvailable:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
             cell.editMode = editMode
+            cell.delegate = self
             cell.hasNutrimentFacts = delegate?.updatedProduct?.hasNutritionFacts != nil ? delegate!.updatedProduct!.nutrimentFactsAvailability : product!.nutrimentFactsAvailability
             return cell
             
@@ -284,6 +285,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PerUnit, for: indexPath) as! PerUnitTableViewCell
             cell.displayMode = showNutrientsAs
             cell.editMode = editMode
+            cell.delegate = self
             cell.nutritionFactsAvailability = product!.nutritionFactsAreAvailable
             return cell
             
@@ -1040,30 +1042,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     func newPerUnitSettings(_ notification: Notification) {
-        guard product != nil else { return }
-        if let index = notification.userInfo?[PerUnitTableViewCell.Notification.PerUnitHasBeenSetKey] as? Int {
-            showNutrientsAs = NutritionDisplayMode.init(index)
-            mergeNutritionFacts()
-            tableView.reloadData()
-        }
     }
 
     // The availability of nutriments on the product has changed
     func nutrimentsAvailabilitySet(_ notification: Notification) {
-        guard product != nil else { return }
-        if let availability = notification.userInfo?[NutrimentsAvailableTableViewCell.Notification.NutrimentsAvailability] as? Bool {
-            // change the updated product
-            delegate?.updated(availability: availability)
-            refreshProductWithNewNutritionFacts()
-        }
     }
-    
+    /*
+
     func showNutrimentSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[AddNutrientTableViewCell.Notification.AddNutrientButtonTappedKey] {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.AddNutrient, sender: sender)
         }
     }
-    /*
     func showNutrimentUnitSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[SearchNutrientsTableViewCell.Notification.ChangeSearchNutrientUnitButtonTappedKey] {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectNutrientUnit, sender: sender)
@@ -1165,9 +1155,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection(_:)), name: .NutritionImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.newPerUnitSettings(_:)), name: .PerUnitChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.newPerUnitSettings(_:)), name: .PerUnitChanged, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.nutrimentsAvailabilitySet(_:)), name: .NutrimentsAvailabilityTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentSelector(_:)), name: .AddNutrientButtonTapped, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeNutrientUnitButtonTapped, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.showNutrimentUnitSelector(_:)), name: .ChangeSearchNutrientUnitButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
@@ -1191,6 +1181,36 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
 }
+
+// MARK: - NutrimentsAvailableCellDelegate functions
+
+extension NutrientsTableViewController: NutrimentsAvailableCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func nutrimentsAvailableTableViewCell(_ sender: NutrimentsAvailableTableViewCell, receivedActionOn mySwitch:UISwitch) {
+        guard product != nil else { return }
+        // change the updated product
+        delegate?.updated(availability: mySwitch.isOn)
+        refreshProductWithNewNutritionFacts()
+    }
+}
+
+
+// MARK: - PerUnitCellDelegate functions
+
+extension NutrientsTableViewController:   PerUnitCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func perUnitTableViewCell(_ sender: PerUnitTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
+        guard product != nil else { return }
+        showNutrientsAs = NutritionDisplayMode.init(segmentedControl.selectedSegmentIndex)
+        mergeNutritionFacts()
+        tableView.reloadData()
+    }
+}
+
+
+// MARK: - ProductImageCellDelegate functions
 
 extension NutrientsTableViewController:  ProductImageCellDelegate {
     
