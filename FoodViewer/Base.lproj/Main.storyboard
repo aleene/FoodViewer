@@ -369,6 +369,9 @@
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <connections>
                                                 <action selector="mainLanguageTapped:" destination="EEQ-rQ-wnz" eventType="touchUpInside" id="sMk-CF-Dqr"/>
+                                                <segue destination="PpT-BN-Hfh" kind="popoverPresentation" identifier="Show Select Main Language Segue" popoverAnchorView="v7f-Gc-N5v" id="mLz-9G-4FZ">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lFH-LR-JHI">
@@ -688,9 +691,6 @@
                         </connections>
                     </refreshControl>
                     <connections>
-                        <segue destination="PpT-BN-Hfh" kind="popoverPresentation" identifier="Show Select Main Language Segue" popoverAnchorView="v7f-Gc-N5v" id="UhK-sq-49d">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                        </segue>
                         <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Names Languages" popoverAnchorView="v7f-Gc-N5v" id="TJD-zt-Jpp">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>

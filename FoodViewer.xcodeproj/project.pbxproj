@@ -218,8 +218,6 @@
 		51DAD3721C5F63F900895513 /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3711C5F63F900895513 /* CategoriesTableViewCell.swift */; };
 		51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */; };
 		51DD35861EFEAB60000A8484 /* emb-30569c in Resources */ = {isa = PBXBuildFile; fileRef = 51DD35851EFEAB60000A8484 /* emb-30569c */; };
-		51E13F061D9BCB7F000F71C5 /* PickerViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */; };
-		51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
 		51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */; };
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
@@ -496,8 +494,6 @@
 		51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionScoreTableViewCell.swift; sourceTree = "<group>"; };
 		51DAD3781C60A6A200895513 /* 737628064502.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 737628064502.json; sourceTree = "<group>"; };
 		51DD35851EFEAB60000A8484 /* emb-30569c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "emb-30569c"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.javascript; };
-		51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewTableViewCell.swift; sourceTree = "<group>"; };
-		51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpiryDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51E5CC951CAD13A400216868 /* 54004207.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 54004207.json; sourceTree = "<group>"; };
 		51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
@@ -980,8 +976,6 @@
 		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
 			isa = PBXGroup;
 			children = (
-				51E13F051D9BCB7E000F71C5 /* PickerViewTableViewCell.swift */,
-				51E13F071D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift */,
 				51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */,
 				51AFB0081C734CD900598444 /* IdentificationCells */,
 				517AAD4B1C7DB5B800B12F3C /* IngredientsCell */,
@@ -1195,7 +1189,6 @@
 				512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
-				51E13F081D9BD6BA000F71C5 /* ExpiryDatePickerTableViewCell.swift in Sources */,
 				5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */,
 				51B741721F966ECD0025F8A1 /* ProductImageTableViewCell.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
@@ -1340,7 +1333,6 @@
 				5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */,
 				516B32891C75F74F0031EF80 /* CompletionState.swift in Sources */,
 				5157426F1CDB63B200BE8E2D /* RSCodeLayer.swift in Sources */,
-				51E13F061D9BCB7F000F71C5 /* PickerViewTableViewCell.swift in Sources */,
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,

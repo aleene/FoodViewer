@@ -371,11 +371,11 @@ class IdentificationTableViewController: UITableViewController {
         
         switch currentProductSection {
         case .barcode:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as? BarcodeTableViewCell
-            cell!.barcode = product?.barcode.asString()
-            cell!.mainLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
-            cell!.editMode = editMode
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
+            cell.barcode = product?.barcode.asString()
+            cell.mainLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
+            cell.editMode = editMode
+            return cell
             
         case .barcodeSearch, .quantitySearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -890,11 +890,13 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
+    /*
     func showMainLanguageSelector(_ notification: Notification) {
         if let sender = notification.userInfo?[BarcodeTableViewCell.Notification.MainLanguageButtonTappedKey] {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSelectMainLanguage, sender: sender)
         }
     }
+ */
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -959,11 +961,8 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.showMainLanguageSelector), name:.MainLanguageTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.takePhotoButtonTapped), name:.FrontTakePhotoButtonTapped, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.useCameraRollButtonTapped), name:.FrontSelectFromCameraRollButtonTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
@@ -985,7 +984,16 @@ class IdentificationTableViewController: UITableViewController {
 
 }
 
-// MARK: - IdentificationImageCellDelegate Delegate Functions
+// MARK: - ProductNameCellDelegate Functions
+
+extension IdentificationTableViewController: ProductNameCellDelegate {
+    
+    func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView) {
+        changeLanguage()
+    }
+}
+
+// MARK: - IdentificationImageCellDelegate Functions
 
 extension IdentificationTableViewController: ProductImageCellDelegate {
     
@@ -1024,7 +1032,7 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
 }
 
 
-// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+// MARK: - TagListViewSegmentedControlCellDelegate Functions
 
 extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
     

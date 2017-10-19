@@ -43,7 +43,7 @@ class NutrimentsAvailableTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nutrimentsAvailableLabel: UILabel! {
         didSet {
-            nutrimentsAvailableLabel.text = NSLocalizedString("Listed on package?", comment: "Label to indicate whether any nutrients are indicated on the package")
+            nutrimentsAvailableLabel.text = TranslatableStrings.ListedOnPackage
         }
     }
     

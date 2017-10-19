@@ -11,12 +11,7 @@ import UIKit
 class ExpirationDateTableViewCell: UITableViewCell {
 
     fileprivate struct Constants {
-        static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
-    }
-    
-    fileprivate struct Notification {
-        static let ExpirationDateButtonTappedKey = "ExpirationDateTableViewCell.Notification.ExpirationDateButtonTapped.Key"
-
+        static let NoExpirationDate = TranslatableStrings.NoExpirationDate
     }
 
     var date: Date? = nil {
@@ -69,10 +64,7 @@ class ExpirationDateTableViewCell: UITableViewCell {
             }
     }
     
-    @IBAction func expirationDateButtonTapped(_ sender: UIButton) {
-        // let userInfo = [Notification.ExpirationDateButtonTappedKey:sender]
-        // NotificationCenter.default.post(name: .LanguageTapped, object: nil, userInfo: userInfo)
-    }
+    @IBAction func expirationDateButtonTapped(_ sender: UIButton) {  }
     
 
     @IBOutlet weak var expirationDateTextField: UITextField! {

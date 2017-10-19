@@ -11,10 +11,6 @@ import AVFoundation
 
 class BarcodeTableViewCell: UITableViewCell {
 
-    internal struct Notification {
-        static let MainLanguageButtonTappedKey = "BarcodeTableViewCell.Notification.MainLanguageButtonTapped.Key"
-    }
-
     var barcode: String? = nil {
         didSet {
             if let validBarcode = barcode {
@@ -60,14 +56,5 @@ class BarcodeTableViewCell: UITableViewCell {
         }
     }
     
-    @IBAction func mainLanguageTapped(_ sender: UIButton) {
-        let userInfo = [Notification.MainLanguageButtonTappedKey:sender]
-        NotificationCenter.default.post(name: .MainLanguageTapped, object: nil, userInfo: userInfo)
-    }
+    @IBAction func mainLanguageTapped(_ sender: UIButton) {    }
 }
-
-// Definition:
-extension Notification.Name {
-    static let MainLanguageTapped = Notification.Name("BarcodeTableViewCell.Notification.MainLanguageTapped")
-}
-

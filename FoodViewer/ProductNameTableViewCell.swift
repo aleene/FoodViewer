@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol ProductNameCellDelegate: class {
+    
+    func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView)
+}
+
 class ProductNameTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameTextView: UITextView! {
@@ -27,7 +32,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     private func setTextViewStyle() {
         nameTextView.layer.borderWidth = 0.5
-        nameTextView?.delegate = delegate
+        nameTextView?.delegate = delegate as? UITextViewDelegate
         nameTextView?.tag = tag
         nameTextView?.isEditable = editMode
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
@@ -52,14 +57,9 @@ class ProductNameTableViewCell: UITableViewCell {
 
     }
     
-
-    fileprivate struct Constants {
-        static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
-    }
-    
     var name: String? = nil {
         didSet {
-            nameTextView.text = (name != nil) && (name!.characters.count > 0) ? name! :  ( editMode ? "" : Constants.NoName )
+            nameTextView.text = (name != nil) && (name!.characters.count > 0) ? name! :  ( editMode ? "" : TranslatableStrings.NoName )
         }
     }
     
@@ -70,9 +70,9 @@ class ProductNameTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: IdentificationTableViewController? = nil {
+    var delegate: ProductNameCellDelegate? = nil {
         didSet {
-            nameTextView?.delegate = delegate
+            nameTextView?.delegate = delegate as? UITextViewDelegate
         }
     }
     
@@ -87,12 +87,13 @@ class ProductNameTableViewCell: UITableViewCell {
     }
 
     func nameTapped() {
-        NotificationCenter.default.post(name: .NameTextFieldTapped, object: nil)
+        delegate?.productNameTableViewCell(self, receivedDoubleTap: nameTextView)
+        // NotificationCenter.default.post(name: .NameTextFieldTapped, object: nil)
     }
 }
 
 // Definition:
 extension Notification.Name {
-    static let NameTextFieldTapped = Notification.Name("ProductNameTableViewCell.Notification.NameTextFieldTapped")
+    // static let NameTextFieldTapped = Notification.Name("ProductNameTableViewCell.Notification.NameTextFieldTapped")
 }
 
