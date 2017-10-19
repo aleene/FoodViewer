@@ -31,7 +31,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
     }
     
     private func setCompareTitle() {
-        comparisonOperatorButton.setTitle(searchNutrition?.searchOperator.rawValue ?? "?", for: .normal)
+        comparisonOperatorButton.setTitle(searchNutrition?.searchOperator.rawValue ?? TranslatableStrings.QuestionMark, for: .normal)
     }
     
     @IBOutlet weak var textField: UITextField! {

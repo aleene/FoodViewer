@@ -8,16 +8,18 @@
 
 import UIKit
 
+protocol PurchacePlaceCellDelegate: class {
+    
+    // function to let the delegate know that the tagListView has been doubletapped
+    func purchacePlaceTableViewCell(_ sender: PurchacePlaceTableViewCell, receivedDoubleTapOn tagListView: TagListView)
+}
+
 class PurchacePlaceTableViewCell: UITableViewCell {
     
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
     }
     
-    internal struct Notification {
-        static let TagKey = "PurchacePlaceTableViewCell.Notification.Tag.Key"
-    }
-
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
             tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
@@ -29,7 +31,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
             tagListView.clearButtonIsEnabled = true
             
             tagListView.datasource = datasource
-            tagListView.delegate = delegate
+            tagListView.delegate = delegate as? TagListViewDelegate
             tagListView.tag = tag
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
@@ -65,9 +67,9 @@ class PurchacePlaceTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: TagListViewDelegate? = nil {
+    var delegate: PurchacePlaceCellDelegate? = nil {
         didSet {
-            tagListView?.delegate = delegate
+            tagListView?.delegate = delegate as? TagListViewDelegate
         }
     }
     
@@ -86,15 +88,8 @@ class PurchacePlaceTableViewCell: UITableViewCell {
     }
     
     func tagListViewTapped() {
-        let userInfo: [String:Any] = [Notification.TagKey:tag]
-        NotificationCenter.default.post(name: .TagListViewTapped, object:nil, userInfo: userInfo)
+        delegate?.purchacePlaceTableViewCell(self, receivedDoubleTapOn: tagListView)
     }
     
 
 }
-
-// Definition:
-extension Notification.Name {
-    static let PurchasePlaceTagListViewTapped = Notification.Name("TagListViewTableViewCell.Notification.PurchasePlaceTagListViewTapped")
-}
-

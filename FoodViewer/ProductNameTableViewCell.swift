@@ -88,12 +88,5 @@ class ProductNameTableViewCell: UITableViewCell {
 
     func nameTapped() {
         delegate?.productNameTableViewCell(self, receivedDoubleTap: nameTextView)
-        // NotificationCenter.default.post(name: .NameTextFieldTapped, object: nil)
     }
 }
-
-// Definition:
-extension Notification.Name {
-    // static let NameTextFieldTapped = Notification.Name("ProductNameTableViewCell.Notification.NameTextFieldTapped")
-}
-

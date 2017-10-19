@@ -220,8 +220,8 @@ class SupplyChainTableViewController: UITableViewController {
     }
     
     private var showCountriesTagsType: TagsType = TagsTypeDefault.Countries
-    private var showStoresTagsType: TagsType = TagsTypeDefault.Stores
-    private var showPurchaseLocationTagsType: TagsType = TagsTypeDefault.PurchaseLocation
+    fileprivate var showStoresTagsType: TagsType = TagsTypeDefault.Stores
+    fileprivate var showPurchaseLocationTagsType: TagsType = TagsTypeDefault.PurchaseLocation
     private var showIngredientOriginTagsType: TagsType = TagsTypeDefault.IngredientOrigin
     private var showProducerCodeTagsType: TagsType = TagsTypeDefault.ProducerCode
     private var showProducerTagsType: TagsType = TagsTypeDefault.Producer
@@ -286,8 +286,6 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
 
-    
-    
     fileprivate enum SectionType {
         case ingredientOrigin
         case ingredientOriginSearch
@@ -758,7 +756,7 @@ class SupplyChainTableViewController: UITableViewController {
             default:
                 break
             }
-        } else if let tag = notification.userInfo?[PurchacePlaceTableViewCell.Notification.TagKey] as? Int {
+        } /*else if let tag = notification.userInfo?[PurchacePlaceTableViewCell.Notification.TagKey] as? Int {
             let (currentProductSection, _, _) = tableStructureForProduct[tag]
             switch currentProductSection {
             case .location:
@@ -770,7 +768,7 @@ class SupplyChainTableViewController: UITableViewController {
             default:
                 break
             }
-        }
+        }*/
     }
     
     
@@ -856,9 +854,9 @@ class SupplyChainTableViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.PurchasePlaceTagListViewTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.PurchasePlaceTagListViewTapped, object:nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -876,7 +874,27 @@ class SupplyChainTableViewController: UITableViewController {
 
 }
 
-// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
+// MARK: - PurchacePlaceCellDelegate Functions
+
+extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
+    
+    // function to let the delegate know that the tagListView has been doubletapped
+    func purchacePlaceTableViewCell(_ sender: PurchacePlaceTableViewCell, receivedDoubleTapOn tagListView: TagListView) {
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .location:
+            showPurchaseLocationTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .store:
+            showStoresTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        default:
+            break
+        }
+    }
+}
+
+// MARK: - TagListViewSegmentedControlCellDelegate Functions
 
 extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
     

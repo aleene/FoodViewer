@@ -156,7 +156,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     func ingredientsTapped() {
         delegate?.ingredientsFullTableViewCell(self, receivedActionOn: textView)
-        // NotificationCenter.default.post(name: .IngredientsTextViewTapped, object: nil)
     }
 
 }
