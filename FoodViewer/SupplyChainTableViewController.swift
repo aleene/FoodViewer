@@ -756,19 +756,7 @@ class SupplyChainTableViewController: UITableViewController {
             default:
                 break
             }
-        } /*else if let tag = notification.userInfo?[PurchacePlaceTableViewCell.Notification.TagKey] as? Int {
-            let (currentProductSection, _, _) = tableStructureForProduct[tag]
-            switch currentProductSection {
-            case .location:
-                showPurchaseLocationTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .store:
-                showStoresTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            default:
-                break
-            }
-        }*/
+        }
     }
     
     
@@ -854,9 +842,9 @@ class SupplyChainTableViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
+        // Has been disabled for the moment
         // NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
-        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.PurchasePlaceTagListViewTapped, object:nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
