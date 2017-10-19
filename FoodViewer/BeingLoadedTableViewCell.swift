@@ -5,7 +5,7 @@
 //  Created by arnaud on 17/04/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 class BeingLoadedTableViewCell: UITableViewCell {
@@ -54,3 +54,4 @@ extension BeingLoadedTableViewCell: TagListViewDataSource {
         }
     }
 }
+ */

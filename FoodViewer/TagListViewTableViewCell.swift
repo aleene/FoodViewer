@@ -8,15 +8,21 @@
 
 import UIKit
 
+protocol TagListViewCellDelegate: class {
+    
+    // function to let the delegate know that the switch changed
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView)
+}
+
 class TagListViewTableViewCell: UITableViewCell {
 
     private struct Constants {
         static let Margin = CGFloat( 8.0 )
     }
     
-    internal struct Notification {
-        static let TagKey = "TagListViewTableViewCell.Notification.Tag.Key"
-    }
+    //internal struct Notification {
+    //    static let TagKey = "TagListViewTableViewCell.Notification.Tag.Key"
+    //}
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
@@ -30,7 +36,7 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.frame.size.width = self.frame.size.width
             
             tagListView.datasource = datasource
-            tagListView.delegate = delegate
+            tagListView.delegate = delegate as? TagListViewDelegate
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
             tagListView.tag = tag
@@ -48,9 +54,9 @@ class TagListViewTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: TagListViewDelegate? = nil {
+    var delegate: TagListViewCellDelegate? = nil {
         didSet {
-            tagListView?.delegate = delegate
+            tagListView?.delegate = delegate as? TagListViewDelegate
         }
     }
     
@@ -91,14 +97,15 @@ class TagListViewTableViewCell: UITableViewCell {
     }
     
     func tagListViewTapped() {
-        let userInfo: [String:Any] = [Notification.TagKey:tag]
-        NotificationCenter.default.post(name: .TagListViewTapped, object:nil, userInfo: userInfo)
+        delegate?.tagListViewTableViewCell(self, receivedDoubleTapOn: tagListView)
+        //let userInfo: [String:Any] = [Notification.TagKey:tag]
+        //NotificationCenter.default.post(name: .TagListViewTapped, object:nil, userInfo: userInfo)
     }
 
 }
 
 // Definition:
-extension Notification.Name {
-    static let TagListViewTapped = Notification.Name("TagListViewTableViewCell.Notification.TagListViewTapped")
-}
+//extension Notification.Name {
+ //   static let TagListViewTapped = Notification.Name("TagListViewTableViewCell.Notification.TagListViewTapped")
+//}
 

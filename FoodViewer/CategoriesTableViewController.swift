@@ -72,7 +72,7 @@ class CategoriesTableViewController: UITableViewController {
         static let Categories: TagsType = .translated
     }
 
-    private var showCategoriesTagsType: TagsType = TagsTypeDefault.Categories
+    fileprivate var showCategoriesTagsType: TagsType = TagsTypeDefault.Categories
 
     fileprivate var categoriesToDisplay: Tags {
         get {
@@ -229,19 +229,8 @@ class CategoriesTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    func changeTagsTypeToShow(_ notification: Notification) {
-        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
-            let (currentProductSection, _, _) = tableStructureForProduct[tag]
-            switch currentProductSection {
-            case .categories:
-                showCategoriesTagsType.cycle()
-                tableView.reloadData()
-                // tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            default:
-                break
-            }
-        }
-    }
+    //func changeTagsTypeToShow(_ notification: Notification) {
+    //}
 
     // MARK: - Controller Lifecycle
 
@@ -263,7 +252,7 @@ class CategoriesTableViewController: UITableViewController {
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -279,6 +268,25 @@ class CategoriesTableViewController: UITableViewController {
         OFFProducts.manager.flushImages()
     }
 
+}
+
+
+// MARK: - TagListViewCellDelegate Functions
+
+extension CategoriesTableViewController: TagListViewCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .categories:
+            showCategoriesTagsType.cycle()
+            tableView.reloadData()
+        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions

@@ -219,12 +219,12 @@ class SupplyChainTableViewController: UITableViewController {
         static let Producer: TagsType = .original
     }
     
-    private var showCountriesTagsType: TagsType = TagsTypeDefault.Countries
+    fileprivate var showCountriesTagsType: TagsType = TagsTypeDefault.Countries
     fileprivate var showStoresTagsType: TagsType = TagsTypeDefault.Stores
     fileprivate var showPurchaseLocationTagsType: TagsType = TagsTypeDefault.PurchaseLocation
-    private var showIngredientOriginTagsType: TagsType = TagsTypeDefault.IngredientOrigin
-    private var showProducerCodeTagsType: TagsType = TagsTypeDefault.ProducerCode
-    private var showProducerTagsType: TagsType = TagsTypeDefault.Producer
+    fileprivate var showIngredientOriginTagsType: TagsType = TagsTypeDefault.IngredientOrigin
+    fileprivate var showProducerCodeTagsType: TagsType = TagsTypeDefault.ProducerCode
+    fileprivate var showProducerTagsType: TagsType = TagsTypeDefault.Producer
 
     fileprivate var notSearchableToDisplay: Tags {
         get {
@@ -737,27 +737,8 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func changeTagsTypeToShow(_ notification: Notification) {
-        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
-            let (currentProductSection, _, _) = tableStructureForProduct[tag]
-            switch currentProductSection {
-            case .producer:
-                showProducerTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .producerCode:
-                showProducerCodeTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .country:
-                showCountriesTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .ingredientOrigin:
-                showIngredientOriginTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            default:
-                break
-            }
-        }
-    }
+    //func changeTagsTypeToShow(_ notification: Notification) {
+    //}
     
     
 
@@ -844,7 +825,7 @@ class SupplyChainTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         // Has been disabled for the moment
         // NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -860,6 +841,33 @@ class SupplyChainTableViewController: UITableViewController {
         OFFProducts.manager.flushImages()
     }
 
+}
+
+
+// MARK: - TagListViewCellDelegate Functions
+
+extension SupplyChainTableViewController: TagListViewCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .producer:
+            showProducerTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .producerCode:
+            showProducerCodeTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .country:
+            showCountriesTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .ingredientOrigin:
+            showIngredientOriginTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - PurchacePlaceCellDelegate Functions

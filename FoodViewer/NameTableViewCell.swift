@@ -11,7 +11,6 @@ import UIKit
 class NameTableViewCell: UITableViewCell {
     
     fileprivate struct Constants {
-        static let NoBrandsIndicated = NSLocalizedString("No brands indicated", comment: "Text in a tableview cell, when no brands are available in the product data.") 
         static let CellContentViewMargin = CGFloat(8)
     }
     
@@ -21,7 +20,7 @@ class NameTableViewCell: UITableViewCell {
             if let brand = productBrand?.first {
                 brandLabel.text = brand 
             } else {
-                brandLabel.text = Constants.NoBrandsIndicated
+                brandLabel.text = TranslatableStrings.NoBrandsIndicated
             }
         }
     }

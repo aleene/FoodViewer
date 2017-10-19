@@ -526,14 +526,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="EM4-1o-6FO" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="8" width="230" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="322" height="28"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BY8-EL-Fn9">
-                                            <rect key="frame" x="246" y="8" width="121" height="29"/>
+                                            <rect key="frame" x="338" y="8" width="29" height="29"/>
                                             <segments>
-                                                <segment title="First"/>
-                                                <segment title="Second"/>
+                                                <segment title=""/>
+                                                <segment title=""/>
                                             </segments>
                                             <connections>
                                                 <action selector="segmentedControlTapped:" destination="fKD-Ny-Tsj" eventType="valueChanged" id="Dxx-lR-luR"/>
@@ -1459,14 +1459,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8kh-y9-OHe" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="8" width="175" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="267" height="28"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Wax-qz-3UA">
-                                            <rect key="frame" x="191" y="8" width="121" height="29"/>
+                                            <rect key="frame" x="283" y="8" width="29" height="29"/>
                                             <segments>
-                                                <segment title="First"/>
-                                                <segment title="Second"/>
+                                                <segment title=""/>
+                                                <segment title=""/>
                                             </segments>
                                             <connections>
                                                 <action selector="segmentedControlTapped:" destination="icw-Tk-lKi" eventType="valueChanged" id="2Xa-Jj-aWs"/>
@@ -1671,14 +1671,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PCq-e5-Yzo" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="8" width="175" height="28"/>
+                                            <rect key="frame" x="8" y="8" width="267" height="28"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="RU8-Nk-J4S">
-                                            <rect key="frame" x="191" y="8" width="121" height="29"/>
+                                            <rect key="frame" x="283" y="8" width="29" height="29"/>
                                             <segments>
-                                                <segment title="First"/>
-                                                <segment title="Second"/>
+                                                <segment title=""/>
+                                                <segment title=""/>
                                             </segments>
                                             <connections>
                                                 <action selector="segmentedControlTapped:" destination="nOi-Ut-SXg" eventType="valueChanged" id="qLt-mO-cWX"/>
@@ -2095,7 +2095,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZjT-hs-fGX">
                                             <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -2265,7 +2265,7 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPM-r4-zbF">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vPM-r4-zbF">
                                             <rect key="frame" x="144" y="8" width="32" height="27.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -2308,7 +2308,7 @@
                                             <rect key="frame" x="8" y="8" width="128" height="27.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-pb-eyV">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjd-pb-eyV">
                                             <rect key="frame" x="144" y="8" width="32" height="27.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -2643,10 +2643,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g1X-rw-oCv">
-                                            <rect key="frame" x="0.0" y="0.0" width="200" height="185.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="200" height="199"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d97-Pg-D0G">
-                                            <rect key="frame" x="0.0" y="186.5" width="200" height="13.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d97-Pg-D0G">
+                                            <rect key="frame" x="0.0" y="200" width="200" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -2673,7 +2673,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yt-pe-JoG">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Yt-pe-JoG">
                                     <rect key="frame" x="8" y="8" width="304" height="34"/>
                                     <color key="tintColor" red="0.85098039219999999" green="0.53725490200000003" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -2789,14 +2789,14 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iLT-b2-JWJ" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="8" width="175" height="27"/>
+                                            <rect key="frame" x="8" y="8" width="267" height="27"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6Rd-m2-Nl1">
-                                            <rect key="frame" x="191" y="8" width="121" height="28"/>
+                                            <rect key="frame" x="283" y="8" width="29" height="27.5"/>
                                             <segments>
-                                                <segment title="First"/>
-                                                <segment title="Second"/>
+                                                <segment title=""/>
+                                                <segment title=""/>
                                             </segments>
                                             <connections>
                                                 <action selector="segmentedControlTapped:" destination="T5Y-Ku-072" eventType="valueChanged" id="I6P-Qp-N52"/>
@@ -2811,7 +2811,6 @@
                                         <constraint firstItem="iLT-b2-JWJ" firstAttribute="leading" secondItem="0G9-KE-QMW" secondAttribute="leadingMargin" id="dKy-z6-llF"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="iLT-b2-JWJ" secondAttribute="bottom" id="ggd-g5-L0T"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="6Rd-m2-Nl1" secondAttribute="bottom" constant="1" id="naR-GF-u1y"/>
-                                        <constraint firstItem="6Rd-m2-Nl1" firstAttribute="centerY" secondItem="0G9-KE-QMW" secondAttribute="centerY" id="yE5-OP-0na"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <constraints>
@@ -3317,14 +3316,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="12" width="375" height="788"/>
+                                <rect key="frame" x="0.0" y="12" width="320" height="468"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="788"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="468"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -3353,7 +3352,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oMo-0u-FJL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1708" y="4109"/>
+            <point key="canvasLocation" x="1718" y="4109"/>
         </scene>
         <!--Add Nutrient View Controller-->
         <scene sceneID="CLQ-yT-Bsw">
@@ -3747,9 +3746,9 @@
         <image name="Settings" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GR8-bW-x6k"/>
         <segue reference="bL1-eB-rEY"/>
-        <segue reference="TJD-zt-Jpp"/>
-        <segue reference="NIk-rX-rWX"/>
+        <segue reference="GR8-bW-x6k"/>
+        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="z8D-RP-i6i"/>
     </inferredMetricsTieBreakers>
 </document>

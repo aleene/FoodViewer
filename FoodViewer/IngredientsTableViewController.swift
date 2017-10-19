@@ -29,10 +29,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     // The interpreted labels have been translated to the interface language
-    private var labelsTagsTypeToShow: TagsType = TagsTypeDefault.Labels
-    private var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
-    private var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
-    private var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
+    fileprivate var labelsTagsTypeToShow: TagsType = TagsTypeDefault.Labels
+    fileprivate var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
+    fileprivate var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
+    fileprivate var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
     
 
     fileprivate var allergensToDisplay: Tags {
@@ -806,27 +806,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     // MARK: - Notification handler
     
-    func changeTagsTypeToShow(_ notification: Notification) {
-        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
-            let (currentProductSection, _, _) = tableStructureForProduct[tag]
-            switch currentProductSection {
-            case .labels:
-                labelsTagsTypeToShow.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .traces:
-                tracesTagsTypeToShow.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .allergens:
-                allergensTagsTypeToShow.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .additives:
-                additivesTagsTypeToShow.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            default:
-                break
-            }
-        }
-    }
+    //func changeTagsTypeToShow(_ notification: Notification) {
+    //}
 
     func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
@@ -915,12 +896,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         super.viewWillAppear(animated)
         title = TextConstants.ViewControllerTitle
         
-        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection(_:)), name:.IngredientsImageSet, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
 
     }
     
@@ -937,6 +917,32 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         OFFProducts.manager.flushImages()
     }
 
+}
+
+// MARK: - TagListViewCellDelegate Functions
+
+extension IngredientsTableViewController: TagListViewCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
+        switch currentProductSection {
+        case .labels:
+            labelsTagsTypeToShow.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .traces:
+            tracesTagsTypeToShow.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .allergens:
+            allergensTagsTypeToShow.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .additives:
+            additivesTagsTypeToShow.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - IngredientsImageCellDelegate Delegate Functions

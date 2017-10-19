@@ -260,9 +260,9 @@ class IdentificationTableViewController: UITableViewController {
         static let Languages: TagsType = .translated
     }
     
-    private var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
+    fileprivate var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
     
-    private var showBrandTagsType: TagsType = TagsTypeDefault.Brands
+    fileprivate var showBrandTagsType: TagsType = TagsTypeDefault.Brands
 
     private var showLanguagesTagsType: TagsType = TagsTypeDefault.Languages
 
@@ -839,21 +839,8 @@ class IdentificationTableViewController: UITableViewController {
 
     // MARK: - Notification handler
     
-    func changeTagsTypeShown(_ notification: Notification) {
-        if let tag = notification.userInfo?[TagListViewTableViewCell.Notification.TagKey] as? Int {
-            let currentProductSection = tableStructure[tag]
-            switch currentProductSection {
-            case .packaging:
-                showPackagingTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            case .brands:
-                showBrandTagsType.cycle()
-                tableView.reloadSections(IndexSet.init(integer: tag), with: .fade)
-            default:
-                break
-            }
-        }
-    }
+    //func changeTagsTypeShown(_ notification: Notification) {
+    //}
 
     func reloadImageSection() {
         tableView.reloadData()
@@ -961,10 +948,9 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
-        // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeLanguage), name:.NameTextFieldTapped, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -982,6 +968,26 @@ class IdentificationTableViewController: UITableViewController {
         OFFProducts.manager.flushImages()
     }
 
+}
+
+// MARK: - TagListViewCellDelegate Functions
+
+extension IdentificationTableViewController: TagListViewCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        let currentProductSection = tableStructure[tagListView.tag]
+        switch currentProductSection {
+        case .packaging:
+            showPackagingTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        case .brands:
+            showBrandTagsType.cycle()
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - ProductNameCellDelegate Functions

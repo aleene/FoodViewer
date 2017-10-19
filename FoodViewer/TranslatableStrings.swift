@@ -37,7 +37,9 @@ struct TranslatableStrings {
     static let Checker = NSLocalizedString("Checker", comment: "String in PickerViewController to indicate the checker role of a contributor")
     static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
     static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
+    static let Completion = NSLocalizedString("Completion", comment: "Label for a horizontal gauge that indicates the completion percentage of the product data.")
     static let CompletionStates = NSLocalizedString("Completion States", comment: "Generic string to indicate the completion states of a product.")
+    static let ContributorNameNotSet = NSLocalizedString("contributor name not set", comment: "Generic string to indicate the completion states of a product.")
     static let Corrector = NSLocalizedString("Corrector", comment: "String in PickerViewController to indicate the corrector role of a corrector")
     static let Contributor = NSLocalizedString("Cotributor", comment: "String in PickerViewController to indicate the creator role of a contributor (any role)")
     static let Creator = NSLocalizedString("Creator", comment: "String in PickerViewController to indicate the creator role of a contributor")
@@ -98,6 +100,7 @@ struct TranslatableStrings {
     
     
     static let Name = NSLocalizedString("Name", comment: "Tableview sectionheader for product name")
+    static let NoBrandsIndicated = NSLocalizedString("No brands indicated", comment: "Text in a tableview cell, when no brands are available in the product data.")
     static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     static let NoImageInTheRightLanguage = NSLocalizedString("No image in the right language", comment: "Tag indicating that no image in the correct language is available")
     static let NoIngredients = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")

@@ -10,9 +10,6 @@ import UIKit
 
 class CompletionTableViewCell: UITableViewCell {
 
-    fileprivate struct Constants {
-        static let CompletePostText = NSLocalizedString("Data is %@ complete", comment: "Text to indicate how much the product data is filled in (available).")
-    }
     var product: FoodProduct? = nil {
         didSet {
             if let productState = product?.state {                
@@ -26,14 +23,6 @@ class CompletionTableViewCell: UITableViewCell {
                 } else {
                     completionBarGaugeView.normalBarColor = .green
                 }
-
-                //let formatter = NumberFormatter()
-                //formatter.numberStyle = .percent
-                //formatter.maximumFractionDigits = 0
-                //let val = NSNumber.init(value:Double(productState.completionPercentage()) / 100.0)
-                //if let valString = formatter.string(from: val) {
-                //    completionLabel?.text = String(format:Constants.CompletePostText, valString)
-                //}
             }
         }
     }
@@ -52,7 +41,7 @@ class CompletionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var completionLabel: UILabel! {
         didSet {
-            completionLabel.text = NSLocalizedString("Completion", comment: "Label for a horizontal gauge that indicates the completion percentage of the product data.")
+            completionLabel.text = TranslatableStrings.Completion
         }
     }
 }
