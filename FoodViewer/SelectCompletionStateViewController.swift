@@ -56,7 +56,7 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
     }
     
 }

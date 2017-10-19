@@ -1,5 +1,5 @@
 /* a space used for several purposes */
-" " = "  ";
+" " = "   ";
 
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haakjes, niet in evenwicht)";
@@ -12,9 +12,6 @@
 
 /* String (in Segmented Control) to indicate the best nutritional score level */
 "A" = "A";
-
-/* Title of a navigationBar to add languages */
-"Add Language" = "Voeg taal toe";
 
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Voeg voedingswaarde toe";
@@ -93,14 +90,14 @@
 /* Generic string to indicate the completion states of a product. */
 "Completion States" = "Volledigheidstoestanden";
 
+/* String in PickerViewController to indicate the creator role of a contributor (any role) */
+"Contributor" = "Bijdrager";
+
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Bijdragers";
 
 /* String in PickerViewController to indicate the corrector role of a corrector */
 "Corrector" = "Correcteur";
-
-/* String in PickerViewController to indicate the creator role of a contributor (any role) */
-"Cotributor" = "Bijdrager";
 
 /* Generic string (plural) to indicate the countries where the product is sold. */
 "Countries" = "Landen";
@@ -146,6 +143,9 @@
 
 /* Placeholder text for field where user should enter a city name. */
 "Enter city name" = "Voer stad in";
+
+/* placeholder in a textField where the user can specify a search for contributors. */
+"Enter contributor name to search for" = "De naam van de bijdrager naar waar gezocht moet worden";
 
 /* Placeholder text for field where user should enter a country name. */
 "Enter country name" = "Voer land in";
@@ -195,9 +195,6 @@
 
 /* Header title of the tableview section, indicating the most recent expiration date. */
 "Expiration Date" = "Uiterste houdbaarheidsdatum";
-
-/* Header for Tableview section with product expiry date */
-"Expiry Date" = "Uiterste houdbaarheidsdatum";
 
 /* Title of ViewController with a list of all food products that has been viewed. */
 "Food Products" = "Voedingsproducten";
@@ -288,9 +285,6 @@
 /* Tableview sectionheader for main image of package. */
 "Main Image" = "Productfoto";
 
-/* Title of a navigationBar with the main language */
-"Main Language" = "Basistaal";
-
 /* Generic string to indicate the manufaturer of the product. */
 "Manufacturer" = "Producent";
 
@@ -303,9 +297,6 @@
 
 /* Tableview sectionheader for product name */
 "Name" = "Productnaam";
-
-/* String in pickerView if no purchase shops are defined */
-"No Favorites defined" = "Geen favorieten gedefinieerd";
 
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Geen merken vermeld";
@@ -333,6 +324,12 @@
 
 /* String if no quantity is available */
 "No quantity available" = "Geen verpakkingsgrootte beschikbaar.";
+
+/* String in TableView section when a search is not defined. */
+"No search defined" = "Geen zoekopdracht beschikbaar";
+
+/* String in TableView section when a search is not yet carried out. */
+"No search result" = "Nog geen zoekresultaat";
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Geen titel";
@@ -397,7 +394,7 @@
 /* String presented in a tagView if this is not the current product type */
 "Other product type" = "Ander product type";
 
-/* Gneric string to indicate the packager codes. */
+/* Generic string to indicate the packager codes. */
 "Packager Code" = "Verpakkerscode";
 
 /* Tableview sectionheader for packaging. */
@@ -469,9 +466,6 @@
 /* Where do I use this? */
 "Product update succeeded" = "Aanpassing product geslaagd";
 
-/* Header for Tableview section with product purchase location date */
-"Purchase Location" = "Aankoopplaats";
-
 /* Header for section of tableView with Locations where the product was bought. */
 "Purchase Locations" = "Aankoopplaatsen";
 
@@ -509,9 +503,6 @@
 /* Title of a Tableview controller, indicating the tableview shows search beauty products. */
 "Search Beauty Products" = "Zoek Beauty Producten";
 
-/* Title of a tableViewController section, which indicates the the search query template have been obtaned yet */
-"Search Definition" = "Zoekopdrachtdefinitie";
-
 /* Title of a Tableview controller, indicating the tableview shows search food products. */
 "Search Food Products" = "Zoek Voedselproducten";
 
@@ -531,11 +522,12 @@
 "Search query" = "Zoekopdracht";
 
 /* First element of a pickerView, where the user has to select a language.
-   First element of a pickerView, where the user has to select a nutrient. */
+   First element of a pickerView, where the user has to select a nutrient.
+   Title of a viewcontroller where the user has to select an element in the picker. */
 "Select" = "Kies";
 
-/* Title of view controller, which allows the adding of a nutrient */
-"Select Nutrient" = "Selecteer voedingswaarde";
+/* First item in a pickerView, indicating what the user should do */
+"Select role" = "Kies rol";
 
 /* Gallery header text presenting the selected front images */
 "Selected Front Images" = "Selecteer ";
@@ -554,9 +546,6 @@
 
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Definieer account";
-
-/* String in pickerView if the purchase shop is not known */
-"Shop unknown" = "Winkel onbekend";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
@@ -693,9 +682,6 @@
 
 /* Part of a sentece indicating the number of search results */
 "search results" = "zoekresultaten";
-
-/* First item in a pickerView, indicating what the user should do */
-"select role" = "selecteer rol";
 
 /* tag of cell when no date was in off */
 "undefined" = "ongedefinieerd";

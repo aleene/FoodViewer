@@ -60,7 +60,6 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     private var sortedLanguages: [Language] = []
 
     fileprivate struct Constants {
-        static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
         // static let Select = "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
     }
     
@@ -103,7 +102,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if sortedLanguages.isEmpty {
-            return Constants.NoLanguage
+            return TranslatableStrings.NoLanguage
         //} else if row == 0 {
         //    return  Constants.Select
         } else {
@@ -118,7 +117,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         var attributedRowText = NSMutableAttributedString()
 
         if sortedLanguages.isEmpty {
-            attributedRowText = NSMutableAttributedString(string: Constants.NoLanguage)
+            attributedRowText = NSMutableAttributedString(string: TranslatableStrings.NoLanguage)
         //} else if row == 0 {
         //    attributedRowText = NSMutableAttributedString(string: Constants.Select)
         } else {
@@ -208,7 +207,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
     }
     
     override func viewDidAppear(_ animated: Bool) {

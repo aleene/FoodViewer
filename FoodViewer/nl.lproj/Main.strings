@@ -7,14 +7,8 @@
 /* Class = "UILabel"; text = " 0"; ObjectID = "2vd-fY-j8y"; */
 "2vd-fY-j8y.text" = "0";
 
-/* Class = "UINavigationItem"; title = "Enter Shop details"; ObjectID = "4y8-hi-MjI"; */
-"4y8-hi-MjI.title" = "Voer details winkel in";
-
 /* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "7bH-Lm-Fh3"; */
 "7bH-Lm-Fh3.normalTitle" = "Button";
-
-/* Class = "UINavigationItem"; title = "Add Language"; ObjectID = "7hu-JR-POT"; */
-"7hu-JR-POT.title" = "Titel";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
 "8TO-NA-Iaz.title" = "Annuleer";
@@ -25,9 +19,6 @@
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "807-If-TeI"; */
 "807-If-TeI.text" = "Subtitel";
 
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "A9l-Yd-38c"; */
-"A9l-Yd-38c.title" = "Titel";
-
 /* Class = "UILabel"; text = "Title"; ObjectID = "IL2-Vr-5wd"; */
 "IL2-Vr-5wd.text" = "Titel";
 
@@ -37,9 +28,6 @@
 /* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[1] = "OFF account"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[1]" = "Tweede";
 
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "MGY-bs-Itx"; */
-"MGY-bs-Itx.title" = "Titel";
-
 /* Class = "UILabel"; text = "Allergens / Traces"; ObjectID = "RFc-0b-oYh"; */
 "RFc-0b-oYh.text" = "Allergenen / Sporen";
 
@@ -48,9 +36,6 @@
 
 /* Class = "UINavigationItem"; title = "Confirm Product"; ObjectID = "WA5-QR-fDF"; */
 "WA5-QR-fDF.title" = "Bevestig product";
-
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "Xob-8V-DfG"; */
-"Xob-8V-DfG.title" = "Select";
 
 /* Class = "UISegmentedControl"; Zxj-MC-Q9J.segmentTitles[0] = "Food"; ObjectID = "Zxj-MC-Q9J"; */
 "Zxj-MC-Q9J.segmentTitles[0]" = "Food";
@@ -88,20 +73,11 @@
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
 "hYb-mr-zvw.title" = "Producten";
 
-/* Class = "UINavigationItem"; title = "Select Exp. Date"; ObjectID = "hha-cD-Ejl"; */
-"hha-cD-Ejl.title" = "Uiterste Verkoop Datum";
-
 /* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[0] = "Joule"; ObjectID = "iLS-3y-yF5"; */
 "iLS-3y-yF5.segmentTitles[0]" = "Eerste";
 
 /* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[1] = "Calories"; ObjectID = "iLS-3y-yF5"; */
 "iLS-3y-yF5.segmentTitles[1]" = "Tweede";
-
-/* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
-"ihd-JM-WfS.title" = "Streepjescode";
-
-/* Class = "UINavigationItem"; title = "Set Warnings"; ObjectID = "mZf-5k-m2j"; */
-"mZf-5k-m2j.title" = "Stel waarschuwingen in";
 
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";
@@ -114,12 +90,6 @@
 
 /* Class = "UILabel"; text = " 11"; ObjectID = "tKL-Tg-nO5"; */
 "tKL-Tg-nO5.text" = "11";
-
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "uO9-18-9Hq"; */
-"uO9-18-9Hq.title" = "Selecteer";
-
-/* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
-"wEv-aO-bBx.title" = "Favoriete winkels";
 
 /* Class = "UISegmentedControl"; yzx-7e-epe.segmentTitles[0] = "100 g / 100 ml"; ObjectID = "yzx-7e-epe"; */
 "yzx-7e-epe.segmentTitles[0]" = "100 g / ml";

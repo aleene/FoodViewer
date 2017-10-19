@@ -126,8 +126,8 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     
     @IBOutlet weak var nutrientModelSegmentedControl: UISegmentedControl! {
         didSet {
-            nutrientModelSegmentedControl.setTitle(NSLocalizedString("Per 100 mg/ml", comment: "Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml"), forSegmentAt: 0)
-            nutrientModelSegmentedControl.setTitle(NSLocalizedString("Per serving", comment: "Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving"), forSegmentAt: 1)
+            nutrientModelSegmentedControl.setTitle(TranslatableStrings.Per100mgml, forSegmentAt: 0)
+            nutrientModelSegmentedControl.setTitle(TranslatableStrings.PerServing, forSegmentAt: 1)
         }
     }
     @IBAction func nutrientModelSegmentedControlChanged(_ sender: UISegmentedControl) {
@@ -269,9 +269,9 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
+        navigationController?.title = TranslatableStrings.EditNutrient
         per = .perStandardUnit
-        nutrientTitle.text = NSLocalizedString("No nutrients", comment: "Text of Label, indicating that the product has no nutrients defined")
+        nutrientTitle.text = TranslatableStrings.NoNutrients
     }
     
     override func viewDidAppear(_ animated: Bool) {

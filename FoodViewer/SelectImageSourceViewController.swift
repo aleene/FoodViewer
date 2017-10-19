@@ -57,7 +57,7 @@ class SelectImageSourceViewController: UIViewController, UINavigationControllerD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
     }
     
 }

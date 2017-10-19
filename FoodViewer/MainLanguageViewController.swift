@@ -67,7 +67,8 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        title = "new"
+        navigationController?.title = TranslatableStrings.Select
     }
         
     private func setupLanguages() {

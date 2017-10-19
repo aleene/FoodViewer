@@ -58,8 +58,10 @@ struct TranslatableStrings {
 //
     
     static let E = NSLocalizedString("E", comment: "String in Segmented Control to indicate the fifth best (and last) nutritional score level")
+    static let EditNutrient = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
     static let Editor = NSLocalizedString("Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
     static let EditorUnicode = NSLocalizedString("📝", comment: "Image to indicate that the user who added or deleted information of the product.")
+    static let EnterContributorName = NSLocalizedString("Enter contributor name to search for", comment: "placeholder in a textField where the user can specify a search for contributors.")
     static let EntryDate = NSLocalizedString("Entry Date", comment: "String to indicate the date, when the product was created on OFF.")
     static let Exclude = NSLocalizedString("Exclude", comment: "String in Segmented Control to indicate whether the corresponding tag should be EXCLUDED from the search.")
     
@@ -111,8 +113,10 @@ struct TranslatableStrings {
     static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     static let NoImageInTheRightLanguage = NSLocalizedString("No image in the right language", comment: "Tag indicating that no image in the correct language is available")
     static let NoIngredients = NSLocalizedString("no ingredients specified", comment: "Text in a TagListView, when no ingredients are available in the product data.")
+    static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
     static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
     static let None = NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
+    static let NoNutrients = NSLocalizedString("No nutrients", comment: "Text of Label, indicating that the product has no nutrients defined")
     static let NoSearchDefined = NSLocalizedString("No search defined", comment: "String in TableView section when a search is not defined.")
     static let NoSearchResult = NSLocalizedString("No search result", comment: "String in TableView section when a search is not yet carried out.")
     static let NoServingSizeAvailable = NSLocalizedString("no serving size available", comment: "Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.")
@@ -128,7 +132,9 @@ struct TranslatableStrings {
 //
     
     static let Packaging = NSLocalizedString("Packaging", comment: "Tableview sectionheader for packaging.")
-    static let PackagerCodes = NSLocalizedString("Packager Code", comment: "Gneric string to indicate the packager codes.")
+    static let PackagerCodes = NSLocalizedString("Packager Code", comment: "Generic string to indicate the packager codes.")
+    static let PerServing = NSLocalizedString("Per serving", comment: "Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving")
+    static let Per100mgml = NSLocalizedString("Per 100 mg/ml", comment: "Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml")
     static let PetFoodProducts = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + TranslatableStrings.Space + TranslatableStrings.PhotographerUnicode
     static let PhotographerUnicode = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")

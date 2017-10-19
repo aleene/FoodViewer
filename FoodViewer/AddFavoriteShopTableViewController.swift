@@ -134,7 +134,7 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
     }
 
 }

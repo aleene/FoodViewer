@@ -69,7 +69,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
     }
     
     private func setupLanguages() {

@@ -54,7 +54,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
         
         nutrientUnitsPickerView?.delegate = self
         nutrientUnitsPickerView?.dataSource = self

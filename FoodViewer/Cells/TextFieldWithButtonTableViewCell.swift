@@ -28,6 +28,14 @@ class TextFieldWithButtonTableViewCell: UITableViewCell {
     var username: String? {
         didSet {
             textField.text = username
+            if username == nil {
+                textField.placeholder = TranslatableStrings.EnterContributorName
+                button.isEnabled = false
+            } else if username!.isEmpty {
+                button.isEnabled = false
+            } else {
+                button.isEnabled = true
+            }
         }
     }
     

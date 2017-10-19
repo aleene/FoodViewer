@@ -51,7 +51,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = TranslatableStrings.Select
+        navigationController?.title = TranslatableStrings.Select
     }
     
 }
