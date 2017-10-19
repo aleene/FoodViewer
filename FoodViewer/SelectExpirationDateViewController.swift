@@ -36,4 +36,9 @@ class SelectExpirationDateViewController: UIViewController {
         selectedDate = sender.date
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = TranslatableStrings.Select
+    }
+    
 }

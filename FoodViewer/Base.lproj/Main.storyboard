@@ -31,7 +31,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-RI-BND">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="Xob-8V-DfG">
+                                    <navigationItem id="Xob-8V-DfG">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="9z3-Gr-bX9"/>
                                     </navigationItem>
                                 </items>
@@ -70,7 +70,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Enter Shop details" id="4y8-hi-MjI">
+                                <navigationItem id="4y8-hi-MjI">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="PtU-Dw-UEq">
                                         <connections>
                                             <segue destination="0na-7c-rwo" kind="unwind" identifier="" unwindAction="unwindAddFavoriteShopForCancel:" id="ZQo-7y-6np"/>
@@ -143,7 +143,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Favorite Shops" id="wEv-aO-bBx">
+                                <navigationItem id="wEv-aO-bBx">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="rJc-jQ-cC3">
                                         <connections>
                                             <segue destination="9Mk-6V-ku1" kind="unwind" unwindAction="unwindSetFavoriteShopForCancel:" id="Y8t-pu-rUU"/>
@@ -231,7 +231,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <items>
-                                <navigationItem title="Set Warnings" id="mZf-5k-m2j">
+                                <navigationItem id="mZf-5k-m2j">
                                     <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FL8-ss-9O3">
                                         <connections>
                                             <action selector="cancelButtonTapped:" destination="x3J-Z2-tIT" id="a3B-nF-df8"/>
@@ -307,7 +307,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bgt-Xx-TeL">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Barcode" id="ihd-JM-WfS">
+                                    <navigationItem id="ihd-JM-WfS">
                                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="8TO-NA-Iaz">
                                             <connections>
                                                 <action selector="cancelBarButtonItemTapped:" destination="mXx-7P-ucJ" id="AZb-7k-onN"/>
@@ -1737,7 +1737,7 @@
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="bEj-vd-gTt">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="MGY-bs-Itx">
+                                    <navigationItem id="MGY-bs-Itx">
                                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="cFk-ea-6EH">
                                             <connections>
                                                 <segue destination="I8T-CR-49E" kind="popoverPresentation" identifier="Add Language ViewController Segue" popoverAnchorBarButtonItem="cFk-ea-6EH" id="1Ci-bu-4sU">
@@ -1768,7 +1768,6 @@
                     <connections>
                         <outlet property="addBarButtonItem" destination="cFk-ea-6EH" id="ReQ-0n-rHY"/>
                         <outlet property="languagesPickerView" destination="GY8-NT-FaZ" id="OIj-jj-z5w"/>
-                        <outlet property="navBar" destination="bEj-vd-gTt" id="2QB-SP-MgK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dq4-Hi-4HJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1791,7 +1790,7 @@
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="hie-TI-GZb">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Add Language" id="7hu-JR-POT">
+                                    <navigationItem id="7hu-JR-POT">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="8MH-IQ-Qp2">
                                             <connections>
                                                 <segue destination="1h6-hl-cx9" kind="unwind" unwindAction="unwindAddLanguageForDone:" id="ACK-tz-EfU"/>
@@ -1818,7 +1817,6 @@
                     </view>
                     <connections>
                         <outlet property="languagesPickerView" destination="wz9-lT-1nW" id="cdU-bs-c8e"/>
-                        <outlet property="navBar" destination="hie-TI-GZb" id="NUv-Bi-igI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0h8-AZ-lII" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3372,7 +3370,7 @@
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="pfI-Vf-yJ5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="A9l-Yd-38c">
+                                    <navigationItem id="A9l-Yd-38c">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VhW-UR-XJh">
                                             <connections>
                                                 <segue destination="hN1-hb-NjU" kind="unwind" unwindAction="unwindAddNutrientForCancel:" id="plR-4O-BtP"/>
@@ -3423,7 +3421,7 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wsd-fa-U6T">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select Exp. Date" id="hha-cD-Ejl">
+                                    <navigationItem id="hha-cD-Ejl">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gM5-PA-jxn">
                                             <connections>
                                                 <segue destination="cjF-Ec-3gy" kind="unwind" unwindAction="unwindSetExpirationDateForCancel:" id="oyl-ht-brJ"/>
@@ -3530,7 +3528,7 @@
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="APZ-VN-DIT">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="uO9-18-9Hq">
+                                    <navigationItem id="uO9-18-9Hq">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="RIx-Dx-Ekh">
                                             <connections>
                                                 <segue destination="HrT-0p-TNu" kind="unwind" identifier="Unwind Change Main Language For Cancel Segue" unwindAction="unwindChangeMainLanguageForDone:" id="x27-pL-HQa"/>
@@ -3616,7 +3614,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ehY-Qy-AV7">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="CYD-9l-kKz">
+                                    <navigationItem id="CYD-9l-kKz">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="9um-nQ-Tvr"/>
                                     </navigationItem>
                                 </items>
@@ -3748,7 +3746,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="bL1-eB-rEY"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="ntk-NT-VGC"/>
         <segue reference="z8D-RP-i6i"/>
     </inferredMetricsTieBreakers>
 </document>

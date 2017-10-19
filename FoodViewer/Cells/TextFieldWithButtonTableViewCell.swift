@@ -36,7 +36,7 @@ class TextFieldWithButtonTableViewCell: UITableViewCell {
             if let validText = buttonText {
                 button.setTitle(validText, for: .normal)
             } else {
-                button.setTitle(editMode ? "Select role" : "Role not selected", for: .normal)
+                button.setTitle(editMode ? TranslatableStrings.SelectRole : TranslatableStrings.RoleNotSelected, for: .normal)
             }
         }
     }
@@ -51,7 +51,7 @@ class TextFieldWithButtonTableViewCell: UITableViewCell {
             if delegate is UITextFieldDelegate {
                 textField.delegate = delegate as? UITextFieldDelegate
             } else {
-                assert(true, "The TexField delegate has not been set up.")
+                assert(true, "TextFieldWithButtonTableViewCell Error: The TexField delegate has not been set up.")
             }
         }
     }

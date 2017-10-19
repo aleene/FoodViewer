@@ -69,7 +69,7 @@ class SearchTemplate {
     var ingredientsThatMayBeFromPalmOil: IngredientsInclusion = .indifferent
     var ingredientsFromOrThatMayBeFromPalmOil: IngredientsInclusion = .indifferent
     
-    var numberOfSearchResults: Int = 0
+    var numberOfSearchResults: Int? = nil
     
     // Nutriments
     // https://world.openfoodfacts.org/cgi/search.pl?action=process&nutriment_0=energy&nutriment_compare_0=lt&nutriment_value_0=100

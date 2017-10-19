@@ -73,14 +73,6 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     //  MARK : Interface elements
 
-    @IBOutlet weak var navBar: UINavigationBar!
-        /*{
-        didSet {
-            navBar.topItem?.title = NSLocalizedString("Main Language", comment: "Title of a navigationBar with the main language")
-        }
-    }
- */
-
     @IBOutlet weak var languagesPickerView: UIPickerView! {
         didSet {
             languagesPickerView.dataSource = self
@@ -216,7 +208,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = TranslatableStrings.Select
     }
     
     override func viewDidAppear(_ animated: Bool) {

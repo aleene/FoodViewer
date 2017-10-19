@@ -48,6 +48,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
         if editMode {
+            
+            if OFFAccount().personalExists() {
+                // maybe the user has to authenticate himself before continuing
+                authenticate()
+            }
+
             // the user was editing AND tapped the save button
             userWantsToSave = true
             // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
@@ -1171,11 +1177,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        if OFFAccount().personalExists() {
-            // maybe the user has to authenticate himself before continuing
-            authenticate()
-        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

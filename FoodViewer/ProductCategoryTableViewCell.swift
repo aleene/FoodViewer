@@ -19,9 +19,9 @@ class ProductCategoryTableViewCell: UITableViewCell {
     
     var belongsToCategoryTitle: String? = nil {
         didSet {
-            var belongsToCategoryLabelText = belongsToCategoryTitle != nil ? belongsToCategoryTitle! : NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
+            var belongsToCategoryLabelText = belongsToCategoryTitle != nil ? belongsToCategoryTitle! : TranslatableStrings.None
             // add a question mark
-            belongsToCategoryLabelText += "?"
+            belongsToCategoryLabelText += TranslatableStrings.QuestionMark
             belongsToCategoryLabel.text = belongsToCategoryLabelText
         }
     }

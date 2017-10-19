@@ -1,20 +1,11 @@
 /* a space used for several purposes */
-" " = " ";
+" " = "  ";
 
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haakjes, niet in evenwicht)";
 
-/* A list of countries seperated by a comma. */
-"%@" = "%@";
-
-/* A separator of a list of countries. ADD A TRAILING SPACE */
-", " = ", ";
-
 /* Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "100 mg/ml" = "100 mg/ml";
-
-/* A sepator between sentence parts.  ADD A TRAILING SPACE. */
-"; " = "; ";
 
 /* a questionmark used for several purposes */
 "?" = "?";
@@ -38,12 +29,6 @@
 /* Header title for the product allergens section, i.e. the allergens derived from the ingredients.
    Text to indicate the allergens of a product. */
 "Allergens" = "Allergenen";
-
-/* Text to indicate the number of categories the product belongs to. */
-"Assigned to %@ categories" = "Aan %@ categorieën toegewezen";
-
-/* Text to indicate the product belongs to ONE category. */
-"Assigned to 1 category" = "Aan 1 catégorie toegewezen";
 
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Authentication with TouchID failed. Specify your password" = "Authenticatie met TouchID mislukt, specificeer je wachtwoord:";
@@ -106,7 +91,7 @@
 "Completion" = "Compleetheid";
 
 /* Generic string to indicate the completion states of a product. */
-"Completion States" = "";
+"Completion States" = "Volledigheidstoestanden";
 
 /* Header title of the tableview section, indicating whether which users did contribute. */
 "Contributors" = "Bijdragers";
@@ -134,9 +119,6 @@
 
 /* Description for NutritionData Daily Value per serving */
 "Daily Values (per serving)" = "Dagelijkse Hoeveelheid (per portie)";
-
-/* Text to indicate how much the product data is filled in (available). */
-"Data is %@ complete" = "Data is %@ volledig";
 
 /* String presented in a tagView if the data has been loaded */
 "Data is loaded" = "Data geladen";
@@ -328,9 +310,6 @@
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Geen merken vermeld";
 
-/* Text to indicate that No categories have been specified in the product data. */
-"No categories specified" = "Geen categorieën vermeld";
-
 /* String if no common name is available */
 "No common name available" = "Geen generieke naam beschikbaar.";
 
@@ -343,26 +322,17 @@
 /* Tag indicating that no image in the correct language is available */
 "No image in the right language" = "Geen foto in de goede taal";
 
-/* Text to indicate that no ingredients are present in the product data. */
-"No ingredients listed" = "Geen ingrediënten vermeld";
-
 /* String if no name is available */
 "No name available" = "Geen productnaam beschikbaar.";
 
 /* Text of Label, indicating that the product has no nutrients defined */
 "No nutrients" = "Geen voedingswaarden";
 
-/* Text to indicate that no product is defined/setup. */
-"No product defined" = "Geen product gedefinieerd";
-
 /* Text to indicate that the history of products is empty. */
 "No products listed" = "Geen producten beschikbaar.";
 
 /* String if no quantity is available */
 "No quantity available" = "Geen verpakkingsgrootte beschikbaar.";
-
-/* Text to indicate that no supply chain infor (origin, producer, etc.) are available. */
-"No supply chain info" = "Geen verkoopketen info";
 
 /* Title for viewcontroller with detailed product images, when no title is given. */
 "No title" = "Geen titel";
@@ -462,9 +432,6 @@
 
 /* Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion. */
 "Presentation format" = "Presentatie format";
-
-/* Text to indicate the producer of the product.  ADD A TRAILING SPACE. */
-"Produced in/by %@; " = "Geproduceerd in/door %@; ";
 
 /* Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666). */
 "Producer Codes" = "Producentcodes";
@@ -594,12 +561,6 @@
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
 
-/* Text to indicate the first shop the product is sold in.  ADD A TRAILING SPACE. */
-"Sold by %@" = "Verkocht door %@";
-
-/* Text to introduce where the product is sold.  ADD A TRAILING SPACE. */
-"Sold in " = "Verkocht in ";
-
 /* Header for a table section showing the special categories */
 "Special categories" = "Uitzonderingscategorieën";
 
@@ -621,12 +582,6 @@
 
 /* Alert title, to indicate product should be added */
 "Sure" = "Doen";
-
-/* Text to indicate the number of ingredients in the product. */
-"There are %@ ingredients" = "Er zijn %@ ingrediënten";
-
-/* Text to indicate that there is one ingredient in the product. */
-"There is 1 ingredient" = "Er is 1 ingrediënt";
 
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Dit voorbeeldproduct laat zien hoe de productinformatie wordt getoond. Swipe naar de volgende pagina's om meer productdetails te zien. Na het scannen van het eerste product wordt dit voorbeeldproduct verwijderd.";
@@ -656,6 +611,9 @@
 
 /* Text in a TagListView, when tags are available the product data. */
 "available" = "beschikbaar";
+
+/* Generic string to indicate the completion states of a product. */
+"contributor name not set" = "naam bijdrager niet ingesteld";
 
 /* Title of first segment in switch, which indicates the foodviewer account will be used for edits */
 "foodviewer" = "foodviewer";

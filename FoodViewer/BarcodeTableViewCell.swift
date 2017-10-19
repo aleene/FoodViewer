@@ -35,7 +35,7 @@ class BarcodeTableViewCell: UITableViewCell {
             if let validMainLanguageCode = mainLanguageCode {
                 mainLanguageButton?.setTitle(validMainLanguageCode, for: .normal)
             } else {
-                mainLanguageButton?.setTitle("??", for: .normal)
+                mainLanguageButton?.setTitle(TranslatableStrings.QuestionMark, for: .normal)
             }
         }
     }

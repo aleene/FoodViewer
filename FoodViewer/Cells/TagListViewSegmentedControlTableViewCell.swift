@@ -89,7 +89,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         if delegate is TagListViewDelegate {
             tagListView?.delegate = delegate as? TagListViewDelegate
         } else {
-            assert(true, "TagListViewSegmentedControlTableViewCell: setup TagListViewDelegate")
+            assert(true, "TagListViewSegmentedControlTableViewCell Error: setup TagListViewDelegate")
         }
     }
     

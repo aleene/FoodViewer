@@ -67,6 +67,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = TranslatableStrings.Select
     }
         
     private func setupLanguages() {
@@ -89,7 +90,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
             }
         }
     }
-        
+    
 }
 
 

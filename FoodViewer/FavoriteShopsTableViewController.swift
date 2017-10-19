@@ -242,6 +242,7 @@ class FavoriteShopsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = TranslatableStrings.Select
         tableView.reloadData()
         addLongGestureRecognizerForTableView()
 

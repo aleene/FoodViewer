@@ -100,9 +100,6 @@
 /* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
 "ihd-JM-WfS.title" = "Streepjescode";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "jjd-pb-eyV"; */
-"jjd-pb-eyV.text" = "Label";
-
 /* Class = "UINavigationItem"; title = "Set Warnings"; ObjectID = "mZf-5k-m2j"; */
 "mZf-5k-m2j.title" = "Stel waarschuwingen in";
 
@@ -120,9 +117,6 @@
 
 /* Class = "UINavigationItem"; title = "Select"; ObjectID = "uO9-18-9Hq"; */
 "uO9-18-9Hq.title" = "Selecteer";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "vPM-r4-zbF"; */
-"vPM-r4-zbF.text" = "Label";
 
 /* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
 "wEv-aO-bBx.title" = "Favoriete winkels";

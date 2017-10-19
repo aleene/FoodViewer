@@ -21,7 +21,8 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
             pickerView.showsSelectionIndicator = true
         }
     }
-    // at the momentt the search supports only two roles
+    
+    // at the moment the search supports only two roles
     var validRoles: [ContributorRole] = [.creator, .editor]
     
     var roles: [String] {
@@ -61,4 +62,9 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = TranslatableStrings.Select
+    }
 }

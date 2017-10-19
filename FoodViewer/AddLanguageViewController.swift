@@ -32,13 +32,6 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     //  MARK : Interface elements
     
-    @IBOutlet weak var navBar: UINavigationBar!
-        /*{
-        didSet {
-            navBar.topItem?.title = NSLocalizedString("Add Language", comment: "Title of a navigationBar to add languages")
-        }
-    }
- */
     
     @IBOutlet weak var languagesPickerView: UIPickerView! {
         didSet {
@@ -76,6 +69,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = TranslatableStrings.Select
     }
     
     private func setupLanguages() {

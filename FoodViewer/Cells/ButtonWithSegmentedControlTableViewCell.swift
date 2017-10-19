@@ -43,7 +43,7 @@ class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
                     button.setTitle(elements.joined(separator: " "), for: .normal)
                 }
             } else {
-                button.setTitle("none", for: .normal)
+                button.setTitle(TranslatableStrings.None, for: .normal)
             }
         }
     }
@@ -63,12 +63,4 @@ class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
     
     var delegate: ButtonWithSegmentedControlCellDelegate? = nil
     
-    /*private func buttonTapped() {
-        delegate?.setCompletion()
-    }
-    
-    func setInclusion() {
-        delegate?.setInclusion(segmentedControl.selectedSegmentIndex == 1)
-    }
- */
 }

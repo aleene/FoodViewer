@@ -77,23 +77,23 @@ class ContributorTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var correctorLabel: UILabel! {
         didSet {
-            correctorLabel.text = NSLocalizedString("🔦", comment: "Image to indicate that the user modified information of the product.")
+            correctorLabel.text = TranslatableStrings.CorrectorUnicode
         }
     }
     @IBOutlet weak var editorLabel: UILabel! {
         didSet {
-            editorLabel.text = NSLocalizedString("📝", comment: "Image to indicate that the user who added or deleted information of the product.")
+            editorLabel.text = TranslatableStrings.EditorUnicode
         }
     }
     @IBOutlet weak var informerLabel: UILabel! {
         didSet {
-            informerLabel.text = NSLocalizedString("💭", comment: "Image to indicate that the user who added information to the product.")
+            informerLabel.text = TranslatableStrings.InformerUnicode
         }
     }
 
     @IBOutlet weak var creatorLabel: UILabel! {
         didSet {
-            creatorLabel.text = NSLocalizedString("❤️", comment: "Image to indicate that the user who created the product.")
+            creatorLabel.text = TranslatableStrings.CreatorUnicode
         }
     }
 

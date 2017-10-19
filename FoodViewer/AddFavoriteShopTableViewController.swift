@@ -131,5 +131,10 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         
         return true
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = TranslatableStrings.Select
+    }
 
 }

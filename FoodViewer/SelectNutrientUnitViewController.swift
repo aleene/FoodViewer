@@ -54,7 +54,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // self.title = NSLocalizedString("Select Nutrient", comment: "Title of view controller, which allows the adding of a nutrient")
+        self.title = TranslatableStrings.Select
         
         nutrientUnitsPickerView?.delegate = self
         nutrientUnitsPickerView?.dataSource = self

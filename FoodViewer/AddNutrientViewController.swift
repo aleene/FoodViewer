@@ -14,8 +14,6 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     var existingNutrients: [String]? = nil
     
-    @IBOutlet weak var navBar: UINavigationBar!
-    
     @IBOutlet weak var nutrientsPickerView: UIPickerView! {
         didSet {
             nutrientsPickerView.delegate = self
@@ -49,6 +47,11 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
         if row > 0 {
             addedNutrientTuple = OFFplists.manager.nutrients[row - 1]
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = TranslatableStrings.Select
     }
     
 }

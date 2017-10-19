@@ -295,7 +295,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         case let .available(list):
                             cell.productBrand = list
                         case .notSearchable:
-                            assert(true, "How can I set a brand a tag when the field is non-editable")
+                            assert(true, "ProductTableViewController Error: How can I set a brand a tag when the field is non-editable")
                         }
                         return cell
                         
@@ -384,7 +384,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(list.count)"
                         case .notSearchable:
-                            assert(true, "How can I set a categorie is non-editable")
+                            assert(true, "ProductTableViewController Error: How can I set a categorie is non-editable")
                         }
                         return cell
                     case .completion:
@@ -542,10 +542,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                 }
             case .searchQuery(let query):
-                label.text = "\(query.numberOfSearchResults)" + " " +  TranslatableStrings.SearchResults
-//                } else {
-//                    label.text = NSLocalizedString("Search Definition", comment: "Title of a tableViewController section, which indicates the the search query template have been obtaned yet")
-//                }
+                if !query.isEmpty {
+                    label.text = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.NoSearchResult
+                } else {
+                    label.text = TranslatableStrings.NoSearchDefined
+                }
             default:
                 label.text = products.fetchResultList[section].description()
             }
