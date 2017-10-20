@@ -516,7 +516,7 @@
 "Search in name, generic name, label, brand." = "Zoek in naam, generieke naam, labels en merk";
 
 /* String presented in a tagView if the search query is currently being loaded */
-"Search loading" = "Voer uit zoekvraag";
+"Search loading" = "Zoekende";
 
 /* String presented in a tagView for the search query */
 "Search query" = "Zoekopdracht";

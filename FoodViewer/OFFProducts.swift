@@ -107,8 +107,8 @@ class OFFProducts {
                                 list.append(fetchResult!)
                             }
                         }
-                    case .searchLoading:
-                        list.append(.searchLoading)
+                    //case .searchLoading:
+                    //    list.append(.searchLoading)
                     case .more(let pageNumber):
                         list.append(.more(pageNumber))
                     default: break
@@ -590,7 +590,7 @@ class OFFProducts {
                 // reset search page
                 currentSearchPage = 0
                 allSearchFetchResultList = []
-                allSearchFetchResultList.append(.searchLoading)
+                // allSearchFetchResultList.append(.searchLoading)
                 setCurrentProducts()
                 // send a notification to inform that a search has started
                 let userInfo: [String:Any] = [Notification.SearchStringKey:"Search Defined",
@@ -613,7 +613,7 @@ class OFFProducts {
                 currentSearchPage += 1
                 var fetchResult = ProductFetchStatus.loading
                 if allSearchFetchResultList.isEmpty {
-                    allSearchFetchResultList.append(.searchLoading)
+                    // allSearchFetchResultList.append(.searchLoading)
                 } else {
                     if let lastItem = allSearchFetchResultList.last {
                         if let validLastItem = lastItem {

@@ -426,7 +426,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     // What should appear in this cell depends on the search query element
                     
                     let searchPairs = query.searchPairsWithArray()
-                    if searchPairs.count > 0 {
+                    if searchPairs.count > 0 && indexPath.row < searchPairs.count {
                         switch searchPairs[indexPath.row].0 {
                         case .searchText:
                             // Search text
@@ -543,7 +543,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 }
             case .searchQuery(let query):
                 if !query.isEmpty {
-                    label.text = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.NoSearchResult
+                    label.text = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.Searching
                 } else {
                     label.text = TranslatableStrings.NoSearchDefined
                 }
@@ -655,7 +655,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
-            assert(true, "ProductTableViewController: BarcodeScanViewController hierarchy error")
+            assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
         }
     }
     
@@ -679,7 +679,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let tabVC = self.parent?.parent as? UITabBarController {
             tabVC.selectedIndex = index
         } else {
-            assert(true, "ProductTableViewController: TabBar hierarchy error")
+            assert(true, "ProductTableViewController:switchToTab: TabBar hierarchy error")
         }
         setTitle()
     }
@@ -713,7 +713,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     func showAlertProductNotAvailable(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
-        let error = userInfo!["error"] as? String ?? "ProductTableViewController: No valid error"
+        let error = userInfo!["error"] as? String ?? "ProductTableViewController:showAlertProductNotAvailable: No valid error"
         let barcodeString = userInfo![OFFProducts.Notification.BarcodeDoesNotExistKey] as? String
         let alert = UIAlertController(
             title: Constants.AlertSheet.Message,
