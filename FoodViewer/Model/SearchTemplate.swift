@@ -113,7 +113,7 @@ class SearchTemplate {
     private func setSearchPair(_ component: SearchComponent, with string: String) {
         // isSearchTemplate = true
         switch component {
-        // case .barcode:
+        // case .barcode: // SIMPLE search only
             // barcode = BarcodeType.init(value: string)
         case .searchText:
             text = string
@@ -143,36 +143,32 @@ class SearchTemplate {
             manufacturing_places = (Tags.init(string), true)
         case .store:
             stores = (Tags.init(string), true)
-        /*
-        case .entryDates:
-            additionDate = Date.init()
-        case .lastEditDate:
-            lastEditDates = [Date.init()]
-        case .contributor:
-            creator = string
-            informers = [string]
-            editors = [string]
-            photographers = [string]
-            correctors = [string]
+        case .contributor: // For the time being I interpret contributor as creator
+            contributors.append(Contributor.init(string, role: .creator))
         case .creator:
-            creator = string
-        case .informer:
-            informers = [string]
+            contributors.append(Contributor.init(string, role: .creator))
+        //case .informer: Not supported by OFF
+        //    contributors.append(Contributor.init(string, role: .informer))
         case .editor:
-            editors = [string]
-        case .photographer:
-            photographers = [string]
-        case .corrector:
-            correctors = [string]
+            contributors.append(Contributor.init(string, role: .editor))
+        //case .photographer: Not supported by OFF
+        //    contributors.append(Contributor.init(string, role: .photographer))
+        // case .corrector: Not supported by OFF
+        //   contributors.append(Contributor.init(string, role: .corrector))
+            
         case .state:
-            if let validState = OFF.completion(for: string) {
-                state.states.insert(validState)
-            }
+            completion = OFF.completion(for: string)
+
+        /*
+        case .entryDates: // SIMPLE search only
+            additionDate = Date.init()
+        case .lastEditDate: // SIMPLE search only
+            lastEditDates = [Date.init()]
         */
         case .origin:
             origins = (Tags.init(string), true)
         case .nutritionGrade:
-            break
+            level = NutritionalScoreLevel.init(string)
         default:
             break
         }
@@ -182,7 +178,7 @@ class SearchTemplate {
     func searchPairsWithArray() -> [(SearchComponent, [String], String)] {
         var pairs: [(SearchComponent, [String], String)] = []
         
-        // barcode
+        // barcode // SIMPLE search only
         //if !barcode.asString().isEmpty {
         //    pairs.append((.barcode, [barcode.asString()], true))
         //}
@@ -217,7 +213,11 @@ class SearchTemplate {
         if !validTags.list.isEmpty {
             pairs.append((.country, cleanChars(validTags.list), display(shouldContain) ))
         }
-        
+        // origins
+        (validTags, shouldContain) = origins
+        if !validTags.list.isEmpty {
+            pairs.append((.label, cleanChars(validTags.list), display(shouldContain) ))
+        }
         // label
         (validTags, shouldContain) = labels
         if !validTags.list.isEmpty {
@@ -258,10 +258,12 @@ class SearchTemplate {
         if !validTags.list.isEmpty {
             pairs.append((.manufacturingPlaces, cleanChars(validTags.list),  display(shouldContain) ))
         }
-        // store
-        //if !storesOriginal.list.isEmpty {
-        //    pairs.append((.store, cleanChars(storesOriginal.list), storesOriginal.state() ?? true ))
-        //}
+        // stores
+        (validTags, shouldContain) = stores
+        if !validTags.list.isEmpty {
+            pairs.append((.store, cleanChars(validTags.list),  display(shouldContain) ))
+        }
+
         //let formatter = DateFormatter()
         //formatter.dateFormat = "yyyy-MM-dd"
         //if let validDate = additionDate {
@@ -278,30 +280,20 @@ class SearchTemplate {
         //}
         
         // creator:
-        //if let validCreator = creator {
-        //    pairs.append((.creator, validCreator))
-        //}
-        // informer:
-        //if let validInformers = informers {
-        //    pairs.append((.informer, cleanChars(validInformers), true))
-        //}
-        // editor:
-        //if let validEditors = editors {
-        //    pairs.append((.editor, cleanChars(validEditors), true))
-        //}
-        // photographer:
-        //if let validPhotographers = photographers {
-        //    pairs.append((.photographer, cleanChars(validPhotographers), true))
-        //}
-        // corrector
-        //if let validCorrectors = correctors {
-        //    pairs.append((.corrector, cleanChars(validCorrectors), true))
-        //}
+        if !contributors.isEmpty {
+            for contributor in contributors {
+                if contributor.isCreator {
+                    pairs.append((.creator, [contributor.name], display(shouldContain) ))
+                }
+                if contributor.isEditor {
+                    pairs.append((.editor, [contributor.name], display(shouldContain) ))
+                }
+            }
+        }
         // states:
-        //for item in state.states {
-        //    pairs.append((.state, [OFF.searchKey(for: item)], true))
-        //}
-        
+        if let validCompletion = completion {
+            pairs.append((.state, [validCompletion.description()], display(validCompletion.value) ))
+        }
             
         for nutrient in allNutrimentsSearch {
             pairs.append(( .nutrient, [nutrient.name], nutrient.searchOperator.rawValue + " " + "\(nutrient.value)" + nutrient.unit.short() ))

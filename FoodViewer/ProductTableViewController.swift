@@ -543,7 +543,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 }
             case .searchQuery(let query):
                 if !query.isEmpty {
-                    label.text = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.Searching
+                    label.text = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.SearchSetup
                 } else {
                     label.text = TranslatableStrings.NoSearchDefined
                 }

@@ -15,14 +15,14 @@ public enum SearchComponent {
     case barcode
     case brand
     case category
-    case checker
+    case checker // not searchable at the moment
     case creator
     case contributor // not searchable at the moment
-    case corrector
+    case corrector // not searchable at the moment
     case country
     case editor
     case entryDates
-    case informer
+    case informer // not searchable at the moment
     case label
     case language
     case lastEditDate
@@ -32,7 +32,7 @@ public enum SearchComponent {
     case origin
     case packaging
     case purchasePlace
-    case photographer
+    case photographer // not searchable at the moment
     case producerCode
     case searchText
     case state

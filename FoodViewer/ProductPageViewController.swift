@@ -281,6 +281,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         supplyChainVC.delegate = self
         categoriesVC.delegate = self
         completionStatusVC.delegate = self
+        nutritionScoreVC.delegate = self
         galleryVC.delegate = self
     }
     
@@ -369,6 +370,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         case .nutritionScore:
             nutritionScoreVC.tableItem = tableItem
+            nutritionScoreVC.delegate = self
             
         case .completion :
             completionStatusVC.tableItem = tableItem
@@ -1121,21 +1123,26 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     func askUserToSearch(for string: String, in component: SearchComponent) {
-        let searchMessage = NSLocalizedString("for %@ in %@",
-                                              comment: "Explanatory text in AlertViewController, which shows the intended search")
+        let searchMessage = TranslatableStrings.SearchMessage
         
-        let alertController = UIAlertController(title: NSLocalizedString("Start Search?",
-                                                                         comment: "Title in AlertViewController, which lets the user decide if he wants to start a search."),
-                                                message: String(format: searchMessage, string, component.description),
+        let parts = string.characters.split{$0 == ":"}.map(String.init)
+        var stringToUse = ""
+        if parts.count >= 2 {
+            stringToUse = parts[1]
+        } else if parts.count >= 1 {
+            stringToUse = parts[0]
+        }
+        
+        let alertController = UIAlertController(title: TranslatableStrings.StartSearch,
+                                                message: String(format: searchMessage, stringToUse, component.description),
                                                 preferredStyle:.alert)
-        let ok = UIAlertAction(title: NSLocalizedString("OK",
-                                                        comment: "String in button, to let the user indicate he wants to start the search."),
+        let ok = UIAlertAction(title: TranslatableStrings.OK,
                                style: .default)
         { action -> Void in
             self.startSearch(for: string, in: component)
         }
         
-        let cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: "String in button, to let the user indicate he does NOT want to search."), style: .default)
+        let cancel = UIAlertAction(title: TranslatableStrings.Cancel, style: .default)
         { action -> Void in
             
         }

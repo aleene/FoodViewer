@@ -27,26 +27,26 @@ class ContributorTableViewCell: UITableViewCell {
                 }
                 nameLabel.isUserInteractionEnabled = !nameLabel.isHidden
                 
-                /* not yet available by OFF
                 if !creatorLabel.isHidden {
                     let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.creatorLongPress))
                     creatorLabel.addGestureRecognizer(longPressGestureRecognizer)
                 }
                 creatorLabel.isUserInteractionEnabled = !creatorLabel.isHidden
-                */
                 
+                /* not yet available by OFF
                 if !informerLabel.isHidden {
                     let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.informerLongPress))
                     informerLabel.addGestureRecognizer(longPressGestureRecognizer)
                 }
                 informerLabel.isUserInteractionEnabled = !informerLabel.isHidden
-                
+                 */
                 if !editorLabel.isHidden {
                     let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.editorLongPress))
                     editorLabel.addGestureRecognizer(longPressGestureRecognizer)
                 }
                 editorLabel.isUserInteractionEnabled = !editorLabel.isHidden
                 
+                /* not supported by OFF
                 if !photographerLabel.isHidden {
                     let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ContributorTableViewCell.photographerLongPress))
                     photographerLabel.addGestureRecognizer(longPressGestureRecognizer)
@@ -58,7 +58,7 @@ class ContributorTableViewCell: UITableViewCell {
                     correctorLabel.addGestureRecognizer(longPressGestureRecognizer)
                 }
                 correctorLabel.isUserInteractionEnabled = !correctorLabel.isHidden
-
+                 */
             }
         }
     }

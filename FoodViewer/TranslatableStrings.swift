@@ -33,6 +33,7 @@ struct TranslatableStrings {
 //
     
     static let C = NSLocalizedString("C", comment: "String in Segmented Control to indicate the thrid best nutritional score level")
+    static let Cancel = NSLocalizedString("Cancel", comment: "String in button, to let the user indicate he does NOT want to search.")
     static let Categories = NSLocalizedString("Categories", comment: "Text to indicate the product belongs to a category.")
     static let Checker = NSLocalizedString("Checker", comment: "String in PickerViewController to indicate the checker role of a contributor")
     static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
@@ -96,6 +97,7 @@ struct TranslatableStrings {
     static let Labels = NSLocalizedString("Labels", comment: "Generic string for labels on product")
     static let Languages = NSLocalizedString("Languages", comment: "Tableview sectionheader for languages on product")
     static let LastEditDate = NSLocalizedString("Last Edit Date", comment: "Generic string to indicate the last date the product was edited")
+    static let Level = NSLocalizedString("Level", comment: "String to indicate the level (score) of the product.")
     static let ListedOnPackage = NSLocalizedString("Listed on package?", comment: "Label to indicate whether any nutrients are indicated on the package")
     static let LoadingFailed = NSLocalizedString("Loading Failed", comment: "Error message when the product failed to load.")
     static let LoadMoreResults = NSLocalizedString("Load more results", comment: "String presented in a tagView if there are more results available")
@@ -131,6 +133,8 @@ struct TranslatableStrings {
     static let NutritionalScoreUK = NSLocalizedString("Nutritional Score UK", comment: "Header for a table section showing the total results UK")
 
     
+    static let OK = NSLocalizedString("OK",
+                                      comment: "String in button, to let the user indicate he wants to start the search.")
     static let OtherProductType = NSLocalizedString("Other product type", comment: "String presented in a tagView if this is not the current product type")
 //
 // MARK: - PPPPPPPPPPPPPP strings
@@ -178,12 +182,17 @@ struct TranslatableStrings {
     static let SearchBeautyProducts = NSLocalizedString("Search Beauty Products", comment: "Title of a Tableview controller, indicating the tableview shows search beauty products.")
     static let Searching = NSLocalizedString("Searching", comment: "Title of a Tableview controller, indicating a search is in progress.")
     static let SearchLoading = NSLocalizedString("Search loading", comment: "String presented in a tagView if the search query is currently being loaded")
+    static let SearchMessage = NSLocalizedString("for %@ in %@",
+                                                 comment: "Explanatory text in AlertViewController, which shows the intended search")
     static let SearchQuery = NSLocalizedString("Search query", comment: "String presented in a tagView for the search query")
     static let SearchResults = NSLocalizedString("search results", comment: "Part of a sentece indicating the number of search results")
+    static let SearchSetup = NSLocalizedString("Search set up", comment: "Indicating that a search has been defined")
     static let SearchText = NSLocalizedString("Search Text", comment: "String to indicate the text, which will be used to search multiple fileds of a product.")
     static let Select = NSLocalizedString("Select", comment: "Title of a viewcontroller where the user has to select an element in the picker.")
     static let SelectRole = NSLocalizedString("Select role", comment: "First item in a pickerView, indicating what the user should do")
     static let SpecialCategories = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
+    static let StartSearch = NSLocalizedString("Start Search?",
+                                               comment: "Title in AlertViewController, which lets the user decide if he wants to start a search.")
     static let Stores = NSLocalizedString("Stores", comment: "Generic string to indicate the stores where the product is sold.")
     static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
     

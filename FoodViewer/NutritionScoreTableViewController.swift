@@ -35,6 +35,8 @@ class NutritionScoreTableViewController: UITableViewController {
             }
         }
     }
+    
+    var delegate: ProductPageViewController? = nil
 
     fileprivate var product: FoodProduct? {
         didSet {
@@ -139,9 +141,10 @@ class NutritionScoreTableViewController: UITableViewController {
                     }
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
-                    cell!.score = product?.nutritionalScoreUK?.total
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as! ColourCodedNutritionalScoreTableViewCell
+                    cell.score = product?.nutritionalScoreUK?.total
+                    cell.delegate = delegate
+                    return cell
                 }
             case .france:
                 switch (indexPath as NSIndexPath).section {
@@ -175,9 +178,10 @@ class NutritionScoreTableViewController: UITableViewController {
                         return cell!
                     }
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as? ColourCodedNutritionalScoreTableViewCell
-                    cell!.score = product?.nutritionalScoreFR?.total
-                    return cell!
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as! ColourCodedNutritionalScoreTableViewCell
+                    cell.score = product?.nutritionalScoreFR?.total
+                    cell.delegate = delegate
+                    return cell
                 }
             }
         }

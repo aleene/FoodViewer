@@ -1584,6 +1584,14 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 break
             }
             
+        case .ingredientOrigin:
+            switch product!.originsOriginal {
+            case .available:
+                delegate?.search(for: product!.originsOriginal.tag(at:index), in: .origin)
+            default:
+                break
+            }
+
         case .location:
             switch product!.purchasePlacesOriginal {
             case .available:

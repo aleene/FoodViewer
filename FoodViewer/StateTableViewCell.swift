@@ -34,7 +34,6 @@ class StateTableViewCell: UITableViewCell {
             // Long press allows to start a search
             let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(StateTableViewCell.stateLongPress))
                 self.addGestureRecognizer(longPressGestureRecognizer)
-
         }
     }
     

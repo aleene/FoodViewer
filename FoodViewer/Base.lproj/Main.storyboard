@@ -987,7 +987,7 @@
                                     <outlet property="brandLabel" destination="Hyf-DH-VMK" id="HDk-q9-8KV"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TagListView With Label Cell Identifier" id="2KB-3O-EZt" userLabel="Being Loaded Cell" customClass="TagListViewLabelTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TagListView With Label Cell Identifier" id="2KB-3O-EZt" customClass="TagListViewLabelTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="185.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2KB-3O-EZt" id="jQY-hh-TOK">
@@ -995,14 +995,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vfy-mR-OxO" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="8" width="223" height="27"/>
+                                            <rect key="frame" x="8" y="7.5" width="271" height="20"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUR-St-lyh">
-                                            <rect key="frame" x="239" y="8" width="40" height="27.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="G4F-so-fHJ"/>
-                                            </constraints>
+                                            <rect key="frame" x="8" y="35.5" width="271" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1010,11 +1007,11 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Vfy-mR-OxO" firstAttribute="top" secondItem="jQY-hh-TOK" secondAttribute="topMargin" id="105-oD-CbJ"/>
+                                        <constraint firstItem="bUR-St-lyh" firstAttribute="top" secondItem="Vfy-mR-OxO" secondAttribute="bottom" constant="8" id="22O-o5-yVT"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Vfy-mR-OxO" secondAttribute="trailing" id="EmW-cM-c7a"/>
                                         <constraint firstItem="Vfy-mR-OxO" firstAttribute="leading" secondItem="jQY-hh-TOK" secondAttribute="leadingMargin" id="SCm-m1-MwE"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="bUR-St-lyh" secondAttribute="bottom" id="Uga-D4-HIx"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Vfy-mR-OxO" secondAttribute="bottom" id="Z4A-7X-xTx"/>
-                                        <constraint firstItem="bUR-St-lyh" firstAttribute="leading" secondItem="Vfy-mR-OxO" secondAttribute="trailing" constant="8" id="aQN-iS-Sq4"/>
-                                        <constraint firstItem="bUR-St-lyh" firstAttribute="top" secondItem="jQY-hh-TOK" secondAttribute="topMargin" id="eva-M8-bsO"/>
+                                        <constraint firstItem="bUR-St-lyh" firstAttribute="leading" secondItem="jQY-hh-TOK" secondAttribute="leadingMargin" id="dAD-mk-9Ba"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="bUR-St-lyh" secondAttribute="trailing" id="j5l-0M-VUg"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -1134,7 +1131,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="43.5" y="0.0" width="201" height="44"/>
+                                            <rect key="frame" x="42.5" y="0.0" width="202" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1252,13 +1249,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
+                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -2381,96 +2378,96 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-V5-7bA">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2eC-V5-7bA">
                                             <rect key="frame" x="8" y="8" width="61" height="27"/>
                                             <color key="backgroundColor" red="0.26578802489999998" green="1" blue="0.35619107109999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ia-fi-3Hh">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ia-fi-3Hh">
                                             <rect key="frame" x="8" y="4" width="61" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-1 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozN-oN-PUw">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-1 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozN-oN-PUw">
                                             <rect key="frame" x="8" y="4" width="61" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j9-D7-KeA">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j9-D7-KeA">
                                             <rect key="frame" x="69" y="8" width="60.5" height="27"/>
                                             <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vd-fY-j8y">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vd-fY-j8y">
                                             <rect key="frame" x="69" y="4" width="60.5" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTi-4I-088">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTi-4I-088">
                                             <rect key="frame" x="69" y="4" width="60.5" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cua-sZ-e8a">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cua-sZ-e8a">
                                             <rect key="frame" x="129.5" y="8" width="61" height="27"/>
                                             <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAo-a0-aBQ">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bAo-a0-aBQ">
                                             <rect key="frame" x="129.5" y="4" width="61" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtb-c8-qF9">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtb-c8-qF9">
                                             <rect key="frame" x="129.5" y="4" width="61" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEd-kW-oQA">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEd-kW-oQA">
                                             <rect key="frame" x="190.5" y="8" width="60.5" height="27"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKL-Tg-nO5" userLabel="Fourth Left Label">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tKL-Tg-nO5" userLabel="Fourth Left Label">
                                             <rect key="frame" x="190.5" y="4" width="60.5" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57B-be-2Bi">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57B-be-2Bi">
                                             <rect key="frame" x="190.5" y="4" width="60.5" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xv-lT-GlI">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Xv-lT-GlI">
                                             <rect key="frame" x="251" y="8" width="61" height="27"/>
                                             <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-ld-pqj">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 19" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-ld-pqj">
                                             <rect key="frame" x="251" y="4" width="61" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwC-ws-6DY">
+                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwC-ws-6DY">
                                             <rect key="frame" x="251" y="4" width="61" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

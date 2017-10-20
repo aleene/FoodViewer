@@ -29,6 +29,8 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
         }
     }
     
+    var delegate: ProductPageViewController? = nil
+    
     fileprivate func resetLabels() {
         firstMiddleLabel.text = ""
         secondMiddleLabel.text = ""
@@ -38,27 +40,150 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
     }
     
     // Green labels
-    @IBOutlet weak var firstLeftLabel: UILabel!
-    @IBOutlet weak var firstMiddleLabel: UILabel!
-    @IBOutlet weak var firstRightLabel: UILabel!
+    @IBOutlet weak var firstLeftLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForA))
+            firstLeftLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+    @IBOutlet weak var firstMiddleLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForA))
+            firstMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var firstRightLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForA))
+            firstRightLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
     
     // Yellow labels
-    @IBOutlet weak var secondLeftLabel: UILabel!
-    @IBOutlet weak var secondMiddleLabel: UILabel!
-    @IBOutlet weak var secondRightLabel: UILabel!
+    @IBOutlet weak var secondLeftLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForB))
+            secondLeftLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var secondMiddleLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForB))
+            secondMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var secondRightLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForB))
+            secondRightLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
     
     // Orange Labels
-    @IBOutlet weak var thirdLeftLabel: UILabel!
-    @IBOutlet weak var thirdMiddleLabel: UILabel!
-    @IBOutlet weak var thirdRightLabel: UILabel!
+    @IBOutlet weak var thirdLeftLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForC))
+            thirdLeftLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var thirdMiddleLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForC))
+            thirdMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var thirdRightLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForC))
+            thirdRightLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
     
     // Pink labels
-    @IBOutlet weak var fourthLeftLabel: UILabel!
-    @IBOutlet weak var fourthMiddleLabel: UILabel!
-    @IBOutlet weak var fourthRightLabel: UILabel!
+    @IBOutlet weak var fourthLeftLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForD))
+            fourthLeftLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var fourthMiddleLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForD))
+            fourthMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var fourthRightLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForD))
+            fourthRightLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
     
     // Red labels
-    @IBOutlet weak var fifthLeftLabel: UILabel!
-    @IBOutlet weak var fifthMiddleLabel: UILabel!
-    @IBOutlet weak var fifthRightLabel: UILabel!
+    @IBOutlet weak var fifthLeftLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForE))
+            fifthLeftLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var fifthMiddleLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForE))
+            fifthMiddleLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    @IBOutlet weak var fifthRightLabel: UILabel! {
+        didSet {
+            // Long press allows to start a search
+            let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(ColourCodedNutritionalScoreTableViewCell.handleLongPressForE))
+            fifthRightLabel.addGestureRecognizer(longPressGestureRecognizer)
+        }
+    }
+
+    
+    
+    func handleLongPressForA() {
+        delegate?.search(for: NutritionalScoreLevel.a.rawValue, in: .nutritionGrade)
+    }
+    func handleLongPressForB() {
+        delegate?.search(for: NutritionalScoreLevel.b.rawValue, in: .nutritionGrade)
+    }
+    func handleLongPressForC() {
+        delegate?.search(for: NutritionalScoreLevel.c.rawValue, in: .nutritionGrade)
+    }
+    func handleLongPressForD() {
+        delegate?.search(for: NutritionalScoreLevel.d.rawValue, in: .nutritionGrade)
+    }
+    func handleLongPressForE() {
+        delegate?.search(for: NutritionalScoreLevel.e.rawValue, in: .nutritionGrade)
+    }
+
+
 }

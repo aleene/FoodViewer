@@ -198,17 +198,6 @@ public struct OFF {
         return test
     }
 
-    /*
-    struct ContributorTypes {
-        static let CheckersKey = "Checkers"
-        static let InformersKey = "Informers"
-        static let EditorsKey = "Editors"
-        static let PhotographersKey = "Photographers"
-        static let CreatorKey = "Creator"
-        static let CorrectorKey = "Correctors"
-    }
-    */
-
     // The strings used to encode the status values in the product JSON
     // These are also the keys in the taxonomy
     public static func JSONkey(for completion:Completion) -> String {

@@ -16,6 +16,22 @@ public enum NutritionalScoreLevel: String {
     case e = "E"
     case undefined
     
+    init(_ string: String) {
+        if string == NutritionalScoreLevel.a.rawValue {
+            self = NutritionalScoreLevel.a
+        } else if string == NutritionalScoreLevel.b.rawValue {
+            self = NutritionalScoreLevel.b
+        } else if string == NutritionalScoreLevel.c.rawValue {
+            self = NutritionalScoreLevel.c
+        } else if string == NutritionalScoreLevel.d.rawValue {
+            self = NutritionalScoreLevel.d
+        } else if string == NutritionalScoreLevel.e.rawValue {
+            self = NutritionalScoreLevel.e
+        } else {
+            self = .undefined
+        }
+    }
+    
     public mutating func int(_ value: Int?) {
         if let existingValue = value {
             if existingValue <= -1 {
