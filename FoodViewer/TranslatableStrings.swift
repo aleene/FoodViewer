@@ -171,6 +171,7 @@ struct TranslatableStrings {
     static let SelectRole = NSLocalizedString("Select role", comment: "First item in a pickerView, indicating what the user should do")
     static let SpecialCategories = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
     static let Stores = NSLocalizedString("Stores", comment: "Generic string to indicate the stores where the product is sold.")
+    static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
     
 //
 // MARK: - TTTTTTTTTTTTTT strings

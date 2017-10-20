@@ -199,14 +199,15 @@ class SupplyChainTableViewController: UITableViewController {
         }
     }
 
-    fileprivate var linksToDisplay: [String]? {
+    fileprivate var linksToDisplay: Tags {
         get {
             if let validTags = delegate?.updatedProduct?.links {
-                return validTags.map( { $0.absoluteString } )
+                return Tags.init(validTags.map( { $0.absoluteString } ))
             } else if let validTags = product?.links {
-                return validTags.map( { $0.absoluteString } )
+                return Tags.init(validTags.map( { $0.absoluteString } ))
+            } else {
+                return Tags.undefined
             }
-            return nil
         }
     }
     
@@ -310,7 +311,7 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate struct Constants {
         // static let DefaultHeader = "No Header"
-        static let ViewControllerTitle = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
+        static let ViewControllerTitle = TranslatableStrings.SupplyChain
         static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
     }
 
@@ -737,11 +738,6 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    //func changeTagsTypeToShow(_ notification: Notification) {
-    //}
-    
-    
-
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -825,7 +821,6 @@ class SupplyChainTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         // Has been disabled for the moment
         // NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -967,8 +962,8 @@ extension SupplyChainTableViewController: UIPopoverPresentationControllerDelegat
 extension SupplyChainTableViewController: TagListViewDataSource {
     
     fileprivate struct TagConstants {
-        static let Undefined = NSLocalizedString("undefined", comment: "tag of cell when no date was in off")
-        static let None = NSLocalizedString("none", comment: "tag of cell when no tags are available")
+        //static let Undefined = NSLocalizedString("undefined", comment: "tag of cell when no date was in off")
+        //static let None = NSLocalizedString("none", comment: "tag of cell when no tags are available")
     }
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
@@ -1019,7 +1014,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             case .country:
                 return countTags(countriesToDisplay)
             case .sites:
-                return count(linksToDisplay ?? [])
+                return countTags(linksToDisplay)
             case .producerSearch:
                 return countTags(searchProducerTagsToDisplay)
             case .producerCodeSearch:
@@ -1056,11 +1051,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             case .country:
                 return countriesToDisplay.tag(at:index)!
             case .sites:
-                if linksToDisplay != nil && index < linksToDisplay!.count {
-                    return  linksToDisplay![index]
-                } else {
-                    return "No tag set"
-                }
+                return linksToDisplay.tag(at:index)!
             case .producerSearch:
                 return searchProducerTagsToDisplay.tag(at:index)!
             case .producerCodeSearch:
@@ -1264,11 +1255,14 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .sites:
-            if var tags = linksToDisplay {
-                tags.append(title)
-                delegate?.update(links: tags)
-            } else {
+            switch linksToDisplay {
+            case .undefined, .empty:
                 delegate?.update(links: [title])
+            case var .available(list):
+                list.append(title)
+                delegate?.update(links: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
             
         case .producerSearch:
@@ -1466,13 +1460,20 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
         case .sites:
-            if var validTags = linksToDisplay {
-                guard index >= 0 && index < validTags.count else {
+            switch linksToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case var .available(list):
+                guard index >= 0 && index < list.count else {
                     break
                 }
-                validTags.remove(at: index)
-                delegate?.update(links: validTags)
+                list.remove(at: index)
+                delegate?.update(links: list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
             }
+            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        
         case .producerSearch:
             switch searchProducerTagsToDisplay {
             case .undefined, .empty:
@@ -1486,6 +1487,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+            
         case .producerCodeSearch:
             switch searchProducerCodeTagsToDisplay {
             case .undefined, .empty:

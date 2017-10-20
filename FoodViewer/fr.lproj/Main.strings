@@ -7,14 +7,8 @@
 /* Class = "UILabel"; text = " 0"; ObjectID = "2vd-fY-j8y"; */
 "2vd-fY-j8y.text" = "0";
 
-/* Class = "UINavigationItem"; title = "Enter Shop details"; ObjectID = "4y8-hi-MjI"; */
-"4y8-hi-MjI.title" = "Entre détails du magasin";
-
 /* Class = "UIButton"; normalTitle = "Clear History"; ObjectID = "7bH-Lm-Fh3"; */
 "7bH-Lm-Fh3.normalTitle" = "Effacer histoire";
-
-/* Class = "UINavigationItem"; title = "Add Language"; ObjectID = "7hu-JR-POT"; */
-"7hu-JR-POT.title" = "Titre";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "8TO-NA-Iaz"; */
 "8TO-NA-Iaz.title" = "Annuler";
@@ -25,9 +19,6 @@
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "807-If-TeI"; */
 "807-If-TeI.text" = "Soustitre";
 
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "A9l-Yd-38c"; */
-"A9l-Yd-38c.title" = "Titre";
-
 /* Class = "UILabel"; text = "Title"; ObjectID = "IL2-Vr-5wd"; */
 "IL2-Vr-5wd.text" = "Titre";
 
@@ -37,9 +28,6 @@
 /* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[1] = "OFF account"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[1]" = "Seconde";
 
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "MGY-bs-Itx"; */
-"MGY-bs-Itx.title" = "Titre";
-
 /* Class = "UILabel"; text = "Allergens / Traces"; ObjectID = "RFc-0b-oYh"; */
 "RFc-0b-oYh.text" = "Allergènes / Traces";
 
@@ -48,9 +36,6 @@
 
 /* Class = "UINavigationItem"; title = "Confirm Product"; ObjectID = "WA5-QR-fDF"; */
 "WA5-QR-fDF.title" = "Confirme produit";
-
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "Xob-8V-DfG"; */
-"Xob-8V-DfG.title" = "Select";
 
 /* Class = "UISegmentedControl"; Zxj-MC-Q9J.segmentTitles[0] = "Food"; ObjectID = "Zxj-MC-Q9J"; */
 "Zxj-MC-Q9J.segmentTitles[0]" = "Food";
@@ -88,23 +73,11 @@
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
 "hYb-mr-zvw.title" = "Produits";
 
-/* Class = "UINavigationItem"; title = "Select Exp. Date"; ObjectID = "hha-cD-Ejl"; */
-"hha-cD-Ejl.title" = "Date expiration";
-
 /* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[0] = "Joule"; ObjectID = "iLS-3y-yF5"; */
 "iLS-3y-yF5.segmentTitles[0]" = "Premier";
 
 /* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[1] = "Calories"; ObjectID = "iLS-3y-yF5"; */
 "iLS-3y-yF5.segmentTitles[1]" = "Deuxième";
-
-/* Class = "UINavigationItem"; title = "Barcode"; ObjectID = "ihd-JM-WfS"; */
-"ihd-JM-WfS.title" = "Code barre";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "jjd-pb-eyV"; */
-"jjd-pb-eyV.text" = "Label";
-
-/* Class = "UINavigationItem"; title = "Set Warnings"; ObjectID = "mZf-5k-m2j"; */
-"mZf-5k-m2j.title" = "Installe avertissement";
 
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";
@@ -117,15 +90,6 @@
 
 /* Class = "UILabel"; text = " 11"; ObjectID = "tKL-Tg-nO5"; */
 "tKL-Tg-nO5.text" = "11";
-
-/* Class = "UINavigationItem"; title = "Select"; ObjectID = "uO9-18-9Hq"; */
-"uO9-18-9Hq.title" = "Langue principale";
-
-/* Class = "UILabel"; text = "Label"; ObjectID = "vPM-r4-zbF"; */
-"vPM-r4-zbF.text" = "Label";
-
-/* Class = "UINavigationItem"; title = "Favorite Shops"; ObjectID = "wEv-aO-bBx"; */
-"wEv-aO-bBx.title" = "Magasins favoris";
 
 /* Class = "UISegmentedControl"; yzx-7e-epe.segmentTitles[0] = "100 g / 100 ml"; ObjectID = "yzx-7e-epe"; */
 "yzx-7e-epe.segmentTitles[0]" = "100 g / ml";
