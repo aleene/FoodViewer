@@ -353,6 +353,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.allergens.1 ?? true
+            cell.allowInclusionEdit = query!.type != .simple
             return cell
             
         case .tracesSearch:
@@ -363,6 +364,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.traces.1 ?? true
+            cell.allowInclusionEdit = query!.type != .simple
             return cell
             
         case .additivesSearch:
@@ -373,6 +375,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.additives.1 ?? true
+            cell.allowInclusionEdit = query!.type != .simple
             return cell
             
         case .labelsSearch:
@@ -383,6 +386,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.editMode = editMode
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.labels.1 ?? true
+            cell.allowInclusionEdit = query!.type != .simple
             return cell
             
         case .traces, .labels:

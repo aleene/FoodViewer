@@ -162,6 +162,8 @@ class CategoriesTableViewController: UITableViewController {
             cell.editMode = editMode
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.categories.1 ?? true
+            cell.allowInclusionEdit = query!.type != .simple
+
             return cell
 
         }

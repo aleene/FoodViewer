@@ -533,6 +533,8 @@ class SupplyChainTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
+            cell.allowInclusionEdit = query!.type != .simple
+
             switch currentProductSection {
             case .producerSearch:
                 cell.inclusion = OFFProducts.manager.searchQuery?.manufacturing_places.1 ?? true

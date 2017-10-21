@@ -143,7 +143,7 @@ class OpenFoodFactsRequest {
     func fetchProducts(for query: SearchTemplate, on page:Int) -> ProductFetchStatus {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         // encode the url-string
-        let search = OFF.advancedSearchString(for: query, on: page)
+        let search = OFF.searchString(for: query, on: page)
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
             
             let fetchUrl = URL(string:escapedSearch)

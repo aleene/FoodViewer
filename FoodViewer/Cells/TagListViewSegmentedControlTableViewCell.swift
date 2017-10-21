@@ -73,6 +73,13 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         }
     }
     
+    var allowInclusionEdit: Bool = true {
+        didSet {
+            segmentedControl.isHidden = !allowInclusionEdit
+        }
+    }
+
+    
     var datasource: TagListViewDataSource? = nil {
         didSet {
             tagListView?.datasource = datasource

@@ -348,27 +348,37 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 }
             }
         case .nutritionFactsSearch:
-            let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
-            if indexPath.row == numberOfRows && editMode {
-                // This cell should only be added when in editMode and as the last row
-                // and allows the user to add a nutrient
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
-                cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+            if query!.type != .simple {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as! TagListViewTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.editMode = false
+                cell.tag = indexPath.section
+                cell.tagListView.normalColorScheme = ColorSchemes.error
                 return cell
             } else {
-                if query!.allNutrimentsSearch.isEmpty {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as? TagListViewTableViewCell
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.datasource = self
-                    return cell!
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SearchNutritionFact, for: indexPath) as! SearchNutrientsTableViewCell
-                    cell.searchNutrition = query!.allNutrimentsSearch[indexPath.row]
-                    cell.delegate = self
-                    cell.tag = indexPath.section * 100 + indexPath.row
-                    cell.editMode = editMode
+                let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
+                if indexPath.row == numberOfRows && editMode {
+                    // This cell should only be added when in editMode and as the last row
+                    // and allows the user to add a nutrient
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
+                    cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
                     return cell
+                } else {
+                    if query!.allNutrimentsSearch.isEmpty {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as? TagListViewTableViewCell
+                        cell?.tag = indexPath.section
+                        cell?.width = tableView.frame.size.width
+                        cell?.datasource = self
+                        return cell!
+                    } else {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SearchNutritionFact, for: indexPath) as! SearchNutrientsTableViewCell
+                        cell.searchNutrition = query!.allNutrimentsSearch[indexPath.row]
+                        cell.delegate = self
+                        cell.tag = indexPath.section * 100 + indexPath.row
+                        cell.editMode = editMode
+                        return cell
+                    }
                 }
             }
 

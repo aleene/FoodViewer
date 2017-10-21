@@ -19,37 +19,201 @@ class SearchTemplate {
         static let Exclude = NSLocalizedString("Exclude", comment: "String to indicate whether the corresponding tags shlould exluded from the search")
     }
     
+    internal struct Notification {
+        static let SearchTypeChangedKey = "SearchTemplate.Notification.SearchTypeChanged.Key"
+    }
+    
     enum SearchType {
         case simple
         case advanced
+        case indifferent
     }
     
     // This determines the kind of search we are going to submit to OFF
-    var type: SearchType = .advanced
+    var type: SearchType {
+        get {
+            // barcode search is only supported for simple search
+            if barcode != nil {
+                return .simple
+            // exclude is only supported in advanced search
+            } else if labels.1 == false ||
+                categories.1 == false ||
+                brands.1 == false ||
+                packaging.1 == false ||
+                origins.1 == false ||
+                manufacturing_places.1 == false ||
+                emb_codes.1 == false ||
+                purchase_places.1 == false ||
+                stores.1 == false ||
+                countries.1 == false ||
+                additives.1 == false ||
+                allergens.1 == false ||
+                traces.1 == false ||
+                languages.1 == false ||
+                includeLevel == false {
+                return .advanced
+            }
+            return .indifferent
+        }
+    }
     
     var text: String? = nil
-    // var barcode: BarcodeType? = nil // simple search
+    var barcode: BarcodeType? = nil {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+        didSet {
+            // advanced queries do not support barcode search
+            if type == .advanced  {
+                barcode = nil
+            }
+        }
+    }
+ // simple search
     // Searching for tags, also allows to specify, 
     // whether the corresponding tag should be contained in the answer or 
     // should be excluded from the answer
     // For the moment it is assumed that the Bool holds for ALL tags
-    var labels: (Tags, Bool) = (.empty, true)
-    var categories: (Tags, Bool) = (.empty, true)
-    var brands: (Tags, Bool) = (.empty, true)
-    var packaging: (Tags, Bool) = (.empty, true)
-    var origins: (Tags, Bool) = (.empty, true)
-    var manufacturing_places: (Tags, Bool) = (.empty, true)
-    var emb_codes: (Tags, Bool) = (.empty, true)
-    var purchase_places: (Tags, Bool) = (.empty, true)
-    var stores: (Tags, Bool) = (.empty, true)
-    var countries: (Tags, Bool) = (.empty, true)
-    var additives: (Tags, Bool) = (.empty, true)
-    var allergens: (Tags, Bool) = (.empty, true)
-    var traces: (Tags, Bool) = (.empty, true)
-    var languages: (Tags, Bool) = (.empty, true)
+    var labels: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                labels.1 = oldValue.1
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
     
+    var categories: (Tags, Bool) = (.empty, true) {
+        didSet {
+            // Simple queries do not use the boolean
+            if type == .simple {
+                categories.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var brands: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                brands.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var packaging: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                packaging.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var origins: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                origins.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var manufacturing_places: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                manufacturing_places.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var emb_codes: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                emb_codes.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var purchase_places: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                purchase_places.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var stores: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                stores.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var countries: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                countries.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var additives: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                additives.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var allergens: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                allergens.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var traces: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                traces.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
+    var languages: (Tags, Bool) = (.empty, true) {
+        didSet {
+            if type == .simple {
+                languages.1 = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
+
     var level: NutritionalScoreLevel? = nil
-    var includeLevel: Bool = true
+    
+    var includeLevel: Bool = true {
+        didSet {
+            if type == .simple {
+                includeLevel = true
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+    }
     
     var completion: Completion? = nil
     
@@ -81,6 +245,7 @@ class SearchTemplate {
     var isEmpty: Bool {
         
         return text == nil &&
+            barcode == nil &&
             labels.0 == Tags.empty &&
             categories.0 == .empty &&
             brands.0 == .empty &&
@@ -110,6 +275,29 @@ class SearchTemplate {
         setSearchPair(component, with: string)
     }
     
+    func clear() {
+        text = nil
+        barcode = nil
+        labels = (.empty, true)
+        categories = (.empty, true)
+        brands = (.empty, true)
+        packaging = (.empty, true)
+        origins = (.empty, true)
+        manufacturing_places = (.empty, true)
+        emb_codes = (.empty, true)
+        purchase_places = (.empty, true)
+        stores = (.empty, true)
+        countries = (.empty, true)
+        additives = (.empty, true)
+        allergens = (.empty, true)
+        traces = (.empty, true)
+        languages = (.empty, true)
+        completion = nil
+        level = nil
+        allNutrimentsSearch = []
+        contributors = []
+    }
+
     private func setSearchPair(_ component: SearchComponent, with string: String) {
         // isSearchTemplate = true
         switch component {
@@ -325,4 +513,11 @@ class SearchTemplate {
             return pairs
         }
 
+}
+
+
+// Notification definitions
+
+extension Notification.Name {
+    static let SearchTypeChanged = Notification.Name("SearchTemplate.Notification.SearchTypeChanged")
 }

@@ -141,7 +141,7 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    private var query: SearchTemplate? = nil {
+    fileprivate var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
                 tableStructure = setupSections()
@@ -377,7 +377,16 @@ class IdentificationTableViewController: UITableViewController {
             cell.editMode = editMode
             return cell
             
-        case .barcodeSearch, .quantitySearch, .imageSearch:
+        case .barcodeSearch:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
+            cell.barcode = query?.barcode?.asString()
+            cell.delegate = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
+            cell.barcodeTextField.placeholder = NSLocalizedString("Enter start numbers of barcode.", comment: "Placeholder string to explain the purpose of a barcode search in a tableview cell")
+            return cell
+            
+        case .quantitySearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -395,7 +404,7 @@ class IdentificationTableViewController: UITableViewController {
                 cell.name =  editMode ? nil : NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
             }
             cell.tag = indexPath.section
-            cell.editMode = editMode
+            cell.editMode = query!.type == .simple ? false : editMode
             return cell
 
         case .name:
@@ -456,9 +465,11 @@ class IdentificationTableViewController: UITableViewController {
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
+            cell.allowInclusionEdit = query!.type != .simple
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.brands.1 ?? true
             return cell
+            
         case  .languagesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
@@ -466,6 +477,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
+            cell.allowInclusionEdit = query!.type != .simple
             cell.inclusion = OFFProducts.manager.searchQuery?.languages.1 ?? true
             return cell
         case .packaging:
@@ -485,6 +497,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.editMode = editMode
             cell.tag = indexPath.section
             cell.inclusion = OFFProducts.manager.searchQuery?.packaging.1 ?? true
+            cell.allowInclusionEdit = query!.type != .simple
             return cell
             
         case .quantity:
@@ -949,6 +962,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
@@ -1483,7 +1497,7 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         case .barcodeSearch:
             // barcode updated?
             if let validText = textField.text {
-                delegate?.updated(barcode: validText)
+                query!.barcode = BarcodeType.init(value: validText)
             }
         default:
             break
@@ -1502,6 +1516,8 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         switch currentProductSection {
         case .quantity:
             return editMode
+        case .barcodeSearch:
+            return query!.type == .advanced ? false : true
         default:
             // only allow edit for the primary language code
             return currentLanguageCode == product!.primaryLanguageCode ? editMode : false

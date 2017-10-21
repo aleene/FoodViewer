@@ -84,64 +84,69 @@ public struct OFF {
         case original = "original"
     }
     
-    private static func string(for component: SearchComponent) -> String? {
+    private static func string(for component: SearchComponent) -> (String?, String?) {
+        // The strings are needed for creating the search url. 
+        // The first string is for a simple query
+        // The second is for an advanced query
         switch component {
         case .barcode:
-            return "code"
+            return (nil, "code")
         case .searchText:
-            return "searchText"
+            return (nil, "searchText")
         case .brand:
-            return "brands"
+            return ("brand", "brands")
         case .category:
-            return "categories"
+            return ("category", "categories")
         case .country:
-            return "countries"
+            return ("country", "countries")
         case .label:
-            return "labels"
+            return ("label", "labels")
         case .language:
-            return "languages"
+            return ("language", "languages")
         case .packaging:
-            return "packaging"
+            return ("packaging", "packaging")
         case .origin:
-            return "origins"
+            return ("origin", "origins")
         case .purchasePlace:
-            return "purchase_places"
+            return ("purchase_place", "purchase_places")
         case .additive:
-            return "additives"
+            return ("additive", "additives")
         case .trace:
-            return "traces"
+            return ("trace", "traces")
         case .allergen:
-            return "allergens"
+            return ("allergen", "allergens")
         case .producerCode:
-            return "emb_codes"
+            return ("packager-code", "emb_codes")
         case .manufacturingPlaces:
-            return "manufacturing-place"
+            return ("manufacturing-place", "manufacturing-places")
         case .store:
-            return "stores"
+            return ("store", "stores")
+            // case .ingredient:
+            // return ("ingredient", ingredients")
         case .entryDates:
-            return "entry-dates"
+            return ("entry-dates", nil)
         case .lastEditDate:
-            return "last-edit-date"
+            return ("last-edit-date", nil)
         case .contributor:
-            return "contributors"
+            return ("contributor", "contributors")
         case .creator:
-            return "creators"
+            return ("creator", "creators")
         case .checker:
-            return "checkers"
+            return ("checker", "checkers")
         case .informer:
-            return "informers"
+            return ("informer", "informers")
         case .editor:
-            return "editors"
+            return ("editor", "editors")
         case .photographer:
-            return "photographers"
+            return ("photographer", "photographers")
         case .corrector:
-            return "correctors"
+            return ("corrector", "correctors")
         case .state:
-            return "states"
+            return ("state", "states")
         case .nutritionGrade:
-            return "nutrition_grades"
+            return ("nutrition_grade", "nutrition_grades")
         case .nutrient:
-            return "nutrient"
+            return (nil, "nutrient")
         }
     }
 
@@ -284,69 +289,33 @@ public struct OFF {
         return fetchUrlString
     }
     
-    /*
-    static func searchString(with pairs: [(SearchComponent, String)], on page: Int ) -> String {
-        guard !pairs.isEmpty else { return "" }
+    static func simpleSearchString(for template: SearchTemplate, on page: Int ) -> String {
         
         // let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Prefix
         // use the currrent product type
         urlString += server(for:Preferences.manager.showProductType)
         urlString += URL.TopDomain
-        for pair in pairs {
-            urlString += pair.0.rawValue
-            urlString += "/"
-            urlString += pair.1
-            urlString += "/"
+        for pair in template.searchPairs() {
+            if let validString = string(for:pair.0).0 {
+                urlString += validString
+                urlString += "/"
+                urlString += pair.1
+                urlString += "/"
+            }
         }
         urlString += "\(page)"
         urlString += URL.JSONExtension
         return urlString
     }
- 
-    static func advancedSearchString(with pairs: [(SearchComponent, String, Bool)], on page: Int ) -> String {
-        // https://world.openfoodfacts.org/cgi/search.pl?search_terms=banania&search_simple=1&action=process&json=1
-        // https://world.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=brands&tag_contains_0=contains&tag_0=Coca
-        
-        guard !pairs.isEmpty else { return "" }
-        
-        // let region = Bundle.main.preferredLocalizations[0] as NSString
-        var urlString = OFF.URL.Prefix
-        // use the currrent product type
-        urlString += server(for:Preferences.manager.showProductType)
-        urlString += URL.TopDomain
-        urlString += URL.AdvancedSearch
-        for (index,pair) in pairs.enumerated() {
-            switch pair.0 {
-            case .additive, .allergen, .brand, .category, .country, .label, .manufacturingPlaces, .origin, .nutrionGrade, .packaging, .state, .store, .trace:
-                urlString += URL.SearchTagType
-                urlString += "\(index)"
-                urlString += URL.Divider.Equal
-                urlString += pair.0.rawValue
-                
-                urlString += URL.SearchTagContains
-                urlString += "\(index)"
-                urlString += URL.Divider.Equal
-                
-                urlString += pair.2 ? "contains" : "does_not_contain"
-                
-                urlString += URL.SearchTagValue
-                urlString += "\(index)"
-                urlString += URL.Divider.Equal
-                urlString += pair.1
-            case .searchText:
-                urlString += URL.SearchTerms
-                urlString += pair.1
-            default:
-                return ""
-            }
+    
+    static func searchString(for template: SearchTemplate, on page: Int ) -> String {
+        if template.type == .simple {
+            return simpleSearchString(for: template, on: page)
+        } else {
+            return advancedSearchString(for: template, on: page)
         }
-        urlString += URL.SearchPage + "\(page)"
-        urlString += URL.JSONSearchExtension
-        return urlString
     }
-     */
-
     
     // This functions builds an url for an advanced search
     static func advancedSearchString(for template: SearchTemplate, on page: Int ) -> String {
@@ -474,7 +443,7 @@ public struct OFF {
                     urlString += URL.Search.Tag.Tiep
                     urlString += "\(index)"
                     urlString += URL.Divider.Equal
-                    if let validString = string(for:component) {
+                    if let validString = string(for:component).1 {
                         urlString += validString
                     } else {
                         continue
