@@ -75,7 +75,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     var allowInclusionEdit: Bool = true {
         didSet {
-            segmentedControl.isHidden = !allowInclusionEdit
+            segmentedControl.isEnabled = !allowInclusionEdit
         }
     }
 

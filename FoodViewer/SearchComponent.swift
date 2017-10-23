@@ -23,6 +23,7 @@ public enum SearchComponent {
     case editor
     case entryDates
     case informer // not searchable at the moment
+    case ingredient
     case label
     case language
     case lastEditDate
@@ -67,6 +68,8 @@ public enum SearchComponent {
             return TranslatableStrings.EntryDate
         case .informer:
             return TranslatableStrings.Informer
+        case .ingredient:
+            return TranslatableStrings.Ingredients
         case .label:
             return TranslatableStrings.Labels
         case .language:

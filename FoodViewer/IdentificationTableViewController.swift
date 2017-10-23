@@ -1538,7 +1538,7 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         case .quantity:
             return editMode
         case .barcodeSearch:
-            return query!.type == .advanced ? false : true
+            return query!.type == .advanced ? false : editMode
         default:
             // only allow edit for the primary language code
             return currentLanguageCode == product!.primaryLanguageCode ? editMode : false

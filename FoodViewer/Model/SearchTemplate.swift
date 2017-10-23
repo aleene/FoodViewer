@@ -33,7 +33,7 @@ class SearchTemplate {
     var type: SearchType {
         get {
             // barcode search is only supported for simple search
-            if barcode != nil {
+            if barcode != nil || ingredients.hasTags {
                 return .simple
             // exclude is only supported in advanced search
             } else if labels.1 == false ||
@@ -58,6 +58,7 @@ class SearchTemplate {
     }
     
     var text: String? = nil
+    
     var barcode: BarcodeType? = nil {
         willSet {
             // Will the Template change to a simple query?
@@ -72,58 +73,105 @@ class SearchTemplate {
             }
         }
     }
+    
+    var ingredients: Tags = .empty {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+        didSet {
+            // advanced queries do not support ingredients search
+            if type == .advanced  {
+                ingredients = .empty
+            }
+        }
+    }
+
  // simple search
     // Searching for tags, also allows to specify, 
     // whether the corresponding tag should be contained in the answer or 
     // should be excluded from the answer
     // For the moment it is assumed that the Bool holds for ALL tags
     var labels: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
-                labels.1 = oldValue.1
-                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+                labels.1 = true
             }
         }
     }
     
     var categories: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             // Simple queries do not use the boolean
             if type == .simple {
                 categories.1 = true
-                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
             }
         }
     }
 
     var brands: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 brands.1 = true
-                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
             }
         }
     }
 
     var packaging: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 packaging.1 = true
-                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
             }
         }
     }
 
     var origins: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 origins.1 = true
-                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
             }
         }
     }
 
     var manufacturing_places: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 manufacturing_places.1 = true
@@ -133,6 +181,12 @@ class SearchTemplate {
     }
 
     var emb_codes: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 emb_codes.1 = true
@@ -142,6 +196,12 @@ class SearchTemplate {
     }
 
     var purchase_places: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 purchase_places.1 = true
@@ -151,6 +211,12 @@ class SearchTemplate {
     }
 
     var stores: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 stores.1 = true
@@ -160,6 +226,12 @@ class SearchTemplate {
     }
 
     var countries: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 countries.1 = true
@@ -169,6 +241,12 @@ class SearchTemplate {
     }
 
     var additives: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 additives.1 = true
@@ -178,6 +256,12 @@ class SearchTemplate {
     }
 
     var allergens: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 allergens.1 = true
@@ -187,6 +271,12 @@ class SearchTemplate {
     }
 
     var traces: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 traces.1 = true
@@ -196,6 +286,12 @@ class SearchTemplate {
     }
 
     var languages: (Tags, Bool) = (.empty, true) {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue.1 == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 languages.1 = true
@@ -207,10 +303,15 @@ class SearchTemplate {
     var level: NutritionalScoreLevel? = nil
     
     var includeLevel: Bool = true {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent && newValue == false {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
         didSet {
             if type == .simple {
                 includeLevel = true
-                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
             }
         }
     }
@@ -263,7 +364,8 @@ class SearchTemplate {
             completion == nil &&
             level == nil &&
             allNutrimentsSearch.isEmpty &&
-            contributors.isEmpty
+            contributors.isEmpty &&
+            ingredients == .empty
     }
     
     init() {
@@ -296,6 +398,7 @@ class SearchTemplate {
         level = nil
         allNutrimentsSearch = []
         contributors = []
+        ingredients = .empty
     }
 
     private func setSearchPair(_ component: SearchComponent, with string: String) {
@@ -376,6 +479,10 @@ class SearchTemplate {
             pairs.append((.searchText, [text!], ""))
         }
         
+        if !ingredients.list.isEmpty {
+            pairs.append((.ingredient, cleanChars(ingredients.list), display(true )))
+        }
+
         if level != nil && level! != .undefined {
             pairs.append((.nutritionGrade, [level!.rawValue], display(includeLevel)))
         }

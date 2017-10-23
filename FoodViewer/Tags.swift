@@ -185,6 +185,10 @@ public enum Tags : Equatable {
         }
         return []
     }
+    
+    var hasTags: Bool {
+        return !list.isEmpty
+    }
 
 //
 // MARK: - Private Tags functions

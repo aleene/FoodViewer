@@ -620,7 +620,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             return .categories
         case .country, .origin, .purchasePlace, .producerCode, .manufacturingPlaces, .store:
             return .supplyChain
-        case .label, .additive, .trace, .allergen:
+        case .label, .additive, .trace, .allergen, .ingredient:
             return .ingredients
         case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
             return .completion

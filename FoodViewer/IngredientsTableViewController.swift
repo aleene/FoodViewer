@@ -182,6 +182,15 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
 
+    fileprivate var searchIngredientsToDisplay: Tags {
+        get {
+            if let tags = query?.ingredients {
+                return tags
+            }
+            return .undefined
+        }
+    }
+    
     fileprivate var notSearchableToDisplay: Tags {
         get {
             return .notSearchable
@@ -311,7 +320,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // we assume that product exists
         switch currentProductSection {
             
-        case .ingredientsSearch, .imageSearch:
+        case .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -336,6 +345,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 }
             }
             return cell!
+            
+        case .ingredientsSearch:
+            if query!.type == .advanced {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.editMode = false
+                cell.tag = indexPath.section
+                cell.tagListView.normalColorScheme = ColorSchemes.error
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.delegate = self
+                cell.editMode = editMode
+                cell.tag = indexPath.section
+                cell.tagListView.normalColorScheme = ColorSchemes.error
+                return cell
+            }
             
         case .allergens, .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -1107,6 +1136,22 @@ extension IngredientsTableViewController: TagListViewDelegate {
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+        case .ingredientsSearch:
+            switch searchIngredientsToDisplay {
+            case .undefined, .empty:
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.ingredients = .available([title])
+            case .available(var list):
+                list.append(title)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.ingredients = .available(list)
+            default:
+                assert(true, "How can I add a tag when the field is non-editable")
+            }
         case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
@@ -1197,6 +1242,19 @@ extension IngredientsTableViewController: TagListViewDelegate {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.traces.0 = Tags.init(list)
+            case .notSearchable:
+                assert(true, "How can I add a tag when the field is non-editable")
+            }
+        case .ingredientsSearch:
+            switch searchIngredientsToDisplay {
+            case .undefined, .empty:
+                assert(true, "How can I delete a tag when there are none")
+            case .available(var list):
+                list.remove(at: index)
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.ingredients = Tags.init(list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1328,27 +1386,28 @@ extension IngredientsTableViewController: TagListViewDataSource {
 
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
-        case .ingredientsSearch, .imageSearch:
+        case .imageSearch:
             return 1
-
-        case .allergens:
-            return count(allergensToDisplay)
-        case .allergensSearch:
-            return count(searchAllergensToDisplay)
-        case .traces:
-            return count(tracesToDisplay)
-        case .tracesSearch:
-            return count(searchTracesToDisplay)
         case .additives:
             return count(additivesToDisplay)
         case .additivesSearch:
             return count(searchAdditivesToDisplay)
+        case .allergens:
+            return count(allergensToDisplay)
+        case .allergensSearch:
+            return count(searchAllergensToDisplay)
         case .labels:
             return count(labelsToDisplay)
         case .labelsSearch:
             return count(searchLabelsToDisplay)
         case .image:
             return 1
+        case .ingredientsSearch:
+            return count(searchIngredientsToDisplay)
+        case .traces:
+            return count(tracesToDisplay)
+        case .tracesSearch:
+            return count(searchTracesToDisplay)
         default: break
         }
         return 0
@@ -1357,26 +1416,28 @@ extension IngredientsTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
-        case .ingredientsSearch, .imageSearch:
-            return notSearchableToDisplay.tag(at:index)!
-        case .allergens:
-            return allergensToDisplay.tag(at:index)!
-        case .allergensSearch:
-            return searchAllergensToDisplay.tag(at:index)!
-        case .traces:
-            return tracesToDisplay.tag(at:index)!
-        case .tracesSearch:
-            return searchTracesToDisplay.tag(at:index)!
         case .additives:
             return additivesToDisplay.tag(at:index)!
         case .additivesSearch:
             return searchAdditivesToDisplay.tag(at:index)!
+        case .allergens:
+            return allergensToDisplay.tag(at:index)!
+        case .allergensSearch:
+            return searchAllergensToDisplay.tag(at:index)!
+        case .image:
+            return searchResult
+        case .imageSearch:
+            return notSearchableToDisplay.tag(at:index)!
+        case .ingredientsSearch:
+            return searchIngredientsToDisplay.tag(at: index)!
         case .labels:
             return labelsToDisplay.tag(at:index)!
         case .labelsSearch:
             return searchLabelsToDisplay.tag(at:index)!
-        case .image:
-            return searchResult
+        case .traces:
+            return tracesToDisplay.tag(at:index)!
+        case .tracesSearch:
+            return searchTracesToDisplay.tag(at:index)!
         default: break
         }
         return("tagListView error")
@@ -1390,6 +1451,58 @@ extension IngredientsTableViewController: TagListViewDataSource {
     public func didClear(_ tagListView: TagListView) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
+        case .additivesSearch:
+            switch searchAdditivesToDisplay {
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.additives.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .allergensSearch:
+            switch searchAllergensToDisplay {
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.allergens.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
+        case .ingredientsSearch:
+            switch searchIngredientsToDisplay {
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.ingredients = .available(list)
+            default:
+                assert(true, "How can I delete a tag when there are none")
+            }
+        case .labels:
+            switch labelsToDisplay {
+            case .available(var list):
+                list.removeAll()
+                delegate?.update(labelTags: list)
+            default:
+                assert(true, "How can I delete a tag when there are none")
+            }
+        case .labelsSearch:
+            switch searchLabelsToDisplay {
+            case .available(var list):
+                list.removeAll()
+                if OFFProducts.manager.searchQuery == nil {
+                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                }
+                OFFProducts.manager.searchQuery!.labels.0 = .available(list)
+            default:
+                assert(true, "How can I clear a tag when there are none")
+            }
         case .traces:
             switch tracesToDisplay {
             case .available(var list):
@@ -1406,53 +1519,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.traces.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-                
-            }
-            
-        case .labels:
-            switch labelsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                delegate?.update(labelTags: list)
-            default:
-                assert(true, "How can I delete a tag when there are none")
-                
-            }
-            
-        case .labelsSearch:
-            switch searchLabelsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.labels.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-            
-        case .additivesSearch:
-            switch searchAdditivesToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.additives.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-
-        case .allergensSearch:
-            switch searchAllergensToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.allergens.0 = .available(list)
             default:
                 assert(true, "How can I clear a tag when there are none")
             }

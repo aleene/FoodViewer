@@ -121,8 +121,8 @@ public struct OFF {
             return ("manufacturing-place", "manufacturing-places")
         case .store:
             return ("store", "stores")
-            // case .ingredient:
-            // return ("ingredient", ingredients")
+        case .ingredient:
+            return ("ingredient", nil)
         case .entryDates:
             return ("entry-dates", nil)
         case .lastEditDate:
@@ -298,10 +298,12 @@ public struct OFF {
         urlString += URL.TopDomain
         for pair in template.searchPairsWithArray() {
             if let validString = string(for:pair.0).0 {
-                urlString += validString
-                urlString += "/"
-                urlString += pair.1[0]
-                urlString += "/"
+                for element in pair.1 {
+                    urlString += validString
+                    urlString += "/"
+                    urlString += element
+                    urlString += "/"
+                }
             }
         }
         urlString += "\(page)"
