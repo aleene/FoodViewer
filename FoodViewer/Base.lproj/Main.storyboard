@@ -217,7 +217,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ac-sw-5AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9Mk-6V-ku1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4986" y="4109"/>
+            <point key="canvasLocation" x="4406" y="4109"/>
         </scene>
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
@@ -1145,7 +1145,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="42.5" y="0.0" width="202" height="44"/>
+                                            <rect key="frame" x="43.5" y="0.0" width="201" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1263,13 +1263,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
+                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -1727,7 +1727,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtG-2D-TOu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5158" y="2745"/>
+            <point key="canvasLocation" x="5340" y="2745"/>
         </scene>
         <!--Select Language View Controller-->
         <scene sceneID="jub-U0-btO">
@@ -1971,7 +1971,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Yha-XE-NCI">
-                            <rect key="frame" x="0.0" y="292" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="336" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -2234,6 +2234,31 @@
                                     <outlet property="textField" destination="w46-aw-3N6" id="jQ3-Bq-5qa"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Creation Date" id="zOc-nR-zxL" customClass="ButtonTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="292" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zOc-nR-zxL" id="7ZC-nM-jr6">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozO-Vy-jfP">
+                                            <rect key="frame" x="145" y="7" width="30" height="30"/>
+                                            <connections>
+                                                <segue destination="fSc-Id-Nrl" kind="popoverPresentation" identifier="Set Creation Date Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="rWY-mm-wPb">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ozO-Vy-jfP" firstAttribute="centerX" secondItem="7ZC-nM-jr6" secondAttribute="centerX" id="7qM-1V-BEy"/>
+                                        <constraint firstItem="ozO-Vy-jfP" firstAttribute="centerY" secondItem="7ZC-nM-jr6" secondAttribute="centerY" id="q4h-Yf-iBm"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="ozO-Vy-jfP" id="Vcp-J4-HSS"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="dDL-vj-e9c" id="3ec-wF-2AN"/>
@@ -2250,7 +2275,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RF7-RF-gTV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5964.375" y="2745"/>
+            <point key="canvasLocation" x="6173" y="2745"/>
         </scene>
         <!--Nutrition Score Table View Controller-->
         <scene sceneID="bSp-xL-aQg">
@@ -3476,7 +3501,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1D5-2L-NQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cjF-Ec-3gy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4311" y="4109"/>
+            <point key="canvasLocation" x="5226" y="4109"/>
         </scene>
         <!--Products-->
         <scene sceneID="RSI-qe-sXU">
@@ -3695,7 +3720,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNM-j5-4uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="nx9-lU-Bg8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5964" y="4109"/>
+            <point key="canvasLocation" x="6570" y="4109"/>
         </scene>
         <!--Select Contributor Role View Controller-->
         <scene sceneID="zvJ-8j-Kqa">
@@ -3740,7 +3765,64 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cue-8U-B4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="S7V-7U-QTJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6613" y="4109"/>
+            <point key="canvasLocation" x="7281" y="4109"/>
+        </scene>
+        <!--Set Creation Date View Controller-->
+        <scene sceneID="itY-fZ-mYz">
+            <objects>
+                <viewController id="fSc-Id-Nrl" customClass="SetCreationDateViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a7P-lL-b1d"/>
+                        <viewControllerLayoutGuide type="bottom" id="VVh-Db-ing"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Yhi-Qg-J6s">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rb3-s5-Ey0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem id="ZMA-V0-eCn">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="4ay-Kl-ZL6"/>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="Q6s-rJ-M6L">
+                                            <connections>
+                                                <action selector="doneButtonTapped:" destination="fSc-Id-Nrl" id="T7i-SA-51n"/>
+                                                <segue destination="S7k-h7-HNy" kind="unwind" identifier="Unwind Set CreationDate For Done" unwindAction="unwindSetCreationDateForDone:" id="ODU-AW-pry"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <datePicker contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="dlF-31-Tgq">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <date key="date" timeIntervalSinceReferenceDate="500475329.26938999">
+                                    <!--2016-11-10 12:55:29 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="fSc-Id-Nrl" eventType="valueChanged" id="hZi-6I-5Ba"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dlF-31-Tgq" firstAttribute="top" secondItem="rb3-s5-Ey0" secondAttribute="bottom" id="3Nh-sk-cFu"/>
+                            <constraint firstItem="rb3-s5-Ey0" firstAttribute="leading" secondItem="Yhi-Qg-J6s" secondAttribute="leading" id="OY5-Wc-qAb"/>
+                            <constraint firstAttribute="trailing" secondItem="rb3-s5-Ey0" secondAttribute="trailing" id="YBY-He-gOp"/>
+                            <constraint firstItem="rb3-s5-Ey0" firstAttribute="top" secondItem="Yhi-Qg-J6s" secondAttribute="top" id="aQJ-nt-MRn"/>
+                            <constraint firstItem="VVh-Db-ing" firstAttribute="top" secondItem="dlF-31-Tgq" secondAttribute="bottom" id="oEh-J1-LEd"/>
+                            <constraint firstItem="dlF-31-Tgq" firstAttribute="leading" secondItem="Yhi-Qg-J6s" secondAttribute="leading" id="upA-rF-wTB"/>
+                            <constraint firstAttribute="trailing" secondItem="dlF-31-Tgq" secondAttribute="trailing" id="uwa-Cc-JYr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="dlF-31-Tgq" id="bnd-WM-Lan"/>
+                        <segue destination="S7k-h7-HNy" kind="unwind" identifier="Unwind Set CreationDate For Exit" unwindAction="unwindSetCreationDateForDone:" id="KhN-wd-ucF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="njA-qM-ldv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="S7k-h7-HNy" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="5874" y="4109"/>
         </scene>
     </scenes>
     <resources>

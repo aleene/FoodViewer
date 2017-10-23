@@ -33,7 +33,9 @@ class SearchTemplate {
     var type: SearchType {
         get {
             // barcode search is only supported for simple search
-            if barcode != nil || ingredients.hasTags {
+            if barcode != nil ||
+                ingredients.hasTags ||
+                creationDate != nil {
                 return .simple
             // exclude is only supported in advanced search
             } else if labels.1 == false ||
@@ -342,6 +344,21 @@ class SearchTemplate {
     
     var allNutrimentsSearch: [NutrimentSearch] = []
     
+    var creationDate: Date? = nil {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+        didSet {
+            // advanced queries do not support barcode search
+            if type == .advanced  {
+                creationDate = nil
+            }
+        }
+    }
+
     // No search has been set up
     var isEmpty: Bool {
         
@@ -365,7 +382,8 @@ class SearchTemplate {
             level == nil &&
             allNutrimentsSearch.isEmpty &&
             contributors.isEmpty &&
-            ingredients == .empty
+            ingredients == .empty &&
+            creationDate == nil
     }
     
     init() {
@@ -399,6 +417,7 @@ class SearchTemplate {
         allNutrimentsSearch = []
         contributors = []
         ingredients = .empty
+        creationDate = nil
     }
 
     private func setSearchPair(_ component: SearchComponent, with string: String) {
@@ -449,10 +468,10 @@ class SearchTemplate {
             
         case .state:
             completion = OFF.completion(for: string)
+            /*
 
-        /*
         case .entryDates: // SIMPLE search only
-            additionDate = Date.init()
+            creationDate = Date.in
         case .lastEditDate: // SIMPLE search only
             lastEditDates = [Date.init()]
         */
@@ -559,13 +578,13 @@ class SearchTemplate {
             pairs.append((.store, cleanChars(validTags.list),  display(shouldContain) ))
         }
 
-        //let formatter = DateFormatter()
-        //formatter.dateFormat = "yyyy-MM-dd"
-        //if let validDate = additionDate {
-        //    // entryDates:
-        //    let searchString = formatter.string(from: validDate as Date)
-        //    pairs.append((.entryDates, [searchString], true))
-        //}
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        if let validDate = creationDate {
+            // entryDates:
+            let searchString = formatter.string(from: validDate as Date)
+            pairs.append((.entryDates, [searchString], display(true)))
+        }
         // lastEditDate:
         //if let validDates = lastEditDates {
         //    if !validDates.isEmpty {

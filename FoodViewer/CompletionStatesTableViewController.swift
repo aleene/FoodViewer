@@ -60,10 +60,12 @@ class CompletionStatesTableViewController: UITableViewController {
             static let SetCompletionState = "Set Completion State Cell Identifier"
             static let TagListView = "Completion State TagListView Cell Identifier"
             static let SetContributorRole = "TextField With Button Cell Identifier"
+            static let SetCreationDate = "Set Creation Date"
         }
         struct SegueIdentifier {
             static let SelectCompletionState = "Show Select Completion State Segue Identifier"
             static let SelectContributorRole = "Show Select Contributor Role Segue Identifier"
+            static let SetCreationDate = "Set Creation Date Segue Identifier"
         }
     }
     
@@ -130,6 +132,17 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.username = query!.contributors.count > 0 ? query!.contributors[indexPath.row].name : nil
                 cell.buttonText = query!.contributors.count > 0 ? query!.contributors[indexPath.row].roles[0].description : nil
                 return cell
+            case 3:
+                if query!.type != .advanced {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCreationDate, for: indexPath) as! ButtonTableViewCell
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .medium
+                    formatter.timeStyle = .none
+                    // the lastEditDates array contains at least one date, if we arrive here
+                    cell.editMode = editMode
+                    cell.title = query!.creationDate != nil ? formatter.string(from: query!.creationDate!) : nil
+                    return cell
+                }
             default:
                 break
             }
@@ -272,6 +285,23 @@ class CompletionStatesTableViewController: UITableViewController {
                         }
                     }
                 }
+            case Storyboard.SegueIdentifier.SetCreationDate:
+                if  let vc = segue.destination as? SetCreationDateViewController {
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? ButtonTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentDate = query!.creationDate
+                            }
+                        }
+                    }
+                }
 
             default: break
             }
@@ -291,6 +321,15 @@ class CompletionStatesTableViewController: UITableViewController {
         if let vc = segue.source as? SelectContributorRoleViewController,
             let validContributor = vc.updatedContributor {
             query!.contributors[0] = validContributor
+            tableView.reloadData()
+        }
+    }
+
+    @IBAction func unwindSetCreationDateForDone(_ segue:UIStoryboardSegue) {
+        guard query != nil else { return }
+        if let vc = segue.source as? SetCreationDateViewController,
+            let validDate = vc.selectedDate {
+            query!.creationDate = validDate
             tableView.reloadData()
         }
     }

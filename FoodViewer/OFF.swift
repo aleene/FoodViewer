@@ -124,7 +124,7 @@ public struct OFF {
         case .ingredient:
             return ("ingredient", nil)
         case .entryDates:
-            return ("entry-dates", nil)
+            return ("entry-date", nil)
         case .lastEditDate:
             return ("last-edit-date", nil)
         case .contributor:
