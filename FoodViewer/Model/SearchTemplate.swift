@@ -35,7 +35,8 @@ class SearchTemplate {
             // barcode search is only supported for simple search
             if barcode != nil ||
                 ingredients.hasTags ||
-                creationDate != nil {
+                creationDate != nil ||
+                lastEditDate != nil {
                 return .simple
             // exclude is only supported in advanced search
             } else if labels.1 == false ||
@@ -359,6 +360,21 @@ class SearchTemplate {
         }
     }
 
+    var lastEditDate: Date? = nil {
+        willSet {
+            // Will the Template change to a simple query?
+            if type == .indifferent {
+                NotificationCenter.default.post(name: .SearchTypeChanged, object:nil, userInfo: nil)
+            }
+        }
+        didSet {
+            // advanced queries do not support barcode search
+            if type == .advanced  {
+                lastEditDate = nil
+            }
+        }
+    }
+
     // No search has been set up
     var isEmpty: Bool {
         
@@ -383,7 +399,8 @@ class SearchTemplate {
             allNutrimentsSearch.isEmpty &&
             contributors.isEmpty &&
             ingredients == .empty &&
-            creationDate == nil
+            creationDate == nil &&
+            lastEditDate == nil
     }
     
     init() {
@@ -418,6 +435,7 @@ class SearchTemplate {
         contributors = []
         ingredients = .empty
         creationDate = nil
+        lastEditDate = nil
     }
 
     private func setSearchPair(_ component: SearchComponent, with string: String) {
@@ -586,12 +604,10 @@ class SearchTemplate {
             pairs.append((.entryDates, [searchString], display(true)))
         }
         // lastEditDate:
-        //if let validDates = lastEditDates {
-        //    if !validDates.isEmpty {
-        //        let searchString = formatter.string(from: validDates[0] as Date)
-        //        pairs.append((.lastEditDate, [searchString], true))
-        //    }
-        //}
+        if let validDate = lastEditDate {
+            let searchString = formatter.string(from: validDate as Date)
+            pairs.append((.lastEditDate, [searchString], display(true)))
+        }
         
         // creator:
         if !contributors.isEmpty {

@@ -61,11 +61,13 @@ class CompletionStatesTableViewController: UITableViewController {
             static let TagListView = "Completion State TagListView Cell Identifier"
             static let SetContributorRole = "TextField With Button Cell Identifier"
             static let SetCreationDate = "Set Creation Date"
+            static let SetLastEditDate = "Set Last Edit Date Cell Identifier"
         }
         struct SegueIdentifier {
             static let SelectCompletionState = "Show Select Completion State Segue Identifier"
             static let SelectContributorRole = "Show Select Contributor Role Segue Identifier"
             static let SetCreationDate = "Set Creation Date Segue Identifier"
+            static let SetLstEditDate = "Set Last Edit Date Segue Identifier"
         }
     }
     
@@ -132,6 +134,17 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.username = query!.contributors.count > 0 ? query!.contributors[indexPath.row].name : nil
                 cell.buttonText = query!.contributors.count > 0 ? query!.contributors[indexPath.row].roles[0].description : nil
                 return cell
+            case 2:
+                if query!.type != .advanced {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetLastEditDate, for: indexPath) as! LastEditDateTableViewCell
+                    let formatter = DateFormatter()
+                    formatter.dateStyle = .medium
+                    formatter.timeStyle = .none
+                    // the lastEditDates array contains at least one date, if we arrive here
+                    cell.editMode = editMode
+                    cell.title = query!.lastEditDate != nil ? formatter.string(from: query!.lastEditDate!) : nil
+                    return cell
+                }
             case 3:
                 if query!.type != .advanced {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCreationDate, for: indexPath) as! ButtonTableViewCell
@@ -302,6 +315,23 @@ class CompletionStatesTableViewController: UITableViewController {
                         }
                     }
                 }
+            case Storyboard.SegueIdentifier.SetLstEditDate:
+                if  let vc = segue.destination as? SetLastEditDateViewController {
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? LastEditDateTableViewCell != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                ppc.delegate = self
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentDate = query!.lastEditDate
+                            }
+                        }
+                    }
+                }
 
             default: break
             }
@@ -329,11 +359,19 @@ class CompletionStatesTableViewController: UITableViewController {
         guard query != nil else { return }
         if let vc = segue.source as? SetCreationDateViewController,
             let validDate = vc.selectedDate {
-            query!.creationDate = validDate
+                query!.creationDate = validDate
             tableView.reloadData()
         }
     }
 
+    @IBAction func unwindSetLastEditDateForDone(_ segue:UIStoryboardSegue) {
+        guard query != nil else { return }
+        if let vc = segue.source as? SetLastEditDateViewController,
+            let validDate = vc.selectedDate {
+            query!.lastEditDate = validDate
+            tableView.reloadData()
+        }
+    }
     // MARK: - Notification handler
     
     

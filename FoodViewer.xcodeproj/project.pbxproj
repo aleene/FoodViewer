@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5104F4A81F9E5400008D074F /* SetLastEditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */; };
+		5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */; };
 		5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
 		5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */; };
 		510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */; };
@@ -260,6 +262,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetLastEditDateViewController.swift; sourceTree = "<group>"; };
+		5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastEditDateTableViewCell.swift; sourceTree = "<group>"; };
 		5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFUpdate.swift; sourceTree = "<group>"; };
 		5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductUpdateStatus.swift; sourceTree = "<group>"; };
 		510A38EC1CD3B67900BAEB61 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -533,6 +537,7 @@
 		5107C82B1D9D07AB006A628C /* EditPages */ = {
 			isa = PBXGroup;
 			children = (
+				5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */,
 				51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
 				51B721731DD5F268003AF608 /* AddNutrientViewController.swift */,
@@ -942,6 +947,7 @@
 			isa = PBXGroup;
 			children = (
 				51CC54B11F9E1D9200350424 /* ButtonTableViewCell.swift */,
+				5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */,
 				517907F71F8E55570017FCA0 /* TextFieldWithButtonTableViewCell.swift */,
 				51B3838D1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift */,
 				51C86B621C6E33E2002B7566 /* StateTableViewCell.swift */,
@@ -1237,6 +1243,7 @@
 				51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */,
 				51FB32331CF762FC00A17312 /* AllergenWarningDefaults.swift in Sources */,
 				5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */,
+				5104F4A81F9E5400008D074F /* SetLastEditDateViewController.swift in Sources */,
 				511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */,
 				510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */,
 				51E614941C8349AD00DAEE6C /* History.swift in Sources */,
@@ -1321,6 +1328,7 @@
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
+				5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */,
 				5150D9C81F8154F20003DE8E /* SelectCompareViewController.swift in Sources */,
 				511B2C431E78687E00336CE8 /* Mass.swift in Sources */,
 				5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */,

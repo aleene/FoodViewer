@@ -1971,7 +1971,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Yha-XE-NCI">
-                            <rect key="frame" x="0.0" y="336" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="380" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -2257,6 +2257,31 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="button" destination="ozO-Vy-jfP" id="Vcp-J4-HSS"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Last Edit Date Cell Identifier" id="rKN-Et-O7J" customClass="LastEditDateTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="336" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rKN-Et-O7J" id="fke-LV-P1C">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhg-XV-xYD">
+                                            <rect key="frame" x="145" y="7" width="30" height="30"/>
+                                            <connections>
+                                                <segue destination="onc-6Q-1mf" kind="popoverPresentation" identifier="Set Last Edit Date Segue Identifier" popoverAnchorView="cb3-bR-lyZ" id="FM2-0k-MpZ">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Uhg-XV-xYD" firstAttribute="centerX" secondItem="fke-LV-P1C" secondAttribute="centerX" id="NUZ-ps-qbj"/>
+                                        <constraint firstItem="Uhg-XV-xYD" firstAttribute="centerY" secondItem="fke-LV-P1C" secondAttribute="centerY" id="NnP-fO-dv7"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="Uhg-XV-xYD" id="OhN-bq-Xe4"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -3720,7 +3745,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNM-j5-4uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="nx9-lU-Bg8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6570" y="4109"/>
+            <point key="canvasLocation" x="7213" y="4109"/>
         </scene>
         <!--Select Contributor Role View Controller-->
         <scene sceneID="zvJ-8j-Kqa">
@@ -3765,7 +3790,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cue-8U-B4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="S7V-7U-QTJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7281" y="4109"/>
+            <point key="canvasLocation" x="7937" y="4109"/>
         </scene>
         <!--Set Creation Date View Controller-->
         <scene sceneID="itY-fZ-mYz">
@@ -3823,6 +3848,62 @@
                 <exit id="S7k-h7-HNy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5874" y="4109"/>
+        </scene>
+        <!--Set Last Edit Date View Controller-->
+        <scene sceneID="19N-HM-6ph">
+            <objects>
+                <viewController id="onc-6Q-1mf" customClass="SetLastEditDateViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v2E-Ol-ZXy"/>
+                        <viewControllerLayoutGuide type="bottom" id="uFK-VH-fWh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vzr-UF-yi1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p8U-hE-dQB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem id="87I-LY-HVh">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="GNY-gs-lu2"/>
+                                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="etz-en-4Jd">
+                                            <connections>
+                                                <segue destination="g7o-mq-7jI" kind="unwind" identifier="Unwind Set Last EditDate For Done" unwindAction="unwindSetLastEditDateForDone:" id="W5x-QV-0jo"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <datePicker contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="HmB-VF-yoX">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <date key="date" timeIntervalSinceReferenceDate="500475329.26938999">
+                                    <!--2016-11-10 12:55:29 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="datePickerChanged:" destination="onc-6Q-1mf" eventType="valueChanged" id="73K-Qw-Tzp"/>
+                                </connections>
+                            </datePicker>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="p8U-hE-dQB" secondAttribute="trailing" id="0y3-zg-SAp"/>
+                            <constraint firstItem="p8U-hE-dQB" firstAttribute="leading" secondItem="vzr-UF-yi1" secondAttribute="leading" id="CM5-9S-bFw"/>
+                            <constraint firstAttribute="trailing" secondItem="HmB-VF-yoX" secondAttribute="trailing" id="FJ7-SK-rEJ"/>
+                            <constraint firstItem="HmB-VF-yoX" firstAttribute="leading" secondItem="vzr-UF-yi1" secondAttribute="leading" id="NYP-Qq-JQW"/>
+                            <constraint firstItem="p8U-hE-dQB" firstAttribute="top" secondItem="vzr-UF-yi1" secondAttribute="top" id="ZPV-mF-Up8"/>
+                            <constraint firstItem="uFK-VH-fWh" firstAttribute="top" secondItem="HmB-VF-yoX" secondAttribute="bottom" id="dig-5l-BaV"/>
+                            <constraint firstItem="HmB-VF-yoX" firstAttribute="top" secondItem="p8U-hE-dQB" secondAttribute="bottom" id="eJn-xV-gaS"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="HmB-VF-yoX" id="KNn-9x-e3w"/>
+                        <segue destination="g7o-mq-7jI" kind="unwind" identifier="Unwind Set Las Edit Date For Exit" unwindAction="unwindSetLastEditDateForDone:" id="Vxn-hO-EbI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v6t-lV-ckq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="g7o-mq-7jI" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="6555" y="4109"/>
         </scene>
     </scenes>
     <resources>
