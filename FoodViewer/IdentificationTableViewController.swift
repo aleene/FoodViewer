@@ -379,7 +379,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .barcodeSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
-            cell.barcode = query?.barcode?.asString()
+            cell.barcode = query?.barcode
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
@@ -983,6 +983,27 @@ class IdentificationTableViewController: UITableViewController {
     }
 
 }
+// MARK: - TagListViewCellDelegate Functions
+
+extension IdentificationTableViewController: BarcodeEditCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
+        if let validCode = query!.barcode?.asString(),
+            let validProductType = query!.barcode?.productType() {
+            switch segmentedControl.selectedSegmentIndex {
+            case 0:
+                query!.barcode = .ean8(validCode, validProductType)
+            case 1:
+                query!.barcode = .upc12(validCode, validProductType)
+            case 2:
+                query!.barcode = .ean13(validCode, validProductType)
+            default:
+                break
+            }
+        }
+    }
+}
 
 // MARK: - TagListViewCellDelegate Functions
 
@@ -1497,7 +1518,7 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         case .barcodeSearch:
             // barcode updated?
             if let validText = textField.text {
-                query!.barcode = BarcodeType.init(value: validText)
+                query!.barcode = BarcodeType.ean8(validText, Preferences.manager.showProductType)
             }
         default:
             break

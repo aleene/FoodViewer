@@ -11,8 +11,9 @@ import Foundation
 enum BarcodeType {
     case ean13(String, ProductType?)
     case ean8(String, ProductType?)
+    case upc12(String, ProductType?)
     case undefined(String, ProductType?)
-    case search(String, ProductType?) // To indicate a search product, which does not have to have a barcode
+    // case search(String, ProductType?) // To indicate a search product, which does not have to have a barcode
     
     init(typeCode: String, value: String) {
         if typeCode == "org.gs1.EAN-13" {
@@ -53,10 +54,12 @@ enum BarcodeType {
                 self = .ean13(newString, nil)
             case .ean8:
                 self = .ean8(newString, nil)
+            case .upc12:
+                self = .upc12(newString, nil)
             case .undefined:
                 self = .undefined(newString, nil)
-            case .search:
-                self = .search(newString, nil)
+            //case .search:
+            //    self = .search(newString, nil)
             }
         }
     }
@@ -67,12 +70,42 @@ enum BarcodeType {
             return s
         case .ean8(let s, _):
             return s
+        case .upc12(let s, _):
+            return s
         case .undefined(let s, _):
             return s
-        case .search(let s, _):
-            return s
+        //case .search(let s, _):
+        //    return s
         }
     }
+    
+    func fill() -> String {
+        switch self {
+        case .ean13(var s, _):
+            let len = s.characters.count + 1
+            for _ in len...13 {
+                s += "x"
+            }
+            return s
+        case .ean8(var s, _):
+            let len = s.characters.count + 1
+            for _ in len...8 {
+                s += "x"
+            }
+            return s
+        case .upc12(var s, _):
+            let len = s.characters.count + 1
+            for _ in len...12 {
+                s += "x"
+            }
+            return s
+        case .undefined(let s, _):
+            return s
+            //case .search(let s, _):
+            //    return s
+        }
+    }
+
     
     func productType() -> ProductType? {
         switch self {
@@ -80,10 +113,12 @@ enum BarcodeType {
             return s
         case .ean8(_, let s):
             return s
+        case .upc12(_, let s):
+            return s
         case .undefined(_, let s):
             return s
-        case .search(_, let s):
-            return s
+        //case .search(_, let s):
+        //    return s
         }
     }
     
@@ -93,14 +128,16 @@ enum BarcodeType {
             self = .ean13(code, type)
         case .ean8(let code, _):
             self = .ean8(code, type)
+        case .upc12(let code, _):
+            self = .upc12(code, type)
         case .undefined(let code, _):
             self = .undefined(code, type)
-        case .search(let code, _):
-            self = .search(code, type)
+        //case .search(let code, _):
+        //    self = .search(code, type)
         }
         
     }
-    
+    /*
     func isSearch() -> Bool {
         switch self {
         case .search:
@@ -109,4 +146,5 @@ enum BarcodeType {
             return false
         }
     }
+ */
 }

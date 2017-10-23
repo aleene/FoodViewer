@@ -800,14 +800,6 @@ class FoodProduct {
 
         guard product != nil else { return }
         
-        switch product!.barcode {
-        case .search:
-            if !product!.barcode.asString().isEmpty {
-                barcode.string(product!.barcode.asString())
-            }
-        default:
-            break
-        }
         if product!.primaryLanguageCode != nil {
             primaryLanguageCode = product!.primaryLanguageCode
         }

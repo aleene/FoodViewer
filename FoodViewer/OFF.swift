@@ -90,7 +90,7 @@ public struct OFF {
         // The second is for an advanced query
         switch component {
         case .barcode:
-            return (nil, "code")
+            return ("code", nil)
         case .searchText:
             return (nil, "searchText")
         case .brand:
@@ -296,11 +296,11 @@ public struct OFF {
         // use the currrent product type
         urlString += server(for:Preferences.manager.showProductType)
         urlString += URL.TopDomain
-        for pair in template.searchPairs() {
+        for pair in template.searchPairsWithArray() {
             if let validString = string(for:pair.0).0 {
                 urlString += validString
                 urlString += "/"
-                urlString += pair.1
+                urlString += pair.1[0]
                 urlString += "/"
             }
         }

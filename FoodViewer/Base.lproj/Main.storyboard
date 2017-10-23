@@ -408,20 +408,34 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kRx-hP-7I5">
-                                            <rect key="frame" x="8" y="29" width="359" height="30"/>
+                                            <rect key="frame" x="8" y="29" width="307" height="30"/>
                                             <nil key="textColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         </textField>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gLj-tw-8ew">
+                                            <rect key="frame" x="323" y="30" width="44" height="29"/>
+                                            <segments>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                                <segment title=""/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="segmentedControlChanged:" destination="DgJ-1g-psZ" eventType="valueChanged" id="sPi-TJ-62R"/>
+                                            </connections>
+                                        </segmentedControl>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="kRx-hP-7I5" firstAttribute="centerY" secondItem="STO-3f-kJd" secondAttribute="centerY" id="63p-o0-O35"/>
-                                        <constraint firstItem="kRx-hP-7I5" firstAttribute="trailing" secondItem="STO-3f-kJd" secondAttribute="trailingMargin" id="9GB-eh-kgN"/>
+                                        <constraint firstItem="kRx-hP-7I5" firstAttribute="centerY" secondItem="gLj-tw-8ew" secondAttribute="centerY" id="9Zd-L6-u2Z"/>
                                         <constraint firstItem="kRx-hP-7I5" firstAttribute="leading" secondItem="STO-3f-kJd" secondAttribute="leadingMargin" id="U7c-oe-f0J"/>
+                                        <constraint firstItem="gLj-tw-8ew" firstAttribute="leading" secondItem="kRx-hP-7I5" secondAttribute="trailing" constant="8" id="eir-qS-73g"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="gLj-tw-8ew" secondAttribute="trailing" id="hy3-c5-psZ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="barcodeTextField" destination="kRx-hP-7I5" id="s20-mS-kGC"/>
+                                    <outlet property="segmentedControl" destination="gLj-tw-8ew" id="cg6-2g-njb"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Name Cell" id="cxD-3X-5h8" customClass="ProductNameTableViewCell" customModule="FoodViewer" customModuleProvider="target">

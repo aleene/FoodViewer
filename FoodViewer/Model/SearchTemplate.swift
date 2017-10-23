@@ -367,9 +367,9 @@ class SearchTemplate {
         var pairs: [(SearchComponent, [String], String)] = []
         
         // barcode // SIMPLE search only
-        //if !barcode.asString().isEmpty {
-        //    pairs.append((.barcode, [barcode.asString()], true))
-        //}
+        if barcode != nil && !barcode!.asString().isEmpty {
+            pairs.append((.barcode, [barcode!.fill()], display(true)))
+        }
         
         // search text
         if text != nil && !text!.isEmpty {
