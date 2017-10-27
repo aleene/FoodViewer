@@ -170,8 +170,36 @@ class CompletionStatesTableViewController: UITableViewController {
                 cell.delegate = delegate
                 let completion = product!.state.array[indexPath.row]
                 cell.state = completion.value
+                cell.tag = indexPath.row
                 cell.stateTitle = completion.description()
                 cell.searchString = OFF.searchKey(for: completion)
+                switch completion.category {
+                case .categories:
+                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.categoriesTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    cell.addGestureRecognizer(tapGestureRecognizer)
+                case .productName, .brands, .quantity, .packaging:
+                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.identificationTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    cell.addGestureRecognizer(tapGestureRecognizer)
+                case .ingredients:
+                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.ingredientsTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    cell.addGestureRecognizer(tapGestureRecognizer)
+                case .expirationDate:
+                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.supplyChainTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    cell.addGestureRecognizer(tapGestureRecognizer)
+                case .nutritionFacts:
+                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.nutritionFactsTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    cell.addGestureRecognizer(tapGestureRecognizer)
+                case .photosUploaded, .photosValidated:
+                    let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.galleryTapped))
+                    tapGestureRecognizer.numberOfTouchesRequired = 1
+                    cell.addGestureRecognizer(tapGestureRecognizer)
+                }
+
                 return cell
                 
             } else if indexPath.section == 1 {
@@ -253,6 +281,30 @@ class CompletionStatesTableViewController: UITableViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         let searchString = formatter.string(from: product!.lastEditDates![0] as Date)
         delegate?.search(for: searchString, in: .lastEditDate)
+    }
+    
+    func identificationTapped() {
+        delegate?.pageIndex = .identification
+    }
+    
+    func ingredientsTapped() {
+        delegate?.pageIndex = .ingredients
+    }
+
+    func categoriesTapped() {
+        delegate?.pageIndex = .categories
+    }
+
+    func supplyChainTapped() {
+        delegate?.pageIndex = .supplyChain
+    }
+
+    func nutritionFactsTapped() {
+        delegate?.pageIndex = .nutritionFacts
+    }
+
+    func galleryTapped() {
+        delegate?.pageIndex = .gallery
     }
 //
 // MARK: - Navigation
