@@ -174,7 +174,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             
             initPage(pageIndex)
-            // title = pageIndex.description()
+            title = pageIndex.description()
         }
     }
     
