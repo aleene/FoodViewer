@@ -28,7 +28,7 @@ class SearchHeaderView: UITableViewHeaderFooterView {
     
     @IBOutlet weak var clearButton: UIButton! {
         didSet {
-            sortButton.isEnabled = sortButtonIsEnabled && buttonsAreEnabled
+            clearButton.isEnabled = sortButtonIsEnabled && buttonsAreEnabled
         }
     }
     
@@ -46,13 +46,13 @@ class SearchHeaderView: UITableViewHeaderFooterView {
         }
     }
     
-    var sortButtonIsEnabled = true {
+    var sortButtonIsEnabled = false {
         didSet {
             sortButton.isEnabled = sortButtonIsEnabled && buttonsAreEnabled
         }
     }
     
-    var buttonsAreEnabled = true {
+    var buttonsAreEnabled = false {
         didSet {
             clearButton.isEnabled = buttonsAreEnabled
         }

@@ -130,7 +130,7 @@ public struct OFF {
         case .contributor:
             return ("contributor", "contributors")
         case .creator:
-            return ("creator", "creators")
+            return ("creator", "creator")
         case .checker:
             return ("checker", "checkers")
         case .informer:
