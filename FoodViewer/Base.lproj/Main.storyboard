@@ -954,7 +954,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L7h-nT-Kym" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Qre-lC-csc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1755" y="-465"/>
+            <point key="canvasLocation" x="1791" y="-465"/>
         </scene>
         <!--Products-->
         <scene sceneID="B20-Pm-QF1">
@@ -1145,7 +1145,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="43.5" y="0.0" width="201" height="44"/>
+                                            <rect key="frame" x="42.5" y="0.0" width="202" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1263,13 +1263,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
+                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -1338,6 +1338,9 @@
                         <outlet property="downTwoFingerSwipe" destination="T79-dC-ES5" id="6DG-fw-mjU"/>
                         <outlet property="searchTextField" destination="gZ8-Lt-wU3" id="dnT-WO-YO7"/>
                         <segue destination="bDa-Ia-c5K" kind="showDetail" identifier="Show Page Controller" id="GR8-bW-x6k"/>
+                        <segue destination="wWn-z8-Ycj" kind="popoverPresentation" identifier="Set Sort Order Segue Identifier" popoverAnchorView="D6F-oT-6RW" id="gwX-Js-8nG">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q8b-LA-YmP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3568,7 +3571,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N7K-18-z0V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2851.875" y="1595"/>
+            <point key="canvasLocation" x="773" y="1534"/>
         </scene>
         <!--Main Language View Controller-->
         <scene sceneID="Gtb-19-kfH">
@@ -3904,6 +3907,55 @@
                 <exit id="g7o-mq-7jI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6555" y="4109"/>
+        </scene>
+        <!--Set Sort Order View Controller-->
+        <scene sceneID="h5T-Tt-jEV">
+            <objects>
+                <viewController id="wWn-z8-Ycj" customClass="SetSortOrderViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TVL-iS-hcA"/>
+                        <viewControllerLayoutGuide type="bottom" id="M7W-xy-43o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DXK-bF-6HK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="3TJ-87-VCD">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                                <gestureRecognizers/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" translatesAutoresizingMaskIntoConstraints="NO" id="rLE-Ku-nsT">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem id="ihQ-81-7Sx">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="ouS-Do-fCy">
+                                            <connections>
+                                                <segue destination="xjd-YS-Sel" kind="unwind" identifier="Done Set Order Unwind Identifier" unwindAction="unwindSetSortOrder:" id="lhL-XC-yhj"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3TJ-87-VCD" secondAttribute="trailing" id="6rO-yy-B0b"/>
+                            <constraint firstItem="M7W-xy-43o" firstAttribute="top" secondItem="3TJ-87-VCD" secondAttribute="bottom" id="DOy-Hc-RdY"/>
+                            <constraint firstItem="3TJ-87-VCD" firstAttribute="leading" secondItem="DXK-bF-6HK" secondAttribute="leading" id="Sob-rs-6yx"/>
+                            <constraint firstItem="rLE-Ku-nsT" firstAttribute="top" secondItem="DXK-bF-6HK" secondAttribute="top" id="Yi7-Nu-poD"/>
+                            <constraint firstItem="rLE-Ku-nsT" firstAttribute="leading" secondItem="DXK-bF-6HK" secondAttribute="leading" id="dE3-Cb-bHa"/>
+                            <constraint firstItem="3TJ-87-VCD" firstAttribute="top" secondItem="rLE-Ku-nsT" secondAttribute="bottom" id="fHb-ur-bhB"/>
+                            <constraint firstAttribute="trailing" secondItem="rLE-Ku-nsT" secondAttribute="trailing" id="jUG-j2-C0i"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="3TJ-87-VCD" id="p8E-UY-0Cb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5z5-eh-uLy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="xjd-YS-Sel" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2715" y="1141"/>
         </scene>
     </scenes>
     <resources>

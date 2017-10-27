@@ -29,6 +29,8 @@ class SearchTemplate {
         case indifferent
     }
     
+    var sortOrder: SearchSortOrder = .popularity
+    
     // This determines the kind of search we are going to submit to OFF
     var type: SearchType {
         get {

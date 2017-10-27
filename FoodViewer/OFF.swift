@@ -431,11 +431,24 @@ public struct OFF {
 
         }
         urlString += URL.SearchPage + "\(page)"
+        urlString += sortString(template.sortOrder)
         urlString += URL.JSONSearchExtension
-        
         return urlString
     }
     
+    static func sortString(_ sortOrder:SearchSortOrder) -> String {
+        switch sortOrder {
+        case .popularity:
+            return "&sort_by=unique_scans_n"
+        case .productName:
+            return "&sort_by=product_name"
+        case .addDate:
+            return "&sort_by=created_t"
+        case .editDate:
+            return "&sort_by=last_modified_t"
+        }
+    }
+   
     // Convert a search tag pair to a part of an advanced search url
     static private func addSearchTag(_ pair: (Tags, Bool)?, in component:SearchComponent, index: inout Int) -> String? {
         if let (tags, shouldContain) = pair {

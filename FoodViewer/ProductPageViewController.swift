@@ -48,12 +48,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     @IBAction func confirmButtonTapped(_ sender: UIBarButtonItem) {
         if editMode {
-            
-            if OFFAccount().personalExists() {
-                // maybe the user has to authenticate himself before continuing
-                authenticate()
-            }
-
             // the user was editing AND tapped the save button
             userWantsToSave = true
             // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
@@ -61,8 +55,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             self.view.endEditing(true)
             if isQuery {
                 // start a new search
-                OFFProducts.manager.startSearch(for: product)
+                OFFProducts.manager.startSearch()
             } else {
+                if OFFAccount().personalExists() {
+                    // maybe the user has to authenticate himself before continuing
+                    authenticate()
+                }
+                
                 // Saving can be done
                 saveUpdatedProduct()
             }

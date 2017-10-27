@@ -245,6 +245,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
             static let ShowSettings = "Show Settings Segue"
+            static let ShowSortOrder = "Set Sort Order Segue Identifier"
         }
     }
     
@@ -541,12 +542,24 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                 }
+                
             case .searchQuery(let query):
+                let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SearchHeaderView") as! SearchHeaderView
+                headerView.delegate = self
                 if !query.isEmpty {
-                    label.text = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.SearchSetup
+                    // The buttons can function
+                    headerView.buttonsAreEnabled = true
+                    // Sorting is possible
+                    headerView.sortButtonIsEnabled = query.type == .simple ? false : true
                 } else {
-                    label.text = TranslatableStrings.NoSearchDefined
+                    headerView.buttonsAreEnabled = false
                 }
+                if !query.isEmpty {
+                    headerView.title = query.numberOfSearchResults != nil ? "\(query.numberOfSearchResults!)" + " " +  TranslatableStrings.SearchResults : TranslatableStrings.SearchSetup
+                } else {
+                    headerView.title = TranslatableStrings.NoSearchDefined
+                }
+                return headerView
             default:
                 label.text = products.fetchResultList[section].description()
             }
@@ -605,6 +618,32 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     vc.modalPresentationCapturesStatusBarAppearance = true
                     setNeedsStatusBarAppearanceUpdate()
                 }
+            case Storyboard.SegueIdentifier.ShowSortOrder:
+                if let vc = segue.destination as? SetSortOrderViewController {
+                    // The segue can only be initiated from a button within a searchHeaderView
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? SearchHeaderView != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of  the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                ppc.delegate = self
+                                
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                guard products.fetchResultList.count > 0 else { return }
+                                let result = products.fetchResultList[0]
+                                switch result {
+                                case .searchQuery(let query):
+                                    vc.currentSortOrder = query.sortOrder
+                                default:
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
 
             default: break
             }
@@ -651,14 +690,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             searchTextField.text = vc.barcode
             products.list = .recent
             startInterface(at: selectedIndex ?? 0)
-                
-
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
             assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
         }
     }
     
+    @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SetSortOrderViewController {
+            guard products.fetchResultList.count > 0 else { return }
+            let result = products.fetchResultList[0]
+            switch result {
+            case .searchQuery(let query):
+                if let validNewSortOrder = vc.selectedSortOrder {
+                    if validNewSortOrder != query.sortOrder && !query.isEmpty {
+                        query.sortOrder =  validNewSortOrder
+                        OFFProducts.manager.startSearch()
+                    }
+                }
+            default:
+                break
+            }
+        }
+    }
+
     
     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SettingsTableViewController {
@@ -810,6 +865,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
+    func showPopOver() {
+    }
+    
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
     @IBAction func nextProductType(_ sender: UISwipeGestureRecognizer) {
@@ -844,10 +902,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80.0
-        
+        tableView.register(UINib(nibName: "SearchHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SearchHeaderView")
+
         initializeCustomKeyboard()
-        // DO WE NEED THIS?
-        // startInterface(at: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -879,7 +936,29 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         OFFProducts.manager.flushImages()
     }
 }
-   
+    
+// MARK: - SearchHeaderDelegate Functions
+    
+extension ProductTableViewController: SearchHeaderDelegate {
+    
+    func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSortOrder, sender: button)
+    }
+    
+    func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
+        guard products.fetchResultList.count > 0 else { return }
+        let result = products.fetchResultList[0]
+        switch result {
+        case .searchQuery(let query):
+            query.clear()
+        default:
+            break
+        }
+    }
+}
+    
+// MARK: - UIGestureRecognizerDelegate Functions
+    
 extension ProductTableViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -891,7 +970,9 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
         return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
     }
 }
-   
+    
+// MARK: - UITabBarControllerDelegate Functions
+    
 extension ProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
@@ -901,7 +982,6 @@ extension ProductTableViewController: UITabBarControllerDelegate {
     }
     
 }
-    
     
 // MARK: - TagListView DataSource Functions
     
@@ -971,5 +1051,24 @@ extension ProductTableViewController: TagListViewDelegate {
     
 }
 
-
-
+    
+// MARK: - UIPopoverPresentationControllerDelegate Functions
+    
+extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
+        
+    // MARK: - Popover delegation functions
+        
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+        
+    func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
+        let navcon = UINavigationController(rootViewController: controller.presentedViewController)
+        let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
+        visualEffectView.frame = navcon.view.bounds
+        navcon.view.insertSubview(visualEffectView, at: 0)
+        return navcon
+    }
+}
+    
+    

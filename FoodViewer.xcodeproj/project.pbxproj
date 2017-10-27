@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5104F4A81F9E5400008D074F /* SetLastEditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */; };
 		5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */; };
+		5104F4AC1F9F3D01008D074F /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5104F4AB1F9F3D01008D074F /* SearchHeaderView.xib */; };
+		5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4AD1F9F9E44008D074F /* SearchHeaderView.swift */; };
+		5104F4B01FA074C3008D074F /* SetSortOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4AF1FA074C3008D074F /* SetSortOrderViewController.swift */; };
+		5104F4B21FA07E33008D074F /* SearchSortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4B11FA07E33008D074F /* SearchSortOrder.swift */; };
 		5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
 		5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */; };
 		510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */; };
@@ -264,6 +268,10 @@
 /* Begin PBXFileReference section */
 		5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetLastEditDateViewController.swift; sourceTree = "<group>"; };
 		5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastEditDateTableViewCell.swift; sourceTree = "<group>"; };
+		5104F4AB1F9F3D01008D074F /* SearchHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchHeaderView.xib; path = UI/SearchHeaderView.xib; sourceTree = "<group>"; };
+		5104F4AD1F9F9E44008D074F /* SearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchHeaderView.swift; path = Cells/SearchHeaderView.swift; sourceTree = "<group>"; };
+		5104F4AF1FA074C3008D074F /* SetSortOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortOrderViewController.swift; sourceTree = "<group>"; };
+		5104F4B11FA07E33008D074F /* SearchSortOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchSortOrder.swift; path = Model/SearchSortOrder.swift; sourceTree = "<group>"; };
 		5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFUpdate.swift; sourceTree = "<group>"; };
 		5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductUpdateStatus.swift; sourceTree = "<group>"; };
 		510A38EC1CD3B67900BAEB61 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -534,10 +542,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5104F4B31FA08171008D074F /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				51DA03241F7674BF000C5F93 /* SearchTemplate.swift */,
+				5104F4B11FA07E33008D074F /* SearchSortOrder.swift */,
+				51B7416F1F949E280025F8A1 /* SearchComponent.swift */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
 		5107C82B1D9D07AB006A628C /* EditPages */ = {
 			isa = PBXGroup;
 			children = (
 				5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */,
+				5104F4AF1FA074C3008D074F /* SetSortOrderViewController.swift */,
 				51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
 				51B721731DD5F268003AF608 /* AddNutrientViewController.swift */,
@@ -662,6 +681,7 @@
 				512403671D93DD10007FED5A /* SwiftyJSON.swift */,
 				5184F57E1EB5EF66009ECF73 /* NutriScoreView.swift */,
 				51A7DC7F1EE6C04400F231B0 /* LanguageHeaderView.swift */,
+				5104F4AD1F9F9E44008D074F /* SearchHeaderView.swift */,
 				510A38E51CD3B01B00BAEB61 /* TagListView */,
 				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
 				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
@@ -883,7 +903,7 @@
 		519884E11CE4EA5E0020B3A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				51B7416F1F949E280025F8A1 /* SearchComponent.swift */,
+				5104F4B31FA08171008D074F /* Search */,
 				517907F91F8F6C940017FCA0 /* Contributor.swift */,
 				517907FB1F8F6CDC0017FCA0 /* ContributorRole.swift */,
 				5150D9C31F8133FE0003DE8E /* NutrimentSearch.swift */,
@@ -915,7 +935,6 @@
 				512390F81E7BE8E000A5D6FD /* Units */,
 				51CF42CE1E069BDA00C9AD91 /* Tags.swift */,
 				51E8BA291F2FA50900D3C742 /* TagsType.swift */,
-				51DA03241F7674BF000C5F93 /* SearchTemplate.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1034,6 +1053,7 @@
 			children = (
 				51E3069E1C68E0B900485A8D /* Main.storyboard */,
 				51A7DC7D1EE6BF5F00F231B0 /* LanguageHeaderView.xib */,
+				5104F4AB1F9F3D01008D074F /* SearchHeaderView.xib */,
 				5184F5801EB5EF78009ECF73 /* NutriScoreView.xib */,
 				51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */,
 				516BA5871CC3ADFD008A094A /* Launch Screen.storyboard */,
@@ -1145,6 +1165,7 @@
 				5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */,
 				51B150011CB2DF5D00A57D42 /* Additives.plist in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
+				5104F4AC1F9F3D01008D074F /* SearchHeaderView.xib in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
 				516BA5881CC3ADFD008A094A /* Launch Screen.storyboard in Resources */,
 				5125AB8D1D096C39000DCD29 /* Categories.plist in Resources */,
@@ -1181,6 +1202,7 @@
 			files = (
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
 				512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */,
+				5104F4B21FA07E33008D074F /* SearchSortOrder.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
 				5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */,
@@ -1296,6 +1318,7 @@
 				512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */,
+				5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
 				51CC54B21F9E1D9500350424 /* ButtonTableViewCell.swift in Sources */,
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
@@ -1317,6 +1340,7 @@
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
+				5104F4B01FA074C3008D074F /* SetSortOrderViewController.swift in Sources */,
 				51B3838C1F89007E0086581C /* TranslatableStrings.swift in Sources */,
 				511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */,
 				5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */,

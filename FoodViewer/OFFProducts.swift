@@ -558,7 +558,7 @@ class OFFProducts {
         }
     }
     
-    func startSearch(for product: FoodProduct?) {
+    func startSearch() {
         if searchQuery != nil {
             // searchQueryProduct = product
             loadAll()

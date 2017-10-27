@@ -744,7 +744,6 @@ class IdentificationTableViewController: UITableViewController {
             sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
        }
         
-        // print("\(sectionsAndRows)")
         return sectionsAndRows
     }
 
@@ -850,10 +849,8 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Notification handler
+// MARK: - Notification handlers
     
-    //func changeTagsTypeShown(_ notification: Notification) {
-    //}
 
     func reloadImageSection() {
         tableView.reloadData()
@@ -889,14 +886,6 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-
-    /*
-    func showMainLanguageSelector(_ notification: Notification) {
-        if let sender = notification.userInfo?[BarcodeTableViewCell.Notification.MainLanguageButtonTappedKey] {
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSelectMainLanguage, sender: sender)
-        }
-    }
- */
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -983,6 +972,7 @@ class IdentificationTableViewController: UITableViewController {
     }
 
 }
+
 // MARK: - TagListViewCellDelegate Functions
 
 extension IdentificationTableViewController: BarcodeEditCellDelegate {
