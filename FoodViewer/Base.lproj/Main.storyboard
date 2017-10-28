@@ -1008,28 +1008,37 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vfy-mR-OxO" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="7.5" width="271" height="20"/>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUR-St-lyh">
-                                            <rect key="frame" x="8" y="35.5" width="271" height="0.0"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyA-Ym-Lfr">
+                                            <rect key="frame" x="8" y="7.5" width="279" height="0.0"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUR-St-lyh">
+                                            <rect key="frame" x="279" y="7.5" width="0.0" height="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" horizontalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="Vfy-mR-OxO" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="8" y="16" width="271" height="19.5"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </view>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Vfy-mR-OxO" firstAttribute="top" secondItem="jQY-hh-TOK" secondAttribute="topMargin" id="105-oD-CbJ"/>
-                                        <constraint firstItem="bUR-St-lyh" firstAttribute="top" secondItem="Vfy-mR-OxO" secondAttribute="bottom" constant="8" id="22O-o5-yVT"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Vfy-mR-OxO" secondAttribute="trailing" id="EmW-cM-c7a"/>
-                                        <constraint firstItem="Vfy-mR-OxO" firstAttribute="leading" secondItem="jQY-hh-TOK" secondAttribute="leadingMargin" id="SCm-m1-MwE"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="bUR-St-lyh" secondAttribute="bottom" id="Uga-D4-HIx"/>
-                                        <constraint firstItem="bUR-St-lyh" firstAttribute="leading" secondItem="jQY-hh-TOK" secondAttribute="leadingMargin" id="dAD-mk-9Ba"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bUR-St-lyh" secondAttribute="trailing" id="j5l-0M-VUg"/>
+                                        <constraint firstItem="iyA-Ym-Lfr" firstAttribute="baseline" secondItem="bUR-St-lyh" secondAttribute="baseline" id="0vN-oY-7tA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Vfy-mR-OxO" secondAttribute="trailing" id="7lY-rv-v2Y"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="Vfy-mR-OxO" secondAttribute="leading" id="cMG-8Y-LCI"/>
+                                        <constraint firstItem="iyA-Ym-Lfr" firstAttribute="trailing" secondItem="bUR-St-lyh" secondAttribute="leading" constant="8" id="q3H-Jg-IMO"/>
+                                        <constraint firstItem="iyA-Ym-Lfr" firstAttribute="leading" secondItem="jQY-hh-TOK" secondAttribute="leadingMargin" id="rF6-3c-p2l"/>
+                                        <constraint firstItem="iyA-Ym-Lfr" firstAttribute="top" secondItem="jQY-hh-TOK" secondAttribute="topMargin" id="rsx-78-lAH"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="bUR-St-lyh" secondAttribute="trailing" id="rwR-Gy-YHo"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Vfy-mR-OxO" secondAttribute="bottom" id="tOC-ND-asp"/>
+                                        <constraint firstItem="Vfy-mR-OxO" firstAttribute="top" secondItem="iyA-Ym-Lfr" secondAttribute="bottom" constant="8" id="uip-1J-7N7"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="categoryLabel" destination="iyA-Ym-Lfr" id="Hlc-pb-onz"/>
                                     <outlet property="label" destination="bUR-St-lyh" id="KdG-d9-MdC"/>
                                     <outlet property="tagListView" destination="Vfy-mR-OxO" id="nTQ-9c-xwA"/>
                                 </connections>

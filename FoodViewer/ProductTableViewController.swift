@@ -428,31 +428,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     
                     let searchPairs = query.searchPairsWithArray()
                     if searchPairs.count > 0 && indexPath.row < searchPairs.count {
+                        // Search labels with switches to include or exclude the label
+                        //  -- tag values as tags and inclusion as labelText
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+                        cell.datasource = self
+                        // The hundreds define a searchQuery section, the rest is just the row
+                        cell.tag = 300 + indexPath.row
+                        cell.categoryLabel.text = searchPairs[indexPath.row].0.description
                         switch searchPairs[indexPath.row].0 {
                         case .searchText:
-                            // Search text
-                            // -- element name as prefix, search text value as tag
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
-                            cell.datasource = self
-                            // The hundreds define a searchQuery section, the rest is just the row
-                            cell.tag = 300 + indexPath.row
-                            cell.prefixLabelText = searchPairs[indexPath.row].0.description
-                            cell.width = tableView.frame.size.width
-                            cell.accessoryType = .none
-                            return cell
+                            cell.labelText = ""
                         default:
-                            // Search labels with switches to include or exclude the label
-                            //  -- tag values as tags and inclusion as labelText
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-                            cell.datasource = self
-                            // The hundreds define a searchQuery section, the rest is just the row
-                            cell.tag = 300 + indexPath.row
-                            cell.prefixLabelText = searchPairs[indexPath.row].0.description
                             cell.labelText = searchPairs[indexPath.row].2
-                            cell.width = tableView.frame.size.width
-                            cell.accessoryType = .none
-                            return cell
                         }
+                        cell.width = tableView.frame.size.width
+                        cell.accessoryType = .none
+                        return cell
                     }
 
                 default:

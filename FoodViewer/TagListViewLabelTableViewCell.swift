@@ -20,6 +20,8 @@ class TagListViewLabelTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var categoryLabel: UILabel!
+    
     private func setLabelText() {
         label.text = labelText
     }
