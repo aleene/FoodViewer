@@ -43,7 +43,11 @@ class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
                     button.setTitle(elements.joined(separator: " "), for: .normal)
                 }
             } else {
-                button.setTitle(TranslatableStrings.None, for: .normal)
+                if editMode {
+                    button.setTitle(TranslatableStrings.SelectCompletionStatus, for: .normal)
+                } else {
+                    button.setTitle(TranslatableStrings.NotSet, for: .normal)
+                }
             }
         }
     }
@@ -51,7 +55,7 @@ class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
     var editMode: Bool = false {
         didSet {
             button.isEnabled = editMode
-            segmentedControl.isEnabled = editMode
+            segmentedControl.isEnabled = editMode && buttonText != nil
         }
     }
     

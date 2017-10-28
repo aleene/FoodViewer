@@ -195,6 +195,7 @@ struct TranslatableStrings {
     static let SearchSetup = NSLocalizedString("Search set up", comment: "Indicating that a search has been defined")
     static let SearchText = NSLocalizedString("Search Text", comment: "String to indicate the text, which will be used to search multiple fileds of a product.")
     static let Select = NSLocalizedString("Select", comment: "Title of a viewcontroller where the user has to select an element in the picker.")
+    static let SelectCompletionStatus = NSLocalizedString("Select Completion Status", comment: "Title of a picker row where the user has to select an element in the picker.")
     static let SelectRole = NSLocalizedString("Select role", comment: "First item in a pickerView, indicating what the user should do")
     static let SpecialCategories = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
     static let StartSearch = NSLocalizedString("Start Search?",
