@@ -37,6 +37,15 @@ public struct NutritionFactItem {
         self.key = key
     }
 
+    public init(key: String, unit: NutritionFactUnit) {
+        itemName = OFFplists.manager.translateNutrients(key, language:Locale.preferredLanguages[0])
+        standardValue = nil
+        servingValue = nil
+        standardValueUnit = unit
+        servingValueUnit = unit
+        self.key = key
+    }
+
     func valid() -> Bool {
         return standardValue != nil && !standardValue!.isEmpty
     }

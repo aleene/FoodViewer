@@ -714,10 +714,10 @@ class FoodProduct {
 
     }
     
-    func nutritionFactsContain(_ nutritionFactToCheck: String) -> Bool {
+    func nutritionFactsContain(_ key: String) -> Bool {
         if let validNutritionFacts = self.nutritionFacts {
             for fact in validNutritionFacts {
-                if fact != nil && fact!.itemName == nutritionFactToCheck {
+                if fact != nil && fact!.key == key {
                     return true
                 }
             }

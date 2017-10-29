@@ -3308,16 +3308,26 @@
                                                 </segue>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-4q-5sl">
+                                            <rect key="frame" x="274" y="6" width="30" height="30"/>
+                                            <state key="normal" title="EU"/>
+                                            <connections>
+                                                <action selector="euDefaultsButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="EzC-ld-aCb"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="PU9-ny-duI" firstAttribute="leading" secondItem="ucD-wy-xoj" secondAttribute="leading" id="Km4-nZ-Jdg"/>
                                         <constraint firstAttribute="bottom" secondItem="PU9-ny-duI" secondAttribute="bottom" id="LaY-ap-nmW"/>
                                         <constraint firstAttribute="trailing" secondItem="PU9-ny-duI" secondAttribute="trailing" id="NMg-Fu-30i"/>
                                         <constraint firstItem="PU9-ny-duI" firstAttribute="top" secondItem="ucD-wy-xoj" secondAttribute="top" id="NP9-f3-Q1b"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eoS-4q-5sl" secondAttribute="trailing" constant="8" id="SXE-Yl-Kgc"/>
+                                        <constraint firstItem="PU9-ny-duI" firstAttribute="centerY" secondItem="eoS-4q-5sl" secondAttribute="centerY" id="gfe-FK-VHz"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addNutrientButton" destination="PU9-ny-duI" id="HUB-iL-6yO"/>
+                                    <outlet property="euDefaultsButton" destination="eoS-4q-5sl" id="t8K-YQ-7DP"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutriments Available Cell" id="r01-FL-wDf" customClass="NutrimentsAvailableTableViewCell" customModule="FoodViewer" customModuleProvider="target">
@@ -3360,7 +3370,9 @@
                             <outlet property="delegate" destination="Q8f-Fa-rlA" id="8G0-lq-14o"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="4Eq-u6-rx8">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -3387,14 +3399,14 @@
                         <viewControllerLayoutGuide type="bottom" id="JuW-uG-QAI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="uFx-FY-aLO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="12" width="375" height="788"/>
+                                <rect key="frame" x="0.0" y="12" width="320" height="424"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="788"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="424"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -3981,7 +3993,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="bL1-eB-rEY"/>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="NIk-rX-rWX"/>
-        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="z8D-RP-i6i"/>
+        <segue reference="ntk-NT-VGC"/>
     </inferredMetricsTieBreakers>
 </document>

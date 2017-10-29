@@ -294,6 +294,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if indexPath.row == numberOfRows && editMode {
                 // This cell should only be added when in editMode and as the last row
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
+                cell.delegate = self
                 cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
                 return cell
             } else {
@@ -347,6 +348,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     return cell!
                 }
             }
+            
         case .nutritionFactsSearch:
             if query!.type != .simple {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.EmptyNutritionFacts, for: indexPath) as! TagListViewTableViewCell
@@ -399,7 +401,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell!
 
         case .nutritionImage:
-            
             // first try the updated product images
             if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty  {
                 // try the updated image corresponding to the current language
@@ -1182,6 +1183,48 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         OFFProducts.manager.flushImages()
     }
 
+}
+// MARK: - AddNutrientCellDelegate functions
+
+extension NutrientsTableViewController:  AddNutrientCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func addNutrientTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
+        
+        // Energy
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Joule))
+        }
+        // Fat
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: NutritionFactUnit.Gram))
+        }
+        // Saturated Fat
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
+        }
+        // Carbohydrates
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: NutritionFactUnit.Gram))
+        }
+        // Sugars
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
+        }
+        // Fibers
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
+        }
+        // Proteins
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
+        }
+        // Salt
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaltKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaltKey, unit: NutritionFactUnit.Gram))
+        }
+        refreshProductWithNewNutritionFacts()
+    }
 }
 
 // MARK: - NutrimentsAvailableCellDelegate functions
