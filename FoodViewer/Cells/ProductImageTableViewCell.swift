@@ -12,6 +12,7 @@ protocol ProductImageCellDelegate: class {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton)
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton)
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton)
 }
 
 class ProductImageTableViewCell: UITableViewCell {
@@ -57,6 +58,7 @@ class ProductImageTableViewCell: UITableViewCell {
         didSet {
             takePhotoButton?.isHidden = !editMode
             selectFromCameraRollButton?.isHidden = !editMode
+            deselectImageButton?.isHidden = !editMode
         }
     }
     
@@ -70,7 +72,6 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    
     @IBAction func takePhotoButtonTapped(_ sender: UIButton) {
         delegate?.productImageTableViewCell(self, receivedActionOnCamera: sender)
     }
@@ -81,10 +82,18 @@ class ProductImageTableViewCell: UITableViewCell {
         }
     }
     
-    
     @IBAction func selectFromCamerRollButtonTapped(_ sender: UIButton) {
         delegate?.productImageTableViewCell(self, receivedActionOnCameraRoll: sender)
     }
 
+    @IBOutlet weak var deselectImageButton: UIButton! {
+        didSet {
+            deselectImageButton.isHidden = !editMode
+        }
+    }
+    
+    @IBAction func deselectImageButtonTapped(_ sender: UIButton) {
+        delegate?.productImageTableViewCell(self, receivedActionOnDeselect: sender)
+    }
 
 }

@@ -1060,6 +1060,14 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
             }
         }
     }
+    
+    func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
+        guard currentLanguageCode != nil else { return }
+        guard product != nil else { return }
+        let update = OFFUpdate()
+        update.deselect([currentLanguageCode!:ProductImageSize()], of: .front, for: product!)
+    }
+    
 }
 
 

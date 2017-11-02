@@ -995,8 +995,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             let context = LAContext()
             // The username and password will then be retrieved from the keychain if needed
             if context.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+                let reason = String(format: TranslatableStrings.AuthenticateForOFFLogin)
                 // the device knows TouchID
-                context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Logging in with Touch ID", reply: {
+                context.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: {
                     (success: Bool, error: Error? ) -> Void in
                     
                     // 3. Inside the reply block, you handling the success case first. By default, the policy evaluation happens on a private thread, so your code jumps back to the main thread so it can update the UI. If the authentication was successful, you call the segue that dismisses the login view.
@@ -1021,13 +1022,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     private func askPassword() {
         
-        let alertController = UIAlertController(title: NSLocalizedString("Specify password",
-                                                                         comment: "Title in AlertViewController, which lets the user enter his username/password."),
-                                                message: NSLocalizedString("Authentication with TouchID failed. Specify your password",
-                                                                           comment: "Explanatory text in AlertViewController, which lets the user enter his username/password."),
+        let alertController = UIAlertController(title: TranslatableStrings.SpecifyPassword,
+                                                message: TranslatableStrings.AuthenticateWithTouchIDFailed,
                                                 preferredStyle:.alert)
-        let useFoodViewer = UIAlertAction(title: NSLocalizedString("Reset",
-                                                                   comment: "String in button, to let the user indicate he wants to cancel username/password input."),
+        let useFoodViewer = UIAlertAction(title: TranslatableStrings.Reset,
                                           style: .default)
         { action -> Void in
             // set the foodviewer selected index
@@ -1035,7 +1033,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             Preferences.manager.userDidAuthenticate = false
         }
         
-        let useMyOwn = UIAlertAction(title: NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input."), style: .default)
+        let useMyOwn = UIAlertAction(title: TranslatableStrings.Done, style: .default)
         { action -> Void in
             // I should check the password here
             if let validString = self.password {
@@ -1044,7 +1042,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         alertController.addTextField { textField -> Void in
             textField.tag = 0
-            textField.placeholder = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
+            textField.placeholder = TranslatableStrings.Password
             textField.delegate = self
         }
         

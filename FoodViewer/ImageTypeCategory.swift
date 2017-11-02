@@ -17,13 +17,13 @@ enum ImageTypeCategory: Int {
     func description() -> String {
         switch self {
         case .front:
-            return "front image"
+            return "front"
         case .ingredients:
-            return "ingredients image"
+            return "ingredients"
         case .nutrition:
-            return "nutrition image"
+            return "nutrition"
         case .unknown:
-            return "unknown image"
+            return "unknown"
         }
     }
 

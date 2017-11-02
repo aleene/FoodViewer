@@ -19,6 +19,7 @@ public struct OFFAccount {
 
     // private let myKeychainWrapper = KeychainWrapper()
     private let keychain = KeychainSwift()
+    
     var userId: String {
         get {
             if let validKeyChainValue = keychain.get(Credentials.UsernameKey) {

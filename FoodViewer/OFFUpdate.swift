@@ -179,18 +179,6 @@ class OFFUpdate {
                 }
             }
         }
-        /*
-
-        if let ingredients = product!.ingredients {
-            urlString.append(
-                OFFWriteAPI.Delimiter +
-                OFFWriteAPI.Ingredients +
-                OFFWriteAPI.Equal +
-                ingredients)
-            productUpdated = true
-        }
-         */
-
 
         if let primaryLanguage = product?.primaryLanguageCode?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
             // TODO - this is also updated if no change has taken place
@@ -229,30 +217,32 @@ class OFFUpdate {
             break
         }
         
-        if let validNutritionFacts = product!.nutritionFacts {
-            for fact in validNutritionFacts {
-                if fact != nil {
-                    if let validValue = fact?.standardValue,
-                        let validKey = fact?.key {
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey) + OFFWriteAPI.Equal + validValue)
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
-                    } else if let validValue = fact?.servingValue,
-                        let validKey = fact?.key {
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey) + OFFWriteAPI.Equal + validValue)
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
+        if product?.type != nil && product!.type != .beauty {
+            if let validNutritionFacts = product!.nutritionFacts {
+                for fact in validNutritionFacts {
+                    if fact != nil {
+                        if let validValue = fact?.standardValue,
+                            let validKey = fact?.key {
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey) + OFFWriteAPI.Equal + validValue)
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
+                        } else if let validValue = fact?.servingValue,
+                            let validKey = fact?.key {
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey) + OFFWriteAPI.Equal + validValue)
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
+                        }
+                        
+                        if let validValueUnit = fact?.standardValueUnit?.short(),
+                            let validKey = fact?.key {
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
+                            urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
+                        } else if let validValueUnit = fact?.servingValueUnit?.short(),
+                            let validKey = fact?.key {
+                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
+                            urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
+                        }
+                        
+                        productUpdated = true
                     }
-
-                    if let validValueUnit = fact?.standardValueUnit?.short(),
-                        let validKey = fact?.key {
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
-                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                    } else if let validValueUnit = fact?.servingValueUnit?.short(),
-                        let validKey = fact?.key {
-                        urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
-                        urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                    }
-
-                    productUpdated = true
                 }
             }
         }
@@ -366,10 +356,12 @@ class OFFUpdate {
             }
         }
         
-        if let validHasNutritionFacts = product!.hasNutritionFacts {
-            if !validHasNutritionFacts {
-                urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NoNutriments )
-                productUpdated = true
+        if product?.type != nil && product!.type != .beauty {
+            if let validHasNutritionFacts = product!.hasNutritionFacts {
+                if !validHasNutritionFacts {
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NoNutriments )
+                    productUpdated = true
+                }
             }
         }
         
@@ -573,7 +565,26 @@ class OFFUpdate {
         static let FilenameKey = "filename="
         static let NameKey = "name="
      }
-     
+    
+    // The dict specifies which language must be deselected
+    // the image category is .identification, .nutrition or .ingredients
+    // And naturally the product
+    func deselect(_ dict: [String:ProductImageSize], of imageCategory: ImageTypeCategory, for product: FoodProduct) {
+        for element in dict {
+            switch imageCategory {
+            case .front, .ingredients, .nutrition:
+                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:product.barcode.asString(),
+                                        OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description(), in:element.key)],
+                           url: OFFHttpPost.URL.SecurePrefix +
+                            currentProductType.rawValue +
+                            OFFHttpPost.URL.Domain +
+                            OFFHttpPost.URL.UnselectPostFix
+                )
+            default:
+                break
+            }
+        }
+    }
     
     private func postDelete(parameters : Dictionary<String, String>, url : String) {
         let urlString = URL(string: url)
