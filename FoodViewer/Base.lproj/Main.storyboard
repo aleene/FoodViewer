@@ -2734,19 +2734,33 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OB-LJ-Hmd">
+                                            <rect key="frame" x="175" y="174" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="25" id="AfY-vz-gtw"/>
+                                                <constraint firstAttribute="width" secondItem="6OB-LJ-Hmd" secondAttribute="height" multiplier="1:1" id="FZf-9g-fIe"/>
+                                            </constraints>
+                                            <state key="normal" image="ClearBlue"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="ze3-ij-q0C" eventType="touchUpInside" id="w9I-Xj-AVp"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="g1X-rw-oCv" firstAttribute="bottom" secondItem="6OB-LJ-Hmd" secondAttribute="bottom" id="1NS-Jj-BPT"/>
                                     <constraint firstAttribute="trailing" secondItem="d97-Pg-D0G" secondAttribute="trailing" id="341-9P-bN4"/>
                                     <constraint firstItem="g1X-rw-oCv" firstAttribute="leading" secondItem="ze3-ij-q0C" secondAttribute="leading" id="Cen-en-uK8"/>
                                     <constraint firstAttribute="trailing" secondItem="g1X-rw-oCv" secondAttribute="trailing" id="Neu-ab-gvW"/>
+                                    <constraint firstItem="g1X-rw-oCv" firstAttribute="trailing" secondItem="6OB-LJ-Hmd" secondAttribute="trailing" id="Wlp-9W-9UX"/>
                                     <constraint firstItem="d97-Pg-D0G" firstAttribute="top" secondItem="g1X-rw-oCv" secondAttribute="bottom" constant="1" id="YgW-jK-hL1"/>
                                     <constraint firstAttribute="bottom" secondItem="d97-Pg-D0G" secondAttribute="bottom" id="euF-NL-YTK"/>
                                     <constraint firstItem="d97-Pg-D0G" firstAttribute="leading" secondItem="ze3-ij-q0C" secondAttribute="leading" id="ey2-4N-48Q"/>
                                     <constraint firstItem="g1X-rw-oCv" firstAttribute="top" secondItem="ze3-ij-q0C" secondAttribute="top" id="uF2-Hm-mPr"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="button" destination="6OB-LJ-Hmd" id="8Sk-Vj-9an"/>
                                     <outlet property="imageView" destination="g1X-rw-oCv" id="zOw-ey-Z2I"/>
                                     <outlet property="label" destination="d97-Pg-D0G" id="ZxX-uH-APo"/>
                                 </connections>
@@ -3445,10 +3459,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="12" width="320" height="424"/>
+                                <rect key="frame" x="0.0" y="12" width="320" height="468"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="424"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="468"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
@@ -4027,6 +4041,7 @@
         <image name="Camera" width="25" height="25"/>
         <image name="CameraRoll" width="25" height="25"/>
         <image name="Clear" width="25" height="25"/>
+        <image name="ClearBlue" width="25" height="25"/>
         <image name="ClearGrey" width="13" height="13"/>
         <image name="Edit" width="25" height="25"/>
         <image name="Heart" width="25" height="25"/>
@@ -4037,6 +4052,6 @@
         <segue reference="bL1-eB-rEY"/>
         <segue reference="GR8-bW-x6k"/>
         <segue reference="z8D-RP-i6i"/>
-        <segue reference="ntk-NT-VGC"/>
+        <segue reference="w6I-Mb-BbL"/>
     </inferredMetricsTieBreakers>
 </document>

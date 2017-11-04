@@ -142,8 +142,7 @@ struct TranslatableStrings {
     static let NutritionalScoreUK = NSLocalizedString("Nutritional Score UK", comment: "Header for a table section showing the total results UK")
 
     
-    static let OK = NSLocalizedString("OK",
-                                      comment: "String in button, to let the user indicate he wants to start the search.")
+    static let OK = NSLocalizedString("OK", comment: "String in button, to let the user indicate he wants to start the search.")
     static let OtherProductType = NSLocalizedString("Other product type", comment: "String presented in a tagView if this is not the current product type")
 //
 // MARK: - PPPPPPPPPPPPPP strings

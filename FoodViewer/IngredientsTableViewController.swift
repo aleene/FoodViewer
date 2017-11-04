@@ -909,7 +909,21 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    
+    func imageDeleted(_ notification: Notification) {
+        // Check if this image was relevant to this product
+        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+            if barcode == product!.barcode.asString() {
+                // is it relevant to the main image?
+                if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
+                        // reload product data
+                        OFFProducts.manager.reload(self.product!)
+                    }
+                }
+            }
+        }
+    }
+
 
     // MARK: - ViewController Lifecycle
     
@@ -933,6 +947,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted), name:.OFFUpdateImageDeleteSuccess, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
 
     }
@@ -1020,7 +1035,7 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
         guard currentLanguageCode != nil else { return }
         guard product != nil else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!:ProductImageSize()], of: .ingredients, for: product!)
+        update.deselect([currentLanguageCode!], of: .ingredients, for: product!)
     }
 
 }

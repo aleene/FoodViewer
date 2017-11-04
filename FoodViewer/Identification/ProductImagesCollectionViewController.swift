@@ -38,7 +38,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     // This variable returns an array with tuples.
     // A tuple consists of a languageCode and the corresponding language in the interface language.
     // The array is sorted on the corresponding language
-    private func keyTuples(for keys: [String]) -> [(String, String)] {
+    fileprivate func keyTuples(for keys: [String]) -> [(String, String)] {
         var tuples: [(String, String)] = []
         for key in keys {
             tuples.append((key,OFFplists.manager.languageName(for:key)))
@@ -141,6 +141,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
                 }
             }
+            cell.indexPath = indexPath
+            cell.editMode = editMode
+            cell.delegate = self
             return cell
         
         case 1:
@@ -162,6 +165,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
                 }
             }
+            cell.indexPath = indexPath
+            cell.editMode = editMode
+            cell.delegate = self
             return cell
             
         case 2:
@@ -183,6 +189,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             } else {
                 assert(false, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
             }
+            cell.indexPath = indexPath
+            cell.editMode = editMode
+            cell.delegate = self
             return cell
             
         default:
@@ -382,8 +391,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         collectionView?.reloadData()
     }
 
-    func registerCollectionViewCell()
-    {
+    func imageDeleted(_ notification: Notification) {
+        // Check if this image was relevant to this product
+        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+            if barcode == product!.barcode.asString() {
+                // reload product data
+                OFFProducts.manager.reload(self.product!)
+            }
+        }
+    }
+    
+
+    func registerCollectionViewCell() {
         guard let collectionView = self.collectionView else
         {
             print("We don't have a reference to the collection view.")
@@ -410,7 +429,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
 
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+        super.viewDidDisappear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -418,6 +445,33 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout Functions
+
+extension ProductImagesCollectionViewController : GalleryCollectionViewCellDelegate {
+    
+    // function to let the delegate know that the switch changed
+    func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton) {
+        if let validIndexPath = sender.indexPath {
+            switch validIndexPath.section {
+            case 0:
+                let languageCode = keyTuples(for:Array(product!.frontImages.keys))[validIndexPath.row].0
+                let update = OFFUpdate()
+                update.deselect([languageCode], of: .front, for: product!)
+            case 1:
+                let languageCode = keyTuples(for:Array(product!.ingredientsImages.keys))[validIndexPath.row].0
+                let update = OFFUpdate()
+                update.deselect([languageCode], of: .ingredients, for: product!)
+            case 2:
+                let languageCode = keyTuples(for:Array(product!.nutritionImages.keys))[validIndexPath.row].0
+                let update = OFFUpdate()
+                update.deselect([languageCode], of: .nutrition, for: product!)
+            default:
+                break
+            }
+        }
+    }
 }
 
 

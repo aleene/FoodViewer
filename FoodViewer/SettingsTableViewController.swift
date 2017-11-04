@@ -204,7 +204,7 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var offAccountSegmentedControl: UISegmentedControl! {
         didSet {
-            offAccountSegmentedControl.setTitle(NSLocalizedString("foodviewer", comment: "Title of first segment in switch, which indicates the foodviewer account will be used for edits"), forSegmentAt: 0)
+            offAccountSegmentedControl.setTitle((Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String), forSegmentAt: 0)
             // is a personal userID available?
             if OFFAccount().personalExists() {
                 offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)

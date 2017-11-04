@@ -233,6 +233,8 @@ class NutritionScoreTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
         // tableStructure = setupSections()
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -251,8 +253,7 @@ class NutritionScoreTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: false)
+                navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {

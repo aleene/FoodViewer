@@ -919,6 +919,23 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
+    
+    func imageDeleted(_ notification: Notification) {
+        // Check if this image was relevant to this product
+        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+            if barcode == product!.barcode.asString() {
+                // is it relevant to the main image?
+                if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
+                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
+                        // reload product data
+                        OFFProducts.manager.reload(self.product!)
+                    }
+                }
+            }
+        }
+    }
+    
+
 
     func removeProduct() {
         product = nil
@@ -953,6 +970,7 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted), name:.OFFUpdateImageDeleteSuccess, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
     
@@ -1065,7 +1083,7 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
         guard currentLanguageCode != nil else { return }
         guard product != nil else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!:ProductImageSize()], of: .front, for: product!)
+        update.deselect([currentLanguageCode!], of: .front, for: product!)
     }
     
 }

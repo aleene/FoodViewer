@@ -373,7 +373,7 @@ class OFFUpdate {
         }
         
         if let validID = UIDevice.current.identifierForVendor?.uuidString {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + "FoodViewer-" + validID )
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + (Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) + "-" + validID )
         }
 
 
@@ -541,6 +541,9 @@ class OFFUpdate {
         static let ImageUploadSuccessStatusKey = "OFFUpdate.Notification.ImageUploadSuccessStatus.Key"
         static let ImageUploadSuccessBarcodeKey = "OFFUpdate.Notification.ImageUploadSuccessBarcode.Key"
         static let ImageUploadSuccessImagetypeKey = "OFFUpdate.Notification.ImageUploadSuccessImageType.Key"
+        static let ImageDeleteSuccessStatusKey = "OFFUpdate.Notification.ImageDeleteSuccessStatus.Key"
+        static let ImageDeleteSuccessBarcodeKey = "OFFUpdate.Notification.ImageDeleteSuccessBarcode.Key"
+        static let ImageDeleteSuccessImagetypeKey = "OFFUpdate.Notification.ImageDeleteSuccessImageType.Key"
     }
     
      private struct Constants {
@@ -569,12 +572,12 @@ class OFFUpdate {
     // The dict specifies which language must be deselected
     // the image category is .identification, .nutrition or .ingredients
     // And naturally the product
-    func deselect(_ dict: [String:ProductImageSize], of imageCategory: ImageTypeCategory, for product: FoodProduct) {
-        for element in dict {
+    func deselect(_ languageCodes: [String], of imageCategory: ImageTypeCategory, for product: FoodProduct) {
+        for element in languageCodes {
             switch imageCategory {
             case .front, .ingredients, .nutrition:
                 postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:product.barcode.asString(),
-                                        OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description(), in:element.key)],
+                                        OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description(), in:element)],
                            url: OFFHttpPost.URL.SecurePrefix +
                             currentProductType.rawValue +
                             OFFHttpPost.URL.Domain +
@@ -625,7 +628,17 @@ class OFFUpdate {
             }
             guard let data = data else { return }
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            _ = self.unpackImageJSONObject( JSON(data: data) )
+            let result = self.unpackImageJSONObject( JSON(data: data) )
+            switch result {
+            case .success(let error):
+                let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
+                                Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
+                                Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
+                NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
+            default:
+                break
+            }
+
         })
         task.resume()
     }
@@ -723,6 +736,7 @@ class OFFUpdate {
 // Definition:
 extension Notification.Name {
     static let OFFUpdateImageUploadSuccess = Notification.Name("OFFUpdate.Notification.ImageUploadSuccess")
+    static let OFFUpdateImageDeleteSuccess = Notification.Name("OFFUpdate.Notification.ImageDeleteSuccess")
 }
 
 /*
