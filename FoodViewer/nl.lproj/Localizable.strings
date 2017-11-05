@@ -27,6 +27,12 @@
    Text to indicate the allergens of a product. */
 "Allergens" = "Allergenen";
 
+/* ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition). */
+"Assign Image" = "Wijs foto toe";
+
+/* Reason string in TouchID authenticate alert */
+"Authenticate for OFF login" = "Authenticeer voor OFF login";
+
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Authentication with TouchID failed. Specify your password" = "Authenticatie met TouchID mislukt, specificeer je wachtwoord:";
 
@@ -105,6 +111,9 @@
 /* Header title of the tableview section, indicating when the product data was created. */
 "Creation Date" = "Creatiedatum";
 
+/* String in picker, which lets the user select the search result order. Order on the creation dates. */
+"Creation date" = "Aanmaakdatum";
+
 /* String in PickerViewController to indicate the creator role of a contributor */
 "Creator" = "Toevoeger";
 
@@ -135,7 +144,11 @@
 /* Title of view controller, which allows editing of the nutrients */
 "Edit Nutrient" = "Bewerk voedingswaarde";
 
-/* Description of the edited tags as will be uploaded */
+/* String in picker, which lets the user select the search result order */
+"Edit date" = "Bewerk Datum";
+
+/* Added to a tableview section header to indicated the item has been editd.
+   Description of the edited tags as will be uploaded */
 "Edited" = "Bewerkt";
 
 /* String in PickerViewController to indicate the editor role of a contributor */
@@ -150,11 +163,17 @@
 /* Placeholder text for field where user should enter a country name. */
 "Enter country name" = "Voer land in";
 
+/* The user can tap the button to enter a date. */
+"Enter date" = "Voer datum in";
+
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Voer postcode in";
 
 /* Placeholder text for field where user should enter a shop name. */
 "Enter shop name" = "Voer winkel in";
+
+/* Placeholder string to explain the purpose of a barcode search in a tableview cell */
+"Enter start numbers of barcode." = "Barcode";
 
 /* Placeholder text for field where user should enter a street name. */
 "Enter street name" = "Voer straat in";
@@ -272,6 +291,9 @@
 
 /* Header title of the tableview section, indicating when the product data was last edited. */
 "Last edit Date" = "Laatste wijzigingsdatum";
+
+/* String to indicate the level (score) of the product. */
+"Level" = "Niveau";
 
 /* Label to indicate whether any nutrients are indicated on the package */
 "Listed on package?" = "Vermeldt op de verpakking?";
@@ -421,6 +443,9 @@
 /* String in PickerViewController to indicate the photographer role of a contributor */
 "Photographer" = "Fotografeerder";
 
+/* String in picker, which lets the user select the search result order. Order on the popularity. */
+"Popularity" = "Populariteit";
+
 /* TableViewController title for the settings scene. */
 "Preferences" = "Instellingen";
 
@@ -452,7 +477,10 @@
 "Product loading" = "Product wordt geladen";
 
 /* String presented in a tagView if the product loading has failed */
-"Product loading  failed" = "Laden product mislukt";
+"Product loading failed" = "Laden product mislukt";
+
+/* String in picker, which lets the user select the search result order. Order on the product names. */
+"Product name" = "Productnaam";
 
 /* Secction title, to indicate the product name does not exist */
 "Product name missing" = "Productnaam mist";
@@ -521,10 +549,19 @@
 /* String presented in a tagView for the search query */
 "Search query" = "Zoekopdracht";
 
+/* Indicating that a search has been defined */
+"Search set up" = "Zoekopdracht ingesteld";
+
+/* Title of a Tableview controller, indicating a search is in progress. */
+"Searching" = "Zoekende";
+
 /* First element of a pickerView, where the user has to select a language.
    First element of a pickerView, where the user has to select a nutrient.
    Title of a viewcontroller where the user has to select an element in the picker. */
 "Select" = "Kies";
+
+/* Title of a picker row where the user has to select an element in the picker. */
+"Select Completion Status" = "Selecteer volledigheidsstatus";
 
 /* First item in a pickerView, indicating what the user should do */
 "Select role" = "Kies rol";
@@ -604,9 +641,6 @@
 /* Generic string to indicate the completion states of a product. */
 "contributor name not set" = "naam bijdrager niet ingesteld";
 
-/* Title of first segment in switch, which indicates the foodviewer account will be used for edits */
-"foodviewer" = "foodviewer";
-
 /* Explanatory text in AlertViewController, which shows the intended search */
 "for %@ in %@" = "naar %1$@ in %2$@";
 
@@ -661,6 +695,9 @@
 
 /* Text of a button, indicating a contributor role is not selected */
 "not selected" = "niet geselecteerd";
+
+/* Generic text if q vqlue hqs not yet been set. */
+"not set" = "onbepaald";
 
 /* description() text if the nutrition data on the package is indicated per serving. */
 "nutrition data indicated per serving" = "voedingswaarden aangegeven per portie";

@@ -52,6 +52,9 @@
 /* Class = "UILabel"; text = "10"; ObjectID = "dtb-c8-qF9"; */
 "dtb-c8-qF9.text" = "10";
 
+/* Class = "UIButton"; normalTitle = "EU"; ObjectID = "eoS-4q-5sl"; */
+"eoS-4q-5sl.normalTitle" = "UE";
+
 /* Class = "UILabel"; text = "2 "; ObjectID = "fTi-4I-088"; */
 "fTi-4I-088.text" = "2";
 
