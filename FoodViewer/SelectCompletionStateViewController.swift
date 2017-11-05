@@ -14,6 +14,12 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
         static let UnwindSegue = "Unwind Select Completion State"
     }
     
+    var currentCompletion: Completion? = nil
+    
+    var selectedCompletion: Completion? = nil
+
+// MARK: - Interface elements
+
     @IBOutlet weak var pickerView: UIPickerView! {
         didSet {
             pickerView.delegate = self
@@ -22,11 +28,9 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
-    var currentCompletion: Completion? = nil
-    
-    var selectedCompletion: Completion? = nil
-    
-    // MARK: - PickerView Datasource methods
+    @IBOutlet weak var navItem: UINavigationItem!
+
+// MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return OFF.allCompletionStates.count + 1
@@ -36,7 +40,7 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
         return 1
     }
     
-    // MARK: - PickerView delegate methods
+// MARK: - PickerView delegate methods
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 {
@@ -54,9 +58,12 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
+// MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
     
+
 }

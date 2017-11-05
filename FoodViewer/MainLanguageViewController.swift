@@ -40,7 +40,9 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
             languagesPickerView.delegate = self
         }
     }
-        
+    
+    @IBOutlet weak var navItem: UINavigationItem!
+
     // MARK: - Delegates and datasource
         
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -64,13 +66,12 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
         
     // MARK: - ViewController Lifecycle
-        
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        title = "new"
-        navigationController?.title = TranslatableStrings.Select
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
-        
+
     private func setupLanguages() {
         allLanguages = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
         purgeLanguageCodes()

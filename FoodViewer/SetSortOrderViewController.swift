@@ -33,6 +33,8 @@ class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
     }
     
+    @IBOutlet weak var navItem: UINavigationItem!
+
     // MARK: - Delegates and datasource
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
@@ -58,15 +60,15 @@ class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
     }
     
-    // MARK: - ViewController Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
-    }
-    
     private var descriptions: [String] {
         return SearchSortOrder.all.map { $0.description } .sorted()
+    }
+
+    // MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
 
 }

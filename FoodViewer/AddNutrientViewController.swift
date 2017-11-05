@@ -22,6 +22,8 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
+    @IBOutlet weak var navItem: UINavigationItem!
+
     // MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -49,9 +51,11 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
+    // MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
     
 }

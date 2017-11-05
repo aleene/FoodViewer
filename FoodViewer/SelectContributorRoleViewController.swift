@@ -22,6 +22,8 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
+    @IBOutlet weak var navItem: UINavigationItem!
+    
     // at the moment the search supports only two roles
     var validRoles: [ContributorRole] = [.creator, .editor]
     
@@ -62,9 +64,11 @@ class SelectContributorRoleViewController: UIViewController, UIPickerViewDelegat
         }
     }
     
+    // MARK: - ViewController Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
+
 }

@@ -33,7 +33,8 @@ class SelectImageSourceViewController: UIViewController, UINavigationControllerD
             present(picker, animated: true, completion: nil)
         }
     }
-    
+    @IBOutlet weak var navItem: UINavigationItem!
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
@@ -55,9 +56,11 @@ class SelectImageSourceViewController: UIViewController, UINavigationControllerD
         
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
+    // MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
     
 }

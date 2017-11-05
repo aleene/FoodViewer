@@ -20,7 +20,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    // MARK: - Internal properties
+// MARK: - Internal properties
     
     private var allLanguages: [Language] = []
     
@@ -30,8 +30,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
         static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
     }
     
-    //  MARK : Interface elements
-    
+//  MARK : Interface elements
     
     @IBOutlet weak var languagesPickerView: UIPickerView! {
         didSet {
@@ -40,7 +39,9 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    // MARK: - Delegates and datasource
+    @IBOutlet weak var navItem: UINavigationItem!
+
+// MARK: - Delegates and datasource
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
@@ -65,13 +66,6 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
     
-    // MARK: - ViewController Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
-    }
-    
     private func setupLanguages() {
         allLanguages = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
         purgeLanguageCodes()
@@ -91,7 +85,14 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
             }
         }
     }
+
+    // MARK: - ViewController Lifecycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
+    }
+        
 }
 
 

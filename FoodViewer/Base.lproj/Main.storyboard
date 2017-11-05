@@ -49,6 +49,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="Xob-8V-DfG" id="73p-Hs-cJd"/>
                         <outlet property="nutrientUnitsPickerView" destination="PDX-Vz-ruS" id="Fhv-dV-bpu"/>
                         <segue destination="QhO-Bq-K34" kind="unwind" identifier="Unwind Set Nutrient Unit" unwindAction="unwindSetNutrientUnit:" id="PgS-iL-eLu"/>
                     </connections>
@@ -123,13 +124,14 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="navItem" destination="4y8-hi-MjI" id="8kV-Fs-VOk"/>
                         <segue destination="0na-7c-rwo" kind="unwind" identifier="Unwind Add Favorite Shop Segue" unwindAction="unwindAddFavoriteShopForDone:" id="3Pl-f4-HwM"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0na-7c-rwo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4986" y="4979"/>
+            <point key="canvasLocation" x="4406" y="4984"/>
         </scene>
         <!--Favorite Shops Table View Controller-->
         <scene sceneID="0ro-al-cXx">
@@ -213,6 +215,9 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="navItem" destination="wEv-aO-bBx" id="qQl-lp-Ir5"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ac-sw-5AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9Mk-6V-ku1" userLabel="Exit" sceneMemberID="exit"/>
@@ -1166,7 +1171,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="42.5" y="0.0" width="202" height="44"/>
+                                            <rect key="frame" x="43.5" y="0.0" width="201" height="44"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k7M-yZ-ax3">
@@ -1284,13 +1289,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R0A-Wg-8tw">
-                                            <rect key="frame" x="16" y="8" width="111.5" height="27"/>
+                                            <rect key="frame" x="16" y="8" width="111" height="27"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdF-KX-QTq" customClass="BarGaugeView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="135.5" y="8" width="143.5" height="27"/>
+                                            <rect key="frame" x="135" y="8" width="144" height="27"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                     </subviews>
@@ -1803,6 +1808,7 @@
                     <connections>
                         <outlet property="addBarButtonItem" destination="cFk-ea-6EH" id="ReQ-0n-rHY"/>
                         <outlet property="languagesPickerView" destination="GY8-NT-FaZ" id="OIj-jj-z5w"/>
+                        <outlet property="navItem" destination="MGY-bs-Itx" id="pYQ-8M-g6T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dq4-Hi-4HJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1852,6 +1858,7 @@
                     </view>
                     <connections>
                         <outlet property="languagesPickerView" destination="wz9-lT-1nW" id="cdU-bs-c8e"/>
+                        <outlet property="navItem" destination="7hu-JR-POT" id="RdG-lM-aqO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0h8-AZ-lII" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3541,6 +3548,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="A9l-Yd-38c" id="MAN-1v-jd6"/>
                         <outlet property="nutrientsPickerView" destination="35y-j3-Xby" id="flJ-Mr-YLp"/>
                         <segue destination="hN1-hb-NjU" kind="unwind" identifier="Unwind Add Nutrient For Done" unwindAction="unwindAddNutrientForDone:" id="paz-Qn-xzv"/>
                     </connections>
@@ -3603,6 +3611,7 @@
                     </view>
                     <connections>
                         <outlet property="expirationDatePicker" destination="9Ww-Yu-5Ji" id="6Ia-m3-tTa"/>
+                        <outlet property="navItem" destination="hha-cD-Ejl" id="vyo-7d-0w6"/>
                         <segue destination="cjF-Ec-3gy" kind="unwind" identifier="Unwind Select Expiration Date Segue" unwindAction="unwindSetExpirationDateForDone:" id="dls-6b-jW3"/>
                     </connections>
                 </viewController>
@@ -3695,6 +3704,7 @@
                     </view>
                     <connections>
                         <outlet property="languagesPickerView" destination="29H-HT-btt" id="WYN-aj-umv"/>
+                        <outlet property="navItem" destination="uO9-18-9Hq" id="34G-SO-39b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZtT-I9-nrf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3777,6 +3787,7 @@
                     </view>
                     <connections>
                         <outlet property="compareOperatorsPickerView" destination="ejL-dZ-KoW" id="vJR-EH-d5j"/>
+                        <outlet property="navItem" destination="CYD-9l-kKz" id="U0L-L8-rUg"/>
                         <segue destination="WFj-eC-tCc" kind="unwind" identifier="Unwind Set Comparison Operator For Done Segue Identifier" unwindAction="unwindSetComparisonOperator:" id="XlA-S7-oD0"/>
                     </connections>
                 </viewController>
@@ -3803,7 +3814,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="iAH-XT-PFm">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="eKj-QZ-5MW">
+                                    <navigationItem id="eKj-QZ-5MW">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="p28-V6-coW"/>
                                     </navigationItem>
                                 </items>
@@ -3821,6 +3832,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="eKj-QZ-5MW" id="hQj-dD-3k0"/>
                         <outlet property="pickerView" destination="vJz-da-4Gb" id="qP0-Z3-ax7"/>
                         <segue destination="nx9-lU-Bg8" kind="unwind" identifier="Unwind Select Completion State" unwindAction="unwindSetCompletionStateForDone:" id="3UM-ju-LK0"/>
                     </connections>
@@ -3848,7 +3860,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="iiI-6A-u2d">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="u8q-T4-CZQ">
+                                    <navigationItem id="u8q-T4-CZQ">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="AIW-rI-MM4"/>
                                     </navigationItem>
                                 </items>
@@ -3866,6 +3878,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="u8q-T4-CZQ" id="bch-q4-8y8"/>
                         <outlet property="pickerView" destination="Y7H-3M-asn" id="jmT-qk-67e"/>
                         <segue destination="S7V-7U-QTJ" kind="unwind" identifier="Unwind Set Contributor Role For Done" unwindAction="unwindSetContributorRoleForDone:" id="5WH-6e-zLt"/>
                     </connections>
@@ -3924,6 +3937,7 @@
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="dlF-31-Tgq" id="bnd-WM-Lan"/>
+                        <outlet property="navItem" destination="ZMA-V0-eCn" id="peE-Z8-gld"/>
                         <segue destination="S7k-h7-HNy" kind="unwind" identifier="Unwind Set CreationDate For Exit" unwindAction="unwindSetCreationDateForDone:" id="KhN-wd-ucF"/>
                     </connections>
                 </viewController>
@@ -3980,6 +3994,7 @@
                     </view>
                     <connections>
                         <outlet property="datePicker" destination="HmB-VF-yoX" id="KNn-9x-e3w"/>
+                        <outlet property="navItem" destination="87I-LY-HVh" id="12K-wY-D3o"/>
                         <segue destination="g7o-mq-7jI" kind="unwind" identifier="Unwind Set Las Edit Date For Exit" unwindAction="unwindSetLastEditDateForDone:" id="Vxn-hO-EbI"/>
                     </connections>
                 </viewController>
@@ -4029,6 +4044,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="ihQ-81-7Sx" id="xT4-Kw-t0m"/>
                         <outlet property="pickerView" destination="3TJ-87-VCD" id="p8E-UY-0Cb"/>
                     </connections>
                 </viewController>
@@ -4055,7 +4071,7 @@
                             <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="coc-e4-rh9">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <items>
-                                    <navigationItem title="Select" id="JRq-p9-FSA">
+                                    <navigationItem id="JRq-p9-FSA">
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="WwC-EX-dA5">
                                             <connections>
                                                 <segue destination="VCc-Ih-huA" kind="unwind" identifier="Unwind Set Language and ImageTypeCategory Identifier" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="QoC-gZ-1g6"/>
@@ -4077,6 +4093,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navItem" destination="JRq-p9-FSA" id="TgJ-u6-ztC"/>
                         <outlet property="pickerView" destination="kIy-QM-4ci" id="FTR-hq-ykQ"/>
                     </connections>
                 </viewController>

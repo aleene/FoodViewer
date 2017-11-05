@@ -25,6 +25,9 @@ class SetLastEditDateViewController: UIViewController {
     
     var selectedDate: Date?
     
+    
+    @IBOutlet weak var navItem: UINavigationItem!
+    
     @IBOutlet weak var datePicker: UIDatePicker! {
         didSet {
             setupInterface()
@@ -35,9 +38,10 @@ class SetLastEditDateViewController: UIViewController {
         selectedDate = sender.date
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
-    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
+    }
+
 }

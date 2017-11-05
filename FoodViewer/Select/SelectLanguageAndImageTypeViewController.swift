@@ -39,6 +39,8 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
         }
     }
     
+    @IBOutlet weak var navItem: UINavigationItem!
+    
     private var sortedLanguages: [Language] = []
     
     // MARK: - Delegates and datasource
@@ -107,10 +109,9 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
     }
     
     // MARK: - ViewController Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
-    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.AssignImage
+    }
 }

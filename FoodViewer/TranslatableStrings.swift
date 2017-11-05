@@ -16,6 +16,7 @@ struct TranslatableStrings {
     static let A = NSLocalizedString("A", comment: "String (in Segmented Control) to indicate the best nutritional score level")
     static let Allergens = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
     static let Additives = NSLocalizedString("Additives", comment: "Generic used string to indicate the additives of a product.")
+    static let AssignImage = NSLocalizedString("Assign Image", comment: "ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition).")
     static let AuthenticateForOFFLogin = NSLocalizedString("Authenticate for OFF login", comment: "Reason string in TouchID authenticate alert")
     static let AuthenticateWithTouchIDFailed = NSLocalizedString("Authentication with TouchID failed. Specify your password", comment: "Explanatory text in AlertViewController, which lets the user enter his username/password.")
 
@@ -67,6 +68,7 @@ struct TranslatableStrings {
     static let E = NSLocalizedString("E", comment: "String in Segmented Control to indicate the fifth best (and last) nutritional score level")
     static let EditDate = NSLocalizedString("Edit date", comment: "String in picker, which lets the user select the search result order")
     static let EditNutrient = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
+    static let Edited = NSLocalizedString("Edited", comment: "Added to a tableview section header to indicated the item has been editd.")
     static let Editor = NSLocalizedString("Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
     static let EditorUnicode = NSLocalizedString("📝", comment: "Image to indicate that the user who added or deleted information of the product.")
     static let EnterContributorName = NSLocalizedString("Enter contributor name to search for", comment: "placeholder in a textField where the user can specify a search for contributors.")

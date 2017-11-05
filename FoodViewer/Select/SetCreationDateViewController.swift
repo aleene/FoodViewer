@@ -35,9 +35,13 @@ class SetCreationDateViewController: UIViewController {
         selectedDate = sender.date
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
+    @IBOutlet weak var navItem: UINavigationItem!
+    
+    // MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
     
 }

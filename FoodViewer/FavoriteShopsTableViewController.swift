@@ -125,7 +125,10 @@ class FavoriteShopsTableViewController: UITableViewController {
     
     @IBAction func unwindAddFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
     }
+    
+    @IBOutlet weak var navItem: UINavigationItem!
 
+    
     // MARK: - Moving table rows by long press
     
     // https://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
@@ -242,12 +245,15 @@ class FavoriteShopsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
         tableView.reloadData()
         addLongGestureRecognizerForTableView()
-
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         FavoriteShopsDefaults.manager.updateFavoriteShops()
         super.viewWillDisappear(animated)

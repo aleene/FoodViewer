@@ -34,7 +34,9 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         self.performSegue(withIdentifier: Storyboard.SegueIdentifier, sender: self)
     }
     
-    // MARK: - Table view data source
+    @IBOutlet weak var navItem: UINavigationItem!
+
+// MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -132,9 +134,12 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         return true
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
+// MARK: - ViewController Lifecycle
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
+    
 
 }

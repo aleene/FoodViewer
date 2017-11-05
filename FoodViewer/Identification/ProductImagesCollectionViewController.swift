@@ -280,19 +280,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             switch indexPath.section {
             case 0:
                 headerView.label.text =  delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ?
-                    Storyboard.HeaderTitle.Front + " (Edited)" : Storyboard.HeaderTitle.Front
+                    Storyboard.HeaderTitle.Front + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Front
             case 1:
                 headerView.label.text =  delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ?
-                    Storyboard.HeaderTitle.Ingredients + " (Edited)" : Storyboard.HeaderTitle.Ingredients
+                    Storyboard.HeaderTitle.Ingredients + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Ingredients
             case 2:
                 headerView.label.text =  delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ?
-                    Storyboard.HeaderTitle.Nutrition + " (Edited)" : Storyboard.HeaderTitle.Nutrition
+                    Storyboard.HeaderTitle.Nutrition + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Nutrition
             case 3:
                 headerView.label.text = Storyboard.HeaderTitle.Original
             default:
                 assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
             }
-
             
             return headerView
         default:

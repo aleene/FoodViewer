@@ -5,7 +5,7 @@
 //  Created by arnaud on 10/11/16.
 //  Copyright © 2016 Hovering Above. All rights reserved.
 //
-
+/*
 import UIKit
 
 class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
@@ -147,6 +147,8 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         }
     }
     
+    @IBOutlet weak var navItem: UINavigationItem!
+
     private var interfaceHasBeenSetup: Bool {
         get {
             return nutrient != nil &&
@@ -249,7 +251,6 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         if currentNutrientItemIndex != nil {
             currentNutrientItemIndex! += 1
         }
-
     }
     
     private func setupButtons() {
@@ -269,9 +270,13 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.title = TranslatableStrings.EditNutrient
         per = .perStandardUnit
         nutrientTitle.text = TranslatableStrings.NoNutrients
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -286,3 +291,4 @@ class EditNutrientsViewController: UIViewController, UIPickerViewDataSource, UIP
         setupInterface()
     }
 }
+ */

@@ -24,7 +24,9 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     @IBOutlet weak var nutrientUnitsPickerView: UIPickerView!
     
-    // MARK: - PickerView Datasource methods
+    @IBOutlet weak var navItem: UINavigationItem!
+
+// MARK: - PickerView Datasource methods
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
@@ -39,7 +41,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
         return 1
     }
     
-    // MARK: - PickerView delegate methods
+// MARK: - PickerView delegate methods
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
@@ -54,11 +56,16 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
         
         nutrientUnitsPickerView?.delegate = self
         nutrientUnitsPickerView?.dataSource = self
         nutrientUnitsPickerView?.showsSelectionIndicator = true
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
+    }
+    
 
 }

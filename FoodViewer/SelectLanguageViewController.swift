@@ -158,6 +158,9 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
+    @IBOutlet weak var navItem: UINavigationItem!
+
+    
     private func setAddBarButtonItem() {
         if addBarButtonItem != nil {
             addBarButtonItem!.isEnabled = editMode
@@ -204,12 +207,12 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
 
     // MARK: - ViewController Lifecycle
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.title = TranslatableStrings.Select
-    }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navItem.title = TranslatableStrings.Select
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         positionPickerView()
