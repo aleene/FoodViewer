@@ -2735,7 +2735,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6OB-LJ-Hmd">
-                                            <rect key="frame" x="175" y="174" width="25" height="25"/>
+                                            <rect key="frame" x="175" y="175" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="25" id="AfY-vz-gtw"/>
                                                 <constraint firstAttribute="width" secondItem="6OB-LJ-Hmd" secondAttribute="height" multiplier="1:1" id="FZf-9g-fIe"/>
@@ -2743,20 +2743,23 @@
                                             <state key="normal" image="ClearBlue"/>
                                             <connections>
                                                 <action selector="buttonTapped:" destination="ze3-ij-q0C" eventType="touchUpInside" id="w9I-Xj-AVp"/>
+                                                <segue destination="ate-7s-vCG" kind="popoverPresentation" identifier="Show Language And ImageType Segue Identifier" popoverAnchorView="tKr-4F-rmF" id="L3d-nU-3oM">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
                                             </connections>
                                         </button>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="g1X-rw-oCv" firstAttribute="bottom" secondItem="6OB-LJ-Hmd" secondAttribute="bottom" id="1NS-Jj-BPT"/>
                                     <constraint firstAttribute="trailing" secondItem="d97-Pg-D0G" secondAttribute="trailing" id="341-9P-bN4"/>
+                                    <constraint firstItem="d97-Pg-D0G" firstAttribute="bottom" secondItem="6OB-LJ-Hmd" secondAttribute="bottom" id="AGm-Ag-lCa"/>
                                     <constraint firstItem="g1X-rw-oCv" firstAttribute="leading" secondItem="ze3-ij-q0C" secondAttribute="leading" id="Cen-en-uK8"/>
                                     <constraint firstAttribute="trailing" secondItem="g1X-rw-oCv" secondAttribute="trailing" id="Neu-ab-gvW"/>
-                                    <constraint firstItem="g1X-rw-oCv" firstAttribute="trailing" secondItem="6OB-LJ-Hmd" secondAttribute="trailing" id="Wlp-9W-9UX"/>
                                     <constraint firstItem="d97-Pg-D0G" firstAttribute="top" secondItem="g1X-rw-oCv" secondAttribute="bottom" constant="1" id="YgW-jK-hL1"/>
                                     <constraint firstAttribute="bottom" secondItem="d97-Pg-D0G" secondAttribute="bottom" id="euF-NL-YTK"/>
                                     <constraint firstItem="d97-Pg-D0G" firstAttribute="leading" secondItem="ze3-ij-q0C" secondAttribute="leading" id="ey2-4N-48Q"/>
+                                    <constraint firstItem="d97-Pg-D0G" firstAttribute="trailing" secondItem="6OB-LJ-Hmd" secondAttribute="trailing" id="oNL-VK-vqk"/>
                                     <constraint firstItem="g1X-rw-oCv" firstAttribute="top" secondItem="ze3-ij-q0C" secondAttribute="top" id="uF2-Hm-mPr"/>
                                 </constraints>
                                 <connections>
@@ -2801,7 +2804,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7760.625" y="2745"/>
+            <point key="canvasLocation" x="8614" y="2745"/>
         </scene>
         <!--Ingredients Table View Controller-->
         <scene sceneID="2bd-NI-S3Q">
@@ -4033,6 +4036,54 @@
                 <exit id="xjd-YS-Sel" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2715" y="1141"/>
+        </scene>
+        <!--Select Language And Image Type View Controller-->
+        <scene sceneID="N9V-q1-oQM">
+            <objects>
+                <viewController id="ate-7s-vCG" customClass="SelectLanguageAndImageTypeViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mMT-p2-UsO"/>
+                        <viewControllerLayoutGuide type="bottom" id="VJ7-zJ-8dK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="du6-Ir-P74">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="kIy-QM-4ci">
+                                <rect key="frame" x="0.0" y="44" width="320" height="436"/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="coc-e4-rh9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Select" id="JRq-p9-FSA">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="WwC-EX-dA5">
+                                            <connections>
+                                                <segue destination="VCc-Ih-huA" kind="unwind" identifier="Unwind Set Language and ImageTypeCategory Identifier" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="QoC-gZ-1g6"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VJ7-zJ-8dK" firstAttribute="top" secondItem="kIy-QM-4ci" secondAttribute="bottom" id="BDb-67-0gb"/>
+                            <constraint firstItem="kIy-QM-4ci" firstAttribute="top" secondItem="coc-e4-rh9" secondAttribute="bottom" id="KJP-ju-Pqh"/>
+                            <constraint firstAttribute="trailing" secondItem="coc-e4-rh9" secondAttribute="trailing" id="M11-J3-I0r"/>
+                            <constraint firstItem="coc-e4-rh9" firstAttribute="leading" secondItem="du6-Ir-P74" secondAttribute="leading" id="eCq-zA-EoC"/>
+                            <constraint firstItem="coc-e4-rh9" firstAttribute="top" secondItem="du6-Ir-P74" secondAttribute="top" id="hr8-um-R8y"/>
+                            <constraint firstItem="kIy-QM-4ci" firstAttribute="leading" secondItem="du6-Ir-P74" secondAttribute="leading" id="xvy-UY-slS"/>
+                            <constraint firstAttribute="trailing" secondItem="kIy-QM-4ci" secondAttribute="trailing" id="z5z-Tm-n0z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="kIy-QM-4ci" id="FTR-hq-ykQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gtE-2p-q02" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="VCc-Ih-huA" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="8614" y="4109"/>
         </scene>
     </scenes>
     <resources>

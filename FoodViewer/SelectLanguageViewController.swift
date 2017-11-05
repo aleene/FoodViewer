@@ -35,7 +35,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     // Seems no longer used/relevant. Changing primary language is now elsewhere
     var updatedPrimaryLanguageCode: String? = nil {
         didSet {
-            delegate?.updated(primaryLanguageCode: updatedPrimaryLanguageCode!)
+            // delegate?.updated(primaryLanguageCode: updatedPrimaryLanguageCode!)
         }
     }
     

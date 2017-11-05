@@ -14,7 +14,7 @@ enum ImageTypeCategory: Int {
     case nutrition
     case unknown
     
-    func description() -> String {
+    var description: String {
         switch self {
         case .front:
             return "front"
@@ -27,4 +27,7 @@ enum ImageTypeCategory: Int {
         }
     }
 
+    static var list: [ImageTypeCategory] {
+        return [.front, .ingredients, .nutrition]
+    }
 }

@@ -48,11 +48,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     private var originalImages: [String:ProductImageSize] {
         get {
-            var images = product!.images
-            if let updatedImages = delegate?.updatedProduct?.images {
-                updatedImages.forEach( { images[$0.key] = $0.value } )
-            }
-            return images
+            //if let updatedImages = delegate?.updatedProduct?.images {
+            //    updatedImages.forEach( { images[$0.key] = $0.value } )
+            //}
+            return product!.images
         }
     }
     fileprivate let itemsPerRow: CGFloat = 5
@@ -91,6 +90,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         struct SegueIdentifier {
             static let ShowImage = "Show Image"
             //static let ShowImageSourceSelector = "Show Select Image Source Segue"
+            static let ShowLanguageAndImageType = "Show Language And ImageType Segue Identifier"
         }
 
     }
@@ -102,13 +102,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard product != nil else { return 0 }
+        // If there are updated images, only show those
         switch section {
         case 0:
-            return product!.frontImages.count
+            return delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ? delegate!.updatedProduct!.frontImages.count : product!.frontImages.count
         case 1:
-            return product!.ingredientsImages.count
+            return delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ? delegate!.updatedProduct!.ingredientsImages.count : product!.ingredientsImages.count
         case 2:
-            return product!.nutritionImages.count
+            return delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ? delegate!.updatedProduct!.nutritionImages.count : product!.nutritionImages.count
         case 3:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
@@ -120,25 +121,37 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        
         switch indexPath.section {
-        case 0:
+        case 0: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-
-            if indexPath.row < product!.frontImages.count {
-                let key = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].0
-                if let result = product!.frontImages[key]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        if let validImage = product!.frontImages[key]?.display?.image {
-                            cell.imageView.image = validImage
-                        }
-                    default:
+            if delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 {
+                if indexPath.row < delegate!.updatedProduct!.frontImages.count {
+                    let key = keyTuples(for:Array(delegate!.updatedProduct!.frontImages.keys))[indexPath.row].0
+                    if let validImage = delegate!.updatedProduct!.frontImages[key]?.original?.image {
+                        cell.imageView.image = validImage
+                    } else {
                         cell.imageView.image = UIImage.init(named:"NotOK")
+                        
                     }
                     cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
-                } else {
-                    assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
+                }
+                
+            } else {
+                if indexPath.row < product!.frontImages.count {
+                    let key = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].0
+                    if let result = product!.frontImages[key]?.display?.fetch() {
+                        switch result {
+                        case .available:
+                            if let validImage = product!.frontImages[key]?.display?.image {
+                                cell.imageView.image = validImage
+                            }
+                        default:
+                            cell.imageView.image = UIImage.init(named:"NotOK")
+                        }
+                        cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
+                    } else {
+                        assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
+                    }
                 }
             }
             cell.indexPath = indexPath
@@ -146,23 +159,36 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.delegate = self
             return cell
         
-        case 1:
+        case 1: // Ingredients Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-
-            if indexPath.row < product!.ingredientsImages.count {
-                let key = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].0
-                if let result = product!.ingredientsImages[key]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        if let validImage = product!.ingredientsImages[key]?.display?.image {
-                            cell.imageView.image = validImage
-                        }
-                    default:
+            if delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0  {
+                if indexPath.row < delegate!.updatedProduct!.ingredientsImages.count {
+                    let key = keyTuples(for:Array(delegate!.updatedProduct!.ingredientsImages.keys))[indexPath.row].0
+                    if let validImage = delegate!.updatedProduct!.ingredientsImages[key]?.original?.image {
+                        cell.imageView.image = validImage
+                    } else {
                         cell.imageView.image = UIImage.init(named:"NotOK")
+                        
                     }
-                    cell.label.text = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].1
-                } else {
-                    assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
+
+                    cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
+                }
+            } else {
+                if indexPath.row < product!.ingredientsImages.count {
+                    let key = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].0
+                    if let result = product!.ingredientsImages[key]?.display?.fetch() {
+                        switch result {
+                        case .available:
+                            if let validImage = product!.ingredientsImages[key]?.display?.image {
+                                cell.imageView.image = validImage
+                            }
+                        default:
+                            cell.imageView.image = UIImage.init(named:"NotOK")
+                        }
+                        cell.label.text = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].1
+                    } else {
+                        assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
+                    }
                 }
             }
             cell.indexPath = indexPath
@@ -170,24 +196,35 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.delegate = self
             return cell
             
-        case 2:
+        case 2: // Nutrition Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            
-            if indexPath.row < product!.nutritionImages.count {
-                let key = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].0
-                if let result = product!.nutritionImages[key]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        if let validImage = product!.nutritionImages[key]?.display?.image {
-                            cell.imageView.image = validImage
-                        }
-                    default:
+            if delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0  {
+                if indexPath.row < delegate!.updatedProduct!.nutritionImages.count {
+                    let key = keyTuples(for:Array(delegate!.updatedProduct!.nutritionImages.keys))[indexPath.row].0
+                    if let validImage = delegate!.updatedProduct!.nutritionImages[key]?.original?.image {
+                        cell.imageView.image = validImage
+                    } else {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
                     cell.label.text = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].1
                 }
             } else {
-                assert(false, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
+                if indexPath.row < product!.nutritionImages.count {
+                    let key = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].0
+                    if let result = product!.nutritionImages[key]?.display?.fetch() {
+                        switch result {
+                        case .available:
+                            if let validImage = product!.nutritionImages[key]?.display?.image {
+                                cell.imageView.image = validImage
+                            }
+                        default:
+                            cell.imageView.image = UIImage.init(named:"NotOK")
+                        }
+                        cell.label.text = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].1
+                    }
+                } else {
+                    assert(false, "ProductImagesCollectionViewController: indexPath.row     nutritionImages to large")
+                }
             }
             cell.indexPath = indexPath
             cell.editMode = editMode
@@ -218,6 +255,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     }
                     cell.label.text = key
                 }
+                cell.indexPath = indexPath
+                cell.editMode = editMode
+                cell.delegate = self
+                cell.imageKey = key
                 return cell
             }
         }
@@ -238,11 +279,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                                                                              for: indexPath) as! GalleryCollectionReusableView
             switch indexPath.section {
             case 0:
-                headerView.label.text = Storyboard.HeaderTitle.Front
+                headerView.label.text =  delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ?
+                    Storyboard.HeaderTitle.Front + " (Edited)" : Storyboard.HeaderTitle.Front
             case 1:
-                headerView.label.text = Storyboard.HeaderTitle.Ingredients
+                headerView.label.text =  delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ?
+                    Storyboard.HeaderTitle.Ingredients + " (Edited)" : Storyboard.HeaderTitle.Ingredients
             case 2:
-                headerView.label.text = Storyboard.HeaderTitle.Nutrition
+                headerView.label.text =  delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ?
+                    Storyboard.HeaderTitle.Nutrition + " (Edited)" : Storyboard.HeaderTitle.Nutrition
             case 3:
                 headerView.label.text = Storyboard.HeaderTitle.Original
             default:
@@ -326,7 +370,57 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         assert(false, "ProductImagesCollectionViewController: inexisting section")
                     }
                 }
-                default: break
+            case Storyboard.SegueIdentifier.ShowLanguageAndImageType:
+                if let vc = segue.destination as? SelectLanguageAndImageTypeViewController,
+                    let button = sender as? UIButton {
+                    if let cell = button.superview?.superview as? GalleryCollectionViewCell {
+                        if let ppc = vc.popoverPresentationController {
+                            // set the main language button as the anchor of the popOver
+                            ppc.permittedArrowDirections = .any
+                            // I need the button coordinates in the coordinates of the current controller view
+                            let anchorFrame = button.convert(button.bounds, to: self.view)
+                            ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                            ppc.delegate = self
+                            
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.languageCodes = product!.languageCodes
+                            vc.key = cell.imageKey
+                        }
+                    }
+                }
+            default: break
+            }
+        }
+    }
+
+    @IBAction func unwindSetImageTypeAndLanguageForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectLanguageAndImageTypeViewController {
+            if let selectedLanguageCode = vc.selectedLanguageCode,
+                let selectedImageTypeCategory = vc.selectedImageCategory,
+                let validKey = vc.key {
+                
+                // let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[validKey]
+                if let result = originalImages[validKey]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        
+                        if let validImage = originalImages[validKey]?.display?.image {
+                            switch selectedImageTypeCategory {
+                            case .front:
+                                delegate?.updated(frontImage: validImage, languageCode: selectedLanguageCode)
+                            case .ingredients:
+                                delegate?.updated(ingredientsImage: validImage, languageCode: selectedLanguageCode)
+                            case .nutrition:
+                                delegate?.updated(nutritionImage: validImage, languageCode: selectedLanguageCode)
+                            default:
+                                return
+                            }
+                        }
+                    default:
+                        return
+                    }
+                    reloadImages()
+                }
             }
         }
     }
@@ -401,7 +495,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
-
     func registerCollectionViewCell() {
         guard let collectionView = self.collectionView else
         {
@@ -468,7 +561,7 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .nutrition, for: product!)
             default:
-                break
+                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
             }
         }
     }

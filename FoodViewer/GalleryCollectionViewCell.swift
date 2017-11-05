@@ -34,9 +34,22 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     
     var editMode: Bool = false {
         didSet {
-            button.isHidden = !editMode
+            if let validIndexPath = indexPath {
+                if validIndexPath.section > 2 {
+                    button.setImage(UIImage.init(named: "Select"), for: .normal)
+                } else {
+                    button.setImage(UIImage.init(named: "ClearBlue"), for: .normal)
+                }
+                button.isHidden = !editMode
+            }
         }
     }
     
-    var indexPath: IndexPath? = nil
+    var indexPath: IndexPath? = nil {
+        didSet {
+            guard indexPath != nil else { return }
+        }
+    }
+    
+    var imageKey: String? = nil
 }

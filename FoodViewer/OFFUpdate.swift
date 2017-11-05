@@ -577,7 +577,7 @@ class OFFUpdate {
             switch imageCategory {
             case .front, .ingredients, .nutrition:
                 postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:product.barcode.asString(),
-                                        OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description(), in:element)],
+                                        OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description, in:element)],
                            url: OFFHttpPost.URL.SecurePrefix +
                             currentProductType.rawValue +
                             OFFHttpPost.URL.Domain +

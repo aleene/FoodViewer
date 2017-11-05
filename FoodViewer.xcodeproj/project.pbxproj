@@ -73,6 +73,7 @@
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		513E00981F867F2D003153D4 /* TagListViewLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */; };
+		51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */; };
 		5148F0F11DD3291500EF1B67 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F01DD3291500EF1B67 /* Language.swift */; };
 		5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */; };
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
@@ -341,6 +342,7 @@
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewLabelTableViewCell.swift; sourceTree = "<group>"; };
+		51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectLanguageAndImageTypeViewController.swift; path = Select/SelectLanguageAndImageTypeViewController.swift; sourceTree = "<group>"; };
 		5148F0F01DD3291500EF1B67 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectExpirationDateViewController.swift; sourceTree = "<group>"; };
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
@@ -555,6 +557,7 @@
 		5107C82B1D9D07AB006A628C /* EditPages */ = {
 			isa = PBXGroup;
 			children = (
+				51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */,
 				5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */,
 				5104F4AF1FA074C3008D074F /* SetSortOrderViewController.swift */,
 				51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */,
@@ -1360,6 +1363,7 @@
 				5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */,
 				51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
+				51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
 				51DA03251F7674BF000C5F93 /* SearchTemplate.swift in Sources */,
 				51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */,
