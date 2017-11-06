@@ -91,7 +91,7 @@
 "Completeness" = "Volledigheid";
 
 /* Label for a horizontal gauge that indicates the completion percentage of the product data. */
-"Completion" = "Compleetheid";
+"Completion" = "Volledigheid";
 
 /* Generic string to indicate the completion states of a product. */
 "Completion States" = "Volledigheidstoestanden";
@@ -173,7 +173,7 @@
 "Enter shop name" = "Voer winkel in";
 
 /* Placeholder string to explain the purpose of a barcode search in a tableview cell */
-"Enter start numbers of barcode." = "Barcode";
+"Enter start numbers of barcode." = "Voer streepjescode in";
 
 /* Placeholder text for field where user should enter a street name. */
 "Enter street name" = "Voer straat in";
@@ -219,7 +219,7 @@
 "Food Products" = "Voedingsproducten";
 
 /* Viewcontroller title for page with images of the product */
-"Gallery" = "Fotogallerij";
+"Gallery" = "Fotogalerij";
 
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
@@ -348,7 +348,7 @@
 "No quantity available" = "Geen verpakkingsgrootte beschikbaar.";
 
 /* String in TableView section when a search is not defined. */
-"No search defined" = "Geen zoekopdracht beschikbaar";
+"No search defined" = "Zoekopdracht ongedefinieerd";
 
 /* String in TableView section when a search is not yet carried out. */
 "No search result" = "Nog geen zoekresultaat";
@@ -390,7 +390,7 @@
 "Nutritional Score France" = "Voedingswaardescore Frankrijk";
 
 /* Header for a table section showing the total results UK */
-"Nutritional Score UK" = "Voedingswaardescore UK";
+"Nutritional Score UK" = "UK Voedingswaardescore";
 
 /* Viewcontroller title for page with nutritional facts for product. */
 "Nutritional facts" = "Voedingswaarden";
@@ -495,7 +495,7 @@
 "Product update succeeded" = "Aanpassing product geslaagd";
 
 /* Header for section of tableView with Locations where the product was bought. */
-"Purchase Locations" = "Aankoopplaatsen";
+"Purchase Locations" = "Verkoopadres";
 
 /* Generic string to indicate the address (street/city/postalcode/country) where the product was bought */
 "Purchase address" = "Verkoopadres";
@@ -567,13 +567,13 @@
 "Select role" = "Kies rol";
 
 /* Gallery header text presenting the selected front images */
-"Selected Front Images" = "Selecteer ";
+"Selected Front Images" = "Geselecteerde productfoto";
 
 /* Gallery header text presenting the selected ingredients images */
-"Selected Ingredients Images" = "Selecteer ingrediëntenfoto";
+"Selected Ingredients Images" = "Geselecteerde ingrediëntenfoto";
 
 /* Gallery header text presenting the selected nutrition images */
-"Selected Nutrition Images" = "Selecteer voedingswaardefoto";
+"Selected Nutrition Images" = "Geselecteer voedingswaardenfoto";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portie";
@@ -620,7 +620,7 @@
 "Translated" = "Vertaald";
 
 /* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
-"Undefined" = "Ongedefinieerd";
+"Undefined" = "Ongebruikt";
 
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Opladen foto";
