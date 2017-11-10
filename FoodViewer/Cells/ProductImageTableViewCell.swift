@@ -48,6 +48,7 @@ class ProductImageTableViewCell: UITableViewCell {
                 // still need to solved what happens when the image is very high
                 
                 imageView?.contentMode = .center
+                hideClearButton()
             } else {
                 imageView?.image = UIImage(named: "ImageLoading")
             }
@@ -58,7 +59,8 @@ class ProductImageTableViewCell: UITableViewCell {
         didSet {
             takePhotoButton?.isHidden = !editMode
             selectFromCameraRollButton?.isHidden = !editMode
-            deselectImageButton?.isHidden = !editMode
+            hideClearButton()
+            // deselect button only relevant if there is a photo
         }
     }
     
@@ -88,8 +90,12 @@ class ProductImageTableViewCell: UITableViewCell {
 
     @IBOutlet weak var deselectImageButton: UIButton! {
         didSet {
-            deselectImageButton.isHidden = !editMode
+            hideClearButton()
         }
+    }
+    
+    private func hideClearButton() {
+        deselectImageButton?.isHidden = productImage != nil ? !editMode : true
     }
     
     @IBAction func deselectImageButtonTapped(_ sender: UIButton) {

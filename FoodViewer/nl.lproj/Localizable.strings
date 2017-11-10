@@ -36,6 +36,9 @@
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Authentication with TouchID failed. Specify your password" = "Authenticatie met TouchID mislukt, specificeer je wachtwoord:";
 
+/* Text in a TagListView, when tags are available the product data. */
+"Available" = "Beschikbaar";
+
 /* String in Segmented Control to indicate the second best nutritional score level */
 "B" = "B";
 
@@ -133,7 +136,7 @@
 "Display Prefs" = "Display instellingen";
 
 /* String in button, to let the user indicate he is ready with username/password input. */
-"Done" = "Klaar";
+"Done" = "Gedaan";
 
 /* String in Segmented Control to indicate the fifth best (and last) nutritional score level */
 "E" = "E";
@@ -362,6 +365,18 @@
 /* Alert title, to indicate product should NOT be added */
 "Nope" = "Noah";
 
+/* Generic text if an action has not yet been done. */
+"Not done" = "Niet gedaan";
+
+/* Text in a TagListView, when the json provided an empty string. */
+"Not filled" = "Niet ingevuld";
+
+/* Text in a search TagListView, when tags can not be set up. */
+"Not searchable" = "Niet doorzoekbaar";
+
+/* Generic text if a value has not yet been set. */
+"Not set" = "Niet ingevuld";
+
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Voedingsstof";
 
@@ -581,6 +596,9 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portiegrootte";
 
+/* Title of a segment in a segmentedControl indicating that the corresding field has been set. */
+"Set" = "Ingevuld";
+
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Definieer account";
 
@@ -622,6 +640,9 @@
 /* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
 "Undefined" = "Ongebruikt";
 
+/* Text in a TagListView, when the field in the json was not present. */
+"Unknown" = "Onbekend";
+
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Opladen foto";
 
@@ -634,9 +655,6 @@
 
 /* Title of a tableView section, which lets the user set warnings */
 "Warnings" = "Waarschuwingen";
-
-/* Text in a TagListView, when tags are available the product data. */
-"available" = "beschikbaar";
 
 /* Generic string to indicate the completion states of a product. */
 "contributor name not set" = "naam bijdrager niet ingesteld";
@@ -681,23 +699,16 @@
 "no nutrition data indicated per standard unit" = "voedingswaarden aangegeven per standaard eenheid";
 
 /* Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour. */
-"no serving size available" = "geen portiegroote ingevuld";
+"no serving size available" = "Geen portiegrootte ingevuld";
 
 /* tag of cell when no tags are available
    Text for a cell, when no status title has been provided, such as 'completed', etc.
    Text for language of product, when there is no language defined.
-   Text in a TagListView, when the json provided an empty string.
    Unitless */
 "none" = "geen";
 
-/* Text in a search TagListView, when tags can not be set up. */
-"not searchable" = "niet zoekbaar";
-
 /* Text of a button, indicating a contributor role is not selected */
 "not selected" = "niet geselecteerd";
-
-/* Generic text if q vqlue hqs not yet been set. */
-"not set" = "onbepaald";
 
 /* description() text if the nutrition data on the package is indicated per serving. */
 "nutrition data indicated per serving" = "voedingswaarden aangegeven per portie";
@@ -722,9 +733,6 @@
 
 /* tag of cell when no date was in off */
 "undefined" = "ongedefinieerd";
-
-/* Text in a TagListView, when the field in the json was not present. */
-"unknown" = "onbekend";
 
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";

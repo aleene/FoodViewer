@@ -32,9 +32,16 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            segmentedControl.setTitle(Constants.SegmentedControlStrings.Left, forSegmentAt: Constants.SegmentedControlIndex.Excluded)
-            segmentedControl.setTitle(Constants.SegmentedControlStrings.Right, forSegmentAt: Constants.SegmentedControlIndex.Included)
+            //print(self.traitCollection)
+            //if self.traitCollection.horizontalSizeClass == .compact {
+                segmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
+                segmentedControl.setImage(UIImage.init(named: "OKBlue"), forSegmentAt: Constants.SegmentedControlIndex.Included)
+            //} else {0
+             //   segmentedControl.setTitle(Constants.SegmentedControlStrings.Left, forSegmentAt: Constants.SegmentedControlIndex.Excluded)
+             //   segmentedControl.setTitle(Constants.SegmentedControlStrings.Right, forSegmentAt: Constants.SegmentedControlIndex.Included)
+            //}
             segmentedControl.selectedSegmentIndex = Constants.SegmentedControlIndex.Included
+            segmentedControl.isEnabled = allowInclusionEdit && editMode
         }
     }
     
@@ -75,7 +82,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     var allowInclusionEdit: Bool = true {
         didSet {
-            segmentedControl.isEnabled = !allowInclusionEdit
+            segmentedControl.isEnabled = allowInclusionEdit && editMode
         }
     }
 
@@ -104,7 +111,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         didSet {
             tagListView?.allowsRemoval = editMode
             tagListView?.allowsCreation = editMode
-            segmentedControl.isEnabled = editMode
+            segmentedControl.isEnabled = allowInclusionEdit && editMode
         }
     }
         

@@ -19,6 +19,7 @@ struct TranslatableStrings {
     static let AssignImage = NSLocalizedString("Assign Image", comment: "ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition).")
     static let AuthenticateForOFFLogin = NSLocalizedString("Authenticate for OFF login", comment: "Reason string in TouchID authenticate alert")
     static let AuthenticateWithTouchIDFailed = NSLocalizedString("Authentication with TouchID failed. Specify your password", comment: "Explanatory text in AlertViewController, which lets the user enter his username/password.")
+    static let Available = NSLocalizedString("Available", comment: "Text in a TagListView, when tags are available the product data.")
 
 
 //
@@ -135,7 +136,10 @@ struct TranslatableStrings {
     static let NoSearchDefined = NSLocalizedString("No search defined", comment: "String in TableView section when a search is not defined.")
     static let NoSearchResult = NSLocalizedString("No search result", comment: "String in TableView section when a search is not yet carried out.")
     static let NoServingSizeAvailable = NSLocalizedString("no serving size available", comment: "Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.")
-    static let NotSet = NSLocalizedString("not set", comment: "Generic text if q vqlue hqs not yet been set.")
+    static let NotDone = NSLocalizedString("Not done", comment: "Generic text if an action has not yet been done.")
+    static let NotFilled = NSLocalizedString("Not filled", comment: "Text in a TagListView, when the json provided an empty string.")
+    static let NotSearchable = NSLocalizedString("Not searchable", comment: "Text in a search TagListView, when tags can not be set up.")
+    static let NotSet = NSLocalizedString("Not set", comment: "Generic text if a value has not yet been set.")
     static let NutritionFacts = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
     static let NoProductsListed = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
     static let Nutrients = NSLocalizedString("Nutrients", comment: "Generic text to indicate the nutrients of a product.")
@@ -203,6 +207,7 @@ struct TranslatableStrings {
     static let Select = NSLocalizedString("Select", comment: "Title of a viewcontroller where the user has to select an element in the picker.")
     static let SelectCompletionStatus = NSLocalizedString("Select Completion Status", comment: "Title of a picker row where the user has to select an element in the picker.")
     static let SelectRole = NSLocalizedString("Select role", comment: "First item in a pickerView, indicating what the user should do")
+    static let Set = NSLocalizedString("Set", comment: "Title of a segment in a segmentedControl indicating that the corresding field has been set.")
     static let SpecialCategories = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
     static let SpecifyPassword = NSLocalizedString("Specify password",
                                                    comment: "Title in AlertViewController, which lets the user enter his username/password.")
@@ -223,6 +228,7 @@ struct TranslatableStrings {
     
     static let UnbalancedWarning = NSLocalizedString(" (WARNING: check brackets, they are unbalanced)", comment: "a warning to check the brackets used, they are unbalanced")
     static let Undefined = NSLocalizedString("Undefined", comment: "String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search)")
+    static let Unknown = NSLocalizedString("Unknown", comment: "Text in a TagListView, when the field in the json was not present.")
     static let UnknownValue = TranslatableStrings.QuestionMark
     
 //

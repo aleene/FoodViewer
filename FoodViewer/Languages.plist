@@ -362,7 +362,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Bichelamar</string>
+				<string>bichelamar</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -574,7 +574,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string> Chewa</string>
+				<string>Chewa</string>
 			</array>
 		</dict>
 	</dict>
@@ -596,7 +596,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string> chinois</string>
+				<string>chinois</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -626,7 +626,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>tsjoevasjisch</string>
+				<string>Tsjoevasjisch</string>
 			</array>
 		</dict>
 	</dict>
@@ -990,7 +990,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Fulfulde</string>
+				<string>fulfulde</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1120,7 +1120,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Guarani</string>
+				<string>guarani</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1276,7 +1276,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Hiri motu</string>
+				<string>hiri motu</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1354,7 +1354,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Igbo</string>
+				<string>igbo</string>
 				<string> ig</string>
 			</array>
 			<key>nl</key>
@@ -1407,7 +1407,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Inuktitut</string>
+				<string>inuktitut</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1642,11 +1642,11 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Kikongo</string>
+				<string>kikongo</string>
 			</array>
 			<key>nl</key>
 			<array>
-				<string> Kikongo</string>
+				<string>Kikongo</string>
 			</array>
 		</dict>
 	</dict>
@@ -1672,7 +1672,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>koreaans</string>
+				<string>Koreaans</string>
 			</array>
 		</dict>
 	</dict>
@@ -1721,7 +1721,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string> kj</string>
+				<string>kj</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -1877,7 +1877,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string> Louganda</string>
+				<string>louganda</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2033,7 +2033,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Maldivien</string>
+				<string>maldivien</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2323,7 +2323,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string> Oromo</string>
+				<string>Oromo</string>
 			</array>
 		</dict>
 	</dict>
@@ -2349,7 +2349,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string> Osseets</string>
+				<string>Osseets</string>
 			</array>
 		</dict>
 	</dict>
@@ -2397,7 +2397,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string> perse</string>
+				<string>perse</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2866,7 +2866,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string> SeSotho</string>
+				<string>seSotho</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2892,7 +2892,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string> Ndébélé du sud</string>
+				<string>ndébélé du sud</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2948,7 +2948,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>soendanees</string>
+				<string>Soendanees</string>
 			</array>
 		</dict>
 	</dict>
@@ -2996,7 +2996,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Swati</string>
+				<string>swati</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3283,7 +3283,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Tsonga</string>
+				<string>tsonga</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3387,7 +3387,7 @@
 			</array>
 			<key>fr</key>
 			<array>
-				<string>Twi</string>
+				<string>twi</string>
 			</array>
 			<key>nl</key>
 			<array>

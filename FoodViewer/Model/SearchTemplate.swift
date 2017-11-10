@@ -624,7 +624,7 @@ class SearchTemplate {
         }
         // states:
         if let validCompletion = completion {
-            pairs.append((.state, [validCompletion.description()], display(validCompletion.value) ))
+            pairs.append((.state, [validCompletion.description], display(validCompletion.value) ))
         }
             
         for nutrient in allNutrimentsSearch {

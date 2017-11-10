@@ -378,13 +378,22 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .barcodeSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
-            cell.barcode = query?.barcode
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.barcodeTextField.placeholder = NSLocalizedString("Enter start numbers of barcode.", comment: "Placeholder string to explain the purpose of a barcode search in a tableview cell")
-            return cell
+            if query?.barcode != nil || editMode {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
+                cell.barcode = query?.barcode
+                cell.delegate = self
+                cell.editMode = editMode
+                cell.tag = indexPath.section
+                cell.barcodeTextField.placeholder = NSLocalizedString("Enter start numbers of barcode.", comment: "Placeholder string to explain the purpose of a barcode search in a tableview cell")
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.editMode = false
+                cell.tag = indexPath.section
+                return cell
+            }
             
         case .quantitySearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -396,17 +405,25 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .nameSearch, .genericNameSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
-            cell.delegate = self
-            if let validQueryText = query?.text {
-                cell.name =  validQueryText
+            if query?.text != nil || editMode {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+                cell.delegate = self
+                if let validQueryText = query?.text {
+                    cell.name =  validQueryText
+                } else {
+                    cell.name =  editMode ? nil : NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
+                }
+                cell.tag = indexPath.section
+                cell.editMode = query!.type == .simple ? false : editMode
+                return cell
             } else {
-                cell.name =  editMode ? nil : NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.editMode = false
+                cell.tag = indexPath.section
+                return cell
             }
-            cell.tag = indexPath.section
-            cell.editMode = query!.type == .simple ? false : editMode
-            return cell
-
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
             cell!.delegate = self
@@ -918,7 +935,6 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-
     
     func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
@@ -934,8 +950,6 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-    
-
 
     func removeProduct() {
         product = nil
@@ -956,7 +970,7 @@ class IdentificationTableViewController: UITableViewController {
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
 
-}
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -1152,8 +1166,8 @@ extension IdentificationTableViewController: UITextViewDelegate {
                 let validCurrentLanguageCode = currentLanguageCode {
                     delegate?.updated(genericName: validText, languageCode: validCurrentLanguageCode)
             }
-        case .nameSearch:
-            // generic name updated?
+        case .nameSearch, .genericNameSearch:
+            // name or generic name updated?
             if let validText = textView.text {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
@@ -1201,8 +1215,10 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         
         switch currentProductSection {
-        case .barcodeSearch, .quantitySearch, .imageSearch:
+        case .quantitySearch, .imageSearch:
             return 1
+        case .barcodeSearch, .nameSearch, .genericNameSearch:
+            return count(Tags.empty)
         case .brands:
             return count(brandsToDisplay)
         case .brandsSearch:
@@ -1234,8 +1250,10 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
-        case .quantitySearch, .barcodeSearch, .imageSearch:
+        case .quantitySearch, .imageSearch:
             return title(notSearchableToDisplay)
+        case .barcodeSearch, .nameSearch, .genericNameSearch:
+            return title(Tags.empty)
         case .brands:
             // no language adjustments need to be done
             return title(brandsToDisplay)

@@ -16,6 +16,18 @@ protocol SetNutritionScoreCellDelegate: class {
 
 class SetNutritionScoreTableViewCell: UITableViewCell {
 
+    private struct Constants {
+        static let Margin = CGFloat( 8.0 )
+        struct SegmentedControlStrings {
+            static let Left = TranslatableStrings.Exclude
+            static let Right = TranslatableStrings.Include
+        }
+        struct SegmentedControlIndex {
+            static let Excluded = 0
+            static let Included = 1
+        }
+    }
+
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
             segmentedControl.setTitle(TranslatableStrings.A, forSegmentAt: 0)
@@ -35,9 +47,11 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
     
     @IBOutlet weak var inclusionSegmentedControl: UISegmentedControl! {
         didSet {
-            inclusionSegmentedControl.setTitle(TranslatableStrings.Exclude, forSegmentAt: 0)
-            inclusionSegmentedControl.setTitle(TranslatableStrings.Include, forSegmentAt: 1)
-            inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? 1 : 0
+            //inclusionSegmentedControl.setTitle(TranslatableStrings.Exclude, forSegmentAt: 0)
+            //inclusionSegmentedControl.setTitle(TranslatableStrings.Include, forSegmentAt: 1)
+            inclusionSegmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
+            inclusionSegmentedControl.setImage(UIImage.init(named: "OKBlue"), forSegmentAt: Constants.SegmentedControlIndex.Included)
+            inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? Constants.SegmentedControlIndex.Included: Constants.SegmentedControlIndex.Excluded
         }
     }
     
@@ -47,7 +61,7 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
     
     var shouldInclude = false {
         didSet {
-            inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? 1 : 0
+            inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? Constants.SegmentedControlIndex.Included: Constants.SegmentedControlIndex.Excluded
         }
     }
     

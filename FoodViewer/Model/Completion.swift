@@ -14,7 +14,7 @@ public struct Completion: Hashable {
     
     var category: CompletionCategory = .productName
     
-    func description() -> String {
+    var description: String {
         return OFFplists.manager.translateStates(OFF.JSONkey(for: self), language:Locale.preferredLanguages[0])
     }
     
@@ -31,5 +31,32 @@ public struct Completion: Hashable {
     init(_ category: CompletionCategory, isCompleted value:Bool) {
         self.category = category
         self.value = value
+    }
+    
+    var ready: String {
+        switch self.category {
+        case .productName, .brands, .quantity, .packaging, .ingredients, .categories, .expirationDate, .nutritionFacts:
+            return TranslatableStrings.Set
+        case .photosUploaded, .photosValidated:
+            return TranslatableStrings.Done
+        }
+    }
+    
+    var notReady: String {
+        switch self.category {
+        case .productName, .brands, .quantity, .packaging, .ingredients, .categories, .expirationDate, .nutritionFacts:
+            return TranslatableStrings.NotSet
+        case .photosUploaded, .photosValidated:
+            return TranslatableStrings.NotDone
+        }
+    }
+
+    var cleanedState: String? {
+        var elements = self.description.characters.split(separator: " ").map(String.init)
+        if elements.count > 0 {
+            elements.remove(at: elements.count - 1)
+            return elements.joined(separator: " ")
+        }
+        return nil
     }
 }

@@ -27,12 +27,14 @@ public enum Tags : Equatable {
     
     func description() -> String {
         switch self {
-        case .undefined: return NSLocalizedString("unknown", comment: "Text in a TagListView, when the field in the json was not present.")
-        case .empty: return NSLocalizedString("none", comment: "Text in a TagListView, when the json provided an empty string.")
+        case .undefined:
+            return TranslatableStrings.Unknown
+        case .empty:
+            return TranslatableStrings.NotFilled
         case .available:
-            return NSLocalizedString("available", comment: "Text in a TagListView, when tags are available the product data.")
+            return TranslatableStrings.Available
         case .notSearchable:
-            return NSLocalizedString("not searchable", comment: "Text in a search TagListView, when tags can not be set up.")
+            return TranslatableStrings.NotSearchable
         }
     }
     

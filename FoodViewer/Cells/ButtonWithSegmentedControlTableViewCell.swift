@@ -35,13 +35,7 @@ class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
     var buttonText: String? = nil {
         didSet {
             if let validText = buttonText {
-                var elements = validText.characters.split(separator: " ").map(String.init)
-                if elements.count > 0 {
-                    segmentedControl.setTitle("not " + elements.last!, forSegmentAt: 0)
-                    segmentedControl.setTitle(elements.last, forSegmentAt: 1)
-                    elements.remove(at: elements.count - 1)
-                    button.setTitle(elements.joined(separator: " "), for: .normal)
-                }
+                button.setTitle(validText, for: .normal)
             } else {
                 if editMode {
                     button.setTitle(TranslatableStrings.SelectCompletionStatus, for: .normal)
@@ -52,6 +46,22 @@ class ButtonWithSegmentedControlTableViewCell: UITableViewCell {
         }
     }
     
+    var firstSegmentedControlTitle: String? = nil {
+        didSet {
+            if let validText = firstSegmentedControlTitle {
+                segmentedControl.setTitle(validText, forSegmentAt: 0)
+            }
+        }
+    }
+    
+    var secondSegmentedControlTitle: String? = nil {
+        didSet {
+            if let validText = secondSegmentedControlTitle {
+                segmentedControl.setTitle(validText, forSegmentAt: 1)
+            }
+        }
+    }
+
     var editMode: Bool = false {
         didSet {
             button.isEnabled = editMode

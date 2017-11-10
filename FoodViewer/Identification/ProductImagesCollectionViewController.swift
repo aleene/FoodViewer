@@ -377,7 +377,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                             // set the main language button as the anchor of the popOver
                             ppc.permittedArrowDirections = .any
                             // I need the button coordinates in the coordinates of the current controller view
-                            let anchorFrame = button.convert(button.bounds, to: self.view)
+                            let anchorFrame = button.convert(button.bounds, to: self.collectionView)
                             ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                             ppc.delegate = self
                             

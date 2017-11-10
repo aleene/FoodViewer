@@ -95,7 +95,8 @@ class OFFUpdate {
         
         let interfaceLanguageCode = Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
 
-        let languageCodeToUse = product!.primaryLanguageCode != nil ? product!.primaryLanguageCode! : interfaceLanguageCode
+        // The OFF interface assumes that values are in english
+        let languageCodeToUse = "en"
 
         guard product != nil else { return .failure("OFFUpdate: No product defined") }
 

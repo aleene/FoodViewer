@@ -52,9 +52,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 selectedProduct = product
                 tableView.reloadData()
             //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
-            case .searchQuery(let query):
-                selectedProduct = query
-                tableView.reloadData()
+            case .searchQuery:
+                refreshInterface()
             //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
             default:
                 selectedProduct = nil
@@ -263,7 +262,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 if section == 0 {
                     switch products.fetchResultList[0] {
                     case .searchQuery(let query):
-                        return query.searchPairsWithArray().count
+                        if !query.isEmpty {
+                            return query.searchPairsWithArray().count }
+                        else {
+                            return 1
+                        }
                     default:
                         break
                     }
@@ -425,7 +428,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     
                 case .searchQuery(let query):
                     // What should appear in this cell depends on the search query element
-                    
                     let searchPairs = query.searchPairsWithArray()
                     if searchPairs.count > 0 && indexPath.row < searchPairs.count {
                         // Search labels with switches to include or exclude the label
@@ -444,19 +446,25 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         cell.width = tableView.frame.size.width
                         cell.accessoryType = .none
                         return cell
+                    } else {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                        cell.datasource = self
+                        cell.tag = 300 + indexPath.row
+                        cell.width = tableView.frame.size.width
+                        cell.scheme = ColorSchemes.normal
+                        return cell
                     }
 
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = 0
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.normal
-                    return cell!
-                }
+                    break
+            }
             //}
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
+        cell?.datasource = self
+        cell?.tag = indexPath.row
+        cell?.width = tableView.frame.size.width
+        cell?.scheme = ColorSchemes.normal
         return cell!
     }
     
@@ -468,7 +476,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             selectedRowType = tableStructure[index]
         }
         if !products.fetchResultList.isEmpty {
-            //if let validProductFetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
                 switch products.fetchResultList[indexPath.section] {
                 case .success(let product):
                     selectedProduct = product
@@ -479,7 +486,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     products.fetchSearchProductsForNextPage()
                 default: break
                 }
-            //}
         }
     }
     
@@ -595,6 +601,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                                     let array = search.searchPairsWithArray()
                                     if array.count > 0 && validIndex < array.count {
                                         ppvc.pageIndex = searchRowType(array[validIndex].0)
+                                    } else {
+                                        ppvc.pageIndex = .identification
                                     }
                                 }
                             }
@@ -663,16 +671,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? BarcodeScanViewController {
-            if products.fetchResultList.count > 0 {
-                tableView.reloadData() 
-            }
-        }
+        refreshInterface()
     }
     
-    func unwindForBack() {
-        tableView.reloadData()
-    }
+    //func unwindForBack() {
+     //   tableView.reloadData()
+    //}
     
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
@@ -841,7 +845,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func searchLoaded(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
-            startInterface(at:index)
+            startInterface(at:index >= 0 ? index : 0)
         }
     }
 
@@ -856,8 +860,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
-    func showPopOver() {
-    }
+    //func showPopOver() {
+    //}
     
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
@@ -902,6 +906,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         super.viewWillAppear(animated)
         // addGesture()
         // setTitle()
+        // make sure we show the right tab
+        if products.list == .recent {
+            switchToTab(withIndex: 0)
+        } else {
+            switchToTab(withIndex: 1)
+        }
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
@@ -938,10 +948,11 @@ extension ProductTableViewController: SearchHeaderDelegate {
     
     func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
         guard products.fetchResultList.count > 0 else { return }
-        let result = products.fetchResultList[0]
-        switch result {
+        switch products.fetchResultList[0] {
         case .searchQuery(let query):
             query.clear()
+            products.reloadAll()
+            tableView.reloadData()
         default:
             break
         }
@@ -986,8 +997,7 @@ extension ProductTableViewController: TagListViewDataSource {
             case .searchQuery:
                 switch products.fetchResultList[0] {
                 case .searchQuery(let query):
-                    // print(tagListView.tag, product.searchPairsWithArray())
-                    return query.searchPairsWithArray()[tagListView.tag - 300].1.count
+                    return !query.isEmpty ? query.searchPairsWithArray()[tagListView.tag - 300].1.count : 1
                 default:
                     break
                 }
@@ -1010,13 +1020,12 @@ extension ProductTableViewController: TagListViewDataSource {
             return fetchStatus.description()
         } else if tagListView.tag >= 300 {
             switch products.fetchResultList[0] {
-            case .searchQuery:
-                switch products.fetchResultList[0] {
-                case .searchQuery(let query):
+            case .searchQuery(let query):
+                if query.isEmpty {
+                    return "Setup search query"
+                } else {
                     let array = query.searchPairsWithArray()[tagListView.tag - 300].1
                     return array[index]
-                default:
-                    break
                 }
             default:
                 break

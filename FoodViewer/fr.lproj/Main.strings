@@ -62,7 +62,7 @@
 "gMe-4s-6cz.title" = "Produits";
 
 /* Class = "UITextField"; placeholder = "Enter barcode"; ObjectID = "gZ8-Lt-wU3"; */
-"gZ8-Lt-wU3.placeholder" = "Entre code barre";
+"gZ8-Lt-wU3.placeholder" = "Saisis code barre";
 
 /* Class = "UISegmentedControl"; h25-t4-qRW.segmentTitles[0] = "100 mg/ml"; ObjectID = "h25-t4-qRW"; */
 "h25-t4-qRW.segmentTitles[0]" = "Premier";

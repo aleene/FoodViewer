@@ -20,7 +20,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Merken klaar</string>
+				<string>Merken ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -64,7 +64,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Categorieën klaar</string>
+				<string>Categorieën ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -108,7 +108,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Eigenschappen klaar</string>
+				<string>Eigenschappen ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -262,7 +262,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Ingrediënten klaar</string>
+				<string>Ingrediënten ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -306,7 +306,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Voedingswaarden klaar</string>
+				<string>Voedingswaarden ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -350,7 +350,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Verpakking klaar</string>
+				<string>Verpakking ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -394,7 +394,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Foto's uploaden</string>
+				<string>Foto&apos;s uploaden</string>
 			</array>
 		</dict>
 	</dict>
@@ -416,7 +416,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Te controleren foto's</string>
+				<string>Te controleren foto&apos;s</string>
 			</array>
 		</dict>
 	</dict>
@@ -438,7 +438,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Geüploade foto's</string>
+				<string>Foto&apos;s geüpload</string>
 			</array>
 		</dict>
 	</dict>
@@ -460,7 +460,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Foto's gecontroleerd</string>
+				<string>Foto&apos;s gecontroleerd</string>
 			</array>
 		</dict>
 	</dict>
@@ -482,7 +482,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Productnaam klaar</string>
+				<string>Productnaam ingevuld</string>
 			</array>
 		</dict>
 	</dict>
@@ -526,7 +526,7 @@
 			</array>
 			<key>nl</key>
 			<array>
-				<string>Hoeveelheid klaar</string>
+				<string>Hoeveelheid ingevuld</string>
 			</array>
 		</dict>
 	</dict>

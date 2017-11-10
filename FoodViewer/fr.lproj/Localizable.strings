@@ -36,6 +36,9 @@
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
 "Authentication with TouchID failed. Specify your password" = "Authentication avec TouchID échoué, spécifie ton mot de passe:";
 
+/* Text in a TagListView, when tags are available the product data. */
+"Available" = "Disponible";
+
 /* String in Segmented Control to indicate the second best nutritional score level */
 "B" = "B";
 
@@ -158,13 +161,13 @@
 "Enter city name" = "Nom de la ville";
 
 /* placeholder in a textField where the user can specify a search for contributors. */
-"Enter contributor name to search for" = "Entre nom du contributeur à chercher";
+"Enter contributor name to search for" = "Saisis nom du contributeur";
 
 /* Placeholder text for field where user should enter a country name. */
 "Enter country name" = "Nom du pays";
 
 /* The user can tap the button to enter a date. */
-"Enter date" = "Entre date";
+"Enter date" = "Saisis date";
 
 /* Placeholder text for field where user should enter a postal code. */
 "Enter postal code" = "Code postal";
@@ -173,7 +176,7 @@
 "Enter shop name" = "Nom du magasin";
 
 /* Placeholder string to explain the purpose of a barcode search in a tableview cell */
-"Enter start numbers of barcode." = "Entre barcode";
+"Enter start numbers of barcode." = "Saisis code barre";
 
 /* Placeholder text for field where user should enter a street name. */
 "Enter street name" = "Nom de la rue";
@@ -191,7 +194,7 @@
 "Error: Not a valid OFF JSON" = "Erreur: pas un JSON valide";
 
 /* Error message when the json input file does not contain any information */
-"Error: Not a valid Search array" = "Erreur: pas un recherche valide";
+"Error: Not a valid Search array" = "Erreur: pas un requete valide";
 
 /* A JSON status which is not supported. */
 "Error: Other (>1) result status" = "Erreur: autre (>1) result status in json";
@@ -348,7 +351,7 @@
 "No quantity available" = "Pas des quantités disponible";
 
 /* String in TableView section when a search is not defined. */
-"No search defined" = "Recherche pas défini";
+"No search defined" = "Requete pas défini";
 
 /* String in TableView section when a search is not yet carried out. */
 "No search result" = "Pas encore de résultats";
@@ -361,6 +364,18 @@
 
 /* Alert title, to indicate product should NOT be added */
 "Nope" = "Beuh";
+
+/* Generic text if an action has not yet been done. */
+"Not done" = "Pas fait";
+
+/* Text in a TagListView, when the json provided an empty string. */
+"Not filled" = "Pas saisi";
+
+/* Text in a search TagListView, when tags can not be set up. */
+"Not searchable" = "Pas recherchable";
+
+/* Generic text if a value has not yet been set. */
+"Not set" = "Pas définie";
 
 /* Generic text to indicate the nutrients of a product. */
 "Nutrients" = "Nutriments";
@@ -541,16 +556,16 @@
 "Search Text" = "Texte à chercher";
 
 /* String show to explain the purpose of a search field in a tableview cell */
-"Search in name, generic name, label, brand." = "Cherche dans nom, nom générique, label, marque";
+"Search in name, generic name, label, brand." = "Saisis un mot pour chercher dans nom, nom générique, label, marque";
 
 /* String presented in a tagView if the search query is currently being loaded */
-"Search loading" = "Chargement recherche";
+"Search loading" = "Chargement requete";
 
 /* String presented in a tagView for the search query */
-"Search query" = "Définition de recherche";
+"Search query" = "Définition de requete";
 
 /* Indicating that a search has been defined */
-"Search set up" = "Recherche définie";
+"Search set up" = "Requete définie";
 
 /* Title of a Tableview controller, indicating a search is in progress. */
 "Searching" = "Cherchant";
@@ -561,7 +576,7 @@
 "Select" = "Choisis";
 
 /* Title of a picker row where the user has to select an element in the picker. */
-"Select Completion Status" = "Sélectionne état de complétion";
+"Select Completion Status" = "Saisis état de complétion";
 
 /* First item in a pickerView, indicating what the user should do */
 "Select role" = "Choisit role";
@@ -581,6 +596,9 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portion";
 
+/* Title of a segment in a segmentedControl indicating that the corresding field has been set. */
+"Set" = "Définie";
+
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Défini compte";
 
@@ -597,7 +615,7 @@
 "Specify your credentials for OFF?" = "Spécifie compte et mot de passe pour OFF";
 
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
-"Start Search?" = "Commence Recherche?";
+"Start Search?" = "Commence Requete?";
 
 /* Generic string to indicate the stores where the product is sold. */
 "Stores" = "Magasins";
@@ -622,6 +640,9 @@
 /* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
 "Undefined" = "Pas defini";
 
+/* Text in a TagListView, when the field in the json was not present. */
+"Unknown" = "Inconnu";
+
 /* String presented in a tagView if an image is being uploaded */
 "Uploading image" = "Charger image";
 
@@ -634,9 +655,6 @@
 
 /* Title of a tableView section, which lets the user set warnings */
 "Warnings" = "Avertissements";
-
-/* Text in a TagListView, when tags are available the product data. */
-"available" = "disponible";
 
 /* Generic string to indicate the completion states of a product. */
 "contributor name not set" = "nom contributeur pas défini";
@@ -686,18 +704,11 @@
 /* tag of cell when no tags are available
    Text for a cell, when no status title has been provided, such as 'completed', etc.
    Text for language of product, when there is no language defined.
-   Text in a TagListView, when the json provided an empty string.
    Unitless */
 "none" = "aucun";
 
-/* Text in a search TagListView, when tags can not be set up. */
-"not searchable" = "pas recherchable";
-
 /* Text of a button, indicating a contributor role is not selected */
-"not selected" = "pas sélectionné";
-
-/* Generic text if q vqlue hqs not yet been set. */
-"not set" = "pas spécifié";
+"not selected" = "Pas saisi";
 
 /* description() text if the nutrition data on the package is indicated per serving. */
 "nutrition data indicated per serving" = "info nutritionnelle indiqué par portion";
@@ -722,9 +733,6 @@
 
 /* tag of cell when no date was in off */
 "undefined" = "non défini";
-
-/* Text in a TagListView, when the field in the json was not present. */
-"unknown" = "inconnu";
 
 /* Image to indicate that the user who created the product. */
 "❤️" = "❤️";

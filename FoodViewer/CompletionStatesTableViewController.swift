@@ -120,49 +120,62 @@ class CompletionStatesTableViewController: UITableViewController {
         if query != nil {
             switch indexPath.section {
             case 0:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCompletionState, for: indexPath) as! ButtonWithSegmentedControlTableViewCell
-                cell.delegate = self
-                cell.editMode = editMode
-                cell.isCompleted = query?.completion?.value ?? true
-                cell.buttonText = query?.completion?.description()
-                return cell
+                if query?.completion != nil || editMode {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCompletionState, for: indexPath) as! ButtonWithSegmentedControlTableViewCell
+                    cell.delegate = self
+                    cell.editMode = editMode
+                    cell.isCompleted = query?.completion?.value ?? true
+                    cell.buttonText = query?.completion?.cleanedState
+                    cell.firstSegmentedControlTitle = query?.completion?.notReady
+                    cell.secondSegmentedControlTitle = query?.completion?.ready
+                    return cell
+                }
+                
             case 1:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetContributorRole, for: indexPath) as! TextFieldWithButtonTableViewCell
-                cell.delegate = self
-                cell.tag = indexPath.row // At the moment only 1 row is supported
-                cell.editMode = editMode
-                cell.username = query!.contributors.count > 0 ? query!.contributors[indexPath.row].name : nil
-                cell.buttonText = query!.contributors.count > 0 ? query!.contributors[indexPath.row].roles[0].description : nil
-                return cell
+                if query!.contributors.count > 0 || editMode {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetContributorRole, for: indexPath) as! TextFieldWithButtonTableViewCell
+                    cell.delegate = self
+                    cell.tag = indexPath.row // At the moment only 1 row is supported
+                    cell.editMode = editMode
+                    cell.username = query!.contributors.count > 0 ? query!.contributors[indexPath.row].name : nil
+                    cell.buttonText = query!.contributors.count > 0 ? query!.contributors[indexPath.row].roles[0].description : nil
+                    return cell
+                }
+                
             case 2:
                 if query!.type != .advanced {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetLastEditDate, for: indexPath) as! LastEditDateTableViewCell
-                    let formatter = DateFormatter()
-                    formatter.dateStyle = .medium
-                    formatter.timeStyle = .none
-                    // the lastEditDates array contains at least one date, if we arrive here
-                    cell.editMode = editMode
-                    cell.title = query!.lastEditDate != nil ? formatter.string(from: query!.lastEditDate!) : nil
-                    return cell
+                    if query!.lastEditDate != nil || editMode {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetLastEditDate, for: indexPath) as! LastEditDateTableViewCell
+                        let formatter = DateFormatter()
+                        formatter.dateStyle = .medium
+                        formatter.timeStyle = .none
+                        // the lastEditDates array contains at least one date, if we arrive here
+                        cell.editMode = editMode
+                        cell.title = query!.lastEditDate != nil ? formatter.string(from: query!.lastEditDate!) : nil
+                        return cell
+                    }
                 }
             case 3:
                 if query!.type != .advanced {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCreationDate, for: indexPath) as! ButtonTableViewCell
-                    let formatter = DateFormatter()
-                    formatter.dateStyle = .medium
-                    formatter.timeStyle = .none
-                    // the lastEditDates array contains at least one date, if we arrive here
-                    cell.editMode = editMode
-                    cell.title = query!.creationDate != nil ? formatter.string(from: query!.creationDate!) : nil
-                    return cell
+                    if query!.creationDate != nil || editMode {
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetCreationDate, for: indexPath) as! ButtonTableViewCell
+                        let formatter = DateFormatter()
+                        formatter.dateStyle = .medium
+                        formatter.timeStyle = .none
+                        // the lastEditDates array contains at least one date, if we arrive here
+                        cell.editMode = editMode
+                        cell.title = query!.creationDate != nil ? formatter.string(from: query!.creationDate!) : nil
+                        return cell
+                    }
                 }
             default:
                 break
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.datasource = self
             cell.width = tableView.frame.size.width
-            cell.tag = indexPath.row
+            cell.datasource = self
+            cell.editMode = editMode
+            cell.tag = indexPath.section
             return cell
         } else {
             if indexPath.section == 0 {
@@ -171,7 +184,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 let completion = product!.state.array[indexPath.row]
                 cell.state = completion.value
                 cell.tag = indexPath.row
-                cell.stateTitle = completion.description()
+                cell.stateTitle = completion.description
                 cell.searchString = OFF.searchKey(for: completion)
                 switch completion.category {
                 case .categories:
@@ -548,11 +561,12 @@ extension CompletionStatesTableViewController: TagListViewDataSource {
                 return 1
             }
         }
-        return count(Tags.notSearchable)
+        
+        return count(Tags.empty)
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        return Tags.notSearchable.description()
+        return Tags.empty.description()
     }
     
     

@@ -598,6 +598,8 @@ class OFFProducts {
                 NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
                     
                 fetchSearchProductsForNextPage()
+            } else {
+                allSearchFetchResultList = []
             }
             setCurrentProducts()
         }
@@ -667,7 +669,7 @@ class OFFProducts {
                     
                         self.setCurrentProducts()
                         let userInfo: [String:Any] = [Notification.SearchStringKey:"What to put here?",
-                                    Notification.SearchOffsetKey:(searchResult.1 - 1) * searchResult.2]
+                                    Notification.SearchOffsetKey:searchResult.1 * searchResult.2]
                         NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
                     case .loadingFailed(let error):
                         let userInfo = ["error":error]

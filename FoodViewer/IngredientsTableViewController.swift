@@ -187,7 +187,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if let tags = query?.ingredients {
                 return tags
             }
-            return .undefined
+            return .empty
         }
     }
     
@@ -297,6 +297,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             static let ShowIdentification = "Show Ingredients Image"
             static let SelectLanguage = "Show Ingredients Languages"
         }
+        struct Nib {
+            static let Identifier = ""
+        }
     }
     
     fileprivate struct TextConstants {
@@ -353,7 +356,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
-                cell.tagListView.normalColorScheme = ColorSchemes.error
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -362,7 +364,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.delegate = self
                 cell.editMode = editMode
                 cell.tag = indexPath.section
-                cell.tagListView.normalColorScheme = ColorSchemes.error
                 return cell
             }
             

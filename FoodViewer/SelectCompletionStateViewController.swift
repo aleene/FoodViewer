@@ -46,7 +46,7 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
         if row == 0 {
             return "none"
         } else {
-            return OFF.allCompletionStates[row - 1].description()
+            return OFF.allCompletionStates[row - 1].description
         }
     }
     

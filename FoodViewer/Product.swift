@@ -392,13 +392,14 @@ class FoodProduct {
         return Preferences.manager.showProductType
     }
 
-    var expirationDateString: String? = nil
-    
-    var expirationDate: Date? {
-        get {
-            return decodeDate(expirationDateString)
+    var expirationDateString: String? = nil {
+        didSet {
+            expirationDate = decodeDate(expirationDateString)
         }
     }
+    
+    var expirationDate: Date? = nil
+
 
     fileprivate func decodeDate(_ date: String?) -> Date? {
         if let validDate = date {
@@ -432,7 +433,11 @@ class FoodProduct {
                 } else if validDate.range( of: "....", options: .regularExpression) != nil {
                     dateFormatter.dateFormat = "yyyy"
                     return dateFormatter.date(from: validDate)
+                } else if validDate.range( of: ". .... ....", options: .regularExpression) != nil {
+                    dateFormatter.dateFormat = "dd MMM. yyyy"
+                    return dateFormatter.date(from: validDate)
                 }
+
                 print("Date '\(validDate)' could not be recognized")
             }
         }

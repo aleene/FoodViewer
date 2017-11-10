@@ -356,7 +356,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
-                cell.tagListView.normalColorScheme = ColorSchemes.error
                 return cell
             } else {
                 let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
@@ -479,6 +478,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                         cell.productImage = nil
                         cell.editMode = editMode
+                        cell.delegate = self
                         cell.tag = indexPath.section
                         return cell
                     } else {
@@ -1417,7 +1417,10 @@ extension NutrientsTableViewController: TagListViewDataSource {
             switch currentProductSection {
             case .nutritionImage, .nutritionFacts:
                 return 1
-            case .servingSizeSearch, .nutritionFactsSearch, .imageSearch, .perUnitSearch:
+            case .servingSizeSearch, .imageSearch, .perUnitSearch:
+                return 1
+            case .nutritionFactsSearch:
+                tagListView.normalColorScheme = ColorSchemes.none
                 return 1
             default:
                 break
@@ -1437,7 +1440,7 @@ extension NutrientsTableViewController: TagListViewDataSource {
         case .nutritionFactsSearch:
             if query != nil {
                 if query!.allNutrimentsSearch.isEmpty {
-                    return "none"
+                    return TranslatableStrings.NotFilled
                 } else {
                     if tagListView.tag >= 0 && tagListView.tag < query!.allNutrimentsSearch.count {
                         return query!.allNutrimentsSearch[tagListView.tag].key

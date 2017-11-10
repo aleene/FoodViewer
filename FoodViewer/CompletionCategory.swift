@@ -19,5 +19,4 @@ enum CompletionCategory: Int {
     case nutritionFacts
     case photosUploaded
     case photosValidated
-
 }

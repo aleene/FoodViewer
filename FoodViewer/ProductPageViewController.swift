@@ -13,6 +13,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
 // MARK: - Interface Actions
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
+    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
+        
+    }
+    
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem!
     
     @IBAction func actionButtonTapped(_ sender: UIBarButtonItem) {
@@ -600,10 +606,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         guard product != nil else { return }
         if !product!.contains(expirationDate: expirationDate) {
             initUpdatedProductWith(product: product!)
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            formatter.timeStyle = .none
-            updatedProduct?.expirationDateString = formatter.string(from: expirationDate)
+            updatedProduct?.expirationDate = expirationDate
             saveUpdatedProduct()
         }
     }
@@ -1153,6 +1156,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         OFFProducts.manager.search(string, in:component)
     }
 
+    func searchStarted() {
+        performSegue(withIdentifier: "Unwind For Cancel", sender: self)
+    }
     // MARK: - ViewController Lifecycle
         
     override func viewDidLoad() {
@@ -1177,6 +1183,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.searchStarted), name:.SearchStarted, object:nil)
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
