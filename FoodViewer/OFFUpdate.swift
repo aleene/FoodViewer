@@ -337,9 +337,9 @@ class OFFUpdate {
         }
 
         switch product!.countriesOriginal {
-        case .available(let validCountries):
-            let string = validCountries.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",")
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + string )
+        case .available:
+            let list = product!.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         default:
             break
