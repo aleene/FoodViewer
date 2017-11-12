@@ -35,7 +35,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
             //print(self.traitCollection)
             //if self.traitCollection.horizontalSizeClass == .compact {
                 segmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
-                segmentedControl.setImage(UIImage.init(named: "OKBlue"), forSegmentAt: Constants.SegmentedControlIndex.Included)
+                segmentedControl.setImage(UIImage.init(named: "CheckMark"), forSegmentAt: Constants.SegmentedControlIndex.Included)
             //} else {0
              //   segmentedControl.setTitle(Constants.SegmentedControlStrings.Left, forSegmentAt: Constants.SegmentedControlIndex.Excluded)
              //   segmentedControl.setTitle(Constants.SegmentedControlStrings.Right, forSegmentAt: Constants.SegmentedControlIndex.Included)

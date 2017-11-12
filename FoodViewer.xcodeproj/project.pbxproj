@@ -74,6 +74,7 @@
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		513E00981F867F2D003153D4 /* TagListViewLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */; };
 		51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */; };
+		51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */; };
 		5148F0F11DD3291500EF1B67 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F01DD3291500EF1B67 /* Language.swift */; };
 		5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */; };
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
@@ -343,6 +344,7 @@
 		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewLabelTableViewCell.swift; sourceTree = "<group>"; };
 		51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectLanguageAndImageTypeViewController.swift; path = Select/SelectLanguageAndImageTypeViewController.swift; sourceTree = "<group>"; };
+		51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewAddImageTableViewCell.swift; path = Cells/TagListViewAddImageTableViewCell.swift; sourceTree = "<group>"; };
 		5148F0F01DD3291500EF1B67 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
 		5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectExpirationDateViewController.swift; sourceTree = "<group>"; };
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
@@ -992,6 +994,7 @@
 		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
 			isa = PBXGroup;
 			children = (
+				51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */,
 				51FB32301CF75B4500A17312 /* SetWarningTableViewCell.swift */,
 				51AFB0081C734CD900598444 /* IdentificationCells */,
 				517AAD4B1C7DB5B800B12F3C /* IngredientsCell */,
@@ -1289,6 +1292,7 @@
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
 				518B70201EA2779D00AB35CC /* ProductType.swift in Sources */,
+				51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */,
 				517907FC1F8F6CDC0017FCA0 /* ContributorRole.swift in Sources */,
 				51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */,
 				51FB322F1CF7589700A17312 /* AllergenWarningsTableViewController.swift in Sources */,

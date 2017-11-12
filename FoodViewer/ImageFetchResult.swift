@@ -18,7 +18,7 @@ enum ImageFetchResult {
     case noImageAvailable
     case uploading
     
-    func description() -> String {
+    public var description: String {
         switch self {
         case .available: return NSLocalizedString("Image is available", comment: "String presented in a tagView if the image is available")
         case .success: return NSLocalizedString("Data is loaded", comment: "String presented in a tagView if the data has been loaded")

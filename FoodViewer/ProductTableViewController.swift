@@ -275,6 +275,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .more, .loadingFailed:
                 // allow a cell with a button
                 return 1
+            case .searchLoading:
+                return 1
             default:
                 break
             }
@@ -454,7 +456,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         cell.scheme = ColorSchemes.normal
                         return cell
                     }
-
+                case .searchLoading:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+                    cell.datasource = self
+                    cell.tag = 4
+                    cell.width = tableView.frame.size.width
+                    cell.accessoryType = .none
+                    return cell
+                    
                 default:
                     break
             }
@@ -557,6 +566,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     headerView.title = TranslatableStrings.NoSearchDefined
                 }
                 return headerView
+            case .searchLoading:
+                label.text = TranslatableStrings.Searching
             default:
                 label.text = products.fetchResultList[section].description()
             }
@@ -671,7 +682,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
-        refreshInterface()
+        startInterface(at:0)
     }
     
     //func unwindForBack() {
@@ -1018,11 +1029,20 @@ extension ProductTableViewController: TagListViewDataSource {
         } else if tagListView.tag == 2 {
             let fetchStatus = ProductFetchStatus.loadingFailed(TranslatableStrings.LoadingFailed)
             return fetchStatus.description()
+        } else if tagListView.tag == 4 {
+            if products.fetchResultList.count > 0 {
+                switch products.fetchResultList[1] {
+                case .searchLoading:
+                    return TranslatableStrings.Loading
+                default:
+                    break
+                }
+            }
         } else if tagListView.tag >= 300 {
             switch products.fetchResultList[0] {
             case .searchQuery(let query):
                 if query.isEmpty {
-                    return "Setup search query"
+                    return TranslatableStrings.SetupQuery
                 } else {
                     let array = query.searchPairsWithArray()[tagListView.tag - 300].1
                     return array[index]

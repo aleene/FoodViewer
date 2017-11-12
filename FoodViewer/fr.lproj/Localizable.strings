@@ -304,6 +304,9 @@
 /* String presented in a tagView if there are more results available */
 "Load more results" = "Charger plus";
 
+/* Message as tag when the search is loading. */
+"Loading" = "Cherchant";
+
 /* Error message when the product failed to load. */
 "Loading Failed" = "Chargement échoué";
 
@@ -596,11 +599,14 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portion";
 
-/* Title of a segment in a segmentedControl indicating that the corresding field has been set. */
+/* Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping. */
 "Set" = "Définie";
 
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Défini compte";
+
+/* Title of a tableview header  indicating that the corresding field has been set. */
+"Setup query" = "Définie requête";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Sodium";

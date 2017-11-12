@@ -13,11 +13,11 @@ class IdentificationTableViewController: UITableViewController {
 
     
     private struct TextConstants {
-        static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
-        static let ViewControllerTitle = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
-        static let NoCommonName = NSLocalizedString("No common name available", comment: "String if no common name is available")
-        static let NoName = NSLocalizedString("No name available", comment: "String if no name is available")
-        static let NoQuantity = NSLocalizedString("No quantity available", comment: "String if no quantity is available")
+        static let ShowIdentificationTitle = TranslatableStrings.Image
+        static let ViewControllerTitle = TranslatableStrings.Identification
+        static let NoCommonName = TranslatableStrings.NoGenericNameAvailable
+        static let NoName = TranslatableStrings.NoName
+        static let NoQuantity = TranslatableStrings.NoQuantityAvailable
     }
     
     fileprivate var tableStructure: [SectionType] = []
@@ -343,10 +343,10 @@ class IdentificationTableViewController: UITableViewController {
             static let BarcodeEdit = "Barcode Edit Cell"
             static let Quantity = "Quantity Cell"
             static let TagListView = "TagListView Cell"
-            static let Packaging = "Identification Packaging Cell"
+            // static let Packaging = "Identification Packaging Cell"
             static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
             static let Image = "Identification Image Cell"
-            static let NoIdentificationImage = "No Image Cell"
+            static let TagListViewAddImage = "Identification TagListView Add Image Cell"
         }
         struct SegueIdentifier {
             static let ShowIdentificationImage = "Show Identification Image"
@@ -384,7 +384,7 @@ class IdentificationTableViewController: UITableViewController {
                 cell.delegate = self
                 cell.editMode = editMode
                 cell.tag = indexPath.section
-                cell.barcodeTextField.placeholder = NSLocalizedString("Enter start numbers of barcode.", comment: "Placeholder string to explain the purpose of a barcode search in a tableview cell")
+                cell.barcodeTextField.placeholder = TranslatableStrings.EnterBarcode
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -411,7 +411,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let validQueryText = query?.text {
                     cell.name =  validQueryText
                 } else {
-                    cell.name =  editMode ? nil : NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
+                    cell.name =  editMode ? nil : TranslatableStrings.SearchInNameEtc
                 }
                 cell.tag = indexPath.section
                 cell.editMode = query!.type == .simple ? false : editMode
@@ -467,7 +467,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             return cell
 
-        case .brands:
+        case .brands, .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -497,15 +497,16 @@ class IdentificationTableViewController: UITableViewController {
             cell.allowInclusionEdit = query!.type != .simple
             cell.inclusion = OFFProducts.manager.searchQuery?.languages.1 ?? true
             return cell
-        case .packaging:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Packaging, for: indexPath) as! TagListViewTableViewCell
+        /*
+            case .packaging:
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
             cell.tag = indexPath.section
             return cell
-            
+        */
         case .packagingSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
@@ -532,106 +533,65 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .image:
-            // are there updated images available?
-            if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-                // is the image available for the current language?
-                if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                    cell.editMode = editMode
-                    cell.productImage = image
-                    cell.delegate = self
-                    return cell
-                // in non-editMode show the primary language image
-                } else if !editMode, let primaryLanguageCode = delegate!.updatedProduct!.primaryLanguageCode, let image = delegate!.updatedProduct!.frontImages[primaryLanguageCode]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                    cell.editMode = editMode
-                    cell.productImage = image
-                    cell.delegate = self
-                    return cell
-                // no image in the two languageCodes is available
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    searchResult = TranslatableStrings.NoImageInTheRightLanguage
-                    return cell!
-                }
-            // in all the front images find the display images
-            } else if !product!.frontImages.isEmpty {
-                    // is the data for the current language available?
-                    // then fetch the image
-                if let result = product!.frontImages[currentLanguageCode!]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                        cell.productImage = product!.frontImages[currentLanguageCode!]?.display?.image
-                        cell.editMode = editMode
-                        cell.delegate = self
-                        return cell
-                    default:
-                        searchResult = result.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                        cell?.datasource = self
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        return cell!
-                    }
-                // try to use the image corresponding to the primary language
-                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.frontImages[primaryLanguageCode]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                        cell.productImage = product!.frontImages[primaryLanguageCode]?.display?.image
-                        cell.editMode = editMode
-                        cell.delegate = self
-                        return cell
-                    default:
-                        searchResult = result.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                        cell?.datasource = self
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        return cell!
-                    }
-                // no image is available in the currentLanguage or the primary language
-                } else {
-                    if editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                        cell.productImage = nil
-                        cell.editMode = editMode
-                        cell.delegate = self
-                        return cell
-                    } else {
-                        // image could not be found (yet)
-                        searchResult = ImageFetchResult.noImageAvailable.description()
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                        cell?.datasource = self
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        return cell!
-                    }
-                }
+            if currentImage != nil {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                cell.editMode = editMode
+                cell.productImage = currentImage
+                cell.delegate = self
+                return cell
             } else {
-                if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                    cell.productImage = nil
-                    cell.editMode = editMode
-                    cell.delegate = self
-                    return cell
-                } else {
-                    searchResult = ImageFetchResult.noImageAvailable.description()
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoIdentificationImage, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    return cell!
-                }
+                searchResult = ImageFetchResult.noImageAvailable.description
+                // Show a tag with the option to set an image
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.scheme = ColorSchemes.error
+                cell.editMode = editMode
+                cell.datasource = self
+                cell.delegate = self
+                cell.tag = indexPath.section
+                cell.accessoryType = .none
+                return cell
             }
 
         }
     }
     
+    
+    private var currentImage: UIImage? {
+        // are there any updated front images?
+        if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
+            // Is there an updated image corresponding to the current language
+            if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]!.display?.image {
+                return image
+            }
+            
+            // try the regular front images
+        } else if !product!.frontImages.isEmpty {
+            // is the data for the current language available?
+            if let result = product!.frontImages[currentLanguageCode!]?.display?.fetch() {
+                switch result {
+                case .available:
+                    return product!.frontImages[currentLanguageCode!]?.display?.image
+                default:
+                    break
+                }
+                // fall back to the primary languagecode nutrition image
+                // if we are NOT in edit mode
+            } else if !editMode,
+                let primaryLanguageCode = product!.primaryLanguageCode,
+                let result = product!.frontImages[primaryLanguageCode]?.display?.fetch() {
+                switch result {
+                case .available:
+                    return product!.frontImages[primaryLanguageCode]?.display?.image
+                default:
+                    break
+                }
+            }
+        }
+        // No relevant image is available
+        return nil
+    }
+
     func changeLanguage() {
         // set the next language in the array
         if let availableLanguages = product?.languageCodes {
@@ -919,6 +879,41 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
+    func takePhoto() {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+    }
+    
+    func selectCameraRollPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .savedPhotosAlbum
+            
+            
+            imagePicker.delegate = self
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+    }
+
     func imageUploaded(_ notification: Notification) {
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
@@ -1061,36 +1056,11 @@ extension IdentificationTableViewController: ProductNameCellDelegate {
 extension IdentificationTableViewController: ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
-        // opens the camera and allows the user to take an image and crop
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.delegate = self
-            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
-            imagePicker.sourceType = .camera
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.permittedArrowDirections = .any
-            }
+        takePhoto()
         }
-    }
+    
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum
-            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.sourceView = self.view
-                popoverPresentationController.permittedArrowDirections = .any
-            }
-        }
+        selectCameraRollPhoto()
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
@@ -1101,6 +1071,21 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
     }
     
 }
+
+// MARK: - TagListViewAddImageCellDelegate functions
+
+extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
+    
+    func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCamera button:UIButton) {
+        takePhoto()
+    }
+    
+    func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
+        selectCameraRollPhoto()
+    }
+    
+}
+
 
 
 // MARK: - TagListViewSegmentedControlCellDelegate Functions

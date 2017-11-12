@@ -50,7 +50,7 @@ class SetNutritionScoreTableViewCell: UITableViewCell {
             //inclusionSegmentedControl.setTitle(TranslatableStrings.Exclude, forSegmentAt: 0)
             //inclusionSegmentedControl.setTitle(TranslatableStrings.Include, forSegmentAt: 1)
             inclusionSegmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
-            inclusionSegmentedControl.setImage(UIImage.init(named: "OKBlue"), forSegmentAt: Constants.SegmentedControlIndex.Included)
+            inclusionSegmentedControl.setImage(UIImage.init(named: "CheckMark"), forSegmentAt: Constants.SegmentedControlIndex.Included)
             inclusionSegmentedControl.selectedSegmentIndex = shouldInclude ? Constants.SegmentedControlIndex.Included: Constants.SegmentedControlIndex.Excluded
         }
     }

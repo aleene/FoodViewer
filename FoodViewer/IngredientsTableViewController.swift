@@ -291,7 +291,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             static let TagListView = "TagListView Cell"
             static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
             static let Image = "Ingredients Image Cell"
-            static let NoImage = "No Image Cell"
+            //static let NoImage = "No Image Cell"
+            static let TagListViewAddImage = "Ingredients TagListView Add Image Cell"
         }
         struct SegueIdentifier {
             static let ShowIdentification = "Show Ingredients Image"
@@ -429,6 +430,26 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
         
         case .image:
+            if currentImage != nil {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
+                cell.editMode = editMode
+                cell.productImage = currentImage
+                cell.delegate = self
+                return cell
+            } else {
+                searchResult = ImageFetchResult.noImageAvailable.description
+                // Show a tag with the option to set an image
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.scheme = ColorSchemes.error
+                cell.editMode = editMode
+                cell.datasource = self
+                cell.delegate = self
+                cell.tag = indexPath.section
+                cell.accessoryType = .none
+                return cell
+            }
+            /*
             // are there any updated images?
             if delegate?.updatedProduct != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
                 // is there an updated image for the current language?
@@ -467,7 +488,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         cell.delegate = self
                         return cell
                     default:
-                        searchResult = result.description()
+                        searchResult = result.description
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
@@ -485,7 +506,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         cell.delegate = self
                         return cell
                     default:
-                        searchResult = result.description()
+                        searchResult = result.description
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
@@ -503,7 +524,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         return cell
                     } else {
                         // image could not be found (yet)
-                        searchResult = ImageFetchResult.noImageAvailable.description()
+                        searchResult = ImageFetchResult.noImageAvailable.description
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                         cell?.datasource = self
                         cell?.tag = indexPath.section
@@ -521,7 +542,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     cell.delegate = self
                     return cell
                 } else {
-                    searchResult = ImageFetchResult.noImageAvailable.description()
+                    searchResult = ImageFetchResult.noImageAvailable.description
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
                     cell?.datasource = self
                     cell?.tag = indexPath.section
@@ -530,9 +551,45 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     return cell!
                 }
             }
+             */
         }
     }
     
+    private var currentImage: UIImage? {
+        // are there any updated ingredient images?
+        if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty  {
+            // Is there an updated image corresponding to the current language
+            if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]!.display?.image {
+                return image
+            }
+            
+            // try the regular ingredient images
+        } else if !product!.ingredientsImages.isEmpty {
+            // is the data for the current language available?
+            if let result = product!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
+                switch result {
+                case .available:
+                    return product!.ingredientsImages[currentLanguageCode!]?.display?.image
+                default:
+                    break
+                }
+                // fall back to the primary languagecode ingredient image
+                // if we are NOT in edit mode
+            } else if !editMode,
+                let primaryLanguageCode = product!.primaryLanguageCode,
+                let result = product!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
+                switch result {
+                case .available:
+                    return product!.ingredientsImages[primaryLanguageCode]?.display?.image
+                default:
+                    break
+                }
+            }
+        }
+        // No relevant image is available
+        return nil
+    }
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (currentProductSection, _, header) = tableStructureForProduct[section]
         
@@ -872,7 +929,39 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    func takePhotoButtonTapped() {
+    func takePhoto() {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+    }
+    
+    func selectCameraRollPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .savedPhotosAlbum
+            
+            
+            imagePicker.delegate = self
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
     }
     
     fileprivate lazy var imagePicker: GKImagePicker = {
@@ -998,38 +1087,11 @@ extension IngredientsTableViewController: TagListViewCellDelegate {
 
 extension IngredientsTableViewController: ProductImageCellDelegate {
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
-        // opens the camera and allows the user to take an image and crop
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.delegate = self
-            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
-            imagePicker.sourceType = .camera
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.sourceView = self.view
-            }
-        }
+        takePhoto()
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
-            imagePicker.hasResizeableCropArea = true
-            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
-            imagePicker.sourceType = .savedPhotosAlbum
-            
-            
-            imagePicker.delegate = self
-            
-            present(imagePicker.imagePickerController!, animated: true, completion: nil)
-            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
-                popoverPresentationController.sourceRect = tableView.frame
-                popoverPresentationController.sourceView = self.view
-            }
-        }
+        selectCameraRollPhoto()
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
@@ -1041,6 +1103,20 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
 
 }
 
+
+// MARK: - TagListViewAddImageCellDelegate functions
+
+extension IngredientsTableViewController: TagListViewAddImageCellDelegate {
+    
+    func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCamera button:UIButton) {
+        takePhoto()
+    }
+    
+    func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCameraRoll button:UIButton) {
+        selectCameraRollPhoto()
+    }
+    
+}
 
 // MARK: - IngredientsFullCellDelegate Delegate Functions
 

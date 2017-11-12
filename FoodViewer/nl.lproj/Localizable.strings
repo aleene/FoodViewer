@@ -304,6 +304,9 @@
 /* String presented in a tagView if there are more results available */
 "Load more results" = "Laad meer resultaten";
 
+/* Message as tag when the search is loading. */
+"Loading" = "Laden";
+
 /* Error message when the product failed to load. */
 "Loading Failed" = "Laden mislukt";
 
@@ -351,7 +354,7 @@
 "No quantity available" = "Geen verpakkingsgrootte beschikbaar.";
 
 /* String in TableView section when a search is not defined. */
-"No search defined" = "Zoekopdracht ongedefinieerd";
+"No search defined" = "Geen zoekvraag";
 
 /* String in TableView section when a search is not yet carried out. */
 "No search result" = "Nog geen zoekresultaat";
@@ -562,10 +565,10 @@
 "Search loading" = "Zoekende";
 
 /* String presented in a tagView for the search query */
-"Search query" = "Zoekopdracht";
+"Search query" = "Zoekvraag";
 
 /* Indicating that a search has been defined */
-"Search set up" = "Zoekopdracht ingesteld";
+"Search set up" = "Zoekvraag ingesteld";
 
 /* Title of a Tableview controller, indicating a search is in progress. */
 "Searching" = "Zoekende";
@@ -588,7 +591,7 @@
 "Selected Ingredients Images" = "Geselecteerde ingrediëntenfoto";
 
 /* Gallery header text presenting the selected nutrition images */
-"Selected Nutrition Images" = "Geselecteer voedingswaardenfoto";
+"Selected Nutrition Images" = "Geselecteerde voedingswaardenfoto";
 
 /* Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value) */
 "Serving" = "Portie";
@@ -596,11 +599,14 @@
 /* Tableview header for the section with the serving size, i.e. the amount one will usually take of the product. */
 "Serving Size" = "Portiegrootte";
 
-/* Title of a segment in a segmentedControl indicating that the corresding field has been set. */
+/* Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping. */
 "Set" = "Ingevuld";
 
 /* Title of second segment in switch, which  indicates the user can set another account */
 "Set Account" = "Definieer account";
+
+/* Title of a tableview header  indicating that the corresding field has been set. */
+"Setup query" = "Definieer zoekvraag";
 
 /* Title of third segment in switch, which lets the user select between salt or sodium */
 "Sodium" = "Natrium";
@@ -615,7 +621,7 @@
 "Specify your credentials for OFF?" = "Voer je gerbruikersnaam en wachtwoord voor OFF in";
 
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
-"Start Search?" = "Start zoekopdracht?";
+"Start Search?" = "Start zoekvraag?";
 
 /* Generic string to indicate the stores where the product is sold. */
 "Stores" = "Winkels";
