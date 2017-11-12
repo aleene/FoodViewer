@@ -1021,7 +1021,7 @@
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                         </textField>
                         <view key="tableFooterView" contentMode="scaleToFill" id="pLB-EC-tip">
-                            <rect key="frame" x="0.0" y="827.5" width="320" height="44"/>
+                            <rect key="frame" x="0.0" y="871.5" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -1368,6 +1368,29 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="tagListView" destination="azO-Z3-sl3" id="IzY-Qx-3fo"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Products More Button Cell" id="iLp-Xv-9id" customClass="ButtonTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="809.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iLp-Xv-9id" id="cfW-Uo-j4y">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dWZ-GP-je6">
+                                            <rect key="frame" x="145" y="6.5" width="30" height="30"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="iLp-Xv-9id" eventType="touchUpInside" id="4YL-Ga-0gP"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="dWZ-GP-je6" firstAttribute="centerX" secondItem="cfW-Uo-j4y" secondAttribute="centerX" id="HFg-Qa-E4C"/>
+                                        <constraint firstItem="dWZ-GP-je6" firstAttribute="centerY" secondItem="cfW-Uo-j4y" secondAttribute="centerY" id="y6l-Vf-uGa"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="dWZ-GP-je6" id="0sB-P1-kJu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

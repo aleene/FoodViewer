@@ -244,6 +244,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let Producer = "Product Producer Cell"
             static let TagListView = "Product TagListView Cell"
             static let TagListViewWithLabel = "TagListView With Label Cell Identifier"
+            static let Button = "Products More Button Cell"
         }
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
@@ -415,12 +416,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         return cell
                     }
                 case .more:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
-                    cell.datasource = self
-                    cell.tag = 1
-                    cell.width = tableView.frame.size.width
-                    cell.scheme = ColorSchemes.error
-                    cell.accessoryType = .none
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
+                    cell.delegate = self
+                    cell.title = TranslatableStrings.LoadMoreResults
+                    cell.editMode = true
                     return cell
                     
                 case .loadingFailed:
@@ -494,9 +493,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     selectedProduct = product
                 case .searchQuery(let query):
                     selectedProduct = query
-                case .more:
-                    // The next set should be loaded
-                    products.fetchSearchProductsForNextPage()
                 default: break
                 }
         }
@@ -953,6 +949,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 }
     
+    // MARK: - ButtonCellDelegate Functions
+    
+
+extension ProductTableViewController:  ButtonCellDelegate {
+        
+    // function to let the delegate know that a button was tapped
+    func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
+        products.fetchSearchProductsForNextPage()
+    }
+}
+
 // MARK: - SearchHeaderDelegate Functions
     
 extension ProductTableViewController: SearchHeaderDelegate {
@@ -999,7 +1006,21 @@ extension ProductTableViewController: UITabBarControllerDelegate {
     }
     
 }
+ 
+// MARK: - TagListViewCellDelegate Functions
     
+extension ProductTableViewController: TagListViewCellDelegate {
+        
+    // function to let the delegate know that a tag has been single
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+    }
+    
+    // function to let the delegate know that a tag has been double tapped
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+    }
+}
+    
+
 // MARK: - TagListView DataSource Functions
     
 extension ProductTableViewController: TagListViewDataSource {
@@ -1039,9 +1060,11 @@ extension ProductTableViewController: TagListViewDataSource {
             return fetchStatus.description()
         } else if tagListView.tag == 4 {
             if products.fetchResultList.count > 0 {
-                switch products.fetchResultList[1] {
+                switch products.fetchResultList[products.fetchResultList.count - 1] {
                 case .searchLoading:
                     return TranslatableStrings.Loading
+                case .more:
+                    return TranslatableStrings.LoadMoreResults
                 default:
                     break
                 }

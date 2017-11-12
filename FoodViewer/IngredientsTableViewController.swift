@@ -965,6 +965,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 extension IngredientsTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that the switch changed
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+    }
+    
+    // function to let the delegate know that the switch changed
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {

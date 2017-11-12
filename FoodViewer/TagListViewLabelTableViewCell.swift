@@ -44,7 +44,7 @@ class TagListViewLabelTableViewCell: UITableViewCell {
             tagListView.tag = tag
             tagListView.prefixLabelText = nil
             
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewTapped))
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewDoubleTapped))
             tapGestureRecognizer.numberOfTapsRequired = 2
             tagListView.addGestureRecognizer(tapGestureRecognizer)
         }

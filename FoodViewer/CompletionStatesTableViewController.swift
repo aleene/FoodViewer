@@ -164,7 +164,7 @@ class CompletionStatesTableViewController: UITableViewController {
                         formatter.timeStyle = .none
                         // the lastEditDates array contains at least one date, if we arrive here
                         cell.editMode = editMode
-                        cell.title = query!.creationDate != nil ? formatter.string(from: query!.creationDate!) : nil
+                        cell.title = query!.creationDate != nil ? formatter.string(from: query!.creationDate!) : ( editMode ? TranslatableStrings.EnterDate : TranslatableStrings.NotSet )
                         return cell
                     }
                 }

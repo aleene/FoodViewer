@@ -10,7 +10,9 @@ import UIKit
 
 protocol TagListViewCellDelegate: class {
     
-    // function to let the delegate know that the switch changed
+    // function to let the delegate know that a tag was single tapped
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView)
+    // function to let the delegate know that a tag was double tapped
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView)
 }
 
@@ -38,9 +40,14 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.tag = tag
             tagListView.prefixLabelText = nil
             
-            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewTapped))
-            tapGestureRecognizer.numberOfTapsRequired = 2
-            tagListView.addGestureRecognizer(tapGestureRecognizer)
+            let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewSingleTapped))
+            singleTapGestureRecognizer.numberOfTapsRequired = 1
+            tagListView.addGestureRecognizer(singleTapGestureRecognizer)
+            
+            let doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TagListViewTableViewCell.tagListViewDoubleTapped))
+            doubleTapGestureRecognizer.numberOfTapsRequired = 2
+            tagListView.addGestureRecognizer(doubleTapGestureRecognizer)
+
         }
     }
     
@@ -92,8 +99,12 @@ class TagListViewTableViewCell: UITableViewCell {
         tagListView.reloadData(clearAll: true)
     }
     
-    func tagListViewTapped() {
+    func tagListViewDoubleTapped() {
         delegate?.tagListViewTableViewCell(self, receivedDoubleTapOn: tagListView)
+    }
+
+    func tagListViewSingleTapped() {
+        delegate?.tagListViewTableViewCell(self, receivedSingleTapOn: tagListView)
     }
 
 }

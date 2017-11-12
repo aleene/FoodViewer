@@ -1026,7 +1026,11 @@ extension IdentificationTableViewController: BarcodeEditCellDelegate {
 
 extension IdentificationTableViewController: TagListViewCellDelegate {
     
-    // function to let the delegate know that the switch changed
+    // function to let the delegate know that a tag has been single
+    func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+    }
+
+    // function to let the delegate know that a tag has been double tapped
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {

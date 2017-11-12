@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol ButtonCellDelegate: class {
+    
+    // function to let the delegate know that a tag was single tapped
+    func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton)
+}
+
 class ButtonTableViewCell: UITableViewCell {
 
     @IBOutlet weak var button: UIButton! {
@@ -17,6 +23,12 @@ class ButtonTableViewCell: UITableViewCell {
         }
     }
 
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        delegate?.buttonTableViewCell(self, receivedTapOn: sender)
+    }
+    
+    public var delegate: ButtonCellDelegate? = nil
+    
     public var title: String? = nil {
         didSet {
             setTitle()
@@ -26,19 +38,12 @@ class ButtonTableViewCell: UITableViewCell {
     public var editMode: Bool = false {
         didSet {
             button.isEnabled = editMode
-            setTitle()
         }
     }
     
     private func setTitle() {
         if let validTitle = title {
             button.setTitle(validTitle, for: .normal)
-        } else {
-            if editMode {
-                button.setTitle(TranslatableStrings.EnterDate, for: .normal)
-            } else {
-                button.setTitle(TranslatableStrings.NotSet, for: .normal)
-            }
         }
     }
 }
