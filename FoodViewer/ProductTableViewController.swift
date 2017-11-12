@@ -23,6 +23,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let NoProductsInHistory = TranslatableStrings.NoProductsListed
             static let ProductNameMissing = TranslatableStrings.ProductNameMissing
         }
+        
+        struct Offset {
+            static let SearchQuery = 300
+        }
     }
     
 
@@ -437,7 +441,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
                         cell.datasource = self
                         // The hundreds define a searchQuery section, the rest is just the row
-                        cell.tag = 300 + indexPath.row
+                        cell.tag = Constants.Offset.SearchQuery + indexPath.row
                         cell.categoryLabel.text = searchPairs[indexPath.row].0.description
                         switch searchPairs[indexPath.row].0 {
                         case .searchText:
@@ -451,7 +455,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     } else {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                         cell.datasource = self
-                        cell.tag = 300 + indexPath.row
+                        cell.tag = indexPath.row
                         cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.normal
                         return cell
@@ -1003,12 +1007,16 @@ extension ProductTableViewController: TagListViewDataSource {
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         // is this a searchQuery section?
-        if tagListView.tag >= 300 {
+        if tagListView.tag >= Constants.Offset.SearchQuery {
             switch products.fetchResultList[0] {
             case .searchQuery:
                 switch products.fetchResultList[0] {
                 case .searchQuery(let query):
-                    return !query.isEmpty ? query.searchPairsWithArray()[tagListView.tag - 300].1.count : 1
+                    let searchPairs = query.searchPairsWithArray()
+                    let index = tagListView.tag - Constants.Offset.SearchQuery
+                    if index > 0 && index < searchPairs.count && !query.isEmpty {
+                        return searchPairs[index].1.count
+                    }
                 default:
                     break
                 }
@@ -1038,14 +1046,20 @@ extension ProductTableViewController: TagListViewDataSource {
                     break
                 }
             }
-        } else if tagListView.tag >= 300 {
+        } else if tagListView.tag >= Constants.Offset.SearchQuery {
             switch products.fetchResultList[0] {
             case .searchQuery(let query):
                 if query.isEmpty {
                     return TranslatableStrings.SetupQuery
                 } else {
-                    let array = query.searchPairsWithArray()[tagListView.tag - 300].1
-                    return array[index]
+                    let searchPairs = query.searchPairsWithArray()
+                    let tagIndex = tagListView.tag - Constants.Offset.SearchQuery
+                    if tagIndex >= 0 && tagIndex < searchPairs.count {
+                        let array = searchPairs[tagIndex].1
+                        if index >= 0 && index < array.count {
+                            return array[index]
+                        }
+                    }
                 }
             default:
                 break

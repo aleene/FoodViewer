@@ -100,6 +100,7 @@ struct TranslatableStrings {
     static let Informer = NSLocalizedString("Informer", comment: "String in PickerViewController to indicate the informer role of a contributor")
     static let InformerUnicode = NSLocalizedString("💭", comment: "Image to indicate that the user who added information to the product.")
     static let Ingredients = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
+    static let IngredientsImage = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
     static let IngredientOrigins = NSLocalizedString("Ingredients Origin", comment: "Generic string to indicate the origins of the ingredients")
     static let Initialized = NSLocalizedString("Initialized", comment: "String presented in a tagView if nothing has happened yet")
 

@@ -294,18 +294,24 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             //static let NoImage = "No Image Cell"
             static let TagListViewAddImage = "Ingredients TagListView Add Image Cell"
         }
+        
         struct SegueIdentifier {
             static let ShowIdentification = "Show Ingredients Image"
             static let SelectLanguage = "Show Ingredients Languages"
         }
+        
         struct Nib {
-            static let Identifier = ""
+            static let LanguageHeaderView = "LanguageHeaderView"
+        }
+        
+        struct ReusableHeaderFooterView {
+            static let Language = "LanguageHeaderView"
         }
     }
     
     fileprivate struct TextConstants {
-        static let ShowIdentificationTitle = NSLocalizedString("Image", comment: "Title for the ViewController with the image of the product ingredients.")
-        static let ViewControllerTitle = NSLocalizedString("Ingredients", comment: "Title for the ViewController with the product ingredients.")
+        static let ShowIdentificationTitle = TranslatableStrings.Image
+        static let ViewControllerTitle = TranslatableStrings.Ingredients
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -449,109 +455,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.accessoryType = .none
                 return cell
             }
-            /*
-            // are there any updated images?
-            if delegate?.updatedProduct != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
-                // is there an updated image for the current language?
-                if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                    cell.editMode = editMode
-                    cell.productImage = image
-                    cell.delegate = self
-                    return cell
-                // in non-editMode show the updated image for the primary language
-                } else if !editMode, let primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode, let image = delegate!.updatedProduct!.ingredientsImages[primaryLanguageCode]?.display?.image {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                    cell.editMode = editMode
-                    cell.productImage = image
-                    cell.delegate = self
-                    return cell
-                // otherwise show an error
-                } else {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    searchResult = "No image in the right language"
-                    return cell!
-                }
-            // are there any ingredients images?
-            } else if !product!.ingredientsImages.isEmpty {
-                // is there a current language image
-                if let result = product!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                        cell.productImage = product!.ingredientsImages[currentLanguageCode!]?.display?.image
-                        cell.editMode = editMode
-                        cell.delegate = self
-                        return cell
-                    default:
-                        searchResult = result.description
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
-                        cell?.datasource = self
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        cell?.scheme = ColorSchemes.error
-                        return cell!
-                    }
-                // if not in editMode show the image in the primary language
-                } else if !editMode, let primaryLanguageCode = product?.primaryLanguageCode, let result = product!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                        cell.productImage = product!.ingredientsImages[primaryLanguageCode]?.display?.image
-                        cell.editMode = editMode
-                        cell.delegate = self
-                        return cell
-                    default:
-                        searchResult = result.description
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
-                        cell?.datasource = self
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        cell?.scheme = ColorSchemes.error
-                        return cell!
-                    }
-                // neither an image in the chose languageCodes are available
-                } else {
-                    if editMode {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                        cell.productImage = nil
-                        cell.editMode = editMode
-                        cell.delegate = self
-                        return cell
-                    } else {
-                        // image could not be found (yet)
-                        searchResult = ImageFetchResult.noImageAvailable.description
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
-                        cell?.datasource = self
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        cell?.scheme = ColorSchemes.error
-                        return cell!
-                    }
-                }
-            // no language available at all
-            } else {
-                if editMode {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
-                    cell.productImage = nil
-                    cell.editMode = editMode
-                    cell.delegate = self
-                    return cell
-                } else {
-                    searchResult = ImageFetchResult.noImageAvailable.description
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoImage, for: indexPath) as? TagListViewTableViewCell //
-                    cell?.datasource = self
-                    cell?.tag = indexPath.section
-                    cell?.width = tableView.frame.size.width
-                    cell?.scheme = ColorSchemes.error
-                    return cell!
-                }
-            }
-             */
         }
     }
     
@@ -670,7 +573,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .image, .ingredients :
             let (_, _, header) = tableStructureForProduct[section]
             
-            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
             
             headerView.section = section
             headerView.delegate = self
@@ -701,12 +604,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             static let Image = 1
         }
         struct Header {
-            static let Ingredients = NSLocalizedString("Ingredients", comment: "Header title for the product ingredients section.")
-            static let Allergens = NSLocalizedString("Allergens", comment: "Header title for the product allergens section, i.e. the allergens derived from the ingredients.")
-            static let Traces = NSLocalizedString("Traces", comment: "Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.")
-            static let Additives = NSLocalizedString("Additives", comment: "Header title for the product additives section, i.e. the additives are derived from the ingredients list.")
-            static let Labels = NSLocalizedString("Labels", comment: "Header title for the product labels section, i.e. images, logos, etc.")
-            static let Image = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
+            static let Ingredients = TranslatableStrings.Ingredients
+            static let Allergens = TranslatableStrings.Allergens
+            static let Traces = TranslatableStrings.Traces
+            static let Additives = TranslatableStrings.Additives
+            static let Labels = TranslatableStrings.Labels
+            static let Image = TranslatableStrings.IngredientsImage
         }
     }
     
