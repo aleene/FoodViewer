@@ -16,15 +16,13 @@
 /* Title of a button in normal state allowing the user to add a nutrient */
 "Add Nutrient" = "Ajout nutriment";
 
-/* Generic used string to indicate the additives of a product.
-   Header title for the product additives section, i.e. the additives are derived from the ingredients list. */
+/* Generic used string to indicate the additives of a product. */
 "Additives" = "Additives";
 
 /* TableViewController title for the allergen warnings setting scene. */
 "Allergen warnings" = "Avertissements allergènes";
 
-/* Header title for the product allergens section, i.e. the allergens derived from the ingredients.
-   Text to indicate the allergens of a product. */
+/* Text to indicate the allergens of a product. */
 "Allergens" = "Allergènes";
 
 /* ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition). */
@@ -157,6 +155,9 @@
 /* String in PickerViewController to indicate the editor role of a contributor */
 "Editor" = "Editeur";
 
+/* Placeholder string to explain the purpose of a barcode search in a tableview cell */
+"Enter barcode." = "Saisis code barre";
+
 /* Placeholder text for field where user should enter a city name. */
 "Enter city name" = "Nom de la ville";
 
@@ -174,9 +175,6 @@
 
 /* Placeholder text for field where user should enter a shop name. */
 "Enter shop name" = "Nom du magasin";
-
-/* Placeholder string to explain the purpose of a barcode search in a tableview cell */
-"Enter start numbers of barcode." = "Saisis code barre";
 
 /* Placeholder text for field where user should enter a street name. */
 "Enter street name" = "Nom de la rue";
@@ -235,7 +233,6 @@
 "Identification" = "Identification";
 
 /* Title for the viewcontroller with an enlarged image
-   Title for the ViewController with the image of the product ingredients.
    Title of the ViewController with package image of the nutritional values */
 "Image" = "Photo";
 
@@ -258,9 +255,7 @@
 /* String in PickerViewController to indicate the informer role of a contributor */
 "Informer" = "Informeur";
 
-/* Header title for the product ingredients section.
-   Text to indicate the ingredients of a product.
-   Title for the ViewController with the product ingredients.
+/* Text to indicate the ingredients of a product.
    Viewcontroller title for page with ingredients for product. */
 "Ingredients" = "Ingrédients";
 
@@ -282,8 +277,7 @@
 /* Energy unit */
 "Joule (J)" = "Joule (J)";
 
-/* Generic string for labels on product
-   Header title for the product labels section, i.e. images, logos, etc. */
+/* Generic string for labels on product */
 "Labels" = "Labels, certifications, récompenses";
 
 /* Tableview sectionheader for languages on product */
@@ -329,20 +323,17 @@
 /* Text in a tableview cell, when no brands are available in the product data. */
 "No brands indicated" = "Aucun marque indiqué";
 
-/* String if no common name is available */
-"No common name available" = "Nom generique pas disponible";
-
 /* Title of cell when no expiration date is avalable */
 "No expiration date" = "DLU pas disponible";
+
+/* String if no generic name is available */
+"No generic name available" = "Pas de nom générique dispo";
 
 /* String presented in a tagView if no image is available */
 "No image available" = "Photo pas disponible";
 
 /* Tag indicating that no image in the correct language is available */
 "No image in the right language" = "Pas de photo dans la bonne langue";
-
-/* String if no name is available */
-"No name available" = "Pas de nom disponible";
 
 /* Text of Label, indicating that the product has no nutrients defined */
 "No nutrients" = "Pas de nutriments";
@@ -636,8 +627,7 @@
 /* An explanatory text in the common name field. */
 "This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product." = "Ce produit de démonstration vous montre comment une produit est présenté. Passez au pages suivants pour voir plus de détails sur le produit. Quand vous commencez à scanner, ce produit sera supprimé.";
 
-/* Header title for the product traces section, i.e. the traces are from products which are worked with in the factory and are indicated separate on the label.
-   Text to indicate the traces of a product. */
+/* Text to indicate the traces of a product. */
 "Traces" = "Traces";
 
 /* Description of the interpreted tags in the json as translated by the taxonomy */

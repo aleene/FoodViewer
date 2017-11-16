@@ -454,7 +454,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     } else {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                         cell.datasource = self
-                        cell.tag = indexPath.row
+                        cell.tag = 5
                         cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.normal
                         return cell
@@ -952,7 +952,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     // MARK: - ButtonCellDelegate Functions
     
 
-extension ProductTableViewController:  ButtonCellDelegate {
+extension ProductTableViewController: ButtonCellDelegate {
         
     // function to let the delegate know that a button was tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
@@ -1069,6 +1069,9 @@ extension ProductTableViewController: TagListViewDataSource {
                     break
                 }
             }
+        } else if tagListView.tag == 5 {
+            return TranslatableStrings.SetupQuery
+
         } else if tagListView.tag >= Constants.Offset.SearchQuery {
             switch products.fetchResultList[0] {
             case .searchQuery(let query):

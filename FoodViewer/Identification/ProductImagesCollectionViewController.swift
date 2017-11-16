@@ -264,19 +264,19 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
-    // MARK: UICollectionViewDelegate
+// MARK: UICollectionViewDelegate
 
     override func collectionView(_ collectionView: UICollectionView,
                                  viewForSupplementaryElementOfKind kind: String,
                                  at indexPath: IndexPath) -> UICollectionReusableView {
-        //1
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                         withReuseIdentifier: Storyboard.CellIdentifier.SectionHeader,
+                                                                         for: indexPath) as! GalleryCollectionReusableView
+//1
         switch kind {
         //2
         case UICollectionElementKindSectionHeader:
             //3
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                             withReuseIdentifier: Storyboard.CellIdentifier.SectionHeader,
-                                                                             for: indexPath) as! GalleryCollectionReusableView
             switch indexPath.section {
             case 0:
                 headerView.label.text =  delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ?
@@ -293,11 +293,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
             }
             
-            return headerView
         default:
             //4
             assert(false, "ProductImagesCollectionViewController: Unexpected element kind")
         }
+        return headerView
     }
 
     /*

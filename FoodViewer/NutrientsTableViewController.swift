@@ -804,9 +804,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
                 if let vc = segue.destination as? ImageViewController {
                     if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty {
-                        if let imageData = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]?.display {
+                        if let imageData = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]?.largest() {
                             vc.imageData = imageData
-                        } else if let imageData = delegate!.updatedProduct!.nutritionImages[delegate!.updatedProduct!.primaryLanguageCode!]?.display {
+                        } else if let imageData = delegate!.updatedProduct!.nutritionImages[delegate!.updatedProduct!.primaryLanguageCode!]?.largest() {
                             vc.imageData = imageData
                         }
                         vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage

@@ -734,14 +734,18 @@ class IdentificationTableViewController: UITableViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     // is there an updated image?
                     if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-                        vc.imageData = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.display
+                        vc.imageData = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()
                     } else if !product!.frontImages.isEmpty {
                         // is the data for the current language available?
-                            // then fetch the image
+                        if product!.frontImages[currentLanguageCode!] != nil {
+                        // then fetch the image
                         vc.imageData = product!.frontImages[currentLanguageCode!]?.largest()
-                                // try to use the primary image
-                    } else if let imageData = product!.frontImages[product!.primaryLanguageCode!]?.largest() {
-                        vc.imageData = imageData
+                            // try to use the primary image
+                        } else if product!.frontImages[product!.primaryLanguageCode!] != nil {
+                            vc.imageData = product!.frontImages[product!.primaryLanguageCode!]?.largest()
+                        } else {
+                            vc.imageData = nil
+                        }
                     } else {
                         vc.imageData = nil
                     }

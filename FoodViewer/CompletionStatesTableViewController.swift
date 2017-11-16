@@ -495,6 +495,18 @@ class CompletionStatesTableViewController: UITableViewController {
 
 }
 
+
+// MARK: - ButtonCellDelegate Functions
+
+
+extension CompletionStatesTableViewController:  ButtonCellDelegate {
+    
+    // function to let the delegate know that a button was tapped
+    func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
+        // not needed as the button is hooked up by segue in the storyboard
+    }
+}
+
 // MARK: - ButtonWithSegmentedControlCellDelegate Functions
 
 extension CompletionStatesTableViewController: ButtonWithSegmentedControlCellDelegate {
