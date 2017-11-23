@@ -102,7 +102,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView!.maximumZoomScale = scrollView!.zoomScale * Constants.MaximumZoomScale / 100
             
             // height image larger than height scrollView
-            centerScrollViewContents()
+            // removed as it fixes the content in the top-left while zooming
+            
+            //centerScrollViewContents() 
+            
 
         }
     }
@@ -151,7 +154,6 @@ private extension UIImage {
         return self.size.height != 0 ? self.size.width / self.size.height : 0
     }
 }
-
 private extension UIScrollView  {
     
     func minScale()-> CGFloat {

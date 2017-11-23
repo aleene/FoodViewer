@@ -770,7 +770,12 @@ class FoodProduct {
             embCodesInterpreted  = product.embCodesInterpreted
             embCodesOriginal  = product.embCodesOriginal
             servingSize = product.servingSize
-            nutritionFacts = product.nutritionFacts
+            if product.hasNutritionFacts != nil && !product.hasNutritionFacts! {
+                hasNutritionFacts = false
+                nutritionFacts = nil
+            } else {
+                nutritionFacts = product.nutritionFacts
+            }
             nutritionScore = product.nutritionScore
             nutritionGrade = product.nutritionGrade
             purchasePlacesOriginal = product.purchasePlacesOriginal

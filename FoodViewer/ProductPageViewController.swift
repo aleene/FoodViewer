@@ -858,6 +858,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         guard product != nil else { return }
         initUpdatedProductWith(product: product!)
         updatedProduct?.hasNutritionFacts = availability
+        if !availability {
+            // if indicated as not available, delete the existing nutritionFacts
+            updated(facts: [])
+        }
         saveUpdatedProduct()
     }
     
@@ -920,6 +924,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     }
                 }
             }
+            // if nutritionFacts specified indicate as available
+            updatedProduct?.hasNutritionFacts = true
             saveUpdatedProduct()
         }
     }
@@ -945,9 +951,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 updatedProduct?.nutritionFacts![index] = fact
             }
         }
-        // make sure both nutritionFacts arrays have the same length
-        for _ in product!.nutritionFacts!.count ..< updatedProduct!.nutritionFacts!.count {
-            product!.nutritionFacts!.append(nil)
+        if updatedProduct!.nutritionFacts!.count >= product!.nutritionFacts!.count {
+            // make sure both nutritionFacts arrays have the same length
+            for _ in product!.nutritionFacts!.count ..< updatedProduct!.nutritionFacts!.count {
+                product!.nutritionFacts!.append(nil)
+            }
+            updatedProduct?.hasNutritionFacts = true
         }
         saveUpdatedProduct()
     }

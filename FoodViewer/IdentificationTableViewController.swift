@@ -850,8 +850,7 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     func refreshProduct() {
-        delegate?.updateCurrentLanguage()
-        showPackagingTagsType = TagsTypeDefault.Packaging
+         showPackagingTagsType = TagsTypeDefault.Packaging
         showBrandTagsType = TagsTypeDefault.Brands
         tableView.reloadData()
     }

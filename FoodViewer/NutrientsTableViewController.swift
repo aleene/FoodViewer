@@ -166,19 +166,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if let updatedNutritionFacts = delegate?.updatedProduct?.nutritionFacts {
                 // create a mixed array of unedited and edited items
                 for index in 0 ..< validNutritionFacts.count {
-                    // has this nutritionFact been updated?
-                    if updatedNutritionFacts[index] == nil {
-                        newNutritionFacts.append(validNutritionFacts[index]!)
-                    } else {
-                        var newFact = NutritionFactItem()
-                        newFact.key = updatedNutritionFacts[index]?.key
-                        newFact.itemName = updatedNutritionFacts[index]?.itemName
-                        // check out whether an update occured
-                        newFact.standardValue = updatedNutritionFacts[index]?.standardValue ?? validNutritionFacts[index]?.standardValue
-                        newFact.standardValueUnit = updatedNutritionFacts[index]?.standardValueUnit ?? validNutritionFacts[index]?.standardValueUnit
-                        newFact.servingValue = updatedNutritionFacts[index]?.servingValue ?? validNutritionFacts[index]?.servingValue
-                        newFact.servingValueUnit = updatedNutritionFacts[index]?.servingValueUnit ?? validNutritionFacts[index]?.servingValueUnit
-                        newNutritionFacts.append(newFact)
+                    if updatedNutritionFacts.count != 0 {
+                        // has this nutritionFact been updated?
+                        if updatedNutritionFacts[index] == nil {
+                            newNutritionFacts.append(validNutritionFacts[index]!)
+                        } else {
+                            var newFact = NutritionFactItem()
+                            newFact.key = updatedNutritionFacts[index]?.key
+                            newFact.itemName = updatedNutritionFacts[index]?.itemName
+                            // check out whether an update occured
+                            newFact.standardValue = updatedNutritionFacts[index]?.standardValue ?? validNutritionFacts[index]?.standardValue
+                            newFact.standardValueUnit = updatedNutritionFacts[index]?.standardValueUnit ?? validNutritionFacts[index]?.standardValueUnit
+                            newFact.servingValue = updatedNutritionFacts[index]?.servingValue ?? validNutritionFacts[index]?.servingValue
+                            newFact.servingValueUnit = updatedNutritionFacts[index]?.servingValueUnit ?? validNutritionFacts[index]?.servingValueUnit
+                            newNutritionFacts.append(newFact)
+                        }
                     }
                 }
                 adaptedNutritionFacts = adaptNutritionFacts(newNutritionFacts)

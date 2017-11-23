@@ -361,8 +361,10 @@ class OFFUpdate {
             if let validHasNutritionFacts = product!.hasNutritionFacts {
                 if !validHasNutritionFacts {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NoNutriments )
-                    productUpdated = true
+                } else {
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Nutriments )
                 }
+                productUpdated = true
             }
         }
         
