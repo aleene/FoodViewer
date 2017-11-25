@@ -233,7 +233,7 @@ class GKResizeableCropOverlayView: GKImageCropOverlayView {
     
     // Inside the crop border one can see the image, outside it is grayed out
     override func draw(_ rect: CGRect) {
-        UIColor.init(colorLiteralRed: 0.0, green: 0.0, blue: 0.0, alpha: 0.5).set()
+        UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5).set()
         UIRectFill(self.bounds);
     
         UIColor.clear.set()

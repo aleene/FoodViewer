@@ -46,14 +46,14 @@ public enum Tags : Equatable {
         self = .undefined
     }
     
-    public init(_ list: [String]?) {
+    public init(list: [String]?) {
         self.init()
         decode(list)
     }
 
     // initialise tags with a comma delimited string
-    public init(_ string: String?) {
-        self.init(string?.characters.split{ $0 == "," }.map(String.init))
+    public init(string: String?) {
+        self.init(list:string?.split(separator: ",").map(String.init))
     }
     
     // add a languageCode to tags that have no language and remove languageCode for another language
@@ -253,7 +253,7 @@ public enum Tags : Equatable {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {
-                if listItem.characters.count > 0 {
+                if listItem.count > 0 {
                     newList.append(listItem)
                 }
             }
@@ -284,7 +284,7 @@ public enum Tags : Equatable {
     }
     
     private func stripAnyPrefix(_ string: String) -> String {
-        return string.contains(":") ? string.characters.split{ $0 == ":" }.map(String.init)[1]
+        return string.contains(":") ? string.split(separator:":").map(String.init)[1]
             : string
     }
     

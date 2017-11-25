@@ -99,11 +99,11 @@ class TagListViewTableViewCell: UITableViewCell {
         tagListView.reloadData(clearAll: true)
     }
     
-    func tagListViewDoubleTapped() {
+    @objc func tagListViewDoubleTapped() {
         delegate?.tagListViewTableViewCell(self, receivedDoubleTapOn: tagListView)
     }
 
-    func tagListViewSingleTapped() {
+    @objc func tagListViewSingleTapped() {
         delegate?.tagListViewTableViewCell(self, receivedSingleTapOn: tagListView)
     }
 

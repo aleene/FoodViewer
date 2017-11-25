@@ -202,9 +202,9 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var linksToDisplay: Tags {
         get {
             if let validTags = delegate?.updatedProduct?.links {
-                return Tags.init(validTags.map( { $0.absoluteString } ))
+                return Tags.init(list:validTags.map( { $0.absoluteString } ))
             } else if let validTags = product?.links {
-                return Tags.init(validTags.map( { $0.absoluteString } ))
+                return Tags.init(list:validTags.map( { $0.absoluteString } ))
             } else {
                 return Tags.undefined
             }
@@ -724,7 +724,7 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 8)], with: UITableViewRowAnimation.fade)
     }
 
-    func refreshProduct() {
+    @objc func refreshProduct() {
         showCountriesTagsType = TagsTypeDefault.Countries
         showStoresTagsType = TagsTypeDefault.Stores
         showPurchaseLocationTagsType = TagsTypeDefault.PurchaseLocation
@@ -735,7 +735,7 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    func removeProduct() {
+    @objc func removeProduct() {
         product = nil
         tableView.reloadData()
     }
@@ -1488,7 +1488,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.manufacturing_places.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.manufacturing_places.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1502,7 +1502,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.emb_codes.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.emb_codes.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1515,7 +1515,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.origins.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.origins.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1528,7 +1528,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.stores.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.stores.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1541,7 +1541,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.purchase_places.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.purchase_places.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1554,7 +1554,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.countries.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.countries.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }

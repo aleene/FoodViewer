@@ -23,7 +23,7 @@ public struct OFFAccount {
     var userId: String {
         get {
             if let validKeyChainValue = keychain.get(Credentials.UsernameKey) {
-                if validKeyChainValue.characters.count > 0 {
+                if validKeyChainValue.count > 0 {
                 return validKeyChainValue
                 }
             }
@@ -39,7 +39,7 @@ public struct OFFAccount {
     var password: String {
         get {
             if let validKeyChainValue = keychain.get(Credentials.PasswordKey) {
-                if validKeyChainValue.characters.count > 0 {
+                if validKeyChainValue.count > 0 {
                     return validKeyChainValue
                 }
             }
@@ -56,7 +56,7 @@ public struct OFFAccount {
     func personalExists() -> Bool {
         // has a personal account been defined?
         if let validAccount = keychain.get(Credentials.UsernameKey) {
-            if validAccount.characters.count > 0 {
+            if validAccount.count > 0 {
                 return true
             }
         }

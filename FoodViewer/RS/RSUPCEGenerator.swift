@@ -54,10 +54,10 @@ open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     func convert2UPC_A(_ contents:String) -> String {
         var upc_a = ""
-        let code = contents.substring(1, length: contents.length() - 2)
+        let code = contents.substring(1, length: contents.count - 2)
 
         if let code = code {
-            let lastDigit = Int(code[code.length() - 1])!
+            let lastDigit = Int(code[code.count - 1])!
             var insertDigits = "0000"
             switch lastDigit {
             case 0...2:
@@ -77,9 +77,9 @@ open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     
     override open func isValid(_ contents: String) -> Bool {
         return super.isValid(contents)
-            && contents.length() == 8
+            && contents.count == 8
             && Int(contents[0])! == 0
-            && contents[contents.length() - 1] == self.checkDigit(contents)
+            && contents[contents.count - 1] == self.checkDigit(contents)
     }
     
     override open func initiator() -> String {
@@ -91,10 +91,10 @@ open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
     }
     
     override open func barcode(_ contents: String) -> String {
-        let checkValue = Int(contents[contents.length() - 1])!
+        let checkValue = Int(contents[contents.count - 1])!
         let sequence = UPCE_SEQUENCES[checkValue]
         var barcode = ""
-        for i in 1..<contents.length() - 1 {
+        for i in 1..<contents.count - 1 {
             let digit = Int(contents[i])!
             if Int(sequence[i - 1])! % 2 == 0 {
                 barcode += UPCE_EVEN_ENCODINGS[digit]
@@ -121,7 +121,7 @@ open class RSUPCEGenerator: RSAbstractCodeGenerator, RSCheckDigitGenerator {
         let upc_a = self.convert2UPC_A(contents)
         var sum_odd = 0
         var sum_even = 0
-        for i in 0..<upc_a.length() {
+        for i in 0..<upc_a.count {
             let digit = Int(upc_a[i])!
             if i % 2 == 0 {
                 sum_even += digit

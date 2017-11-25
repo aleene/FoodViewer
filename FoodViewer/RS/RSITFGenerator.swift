@@ -24,7 +24,7 @@ open class RSITFGenerator: RSAbstractCodeGenerator {
     ]
     
     override open func isValid(_ contents: String) -> Bool {
-        return super.isValid(contents) && contents.length() % 2 == 0
+        return super.isValid(contents) && contents.count % 2 == 0
     }
     
     override open func initiator() -> String {
@@ -37,7 +37,7 @@ open class RSITFGenerator: RSAbstractCodeGenerator {
     
     override open func barcode(_ contents: String) -> String {
         var barcode = ""
-        for i in 0..<contents.length() / 2 {
+        for i in 0..<contents.count / 2 {
             let pair = contents.substring(i * 2, length: 2)
             if let pair = pair {
                 let bars = ITF_CHARACTER_ENCODINGS[Int(pair[0])!]

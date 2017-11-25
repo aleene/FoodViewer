@@ -326,7 +326,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // find the first preferred language that can be used
         for languageLocale in Locale.preferredLanguages {
             // split language and locale
-            let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
+            let preferredLanguage = languageLocale.split(separator:"-").map(String.init)[0]
             if let languageCodes = product?.languageCodes {
                 if languageCodes.contains(preferredLanguage) {
                     currentLanguageCode = preferredLanguage
@@ -507,7 +507,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     // MARK: - Notification Functions
         
-    func loadFirstProduct() {
+    @objc func loadFirstProduct() {
     // handle a notification that the first product has been set
     // this sets the current product and shows the first page
         let products = OFFProducts.manager
@@ -522,7 +522,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    func changeConfirmButtonToSuccess() {
+    @objc func changeConfirmButtonToSuccess() {
         confirmBarButtonItem.tintColor = .green
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
 
@@ -530,13 +530,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         updatedProduct = nil
     }
   
-    func changeConfirmButtonToFailure() {
+    @objc func changeConfirmButtonToFailure() {
         confirmBarButtonItem.tintColor = .red
         Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
     }
     
     // function to reset the SaveButton to the default IOS color
-    func resetSaveButtonColor() {
+    @objc func resetSaveButtonColor() {
         confirmBarButtonItem.tintColor = self.view.tintColor
     }
     
@@ -677,7 +677,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // replace the new product place in all cases 
             updatedProduct?.purchasePlacesAddress = Address.init(with: validShop)
             if let purchasePlace = updatedProduct?.purchasePlacesAddress?.asSingleString(withSeparator: ",") {
-                updatedProduct?.purchasePlacesOriginal = Tags.init(purchasePlace)
+                updatedProduct?.purchasePlacesOriginal = Tags.init(string:purchasePlace)
             }
             saveUpdatedProduct()
         }
@@ -1134,7 +1134,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     func askUserToSearch(for string: String, in component: SearchComponent) {
         let searchMessage = TranslatableStrings.SearchMessage
         
-        let parts = string.characters.split{$0 == ":"}.map(String.init)
+        let parts = string.split(separator:":").map(String.init)
         var stringToUse = ""
         if parts.count >= 2 {
             stringToUse = parts[1]
@@ -1165,7 +1165,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         OFFProducts.manager.search(string, in:component)
     }
 
-    func searchStarted() {
+    @objc func searchStarted() {
         performSegue(withIdentifier: "Unwind For Cancel", sender: self)
     }
     // MARK: - ViewController Lifecycle

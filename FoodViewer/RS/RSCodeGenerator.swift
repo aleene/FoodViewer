@@ -61,7 +61,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Check whether the given contents are valid.
     open func isValid(_ contents:String) -> Bool {
-        let length = contents.length()
+        let length = contents.count
         if length > 0 {
             for i in 0..<length {
                 let character = contents[i]
@@ -96,7 +96,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Drawer for completed barcode.
     func drawCompleteBarcode(_ completeBarcode:String) -> UIImage? {
-        let length:Int = completeBarcode.length()
+        let length:Int = completeBarcode.count
         if length <= 0 {
             return nil
         }
@@ -136,7 +136,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     // RSCodeGenerator
     
     open func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject, inputCorrectionLevel: InputCorrectionLevel) -> UIImage? {
-        return self.generateCode(machineReadableCodeObject.stringValue, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type)
+        return self.generateCode(machineReadableCodeObject.stringValue!, inputCorrectionLevel: inputCorrectionLevel, machineReadableCodeObjectType: machineReadableCodeObject.type.rawValue)
     }
     
     open func generateCode(_ machineReadableCodeObject:AVMetadataMachineReadableCodeObject) -> UIImage? {
@@ -158,13 +158,13 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Get CIFilter name by machine readable code object type
     open class func filterName(_ machineReadableCodeObjectType:String) -> String! {
-        if machineReadableCodeObjectType == AVMetadataObjectTypeQRCode {
+        if machineReadableCodeObjectType == AVMetadataObject.ObjectType.qr.rawValue {
             return "CIQRCodeGenerator"
-        } else if machineReadableCodeObjectType == AVMetadataObjectTypePDF417Code {
+        } else if machineReadableCodeObjectType == AVMetadataObject.ObjectType.pdf417.rawValue {
             return "CIPDF417BarcodeGenerator"
-        } else if machineReadableCodeObjectType == AVMetadataObjectTypeAztecCode {
+        } else if machineReadableCodeObjectType == AVMetadataObject.ObjectType.aztec.rawValue {
             return "CIAztecCodeGenerator"
-        } else if machineReadableCodeObjectType == AVMetadataObjectTypeCode128Code {
+        } else if machineReadableCodeObjectType == AVMetadataObject.ObjectType.code128.rawValue {
             return "CICode128BarcodeGenerator"
         } else {
             return ""
@@ -173,7 +173,7 @@ open class RSAbstractCodeGenerator : RSCodeGenerator {
     
     // Generate CI related code image
     open class func generateCode(_ contents:String, inputCorrectionLevel: InputCorrectionLevel, filterName:String) -> UIImage? {
-        if filterName.length() > 0 {
+        if filterName.count > 0 {
             let filter = CIFilter(name: filterName)
             if let filter = filter {
                 filter.setDefaults()

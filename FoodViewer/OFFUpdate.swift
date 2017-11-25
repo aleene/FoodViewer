@@ -93,7 +93,7 @@ class OFFUpdate {
         // update only the fields that have something defined, i.e. are not nil
         var productUpdated: Bool = false
         
-        let interfaceLanguageCode = Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
+        let interfaceLanguageCode = Locale.preferredLanguages[0].split(separator:"-").map(String.init)[0]
 
         // The OFF interface assumes that values are in english
         let languageCodeToUse = "en"
@@ -724,7 +724,7 @@ class OFFUpdate {
     
     // remove the language identifier before the colon
     private func removeLanguage(from key: String) -> String {
-        let elementsPair = key.characters.split{$0 == ":"}.map(String.init)
+        let elementsPair = key.split(separator:":").map(String.init)
         if elementsPair.count == 1 {
             return elementsPair[0]
         } else {

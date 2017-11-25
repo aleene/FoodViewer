@@ -63,9 +63,9 @@ class IngredientsFullTableViewCell: UITableViewCell {
         }
         
         if editMode {
-            if unAttributedIngredients.characters.count > 0 {
+            if unAttributedIngredients.count > 0 {
                 // needed to reset the color of the text. It is not actually shown.
-                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSForegroundColorAttributeName : UIColor.black,  NSFontAttributeName: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
+                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
                 textView?.text = unAttributedIngredients
                 textView?.sizeToFit()
             } else {
@@ -115,8 +115,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
                     // let currentFont = (textView.font?.fontName)!
                     // textView.font = UIFont(name: ()!, size: fontSize)!
 
-                    let allergenAttributes = [NSForegroundColorAttributeName : UIColor.red, NSFontAttributeName: UIFont.systemFont(ofSize: fontSize)]
-                    let noAttributes = [NSForegroundColorAttributeName : UIColor.black,  NSFontAttributeName: UIFont.systemFont(ofSize: fontSize)]
+                    let allergenAttributes = [NSAttributedStringKey.foregroundColor : UIColor.red, NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)]
+                    let noAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)]
                     // create a attributable string
                     let myString = NSMutableAttributedString(string: "", attributes: noAttributes)
                     let components = text.components(separatedBy: "_")
@@ -154,7 +154,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
     
     private var unAttributedIngredients: String = ""
     
-    func ingredientsTapped() {
+    @objc func ingredientsTapped() {
         delegate?.ingredientsFullTableViewCell(self, receivedActionOn: textView)
     }
 

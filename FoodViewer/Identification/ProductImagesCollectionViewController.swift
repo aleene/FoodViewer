@@ -425,7 +425,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
 
     
-    func takePhotoButtonTapped() {
+    @objc func takePhotoButtonTapped() {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
@@ -452,7 +452,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         return picker
     }()
 
-    func useCameraRollButtonTapped() {
+    @objc func useCameraRollButtonTapped() {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
             imagePicker.cropSize = CGSize.init(width: 300, height: 300)
             imagePicker.hasResizeableCropArea = true
@@ -480,11 +480,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
 
-    func reloadImages() {
+    @objc func reloadImages() {
         collectionView?.reloadData()
     }
 
-    func imageDeleted(_ notification: Notification) {
+    @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {

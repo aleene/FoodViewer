@@ -110,7 +110,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func reloadImage() {
+    @objc func reloadImage() {
         setImage()
     }
     

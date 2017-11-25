@@ -47,7 +47,7 @@ class StateTableViewCell: UITableViewCell {
         stateImage?.image = state ? UIImage.init(named: "OK") : UIImage.init(named: "NotOK")
     }
     
-    func stateLongPress() {
+    @objc func stateLongPress() {
         // I should encode the search component
         // And the search status
         guard searchString != nil else { return }

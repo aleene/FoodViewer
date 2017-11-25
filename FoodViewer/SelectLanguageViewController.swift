@@ -131,13 +131,13 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         if !sortedLanguages.isEmpty && row > 0 {
             // is this the primary language?
             if (sortedLanguages[row].code == currentLanguageCode) {
-                attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
+                attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
             } else {
-                attributedRowText.addAttribute(NSForegroundColorAttributeName, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
+                attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
             }
         }
         
-        attributedRowText.addAttribute(NSFontAttributeName, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
+        attributedRowText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
         myLabel!.attributedText = attributedRowText
         return myLabel!
     }

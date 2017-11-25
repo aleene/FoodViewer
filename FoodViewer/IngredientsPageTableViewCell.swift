@@ -116,7 +116,7 @@ class IngredientsPageTableViewCell: UITableViewCell {
     /// Generate the badge image
     internal func draw(with text: String) -> UIImage {
         // Calculate the size of our string
-        let textSize : CGSize = NSString(string: text).size(attributes:[NSFontAttributeName:UIFont.boldSystemFont(ofSize:CGFloat(badgeFontSize))])
+        let textSize : CGSize = NSString(string: text).size(withAttributes:[NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize:CGFloat(badgeFontSize))])
         
         // Create a frame with padding for our badge
         let height = textSize.height + 10
@@ -150,8 +150,8 @@ class IngredientsPageTableViewCell: UITableViewCell {
         }
         
         NSString(string: text).draw(in:CGRect(x:8, y:5, width:textSize.width, height:textSize.height), withAttributes: [
-            NSFontAttributeName:UIFont.boldSystemFont(ofSize:CGFloat(badgeFontSize)),
-            NSForegroundColorAttributeName: badgeTextColor ?? UIColor.clear
+            NSAttributedStringKey.font:UIFont.boldSystemFont(ofSize:CGFloat(badgeFontSize)),
+            NSAttributedStringKey.foregroundColor: badgeTextColor ?? UIColor.clear
             ])
         
         let badgeImage = UIGraphicsGetImageFromCurrentImageContext()!

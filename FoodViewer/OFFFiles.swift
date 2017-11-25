@@ -74,7 +74,7 @@ class OFFplists {
 
     func translateStates(_ key: String, language:String) -> String {
         if OFFstates != nil {
-            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = language.split(separator:"-").map(String.init)
 
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
@@ -104,7 +104,7 @@ class OFFplists {
     
     func translateAdditives(_ key: String, language:String) -> String {
         if OFFadditives != nil {
-            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
@@ -123,7 +123,7 @@ class OFFplists {
 
     func translateAllergens(_ key: String, language:String) -> String? {
         if OFFallergens != nil {
-            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
@@ -142,7 +142,7 @@ class OFFplists {
 
     func translateCountries(_ key: String, language:String) -> String {
         if OFFcountries != nil {
-            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
@@ -162,7 +162,7 @@ class OFFplists {
     
     func translateGlobalLabels(_ key: String, language:String) -> String {
         if OFFglobalLabels != nil {
-            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
@@ -202,7 +202,7 @@ class OFFplists {
     
     fileprivate func translate(_ taxonomy: Set <VertexNew>?, file: String, key: String, language:String) -> String {
         if taxonomy != nil {
-            let firstSplit = language.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = language.split(separator:"-").map(String.init)
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
@@ -268,7 +268,7 @@ class OFFplists {
     func nutrientText(at index: Int, languageCode key: String) -> (String, String, NutritionFactUnit)? {
         if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {
             let currentVertex = OFFnutrients![OFFnutrients!.index(OFFnutrients!.startIndex, offsetBy: index)]
-            let firstSplit = key.characters.split{ $0 == "-" }.map(String.init)
+            let firstSplit = key.split(separator:"-").map(String.init)
             // get the language array for the current language
             let translatedValues = currentVertex.leaves[firstSplit[0]]
             let englishValues = currentVertex.leaves["en"]
@@ -305,7 +305,7 @@ class OFFplists {
     func allLanguages(_ localeLanguage: String) -> [Language] {
         var languages: [Language] = []
         guard OFFlanguages != nil else { return languages }
-        let firstSplit = localeLanguage.characters.split{ $0 == "-" }.map(String.init)
+        let firstSplit = localeLanguage.split(separator:"-").map(String.init)
 
         // loop over all verteces and fill the languages array
         for vertex in OFFlanguages! {

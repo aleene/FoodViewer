@@ -16,13 +16,13 @@ class BarcodeTableViewCell: UITableViewCell {
             if let validBarcode = barcode {
                 barcodeLabel.text = validBarcode
                 
-                switch validBarcode.length() {
+                switch validBarcode.count {
                 case 8: // EAN-8
-                    barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObjectTypeEAN8Code)
+                    barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean8.rawValue)
                 case 12: // UPC-A
-                    barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObjectTypeUPCECode)
+                    barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObject.ObjectType.upce.rawValue)
                 case 13: // EAN-13
-                    barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObjectTypeEAN13Code)
+                    barcodeImageView.image = RSUnifiedCodeGenerator.shared.generateCode(validBarcode, machineReadableCodeObjectType: AVMetadataObject.ObjectType.ean13.rawValue)
                 default:
                     break
                 }

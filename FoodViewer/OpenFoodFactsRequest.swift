@@ -285,14 +285,14 @@ class OpenFoodFactsRequest {
         decodeLastEditDates(jsonObject[jsonKeys.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
-        product.labelsInterpreted = Tags(jsonObject[jsonKeys.LabelsTagsKey].stringArray)
+        product.labelsInterpreted = Tags(list:jsonObject[jsonKeys.LabelsTagsKey].stringArray)
         // the labels as the user has entered them (a comma delimited string)
-        product.labelsOriginal = Tags(jsonObject[jsonKeys.LabelsKey].string)
-        product.labelsHierarchy = Tags(jsonObject[jsonKeys.LabelsHierarchyKey].stringArray)
+        product.labelsOriginal = Tags(string:jsonObject[jsonKeys.LabelsKey].string)
+        product.labelsHierarchy = Tags(list:jsonObject[jsonKeys.LabelsHierarchyKey].stringArray)
             
-        product.tracesOriginal = Tags.init(jsonObject[jsonKeys.TracesKey].string)
-        product.tracesHierarchy = Tags.init(jsonObject[jsonKeys.TracesHierarchyKey].stringArray)
-        product.tracesInterpreted = Tags.init(jsonObject[jsonKeys.TracesTagsKey].stringArray)
+        product.tracesOriginal = Tags.init(string:jsonObject[jsonKeys.TracesKey].string)
+        product.tracesHierarchy = Tags.init(list:jsonObject[jsonKeys.TracesHierarchyKey].stringArray)
+        product.tracesInterpreted = Tags.init(list:jsonObject[jsonKeys.TracesTagsKey].stringArray)
         
         if let languages = jsonObject[jsonKeys.LanguagesHierarchy].stringArray {
             // product.languageCodes = []
@@ -436,33 +436,33 @@ class OpenFoodFactsRequest {
 
         // Is no longer needed, is part of the language array
         // product.genericName = jsonObject[jsonKeys.GenericNameKey].string
-        product.additivesInterpreted = Tags.init(jsonObject[jsonKeys.AdditivesTagsKey].stringArray)
+        product.additivesInterpreted = Tags.init(list:jsonObject[jsonKeys.AdditivesTagsKey].stringArray)
         
         product.informers = jsonObject[jsonKeys.InformersTagsKey].stringArray
         product.photographers = jsonObject[jsonKeys.PhotographersTagsKey].stringArray
 
-        product.packagingInterpreted = Tags.init(jsonObject[jsonKeys.PackagingTagsKey].stringArray)
-        product.packagingOriginal = Tags.init(jsonObject[jsonKeys.PackagingKey].string)
+        product.packagingInterpreted = Tags.init(list:jsonObject[jsonKeys.PackagingTagsKey].stringArray)
+        product.packagingOriginal = Tags.init(string:jsonObject[jsonKeys.PackagingKey].string)
         
         product.numberOfIngredients = jsonObject[jsonKeys.IngredientsNKey].string
         
         // product.setWithRaw(countries:decodeCountries(jsonObject[jsonKeys.CountriesTagsKey].stringArray))
-        product.countriesOriginal = Tags.init(jsonObject[jsonKeys.CountriesKey].string)
-        product.countriesInterpreted = Tags.init(jsonObject[jsonKeys.CountriesTagsKey].stringArray)
-        product.countriesHierarchy = Tags.init(jsonObject[jsonKeys.CountriesHierarchyKey].stringArray)
+        product.countriesOriginal = Tags.init(string:jsonObject[jsonKeys.CountriesKey].string)
+        product.countriesInterpreted = Tags.init(list:jsonObject[jsonKeys.CountriesTagsKey].stringArray)
+        product.countriesHierarchy = Tags.init(list:jsonObject[jsonKeys.CountriesHierarchyKey].stringArray)
         
-        product.embCodesOriginal = Tags.init(jsonObject[jsonKeys.EmbCodesKey].string)
+        product.embCodesOriginal = Tags.init(string:jsonObject[jsonKeys.EmbCodesKey].string)
         // product.originalProducerCode = decodeProducerCodeArray(jsonObject[jsonKeys.EmbCodesOrigKey].string)
-        product.embCodesInterpreted = Tags.init(jsonObject[jsonKeys.EmbCodesTagsKey].stringArray)
+        product.embCodesInterpreted = Tags.init(list:jsonObject[jsonKeys.EmbCodesTagsKey].stringArray)
         
-        product.brandsOriginal = Tags.init(jsonObject[jsonKeys.BrandsKey].string)
-        product.brandsInterpreted = Tags.init(jsonObject[jsonKeys.BrandsTagsKey].stringArray)
+        product.brandsOriginal = Tags.init(string:jsonObject[jsonKeys.BrandsKey].string)
+        product.brandsInterpreted = Tags.init(list:jsonObject[jsonKeys.BrandsTagsKey].stringArray)
         
         // The links for the producer are stored as a string. This string might contain multiple links.
         let linksString = jsonObject[jsonKeys.LinkKey].string
         if let validLinksString = linksString {
             // assume that the links are separated by a comma ","
-            let validLinksComponents = validLinksString.characters.split{$0 == ","}.map(String.init)
+            let validLinksComponents = validLinksString.split(separator:",").map(String.init)
             product.links = []
             for component in validLinksComponents {
                 if let validFirstURL = URL.init(string: component) {
@@ -473,8 +473,8 @@ class OpenFoodFactsRequest {
         product.server = jsonObject[jsonKeys.NewServerKey].string
         
         product.purchaseLocationString(jsonObject[jsonKeys.PurchasePlacesKey].string)
-        product.purchasePlacesInterpreted = Tags.init(jsonObject[jsonKeys.PurchasePlacesTagsKey].stringArray)
-        product.purchasePlacesOriginal = Tags.init(jsonObject[jsonKeys.PurchasePlacesKey].string)
+        product.purchasePlacesInterpreted = Tags.init(list:jsonObject[jsonKeys.PurchasePlacesTagsKey].stringArray)
+        product.purchasePlacesOriginal = Tags.init(string:jsonObject[jsonKeys.PurchasePlacesKey].string)
         //product.nutritionFactsImageUrl = jsonObject[jsonKeys.ImageNutritionUrlKey].url
         // product.ingredients = jsonObject[jsonKeys.IngredientsTextKey].string
         
@@ -494,33 +494,33 @@ class OpenFoodFactsRequest {
         let nutrientLevelsFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
         let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
         let nutrientLevelsSugars = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
-        product.storesOriginal = Tags.init(jsonObject[jsonKeys.StoresKey].string)
-        product.storesInterpreted = Tags.init(jsonObject[jsonKeys.StoresTagsKey].stringArray)
+        product.storesOriginal = Tags.init(string:jsonObject[jsonKeys.StoresKey].string)
+        product.storesInterpreted = Tags.init(list:jsonObject[jsonKeys.StoresTagsKey].stringArray)
         //product.imageIngredientsUrl = jsonObject[jsonKeys.ImageIngredientsUrlKey].url
         (product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[jsonKeys.NutritionScoreDebugKey].string)
         //product.imageNutritionSmallUrl = jsonObject[jsonKeys.ImageNutritionSmallUrlKey].url
         product.correctors = jsonObject[jsonKeys.CorrectorsTagsKey].stringArray
         
         //product.imageIngredientsSmallUrl = jsonObject[jsonKeys.ImageIngredientsSmallUrlKey].url
-        product.originsInterpreted = Tags.init(jsonObject[jsonKeys.OriginsTagsKey].stringArray)
-        product.originsOriginal = Tags.init(jsonObject[jsonKeys.OriginsKey].string)
+        product.originsInterpreted = Tags.init(list:jsonObject[jsonKeys.OriginsTagsKey].stringArray)
+        product.originsOriginal = Tags.init(string:jsonObject[jsonKeys.OriginsKey].string)
         //product.producerElements(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
         
-        product.manufacturingPlacesInterpreted = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
-        product.manufacturingPlacesOriginal = Tags.init(jsonObject[jsonKeys.ManufacturingPlacesKey].string)
+        product.manufacturingPlacesInterpreted = Tags.init(list:jsonObject[jsonKeys.ManufacturingPlacesTagsKey].stringArray)
+        product.manufacturingPlacesOriginal = Tags.init(string:jsonObject[jsonKeys.ManufacturingPlacesKey].string)
         
-        product.categoriesOriginal = Tags.init(jsonObject[jsonKeys.CategoriesKey].string)
-        product.categoriesHierarchy = Tags.init(jsonObject[jsonKeys.CategoriesHierarchyKey].stringArray)
-        product.categoriesInterpreted = Tags.init(jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
+        product.categoriesOriginal = Tags.init(string:jsonObject[jsonKeys.CategoriesKey].string)
+        product.categoriesHierarchy = Tags.init(list:jsonObject[jsonKeys.CategoriesHierarchyKey].stringArray)
+        product.categoriesInterpreted = Tags.init(list:jsonObject[jsonKeys.CategoriesTagsKey].stringArray)
         
         product.quantity = jsonObject[jsonKeys.QuantityKey].string
         product.nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(jsonObject[jsonKeys.NutritionDataPerKey].string)
         product.periodAfterOpeningString  = jsonObject[jsonKeys.PeriodsAfterOpeningKey].string
         product.expirationDateString = jsonObject[jsonKeys.ExpirationDateKey].string
         
-        product.allergensInterpreted = Tags.init(jsonObject[jsonKeys.AllergensTagsKey].stringArray)
-        product.allergensOriginal = Tags.init(jsonObject[jsonKeys.AllergensKey].string)
-        product.allergensHierarchy = Tags.init(jsonObject[jsonKeys.AllergensHierarchyKey].stringArray)
+        product.allergensInterpreted = Tags.init(list:jsonObject[jsonKeys.AllergensTagsKey].stringArray)
+        product.allergensOriginal = Tags.init(string:jsonObject[jsonKeys.AllergensKey].string)
+        product.allergensHierarchy = Tags.init(list:jsonObject[jsonKeys.AllergensHierarchyKey].stringArray)
         
         if let ingredientsJSON = jsonObject[jsonKeys.IngredientsKey].array {
             var ingredients: [ingredientsElement] = []
@@ -852,7 +852,7 @@ class OpenFoodFactsRequest {
     fileprivate func decodeProducerCodeArray(_ codes: String?) -> [Address]? {
         if let validCodes = codes {
             if !validCodes.isEmpty {
-            let elements = validCodes.characters.split{$0 == ","}.map(String.init)
+            let elements = validCodes.split(separator:",").map(String.init)
                 var addressArray: [Address] = []
                 for code in elements {
                     if let newAddress = decodeProducerCode(code) {
@@ -885,8 +885,8 @@ class OpenFoodFactsRequest {
                 newAddress.country = "France"
                 // FR\s..\....\.... is the original regex string
                 if validCode.range(of: "FR\\s..\\....\\....", options: .regularExpression) != nil {
-                    let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
-                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                    let elementsSeparatedBySpace = validCode.split(separator:" ").map(String.init)
+                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].split(separator:".").map(String.init)
                     // combine into a valid french postal code
                     newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
                 }
@@ -894,8 +894,8 @@ class OpenFoodFactsRequest {
             } else if validCode.hasPrefix("ES ") {
                 newAddress.country = "Spain"
                 if validCode.range(of: "ES\\s..\\....\\....", options: .regularExpression) != nil {
-                    let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
-                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                    let elementsSeparatedBySpace = validCode.split(separator:" ").map(String.init)
+                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].split(separator:".").map(String.init)
                     // combine into a valid french postal code
                     newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
                 }
@@ -903,8 +903,8 @@ class OpenFoodFactsRequest {
             } else if validCode.hasPrefix("IT ") {
                 newAddress.country = "Italy"
                 if validCode.range(of: "IT\\s..\\....\\....", options: .regularExpression) != nil {
-                    let elementsSeparatedBySpace = validCode.characters.split{$0 == " "}.map(String.init)
-                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].characters.split{$0 == "."}.map(String.init)
+                    let elementsSeparatedBySpace = validCode.split(separator:" ").map(String.init)
+                    let elementsSeparatedByDot = elementsSeparatedBySpace[1].split(separator:".").map(String.init)
                     // combine into a valid french postal code
                     newAddress.postalcode = elementsSeparatedByDot[0] + elementsSeparatedByDot[1]
                 }
@@ -913,7 +913,7 @@ class OpenFoodFactsRequest {
                 newAddress.country = "France"
                 
                 // start after the first four characters
-                if validCode.length() >= 9 {
+                if validCode.count >= 9 {
                     newAddress.postalcode = validCode.substring(4, length: 5)
                 }
                 return newAddress
@@ -923,8 +923,8 @@ class OpenFoodFactsRequest {
                 // a valid code has 11 characters
                 // the last 4 characters contain the postal code
                 // there might be leading 0, which has no meaning in Belgium
-                if validCode.length() >= 10 {
-                    newAddress.postalcode = validCode.substring(validCode.length() - 4, length: 4)
+                if validCode.count >= 10 {
+                    newAddress.postalcode = validCode.substring(validCode.count - 4, length: 4)
                 }
                 return newAddress
             } else if validCode.hasPrefix("BE ") {
@@ -1157,7 +1157,7 @@ class OpenFoodFactsRequest {
             if !elementsArray.isEmpty {
                 var outputArray: [[String:String]] = []
                 for element in elementsArray {
-                    let elementsPair = element.characters.split{$0 == ":"}.map(String.init)
+                    let elementsPair = element.split(separator:":").map(String.init)
                     let dict = Dictionary(dictionaryLiteral: (elementsPair[0], elementsPair[1]))
                     outputArray.insert(dict, at: 0)
                 }

@@ -97,14 +97,14 @@ class ContributorTableViewCell: UITableViewCell {
         }
     }
 
-    func contributorLongPress() {
+    @objc func contributorLongPress() {
         // I should encode the search component
         // And the search status
         guard contributor != nil else { return }
         delegate?.search(for: contributor!.name, in: .contributor)
     }
 
-    func creatorLongPress() {
+    @objc func creatorLongPress() {
         // I should encode the search component
         // And the search status
         guard contributor != nil else { return }
@@ -125,7 +125,7 @@ class ContributorTableViewCell: UITableViewCell {
         delegate?.search(for: contributor!.name, in: .informer)
     }
 
-    func editorLongPress() {
+    @objc func editorLongPress() {
         // I should encode the search component
         // And the search status
         guard contributor != nil else { return }

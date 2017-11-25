@@ -52,7 +52,7 @@ public struct Completion: Hashable {
     }
 
     var cleanedState: String? {
-        var elements = self.description.characters.split(separator: " ").map(String.init)
+        var elements = self.description.split(separator: " ").map(String.init)
         if elements.count > 0 {
             elements.remove(at: elements.count - 1)
             return elements.joined(separator: " ")

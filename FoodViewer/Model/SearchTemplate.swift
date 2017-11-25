@@ -448,31 +448,31 @@ class SearchTemplate {
         case .searchText:
             text = string
         case .brand:
-            brands = (Tags.init(string), true)
+            brands = (Tags.init(string:string), true)
         case .language:
-            languages = (Tags.init(string), true)
+            languages = (Tags.init(string:string), true)
         case .category:
-            categories = (Tags.init(string), true)
+            categories = (Tags.init(string:string), true)
         case .country:
-            countries = (Tags.init(string), true)
+            countries = (Tags.init(string:string), true)
         case .label:
-            labels = (Tags.init(string), true)
+            labels = (Tags.init(string:string), true)
         case .packaging:
-            packaging = (Tags.init(string), true)
+            packaging = (Tags.init(string:string), true)
         case .purchasePlace:
-            purchase_places = (Tags.init(string), true)
+            purchase_places = (Tags.init(string:string), true)
         case .additive:
-            additives = (Tags.init(string), true)
+            additives = (Tags.init(string:string), true)
         case .trace:
-            traces = (Tags.init(string), true)
+            traces = (Tags.init(string:string), true)
         case .allergen:
-            allergens = (Tags.init(string), true)
+            allergens = (Tags.init(string:string), true)
         case .producerCode:
-            emb_codes = (Tags.init(string), true)
+            emb_codes = (Tags.init(string:string), true)
         case .manufacturingPlaces:
-            manufacturing_places = (Tags.init(string), true)
+            manufacturing_places = (Tags.init(string:string), true)
         case .store:
-            stores = (Tags.init(string), true)
+            stores = (Tags.init(string:string), true)
         case .contributor: // For the time being I interpret contributor as creator
             contributors.append(Contributor.init(string, role: .creator))
         case .creator:
@@ -496,7 +496,7 @@ class SearchTemplate {
             lastEditDates = [Date.init()]
         */
         case .origin:
-            origins = (Tags.init(string), true)
+            origins = (Tags.init(string:string), true)
         case .nutritionGrade:
             level = NutritionalScoreLevel.init(string)
         default:

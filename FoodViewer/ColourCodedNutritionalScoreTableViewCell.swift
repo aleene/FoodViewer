@@ -169,19 +169,19 @@ class ColourCodedNutritionalScoreTableViewCell: UITableViewCell {
 
     
     
-    func handleLongPressForA() {
+    @objc func handleLongPressForA() {
         delegate?.search(for: NutritionalScoreLevel.a.rawValue, in: .nutritionGrade)
     }
-    func handleLongPressForB() {
+    @objc func handleLongPressForB() {
         delegate?.search(for: NutritionalScoreLevel.b.rawValue, in: .nutritionGrade)
     }
-    func handleLongPressForC() {
+    @objc func handleLongPressForC() {
         delegate?.search(for: NutritionalScoreLevel.c.rawValue, in: .nutritionGrade)
     }
-    func handleLongPressForD() {
+    @objc func handleLongPressForD() {
         delegate?.search(for: NutritionalScoreLevel.d.rawValue, in: .nutritionGrade)
     }
-    func handleLongPressForE() {
+    @objc func handleLongPressForE() {
         delegate?.search(for: NutritionalScoreLevel.e.rawValue, in: .nutritionGrade)
     }
 

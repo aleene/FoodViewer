@@ -59,7 +59,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var name: String? = nil {
         didSet {
-            nameTextView.text = (name != nil) && (name!.characters.count > 0) ? name! :  ( editMode ? "" : TranslatableStrings.NoName )
+            nameTextView.text = (name != nil) && (name!.count > 0) ? name! :  ( editMode ? "" : TranslatableStrings.NoName )
         }
     }
     
@@ -86,7 +86,7 @@ class ProductNameTableViewCell: UITableViewCell {
         }
     }
 
-    func nameTapped() {
+    @objc func nameTapped() {
         delegate?.productNameTableViewCell(self, receivedDoubleTap: nameTextView)
     }
 }

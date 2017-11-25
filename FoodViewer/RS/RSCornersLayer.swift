@@ -5,15 +5,14 @@
 //  Created by R0CKSTAR on 6/13/14.
 //  Copyright (c) 2014 P.D.Q. All rights reserved.
 //
-
 import UIKit
 import QuartzCore
 
 open class RSCornersLayer: CALayer {
-    open var strokeColor = UIColor.green.cgColor
-    open var strokeWidth: CGFloat = 2
-    open var drawingCornersArray: Array<Array<CGPoint>> = []
-    open var cornersArray: Array<[Any]> = [] {
+    @objc open var strokeColor = UIColor.green.cgColor
+    @objc open var strokeWidth: CGFloat = 2
+    @objc open var drawingCornersArray: Array<Array<CGPoint>> = []
+    @objc open var cornersArray: Array<[Any]> = [] {
         willSet {
             DispatchQueue.main.async(execute: {
                 self.setNeedsDisplay()
@@ -38,14 +37,12 @@ open class RSCornersLayer: CALayer {
                 if i == corners.count {
                     idx = 0
                 }
-                let dict = corners[idx] as! NSDictionary
+                let point = corners[idx] as! CGPoint
                 
-                let x = CGFloat((dict.object(forKey: "X") as! NSNumber).floatValue)
-                let y = CGFloat((dict.object(forKey: "Y") as! NSNumber).floatValue)
                 if i == 0 {
-                    ctx.move(to: CGPoint(x: x, y: y))
+                    ctx.move(to: point)
                 } else {
-                    ctx.addLine(to: CGPoint(x: x, y: y))
+                    ctx.addLine(to: point)
                 }
             }
         }

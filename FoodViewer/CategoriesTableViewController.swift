@@ -220,13 +220,13 @@ class CategoriesTableViewController: UITableViewController {
     
     // MARK: - Notification Handler Functions
         
-    func refreshProduct() {
+    @objc func refreshProduct() {
         showCategoriesTagsType = TagsTypeDefault.Categories
 
         tableView.reloadData()
     }
 
-    func removeProduct() {
+    @objc func removeProduct() {
         product = nil
         tableView.reloadData()
     }
@@ -435,7 +435,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.categories.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.categories.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }

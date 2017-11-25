@@ -26,14 +26,14 @@ class BarcodeScanViewController: RSCodeReaderViewController {
             print(point)
         }
         
-        
-        let types = NSMutableArray(array: self.output.availableMetadataObjectTypes)
-        types.remove(AVMetadataObjectTypeQRCode)
-        types.remove(AVMetadataObjectTypePDF417Code)
-        types.remove(AVMetadataObjectTypeAztecCode)
-        types.remove(AVMetadataObjectTypeDataMatrixCode)
-
-        self.output.metadataObjectTypes = NSArray(array: types) as [AnyObject]
+        // MARK: NOTE: If you want to detect specific barcode types, you should update the types
+        var types = self.output.availableMetadataObjectTypes
+        // MARK: NOTE: Uncomment the following line remove QRCode scanning capability
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.qr })
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.pdf417 })
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.aztec })
+        types = types.filter({ $0 != AVMetadataObject.ObjectType.dataMatrix })
+        self.output.metadataObjectTypes = types
         
         // MARK: NOTE: If you layout views in storyboard, you should these 3 lines
         for subview in self.view.subviews {
@@ -44,8 +44,8 @@ class BarcodeScanViewController: RSCodeReaderViewController {
             if !self.dispatched { // triggers for only once
                 self.dispatched = true
                 for barcode in barcodes {
-                    self.barcode = barcode.stringValue
-                    self.type = barcode.type
+                    self.barcode = barcode.stringValue!
+                    self.type = barcode.type.rawValue
                     // print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
                     
                     DispatchQueue.main.async(execute: {

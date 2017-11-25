@@ -5,22 +5,21 @@
 //  Created by R0CKSTAR on 6/13/14.
 //  Copyright (c) 2014 P.D.Q. All rights reserved.
 //
-
 import UIKit
 import QuartzCore
 
 open class RSFocusMarkLayer: CALayer {
     // Use camera.app's focus mark size as default
-    open var size = CGSize(width: 76, height: 76)
+    @objc open var size = CGSize(width: 76, height: 76)
     // Use camera.app's focus mark sight as default
-    open var sight: CGFloat = 6
+    @objc open var sight: CGFloat = 6
     // Use camera.app's focus mark color as default
-    open var strokeColor = UIColor(rgba: "#ffcc00").cgColor
-    open var strokeWidth: CGFloat = 1
-    open var delay: CFTimeInterval = 1
-    open var canDraw = false
-        
-    open var point : CGPoint = CGPoint(x: 0, y: 0) {
+    @objc open var strokeColor = UIColor("#ffcc00").cgColor
+    @objc open var strokeWidth: CGFloat = 1
+    @objc open var delay: CFTimeInterval = 1
+    @objc open var canDraw = false
+    
+    @objc open var point : CGPoint = CGPoint(x: 0, y: 0) {
         didSet {
             DispatchQueue.main.async(execute: {
                 self.canDraw = true

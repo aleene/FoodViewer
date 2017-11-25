@@ -748,7 +748,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     // MARK: - Notification methods
     
     // function is called if an product image has been retrieved via an asynchronous process
-    func imageSet(_ notification: Notification) {
+    @objc func imageSet(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         
@@ -772,7 +772,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    func showAlertProductNotAvailable(_ notification: Notification) {
+    @objc func showAlertProductNotAvailable(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         let error = userInfo!["error"] as? String ?? "ProductTableViewController:showAlertProductNotAvailable: No valid error"
         let barcodeString = userInfo![OFFProducts.Notification.BarcodeDoesNotExistKey] as? String
@@ -787,7 +787,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForAdd, style: .destructive) { (action: UIAlertAction) -> Void in
                 let newProduct = FoodProduct.init(withBarcode: BarcodeType(barcodeTuple: (validBarcodeString,self.currentProductType.rawValue)))
                 let preferredLanguage = Locale.preferredLanguages[0]
-                let currentLanguage = preferredLanguage.characters.split{ $0 == "-" }.map(String.init)
+                let currentLanguage = preferredLanguage.split(separator:"-").map(String.init)
 
                 newProduct.primaryLanguageCode = currentLanguage[0]
                 let update = OFFUpdate()
@@ -816,7 +816,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         self.present(alert, animated: true, completion: nil)
     }
 
-    func productLoaded(_ notification: Notification) {
+    @objc func productLoaded(_ notification: Notification) {
         tableView.reloadData()
 //
 //  THIS PART RESULTS IN AN EXCEPTION on reloadSections
@@ -835,7 +835,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 //        }
     }
     
-    func productUpdated(_ notification: Notification) {
+    @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
@@ -849,18 +849,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     // 
-    func firstProductLoaded(_ notification: Notification) {
+    @objc func firstProductLoaded(_ notification: Notification) {
         startInterface(at: 0)
     }
     
-    func searchLoaded(_ notification: Notification) {
+    @objc func searchLoaded(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
             startInterface(at:index >= 0 ? index : 0)
         }
     }
 
-    func searchStarted(_ notification: Notification) {
+    @objc func searchStarted(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let firstPage = notification.userInfo?[OFFProducts.Notification.SearchPageKey] as? Int {
             // if there is no SearchOffSet, then the search just started

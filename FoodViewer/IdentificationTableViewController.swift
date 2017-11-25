@@ -159,7 +159,7 @@ class IdentificationTableViewController: UITableViewController {
         // find the first preferred language that can be used
         for languageLocale in Locale.preferredLanguages {
             // split language and locale
-            let preferredLanguage = languageLocale.characters.split{$0 == "-"}.map(String.init)[0]
+            let preferredLanguage = languageLocale.split(separator:"-").map(String.init)[0]
             if let languageCodes = product?.languageCodes {
                 if languageCodes.contains(preferredLanguage) {
                     currentLanguageCode = preferredLanguage
@@ -833,7 +833,7 @@ class IdentificationTableViewController: UITableViewController {
 // MARK: - Notification handlers
     
 
-    func reloadImageSection() {
+    @objc func reloadImageSection() {
         tableView.reloadData()
     }
     
@@ -849,13 +849,13 @@ class IdentificationTableViewController: UITableViewController {
         return nil
     }
     
-    func refreshProduct() {
+    @objc func refreshProduct() {
          showPackagingTagsType = TagsTypeDefault.Packaging
         showBrandTagsType = TagsTypeDefault.Brands
         tableView.reloadData()
     }
     
-    func loadFirstProduct() {
+    @objc func loadFirstProduct() {
         let products = OFFProducts.manager
         if !products.fetchResultList.isEmpty {
             switch products.fetchResultList[0] {
@@ -917,7 +917,7 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    func imageUploaded(_ notification: Notification) {
+    @objc func imageUploaded(_ notification: Notification) {
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if let productBarcode = product?.barcode.asString() {
@@ -934,7 +934,7 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    func imageDeleted(_ notification: Notification) {
+    @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {
@@ -949,7 +949,7 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    func removeProduct() {
+    @objc func removeProduct() {
         product = nil
         tableView.reloadData()
     }
@@ -1410,13 +1410,13 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init([title])
+                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list:[title])
             case .available(var list):
                 list.append(title)
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list:list)
             default:
                 assert(true, "IdentificationTableViewController: How can I add a packaging tag when the field is non-editable")
             }
@@ -1452,7 +1452,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
@@ -1479,7 +1479,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }

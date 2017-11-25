@@ -188,12 +188,12 @@ open class TagView: UIView {
     }
     
     /// function that responds to the Token's tapGestureRecognizer.
-    func didTapTagView(_ sender: UITapGestureRecognizer) {
+    @objc func didTapTagView(_ sender: UITapGestureRecognizer) {
         delegate?.didTapTagView(self)
     }
     
     /// function that responds to the Token's longPressGestureRecognizer.
-    func didLongPressTagView(_ sender: UILongPressGestureRecognizer) {
+    @objc func didLongPressTagView(_ sender: UILongPressGestureRecognizer) {
         delegate?.didLongPressTagView(self)
     }
 
@@ -326,12 +326,12 @@ open class TagView: UIView {
     
     @IBOutlet weak var removeImageView: UIImageView!
     
-    func removeButtonTapped(_ sender: UIButton) {
+    @objc func removeButtonTapped(_ sender: UIButton) {
         delegate?.didTapRemoveButton(self)
     }
     
     private func loadView() {
-        let type = type(of: self)
+        let type = Swift.type(of: self)
         let bundle = Bundle(for: type)
         let nib = UINib(nibName: String(describing: type), bundle: bundle)
         let view = nib.instantiate(withOwner: self, options: nil).first! as! UIView

@@ -565,7 +565,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
     
-    func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
+    @objc func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
         /////
         Preferences.manager.showSaltOrSodium = Preferences.manager.showSaltOrSodium == .salt ? .sodium : .salt
         
@@ -573,7 +573,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         tableView.reloadData()
     }
     
-    func doubleTapOnEnergyTableViewCell(_ recognizer: UITapGestureRecognizer) {
+    @objc func doubleTapOnEnergyTableViewCell(_ recognizer: UITapGestureRecognizer) {
         /////
         switch Preferences.manager.showCaloriesOrJoule {
         case .calories:
@@ -1028,7 +1028,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     // MARK: - Notification handler functions
     
-    func refreshProduct() {
+    @objc func refreshProduct() {
         guard product != nil else { return }
         tableView.reloadData()
     }
@@ -1053,7 +1053,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
  */
     
-    func reloadImageSection() { // (_ notification: Notification) {
+    @objc func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
     }
 
@@ -1097,7 +1097,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
 
-    func removeProduct() {
+    @objc func removeProduct() {
         product = nil
         tableView.reloadData()
     }
@@ -1340,7 +1340,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.standardValue = String(text.characters.map {
+                        editedNutritionFact.standardValue = String(text.map {
                             $0 == "," ? "." : $0
                         })
                     }
@@ -1349,7 +1349,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
 
                     // this value has been changed
                     if let text = textField.text {
-                        editedNutritionFact.servingValue = String(text.characters.map {
+                        editedNutritionFact.servingValue = String(text.map {
                             $0 == "," ? "." : $0
                         })
                     }

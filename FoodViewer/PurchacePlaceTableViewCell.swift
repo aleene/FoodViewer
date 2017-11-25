@@ -87,7 +87,7 @@ class PurchacePlaceTableViewCell: UITableViewCell {
         }
     }
     
-    func tagListViewTapped() {
+    @objc func tagListViewTapped() {
         delegate?.purchacePlaceTableViewCell(self, receivedDoubleTapOn: tagListView)
     }
     

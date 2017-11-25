@@ -803,12 +803,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     //func changeTagsTypeToShow(_ notification: Notification) {
     //}
 
-    func reloadImageSection() { // (_ notification: Notification) {
+    @objc func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
         // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
     }
     
-    func refreshProduct() {
+    @objc func refreshProduct() {
         labelsTagsTypeToShow = TagsTypeDefault.Labels
         tracesTagsTypeToShow = TagsTypeDefault.Traces
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
@@ -816,7 +816,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tableView.reloadData()
     }
     
-    func removeProduct() {
+    @objc func removeProduct() {
         product = nil
         tableView.reloadData()
     }
@@ -887,7 +887,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
 
-    func imageUploaded(_ notification: Notification) {
+    @objc func imageUploaded(_ notification: Notification) {
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {
@@ -902,7 +902,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    func imageDeleted(_ notification: Notification) {
+    @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {
@@ -1248,7 +1248,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.traces.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.traces.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1261,7 +1261,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.ingredients = Tags.init(list)
+                OFFProducts.manager.searchQuery!.ingredients = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1288,7 +1288,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.labels.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.labels.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1301,7 +1301,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.additives.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.additives.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1314,7 +1314,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                 if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.allergens.0 = Tags.init(list)
+                OFFProducts.manager.searchQuery!.allergens.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1577,7 +1577,7 @@ extension IngredientsTableViewController: LanguageHeaderDelegate {
 
 extension Locale {
     static func interfaceLanguageCode() -> String {
-        return Locale.preferredLanguages[0].characters.split{ $0 == "-" }.map(String.init)[0]
+        return Locale.preferredLanguages[0].split(separator:"-").map(String.init)[0]
     }
 }
 

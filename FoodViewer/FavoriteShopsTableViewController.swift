@@ -42,34 +42,34 @@ class FavoriteShopsTableViewController: UITableViewController {
         let (shop, location) = FavoriteShopsDefaults.manager.list[indexPath.row]
         cell.textLabel?.text = shop
         var textToShow = ""
-        if location.street.characters.count > 0 {
+        if location.street.count > 0 {
             textToShow = location.street
-            if location.postalcode.characters.count > 0 {
+            if location.postalcode.count > 0 {
                 textToShow = textToShow + ", " + location.postalcode
             }
-            if location.city.characters.count > 0 {
+            if location.city.count > 0 {
                 textToShow = textToShow + ", " + location.city
             }
-            if location.country.characters.count > 0 {
+            if location.country.count > 0 {
                 textToShow = textToShow + ", " + location.country
             }
         } else {
-            if location.postalcode.characters.count > 0 {
+            if location.postalcode.count > 0 {
                 textToShow = location.postalcode
-                if location.city.characters.count > 0 {
+                if location.city.count > 0 {
                     textToShow = textToShow + ", " + location.city
                 }
-                if location.country.characters.count > 0 {
+                if location.country.count > 0 {
                     textToShow = textToShow + ", " + location.country
                 }
             } else {
-                if location.city.characters.count > 0 {
+                if location.city.count > 0 {
                     textToShow = location.city
-                    if location.country.characters.count > 0 {
+                    if location.country.count > 0 {
                         textToShow = textToShow + ", " + location.country
                     }
                 } else {
-                    if location.country.characters.count > 0 {
+                    if location.country.count > 0 {
                         textToShow = location.country
                     }
                 }
@@ -133,7 +133,7 @@ class FavoriteShopsTableViewController: UITableViewController {
     
     // https://www.raywenderlich.com/63089/cookbook-moving-table-view-cells-with-a-long-press-gesture
     
-    func handleTableViewLongGesture(sender: UILongPressGestureRecognizer) {
+    @objc func handleTableViewLongGesture(sender: UILongPressGestureRecognizer) {
         let state = sender.state
         let location = sender.location(in: tableView)
         

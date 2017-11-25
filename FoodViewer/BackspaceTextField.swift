@@ -20,7 +20,7 @@ internal class BackspaceTextField: UITextField {
     internal weak var backspaceDelegate: BackspaceTextFieldDelegate?
     
     internal func keyboardInputShouldDelete(_ textField: UITextField) -> Bool {
-        if text?.characters.count == 0 {
+        if text?.count == 0 {
             backspaceDelegate?.textFieldDidEnterBackspace(self)
         }
         return true

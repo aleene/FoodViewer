@@ -136,7 +136,7 @@ public class ProductImageData {
         // decode the url to get the barcode
         guard url != nil else { return nil }
         // let separator = OFF.URL.Divider.Slash
-        let elements = url!.absoluteString.characters.split{ $0 == "/" }.map(String.init)
+        let elements = url!.absoluteString.split(separator:"/").map(String.init)
         // https://static.openfoodfacts.org/images/products/327/019/002/5337/ingredients_fr.27.100.jpg
         if elements.count >= 8 {
             return elements[4] + elements[5] + elements[6] + elements[7]

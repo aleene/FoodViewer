@@ -68,9 +68,8 @@ open class RSCode39Generator: RSAbstractCodeGenerator {
     // MAKR: RSAbstractCodeGenerator
     
     override open func isValid(_ contents: String) -> Bool {
-        let length = contents.length()
-        if length > 0 && contents == contents.uppercased() {
-            for character in contents.characters {
+        if contents.count > 0 && contents == contents.uppercased() {
+            for character in contents {
                 let location = CODE39_ALPHABET_STRING.location(String(character))
                 if location == NSNotFound {
                     return false
@@ -91,7 +90,7 @@ open class RSCode39Generator: RSAbstractCodeGenerator {
     
     override open func barcode(_ contents: String) -> String {
         var barcode = ""
-        for character in contents.characters {
+        for character in contents {
             barcode += self.encodeCharacterString(String(character))
         }
         return barcode

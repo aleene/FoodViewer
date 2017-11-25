@@ -46,11 +46,11 @@
         }
     }
     
-    func _actionCancel() {
+    @objc func _actionCancel() {
         _ = navigationController?.popViewController(animated: true)
     }
     
-    func _actionUse() {
+    @objc func _actionUse() {
         let _croppedImage = imageCropView!.croppedImage()
         delegate?.imageCropController(self, didFinishWith: _croppedImage )
     }

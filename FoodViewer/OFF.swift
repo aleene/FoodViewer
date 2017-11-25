@@ -212,7 +212,7 @@ public struct OFF {
     // Convert the key values found in the JSON to a Completion
     public static func JSONcompletion(for string: String) -> Completion? {
         // remove the language component
-        let elements = string.characters.split{$0 == ":"}.map(String.init)
+        let elements = string.split(separator:":").map(String.init)
         if elements.count > 1 {
             return completion(for:elements[1])
         }
@@ -356,7 +356,7 @@ public struct OFF {
         urlString += addSearchTag(template.categories, in: .category, index: &search_tag_index) ?? ""
         
         if template.level != nil && template.level! != .undefined {
-            let tags = Tags.init([template.level!.rawValue])
+            let tags = Tags.init(list:[template.level!.rawValue])
             // The contain value is always set to true as it is encoded in the tags value.
             urlString += addSearchTag((tags, true), in: .nutritionGrade, index: &search_tag_index) ?? ""
         }
@@ -365,14 +365,14 @@ public struct OFF {
         //      tagtype_0=states&tag_contains_0=contains&tag_0=Product%20name%20to%20be%20completed
         //
         if let completion = template.completion {
-            urlString += addSearchTag((Tags.init([searchKey(for:completion).replacingOccurrences(of: "-", with: " ")]), true), in: .state, index: &search_tag_index) ?? ""
+            urlString += addSearchTag((Tags.init(list:[searchKey(for:completion).replacingOccurrences(of: "-", with: " ")]), true), in: .state, index: &search_tag_index) ?? ""
         }
         // Add the search parts for all nutriments
         
         search_tag_index = 0
         for nutriment in template.allNutrimentsSearch {
             // only add if there is a valid nutrient key
-            let elements = nutriment.key.characters.split{$0 == ":"}.map(String.init)
+            let elements = nutriment.key.split(separator:":").map(String.init)
             if elements[0] == "en" && elements.count > 1 {
                 urlString += URL.Search.Nutriments.Tiep
                 urlString += "\(search_tag_index)"
@@ -405,28 +405,28 @@ public struct OFF {
         for contributor in template.contributors {
             if contributor.isCreator {
                 // &tagtype_0=creator&tag_contains_0=contains&tag_0=aleene
-                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .creator, index: &search_tag_index) ?? ""
+                urlString += addSearchTag((Tags.init(list:[contributor.name]), true), in: .creator, index: &search_tag_index) ?? ""
             }
             if contributor.isEditor {
                 // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
-                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .editor, index: &search_tag_index) ?? ""
+                urlString += addSearchTag((Tags.init(list:[contributor.name]), true), in: .editor, index: &search_tag_index) ?? ""
             }
             if contributor.isInformer {
                 // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
-                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .informer, index: &search_tag_index) ?? ""
+                urlString += addSearchTag((Tags.init(list:[contributor.name]), true), in: .informer, index: &search_tag_index) ?? ""
             }
             if contributor.isCorrector {
                 // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
-                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .corrector, index: &search_tag_index) ?? ""
+                urlString += addSearchTag((Tags.init(list:[contributor.name]), true), in: .corrector, index: &search_tag_index) ?? ""
             }
             if contributor.isChecker {
                 // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
-                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .checker, index: &search_tag_index) ?? ""
+                urlString += addSearchTag((Tags.init(list:[contributor.name]), true), in: .checker, index: &search_tag_index) ?? ""
             }
 
             if contributor.isPhotographer {
                 // &tagtype_0=editors&tag_contains_0=contains&tag_0=aleene
-                urlString += addSearchTag((Tags.init([contributor.name]), true), in: .photographer, index: &search_tag_index) ?? ""
+                urlString += addSearchTag((Tags.init(list:[contributor.name]), true), in: .photographer, index: &search_tag_index) ?? ""
             }
 
         }
@@ -538,29 +538,29 @@ public struct OFF {
     }
 
     static func imageURLComponentFor(_ barcode: String) -> String? {
-        if barcode.characters.count == 8 {
+        if barcode.count == 8 {
             // Lidl product
             return barcode
-        } else if barcode.characters.count == 13 {
+        } else if barcode.count == 13 {
             let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
             let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
             let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
             let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: 12)
 //
-            return barcode[part1] + OFF.URL.Divider.Slash +
-                barcode[part2] + OFF.URL.Divider.Slash +
-                barcode[part3] + OFF.URL.Divider.Slash  +
+            return String(barcode[part1]) + OFF.URL.Divider.Slash +
+                String(barcode[part2]) + OFF.URL.Divider.Slash +
+                String(barcode[part3]) + OFF.URL.Divider.Slash  +
                 barcode[part4]
-        } else if barcode.characters.count == 11 {
+        } else if barcode.count == 11 {
             // US products
             let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
             let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
             let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
             let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: 10)
             //
-            return barcode[part1] + OFF.URL.Divider.Slash +
-                barcode[part2] + OFF.URL.Divider.Slash +
-                barcode[part3] + OFF.URL.Divider.Slash  +
+            return String(barcode[part1]) + OFF.URL.Divider.Slash +
+                String(barcode[part2]) + OFF.URL.Divider.Slash +
+                String(barcode[part3]) + OFF.URL.Divider.Slash  +
                 barcode[part4]
         }
         print("OFF.imageURLFor(_ barcode) : barcode can not be translated to url-string")

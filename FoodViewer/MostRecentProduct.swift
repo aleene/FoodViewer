@@ -42,7 +42,7 @@ public struct MostRecentProduct {
             for dict in mostRecentProductsDict {
                 let productType = dict[Key.MostRecentProductType] is String ? dict[Key.MostRecentProductType] as! String : ""
                 let jsonData = dict[Key.MostRecentProductData] is Data ? dict[Key.MostRecentProductData] as! Data : Data()
-                if productType.length() > 0 && jsonData.count > 0 {
+                if productType.count > 0 && jsonData.count > 0 {
                     storedJsonData[productType] = jsonData
                 }
             }

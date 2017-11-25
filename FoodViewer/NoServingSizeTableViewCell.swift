@@ -42,7 +42,7 @@ class NoServingSizeTableViewCell: UITableViewCell {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {
-                if listItem.characters.count > 0 {
+                if listItem.count > 0 {
                     newList.append(listItem)
                 }
             }

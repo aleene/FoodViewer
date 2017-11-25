@@ -167,10 +167,10 @@ class Address {
         // Create an array with optional String s
         var loc: [String?] = []
         // Fill the array with the address
-        loc.append(self.street.characters.count > 0 ? self.street : nil)
-        loc.append(self.postalcode.characters.count > 0 ? self.postalcode : nil)
-        loc.append(self.city.characters.count > 0 ? self.city : nil)
-        loc.append(self.country.characters.count > 0 ? self.country : nil)
+        loc.append(self.street.count > 0 ? self.street : nil)
+        loc.append(self.postalcode.count > 0 ? self.postalcode : nil)
+        loc.append(self.city.count > 0 ? self.city : nil)
+        loc.append(self.country.count > 0 ? self.country : nil)
         let singleString = loc.flatMap{$0}.joined(separator: separator)
         return singleString.isEmpty ? nil : singleString
     }
@@ -183,7 +183,7 @@ class Address {
             if !elementsArray.isEmpty {
                 var outputArray: [[String:String]] = []
                 for element in elementsArray {
-                    let elementsPair = element.characters.split{$0 == ":"}.map(String.init)
+                    let elementsPair = element.split(separator:":").map(String.init)
                     let dict = Dictionary(dictionaryLiteral: (elementsPair[0], elementsPair[1]))
                     outputArray.insert(dict, at: 0)
                 }
@@ -205,7 +205,7 @@ class Address {
 
     private func removeDashes(_ element: String) -> String {
         var newElement = ""
-        for character in element.characters {
+        for character in element {
             if character == "-" {
                 newElement.append(" ")
             } else {
@@ -220,7 +220,7 @@ class Address {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {
-                if listItem.characters.count > 0 {
+                if listItem.count > 0 {
                     newList.append(listItem)
                 }
             }

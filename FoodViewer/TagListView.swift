@@ -1199,11 +1199,11 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     private var tapGestureRecognizer: UITapGestureRecognizer?
     
-    internal func uncollapseOnTap(_ sender: UITapGestureRecognizer) {
+    @objc internal func uncollapseOnTap(_ sender: UITapGestureRecognizer) {
         isCollapsed = false
     }
     
-    internal func clearOnTap(_ sender: UITapGestureRecognizer) {
+    @objc internal func clearOnTap(_ sender: UITapGestureRecognizer) {
         datasource?.didClear(self)
         // reload in case the user changed the data
         reloadData(clearAll:false)

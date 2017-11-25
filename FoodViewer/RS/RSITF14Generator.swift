@@ -12,6 +12,6 @@ import UIKit
 // http://www.barcodeisland.com/int2of5.phtml
 open class RSITF14Generator: RSITFGenerator {
     override open func isValid(_ contents: String) -> Bool {
-        return super.isValid(contents) && contents.length() == 14
+        return super.isValid(contents) && contents.count == 14
     }
 }

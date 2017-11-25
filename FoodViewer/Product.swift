@@ -330,7 +330,7 @@ class FoodProduct {
                     let translatedKey = OFFplists.manager.translateCountries(country, language: preferredLanguage)
                     translatedCountries.append(translatedKey)
                 }
-                return translatedCountries.count == 0 ? .empty : Tags.init(translatedCountries)
+                return translatedCountries.count == 0 ? .empty : Tags.init(list:translatedCountries)
             default:
                 break
             }
@@ -455,7 +455,7 @@ class FoodProduct {
     private func decodeInterval(_ interval: String?) -> Date? {
         if let validInterval = interval {
             if !validInterval.isEmpty {
-                let intervalElements = validInterval.characters.split{$0 == " "}.map(String.init)
+                let intervalElements = validInterval.split(separator:" ").map(String.init)
                 if intervalElements[1] == "M" {
                     if let number = Double.init(intervalElements[0]) {
                     return Date.init(timeIntervalSinceReferenceDate: number * 3600.0 * 24.0 * 30.0)
@@ -526,7 +526,7 @@ class FoodProduct {
         var newList: [String] = []
         if !list.isEmpty {
             for listItem in list {
-                if listItem.characters.count > 0 {
+                if listItem.count > 0 {
                     newList.append(listItem)
                 }
             }
@@ -830,7 +830,7 @@ class FoodProduct {
         
         switch product!.brandsOriginal {
         case .available(let list):
-            brandsOriginal = Tags.init(list)
+            brandsOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -841,7 +841,7 @@ class FoodProduct {
         // images = product.images
         switch product!.packagingOriginal {
         case .available(let list):
-            packagingOriginal = Tags.init(list)
+            packagingOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -854,7 +854,7 @@ class FoodProduct {
         // numberOfIngredients = product.numberOfIngredients
         switch product!.allergensOriginal {
         case .available(let list):
-            allergensOriginal = Tags.init(list)
+            allergensOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -862,7 +862,7 @@ class FoodProduct {
         // allergensHierarchy = product.allergensHierarchy
         switch product!.tracesOriginal {
         case .available(let list):
-            tracesOriginal = Tags.init(list)
+            tracesOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -871,7 +871,7 @@ class FoodProduct {
 // additivesInterpreted = product.additivesInterpreted
         switch product!.labelsOriginal {
         case .available(let list):
-            labelsOriginal = Tags.init(list)
+            labelsOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -879,21 +879,21 @@ class FoodProduct {
         // labelsHierarchy = product.labelsHierarchy
         switch product!.manufacturingPlacesOriginal {
         case .available(let list):
-            manufacturingPlacesOriginal = Tags.init(list)
+            manufacturingPlacesOriginal = Tags.init(list:list)
         default:
             break
         }
         // manufacturingPlacesInterpreted = product.manufacturingPlacesInterpreted
         switch product!.originsOriginal {
         case .available(let list):
-            originsOriginal = Tags.init(list)
+            originsOriginal = Tags.init(list:list)
         default:
             break
         }
         // originsInterpreted = product.originsInterpreted
         switch product!.embCodesOriginal {
         case .available(let list):
-            embCodesOriginal = Tags.init(list)
+            embCodesOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -904,7 +904,7 @@ class FoodProduct {
         // nutritionGrade = product.nutritionGrade
         switch product!.purchasePlacesOriginal {
         case .available(let list):
-            purchasePlacesOriginal = Tags.init(list)
+            purchasePlacesOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -912,14 +912,14 @@ class FoodProduct {
         // purchasePlacesInterpreted = product.purchasePlacesInterpreted
         switch product!.storesOriginal {
         case .available(let list):
-            storesOriginal = Tags.init(list)
+            storesOriginal = Tags.init(list:list)
         default:
             break
         }
         // storesInterpreted = product.storesInterpreted
         switch product!.countriesOriginal {
         case .available(let list):
-            countriesOriginal = Tags.init(list)
+            countriesOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -936,7 +936,7 @@ class FoodProduct {
         }
         switch product!.categoriesOriginal {
         case .available(let list):
-            categoriesOriginal = Tags.init(list)
+            categoriesOriginal = Tags.init(list:list)
         default:
             break
         }
@@ -979,16 +979,16 @@ class FoodProduct {
                 if !stores.isEmpty {
                     if !stores.contains(validShop) {
                         // there might be a shop with an empty string
-                        if stores.count == 1 && stores[0].characters.count == 0 {
+                        if stores.count == 1 && stores[0].count == 0 {
                             stores = [validShop]
                         } else {
                             stores.append(validShop)
                         }
                     }
                 } else {
-                    storesOriginal = Tags.init(stores)
+                    storesOriginal = Tags.init(list:stores)
                 }
-                storesOriginal = Tags.init(stores)
+                storesOriginal = Tags.init(list:stores)
                 return stores
             default:
                 break

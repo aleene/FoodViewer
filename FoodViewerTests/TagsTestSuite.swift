@@ -162,7 +162,8 @@ class TagsTestSuite: XCTestCase {
     func testInitWithListAndLanguageCode() {
         let list = ["fr:1","2","3"]
         let lc = "en"
-        let tags = Tags.init(list, languageCode: lc)
+        let tags = Tags.init(list:list)
+        tags = tags.addPrefix(lc)
         switch tags {
         case .available(let newList):
             XCTAssertTrue(true,"init(string:) successfull")
@@ -176,7 +177,8 @@ class TagsTestSuite: XCTestCase {
     func testInitWithListThatIsNilAndLanguageCode() {
         let list: [String]? = nil
         let lc = "en"
-        let tags = Tags.init(list, languageCode: lc)
+        let tags = Tags.init(list:list)
+        tags = tags.addPrefix(lc)
         switch tags {
         case .undefined:
             XCTAssertTrue(true,"Value .undefined successfully set, when initialising with a nil list")
@@ -188,7 +190,8 @@ class TagsTestSuite: XCTestCase {
     func testInitWithListThatHasNoElementsAndLanguageCode() {
         let list: [String]? = []
         let lc = "en"
-        let tags = Tags.init(list, languageCode: lc)
+        let tags = Tags.init(list:list)
+        tags = tags.addPrefix(lc)
         switch tags {
         case .empty:
             XCTAssertTrue(true,"Value .undefined successfully set, when initialising with a nil list")
@@ -200,7 +203,8 @@ class TagsTestSuite: XCTestCase {
     func testInitWithCommaDelimitedStringAndLanguageCode() {
         let string = "1,fr:2,3"
         let lc = "en"
-        let tags = Tags.init(string, with: lc)
+        let tags = Tags.init(string:string)
+        tags = tags.addPrefix(lc)
         switch tags {
         case .available(let newList):
             XCTAssertTrue(true,"init(string:) successfull")
@@ -214,7 +218,8 @@ class TagsTestSuite: XCTestCase {
     func testInitWithStringThatIsNilAndLanguageCode() {
         let string: String? = nil
         let lc = "en"
-        let tags = Tags.init(string, with: lc)
+        let tags = Tags.init(string:string)
+        tags = tags.addPrefix(lc)
         switch tags {
         case .undefined:
             XCTAssertTrue(true,"Value .undefined successfully set, when initialising with a nil list")
@@ -226,7 +231,8 @@ class TagsTestSuite: XCTestCase {
     func testInitWithStringThatIsEmptyAndLanguageCode() {
         let string: String? = ""
         let lc = "en"
-        let tags = Tags.init(string, with: lc)
+        let tags = Tags.init(string:string)
+        tags = tags.addPrefix(lc)
         switch tags {
         case .empty:
             XCTAssertTrue(true,"Value .empty successfully set, when initialising with an empty string")
@@ -244,19 +250,19 @@ class TagsTestSuite: XCTestCase {
     func testTagWithValidIndex() {
         let list = ["1","2","3"]
         let tags = Tags(list)
-        XCTAssertEqual(tags.tag(1),  "2", "Value of second tag, with index 1")
+        XCTAssertEqual(tags.tag(at: 1),  "2", "Value of second tag, with index 1")
     }
 
     func testTagWithInvalidIndex() {
         let list = ["1","2","3"]
         let tags = Tags.init(list)
-        let string = tags.tag(6)
+        let string = tags.tag(at: 6)
         XCTAssertNil(string, "tag with out of bounds returns nil")
     }
 
     func testTagWithIndexThatIsUndefined() {
         let tags = Tags()
-        let string = tags.tag(6)
+        let string = tags.tag(at: 6)
         XCTAssertEqual(string, "unknown", "tag with out of bounds returns nil")
     }
     
@@ -265,11 +271,11 @@ class TagsTestSuite: XCTestCase {
     //
     
     // test to see whether a tag at an index with a prefix is removed if it matches a give locale
-
+    /*
     func testRemoveLanguagePrefix() {
         let list = ["en:1","fr:2","nl:3"]
         let tags = Tags(list)
-        let newTag = tags.tagWithoutPrefix(1, locale: "fr-BE")
+        let newTag = tags.tag(at:1, locale: "fr-BE")
         XCTAssertEqual(newTag, "2", "The tag at index 1 has the prefix removed.")
     }
     
@@ -288,7 +294,7 @@ class TagsTestSuite: XCTestCase {
         let newTag = tags.tagWithoutPrefix(4, locale: "fr-BE")
         XCTAssertNil(newTag, "The tag at index 4 does not exist.")
     }
-
+     */
     //
     // MARK: - remove(_:)
     //
@@ -328,11 +334,11 @@ class TagsTestSuite: XCTestCase {
     //
 
     // Test to see whether a prefix is actually added to an element of the list
-    
+    /*
     func testPrefixedListWithItemWithoutPrefix() {
         let list = ["1","2","3"]
         let tags = Tags(list)
-        let prefixedList = tags.prefixedList("en")
+        let prefixedList = tags.addPrefix("en")
         XCTAssertEqual(prefixedList[0], "en:1", "A prefix will be added to a tag")
     }
     
@@ -341,8 +347,8 @@ class TagsTestSuite: XCTestCase {
     func testPrefixedListWithItemWithPrefix() {
         let list = ["fr:1","2","3"]
         let tags = Tags(list)
-        let prefixedList = tags.prefixedList("en")
+        let prefixedList = tags.addPrefix("en")
         XCTAssertEqual(prefixedList[0], "fr:1", "A prefix will not be added to a tag when there is already one")
     }
-
+     */
 }

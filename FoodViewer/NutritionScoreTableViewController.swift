@@ -223,7 +223,7 @@ class NutritionScoreTableViewController: UITableViewController {
         }
     }
 
-    func doubleTapOnTableView(_ recognizer: UITapGestureRecognizer) {
+    @objc func doubleTapOnTableView(_ recognizer: UITapGestureRecognizer) {
         /////
         showNutritionalScore = showNutritionalScore == .uk ? .france : .uk
         refreshProduct()

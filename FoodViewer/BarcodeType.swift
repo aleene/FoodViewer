@@ -82,19 +82,19 @@ enum BarcodeType {
     func fill() -> String {
         switch self {
         case .ean13(var s, _):
-            let len = s.characters.count + 1
+            let len = s.count + 1
             for _ in len...13 {
                 s += "x"
             }
             return s
         case .ean8(var s, _):
-            let len = s.characters.count + 1
+            let len = s.count + 1
             for _ in len...8 {
                 s += "x"
             }
             return s
         case .upc12(var s, _):
-            let len = s.characters.count + 1
+            let len = s.count + 1
             for _ in len...12 {
                 s += "x"
             }

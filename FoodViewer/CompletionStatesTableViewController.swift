@@ -275,7 +275,7 @@ class CompletionStatesTableViewController: UITableViewController {
         return nil
     }
     
-    func creationDateLongPress() {
+    @objc func creationDateLongPress() {
         // I should encode the search component
         // And the search status
         guard product?.additionDate != nil else { return }
@@ -285,7 +285,7 @@ class CompletionStatesTableViewController: UITableViewController {
         delegate?.search(for: searchString, in: .entryDates)
     }
 
-    func lastEditDateLongPress() {
+    @objc func lastEditDateLongPress() {
         // I should encode the search component
         // And the search status
         guard product?.lastEditDates?[0] != nil else { return }
@@ -296,27 +296,27 @@ class CompletionStatesTableViewController: UITableViewController {
         delegate?.search(for: searchString, in: .lastEditDate)
     }
     
-    func identificationTapped() {
+    @objc func identificationTapped() {
         delegate?.pageIndex = .identification
     }
     
-    func ingredientsTapped() {
+    @objc func ingredientsTapped() {
         delegate?.pageIndex = .ingredients
     }
 
-    func categoriesTapped() {
+    @objc func categoriesTapped() {
         delegate?.pageIndex = .categories
     }
 
-    func supplyChainTapped() {
+    @objc func supplyChainTapped() {
         delegate?.pageIndex = .supplyChain
     }
 
-    func nutritionFactsTapped() {
+    @objc func nutritionFactsTapped() {
         delegate?.pageIndex = .nutritionFacts
     }
 
-    func galleryTapped() {
+    @objc func galleryTapped() {
         delegate?.pageIndex = .gallery
     }
 //
@@ -440,11 +440,11 @@ class CompletionStatesTableViewController: UITableViewController {
     // MARK: - Notification handler
     
     
-    func refreshProduct() {
+    @objc func refreshProduct() {
         tableView.reloadData()
     }
 
-    func removeProduct() {
+    @objc func removeProduct() {
         product = nil
         tableView.reloadData()
     }
