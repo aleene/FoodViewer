@@ -648,74 +648,74 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 TableSections.Header.NutritionFactsImage))
 
 
-        } else {
-
-            guard product != nil else { return [] }
-        // how does the user want the data presented
-        switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
-        case .perStandard:
-            // what is possible?
-            switch product!.nutritionFactsAreAvailable {
-            case .perStandardUnit, .perServingAndStandardUnit:
-                showNutrientsAs = .perStandard
-            case .perServing:
-                showNutrientsAs = .perServing
-            default:
-                break
-            }
-        case .perServing:
-            switch product!.nutritionFactsAreAvailable {
-                // what is possible?
-            case .perStandardUnit:
-                showNutrientsAs = .perStandard
-            case .perServing, .perServingAndStandardUnit:
-                showNutrientsAs = .perServing
-            default:
-                break
-            }
-        case .perDailyValue:
-            switch product!.nutritionFactsAreAvailable {
-            case .perStandardUnit:
-                // force showing perStandard as perServing is not available
-                showNutrientsAs = .perStandard
-            case .perServingAndStandardUnit:
-                showNutrientsAs = .perDailyValue
-            case .perServing:
-                showNutrientsAs = .perDailyValue
-            default:
-                break
-            }
-        }
+        } else if product != nil {
         
-        // Which sections are shown depends on whether the product has nutriment data
+            // Which sections are shown depends on whether the product has nutriment data
         
-        // Are there any nutriments
-        if ( !editMode && product!.hasNutritionFacts != nil && !product!.hasNutritionFacts! ) {
-            // the product has no nutriments indicated
-            sectionsAndRows.append(
-                ( SectionType.noNutrimentsAvailable,
-                  TableSections.Size.NutrimentsAvailable,
-                  TableSections.Header.NutrimentsAvailable )
-            )
-        } else {
-            
-            // Section 0 : switch to indicate whether any nutritional data is available on the product
-            
-            if editMode {
+            // Are there any nutriments in the product or the updatedProduct
+            if !hasNutritionFacts {
+                // the product has no nutriments indicated
                 sectionsAndRows.append(
                     ( SectionType.noNutrimentsAvailable,
                       TableSections.Size.NutrimentsAvailable,
                       TableSections.Header.NutrimentsAvailable )
                 )
-            }
+            } else {
             
-            // Section 0 or 1 : presentation format
+                // how does the user want the data presented
+                switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
+                case .perStandard:
+                    // what is possible?
+                    switch product!.nutritionFactsAreAvailable {
+                    case .perStandardUnit, .perServingAndStandardUnit:
+                        showNutrientsAs = .perStandard
+                    case .perServing:
+                        showNutrientsAs = .perServing
+                    default:
+                        break
+                    }
+                case .perServing:
+                    switch product!.nutritionFactsAreAvailable {
+                    // what is possible?
+                    case .perStandardUnit:
+                        showNutrientsAs = .perStandard
+                    case .perServing, .perServingAndStandardUnit:
+                        showNutrientsAs = .perServing
+                    default:
+                        break
+                    }
+                case .perDailyValue:
+                    switch product!.nutritionFactsAreAvailable {
+                    case .perStandardUnit:
+                        // force showing perStandard as perServing is not available
+                        showNutrientsAs = .perStandard
+                    case .perServingAndStandardUnit:
+                        showNutrientsAs = .perDailyValue
+                    case .perServing:
+                        showNutrientsAs = .perDailyValue
+                    default:
+                        break
+                    }
+                }
+
             
-            sectionsAndRows.append(
-                ( SectionType.perUnit,
-                  TableSections.Size.PerUnit,
-                  TableSections.Header.PerUnit )
-            )
+                // Section 0 : switch to indicate whether any nutritional data is available on the product
+            
+                if editMode {
+                    sectionsAndRows.append(
+                        ( SectionType.noNutrimentsAvailable,
+                          TableSections.Size.NutrimentsAvailable,
+                          TableSections.Header.NutrimentsAvailable )
+                    )
+                }
+            
+                // Section 0 or 1 : presentation format
+            
+                sectionsAndRows.append(
+                    ( SectionType.perUnit,
+                      TableSections.Size.PerUnit,
+                      TableSections.Header.PerUnit )
+                )
         
             // Section 1 or 2 : nutrition facts
             
@@ -740,15 +740,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 TableSections.Size.ServingSize,
                 TableSections.Header.ServingSize))
         
-            // Section 3 or 4 or 5: image section
-            sectionsAndRows.append((
-                SectionType.nutritionImage,
-                TableSections.Size.NutritionFactsImage,
-                TableSections.Header.NutritionFactsImage))
+                // Section 3 or 4 or 5: image section
+                sectionsAndRows.append((
+                    SectionType.nutritionImage,
+                    TableSections.Size.NutritionFactsImage,
+                    TableSections.Header.NutritionFactsImage))
         
-        }
+            }
         }
         return sectionsAndRows
+    }
+    
+    private var hasNutritionFacts: Bool {
+        // If the delegated product has been set, use that value
+        if delegate?.updatedProduct?.hasNutritionFacts != nil {
+            return delegate!.updatedProduct!.hasNutritionFacts!
+        // else use the unedited product
+        } else if product?.hasNutritionFacts != nil {
+            return product!.hasNutritionFacts!
+        }
+        return true
     }
 
     // MARK: - Segue functions
@@ -1059,10 +1070,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     func refreshProductWithNewNutritionFacts() {
         if product != nil {
-        // recalculate the nutritionfacts that must be shown
-        mergeNutritionFacts()
-        tableStructureForProduct = setupTableSections()
-        tableView.reloadData()
+            // recalculate the nutritionfacts that must be shown
+            mergeNutritionFacts()
+            tableStructureForProduct = setupTableSections()
+            tableView.reloadData()
         } else if query != nil {
             tableStructureForProduct = setupTableSections()
             tableView.reloadData()

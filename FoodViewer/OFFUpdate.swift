@@ -622,27 +622,31 @@ class OFFUpdate {
         request.setValue(content, forHTTPHeaderField: HTTP.ContentType)
         request.setValue("\(myRequestData.length)", forHTTPHeaderField: HTTP.ContentLength)
         request.httpBody = myRequestData as Data
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async(execute: { () -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        })
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             data, response, error in
-            if error != nil {
-                print(error as Any)
-                return
-            }
-            guard let data = data else { return }
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            let result = self.unpackImageJSONObject( JSON(data: data) )
-            switch result {
-            case .success(let error):
-                print(error)
-                //let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
-                            //Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                              //  Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
-                //NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
-            default:
-                break
-            }
+            DispatchQueue.main.async(execute: { () -> Void in
+                if error != nil {
+                    print(error as Any)
+                    return
+                }
+                guard let data = data else { return }
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                let result = self.unpackImageJSONObject( JSON(data: data) )
+                switch result {
+                case .success(let error):
+                    print(error)
+                    let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
+                    Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
+                    Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
+                    NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
+                default:
+                    break
+                }
+            })
+
 
         })
         task.resume()
