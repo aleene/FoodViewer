@@ -956,7 +956,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             for _ in product!.nutritionFacts!.count ..< updatedProduct!.nutritionFacts!.count {
                 product!.nutritionFacts!.append(nil)
             }
-            updatedProduct?.hasNutritionFacts = true
+            updatedProduct?.hasNutritionFacts = updatedProduct!.nutritionFacts!.count > 0 ? true : false
         }
         saveUpdatedProduct()
     }
