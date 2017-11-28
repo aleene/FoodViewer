@@ -56,7 +56,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 selectedProduct = product
                 tableView.reloadData()
             //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
-            case .searchQuery:
+            case .searchQuery(let product):
+                selectedProduct = product
                 refreshInterface()
             //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
             default:

@@ -41,7 +41,7 @@ class OpenFoodFactsRequest {
 
     func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
         self.currentBarcode = barcode
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //UIApplication.shared.isNetworkActivityIndicatorVisible = true // not called on the main thread
         var fetchUrlString = OFF.URL.Prefix
         // add the right server
         fetchUrlString += barcode.productType() != nil ? barcode.productType()!.rawValue : currentProductType.rawValue
@@ -50,7 +50,7 @@ class OpenFoodFactsRequest {
         let fetchUrl = URL(string: fetchUrlString)
         if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(String(describing: fetchUrl))") }
 
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        // UIApplication.shared.isNetworkActivityIndicatorVisible = false // not called on the main thread
 
         if let url = fetchUrl {
             do {

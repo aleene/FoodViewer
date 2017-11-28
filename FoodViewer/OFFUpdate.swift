@@ -526,10 +526,11 @@ class OFFUpdate {
                 let result = self.unpackImageJSONObject( JSON(data: data) )
                 switch result {
                 case .success(let error):
-                    let userInfo = [Notification.ImageUploadSuccessStatusKey:error as Any,
-                                    Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                                    Notification.ImageUploadSuccessImagetypeKey: imageType]
-                    NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
+                    print(error)
+                    //let userInfo = [Notification.ImageUploadSuccessStatusKey:error as Any,
+                      //              Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
+                        //            Notification.ImageUploadSuccessImagetypeKey: imageType]
+                    // NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
                 default:
                     break
                 }
@@ -634,10 +635,11 @@ class OFFUpdate {
             let result = self.unpackImageJSONObject( JSON(data: data) )
             switch result {
             case .success(let error):
-                let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
-                                Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                                Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
-                NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
+                print(error)
+                //let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
+                            //Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
+                              //  Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
+                //NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
             default:
                 break
             }
