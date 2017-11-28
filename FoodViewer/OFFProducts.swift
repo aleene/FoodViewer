@@ -391,9 +391,9 @@ class OFFProducts {
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 let fetchResult = request.fetchJsonForBarcode(barcode!)
                 DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     switch fetchResult {
                     case .success(let newData):
                         // This will store the data in the user defaults file
