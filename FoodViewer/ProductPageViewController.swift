@@ -67,9 +67,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     // maybe the user has to authenticate himself before continuing
                     authenticate()
                 }
-                
                 // Saving can be done
-                saveUpdatedProduct()
+                if !loginInProcess {
+                    saveUpdatedProduct()
+                }
             }
         }
         editMode = !editMode
@@ -79,9 +80,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     private var userWantsToSave = false
     
+    private var loginInProcess = false // while the user is busy authenticating no save can be done
+    
     func saveUpdatedProduct() {
         // Current mode
-        if editMode {
+        // if editMode {
             if userWantsToSave {
                 // time to save
                 if let validUpdatedProduct = updatedProduct {
@@ -113,7 +116,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 }
                 userWantsToSave = false
             }
-        }
+        //}
     }
 //
 // MARK: - Public variables and functions
@@ -1003,6 +1006,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // Is authentication necessary?
         // only for personal accounts and has not yet authenticated
         if OFFAccount().personalExists() && !Preferences.manager.userDidAuthenticate {
+            loginInProcess = true
             // let the user ID himself with TouchID
             let context = LAContext()
             // The username and password will then be retrieved from the keychain if needed
@@ -1017,17 +1021,20 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     // DispatchQueue.main.async(execute: {
                     if success {
                         Preferences.manager.userDidAuthenticate = true
+                        self.loginInProcess = false
+                        // Saving can be done
+                        self.saveUpdatedProduct()
                     } else {
                         self.askPassword()
                     }
+
                     // } )
                 } )
             }
-            
+            // The login stuff has been done for the duration of this app run
+            // so we will not bother the user any more
+            Preferences.manager.userDidAuthenticate = true
         }
-        // The login stuff has been done for the duration of this app run
-        // so we will not bother the user any more
-        Preferences.manager.userDidAuthenticate = true
     }
     
     fileprivate var password: String? = nil
@@ -1050,6 +1057,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // I should check the password here
             if let validString = self.password {
                 Preferences.manager.userDidAuthenticate = OFFAccount().check(password: validString) ? true : false
+                self.loginInProcess = false
+                self.saveUpdatedProduct()
             }
         }
         alertController.addTextField { textField -> Void in

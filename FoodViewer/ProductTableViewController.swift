@@ -544,7 +544,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     let parts = error.components(separatedBy: ".json")
                     if !parts.isEmpty {
                         let partsTwo = parts[0].components(separatedBy:"The file “")
-                        if partsTwo.count > 0 {
+                        if partsTwo.count > 1 {
                             label.text = partsTwo[1]
                         }
                     }
