@@ -70,7 +70,9 @@ class OpenFoodFactsRequest {
 
     func fetchJsonForBarcode(_ barcode: BarcodeType) -> FetchJsonResult {
         self.currentBarcode = barcode
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async(execute: { () -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        })
         //var fetchUrlString = OFF.URL.Prefix
         // add the right server
         //fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
@@ -78,7 +80,9 @@ class OpenFoodFactsRequest {
         //fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
         let fetchUrl = URL(string: OFF.fetchString(for: barcode, with: currentProductType)) // URL(string: fetchUrlString)
         // let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OFF.URL.JSONExtension)")
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        DispatchQueue.main.async(execute: { () -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        })
         if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(String(describing: fetchUrl))") }
         if let url = fetchUrl {
             do {

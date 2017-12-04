@@ -59,7 +59,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
             tagListView.cornerRadius = 10
             tagListView.removeButtonIsEnabled = true
             tagListView.clearButtonIsEnabled = true
-            tagListView.frame.size.width = self.frame.size.width
+            //tagListView.frame.size.width = self.frame.size.width
                 
             tagListView.datasource = datasource
             setupTagListViewDelegate()
@@ -114,13 +114,15 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
             segmentedControl.isEnabled = allowInclusionEdit && editMode
         }
     }
-        
+    
+    /*
     var width: CGFloat = CGFloat(320.0) {
         didSet {
             // also correct for the clear tags button
             tagListView?.frame.size.width = width - 2 * Constants.Margin - segmentedControl.frame.size.width
         }
     }
+     */
         
     var scheme = ColorSchemes.normal {
         didSet {

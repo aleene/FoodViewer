@@ -793,7 +793,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         // calculate the rowWidth available for tags
         let rowWidth = allowsRemoval && clearButtonIsEnabled ? frame.size.width - clearView.frame.width : frame.size.width
-        
+        //print(frame.size.width, rowWidth)
         for (index,tagView) in tagViews.enumerated() {
             tagView.cornerRadius = self.cornerRadius
             tagView.horizontalPadding = self.horizontalPadding
@@ -926,7 +926,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             width: frame.width - inputTextViewOrigin.x - clearButtonWidth,
             height: tagViewHeight //  + Constants.defaultVerticalPadding
         )
-        // print("\(inputTextField.frame)")
+        //print("frame",frame)
+        //print(inputTextField.frame)
 
         /*
          var exclusionPaths: [UIBezierPath] = []
@@ -981,7 +982,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
         clearView.frame.origin.x = frame.size.width - clearView.frame.size.width
         clearView.frame.origin.y = (frame.size.height - clearView.frame.size.height) / 2.0
-        
+        //print("clear",clearView.frame)
         addSubview(clearView)
     }
     

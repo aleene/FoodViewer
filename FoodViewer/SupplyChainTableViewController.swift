@@ -188,7 +188,11 @@ class SupplyChainTableViewController: UITableViewController {
             case .interpreted:
                 return product!.countriesInterpreted
             case .translated:
-                return product!.countriesTranslated
+                var list = product!.countriesTranslated.list
+                list = list.sorted(by: { $0 < $1 })
+                return Tags.init(list:list)
+
+                //return product!.countriesTranslated
             case .original:
                 return product!.countriesOriginal
             case .prefixed:
@@ -501,7 +505,7 @@ class SupplyChainTableViewController: UITableViewController {
         switch currentProductSection {
         case .producer, .producerCode, .sites, .ingredientOrigin, .country:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
@@ -510,7 +514,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .store:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
@@ -519,7 +523,7 @@ class SupplyChainTableViewController: UITableViewController {
             
         case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
@@ -528,7 +532,7 @@ class SupplyChainTableViewController: UITableViewController {
 
         case .producerSearch, .producerCodeSearch, .ingredientOriginSearch, .storeSearch, .locationSearch, .countrySearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -556,7 +560,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .map:
             // This is just have some harmless code here
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.delegate = self
             cell.datasource = self
@@ -617,7 +621,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
         case .expirationDateSearch, .sitesSearch, .periodAfterOpeningSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
             cell.tag = indexPath.section

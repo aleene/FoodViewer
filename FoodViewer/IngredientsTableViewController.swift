@@ -332,7 +332,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
             cell.tag = indexPath.section
@@ -359,14 +359,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .ingredientsSearch:
             if query!.type == .advanced {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
+                //cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
+                //cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.delegate = self
                 cell.editMode = editMode
@@ -376,7 +376,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .allergens, .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.tag = indexPath.section
@@ -384,7 +384,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .allergensSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -395,7 +395,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .tracesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -406,7 +406,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .additivesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -417,7 +417,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .labelsSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -428,7 +428,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         case .traces, .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -935,7 +935,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = TextConstants.ViewControllerTitle
-        
+        print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
+
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
@@ -947,6 +948,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("ing didAppear", self.view.frame, self.parent?.view.frame)
+
     }
     
     override func viewDidDisappear(_ animated: Bool) {

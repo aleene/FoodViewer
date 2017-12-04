@@ -172,7 +172,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 break
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = editMode
             cell.tag = indexPath.section

@@ -502,7 +502,7 @@
                                         <constraint firstAttribute="bottomMargin" secondItem="h49-6T-dZE" secondAttribute="bottom" id="9Nl-PZ-HBA"/>
                                         <constraint firstItem="h49-6T-dZE" firstAttribute="leading" secondItem="BaI-t0-8tn" secondAttribute="leadingMargin" id="UCi-Vz-XgB"/>
                                         <constraint firstItem="h49-6T-dZE" firstAttribute="top" secondItem="BaI-t0-8tn" secondAttribute="topMargin" id="Wgl-Cw-HFk"/>
-                                        <constraint firstItem="h49-6T-dZE" firstAttribute="centerX" secondItem="BaI-t0-8tn" secondAttribute="centerX" id="aJy-AE-jfa"/>
+                                        <constraint firstItem="h49-6T-dZE" firstAttribute="trailing" secondItem="BaI-t0-8tn" secondAttribute="trailingMargin" id="lTy-jy-t1y"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="h49-6T-dZE" secondAttribute="trailing" id="qA1-th-6j4"/>
                                     </constraints>
                                     <variation key="default">

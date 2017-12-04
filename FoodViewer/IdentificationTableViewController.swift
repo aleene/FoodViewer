@@ -388,7 +388,7 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
+                //cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
@@ -397,7 +397,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .quantitySearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
             cell.tag = indexPath.section
@@ -418,7 +418,7 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
+                //cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
@@ -459,7 +459,7 @@ class IdentificationTableViewController: UITableViewController {
 
         case .languages:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             // print("\(product!.isSearchTemplate), \(product!.isSearchTemplate ? editMode : false)")
@@ -469,7 +469,9 @@ class IdentificationTableViewController: UITableViewController {
 
         case .brands, .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
+            //print("Cell", cell.frame)
+
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -478,7 +480,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .brandsSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -489,7 +491,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case  .languagesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -509,7 +511,7 @@ class IdentificationTableViewController: UITableViewController {
         */
         case .packagingSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
+            //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -967,12 +969,13 @@ class IdentificationTableViewController: UITableViewController {
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+        // print("viewDidLoad", self.view.frame, self.parent?.view.frame)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("id viewWillAppear", self.view.frame, self.parent?.view.frame)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
@@ -988,7 +991,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        print("id viewDidAppear", self.view.frame, self.parent?.view.frame)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
     }
     

@@ -92,7 +92,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     confirmBarButtonItem?.isEnabled = false
                     UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-                    // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
                     DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                         let fetchResult = update.update(product: validUpdatedProduct)
                         DispatchQueue.main.async(execute: { () -> Void in
@@ -157,9 +156,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         didSet {
             if pageIndex != oldValue {
                 // has the initialisation been done?
-                if pages.isEmpty {
-                    initPages()
-                }
+                initPages()
+                
                 if let oldIndex = pages.index(where: { $0 == oldValue } ),
                     let newIndex = pages.index(where: { $0 == pageIndex } ) {
                     // open de corresponding page
@@ -1018,7 +1016,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                     
                     // 3. Inside the reply block, you handling the success case first. By default, the policy evaluation happens on a private thread, so your code jumps back to the main thread so it can update the UI. If the authentication was successful, you call the segue that dismisses the login view.
                     
-                    // DispatchQueue.main.async(execute: {
+                    DispatchQueue.main.async(execute: {
                     if success {
                         Preferences.manager.userDidAuthenticate = true
                         self.loginInProcess = false
@@ -1028,7 +1026,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                         self.askPassword()
                     }
 
-                    // } )
+                    } )
                 } )
             }
             // The login stuff has been done for the duration of this app run

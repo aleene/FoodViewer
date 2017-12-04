@@ -19,7 +19,7 @@ protocol TagListViewCellDelegate: class {
 class TagListViewTableViewCell: UITableViewCell {
 
     private struct Constants {
-        static let Margin = CGFloat( 8.0 )
+        static let Margin = CGFloat( 16.0 )
     }
     
     @IBOutlet weak var tagListView: TagListView! {
@@ -31,7 +31,7 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.cornerRadius = 10
             tagListView.removeButtonIsEnabled = true
             tagListView.clearButtonIsEnabled = true
-            tagListView.frame.size.width = self.frame.size.width
+            //tagListView.frame.size.width = self.frame.size.width
             
             tagListView.datasource = datasource
             tagListView.delegate = delegate as? TagListViewDelegate
@@ -70,12 +70,14 @@ class TagListViewTableViewCell: UITableViewCell {
         }
     }
     
+    /*
     var width: CGFloat = CGFloat(320.0) {
         didSet {
-            tagListView?.frame.size.width = width // - Constants.Margin
-            // print("Cell", tagListView.frame.size.width)
+            //tagListView?.frame.size.width = width // - Constants.Margin
+            print("TLV", tagListView.frame)
         }
     }
+    */
     
     var scheme = ColorSchemes.normal {
         didSet {

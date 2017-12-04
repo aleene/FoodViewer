@@ -177,6 +177,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let parentVC = self.parent as? UINavigationController {
             let testVC = parentVC.visibleViewController as? ProductTableViewController
             if testVC != nil {
+                //print("perform", testVC?.view?.frame, testVC?.parent)
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
             }
         }
@@ -427,7 +428,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
                     cell.tag = 2
-                    cell.width = tableView.frame.size.width
+                    //cell.width = tableView.frame.size.width
                     cell.scheme = ColorSchemes.error
                     cell.accessoryType = .none
                     return cell
@@ -456,7 +457,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                         cell.datasource = self
                         cell.tag = 5
-                        cell.width = tableView.frame.size.width
+                        //cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.normal
                         return cell
                     }
@@ -464,7 +465,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
                     cell.tag = 4
-                    cell.width = tableView.frame.size.width
+                    //cell.width = tableView.frame.size.width
                     cell.accessoryType = .none
                     return cell
                     
@@ -476,7 +477,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
         cell?.datasource = self
         cell?.tag = indexPath.row
-        cell?.width = tableView.frame.size.width
+        //cell?.width = tableView.frame.size.width
         cell?.scheme = ColorSchemes.normal
         return cell!
     }
@@ -543,7 +544,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
                     let parts = error.components(separatedBy: ".json")
                     if !parts.isEmpty {
-                        let partsTwo = parts[0].components(separatedBy:"The file “")
+                        let partsTwo = parts[0].components(separatedBy:"\'")
                         if partsTwo.count > 1 {
                             label.text = partsTwo[1]
                         }
@@ -605,6 +606,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
                         ppvc.tableItem = selectedProduct
+
                         if let validSelectedRowType = selectedRowType {
                             if selectedProduct != nil && selectedProduct! is FoodProduct {
                                 ppvc.pageIndex = validSelectedRowType.productSection()
@@ -811,8 +813,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     })
                 })
-                }
-            )
+            })
         }
         self.present(alert, animated: true, completion: nil)
     }

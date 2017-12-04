@@ -3199,6 +3199,28 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:ireland</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>de</key>
+			<array>
+				<string>Irland</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Ireland</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Irlande</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Ierland</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:isle-of-man</key>
 	<dict>
 		<key>Languages</key>

@@ -13,6 +13,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
     var product: FoodProduct? = nil {
         didSet {
             self.backgroundColor = .white
+            /*
             if let score = product?.nutritionScore {
                 for (item, level) in score {
                     switch item {
@@ -32,6 +33,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
                     }
                 }
             }
+ */
             if let score = product?.nutritionGrade {
                 switch  score {
                 case .a:

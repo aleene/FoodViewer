@@ -379,8 +379,6 @@ class OFFUpdate {
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + (Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) + "-" + validID )
         }
 
-
-
         uploadImages(product!.frontImages, barcode: product!.barcode.asString(), id:"front")
 
         uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients")
