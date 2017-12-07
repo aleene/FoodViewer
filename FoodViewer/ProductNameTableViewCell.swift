@@ -59,7 +59,7 @@ class ProductNameTableViewCell: UITableViewCell {
     
     var name: String? = nil {
         didSet {
-            nameTextView.text = (name != nil) && (name!.count > 0) ? name! :  ( editMode ? "" : TranslatableStrings.NoName )
+            setName()
         }
     }
     
@@ -67,6 +67,7 @@ class ProductNameTableViewCell: UITableViewCell {
         didSet {
             setTextViewStyle()
             setTextViewClearButton()
+            setName()
         }
     }
     
@@ -78,6 +79,10 @@ class ProductNameTableViewCell: UITableViewCell {
     
     private func setTextViewClearButton() {
         clearTextViewButton?.isHidden = !editMode
+    }
+    
+    private func setName() {
+        nameTextView.text = (name != nil) && (name!.count > 0) ? name! :  ( editMode ? "" : TranslatableStrings.NoName )
     }
     
     override var tag: Int {
