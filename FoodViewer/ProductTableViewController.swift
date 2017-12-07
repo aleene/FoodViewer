@@ -313,22 +313,27 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         return cell
                         
                     case .image:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
                         if let language = currentProduct.primaryLanguageCode {
-                            cell.productImage = nil
                             if !currentProduct.frontImages.isEmpty {
                                 if let result = currentProduct.frontImages[language]?.small?.fetch() {
                                     switch result {
                                     case .available:
+                                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
                                         cell.productImage = currentProduct.frontImages[language]?.small?.image
+                                        return cell
                                     default:
                                         break
                                     }
                                 }
                             }
                         }
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                        cell.datasource = self
+                        cell.tag = 3
+                        //cell.width = tableView.frame.size.width
+                        cell.scheme = ColorSchemes.error
+                        cell.accessoryType = .none
                         return cell
-
                     case .ingredientsAllergensTraces:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                         
@@ -1060,6 +1065,8 @@ extension ProductTableViewController: TagListViewDataSource {
         } else if tagListView.tag == 2 {
             let fetchStatus = ProductFetchStatus.loadingFailed(TranslatableStrings.LoadingFailed)
             return fetchStatus.description()
+        } else if tagListView.tag == 3 {
+            return TranslatableStrings.NoImageInTheRightLanguage
         } else if tagListView.tag == 4 {
             if products.fetchResultList.count > 0 {
                 switch products.fetchResultList[products.fetchResultList.count - 1] {

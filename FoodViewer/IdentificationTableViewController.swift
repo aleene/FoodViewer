@@ -975,7 +975,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("id viewWillAppear", self.view.frame, self.parent?.view.frame)
+        print("id viewWillAppear", self.view.frame, self.parent?.view.frame, self.tableView.frame)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
@@ -991,7 +991,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("id viewDidAppear", self.view.frame, self.parent?.view.frame)
+        print("id viewDidAppear", self.view.frame, self.parent?.view.frame, self.tableView.frame)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
     }
     
@@ -1631,5 +1631,24 @@ extension IdentificationTableViewController: LanguageHeaderDelegate {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
     }
 }
+
+// MARK: - UIDragInteractionDelegate Functions
+/*
+@available(iOS 11.0, *)
+extension IdentificationTableViewController: UIDragInteractionDelegate {
+
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        
+        guard let image = imageView.image else { return [] }
+    
+        let provider = NSItemProvider(object: image)
+        let item = UIDragItem(itemProvider: provider)
+        item.localObject = image
+    
+        return [item]
+    }
+}
+ */
+
 
 
