@@ -499,16 +499,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.allowInclusionEdit = query!.type != .simple
             cell.inclusion = OFFProducts.manager.searchQuery?.languages.1 ?? true
             return cell
-        /*
-            case .packaging:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            return cell
-        */
+
         case .packagingSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             //cell.width = tableView.frame.size.width

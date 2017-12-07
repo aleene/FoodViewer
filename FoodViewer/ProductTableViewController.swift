@@ -253,6 +253,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let ShowSettings = "Show Settings Segue"
             static let ShowSortOrder = "Set Sort Order Segue Identifier"
         }
+        struct CellTag {
+            static let More = 0
+            static let Loading = 1
+            static let LoadingFailed = 2
+            static let Image = 3
+            static let SearchLoading = 4
+            static let NoSearchDefined = 5
+
+        }
     }
     
     
@@ -329,7 +338,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                         cell.datasource = self
-                        cell.tag = 3
+                        cell.tag = Storyboard.CellTag.Image
                         //cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.error
                         cell.accessoryType = .none
@@ -427,12 +436,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     cell.delegate = self
                     cell.title = TranslatableStrings.LoadMoreResults
                     cell.editMode = true
+                    cell.tag = Storyboard.CellTag.More
                     return cell
                     
                 case .loadingFailed:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
-                    cell.tag = 2
+                    cell.tag = Storyboard.CellTag.LoadingFailed
                     //cell.width = tableView.frame.size.width
                     cell.scheme = ColorSchemes.error
                     cell.accessoryType = .none
@@ -461,7 +471,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     } else {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                         cell.datasource = self
-                        cell.tag = 5
+                        cell.tag = Storyboard.CellTag.NoSearchDefined
                         //cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.normal
                         return cell
@@ -469,7 +479,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 case .searchLoading:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
-                    cell.tag = 4
+                    cell.tag = Storyboard.CellTag.SearchLoading
                     //cell.width = tableView.frame.size.width
                     cell.accessoryType = .none
                     return cell
@@ -1062,12 +1072,12 @@ extension ProductTableViewController: TagListViewDataSource {
         } else if tagListView.tag == 1 {
             let fetchStatus = ProductFetchStatus.more(0)
             return fetchStatus.description()
-        } else if tagListView.tag == 2 {
+        } else if tagListView.tag == Storyboard.CellTag.LoadingFailed {
             let fetchStatus = ProductFetchStatus.loadingFailed(TranslatableStrings.LoadingFailed)
             return fetchStatus.description()
-        } else if tagListView.tag == 3 {
+        } else if tagListView.tag == Storyboard.CellTag.Image {
             return TranslatableStrings.NoImageInTheRightLanguage
-        } else if tagListView.tag == 4 {
+        } else if tagListView.tag == Storyboard.CellTag.SearchLoading {
             if products.fetchResultList.count > 0 {
                 switch products.fetchResultList[products.fetchResultList.count - 1] {
                 case .searchLoading:
@@ -1078,7 +1088,7 @@ extension ProductTableViewController: TagListViewDataSource {
                     break
                 }
             }
-        } else if tagListView.tag == 5 {
+        } else if tagListView.tag == Storyboard.CellTag.NoSearchDefined {
             return TranslatableStrings.SetupQuery
 
         } else if tagListView.tag >= Constants.Offset.SearchQuery {
