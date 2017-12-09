@@ -60,6 +60,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     private var selectedImage: IndexPath? = nil
     
+    // MARK: - Action methods
+    
     @IBOutlet weak var addImageFromCameraButton: UIButton!
     
     @IBAction func addImageFromCameraButtonTapped(_ sender: UIButton) {
@@ -68,6 +70,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @IBOutlet weak var addImageFromCameraRollButton: UIButton!
     
     @IBAction func addImageFromCameraRollButtonTapped(_ sender: UIButton) {
+    }
+    
+    var refresher: UIRefreshControl!
+    
+    // should redownload the current product and reload it in this scene
+    @objc private func refresh(sender: Any) {
+        if refresher!.isRefreshing {
+            if let validProduct = product {
+                OFFProducts.manager.reload(validProduct)
+            }
+            refresher?.endRefreshing()
+        }
     }
     
     // MARK: UICollectionViewDataSource
@@ -505,11 +519,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         
         collectionView.register(nib, forCellWithReuseIdentifier: Storyboard.CellIdentifier.AddImageCell)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView?.delegate = self
+        self.refresher = UIRefreshControl()
+        self.collectionView!.alwaysBounceVertical = true
+        self.refresher.tintColor = UIColor.red
+        self.refresher.addTarget(self, action: #selector(ProductImagesCollectionViewController.refresh(sender:)), for: .valueChanged)
+        self.collectionView?.addSubview(refresher)
+        self.collectionView?.delegate = self
         
         registerCollectionViewCell()
         // Uncomment the following line to preserve selection between presentations
