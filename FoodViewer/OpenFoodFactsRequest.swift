@@ -335,6 +335,7 @@ class OpenFoodFactsRequest {
                     if let url = URL.init(string: validString) {
                         if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
                         product.frontImages[element.key]?.thumb = ProductImageData.init(url: url)
+
                     }
                 }
             }
@@ -416,31 +417,56 @@ class OpenFoodFactsRequest {
             }
         }
         
+        // Create an array of available images of the product
         if let imagesDict = jsonObject[jsonKeys.ImagesKey].dictionaryObject {
-            var index = -1
             for element in imagesDict {
+                // only look at the non-selected images
                 if !element.key.contains("ingredients") && !element.key.contains("front") && !element.key.contains("nutrition") {
-                    index += 1
-                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.thumb)) {
-                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
-                        product.images[element.key]?.thumb = ProductImageData.init(url: url)
+                    let imageSet = setupImageUrls(for: product.barcode, and: element.key)
+                    if product.images.contains(where: { $0.key == element.key }) {
+                        product.images[element.key]?.thumb = imageSet.thumb
+                        product.images[element.key]?.small = imageSet.small
+                        product.images[element.key]?.display = imageSet.display
+                        product.images[element.key]?.original = imageSet.original
+                    } else {
+                        product.images[element.key] = imageSet
                     }
-                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.small)) {
-                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
-                        product.images[element.key]?.small = ProductImageData.init(url: url)
-                    }
-                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.large)) {
-                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
-                        product.images[element.key]?.display = ProductImageData.init(url: url)
-                    }
-                    if let url = URL.init(string: OFF.imageURLFor(product.barcode, with:element.key, size:.original)) {
-                        if product.images[element.key] == nil { product.images[element.key] = ProductImageSize() }
-                        product.images[element.key]?.original = ProductImageData.init(url: url)
+                } else {
+                // add information on which image is a selected image for a specific language*
+                    // only look at key that have a language component
+                    // parts[0] is the image type and parts[1] the languageCode
+                    let parts = element.key.split(separator: "_")
+                    // look only at elements that have a language component, i.e. count == 2
+                    if parts.count > 1 && parts.count <= 2 {
+                        let languageCode = String(parts[1])
+                        if parts[0].contains("ingredients") {
+                            if let key = jsonObject[jsonKeys.ImagesKey][element.key]["imgid"].string {
+                                if !product.images.contains(where: { $0.key == key }) {
+                                    product.images[key] = ProductImageSize.init()
+                                }
+                                product.images[key]?.usedIn.append((languageCode,.ingredients))
+                            }
+                        } else if parts[0].contains("front") {
+                            if let key = jsonObject[jsonKeys.ImagesKey][element.key]["imgid"].string {
+                                if !product.images.contains(where: { $0.key == key }) {
+                                    product.images[key] = ProductImageSize.init()
+                                }
+                                product.images[key]?.usedIn.append((languageCode,.front))
+                            }
+                        } else if parts[0].contains("nutrition") {
+                            if let key = jsonObject[jsonKeys.ImagesKey][element.key]["imgid"].string {
+                                if !product.images.contains(where: { $0.key == key }) {
+                                    product.images[key] = ProductImageSize.init()
+                                }
+                                product.images[key]?.usedIn.append((languageCode,.nutrition))
+                            }
+                        }
                     }
                 }
             }
         }
 
+        
         // Is no longer needed, is part of the language array
         // product.genericName = jsonObject[jsonKeys.GenericNameKey].string
         product.additivesInterpreted = Tags.init(list:jsonObject[jsonKeys.AdditivesTagsKey].stringArray)
@@ -653,6 +679,17 @@ class OpenFoodFactsRequest {
     
     // MARK: - Decoding Functions
 
+    private func setupImageUrls(for barcode:BarcodeType, and key: String) -> ProductImageSize {
+        var imageSet = ProductImageSize()
+        
+        imageSet.thumb = ProductImageData.init(barcode:barcode, key:key, size:.thumb)
+        imageSet.small = ProductImageData.init(barcode:barcode, key:key, size:.small)
+        imageSet.display = ProductImageData.init(barcode:barcode, key:key, size:.large)
+        imageSet.original = ProductImageData.init(barcode:barcode, key:key, size:.original)
+        return imageSet
+    }
+    
+    
     private func nutritionDecode(_ fact: String, key: String, jsonObject: JSON, product: FoodProduct) {
         
         var nutritionItem = NutritionFactItem()

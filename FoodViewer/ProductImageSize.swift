@@ -10,16 +10,13 @@ import Foundation
 
 struct ProductImageSize {
     // The selected images for a specific languageCode. 
-    // The images come in 3 sizes
-    var display: ProductImageData? = nil
-    var small: ProductImageData? = nil
-    var thumb: ProductImageData? = nil
-    var original: ProductImageData? = nil
-    var containsBarcode = false
-    var suppliesFront = false
-    var suppliesNutrition = false
-    var suppliesIngredients = false
- 
+    // The images come in 4 sizes
+    var display: ProductImageData? = nil // 400
+    var small: ProductImageData? = nil // 200
+    var thumb: ProductImageData? = nil // 100
+    var original: ProductImageData? = nil // any
+    var usedIn: [(String,ImageTypeCategory)] = []
+    
     mutating func reset() {
         if display != nil { display!.fetchResult = nil }
         if small != nil { small!.fetchResult = nil }
@@ -38,4 +35,26 @@ struct ProductImageSize {
             return thumb
         }
     }
+    
+    func isSelectedAsIngredientsImage(for languageCode:String) -> Bool {
+        return isSelected(for:.ingredients, in:languageCode)
+    }
+    
+    func isSelectedAsFrontImage(for languageCode:String) -> Bool {
+        return isSelected(for:.front, in:languageCode)
+    }
+    func isSelectedAsNutritionImage(for languageCode:String) -> Bool {
+        return isSelected(for:.nutrition, in:languageCode)
+    }
+
+    func isSelected(for type:ImageTypeCategory, in languageCode:String) -> Bool {
+        for value in usedIn {
+            let (usageLC, usageType) = value
+            if  usageLC == languageCode && usageType == type {
+                return true
+            }
+        }
+        return false
+    }
+
 }

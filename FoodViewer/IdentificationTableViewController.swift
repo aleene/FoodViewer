@@ -462,9 +462,11 @@ class IdentificationTableViewController: UITableViewController {
             //cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            // print("\(product!.isSearchTemplate), \(product!.isSearchTemplate ? editMode : false)")
+            print("id tableView", tableView.frame.size.width, "id cell", cell.frame.size.width)
             cell.editMode = query != nil ? editMode : false
             cell.tag = indexPath.section
+            print("id tagListView", cell.tagListView.frame.size.width)
+
             return cell
 
         case .brands, .packaging:
@@ -728,19 +730,25 @@ class IdentificationTableViewController: UITableViewController {
                     // is there an updated image?
                     if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
                         vc.imageData = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()
-                    } else if !product!.frontImages.isEmpty {
-                        // is the data for the current language available?
-                        if product!.frontImages[currentLanguageCode!] != nil {
+                    } else {
+                        // is the image for the current language available im images?
+                        if let imageID = product!.imageID(for:currentLanguageCode!, in:.front) {
                         // then fetch the image
-                        vc.imageData = product!.frontImages[currentLanguageCode!]?.largest()
+                            vc.imageData = product!.images[imageID]?.largest()
                             // try to use the primary image
-                        } else if product!.frontImages[product!.primaryLanguageCode!] != nil {
-                            vc.imageData = product!.frontImages[product!.primaryLanguageCode!]?.largest()
+                        } else if let imageID = product!.imageID(for:product!.primaryLanguageCode!, in:.front) {
+                            vc.imageData = product!.images[imageID]?.largest()
                         } else {
+                            // try one of the other images
+                            if let imageID = product!.imageID(for:currentLanguageCode!, in:.front) {
+                                // then fetch the image
+                                vc.imageData = product!.images[imageID]?.largest()
+                                // try to use the primary image
+                            } else if let imageID = product!.imageID(for:product!.primaryLanguageCode!, in:.front) {
+                                vc.imageData = product!.images[imageID]?.largest()
+                            }
                             vc.imageData = nil
                         }
-                    } else {
-                        vc.imageData = nil
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:
@@ -966,7 +974,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("id viewWillAppear", self.view.frame, self.parent?.view.frame, self.tableView.frame)
+        print("id viewWillAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
@@ -982,7 +990,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("id viewDidAppear", self.view.frame, self.parent?.view.frame, self.tableView.frame)
+        print("id viewDidAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
     }
     

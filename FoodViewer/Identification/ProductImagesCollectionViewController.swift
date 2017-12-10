@@ -48,12 +48,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     private var originalImages: [String:ProductImageSize] {
         get {
-            //if let updatedImages = delegate?.updatedProduct?.images {
-            //    updatedImages.forEach( { images[$0.key] = $0.value } )
-            //}
+            guard product != nil else { return [:] }
             return product!.images
         }
     }
+    
     fileprivate let itemsPerRow: CGFloat = 5
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)

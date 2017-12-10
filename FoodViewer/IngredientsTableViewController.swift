@@ -730,14 +730,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         } else {
                             vc.imageData = nil
                         }
-                    } else if !product!.ingredientsImages.isEmpty {
-                        // is the data for the current language available?
-                        // then fetch the image
-                        if let imageData = product!.ingredientsImages[currentLanguageCode!]?.largest() {
-                            vc.imageData = imageData
+                    } else {
+                        // is the image for the current language available im images?
+                        if let imageID = product!.imageID(for:currentLanguageCode!, in:.ingredients) {
+                            // then fetch the image
+                            vc.imageData = product!.images[imageID]?.largest()
                             // try to use the primary image
-                        } else if let imageData = product!.ingredientsImages[product!.primaryLanguageCode!]?.largest() {
-                            vc.imageData = imageData
+                        } else if let imageID = product!.imageID(for:product!.primaryLanguageCode!, in:.ingredients) {
+                            vc.imageData = product!.images[imageID]?.largest()
                         } else {
                             vc.imageData = nil
                         }

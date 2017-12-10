@@ -75,8 +75,30 @@ class FoodProduct {
     var frontImages: [String:ProductImageSize] = [:]
     var nutritionImages: [String:ProductImageSize] = [:]
     var ingredientsImages: [String:ProductImageSize] = [:]
-    // dictionary with image ID as key and the images in various sizes as value
+    
+    // dictionary with image ID as key and the images in the four sizes as value
     var images: [String:ProductImageSize] = [:]
+
+    func imageID(for languageCode:String, in imageType: ImageTypeCategory) -> String? {
+        for image in images {
+            if image.value.isSelected(for: imageType, in: languageCode) {
+                return image.key
+            }
+        }
+        return nil
+    }
+    
+    func image(for languageCode:String, of imageType:ImageTypeCategory) -> ProductImageData? {
+        // is the image for the current language available im images?
+        if let imageID = imageID(for:languageCode, in:imageType) {
+            // then fetch the image
+            return images[imageID]?.largest()
+            // try to use the primary image
+        } else if let imageID = imageID(for:primaryLanguageCode!, in:imageType) {
+             return images[imageID]?.largest()
+        }
+        return nil
+    }
     
     var languageCodes: [String] = []
     

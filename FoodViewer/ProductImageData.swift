@@ -65,7 +65,7 @@ public class ProductImageData {
         fetchResult = nil
     }
     
-    init(url: URL) {
+    init(url: URL?) {
         self.url = url
         fetchResult = nil
     }
@@ -74,6 +74,10 @@ public class ProductImageData {
         self.url = nil
         self.image = image
         self.fetchResult = .available
+    }
+    
+    convenience init(barcode: BarcodeType, key: String, size: ImageSizeCategory) {
+        self.init(url: URL.init(string: OFF.imageURLFor(barcode, with:key, size:size)))
     }
     
     func fetch() -> ImageFetchResult? {
