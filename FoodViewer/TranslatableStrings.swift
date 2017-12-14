@@ -1,4 +1,4 @@
-//
+ //
 //  TranslatableStrings.swift
 //  FoodViewer
 //
@@ -76,6 +76,7 @@ struct TranslatableStrings {
     static let EnterContributorName = NSLocalizedString("Enter contributor name to search for", comment: "placeholder in a textField where the user can specify a search for contributors.")
     static let EnterDate = NSLocalizedString("Enter date", comment: "The user can tap the button to enter a date.")
     static let EntryDate = NSLocalizedString("Entry Date", comment: "String to indicate the date, when the product was created on OFF.")
+    static let EUSet = NSLocalizedString("EU Set", comment: "String of a button, to prefill the nutrients with the standard EU set.")
     static let Exclude = NSLocalizedString("Exclude", comment: "String in Segmented Control to indicate whether the corresponding tag should be EXCLUDED from the search.")
     
 //
@@ -240,6 +241,8 @@ struct TranslatableStrings {
     static let Undefined = NSLocalizedString("Undefined", comment: "String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search)")
     static let Unknown = NSLocalizedString("Unknown", comment: "Text in a TagListView, when the field in the json was not present.")
     static let UnknownValue = TranslatableStrings.QuestionMark
+    static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
+
     
 //
 // MARK: - Other strings

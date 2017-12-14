@@ -54,6 +54,32 @@
 			</array>
 		</dict>
 	</dict>
+	<key>en:added-sugars</key>
+	<dict>
+		<key>Languages</key>
+		<dict>
+			<key>unit</key>
+			<array>
+				<string>g</string>
+			</array>
+			<key>de</key>
+			<array>
+				<string>Zusatz von Zuckers</string>
+			</array>
+			<key>en</key>
+			<array>
+				<string>Added sugars</string>
+			</array>
+			<key>fr</key>
+			<array>
+				<string>Sucres ajoutés</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Toegevoegde suikers</string>
+			</array>
+		</dict>
+	</dict>
 	<key>en:alcohol</key>
 	<dict>
 		<key>Languages</key>
@@ -796,6 +822,10 @@
 			<array>
 				<string>kJ</string>
 			</array>
+			<key>de</key>
+			<array>
+				<string>Energie von Fett</string>
+			</array>
 			<key>en</key>
 			<array>
 				<string>Energy from fat</string>
@@ -803,6 +833,10 @@
 			<key>fr</key>
 			<array>
 				<string>Énergie provenant des graisses</string>
+			</array>
+			<key>nl</key>
+			<array>
+				<string>Energie van vet</string>
 			</array>
 		</dict>
 	</dict>

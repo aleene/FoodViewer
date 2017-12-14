@@ -16,6 +16,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // set to app wide default
     fileprivate var showNutrientsAs: NutritionDisplayMode = Preferences.manager.showNutritionDataPerServingOrPerStandard
     
+    
     fileprivate var searchResult: String = ""
     
     fileprivate var nutritionFactsTagTitle: String = ""
@@ -1181,7 +1182,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 extension NutrientsTableViewController:  AddNutrientCellDelegate {
     
     // function to let the delegate know that the switch changed
-    func addNutrientTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
+    func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
         
         // Energy
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
@@ -1217,7 +1218,95 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         }
         refreshProductWithNewNutritionFacts()
     }
+    
+    // function to let the delegate know that the switch changed
+    func addUSNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
+        
+        // US data must be perServing
+        showNutrientsAs = .perServing
+        
+        // Energy
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Calories))
+        }
+        // Energy from fat Old Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: NutritionFactUnit.Calories))
+        }
+
+        // Fat
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: NutritionFactUnit.Gram))
+        }
+        // Saturated Fat
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
+        }
+        // Trans Fat
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: NutritionFactUnit.Gram))
+        }
+
+        // Cholesterol
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: NutritionFactUnit.Milligram))
+        }
+        // Sodium
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaltKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: NutritionFactUnit.Gram))
+        }
+        // Total Carbohydrates
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaltKey, unit: NutritionFactUnit.Gram))
+        }
+        // Dietary Fiber
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
+        }
+
+        // Sugars
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
+        }
+        // Added Sugars New Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.AddedSugarsKey, unit: NutritionFactUnit.Gram))
+        }
+
+        // Proteins
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
+        }
+        // Vitamin A New Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminAKey, unit: NutritionFactUnit.Percent))
+        }
+        // Vitamin C Old Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminCKey, unit: NutritionFactUnit.Percent))
+        }
+        // Vitamin D New Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminDKey, unit: NutritionFactUnit.Percent))
+        }
+
+        // Calcium
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CalciumKey, unit: NutritionFactUnit.Percent))
+        }
+        // Iron Old Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.IronKey, unit: NutritionFactUnit.Percent))
+        }
+        // Potassium New Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.PotassiumKey, unit: NutritionFactUnit.Percent))
+        }
+
+        refreshProductWithNewNutritionFacts()
+    }
 }
+
 
 // MARK: - NutrimentsAvailableCellDelegate functions
 

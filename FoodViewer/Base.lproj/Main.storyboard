@@ -3377,9 +3377,8 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZ1-Cg-ox8" userLabel="US">
                                                     <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
-                                                    <state key="normal" title="US"/>
                                                     <connections>
-                                                        <action selector="euDefaultsButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="brB-4D-adz"/>
+                                                        <action selector="usDefaultsButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="wGB-PK-fYr"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PU9-ny-duI">
@@ -3392,9 +3391,8 @@
                                                         </segue>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-4q-5sl">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-4q-5sl" userLabel="EU">
                                                     <rect key="frame" x="274" y="0.0" width="30" height="22"/>
-                                                    <state key="normal" title="EU"/>
                                                     <connections>
                                                         <action selector="euDefaultsButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="EzC-ld-aCb"/>
                                                     </connections>
@@ -3411,7 +3409,8 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="addNutrientButton" destination="PU9-ny-duI" id="HUB-iL-6yO"/>
-                                    <outlet property="euDefaultsButton" destination="eoS-4q-5sl" id="t8K-YQ-7DP"/>
+                                    <outlet property="euSetButton" destination="eoS-4q-5sl" id="hOc-z8-MmM"/>
+                                    <outlet property="usSetButton" destination="SZ1-Cg-ox8" id="Q11-5T-oxI"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutriments Available Cell" id="r01-FL-wDf" customClass="NutrimentsAvailableTableViewCell" customModule="FoodViewer" customModuleProvider="target">
