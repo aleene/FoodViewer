@@ -359,19 +359,19 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     guard selectedImage != nil else { return }
                     switch selectedImage!.section {
                     case 0:
-                        let key = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = product!.frontImages[key]?.largest()
-                        vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        let languageCode = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        vc.imageData = product!.image(for:languageCode, of:.front)
+                        vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
                     case 1:
-                        let key = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = product!.ingredientsImages[key]?.largest()
-                        vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        let languageCode = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        vc.imageData = product!.image(for:languageCode, of:.ingredients)
+                        vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
                     case 2:
-                        let key = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = product!.nutritionImages[key]?.largest()
-                        vc.imageTitle = OFFplists.manager.languageName(for:key)
+                        let languageCode = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        vc.imageData = product!.image(for:languageCode, of:.nutrition)
+                        vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
                     case 3:
                         let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]

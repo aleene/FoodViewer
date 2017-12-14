@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -3477,33 +3476,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="-8" width="320" height="576"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="576"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <gestureRecognizers/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" id="49g-yN-tyv"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="centerX" secondItem="KL0-pq-7Ws" secondAttribute="centerX" id="89J-5w-gd2"/>
-                                    <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="Gwq-Mh-rfb"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="leading" secondItem="KL0-pq-7Ws" secondAttribute="leading" id="PsL-HA-Vkv"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="centerY" secondItem="KL0-pq-7Ws" secondAttribute="centerY" id="otd-cZ-zkj"/>
-                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="top" id="v4K-59-JqI"/>
+                                    <constraint firstAttribute="trailing" secondItem="PnH-HO-Mzj" secondAttribute="trailing" id="3j5-dQ-com"/>
+                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="leading" secondItem="KL0-pq-7Ws" secondAttribute="leading" id="bgC-7q-hjc"/>
+                                    <constraint firstItem="PnH-HO-Mzj" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="top" id="eSm-gf-gbe"/>
+                                    <constraint firstAttribute="bottom" secondItem="PnH-HO-Mzj" secondAttribute="bottom" id="xz2-Wc-bLC"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="oCr-2A-ZDa" id="DEa-Cl-hyU"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="KL0-pq-7Ws" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" id="B6t-wv-fFT"/>
-                            <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" id="GqL-Lu-wYW"/>
-                            <constraint firstAttribute="trailing" secondItem="KL0-pq-7Ws" secondAttribute="trailing" id="Wyp-w7-Scw"/>
-                            <constraint firstItem="KL0-pq-7Ws" firstAttribute="topMargin" secondItem="u9n-FR-iSu" secondAttribute="bottom" id="zIz-WL-MeP"/>
+                            <constraint firstItem="KL0-pq-7Ws" firstAttribute="leading" secondItem="uFx-FY-aLO" secondAttribute="leading" id="1m1-Aj-sNk"/>
+                            <constraint firstItem="KL0-pq-7Ws" firstAttribute="top" secondItem="uFx-FY-aLO" secondAttribute="top" id="Cex-l4-a12"/>
+                            <constraint firstAttribute="trailing" secondItem="KL0-pq-7Ws" secondAttribute="trailing" id="MEO-hy-Pdw"/>
+                            <constraint firstItem="JuW-uG-QAI" firstAttribute="top" secondItem="KL0-pq-7Ws" secondAttribute="bottom" id="w41-Vn-0F1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="PnH-HO-Mzj" id="Xwi-bU-DJg"/>
+                        <outlet property="imageViewBottomConstraint" destination="xz2-Wc-bLC" id="grm-9p-4Wf"/>
+                        <outlet property="imageViewLeadingConstraint" destination="bgC-7q-hjc" id="zWl-bA-MXA"/>
+                        <outlet property="imageViewTopConstraint" destination="eSm-gf-gbe" id="uBu-73-eAZ"/>
+                        <outlet property="imageViewTrailingConstraint" destination="3j5-dQ-com" id="bfQ-tP-eT9"/>
                         <outlet property="scrollView" destination="KL0-pq-7Ws" id="cV6-Fm-j05"/>
                     </connections>
                 </viewController>

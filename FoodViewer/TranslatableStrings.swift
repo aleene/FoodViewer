@@ -143,6 +143,7 @@ struct TranslatableStrings {
     static let NoSearchDefined = NSLocalizedString("No search defined", comment: "String in TableView section when a search is not defined.")
     static let NoSearchResult = NSLocalizedString("No search result", comment: "String in TableView section when a search is not yet carried out.")
     static let NoServingSizeAvailable = NSLocalizedString("no serving size available", comment: "Text for an entry in a taglist, when no serving size is available. This is also indicated in a separate colour.")
+    static let NoTitle = NSLocalizedString("No title", comment: "Title for viewcontroller with detailed product images, when no title is given. ")
     static let NotDone = NSLocalizedString("Not done", comment: "Generic text if an action has not yet been done.")
     static let NotFilled = NSLocalizedString("Not filled", comment: "Text in a TagListView, when the json provided an empty string.")
     static let NotSearchable = NSLocalizedString("Not searchable", comment: "Text in a search TagListView, when tags can not be set up.")

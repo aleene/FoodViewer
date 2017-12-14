@@ -729,26 +729,9 @@ class IdentificationTableViewController: UITableViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     // is there an updated image?
                     if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-                        vc.imageData = delegate!.updatedProduct!.frontImages[currentLanguageCode!]?.largest()
+                        vc.imageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.front)
                     } else {
-                        // is the image for the current language available im images?
-                        if let imageID = product!.imageID(for:currentLanguageCode!, in:.front) {
-                        // then fetch the image
-                            vc.imageData = product!.images[imageID]?.largest()
-                            // try to use the primary image
-                        } else if let imageID = product!.imageID(for:product!.primaryLanguageCode!, in:.front) {
-                            vc.imageData = product!.images[imageID]?.largest()
-                        } else {
-                            // try one of the other images
-                            if let imageID = product!.imageID(for:currentLanguageCode!, in:.front) {
-                                // then fetch the image
-                                vc.imageData = product!.images[imageID]?.largest()
-                                // try to use the primary image
-                            } else if let imageID = product!.imageID(for:product!.primaryLanguageCode!, in:.front) {
-                                vc.imageData = product!.images[imageID]?.largest()
-                            }
-                            vc.imageData = nil
-                        }
+                        vc.imageData = product!.image(for:currentLanguageCode!, of:.front)
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:

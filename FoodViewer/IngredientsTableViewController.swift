@@ -723,24 +723,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let vc = segue.destination as? ImageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
-                        if let imageData = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]?.largest() {
-                            vc.imageData = imageData
-                        } else if let imageData = delegate!.updatedProduct!.ingredientsImages[product!.primaryLanguageCode!]?.largest() {
-                            vc.imageData = imageData
-                        } else {
-                            vc.imageData = nil
-                        }
+                        vc.imageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.ingredients)
                     } else {
-                        // is the image for the current language available im images?
-                        if let imageID = product!.imageID(for:currentLanguageCode!, in:.ingredients) {
-                            // then fetch the image
-                            vc.imageData = product!.images[imageID]?.largest()
-                            // try to use the primary image
-                        } else if let imageID = product!.imageID(for:product!.primaryLanguageCode!, in:.ingredients) {
-                            vc.imageData = product!.images[imageID]?.largest()
-                        } else {
-                            vc.imageData = nil
-                        }
+                        vc.imageData = product!.image(for:currentLanguageCode!, of:.ingredients)
                     }
                 }
             case Storyboard.SegueIdentifier.SelectLanguage:
