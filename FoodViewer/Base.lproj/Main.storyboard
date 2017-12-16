@@ -823,8 +823,9 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="iLS-3y-yF5">
                                                     <rect key="frame" x="16" y="11" width="288" height="23"/>
                                                     <segments>
-                                                        <segment title="Joule"/>
-                                                        <segment title="Calories"/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="jouleOrCaloriesSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="pcL-LN-RHn"/>

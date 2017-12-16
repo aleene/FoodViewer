@@ -38,9 +38,9 @@ class Preferences {
     }
     
     init() {
-        showSaltOrSodium = NatriumChloride.salt
+        showSaltOrSodium = .salt
         showCaloriesOrJoule = .joule
-        showNutritionDataPerServingOrPerStandard = NutritionDisplayMode.perStandard
+        showNutritionDataPerServingOrPerStandard = .perStandard
         
         mapAddress = Address()
         mapAddress.title = "Address used for center of map"
@@ -60,9 +60,3 @@ class Preferences {
         }
     }
 }
-
-// Definition:
-//extension Notification.Name {
-//    static let ShowProductTypeSet = Notification.Name("Preferences.Notification.ShowProductTypeSet")
-//}
-

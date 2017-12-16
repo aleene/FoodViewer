@@ -11,7 +11,7 @@ import UIKit
 class SettingsTableViewController: UITableViewController {
 
     fileprivate struct Constants {
-        static let ViewControllerTitle = NSLocalizedString("Preferences", comment: "TableViewController title for the settings scene.")
+        static let ViewControllerTitle = TranslatableStrings.Preferences
         static let AllergenSegue = "Show Allergen Segue"
     }
 
@@ -40,7 +40,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var clearHistoryButton: UIButton! {
         didSet {
             enableClearHistoryButton()
-            clearHistoryButton.setTitle(NSLocalizedString("Clear History", comment: "Title of a button, which removes all items in the product search history."), for: .normal)
+            clearHistoryButton.setTitle(TranslatableStrings.ClearHistory, for: .normal)
         }
     }
 
@@ -103,8 +103,8 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var saltOrSodiumSegmentedControl: UISegmentedControl! {
         didSet {
-            saltOrSodiumSegmentedControl.setTitle(NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium"), forSegmentAt: 0)
-            saltOrSodiumSegmentedControl.setTitle(NSLocalizedString("Sodium", comment: "Title of third segment in switch, which lets the user select between salt or sodium"), forSegmentAt: 1)
+            saltOrSodiumSegmentedControl.setTitle(TranslatableStrings.Salt, forSegmentAt: 0)
+            saltOrSodiumSegmentedControl.setTitle(TranslatableStrings.Sodium, forSegmentAt: 1)
             refreshSaltOrSodium()
         }
     }
@@ -126,15 +126,18 @@ class SettingsTableViewController: UITableViewController {
         switch Preferences.manager.showCaloriesOrJoule {
         case .joule:
             jouleOrCaloriesSegmentedControl?.selectedSegmentIndex = 0
-        case .calories:
+        case .kilocalorie:
             jouleOrCaloriesSegmentedControl?.selectedSegmentIndex = 1
+        case .calories:
+            jouleOrCaloriesSegmentedControl?.selectedSegmentIndex = 2
         }
     }
 
     @IBOutlet weak var jouleOrCaloriesSegmentedControl: UISegmentedControl! {
         didSet {
-            jouleOrCaloriesSegmentedControl.setTitle(NSLocalizedString("Joule", comment: "Title of first segment in switch, which lets the user select between joule or calories"), forSegmentAt: 0)
-            jouleOrCaloriesSegmentedControl.setTitle(NSLocalizedString("Calories", comment: "Title of second segment in switch, which lets the user select between joule or calories"), forSegmentAt: 1)
+            jouleOrCaloriesSegmentedControl.setTitle(TranslatableStrings.Joule, forSegmentAt: 0)
+            jouleOrCaloriesSegmentedControl.setTitle(TranslatableStrings.KiloCalorie, forSegmentAt: 1)
+            jouleOrCaloriesSegmentedControl.setTitle(TranslatableStrings.Calories, forSegmentAt: 2)
             refreshJouleOrCalories()
         }
     }
@@ -144,6 +147,8 @@ class SettingsTableViewController: UITableViewController {
         case 0:
             Preferences.manager.showCaloriesOrJoule = .joule
         case 1:
+            Preferences.manager.showCaloriesOrJoule = .kilocalorie
+        case 2:
             Preferences.manager.showCaloriesOrJoule = .calories
         default:
             break
@@ -154,9 +159,9 @@ class SettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var nutritionUnitSegmentedControl: UISegmentedControl! {
         didSet {
-            nutritionUnitSegmentedControl.setTitle(NSLocalizedString("100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)"), forSegmentAt: 0)
-            nutritionUnitSegmentedControl.setTitle(NSLocalizedString("Serving", comment: "Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)"), forSegmentAt: 1)
-            nutritionUnitSegmentedControl.setTitle(NSLocalizedString("Daily Value", comment: "Title of third segment in switch, which lets the user select between per daily value (per 100 mg/ml / per serving / per daily value)"), forSegmentAt: 2)
+            nutritionUnitSegmentedControl.setTitle(TranslatableStrings.HunderdMgMl, forSegmentAt: 0)
+            nutritionUnitSegmentedControl.setTitle(TranslatableStrings.Serving, forSegmentAt: 1)
+            nutritionUnitSegmentedControl.setTitle(TranslatableStrings.DailyValue, forSegmentAt: 2)
             refreshNutritionUnit()
         }
     }
@@ -210,7 +215,7 @@ class SettingsTableViewController: UITableViewController {
                 offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)
                 offAccountSegmentedControl.selectedSegmentIndex = 1
             } else {
-                offAccountSegmentedControl.setTitle(NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account"), forSegmentAt: 1)
+                offAccountSegmentedControl.setTitle(TranslatableStrings.SetAccount, forSegmentAt: 1)
                 offAccountSegmentedControl.selectedSegmentIndex = 0
             }
         }
@@ -223,7 +228,7 @@ class SettingsTableViewController: UITableViewController {
             Preferences.manager.userDidAuthenticate = false
             // delete the personal OFF Account credentials
             OFFAccount().removePersonal()
-            offAccountSegmentedControl.setTitle(NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account"), forSegmentAt: 1)
+            offAccountSegmentedControl.setTitle(TranslatableStrings.SetAccount, forSegmentAt: 1)
         case 1:
             // The user has to define his credentials
             setUserNamePassword()
@@ -250,19 +255,16 @@ class SettingsTableViewController: UITableViewController {
     // Function to ask username/password and store it in the keychain
     private func setUserNamePassword() {
         
-        let alertController = UIAlertController(title: NSLocalizedString("Personal Account",
-                                                                         comment: "Title in AlertViewController, which lets the user enter his username/password."),
-                                                message: NSLocalizedString("Specify your credentials for OFF?",
-                                                                           comment: "Explanatory text in AlertViewController, which lets the user enter his username/password."),
+        let alertController = UIAlertController(title: TranslatableStrings.PersonalAccount,
+                                                message: TranslatableStrings.SpecifyYourCredentialsForOFF,
                                                 preferredStyle:.alert)
-        let useFoodViewer = UIAlertAction(title: NSLocalizedString("Cancel",
-                                                                   comment: "String in button, to let the user indicate he wants to cancel username/password input."),
+        let useFoodViewer = UIAlertAction(title: TranslatableStrings.Cancel,
                                           style: .default) { action -> Void in
                                             // set the foodviewer selected index
                                             self.offAccountSegmentedControl.selectedSegmentIndex = 0
         }
         
-        let useMyOwn = UIAlertAction(title: NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input."), style: .default)
+        let useMyOwn = UIAlertAction(title: TranslatableStrings.Done, style: .default)
         { action -> Void in
             // change the title of the segmented controller to the account the user just entered
             self.offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)
@@ -271,12 +273,12 @@ class SettingsTableViewController: UITableViewController {
         }
         alertController.addTextField { textField -> Void in
             textField.tag = 0
-            textField.placeholder = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
+            textField.placeholder = TranslatableStrings.Username
             textField.delegate = self
         }
         alertController.addTextField { textField -> Void in
             textField.tag = 1
-            textField.placeholder = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
+            textField.placeholder = TranslatableStrings.Password
             textField.delegate = self
         }
         
@@ -304,13 +306,13 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 3:
-            return NSLocalizedString("Reset", comment: "Title of a tableView section, which lets the user reset the history")
+            return TranslatableStrings.Reset
         case 0:
-            return NSLocalizedString("Display Prefs", comment: "Title of a tableView section, which lets the user select display options")
+            return TranslatableStrings.DisplayPrefs
         case 1:
-            return NSLocalizedString("Warnings", comment: "Title of a tableView section, which lets the user set warnings")
+            return TranslatableStrings.Warnings
         case 2:
-            return NSLocalizedString("OpenFoodFacts Account", comment: "Title of a tableView section, which lets the user set the off account to use")
+            return TranslatableStrings.OpenFoodFactsAccount
         default:
             break
         }

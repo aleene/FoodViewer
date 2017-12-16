@@ -14,9 +14,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     fileprivate var adaptedNutritionFacts: [DisplayFact] = []
     
     // set to app wide default
-    fileprivate var showNutrientsAs: NutritionDisplayMode = Preferences.manager.showNutritionDataPerServingOrPerStandard
-    
-    
+    fileprivate var showNutrientsAs = Preferences.manager.showNutritionDataPerServingOrPerStandard
+    fileprivate var showEnergyAs = Preferences.manager.showCaloriesOrJoule
+    fileprivate var ShowSaltAs = Preferences.manager.showSaltOrSodium
     fileprivate var searchResult: String = ""
     
     fileprivate var nutritionFactsTagTitle: String = ""
@@ -97,27 +97,35 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     var newFact: NutritionFactItem? = nil
                     // if the validFact is sodium or salt, add either one to the list of facts, but not both
                     if (validFact.key == NatriumChloride.salt.key()) {
-                        switch Preferences.manager.showSaltOrSodium {
+                        switch ShowSaltAs {
                         // do not show sodium
                         case .sodium: break
                         default:
                             newFact = validFact
                         }
                     } else if (validFact.key == NatriumChloride.sodium.key()) {
-                        switch Preferences.manager.showSaltOrSodium {
+                        switch ShowSaltAs {
                         // do not show salt
                         case .salt: break
                         default:
                             newFact = validFact
                         }
                     } else if !editMode && ( validFact.key == LocalizedEnergy.key ) {
-                        switch Preferences.manager.showCaloriesOrJoule {
-                        // show energy as calories
+                        switch showEnergyAs {
+                        // show energy as Calories (US)
                         case .calories:
-                            newFact = NutritionFactItem.init(name: EnergyUnitUsed.calories.description(),
+                            newFact = NutritionFactItem.init(
+                                name: EnergyUnitUsed.calories.description(),
                                                              standard: validFact.valueInCalories(validFact.standardValue),
                                                              serving: validFact.valueInCalories(validFact.servingValue),
                                                              unit: EnergyUnitUsed.calories.unit(),
+                                                             key: validFact.key)
+                        // show energy as kcalorie
+                        case .kilocalorie:
+                            newFact = NutritionFactItem.init(name: EnergyUnitUsed.kilocalorie.description(),
+                                                             standard: validFact.valueInCalories(validFact.standardValue),
+                                                             serving: validFact.valueInCalories(validFact.servingValue),
+                                                             unit: EnergyUnitUsed.kilocalorie.unit(),
                                                              key: validFact.key)
                         case .joule:
                             // this assumes that fact is in Joule
@@ -300,7 +308,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // This cell should only be added when in editMode and as the last row
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
                 cell.delegate = self
-                cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+                cell.buttonText = TranslatableStrings.AddNutrient
                 return cell
             } else {
                 if adaptedNutritionFacts.isEmpty {
@@ -368,7 +376,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // This cell should only be added when in editMode and as the last row
                     // and allows the user to add a nutrient
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
-                    cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+                    cell.buttonText = TranslatableStrings.AddNutrient
                     return cell
                 } else {
                     if query!.allNutrimentsSearch.isEmpty {
@@ -427,7 +435,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
         case .addNutrient:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
-            cell.buttonText = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+            cell.buttonText = TranslatableStrings.AddNutrient
             return cell
         }
     }
@@ -567,8 +575,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     @objc func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
-        /////
-        Preferences.manager.showSaltOrSodium = Preferences.manager.showSaltOrSodium == .salt ? .sodium : .salt
+        ShowSaltAs = ShowSaltAs == .salt ? .sodium : .salt
         
         mergeNutritionFacts()
         tableView.reloadData()
@@ -576,11 +583,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     @objc func doubleTapOnEnergyTableViewCell(_ recognizer: UITapGestureRecognizer) {
         /////
-        switch Preferences.manager.showCaloriesOrJoule {
+        switch showEnergyAs {
         case .calories:
-            Preferences.manager.showCaloriesOrJoule = .joule
+            showEnergyAs = .joule
         case .joule:
-            Preferences.manager.showCaloriesOrJoule = .calories
+            showEnergyAs = .kilocalorie
+        case .kilocalorie:
+            showEnergyAs = .joule
         }
         
         mergeNutritionFacts()
@@ -589,23 +598,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 //        let sections = NSIndexSet.init(index: 0)
 //        tableView.reloadSections(sections, withRowAnimation: .Fade)
     }
-    
-    /*
-    func doubleTapOnNutrimentsHeader(_ recognizer: UITapGestureRecognizer) {
-        ///// Cycle through display modes
-        switch showNutrientsAs {
-        case .perStandard:
-            showNutrientsAs = .perServing
-        case .perServing:
-            showNutrientsAs = .perDailyValue
-        case .perDailyValue:
-            showNutrientsAs = .perStandard
-        }
-        
-        mergeNutritionFacts()
-        tableView.reloadData()
-    }
- */
     
     fileprivate func setupTableSections() -> [(SectionType, Int, String?)] {
         // This function analyses to product in order to determine
@@ -664,7 +656,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             } else {
             
                 // how does the user want the data presented
-                switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
+                switch showNutrientsAs {
                 case .perStandard:
                     // what is possible?
                     switch product!.nutritionFactsAreAvailable {
@@ -1224,13 +1216,15 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         
         // US data must be perServing
         showNutrientsAs = .perServing
+        showEnergyAs = .calories
+        ShowSaltAs = .sodium
         
         // Energy
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Calories))
         }
-        // Energy from fat Old Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
+        // Energy from Fat Old Label
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyFromFatKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: NutritionFactUnit.Calories))
         }
 
@@ -1243,21 +1237,21 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
         }
         // Trans Fat
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.TransFatKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: NutritionFactUnit.Gram))
         }
 
         // Cholesterol
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CholesterolKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: NutritionFactUnit.Milligram))
         }
         // Sodium
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaltKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SodiumKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: NutritionFactUnit.Gram))
         }
         // Total Carbohydrates
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaltKey, unit: NutritionFactUnit.Gram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: NutritionFactUnit.Gram))
         }
         // Dietary Fiber
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
@@ -1269,7 +1263,7 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
         }
         // Added Sugars New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.AddedSugarsKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.AddedSugarsKey, unit: NutritionFactUnit.Gram))
         }
 
@@ -1278,32 +1272,34 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
         }
         // Vitamin A New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminAKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminAKey, unit: NutritionFactUnit.Percent))
         }
         // Vitamin C Old Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminCKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminCKey, unit: NutritionFactUnit.Percent))
         }
         // Vitamin D New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminDKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminDKey, unit: NutritionFactUnit.Percent))
         }
 
         // Calcium
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CalciumKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CalciumKey, unit: NutritionFactUnit.Percent))
         }
         // Iron Old Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.IronKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.IronKey, unit: NutritionFactUnit.Percent))
         }
         // Potassium New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.PotassiumKey) {
             delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.PotassiumKey, unit: NutritionFactUnit.Percent))
         }
 
-        refreshProductWithNewNutritionFacts()
+        mergeNutritionFacts()
+        tableStructureForProduct = setupTableSections()
+        tableView.reloadData()
     }
 }
 

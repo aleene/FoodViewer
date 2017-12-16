@@ -14,6 +14,7 @@ struct TranslatableStrings {
 // MARK: - AAAAAAAAAAAAAAAAAAAA strings
 //
     static let A = NSLocalizedString("A", comment: "String (in Segmented Control) to indicate the best nutritional score level")
+    static let AddNutrient = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
     static let Allergens = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
     static let Additives = NSLocalizedString("Additives", comment: "Generic used string to indicate the additives of a product.")
     static let AssignImage = NSLocalizedString("Assign Image", comment: "ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition).")
@@ -38,10 +39,12 @@ struct TranslatableStrings {
 //
     
     static let C = NSLocalizedString("C", comment: "String in Segmented Control to indicate the thrid best nutritional score level")
+    static let Calories = NSLocalizedString("Calories", comment: "Title of third segment in switch, which lets the user select between joule, kilo-calories or Calories")
     static let Cancel = NSLocalizedString("Cancel", comment: "String in button, to let the user indicate he does NOT want to search.")
     static let Categories = NSLocalizedString("Categories", comment: "Text to indicate the product belongs to a category.")
     static let Checker = NSLocalizedString("Checker", comment: "String in PickerViewController to indicate the checker role of a contributor")
     static let CheesesCategory = NSLocalizedString("Cheeses category", comment: "Cell title indicating the product belongs to the cheeses category")
+    static let ClearHistory = NSLocalizedString("Clear History", comment: "Title of a button, which removes all items in the product search history.")
     static let CommonName = NSLocalizedString("Common Name", comment: "Tableview sectionheader for long product name")
     static let Completion = NSLocalizedString("Completion", comment: "Label for a horizontal gauge that indicates the completion percentage of the product data.")
     static let CompletionStates = NSLocalizedString("Completion States", comment: "Generic string to indicate the completion states of a product.")
@@ -60,6 +63,8 @@ struct TranslatableStrings {
 //
     
     static let D = NSLocalizedString("D", comment: "String in Segmented Control to indicate the fourth best nutritional score level")
+    static let DailyValue = NSLocalizedString("Daily Value", comment: "Title of third segment in switch, which lets the user select between per daily value (per 100 mg/ml / per serving / per daily value)")
+    static let DisplayPrefs = NSLocalizedString("Display Prefs", comment: "Title of a tableView section, which lets the user select display options")
     static let Done = NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input.")
     
 //
@@ -91,6 +96,8 @@ struct TranslatableStrings {
     
     static let GoodNutrients = NSLocalizedString("Good nutrients", comment: "Header for a table section showing the appreciations of the good nutrients")
     
+    static let HunderdMgMl = NSLocalizedString("100 mg/ml", comment: "Title of first segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)")
+
 //
 // MARK: - IIIIIIIIIIIIIIII strings
 //
@@ -104,8 +111,14 @@ struct TranslatableStrings {
     static let IngredientsImage = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
     static let IngredientOrigins = NSLocalizedString("Ingredients Origin", comment: "Generic string to indicate the origins of the ingredients")
     static let Initialized = NSLocalizedString("Initialized", comment: "String presented in a tagView if nothing has happened yet")
-
     
+//
+// MARK: - JJJJJJJJJjjjjJJJJJJ strings
+//
+
+    static let Joule = NSLocalizedString("Joule", comment: "Title of first segment in switch, which lets the user select between joule, kilo-calories or Calories")
+    
+    static let KiloCalorie = NSLocalizedString("kilocalorie", comment: "Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories")
 //
 // MARK: - LLLLLLLLLLLLLLLL strings
 //
@@ -167,11 +180,13 @@ struct TranslatableStrings {
     static let PackagerCodes = NSLocalizedString("Packager Code", comment: "Generic string to indicate the packager codes.")
     static let Password = NSLocalizedString("Password", comment: "String in textField placeholder, to show that the user has to enter his password")
     static let PerServing = NSLocalizedString("Per serving", comment: "Text of 2nd segment of a SegmentedControl, indicating the model of the nutrient values, i.e. the values are indicated per serving")
+    static let PersonalAccount = NSLocalizedString("Personal Account", comment: "Title in AlertViewController, which lets the user enter his username/password.")
     static let Per100mgml = NSLocalizedString("Per 100 mg/ml", comment: "Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml")
     static let PetFoodProducts = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + TranslatableStrings.Space + TranslatableStrings.PhotographerUnicode
     static let PhotographerUnicode = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")
     static let Popularity = NSLocalizedString("Popularity", comment: "String in picker, which lets the user select the search result order. Order on the popularity.")
+    static let Preferences = NSLocalizedString("Preferences", comment: "TableViewController title for the settings scene.")
     static let ProductDoesNotExistAlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
     static let ProductDoesNotExistAlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
     static let ProductDoesNotExistAlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
@@ -184,6 +199,7 @@ struct TranslatableStrings {
     static let ProductNotAvailable = NSLocalizedString("Product not available", comment: "String presented in a tagView if no product is available on OFF")
     static let PurchaseAddress = NSLocalizedString("Purchase address", comment: "Generic string to indicate the address (street/city/postalcode/country) where the product was bought")
     
+    static let OpenFoodFactsAccount = NSLocalizedString("OpenFoodFacts Account", comment: "Title of a tableView section, which lets the user set the off account to use")
 //
 // MARK: - QQQQQQQQQQQQQQQQ strings
 //
@@ -202,6 +218,7 @@ struct TranslatableStrings {
 //
     
     static let SalesCountries = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
+    static let Salt = NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium")
     // static let Search = NSLocalizedString("Search", comment: "Prefix of a title of a Tableview controller")
     static let SearchFoodProducts = NSLocalizedString("Search Food Products", comment: "Title of a Tableview controller, indicating the tableview shows search food products.")
     static let SearchInNameEtc = NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
@@ -217,9 +234,13 @@ struct TranslatableStrings {
     static let Select = NSLocalizedString("Select", comment: "Title of a viewcontroller where the user has to select an element in the picker.")
     static let SelectCompletionStatus = NSLocalizedString("Select Completion Status", comment: "Title of a picker row where the user has to select an element in the picker.")
     static let SelectRole = NSLocalizedString("Select role", comment: "First item in a pickerView, indicating what the user should do")
+    static let Serving = NSLocalizedString("Serving", comment: "Title of second segment in switch, which lets the user select between per standard unit (per 100 mg/ml / per serving / per daily value)")
     static let Set = NSLocalizedString("Set", comment: "Title of a segment in a segmentedControl indicating that the a search needs to be setup by tapping.")
+    static let SetAccount = NSLocalizedString("Set Account", comment: "Title of second segment in switch, which  indicates the user can set another account")
     static let SetupQuery = NSLocalizedString("Setup query", comment: "Title of a tableview header  indicating that the corresding field has been set.")
+    static let Sodium = NSLocalizedString("Sodium", comment: "Title of third segment in switch, which lets the user select between salt or sodium")
     static let SpecialCategories = NSLocalizedString("Special categories", comment: "Header for a table section showing the special categories")
+    static let SpecifyYourCredentialsForOFF = NSLocalizedString("Specify your credentials for OFF", comment: "Explanatory text in AlertViewController, which lets the user enter his username/password.")
     static let SpecifyPassword = NSLocalizedString("Specify password",
                                                    comment: "Title in AlertViewController, which lets the user enter his username/password.")
     static let StartSearch = NSLocalizedString("Start Search?",
@@ -241,13 +262,14 @@ struct TranslatableStrings {
     static let Undefined = NSLocalizedString("Undefined", comment: "String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search)")
     static let Unknown = NSLocalizedString("Unknown", comment: "Text in a TagListView, when the field in the json was not present.")
     static let UnknownValue = TranslatableStrings.QuestionMark
+    static let Username = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
 
+    static let Warnings = NSLocalizedString("Warnings", comment: "Title of a tableView section, which lets the user set warnings")
     
 //
 // MARK: - Other strings
 //
-    
     static let QuestionMark = NSLocalizedString("?", comment: "a questionmark used for several purposes")
     static let Space = NSLocalizedString(" ", comment: "a space used for several purposes")
 

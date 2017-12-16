@@ -15,6 +15,7 @@ public enum NutritionFactUnit: Int, CaseCountable {
     case Microgram
     case Joule
     case Calories
+    case KiloCalories
     case Percent
     case None
     
@@ -24,6 +25,8 @@ public enum NutritionFactUnit: Int, CaseCountable {
             self = .Joule
         case Strings.Calories:
             self =  .Calories
+        case Strings.KiloCalories:
+            self =  .KiloCalories
         case Strings.Gram:
             self =  .Gram
         case Strings.Milligram:
@@ -56,7 +59,8 @@ public enum NutritionFactUnit: Int, CaseCountable {
     func description() -> String {
         switch self {
         case .Joule: return NSLocalizedString("Joule (J)", comment: "Energy unit")
-        case .Calories: return NSLocalizedString("kcalories (kcal)", comment: "Energy unit.")
+        case .KiloCalories: return NSLocalizedString("kcalories (kcal)", comment: "Energy unit.")
+        case .Calories: return NSLocalizedString("Calores (Cal)", comment: "Energy unit.")
         case .Gram: return NSLocalizedString("gram (g)", comment: "Standard weight unit.")
         case .Milligram: return NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
         case .Microgram: return NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
@@ -71,6 +75,8 @@ public enum NutritionFactUnit: Int, CaseCountable {
             return Strings.Joule
         case .Calories :
             return Strings.Calories
+        case .KiloCalories :
+            return Strings.KiloCalories
         case .Gram :
             return Strings.Gram
         case .Milligram :
@@ -92,6 +98,8 @@ public enum NutritionFactUnit: Int, CaseCountable {
                 return Strings.Joule
             case .Calories :
                 return Strings.Calories
+            case .KiloCalories :
+                return Strings.KiloCalories
             case .Percent :
                 return Strings.Percent
             default :
@@ -115,7 +123,8 @@ public enum NutritionFactUnit: Int, CaseCountable {
     
     private struct Strings {
         static let Joule = "kJ"
-        static let Calories = "kcal"
+        static let Calories = "Cal"
+        static let KiloCalories = "kcal"
         static let Gram = "g"
         static let Milligram = "mg"
         static let Microgram = "µg"

@@ -10,12 +10,15 @@ import Foundation
 
 enum EnergyUnitUsed {
     case calories
+    case kilocalorie
     case joule
     
     func description() -> String {
         let preferredLanguage = Locale.preferredLanguages[0]
         switch self {
         case .calories:
+            return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
+        case .kilocalorie:
             return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
         case .joule:
             return OFFplists.manager.translateNutrients(LocalizedEnergy.key, language:preferredLanguage)
@@ -29,6 +32,9 @@ enum EnergyUnitUsed {
         case .calories:
             let (_, unit) = energy.inKiloCalories
             return unit
+        case .kilocalorie:
+            let (_, unit) = energy.inKiloCalories
+            return unit
         case .joule:
             let (_, unit) = energy.inKilo
             return unit
@@ -36,10 +42,13 @@ enum EnergyUnitUsed {
 
     }
     
-    func index() -> Int {
+    /*
+     func index() -> Int {
         switch self {
-        case .calories: return 1
+        case .calories: return 2
+        case .kilocalorie: return 1
         case .joule: return 0
         }
     }
+     */
 }
