@@ -95,6 +95,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             for fact in validFacts {
                 if let validFact = fact {
                     var newFact: NutritionFactItem? = nil
+
                     // if the validFact is sodium or salt, add either one to the list of facts, but not both
                     if (validFact.key == NatriumChloride.salt.key()) {
                         switch ShowSaltAs {
@@ -110,7 +111,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         default:
                             newFact = validFact
                         }
-                    } else if !editMode && ( validFact.key == LocalizedEnergy.key ) {
+                    } else if ( validFact.key == LocalizedEnergy.key ) {
                         switch showEnergyAs {
                         // show energy as Calories (US)
                         case .calories:

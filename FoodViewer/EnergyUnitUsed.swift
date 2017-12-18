@@ -30,7 +30,7 @@ enum EnergyUnitUsed {
         energy.quantity = 1.0
         switch self {
         case .calories:
-            let (_, unit) = energy.inKiloCalories
+            let (_, unit) = energy.inLargeCalories
             return unit
         case .kilocalorie:
             let (_, unit) = energy.inKiloCalories
@@ -42,13 +42,4 @@ enum EnergyUnitUsed {
 
     }
     
-    /*
-     func index() -> Int {
-        switch self {
-        case .calories: return 2
-        case .kilocalorie: return 1
-        case .joule: return 0
-        }
-    }
-     */
 }

@@ -30,7 +30,7 @@ public class Energy: SIUnit {
     }
     
     public let calUnit = "cal"
-    
+    public let largeCalUnit = "Cal"
     public func setInCalories (_ quantity: Double?, prefix: String) {
         guard quantity != nil else {
             self.quantity = nil
@@ -77,6 +77,13 @@ public class Energy: SIUnit {
         }
     }
     
+    public var inLargeCalories: (Double?, String) {
+        get {
+            let value = self.quantityInCalories != nil ? self.quantityInCalories! / MetricPrefix.Kilo.Factor : nil
+            return (value, self.largeCalUnit)
+        }
+    }
+
     public var inMilliCalories: (Double?, String) {
         get {
             let value = self.quantityInCalories != nil ? self.quantityInCalories! / MetricPrefix.Milli.Factor : nil

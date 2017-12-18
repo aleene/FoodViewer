@@ -890,7 +890,7 @@ class FoodProduct {
         }
         // tracesInterpreted = product.tracesInterpreted
         // tracesHierarchy = product.tracesHierarchy
-// additivesInterpreted = product.additivesInterpreted
+        // additivesInterpreted = product.additivesInterpreted
         switch product!.labelsOriginal {
         case .available(let list):
             labelsOriginal = Tags.init(list:list)

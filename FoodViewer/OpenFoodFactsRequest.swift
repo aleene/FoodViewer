@@ -1217,7 +1217,7 @@ class OpenFoodFactsRequest {
     // assume we start with grams
     func normalize(_ value: String?) -> (String?, NutritionFactUnit) {
         var newValue: String? = nil
-        var newUnit: NutritionFactUnit = .None
+        var newUnit: NutritionFactUnit = .Gram
         
         guard value != nil else { return (nil, NutritionFactUnit.Gram) }
         
