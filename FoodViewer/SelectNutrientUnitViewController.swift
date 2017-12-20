@@ -12,9 +12,14 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
 
     private struct Constants {
         static let UnwindSegue = "Unwind Set Nutrient Unit"
+        static let RowOffset = 1
     }
 
     var nutrientRow: Int? = nil
+    
+    var energyUnit: Bool {
+        return currentNutritionFactKey != nil ? currentNutritionFactKey!.contains("energy") : false
+    }
     
     var currentNutritionUnit: NutritionFactUnit? = nil
     
@@ -31,7 +36,7 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         switch component {
         case 0:
-            return currentNutritionFactKey != nil ? NutritionFactUnit.caseCount(key: currentNutritionFactKey!) : NutritionFactUnit.countCases()
+            return NutritionFactUnit.units(for:energyUnit).count + Constants.RowOffset
         default:
             return 0
         }
@@ -45,12 +50,14 @@ class SelectNutrientUnitViewController: UIViewController, UIPickerViewDelegate, 
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        return currentNutritionFactKey != nil ? NutritionFactUnit(rawValue:NutritionFactUnit.value(for: row, and:currentNutritionFactKey!))?.short() : NutritionFactUnit(rawValue: row)?.short()
+        return row >= Constants.RowOffset ? NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset].short() : ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedNutritionUnit = currentNutritionFactKey != nil ? NutritionFactUnit(rawValue:NutritionFactUnit.value(for: row, and:currentNutritionFactKey!)) : NutritionFactUnit(rawValue: row)
-        performSegue(withIdentifier: Constants.UnwindSegue, sender: self)
+        if row >= Constants.RowOffset {
+            selectedNutritionUnit = NutritionFactUnit.units(for:energyUnit)[row - Constants.RowOffset]
+            performSegue(withIdentifier: Constants.UnwindSegue, sender: self)
+        }
     }
     
     

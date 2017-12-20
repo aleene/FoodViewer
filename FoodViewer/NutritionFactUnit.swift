@@ -8,9 +8,9 @@
 
 import Foundation
 
-public enum NutritionFactUnit: Int, CaseCountable {
+public enum NutritionFactUnit {
     
-    case Gram = 0
+    case Gram
     case Milligram
     case Microgram
     case Joule
@@ -39,11 +39,13 @@ public enum NutritionFactUnit: Int, CaseCountable {
             self =  .None
         }
     }
-
-    public static let caseCount = NutritionFactUnit.countCases()
-
-    public static func caseCount(key:String) -> Int {
-        return key.hasPrefix(LocalizedEnergy.prefixKey) ? 4 : 5
+    
+    public static func units(for energy:Bool) -> [NutritionFactUnit] {
+        if energy {
+            return [.Joule, .KiloCalories, .Calories]
+        } else {
+            return [.Gram, .Milligram, .Microgram, .Percent, .None]
+        }
     }
     
     public static func value(for row: Int, and key:String) -> Int {
