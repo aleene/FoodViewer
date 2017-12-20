@@ -807,6 +807,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             }
                         }
                     }
+                } else {
+                    assert(true, "NutrientsTableViewController: ShowNutritionImageLanguages segue preparation wrongly configurated")
                 }
             case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
                 if let vc = segue.destination as? ImageViewController {
@@ -816,12 +818,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     } else {
                         vc.imageData = product!.image(for:currentLanguageCode!, of:.nutrition)
                     }
+                } else {
+                    assert(true, "NutrientsTableViewController: ShowNutritionFactsImage segue preparation wrongly configurated")
                 }
             case Storyboard.SegueIdentifier.AddNutrient:
                 if let vc = segue.destination as? AddNutrientViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
-                        if button.superview?.superview as? AddNutrientTableViewCell != nil {
+                        if button.superview?.superview?.superview as? AddNutrientTableViewCell != nil {
                             if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
                                 ppc.permittedArrowDirections = .any
@@ -834,6 +838,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             }
                         }
                     }
+                } else {
+                    assert(true, "NutrientsTableViewController: AddNutrient segue preparation wrongly configurated")
                 }
                 
             case Storyboard.SegueIdentifier.SelectNutrientUnit:
@@ -870,10 +876,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                     vc.currentNutritionUnit = query!.allNutrimentsSearch[row].unit
                                 }
                             }
-                        } else {
-                            assert(false, "NutrientsTableViewController: SelectNutrientUnit segue preparation wrongly configurated")
                         }
                     }
+                } else {
+                    assert(true, "NutrientsTableViewController: SelectNutrientUnit segue preparation wrongly configurated")
                 }
                 
             case Storyboard.SegueIdentifier.SelectComparisonOperator:
@@ -897,6 +903,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             }
                         }
                     }
+                } else {
+                    assert(true, "NutrientsTableViewController: SelectComparisonOperator segue preparation wrongly configurated")
                 }
 
             default: break
