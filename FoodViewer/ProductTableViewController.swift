@@ -341,7 +341,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         cell.tag = Storyboard.CellTag.Image
                         //cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.error
-                        cell.accessoryType = .none
+                        cell.accessoryType = .disclosureIndicator
                         return cell
                     case .ingredientsAllergensTraces:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell

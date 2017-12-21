@@ -406,37 +406,44 @@ class OFFUpdate {
     }
 
     private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String) {
-
-        for element in dict {
-            guard element.value.largest()?.image != nil else { return }
-
-            if id != "general" {
-                // start by unselecting any existing image
-                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
-                                         OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
-                                    // Adding credentials are not accepted
-                                    //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
-                                    //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
-                                        ],
-                                url: OFFHttpPost.URL.SecurePrefix +
-                                    currentProductType.rawValue +
-                                    OFFHttpPost.URL.Domain +
-                                    OFFHttpPost.URL.UnselectPostFix
-                )
-            }
-
-            post(image: element.value.largest()!.image!,
-                      parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
-                                   OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:element.key),
-                                   OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
-                                   OFFHttpPost.AddParameter.Password: OFFAccount().password],
-                      imageType: id,
-                      url: OFFHttpPost.URL.SecurePrefix +
-                        currentProductType.rawValue +
-                        OFFHttpPost.URL.Domain +
-                        OFFHttpPost.URL.AddPostFix,
-                      languageCode: element.key)
+        // any image to upload?
+        guard dict.count > 0 else { return }
         
+        for element in dict {
+            
+            // Is there a valid original image?
+            if let imageData = element.value.original {
+                    if let image = imageData.image {
+                        guard image != UIImage() else { return }
+                        // Is this a selected image?
+                        if id != "general" {
+                            // start by unselecting any existing image
+                            postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
+                                                    OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
+                                // Adding credentials is not accepted by OFF
+                                //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
+                                //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
+                                ],
+                                       url: OFFHttpPost.URL.SecurePrefix +
+                                        currentProductType.rawValue +
+                                        OFFHttpPost.URL.Domain +
+                                        OFFHttpPost.URL.UnselectPostFix
+                            )
+                        }
+                        
+                        post(image: image,
+                             parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
+                                          OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:element.key),
+                                          OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
+                                          OFFHttpPost.AddParameter.Password: OFFAccount().password],
+                             imageType: id,
+                             url: OFFHttpPost.URL.SecurePrefix +
+                                currentProductType.rawValue +
+                                OFFHttpPost.URL.Domain +
+                                OFFHttpPost.URL.AddPostFix,
+                             languageCode: element.key)
+                    }
+            }
         }
     }
     
@@ -466,8 +473,8 @@ class OFFUpdate {
             print("up")
         }
          */
-
-        let data: Data? = UIImagePNGRepresentation(image.setOrientationToLeftUpCorner())
+        print(image.description)
+        let data = UIImagePNGRepresentation(image)
         
         guard data != nil else { return }
         
@@ -639,6 +646,7 @@ class OFFUpdate {
                 if result != nil {
                     switch result! {
                     case .success(let error):
+                        print("Deselect successfull")
                         print(error)
                         let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
                                         Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,

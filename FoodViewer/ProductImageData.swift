@@ -25,10 +25,11 @@ public class ProductImageData {
             if fetchResult != nil {
                 switch fetchResult! {
                 case .success(let data):
-                    if let ciImage = CIImage(data: data) {
-                        image = UIImage.init(ciImage: ciImage)
+                    image = UIImage.init(data: data)
+                    //if let ciImage = CIImage(data: data) {
+                    //    image = UIImage.init(ciImage: ciImage)
                         // image = UIImage.init(data: data) // Gives the wrong orientation
-                    }
+                    //}
                 default:
                     break
                 }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol GalleryCollectionViewCellDelegate: class {
     
-    // function to let the delegate know that the switch changed
+    // function to let the delegate know that the deselect button has been tapped
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton)
 }
 

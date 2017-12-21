@@ -24,7 +24,7 @@ struct ProductImageSize {
         if original != nil { original!.fetchResult = nil }
     }
     
-    func largest() -> ProductImageData? {
+    var largest: ProductImageData? {
         if original != nil {
             return original
         } else if display != nil {

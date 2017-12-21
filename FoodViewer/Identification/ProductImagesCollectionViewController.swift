@@ -137,16 +137,16 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         switch indexPath.section {
         case 0: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 {
-                if indexPath.row < delegate!.updatedProduct!.frontImages.count {
-                    let key = keyTuples(for:Array(delegate!.updatedProduct!.frontImages.keys))[indexPath.row].0
-                    if let validImage = delegate!.updatedProduct!.frontImages[key]?.original?.image {
+            if let images = delegate?.updatedProduct?.frontImages {
+                if images.count > 0 && indexPath.row < images.count {
+                    let key = keyTuples(for:Array(images.keys))[indexPath.row].0
+                    if let validImage = images[key]?.original?.image {
                         cell.imageView.image = validImage
                     } else {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                         
                     }
-                    cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
+                    cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
                 }
                 
             } else {
@@ -174,17 +174,17 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         
         case 1: // Ingredients Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0  {
-                if indexPath.row < delegate!.updatedProduct!.ingredientsImages.count {
-                    let key = keyTuples(for:Array(delegate!.updatedProduct!.ingredientsImages.keys))[indexPath.row].0
-                    if let validImage = delegate!.updatedProduct!.ingredientsImages[key]?.original?.image {
+            if let images = delegate?.updatedProduct?.ingredientsImages  {
+                if indexPath.row < images.count && images.count > 0 {
+                    let key = keyTuples(for:Array(images.keys))[indexPath.row].0
+                    if let validImage = images[key]?.original?.image {
                         cell.imageView.image = validImage
                     } else {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                         
                     }
 
-                    cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
+                    cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
                 }
             } else {
                 if indexPath.row < product!.ingredientsImages.count {
@@ -200,7 +200,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         }
                         cell.label.text = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].1
                     } else {
-                        assert(false, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
+                        assert(true, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
                     }
                 }
             }
@@ -211,15 +211,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             
         case 2: // Nutrition Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0  {
-                if indexPath.row < delegate!.updatedProduct!.nutritionImages.count {
-                    let key = keyTuples(for:Array(delegate!.updatedProduct!.nutritionImages.keys))[indexPath.row].0
-                    if let validImage = delegate!.updatedProduct!.nutritionImages[key]?.original?.image {
+            if let images = delegate?.updatedProduct?.nutritionImages {
+                if indexPath.row < images.count && images.count > 0 {
+                    let key = keyTuples(for:Array(images.keys))[indexPath.row].0
+                    if let validImage = images[key]?.original?.image {
                         cell.imageView.image = validImage
                     } else {
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
-                    cell.label.text = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].1
+                    cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
                 }
             } else {
                 if indexPath.row < product!.nutritionImages.count {
@@ -236,7 +236,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         cell.label.text = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].1
                     }
                 } else {
-                    assert(false, "ProductImagesCollectionViewController: indexPath.row     nutritionImages to large")
+                    assert(true, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
                 }
             }
             cell.indexPath = indexPath
@@ -375,7 +375,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         
                     case 3:
                         let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
-                        vc.imageData = product!.images[key]?.largest()
+                        vc.imageData = product!.images[key]?.largest
                         vc.imageTitle = key
                         
                     default:
@@ -560,7 +560,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
 extension ProductImagesCollectionViewController : GalleryCollectionViewCellDelegate {
     
-    // function to let the delegate know that the switch changed
+    // function to let the delegate know that the deselect button has been tapped
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton) {
         if let validIndexPath = sender.indexPath {
             switch validIndexPath.section {

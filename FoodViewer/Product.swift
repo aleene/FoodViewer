@@ -92,10 +92,10 @@ class FoodProduct {
         // is the image for the current language available im images?
         if let imageID = imageID(for:languageCode, in:imageType) {
             // then fetch the image
-            return images[imageID]?.largest()
+            return images[imageID]?.largest
             // try to use the primary image
         } else if let imageID = imageID(for:primaryLanguageCode!, in:imageType) {
-             return images[imageID]?.largest()
+             return images[imageID]?.largest
         }
         return nil
     }

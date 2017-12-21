@@ -973,6 +973,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         initUpdatedProductWith(product: product!)
         updatedProduct!.nutritionImages[languageCode] = ProductImageSize()
         updatedProduct!.nutritionImages[languageCode]?.original = ProductImageData.init(image: nutritionImage)
+        print(updatedProduct!.nutritionImages[languageCode]!.original!.image!.description)
         saveUpdatedProduct()
     }
 
