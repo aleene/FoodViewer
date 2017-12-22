@@ -451,7 +451,7 @@ class OFFUpdate {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
-        /*
+        
         if image.imageOrientation == UIImageOrientation.left {
             print("left")
         } else if image.imageOrientation == UIImageOrientation.right {
@@ -461,7 +461,7 @@ class OFFUpdate {
         } else if image.imageOrientation == UIImageOrientation.up {
             print("up")
         }
-        let ewImage = image.fixOrientation()
+        let ewImage = image.setOrientationToLeftUpCorner()
         
         if ewImage.imageOrientation == UIImageOrientation.left {
             print("left")
@@ -472,10 +472,10 @@ class OFFUpdate {
         } else if ewImage.imageOrientation == UIImageOrientation.up {
             print("up")
         }
-         */
-        print(image.description)
-        let data = UIImagePNGRepresentation(image)
-        
+        //print(image.description)
+        let data = UIImagePNGRepresentation(ewImage)
+        //print(ewImage.description)
+
         guard data != nil else { return }
         
         
@@ -535,9 +535,9 @@ class OFFUpdate {
                     switch result! {
                     case .success(let error):
                         print("OFFUpdate:post", error)
-                        let userInfo = [Notification.ImageUploadSuccessStatusKey:error as Any,
-                                        Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                                        Notification.ImageUploadSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
+                        let userInfo = [Notification.ImageUploadSuccessStatusKey:error as String,
+                                        Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.AddParameter.BarcodeKey]! as String,
+                                        Notification.ImageUploadSuccessImagetypeKey: parameters[OFFHttpPost.AddParameter.ImageField.Key]! as String]
                         NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
                     default:
                         break
@@ -648,8 +648,8 @@ class OFFUpdate {
                     case .success(let error):
                         print("OFFUpdate:postDelete", error)
                         let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
-                                        Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                                        Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
+                                        Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey]! as String,
+                                        Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey]! as String]
                         NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
                     default:
                         break
