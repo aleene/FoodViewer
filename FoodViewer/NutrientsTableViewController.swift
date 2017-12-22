@@ -1100,11 +1100,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         tableView.reloadData()
     }
 
-    func imageUploaded(_ notification: Notification) {
+    @objc func imageUploaded(_ notification: Notification) {
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if product != nil && barcode == product!.barcode.asString() {
-                // is it relevant to the main image?
+                // is it relevant to the nutrition image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
                         // reload product data
@@ -1116,11 +1116,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     
-    func imageDeleted(_ notification: Notification) {
+    @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {
-                // is it relevant to the main image?
+                // is it relevant to the nutrition image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
                         // reload product data
@@ -1162,7 +1162,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted), name:.OFFUpdateImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
 
     }
     

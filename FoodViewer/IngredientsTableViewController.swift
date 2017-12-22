@@ -876,7 +876,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {
-                // is it relevant to the main image?
+                // is it relevant to the ingredients image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
@@ -891,7 +891,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString() {
-                // is it relevant to the main image?
+                // is it relevant to the ingredients image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
@@ -925,8 +925,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted), name:.OFFUpdateImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
 
     }

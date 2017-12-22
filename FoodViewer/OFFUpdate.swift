@@ -412,7 +412,7 @@ class OFFUpdate {
         for element in dict {
             
             // Is there a valid original image?
-            if let imageData = element.value.original {
+            if let imageData = element.value.largest {
                     if let image = imageData.image {
                         guard image != UIImage() else { return }
                         // Is this a selected image?
@@ -534,11 +534,11 @@ class OFFUpdate {
                 if result != nil {
                     switch result! {
                     case .success(let error):
-                        print(error)
-                        let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
-                                        Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
-                                        Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
-                        NotificationCenter.default.post(name: .OFFUpdateImageDeleteSuccess, object: nil, userInfo: userInfo)
+                        print("OFFUpdate:post", error)
+                        let userInfo = [Notification.ImageUploadSuccessStatusKey:error as Any,
+                                        Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
+                                        Notification.ImageUploadSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
+                        NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
                     default:
                         break
                     }
@@ -646,8 +646,7 @@ class OFFUpdate {
                 if result != nil {
                     switch result! {
                     case .success(let error):
-                        print("Deselect successfull")
-                        print(error)
+                        print("OFFUpdate:postDelete", error)
                         let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
                                         Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey] as Any,
                                         Notification.ImageDeleteSuccessImagetypeKey: parameters[OFFHttpPost.UnselectParameter.IdKey] as Any]
@@ -674,37 +673,37 @@ class OFFUpdate {
         // a json file is returned upon posting
         
         if let status = jsonObject[OFFHttpPost.ResultJson.Key.Status].string {
-            print("status", status)
+            print("unpackImageJSONObject: status", status)
             if status != OFFHttpPost.ResultJson.Value.StatusOK {
                 // Post did NOT succeed
                 if let statusCode = jsonObject[OFFHttpPost.ResultJson.Key.StatusCode].string {
-                    print("statusCode not ok", statusCode)
+                    print("unpackImageJSONObject: statusCode not ok", statusCode)
                 }
 
                 if let imgid = jsonObject[OFFHttpPost.ResultJson.Key.ImageID].string {
-                    print("imgid not ok", imgid)
+                    print("unpackImageJSONObject: imgid not ok", imgid)
                 }
                 if let error = jsonObject[OFFHttpPost.ResultJson.Key.Error].string {
-                    print("error after not ok", error)
+                    print("unpackImageJSONObject: error after not ok", error)
                     return ProductUpdateStatus.failure(error)
                 }
             } else {
                 // Post DID succeed
                 if let statusCode = jsonObject[OFFHttpPost.ResultJson.Key.StatusCode].string {
-                    print("statusCode ok", statusCode)
+                    print("unpackImageJSONObject: statusCode ok", statusCode)
                 }
                 if let imageField = jsonObject[OFFHttpPost.ResultJson.Key.ImageField].string {
-                    print("imageField ok", imageField)
+                    print("unpackImageJSONObject: imageField ok", imageField)
                 }
 
                 if let imgid = jsonObject[OFFHttpPost.ResultJson.Key.ImageID].int {
-                    print("imgid", imgid)
+                    print("unpackImageJSONObject: imgid", imgid)
                 }
                 if let error = jsonObject[OFFHttpPost.ResultJson.Key.Error].string {
-                    print("error", error)
+                    print("unpackImageJSONObject: error", error)
                     return ProductUpdateStatus.failure(error)
                 }
-                return ProductUpdateStatus.success("Image upload succeeded")
+                return ProductUpdateStatus.success("unpackImageJSONObject: Image upload succeeded")
             }
         }
         return ProductUpdateStatus.failure("Error: No verbose status")
