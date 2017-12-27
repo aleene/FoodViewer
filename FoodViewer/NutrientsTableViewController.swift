@@ -1138,6 +1138,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+        }
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
@@ -1554,5 +1558,49 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
     }
 }
+
+
+// MARK: - UIDragInteractionDelegate Functions
+
+extension NutrientsTableViewController: UITableViewDragDelegate {
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let image = currentImage else { return [] }
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        switch currentProductSection {
+        case .nutritionImage :
+            let provider = NSItemProvider(object: image)
+            let item = UIDragItem(itemProvider: provider)
+            item.localObject = image
+            return [item]
+        default:
+            break
+        }
+        return []
+        
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        switch currentProductSection {
+        case .nutritionImage :
+            if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
+                let rect = cell.productImageView.imageRect {
+                let parameters = UIDragPreviewParameters.init()
+                parameters.visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 15)
+                return parameters
+            }
+        default:
+            break
+        }
+        return nil
+        
+    }
+    
+}
+
 
 

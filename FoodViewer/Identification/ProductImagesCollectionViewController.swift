@@ -12,6 +12,12 @@ private let reuseIdentifier = "Cell"
 
 class ProductImagesCollectionViewController: UICollectionViewController {
 
+    private struct Section {
+        static let FrontImages = 0
+        static let IngredientsImages = 1
+        static let NutrionImages = 2
+        static let OriginalImages = 3
+    }
     // MARK: - public variables
     
     var product: FoodProduct? {
@@ -46,7 +52,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         return tuples.sorted(by: { $0.1 < $1.1 } )
     }
     
-    private var originalImages: [String:ProductImageSize] {
+    fileprivate var originalImages: [String:ProductImageSize] {
         get {
             guard product != nil else { return [:] }
             return product!.images
@@ -117,13 +123,13 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         guard product != nil else { return 0 }
         // If there are updated images, only show those
         switch section {
-        case 0:
+        case Section.FrontImages:
             return delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ? delegate!.updatedProduct!.frontImages.count : product!.frontImages.count
-        case 1:
+        case Section.IngredientsImages:
             return delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ? delegate!.updatedProduct!.ingredientsImages.count : product!.ingredientsImages.count
-        case 2:
+        case Section.NutrionImages:
             return delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ? delegate!.updatedProduct!.nutritionImages.count : product!.nutritionImages.count
-        case 3:
+        case Section.OriginalImages:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
         default:
@@ -135,7 +141,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         switch indexPath.section {
-        case 0: // Front Images
+        case Section.FrontImages: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if let images = delegate?.updatedProduct?.frontImages {
                 if images.count > 0 && indexPath.row < images.count {
@@ -172,7 +178,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.delegate = self
             return cell
         
-        case 1: // Ingredients Images
+        case Section.IngredientsImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if let images = delegate?.updatedProduct?.ingredientsImages  {
                 if indexPath.row < images.count && images.count > 0 {
@@ -209,7 +215,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.delegate = self
             return cell
             
-        case 2: // Nutrition Images
+        case Section.NutrionImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if let images = delegate?.updatedProduct?.nutritionImages {
                 if indexPath.row < images.count && images.count > 0 {
@@ -291,19 +297,19 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         case UICollectionElementKindSectionHeader:
             //3
             switch indexPath.section {
-            case 0:
+            case Section.FrontImages:
                 headerView.label.text =  delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ?
                     Storyboard.HeaderTitle.Front + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Front
-            case 1:
+            case Section.IngredientsImages:
                 headerView.label.text =  delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ?
                     Storyboard.HeaderTitle.Ingredients + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Ingredients
-            case 2:
+            case Section.NutrionImages:
                 headerView.label.text =  delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ?
                     Storyboard.HeaderTitle.Nutrition + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Nutrition
-            case 3:
+            case Section.OriginalImages:
                 headerView.label.text = Storyboard.HeaderTitle.Original
             default:
-                assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
+                assert(true, "ProductImagesCollectionViewController: unexpected number of sections")
             }
             
         default:
@@ -358,22 +364,22 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 if let vc = segue.destination as? ImageViewController {
                     guard selectedImage != nil else { return }
                     switch selectedImage!.section {
-                    case 0:
+                    case Section.FrontImages:
                         let languageCode = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
                         vc.imageData = product!.image(for:languageCode, of:.front)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
-                    case 1:
+                    case Section.IngredientsImages:
                         let languageCode = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
                         vc.imageData = product!.image(for:languageCode, of:.ingredients)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
-                    case 2:
+                    case Section.NutrionImages:
                         let languageCode = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
                         vc.imageData = product!.image(for:languageCode, of:.nutrition)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
-                    case 3:
+                    case Section.OriginalImages:
                         let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
                         vc.imageData = product!.images[key]?.largest
                         vc.imageTitle = key
@@ -539,6 +545,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         self.refresher.addTarget(self, action: #selector(ProductImagesCollectionViewController.refresh(sender:)), for: .valueChanged)
         self.collectionView?.addSubview(refresher)
         self.collectionView?.delegate = self
+        if #available(iOS 11.0, *) {
+            self.collectionView?.dragDelegate = self
+        }
         
         registerCollectionViewCell()
         // Uncomment the following line to preserve selection between presentations
@@ -576,15 +585,15 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton) {
         if let validIndexPath = sender.indexPath {
             switch validIndexPath.section {
-            case 0:
+            case Section.FrontImages:
                 let languageCode = keyTuples(for:Array(product!.frontImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .front, for: product!)
-            case 1:
+            case Section.IngredientsImages:
                 let languageCode = keyTuples(for:Array(product!.ingredientsImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .ingredients, for: product!)
-            case 2:
+            case Section.NutrionImages:
                 let languageCode = keyTuples(for:Array(product!.nutritionImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .nutrition, for: product!)
@@ -659,4 +668,52 @@ extension ProductImagesCollectionViewController: GKImagePickerDelegate {
     }
 }
 
+// MARK: - UIDragInteractionDelegate Functions
+
+extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
+    
+    @available(iOS 11.0, *)
+    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+
+        // in editMode
+        if editMode {
+            return []
+        }
+        
+        switch indexPath.section {
+        case Section.OriginalImages:
+            let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
+                
+            if let result = originalImages[key]?.display?.fetch() {
+                switch result {
+                case .available:
+                    if let validImage = originalImages[key]?.display?.image {
+                        let provider = NSItemProvider(object: validImage)
+                        let item = UIDragItem(itemProvider: provider)
+                        item.localObject = validImage
+                        return [item]
+                }
+                default:
+                    break
+                }
+            }
+        default:
+            break
+        }
+        return []
+    }
+    
+    // Use the image in the GalleryCollectionViewCell as lift preview
+    // Out of the box targeting is taken care of and animations as well
+    @available(iOS 11.0, *)
+    func collectionView(_ collectionView: UICollectionView, dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        if let cell = collectionView.cellForItem(at: indexPath) as? GalleryCollectionViewCell,
+            let rect = cell.imageView.imageRect {
+            let parameters = UIDragPreviewParameters.init()
+            parameters.visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 15)
+            return parameters
+        }
+        return nil
+    }
+}
 

@@ -18,7 +18,14 @@ class ImageViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView! {
+        didSet {
+            if #available(iOS 11.0, *) {
+                imageView.addInteraction(UIDragInteraction(delegate: self))
+                imageView.isUserInteractionEnabled = true
+            }
+        }
+    }
         
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -73,6 +80,7 @@ class ImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
+
         setImage()
         
         NotificationCenter.default.addObserver(self, selector:#selector(ImageViewController.reloadImage), name:.ImageSet, object:nil)
@@ -117,6 +125,21 @@ extension UIScrollView {
         }
         minimumZoomScale = zoomScale * Constants.MinimumZoomScale / 100
         maximumZoomScale = zoomScale * Constants.MaximumZoomScale / 100
+    }
+    
+}
+
+extension ImageViewController: UIDragInteractionDelegate {
+    
+    @available(iOS 11.0, *)
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        
+        guard let image = currentImage() else { return [] }
+        let provider = NSItemProvider(object: image)
+        let item = UIDragItem(itemProvider: provider)
+        item.localObject = image
+        
+        return [item]
     }
     
 }

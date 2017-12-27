@@ -910,6 +910,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
         
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+        }
+        
         // For custom tableView headers
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 70
@@ -1563,10 +1567,45 @@ extension IngredientsTableViewController: LanguageHeaderDelegate {
     }
 }
 
-extension Locale {
-    static func interfaceLanguageCode() -> String {
-        return Locale.preferredLanguages[0].split(separator:"-").map(String.init)[0]
-    }
-}
+// MARK: - UIDragInteractionDelegate Functions
 
+extension IngredientsTableViewController: UITableViewDragDelegate {
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let image = currentImage else { return [] }
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        switch currentProductSection {
+        case .image :
+            let provider = NSItemProvider(object: image)
+            let item = UIDragItem(itemProvider: provider)
+            item.localObject = image
+            return [item]
+        default:
+            break
+        }
+        return []
+        
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        switch currentProductSection {
+        case .image :
+            if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
+                let rect = cell.productImageView.imageRect {
+                let parameters = UIDragPreviewParameters.init()
+                parameters.visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 15)
+                return parameters
+            }
+        default:
+            break
+        }
+        return nil
+        
+    }
+    
+}
 

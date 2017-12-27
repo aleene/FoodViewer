@@ -552,7 +552,7 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     
-    private var currentImage: UIImage? {
+    public var currentImage: UIImage? {
         // are there any updated front images?
         if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
             // Is there an updated image corresponding to the current language
@@ -664,6 +664,7 @@ class IdentificationTableViewController: UITableViewController {
             return nil
         }
     }
+
 
     fileprivate struct TableSection {
         struct Size {
@@ -943,6 +944,9 @@ class IdentificationTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+        }
         
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true
@@ -1077,8 +1081,6 @@ extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
     }
     
 }
-
-
 
 // MARK: - TagListViewSegmentedControlCellDelegate Functions
 
@@ -1504,10 +1506,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
 
         }
     }
-
+    
 }
-
-
 
 // MARK: - UITextField Delegate Functions
 
@@ -1615,22 +1615,43 @@ extension IdentificationTableViewController: LanguageHeaderDelegate {
 }
 
 // MARK: - UIDragInteractionDelegate Functions
-/*
-@available(iOS 11.0, *)
-extension IdentificationTableViewController: UIDragInteractionDelegate {
 
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-        
-        guard let image = imageView.image else { return [] }
+extension IdentificationTableViewController: UITableViewDragDelegate {
     
-        let provider = NSItemProvider(object: image)
-        let item = UIDragItem(itemProvider: provider)
-        item.localObject = image
-    
-        return [item]
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        guard let image = currentImage else { return [] }
+
+        let currentProductSection = tableStructure[indexPath.section]
+        switch currentProductSection {
+        case .image :
+            let provider = NSItemProvider(object: image)
+            let item = UIDragItem(itemProvider: provider)
+            item.localObject = image
+            return [item]
+        default:
+            break
+        }
+        return []
+
     }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let currentProductSection = tableStructure[indexPath.section]
+        switch currentProductSection {
+        case .image :
+            if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
+                let rect = cell.productImageView.imageRect {
+                let parameters = UIDragPreviewParameters.init()
+                parameters.visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 15)
+                return parameters
+            }
+        default:
+            break
+        }
+        return nil
+
+    }
+    
 }
- */
-
-
-

@@ -549,7 +549,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .other(let message):
                 label.text = message
             case .more:
-                // no header required in this case
+                // no header required in this case https://world.openfoodfacts.org/api/v0/product/737628064502.json
                 return nil
             case.loadingFailed(let error):
                 label.text = error
@@ -923,6 +923,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 11.0, *) {
+            tableView.dragDelegate = self
+        }
+        
         tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 80.0
         tableView.register(UINib(nibName: "SearchHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SearchHeaderView")
@@ -1150,4 +1154,63 @@ extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
     }
 }
     
+
+// MARK: - UIDragInteractionDelegate Functions
     
+extension ProductTableViewController: UITableViewDragDelegate {
+        
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
+        switch products.fetchResultList[indexPath.section] {
+        case .success(let currentProduct):
+            let currentProductSection = tableStructure[indexPath.row]
+            switch currentProductSection {
+            case .image:
+                if let language = currentProduct.primaryLanguageCode {
+                    if !currentProduct.frontImages.isEmpty {
+                        if let result = currentProduct.frontImages[language]?.small?.fetch() {
+                            switch result {
+                            case .available:
+                                if let image = currentProduct.frontImages[language]?.small?.image {
+                                    let provider = NSItemProvider(object: image)
+                                    let item = UIDragItem(itemProvider: provider)
+                                    item.localObject = image
+                                    return [item]
+                                }
+                            default:
+                                break
+                            }
+                        }
+                    }
+                }
+            default:
+                break
+            }
+        default:
+            break
+        }
+        
+        return []
+            
+    }
+        
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        let currentProductSection = tableStructure[indexPath.row]
+        switch currentProductSection {
+        case .image :
+            if let cell = tableView.cellForRow(at: indexPath) as? ImagesPageTableViewCell {
+                if let rect = cell.productImageView.imageRect {
+                    let parameters = UIDragPreviewParameters.init()
+                    parameters.visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 15)
+                    return parameters
+                }
+            }
+        default:
+            break
+        }
+        return nil
+    }
+        
+}
+
