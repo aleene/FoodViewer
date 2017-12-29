@@ -556,7 +556,7 @@ class IdentificationTableViewController: UITableViewController {
         // are there any updated front images?
         if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]!.display?.image {
+            if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]!.original?.image {
                 return image
             }
             
@@ -946,6 +946,7 @@ class IdentificationTableViewController: UITableViewController {
         
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
+            tableView.dropDelegate = self
         }
         
         self.tableView.estimatedRowHeight = 44.0
@@ -1622,8 +1623,7 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let image = currentImage else { return [] }
 
-        let currentProductSection = tableStructure[indexPath.section]
-        switch currentProductSection {
+        switch tableStructure[indexPath.section] {
         case .image :
             let provider = NSItemProvider(object: image)
             let item = UIDragItem(itemProvider: provider)
@@ -1638,8 +1638,8 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
     
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        let currentProductSection = tableStructure[indexPath.section]
-        switch currentProductSection {
+
+        switch tableStructure[indexPath.section] {
         case .image :
             if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
                 let rect = cell.productImageView.imageRect {
@@ -1655,3 +1655,39 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
     }
     
 }
+
+// MARK: - UITableViewDropDelegate Functions
+
+@available(iOS 11.0, *)
+extension IdentificationTableViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        
+        guard currentLanguageCode != nil else { return }
+        coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
+            // Only one image is accepted as ingredients image for the current language
+            if images.count > 0 && images.count <= 1 {
+                self.delegate?.updated(frontImage: images[0] as! UIImage, languageCode:self.currentLanguageCode!)
+                self.reloadImageSection()
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        // Only accept if an image is hovered above the image section
+        if let validIndexPathSection = destinationIndexPath?.section {
+            
+            switch tableStructure[validIndexPathSection] {
+            case .image :
+                return editMode ? UITableViewDropProposal(operation: .copy, intent: .unspecified) : UITableViewDropProposal(operation: .forbidden, intent: .unspecified)
+            default:
+                break
+            }
+        }
+        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+        
+    }
+}
+
+
+

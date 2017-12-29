@@ -462,7 +462,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // are there any updated ingredient images?
         if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]!.display?.image {
+            if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]!.original?.image {
                 return image
             }
             
@@ -912,6 +912,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
+            tableView.dropDelegate = self
         }
         
         // For custom tableView headers
@@ -1604,8 +1605,44 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
             break
         }
         return nil
-        
     }
     
 }
+
+// MARK: - UITableViewDropDelegate Functions
+
+@available(iOS 11.0, *)
+extension IngredientsTableViewController: UITableViewDropDelegate {
+    
+    func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
+        
+        guard currentLanguageCode != nil else { return }
+        coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
+            // Only one image is accepted as ingredients image for the current language
+            if images.count > 0 && images.count <= 1 {
+                self.delegate?.updated(ingredientsImage: images[0] as! UIImage, languageCode:self.currentLanguageCode!)
+                self.reloadImageSection()
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+        // Only accept if an image is hovered above the image section
+        if let validIndexPathSection = destinationIndexPath?.section {
+            let (currentProductSection, _, _) = tableStructureForProduct[validIndexPathSection]
+            
+            switch currentProductSection {
+            case .image :
+                return editMode ? UITableViewDropProposal(operation: .copy, intent: .unspecified) : UITableViewDropProposal(operation: .forbidden, intent: .unspecified)
+            default:
+                break
+            }
+        }
+        return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
+
+    }
+}
+
+
+
 
