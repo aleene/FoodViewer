@@ -1621,22 +1621,14 @@ extension IdentificationTableViewController: LanguageHeaderDelegate {
 extension IdentificationTableViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let image = currentImage else { return [] }
-
-        switch tableStructure[indexPath.section] {
-        case .image :
-            let provider = NSItemProvider(object: image)
-            let item = UIDragItem(itemProvider: provider)
-            item.localObject = image
-            return [item]
-        default:
-            break
-        }
-        return []
-
+        return dragItems(for: session, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        return dragItems(for: session, at: indexPath)
+    }
+    
+    private func dragItems(for session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let image = currentImage else { return [] }
         
         // only allow flocking of another image
@@ -1644,9 +1636,10 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
             // Note kUTTypeImage needs an import of MobileCoreServices
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
-
-        switch tableStructure[indexPath.section] {
-        case .image :
+        
+        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+        switch currentProductSection {
+        case .nutritionImage :
             // check if the selected image has not been added yet
             for item in session.items {
                 guard item.localObject as! UIImage != image else { return [] }
@@ -1660,7 +1653,6 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
         }
         return []
     }
-    
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
 
         switch tableStructure[indexPath.section] {

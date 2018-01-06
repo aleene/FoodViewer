@@ -1566,23 +1566,14 @@ extension NutrientsTableViewController: LanguageHeaderDelegate {
 extension NutrientsTableViewController: UITableViewDragDelegate {
     
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let image = currentImage else { return [] }
-        
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        switch currentProductSection {
-        case .nutritionImage :
-            let provider = NSItemProvider(object: image)
-            let item = UIDragItem(itemProvider: provider)
-            item.localObject = image
-            return [item]
-        default:
-            break
-        }
-        return []
-        
+        return dragItems(for: session, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        return dragItems(for: session, at: indexPath)
+    }
+    
+    private func dragItems(for session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let image = currentImage else { return [] }
         
         // only allow flocking of another image
@@ -1622,7 +1613,6 @@ extension NutrientsTableViewController: UITableViewDragDelegate {
             break
         }
         return nil
-        
     }
     
 }
