@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Foundation
+import MobileCoreServices
 
 class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
 
@@ -1156,10 +1156,10 @@ extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
     
 
 // MARK: - UIDragInteractionDelegate Functions
-    
+
+@available(iOS 11.0, *)
 extension ProductTableViewController: UITableViewDragDelegate {
         
-    @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         switch products.fetchResultList[indexPath.section] {
         case .success(let currentProduct):
@@ -1168,18 +1168,11 @@ extension ProductTableViewController: UITableViewDragDelegate {
             case .image:
                 if let language = currentProduct.primaryLanguageCode {
                     if !currentProduct.frontImages.isEmpty {
-                        if let result = currentProduct.frontImages[language]?.small?.fetch() {
-                            switch result {
-                            case .available:
-                                if let image = currentProduct.frontImages[language]?.small?.image {
-                                    let provider = NSItemProvider(object: image)
-                                    let item = UIDragItem(itemProvider: provider)
-                                    item.localObject = image
-                                    return [item]
-                                }
-                            default:
-                                break
-                            }
+                        if let image = currentProduct.frontImages[language]?.largest?.image {
+                            let provider = NSItemProvider(object: image)
+                            let item = UIDragItem(itemProvider: provider)
+                            item.localObject = image
+                            return [item]
                         }
                     }
                 }
@@ -1189,12 +1182,9 @@ extension ProductTableViewController: UITableViewDragDelegate {
         default:
             break
         }
-        
         return []
-            
     }
         
-    @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
         let currentProductSection = tableStructure[indexPath.row]
         switch currentProductSection {
@@ -1211,6 +1201,41 @@ extension ProductTableViewController: UITableViewDragDelegate {
         }
         return nil
     }
-        
+    
+    func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+
+        // only allow flocking of another image
+        for item in session.items {
+            // Note kUTTypeImage needs an import of MobileCoreServices
+            guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
+        }
+        switch products.fetchResultList[indexPath.section] {
+        case .success(let currentProduct):
+            let currentProductSection = tableStructure[indexPath.row]
+            switch currentProductSection {
+            case .image:
+                if let language = currentProduct.primaryLanguageCode {
+                    if !currentProduct.frontImages.isEmpty {
+                        if let image = currentProduct.frontImages[language]?.largest?.image {
+                            // check if the selected image has not been added yet
+                            for item in session.items {
+                                guard item.localObject as! UIImage != image else { return [] }
+                            }
+                            let provider = NSItemProvider(object: image)
+                            let item = UIDragItem(itemProvider: provider)
+                            item.localObject = image
+                            return [item]
+                        }
+                    }
+                }
+            default:
+                break
+            }
+        default:
+            break
+        }
+        return []
+    }
+
 }
 
