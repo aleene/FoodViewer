@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MobileCoreServices
 
 private let reuseIdentifier = "Cell"
 
@@ -691,18 +692,43 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
         case Section.OriginalImages:
             let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
                 
-            if let result = originalImages[key]?.display?.fetch() {
-                switch result {
-                case .available:
-                    if let validImage = originalImages[key]?.display?.image {
-                        let provider = NSItemProvider(object: validImage)
-                        let item = UIDragItem(itemProvider: provider)
-                        item.localObject = validImage
-                        return [item]
+            if let validImage = originalImages[key]?.largest?.image {
+                let provider = NSItemProvider(object: validImage)
+                let item = UIDragItem(itemProvider: provider)
+                item.localObject = validImage
+                return [item]
+            }
+        default:
+            break
+        }
+        return []
+    }
+    
+    @available(iOS 11.0, *)
+    func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        
+        // do not allow flocking in editMode
+        if editMode { return [] }
+        
+        // only allow flocking of another image
+        for item in session.items {
+            // Note kUTTypeImage needs an import of MobileCoreServices
+            guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
+        }
+        
+        switch indexPath.section {
+        case Section.OriginalImages:
+            let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
+            
+            if let validImage = originalImages[key]?.largest?.image {
+                let provider = NSItemProvider(object: validImage)
+                // check if the selected image has not been added yet
+                for item in session.items {
+                    guard item.localObject as! UIImage != validImage else { return [] }
                 }
-                default:
-                    break
-                }
+                let item = UIDragItem(itemProvider: provider)
+                item.localObject = validImage
+                return [item]
             }
         default:
             break

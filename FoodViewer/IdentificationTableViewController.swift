@@ -1617,9 +1617,9 @@ extension IdentificationTableViewController: LanguageHeaderDelegate {
 
 // MARK: - UIDragInteractionDelegate Functions
 
+@available(iOS 11.0, *)
 extension IdentificationTableViewController: UITableViewDragDelegate {
     
-    @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         guard let image = currentImage else { return [] }
 
@@ -1636,7 +1636,31 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
 
     }
     
-    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
+        guard let image = currentImage else { return [] }
+        
+        // only allow flocking of another image
+        for item in session.items {
+            // Note kUTTypeImage needs an import of MobileCoreServices
+            guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
+        }
+
+        switch tableStructure[indexPath.section] {
+        case .image :
+            // check if the selected image has not been added yet
+            for item in session.items {
+                guard item.localObject as! UIImage != image else { return [] }
+            }
+            let provider = NSItemProvider(object: image)
+            let item = UIDragItem(itemProvider: provider)
+            item.localObject = image
+            return [item]
+        default:
+            break
+        }
+        return []
+    }
+    
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
 
         switch tableStructure[indexPath.section] {
