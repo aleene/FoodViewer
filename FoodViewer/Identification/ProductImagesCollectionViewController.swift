@@ -54,8 +54,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     fileprivate var originalImages: [String:ProductImageSize] {
         get {
-            guard product != nil else { return [:] }
-            return product!.images
+            var images: [String:ProductImageSize] = [:]
+            if product != nil {
+                images = product!.images
+            }
+            if delegate?.updatedProduct != nil && delegate!.updatedProduct!.images.count > 0 {
+                images = images.merging(delegate!.updatedProduct!.images, uniquingKeysWith: { (first, last) in last } )
+            }
+            return images
         }
     }
     
@@ -262,11 +268,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
                 let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
             
-                if let result = originalImages[key]?.display?.fetch() {
+                if let result = originalImages[key]?.largest?.fetch() {
                  
                     switch result {
                     case .available:
-                        if let validImage = originalImages[key]?.display?.image {
+                        if let validImage = originalImages[key]?.largest?.image {
                             cell.imageView.image = validImage
                         }
                     default:
@@ -547,6 +553,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         self.collectionView?.delegate = self
         if #available(iOS 11.0, *) {
             self.collectionView?.dragDelegate = self
+            self.collectionView?.dropDelegate = self
         }
         
         registerCollectionViewCell()
@@ -660,7 +667,7 @@ extension ProductImagesCollectionViewController: GKImagePickerDelegate {
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         
         // print("front image", image.size)
-        let newImageID = "\(product!.images.count + 1)"
+        let newImageID = "\(originalImages.count + 1)"
         delegate?.updated(image: image, id: newImageID)
         
         collectionView?.reloadData()
@@ -716,4 +723,37 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
         return nil
     }
 }
+
+// MARK: - UITableViewDropDelegate Functions
+
+@available(iOS 11.0, *)
+extension ProductImagesCollectionViewController: UICollectionViewDropDelegate {
+    
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
+            // Only one image is accepted as ingredients image for the current language
+            for image in images {
+                let newImageID = "\(self.originalImages.count + 1)"
+                self.delegate?.updated(image: image as! UIImage, id: newImageID)
+                let indexSet = IndexSet.init(integer: Section.OriginalImages)
+                self.collectionView?.reloadSections(indexSet)
+            }
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        
+        // Only accept if an image is hovered above the original images section
+        if let validIndexPathSection = destinationIndexPath?.section {
+            if validIndexPathSection == Section.OriginalImages {
+                return editMode ? UICollectionViewDropProposal(operation: .copy, intent: .unspecified) : UICollectionViewDropProposal(operation: .forbidden, intent: .unspecified)
+            }
+        }
+        return UICollectionViewDropProposal(operation: .cancel, intent: .unspecified)
+    }
+    
+}
+
+
+
 
