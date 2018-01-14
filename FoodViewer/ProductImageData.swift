@@ -8,8 +8,53 @@
 
 import Foundation
 import UIKit
+import MobileCoreServices
 
-public class ProductImageData {
+ public final class ProductImageData: NSObject, NSItemProviderReading  {
+    
+    /*
+    public static var  writableTypeIdentifiersForItemProvider: [String] {
+        return [kUTTypeImage as String]
+    }
+    
+    @available(iOS 11.0, *)
+    public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
+        //print("Item provider would like to write item from path: \(metadata.path!)")
+        //guard let path = metadata.path else { return nil }
+        //Allow a maximum of ~30mb to be downloaded into memory if images, 1GB if video.
+        //let maxSize:Int64 = (isVideo ? 1000 : 30) * 1024 * 1024
+        
+        //let storage = Storage.storage().reference(withPath: path)
+        let progress = Progress(totalUnitCount: 100)
+        var shouldContinue = true
+        //When the receiver cancels this block is called where we will set the `shouldContinue` to false to cancel the current task
+        progress.cancellationHandler = {
+            shouldContinue = false
+        }
+        
+        guard let imageURL = self.url else { completionHandler(nil, nil); return progress }
+        
+        let task = URLSession(configuration: .default).dataTask(with: imageURL) { (data, response, error) in
+            //Once the data is fetched or we encounter an error, call the completion handler
+            completionHandler(data, error)
+        }
+        
+        if !shouldContinue {
+            task.cancel()
+        }
+
+        return task.progress
+
+    }
+    */
+    
+    public static var readableTypeIdentifiersForItemProvider: [String] {
+        return [kUTTypeImage as String]
+    }
+    
+    public static func object(withItemProviderData data: Data, typeIdentifier: String) throws -> ProductImageData {
+        return try ProductImageData(itemProviderData: data, typeIdentifier: typeIdentifier)
+    }
     
     public struct Notification {
         static let ImageSizeCategoryKey = "ProductImageData.Notification.ImageSizeCategory.Key"
@@ -22,6 +67,8 @@ public class ProductImageData {
     
     var fetchResult: ImageFetchResult? = nil {
         didSet {
+            // If an image has been retrieved fetchResult is set
+            // and the image can be set as well
             if fetchResult != nil {
                 switch fetchResult! {
                 case .success(let data):
@@ -53,39 +100,61 @@ public class ProductImageData {
                 } else {
                     userInfo[Notification.BarcodeKey] = "Dummy barcode"
                 }
-                
-                NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
+                })
             }
         }
     }
     
     var hasBarcode: String? = nil
     
-    init() {
+    private var downloadTask: DownloadTask? = nil
+
+    var progress: Progress = Progress(totalUnitCount: 100)
+    
+    override init() {
+        super.init()
         url = nil
         fetchResult = nil
     }
     
     init(url: URL?) {
+        super.init()
         self.url = url
         fetchResult = nil
     }
     
     init(image: UIImage) {
+        super.init()
         self.url = nil
         self.image = image
         self.fetchResult = .available
     }
     
+    
     convenience init(barcode: BarcodeType, key: String, size: ImageSizeCategory) {
         self.init(url: URL.init(string: OFF.imageURLFor(barcode, with:key, size:size)))
+    }
+    
+    convenience init(itemProviderData data: Data, typeIdentifier: String) throws {
+        
+        switch typeIdentifier {
+        case kUTTypeImage as NSString as String:
+            if let validImage = UIImage.init(data: data) {
+                self.init(image:validImage)
+            }
+        default:
+            break
+        }
+        throw NSError.init(domain: "FoodViewer.ProductImageData", code: 1, userInfo: [:])
     }
     
     func fetch() -> ImageFetchResult? {
         if fetchResult == nil {
             fetchResult = .loading
             // launch the image retrieval
-            fetchResult?.retrieveImageData(url) { (fetchResult:ImageFetchResult?) in
+            retrieveImage() { (fetchResult:ImageFetchResult?) in
                 self.fetchResult = fetchResult
             }
         }
@@ -107,6 +176,68 @@ public class ProductImageData {
             }
         }
         return nil
+    }
+    
+    func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
+        retrieveData(for: self.url, completionHandler: { (data, response, error)
+            in
+            guard error == nil else {
+                print(error!.localizedDescription)
+                completion(.loadingFailed(error!))
+                return
+            }
+            
+            //print(httpResponse.description)
+            guard data != nil && data?.count != 0 else { completion (.noData); return }
+            completion(.success(data!))
+            return
+
+            /*
+             guard let httpResponse = response as? HTTPURLResponse else {
+             completion(.noResponse)
+             return
+             }
+
+            switch httpResponse.statusCode {
+            case 200 :
+                guard data != nil && data?.count != 0 else { completion (.noData); return }
+                completion(.success(data!))
+                return
+            default:
+                print(httpResponse.description)
+                completion(.response(httpResponse))
+                return
+            }
+  */
+        })
+    }
+    
+    func retrieveData(for url: URL?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        guard let imageURL = url  else {
+            completionHandler(nil, nil, nil)
+            return
+        }
+        if downloadTask != nil {
+            downloadTask!.cancel()
+        }
+        downloadTask = DownloadService.shared.download(request: URLRequest(url: imageURL))
+        downloadTask?.resume()
+        downloadTask?.completionHandler = { [weak self] in
+            switch $0 {
+            case .failure(let error):
+                print(error)
+                completionHandler(nil, nil, error)
+            case .success(let data):
+                // print("Number of bytes: \(data.count)")
+                completionHandler(data, nil, nil)
+            }
+            self?.downloadTask = nil
+        }
+        downloadTask?.progressHandler = { [weak self] in
+            print("Task2: \($0)")
+            self?.progress = $0
+        }
+
     }
     
     private func imageType() -> ImageTypeCategory {

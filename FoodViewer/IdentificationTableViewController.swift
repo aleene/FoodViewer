@@ -1637,9 +1637,8 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        switch currentProductSection {
-        case .nutritionImage :
+        switch tableStructure[indexPath.section] {
+        case .image :
             // check if the selected image has not been added yet
             for item in session.items {
                 guard item.localObject as! UIImage != image else { return [] }
@@ -1653,6 +1652,7 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
         }
         return []
     }
+    
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
 
         switch tableStructure[indexPath.section] {
@@ -1682,8 +1682,8 @@ extension IdentificationTableViewController: UITableViewDropDelegate {
         guard currentLanguageCode != nil else { return }
         coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
             // Only one image is accepted as ingredients image for the current language
-            if images.count > 0 && images.count <= 1 {
-                self.delegate?.updated(frontImage: images[0] as! UIImage, languageCode:self.currentLanguageCode!)
+            if let validImage = (images as? [UIImage])?.first {
+                self.delegate?.updated(frontImage: validImage, languageCode:self.currentLanguageCode!)
                 self.reloadImageSection()
             }
         }

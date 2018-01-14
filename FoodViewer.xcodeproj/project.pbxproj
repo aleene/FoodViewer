@@ -80,6 +80,10 @@
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EEF9C1ED9B79100C4CF54 /* 3166780740950.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 3166780740950.json */; };
+		515046512009056D0094EE50 /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046502009056D0094EE50 /* ResultType.swift */; };
+		515046552009062F0094EE50 /* GenericDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046542009062F0094EE50 /* GenericDownloadTask.swift */; };
+		51504657200906B10094EE50 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51504656200906B10094EE50 /* DownloadService.swift */; };
+		5150465920090D7B0094EE50 /* DownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150465820090D7B0094EE50 /* DownloadTask.swift */; };
 		5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0631CBAC3F800161616 /* NutritionFactItem.swift */; };
 		5150C0661CBCD66F00161616 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150C0651CBCD66F00161616 /* Preferences.swift */; };
 		5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */; };
@@ -354,6 +358,10 @@
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EEF9B1ED9B79100C4CF54 /* 3166780740950.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3166780740950.json; sourceTree = "<group>"; };
+		515046502009056D0094EE50 /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ResultType.swift; path = Frameworks/Download/ResultType.swift; sourceTree = "<group>"; };
+		515046542009062F0094EE50 /* GenericDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GenericDownloadTask.swift; path = Frameworks/Download/GenericDownloadTask.swift; sourceTree = "<group>"; };
+		51504656200906B10094EE50 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DownloadService.swift; path = Frameworks/Download/DownloadService.swift; sourceTree = "<group>"; };
+		5150465820090D7B0094EE50 /* DownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTask.swift; sourceTree = "<group>"; };
 		5150C0631CBAC3F800161616 /* NutritionFactItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItem.swift; sourceTree = "<group>"; };
 		5150C0651CBCD66F00161616 /* Preferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ReferenceDailyIntakeValues.plist; sourceTree = "<group>"; };
@@ -686,6 +694,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5150464F200904610094EE50 /* Download */,
 				5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */,
 				512039E31E5B3E7900BE62CB /* GKImagePickerSwift */,
 				5160C29B1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift */,
@@ -727,6 +736,17 @@
 				5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */,
 			);
 			name = Pages;
+			sourceTree = "<group>";
+		};
+		5150464F200904610094EE50 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				515046502009056D0094EE50 /* ResultType.swift */,
+				515046542009062F0094EE50 /* GenericDownloadTask.swift */,
+				51504656200906B10094EE50 /* DownloadService.swift */,
+				5150465820090D7B0094EE50 /* DownloadTask.swift */,
+			);
+			name = Download;
 			sourceTree = "<group>";
 		};
 		51578C081DB23177005BEEF6 /* OFF */ = {
@@ -1278,6 +1298,7 @@
 				51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */,
 				5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */,
 				51A62CFE1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift in Sources */,
+				5150465920090D7B0094EE50 /* DownloadTask.swift in Sources */,
 				515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */,
 				515742771CDB63B200BE8E2D /* RSUnifiedCodeGenerator.swift in Sources */,
 				5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */,
@@ -1311,8 +1332,10 @@
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */,
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
+				515046512009056D0094EE50 /* ResultType.swift in Sources */,
 				515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */,
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
+				51504657200906B10094EE50 /* DownloadService.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
 				518B70201EA2779D00AB35CC /* ProductType.swift in Sources */,
 				51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */,
@@ -1345,6 +1368,7 @@
 				51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */,
 				511459341CB138DC00D25116 /* Node.swift in Sources */,
 				510D9FC31E72B8BD00B95B1B /* LocalizedNutritionalScoreFR.swift in Sources */,
+				515046552009062F0094EE50 /* GenericDownloadTask.swift in Sources */,
 				512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */,

@@ -14,6 +14,8 @@ enum ImageFetchResult {
     case success(Data)
     case loading
     case loadingFailed(Error)
+    case response(HTTPURLResponse)
+    case noResponse
     case noData
     case noImageAvailable
     case uploading
@@ -25,46 +27,37 @@ enum ImageFetchResult {
         case .loading: return NSLocalizedString("Image is being loaded", comment: "String presented in a tagView if the image is currently being loaded")
         case .loadingFailed: return NSLocalizedString("Image loading has failed", comment: "String presented in a tagView if the image loading has failed")
         case .noData: return NSLocalizedString("Image was empty", comment: "String presented in a tagView if the image data contained no data")
+        case .response: return NSLocalizedString("Got a response", comment: "String presented in a tagView if the image data contained no data")
         case .noImageAvailable: return NSLocalizedString("No image available", comment: "String presented in a tagView if no image is available")
+        case .noResponse: return NSLocalizedString("No image available", comment: "String presented in a tagView if no image is available")
         case .uploading: return NSLocalizedString("Uploading image", comment: "String presented in a tagView if an image is being uploaded")
         }
     }
     
-    func retrieveImageData(_ url: URL?, cont: ((ImageFetchResult) -> Void)?) {
-        if let imageURL = url {
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                do {
-                    // This only works if you add a line to your Info.plist
-                    // See http://stackoverflow.com/questions/31254725/transport-security-has-blocked-a-cleartext-http
-                    //
-                    let imageData = try Data(contentsOf: imageURL, options: NSData.ReadingOptions.mappedIfSafe)
-                    if imageData.count > 0 {
-                        // if we have the image data we can go back to the main thread
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            // set the received image data to the current product if valid
-                            cont?(.success(imageData))
-                            return
-                        })
-                    } else {
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            // set the received image data to the current product if valid
-                            cont?(.noData)
-                            return
-                        })
-                    }
-                }
-                catch {
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        // set the received image data to the current product if valid
-                        cont?(.loadingFailed(error))
-                        return
-                    })
-                }
-            })
-        } else {
-            cont?(.noImageAvailable)
-            return
+    /*
+    func getImageFromWeb(_ urlString: String, closure: @escaping (UIImage?) -> ()) {
+        guard let url = URL(string: urlString) else {
+            return closure(nil)
         }
+        let task = URLSession(configuration: .default).dataTask(with: url) { (data, response, error) in
+            guard error == nil else {
+                print("error: \(String(describing: error))")
+                return closure(nil)
+            }
+            guard response != nil else {
+                print("no response")
+                return closure(nil)
+            }
+            guard data != nil else {
+                print("no data")
+                return closure(nil)
+            }
+            DispatchQueue.main.async {
+                closure(UIImage(data: data!))
+            }
+        }
+        task.resume()
     }
+    */
 
 }
