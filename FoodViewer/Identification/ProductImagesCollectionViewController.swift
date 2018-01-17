@@ -683,7 +683,7 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
     @available(iOS 11.0, *)
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
 
-        // in editMode
+        // Do not allow dragging in editMode
         if editMode {
             return []
         }
@@ -692,10 +692,9 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
         case Section.OriginalImages:
             let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
                 
-            if let validImage = originalImages[key]?.largest?.image {
-                let provider = NSItemProvider(object: validImage)
+            if let validImageData = originalImages[key]?.largest {
+                let provider = NSItemProvider(object: validImageData)
                 let item = UIDragItem(itemProvider: provider)
-                item.localObject = validImage
                 return [item]
             }
         default:
@@ -720,14 +719,13 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
         case Section.OriginalImages:
             let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
             
-            if let validImage = originalImages[key]?.largest?.image {
-                let provider = NSItemProvider(object: validImage)
+            if let validProductImageData = originalImages[key]?.largest {
+                let provider = NSItemProvider(object: validProductImageData)
                 // check if the selected image has not been added yet
                 for item in session.items {
-                    guard item.localObject as! UIImage != validImage else { return [] }
+                    guard item.localObject as! ProductImageData != validProductImageData else { return [] }
                 }
                 let item = UIDragItem(itemProvider: provider)
-                item.localObject = validImage
                 return [item]
             }
         default:

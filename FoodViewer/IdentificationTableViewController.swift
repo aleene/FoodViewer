@@ -587,6 +587,31 @@ class IdentificationTableViewController: UITableViewController {
         return nil
     }
 
+    fileprivate var currentProductImageSize: ProductImageSize? {
+        // are there any updated front images?
+        if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
+            // Is there an updated image corresponding to the current language
+            if let productImageSize = delegate!.updatedProduct!.frontImages[currentLanguageCode!] {
+                return productImageSize
+            }
+            
+            // try the regular front images
+        } else if !product!.frontImages.isEmpty {
+            // is the data for the current language available?
+            if let productImageSize = product!.frontImages[currentLanguageCode!] {
+                return productImageSize
+                // fall back to the primary languagecode nutrition image
+                // if we are NOT in edit mode
+            } else if !editMode,
+                let primaryLanguageCode = product!.primaryLanguageCode,
+                let productImageSize = product!.frontImages[primaryLanguageCode] {
+                return productImageSize
+            }
+        }
+        // No relevant imageData is available
+        return nil
+    }
+
     func changeLanguage() {
         // set the next language in the array
         if let availableLanguages = product?.languageCodes {
@@ -1629,11 +1654,23 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
     }
     
     private func dragItems(for session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let image = currentImage else { return [] }
+        guard currentLanguageCode != nil else { return [] }
+        var productImageData: ProductImageData? = nil
+        // is there image data?
+        if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
+            productImageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.front)
+        } else {
+            productImageData = product!.image(for:currentLanguageCode!, of:.front)
+        }
+        // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
+        guard productImageData != nil else { return [] }
         
-        // only allow flocking of another image
+        guard let validProductImageData = productImageData else { return [] }
+        
+        // only allow flocking of another productImageSize
         for item in session.items {
-            // Note kUTTypeImage needs an import of MobileCoreServices
+            // Note kUTTypeImage is defined in MobileCoreServices, so need to import
+            // This is an image, as that is what I offer to export
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
         
@@ -1641,11 +1678,10 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
         case .image :
             // check if the selected image has not been added yet
             for item in session.items {
-                guard item.localObject as! UIImage != image else { return [] }
+                guard item.localObject as! ProductImageData != validProductImageData else { return [] }
             }
-            let provider = NSItemProvider(object: image)
+            let provider = NSItemProvider(object: validProductImageData)
             let item = UIDragItem(itemProvider: provider)
-            item.localObject = image
             return [item]
         default:
             break

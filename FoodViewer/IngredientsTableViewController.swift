@@ -1582,11 +1582,23 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
     }
 
     private func dragItems(for session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard let image = currentImage else { return [] }
+        guard currentLanguageCode != nil else { return [] }
+        var productImageData: ProductImageData? = nil
+        // is there image data?
+        if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
+            productImageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.ingredients)
+        } else {
+            productImageData = product!.image(for:currentLanguageCode!, of:.ingredients)
+        }
+        // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
+        guard productImageData != nil else { return [] }
         
-        // only allow flocking of another image
+        guard let validProductImageData = productImageData else { return [] }
+        
+        // only allow flocking of another productImageSize
         for item in session.items {
-            // Note kUTTypeImage needs an import of MobileCoreServices
+            // Note kUTTypeImage is defined in MobileCoreServices, so need to import
+            // This is an image, as that is what I offer to export
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
         
@@ -1595,11 +1607,10 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
         case .image :
             // check if the selected image has not been added yet
             for item in session.items {
-                guard item.localObject as! UIImage != image else { return [] }
+                guard item.localObject as! ProductImageData != validProductImageData else { return [] }
             }
-            let provider = NSItemProvider(object: image)
+            let provider = NSItemProvider(object: validProductImageData)
             let item = UIDragItem(itemProvider: provider)
-            item.localObject = image
             return [item]
         default:
             break
@@ -1607,8 +1618,10 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
         return []
     }
     
+    
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
         let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
+
         switch currentProductSection {
         case .image :
             if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
@@ -1621,8 +1634,8 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
             break
         }
         return nil
+        
     }
-    
 }
 
 // MARK: - UITableViewDropDelegate Functions

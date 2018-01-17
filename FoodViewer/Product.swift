@@ -588,7 +588,7 @@ class FoodProduct {
     
     var creator: String? = nil {
         didSet {
-            guard photographers != nil else { return }
+            guard creator != nil else { return }
             addUserRole(creator!, role: .creator)
         }
     }

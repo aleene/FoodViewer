@@ -10,43 +10,94 @@ import Foundation
 import UIKit
 import MobileCoreServices
 
- public final class ProductImageData: NSObject, NSItemProviderReading  {
+ public final class ProductImageData: NSObject, NSItemProviderReading, NSItemProviderWriting  {
     
-    /*
     public static var  writableTypeIdentifiersForItemProvider: [String] {
-        return [kUTTypeImage as String]
+        return [kUTTypePNG as NSString as String, kUTTypeJPEG as NSString as String]
     }
     
     @available(iOS 11.0, *)
     public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
-        //print("Item provider would like to write item from path: \(metadata.path!)")
-        //guard let path = metadata.path else { return nil }
-        //Allow a maximum of ~30mb to be downloaded into memory if images, 1GB if video.
-        //let maxSize:Int64 = (isVideo ? 1000 : 30) * 1024 * 1024
-        
-        //let storage = Storage.storage().reference(withPath: path)
-        let progress = Progress(totalUnitCount: 100)
-        var shouldContinue = true
-        //When the receiver cancels this block is called where we will set the `shouldContinue` to false to cancel the current task
-        progress.cancellationHandler = {
-            shouldContinue = false
-        }
-        
-        guard let imageURL = self.url else { completionHandler(nil, nil); return progress }
-        
-        let task = URLSession(configuration: .default).dataTask(with: imageURL) { (data, response, error) in
-            //Once the data is fetched or we encounter an error, call the completion handler
-            completionHandler(data, error)
-        }
-        
-        if !shouldContinue {
-            task.cancel()
-        }
 
-        return task.progress
+        switch typeIdentifier {
+        case kUTTypeJPEG as NSString as String:
+            if fetchResult != nil {
+                switch fetchResult! {
+                case .available:
+                    if let validImage = self.image {
+                        completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+                    } else {
+                        completionHandler(nil, nil)
+                    }
+                default:
+                    completionHandler(nil, nil)
+                }
+            } else {
+                retrieveData(for: self.url!, completionHandler: { (data, response, error)
+                    in
+                    guard error == nil else {
+                        print(error!.localizedDescription)
+                        self.fetchResult = .loadingFailed(error!)
+                        completionHandler(nil, error!)
+                        return
+                    }
+                    
+                    //print(httpResponse.description)
+                    if data != nil && data?.count != 0 {
+                        self.fetchResult = .success(data!)
+                        if let validImage = self.image {
+                            completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+                        } else {
+                            completionHandler(nil, nil)
+                        }
+                    } else {
+                        self.fetchResult = .noData
+                        completionHandler (nil, nil)
+                    }
+                })
+            }
+        case kUTTypePNG as NSString as String:
+            if fetchResult != nil {
+                switch fetchResult! {
+                case .available:
+                    if let validImage = self.image {
+                        completionHandler(UIImagePNGRepresentation(validImage), nil)
+                    } else {
+                        completionHandler(nil, nil)
+                    }
+                default:
+                    completionHandler(nil, nil)
+                }
+            } else {
+                retrieveData(for: self.url!, completionHandler: { (data, response, error)
+                    in
+                    guard error == nil else {
+                        print(error!.localizedDescription)
+                        self.fetchResult = .loadingFailed(error!)
+                        completionHandler(nil, error!)
+                        return
+                    }
+                    
+                    //print(httpResponse.description)
+                    if data != nil && data?.count != 0 {
+                        self.fetchResult = .success(data!)
+                        if let validImage = self.image {
+                            completionHandler(UIImagePNGRepresentation(validImage), nil)
+                        } else {
+                            completionHandler(nil, nil)
+                        }
+                    } else {
+                        self.fetchResult = .noData
+                        completionHandler (nil, nil)
+                    }
+                })
+            }
 
+        default:
+            break
+        }
+        return self.progress
     }
-    */
     
     public static var readableTypeIdentifiersForItemProvider: [String] {
         return [kUTTypeImage as String]
@@ -61,7 +112,6 @@ import MobileCoreServices
         static let ImageTypeCategoryKey = "ProductImageData.Notification.ImageCategory.Key"
         static let BarcodeKey = "ProductImageData.Notification.Barcode.Key"
     }
-    
 
     var url: URL? = nil
     
@@ -73,10 +123,6 @@ import MobileCoreServices
                 switch fetchResult! {
                 case .success(let data):
                     image = UIImage.init(data: data)
-                    //if let ciImage = CIImage(data: data) {
-                    //    image = UIImage.init(ciImage: ciImage)
-                        // image = UIImage.init(data: data) // Gives the wrong orientation
-                    //}
                 default:
                     break
                 }

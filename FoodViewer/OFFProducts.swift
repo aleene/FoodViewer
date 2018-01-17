@@ -310,12 +310,15 @@ class OFFProducts {
             } else {
                 // retrieve this new product
                 let request = OpenFoodFactsRequest()
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                })
                 // loading the product from internet will be done off the main queue
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     let fetchResult = request.fetchProductForBarcode(validBarcode)
                     DispatchQueue.main.async(execute: { () -> Void in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    })
                         switch fetchResult {
                         case .success(let newProduct):
                         // add product barcode to history
@@ -336,7 +339,6 @@ class OFFProducts {
                             self.handleProductNotAvailable(userInfo)
                         default: break
                         }
-                    })
                 })
                 return nil
             }
