@@ -928,6 +928,7 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     @objc func imageUploaded(_ notification: Notification) {
+        guard !editMode else { return }
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if let productBarcode = product?.barcode.asString() {
