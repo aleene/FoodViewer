@@ -19,82 +19,65 @@ import MobileCoreServices
     @available(iOS 11.0, *)
     public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
 
-        switch typeIdentifier {
-        case kUTTypeJPEG as NSString as String:
-            if fetchResult != nil {
-                switch fetchResult! {
-                case .available:
-                    if let validImage = self.image {
-                        completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
-                    } else {
-                        completionHandler(nil, nil)
-                    }
-                default:
-                    completionHandler(nil, nil)
-                }
-            } else {
-                retrieveData(for: self.url!, completionHandler: { (data, response, error)
-                    in
+        // Is there an image available?
+        if let validImage = self.image {
+            switch typeIdentifier {
+            case kUTTypeJPEG as NSString as String:
+                completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+            case kUTTypePNG as NSString as String:
+                completionHandler(UIImagePNGRepresentation(validImage), nil)
+            default:
+                completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
+            }
+        } else {
+            if let validUrl = self.url {
+                retrieveData(for: validUrl, completionHandler: { (data, response, error)
+                in
                     guard error == nil else {
                         print(error!.localizedDescription)
                         self.fetchResult = .loadingFailed(error!)
-                        completionHandler(nil, error!)
+                        completionHandler(nil, ImageLoadError.baseError(error!) )
                         return
                     }
-                    
+                
                     //print(httpResponse.description)
+                    guard let httpResponse = response as? HTTPURLResponse else {
+                        completionHandler(nil, ImageLoadError.noValidHttpResponseReceived)
+                        return
+                    }
+  
+                    switch httpResponse.statusCode {
+                    case 200 :
+                        break
+                    default:
+                        print(httpResponse.description)
+                        completionHandler(nil, ImageLoadError.response(httpResponse))
+                        return
+                    }
                     if data != nil && data?.count != 0 {
                         self.fetchResult = .success(data!)
                         if let validImage = self.image {
-                            completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+                            switch typeIdentifier {
+                            case kUTTypeJPEG as NSString as String:
+                                completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+                            case kUTTypePNG as NSString as String:
+                                completionHandler(UIImagePNGRepresentation(validImage), nil)
+                            default:
+                                completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
+                            }
                         } else {
-                            completionHandler(nil, nil)
+                            completionHandler(nil, ImageLoadError.noValidImage)
                         }
                     } else {
                         self.fetchResult = .noData
-                        completionHandler (nil, nil)
+                        completionHandler (nil, ImageLoadError.noDataReceived)
                     }
                 })
-            }
-        case kUTTypePNG as NSString as String:
-            if fetchResult != nil {
-                switch fetchResult! {
-                case .available:
-                    if let validImage = self.image {
-                        completionHandler(UIImagePNGRepresentation(validImage), nil)
-                    } else {
-                        completionHandler(nil, nil)
-                    }
-                default:
-                    completionHandler(nil, nil)
-                }
             } else {
-                retrieveData(for: self.url!, completionHandler: { (data, response, error)
-                    in
-                    guard error == nil else {
-                        print(error!.localizedDescription)
-                        self.fetchResult = .loadingFailed(error!)
-                        completionHandler(nil, error!)
-                        return
-                    }
-                    
-                    //print(httpResponse.description)
-                    if data != nil && data?.count != 0 {
-                        self.fetchResult = .success(data!)
-                        if let validImage = self.image {
-                            completionHandler(UIImagePNGRepresentation(validImage), nil)
-                        } else {
-                            completionHandler(nil, nil)
-                        }
-                    } else {
-                        self.fetchResult = .noData
-                        completionHandler (nil, nil)
-                    }
-                })
+                self.fetchResult = .noData
+                // No image can be retrieved
+                completionHandler(nil, ImageLoadError.noValidUrl)
             }
-
-        default:
-            break
         }
         return self.progress
     }
@@ -158,6 +141,8 @@ import MobileCoreServices
     private var downloadTask: DownloadTask? = nil
 
     var progress: Progress = Progress(totalUnitCount: 100)
+    
+    var response: URLResponse? = nil
     
     override init() {
         super.init()
@@ -233,12 +218,11 @@ import MobileCoreServices
                 return
             }
             
-            //print(httpResponse.description)
-            guard data != nil && data?.count != 0 else { completion (.noData); return }
-            completion(.success(data!))
-            return
+            //print(response?.description)
+            //guard data != nil && data?.count != 0 else { completion (.noData); return }
+            //completion(.success(data!))
+            //return
 
-            /*
              guard let httpResponse = response as? HTTPURLResponse else {
              completion(.noResponse)
              return
@@ -254,7 +238,7 @@ import MobileCoreServices
                 completion(.response(httpResponse))
                 return
             }
-  */
+  
         })
     }
     
@@ -272,16 +256,20 @@ import MobileCoreServices
             switch $0 {
             case .failure(let error):
                 print(error)
-                completionHandler(nil, nil, error)
+                completionHandler(nil, self?.response, error)
             case .success(let data):
                 // print("Number of bytes: \(data.count)")
-                completionHandler(data, nil, nil)
+                completionHandler(data, self?.response, nil)
             }
             self?.downloadTask = nil
         }
-        downloadTask?.progressHandler = { [weak self] in
-            print("Task2: \($0)")
-            self?.progress = $0
+        downloadTask?.progressHandler = { progress in
+            // print("Task2: \(progress.fractionCompleted)")
+            self.progress = progress
+        }
+        
+        downloadTask?.responseHandler = { response in
+            self.response = response
         }
 
     }

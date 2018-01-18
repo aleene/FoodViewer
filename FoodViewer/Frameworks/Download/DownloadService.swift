@@ -41,6 +41,7 @@ extension DownloadService: URLSessionDataDelegate {
             completionHandler(.cancel)
             return
         }
+        task.responseHandler?(response)
         task.expectedContentLength = response.expectedContentLength
         completionHandler(.allow)
     }
@@ -52,7 +53,6 @@ extension DownloadService: URLSessionDataDelegate {
         task.buffer.append(data)
         let progress = Progress(totalUnitCount: task.expectedContentLength)
         progress.completedUnitCount = Int64(task.buffer.count)
-        // let percentageDownloaded = Double(task.buffer.count) / Double()
         task.progressHandler?(progress)
     }
     
@@ -62,8 +62,8 @@ extension DownloadService: URLSessionDataDelegate {
         }
         let task = downloadTasks.remove(at: index)
         DispatchQueue.main.async {
-            if let e = error {
-                task.completionHandler?(.failure(e))
+            if let validError = error {
+                task.completionHandler?(.failure(validError))
             } else {
                 task.completionHandler?(.success(task.buffer))
             }

@@ -176,6 +176,7 @@
 		51A056FA1E2D23340099092E /* SelectNutrientUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */; };
 		51A056FB1E31205F0099092E /* 40111490.json in Resources */ = {isa = PBXBuildFile; fileRef = 516BA58B1CC4E6BE008A094A /* 40111490.json */; };
 		51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */; };
+		51A37D59200F992F00AAF5D7 /* ImageLoadError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A37D58200F992D00AAF5D7 /* ImageLoadError.swift */; };
 		51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */; };
 		51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */; };
 		51A4CAF31CF1C30B003F9763 /* Nutrients.plist in Resources */ = {isa = PBXBuildFile; fileRef = 51A4CAF21CF1C30B003F9763 /* Nutrients.plist */; };
@@ -461,6 +462,7 @@
 		51A056F71E2D100C0099092E /* AddNutrientTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNutrientTableViewCell.swift; sourceTree = "<group>"; };
 		51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectNutrientUnitViewController.swift; sourceTree = "<group>"; };
 		51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductUpdatedProtocol.swift; sourceTree = "<group>"; };
+		51A37D58200F992D00AAF5D7 /* ImageLoadError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageLoadError.swift; path = Model/ImageLoadError.swift; sourceTree = "<group>"; };
 		51A3D3141CA1BC0900B36B5A /* MapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapTableViewCell.swift; sourceTree = "<group>"; };
 		51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainLocation.swift; sourceTree = "<group>"; };
 		51A4CAF21CF1C30B003F9763 /* Nutrients.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Nutrients.plist; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
 				511DB4331E09B615009D4A4B /* OFF.swift */,
 				51B11D271E4F37C400823630 /* OFFHttpPost.swift */,
+				51A37D58200F992D00AAF5D7 /* ImageLoadError.swift */,
 			);
 			name = OFF;
 			sourceTree = "<group>";
@@ -1327,6 +1330,7 @@
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
 				511B2C411E78672900336CE8 /* SIUnit.swift in Sources */,
 				5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */,
+				51A37D59200F992F00AAF5D7 /* ImageLoadError.swift in Sources */,
 				5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,

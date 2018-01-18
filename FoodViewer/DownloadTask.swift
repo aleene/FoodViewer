@@ -12,7 +12,8 @@ protocol DownloadTask {
     
     var completionHandler: ResultType<Data>.Completion? { get set }
     var progressHandler: ((Progress) -> Void)? { get set }
-    
+    var responseHandler: ((URLResponse) -> Void)? { get set }
+
     func resume()
     func suspend()
     func cancel()

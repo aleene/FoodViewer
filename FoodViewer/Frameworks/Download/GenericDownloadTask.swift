@@ -12,7 +12,8 @@ class GenericDownloadTask {
     
     var completionHandler: ResultType<Data>.Completion?
     var progressHandler: ((Progress) -> Void)?
-    
+    var responseHandler: ((URLResponse) -> Void)?
+
     private(set) var task: URLSessionDataTask
     var expectedContentLength: Int64 = 0
     var buffer = Data()
