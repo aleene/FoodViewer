@@ -388,7 +388,7 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                //cell.width = tableView.frame.size.width
+                cell.frame.size.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
@@ -397,7 +397,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .quantitySearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.frame.size.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
             cell.tag = indexPath.section
@@ -459,7 +459,7 @@ class IdentificationTableViewController: UITableViewController {
 
         case .languages:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.frame.size.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             print("id tableView", tableView.frame.size.width, "id cell", cell.frame.size.width)
@@ -471,7 +471,7 @@ class IdentificationTableViewController: UITableViewController {
 
         case .brands, .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.frame.size.width = tableView.frame.size.width
             //print("Cell", cell.frame)
 
             cell.datasource = self
@@ -482,7 +482,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .brandsSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.frame.size.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -493,7 +493,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case  .languagesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.frame.size.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -504,7 +504,7 @@ class IdentificationTableViewController: UITableViewController {
 
         case .packagingSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.frame.size.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
@@ -988,7 +988,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("id viewWillAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
+        //print("id viewWillAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
@@ -1004,7 +1004,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("id viewDidAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
+        //print("id viewDidAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
     }
     
@@ -1716,12 +1716,30 @@ extension IdentificationTableViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         
+        func setImage(image: UIImage) {
+            let cropController = GKImageCropViewController.init()
+            cropController.sourceImage = image
+            cropController.view.frame = tableView.frame
+            //cropController.preferredContentSize = picker.preferredContentSize
+            cropController.hasResizableCropArea = true
+            cropController.cropSize = CGSize.init(width: 300, height: 300)
+            cropController.delegate = self
+            cropController.modalPresentationStyle = .fullScreen
+
+            present(cropController, animated: true, completion: nil)
+            if let popoverPresentationController = cropController.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+            //self.pushViewController(cropController, animated: false)
+        }
+
         guard currentLanguageCode != nil else { return }
         coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
             // Only one image is accepted as ingredients image for the current language
             if let validImage = (images as? [UIImage])?.first {
-                self.delegate?.updated(frontImage: validImage, languageCode:self.currentLanguageCode!)
-                self.reloadImageSection()
+                setImage(image: validImage)
+                //self.delegate?.updated(frontImage: validImage, languageCode:self.currentLanguageCode!)
             }
         }
     }
@@ -1742,5 +1760,17 @@ extension IdentificationTableViewController: UITableViewDropDelegate {
     }
 }
 
+// MARK: - UIImagePicker Delegate Methods
 
+extension IdentificationTableViewController: GKImageCropControllerDelegate {
+    
+    public func imageCropController(_ imageCropController: GKImageCropViewController, didFinishWith croppedImage: UIImage?) {
+        guard let validLanguage = currentLanguageCode,
+            let validImage = croppedImage else { return }
+        imageCropController.dismiss(animated: true, completion: nil)
+        self.delegate?.updated(frontImage: validImage, languageCode:validLanguage)
+        self.reloadImageSection()
+        //delegate?.imagePicker(self, cropped:croppedImage!)
+    }
+}
 

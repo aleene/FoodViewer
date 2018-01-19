@@ -175,7 +175,11 @@
                     self._setupNavigationBar()
                 }
             } else {
-                self._setupNavigationBar()
+                if self.parent != nil {
+                    self._setupNavigationBar()
+                } else {
+                    self._setupToolbar()
+                }
             }
         }
     }

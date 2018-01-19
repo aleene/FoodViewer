@@ -38,7 +38,7 @@ open class GKImagePicker: NSObject {
     }
 }
 
-// MARK: - UIImagePickerDelegate Methods
+// MARK: - UIImagePicker Delegate Methods
 
 
 extension GKImagePicker: GKImageCropControllerDelegate {
