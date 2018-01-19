@@ -1646,12 +1646,29 @@ extension IngredientsTableViewController: UITableViewDropDelegate {
     
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
         
+        func setImage(image: UIImage) {
+            let cropController = GKImageCropViewController.init()
+            cropController.sourceImage = image
+            cropController.view.frame = tableView.frame
+            //cropController.preferredContentSize = picker.preferredContentSize
+            cropController.hasResizableCropArea = true
+            cropController.cropSize = CGSize.init(width: 300, height: 300)
+            cropController.delegate = self
+            cropController.modalPresentationStyle = .fullScreen
+            
+            present(cropController, animated: true, completion: nil)
+            if let popoverPresentationController = cropController.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+        
         guard currentLanguageCode != nil else { return }
         coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
             // Only one image is accepted as ingredients image for the current language
-            if images.count > 0 && images.count <= 1 {
-                self.delegate?.updated(ingredientsImage: images[0] as! UIImage, languageCode:self.currentLanguageCode!)
-                self.reloadImageSection()
+            if let validImage = (images as? [UIImage])?.first {
+                setImage(image: validImage)
+                //self.delegate?.updated(frontImage: validImage, languageCode:self.currentLanguageCode!)
             }
         }
     }
@@ -1670,6 +1687,20 @@ extension IngredientsTableViewController: UITableViewDropDelegate {
         }
         return UITableViewDropProposal(operation: .cancel, intent: .unspecified)
 
+    }
+}
+
+
+// MARK: - GKImageCropController Delegate Methods
+
+extension IngredientsTableViewController: GKImageCropControllerDelegate {
+    
+    public func imageCropController(_ imageCropController: GKImageCropViewController, didFinishWith croppedImage: UIImage?) {
+        guard let validLanguage = currentLanguageCode,
+            let validImage = croppedImage else { return }
+        imageCropController.dismiss(animated: true, completion: nil)
+        self.delegate?.updated(ingredientsImage: validImage, languageCode:validLanguage)
+        self.reloadImageSection()
     }
 }
 

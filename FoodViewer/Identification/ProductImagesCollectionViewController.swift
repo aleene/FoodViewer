@@ -755,12 +755,32 @@ extension ProductImagesCollectionViewController: UICollectionViewDropDelegate {
     
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
+            
+            func setImage(image: UIImage, id: String) {
+                let cropController = GKImageCropViewController.init()
+                cropController.sourceImage = image
+                cropController.view.frame = collectionView.frame
+                //cropController.preferredContentSize = picker.preferredContentSize
+                cropController.hasResizableCropArea = true
+                cropController.cropSize = CGSize.init(width: 300, height: 300)
+                cropController.delegate = self
+                cropController.identifier = id
+                cropController.modalPresentationStyle = .fullScreen
+                
+                self.present(cropController, animated: true, completion: nil)
+                if let popoverPresentationController = cropController.popoverPresentationController {
+                    popoverPresentationController.sourceRect = collectionView.frame
+                    popoverPresentationController.sourceView = self.view
+                }
+            }
+            
             // Only one image is accepted as ingredients image for the current language
             for image in images {
                 let newImageID = "\(self.originalImages.count + 1)"
-                self.delegate?.updated(image: image as! UIImage, id: newImageID)
-                let indexSet = IndexSet.init(integer: Section.OriginalImages)
-                self.collectionView?.reloadSections(indexSet)
+                setImage(image: image as! UIImage, id: newImageID)
+                //self.delegate?.updated(image: image as! UIImage, id: newImageID)
+                //let indexSet = IndexSet.init(integer: Section.OriginalImages)
+                //self.collectionView?.reloadSections(indexSet)
             }
         }
     }
@@ -777,6 +797,22 @@ extension ProductImagesCollectionViewController: UICollectionViewDropDelegate {
     }
     
 }
+
+
+// MARK: - GKImageCropController Delegate Methods
+
+extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
+    
+    public func imageCropController(_ imageCropController: GKImageCropViewController, didFinishWith croppedImage: UIImage?) {
+        guard let validImage = croppedImage,
+        let validId = imageCropController.identifier else { return }
+        imageCropController.dismiss(animated: true, completion: nil)
+        self.delegate?.updated(image: validImage, id: validId)
+        let indexSet = IndexSet.init(integer: Section.OriginalImages)
+        self.collectionView?.reloadSections(indexSet)
+    }
+}
+
 
 
 

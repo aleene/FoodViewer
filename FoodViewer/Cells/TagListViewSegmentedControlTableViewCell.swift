@@ -115,15 +115,13 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
         }
     }
     
-    /*
     var width: CGFloat = CGFloat(320.0) {
         didSet {
             // also correct for the clear tags button
             tagListView?.frame.size.width = width - 2 * Constants.Margin - segmentedControl.frame.size.width
         }
     }
-     */
-        
+    
     var scheme = ColorSchemes.normal {
         didSet {
             tagListView?.normalColorScheme = scheme

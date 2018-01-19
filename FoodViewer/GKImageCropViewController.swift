@@ -21,6 +21,7 @@
     var toolbar: UIToolbar? = nil
     var cancelButton: UIButton? = nil
     var useButton: UIButton? = nil
+    var identifier: String? = nil // An id, which can be uded to identify the image
     
     // MARK: - Getter/Setter
     
