@@ -15,19 +15,19 @@
 			<array>
 				<string>E100</string>
 				<string> Curcumin</string>
-				<string> Turmeric</string>
+				<string> Turmeric extract</string>
+				<string> curcuma extract</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E100</string>
 				<string> Curcumine</string>
-				<string> Turmérique</string>
+				<string> extrait de curcuma</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>E100</string>
 				<string> Curcumine</string>
-				<string> Kurkuma</string>
 			</array>
 		</dict>
 	</dict>
@@ -227,7 +227,7 @@
 				<string> 5'-phosphate sodique de riboflavine</string>
 				<string> phosphate-5' de riboflavine de sodium</string>
 				<string> sel monosodique de l'ester du phosphate-5' de riboflavine</string>
-				<string> sel monosodique de l'ester de hosphate de la vitamine B2</string>
+				<string> sel monosodique de l'ester de phosphate de la vitamine B2</string>
 				<string> CAS 130-40-5</string>
 				<string> sel de l'ester monosodique de la riboflavine 5-monophosphatée</string>
 			</array>
@@ -410,7 +410,6 @@
 			<array>
 				<string>E106</string>
 				<string> Riboflavine-5-Sodium Phosphate</string>
-				<string> vitamine B2</string>
 				<string> Flavine mononucléotide</string>
 				<string> 5′-phosphate de riboflavine</string>
 				<string> riboflavine-5′-phosphate</string>
@@ -852,9 +851,6 @@
 				<string> PVP</string>
 				<string> Povidone</string>
 				<string> Polyvidon</string>
-				<string> E 1201</string>
-				<string> Crospovidon</string>
-				<string> E1202</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -1026,8 +1022,6 @@
 			<key>en</key>
 			<array>
 				<string>E121</string>
-				<string> Orcein</string>
-				<string> Orchil</string>
 				<string> Citrus Red 2</string>
 			</array>
 			<key>fr</key>
@@ -1497,6 +1491,7 @@
 				<string> FD&amp;C Blue 1</string>
 				<string> FD and C Blue 1</string>
 				<string> Blue 1</string>
+				<string> fd&amp;c blue no. 1.</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -1859,7 +1854,7 @@
 				<string> Vert naturel C.I. no 3</string>
 				<string> Chlorophylle cuivrique</string>
 				<string> Phéophytine cuivrique</string>
-				<string> C.I. 75810 (i)</string>
+				<string> C.I. 75810</string>
 				<string> Vert naturel C.I. no 5</string>
 				<string> Complexe cuivrique de la chlorophilline sodique</string>
 				<string> Complexe cuivrique de la chlorophilline potassique</string>
@@ -1872,7 +1867,7 @@
 				<string> Cuivre phaeophytin b</string>
 				<string> C55H70CuN4O6</string>
 				<string> complexes cuivre-chlorophyllines</string>
-				<string> laque aluminique de chlorophylline (Complexes cuivre-chlorophylles)</string>
+				<string> laque aluminique de chlorophylline</string>
 				<string> complexes cuivre-chlorophylles</string>
 			</array>
 			<key>nl</key>
@@ -1935,14 +1930,12 @@
 				<string>E141(ii)</string>
 				<string> Sels de sodium et de potassium de complexes cupriques de chlorophyllines</string>
 				<string> Complexe cuivrique des chlorophyllines avec sels de sodium et de potassium</string>
-				<string> E141(ii)</string>
-				<string> Complexes cuivriques de chlorophyllines</string>
-				<string>  Cuivre phaeophytin a</string>
+				<string> Cuivre phaeophytin a</string>
 				<string> C55H72CuN4O5</string>
 				<string> Cuivre phaeophytin b</string>
 				<string> C55H70CuN4O6</string>
 				<string> complexes cuivre-chlorophyllines</string>
-				<string> laque aluminique de chlorophylline (Sels de sodium et de potassium de complexes cupriques de chlorophyllines)</string>
+				<string> laque aluminique de chlorophylline</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -2697,7 +2690,7 @@
 			<array>
 				<string>E150b</string>
 				<string> Caramel de sulfite caustique</string>
-				<string> Sulfite de soude</string>
+				<string> Caramel au sulfite de soude</string>
 				<string> Caramel E150b</string>
 				<string> E150b (caramel)</string>
 				<string> E150b caramel</string>
@@ -3070,16 +3063,17 @@
 			<key>en</key>
 			<array>
 				<string>E1520</string>
+				<string> Propylene Glycol</string>
 				<string> Propane-1\</string>
 				<string>2-diol</string>
 				<string> Propan-1\</string>
-				<string>2-diol; propylene glycol</string>
+				<string>2-diol</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E1520</string>
 				<string> Propylène glycol</string>
-				<string> propane diol - 1</string>
+				<string> propane diol - 1\</string>
 				<string> 2-diol</string>
 			</array>
 			<key>nl</key>
@@ -3145,7 +3139,6 @@
 			<array>
 				<string>E153</string>
 				<string> Vegetable carbon</string>
-				<string> Carbon black</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -3331,6 +3324,8 @@
 				<string> Alphacarotene</string>
 				<string> Α-Carotène</string>
 				<string> Provitamine A</string>
+				<string> carotènes mélangés</string>
+				<string> carotéinodes mélangés</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3386,6 +3381,7 @@
 			<array>
 				<string>E160a(ii)</string>
 				<string> Carotènes végétaux</string>
+				<string> carotènes de plantes</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -3534,7 +3530,6 @@
 				<string> Extrait de paprika</string>
 				<string> capsanthéine et capsorubine</string>
 				<string> Oléorésine de paprika</string>
-				<string> paprika</string>
 				<string> Capsanthine</string>
 				<string> Capsanthéine</string>
 				<string> 465-42-9</string>
@@ -3754,9 +3749,6 @@
 				<string> Extrait de tagetes</string>
 				<string> Extraits de tagetes</string>
 				<string> Lutéol de légumes</string>
-				<string> Bo-Xan</string>
-				<string> Caroténoïdes mélangés</string>
-				<string> 127-40-2</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4698,8 +4690,6 @@
 				<string> Orseille</string>
 				<string> Orcéine</string>
 				<string> Orseille orcéine</string>
-				<string> C28H24N2O7</string>
-				<string> E121</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -4718,13 +4708,6 @@
 				<string> Sorbinsäure</string>
 				<string> Sorbinsäure</string>
 				<string> E 200</string>
-				<string> Hexa-2\</string>
-				<string>4-diensäure</string>
-				<string> (E\</string>
-				<string>E)-2\</string>
-				<string>4-Hexadiensäure</string>
-				<string> 2\</string>
-				<string>4-Hexadiensäure</string>
 				<string> Parasorbinsäure</string>
 				<string> Pentadiencarbonsäure</string>
 			</array>
@@ -4732,13 +4715,11 @@
 			<array>
 				<string>E200</string>
 				<string> Sorbic acid</string>
-				<string> trans</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E200</string>
 				<string> Acide sorbique</string>
-				<string> acide trans</string>
 				<string> C6H8O2</string>
 				<string> 110-44-1</string>
 			</array>
@@ -4789,11 +4770,6 @@
 			<array>
 				<string>E202</string>
 				<string> Kaliumsorbat</string>
-				<string> Kaliumsorbat</string>
-				<string> Kalium-(E\</string>
-				<string>E)-hexa-2\</string>
-				<string>4-dienoat</string>
-				<string> E 202</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -4812,10 +4788,6 @@
 			<array>
 				<string>E202</string>
 				<string> Kaliumsorbaat</string>
-				<string> Kaliumsorbaat</string>
-				<string> kalium-(E\</string>
-				<string>E)-hexa-2\</string>
-				<string>4-diënoaat</string>
 			</array>
 		</dict>
 	</dict>
@@ -4827,14 +4799,11 @@
 			<array>
 				<string>E203</string>
 				<string> Calciumsorbat</string>
-				<string> Calciumsorbat</string>
-				<string> E 203</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>E203</string>
 				<string> Calcium sorbate</string>
-				<string> Calcium salts of trans</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -4844,7 +4813,6 @@
 			<key>nl</key>
 			<array>
 				<string>E203</string>
-				<string> Calciumsorbaat</string>
 				<string> Calciumsorbaat</string>
 			</array>
 		</dict>
@@ -5059,8 +5027,7 @@
 			<key>nl</key>
 			<array>
 				<string>E215</string>
-				<string> Ethyl-p-hydroxybenzoaat</string>
-				<string> natriumzout</string>
+				<string> Ethyl-p-hydroxybenzoaat natriumzout</string>
 			</array>
 		</dict>
 	</dict>
@@ -5187,8 +5154,7 @@
 			<key>nl</key>
 			<array>
 				<string>E219</string>
-				<string> Methyl-p-hydroxybenzoaat</string>
-				<string> natriumzout</string>
+				<string> Methyl-p-hydroxybenzoaat natriumzout</string>
 			</array>
 		</dict>
 	</dict>
@@ -5509,6 +5475,7 @@
 				<string>E230</string>
 				<string> Biphenyl</string>
 				<string> diphenyl</string>
+				<string> (C6H5)2</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -6197,6 +6164,7 @@
 			<array>
 				<string>E262</string>
 				<string> Natriumacetat</string>
+				<string> Natriumacetate</string>
 				<string> Natrium aceticum</string>
 				<string> Natriumethanoat</string>
 				<string> Sodiumacetat</string>
@@ -6806,7 +6774,6 @@
 				<string> Vitamine C</string>
 				<string> Acide ascorbique (L-)</string>
 				<string> Acide L(+)-ascorbique</string>
-				<string> Acise isoascorbique</string>
 				<string> Ascorbate</string>
 			</array>
 			<key>nl</key>
@@ -6838,10 +6805,10 @@
 			<array>
 				<string>E301</string>
 				<string> Ascorbate de sodium</string>
-				<string> Ascorbate de sodium (Vitamine C)</string>
+				<string> Ascorbate de sodium</string>
 				<string> L-ascorbate de sodium</string>
 				<string> sel monosodique de l’acide L-ascorbique</string>
-				<string> L-ascorbate de Sodium (vitamine C)</string>
+				<string> L-ascorbate de Sodium</string>
 				<string> 134-03-2</string>
 				<string> C6H7O6Na</string>
 			</array>
@@ -7288,13 +7255,6 @@
 			<array>
 				<string>E312</string>
 				<string> Dodecylgallat</string>
-				<string> Gallate</string>
-				<string> E 312</string>
-				<string> Octylgallat</string>
-				<string> Propylgallat</string>
-				<string> Gallat</string>
-				<string> E310</string>
-				<string> E 310</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -7769,7 +7729,6 @@
 			<array>
 				<string>E324</string>
 				<string> Ethoxyquine</string>
-				<string> pesticide [6]</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -8495,6 +8454,7 @@
 			<array>
 				<string>E336(i)</string>
 				<string> Monopotassium tartrate</string>
+				<string> monopotassic tartrate</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -8522,6 +8482,7 @@
 			<array>
 				<string>E336(ii)</string>
 				<string> Dipotassium tartrate</string>
+				<string> dipotassic tartrate</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -8726,14 +8687,12 @@
 			<array>
 				<string>E339(iii)</string>
 				<string> Trisodium phosphate</string>
-				<string> Sodium phosphate</string>
 				<string> Tribasic sodium phosphate</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E339(iii)</string>
 				<string> Phosphate trisodique</string>
-				<string> Phosphate de sodium</string>
 				<string> phosphate de sodium tribasique</string>
 			</array>
 			<key>nl</key>
@@ -8915,10 +8874,8 @@
 				<string> Phosphate de calcium (i)</string>
 				<string> Phosphate de calcium (ii)</string>
 				<string> Phosphate de calcium (iii)</string>
-				<string> calcium (phosphate)</string>
 				<string> phosphate de calcium</string>
 				<string> E341(iii)</string>
-				<string> Ca3(PO4)2</string>
 				<string> Orthophosphate de calcium</string>
 				<string> 7758-87-4</string>
 				<string> Phosphate dicalcique</string>
@@ -9955,6 +9912,7 @@
 				<string> Calcium disodium EDTA</string>
 				<string> Calcium disodium ethylene diamine tetra-acetate</string>
 				<string> Calcium disodium ethylene diamine tetra-acetate; calcium disodium EDTA</string>
+				<string> calcium-dinatrium-EDTA</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -10209,22 +10167,6 @@
 				<string>E400</string>
 				<string> Alginsäure</string>
 				<string> Einkettiges Glycuronglycan</string>
-				<string> E 404</string>
-				<string> Kaliumalginat</string>
-				<string> E 401</string>
-				<string> E 402</string>
-				<string> Algin</string>
-				<string> Propylenglycolalginat</string>
-				<string> E405</string>
-				<string> Ammoniumalginat</string>
-				<string> Natriumalginat</string>
-				<string> Calciumalginat</string>
-				<string> E401</string>
-				<string> E402</string>
-				<string> E403</string>
-				<string> E404</string>
-				<string> Alginat</string>
-				<string> Alginate</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -10238,7 +10180,6 @@
 				<string> Alginate</string>
 				<string> (C6H8O6)n</string>
 				<string> Alginates</string>
-				<string> E 400</string>
 				<string> Alginat</string>
 				<string> 9005-32-7</string>
 			</array>
@@ -11323,12 +11264,16 @@
 			<key>de</key>
 			<array>
 				<string>E428</string>
-				<string> E428 food additive</string>
+				<string> Gelatine</string>
+				<string> Speisegelatine</string>
+				<string> Gelatinpulver</string>
+				<string> Gelatinieren</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>E428</string>
-				<string> Gelatin</string>
+				<string> Gelatine</string>
+				<string> gelatin</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -11338,7 +11283,8 @@
 			<key>nl</key>
 			<array>
 				<string>E428</string>
-				<string> E428 food additive</string>
+				<string> Gelatine</string>
+				<string> Geleermiddel</string>
 			</array>
 		</dict>
 	</dict>
@@ -11390,7 +11336,7 @@
 			<key>fr</key>
 			<array>
 				<string>E430</string>
-				<string> Stéarate de polyoxyéthylène</string>
+				<string> Stéarate de polyoxyéthylène (8)</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -11418,7 +11364,7 @@
 			<key>fr</key>
 			<array>
 				<string>E431</string>
-				<string> Stéarate de polyoxyéthylène</string>
+				<string> Stéarate de polyoxyéthylène (40)</string>
 				<string> Polyoxyethylene (40) stearate</string>
 				<string> Stéarate de polyoxyéthylène 40</string>
 			</array>
@@ -11836,49 +11782,17 @@
 	<dict>
 		<key>Languages</key>
 		<dict>
-			<key>de</key>
-			<array>
-				<string>E441</string>
-				<string> Gelatine</string>
-				<string> Speisegelatine</string>
-				<string> Gelatinpulver</string>
-				<string> Gelatinieren</string>
-			</array>
 			<key>en</key>
 			<array>
 				<string>E441</string>
-				<string> Gelatine</string>
-				<string> gelatin</string>
+				<string> Superglycerinated hydrogenated rapeseed oil</string>
+				<string> Hydrogenated rapeseed oil superglycerinated</string>
+				<string> Superglycerinated fully hydrogenated rapeseed oil</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E441</string>
-				<string> Gélatine animale</string>
-				<string> Gélatine d'origine animale</string>
-				<string> Gélatine de porc</string>
-				<string> Gélatine porcine</string>
-				<string> Gélatine alimentaire de porc</string>
-				<string> Gélatine alimentaire d'origine porcine</string>
-				<string> Gelatina de porco</string>
-				<string> Gélatine de boeuf</string>
-				<string> Gélatine bovine</string>
-				<string> Gélatine de poisson</string>
-				<string> Gélatine de volaille</string>
-				<string> Gélatine de porc</string>
-				<string> Gélatine F de porc</string>
-				<string> Gélatine G de porc</string>
-				<string> Gélatine (bovine)</string>
-				<string> Gélatine de boeuf</string>
-				<string> gélatine</string>
-				<string> E 441</string>
-				<string> E428</string>
-				<string> 9000-70-8</string>
-			</array>
-			<key>nl</key>
-			<array>
-				<string>E441</string>
-				<string> Gelatine</string>
-				<string> Geleermiddel</string>
+				<string> Huile de colza superglycérinée hydrogénée</string>
 			</array>
 		</dict>
 	</dict>
@@ -12667,12 +12581,12 @@
 			<key>en</key>
 			<array>
 				<string>E457</string>
-				<string> Cyclodextrine</string>
+				<string> Alpha-Cyclodextrine</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E457</string>
-				<string> Cyclodextrine</string>
+				<string> Alpha-Cyclodextrine</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -12693,12 +12607,12 @@
 			<key>en</key>
 			<array>
 				<string>E458</string>
-				<string> Cyclodextrine</string>
+				<string> Gamma-Cyclodextrine</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E458</string>
-				<string> Cyclodextrine</string>
+				<string> Gamma-Cyclodextrine</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -13106,8 +13020,6 @@
 				<string>E469</string>
 				<string> Enzymatically hydrolysed carboxymethylcellulose</string>
 				<string> enzymatically hydrolised cellulose gum</string>
-				<string> Sodium carboxymethyl cellulose</string>
-				<string> Enzymatically hydrolysed carboxy methyl cellulose</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -13120,7 +13032,6 @@
 				<string>E469</string>
 				<string> Enzymatisch gehydrolyseerde carboxymethylcellulose</string>
 				<string> enzymatisch gehydrolyseerde cellulosegom</string>
-				<string> Natriumcarboxymethylcellulose</string>
 			</array>
 		</dict>
 	</dict>
@@ -13136,21 +13047,12 @@
 			<key>en</key>
 			<array>
 				<string>E470</string>
-				<string> Sodium</string>
-				<string> potassium</string>
-				<string> calcium and magnesium salts of fatty acids</string>
+				<string> Sodium/potassium/calcium and magnesium salts of fatty acids</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E470</string>
 				<string> Sels de sodium/potassium/calcium d'acides gras</string>
-				<string> Sels de sodium d'acides gras</string>
-				<string> Sels de potassium d'acides gras</string>
-				<string> Sels de calcium d'acides gras</string>
-				<string> Sels d’acides myristique</string>
-				<string> Sels d’acide oléique avec potassium</string>
-				<string> Sels d’acide oléique avec sodium</string>
-				<string> Sels d’acide oléique avec calcium</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -13166,13 +13068,13 @@
 			<key>de</key>
 			<array>
 				<string>E470a</string>
-				<string> Natrium-</string>
+				<string> Natrium-\</string>
 				<string> kalium- und calciumsalze der speisefettsäuren</string>
 			</array>
 			<key>en</key>
 			<array>
 				<string>E470a</string>
-				<string> Sodium</string>
+				<string> Sodium\</string>
 				<string> potassium and calcium salts of fatty acids</string>
 				<string> Sodium\</string>
 				<string> potassium and calcium salts of fatty acids</string>
@@ -13184,13 +13086,12 @@
 				<string> Stéarate de sodium</string>
 				<string> Stéarate de potassium</string>
 				<string> Stéarate de calcium</string>
-				<string> Sels de sodium</string>
-				<string> de potassium et de calcium d'acides gras</string>
+				<string> Sels de sodium de potassium et de calcium d'acides gras</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>E470a</string>
-				<string> Natrium-</string>
+				<string> Natrium-\</string>
 				<string> kalium- en calciumzouten van vetzuren</string>
 			</array>
 		</dict>
@@ -13212,10 +13113,8 @@
 			<key>fr</key>
 			<array>
 				<string>E470b</string>
-				<string> Stéarate de magnésium</string>
-				<string> sel de magnésium d'acides gras</string>
-				<string> E470ii</string>
 				<string> Sels de magnésium d'acides gras</string>
+				<string> Sel de magnésium d'acides gras</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -13250,6 +13149,7 @@
 				<string> Monostearin</string>
 				<string> Monopalmitin</string>
 				<string> Monoolein</string>
+				<string> Mono and diglycerides</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -13259,7 +13159,6 @@
 				<string> Monoglycérides et diglycérides d'acides gras</string>
 				<string> Mono et diglycérides d'acides gras</string>
 				<string> Monostéarate de glycérine</string>
-				<string> GMS</string>
 				<string> Monopalmitate de glycérine</string>
 				<string> Monooléate de glycérine</string>
 				<string> Monostéarine</string>
@@ -14087,16 +13986,7 @@
 				<string> Sorbitanmonostearat</string>
 				<string> Sorbitanfettsäureester</string>
 				<string> Sorbitanester</string>
-				<string> E 494</string>
-				<string> E 495</string>
 				<string> Sorbitanstearat</string>
-				<string> E493</string>
-				<string> E 491</string>
-				<string> E492</string>
-				<string> E495</string>
-				<string> E 492</string>
-				<string> E494</string>
-				<string> E 493</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -14261,6 +14151,7 @@
 			<array>
 				<string>E500</string>
 				<string> Natriumcarbonat</string>
+				<string> Natriumcarbonate</string>
 				<string> Natriumkarbonat</string>
 				<string> Calciniertes Soda</string>
 				<string> Calcinierte Soda</string>
@@ -14353,6 +14244,8 @@
 				<string> Carbonate acide de sodium</string>
 				<string> Bicarbonate de sodium</string>
 				<string> hydrogénocarbonate de sodium</string>
+				<string> bicarbonate de sodium alimentaire</string>
+				<string> bicarbonate de soude</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -15200,7 +15093,6 @@
 			<array>
 				<string>E517</string>
 				<string> Sulfate d'ammonium</string>
-				<string> Sulfate de calcium</string>
 				<string> 7783-20-2</string>
 				<string> Sulfate d'ammoniaque</string>
 				<string> (NH4)2SO4</string>
@@ -15900,7 +15792,6 @@
 			<array>
 				<string>E540</string>
 				<string> Dicalcium diphosphate</string>
-				<string> Dicalcium diphosphate (acidity regulator)</string>
 			</array>
 			<key>fr</key>
 			<array>
@@ -16741,7 +16632,6 @@
 			<array>
 				<string>E572</string>
 				<string> Magnesiumstearaat</string>
-				<string> E470b</string>
 			</array>
 		</dict>
 	</dict>
@@ -16946,6 +16836,7 @@
 				<string> Eisen(ii)-gluconat</string>
 				<string> Eisengluconat</string>
 				<string> E 579</string>
+				<string> Eisen(II)Gluconat</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -17266,17 +17157,6 @@
 				<string>E626</string>
 				<string> Guanylsäure</string>
 				<string> Guanosinmonophosphat</string>
-				<string> E627</string>
-				<string> E628</string>
-				<string> E 629</string>
-				<string> E629</string>
-				<string> E 627</string>
-				<string> E 628</string>
-				<string> Calciumguanylat</string>
-				<string> Dinatriumguanylat</string>
-				<string> E 626</string>
-				<string> Guanylat</string>
-				<string> Dikaliumguanylat</string>
 			</array>
 			<key>en</key>
 			<array>
@@ -17289,10 +17169,6 @@
 				<string>E626</string>
 				<string> Acide guanylique</string>
 				<string> Guanosine monophosphate</string>
-				<string> E628</string>
-				<string> E629</string>
-				<string> 85-32-5</string>
-				<string> C10H14N5O8P</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -17326,7 +17202,6 @@
 				<string> Guanylate 5'-disodique</string>
 				<string> C10H12N5Na2O8P</string>
 				<string> 5550-12-9</string>
-				<string> E 627</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -17854,21 +17729,18 @@
 			<array>
 				<string>E650</string>
 				<string> Zinc acetate</string>
-				<string> Acetic acid</string>
 				<string> zinc salt</string>
 			</array>
 			<key>fr</key>
 			<array>
 				<string>E650</string>
 				<string> Acétate de zinc</string>
-				<string> Acide acétique</string>
 				<string> sel de zinc</string>
 			</array>
 			<key>nl</key>
 			<array>
 				<string>E650</string>
 				<string> Zinkacetaat</string>
-				<string> Azijnzuur</string>
 				<string> zinkzout</string>
 			</array>
 		</dict>
@@ -18134,8 +18006,6 @@
 			<array>
 				<string>E903</string>
 				<string> Cire de carnauba</string>
-				<string> Cire d'abeille jaunâtre</string>
-				<string> 8015-86-9</string>
 			</array>
 			<key>nl</key>
 			<array>
@@ -18547,7 +18417,6 @@
 			<key>en</key>
 			<array>
 				<string>E910</string>
-				<string> L-cysteine</string>
 				<string> Wax ester</string>
 			</array>
 			<key>fr</key>
