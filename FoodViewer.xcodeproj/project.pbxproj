@@ -21,6 +21,7 @@
 		510BA29A20162B3E0028107B /* Allergens.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29920162B3E0028107B /* Allergens.plist */; };
 		510BA29C20162BDA0028107B /* GlobalLabels.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29B20162BDA0028107B /* GlobalLabels.plist */; };
 		510BA29E20162C340028107B /* Categories.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29D20162C330028107B /* Categories.plist */; };
+		510BA2A120163BDA0028107B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510BA2A320163BDA0028107B /* Localizable.strings */; };
 		510D9FB41E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */; };
 		510D9FB61E71850400B95B1B /* NutritionalScoreUKTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */; };
 		510D9FBD1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */; };
@@ -296,6 +297,8 @@
 		510BA29920162B3E0028107B /* Allergens.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Allergens.plist; sourceTree = "<group>"; };
 		510BA29B20162BDA0028107B /* GlobalLabels.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = GlobalLabels.plist; sourceTree = "<group>"; };
 		510BA29D20162C330028107B /* Categories.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Categories.plist; sourceTree = "<group>"; };
+		510BA2A220163BDA0028107B /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		510BA2A420163CA40028107B /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantityTestSuite.swift; sourceTree = "<group>"; };
 		510D9FB51E71850400B95B1B /* NutritionalScoreUKTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUKTestSuite.swift; sourceTree = "<group>"; };
 		510D9FBC1E71B63000B95B1B /* NutritionalScoreFranceTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFranceTestSuite.swift; sourceTree = "<group>"; };
@@ -920,6 +923,7 @@
 		51975CCC1E6EB8550075B57B /* FoodViewerTests */ = {
 			isa = PBXGroup;
 			children = (
+				510BA2A320163BDA0028107B /* Localizable.strings */,
 				510A5B251EB8A7B90089AD01 /* InfoPlist.strings */,
 				510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */,
 				510D9FB31E7181BC00B95B1B /* NutritionLevelQuantityTestSuite.swift */,
@@ -1239,6 +1243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				510A5B231EB8A7B90089AD01 /* InfoPlist.strings in Resources */,
+				510BA2A120163BDA0028107B /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1495,6 +1500,15 @@
 				510A5B261EB8A8B50089AD01 /* nl */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		510BA2A320163BDA0028107B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				510BA2A220163BDA0028107B /* fr */,
+				510BA2A420163CA40028107B /* nl */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		517FC92C1CD5009A00CB89ED /* InfoPlist.strings */ = {

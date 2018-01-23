@@ -281,7 +281,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch currentProductSection {
         case .perUnitSearch, .servingSizeSearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.editMode = false
             cell.tag = indexPath.section
@@ -315,7 +315,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if adaptedNutritionFacts.isEmpty {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
                     cell?.tag = indexPath.section
-                    //cell?.width = tableView.frame.size.width
+                    cell?.width = tableView.frame.size.width
                     cell?.datasource = self
                     if let available = product?.nutritionFactsAreAvailable {
                         nutritionFactsTagTitle = available.description()
@@ -366,7 +366,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case .nutritionFactsSearch:
             if query!.type != .simple {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                //cell.width = tableView.frame.size.width
+                cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.editMode = false
                 cell.tag = indexPath.section
@@ -383,7 +383,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     if query!.allNutrimentsSearch.isEmpty {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
                         cell?.tag = indexPath.section
-                        //cell?.width = tableView.frame.size.width
+                        cell?.width = tableView.frame.size.width
                         cell?.datasource = self
                         return cell!
                     } else {

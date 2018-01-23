@@ -28,6 +28,9 @@
 /* Class = "UISegmentedControl"; M4v-mg-2eX.segmentTitles[1] = "OFF account"; ObjectID = "M4v-mg-2eX"; */
 "M4v-mg-2eX.segmentTitles[1]" = "Tweede";
 
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "PU9-ny-duI"; */
+"PU9-ny-duI.normalTitle" = "Voeg toe";
+
 /* Class = "UILabel"; text = "Allergens / Traces"; ObjectID = "RFc-0b-oYh"; */
 "RFc-0b-oYh.text" = "Allergenen / Sporen";
 
@@ -52,9 +55,6 @@
 /* Class = "UILabel"; text = "10"; ObjectID = "dtb-c8-qF9"; */
 "dtb-c8-qF9.text" = "10";
 
-/* Class = "UIButton"; normalTitle = "EU"; ObjectID = "eoS-4q-5sl"; */
-"eoS-4q-5sl.normalTitle" = "EU";
-
 /* Class = "UILabel"; text = "2 "; ObjectID = "fTi-4I-088"; */
 "fTi-4I-088.text" = "2";
 
@@ -75,12 +75,6 @@
 
 /* Class = "UINavigationController"; title = "Products"; ObjectID = "hYb-mr-zvw"; */
 "hYb-mr-zvw.title" = "Producten";
-
-/* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[0] = "Joule"; ObjectID = "iLS-3y-yF5"; */
-"iLS-3y-yF5.segmentTitles[0]" = "Eerste";
-
-/* Class = "UISegmentedControl"; iLS-3y-yF5.segmentTitles[1] = "Calories"; ObjectID = "iLS-3y-yF5"; */
-"iLS-3y-yF5.segmentTitles[1]" = "Tweede";
 
 /* Class = "UILabel"; text = "-1 "; ObjectID = "ozN-oN-PUw"; */
 "ozN-oN-PUw.text" = "-1";

@@ -1,5 +1,5 @@
 /* a space used for several purposes */
-" " = "   ";
+" " = "    ";
 
 /* a warning to check the brackets used, they are unbalanced */
 " (WARNING: check brackets, they are unbalanced)" = "(WAARSCHUWING: controleer haakjes, niet in evenwicht)";
@@ -58,12 +58,14 @@
 /* String in Segmented Control to indicate the thrid best nutritional score level */
 "C" = "C";
 
-/* Title of second segment in switch, which lets the user select between joule or calories */
+/* Energy unit. */
+"Calores (Cal)" = "Calorie (Cal)";
+
+/* Title of third segment in switch, which lets the user select between joule, kilo-calories or Calories */
 "Calories" = "Calorieën";
 
 /* Popover which allows to select an image. Title for barButton to cancel the selection
-   String in button, to let the user indicate he does NOT want to search.
-   String in button, to let the user indicate he wants to cancel username/password input. */
+   String in button, to let the user indicate he does NOT want to search. */
 "Cancel" = "Annuleer";
 
 /* Header title for table section with product Categories
@@ -138,6 +140,9 @@
 
 /* String in Segmented Control to indicate the fifth best (and last) nutritional score level */
 "E" = "E";
+
+/* String of a button, to prefill the nutrients with the standard EU set. */
+"EU Set" = "EU";
 
 /* Title of viewcontroller which allows editing of the product in a webview. */
 "Edit" = "Bewerk";
@@ -225,6 +230,9 @@
 /* Header for a table section showing the appreciations of the good nutrients */
 "Good nutrients" = "Goede voedingsstoffen";
 
+/* String presented in a tagView if the image data contained no data */
+"Got a response" = "Antwoord ontvangen";
+
 /* Description of the hierarchy tags in the json */
 "Hierarchy" = "Hierarchie";
 
@@ -271,7 +279,7 @@
 /* Description of the by OFF interpreted tags in the json */
 "Interpreted" = "Geïnterpreteerd";
 
-/* Title of first segment in switch, which lets the user select between joule or calories */
+/* Title of first segment in switch, which lets the user select between joule, kilo-calories or Calories */
 "Joule" = "Joule";
 
 /* Energy unit */
@@ -512,8 +520,7 @@
 /* Tableview sectionheader for size of package. */
 "Quantity" = "Verpakkingsgrootte";
 
-/* String in button, to let the user indicate he wants to cancel username/password input.
-   Title of a tableView section, which lets the user reset the history */
+/* String in button, to let the user indicate he wants to cancel username/password input. */
 "Reset" = "Reset";
 
 /* Header for section of tableView with names of the stores where the product is sold. */
@@ -609,7 +616,7 @@
 "Specify password" = "Voer wachtwoord in";
 
 /* Explanatory text in AlertViewController, which lets the user enter his username/password. */
-"Specify your credentials for OFF?" = "Voer je gerbruikersnaam en wachtwoord voor OFF in";
+"Specify your credentials for OFF" = "Geef OFF gebruikersnaam en wachtwoord";
 
 /* Title in AlertViewController, which lets the user decide if he wants to start a search. */
 "Start Search?" = "Start zoekvraag?";
@@ -632,6 +639,9 @@
 
 /* Description of the interpreted tags in the json as translated by the taxonomy */
 "Translated" = "Vertaald";
+
+/* String of a button, to prefill the nutrients with the standard US set. */
+"US Set" = "US";
 
 /* String (in Segmented Control/Tag) to indicate the nutritional score level is undefined (and will not be used in the search) */
 "Undefined" = "Ongebruikt";
@@ -663,6 +673,9 @@
 
 /* Energy unit. */
 "kcalories (kcal)" = "calorieën (kcal)";
+
+/* Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories */
+"kilocalorie" = "kilocalorie";
 
 /* Standard weight unit divided by million. */
 "microgram (µm)" = "microgram (µm)";

@@ -147,7 +147,7 @@ class CategoriesTableViewController: UITableViewController {
         switch currentProductSection {
         case .categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
             cell.editMode = editMode
             cell.delegate = self
@@ -156,7 +156,7 @@ class CategoriesTableViewController: UITableViewController {
             
         case .categoriesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            //cell.width = tableView.frame.size.width
+            cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
             cell.editMode = editMode
