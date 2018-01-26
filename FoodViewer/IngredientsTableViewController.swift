@@ -926,7 +926,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = TextConstants.ViewControllerTitle
-        print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
+        // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
@@ -939,7 +939,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("ing didAppear", self.view.frame, self.parent?.view.frame)
+        // print("ing didAppear", self.view.frame, self.parent?.view.frame)
 
     }
     

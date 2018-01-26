@@ -528,14 +528,14 @@ class IdentificationTableViewController: UITableViewController {
             return cell
             
         case .image:
-            if currentImage != nil {
+            if currentImage.0 != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
-                cell.productImage = currentImage
+                cell.productImage = currentImage.0
                 cell.delegate = self
                 return cell
             } else {
-                searchResult = ImageFetchResult.noImageAvailable.description
+                searchResult = currentImage.1
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.width = tableView.frame.size.width
@@ -552,12 +552,12 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     
-    public var currentImage: UIImage? {
+    public var currentImage: (UIImage?, String) {
         // are there any updated front images?
         if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
             // Is there an updated image corresponding to the current language
             if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]!.original?.image {
-                return image
+                return (image, "Updated Image")
             }
             
             // try the regular front images
@@ -566,7 +566,13 @@ class IdentificationTableViewController: UITableViewController {
             if let result = product!.frontImages[currentLanguageCode!]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return product!.frontImages[currentLanguageCode!]?.display?.image
+                    return (product!.frontImages[currentLanguageCode!]?.display?.image, "Current Language Image")
+                case .loading:
+                    return (nil, ImageFetchResult.loading.description)
+                case .loadingFailed(let error):
+                    return (nil, error.localizedDescription)
+                case .noResponse:
+                    return (nil, ImageFetchResult.noResponse.description)
                 default:
                     break
                 }
@@ -577,14 +583,20 @@ class IdentificationTableViewController: UITableViewController {
                 let result = product!.frontImages[primaryLanguageCode]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return product!.frontImages[primaryLanguageCode]?.display?.image
+                    return (product!.frontImages[primaryLanguageCode]?.display?.image, "Primary language Image")
+                case .loading:
+                    return (nil, ImageFetchResult.loading.description)
+                case .loadingFailed(let error):
+                    return (nil, error.localizedDescription)
+                case .noResponse:
+                    return (nil, ImageFetchResult.noResponse.description)
                 default:
                     break
                 }
             }
         }
         // No relevant image is available
-        return nil
+        return (nil, "Not here")
     }
 
     fileprivate var currentProductImageSize: ProductImageSize? {
@@ -1221,7 +1233,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         
         switch currentProductSection {
-        case .quantitySearch, .imageSearch:
+        case .quantitySearch, .imageSearch, .image:
             return 1
         case .barcodeSearch, .nameSearch, .genericNameSearch:
             return count(Tags.empty)

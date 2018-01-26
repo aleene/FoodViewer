@@ -72,7 +72,7 @@ class TagListViewTableViewCell: UITableViewCell {
     
     var width: CGFloat = CGFloat(320.0) {
         didSet {
-            tagListView?.frame.size.width = width // - Constants.Margin
+            tagListView?.frame.size.width = width - Constants.Margin
             print("TLV", tagListView.frame)
         }
     }

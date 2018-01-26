@@ -107,7 +107,10 @@ import MobileCoreServices
                 case .success(let data):
                     image = UIImage.init(data: data)
                 default:
-                    break
+                    // inform the user what is happening
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: [:])
+                    })
                 }
             }
         }

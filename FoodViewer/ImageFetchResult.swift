@@ -29,7 +29,7 @@ enum ImageFetchResult {
         case .noData: return NSLocalizedString("Image was empty", comment: "String presented in a tagView if the image data contained no data")
         case .response: return NSLocalizedString("Got a response", comment: "String presented in a tagView if the image data contained no data")
         case .noImageAvailable: return NSLocalizedString("No image available", comment: "String presented in a tagView if no image is available")
-        case .noResponse: return NSLocalizedString("No image available", comment: "String presented in a tagView if no image is available")
+        case .noResponse: return NSLocalizedString("No reponse", comment: "String presented in a tagView if the site did not respond")
         case .uploading: return NSLocalizedString("Uploading image", comment: "String presented in a tagView if an image is being uploaded")
         }
     }

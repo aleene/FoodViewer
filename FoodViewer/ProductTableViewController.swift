@@ -770,6 +770,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         
+        if userInfo!.count == 0 {
+            tableView.reloadData()
+            return
+        }
+        
         // We are only interested in medium-sized front images
         let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
         let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
