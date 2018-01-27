@@ -11,7 +11,7 @@ import Foundation
 enum ImageSizeCategory: Int {
     case thumb = 0
     case small
-    case large
+    case display
     case original
     case unknown
     
@@ -21,7 +21,7 @@ enum ImageSizeCategory: Int {
             return "thumb-sized image"
         case .small:
             return "medium-sized image"
-        case .large:
+        case .display:
             return "large-sized image"
         case .original:
             return "original-sized image"

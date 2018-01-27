@@ -526,7 +526,7 @@ public struct OFF {
             urlString += OFF.URL.ImageSize.Thumb
         case .small:
             urlString += OFF.URL.ImageSize.Small
-        case .large:
+        case .display:
             urlString += OFF.URL.ImageSize.Display
         case .original:
             urlString += OFF.URL.ImageSize.Original

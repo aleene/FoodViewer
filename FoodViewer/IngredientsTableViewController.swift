@@ -11,7 +11,60 @@ import MobileCoreServices
 
 class IngredientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
-    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    //fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    
+    fileprivate var tableStructure: [SectionType] = []
+    
+    fileprivate enum SectionType {
+        case ingredients(Int, String)
+        case ingredientsSearch(Int, String)
+        case allergens(Int, String)
+        case allergensSearch(Int, String)
+        case traces(Int, String)
+        case tracesSearch(Int, String)
+        case labels(Int, String)
+        case labelsSearch(Int, String)
+        case additives(Int, String)
+        case additivesSearch(Int, String)
+        case image(Int, String)
+        case imageSearch(Int, String)
+
+        var header: String {
+            switch self {
+            case .ingredients(_, let headerTitle),
+                 .ingredientsSearch(_, let headerTitle),
+                 .allergens(_, let headerTitle),
+                 .allergensSearch(_, let headerTitle),
+                 .traces(_, let headerTitle),
+                 .tracesSearch(_, let headerTitle),
+                 .labels(_, let headerTitle),
+                 .labelsSearch(_, let headerTitle),
+                 .additives(_, let headerTitle),
+                 .additivesSearch(_, let headerTitle),
+                 .image(_, let headerTitle),
+                 .imageSearch(_, let headerTitle):
+                return headerTitle
+            }
+        }
+        
+        var numberOfRows: Int {
+            switch self {
+            case .ingredients(let numberOfRows, _),
+                 .ingredientsSearch(let numberOfRows, _),
+                 .allergens(let numberOfRows, _),
+                 .allergensSearch(let numberOfRows, _),
+                 .traces(let numberOfRows, _),
+                 .tracesSearch(let numberOfRows, _),
+                 .labels(let numberOfRows, _),
+                 .labelsSearch(let numberOfRows, _),
+                 .additives(let numberOfRows, _),
+                 .additivesSearch(let numberOfRows, _),
+                 .image(let numberOfRows, _),
+                 .imageSearch(let numberOfRows, _):
+                return numberOfRows
+            }
+        }
+    }
     
     fileprivate var ingredientsImage: UIImage? = nil {
         didSet {
@@ -218,7 +271,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         didSet {
             if product != nil {
                 ingredientsImage = nil
-                tableStructureForProduct = analyseProductForTable()
+                tableStructure = setupSections()
                 refreshProduct()
             }
         }
@@ -229,7 +282,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         didSet {
             if query != nil {
                 product = nil
-                tableStructureForProduct = analyseProductForTable()
+                tableStructure = setupSections()
                 refreshProduct()
             }
         }
@@ -270,20 +323,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     // MARK: - Table view data source
     
-    fileprivate enum SectionType {
-        case ingredients
-        case ingredientsSearch
-        case allergens
-        case allergensSearch
-        case traces
-        case tracesSearch
-        case additives
-        case additivesSearch
-        case labels
-        case labelsSearch
-        case image
-        case imageSearch
-    }
 
     fileprivate struct Storyboard {
         struct CellIdentifier {
@@ -315,20 +354,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return tableStructureForProduct.count
+        return tableStructure.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (_, numberOfRows, _) = tableStructureForProduct[section]
+        let numberOfRows = tableStructure[section].numberOfRows
         return numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        
         // we assume that product exists
-        switch currentProductSection {
+        switch tableStructure[indexPath.section] {
             
         case .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -494,20 +531,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (currentProductSection, _, header) = tableStructureForProduct[section]
         
-        guard header != nil else { return "No header" }
-        switch currentProductSection {
+        switch tableStructure[section] {
         case .image, .ingredients:
             return nil
         case .imageSearch, .ingredientsSearch:
-            return header
+            return tableStructure[section].header
         case .allergens, .allergensSearch:
             switch allergensTagsTypeToShow {
             case TagsTypeDefault.Allergens:
-                return header
+                return tableStructure[section].header
             default:
-                return header! +
+                return tableStructure[section].header +
                     " " +
                     "(" +
                     allergensTagsTypeToShow.description() +
@@ -516,9 +551,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .traces, .tracesSearch:
             switch tracesTagsTypeToShow {
             case TagsTypeDefault.Traces:
-                return header
+                return tableStructure[section].header
             default:
-                return header! +
+                return tableStructure[section].header +
                     " " +
                     "(" +
                     tracesTagsTypeToShow.description() +
@@ -527,9 +562,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .labels, .labelsSearch:
             switch labelsTagsTypeToShow {
             case TagsTypeDefault.Labels:
-                return header
+                return tableStructure[section].header
             default:
-                return header! +
+                return tableStructure[section].header +
                     " " +
                     "(" +
                     labelsTagsTypeToShow.description() +
@@ -538,9 +573,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         case .additives, .additivesSearch:
             switch additivesTagsTypeToShow {
             case TagsTypeDefault.Additives:
-                return header
+                return tableStructure[section].header
             default:
-                return header! +
+                return tableStructure[section].header +
                     " " +
                     "(" +
                     additivesTagsTypeToShow.description() +
@@ -555,9 +590,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
-        
-        switch currentProductSection {
+        switch tableStructure[indexPath.section] {
         case .image, .ingredients:
             return indexPath
         default:
@@ -567,11 +600,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let (currentProductSection, _, _) = tableStructureForProduct[section]
         
-        switch currentProductSection {
+        switch tableStructure[section] {
         case .image, .ingredients :
-            let (_, _, header) = tableStructureForProduct[section]
+            let header = tableStructure[section].header
             
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
             
@@ -617,6 +649,50 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return Preferences.manager.showProductType
     }
     
+    fileprivate func setupSections() -> [SectionType] {
+        // The returnValue is an array with sections
+        // And each element is a  section type with the number of rows and the section title
+        //
+        //  The order of each element determines the order in the presentation
+        var sectionsAndRows: [SectionType] = []
+        
+        if query != nil {
+            sectionsAndRows.append(.ingredientsSearch(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
+            // not needed for .petFood and .beauty
+            switch currentProductType {
+            case .food:
+                // 1:  allergens section
+                sectionsAndRows.append(.allergensSearch(TableSection.Size.Allergens, TableSection.Header.Allergens))
+                // 2: traces section
+                sectionsAndRows.append(.tracesSearch(TableSection.Size.Traces, TableSection.Header.Traces))
+            default :
+                break
+            }
+            sectionsAndRows.append(.additivesSearch(TableSection.Size.Additives, TableSection.Header.Additives))
+            sectionsAndRows.append(.labelsSearch(TableSection.Size.Labels, TableSection.Header.Labels))
+            sectionsAndRows.append(.imageSearch(TableSection.Size.Image, TableSection.Header.Image))
+            
+        } else {
+            sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
+            // not needed for .petFood and .beauty
+            switch currentProductType {
+            case .food:
+                // 1:  allergens section
+                sectionsAndRows.append(.allergens(TableSection.Size.Allergens, TableSection.Header.Allergens))
+                // 2: traces section
+                sectionsAndRows.append(.traces(TableSection.Size.Traces, TableSection.Header.Traces))
+            default :
+                break
+            }
+            sectionsAndRows.append(.additives(TableSection.Size.Additives, TableSection.Header.Additives))
+            sectionsAndRows.append(.labels(TableSection.Size.Labels, TableSection.Header.Labels))
+            sectionsAndRows.append(.image(TableSection.Size.Image, TableSection.Header.Image))
+        }
+        
+        return sectionsAndRows
+    }
+    
+    /*
     fileprivate func analyseProductForTable() -> [(SectionType,Int, String?)] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
@@ -713,6 +789,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         return sectionsAndRows
     }
+ */
     
     // MARK: - Navigation
     
@@ -782,17 +859,44 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         navcon.view.insertSubview(visualEffectView, at: 0)
         return navcon
     }
-
-    // MARK: - Notification handler
-    
-    //func changeTagsTypeToShow(_ notification: Notification) {
-    //}
+//
+// MARK: - Notification handler
+//
+    @objc func imageUpdated(_ notification: Notification) {
+        let userInfo = (notification as NSNotification).userInfo
+        guard userInfo != nil && imageSectionIndex != nil else { return }
+        // only update if the image barcode corresponds to the current product
+        if product!.barcode.asString() == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+            if userInfo!.count == 1 {
+                reloadImageSection()
+                return
+            }
+            
+            // We are only interested in medium-sized front images
+            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
+            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
+            if imageSizeCategory == .display && imageTypeCategory == .ingredients {
+                reloadImageSection()
+            }
+        }
+    }
 
     @objc func reloadImageSection() { // (_ notification: Notification) {
-        tableView.reloadData()
-        // tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 5)], withRowAnimation: UITableViewRowAnimation.Fade)
+        tableView.reloadSections([imageSectionIndex!], with: .none)
     }
     
+    fileprivate var imageSectionIndex: Int? {
+        for (index, sectionType) in tableStructure.enumerated() {
+            switch sectionType {
+            case .image:
+                return index
+            default:
+                continue
+            }
+        }
+        return nil
+    }
+
     @objc func refreshProduct() {
         labelsTagsTypeToShow = TagsTypeDefault.Labels
         tracesTagsTypeToShow = TagsTypeDefault.Traces
@@ -930,7 +1034,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
@@ -964,8 +1068,7 @@ extension IngredientsTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that the switch changed
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .labels:
             labelsTagsTypeToShow.cycle()
             tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
@@ -1034,9 +1137,8 @@ extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegat
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
         let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
-        let (currentProductSection, _, _) = tableStructureForProduct[segmentedControl.tag]
         
-        switch currentProductSection {
+        switch tableStructure[sender.tag] {
         case .labelsSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
@@ -1083,8 +1185,7 @@ extension IngredientsTableViewController: UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        let (currentProductSection, _, _) = tableStructureForProduct[textView.tag]
-        switch currentProductSection {
+        switch tableStructure[textView.tag] {
         case .ingredients:
             if let validText = textView.text {
                 delegate?.updated(ingredients: validText, languageCode: currentLanguageCode!)
@@ -1109,8 +1210,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .traces:
             switch tracesToDisplay {
             case .undefined, .empty:
@@ -1218,8 +1318,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didDeleteTagAt index: Int) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .traces:
             switch tracesToDisplay {
             case .undefined, .empty:
@@ -1320,8 +1419,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .allergens:
             switch product!.allergensInterpreted {
             case .available:
@@ -1385,8 +1483,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             }
         }
 
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .imageSearch:
             return 1
         case .additives:
@@ -1415,8 +1512,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .additives:
             return additivesToDisplay.tag(at:index)!
         case .additivesSearch:
@@ -1450,8 +1546,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
 
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .additivesSearch:
             switch searchAdditivesToDisplay {
             case .available(var list):
@@ -1603,8 +1698,7 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        switch currentProductSection {
+        switch tableStructure[indexPath.section] {
         case .image :
             // check if the selected image has not been added yet
             for item in session.items {
@@ -1621,9 +1715,7 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
     
     
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-
-        switch currentProductSection {
+        switch tableStructure[indexPath.section] {
         case .image :
             if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
                 let rect = cell.productImageView.imageRect {
@@ -1676,9 +1768,7 @@ extension IngredientsTableViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         // Only accept if an image is hovered above the image section
         if let validIndexPathSection = destinationIndexPath?.section {
-            let (currentProductSection, _, _) = tableStructureForProduct[validIndexPathSection]
-            
-            switch currentProductSection {
+            switch tableStructure[validIndexPathSection] {
             case .image :
                 return editMode ? UITableViewDropProposal(operation: .copy, intent: .unspecified) : UITableViewDropProposal(operation: .forbidden, intent: .unspecified)
             default:

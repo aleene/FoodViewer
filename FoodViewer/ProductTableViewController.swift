@@ -770,28 +770,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         
-        if userInfo!.count == 0 {
-            tableView.reloadData()
-            return
-        }
+        // only update if the image barcode corresponds to the current product
+        if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
+            let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+
+            if userInfo!.count == 1 {
+                tableView.reloadSections([index], with: .none)
+                return
+            }
         
         // We are only interested in medium-sized front images
         let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
         let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
         if imageSizeCategory == .small && imageTypeCategory == .front {
-            tableView.reloadData()
+            tableView.reloadSections([index], with: .none)
 
-// being more specific on what is reloaded results in a very jittery interface
-//            if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String {
-//                if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
-//                    let indexPaths = [IndexPath.init(row: 0, section: index)]
-//                    tableView.beginUpdates()
-//                    tableView.reloadRows(at: indexPaths, with: .fade)
-//                    //tableView.reloadSections([index], with: .none)
-//
-//                    tableView.endUpdates()
-//                }
-//            }
+            }
         }
     }
     

@@ -684,7 +684,7 @@ class OpenFoodFactsRequest {
         
         imageSet.thumb = ProductImageData.init(barcode:barcode, key:key, size:.thumb)
         imageSet.small = ProductImageData.init(barcode:barcode, key:key, size:.small)
-        imageSet.display = ProductImageData.init(barcode:barcode, key:key, size:.large)
+        imageSet.display = ProductImageData.init(barcode:barcode, key:key, size:.display)
         imageSet.original = ProductImageData.init(barcode:barcode, key:key, size:.original)
         return imageSet
     }

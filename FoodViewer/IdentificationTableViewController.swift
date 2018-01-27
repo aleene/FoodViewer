@@ -10,7 +10,6 @@ import UIKit
 import MobileCoreServices
 
 class IdentificationTableViewController: UITableViewController {
-
     
     private struct TextConstants {
         static let ShowIdentificationTitle = TranslatableStrings.Image
@@ -21,7 +20,6 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     fileprivate var tableStructure: [SectionType] = []
-
     
     fileprivate enum SectionType {
         case barcode(Int, String)
@@ -851,16 +849,34 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
     }
-
+//
 // MARK: - Notification handlers
-    
-
-    @objc func reloadImageSection() {
-        tableView.reloadData()
+//
+    @objc func imageUpdated(_ notification: Notification) {
+        let userInfo = (notification as NSNotification).userInfo
+        guard userInfo != nil && imageSectionIndex != nil else { return }
+        // only update if the image barcode corresponds to the current product
+        if product!.barcode.asString() == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+            if userInfo!.count == 1 {
+                reloadImageSection()
+                return
+            }
+            
+            // We are only interested in medium-sized front images
+            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
+            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
+            if imageSizeCategory == .display && imageTypeCategory == .front {
+                reloadImageSection()
+            }
+        }
     }
     
-    fileprivate func imageSection(_ array: [SectionType]) -> Int? {
-        for (index, sectionType) in array.enumerated() {
+    private func reloadImageSection() {
+        tableView.reloadSections([imageSectionIndex!], with: .none)
+    }
+    
+    fileprivate var imageSectionIndex: Int? {
+        for (index, sectionType) in tableStructure.enumerated() {
             switch sectionType {
             case .image:
                 return index
@@ -1003,11 +1019,10 @@ class IdentificationTableViewController: UITableViewController {
         //print("id viewWillAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
         navigationController?.setNavigationBarHidden(false, animated: false)
         
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.MainImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.reloadImageSection), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)

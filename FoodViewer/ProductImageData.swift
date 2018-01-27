@@ -96,6 +96,8 @@ import MobileCoreServices
         static let BarcodeKey = "ProductImageData.Notification.Barcode.Key"
     }
 
+    // This is available if the data has been retrieve from OFF, otherwise it is nil.
+    // An image however can be set locally
     var url: URL? = nil
     
     var fetchResult: ImageFetchResult? = nil {
@@ -108,8 +110,10 @@ import MobileCoreServices
                     image = UIImage.init(data: data)
                 default:
                     // inform the user what is happening
+                    var userInfo: [String:Any] = [:]
+                    userInfo[Notification.BarcodeKey] = barcode ?? "Dummy barcode"
                     DispatchQueue.main.async(execute: { () -> Void in
-                        NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: [:])
+                        NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                     })
                 }
             }
@@ -126,12 +130,8 @@ import MobileCoreServices
                 var userInfo: [String:Any] = [:]
                 userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
                 userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
+                userInfo[Notification.BarcodeKey] = barcode ?? "Dummy barcode"
                 
-                if let validBarcode = barcode() {
-                    userInfo[Notification.BarcodeKey] = validBarcode
-                } else {
-                    userInfo[Notification.BarcodeKey] = "Dummy barcode"
-                }
                 DispatchQueue.main.async(execute: { () -> Void in
                     NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                 })
@@ -298,14 +298,14 @@ import MobileCoreServices
         } else if url!.absoluteString.contains(OFF.ImageSize.medium.rawValue) {
             return .small
         } else if url!.absoluteString.contains(OFF.ImageSize.large.rawValue) {
-            return .large
+            return .display
         } else if url!.absoluteString.contains(OFF.ImageSize.original.rawValue) {
             return .original
         }
         return .unknown
     }
 
-    private func barcode() -> String? {
+    private var barcode: String? {
         // decode the url to get the barcode
         guard url != nil else { return nil }
         // let separator = OFF.URL.Divider.Slash
