@@ -335,6 +335,7 @@ class OpenFoodFactsRequest {
                     if let url = URL.init(string: validString) {
                         if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
                         product.frontImages[element.key]?.thumb = ProductImageData.init(url: url)
+                        _ = product.frontImages[element.key]?.thumb?.fetch()
 
                     }
                 }
@@ -369,6 +370,7 @@ class OpenFoodFactsRequest {
                     if let url = URL.init(string: validString) {
                         if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
                         product.nutritionImages[element.key]?.thumb = ProductImageData.init(url: url)
+                        _ = product.nutritionImages[element.key]?.thumb?.fetch()
                     }
                 }
             }
@@ -402,6 +404,7 @@ class OpenFoodFactsRequest {
                     if let url = URL.init(string: validString) {
                         if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
                         product.ingredientsImages[element.key]?.thumb = ProductImageData.init(url: url)
+                        _ = product.ingredientsImages[element.key]?.thumb?.fetch()
                     }
                 }
             }

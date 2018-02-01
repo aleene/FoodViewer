@@ -558,7 +558,30 @@ class FoodProduct {
 
     var additionDate: Date? = nil
     var lastEditDates: [Date]? = nil
-    
+    var imageAddDates: [Date] {
+        var dates: Set<Date> = []
+        for (_, imageData) in images {
+            if let validDate = imageData.date {
+                dates.insert(validDate)
+            }
+        }
+        for (_, imageData) in frontImages {
+            if let validDate = imageData.date {
+                dates.insert(validDate)
+            }
+        }
+        for (_, imageData) in ingredientsImages {
+            if let validDate = imageData.date {
+                dates.insert(validDate)
+            }
+        }
+        for (_, imageData) in nutritionImages {
+            if let validDate = imageData.date {
+                dates.insert(validDate)
+            }
+        }
+        return dates.sorted(by: { $0 > $1 })
+    }
     var state = CompletionState()
     
 

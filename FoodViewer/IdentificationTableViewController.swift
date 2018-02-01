@@ -41,74 +41,44 @@ class IdentificationTableViewController: UITableViewController {
         
         func header() -> String {
             switch self {
-            case .barcode(_, let headerTitle):
-                return headerTitle
-            case .barcodeSearch(_, let headerTitle):
-                return headerTitle
-            case .name(_, let headerTitle):
-                return headerTitle
-            case .nameSearch(_, let headerTitle):
-                return headerTitle
-            case .genericName(_, let headerTitle):
-                return headerTitle
-            case .genericNameSearch(_, let headerTitle):
-                return headerTitle
-            case .languages(_, let headerTitle):
-                return headerTitle
-            case .languagesSearch(_, let headerTitle):
-                return headerTitle
-            case .brands(_, let headerTitle):
-                return headerTitle
-            case .brandsSearch(_, let headerTitle):
-                return headerTitle
-            case .packaging(_, let headerTitle):
-                return headerTitle
-            case .packagingSearch(_, let headerTitle):
-                return headerTitle
-            case .quantity(_, let headerTitle):
-                return headerTitle
-            case .quantitySearch(_, let headerTitle):
-                return headerTitle
-            case .image(_, let headerTitle):
-                return headerTitle
-            case .imageSearch(_, let headerTitle):
+            case .barcode(_, let headerTitle),
+                 .barcodeSearch(_, let headerTitle),
+                 .name(_, let headerTitle),
+                 .nameSearch(_, let headerTitle),
+                 .genericName(_, let headerTitle),
+                 .genericNameSearch(_, let headerTitle),
+                 .languages(_, let headerTitle),
+                 .languagesSearch(_, let headerTitle),
+                 .brands(_, let headerTitle),
+                 .brandsSearch(_, let headerTitle),
+                 .packaging(_, let headerTitle),
+                 .packagingSearch(_, let headerTitle),
+                 .quantity(_, let headerTitle),
+                 .quantitySearch(_, let headerTitle),
+                 .image(_, let headerTitle),
+                 .imageSearch(_, let headerTitle):
                 return headerTitle
             }
         }
         
         func numberOfRows() -> Int {
             switch self {
-            case .barcode(let numberOfRows, _):
-                return numberOfRows
-            case .barcodeSearch(let numberOfRows, _):
-                return numberOfRows
-            case .name(let numberOfRows, _):
-                return numberOfRows
-            case .nameSearch(let numberOfRows, _):
-                return numberOfRows
-            case .genericName(let numberOfRows, _):
-                return numberOfRows
-            case .genericNameSearch(let numberOfRows, _):
-                return numberOfRows
-            case .languages(let numberOfRows, _):
-                return numberOfRows
-            case .languagesSearch(let numberOfRows, _):
-                return numberOfRows
-            case .brands(let numberOfRows, _):
-                return numberOfRows
-            case .brandsSearch(let numberOfRows, _):
-                return numberOfRows
-            case .packaging(let numberOfRows, _):
-                return numberOfRows
-            case .packagingSearch(let numberOfRows, _):
-                return numberOfRows
-            case .quantity(let numberOfRows, _):
-                return numberOfRows
-            case .quantitySearch(let numberOfRows, _):
-                return numberOfRows
-            case .image(let numberOfRows, _):
-                return numberOfRows
-            case .imageSearch(let numberOfRows, _):
+            case .barcode(let numberOfRows, _),
+                 .barcodeSearch(let numberOfRows, _),
+                 .name(let numberOfRows, _),
+                 .nameSearch(let numberOfRows, _),
+                 .genericName(let numberOfRows, _),
+                 .genericNameSearch(let numberOfRows, _),
+                 .languages(let numberOfRows, _),
+                 .languagesSearch(let numberOfRows, _),
+                 .brands(let numberOfRows, _),
+                 .brandsSearch(let numberOfRows, _),
+                 .packaging(let numberOfRows, _),
+                 .packagingSearch(let numberOfRows, _),
+                 .quantity(let numberOfRows, _),
+                 .quantitySearch(let numberOfRows, _),
+                 .image(let numberOfRows, _),
+                 .imageSearch(let numberOfRows, _):
                 return numberOfRows
             }
         }
@@ -853,6 +823,7 @@ class IdentificationTableViewController: UITableViewController {
 // MARK: - Notification handlers
 //
     @objc func imageUpdated(_ notification: Notification) {
+        guard !editMode else { return }
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product

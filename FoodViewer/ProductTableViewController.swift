@@ -772,19 +772,22 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
-            let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
-
-            if userInfo!.count == 1 {
-                tableView.reloadSections([index], with: .none)
-                return
-            }
-        
-        // We are only interested in medium-sized front images
-        let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
-        let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
-        if imageSizeCategory == .small && imageTypeCategory == .front {
-            tableView.reloadSections([index], with: .none)
-
+            let section = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+            let indexPaths = [IndexPath.init(row: 1, section: section)]
+            let aantal = tableView.numberOfSections
+            if section < aantal {
+                // Do we have image type info?
+                if userInfo!.count == 1  {
+                    tableView.reloadRows(at: indexPaths, with: .none)
+                    return
+                } else {
+                    // We are only interested in medium-sized front images
+                    let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
+                    let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
+                    if imageSizeCategory == .small && imageTypeCategory == .front {
+                        tableView.reloadRows(at: indexPaths, with: .none)
+                    }
+                }
             }
         }
     }
@@ -833,22 +836,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
 
     @objc func productLoaded(_ notification: Notification) {
+        
+        // This is needed to increase the tablesize as each product is added.
+        // The issue is the size of the product array that is determined by the number of received products.
+        // It should be related to the size of the history file.
+        // At least I think that that is the issue.
+
         tableView.reloadData()
-//
-//  THIS PART RESULTS IN AN EXCEPTION on reloadSections
-//
-//        let userInfo = (notification as NSNotification).userInfo
-//        guard userInfo != nil else { return }
-//        if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
-//            if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
-//                if self.tableView.numberOfSections > index + 1 {
-//                    let path = IndexPath.init(row: 0, section: index)
-//                    self.tableView.reloadSections([index], with: .none)
-//                } else {
-//                    self.tableView.reloadData()
-//                }
-//            }
-//        }
+
     }
     
     @objc func productUpdated(_ notification: Notification) {
@@ -864,6 +859,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
+    
     // 
     @objc func firstProductLoaded(_ notification: Notification) {
         startInterface(at: 0)

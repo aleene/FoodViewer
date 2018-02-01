@@ -100,7 +100,7 @@ class CompletionStatesTableViewController: UITableViewController {
             case 1:
                 return product?.contributors != nil ? product!.contributors.count : 0
             case 2:
-                return product?.lastEditDates?.count != nil ? product!.lastEditDates!.count : 0
+                return product?.imageAddDates.count != nil ? product!.imageAddDates.count : 0
             case 3:
                 return product?.additionDate != nil ? 1 : 0
             default:
@@ -227,8 +227,8 @@ class CompletionStatesTableViewController: UITableViewController {
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .none
                 // the lastEditDates array contains at least one date, if we arrive here
-                
-                cell.textLabel!.text = formatter.string(from: product!.lastEditDates![(indexPath as NSIndexPath).row] as Date)
+                let dates: [Date] = Array.init(product!.imageAddDates)
+                cell.textLabel!.text = formatter.string(from: dates[indexPath.row])
                 let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.lastEditDateLongPress))
                 cell.addGestureRecognizer(longPressGestureRecognizer)
                 

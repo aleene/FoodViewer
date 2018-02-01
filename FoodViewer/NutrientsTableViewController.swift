@@ -45,7 +45,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if product != nil {
                 mergeNutritionFacts()
                 query = nil
-                tableStructureForProduct = setupTableSections()
+                tableStructure = setupTableSections()
                 tableView.reloadData()
             }
         }
@@ -55,7 +55,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     fileprivate var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
-                tableStructureForProduct = setupTableSections()
+                tableStructure = setupTableSections()
                 product = nil
                 tableView.reloadData()
             }
@@ -67,7 +67,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         didSet {
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
-                tableStructureForProduct = setupTableSections()
+                tableStructure = setupTableSections()
                 tableView.reloadData()
             }
         }
@@ -245,40 +245,79 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
     }
     
-    fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
-    
+    // fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
+    fileprivate var tableStructure: [SectionType] = []
+
     // The different sections of the tableView
     fileprivate enum SectionType {
-        case perUnit
-        case perUnitSearch
-        case nutritionFacts
-        case nutritionFactsSearch
-        case addNutrient
-        case servingSize
-        case servingSizeSearch
-        case nutritionImage
-        case imageSearch
-        case noNutrimentsAvailable
+        case perUnit(Int, String)
+        case perUnitSearch(Int, String)
+        case nutritionFacts(Int, String)
+        case nutritionFactsSearch(Int, String)
+        case addNutrient(Int, String)
+        case servingSize(Int, String)
+        case servingSizeSearch(Int, String)
+        case image(Int, String)
+        case imageSearch(Int, String)
+        case noNutrimentsAvailable(Int, String)
+        
+        var header: String {
+            switch self {
+            case .perUnit(_, let headerTitle),
+                 .perUnitSearch(_, let headerTitle),
+                 .nutritionFacts(_, let headerTitle),
+                 .nutritionFactsSearch(_, let headerTitle),
+                 .addNutrient(_, let headerTitle),
+                 .servingSize(_, let headerTitle),
+                 .servingSizeSearch(_, let headerTitle),
+                 .image(_, let headerTitle),
+                 .imageSearch(_, let headerTitle),
+                 .noNutrimentsAvailable(_, let headerTitle):
+                return headerTitle
+            }
+        }
+        
+        var numberOfRows: Int {
+            switch self {
+            case .perUnit(let numberOfRows, _),
+                 .perUnitSearch(let numberOfRows, _),
+                 .nutritionFacts(let numberOfRows, _),
+                 .nutritionFactsSearch(let numberOfRows, _),
+                 .addNutrient(let numberOfRows, _),
+                 .servingSize(let numberOfRows, _),
+                 .servingSizeSearch(let numberOfRows, _),
+                 .image(let numberOfRows, _),
+                 .imageSearch(let numberOfRows, _),
+                 .noNutrimentsAvailable(let numberOfRows, _):
+                return numberOfRows
+            }
+        }
+
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // should return all sections
-        return tableStructureForProduct.count
+        return tableStructure.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let (currentProductSection, numberOfRows, _) = tableStructureForProduct[section]
         // in editMode the nutritionFacts have a button added
-        let noRows = (currentProductSection  == .nutritionFacts || currentProductSection  == .nutritionFactsSearch ) && editMode ? numberOfRows + 1 : numberOfRows
-        return noRows
+        switch tableStructure[section] {
+        case .nutritionFacts(let numberOfRows, _), .nutritionFactsSearch(let numberOfRows, _):
+            if editMode {
+                return numberOfRows + 1
+            }
+        default:
+            break
+        }
+//        let noRows = (tableStructure[section]  == .nutritionFacts || tableStructure[section]  == .nutritionFactsSearch ) && editMode ? tableStructure[section].numberOfRows + 1 : tableStructure[section].numberOfRows
+        return tableStructure[section].numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
-        
         // we assume that product exists
-        switch currentProductSection {
+        switch tableStructure[indexPath.section] {
         case .perUnitSearch, .servingSizeSearch, .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -304,8 +343,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell
             
         case .nutritionFacts:
-            let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
-            if indexPath.row == numberOfRows && editMode {
+            if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
                 // This cell should only be added when in editMode and as the last row
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
                 cell.delegate = self
@@ -372,8 +410,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.tag = indexPath.section
                 return cell
             } else {
-                let (_, numberOfRows, _) = tableStructureForProduct[indexPath.section]
-                if indexPath.row == numberOfRows && editMode {
+                if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
                     // This cell should only be added when in editMode and as the last row
                     // and allows the user to add a nutrient
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
@@ -413,7 +450,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
             return cell!
 
-        case .nutritionImage:
+        case .image:
             if currentImage != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
@@ -442,13 +479,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let (_, _, header) = tableStructureForProduct[section]
-        let (currentProductSection, _, _) = tableStructureForProduct[section]
-        switch currentProductSection {
-        case .nutritionImage :
+        switch tableStructure[section] {
+        case .image :
             return nil
         default:
-            return header
+            return tableStructure[section].header
 
         }
     }
@@ -495,11 +530,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let (currentProductSection, _, _) = tableStructureForProduct[section]
         
-        switch currentProductSection {
-        case .nutritionImage :
-            let (_, _, header) = tableStructureForProduct[section]
+        switch tableStructure[section] {
+        case .image :
 
             /*
             let frame: CGRect = tableView.frame
@@ -527,7 +560,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             /*
             let headerView: LanguageHeaderView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)) as! LanguageHeaderView
             */
-            headerView.title = header
+            headerView.title = tableStructure[section].header
             headerView.languageCode = currentLanguageCode
             headerView.buttonIsEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
 
@@ -539,11 +572,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         
-        if indexPath.section >= 0 && indexPath.section < tableStructureForProduct.count {
-            let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-            
-            switch currentProductSection {
-            case .nutritionImage :
+        if indexPath.section >= 0 && indexPath.section < tableStructure.count {
+            switch tableStructure[indexPath.section] {
+            case .image :
                 return indexPath
             default:
                 break
@@ -600,44 +631,37 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 //        tableView.reloadSections(sections, withRowAnimation: .Fade)
     }
     
-    fileprivate func setupTableSections() -> [(SectionType, Int, String?)] {
+    fileprivate func setupTableSections() -> [SectionType] {
         // This function analyses to product in order to determine
         // the required number of sections and rows per section
         // The returnValue is an array with sections
         // And each element is a tuple with the section type and number of rows
         //
         //  The order of each element determines the order in the table
-        var sectionsAndRows: [(SectionType, Int, String?)] = []
+        var sectionsAndRows: [SectionType] = []
         
         if query != nil {
             
-            sectionsAndRows.append(
-                ( SectionType.perUnitSearch,
-                  TableSections.Size.PerUnit,
+            sectionsAndRows.append(.perUnitSearch( TableSections.Size.PerUnit,
                   TableSections.Header.PerUnit ))
             
             if query!.allNutrimentsSearch.isEmpty {
                 // Show a tag indicating no nutrition facts search has been specified
-                sectionsAndRows.append((
-                    SectionType.nutritionFactsSearch,
-                    TableSections.Size.NutritionFactsEmpty,
+                sectionsAndRows.append(.nutritionFactsSearch(TableSections.Size.NutritionFactsEmpty,
                     TableSections.Header.NutritionFactItems))
             } else {
                 // show a list with defined nutrition facts search
-                sectionsAndRows.append((
-                    SectionType.nutritionFactsSearch,
+                sectionsAndRows.append( .nutritionFactsSearch(
                     query!.allNutrimentsSearch.count,
                     TableSections.Header.NutritionFactItems))
             }
             
-            sectionsAndRows.append((
-                SectionType.servingSizeSearch,
+            sectionsAndRows.append(.servingSizeSearch(
                 TableSections.Size.ServingSize,
                 TableSections.Header.ServingSize))
             
             // Section 3 or 4 or 5: image section
-            sectionsAndRows.append((
-                SectionType.imageSearch,
+            sectionsAndRows.append( SectionType.imageSearch(
                 TableSections.Size.NutritionFactsImage,
                 TableSections.Header.NutritionFactsImage))
 
@@ -649,8 +673,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // Are there any nutriments in the product or the updatedProduct
             if !hasNutritionFacts {
                 // the product has no nutriments indicated
-                sectionsAndRows.append(
-                    ( SectionType.noNutrimentsAvailable,
+                sectionsAndRows.append( .noNutrimentsAvailable(
                       TableSections.Size.NutrimentsAvailable,
                       TableSections.Header.NutrimentsAvailable )
                 )
@@ -696,8 +719,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // Section 0 : switch to indicate whether any nutritional data is available on the product
             
                 if editMode {
-                    sectionsAndRows.append(
-                        ( SectionType.noNutrimentsAvailable,
+                    sectionsAndRows.append( .noNutrimentsAvailable(
                           TableSections.Size.NutrimentsAvailable,
                           TableSections.Header.NutrimentsAvailable )
                     )
@@ -705,8 +727,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
                 // Section 0 or 1 : presentation format
             
-                sectionsAndRows.append(
-                    ( SectionType.perUnit,
+                sectionsAndRows.append(.perUnit(
                       TableSections.Size.PerUnit,
                       TableSections.Header.PerUnit )
                 )
@@ -715,28 +736,24 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
             if product!.nutritionFacts == nil || product!.nutritionFacts!.isEmpty {
                 // Show a tag indicating no nutrition facts have been specified
-                sectionsAndRows.append((
-                    SectionType.nutritionFacts,
+                sectionsAndRows.append(.nutritionFacts(
                     TableSections.Size.NutritionFactsEmpty,
                     TableSections.Header.NutritionFactItems))
             } else {
                 // show a list with nutrition facts
-                sectionsAndRows.append((
-                    SectionType.nutritionFacts,
+                sectionsAndRows.append( .nutritionFacts(
                     adaptedNutritionFacts.count,
                     TableSections.Header.NutritionFactItems))
             }
         
             // Section 2 or 3 or 4 : serving size
             
-            sectionsAndRows.append((
-                SectionType.servingSize,
+            sectionsAndRows.append( .servingSize(
                 TableSections.Size.ServingSize,
                 TableSections.Header.ServingSize))
         
                 // Section 3 or 4 or 5: image section
-                sectionsAndRows.append((
-                    SectionType.nutritionImage,
+                sectionsAndRows.append( .image(
                     TableSections.Size.NutritionFactsImage,
                     TableSections.Header.NutritionFactsImage))
         
@@ -1052,17 +1069,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
  */
     
     @objc func reloadImageSection() { // (_ notification: Notification) {
-        tableView.reloadData()
+        tableView.reloadSections([imageSectionIndex!], with: .none)
+    }
+
+    fileprivate var imageSectionIndex: Int? {
+        for (index, sectionType) in tableStructure.enumerated() {
+            switch sectionType {
+            case .image:
+                return index
+            default:
+                continue
+            }
+        }
+        return nil
     }
 
     func refreshProductWithNewNutritionFacts() {
         if product != nil {
             // recalculate the nutritionfacts that must be shown
             mergeNutritionFacts()
-            tableStructureForProduct = setupTableSections()
+            tableStructure = setupTableSections()
             tableView.reloadData()
         } else if query != nil {
-            tableStructureForProduct = setupTableSections()
+            tableStructure = setupTableSections()
             tableView.reloadData()
         }
     }
@@ -1098,6 +1127,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @objc func removeProduct() {
         product = nil
         tableView.reloadData()
+    }
+
+    @objc func imageUpdated(_ notification: Notification) {
+        guard !editMode else { return }
+        let userInfo = (notification as NSNotification).userInfo
+        guard userInfo != nil && imageSectionIndex != nil else { return }
+        // only update if the image barcode corresponds to the current product
+        if product!.barcode.asString() == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+            if userInfo!.count == 1 {
+                reloadImageSection()
+                return
+            }
+            
+            // We are only interested in medium-sized front images
+            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
+            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
+            if imageSizeCategory == .display && imageTypeCategory == .nutrition {
+                reloadImageSection()
+            }
+        }
     }
 
     @objc func imageUploaded(_ notification: Notification) {
@@ -1166,7 +1215,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             object:nil
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.reloadImageSection), name:.ImageSet, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
 
@@ -1315,7 +1364,7 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         }
 
         mergeNutritionFacts()
-        tableStructureForProduct = setupTableSections()
+        tableStructure = setupTableSections()
         tableView.reloadData()
     }
 }
@@ -1413,9 +1462,8 @@ extension NutrientsTableViewController: UITextFieldDelegate {
             // section*100 + row
             section = (section - section % 100) / 100
         }
-        let (currentProductSection, _, _) = tableStructureForProduct[section]
         
-        switch currentProductSection {
+        switch tableStructure[section] {
         case .servingSize:
             if let validText = textField.text {
                 delegate?.updated(portion: validText)
@@ -1477,11 +1525,9 @@ extension NutrientsTableViewController: UITextFieldDelegate {
 extension NutrientsTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
-        if tagListView.tag >= 0 && tagListView.tag < tableStructureForProduct.count {
-            let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
-        
-            switch currentProductSection {
-            case .nutritionImage, .nutritionFacts:
+        if tagListView.tag >= 0 && tagListView.tag < tableStructure.count {
+            switch tableStructure[tagListView.tag] {
+            case .image, .nutritionFacts:
                 return 1
             case .servingSizeSearch, .imageSearch, .perUnitSearch:
                 return 1
@@ -1496,10 +1542,9 @@ extension NutrientsTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         
-        switch currentProductSection {
-        case .nutritionImage:
+        switch tableStructure[tagListView.tag] {
+        case .image:
             return searchResult
         case .nutritionFacts:
             return nutritionFactsTagTitle
@@ -1595,9 +1640,8 @@ extension NutrientsTableViewController: UITableViewDragDelegate {
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
         
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        switch currentProductSection {
-        case .nutritionImage :
+        switch tableStructure[indexPath.section] {
+        case .image :
             // check if the selected image has not been added yet
             for item in session.items {
                 guard item.localObject as! ProductImageData != validProductImageData else { return [] }
@@ -1612,9 +1656,8 @@ extension NutrientsTableViewController: UITableViewDragDelegate {
     }
 
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        let (currentProductSection, _, _) = tableStructureForProduct[indexPath.section]
-        switch currentProductSection {
-        case .nutritionImage :
+        switch tableStructure[indexPath.section] {
+        case .image :
             if let cell = tableView.cellForRow(at: indexPath) as? ProductImageTableViewCell,
                 let rect = cell.productImageView.imageRect {
                 let parameters = UIDragPreviewParameters.init()
@@ -1668,10 +1711,8 @@ extension NutrientsTableViewController: UITableViewDropDelegate {
     func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
         // Only accept if an image is hovered above the image section
         if let validIndexPathSection = destinationIndexPath?.section {
-            
-            let (currentProductSection, _, _) = tableStructureForProduct[validIndexPathSection]
-            switch currentProductSection {
-            case .nutritionImage:
+            switch tableStructure[validIndexPathSection] {
+            case .image:
                 return editMode ? UITableViewDropProposal(operation: .copy, intent: .unspecified) : UITableViewDropProposal(operation: .forbidden, intent: .unspecified)
             default:
                 break

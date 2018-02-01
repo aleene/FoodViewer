@@ -36,6 +36,19 @@ struct ProductImageSize {
         }
     }
     
+    var date: Date? {
+        if original?.date != nil {
+            return original!.date
+        } else if display?.date != nil {
+            return display!.date
+        } else if small?.date != nil {
+            return small!.date
+        } else {
+            return thumb!.date
+        }
+    }
+
+    
     func isSelectedAsIngredientsImage(for languageCode:String) -> Bool {
         return isSelected(for:.ingredients, in:languageCode)
     }

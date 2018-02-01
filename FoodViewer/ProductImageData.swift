@@ -109,10 +109,16 @@ import MobileCoreServices
                 case .success(let data):
                     image = UIImage.init(data: data)
                 default:
-                    // inform the user what is happening
-                    var userInfo: [String:Any] = [:]
-                    userInfo[Notification.BarcodeKey] = barcode ?? "Dummy barcode"
                     DispatchQueue.main.async(execute: { () -> Void in
+                        // inform the user what is happening
+                        var userInfo: [String:Any] = [:]
+                        userInfo[Notification.BarcodeKey] = self.barcode ?? "ProductImageData: no valid barcode"
+                        if self.imageType() != .unknown {
+                            userInfo[Notification.ImageTypeCategoryKey] = self.imageType().rawValue
+                        }
+                        if self.imageSize() != .unknown {
+                            userInfo[Notification.ImageSizeCategoryKey] = self.imageSize().rawValue
+                        }
                         NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                     })
                 }
@@ -130,7 +136,7 @@ import MobileCoreServices
                 var userInfo: [String:Any] = [:]
                 userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
                 userInfo[Notification.ImageTypeCategoryKey] = imageType().rawValue
-                userInfo[Notification.BarcodeKey] = barcode ?? "Dummy barcode"
+                userInfo[Notification.BarcodeKey] = barcode ?? "ProductImageData: no valid barcode"
                 
                 DispatchQueue.main.async(execute: { () -> Void in
                     NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
@@ -138,6 +144,8 @@ import MobileCoreServices
             }
         }
     }
+    
+    var date: Date? = nil
     
     var hasBarcode: String? = nil
     
@@ -233,6 +241,14 @@ import MobileCoreServices
 
             switch httpResponse.statusCode {
             case 200 :
+                let dateString = httpResponse.allHeaderFields["Last-Modified"] as! String //EXAMPLE:  "Mon, 19 Oct 2015 05:57:12 GMT"
+                if let shortDateString = dateString.substring(0, length: 16) {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "EEE, dd MMM yyyy"
+                    // dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+                    dateFormatter.locale = Locale(identifier: "en_US_POSIX") // This is essential as otherwise the language of the string is unknown?
+                    self.date = dateFormatter.date(from: shortDateString)
+                }
                 guard data != nil && data?.count != 0 else { completion (.noData); return }
                 completion(.success(data!))
                 return
@@ -316,7 +332,7 @@ import MobileCoreServices
         } else if elements.count == 6 {
             return elements[4]
         } else {
-            return "No valid barcode"
+            return "ProductImageData: No valid barcode"
         }
     }
 }

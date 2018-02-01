@@ -17,7 +17,7 @@ protocol PurchacePlaceCellDelegate: class {
 class PurchacePlaceTableViewCell: UITableViewCell {
     
     private struct Constants {
-        static let Margin = CGFloat( 8.0 )
+        static let Margin = CGFloat( 32.0 )
     }
     
     @IBOutlet weak var tagListView: TagListView! {
