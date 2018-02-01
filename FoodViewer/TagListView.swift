@@ -1,14 +1,12 @@
 //
 //  TagListView.swift
-//  TagListViewDemo
 //
-//  Created by Dongyuan Liu on 2015-05-09.
+//  Originally Created by Dongyuan Liu on 2015-05-09.
 //  Copyright (c) 2015 Ela. All rights reserved.
 //
+//  Adapted by Arnaud Leene 2016-2018
 
 import UIKit
-
-// MARK: - TagListView CLASS
 
 @IBDesignable
 open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
@@ -1039,11 +1037,16 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         //}
         return CGSize(width: frame.width, height: frame.height)
     }
-    
-    // MARK: - TagView delegates
+//
+// MARK: - TagView delegates
+//
+// These are the delegate functions required for individual tags
     
     public func didTapTagView(_ tagView: TagView) {
-        tagPressed(tagView)
+        // If the user is allowed to tap on a tag, inform the delegate
+        if allowTapping {
+            delegate?.tagListView(self, didTapTagAt: tagView.tag)
+        }
     }
     
     public func didLongPressTagView(_ tagView: TagView) {
@@ -1053,8 +1056,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     public func didTapRemoveButton(_ tagView: TagView) {
         removeTag(at: tagView.tag)
     }
-        // MARK: - State variables
-    
+//
+// MARK: - State variables
+//
     open var isCollapsed = false {
         didSet {
             if isCollapsed {
@@ -1070,7 +1074,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             return allowsRemoval || allowsCreation || allowsReordering
         }
     }
-    
+    open var allowTapping = false
+
     open var allowsMultipleSelection = false
     
     open var allowsCreation = false {
@@ -1168,10 +1173,11 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
         return indeces
     }
-    
-    // MARK: - Events
-    
-    // TBD: Maybe this should be deprecated as it exposes to TagView
+//
+// MARK: - Events
+//
+                // TODO: Maybe this should be deprecated as it exposes to TagView
+    /*  Is it still used?
     private func tagPressed(_ sender: TagView!) {
         // sender.onTap?(sender)
         if isEditable {
@@ -1185,18 +1191,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
         // delegate?.tagPressed?(sender.tagViewLabel?.text ?? "", tagView: sender, sender: self)
     }
+    */
     
     
-    private func indexForTagViewAt(_ point: CGPoint) -> Int? {
-        for (index, tagView) in tagViews.enumerated() {
-            if tagView.frame.contains(self.convert(point, to: tagView)) {
-                return index
-            }
-        }
-        return nil
-    }
-    
-    // MARK: - Tap handling
+// MARK: - Tap handling
+//
+    // TODO: Do I still want to support this
     
     private var tapGestureRecognizer: UITapGestureRecognizer?
     
@@ -1207,10 +1207,12 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     @objc internal func clearOnTap(_ sender: UITapGestureRecognizer) {
         datasource?.didClear(self)
         // reload in case the user changed the data
-        reloadData(clearAll:false)
+        reloadData(clearAll: false)
     }
-    
-    // MARK: - Drag & Drop support
+//
+// MARK: - Drag & Drop support
+//
+    // TODO: this interferes with long press interactions I am using in FoodViewer
     
     open var allowsReordering = false {
         didSet {
@@ -1240,7 +1242,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             cellSnapshot.layer.shadowOpacity = 0.4
             return cellSnapshot
         }
-        
         
         let longPress = gestureRecognizer as! UILongPressGestureRecognizer
         
@@ -1359,6 +1360,15 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         
     }
     
+    private func indexForTagViewAt(_ point: CGPoint) -> Int? {
+        for (index, tagView) in tagViews.enumerated() {
+            if tagView.frame.contains(self.convert(point, to: tagView)) {
+                return index
+            }
+        }
+        return nil
+    }
+
     // TBD This should only work in editMode?
     // TBD Is there a mixup between highlighted and selected?
     // The user can delete tags with a backspace
@@ -1381,8 +1391,9 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     }
     
 }
-    // MARK: - UITextViewDelegates
-    
+//
+// MARK: - UITextViewDelegates
+//
 extension TagListView: UITextFieldDelegate {
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -37,6 +37,7 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.delegate = delegate as? TagListViewDelegate
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
+            tagListView.allowTapping = allowTapping
             tagListView.tag = tag
             tagListView.prefixLabelText = nil
             
@@ -73,7 +74,7 @@ class TagListViewTableViewCell: UITableViewCell {
     var width: CGFloat = CGFloat(320.0) {
         didSet {
             tagListView?.frame.size.width = width - Constants.Margin
-            print("TLV", tagListView.frame)
+            //print("TLV", tagListView.frame)
         }
     }
     
@@ -83,6 +84,12 @@ class TagListViewTableViewCell: UITableViewCell {
         }
     }
     
+    var allowTapping = false {
+        didSet {
+            tagListView?.allowTapping = allowTapping
+        }
+    }
+
     override var tag: Int {
         didSet {
             tagListView?.tag = tag

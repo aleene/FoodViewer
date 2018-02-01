@@ -12,7 +12,8 @@ import UIKit
 // MARK: - TagListView Delegate Functions
 
 public protocol TagListViewDelegate {
-    // @objc optional func tagPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
+    
+    func tagListView(_ tagListView: TagListView, didTapTagAt index: Int)
     // @objc optional func tagRemoveButtonPressed(_ title: String, tagView: TagView, sender: TagListView) -> Void
     func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int)
     
@@ -51,6 +52,9 @@ public protocol TagListViewDelegate {
 
 extension TagListViewDelegate {
     
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+    }
+
     public func tagListView(_ tagListView: TagListView, didSelectTagAt index: Int) {
     }
     

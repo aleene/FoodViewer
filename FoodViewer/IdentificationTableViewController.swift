@@ -430,6 +430,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
+            cell.allowTapping = true
             print("id tableView", tableView.frame.size.width, "id cell", cell.frame.size.width)
             cell.editMode = query != nil ? editMode : false
             cell.tag = indexPath.section
@@ -963,9 +964,9 @@ class IdentificationTableViewController: UITableViewController {
         product = nil
         tableView.reloadData()
     }
-    
-    // MARK: - ViewController Lifecycle
-    
+//
+// MARK: - ViewController Lifecycle
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -997,7 +998,6 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
-        // NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.changeTagsTypeShown), name:.TagListViewTapped, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1016,9 +1016,9 @@ class IdentificationTableViewController: UITableViewController {
     }
 
 }
-
+//
 // MARK: - TagListViewCellDelegate Functions
-
+//
 extension IdentificationTableViewController: BarcodeEditCellDelegate {
     
     // function to let the delegate know that the switch changed
@@ -1038,9 +1038,9 @@ extension IdentificationTableViewController: BarcodeEditCellDelegate {
         }
     }
 }
-
+//
 // MARK: - TagListViewCellDelegate Functions
-
+//
 extension IdentificationTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that a tag has been single
@@ -1062,18 +1062,18 @@ extension IdentificationTableViewController: TagListViewCellDelegate {
         }
     }
 }
-
+//
 // MARK: - ProductNameCellDelegate Functions
-
+//
 extension IdentificationTableViewController: ProductNameCellDelegate {
     
     func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView) {
         changeLanguage()
     }
 }
-
+//
 // MARK: - IdentificationImageCellDelegate Functions
-
+//
 extension IdentificationTableViewController: ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnCamera button:UIButton) {
@@ -1092,9 +1092,9 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
     }
     
 }
-
+//
 // MARK: - TagListViewAddImageCellDelegate functions
-
+//
 extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
     
     func tagListViewAddImageTableViewCell(_ sender: TagListViewAddImageTableViewCell, receivedActionOnCamera button:UIButton) {
@@ -1106,9 +1106,9 @@ extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
     }
     
 }
-
+//
 // MARK: - TagListViewSegmentedControlCellDelegate Functions
-
+//
 extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
@@ -1138,9 +1138,9 @@ extension IdentificationTableViewController: TagListViewSegmentedControlCellDele
         }
     }
 }
-
+//
 // MARK: - TextView Delegate Functions
-
+//
 extension IdentificationTableViewController: UITextViewDelegate {
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
@@ -1192,9 +1192,9 @@ extension IdentificationTableViewController: UITextViewDelegate {
     }
     
 }
-
+//
 // MARK: - TagListView DataSource Functions
-
+//
 extension IdentificationTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
@@ -1349,14 +1349,28 @@ extension IdentificationTableViewController: TagListViewDataSource {
     }
 
 }
-
-// MARK: - TagListView Delegate Functions
-
+//
+// MARK: - TagListViewDelegate Functions
+//
 extension IdentificationTableViewController: TagListViewDelegate {
     
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+        switch tableStructure[tagListView.tag] {
+        case .languages:
+            // switch the current language to the one the user tapped
+            switch languagesToDisplay {
+            case .available(var list):
+                currentLanguageCode = product?.languageCodes[index]
+            default:
+                assert(true, "IdentificationTableViewController: How can I select a tag that is not there")
+            }
+        default:
+            return
+        }
+    }
+
     public func tagListView(_ tagListView: TagListView, didAddTagWith title: String) {
-        let currentProductSection = tableStructure[tagListView.tag]
-        switch currentProductSection {
+        switch tableStructure[tagListView.tag] {
         case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
@@ -1533,9 +1547,9 @@ extension IdentificationTableViewController: TagListViewDelegate {
     }
     
 }
-
+//
 // MARK: - UITextField Delegate Functions
-
+//
 extension IdentificationTableViewController: UITextFieldDelegate {
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
@@ -1582,9 +1596,9 @@ extension IdentificationTableViewController: UITextFieldDelegate {
     }
     
 }
-
+//
 // MARK: - UIImagePickerControllerDelegate Functions
-
+//
 extension IdentificationTableViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -1597,9 +1611,9 @@ extension IdentificationTableViewController: UINavigationControllerDelegate, UII
     }
 
 }
-
+//
 // MARK: - UIPopoverPresentationControllerDelegate Functions
-
+//
 extension IdentificationTableViewController: UIPopoverPresentationControllerDelegate {
     
     // MARK: - Popover delegation functions
@@ -1617,7 +1631,9 @@ extension IdentificationTableViewController: UIPopoverPresentationControllerDele
     }
 
 }
-
+//
+// MARK: - GKImagePickerDelegate Functions
+//
 extension IdentificationTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
@@ -1628,19 +1644,18 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
         imagePicker.dismiss(animated: true, completion: nil)
     }
 }
-
-
+//
 // MARK: - LanguageHeaderDelegate Functions
-
+//
 extension IdentificationTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNamesLanguages, sender: sender)
     }
 }
-
+//
 // MARK: - UIDragInteractionDelegate Functions
-
+//
 @available(iOS 11.0, *)
 extension IdentificationTableViewController: UITableViewDragDelegate {
     
