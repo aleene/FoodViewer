@@ -781,7 +781,7 @@ class FoodProduct {
         // all image data is set to nil, in order to force a reload
         
         // is it really the same product?
-        if barcode.asString() == product.barcode.asString() {
+        if barcode.asString == product.barcode.asString {
             // Do I need to replace things, or should I carry out a check first?
             primaryLanguageCode = product.primaryLanguageCode
             nameLanguage = product.nameLanguage
@@ -1095,7 +1095,7 @@ class FoodProduct {
     }
     
     func contains(barcode: String) -> Bool {
-        return barcode == self.barcode.asString() ? true : false
+        return barcode == self.barcode.asString ? true : false
     }
 
     

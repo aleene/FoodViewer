@@ -340,7 +340,7 @@ class IdentificationTableViewController: UITableViewController {
         switch currentProductSection {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
-            cell.barcode = product?.barcode.asString()
+            cell.barcode = product?.barcode.asString
             cell.mainLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
             cell.editMode = editMode
             return cell
@@ -828,7 +828,7 @@ class IdentificationTableViewController: UITableViewController {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
-        if product!.barcode.asString() == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+        if product!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
             if userInfo!.count == 1 {
                 reloadImageSection()
                 return
@@ -931,7 +931,7 @@ class IdentificationTableViewController: UITableViewController {
         guard !editMode else { return }
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if let productBarcode = product?.barcode.asString() {
+            if let productBarcode = product?.barcode.asString {
                 if barcode == productBarcode {
                     // is it relevant to the main image?
                     if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
@@ -948,7 +948,7 @@ class IdentificationTableViewController: UITableViewController {
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
+            if barcode == product!.barcode.asString {
                 // is it relevant to the main image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
@@ -1023,7 +1023,7 @@ extension IdentificationTableViewController: BarcodeEditCellDelegate {
     
     // function to let the delegate know that the switch changed
     func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
-        if let validCode = query!.barcode?.asString(),
+        if let validCode = query!.barcode?.asString,
             let validProductType = query!.barcode?.productType() {
             switch segmentedControl.selectedSegmentIndex {
             case 0:

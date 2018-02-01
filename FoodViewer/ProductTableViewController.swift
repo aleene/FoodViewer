@@ -115,7 +115,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            if let searchText = barcode?.asString() {
+            if let searchText = barcode?.asString {
                 searchTextField.text = searchText
             }
         }
@@ -586,7 +586,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .searchLoading:
                 label.text = TranslatableStrings.Searching
             default:
-                label.text = products.fetchResultList[section].description()
+                label.text = products.fetchResultList[section].description
             }
         } else {
             label.text = Constants.Tag.NoProductsInHistory
@@ -1066,14 +1066,13 @@ extension ProductTableViewController: TagListViewDataSource {
         
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         if tagListView.tag == 0 {
-            let fetchStatus = ProductFetchStatus.loading
-            return fetchStatus.description()
+            return TranslatableStrings.Loading
         } else if tagListView.tag == 1 {
             let fetchStatus = ProductFetchStatus.more(0)
-            return fetchStatus.description()
+            return fetchStatus.description
         } else if tagListView.tag == Storyboard.CellTag.LoadingFailed {
             let fetchStatus = ProductFetchStatus.loadingFailed(TranslatableStrings.LoadingFailed)
-            return fetchStatus.description()
+            return fetchStatus.description
         } else if tagListView.tag == Storyboard.CellTag.Image {
             return TranslatableStrings.NoImageInTheRightLanguage
         } else if tagListView.tag == Storyboard.CellTag.SearchLoading {

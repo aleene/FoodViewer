@@ -285,7 +285,7 @@ public struct OFF {
         // add the right server
         fetchUrlString += productType.rawValue
         fetchUrlString += URL.Postfix
-        fetchUrlString += barcode.asString() + URL.JSONExtension
+        fetchUrlString += barcode.asString + URL.JSONExtension
         return fetchUrlString
     }
     
@@ -488,7 +488,7 @@ public struct OFF {
         urlString += server(for:barcode.productType() ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.EnglishProduct
-        urlString += barcode.asString()
+        urlString += barcode.asString
         urlString += "/"
         return urlString
     }
@@ -500,7 +500,7 @@ public struct OFF {
         urlString += server(for:barcode.productType() ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.Images
-        if let str = imageURLComponentFor(barcode.asString()) {
+        if let str = imageURLComponentFor(barcode.asString) {
             urlString += str
         }
         urlString += "/"
@@ -516,7 +516,7 @@ public struct OFF {
         urlString += server(for:barcode.productType() ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.Images
-        if let str = imageURLComponentFor(barcode.asString()) {
+        if let str = imageURLComponentFor(barcode.asString) {
             urlString += str
         }
         urlString += "/"

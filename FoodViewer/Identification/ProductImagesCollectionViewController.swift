@@ -513,7 +513,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc func reloadProduct(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
+            if barcode == product!.barcode.asString {
                 // reload product data
                 OFFProducts.manager.reload(self.product!)
                 // THis will result in a new notification if successfull, which will load the new images in turn
@@ -524,7 +524,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
+            if barcode == product!.barcode.asString {
                 // reload product data
                 OFFProducts.manager.reload(self.product!)
                 // This will result in a new notification if successfull, which will load the new images in turn

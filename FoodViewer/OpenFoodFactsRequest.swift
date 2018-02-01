@@ -48,7 +48,7 @@ class OpenFoodFactsRequest {
         // add the right server
         fetchUrlString += barcode.productType() != nil ? barcode.productType()!.rawValue : currentProductType.rawValue
         fetchUrlString += OFF.URL.Postfix
-        fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
+        fetchUrlString += barcode.asString + OFF.URL.JSONExtension
         let fetchUrl = URL(string: fetchUrlString)
         if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(String(describing: fetchUrl))") }
             DispatchQueue.main.async(execute: { () -> Void in
@@ -275,7 +275,7 @@ class OpenFoodFactsRequest {
         
         if let validCurrentBarcode = currentBarcode,
             let validJsonBarcodeString = jsonObject[jsonKeys.CodeKey].string{
-            if  validJsonBarcodeString == validCurrentBarcode.asString() {
+            if  validJsonBarcodeString == validCurrentBarcode.asString {
                 product.barcode = validCurrentBarcode
             } else {
                 product.barcode.string(jsonObject[jsonKeys.CodeKey].string)
@@ -803,73 +803,7 @@ class OpenFoodFactsRequest {
             for currentState in statesArray {
                 if let completion = OFF.JSONcompletion(for: currentState) {
                     product.state.states.insert(completion)
-                } else {
-                    // print("\(currentState) not recognized")
                 }
-                /*
-                let preferredLanguage = Locale.preferredLanguages[0]
-                if currentState.contains(OFF.completionKey(for: .photosUploadedCompleted)) {
-                    product.state.states[CompletionState.Keys.PhotosUploadedComplete] = Comple tionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .photosUploadedNotCompleted)) {
-                    product.state.states[CompletionState.Keys.PhotosUploadedComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .photosUploadedNotCompleted), language:preferredLanguage))
-                    
-
-                } else if currentState.contains(OFF.completionKey(for: .productNameNotCompleted)) {
-                    product.state.states[CompletionState.Keys.ProductNameComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .productNameCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .productNameNotCompleted)) {
-                    product.state.states[CompletionState.Keys.ProductNameComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .productNameNotCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .brandsCompleted)) {
-                    product.state.states[CompletionState.Keys.BrandsComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .brandsCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .brandsNotCompleted)) {
-                    product.state.states[CompletionState.Keys.BrandsComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .brandsNotCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .quantityNotCompleted)) {
-                    product.state.states[CompletionState.Keys.QuantityComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .quantityCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .quantityNotCompleted)) {
-                    product.state.states[CompletionState.Keys.QuantityComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .quantityNotCompleted), language:preferredLanguage))
-
-                } else if currentState.contains(OFF.completionKey(for: .packagingCompleted)) {
-                    product.state.states[CompletionState.Keys.PackagingComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .packagingCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .packagingNotCompleted)) {
-                    product.state.states[CompletionState.Keys.PackagingComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .packagingNotCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .categoriesCompleted)) {
-                    product.state.states[CompletionState.Keys.CategoriesComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .categoriesCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .categoriesNotCompleted)) {
-                    product.state.states[CompletionState.Keys.CategoriesComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .categoriesNotCompleted), language:preferredLanguage))
-
-                } else if currentState.contains(OFF.completionKey(for: .nutritionFactsCompleted)) {
-                    product.state.states[CompletionState.Keys.NutritionFactsComplete] = CompletionStatus.init( true, and:OFFplists.manager.translateStates(OFF.completionKey(for: .nutritionFactsCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .nutritionFactsNotCompleted)) {
-                    product.state.states[CompletionState.Keys.NutritionFactsComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .nutritionFactsNotCompleted), language:preferredLanguage))
-
-                } else if currentState.contains(OFF.completionKey(for: .photosValidatedCompleted)) {
-                    product.state.states[CompletionState.Keys.PhotosValidatedComplete] = CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.completionKey(for: .photosValidatedCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .photosValidatedNotCompleted)) {
-                    product.state.states[CompletionState.Keys.PhotosValidatedComplete] = CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.completionKey(for: .photosValidatedNotCompleted), language:preferredLanguage))
-
-                } else if currentState.contains(OFF.completionKey(for: .ingredientsCompleted)) {
-                    product.state.states[CompletionState.Keys.IngredientsComplete] = CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.completionKey(for: .ingredientsCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .ingredientsNotCompleted)) {
-                    product.state.states[CompletionState.Keys.IngredientsComplete] = CompletionStatus.init( false, and: OFFplists.manager.translateStates(OFF.completionKey(for: .ingredientsNotCompleted), language:preferredLanguage))
-
-                } else if currentState.contains(OFF.completionKey(for: .expirationDateCompleted)) {
-                    product.state.states[CompletionState.Keys.ExpirationDateComplete] = CompletionStatus.init( true, and: OFFplists.manager.translateStates(OFF.completionKey(for: .expirationDateCompleted), language:preferredLanguage))
-                    
-                } else if currentState.contains(OFF.completionKey(for: .expirationDateNotCompleted)) {
-                    product.state.states[CompletionState.Keys.ExpirationDateComplete] = CompletionStatus.init( false, and:OFFplists.manager.translateStates(OFF.completionKey(for: .expirationDateNotCompleted), language:preferredLanguage))
-                }
-  */
             }
         }
     }

@@ -139,7 +139,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // has the product been initailised?
                 setCurrentLanguage()
                 //setupProduct()
-            } else if oldValue != nil && product != nil && oldValue!.barcode.asString() != product!.barcode.asString() {
+            } else if oldValue != nil && product != nil && oldValue!.barcode.asString != product!.barcode.asString {
             // was there a product change?
                 setCurrentLanguage()
             } // otherwise the language can not be set

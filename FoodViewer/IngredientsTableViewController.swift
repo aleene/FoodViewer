@@ -866,7 +866,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
-        if product!.barcode.asString() == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+        if product!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
             if userInfo!.count == 1 {
                 reloadImageSection()
                 return
@@ -980,7 +980,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         guard !editMode else { return }
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
+            if barcode == product!.barcode.asString {
                 // is it relevant to the ingredients image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
@@ -995,7 +995,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString() {
+            if barcode == product!.barcode.asString {
                 // is it relevant to the ingredients image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {

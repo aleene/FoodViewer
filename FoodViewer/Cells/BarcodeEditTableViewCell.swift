@@ -43,7 +43,7 @@ class BarcodeEditTableViewCell: UITableViewCell {
     var barcode: BarcodeType? = nil {
         didSet {
             if let validBarcode = barcode {
-                barcodeTextField.text = validBarcode.asString()
+                barcodeTextField.text = validBarcode.asString
                 switch validBarcode {
                 case .upc12:
                     segmentedControl.selectedSegmentIndex = 1

@@ -15,7 +15,8 @@ enum ProductFetchStatus {
     // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
     case searchList((Int, Int, Int, [FoodProduct]))
     case searchQuery(SearchTemplate)
-    case loading
+    case loading(FoodProduct)
+    case productNotLoaded(FoodProduct)
     case searchLoading
     // The more parameter defines the search next page to retrieve
     case more(Int)
@@ -24,12 +25,13 @@ enum ProductFetchStatus {
     case initialized
     case other(String)
 
-    func description() -> String {
+    var description: String {
         switch self {
         case .success: return TranslatableStrings.ProductIsLoaded
         case .searchQuery: return TranslatableStrings.SearchQuery
         case .searchList: return TranslatableStrings.ProductListIsLoaded
         case .loading: return TranslatableStrings.ProductLoading
+        case .productNotLoaded: return TranslatableStrings.ProductNotLoaded
         case .searchLoading: return TranslatableStrings.SearchLoading
         case .more: return TranslatableStrings.LoadMoreResults
         case .loadingFailed: return TranslatableStrings.ProductLoadingFailed

@@ -116,7 +116,7 @@ public struct History {
     }
     
     func index(for barcode:BarcodeType) -> Int? {
-        return index(barcode.asString())
+        return index(barcode.asString)
     }
     
     mutating func deleteQuery(_ query: String?) {

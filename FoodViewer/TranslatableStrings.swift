@@ -245,6 +245,7 @@ struct TranslatableStrings {
     static let ProductName = NSLocalizedString("Product name", comment: "String in picker, which lets the user select the search result order. Order on the product names.")
     static let ProductNameMissing = NSLocalizedString("Product name missing", comment: "Secction title, to indicate the product name does not exist")
     static let ProductNotAvailable = NSLocalizedString("Product not available", comment: "String presented in a tagView if no product is available on OFF")
+    static let ProductNotLoaded = NSLocalizedString("Product not loaded", comment: "String to indicate a product has not yet been retrieved from OFF yet and is only locally available")
     static let ProductWebSites = NSLocalizedString("Product Websites", comment: "Header title of tableview section, indicating the websites for the product")
     static let PurchaseAddress = NSLocalizedString("Purchase address", comment: "Generic string to indicate the address (street/city/postalcode/country) where the product was bought")
     

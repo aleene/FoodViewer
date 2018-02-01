@@ -64,7 +64,7 @@ enum BarcodeType {
         }
     }
     
-    func asString() -> String {
+    var asString: String {
         switch self {
         case .ean13(let s, _):
             return s

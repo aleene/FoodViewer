@@ -46,7 +46,7 @@ class OFFUpdate {
 
         var urlString = OFFWriteAPI.SecureServer
             + OFFWriteAPI.PostPrefix
-            + OFFWriteAPI.Barcode + product!.barcode.asString() + OFFWriteAPI.Delimiter
+            + OFFWriteAPI.Barcode + product!.barcode.asString + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
         
@@ -104,7 +104,7 @@ class OFFUpdate {
             + currentProductType.rawValue
             + OFFWriteAPI.Domain
             + OFFWriteAPI.PostPrefix
-            + OFFWriteAPI.Barcode + product!.barcode.asString() + OFFWriteAPI.Delimiter
+            + OFFWriteAPI.Barcode + product!.barcode.asString + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
         /*
@@ -379,13 +379,13 @@ class OFFUpdate {
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + (Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) + "-" + validID )
         }
 
-        uploadImages(product!.frontImages, barcode: product!.barcode.asString(), id:"front")
+        uploadImages(product!.frontImages, barcode: product!.barcode.asString, id:"front")
 
-        uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString(), id:"ingredients")
+        uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString, id:"ingredients")
 
-        uploadImages(product!.nutritionImages, barcode: product!.barcode.asString(), id:"nutrition")
+        uploadImages(product!.nutritionImages, barcode: product!.barcode.asString, id:"nutrition")
 
-        uploadImages(product!.images, barcode: product!.barcode.asString(), id:"general")
+        uploadImages(product!.images, barcode: product!.barcode.asString, id:"general")
 
         if productUpdated {
             if let url = URL(string: urlString) {
@@ -587,7 +587,7 @@ class OFFUpdate {
         for element in languageCodes {
             switch imageCategory {
             case .front, .ingredients, .nutrition:
-                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:product.barcode.asString(),
+                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:product.barcode.asString,
                                         OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description, in:element)],
                            url: OFFHttpPost.URL.SecurePrefix +
                             currentProductType.rawValue +
