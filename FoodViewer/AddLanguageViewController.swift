@@ -26,10 +26,6 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     private var sortedLanguages: [Language] = []
     
-    fileprivate struct Constants {
-        static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
-    }
-    
 //  MARK : Interface elements
     
     @IBOutlet weak var languagesPickerView: UIPickerView! {
@@ -60,7 +56,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if row == 0 {
-            return "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a nutrient.")
+            return "---"
         } else {
             return sortedLanguages[row - 1].name
         }

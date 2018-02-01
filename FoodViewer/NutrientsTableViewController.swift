@@ -235,14 +235,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let SelectComparisonOperator = "Show Select Comparison Operator Segue Identifier"
         }
         struct Title {
-            static let ShowNutritionFactsImage = NSLocalizedString("Image", comment: "Title of the ViewController with package image of the nutritional values")
-            static let ViewController = NSLocalizedString("Nutrition Facts", comment: "Title of the ViewController with the nutritional values")
+            static let ShowNutritionFactsImage = TranslatableStrings.Image
+            static let ViewController = TranslatableStrings.NutritionFacts
         }
         static let PortionTag = 100
-    }
-    
-    fileprivate struct Constants {
-        static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
     }
     
     // fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
@@ -597,12 +593,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let NutrimentsAvailable = 1
         }
         struct Header {
-            static let NutritionFactItems = NSLocalizedString("Nutrition Facts", comment: "Tableview header section for the list of nutritional facts")
-            static let NutritionFactsImage = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
-            static let ServingSize = NSLocalizedString("Serving Size", comment: "Tableview header for the section with the serving size, i.e. the amount one will usually take of the product.")
+            static let NutritionFactItems = TranslatableStrings.NutritionFacts
+            static let NutritionFactsImage = TranslatableStrings.NutritionFactsImage
+            static let ServingSize = TranslatableStrings.PortionSize
             static let AddNutrient = "No Add Nutrient Header"
-            static let PerUnit = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
-            static let NutrimentsAvailable = NSLocalizedString("Nutriments Availability", comment: "Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package.")
+            static let PerUnit = TranslatableStrings.PresentationFormat
+            static let NutrimentsAvailable = TranslatableStrings.NutrimentsAvailability
         }
     }
     
@@ -1040,9 +1036,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
-
-    // MARK: - Notification handler functions
-    
+//
+// MARK: - Notification handlers
+//
     @objc func refreshProduct() {
         guard product != nil else { return }
         tableView.reloadData()
@@ -1180,11 +1176,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
-    
-
-
-    // MARK: - ViewController Lifecycle
-    
+//
+// MARK: - ViewController Lifecycle
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -1235,8 +1229,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
 }
+//
 // MARK: - AddNutrientCellDelegate functions
-
+//
 extension NutrientsTableViewController:  AddNutrientCellDelegate {
     
     // function to let the delegate know that the switch changed
@@ -1287,37 +1282,37 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         
         // Energy
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Calories))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: .Calories))
         }
         // Energy from Fat Old Label
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyFromFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: NutritionFactUnit.Calories))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: .Calories))
         }
 
         // Fat
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: NutritionFactUnit.Gram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: .Gram))
         }
         // Saturated Fat
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: .Gram))
         }
         // Trans Fat
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.TransFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: NutritionFactUnit.Gram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: .Gram))
         }
 
         // Cholesterol
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CholesterolKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: NutritionFactUnit.Milligram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: .Milligram))
         }
         // Sodium
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SodiumKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: NutritionFactUnit.Gram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: .Gram))
         }
         // Total Carbohydrates
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: NutritionFactUnit.Gram))
+            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: .Gram))
         }
         // Dietary Fiber
         if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {

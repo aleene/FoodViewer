@@ -36,17 +36,17 @@ enum TagsType {
     func description() -> String {
         switch self {
         case .original:
-            return NSLocalizedString("Original", comment: "Description of the original tags in the json")
+            return TranslatableStrings.Original
         case .interpreted:
-            return NSLocalizedString("Interpreted", comment: "Description of the by OFF interpreted tags in the json")
+            return TranslatableStrings.Interpreted
         case .translated:
-            return NSLocalizedString("Translated", comment: "Description of the interpreted tags in the json as translated by the taxonomy")
+            return TranslatableStrings.Translated
         case .hierarchy:
-            return NSLocalizedString("Hierarchy", comment: "Description of the hierarchy tags in the json")
+            return TranslatableStrings.Hierarchy
         case .prefixed:
-            return NSLocalizedString("Prefix corrected", comment: "Description of the prefixed corrected tags")
+            return TranslatableStrings.PrefixCorrected
         case .edited:
-            return NSLocalizedString("Edited", comment: "Description of the edited tags as will be uploaded")
+            return TranslatableStrings.Edited
         }
     }
 

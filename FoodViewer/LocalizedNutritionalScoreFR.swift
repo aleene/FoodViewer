@@ -19,7 +19,7 @@ class LocalizedNutritionalScoreFR: NutritionalScoreFR {
         let preferredLanguage = Locale.preferredLanguages[0]
         
         pointsA[0].nutriment = OFFplists.manager.translateNutrients(Constants.energyKey, language:preferredLanguage)
-        pointsA[1].nutriment = NSLocalizedString("Saturated Fat to Total Fat ratio", comment: "Title in cell with the saturated fat to all fat ratio")
+        pointsA[1].nutriment = TranslatableStrings.SaturatedFatToFatRatio
         pointsA[2].nutriment = OFFplists.manager.translateNutrients(Constants.sugarsKey, language:preferredLanguage)
         pointsA[3].nutriment = OFFplists.manager.translateNutrients(Constants.sodiumKey, language:preferredLanguage)
         

@@ -36,7 +36,7 @@ class ReferenceDailyIntakeList {
     }
     
     private struct TextConstants {
-        static let FileNotAvailable = NSLocalizedString("Error: file %@ not available", comment: "Error to indicate that a file can not be read.")
+        static let FileNotAvailable = "Error: file %@ not available"
     }
     
     private var list: [DailyValue] = []

@@ -316,7 +316,7 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate struct Constants {
         // static let DefaultHeader = "No Header"
         static let ViewControllerTitle = TranslatableStrings.SupplyChain
-        static let NoExpirationDate = NSLocalizedString("No expiration date", comment: "Title of cell when no expiration date is avalable")
+        static let NoExpirationDate = TranslatableStrings.NoExpirationDate
     }
 
     // MARK: - Interface Functions
@@ -348,16 +348,16 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
 
     fileprivate struct TableStructure {
-        static let ProducerSectionHeader = NSLocalizedString("Producers", comment: "Header for section of tableView with information of the producer (name, geographic location).")
-        static let ProducerCodeSectionHeader = NSLocalizedString("Producer Codes", comment: "Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666).")
-        static let IngredientOriginSectionHeader = NSLocalizedString("Origin ingredient", comment: "Header for section of tableView with location(s) of ingredients.")
-        static let LocationSectionHeader = NSLocalizedString("Purchase Locations", comment: "Header for section of tableView with Locations where the product was bought.")
-        static let CountriesSectionHeader = NSLocalizedString("Sales Countries", comment: "Header for section of tableView with Countries where the product is sold.")
-        static let StoresSectionHeader = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
-        static let MapSectionHeader = NSLocalizedString("Map", comment: "Header for section of tableView with a map of producer, origin and shop locations.")
-        static let ExpirationDateSectionHeader = NSLocalizedString("Expiration Date", comment: "Header title of the tableview section, indicating the most recent expiration date.")
-        static let SitesSectionHeader = NSLocalizedString("Product Websites", comment: "Header title of tableview section, indicating the websites for the product")
-        static let PAOSectionHeader = NSLocalizedString("Period After Opening", comment: "Header title of tableview section, indicating period after opening for beauty products")
+        static let ProducerSectionHeader = TranslatableStrings.Producers
+        static let ProducerCodeSectionHeader = TranslatableStrings.ProductCodes
+        static let IngredientOriginSectionHeader = TranslatableStrings.IngredientOrigins
+        static let LocationSectionHeader = TranslatableStrings.PurchaseAddress
+        static let CountriesSectionHeader = TranslatableStrings.SalesCountries
+        static let StoresSectionHeader = TranslatableStrings.Stores
+        static let MapSectionHeader = TranslatableStrings.Map
+        static let ExpirationDateSectionHeader = TranslatableStrings.ExpirationDate
+        static let SitesSectionHeader = TranslatableStrings.ProductWebSites
+        static let PAOSectionHeader = TranslatableStrings.PeriodAfterOpening
         static let ProducerSectionSize = 1
         static let ProducerCodeSectionSize = 1
         static let IngredientOriginSectionSize = 1
@@ -721,9 +721,9 @@ class SupplyChainTableViewController: UITableViewController {
             }
         }
     }
-
-    // MARK: - Notification handler
-    
+//
+// MARK: - Notification handlers
+//
     func reloadMapSection(_ notification: Notification) {
         tableView.reloadRows(at: [IndexPath(row: 0, section: 8)], with: UITableViewRowAnimation.fade)
     }
@@ -743,9 +743,9 @@ class SupplyChainTableViewController: UITableViewController {
         product = nil
         tableView.reloadData()
     }
-    
-    // MARK: - Navigation
-    
+//
+// MARK: - Navigation
+//
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
@@ -807,9 +807,9 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func unwindSetFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
     }
-
-    // MARK: - Controller Lifecycle
-    
+//
+// MARK: - Controller Lifecycle
+//
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -843,10 +843,9 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
 }
-
-
+//
 // MARK: - TagListViewCellDelegate Functions
-
+//
 extension SupplyChainTableViewController: TagListViewCellDelegate {
     
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
@@ -873,9 +872,9 @@ extension SupplyChainTableViewController: TagListViewCellDelegate {
         }
     }
 }
-
+//
 // MARK: - PurchacePlaceCellDelegate Functions
-
+//
 extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
     
     // function to let the delegate know that the tagListView has been doubletapped
@@ -893,9 +892,9 @@ extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
         }
     }
 }
-
+//
 // MARK: - TagListViewSegmentedControlCellDelegate Functions
-
+//
 extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {

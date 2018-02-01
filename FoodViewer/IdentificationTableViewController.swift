@@ -1359,7 +1359,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .languages:
             // switch the current language to the one the user tapped
             switch languagesToDisplay {
-            case .available(var list):
+            case .available:
                 currentLanguageCode = product?.languageCodes[index]
             default:
                 assert(true, "IdentificationTableViewController: How can I select a tag that is not there")

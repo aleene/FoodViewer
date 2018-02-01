@@ -13,14 +13,14 @@ enum NutritionDisplayMode {
     case perStandard
     case perDailyValue
     
-    func description() -> String {
+    var description: String {
         switch self {
         case .perServing:
-            return NSLocalizedString("Nutrition Facts (per serving)", comment: "Description for NutritionData per serving")
+            return TranslatableStrings.NutritionFactsPerServing
         case .perStandard:
-            return NSLocalizedString("Nutrition Facts (per 100g/100ml)", comment: "Description for NutritionData per standard unit")
+            return TranslatableStrings.NutritionFactsPer100mgml
         case .perDailyValue:
-            return NSLocalizedString("Daily Values (per serving)", comment: "Description for NutritionData Daily Value per serving")
+            return TranslatableStrings.DailyValuesPerServing
         }
     }
     
@@ -35,7 +35,7 @@ enum NutritionDisplayMode {
         }
     }
     
-    func index() -> Int {
+    var index: Int {
         switch self {
         case .perServing: return 0
         case .perStandard: return 1
@@ -43,7 +43,7 @@ enum NutritionDisplayMode {
         }
     }
     
-    func key() -> String {
+    var key: String {
         switch self {
         case .perServing: return "per serving"
         case .perStandard: return "per standard unit"

@@ -35,7 +35,7 @@ class EditProductViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("Edit", comment: "Title of viewcontroller which allows editing of the product in a webview.") 
+        title = TranslatableStrings.Edit
     }
     
     override func viewWillAppear(_ animated: Bool) {

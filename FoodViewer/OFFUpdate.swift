@@ -76,10 +76,10 @@ class OFFUpdate {
                     return ProductUpdateStatus.failure(error.description)
                 }
             } else {
-                return ProductUpdateStatus.failure(NSLocalizedString("Error: URL is wrong somehow", comment: "Probably a programming error."))
+                return ProductUpdateStatus.failure("OFFUpdate: URL is wrong somehow")
             }
         } else {
-                return ProductUpdateStatus.failure(NSLocalizedString("Error: URL encoding failed", comment: "Probably a programming error."))
+                return ProductUpdateStatus.failure("OFFUpdate: URL encoding failed")
         }
     }
     
@@ -733,7 +733,7 @@ class OFFUpdate {
                 }
             }
         }
-        return ProductUpdateStatus.failure(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
+        return ProductUpdateStatus.failure("OFFUpdate: No verbose status")
     }
     
     // remove the language identifier before the colon

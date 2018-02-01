@@ -58,7 +58,7 @@ class CategoriesTableViewController: UITableViewController {
     // MARK: - Private Functions / Variables
     
     fileprivate struct Constants {
-        static let ViewControllerTitle = NSLocalizedString("Categories", comment: "Title of ViewController with the categories the product belongs to.")
+        static let ViewControllerTitle = TranslatableStrings.Categories
     }
     
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
@@ -192,7 +192,7 @@ class CategoriesTableViewController: UITableViewController {
     }
     
     struct TableStructure {
-        static let CategoriesSectionHeader = NSLocalizedString("Categories", comment: "Header title for table section with product Categories") 
+        static let CategoriesSectionHeader = TranslatableStrings.Categories
         static let CategoriesSectionSize = 1
     }
 

@@ -9,10 +9,6 @@
 import UIKit
 
 class AllergenWarningsTableViewController: UITableViewController {
-
-    fileprivate struct Constants {
-        static let ViewControllerTitle = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
-    }
     
     // MARK: - Table view data source
     
@@ -55,7 +51,7 @@ class AllergenWarningsTableViewController: UITableViewController {
         super.viewDidLoad()
         let _ = AllergenWarningDefaults.init()
         tableView.reloadData()
-        title = Constants.ViewControllerTitle
+        title = TranslatableStrings.AllergenWarnings
     }
     
     override func viewDidAppear(_ animated: Bool) {

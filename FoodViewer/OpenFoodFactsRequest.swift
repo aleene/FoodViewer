@@ -64,7 +64,7 @@ class OpenFoodFactsRequest {
                 return ProductFetchStatus.loadingFailed(error.description)
             }
         } else {
-            return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
+            return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: URL not matched")
         }
     }
 
@@ -93,7 +93,7 @@ class OpenFoodFactsRequest {
                 return FetchJsonResult.error(error.description)
             }
         } else {
-            return FetchJsonResult.error(NSLocalizedString("Error: URL not matched", comment: "Retrieved a json file that is no longer relevant for the app."))
+            return FetchJsonResult.error("OpenFoodFactsRequest: URL not matched")
         }
     }
     
@@ -187,7 +187,7 @@ class OpenFoodFactsRequest {
         if let validData = data {
             return unpackJSONObject(JSON(data: validData))
         } else {
-            return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: No valid data", comment: "No valid data has been received"))
+            return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: No valid data")
         }
     }
     
@@ -226,7 +226,7 @@ class OpenFoodFactsRequest {
                 if let statusVerbose = jsonObject[jsonKeys.StatusVerboseKey].string {
                     return ProductFetchStatus.productNotAvailable(statusVerbose)
                 } else {
-                    return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: No verbose status", comment: "The JSON file is wrongly formatted."))
+                    return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: No verbose status")
                 }
                 
             } else if resultStatus == 1 {
@@ -234,7 +234,7 @@ class OpenFoodFactsRequest {
                 // print(product.name, product.nutritionFacts)
                 return ProductFetchStatus.success(decode(JSON.init(jsonObject[jsonKeys.ProductKey].dictionaryValue) ))
             } else {
-                return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Other (>1) result status", comment: "A JSON status which is not supported."))
+                return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: Other (>1) result status")
             }
         // is this a multi product page?
         } else if let searchResultSize = jsonObject[jsonKeys.CountKey].int {
@@ -252,10 +252,10 @@ class OpenFoodFactsRequest {
                 }
                 return ProductFetchStatus.searchList((searchResultSize, searchPage, searchPageSize, products))
             } else {
-                return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Not a valid Search array", comment: "Error message when the json input file does not contain any information") )
+                return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: Not a valid Search array")
             }
         } else {
-            return ProductFetchStatus.loadingFailed(NSLocalizedString("Error: Not a valid OFF JSON", comment: "Error message when the json input file does not contain any information") )
+            return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: Not a valid OFF JSON")
         }
 
     }
@@ -914,9 +914,9 @@ class OpenFoodFactsRequest {
     
     fileprivate func decodeNutritionFactIndicationUnit(_ value: String?) -> NutritionEntryUnit? {
         if let validValue = value {
-            if validValue.contains(NutritionEntryUnit.perStandardUnit.key()) {
+            if validValue.contains(NutritionEntryUnit.perStandardUnit.key) {
                 return .perStandardUnit
-            } else if validValue.contains(NutritionEntryUnit.perServing.key()) {
+            } else if validValue.contains(NutritionEntryUnit.perServing.key) {
                 return .perServing
             }
         }

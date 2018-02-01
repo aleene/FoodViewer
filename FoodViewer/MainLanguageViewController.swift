@@ -11,7 +11,7 @@ import UIKit
 class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource  {
 
     
-    // MARK: - External properties
+// MARK: - External properties
         
     var selectedLanguageCode: String? = nil
         
@@ -21,17 +21,13 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
         }
     }
         
-    // MARK: - Internal properties
+// MARK: - Internal properties
         
     private var allLanguages: [Language] = []
         
     private var sortedLanguages: [Language] = []
-        
-    fileprivate struct Constants {
-        static let NoLanguage = NSLocalizedString("none", comment: "Text for language of product, when there is no language defined.")
-    }
-        
-    //  MARK : Interface elements
+    
+//  MARK : Interface elements
         
     
     @IBOutlet weak var languagesPickerView: UIPickerView! {
@@ -43,7 +39,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     @IBOutlet weak var navItem: UINavigationItem!
 
-    // MARK: - Delegates and datasource
+// MARK: - Delegates and datasource
         
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedLanguageCode = row > 0 ? sortedLanguages[row - 1].code : nil
@@ -59,7 +55,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
         
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 {
-            return Constants.NoLanguage
+            return TranslatableStrings.None
         } else {
             return sortedLanguages[row - 1].name
         }

@@ -19,12 +19,12 @@ enum NutritionAvailability {
     
     func description() -> String {
         switch self {
-        case .perServing: return NSLocalizedString("nutrition data per serving available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
-        case .perStandardUnit: return NSLocalizedString("nutrition data per standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
-        case .perServingAndStandardUnit: return NSLocalizedString("nutrition data per serving and standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
-        case .notOnPackage: return NSLocalizedString("nutrition data not on package", comment: "Text in a TagListView, when no nutrition data is available on the package.")
-        case .notIndicated: return NSLocalizedString("no nutrition data indicated", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
-        case .notAvailable: return NSLocalizedString("no nutrition data available", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
+        case .perServing: return TranslatableStrings.PerServing
+        case .perStandardUnit: return TranslatableStrings.Per100mgml
+        case .perServingAndStandardUnit: return  TranslatableStrings.PerServingAndStandardUnit
+        case .notOnPackage: return TranslatableStrings.NotOnPackage
+        case .notIndicated: return TranslatableStrings.NoNutritionDataIndicated
+        case .notAvailable: return TranslatableStrings.NoNutritionDataAvailable
         }
     }
 }

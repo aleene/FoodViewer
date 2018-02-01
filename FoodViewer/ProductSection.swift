@@ -18,36 +18,25 @@ public enum ProductSection {
     case categories
     case completion
     case supplyChain
-    
-    private struct Title {
-        static let Identification = NSLocalizedString("Identification", comment: "Viewcontroller title for page with product identification info.")
-        static let Ingredients = NSLocalizedString("Ingredients", comment: "Viewcontroller title for page with ingredients for product.")
-        static let Facts = NSLocalizedString("Nutritional facts", comment: "Viewcontroller title for page with nutritional facts for product.")
-        static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Viewcontroller title for page with supply chain for product.")
-        static let Categories = NSLocalizedString("Categories", comment: "Viewcontroller title for page with categories for product.")
-        static let Effort = NSLocalizedString("Community Effort", comment: "Viewcontroller title for page with community effort for product.")
-        static let Score = NSLocalizedString("Nutritional Score", comment: "Viewcontroller title for page with explanation of the nutritional score of the product.")
-        static let Gallery = NSLocalizedString("Gallery", comment: "Viewcontroller title for page with images of the product")
-    }
 
-    func description() -> String {
+    var description: String {
         switch self {
         case .identification:
-            return  Title.Identification
+            return  TranslatableStrings.Identification
         case .ingredients:
-            return Title.Ingredients
+            return TranslatableStrings.Ingredients
         case .gallery:
-            return Title.Gallery
+            return TranslatableStrings.Gallery
         case .nutritionFacts:
-            return Title.Facts
+            return TranslatableStrings.NutritionFacts
         case .nutritionScore:
-            return Title.Score
+            return TranslatableStrings.NutritionalScore
         case .categories:
-            return Title.Categories
+            return TranslatableStrings.Categories
         case .completion:
-            return Title.Effort
+            return TranslatableStrings.CommunityEffort
         case .supplyChain:
-            return  Title.SupplyChain
+            return  TranslatableStrings.SupplyChain
         }
     }
     

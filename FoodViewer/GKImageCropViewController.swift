@@ -60,7 +60,7 @@
     
     private func _setupNavigationBar() {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: self, action: #selector(GKImageCropViewController._actionCancel))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: NSLocalizedString("Use", comment: "Title of a button in a navigation bar, which allows the user to adapt an image and use the result."), style: .plain, target: self, action: #selector(GKImageCropViewController._actionUse))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: TranslatableStrings.Use, style: .plain, target: self, action: #selector(GKImageCropViewController._actionUse))
     }
     
     
@@ -79,7 +79,7 @@
         self.cancelButton?.addTarget(self, action: #selector(GKImageCropViewController._actionCancel), for: .touchUpInside)
         self.cancelButton?.frame = CGRect.init(x: 0, y: 0, width: 90, height: 30)
         self.cancelButton?.titleLabel?.shadowOffset = CGSize.init(width: 0, height: -1)
-        self.cancelButton?.setTitle(NSLocalizedString("Cancel", comment: "Popover which allows to select an image. Title for barButton to cancel the selection"), for: .normal)
+        self.cancelButton?.setTitle(TranslatableStrings.Cancel, for: .normal)
         self.cancelButton?.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         self.cancelButton?.setTitleShadowColor(UIColor.init(red: 0.118, green: 0.247, blue: 0.455, alpha: 1), for: .normal)
     }
@@ -87,7 +87,7 @@
     private func _setupUseButton() {
         
         self.useButton = UIButton.init(type: .custom)
-        self.useButton?.setTitle(NSLocalizedString("Use", comment: "Popover which allows to select an image. Title for barButton to use a selected image"), for: .normal)
+        self.useButton?.setTitle(TranslatableStrings.Use, for: .normal)
         self.useButton?.titleLabel?.shadowOffset = CGSize.init(width: 0, height: -1)
         self.useButton?.frame = CGRect.init(x: 0, y: 0, width: 90, height: 30)
         self.useButton?.addTarget(self, action: #selector(GKImageCropViewController._actionUse), for: .touchUpInside)
@@ -122,7 +122,7 @@
         self._setupUseButton()
         
         let info = UILabel.init(frame: CGRect.zero)
-        info.text = NSLocalizedString("Move/Scale", comment: "Title of a toolbar of a popOver, wich allows the user to adapt an image.")
+        info.text = TranslatableStrings.MoveScale
         info.textColor = UIColor.white
         info.backgroundColor = UIColor.clear
         info.shadowColor = UIColor.init(red: 0.827, green: 0.831, blue: 0.839, alpha: 1)
@@ -143,7 +143,7 @@
         
         super.viewDidLoad()
         
-        self.title = NSLocalizedString("Move/Scale", comment: "Title of a navigation bar, wich allows the user to adapt an image.")
+        self.title = TranslatableStrings.MoveScale
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.navigationController?.isNavigationBarHidden = true

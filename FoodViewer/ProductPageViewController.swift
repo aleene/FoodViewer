@@ -181,7 +181,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             
             initPage(pageIndex)
-            title = pageIndex.description()
+            title = pageIndex.description
         }
     }
     
@@ -503,7 +503,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        title = pageIndex.description()
+        title = pageIndex.description
     }
     
     // MARK: - Notification Functions
@@ -1194,7 +1194,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        title = pageIndex.description() // Make sure there is an initial title
+        title = pageIndex.description // Make sure there is an initial title
 
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)

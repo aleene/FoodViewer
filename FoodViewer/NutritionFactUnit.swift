@@ -60,14 +60,14 @@ public enum NutritionFactUnit {
     
     func description() -> String {
         switch self {
-        case .Joule: return NSLocalizedString("Joule (J)", comment: "Energy unit")
-        case .KiloCalories: return NSLocalizedString("kcalories (kcal)", comment: "Energy unit.")
-        case .Calories: return NSLocalizedString("Calores (Cal)", comment: "Energy unit.")
-        case .Gram: return NSLocalizedString("gram (g)", comment: "Standard weight unit.")
-        case .Milligram: return NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
-        case .Microgram: return NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
-        case .Percent: return NSLocalizedString("percentage (%)", comment: "Fraction of total by volume")
-        case .None:return NSLocalizedString("none", comment: "Unitless")
+        case .Joule: return TranslatableStrings.Joule
+        case .KiloCalories: return TranslatableStrings.KiloCalorie
+        case .Calories: return TranslatableStrings.Calories
+        case .Gram: return TranslatableStrings.Gram
+        case .Milligram: return TranslatableStrings.Milligram
+        case .Microgram: return TranslatableStrings.Microgram
+        case .Percent: return TranslatableStrings.Percentage
+        case .None: return TranslatableStrings.None
         }
     }
     

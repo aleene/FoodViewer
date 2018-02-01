@@ -14,11 +14,6 @@ import Foundation
 
 class SearchTemplate {
     
-    private struct Constants {
-        static let Include = NSLocalizedString("Include", comment: "String to indicate whether the corresponding tags shlould included in the search")
-        static let Exclude = NSLocalizedString("Exclude", comment: "String to indicate whether the corresponding tags shlould exluded from the search")
-    }
-    
     internal struct Notification {
         static let SearchTypeChangedKey = "SearchTemplate.Notification.SearchTypeChanged.Key"
     }
@@ -635,7 +630,7 @@ class SearchTemplate {
     }
 
         private func display(_ val: Bool) -> String {
-            return val ? "(" + Constants.Include + ")" : "(" + Constants.Exclude + ")"
+            return val ? "(" + TranslatableStrings.Include + ")" : "(" + TranslatableStrings.Exclude + ")"
         }
 
         private func cleanChars(_ array: [String]) -> [String] {

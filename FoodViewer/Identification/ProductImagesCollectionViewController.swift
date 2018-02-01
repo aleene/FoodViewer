@@ -105,10 +105,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let SectionHeader =  "SectionHeaderView"
         }
         struct HeaderTitle {
-            static let Front = NSLocalizedString("Selected Front Images", comment: "Gallery header text presenting the selected front images")
-            static let Ingredients = NSLocalizedString("Selected Ingredients Images", comment: "Gallery header text presenting the selected ingredients images")
-            static let Nutrition = NSLocalizedString("Selected Nutrition Images", comment: "Gallery header text presenting the selected nutrition images")
-            static let Original = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
+            static let Front = TranslatableStrings.SelectedFrontImages
+            static let Ingredients = TranslatableStrings.SelectedIngredientImages
+            static let Nutrition = TranslatableStrings.SelectedNutritionImages
+            static let Original = TranslatableStrings.OriginalImages
         }
         struct NibIdentifier {
             static let AddImageCollectionCell = "AddImageCollectionViewCell"

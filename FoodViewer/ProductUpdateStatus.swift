@@ -13,10 +13,10 @@ enum ProductUpdateStatus {
     case success(String)
     case failure(String)
     
-    func description() -> String {
+    var description: String {
         switch self {
-        case .success: return NSLocalizedString("Product update succeeded", comment: "Where do I use this?")
-        case .failure: return NSLocalizedString("Product update failed", comment: "Where do I use this?")
+        case .success: return "Product update succeeded"
+        case .failure: return "Product update failed"
         }
     }
 }

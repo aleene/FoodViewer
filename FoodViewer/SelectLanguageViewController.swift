@@ -58,10 +58,6 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     // MARK: - Internal properties
     
     private var sortedLanguages: [Language] = []
-
-    fileprivate struct Constants {
-        // static let Select = "---" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a language.")
-    }
     
     private var languageCodesToUse: [String] {
         get {
@@ -102,7 +98,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if sortedLanguages.isEmpty {
-            return TranslatableStrings.NoLanguage
+            return TranslatableStrings.NoLanguageDefined
         //} else if row == 0 {
         //    return  Constants.Select
         } else {
@@ -117,7 +113,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         var attributedRowText = NSMutableAttributedString()
 
         if sortedLanguages.isEmpty {
-            attributedRowText = NSMutableAttributedString(string: TranslatableStrings.NoLanguage)
+            attributedRowText = NSMutableAttributedString(string: TranslatableStrings.NoLanguageDefined)
         //} else if row == 0 {
         //    attributedRowText = NSMutableAttributedString(string: Constants.Select)
         } else {

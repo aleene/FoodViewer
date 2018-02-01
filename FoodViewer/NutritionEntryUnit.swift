@@ -18,16 +18,19 @@ public enum NutritionEntryUnit {
     
     func description() -> String {
         switch self {
-        case .perServing: return NSLocalizedString("nutrition data indicated per serving", comment: "description() text if the nutrition data on the package is indicated per serving.")
-        case .perStandardUnit: return NSLocalizedString("no nutrition data indicated per standard unit", comment: "description() text if the nutrition data on the package is indicated per standard unit (100 g or 100 ml).")
-            
+        case .perServing:
+            return TranslatableStrings.PerServing
+        case .perStandardUnit:
+            return TranslatableStrings.Per100mgml
         }
     }
     
-    public func key() -> String {
+    public var key: String {
         switch self {
-        case .perServing: return "serving"
-        case .perStandardUnit: return "100g"
+        case .perServing:
+            return "serving"
+        case .perStandardUnit:
+            return "100g"
         }
     }
     

@@ -72,13 +72,13 @@ class CompletionStatesTableViewController: UITableViewController {
     }
     
     private struct Constants {
-        static let ContributorsHeaderTitle = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
-        static let CompletenessHeaderTitle = NSLocalizedString("Completeness", comment: "Header title of the tableview section, indicating whether the productdata is complete.")
-        static let LastEditDateHeaderTitle = NSLocalizedString("Last edit Date", comment: "Header title of the tableview section, indicating when the product data was last edited.")
-        static let CreationDateHeaderTitle = NSLocalizedString("Creation Date", comment: "Header title of the tableview section, indicating when the product data was created.")
-        static let ViewControllerTitle = NSLocalizedString("Community Effort", comment: "Title of view controller, with information on the community that has contributed to the product data.")
-        static let NoCreationDateAvailable = NSLocalizedString("no creation date available", comment: "Value of the creation date field, if no valid date is available.")
-        static let NoEditDateAvailable = NSLocalizedString("no edit date available", comment: "Value of the edit date field, if no valid date is available.")
+        static let ContributorsHeaderTitle = TranslatableStrings.Contributors
+        static let CompletenessHeaderTitle = TranslatableStrings.Completeness
+        static let LastEditDateHeaderTitle = TranslatableStrings.ImageDates
+        static let CreationDateHeaderTitle = TranslatableStrings.CreationDate
+        static let ViewControllerTitle = TranslatableStrings.CommunityEffort
+        static let NoCreationDateAvailable = TranslatableStrings.NoCreationDateAvailable
+        static let NoEditDateAvailable = TranslatableStrings.NoEditDateAvailable
     }
 
     // MARK: - Table view data source

@@ -38,7 +38,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if row == 0 {
-            return "" // NSLocalizedString("Select", comment: "First element of a pickerView, where the user has to select a nutrient.")
+            return ""
         } else {
             return OFFplists.manager.nutrients[row - 1].1
         }

@@ -42,8 +42,8 @@ class OFFplists {
     }
     
     fileprivate struct TextConstants {
-        static let FileNotAvailable = NSLocalizedString("Error: file %@ not available", comment: "Error to indicate that a file can not be read.")
-        static let NoLanguage = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
+        static let FileNotAvailable = "Error: file %@ not available"
+        static let NoLanguage = TranslatableStrings.NoLanguageDefined
     }
 
     
@@ -287,7 +287,7 @@ class OFFplists {
                 return englishValues != nil ? (currentVertex.key, englishValues![0], unit) : (key, currentVertex.key, unit )
             } else {
                 // return the first value of the translation array
-                return  !translatedValues!.isEmpty ? (currentVertex.key, translatedValues![0], unit) : (key, NSLocalizedString("No translation", comment: "Text in a pickerView, when no translated text is available"), unit )
+                return  !translatedValues!.isEmpty ? (currentVertex.key, translatedValues![0], unit) : (key, TranslatableStrings.NoTranslation, unit )
             }
         } else {
             return nil

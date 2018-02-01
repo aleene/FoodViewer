@@ -20,7 +20,7 @@ class TUSafariActivity : UIActivity {
     }
     
     override var activityTitle : String {
-        return NSLocalizedString("Open in Safari", comment: "String for the Activity Action Screen")
+        return TranslatableStrings.OpenInSafari
     }
     
     override var activityImage : UIImage? {

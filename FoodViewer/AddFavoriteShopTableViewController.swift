@@ -19,11 +19,6 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
     }
 
     fileprivate struct Constants {
-        static let EnterShopnamePlaceholder = NSLocalizedString("Enter shop name", comment: "Placeholder text for field where user should enter a shop name.")
-        static let EnterStreetnamePlaceholder = NSLocalizedString("Enter street name", comment: "Placeholder text for field where user should enter a street name.")
-        static let EnterPostalcodePlaceholder = NSLocalizedString("Enter postal code", comment: "Placeholder text for field where user should enter a postal code.")
-        static let EnterCitynamePlaceholder = NSLocalizedString("Enter city name", comment: "Placeholder text for field where user should enter a city name.")
-        static let EnterCountrynamePlaceholder = NSLocalizedString("Enter country name", comment: "Placeholder text for field where user should enter a country name.")
         static let TableLength = 5
     }
 
@@ -54,15 +49,15 @@ class AddFavoriteShopTableViewController: UITableViewController, UITextFieldDele
         cell.textField.delegate = self
         switch indexPath.row {
         case 0:
-            cell.textField.placeholder = Constants.EnterShopnamePlaceholder
+            cell.textField.placeholder = TranslatableStrings.EnterShopName
         case 1:
-            cell.textField.placeholder = Constants.EnterStreetnamePlaceholder
+            cell.textField.placeholder = TranslatableStrings.EnterStreetName
         case 2:
-            cell.textField.placeholder = Constants.EnterPostalcodePlaceholder
+            cell.textField.placeholder = TranslatableStrings.EnterPostalCode
         case 3:
-            cell.textField.placeholder = Constants.EnterCitynamePlaceholder
+            cell.textField.placeholder = TranslatableStrings.EnterCityName
         case 4:
-            cell.textField.placeholder = Constants.EnterCountrynamePlaceholder
+            cell.textField.placeholder = TranslatableStrings.EnterCountryName
         // nothing happened
         default:
             break
