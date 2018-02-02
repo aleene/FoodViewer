@@ -541,23 +541,13 @@ public struct OFF {
         if barcode.count == 8 {
             // Lidl product
             return barcode
-        } else if barcode.count == 13 {
-            let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
-            let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
-            let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
-            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: 12)
-//
-            return String(barcode[part1]) + OFF.URL.Divider.Slash +
-                String(barcode[part2]) + OFF.URL.Divider.Slash +
-                String(barcode[part3]) + OFF.URL.Divider.Slash  +
-                barcode[part4]
-        } else if barcode.count == 11 {
+        } else if barcode.count == 13 || barcode.count == 12 || barcode.count == 11 {
             // US products
             let part1 = barcode.index(barcode.startIndex, offsetBy: 0)...barcode.index(barcode.startIndex, offsetBy: 2)
             let part2 = barcode.index(barcode.startIndex, offsetBy: 3)...barcode.index(barcode.startIndex, offsetBy: 5)
             let part3 = barcode.index(barcode.startIndex, offsetBy: 6)...barcode.index(barcode.startIndex, offsetBy: 8)
-            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: 10)
-            //
+            let part4 = barcode.index(barcode.startIndex, offsetBy: 9)...barcode.index(barcode.startIndex, offsetBy: barcode.count - 1 )
+    //
             return String(barcode[part1]) + OFF.URL.Divider.Slash +
                 String(barcode[part2]) + OFF.URL.Divider.Slash +
                 String(barcode[part3]) + OFF.URL.Divider.Slash  +

@@ -866,8 +866,8 @@ class IdentificationTableViewController: UITableViewController {
     
     @objc func loadFirstProduct() {
         let products = OFFProducts.manager
-        if !products.fetchResultList.isEmpty {
-            switch products.fetchResultList[0] {
+        if let validFetchResult = products.fetchResult(at: 0) {
+            switch validFetchResult {
             case .success(let firstProduct):
                 product = firstProduct
                 tableView.reloadData()

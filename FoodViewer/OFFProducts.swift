@@ -52,7 +52,31 @@ class OFFProducts {
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
-    var fetchResultList: [ProductFetchStatus] = []
+    private var fetchResultList: [ProductFetchStatus] = []
+    
+    func fetchResult(at index: Int) -> ProductFetchStatus? {
+        guard index >= 0 && index < count else { return nil }
+        return fetchResultList[index]
+    }
+    
+    func loadProduct(at index: Int) -> ProductFetchStatus? {
+        guard index >= 0 && index < count else { return nil }
+        loadProductRange(around: index)
+        return fetchResultList[index]
+    }
+
+    var count: Int {
+        return fetchResultList.count
+    }
+    
+    private func loadProductRange(around index: Int) {
+        let range = 5
+        let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
+        let upperBound = index + Int(range/2) < count ? index + Int(range/2) : count
+        for ind in lowerBound...upperBound {
+            fetchHistoryProduct(at: ind)
+        }
+    }
     
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
@@ -70,9 +94,8 @@ class OFFProducts {
                             list.append(fetchResult)
                         }
                     }
-                case .loadingFailed:
+                default:
                     list.append(fetchResult)
-                    default: break
                 }
             }
             // If there is nothing on the list add the sample product
@@ -244,19 +267,19 @@ class OFFProducts {
                     self.setCurrentProducts()
                     switch fetchResult {
                     case .success(let product):
-                        if self.historyLoadCount != nil {
-                            self.historyLoadCount! += 1
+                        //if self.historyLoadCount != nil {
+                            //self.historyLoadCount! += 1
                             var userInfo: [String:Any] = [:]
                             userInfo[Notification.BarcodeKey] = product.barcode.asString
                             NotificationCenter.default.post(name: .ProductLoaded, object:nil, userInfo: userInfo)
-                        }
+                        //}
                     case .loadingFailed(let error):
-                        self.historyLoadCount! += 1
+                        //self.historyLoadCount! += 1
                         let userInfo = ["error":error]
                         self.handleLoadingFailed(userInfo)
-                    case .productNotAvailable:
+                    //case .productNotAvailable:
                         // product barcode no longer exists
-                        self.historyLoadCount! += 1
+                        //self.historyLoadCount! += 1
                         // let userInfo = ["error":error]
                         // self.handleProductNotAvailable(userInfo)
                     default: break
@@ -268,6 +291,7 @@ class OFFProducts {
         }
     }
 
+    /*
     // This function manages the loading of the history products. A load batch is never larger than 5 simultaneous threads
     fileprivate var historyLoadCount: Int? = nil {
         didSet {
@@ -298,6 +322,7 @@ class OFFProducts {
             }
         }
     }
+  */
 
     func fetchProduct(_ barcode: BarcodeType?) -> Int? {
         if let validBarcode = barcode {
@@ -507,15 +532,15 @@ class OFFProducts {
                                     // self.handleProductNotAvailable(userInfo)
                                 default: break
                                 }
-                                self.historyLoadCount = 0
-                                self.historyLoadCount! += 1
+                                //self.historyLoadCount = 0
+                                //self.historyLoadCount! += 1
                             })
                         })
                     } else {
                         // the data is not available
                         // has to be loaded from the OFF-servers
                         _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
-                        historyLoadCount = 0
+                        //historyLoadCount = 0
                     }
                 } else {
                     // The cold start case when the user has not yet used the app

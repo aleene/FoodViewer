@@ -34,9 +34,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate var barcode: BarcodeType? = nil {
         didSet {
-            let index = products.fetchProduct(barcode)
-            if  let validIndex = index {
-                switch products.fetchResultList[validIndex]  {
+            if let validIndex = products.fetchProduct(barcode),
+                let validFetchResult = products.fetchResult(at: validIndex) {
+                switch validFetchResult {
                 case .success(let product):
                     selectedProduct = product
                     selectedIndex = validIndex
@@ -50,8 +50,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     fileprivate func startInterface(at index:Int) {
-        if !products.fetchResultList.isEmpty && index < products.fetchResultList.count {
-            switch products.fetchResultList[index] {
+        if let validFetchResult = products.fetchResult(at: index) {
+            switch validFetchResult {
             case .success(let product):
                 selectedProduct = product
                 tableView.reloadData()
@@ -72,7 +72,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     fileprivate func refreshInterface() {
-        if products.fetchResultList.count > 0 {
+        if products.count > 0 {
             tableView.reloadData()
         }
     }
@@ -266,17 +266,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return products.fetchResultList.count
+        return products.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //if let validProductFetchResult = products.fetchResultList[section] {
-            switch products.fetchResultList[section] {
+        if let validFetchResult = products.fetchResult(at: section) {
+            switch validFetchResult {
             case .success:
                 return tableStructure.count
             case .searchQuery:
                 if section == 0 {
-                    switch products.fetchResultList[0] {
+                    switch validFetchResult {
                     case .searchQuery(let query):
                         if !query.isEmpty {
                             return query.searchPairsWithArray().count }
@@ -296,16 +296,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             default:
                 break
             }
-        // }
+        }
         // no rows as the loading failed, the error message is in the header
         return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if !products.fetchResultList.isEmpty && indexPath.section < products.fetchResultList.count {
+        if let validFetchResult = products.loadProduct(at: indexPath.section) {
             //if let fetchResult = products.fetchResultList[(indexPath as NSIndexPath).section] {
-                switch products.fetchResultList[indexPath.section] {
+                switch validFetchResult {
                 case .success(let currentProduct):
                     let currentProductSection = tableStructure[indexPath.row]
                     switch currentProductSection {
@@ -504,8 +504,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let index = selectedIndex {
             selectedRowType = tableStructure[index]
         }
-        if !products.fetchResultList.isEmpty {
-                switch products.fetchResultList[indexPath.section] {
+        if products.count > 0,
+            let validFetchResult = products.fetchResult(at: indexPath.section) {
+                switch validFetchResult {
                 case .success(let product):
                     selectedProduct = product
                 case .searchQuery(let query):
@@ -523,8 +524,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tempView.backgroundColor = UIColor.gray
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
-        if !products.fetchResultList.isEmpty && (section < products.fetchResultList.count) {
-            switch products.fetchResultList[section] {
+        if let validFetchResult = products.fetchResult(at: section) {
+            switch validFetchResult {
             case .success(let product):
                 label.text = product.name != nil ? product.name! : Constants.Tag.ProductNameMissing
                 switch product.tracesInterpreted {
@@ -586,7 +587,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .searchLoading:
                 label.text = TranslatableStrings.Searching
             default:
-                label.text = products.fetchResultList[section].description
+                label.text = validFetchResult.description
             }
         } else {
             label.text = Constants.Tag.NoProductsInHistory
@@ -603,13 +604,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch products.fetchResultList[section] {
-        case .more:
-            // no header required in this case
-            return 0.0
-        default:
-            return UITableViewAutomaticDimension
+        if let validFetchResult = products.fetchResult(at: section) {
+            switch validFetchResult {
+            case .more:
+                // no header required in this case
+                return 0.0
+            default:
+                break
+            }
         }
+        return UITableViewAutomaticDimension
     }
     
 // MARK: - Scene changes
@@ -660,13 +664,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                                 ppc.delegate = self
                                 
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                guard products.fetchResultList.count > 0 else { return }
-                                let result = products.fetchResultList[0]
-                                switch result {
-                                case .searchQuery(let query):
-                                    vc.currentSortOrder = query.sortOrder
-                                default:
-                                    break
+                                if let validFetchResult = products.fetchResult(at: 0) {
+                                    switch validFetchResult {
+                                    case .searchQuery(let query):
+                                        vc.currentSortOrder = query.sortOrder
+                                    default:
+                                        break
+                                    }
+
                                 }
                             }
                         }
@@ -722,18 +727,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SetSortOrderViewController {
-            guard products.fetchResultList.count > 0 else { return }
-            let result = products.fetchResultList[0]
-            switch result {
-            case .searchQuery(let query):
-                if let validNewSortOrder = vc.selectedSortOrder {
-                    if validNewSortOrder != query.sortOrder && !query.isEmpty {
-                        query.sortOrder =  validNewSortOrder
-                        OFFProducts.manager.startSearch()
+            if let validFetchResult = products.fetchResult(at: 0) {
+                switch validFetchResult {
+                case .searchQuery(let query):
+                    if let validNewSortOrder = vc.selectedSortOrder {
+                        if validNewSortOrder != query.sortOrder && !query.isEmpty {
+                            query.sortOrder =  validNewSortOrder
+                            OFFProducts.manager.startSearch()
+                        }
                     }
+                default:
+                    break
                 }
-            default:
-                break
+
             }
         }
     }
@@ -985,14 +991,16 @@ extension ProductTableViewController: SearchHeaderDelegate {
     }
     
     func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        guard products.fetchResultList.count > 0 else { return }
-        switch products.fetchResultList[0] {
-        case .searchQuery(let query):
-            query.clear()
-            products.reloadAll()
-            tableView.reloadData()
-        default:
-            break
+        if let validFetchResult = products.fetchResult(at: 0) {
+            switch validFetchResult {
+            case .searchQuery(let query):
+                query.clear()
+                products.reloadAll()
+                tableView.reloadData()
+            default:
+                break
+            }
+
         }
     }
 }
@@ -1045,9 +1053,8 @@ extension ProductTableViewController: TagListViewDataSource {
         
         // is this a searchQuery section?
         if tagListView.tag >= Constants.Offset.SearchQuery {
-            switch products.fetchResultList[0] {
-            case .searchQuery:
-                switch products.fetchResultList[0] {
+            if let validFetchResult = products.fetchResult(at: 0) {
+                switch validFetchResult {
                 case .searchQuery(let query):
                     let searchPairs = query.searchPairsWithArray()
                     let index = tagListView.tag - Constants.Offset.SearchQuery
@@ -1057,8 +1064,7 @@ extension ProductTableViewController: TagListViewDataSource {
                 default:
                     break
                 }
-            default:
-                break
+
             }
         }
         return 1
@@ -1076,8 +1082,8 @@ extension ProductTableViewController: TagListViewDataSource {
         } else if tagListView.tag == Storyboard.CellTag.Image {
             return TranslatableStrings.NoImageInTheRightLanguage
         } else if tagListView.tag == Storyboard.CellTag.SearchLoading {
-            if products.fetchResultList.count > 0 {
-                switch products.fetchResultList[products.fetchResultList.count - 1] {
+            if let validFetchResult = products.fetchResult(at: products.count - 1) {
+                switch validFetchResult {
                 case .searchLoading:
                     return TranslatableStrings.Loading
                 case .more:
@@ -1090,22 +1096,25 @@ extension ProductTableViewController: TagListViewDataSource {
             return TranslatableStrings.SetupQuery
 
         } else if tagListView.tag >= Constants.Offset.SearchQuery {
-            switch products.fetchResultList[0] {
-            case .searchQuery(let query):
-                if query.isEmpty {
-                    return TranslatableStrings.SetupQuery
-                } else {
-                    let searchPairs = query.searchPairsWithArray()
-                    let tagIndex = tagListView.tag - Constants.Offset.SearchQuery
-                    if tagIndex >= 0 && tagIndex < searchPairs.count {
-                        let array = searchPairs[tagIndex].1
-                        if index >= 0 && index < array.count {
-                            return array[index]
+            if let validFetchResult = products.fetchResult(at: 0) {
+                switch validFetchResult {
+                case .searchQuery(let query):
+                    if query.isEmpty {
+                        return TranslatableStrings.SetupQuery
+                    } else {
+                        let searchPairs = query.searchPairsWithArray()
+                        let tagIndex = tagListView.tag - Constants.Offset.SearchQuery
+                        if tagIndex >= 0 && tagIndex < searchPairs.count {
+                            let array = searchPairs[tagIndex].1
+                            if index >= 0 && index < array.count {
+                                return array[index]
+                            }
                         }
                     }
+                default:
+                    break
                 }
-            default:
-                break
+
             }
         }
         return "ProductTableViewController: tagListView.tag not recognized"
@@ -1155,26 +1164,29 @@ extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
 extension ProductTableViewController: UITableViewDragDelegate {
         
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        switch products.fetchResultList[indexPath.section] {
-        case .success(let currentProduct):
-            let currentProductSection = tableStructure[indexPath.row]
-            switch currentProductSection {
-            case .image:
-                if let language = currentProduct.primaryLanguageCode {
-                    if !currentProduct.frontImages.isEmpty {
-                        if let image = currentProduct.frontImages[language]?.largest?.image {
-                            let provider = NSItemProvider(object: image)
-                            let item = UIDragItem(itemProvider: provider)
-                            item.localObject = image
-                            return [item]
+        if let validFetchResult = products.fetchResult(at: indexPath.section) {
+            switch validFetchResult {
+            case .success(let currentProduct):
+                let currentProductSection = tableStructure[indexPath.row]
+                switch currentProductSection {
+                case .image:
+                    if let language = currentProduct.primaryLanguageCode {
+                        if !currentProduct.frontImages.isEmpty {
+                            if let image = currentProduct.frontImages[language]?.largest?.image {
+                                let provider = NSItemProvider(object: image)
+                                let item = UIDragItem(itemProvider: provider)
+                                item.localObject = image
+                                return [item]
+                            }
                         }
                     }
+                default:
+                    break
                 }
             default:
                 break
             }
-        default:
-            break
+
         }
         return []
     }
@@ -1203,30 +1215,32 @@ extension ProductTableViewController: UITableViewDragDelegate {
             // Note kUTTypeImage needs an import of MobileCoreServices
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
-        switch products.fetchResultList[indexPath.section] {
-        case .success(let currentProduct):
-            let currentProductSection = tableStructure[indexPath.row]
-            switch currentProductSection {
-            case .image:
-                if let language = currentProduct.primaryLanguageCode {
-                    if !currentProduct.frontImages.isEmpty {
-                        if let image = currentProduct.frontImages[language]?.largest?.image {
-                            // check if the selected image has not been added yet
-                            for item in session.items {
-                                guard item.localObject as! UIImage != image else { return [] }
+        if let validFetchResult = products.fetchResult(at: indexPath.section) {
+            switch validFetchResult {
+            case .success(let currentProduct):
+                let currentProductSection = tableStructure[indexPath.row]
+                switch currentProductSection {
+                case .image:
+                    if let language = currentProduct.primaryLanguageCode {
+                        if !currentProduct.frontImages.isEmpty {
+                            if let image = currentProduct.frontImages[language]?.largest?.image {
+                                // check if the selected image has not been added yet
+                                for item in session.items {
+                                    guard item.localObject as! UIImage != image else { return [] }
+                                }
+                                let provider = NSItemProvider(object: image)
+                                let item = UIDragItem(itemProvider: provider)
+                                item.localObject = image
+                                return [item]
                             }
-                            let provider = NSItemProvider(object: image)
-                            let item = UIDragItem(itemProvider: provider)
-                            item.localObject = image
-                            return [item]
                         }
                     }
+                default:
+                    break
                 }
             default:
                 break
             }
-        default:
-            break
         }
         return []
     }
