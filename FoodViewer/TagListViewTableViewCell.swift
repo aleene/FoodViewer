@@ -37,7 +37,6 @@ class TagListViewTableViewCell: UITableViewCell {
             tagListView.delegate = delegate as? TagListViewDelegate
             tagListView.allowsRemoval = editMode
             tagListView.allowsCreation = editMode
-            tagListView.allowTapping = allowTapping
             tagListView.tag = tag
             tagListView.prefixLabelText = nil
             
@@ -81,12 +80,6 @@ class TagListViewTableViewCell: UITableViewCell {
     var scheme = ColorSchemes.normal {
         didSet {
             tagListView?.normalColorScheme = scheme
-        }
-    }
-    
-    var allowTapping = false {
-        didSet {
-            tagListView?.allowTapping = allowTapping
         }
     }
 

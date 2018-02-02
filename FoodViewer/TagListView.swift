@@ -1043,10 +1043,17 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
 // These are the delegate functions required for individual tags
     
     public func didTapTagView(_ tagView: TagView) {
-        // If the user is allowed to tap on a tag, inform the delegate
-        if allowTapping {
-            delegate?.tagListView(self, didTapTagAt: tagView.tag)
+        if isEditable {
+            if let currentIndex = self.tagViews.index(of: tagView) {
+                removeTag(at: currentIndex)
+            }
+        } else {
+            if let currentIndex = self.tagViews.index(of: tagView) {
+                tagView.state == .selected ? filterDeselectionAt(currentIndex) : filterSelectionAt(currentIndex)
+            }
         }
+        // inform the delegate, so that additional tap handling can be done
+        delegate?.tagListView(self, didTapTagAt: tagView.tag)
     }
     
     public func didLongPressTagView(_ tagView: TagView) {
@@ -1074,7 +1081,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
             return allowsRemoval || allowsCreation || allowsReordering
         }
     }
-    open var allowTapping = false
 
     open var allowsMultipleSelection = false
     
@@ -1173,27 +1179,6 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         }
         return indeces
     }
-//
-// MARK: - Events
-//
-                // TODO: Maybe this should be deprecated as it exposes to TagView
-    /*  Is it still used?
-    private func tagPressed(_ sender: TagView!) {
-        // sender.onTap?(sender)
-        if isEditable {
-            if let currentIndex = self.tagViews.index(of: sender) {
-                removeTag(at: currentIndex)
-            }
-        } else {
-            if let currentIndex = self.tagViews.index(of: sender) {
-                sender.state == .selected ? filterDeselectionAt(currentIndex) : filterSelectionAt(currentIndex)
-            }
-        }
-        // delegate?.tagPressed?(sender.tagViewLabel?.text ?? "", tagView: sender, sender: self)
-    }
-    */
-    
-    
 // MARK: - Tap handling
 //
     // TODO: Do I still want to support this

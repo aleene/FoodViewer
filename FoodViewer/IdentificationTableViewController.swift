@@ -430,7 +430,6 @@ class IdentificationTableViewController: UITableViewController {
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            cell.allowTapping = true
             print("id tableView", tableView.frame.size.width, "id cell", cell.frame.size.width)
             cell.editMode = query != nil ? editMode : false
             cell.tag = indexPath.section
