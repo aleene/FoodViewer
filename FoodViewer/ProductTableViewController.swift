@@ -25,7 +25,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
         
         struct Offset {
-            static let SearchQuery = 300
+            static let SearchQuery = 2000
+            static let Multiplier = 1000
         }
     }
     
@@ -254,13 +255,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let ShowSortOrder = "Set Sort Order Segue Identifier"
         }
         struct CellTag {
-            static let More = 0
-            static let Loading = 1
-            static let LoadingFailed = 2
-            static let Image = 3
-            static let SearchLoading = 4
-            static let NoSearchDefined = 5
-
+            static let Image = 5555
         }
     }
     
@@ -288,10 +283,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                 }
                 return tableStructure.count
-            case .more, .loadingFailed:
-                // allow a cell with a button
+            case .more: // cells with a button
                 return 1
-            case .searchLoading:
+            case .loadingFailed,
+                .searchLoading,
+                .loading,
+                .productNotAvailable,
+                .productNotLoaded: // cells with a single tag
                 return 1
             default:
                 break
@@ -431,19 +429,25 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                         return cell
                     }
+                    
                 case .more:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
                     cell.delegate = self
-                    cell.title = TranslatableStrings.LoadMoreResults
+                    cell.title = validFetchResult.description
                     cell.editMode = true
-                    cell.tag = Storyboard.CellTag.More
+                    cell.tag = validFetchResult.rawValue
                     return cell
                     
-                case .loadingFailed:
+                case .productNotAvailable,
+                     .productNotLoaded,
+                     .loading,
+                     .loadingFailed:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
-                    cell.tag = Storyboard.CellTag.LoadingFailed
-                    //cell.width = tableView.frame.size.width
+                    cell.delegate = self
+                    // encode the product number and result into the tag
+                    cell.tag = validFetchResult.rawValue * Constants.Offset.Multiplier + indexPath.section
+                    // cell.width = tableView.frame.size.width
                     cell.scheme = ColorSchemes.error
                     cell.accessoryType = .none
                     return cell
@@ -471,7 +475,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     } else {
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                         cell.datasource = self
-                        cell.tag = Storyboard.CellTag.NoSearchDefined
+                        cell.tag = ProductFetchStatus.noSearchDefined.rawValue
                         //cell.width = tableView.frame.size.width
                         cell.scheme = ColorSchemes.normal
                         return cell
@@ -479,7 +483,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 case .searchLoading:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                     cell.datasource = self
-                    cell.tag = Storyboard.CellTag.SearchLoading
+                    cell.tag = ProductFetchStatus.searchLoading.rawValue
                     //cell.width = tableView.frame.size.width
                     cell.accessoryType = .none
                     return cell
@@ -552,7 +556,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .more:
                 // no header required in this case https://world.openfoodfacts.org/api/v0/product/737628064502.json
                 return nil
-            case.loadingFailed(let error):
+            case.loadingFailed(_, let error):
                 label.text = error
                 // Can we supply a specific error message?
                 if error.contains("NSCocoaErrorDomain Code=256") {
@@ -779,21 +783,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
             let section = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
-            let indexPaths = [IndexPath.init(row: 1, section: section)]
+            // let indexPaths = [IndexPath.init(row: 1, section: section)]
             let aantal = tableView.numberOfSections
             if section < aantal {
-                // Do we have image type info?
-                if userInfo!.count == 1  {
-                    tableView.reloadRows(at: indexPaths, with: .none)
-                    return
-                } else {
-                    // We are only interested in medium-sized front images
-                    let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
-                    let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
-                    if imageSizeCategory == .small && imageTypeCategory == .front {
-                        tableView.reloadRows(at: indexPaths, with: .none)
-                    }
-                }
+                tableView.reloadData()
+                // tableView.reloadRows(at: indexPaths, with: .none)
             }
         }
     }
@@ -1071,17 +1065,34 @@ extension ProductTableViewController: TagListViewDataSource {
     }
         
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        if tagListView.tag == 0 {
-            return TranslatableStrings.Loading
-        } else if tagListView.tag == 1 {
-            let fetchStatus = ProductFetchStatus.more(0)
-            return fetchStatus.description
-        } else if tagListView.tag == Storyboard.CellTag.LoadingFailed {
-            let fetchStatus = ProductFetchStatus.loadingFailed(TranslatableStrings.LoadingFailed)
-            return fetchStatus.description
-        } else if tagListView.tag == Storyboard.CellTag.Image {
+
+        let code = Int( tagListView.tag / Constants.Offset.Multiplier )
+        
+        if code == ProductFetchStatus.initialized.rawValue {
+            return ProductFetchStatus.initialized.description
+        }
+        
+        if code == ProductFetchStatus.productNotLoaded("").rawValue {
+            return ProductFetchStatus.productNotLoaded("").description
+        }
+        
+        if code == ProductFetchStatus.loading("").rawValue {
+            return ProductFetchStatus.loading("").description
+        }
+        
+        if code == ProductFetchStatus.loadingFailed("", "").rawValue {
+            return ProductFetchStatus.loadingFailed("", "").description
+        }
+        
+        if code == ProductFetchStatus.productNotAvailable("", "").rawValue {
+            return ProductFetchStatus.productNotAvailable("", "").description
+        }
+        
+        if code == Storyboard.CellTag.Image {
             return TranslatableStrings.NoImageInTheRightLanguage
-        } else if tagListView.tag == Storyboard.CellTag.SearchLoading {
+        }
+        
+        if code == ProductFetchStatus.searchLoading.rawValue {
             if let validFetchResult = products.fetchResult(at: products.count - 1) {
                 switch validFetchResult {
                 case .searchLoading:
@@ -1092,10 +1103,13 @@ extension ProductTableViewController: TagListViewDataSource {
                     break
                 }
             }
-        } else if tagListView.tag == Storyboard.CellTag.NoSearchDefined {
-            return TranslatableStrings.SetupQuery
-
-        } else if tagListView.tag >= Constants.Offset.SearchQuery {
+        }
+        
+        if code == ProductFetchStatus.noSearchDefined.rawValue {
+            return ProductFetchStatus.noSearchDefined.description
+        }
+        
+        if tagListView.tag >= Constants.Offset.SearchQuery {
             if let validFetchResult = products.fetchResult(at: 0) {
                 switch validFetchResult {
                 case .searchQuery(let query):
@@ -1135,6 +1149,17 @@ extension ProductTableViewController: TagListViewDelegate {
         tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
+    public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
+        
+        let code = Int( tagListView.tag / Constants.Offset.Multiplier )
+        // try to reload the product
+        if code == ProductFetchStatus.productNotLoaded("").rawValue  ||
+            code == ProductFetchStatus.loadingFailed("", "").rawValue {
+            let productIndex = tagListView.tag % Constants.Offset.Multiplier
+            _ = products.loadProduct(at: productIndex)
+        }
+    }
+        
 }
 
     

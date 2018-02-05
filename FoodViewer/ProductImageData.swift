@@ -92,7 +92,7 @@ import MobileCoreServices
     
     public struct Notification {
         static let ImageSizeCategoryKey = "ProductImageData.Notification.ImageSizeCategory.Key"
-        static let ImageTypeCategoryKey = "ProductImageData.Notification.ImageCategory.Key"
+        static let ImageTypeCategoryKey = "ProductImageData.Notification.ImageTypeCategory.Key"
         static let BarcodeKey = "ProductImageData.Notification.Barcode.Key"
     }
 

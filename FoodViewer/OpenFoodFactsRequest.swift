@@ -61,10 +61,10 @@ class OpenFoodFactsRequest {
                 return unpackJSONObject(JSON(data: data))
             } catch let error as NSError {
                 if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
-                return ProductFetchStatus.loadingFailed(error.description)
+                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString, error.description)
             }
         } else {
-            return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: URL not matched")
+            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: URL not matched")
         }
     }
 
@@ -161,14 +161,14 @@ class OpenFoodFactsRequest {
                     return unpackJSONObject(JSON(data: data))
                 } catch let error as NSError {
                     print(error);
-                    return ProductFetchStatus.loadingFailed(error.description)
+                    return ProductFetchStatus.loadingFailed("search", error.description)
                 }
             } else {
-                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
+                return ProductFetchStatus.loadingFailed("search","Retrieved a json file that is no longer relevant for the app.")
             }
             
         } else {
-            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
+            return ProductFetchStatus.loadingFailed("search","Search URL could not be encoded.")
         }
     }
 
@@ -187,7 +187,7 @@ class OpenFoodFactsRequest {
         if let validData = data {
             return unpackJSONObject(JSON(data: validData))
         } else {
-            return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: No valid data")
+            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: No valid data")
         }
     }
     
@@ -224,9 +224,9 @@ class OpenFoodFactsRequest {
                 // barcode NOT found in database
                 // There is nothing more to decode
                 if let statusVerbose = jsonObject[jsonKeys.StatusVerboseKey].string {
-                    return ProductFetchStatus.productNotAvailable(statusVerbose)
+                    return ProductFetchStatus.productNotAvailable(self.currentBarcode!.asString,statusVerbose)
                 } else {
-                    return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: No verbose status")
+                    return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: No verbose status")
                 }
                 
             } else if resultStatus == 1 {
@@ -234,7 +234,7 @@ class OpenFoodFactsRequest {
                 // print(product.name, product.nutritionFacts)
                 return ProductFetchStatus.success(decode(JSON.init(jsonObject[jsonKeys.ProductKey].dictionaryValue) ))
             } else {
-                return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: Other (>1) result status")
+                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: Other (>1) result status")
             }
         // is this a multi product page?
         } else if let searchResultSize = jsonObject[jsonKeys.CountKey].int {
@@ -252,10 +252,10 @@ class OpenFoodFactsRequest {
                 }
                 return ProductFetchStatus.searchList((searchResultSize, searchPage, searchPageSize, products))
             } else {
-                return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: Not a valid Search array")
+                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: Not a valid Search array")
             }
         } else {
-            return ProductFetchStatus.loadingFailed("OpenFoodFactsRequest: Not a valid OFF JSON")
+            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: Not a valid OFF JSON")
         }
 
     }

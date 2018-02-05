@@ -828,17 +828,15 @@ class IdentificationTableViewController: UITableViewController {
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
         if product!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
-            if userInfo!.count == 1 {
-                reloadImageSection()
-                return
-            }
+            reloadImageSection()
             
-            // We are only interested in medium-sized front images
+            /* We are only interested in medium-sized front images
             let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
             let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
             if imageSizeCategory == .display && imageTypeCategory == .front {
                 reloadImageSection()
-            }
+ 
+            }*/
         }
     }
     
