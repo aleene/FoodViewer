@@ -430,10 +430,8 @@ class IdentificationTableViewController: UITableViewController {
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
-            print("id tableView", tableView.frame.size.width, "id cell", cell.frame.size.width)
             cell.editMode = query != nil ? editMode : false
             cell.tag = indexPath.section
-            print("languages tagListView", cell.tagListView.frame.size.width)
 
             return cell
 
@@ -1265,7 +1263,6 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .packagingSearch:
             return title(searchPackagingToDisplay)
         case .languages:
-            // print("\(languagesToDisplay)")
             return title(languagesToDisplay)
         case .languagesSearch:
             return title(searchLanguagesToDisplay)
@@ -1356,8 +1353,9 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .languages:
             // switch the current language to the one the user tapped
             switch languagesToDisplay {
-            case .available:
-                currentLanguageCode = product?.languageCodes[index]
+            case .available(let languages):
+                let language = languages[index]
+                currentLanguageCode = OFFplists.manager.languageCode(for:language)
             default:
                 assert(true, "IdentificationTableViewController: How can I select a tag that is not there")
             }

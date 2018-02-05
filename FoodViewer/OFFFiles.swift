@@ -335,6 +335,20 @@ class OFFplists {
         
         return language != nil ? language!.name : TextConstants.NoLanguage
     }
+    
+    func languageCode(for languageString:String?) -> String {
+        var language: Language? = nil
+        guard languageString != nil else { return TextConstants.NoLanguage }
+        let allLanguages: [Language] = self.allLanguages(Locale.preferredLanguages[0])
+        if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+            s.name == languageString!
+        }){
+            language = allLanguages[validIndex]
+        }
+        
+        return language != nil ? language!.code : TextConstants.NoLanguage
+    }
+
 
 // MARK: - Read functions
     
