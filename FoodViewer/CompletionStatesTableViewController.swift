@@ -211,6 +211,8 @@ class CompletionStatesTableViewController: UITableViewController {
                     let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.galleryTapped))
                     tapGestureRecognizer.numberOfTouchesRequired = 1
                     cell.addGestureRecognizer(tapGestureRecognizer)
+                default:
+                    break
                 }
 
                 return cell

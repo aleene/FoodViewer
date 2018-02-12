@@ -154,7 +154,7 @@ class OFFProducts {
         setCurrentProducts()
     }
     
-    var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded("sampleBarcode")
+    var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded( FoodProduct(with:  BarcodeType(value:"whatToPutHere?")))
     
     private func loadSampleProduct() {
         // If the user runs for the first time, then there is no history available
@@ -172,10 +172,10 @@ class OFFProducts {
                     case .success:
                         self.loadSampleImages()
                         NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                    case .loadingFailed(let barcodeString, let error),
-                         .productNotAvailable(let barcodeString, let error):
+                    case .loadingFailed(let product, let error),
+                         .productNotAvailable(let product, let error):
                         let userInfo = [Notification.ErrorKey:error,
-                                        Notification.BarcodeKey:barcodeString]
+                                        Notification.BarcodeKey:product.barcode.asString]
                         self.handleLoadingFailed(userInfo)
                     default: break
                     }
@@ -237,7 +237,7 @@ class OFFProducts {
         // I need a nillified list of the correct size, because I want to access items through the index.
         if allProductFetchResultList.isEmpty {
             for index in 0..<storedHistory.barcodeTuples.count {
-                allProductFetchResultList.append(.productNotLoaded(storedHistory.barcodeTuples[index].0))
+                allProductFetchResultList.append(.productNotLoaded(FoodProduct(with:BarcodeType(value: storedHistory.barcodeTuples[index].0))))
             }
         }
     }
@@ -254,14 +254,14 @@ class OFFProducts {
         // guard index >= 0 && index < count else { return }
         // only fetch if we do not started the loading yet
         switch allProductFetchResultList[index] {
-        case .productNotLoaded(let barcodeString),
-             .loadingFailed(let barcodeString, _):
-            allProductFetchResultList[index] = .loading(barcodeString)
+        case .productNotLoaded(let product),
+             .loadingFailed(let product, _):
+            allProductFetchResultList[index] = .loading(product)
             let request = OpenFoodFactsRequest()
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                let fetchResult = request.fetchProductForBarcode(BarcodeType.init(value: barcodeString))
+                let fetchResult = request.fetchProductForBarcode(BarcodeType.init(value: product.barcode.asString))
                 DispatchQueue.main.async(execute: { () -> Void in
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     self.allProductFetchResultList[index] = fetchResult
@@ -274,11 +274,11 @@ class OFFProducts {
                             userInfo[Notification.BarcodeKey] = product.barcode.asString
                             NotificationCenter.default.post(name: .ProductLoaded, object:nil, userInfo: userInfo)
                         //}
-                    case .loadingFailed(let barcodeString, let error),
-                         .productNotAvailable(let barcodeString, let error):
+                    case .loadingFailed(let product, let error),
+                         .productNotAvailable(let product, let error):
                         //self.historyLoadCount! += 1
                         let userInfo = [Notification.ErrorKey:error,
-                                        Notification.BarcodeKey:barcodeString]
+                                        Notification.BarcodeKey:product.barcode.asString]
                         self.handleLoadingFailed(userInfo)
                     default: break
                     }
@@ -348,12 +348,12 @@ class OFFProducts {
                             // self.loadMainImage(newProduct)
                             self.saveMostRecentProduct(barcode!)
                             NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                        case .loadingFailed(let barcodeString, let error),
-                             .productNotAvailable(let barcodeString, let error):
+                        case .loadingFailed(let product, let error),
+                             .productNotAvailable(let product, let error):
                             self.allProductFetchResultList.insert(fetchResult, at:0)
                             self.setCurrentProducts()
                             let userInfo = [Notification.ErrorKey:error,
-                                            Notification.BarcodeKey:barcodeString]
+                                            Notification.BarcodeKey:product.barcode.asString]
                             self.handleLoadingFailed(userInfo)
                         default: break
                         }
@@ -456,7 +456,7 @@ class OFFProducts {
     
     func reload(_ product: FoodProduct) {
         let request = OpenFoodFactsRequest()
-        var fetchResult = ProductFetchStatus.loading(product.barcode.asString)
+        var fetchResult = ProductFetchStatus.loading(product)
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
             // loading the product from internet will be done off the main queue
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
@@ -470,10 +470,10 @@ class OFFProducts {
                     var userInfo: [String:Any] = [:]
                     userInfo[Notification.BarcodeKey] = newProduct.barcode.asString
                     NotificationCenter.default.post(name: .ProductUpdated, object:nil, userInfo: userInfo)
-                case .loadingFailed(let barcodeString, let error),
-                     .productNotAvailable(let barcodeString, let error):
+                case .loadingFailed(let product, let error),
+                     .productNotAvailable(let product, let error):
                     let userInfo = [Notification.ErrorKey:error,
-                                    Notification.BarcodeKey:barcodeString]
+                                    Notification.BarcodeKey:product.barcode.asString]
                     self.handleLoadingFailed(userInfo)
                 default:
                     break
@@ -518,9 +518,9 @@ class OFFProducts {
                                     } else {
                                         print("OFFProducts - stored product not in history file")
                                     }
-                                case .loadingFailed(let barcodeString, let error):
+                                case .loadingFailed(let product, let error):
                                     let userInfo = [Notification.ErrorKey:error,
-                                                    Notification.BarcodeKey:barcodeString]
+                                                    Notification.BarcodeKey:product.barcode.asString]
                                     self.handleLoadingFailed(userInfo)
                                 case .productNotAvailable:
                                     // if the product is not available there is an error in storage
@@ -684,10 +684,10 @@ class OFFProducts {
                         let userInfo: [String:Any] = [Notification.SearchStringKey:"What to put here?",
                                     Notification.SearchOffsetKey:searchResult.1 * searchResult.2]
                         NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
-                    case .loadingFailed(let barcodeString, let error),
-                         .productNotAvailable(let barcodeString, let error):
+                    case .loadingFailed(let product, let error),
+                         .productNotAvailable(let product, let error):
                         let userInfo = [Notification.ErrorKey:error,
-                                        Notification.BarcodeKey: barcodeString]
+                                        Notification.BarcodeKey: product.barcode.asString]
                         self.handleLoadingFailed(userInfo)
                     default: break
                     }

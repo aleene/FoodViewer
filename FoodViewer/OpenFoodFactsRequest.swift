@@ -58,13 +58,22 @@ class OpenFoodFactsRequest {
         if let url = fetchUrl {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
+                
+                // Experiment with Codable
+                do {
+                    let productJson = try JSONDecoder().decode(OFFProductJson.self, from:data)
+                    print (productJson)
+                } catch let error {
+                    print (error)
+                }
+
                 return unpackJSONObject(JSON(data: data))
             } catch let error as NSError {
                 if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
-                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString, error.description)
+                return ProductFetchStatus.loadingFailed(FoodProduct(with:  BarcodeType(value:self.currentBarcode!.asString)), error.description)
             }
         } else {
-            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: URL not matched")
+            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: URL not matched")
         }
     }
 
@@ -161,14 +170,14 @@ class OpenFoodFactsRequest {
                     return unpackJSONObject(JSON(data: data))
                 } catch let error as NSError {
                     print(error);
-                    return ProductFetchStatus.loadingFailed("search", error.description)
+                    return ProductFetchStatus.loadingFailed(FoodProduct(), error.description)
                 }
             } else {
-                return ProductFetchStatus.loadingFailed("search","Retrieved a json file that is no longer relevant for the app.")
+                return ProductFetchStatus.loadingFailed(FoodProduct(),"Retrieved a json file that is no longer relevant for the app.")
             }
             
         } else {
-            return ProductFetchStatus.loadingFailed("search","Search URL could not be encoded.")
+            return ProductFetchStatus.loadingFailed(FoodProduct(),"Search URL could not be encoded.")
         }
     }
 
@@ -187,7 +196,7 @@ class OpenFoodFactsRequest {
         if let validData = data {
             return unpackJSONObject(JSON(data: validData))
         } else {
-            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: No valid data")
+            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: No valid data")
         }
     }
     
@@ -215,6 +224,8 @@ class OpenFoodFactsRequest {
             }
             return nil
         }
+        
+        
         // All the fields available in the barcode.json are listed below
         // Those that are not used at the moment are edited out
         
@@ -224,9 +235,9 @@ class OpenFoodFactsRequest {
                 // barcode NOT found in database
                 // There is nothing more to decode
                 if let statusVerbose = jsonObject[jsonKeys.StatusVerboseKey].string {
-                    return ProductFetchStatus.productNotAvailable(self.currentBarcode!.asString,statusVerbose)
+                    return ProductFetchStatus.productNotAvailable( FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), statusVerbose )
                 } else {
-                    return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: No verbose status")
+                    return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: No verbose status")
                 }
                 
             } else if resultStatus == 1 {
@@ -234,7 +245,7 @@ class OpenFoodFactsRequest {
                 // print(product.name, product.nutritionFacts)
                 return ProductFetchStatus.success(decode(JSON.init(jsonObject[jsonKeys.ProductKey].dictionaryValue) ))
             } else {
-                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: Other (>1) result status")
+                return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Other (>1) result status")
             }
         // is this a multi product page?
         } else if let searchResultSize = jsonObject[jsonKeys.CountKey].int {
@@ -252,10 +263,10 @@ class OpenFoodFactsRequest {
                 }
                 return ProductFetchStatus.searchList((searchResultSize, searchPage, searchPageSize, products))
             } else {
-                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: Not a valid Search array")
+                return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Not a valid Search array")
             }
         } else {
-            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString,"OpenFoodFactsRequest: Not a valid OFF JSON")
+            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Not a valid OFF JSON")
         }
 
     }
@@ -526,10 +537,7 @@ class OpenFoodFactsRequest {
         product.nutritionGrade = grade
         
         
-        let nutrientLevelsSalt = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaltKey].string
-        let nutrientLevelsFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
-        let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
-        let nutrientLevelsSugars = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
+        
         product.storesOriginal = Tags.init(string:jsonObject[jsonKeys.StoresKey].string)
         product.storesInterpreted = Tags.init(list:jsonObject[jsonKeys.StoresTagsKey].stringArray)
         //product.imageIngredientsUrl = jsonObject[jsonKeys.ImageIngredientsUrlKey].url
@@ -569,6 +577,10 @@ class OpenFoodFactsRequest {
             }
         }
         
+        let nutrientLevelsSalt = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaltKey].string
+        let nutrientLevelsFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsFatKey].string
+        let nutrientLevelsSaturatedFat = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSaturatedFatKey].string
+        let nutrientLevelsSugars = jsonObject[jsonKeys.NutrientLevelsKey][jsonKeys.NutrientLevelsSugarsKey].string
         var nutritionLevelQuantity = NutritionLevelQuantity.undefined
         nutritionLevelQuantity.string(nutrientLevelsFat)
         let fatNutritionScore = (NutritionItem.fat, nutritionLevelQuantity)

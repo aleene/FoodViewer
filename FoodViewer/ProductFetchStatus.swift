@@ -12,10 +12,10 @@ enum ProductFetchStatus {
     case success(FoodProduct)
     // The searchList returns a facet of the search result, 
     // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-    case loading(String) // (barcodeString)
-    case productNotLoaded(String) // (barcodeString)
-    case productNotAvailable(String, String) // (barcodeString, error string)
-    case loadingFailed(String, String) // (barcodeString, error string)
+    case loading(FoodProduct) // (barcodeString)
+    case productNotLoaded(FoodProduct) // (barcodeString)
+    case productNotAvailable(FoodProduct, String) // (barcodeString, error string)
+    case loadingFailed(FoodProduct, String) // (barcodeString, error string)
     case initialized
     
     case noSearchDefined

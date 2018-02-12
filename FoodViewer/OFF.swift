@@ -173,6 +173,14 @@ public struct OFF {
             return "photos-uploaded" // in JSON and search
         case .photosValidated:
             return "photos-validated" // in JSON and search
+        case .complete:
+            return "complete"
+        case .characteristics:
+            return "characteristics"
+        case .packagingCode:
+            return "packaging-code"
+        case .checked:
+            return "checked"
         }
     }
     
@@ -219,9 +227,8 @@ public struct OFF {
         return nil
     }
 
-    
     // Converts the status searchKey back to a Completion object
-    public static func completion(for string: String) -> Completion? {
+    static func completion(for string: String) -> Completion? {
         
         if string == searchKey(for: Completion.init(.productName, isCompleted:true)) {
             return Completion.init(.productName, isCompleted:true)
@@ -232,11 +239,6 @@ public struct OFF {
             return Completion.init(.brands, isCompleted:true)
         } else if string == searchKey(for: Completion.init(.brands, isCompleted:false)) {
             return Completion.init(.brands, isCompleted:false)
-            
-        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:true)) {
-            return Completion.init(.quantity, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:false)) {
-            return Completion.init(.quantity, isCompleted:false)
             
         } else if string == searchKey(for: Completion.init(.quantity, isCompleted:true)) {
             return Completion.init(.quantity, isCompleted:true)
@@ -267,6 +269,7 @@ public struct OFF {
             return Completion.init(.nutritionFacts, isCompleted:true)
         } else if string == searchKey(for: .init(.nutritionFacts, isCompleted:false)) {
             return Completion.init(.nutritionFacts, isCompleted:false)
+            
         } else if string == searchKey(for: Completion.init(.photosUploaded, isCompleted:true)) {
             return Completion.init(.photosUploaded, isCompleted:true)
         } else if string == searchKey(for: Completion.init(.photosUploaded, isCompleted:false)) {

@@ -19,4 +19,8 @@ enum CompletionCategory: Int {
     case nutritionFacts
     case photosUploaded
     case photosValidated
+    case complete
+    case characteristics
+    case checked
+    case packagingCode
 }

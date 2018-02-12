@@ -33,4 +33,16 @@ public enum NutritionLevelQuantity {
     public init() {
         self = .undefined
     }
+    
+    static func value(for offProductNutrientLevel:OFFProductNutrientLevelValue?) -> NutritionLevelQuantity {
+        guard let validLevel = offProductNutrientLevel else { return .undefined }
+        switch validLevel {
+        case .low:
+            return .low
+        case .moderate:
+            return .moderate
+        case .high:
+            return .high
+        }
+    }
 }

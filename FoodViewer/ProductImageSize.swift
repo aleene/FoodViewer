@@ -47,6 +47,23 @@ struct ProductImageSize {
             return thumb!.date
         }
     }
+    
+    init() {
+        display = nil
+        small = nil
+        thumb = nil
+        original = nil
+        usedIn = []
+    }
+    
+    init(for barcode:BarcodeType, and key: String) {
+        self.init()
+        thumb = ProductImageData.init(barcode:barcode, key:key, size:.thumb)
+        small = ProductImageData.init(barcode:barcode, key:key, size:.small)
+        display = ProductImageData.init(barcode:barcode, key:key, size:.display)
+        original = ProductImageData.init(barcode:barcode, key:key, size:.original)
+    }
+
 
     
     func isSelectedAsIngredientsImage(for languageCode:String) -> Bool {

@@ -33,20 +33,128 @@ public struct Completion: Hashable {
         self.value = value
     }
     
+    // Converts the OFFProductStates back to a Completion object
+    init(with state: OFFProductStates) {
+        switch state {
+        case .brands_completed:
+            category = .brands
+            value = true
+        case .brands_to_be_completed:
+            category = .brands
+            value = false
+        case .categories_completed:
+            category = .categories
+            value = true
+        case .categories_to_be_completed:
+            category = .categories
+            value = false
+        case .expiration_date_completed:
+            category = .expirationDate
+            value = true
+        case .expiration_date_to_be_completed:
+            category = .expirationDate
+            value = false
+        case .ingredients_completed:
+            category = .ingredients
+            value = true
+        case .ingredients_to_be_completed:
+            category = .ingredients
+            value = false
+        case .nutrition_facts_completed:
+            category = .nutritionFacts
+            value = true
+        case .nutrition_facts_to_be_completed:
+            category = .nutritionFacts
+            value = false
+        case .packaging_completed:
+            category = .packaging
+            value = true
+        case .packaging_to_be_completed:
+            category = .packaging
+            value = false
+        case .photos_uploaded:
+            category = .photosUploaded
+            value = true
+        case .photos_to_be_uploaded:
+            category = .photosUploaded
+            value = false
+        case .photos_validated:
+            category = .photosValidated
+            value = true
+        case .photos_to_be_validated:
+            category = .photosValidated
+            value = false
+        case .product_name_completed:
+            category = .productName
+            value = true
+        case .product_name_to_be_completed:
+            category = .productName
+            value = false
+        case .quantity_completed:
+            category = .quantity
+            value = true
+        case .quantity_to_be_completed:
+            category = .quantity
+            value = false
+        case .to_be_checked:
+            category = .checked
+            value = false
+        case .characteristics_completed:
+            category = .characteristics
+            value = true
+        case .characteristics_to_be_completed:
+            category = .characteristics
+            value = false
+        case .complete:
+            category = .complete
+            value = true
+        case .packaging_code_completed:
+            category = .packagingCode
+            value = true
+        case .packaging_code_to_be_completed:
+            category = .packagingCode
+            value = false
+        }
+    }
+
     var ready: String {
         switch self.category {
-        case .productName, .brands, .quantity, .packaging, .ingredients, .categories, .expirationDate, .nutritionFacts:
+        case .productName,
+             .brands,
+             .quantity,
+             .packaging,
+             .ingredients,
+             .categories,
+             .expirationDate,
+             .nutritionFacts,
+             .complete,
+             .characteristics,
+             .packagingCode,
+             .checked:
             return TranslatableStrings.Set
-        case .photosUploaded, .photosValidated:
+        case .photosUploaded,
+             .photosValidated:
             return TranslatableStrings.Done
         }
     }
     
     var notReady: String {
         switch self.category {
-        case .productName, .brands, .quantity, .packaging, .ingredients, .categories, .expirationDate, .nutritionFacts:
+        case .productName,
+             .brands,
+             .quantity,
+             .packaging,
+             .ingredients,
+             .categories,
+             .expirationDate,
+             .nutritionFacts,
+             .complete,
+             .characteristics,
+             .packagingCode,
+             .checked:
             return TranslatableStrings.NotSet
-        case .photosUploaded, .photosValidated:
+        case .photosUploaded,
+             .photosValidated:
             return TranslatableStrings.NotDone
         }
     }

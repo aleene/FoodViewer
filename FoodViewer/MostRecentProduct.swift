@@ -16,9 +16,7 @@ public struct MostRecentProduct {
     public var jsonData: Data? {
         return storedJsonData[currentProductType] ?? nil
     }
-    
-    
-    
+        
     private var currentProductType: String {
         return Preferences.manager.showProductType.rawValue
     }

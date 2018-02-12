@@ -134,4 +134,44 @@ public enum NutritionFactUnit {
         static let None = "-"
     }
 
+    // assume we start with grams
+    static func normalize(_ value: String?) -> (String?, NutritionFactUnit) {
+        var newValue: String? = nil
+        var newUnit: NutritionFactUnit = .Gram
+        
+        guard value != nil else { return (nil, NutritionFactUnit.Gram) }
+        
+        if var doubleValue = Double(value!) {
+            // the value can be converted to a number
+            if doubleValue < 0.99 {
+                //change to the milli version
+                doubleValue = doubleValue * 1000.0
+                if doubleValue < 0.99 {
+                    // change to the microversion
+                    doubleValue = doubleValue * 1000.0
+                    // we use only the values standerdized on g
+                    if doubleValue < 0.99 {
+                        // this is nanogram, probably the value is just 0
+                        newUnit = NutritionFactUnit.Gram
+                    } else {
+                        newUnit = NutritionFactUnit.Microgram
+                    }
+                } else {
+                    // more than 1 milligram, use milligram
+                    newUnit = NutritionFactUnit.Milligram
+                }
+            } else {
+                // larger than 1, use gram
+                newUnit = NutritionFactUnit.Gram
+            }
+            // print("standard: \(key) \(doubleValue) " + nutritionItem.standardValueUnit! )
+            newValue = "\(doubleValue)"
+        } else {
+            // not a number, maybe some text
+            newValue = value
+        }
+        
+        return (newValue, newUnit)
+    }
+
 }

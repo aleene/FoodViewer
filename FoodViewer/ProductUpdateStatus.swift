@@ -11,12 +11,14 @@ import Foundation
 enum ProductUpdateStatus {
     
     case success(String)
+    case notPossible
     case failure(String)
     
     var description: String {
         switch self {
-        case .success: return "Product update succeeded"
-        case .failure: return "Product update failed"
+        case .success: return "ProductUpdateStatus: update succeeded"
+        case .notPossible: return "ProductUpdateStatus: update not possible at the moment"
+        case .failure: return "ProductUpdateStatus: update failed"
         }
     }
 }

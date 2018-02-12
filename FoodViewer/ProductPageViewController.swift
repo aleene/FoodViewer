@@ -104,6 +104,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                 // send notification of success, so feedback can be given
                                 NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
                                 break
+                            case .notPossible:
+                                // Uploading to OFF is not possible at the moment
+                                // So save it locally
+                                let save = ProductStorage()
+                                save.save(validUpdatedProduct)
                             case .failure:
                                 // send notification of failure, so feedback can be given
                                 NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
