@@ -562,7 +562,7 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
         // No relevant image is available
-        return (nil, "Not here")
+        return (nil, TranslatableStrings.NoImageAvailable)
     }
 
     fileprivate var currentProductImageSize: ProductImageSize? {

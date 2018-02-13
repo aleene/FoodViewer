@@ -15,7 +15,7 @@ class OFFProduct: Codable {
     let additives_old_n: Int?
     let additives_old_tags: [String]
     let additives_prev: String?
-    let additives_prev_n: Int
+    let additives_prev_n: Int?
     let additives_prev_tags: [String]
     let additives_tags: [String]
     let allergens: String
@@ -53,28 +53,28 @@ class OFFProduct: Codable {
     let generic_name: String?
     let id: String
     let image_front_small_url: URL?
-    let image_front_thumb_url: URL
-    let image_front_url: URL
-    let image_ingredients_small_url: URL
-    let image_ingredients_thumb_url: URL
+    let image_front_thumb_url: URL?
+    let image_front_url: URL?
+    let image_ingredients_small_url: URL?
+    let image_ingredients_thumb_url: URL?
     let image_ingredients_url: URL
     let image_nutrition_small_url: URL?
     let image_nutrition_thumb_url: URL?
     let image_nutrition_url: URL?
-    let image_small_url: URL
-    let image_thumb_url: URL
-    let image_url: String
+    let image_small_url: URL?
+    let image_thumb_url: URL?
+    let image_url: String?
     let images: [String:OFFProductImage]
     let informers_tags: [String]
     let ingredients: [OFFProductIngredient]
     let ingredients_debug: [String]
-    let ingredients_from_or_that_may_be_from_palm_oil_n: Int
-    let ingredients_from_palm_oil_n: Int
+    let ingredients_from_or_that_may_be_from_palm_oil_n: Int?
+    let ingredients_from_palm_oil_n: Int?
     let ingredients_from_palm_oil_tags: [String]
     let ingredients_ids_debug: [String]
-    let ingredients_n: String
-    let ingredients_n_tags: [String]
-    let ingredients_that_may_be_from_palm_oil_n: Int
+    let ingredients_n: String?
+    let ingredients_n_tags: [String]?
+    let ingredients_that_may_be_from_palm_oil_n: Int?
     let ingredients_tags: [String]
     let ingredients_text: String
     // ingredients_text_fr is handled in the child
@@ -109,7 +109,7 @@ class OFFProduct: Codable {
     let no_nutrition_data: String
     let nutrient_levels: OFFProductNutrientLevels?
     let nutrient_levels_tags: [OFFProductNutrientLevel]
-    let nutrition_grade_fr: String
+    let nutrition_grade_fr: String?
     let nutrition_score_debug: String
     let nutriments: OFFProductNutriments
     let nutrition_data_per: String
@@ -128,7 +128,7 @@ class OFFProduct: Codable {
     // product_name_fr is handled in the child
     let purchase_places: String?
     let purchase_places_tags: [String]?
-    let quantity: String
+    let quantity: String?
     let rev: Int
     let scans_n: Int?  // not always with value
     let selected_images: OFFProductSelectedImages
@@ -139,8 +139,8 @@ class OFFProduct: Codable {
     let states: String
     let states_hierarchy: [OFFProductStates]
     let states_tags: [OFFProductStates]
-    let stores: String
-    let stores_tags: [String]
+    let stores: String?
+    let stores_tags: [String]?
     let traces: String?
     let traces_hierarchy: [String]?
     let traces_tags: [String]?

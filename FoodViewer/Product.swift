@@ -1105,7 +1105,9 @@ class FoodProduct {
         ingredientsLanguage = validProduct.ingredients_texts_
         genericNameLanguage = validProduct.generic_names_
         
-        for (key, value) in validProduct.selected_images.front.display {
+        if let validImageSizes = validProduct.selected_images.front {
+        
+        for (key, value) in validImageSizes.display {
             frontImages[key]?.display = ProductImageData(url: value)
         }
         
@@ -1121,7 +1123,7 @@ class FoodProduct {
             }
         }
          */
-        for (key, value) in validProduct.selected_images.front.thumb {
+        for (key, value) in validImageSizes.thumb {
             frontImages[key]?.thumb = ProductImageData(url: value)
             _ = frontImages[key]?.thumb?.fetch()
         }
@@ -1139,7 +1141,7 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.front.small {
+        for (key, value) in validImageSizes.small {
             frontImages[key]?.small = ProductImageData(url: value)
         }
         /*
@@ -1154,7 +1156,10 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.nutrition.display {
+             }
+
+        if let validImageSizes = validProduct.selected_images.front {
+        for (key, value) in validImageSizes.display {
             nutritionImages[key]?.display = ProductImageData(url: value)
         }
         /*
@@ -1169,7 +1174,7 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.nutrition.thumb {
+        for (key, value) in validImageSizes.thumb {
             nutritionImages[key]?.thumb = ProductImageData(url: value)
         }
         /*
@@ -1185,7 +1190,7 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.nutrition.small {
+        for (key, value) in validImageSizes.small {
             nutritionImages[key]?.small = ProductImageData(url: value)
         }
         /*
@@ -1200,7 +1205,11 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.ingredients.display {
+             }
+
+        if let validImageSizes = validProduct.selected_images.ingredients {
+
+        for (key, value) in validImageSizes.display {
             ingredientsImages[key]?.display = ProductImageData(url: value)
         }
         /*
@@ -1215,7 +1224,7 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.ingredients.thumb {
+        for (key, value) in validImageSizes.thumb {
             ingredientsImages[key]?.thumb = ProductImageData(url: value)
         }
         /*
@@ -1231,9 +1240,10 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validProduct.selected_images.ingredients.small {
+        for (key, value) in validImageSizes.small {
             ingredientsImages[key]?.small = ProductImageData(url: value)
         }
+             }
         /*
         if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.IngredientsImageKey][OFFReadAPIkeysJSON.SmallKey].dictionaryObject {
             for element in valid {

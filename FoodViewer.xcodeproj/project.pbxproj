@@ -114,6 +114,8 @@
 		515742781CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742671CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift */; };
 		515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */; };
 		5158AE521DE2190300D75CFD /* AddLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */; };
+		5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */; };
+		5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */; };
 		5159D8A71C6666C60082C60E /* NameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5159D8A61C6666C60082C60E /* NameTableViewCell.swift */; };
 		515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A29D11EC08FB000916F3D /* LastServerDefaults.swift */; };
 		515CAE711D983C2300A90F96 /* FavoriteShopsDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */; };
@@ -224,7 +226,7 @@
 		51C8A6D01F67C38800B3C361 /* CompletionCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C8A6CF1F67C38700B3C361 /* CompletionCategory.swift */; };
 		51CC54B21F9E1D9500350424 /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CC54B11F9E1D9200350424 /* ButtonTableViewCell.swift */; };
 		51CC54B41F9E212D00350424 /* SetCreationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */; };
-		51CCA8642031CC9F00F1B1B1 /* OFFJsonResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCA8632031CC9F00F1B1B1 /* OFFJsonResult.swift */; };
+		51CCA8642031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CCA8632031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift */; };
 		51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */; };
 		51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51CF42C61E02F48600C9AD91 /* TagView.xib */; };
 		51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51CF42C81E02F4A200C9AD91 /* TagView.swift */; };
@@ -410,6 +412,8 @@
 		515742671CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUnifiedCodeValidator.swift; path = RS/RSUnifiedCodeValidator.swift; sourceTree = "<group>"; };
 		515742681CDB63B200BE8E2D /* RSUPCEGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSUPCEGenerator.swift; path = RS/RSUPCEGenerator.swift; sourceTree = "<group>"; };
 		5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddLanguageViewController.swift; sourceTree = "<group>"; };
+		5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFImageUploadResultJson.swift; sourceTree = "<group>"; };
+		5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductUploadResultJson.swift; sourceTree = "<group>"; };
 		5159D8A61C6666C60082C60E /* NameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameTableViewCell.swift; sourceTree = "<group>"; };
 		515A29D11EC08FB000916F3D /* LastServerDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastServerDefaults.swift; sourceTree = "<group>"; };
 		515CAE701D983C2200A90F96 /* FavoriteShopsDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteShopsDefaults.swift; sourceTree = "<group>"; };
@@ -528,7 +532,7 @@
 		51C8A6CF1F67C38700B3C361 /* CompletionCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionCategory.swift; sourceTree = "<group>"; };
 		51CC54B11F9E1D9200350424 /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetCreationDateViewController.swift; path = Select/SetCreationDateViewController.swift; sourceTree = "<group>"; };
-		51CCA8632031CC9F00F1B1B1 /* OFFJsonResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFJsonResult.swift; sourceTree = "<group>"; };
+		51CCA8632031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFImageDeselectResultJson.swift; sourceTree = "<group>"; };
 		51CF42C41E02F47200C9AD91 /* BackspaceTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackspaceTextField.swift; sourceTree = "<group>"; };
 		51CF42C61E02F48600C9AD91 /* TagView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagView.xib; sourceTree = "<group>"; };
 		51CF42C81E02F4A200C9AD91 /* TagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -612,7 +616,9 @@
 				51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */,
 				5107554F202F57E90047EC09 /* OFFProductNutrientLevelValue.swift */,
 				51075551202F647C0047EC09 /* OFFProductNutrimentValues.swift */,
-				51CCA8632031CC9F00F1B1B1 /* OFFJsonResult.swift */,
+				51CCA8632031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift */,
+				5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */,
+				5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */,
 				51F96663202DA09A00CD58C3 /* OFFProduct.swift */,
 				51F9666F202DB69D00CD58C3 /* OFFProductDetailed.swift */,
 				51F96665202DA3E400CD58C3 /* OFFProductSelectedImages.swift */,
@@ -1443,6 +1449,7 @@
 				512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */,
+				5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */,
 				5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */,
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
@@ -1469,7 +1476,7 @@
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
-				51CCA8642031CC9F00F1B1B1 /* OFFJsonResult.swift in Sources */,
+				51CCA8642031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift in Sources */,
 				5104F4B01FA074C3008D074F /* SetSortOrderViewController.swift in Sources */,
 				51B3838C1F89007E0086581C /* TranslatableStrings.swift in Sources */,
 				511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */,
@@ -1516,6 +1523,7 @@
 				5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */,
 				513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */,
 				51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */,
+				5158ECDB2032DF760072261C /* OFFProductUploadResultJson.swift in Sources */,
 				516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */,
 				512039F01E5B3E9500BE62CB /* ScrollView.swift in Sources */,
 				51AFB0051C73455E00598444 /* IdentificationTableViewController.swift in Sources */,

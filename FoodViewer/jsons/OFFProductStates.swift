@@ -35,5 +35,6 @@ public enum OFFProductStates: String, Codable {
     case quantity_completed = "en:quantity-completed"
     case quantity_to_be_completed = "en:quantity-to-be-completed"
     case to_be_checked = "en:to-be-checked"
+    case to_be_completed = "en:to-be-completed"
 }
 

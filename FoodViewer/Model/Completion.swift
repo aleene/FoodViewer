@@ -114,6 +114,10 @@ public struct Completion: Hashable {
         case .packaging_code_to_be_completed:
             category = .packagingCode
             value = false
+        case .to_be_completed:
+            category = .complete
+            value = false
+
         }
     }
 

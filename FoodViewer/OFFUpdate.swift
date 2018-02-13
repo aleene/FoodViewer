@@ -28,6 +28,7 @@ class OFFUpdate {
     //  purchase_places=city (string)
     //  stores=carrefour (string)
     
+    /*
     func confirmProduct(product: FoodProduct?, expiryDate: Date?, shop: String?, location:Address?) -> ProductUpdateStatus {
         
         // MARK: TBD use update()
@@ -70,7 +71,8 @@ class OFFUpdate {
                 do {
                     
                     let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                    return unpackJSONObject(JSON(data: data))
+                    // return unpackJSONObject(JSON(data: data))
+                    return unpackProductUploadResultJson(data)
                 } catch let error as NSError {
                     print(error);
                     return ProductUpdateStatus.failure(error.description)
@@ -82,7 +84,7 @@ class OFFUpdate {
                 return ProductUpdateStatus.failure("OFFUpdate: URL encoding failed")
         }
     }
-    
+    */
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
@@ -392,7 +394,7 @@ class OFFUpdate {
                 
                 do {
                     let data = try Data( contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe )
-                    return unpackJSONObject( JSON(data: data) )
+                    return data.resultForProductUpload
                 } catch let error as NSError {
                     print(error);
                     return .failure(error.description)
@@ -528,7 +530,8 @@ class OFFUpdate {
                 return
             }
             guard let data = data else { return }
-            result = self.unpackImageJSONObject( JSON(data: data) )
+            //result = self.unpackImageJSONObject( JSON(data: data) )
+            result = data.resultForImageUpload
             DispatchQueue.main.async(execute: { () -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if result != nil {
@@ -640,7 +643,7 @@ class OFFUpdate {
                     return
                 }
                 guard let data = data else { return }
-                result = self.unpackImageJSONObject( JSON(data: data) )
+                result = data.resultForImageDeselect
             DispatchQueue.main.async(execute: { () -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if result != nil {
@@ -660,6 +663,7 @@ class OFFUpdate {
         task.resume()
     }
 
+    /*
     fileprivate struct OFFJson {
         static let StatusKey = "status"
         static let StatusCodeKey = "status_code"
@@ -668,6 +672,8 @@ class OFFUpdate {
         static let ImageIDKey = "imgid" // Int?
         static let ErrorKey = "error"
     }
+  */
+    /*
     private func unpackImageJSONObject(_ jsonObject: JSON) -> ProductUpdateStatus {
         
         // a json file is returned upon posting
@@ -708,8 +714,9 @@ class OFFUpdate {
         }
         return ProductUpdateStatus.failure("Error: No verbose status")
     }
+    */
 
-    
+    /*
     private func unpackJSONObject(_ jsonObject: JSON) -> ProductUpdateStatus {
         
         // a json file is returned upon posting
@@ -735,7 +742,8 @@ class OFFUpdate {
         }
         return ProductUpdateStatus.failure("OFFUpdate: No verbose status")
     }
-    
+     */
+
     // remove the language identifier before the colon
     private func removeLanguage(from key: String) -> String {
         let elementsPair = key.split(separator:":").map(String.init)
@@ -746,7 +754,6 @@ class OFFUpdate {
 
         }
     }
-
     
 }
 
@@ -755,3 +762,55 @@ extension Notification.Name {
     static let OFFUpdateImageUploadSuccess = Notification.Name("OFFUpdate.Notification.ImageUploadSuccess")
     static let OFFUpdateImageDeleteSuccess = Notification.Name("OFFUpdate.Notification.ImageDeleteSuccess")
 }
+ 
+ extension Data {
+    
+    fileprivate var resultForImageUpload: ProductUpdateStatus {
+        do {
+            let result = try JSONDecoder().decode(OFFImageUploadResultJson.self, from:self)
+            if result.status == "status ok" {
+                return ProductUpdateStatus.success("\(result.status)")
+            } else {
+                return ProductUpdateStatus.failure("OFFImageUploadResultJson \(result.status)")
+            }
+        } catch(let error) {
+            return ProductUpdateStatus.failure(error.localizedDescription)
+        }
+    }
+
+    fileprivate var resultForImageDeselect: ProductUpdateStatus {
+        do {
+            let result = try JSONDecoder().decode(OFFImageDeselectResultJson.self, from:self)
+            if let validStatus_code = result.status_code {
+                if validStatus_code == 0 {
+                    return ProductUpdateStatus.success(result.status)
+                } else if validStatus_code == 1 {
+                    return ProductUpdateStatus.failure(result.status)
+                } else {
+                    return ProductUpdateStatus.failure("OFFUpdate:unexpected status_code: \(validStatus_code)")
+                }
+            } else {
+                return ProductUpdateStatus.failure(result.status)
+            }
+        } catch(let error) {
+            return ProductUpdateStatus.failure(error.localizedDescription)
+        }
+    }
+
+    
+    fileprivate var resultForProductUpload: ProductUpdateStatus {
+        do {
+            let result = try JSONDecoder().decode(OFFProductUploadResultJson.self, from:self)
+            if result.status == 0 {
+                return ProductUpdateStatus.failure("\(result.status)")
+            } else if result.status == 1 {
+                return ProductUpdateStatus.success("\(result.status)")
+            } else {
+                return ProductUpdateStatus.failure("OFFUpdate:unexpected status_code")
+            }
+        } catch(let error) {
+            return ProductUpdateStatus.failure(error.localizedDescription)
+        }
+    }
+    
+ }
