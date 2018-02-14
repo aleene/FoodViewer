@@ -59,10 +59,9 @@ class OpenFoodFactsRequest {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
                 
-                // Experiment with Codable
                 do {
                     let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .millisecondsSince1970
+                    decoder.dateDecodingStrategy = .secondsSince1970
                     let productJson = try decoder.decode(OFFProductJson.self, from:data)
                     let newProduct = FoodProduct.init(with: productJson)
                     return .success(newProduct)

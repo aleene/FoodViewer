@@ -1468,6 +1468,7 @@ class FoodProduct {
         editors = validProduct.editors_tags
         //product.editors = jsonObject[OFFReadAPIkeysJSON.EditorsTagsKey].stringArray
         // TODO
+        additionDate = validProduct.created_t
         //product.additionDate = jsonObject[OFFReadAPIkeysJSON.CreatedTKey].time
         creator = validProduct.creator
         //product.creator = jsonObject[OFFReadAPIkeysJSON.CreatorKey].string
