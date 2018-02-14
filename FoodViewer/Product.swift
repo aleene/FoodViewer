@@ -806,7 +806,32 @@ class FoodProduct {
         func decodeCompletionStates(_ states: [OFFProductStates]?) {
             if let statesArray = states {
                 for currentState in statesArray {
-                    state.states.insert(Completion(with: currentState))
+                    // only insert the states I want to use
+                    switch currentState {
+                    case .brands_completed,
+                        .brands_to_be_completed,
+                        .categories_completed,
+                        .categories_to_be_completed,
+                        .expiration_date_completed,
+                        .expiration_date_to_be_completed,
+                        .ingredients_completed,
+                        .ingredients_to_be_completed,
+                        .nutrition_facts_completed,
+                        .nutrition_facts_to_be_completed,
+                        .packaging_completed,
+                        .packaging_to_be_completed,
+                        .photos_to_be_uploaded,
+                        .photos_uploaded,
+                        .photos_validated,
+                        .photos_to_be_validated,
+                        .product_name_completed,
+                        .product_name_to_be_completed,
+                        .quantity_completed,
+                        .quantity_to_be_completed:
+                            state.states.insert(Completion(with: currentState))
+                    default:
+                        break
+                    }
                 }
             }
         }
@@ -1059,12 +1084,15 @@ class FoodProduct {
 
 
         self.init()
-        self.barcode = BarcodeType.init(value: json.code)
+        barcode = BarcodeType.init(value: json.code)
         
         guard let validProduct = json.product else { return }
         
-        self.primaryLanguageCode = validProduct.lang
+        primaryLanguageCode = validProduct.lang
         
+        for (languageCode, _) in validProduct.languages_codes {
+            languageCodes.append(languageCode)
+        }
         
         decodeCompletionStates(validProduct.states_tags)
         
@@ -1106,10 +1134,12 @@ class FoodProduct {
         genericNameLanguage = validProduct.generic_names_
         
         if let validImageSizes = validProduct.selected_images.front {
-        
-        for (key, value) in validImageSizes.display {
-            frontImages[key]?.display = ProductImageData(url: value)
-        }
+            for (key, value) in validImageSizes.display {
+                if frontImages[key] == nil {
+                    frontImages[key] = ProductImageSize()
+                }
+                frontImages[key]?.display = ProductImageData(url: value)
+            }
         
         /*
         if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.FrontImageKey][OFFReadAPIkeysJSON.DisplayKey].dictionaryObject {
@@ -1123,10 +1153,13 @@ class FoodProduct {
             }
         }
          */
-        for (key, value) in validImageSizes.thumb {
-            frontImages[key]?.thumb = ProductImageData(url: value)
-            _ = frontImages[key]?.thumb?.fetch()
-        }
+            for (key, value) in validImageSizes.thumb {
+                if frontImages[key] == nil {
+                    frontImages[key] = ProductImageSize()
+                }
+                frontImages[key]?.thumb = ProductImageData(url: value)
+                _ = frontImages[key]?.thumb?.fetch()
+            }
         /*
         if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.FrontImageKey][OFFReadAPIkeysJSON.ThumbKey].dictionaryObject {
             for element in valid {
@@ -1141,9 +1174,12 @@ class FoodProduct {
             }
         }
         */
-        for (key, value) in validImageSizes.small {
-            frontImages[key]?.small = ProductImageData(url: value)
-        }
+            for (key, value) in validImageSizes.small {
+                if frontImages[key] == nil {
+                    frontImages[key] = ProductImageSize()
+                }
+                frontImages[key]?.small = ProductImageData(url: value)
+            }
         /*
         if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.FrontImageKey][OFFReadAPIkeysJSON.SmallKey].dictionaryObject {
             for element in valid {
@@ -1156,10 +1192,13 @@ class FoodProduct {
             }
         }
         */
-             }
+        }
 
         if let validImageSizes = validProduct.selected_images.front {
         for (key, value) in validImageSizes.display {
+            if nutritionImages[key] == nil {
+                nutritionImages[key] = ProductImageSize()
+            }
             nutritionImages[key]?.display = ProductImageData(url: value)
         }
         /*
@@ -1175,6 +1214,9 @@ class FoodProduct {
         }
         */
         for (key, value) in validImageSizes.thumb {
+            if nutritionImages[key] == nil {
+                nutritionImages[key] = ProductImageSize()
+            }
             nutritionImages[key]?.thumb = ProductImageData(url: value)
         }
         /*
@@ -1191,6 +1233,9 @@ class FoodProduct {
         }
         */
         for (key, value) in validImageSizes.small {
+            if nutritionImages[key] == nil {
+                nutritionImages[key] = ProductImageSize()
+            }
             nutritionImages[key]?.small = ProductImageData(url: value)
         }
         /*
@@ -1210,6 +1255,9 @@ class FoodProduct {
         if let validImageSizes = validProduct.selected_images.ingredients {
 
         for (key, value) in validImageSizes.display {
+            if ingredientsImages[key] == nil {
+                ingredientsImages[key] = ProductImageSize()
+            }
             ingredientsImages[key]?.display = ProductImageData(url: value)
         }
         /*
@@ -1225,6 +1273,9 @@ class FoodProduct {
         }
         */
         for (key, value) in validImageSizes.thumb {
+            if ingredientsImages[key] == nil {
+                ingredientsImages[key] = ProductImageSize()
+            }
             ingredientsImages[key]?.thumb = ProductImageData(url: value)
         }
         /*
@@ -1241,6 +1292,9 @@ class FoodProduct {
         }
         */
         for (key, value) in validImageSizes.small {
+            if ingredientsImages[key] == nil {
+                ingredientsImages[key] = ProductImageSize()
+            }
             ingredientsImages[key]?.small = ProductImageData(url: value)
         }
              }
@@ -1610,12 +1664,10 @@ class FoodProduct {
         add(fact: nutritionDecode(NutrimentsFactKeys.PhKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhKey]))
         add(fact: nutritionDecode(NutrimentsFactKeys.CacaoKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
         
-
     }
     
     init(product: FoodProduct) {
         self.barcode = product.barcode
-
     }
     
     func nutritionFactsContain(_ key: String) -> Bool {

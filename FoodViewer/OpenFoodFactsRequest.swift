@@ -62,12 +62,15 @@ class OpenFoodFactsRequest {
                 // Experiment with Codable
                 do {
                     let productJson = try JSONDecoder().decode(OFFProductJson.self, from:data)
-                    print (productJson)
+                    let newProduct = FoodProduct.init(with: productJson)
+                    return .success(newProduct)
+
                 } catch let error {
                     print (error)
-                }
+                    return .loadingFailed(FoodProduct.init(with: barcode), error.localizedDescription)
 
-                return unpackJSONObject(JSON(data: data))
+                }
+                //return unpackJSONObject(JSON(data: data))
             } catch let error as NSError {
                 if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
                 return ProductFetchStatus.loadingFailed(FoodProduct(with:  BarcodeType(value:self.currentBarcode!.asString)), error.description)

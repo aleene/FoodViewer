@@ -10,9 +10,10 @@ import Foundation
 
 enum ProductUpdateStatus {
     
-    case success(String)
-    case notPossible
-    case failure(String)
+    // The first string is the BarcodeString and is used as identification of the product
+    case success(String, String)
+    case notPossible(String)
+    case failure(String, String)
     
     var description: String {
         switch self {

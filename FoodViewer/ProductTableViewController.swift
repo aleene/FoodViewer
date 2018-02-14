@@ -834,8 +834,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             // So save it locally
                             let save = ProductStorage()
                             save.save(newProduct)
-                        case .failure(let error):
-                            print(error.description)
+                        case .failure(let barcode, let error):
+                            print(barcode, error.description)
                             break
                         }
                     })

@@ -9,7 +9,7 @@
 import Foundation
 
 class OFFProduct: Codable {
-    let additives: String?
+    var additives: String? = nil
     let additives_debug_tags: [String]
     let additives_n: Int?
     let additives_old_n: Int?

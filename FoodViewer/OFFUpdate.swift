@@ -14,10 +14,11 @@ import Foundation
 
 class OFFUpdate {
     
-    enum FetchJsonResult {
-        case error(String)
-        case success(Data)
-    }
+    
+    //enum FetchJsonResult {
+    //    case error(String)
+    //    case success(Data)
+    //}
     //
     //  http://world.openfoodfacts.net/cgi/product_jqm2.pl?code=0048151623426&product_name=Maryland%20Choc%20Chip&quantity=230g&nutriment_energy=450&nutriment_energy_unit=kJ&nutrition_data_per=serving&ingredients_text=Fortified%20wheat%20flour%2C%20Chocolate%20chips%20%2825%25%29%2C%20Sugar%2C%20Palm%20oil%2C%20Golden%20syrup%2C%20Whey%20and%20whey%20derivatives%20%28Milk%29%2C%20Raising%20agents%2C%20Salt%2C%20Flavouring&traces=Milk%2C+Soya%2C+Nuts%2C+Wheat
     //  keywords needed
@@ -100,7 +101,7 @@ class OFFUpdate {
         // The OFF interface assumes that values are in english
         let languageCodeToUse = "en"
 
-        guard product != nil else { return .failure("OFFUpdate: No product defined") }
+        guard product != nil else { return .failure("No product", "OFFUpdate: No product defined") }
 
         var urlString = OFFWriteAPI.SecurePrefix
             + currentProductType.rawValue
@@ -109,17 +110,6 @@ class OFFUpdate {
             + OFFWriteAPI.Barcode + product!.barcode.asString + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
-        /*
-
-        if let name = product!.name {
-            urlString.append(
-                OFFWriteAPI.Delimiter +
-                OFFWriteAPI.Name +
-                OFFWriteAPI.Equal +
-                name)
-            productUpdated = true
-        }
-         */
 
         if product!.nameLanguage.count > 0 {
             for name in product!.nameLanguage {
@@ -134,18 +124,6 @@ class OFFUpdate {
                 }
             }
         }
-
-        /*
-
-        if let genericName = product!.genericName {
-            urlString.append(
-                OFFWriteAPI.Delimiter +
-                OFFWriteAPI.GenericName +
-                OFFWriteAPI.Equal +
-                 genericName)
-            productUpdated = true
-        }
-         */
 
         if product!.genericNameLanguage.count > 0 {
             for genericName in product!.genericNameLanguage {
@@ -394,16 +372,16 @@ class OFFUpdate {
                 
                 do {
                     let data = try Data( contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe )
-                    return data.resultForProductUpload
+                    return data.resultForProductUpload(barcode:urlString)
                 } catch let error as NSError {
                     print(error);
-                    return .failure(error.description)
+                    return .failure(urlString, error.description)
                 }
             } else {
-                return .failure("OFFUpdate Error: URL is wrong somehow")
+                return .failure(urlString, "OFFUpdate Error: URL is wrong somehow")
             }
         } else {
-            return .failure("OFFUpdate Error: No product changes detected")
+            return .failure(urlString, "OFFUpdate Error: No product changes detected")
         }
     }
 
@@ -449,7 +427,7 @@ class OFFUpdate {
         }
     }
     
-    private func post(image: UIImage, parameters : Dictionary<String, String>, imageType: String, url : String, languageCode: String) {
+    private func post(image: UIImage, parameters: Dictionary<String, String>, imageType: String, url: String, languageCode: String) {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
@@ -531,12 +509,12 @@ class OFFUpdate {
             }
             guard let data = data else { return }
             //result = self.unpackImageJSONObject( JSON(data: data) )
-            result = data.resultForImageUpload
+            result = data.resultForImageUpload(barcode:url)
             DispatchQueue.main.async(execute: { () -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if result != nil {
                     switch result! {
-                    case .success(let error):
+                    case .success(let barcode, let error):
                         print("OFFUpdate:post", error)
                         let userInfo = [Notification.ImageUploadSuccessStatusKey:error as String,
                                         Notification.ImageUploadSuccessBarcodeKey: parameters[OFFHttpPost.AddParameter.BarcodeKey]! as String,
@@ -643,12 +621,12 @@ class OFFUpdate {
                     return
                 }
                 guard let data = data else { return }
-                result = data.resultForImageDeselect
+            result = data.resultForImageDeselect(barcode: url)
             DispatchQueue.main.async(execute: { () -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if result != nil {
                     switch result! {
-                    case .success(let error):
+                    case .success(let barcode, let error):
                         print("OFFUpdate:postDelete", error)
                         let userInfo = [Notification.ImageDeleteSuccessStatusKey:error as Any,
                                         Notification.ImageDeleteSuccessBarcodeKey: parameters[OFFHttpPost.UnselectParameter.CodeKey]! as String,
@@ -765,51 +743,51 @@ extension Notification.Name {
  
  extension Data {
     
-    fileprivate var resultForImageUpload: ProductUpdateStatus {
+    fileprivate func resultForImageUpload(barcode: String) -> ProductUpdateStatus {
         do {
             let result = try JSONDecoder().decode(OFFImageUploadResultJson.self, from:self)
             if result.status == "status ok" {
-                return ProductUpdateStatus.success("\(result.status)")
+                return ProductUpdateStatus.success(barcode, "\(result.status)")
             } else {
-                return ProductUpdateStatus.failure("OFFImageUploadResultJson \(result.status)")
+                return ProductUpdateStatus.failure(barcode, "OFFImageUploadResultJson \(result.status)")
             }
         } catch(let error) {
-            return ProductUpdateStatus.failure(error.localizedDescription)
+            return ProductUpdateStatus.failure(barcode, error.localizedDescription)
         }
     }
 
-    fileprivate var resultForImageDeselect: ProductUpdateStatus {
+    fileprivate func resultForImageDeselect(barcode: String) -> ProductUpdateStatus {
         do {
             let result = try JSONDecoder().decode(OFFImageDeselectResultJson.self, from:self)
             if let validStatus_code = result.status_code {
                 if validStatus_code == 0 {
-                    return ProductUpdateStatus.success(result.status)
+                    return ProductUpdateStatus.success(barcode, result.status)
                 } else if validStatus_code == 1 {
-                    return ProductUpdateStatus.failure(result.status)
+                    return ProductUpdateStatus.failure(barcode, result.status)
                 } else {
-                    return ProductUpdateStatus.failure("OFFUpdate:unexpected status_code: \(validStatus_code)")
+                    return ProductUpdateStatus.failure(barcode, "OFFUpdate:unexpected status_code: \(validStatus_code)")
                 }
             } else {
-                return ProductUpdateStatus.failure(result.status)
+                return ProductUpdateStatus.failure(barcode, result.status)
             }
         } catch(let error) {
-            return ProductUpdateStatus.failure(error.localizedDescription)
+            return ProductUpdateStatus.failure(barcode, error.localizedDescription)
         }
     }
 
     
-    fileprivate var resultForProductUpload: ProductUpdateStatus {
+    fileprivate func resultForProductUpload(barcode: String) -> ProductUpdateStatus {
         do {
             let result = try JSONDecoder().decode(OFFProductUploadResultJson.self, from:self)
             if result.status == 0 {
-                return ProductUpdateStatus.failure("\(result.status)")
+                return ProductUpdateStatus.failure(barcode, "\(result.status)")
             } else if result.status == 1 {
-                return ProductUpdateStatus.success("\(result.status)")
+                return ProductUpdateStatus.success(barcode, "\(result.status)")
             } else {
-                return ProductUpdateStatus.failure("OFFUpdate:unexpected status_code")
+                return ProductUpdateStatus.failure(barcode, "OFFUpdate:unexpected status_code")
             }
         } catch(let error) {
-            return ProductUpdateStatus.failure(error.localizedDescription)
+            return ProductUpdateStatus.failure(barcode,error.localizedDescription)
         }
     }
     
