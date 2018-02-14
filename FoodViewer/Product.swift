@@ -1524,6 +1524,8 @@ class FoodProduct {
         //product.periodAfterOpeningString  = jsonObject[OFFReadAPIkeysJSON.PeriodsAfterOpeningKey].string
         
         expirationDateString = validProduct.expiration_date
+        // This is need as the didSet of exirationDateString is not called in an init.
+        expirationDate = decodeDate(expirationDateString)
         //product.expirationDateString = jsonObject[OFFReadAPIkeysJSON.ExpirationDateKey].string
         
         allergensInterpreted = Tags(list: validProduct.allergens_tags)

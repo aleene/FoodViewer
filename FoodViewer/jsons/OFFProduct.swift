@@ -34,12 +34,12 @@ class OFFProduct: Codable {
     let code: String
     let codes_tags: [String]
     let complete: Int
-    let completed_t: Int?
+    let completed_t: Date?
     let correctors_tags: [String]
     let countries: String
     let countries_hierarchy: [String]
     let countries_tags: [String]
-    let created_t: Int // 1410949750
+    let created_t: Date // 1410949750
     let creator: String
     let editors: [String]?
     let editors_tags: [String]
@@ -97,9 +97,9 @@ class OFFProduct: Codable {
     let last_edit_dates_tags: [String]
     let last_editor: String?  // not always with value
     let last_image_dates_tags: [String]
-    let last_image_t: Int
+    let last_image_t: Date
     let last_modified_by: String?  // not always with value
-    let last_modified_t: Int // 1463315494
+    let last_modified_t: Date // 1463315494
     let lc: String
     let link: String?  // not always with value
     let manufacturing_places: String?  // not always with value
