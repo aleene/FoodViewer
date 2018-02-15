@@ -43,16 +43,14 @@ class FoodProduct {
         get {
             if let validPrimaryLanguageCode = primaryLanguageCode {
                 // In this way the primaryLanguageCode can change
-                if genericNameLanguage[validPrimaryLanguageCode] != nil {
-                    // If no name has been defined in this language, it will return nil
-                    return genericNameLanguage[validPrimaryLanguageCode]!
-                }
+                // If no name has been defined in this language, it will return nil
+                return genericNameLanguage[validPrimaryLanguageCode] ?? nil
             }
             return nil
         }
     }
     
-    var genericNameLanguage = [String:String?]()
+    var genericNameLanguage: [String:String?]  = [:]
     
     var brandsOriginal: Tags = .undefined
     var brandsInterpreted: Tags = .undefined
@@ -147,7 +145,7 @@ class FoodProduct {
         }
     }
     
-    var ingredientsLanguage = [String:String]()
+    var ingredientsLanguage: [String:String?] = [:]
     
     var numberOfIngredients: String? = nil
 
@@ -1061,27 +1059,6 @@ class FoodProduct {
                 nutritionItem.standardValueUnit = OFFplists.manager.nutrientUnit(for: key.rawValue)
             }
             nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
-
-            /* The units and value seem to be what the user has entered
-            // decode the units
-            if let unit = validValues.unit {
-                nutritionItem.standardValueUnit = NutritionFactUnit(unit)
-                nutritionItem.servingValueUnit = NutritionFactUnit(unit)
-
-                // no units defined?
-                if let unit = nutritionItem.standardValueUnit,
-                    unit.isNone {
-                    // Try to find the default unit for the current nutriment
-                    switch OFFplists.manager.nutrientUnit(for: key.rawValue) {
-                    case .Milligram, .Microgram:
-                        nutritionItem.standardValueUnit = .Gram
-                    default:
-                        nutritionItem.standardValueUnit = OFFplists.manager.nutrientUnit(for: key.rawValue)
-                    }
-                    nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
-                }
-            }
-            */
             
             if let unit = nutritionItem.standardValueUnit {
                 switch unit {
@@ -1122,62 +1099,29 @@ class FoodProduct {
         decodeCompletionStates(validProduct.states_tags)
         
         lastEditDates = decodeLastEditDates(validProduct.last_edit_dates_tags)
-        //decodeLastEditDates(jsonObject[OFFReadAPIkeysJSON.LastEditDatesTagsKey].stringArray, forProduct:product)
         
         // the labels as interpreted by OFF (a list of strings)
         labelsInterpreted = Tags(list: validProduct.labels_tags)
-        //product.labelsInterpreted = Tags(list:jsonObject[OFFReadAPIkeysJSON.LabelsTagsKey].stringArray)
         // the labels as the user has entered them (a comma delimited string)
         labelsOriginal = Tags(string: validProduct.labels)
-        //product.labelsOriginal = Tags(string:jsonObject[OFFReadAPIkeysJSON.LabelsKey].string)
         labelsHierarchy = Tags(list: validProduct.labels_hierarchy)
-        //product.labelsHierarchy = Tags(list:jsonObject[OFFReadAPIkeysJSON.LabelsHierarchyKey].stringArray)
         
         tracesOriginal = Tags(string: validProduct.traces)
-        //product.tracesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.TracesKey].string)
         tracesHierarchy = Tags(list: validProduct.traces_hierarchy)
-        //product.tracesHierarchy = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.TracesHierarchyKey].stringArray)
         tracesInterpreted = Tags(list: validProduct.traces_tags)
-        //product.tracesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.TracesTagsKey].stringArray)
         
-        /*for language in languages {
-                let isoCode = OFFplists.manager.translateLanguage(language, language: "iso")
-                // it can already be set by the primary language
-                if !product.contains(languageCode: isoCode) {
-                    product.languageCodes.append(isoCode)
-                }
-                var key = OFFReadAPIkeysJSON.IngredientsTextKey + "_" + isoCode
-                product.ingredientsLanguage[isoCode] = jsonObject[key].string
-                key = OFFReadAPIkeysJSON.ProductNameKey + "_" + isoCode
-                product.nameLanguage[isoCode] = jsonObject[key].string
-                key = OFFReadAPIkeysJSON.GenericNameKey + "_" + isoCode
-                product.genericNameLanguage[isoCode] = jsonObject[key].string
-        }
-        */
         nameLanguage = validProduct.product_names_
         ingredientsLanguage = validProduct.ingredients_texts_
         genericNameLanguage = validProduct.generic_names_
         
-        if let validImageSizes = validProduct.selected_images.front {
+        if let validImageSizes = validProduct.selected_images?.front {
             for (key, value) in validImageSizes.display {
                 if frontImages[key] == nil {
                     frontImages[key] = ProductImageSize()
                 }
                 frontImages[key]?.display = ProductImageData(url: value)
             }
-        
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.FrontImageKey][OFFReadAPIkeysJSON.DisplayKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
-                        product.frontImages[element.key]?.display = ProductImageData.init(url: url)
-                    }
-                }
-            }
-        }
-         */
+
             for (key, value) in validImageSizes.thumb {
                 if frontImages[key] == nil {
                     frontImages[key] = ProductImageSize()
@@ -1185,289 +1129,137 @@ class FoodProduct {
                 frontImages[key]?.thumb = ProductImageData(url: value)
                 _ = frontImages[key]?.thumb?.fetch()
             }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.FrontImageKey][OFFReadAPIkeysJSON.ThumbKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
-                        product.frontImages[element.key]?.thumb = ProductImageData.init(url: url)
-                        _ = product.frontImages[element.key]?.thumb?.fetch()
-                        
-                    }
-                }
-            }
-        }
-        */
+
             for (key, value) in validImageSizes.small {
                 if frontImages[key] == nil {
                     frontImages[key] = ProductImageSize()
                 }
                 frontImages[key]?.small = ProductImageData(url: value)
             }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.FrontImageKey][OFFReadAPIkeysJSON.SmallKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.frontImages[element.key] == nil { product.frontImages[element.key] = ProductImageSize() }
-                        product.frontImages[element.key]?.small = ProductImageData.init(url: url)
-                    }
-                }
-            }
-        }
-        */
+
         }
 
-        if let validImageSizes = validProduct.selected_images.nutrition {
+        if let validImageSizes = validProduct.selected_images?.nutrition {
             for (key, value) in validImageSizes.display {
                 if nutritionImages[key] == nil {
                     nutritionImages[key] = ProductImageSize()
                 }
                 nutritionImages[key]?.display = ProductImageData(url: value)
             }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.NutritionImageKey][OFFReadAPIkeysJSON.DisplayKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
-                        product.nutritionImages[element.key]?.display = ProductImageData.init(url: url)
-                    }
-                }
-            }
-        }
-        */
-        for (key, value) in validImageSizes.thumb {
-            if nutritionImages[key] == nil {
-                nutritionImages[key] = ProductImageSize()
-            }
-            nutritionImages[key]?.thumb = ProductImageData(url: value)
-        }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.NutritionImageKey][OFFReadAPIkeysJSON.ThumbKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
-                        product.nutritionImages[element.key]?.thumb = ProductImageData.init(url: url)
-                        _ = product.nutritionImages[element.key]?.thumb?.fetch()
-                    }
-                }
-            }
-        }
-        */
-        for (key, value) in validImageSizes.small {
-            if nutritionImages[key] == nil {
-                nutritionImages[key] = ProductImageSize()
-            }
-            nutritionImages[key]?.small = ProductImageData(url: value)
-        }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.NutritionImageKey][OFFReadAPIkeysJSON.SmallKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.nutritionImages[element.key] == nil { product.nutritionImages[element.key] = ProductImageSize() }
-                        product.nutritionImages[element.key]?.small = ProductImageData.init(url: url)
-                    }
-                }
-            }
-        }
-        */
-             }
 
-        if let validImageSizes = validProduct.selected_images.ingredients {
+            for (key, value) in validImageSizes.thumb {
+                if nutritionImages[key] == nil {
+                    nutritionImages[key] = ProductImageSize()
+                }
+                nutritionImages[key]?.thumb = ProductImageData(url: value)
+            }
 
-        for (key, value) in validImageSizes.display {
-            if ingredientsImages[key] == nil {
-                ingredientsImages[key] = ProductImageSize()
-            }
-            ingredientsImages[key]?.display = ProductImageData(url: value)
-        }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.IngredientsImageKey][OFFReadAPIkeysJSON.DisplayKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
-                        product.ingredientsImages[element.key]?.display = ProductImageData.init(url: url)
-                    }
+            for (key, value) in validImageSizes.small {
+                if nutritionImages[key] == nil {
+                    nutritionImages[key] = ProductImageSize()
                 }
-            }
-        }
-        */
-        for (key, value) in validImageSizes.thumb {
-            if ingredientsImages[key] == nil {
-                ingredientsImages[key] = ProductImageSize()
-            }
-            ingredientsImages[key]?.thumb = ProductImageData(url: value)
-        }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.IngredientsImageKey][OFFReadAPIkeysJSON.ThumbKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
-                        product.ingredientsImages[element.key]?.thumb = ProductImageData.init(url: url)
-                        _ = product.ingredientsImages[element.key]?.thumb?.fetch()
-                    }
-                }
-            }
-        }
-        */
-        for (key, value) in validImageSizes.small {
-            if ingredientsImages[key] == nil {
-                ingredientsImages[key] = ProductImageSize()
-            }
-            ingredientsImages[key]?.small = ProductImageData(url: value)
-        }
-             }
-        /*
-        if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.IngredientsImageKey][OFFReadAPIkeysJSON.SmallKey].dictionaryObject {
-            for element in valid {
-                if let validString = element.value as? String {
-                    if let url = URL.init(string: validString) {
-                        if product.ingredientsImages[element.key] == nil { product.ingredientsImages[element.key] = ProductImageSize() }
-                        product.ingredientsImages[element.key]?.small = ProductImageData.init(url: url)
-                    }
-                }
-            }
-        }
-        */
-        for (key,value) in validProduct.images {
-            if !key.contains("ingredients") && !key.contains("front") && !key.contains("nutrition") {
-                let imageSet = ProductImageSize(for: barcode, and: key)
-                if images.contains(where: { $0.key == key }) {
-                    images[key]?.thumb = imageSet.thumb
-                    images[key]?.small = imageSet.small
-                    images[key]?.display = imageSet.display
-                    images[key]?.original = imageSet.original
-                } else {
-                    images[key] = imageSet
-                }
-            } else {
-                // add information on which image is a selected image for a specific language
-                // only look at key that have a language component
-                // parts[0] is the image type and parts[1] the languageCode
-                let parts = key.split(separator: "_")
-                // look only at elements that have a language component, i.e. count == 2
-                if parts.count > 1 && parts.count <= 2 {
-                    let languageCode = String(parts[1])
-                    if parts[0].contains("ingredients") {
-                        if let localKey = value.imgid {
-                            if !images.contains(where: { $0.key == localKey }) {
-                                images[localKey] = ProductImageSize()
-                            }
-                            images[localKey]?.usedIn.append((languageCode,.ingredients))
-                        }
-                    } else if parts[0].contains("front") {
-                        if let localKey = value.imgid {
-                            if !images.contains(where: { $0.key == localKey }) {
-                                images[localKey] = ProductImageSize()
-                            }
-                            images[localKey]?.usedIn.append((languageCode,.front))
-                        }
-                    } else if parts[0].contains("nutrition") {
-                        if let localKey = value.imgid {
-                            if !images.contains(where: { $0.key == localKey }) {
-                                images[localKey] = ProductImageSize()
-                            }
-                            images[localKey]?.usedIn.append((languageCode,.nutrition))
-                        }
-                    }
-                }
+                nutritionImages[key]?.small = ProductImageData(url: value)
             }
 
         }
-        // Create an array of available images of the product
-        /*
-        if let imagesDict = jsonObject[OFFReadAPIkeysJSON.ImagesKey].dictionaryObject {
-            for element in imagesDict {
-                // only look at the non-selected images
-                if !element.key.contains("ingredients") && !element.key.contains("front") && !element.key.contains("nutrition") {
-                    let imageSet = setupImageUrls(for: product.barcode, and: element.key)
-                    if product.images.contains(where: { $0.key == element.key }) {
-                        product.images[element.key]?.thumb = imageSet.thumb
-                        product.images[element.key]?.small = imageSet.small
-                        product.images[element.key]?.display = imageSet.display
-                        product.images[element.key]?.original = imageSet.original
+
+        if let validImageSizes = validProduct.selected_images?.ingredients {
+
+            for (key, value) in validImageSizes.display {
+                if ingredientsImages[key] == nil {
+                    ingredientsImages[key] = ProductImageSize()
+                }
+                ingredientsImages[key]?.display = ProductImageData(url: value)
+            }
+
+            for (key, value) in validImageSizes.thumb {
+                if ingredientsImages[key] == nil {
+                    ingredientsImages[key] = ProductImageSize()
+                }
+                ingredientsImages[key]?.thumb = ProductImageData(url: value)
+            }
+
+            for (key, value) in validImageSizes.small {
+                if ingredientsImages[key] == nil {
+                    ingredientsImages[key] = ProductImageSize()
+                }
+                ingredientsImages[key]?.small = ProductImageData(url: value)
+            }
+        }
+        if let validImages = validProduct.images {
+            for (key,value) in validImages {
+                if !key.contains("ingredients") && !key.contains("front") && !key.contains("nutrition") {
+                    let imageSet = ProductImageSize(for: barcode, and: key)
+                    if images.contains(where: { $0.key == key }) {
+                        images[key]?.thumb = imageSet.thumb
+                        images[key]?.small = imageSet.small
+                        images[key]?.display = imageSet.display
+                        images[key]?.original = imageSet.original
                     } else {
-                        product.images[element.key] = imageSet
+                        images[key] = imageSet
                     }
                 } else {
-                    // add information on which image is a selected image for a specific language*
+                    // add information on which image is a selected image for a specific language
                     // only look at key that have a language component
                     // parts[0] is the image type and parts[1] the languageCode
-                    let parts = element.key.split(separator: "_")
+                    let parts = key.split(separator: "_")
                     // look only at elements that have a language component, i.e. count == 2
                     if parts.count > 1 && parts.count <= 2 {
                         let languageCode = String(parts[1])
                         if parts[0].contains("ingredients") {
-                            if let key = jsonObject[OFFReadAPIkeysJSON.ImagesKey][element.key]["imgid"].string {
-                                if !product.images.contains(where: { $0.key == key }) {
-                                    product.images[key] = ProductImageSize.init()
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
                                 }
-                                product.images[key]?.usedIn.append((languageCode,.ingredients))
+                                images[localKey]?.usedIn.append((languageCode,.ingredients))
                             }
                         } else if parts[0].contains("front") {
-                            if let key = jsonObject[OFFReadAPIkeysJSON.ImagesKey][element.key]["imgid"].string {
-                                if !product.images.contains(where: { $0.key == key }) {
-                                    product.images[key] = ProductImageSize.init()
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
                                 }
-                                product.images[key]?.usedIn.append((languageCode,.front))
+                                images[localKey]?.usedIn.append((languageCode,.front))
                             }
                         } else if parts[0].contains("nutrition") {
-                            if let key = jsonObject[OFFReadAPIkeysJSON.ImagesKey][element.key]["imgid"].string {
-                                if !product.images.contains(where: { $0.key == key }) {
-                                    product.images[key] = ProductImageSize.init()
+                            if let localKey = value.imgid {
+                                if !images.contains(where: { $0.key == localKey }) {
+                                    images[localKey] = ProductImageSize()
                                 }
-                                product.images[key]?.usedIn.append((languageCode,.nutrition))
+                                images[localKey]?.usedIn.append((languageCode,.nutrition))
                             }
                         }
                     }
                 }
+                
             }
+
         }
-        */
         
         additivesInterpreted = Tags(list:validProduct.additives_tags)
-        //product.additivesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.AdditivesTagsKey].stringArray)
         
+        creator = validProduct.creator
+        correctors = validProduct.correctors_tags
         informers = validProduct.informers_tags
-        //product.informers = jsonObject[OFFReadAPIkeysJSON.InformersTagsKey].stringArray
         photographers = validProduct.photographers_tags
-        //product.photographers = jsonObject[OFFReadAPIkeysJSON.PhotographersTagsKey].stringArray
-        
+        editors = validProduct.editors_tags
+
         packagingInterpreted = Tags(list:validProduct.packaging_tags)
-        //product.packagingInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.PackagingTagsKey].stringArray)
         packagingOriginal = Tags(string:validProduct.packaging)
-        //product.packagingOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.PackagingKey].string)
         
         numberOfIngredients = validProduct.ingredients_n
-        //product.numberOfIngredients = jsonObject[OFFReadAPIkeysJSON.IngredientsNKey].string
         
         countriesOriginal = Tags(string:validProduct.countries)
-        //product.countriesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.CountriesKey].string)
         countriesInterpreted = Tags(list:validProduct.countries_tags)
-        //product.countriesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.CountriesTagsKey].stringArray)
         countriesHierarchy = Tags(list:validProduct.countries_hierarchy)
-        //product.countriesHierarchy = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.CountriesHierarchyKey].stringArray)
         
         embCodesOriginal = Tags(string:validProduct.emb_codes)
-        //product.embCodesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.EmbCodesKey].string)
-        // product.originalProducerCode = decodeProducerCodeArray(jsonObject[OFFReadAPIkeysJSON.EmbCodesOrigKey].string)
         embCodesInterpreted = Tags(list:validProduct.emb_codes_tags)
-        //product.embCodesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.EmbCodesTagsKey].stringArray)
         
         brandsOriginal = Tags(string:validProduct.brands)
-        //product.brandsOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.BrandsKey].string)
         brandsInterpreted = Tags(list:validProduct.brands_tags)
-        //product.brandsInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.BrandsTagsKey].stringArray)
         
         // The links for the producer are stored as a string. This string might contain multiple links.
         let linksString = validProduct.link
-        //let linksString = jsonObject[OFFReadAPIkeysJSON.LinkKey].string
         if let validLinksString = linksString {
             // assume that the links are separated by a comma ","
             let validLinksComponents = validLinksString.split(separator:",").map(String.init)
@@ -1479,100 +1271,47 @@ class FoodProduct {
             }
         }
         server = validProduct.server
-        //product.server = jsonObject[OFFReadAPIkeysJSON.NewServerKey].string
         
         purchaseLocationString(validProduct.purchase_places)
-        //product.purchaseLocationString(jsonObject[OFFReadAPIkeysJSON.PurchasePlacesKey].string)
         purchasePlacesInterpreted = Tags(list: validProduct.purchase_places_tags)
-        //product.purchasePlacesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.PurchasePlacesTagsKey].stringArray)
         purchasePlacesOriginal = Tags(string: validProduct.purchase_places)
-        //product.purchasePlacesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.PurchasePlacesKey].string)
-        //product.nutritionFactsImageUrl = jsonObject[OFFReadAPIkeysJSON.ImageNutritionUrlKey].url
-        // product.ingredients = jsonObject[OFFReadAPIkeysJSON.IngredientsTextKey].string
         
-        editors = validProduct.editors_tags
-        //product.editors = jsonObject[OFFReadAPIkeysJSON.EditorsTagsKey].stringArray
-        // TODO
         additionDate = validProduct.created_t
-        //product.additionDate = jsonObject[OFFReadAPIkeysJSON.CreatedTKey].time
-        creator = validProduct.creator
-        //product.creator = jsonObject[OFFReadAPIkeysJSON.CreatorKey].string
         hasNutritionFacts = decodeNutritionDataAvalailable(validProduct.no_nutrition_data)
-        //product.hasNutritionFacts = decodeNutritionDataAvalailable(jsonObject[OFFReadAPIkeysJSON.NoNutritionDataKey].string)
         
         servingSize = validProduct.serving_size
-        //product.servingSize = jsonObject[OFFReadAPIkeysJSON.ServingSizeKey].string
+
         var grade: NutritionalScoreLevel = .undefined
         grade.string(validProduct.nutrition_grade_fr)
-        //grade.string(jsonObject[OFFReadAPIkeysJSON.NutritionGradeFrKey].string)
         nutritionGrade = grade
-        //product.nutritionGrade = grade
-        
-        
-        //let nutrientLevelsSalt = jsonObject[OFFReadAPIkeysJSON.NutrientLevelsKey][OFFReadAPIkeysJSON.NutrientLevelsSaltKey].string
-        //let nutrientLevelsFat = jsonObject[OFFReadAPIkeysJSON.NutrientLevelsKey][OFFReadAPIkeysJSON.NutrientLevelsFatKey].string
-        //let nutrientLevelsSaturatedFat = jsonObject[OFFReadAPIkeysJSON.NutrientLevelsKey][OFFReadAPIkeysJSON.NutrientLevelsSaturatedFatKey].string
-        //let nutrientLevelsSugars = jsonObject[OFFReadAPIkeysJSON.NutrientLevelsKey][OFFReadAPIkeysJSON.NutrientLevelsSugarsKey].string
         
         storesOriginal = Tags(string: validProduct.stores)
-        //product.storesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.StoresKey].string)
         storesInterpreted = Tags(list: validProduct.stores_tags)
-        //product.storesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.StoresTagsKey].stringArray)
         
         (nutritionalScoreUK, nutritionalScoreFR) = decodeNutritionalScore(validProduct.nutrition_score_debug)
-        //(product.nutritionalScoreUK, product.nutritionalScoreFR) = decodeNutritionalScore(jsonObject[OFFReadAPIkeysJSON.NutritionScoreDebugKey].string)
-        correctors = validProduct.correctors_tags
-        //product.correctors = jsonObject[OFFReadAPIkeysJSON.CorrectorsTagsKey].stringArray
         
         originsInterpreted = Tags(list: validProduct.origins_tags)
-        //product.originsInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.OriginsTagsKey].stringArray)
         originsOriginal = Tags(string: validProduct.origins)
-        //product.originsOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.OriginsKey].string)
         
         manufacturingPlacesInterpreted = Tags(list: validProduct.manufacturing_places_tags)
-        //product.manufacturingPlacesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.ManufacturingPlacesTagsKey].stringArray)
         manufacturingPlacesOriginal = Tags(string: validProduct.manufacturing_places)
-        //product.manufacturingPlacesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.ManufacturingPlacesKey].string)
         
         categoriesOriginal = Tags(string: validProduct.categories)
-        //product.categoriesOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.CategoriesKey].string)
         categoriesHierarchy = Tags(list: validProduct.categories_hierarchy)
-        //product.categoriesHierarchy = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.CategoriesHierarchyKey].stringArray)
         categoriesInterpreted = Tags(list: validProduct.categories_tags)
-        //product.categoriesInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.CategoriesTagsKey].stringArray)
         
         quantity = validProduct.quantity
-        //product.quantity = jsonObject[OFFReadAPIkeysJSON.QuantityKey].string
         nutritionFactsIndicationUnit = decodeNutritionFactIndicationUnit(validProduct.nutrition_data_per)
-        //decodeNutritionFactIndicationUnit(jsonObject[OFFReadAPIkeysJSON.NutritionDataPerKey].string)
         
         periodAfterOpeningString = validProduct.period_after_opening
-        //product.periodAfterOpeningString  = jsonObject[OFFReadAPIkeysJSON.PeriodsAfterOpeningKey].string
         
         expirationDateString = validProduct.expiration_date
         // This is need as the didSet of exirationDateString is not called in an init.
         expirationDate = decodeDate(expirationDateString)
-        //product.expirationDateString = jsonObject[OFFReadAPIkeysJSON.ExpirationDateKey].string
         
         allergensInterpreted = Tags(list: validProduct.allergens_tags)
-        //product.allergensInterpreted = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.AllergensTagsKey].stringArray)
         allergensOriginal = Tags(string: validProduct.allergens)
-        //product.allergensOriginal = Tags.init(string:jsonObject[OFFReadAPIkeysJSON.AllergensKey].string)
         allergensHierarchy = Tags(list: validProduct.allergens_hierarchy)
-        //product.allergensHierarchy = Tags.init(list:jsonObject[OFFReadAPIkeysJSON.AllergensHierarchyKey].stringArray)
-        
-        /*
-        if let ingredientsJSON = jsonObject[OFFReadAPIkeysJSON.IngredientsKey].array {
-            var ingredients: [ingredientsElement] = []
-            for ingredientsJSONElement in ingredientsJSON {
-                var element = ingredientsElement()
-                element.text = ingredientsJSONElement[OFFReadAPIkeysJSON.IngredientsElementTextKey].string
-                element.id = ingredientsJSONElement[OFFReadAPIkeysJSON.IngredientsElementIdKey].string
-                element.rank = ingredientsJSONElement[OFFReadAPIkeysJSON.IngredientsElementRankKey].int
-                ingredients.append(element)
-            }
-        }
-        */
         
         nutritionScore = [(NutritionItem.fat,
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.fat)),
@@ -1582,115 +1321,103 @@ class FoodProduct {
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.sugars)),
                           (NutritionItem.salt,
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.salt))]
-        /*
-        var nutritionLevelQuantity = NutritionLevelQuantity.undefined
-        nutritionLevelQuantity.string(nutrientLevelsFat)
-        let fatNutritionScore = (NutritionItem.fat, nutritionLevelQuantity)
-        nutritionLevelQuantity.string(nutrientLevelsSaturatedFat)
-        let saturatedFatNutritionScore = (NutritionItem.saturatedFat, nutritionLevelQuantity)
-        nutritionLevelQuantity.string(nutrientLevelsSugars)
-        let sugarNutritionScore = (NutritionItem.sugar, nutritionLevelQuantity)
-        nutritionLevelQuantity.string(nutrientLevelsSalt)
-        let saltNutritionScore = (NutritionItem.salt, nutritionLevelQuantity)
-        product.nutritionScore = [fatNutritionScore, saturatedFatNutritionScore, sugarNutritionScore, saltNutritionScore]
-        */
 
         // Warning: the order of these nutrients is important. It will be displayed as such.
         
-        add(fact: nutritionDecode(.energyKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
-        add(fact: nutritionDecode(.fatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FatKey]))
-        add(fact: nutritionDecode(.monounsaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MonounsaturatedFatKey]))
-        add(fact: nutritionDecode(.polyunsaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PolyunsaturatedFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.saturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SaturatedFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.omega3FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega3FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.omega6FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega6FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.omega9FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega9FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.transFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.TransFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.cholesterolKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CholesterolKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.carbohydratesKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CarbohydratesKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.sugarsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SugarsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.sucroseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SucroseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.glucoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GlucoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.fructoseKey , with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FructoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.lactoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LactoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.maltoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MaltoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.polyolsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PolyolsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.maltodextrinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MaltodextrinsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.fiberKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FiberKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.proteinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ProteinsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.sodiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SodiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.saltKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SaltKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.alcoholKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.AlcoholKey]))
+        add(fact: nutritionDecode(.energyKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
+        add(fact: nutritionDecode(.fatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FatKey]))
+        add(fact: nutritionDecode(.monounsaturatedFatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MonounsaturatedFatKey]))
+        add(fact: nutritionDecode(.polyunsaturatedFatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PolyunsaturatedFatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.saturatedFatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SaturatedFatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.omega3FatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.Omega3FatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.omega6FatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.Omega6FatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.omega9FatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.Omega9FatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.transFatKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.TransFatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.cholesterolKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CholesterolKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.carbohydratesKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CarbohydratesKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.sugarsKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SugarsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.sucroseKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SucroseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.glucoseKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.GlucoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.fructoseKey , with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FructoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.lactoseKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LactoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.maltoseKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MaltoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.polyolsKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PolyolsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.maltodextrinsKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MaltodextrinsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.fiberKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FiberKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.proteinsKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ProteinsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.sodiumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SodiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.saltKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SaltKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.alcoholKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.AlcoholKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.biotinKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BiotinKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.caseinKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaseinKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.serumProteinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SerumProteinsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.nucleotidesKey , with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.NucleotidesKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.starchKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.StarchKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.biotinKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.BiotinKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caseinKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaseinKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.serumProteinsKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SerumProteinsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.nucleotidesKey , with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.NucleotidesKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.starchKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.StarchKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminAKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminAKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB1Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB1Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB2Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB2Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminPPKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminPPKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB6Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB6Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB9Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB9Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB12Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB12Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminCKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminCKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminDKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminDKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminEKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminEKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminKKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminKKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminAKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminAKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB1Key, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB1Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB2Key, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB2Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminPPKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminPPKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB6Key, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB6Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB9Key, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB9Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB12Key, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminB12Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminCKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminCKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminDKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminDKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminEKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminEKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminKKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VitaminKKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.calciumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CalciumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.chlorideKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ChlorideKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.chromiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ChromiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.copperKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CopperKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.bicarbonateKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BicarbonateKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.fluorideKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FluorideKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.iodineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.IodineKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ironKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.IronKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.magnesiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MagnesiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.manganeseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ManganeseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.molybdenumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MolybdenumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.phosphorusKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhosphorusKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.potassiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PotassiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.seleniumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SeleniumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.silicaKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SilicaKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.zincKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ZincKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.calciumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CalciumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.chlorideKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ChlorideKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.chromiumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ChromiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.copperKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CopperKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.bicarbonateKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.BicarbonateKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.fluorideKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.FluorideKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.iodineKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.IodineKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.ironKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.IronKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.magnesiumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MagnesiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.manganeseKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ManganeseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.molybdenumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MolybdenumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.phosphorusKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PhosphorusKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.potassiumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PotassiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.seleniumKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SeleniumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.silicaKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.SilicaKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.zincKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ZincKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.alphaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.AlphaLinolenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.arachidicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ArachidicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.arachidonicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ArachidonicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.behenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BehenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.butyricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ButyricAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.capricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CapricAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.caproicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaproicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.caprylicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaprylicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ceroticAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CeroticAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.dihomoGammaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.DihomoGammaLinolenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.docosahexaenoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.DocosahexaenoicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.eicosapentaenoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.EicosapentaenoicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.elaidicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ElaidicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.erucicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ErucicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.gammaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GammaLinolenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.gondoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GondoicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.lauricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LauricAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.lignocericAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LignocericAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.linoleicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LinoleicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.meadAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MeadAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.melissicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MelissicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.montanicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MontanicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.myristicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MyristicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.nervonicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.NervonicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.palmiticAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PalmiticAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.pantothenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PantothenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.stearicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.StearicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.voleicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VoleicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.alphaLinolenicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.AlphaLinolenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.arachidicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ArachidicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.arachidonicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ArachidonicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.behenicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.BehenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.butyricAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ButyricAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.capricAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CapricAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caproicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaproicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caprylicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaprylicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.ceroticAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CeroticAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.dihomoGammaLinolenicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.DihomoGammaLinolenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.docosahexaenoicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.DocosahexaenoicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.eicosapentaenoicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.EicosapentaenoicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.elaidicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ElaidicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.erucicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.ErucicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.gammaLinolenicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.GammaLinolenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.gondoicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.GondoicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.lauricAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LauricAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.lignocericAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LignocericAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.linoleicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.LinoleicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.meadAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MeadAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.melissicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MelissicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.montanicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MontanicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.myristicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.MyristicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.nervonicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.NervonicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.palmiticAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PalmiticAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.pantothenicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PantothenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.stearicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.StearicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.voleicAcidKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.VoleicAcidKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.caffeineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaffeineKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.taurineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.TaurineKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caffeineKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CaffeineKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.taurineKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.TaurineKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.phKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.cacaoKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.phKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PhKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.cacaoKey, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
         
     }
     
@@ -1793,14 +1520,10 @@ class FoodProduct {
             primaryLanguageCode = product!.primaryLanguageCode
         }
         for languageSet in product!.nameLanguage {
-            if languageSet.value != nil {
-                nameLanguage[languageSet.key] = languageSet.value!
-            }
+            nameLanguage[languageSet.key] = languageSet.value
         }
         for languageSet in product!.genericNameLanguage {
-            if languageSet.value != nil {
-                genericNameLanguage[languageSet.key] = languageSet.value!
-            }
+            genericNameLanguage[languageSet.key] = languageSet.value
         }
         
         //if let validText = product!.searchText {
@@ -2021,7 +1744,10 @@ class FoodProduct {
     }
     
     func contains(ingredients: String, in languageCode:String) -> Bool {
-        return ingredients == self.ingredientsLanguage[languageCode] ? true : false
+        if let validIngredients = self.ingredientsLanguage[languageCode] {
+            return ingredients == validIngredients ? true : false
+        }
+        return false
     }
     
     func contains(servingSize: String) -> Bool {
@@ -2205,39 +1931,74 @@ class FoodProduct {
         }
     }
 
-    /*
-    var asOFFProductJson: String {
-        func key(_ s: String) -> String {
-            return "\"" + s + "\":"
-        }
+    // This calculated variable is needed for the creation of a OFF json
+    var asOFFProductJson: OFFProductJson {
         
-        let comma = ","
-        let open = "{"
-        let close = "}"
-        let s = "\""
-        let colon = ":"
-        
-        var json = open
-        json += key(OFFReadAPIkeysJSON.StatusKey) + "1" + comma
-            json += key(OFFReadAPIkeysJSON.ProductKey) + open
-            // name
-            for name in nameLanguage {
-                if let validName = name.value {
-                    json += s + OFFReadAPIkeysJSON.ProductNameKey + "_" + name.0 + s + colon + validName + s
+        var validNutritionFacts: [NutritionFactItem] = []
+        if let existingNutritionFacts = self.nutritionFacts {
+            for nutritionFact in existingNutritionFacts {
+                if nutritionFact != nil {
+                    validNutritionFacts.append(nutritionFact!)
                 }
             }
+        }
         
-            // generic name
+        let offNutriments = OFFProductNutriments(nutritionFacts: validNutritionFacts)
+        var validLinks = ""
+        if let validLinkUrls = self.links {
+            for link in validLinkUrls {
+                validLinks += link.absoluteString + ","
+            }
+        }
         
-            // ingredients
-            json += close
-        json += key(OFFReadAPIkeysJSON.CodeKey) + barcode.asString + comma
-        json += key(OFFReadAPIkeysJSON.StatusVerboseKey) + s + "product found" + s
-        json += close
-        return json
+        var validNames: [String:String] = [:]
+        for (languageCode, name) in self.nameLanguage {
+            if let validName = name {
+                validNames[languageCode] = validName
+            }
+        }
+        
+        var validGenericNames: [String:String] = [:]
+        for (languageCode, name) in self.genericNameLanguage {
+            if let validGenericName = name {
+                validGenericNames[languageCode] = validGenericName
+            }
+        }
+
+        var validIngredientsList: [String:String] = [:]
+        for (languageCode, ingredients) in self.ingredientsLanguage {
+            if let validIngredients = ingredients {
+                validIngredientsList[languageCode] = validIngredients
+            }
+        }
+
+        let offProduct = OFFProductDetailed.init(languageCodes: self.languageCodes,
+                                                 names: validNames,
+                                                 generic_names: validGenericNames,
+                                                 ingredients: validIngredientsList,
+                                                 additives_tags: self.additivesOriginal.list,
+                                                 brands_tags: self.brandsOriginal.list,
+                                                 categories_tags: self.categoriesOriginal.list,
+                                                 code: self.barcode.asString,
+                                                 countries_tags: self.countriesOriginal.list,
+                                                 emb_codes_tags: self.embCodesOriginal.list,
+                                                 expiration_date: self.expirationDateString ?? "",
+                                                 labels_tags: self.labelsOriginal.list,
+                                                 link: validLinks,
+                                                 manufacturing_places_tags: self.manufacturingPlacesOriginal.list,
+                                                 nutriments: offNutriments,
+                                                 origins_tags: self.originsOriginal.list,
+                                                 packaging_tags: self.packagingOriginal.list,
+                                                 purchase_places_tags: self.purchasePlacesOriginal.list,
+                                                 quantity: self.quantity ?? "",
+                                                 serving_size: self.servingSize ?? "",
+                                                 stores_tags: self.storesOriginal.list,
+                                                 traces_tags: self.tracesOriginal.list )
+        
+        return OFFProductJson(product: offProduct, status: 1, code: self.barcode.asString, status_verbose: "Stored from FoodViewer")
     }
- */
-// End product
+
+    // End product
 }
 
 // Definition:

@@ -9,146 +9,148 @@
 import Foundation
 
 class OFFProduct: Codable {
+    
+    // the vars are those that the user can create/edit
     var additives: String? = nil
-    let additives_debug_tags: [String]
-    let additives_n: Int?
-    let additives_old_n: Int?
-    let additives_old_tags: [String]
-    let additives_prev: String?
-    let additives_prev_n: Int?
-    let additives_prev_tags: [String]
-    let additives_tags: [String]
-    let allergens: String
-    let allergens_hierarchy: [String]
-    let allergens_tags: [String]
-    let brands: String
-    let brands_tags: [String]
-    let categories: String
-    let categories_debug_tags: [String]
-    let categories_hierarchy: [String]
-    let categories_prev_hierarchy: [String]
-    let categories_prev_tags: [String]
-    let categories_tags: [String]
-    let checkers_tags: [String]
-    let cities_tags: [String]?
-    let code: String
-    let codes_tags: [String]
-    let complete: Int
-    let completed_t: Date?
-    let correctors_tags: [String]
-    let countries: String
-    let countries_hierarchy: [String]
-    let countries_tags: [String]
-    let created_t: Date // 1410949750
-    let creator: String
-    let editors: [String]?
-    let editors_tags: [String]
-    let emb_codes: String?
-    let emb_codes_20141016: String?
-    let emb_codes_orig: String?
-    let emb_codes_tags: [String]?
-    let expiration_date: String? // "04/12/2016"
-    let entry_dates_tags: [String]
+    var additives_debug_tags: [String]? = nil
+    var additives_n: Int? = nil
+    var additives_old_n: Int? = nil
+    var additives_old_tags: [String]? = nil
+    var additives_prev: String? = nil
+    var additives_prev_n: Int? = nil
+    var additives_prev_tags: [String]? = nil
+        var additives_tags: [String]? = nil
+    var allergens: String? = nil
+    var allergens_hierarchy: [String]? = nil
+    var allergens_tags: [String]? = nil
+    var brands: String? = nil
+        var brands_tags: [String]? = nil
+    var categories: String? = nil
+    var categories_debug_tags: [String]? = nil
+    var categories_hierarchy: [String]? = nil
+    var categories_prev_hierarchy: [String]? = nil
+    var categories_prev_tags: [String]? = nil
+        var categories_tags: [String]? = nil
+    var checkers_tags: [String]? = nil
+        var cities_tags: [String]? = nil
+        var code: String? = nil
+    var codes_tags: [String]? = nil
+    var complete: Int? = nil
+    var completed_t: Date? = nil
+    var correctors_tags: [String]? = nil
+    var countries: String? = nil
+    var countries_hierarchy: [String]? = nil
+        var countries_tags: [String]? = nil
+    var created_t: Date? = nil // 1410949750
+    var creator: String? = nil
+    var editors: [String]? = nil
+    var editors_tags: [String]? = nil
+    var emb_codes: String? = nil
+    var emb_codes_20141016: String? = nil
+    var emb_codes_orig: String? = nil
+        var emb_codes_tags: [String]? = nil
+        var expiration_date: String? = nil // "04/12/2016"
+    var entry_dates_tags: [String]? = nil
     // generic_name_fr is handled in the child
-    let generic_name: String?
-    let id: String
-    let image_front_small_url: URL?
-    let image_front_thumb_url: URL?
-    let image_front_url: URL?
-    let image_ingredients_small_url: URL?
-    let image_ingredients_thumb_url: URL?
-    let image_ingredients_url: URL
-    let image_nutrition_small_url: URL?
-    let image_nutrition_thumb_url: URL?
-    let image_nutrition_url: URL?
-    let image_small_url: URL?
-    let image_thumb_url: URL?
-    let image_url: String?
-    let images: [String:OFFProductImage]
-    let informers_tags: [String]
-    let ingredients: [OFFProductIngredient]
-    let ingredients_debug: [String]
-    let ingredients_from_or_that_may_be_from_palm_oil_n: Int?
-    let ingredients_from_palm_oil_n: Int?
-    let ingredients_from_palm_oil_tags: [String]
-    let ingredients_ids_debug: [String]
-    let ingredients_n: String?
-    let ingredients_n_tags: [String]?
-    let ingredients_that_may_be_from_palm_oil_n: Int?
-    let ingredients_tags: [String]
-    let ingredients_text: String
+    var generic_name: String? = nil
+    var id: String? = nil
+    var image_front_small_url: URL? = nil
+    var image_front_thumb_url: URL? = nil
+    var image_front_url: URL? = nil
+    var image_ingredients_small_url: URL? = nil
+    var image_ingredients_thumb_url: URL? = nil
+    var image_ingredients_url: URL? = nil
+    var image_nutrition_small_url: URL? = nil
+    var image_nutrition_thumb_url: URL? = nil
+    var image_nutrition_url: URL? = nil
+    var image_small_url: URL? = nil
+    var image_thumb_url: URL? = nil
+    var image_url: String? = nil
+    var images: [String:OFFProductImage]? = nil
+    var informers_tags: [String]? = nil
+        var ingredients: [OFFProductIngredient]? = nil
+    var ingredients_debug: [String]? = nil
+    var ingredients_from_or_that_may_be_from_palm_oil_n: Int? = nil
+    var ingredients_from_palm_oil_n: Int? = nil
+    var ingredients_from_palm_oil_tags: [String]? = nil
+    var ingredients_ids_debug: [String]? = nil
+    var ingredients_n: String? = nil
+    var ingredients_n_tags: [String]? = nil
+    var ingredients_that_may_be_from_palm_oil_n: Int? = nil
+    var ingredients_tags: [String]? = nil
+    var ingredients_text: String? = nil
     // ingredients_text_fr is handled in the child
-    let ingredients_text_debug: String
-    let ingredients_that_may_be_from_palm_oil_tags: [String]
-    let ingredients_text_with_allergens: String?
-    // let ingredients_text_with_allergens_fr is handled in the child
-    let interface_version_created: String?  // not always with value
-    let interface_version_modified: String
-    let labels: String
-    let labels_debug_tags: [String]
-    let labels_hierarchy: [String]
-    let labels_prev_hierarchy: [String]
-    let labels_prev_tags: [String]
-    let labels_tags: [String]
-    let lang: String
-    let languages: [String:Int]
-    let languages_hierarchy: [String]
-    let languages_tags: [String]
-    let last_edit_dates_tags: [String]
-    let last_editor: String?  // not always with value
-    let last_image_dates_tags: [String]
-    let last_image_t: Date
-    let last_modified_by: String?  // not always with value
-    let last_modified_t: Date // 1463315494
-    let lc: String
-    let link: String?  // not always with value
-    let manufacturing_places: String?  // not always with value
-    let manufacturing_places_tags: [String]?  // not always with value
-    let max_imgid: String
-    let new_additives_n: Int?  // not always with value
-    let no_nutrition_data: String
-    let nutrient_levels: OFFProductNutrientLevels?
-    let nutrient_levels_tags: [OFFProductNutrientLevel]
-    let nutrition_grade_fr: String?
-    let nutrition_score_debug: String
-    let nutriments: OFFProductNutriments
-    let nutrition_data_per: String
-    let nutrition_grades_tags: [String]
-    let origins: String?   // not always with value
-    let origins_tags: [String]?   // not always with value
-    let packaging: String?
-    let packaging_tags: [String]?
-    let period_after_opening: String?
-    let photographers_tags: [String]
-    let pnns_groups_1: String
-    let pnns_groups_1_tags: [String]
-    let pnns_groups_2: String
-    let pnns_groups_2_tags: [String]
-    let product_name: String
+    var ingredients_text_debug: String? = nil
+    var ingredients_that_may_be_from_palm_oil_tags: [String]? = nil
+    var ingredients_text_with_allergens: String? = nil
+    // var ingredients_text_with_allergens_fr is handled in the child
+    var interface_version_created: String? = nil  // not always with value
+    var interface_version_modified: String? = nil
+    var labels: String? = nil
+    var labels_debug_tags: [String]? = nil
+    var labels_hierarchy: [String]? = nil
+    var labels_prev_hierarchy: [String]? = nil
+    var labels_prev_tags: [String]? = nil
+        var labels_tags: [String]? = nil
+    var lang: String? = nil
+    var languages: [String:Int]? = nil
+    var languages_hierarchy: [String]? = nil
+    var languages_tags: [String]? = nil
+    var last_edit_dates_tags: [String]? = nil
+    var last_editor: String? = nil
+    var last_image_dates_tags: [String]? = nil
+    var last_image_t: Date? = nil
+    var last_modified_by: String? = nil
+    var last_modified_t: Date? = nil // 1463315494
+    var lc: String? = nil
+        var link: String? = nil
+    var manufacturing_places: String? = nil
+        var manufacturing_places_tags: [String]? = nil
+    var max_imgid: String? = nil
+    var new_additives_n: Int? = nil
+    var no_nutrition_data: String? = nil
+    var nutrient_levels: OFFProductNutrientLevels? = nil
+    var nutrient_levels_tags: [OFFProductNutrientLevel]? = nil
+    var nutrition_grade_fr: String? = nil
+    var nutrition_score_debug: String? = nil
+        var nutriments: OFFProductNutriments? = nil
+    var nutrition_data_per: String? = nil
+    var nutrition_grades_tags: [String]? = nil
+    var origins: String? = nil
+        var origins_tags: [String]? = nil
+    var packaging: String? = nil
+        var packaging_tags: [String]? = nil
+    var period_after_opening: String? = nil
+    var photographers_tags: [String]? = nil
+    var pnns_groups_1: String? = nil
+    var pnns_groups_1_tags: [String]? = nil
+    var pnns_groups_2: String? = nil
+    var pnns_groups_2_tags: [String]? = nil
+    var product_name: String? = nil
     // product_name_fr is handled in the child
-    let purchase_places: String?
-    let purchase_places_tags: [String]?
-    let quantity: String?
-    let rev: Int
-    let scans_n: Int?  // not always with value
-    let selected_images: OFFProductSelectedImages
-    let server: String?
-    let serving_quantity: Double
-    let serving_size: String?
-    let sortkey: Int
-    let states: String
-    let states_hierarchy: [OFFProductStates]
-    let states_tags: [OFFProductStates]
-    let stores: String?
-    let stores_tags: [String]?
-    let traces: String?
-    let traces_hierarchy: [String]?
-    let traces_tags: [String]?
-    let unique_scans_n: Int?  // not always with value
-    let unknown_nutrients_tags: [String]
-    let update_key: String?
-    let _id: String
-    let _keywords: [String]
+    var purchase_places: String? = nil
+        var purchase_places_tags: [String]? = nil
+        var quantity: String? = nil
+    var rev: Int? = nil
+    var scans_n: Int? = nil
+    var selected_images: OFFProductSelectedImages? = nil
+    var server: String? = nil
+    var serving_quantity: Double? = nil
+        var serving_size: String? = nil
+    var sortkey: Int? = nil
+    var states: String? = nil
+    var states_hierarchy: [OFFProductStates]? = nil
+        var states_tags: [OFFProductStates]? = nil
+    var stores: String? = nil
+        var stores_tags: [String]? = nil
+    var traces: String? = nil
+    var traces_hierarchy: [String]? = nil
+        var traces_tags: [String]? = nil
+    var unique_scans_n: Int? = nil
+    var unknown_nutrients_tags: [String]? = nil
+    var update_key: String? = nil
+    var _id: String? = nil
+    var _keywords: [String]? = nil
     
     /*
     enum CodingKeys: String, CodingKey {
@@ -435,4 +437,5 @@ class OFFProduct: Codable {
 
     }
  */
+
 }

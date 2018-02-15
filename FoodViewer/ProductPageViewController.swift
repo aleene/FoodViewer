@@ -647,8 +647,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                         updated(genericName: validGenericName, languageCode: primaryLanguageCode)
                     }
                 }
-                if let validIngredients = product!.ingredientsLanguage[primaryLanguageCode]{
-                    updated(ingredients: validIngredients, languageCode: primaryLanguageCode)
+                if let validIngredients = product?.ingredientsLanguage[primaryLanguageCode],
+                    let ingredients = validIngredients {
+                    updated(ingredients: ingredients, languageCode: primaryLanguageCode)
                 }
             }
             // now it is possible to change the primary languageCode

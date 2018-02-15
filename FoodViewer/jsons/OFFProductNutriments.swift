@@ -29,6 +29,13 @@ class OFFProductNutriments: Codable {
         "magnesium","zinc","copper","manganese","fluoride","selenium","chromium","molybdenum","iodine",
         "caffeine","taurine","carbon-footprint_100g",]
     
+    private struct Constants {
+        static let HunderdGram = "_100g"
+        static let Serving = "_serving"
+        static let Value = "_value"
+        static let Unit = "_unit"
+        static let Label = "_label"
+    }
     var nutriments: [String:OFFProductNutrimentValues]
 
     struct DetailedKeys : CodingKey {
@@ -64,7 +71,7 @@ class OFFProductNutriments: Codable {
                         }
                     }
                     break
-                } else if key.stringValue == nutriment + "_100g" {
+                } else if key.stringValue == nutriment + Constants.HunderdGram {
                     do {
                         let name = try container.decode(String.self, forKey: key)
                         if nutrimentsFound[nutriment] == nil {
@@ -79,7 +86,7 @@ class OFFProductNutriments: Codable {
                         nutrimentsFound[nutriment]?.per100g = "\(name)"
                     }
                     break
-                } else if key.stringValue == nutriment + "_serving" {
+                } else if key.stringValue == nutriment + Constants.Serving {
                     do {
                         let name = try container.decode(String.self, forKey: key)
                         if nutrimentsFound[nutriment] == nil {
@@ -94,7 +101,7 @@ class OFFProductNutriments: Codable {
                         nutrimentsFound[nutriment]?.serving = "\(name)"
                     }
                     break
-                } else if key.stringValue == nutriment + "_value" {
+                } else if key.stringValue == nutriment + Constants.Value {
                     do {
                         let name = try container.decode(String.self, forKey: key)
                         if nutrimentsFound[nutriment] == nil {
@@ -109,14 +116,14 @@ class OFFProductNutriments: Codable {
                         nutrimentsFound[nutriment]?.value = "\(name)"
                     }
                     break
-                } else if key.stringValue == nutriment + "_unit" {
+                } else if key.stringValue == nutriment + Constants.Unit {
                     do {
                         if nutrimentsFound[nutriment] == nil {
                             nutrimentsFound[nutriment] = OFFProductNutrimentValues()
                         }
                         nutrimentsFound[nutriment]?.unit = try container.decode(String.self, forKey: key)
                     }
-                } else if key.stringValue == nutriment + "_label" {
+                } else if key.stringValue == nutriment + Constants.Label  {
                     do {
                         if nutrimentsFound[nutriment] == nil {
                             nutrimentsFound[nutriment] = OFFProductNutrimentValues()
@@ -131,18 +138,43 @@ class OFFProductNutriments: Codable {
         nutriments = nutrimentsFound
     }
     
+    init() {
+        self.nutriments = [:]
+    }
+
+    convenience init(nutritionFacts: [NutritionFactItem]) {
+        self.init()
+        for nutritionFact in nutritionFacts {
+            guard let validKey = nutritionFact.key else { continue }
+            
+            self.nutriments[validKey] = OFFProductNutrimentValues(base: nil,
+                                                                  per100g: nutritionFact.standardValue,
+                                                                  serving: nutritionFact.servingValue,
+                                                                  value: nil,
+                                                                  label: nil,
+                                                                  unit: nutritionFact.standardValueUnit?.short())
+        }
+    }
+    
     func encode(to encoder: Encoder) throws {
         
+        var container = encoder.container(keyedBy: DetailedKeys.self)
+        
+        for nutriment in nutriments {
+            // per 100 g
+            if let key = DetailedKeys(stringValue: nutriment.key + Constants.HunderdGram) {
+                try container.encodeIfPresent(nutriment.value.per100g, forKey: key)
+            }
+            // per serving
+            if let key = DetailedKeys(stringValue: nutriment.key + Constants.Serving) {
+                try container.encodeIfPresent(nutriment.value.serving, forKey: key)
+            }
+            // unit
+            if let key = DetailedKeys(stringValue: nutriment.key + Constants.Unit) {
+                try container.encodeIfPresent(nutriment.value.unit, forKey: key)
+            }
+            // The other elements are not wriiten to and always nil
+        }
     }
 
 }
-    /*
- 
-    enum Unit: String, Codable {
-        case kcal
-        case g
-        case mg
-    }
-    */
-
-

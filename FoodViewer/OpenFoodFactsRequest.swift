@@ -32,7 +32,19 @@ class OpenFoodFactsRequest {
     var currentBarcode: BarcodeType? = nil
     
     func fetchStoredProduct(_ data: Data) -> ProductFetchStatus {
-        return unpackJSONObject(JSON(data: data))
+        do {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .secondsSince1970
+            let productJson = try decoder.decode(OFFProductJson.self, from:data)
+            let newProduct = FoodProduct.init(with: productJson)
+            return .success(newProduct)
+            
+        } catch let error {
+            print (error)
+            return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
+        }
+
+        //return unpackJSONObject(JSON(data: data))
     }
     
     private var currentProductType: ProductType {
@@ -85,13 +97,8 @@ class OpenFoodFactsRequest {
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         })
-        //var fetchUrlString = OFF.URL.Prefix
-        // add the right server
-        //fetchUrlString += Preferences.manager.useOpenFactsServer.rawValue
-        //fetchUrlString += OFF.URL.Postfix
-        //fetchUrlString += barcode.asString() + OFF.URL.JSONExtension
-        let fetchUrl = URL(string: OFF.fetchString(for: barcode, with: currentProductType)) // URL(string: fetchUrlString)
-        // let fetchUrl = URL(string: "\(OpenFoodFacts.APIURLPrefixForFoodProduct + barcode.asString() + OFF.URL.JSONExtension)")
+        let fetchUrl = URL(string: OFF.fetchString(for: barcode, with: currentProductType))
+        
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         })
@@ -99,6 +106,7 @@ class OpenFoodFactsRequest {
         if let url = fetchUrl {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
+                
                 return FetchJsonResult.success(data)
             } catch let error as NSError {
                 print(error);
@@ -108,59 +116,11 @@ class OpenFoodFactsRequest {
             return FetchJsonResult.error("OpenFoodFactsRequest: URL not matched")
         }
     }
-    
-//    func fetchProducts(for component: OFF.SearchComponent, with value:String, on page:Int) -> ProductFetchStatus {
-//        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-//        // encode the url-string
-//        let search = OFF.searchString(for: component, with: value, on: page)
-//        if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
-//
-//            let fetchUrl = URL(string:escapedSearch)
-//            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-//            if let url = fetchUrl {
-//                do {
-//                let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-//                    return unpackJSONObject(JSON(data: data))
-//                } catch let error as NSError {
-//                    print(error);
-//                    return ProductFetchStatus.loadingFailed(error.description)
-//                }
-//            } else {
-//                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
-//            }
-//
-//        } else {
-//            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
-//        }
-//    }
-    /*
-    func fetchProducts(for pairs: [(OFF.SearchComponent, String, Bool)], on page:Int) -> ProductFetchStatus {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        // encode the url-string
-        let search = OFF.advancedSearchString(with: pairs, on: page)
-        if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
-            
-            let fetchUrl = URL(string:escapedSearch)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if let url = fetchUrl {
-                do {
-                    let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                    return unpackJSONObject(JSON(data: data))
-                } catch let error as NSError {
-                    print(error);
-                    return ProductFetchStatus.loadingFailed(error.description)
-                }
-            } else {
-                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
-            }
-            
-        } else {
-            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
-        }
-    }
-    */
+
     func fetchProducts(for query: SearchTemplate, on page:Int) -> ProductFetchStatus {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.async(execute: { () -> Void in
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        })
         // encode the url-string
         let search = OFF.searchString(for: query, on: page)
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
@@ -197,7 +157,19 @@ class OpenFoodFactsRequest {
         let filePath  = Bundle.main.path(forResource: resource, ofType:OFF.URL.JSONExtension)
         let data = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
         if let validData = data {
-            return unpackJSONObject(JSON(data: validData))
+            do {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                let productJson = try decoder.decode(OFFProductJson.self, from:validData)
+                let newProduct = FoodProduct.init(with: productJson)
+                return .success(newProduct)
+                
+            } catch let error {
+                print (error)
+                return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
+                
+            }
+            // return unpackJSONObject(JSON(data: validData))
         } else {
             return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: No valid data")
         }
@@ -1207,8 +1179,3 @@ class OpenFoodFactsRequest {
     }
 
 }
-
-
-
-
-

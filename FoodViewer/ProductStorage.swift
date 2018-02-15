@@ -29,17 +29,19 @@ public struct ProductStorage {
             assert(true, "ProductStorage: Not able to create directory")
             return
         }
-        /*
-        if let encodedData = OFFProductJson().encode(product) {
+        let encoder = JSONEncoder()
+        do {
+            let encodedData = try encoder.encode(product.asOFFProductJson)
             let fileURL =  directoryURL.appendingPathComponent(product.barcode.asString + Constant.JsonExtension)
             do {
                 try encodedData.write(to: fileURL)
             }
-            catch {
-                print("Failed to write JSON data: \(error.localizedDescription)")
+            catch let error {
+                print("ProductStorage: Failed to write JSON data: \(error.localizedDescription)")
             }
+        } catch let error {
+            print("ProductStorage: Failed to encode: \(error.localizedDescription)")
         }
- */
 
         // convert the data to a json file and store that
         // store the new images
