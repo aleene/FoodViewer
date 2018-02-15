@@ -14,7 +14,7 @@ public enum NutritionFactUnit {
     case Milligram
     case Microgram
     case Joule
-    case Calories
+    case Calories // big calories?
     case KiloCalories
     case Percent
     case None
@@ -172,6 +172,15 @@ public enum NutritionFactUnit {
         }
         
         return (newValue, newUnit)
+    }
+    
+    public var isNone: Bool {
+        switch self {
+        case .None:
+            return true
+        default:
+            return false
+        }
     }
 
 }

@@ -1042,37 +1042,62 @@ class FoodProduct {
         
         
         
-        func nutritionDecode(_ key: String, with values: OFFProductNutrimentValues?) -> NutritionFactItem? {
+        func nutritionDecode(_ key: NutrimentsFactKeys, with values: OFFProductNutrimentValues?) -> NutritionFactItem? {
             
             guard let validValues = values else { return nil }
             var nutritionItem = NutritionFactItem()
             
-            nutritionItem.key = key
-            nutritionItem.itemName = OFFplists.manager.translateNutrients(key, language:Locale.preferredLanguages[0])
-            switch OFFplists.manager.nutrientUnit(for: key) {
+            //TODO: should be expressed as NutrimentFactKeys
+            nutritionItem.key = key.rawValue
+            
+            // The translation of the key in the local language
+            nutritionItem.itemName = OFFplists.manager.translateNutrients(key.rawValue, language:Locale.preferredLanguages[0])
+            
+            // Try to find the default unit for the current nutriment
+            switch OFFplists.manager.nutrientUnit(for: key.rawValue) {
             case .Milligram, .Microgram:
                 nutritionItem.standardValueUnit = .Gram
             default:
-                nutritionItem.standardValueUnit = OFFplists.manager.nutrientUnit(for: key)
-                
+                nutritionItem.standardValueUnit = OFFplists.manager.nutrientUnit(for: key.rawValue)
             }
             nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
+
+            /* The units and value seem to be what the user has entered
+            // decode the units
+            if let unit = validValues.unit {
+                nutritionItem.standardValueUnit = NutritionFactUnit(unit)
+                nutritionItem.servingValueUnit = NutritionFactUnit(unit)
+
+                // no units defined?
+                if let unit = nutritionItem.standardValueUnit,
+                    unit.isNone {
+                    // Try to find the default unit for the current nutriment
+                    switch OFFplists.manager.nutrientUnit(for: key.rawValue) {
+                    case .Milligram, .Microgram:
+                        nutritionItem.standardValueUnit = .Gram
+                    default:
+                        nutritionItem.standardValueUnit = OFFplists.manager.nutrientUnit(for: key.rawValue)
+                    }
+                    nutritionItem.servingValueUnit = nutritionItem.standardValueUnit
+                }
+            }
+            */
             
-            nutritionItem.standardValue = validValues.per100g
-            
-            nutritionItem.servingValue = validValues.serving
-            
-            if nutritionItem.standardValueUnit == .Gram {
-                var value: String? = nil
-                var unit: NutritionFactUnit = .Gram
-                
-                (value, unit) = NutritionFactUnit.normalize(nutritionItem.standardValue)
-                nutritionItem.standardValue = value
-                nutritionItem.standardValueUnit = unit
-                
-                (value, unit) = NutritionFactUnit.normalize(nutritionItem.servingValue)
-                nutritionItem.servingValue = value
-                nutritionItem.servingValueUnit = unit
+            if let unit = nutritionItem.standardValueUnit {
+                switch unit {
+                case .Gram: // requires normalization
+                    // per100g has already been transformed by OFF to gram
+                    var (value, unit) = NutritionFactUnit.normalize(validValues.per100g)
+                    nutritionItem.standardValue = value
+                    nutritionItem.standardValueUnit = unit
+                    
+                    (value, unit) = NutritionFactUnit.normalize(validValues.serving)
+                    nutritionItem.servingValue = value
+                    nutritionItem.servingValueUnit = unit
+                default: // does not require normalization
+                    nutritionItem.standardValue = validValues.per100g
+                    nutritionItem.servingValue = validValues.serving
+                }
             }
             
             // only add a fact if it has valid values
@@ -1194,13 +1219,13 @@ class FoodProduct {
         */
         }
 
-        if let validImageSizes = validProduct.selected_images.front {
-        for (key, value) in validImageSizes.display {
-            if nutritionImages[key] == nil {
-                nutritionImages[key] = ProductImageSize()
+        if let validImageSizes = validProduct.selected_images.nutrition {
+            for (key, value) in validImageSizes.display {
+                if nutritionImages[key] == nil {
+                    nutritionImages[key] = ProductImageSize()
+                }
+                nutritionImages[key]?.display = ProductImageData(url: value)
             }
-            nutritionImages[key]?.display = ProductImageData(url: value)
-        }
         /*
         if let valid = jsonObject[OFFReadAPIkeysJSON.SelectedImagesKey][OFFReadAPIkeysJSON.NutritionImageKey][OFFReadAPIkeysJSON.DisplayKey].dictionaryObject {
             for element in valid {
@@ -1572,100 +1597,100 @@ class FoodProduct {
 
         // Warning: the order of these nutrients is important. It will be displayed as such.
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.EnergyKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MonounsaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MonounsaturatedFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.PolyunsaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PolyunsaturatedFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SaturatedFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.Omega3FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega3FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.Omega6FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega6FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.Omega9FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega9FatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.TransFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.TransFatKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CholesterolKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CholesterolKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CarbohydratesKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CarbohydratesKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SugarsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SugarsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SucroseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SucroseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.GlucoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GlucoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.FructoseKey , with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FructoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.LactoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LactoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MaltoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MaltoseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.PolyolsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PolyolsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MaltodextrinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MaltodextrinsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.FiberKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FiberKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ProteinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ProteinsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SodiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SodiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SaltKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SaltKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.AlcoholKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.AlcoholKey]))
+        add(fact: nutritionDecode(.energyKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.EnergyKey]))
+        add(fact: nutritionDecode(.fatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FatKey]))
+        add(fact: nutritionDecode(.monounsaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MonounsaturatedFatKey]))
+        add(fact: nutritionDecode(.polyunsaturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PolyunsaturatedFatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.saturatedFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SaturatedFatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.omega3FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega3FatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.omega6FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega6FatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.omega9FatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.Omega9FatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.transFatKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.TransFatKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.cholesterolKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CholesterolKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.carbohydratesKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CarbohydratesKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.sugarsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SugarsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.sucroseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SucroseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.glucoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GlucoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.fructoseKey , with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FructoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.lactoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LactoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.maltoseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MaltoseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.polyolsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PolyolsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.maltodextrinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MaltodextrinsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.fiberKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FiberKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.proteinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ProteinsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.sodiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SodiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.saltKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SaltKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.alcoholKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.AlcoholKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.BiotinKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BiotinKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CaseinKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaseinKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SerumProteinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SerumProteinsKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.NucleotidesKey , with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.NucleotidesKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.StarchKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.StarchKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.biotinKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BiotinKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caseinKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaseinKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.serumProteinsKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SerumProteinsKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.nucleotidesKey , with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.NucleotidesKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.starchKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.StarchKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminAKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminAKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminB1Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB1Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminB2Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB2Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminPPKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminPPKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminB6Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB6Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminB9Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB9Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminB12Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB12Key]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminCKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminCKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminDKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminDKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminEKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminEKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VitaminKKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminKKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminAKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminAKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB1Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB1Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB2Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB2Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminPPKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminPPKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB6Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB6Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB9Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB9Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminB12Key, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminB12Key]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminCKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminCKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminDKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminDKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminEKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminEKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.vitaminKKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VitaminKKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.CalciumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CalciumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ChlorideKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ChlorideKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ChromiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ChromiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CopperKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CopperKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.BicarbonateKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BicarbonateKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.FluorideKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FluorideKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.IodineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.IodineKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.IronKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.IronKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MagnesiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MagnesiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ManganeseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ManganeseKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MolybdenumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MolybdenumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.PhosphorusKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhosphorusKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.PotassiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PotassiumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SeleniumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SeleniumKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.SilicaKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SilicaKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ZincKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ZincKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.calciumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CalciumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.chlorideKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ChlorideKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.chromiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ChromiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.copperKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CopperKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.bicarbonateKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BicarbonateKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.fluorideKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.FluorideKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.iodineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.IodineKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.ironKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.IronKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.magnesiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MagnesiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.manganeseKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ManganeseKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.molybdenumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MolybdenumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.phosphorusKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhosphorusKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.potassiumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PotassiumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.seleniumKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SeleniumKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.silicaKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.SilicaKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.zincKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ZincKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.AlphaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.AlphaLinolenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ArachidicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ArachidicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ArachidonicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ArachidonicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.BehenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BehenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ButyricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ButyricAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CapricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CapricAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CaproicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaproicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CaprylicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaprylicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CeroticAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CeroticAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.DihomoGammaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.DihomoGammaLinolenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.DocosahexaenoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.DocosahexaenoicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.EicosapentaenoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.EicosapentaenoicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ElaidicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ElaidicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.ErucicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ErucicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.GammaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GammaLinolenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.GondoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GondoicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.LauricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LauricAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.LignocericAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LignocericAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.LinoleicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LinoleicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MeadAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MeadAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MelissicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MelissicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MontanicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MontanicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.MyristicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MyristicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.NervonicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.NervonicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.PalmiticAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PalmiticAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.PantothenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PantothenicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.StearicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.StearicAcidKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.VoleicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VoleicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.alphaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.AlphaLinolenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.arachidicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ArachidicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.arachidonicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ArachidonicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.behenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.BehenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.butyricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ButyricAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.capricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CapricAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caproicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaproicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caprylicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaprylicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.ceroticAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CeroticAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.dihomoGammaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.DihomoGammaLinolenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.docosahexaenoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.DocosahexaenoicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.eicosapentaenoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.EicosapentaenoicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.elaidicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ElaidicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.erucicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.ErucicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.gammaLinolenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GammaLinolenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.gondoicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.GondoicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.lauricAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LauricAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.lignocericAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LignocericAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.linoleicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.LinoleicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.meadAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MeadAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.melissicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MelissicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.montanicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MontanicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.myristicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.MyristicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.nervonicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.NervonicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.palmiticAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PalmiticAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.pantothenicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PantothenicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.stearicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.StearicAcidKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.voleicAcidKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.VoleicAcidKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.CaffeineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaffeineKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.TaurineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.TaurineKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.caffeineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CaffeineKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.taurineKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.TaurineKey]))
         
-        add(fact: nutritionDecode(NutrimentsFactKeys.PhKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhKey]))
-        add(fact: nutritionDecode(NutrimentsFactKeys.CacaoKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.phKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.PhKey]))
+        add(fact: nutritionDecode(NutrimentsFactKeys.cacaoKey, with: validProduct.nutriments.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
         
     }
     

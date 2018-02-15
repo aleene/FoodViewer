@@ -871,11 +871,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 reloadImageSection()
                 return
             }
-            
+            var imageTypeCategory: ImageTypeCategory? = nil
+            var imageSizeCategory: ImageSizeCategory? = nil
             // We are only interested in medium-sized front images
-            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
-            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
-            if imageSizeCategory == .display && imageTypeCategory == .ingredients {
+            if let validValue = userInfo?[ProductImageData.Notification.ImageSizeCategoryKey] as? Int {
+                imageSizeCategory = ImageSizeCategory(rawValue: validValue)
+            }
+            if let validValue = userInfo?[ProductImageData.Notification.ImageTypeCategoryKey] as? Int {
+                imageTypeCategory = ImageTypeCategory(rawValue: validValue)
+            }
+            if imageSizeCategory != nil &&
+                imageTypeCategory != nil &&
+                imageSizeCategory! == .display && imageTypeCategory! == .ingredients {
                 reloadImageSection()
             }
         }
