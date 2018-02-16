@@ -214,7 +214,7 @@ class OpenFoodFactsRequest {
     // typealias nutrimentKeys = NutrimentsFactKeys
     
     // MARK: - unpack JSON
-    
+    /*
     func unpackJSONObject(_ jsonObject: JSON) -> ProductFetchStatus {
         
         func addPrefix(keys:[String]?, languageCode: String) -> [String]?  {
@@ -277,7 +277,8 @@ class OpenFoodFactsRequest {
         }
 
     }
-    
+  */
+    /*
     private func decode(_ jsonObject: JSON) -> FoodProduct {
         
         struct ingredientsElement {
@@ -1209,5 +1210,6 @@ class OpenFoodFactsRequest {
         
         return (newValue, newUnit)
     }
+  */
 
 }
