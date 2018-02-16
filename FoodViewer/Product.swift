@@ -757,7 +757,7 @@ class FoodProduct {
         self.barcode = barcodeType
     }
     
-    convenience init(with json:OFFProductJson) {
+    convenience init(json validProduct: OFFProductDetailed) {
         
         // checks whether a valid value is in the json-data
         func decodeNutritionDataAvalailable(_ code: String?) -> Bool? {
@@ -1086,10 +1086,9 @@ class FoodProduct {
 
 
         self.init()
-        barcode = BarcodeType.init(value: json.code)
         
-        guard let validProduct = json.product else { return }
-        
+        barcode = BarcodeType.init(value: validProduct.code ?? "no code")
+
         primaryLanguageCode = validProduct.lang
         
         for (languageCode, _) in validProduct.languages_codes {
@@ -1246,7 +1245,9 @@ class FoodProduct {
         packagingInterpreted = Tags(list:validProduct.packaging_tags)
         packagingOriginal = Tags(string:validProduct.packaging)
         
-        numberOfIngredients = validProduct.ingredients_n
+        if let validInt = validProduct.ingredients_n {
+            numberOfIngredients = "\(validInt)"
+        }
         
         countriesOriginal = Tags(string:validProduct.countries)
         countriesInterpreted = Tags(list:validProduct.countries_tags)

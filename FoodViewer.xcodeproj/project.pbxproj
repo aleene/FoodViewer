@@ -43,6 +43,8 @@
 		511B2C411E78672900336CE8 /* SIUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C401E78672800336CE8 /* SIUnit.swift */; };
 		511B2C431E78687E00336CE8 /* Mass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C421E78687E00336CE8 /* Mass.swift */; };
 		511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */; };
+		511D58A720371CC500F5D313 /* OFFSearchResultJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */; };
+		511D58A920372EC600F5D313 /* OFFProductImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D58A820372EC600F5D313 /* OFFProductImageSize.swift */; };
 		511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */; };
 		511DB4341E09B615009D4A4B /* OFF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4331E09B615009D4A4B /* OFF.swift */; };
 		511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */; };
@@ -337,6 +339,8 @@
 		511B2C401E78672800336CE8 /* SIUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnit.swift; sourceTree = "<group>"; };
 		511B2C421E78687E00336CE8 /* Mass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mass.swift; sourceTree = "<group>"; };
 		511C6ECD1D0C6E1D00E2E318 /* NutritionalScoreFR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreFR.swift; sourceTree = "<group>"; };
+		511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchResultJson.swift; path = OFFProductJson/OFFSearchResultJson.swift; sourceTree = "<group>"; };
+		511D58A820372EC600F5D313 /* OFFProductImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductImageSize.swift; path = OFFProductJson/OFFProductImageSize.swift; sourceTree = "<group>"; };
 		511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFWriteAPI.swift; sourceTree = "<group>"; };
 		511DB4331E09B615009D4A4B /* OFF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFF.swift; sourceTree = "<group>"; };
 		511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentsFactKeys.swift; sourceTree = "<group>"; };
@@ -614,6 +618,8 @@
 			isa = PBXGroup;
 			children = (
 				51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */,
+				511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */,
+				511D58A820372EC600F5D313 /* OFFProductImageSize.swift */,
 				5107554F202F57E90047EC09 /* OFFProductNutrientLevelValue.swift */,
 				51075551202F647C0047EC09 /* OFFProductNutrimentValues.swift */,
 				51CCA8632031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift */,
@@ -1366,6 +1372,7 @@
 				511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */,
 				5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */,
 				517AAD4A1C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift in Sources */,
+				511D58A720371CC500F5D313 /* OFFSearchResultJson.swift in Sources */,
 				51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */,
 				5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */,
 				51A62CFE1F87D21E00B0A810 /* SetNutritionScoreTableViewCell.swift in Sources */,
@@ -1454,6 +1461,7 @@
 				51CC54B21F9E1D9500350424 /* ButtonTableViewCell.swift in Sources */,
 				518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */,
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
+				511D58A920372EC600F5D313 /* OFFProductImageSize.swift in Sources */,
 				517907FA1F8F6C950017FCA0 /* Contributor.swift in Sources */,
 				519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */,
 				5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */,

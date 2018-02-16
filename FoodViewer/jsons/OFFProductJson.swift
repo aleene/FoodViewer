@@ -16,15 +16,6 @@ struct OFFProductJson : Codable {
     let status: Int
     let code: String
     let status_verbose: String
-    
-    /*
-    enum CodingKeys: String, CodingKey {
-        case product
-        case status
-        case code
-        case status_verbose
-    }
-    */
-    
+        
 }
 

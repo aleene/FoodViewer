@@ -33,7 +33,6 @@ class OFFProduct: Codable {
         var categories_tags: [String]? = nil
     var checkers_tags: [String]? = nil
         var cities_tags: [String]? = nil
-        var code: String? = nil
     var codes_tags: [String]? = nil
     var complete: Int? = nil
     var completed_t: Date? = nil
@@ -74,7 +73,6 @@ class OFFProduct: Codable {
     var ingredients_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_tags: [String]? = nil
     var ingredients_ids_debug: [String]? = nil
-    var ingredients_n: String? = nil
     var ingredients_n_tags: [String]? = nil
     var ingredients_that_may_be_from_palm_oil_n: Int? = nil
     var ingredients_tags: [String]? = nil

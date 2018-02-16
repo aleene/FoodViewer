@@ -30,8 +30,3 @@ struct OFFProductImageSizes: Codable {
         case full
     }
 }
-
-struct OFFProductImageSize: Codable {
-    let w: Int
-    let h: Int
-}

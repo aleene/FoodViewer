@@ -36,8 +36,12 @@ class OpenFoodFactsRequest {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
             let productJson = try decoder.decode(OFFProductJson.self, from:data)
-            let newProduct = FoodProduct.init(with: productJson)
-            return .success(newProduct)
+            if let offProductDetailed = productJson.product {
+                let newProduct = FoodProduct.init(json: offProductDetailed)
+                return .success(newProduct)
+            } else {
+                return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "No valid stored product json")
+            }
             
         } catch let error {
             print (error)
@@ -70,18 +74,18 @@ class OpenFoodFactsRequest {
         if let url = fetchUrl {
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
                 do {
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .secondsSince1970
-                    let productJson = try decoder.decode(OFFProductJson.self, from:data)
-                    let newProduct = FoodProduct.init(with: productJson)
-                    return .success(newProduct)
-
+                    let productJson = try decoder.decode(OFFProductJson.self, from: data)
+                    if let offProduct = productJson.product {
+                            let newProduct = FoodProduct.init(json: offProduct)
+                        return .success(newProduct)
+                    } else {
+                        return .loadingFailed(FoodProduct.init(with: barcode), "no valid offProduct")
+                    }
                 } catch let error {
-                    print (error)
                     return .loadingFailed(FoodProduct.init(with: barcode), error.localizedDescription)
-
                 }
             } catch let error as NSError {
                 if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
@@ -126,11 +130,37 @@ class OpenFoodFactsRequest {
         if let escapedSearch = search.addingPercentEncoding(withAllowedCharacters:NSCharacterSet.urlQueryAllowed) {
             
             let fetchUrl = URL(string:escapedSearch)
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if let url = fetchUrl {
+            DispatchQueue.main.async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            })
+                if let url = fetchUrl {
                 do {
                     let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
-                    return unpackJSONObject(JSON(data: data))
+                    do {
+                        let decoder = JSONDecoder()
+                        decoder.dateDecodingStrategy = .secondsSince1970
+                        let searchResultJson = try decoder.decode(OFFSearchResultJson.self, from: data)
+                        if let searchResultSize = searchResultJson.count {
+                            let searchPage = searchResultJson.page ?? 0
+                            let searchPageSize = searchResultJson.page_size ?? 1
+                            // the products in the json
+                            if let jsonProducts = searchResultJson.products {
+                                var products: [FoodProduct] = []
+                                for jsonProduct in jsonProducts {
+                                    products.append(FoodProduct.init(json: jsonProduct))
+                                }
+                                return ProductFetchStatus.searchList((searchResultSize, searchPage, searchPageSize, products))
+                            } else {
+                                return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Not a valid Search array")
+                            }
+                        } else {
+                            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Not a valid OFF JSON")
+                        }
+                    } catch let error {
+                        print (error)
+                        return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
+                        
+                    }
                 } catch let error as NSError {
                     print(error);
                     return ProductFetchStatus.loadingFailed(FoodProduct(), error.description)
@@ -161,13 +191,15 @@ class OpenFoodFactsRequest {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .secondsSince1970
                 let productJson = try decoder.decode(OFFProductJson.self, from:validData)
-                let newProduct = FoodProduct.init(with: productJson)
-                return .success(newProduct)
-                
+                if let offDetailedProductJson = productJson.product {
+                    let newProduct = FoodProduct.init(json: offDetailedProductJson)
+                    return .success(newProduct)
+                } else {
+                    return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: No valid product json in sample data")
+                }
             } catch let error {
                 print (error)
                 return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
-                
             }
             // return unpackJSONObject(JSON(data: validData))
         } else {
