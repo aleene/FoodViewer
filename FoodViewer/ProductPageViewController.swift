@@ -1077,24 +1077,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         self.present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: - Segues
+// MARK: - Segues
     
-    /*
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let identifier = segue.identifier {
-            switch identifier {
-            case Constants.ConfirmProductViewControllerSegue:
-                if let ppvc = segue.destination as? ConfirmProductTableViewController {
-                    ppvc.product = product
-                }
-            default: break
-            }
-        }
-    }
-  */
-        
-    // MARK: TBD This is not very elegant
-        
+    
     @IBAction func unwindSetLanguageForCancel(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectLanguageViewController {
             // currentLanguageCode = vc.currentLanguageCode

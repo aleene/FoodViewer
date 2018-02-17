@@ -25,9 +25,6 @@ public struct History {
     private struct Constants {
         static let HistoryKey = "History Key" // This is only needed for  upgrade
         static let NewHistoryKey = "HistoryKey"
-        // static let FoodHistoryKey = "FoodHistoryKey"
-        // static let PetFoodHistoryKey = "PetFoodHistoryKey"
-        // static let BeautyHistoryKey = "BeautyHistoryKey"
         static let BarcodeNumberKey = "BarcodeNumberKey"
         static let BarcodeTypeKey = "BarcodeTypeKey"
         static let HistorySize = 50
@@ -36,16 +33,6 @@ public struct History {
     private var historyKey: String {
         get {
             return Constants.NewHistoryKey
-            /*
-            switch Preferences.manager.useOpenFactsServer {
-            case .food:
-                return Constants.FoodHistoryKey
-            case .petFood:
-                return Constants.PetFoodHistoryKey
-            case .beauty:
-                return Constants.BeautyHistoryKey
-            }
-            */
         }
     }
 

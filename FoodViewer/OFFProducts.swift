@@ -289,39 +289,6 @@ class OFFProducts {
         }
     }
 
-    /*
-    // This function manages the loading of the history products. A load batch is never larger than 5 simultaneous threads
-    fileprivate var historyLoadCount: Int? = nil {
-        didSet {
-            if let currentLoadHistory = historyLoadCount {
-                let batchSize = 5
-                if currentLoadHistory == storedHistory.barcodeTuples.count - 1 {
-                    // all products have been loaded from history
-                    NotificationCenter.default.post(name: .ProductLoaded, object:nil)
-                } else if (currentLoadHistory >= 4) && ((currentLoadHistory + 1 ) % batchSize == 0) {
-//NotificationCenter.default.post(name: .ProductLoaded, object:nil)
-                    // load next batch
-                    let startIndex = currentLoadHistory + 1 <= storedHistory.barcodeTuples.count - 1 ? currentLoadHistory + 1 : storedHistory.barcodeTuples.count - 1
-                    let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? startIndex + batchSize - 1 : storedHistory.barcodeTuples.count - 1
-                    for index in startIndex...endIndex {
-                        fetchHistoryProduct(at:index)
-                    }
-                } else if currentLoadHistory == 0 {
-                    // the first product is already there, so can be shown
-                    // NotificationCenter.default.post(name:  .FirstProductLoaded, object:nil)
-                    // load first batch up to product 4
-                    let startIndex = 1 <= storedHistory.barcodeTuples.count ? 1 : storedHistory.barcodeTuples.count - 1
-                    let endIndex = startIndex + batchSize - 1 <= storedHistory.barcodeTuples.count - 1 ? batchSize - 1 : storedHistory.barcodeTuples.count - 1
-                    for index in startIndex...endIndex {
-                        // print(storedHistory.barcodeTuples[index].1, currentProductType.rawValue)
-                        fetchHistoryProduct(at:index)
-                    }
-                }
-            }
-        }
-    }
-  */
-
     func fetchProduct(_ barcode: BarcodeType?) -> Int? {
         if let validBarcode = barcode {
             // is the product already fetched?

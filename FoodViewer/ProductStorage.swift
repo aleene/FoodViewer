@@ -16,7 +16,7 @@ public struct ProductStorage {
         static let JsonExtension = ".json"
         static let FrontImage = "front_"
         static let IngredientsImage = "ingredients_"
-        static let NutritionImage = "ntrition_"
+        static let NutritionImage = "nutrition_"
     }
     // Provide the number of stored products
     var count: Int {
@@ -92,12 +92,49 @@ public struct ProductStorage {
     }
     
     // read all products locally stored
-    func read() -> [FoodProduct] {
+    func readAll() -> [FoodProduct] {
         return []
     }
     
+    // read all products locally stored
+    func read(_ barcode: String) -> FoodProduct? {
+        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let url = NSURL(fileURLWithPath: path)
+        if let pathComponent = url.appendingPathComponent(barcode)?.appendingPathComponent(barcode).appendingPathExtension(Constant.JsonExtension) {
+            let filePath = pathComponent.path
+            let fileManager = FileManager.default
+            if fileManager.fileExists(atPath: filePath) {
+                do {
+                    let data = try Data.init(contentsOf: pathComponent)
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .secondsSince1970
+                    do {
+                        let productJson = try decoder.decode(OFFProductJson.self, from: data)
+                        if let offProduct = productJson.product {
+                            return FoodProduct.init(json: offProduct)
+                        } else {
+                            print("ProductStorage: no valid offProduct")
+                        }
+                    } catch let error {
+                        print(error.localizedDescription)
+                    }
+                    print("ProductStorage: FILE AVAILABLE")
+                } catch let error {
+                    print(error.localizedDescription)
+                }
+            } else {
+                print("ProductStorage FILE NOT AVAILABLE")
+            }
+        } else {
+            print("ProductStorage FILE PATH NOT AVAILABLE")
+        }
+        return nil
+    }
+
     // delete a specif locally stored product
-    func delete(_ product: FoodProduct) {
+    func delete(_ barcode: String) {
+        // does the directory with this barcode exist?
+        // delete all files in the directory
         
     }
     
