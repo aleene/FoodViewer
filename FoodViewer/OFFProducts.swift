@@ -25,7 +25,6 @@ class OFFProducts {
         static let ErrorKey = "OFFProducts.Notification.Error.Key"
     }
     
-    
     static let manager = OFFProducts()
     
     enum ProductsTab {
@@ -47,33 +46,63 @@ class OFFProducts {
 
     //  Contains all the fetch results for all product types
     private var allProductFetchResultList: [ProductFetchStatus] = []
+    private var allProductPairs: [ProductPair] = []
     
     // Contains all the search fetch results
     private var allSearchFetchResultList: [ProductFetchStatus] = []
+    private var allSearchPairs: [ProductPair] = []
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
     private var fetchResultList: [ProductFetchStatus] = []
+    private var productPairList: [ProductPair] = []
+    
+    func productPair(at index: Int) -> ProductPair? {
+        guard index >= 0 && index < count else { return nil }
+        return productPairList[index]
+    }
     
     func fetchResult(at index: Int) -> ProductFetchStatus? {
-        guard index >= 0 && index < count else { return nil }
+        guard index >= 0 && index < oldCount else { return nil }
         return fetchResultList[index]
     }
     
-    func loadProduct(at index: Int) -> ProductFetchStatus? {
+    func loadProductPair(at index: Int) -> ProductPair? {
         guard index >= 0 && index < count else { return nil }
+        loadProductPairRange(around: index)
+        return productPairList[index]
+
+    }
+    
+    func loadProduct(at index: Int) -> ProductFetchStatus? {
+        guard index >= 0 && index < oldCount else { return nil }
         loadProductRange(around: index)
         return fetchResultList[index]
     }
 
-    var count: Int {
+    var oldCount: Int {
         return fetchResultList.count
     }
     
+    var count: Int {
+        return productPairList.count
+    }
+
+    
+    private func loadProductPairRange(around index: Int) {
+        let range = 5
+        let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
+        let upperBound = index + Int(range/2) < count ? index + Int(range/2) : oldCount - 1
+        for ind in lowerBound...upperBound {
+            productPairList[ind].fetch()
+        }
+
+    }
+
     private func loadProductRange(around index: Int) {
         let range = 5
         let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
-        let upperBound = index + Int(range/2) < count ? index + Int(range/2) : count - 1
+        let upperBound = index + Int(range/2) < oldCount ? index + Int(range/2) : oldCount - 1
         for ind in lowerBound...upperBound {
             fetchHistoryProduct(at: ind)
         }
@@ -83,6 +112,55 @@ class OFFProducts {
         return Preferences.manager.showProductType
     }
     
+    private func setCurrentProductPairs() {
+        var list: [ProductPair] = []
+        switch self.list {
+        case .recent:
+            for productPair in allProductPairs {
+                // TODO: Is this needed? The idea is to only selectd the right productType,
+                // but do I not already know that?
+                switch productPair.remoteStatus {
+                case .available:
+                    if let producttype = productPair.remoteProduct?.type?.rawValue {
+                        if producttype == currentProductType.rawValue {
+                            list.append(productPair)
+                        }
+                    }
+                default:
+                    list.append(productPair)
+                }
+            }
+            // If there is nothing on the list add the sample product
+            if list.isEmpty {
+                loadSampleProduct()
+                // TODO: Must be for the type!!!!
+                list.append(sampleProductPair)
+            }
+        case .search:
+            // show the search query as the first product in the search results
+            if let validQuery = searchQuery {
+                var searchProductPair = ProductPair(with:BarcodeType.init(value: "Search Template"))
+                searchProductPair.searchTemplate = validQuery
+                list.append(searchProductPair)
+            } else {
+                // setup the first product, without a previous search defined
+                // with an empty searchQueryProduct
+                searchQuery = SearchTemplate()
+                if let validSearchQuery = searchQuery {
+                    var searchProductPair = ProductPair(with:BarcodeType.init(value: "Empty Search Template"))
+                    searchProductPair.searchTemplate = validSearchQuery
+                    list.append(searchProductPair)
+                }
+            }
+            
+            // add the search results
+            for searchPair in allSearchPairs {
+                list.append(searchPair)
+            }
+        }
+        self.allProductPairs = list
+    }
+
     private func setCurrentProducts() {
         var list: [ProductFetchStatus] = []
         switch self.list {
@@ -150,16 +228,24 @@ class OFFProducts {
         NotificationCenter.default.removeObserver(self)
     }
     
+    func resetCurrentProductPairs() {
+        setCurrentProductPairs()
+    }
+
     func resetCurrentProducts() {
         setCurrentProducts()
     }
     
     var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded( FoodProduct(with:  BarcodeType(value:"whatToPutHere?")))
     
+    var sampleProductPair: ProductPair = ProductPair(with: BarcodeType(value:"whatToPutHere?"))
+    
+    private func loadSampleProductPair() {
+        //TODO:
+    }
     private func loadSampleProduct() {
         // If the user runs for the first time, then there is no history available
         // Then a sample product will be shown, which is stored with the app
-        // historyLoadCount = nil
         switch sampleProductFetchStatus {
         case .productNotLoaded(let product):
             sampleProductFetchStatus = ProductFetchStatus.loading(product)
@@ -242,14 +328,30 @@ class OFFProducts {
         }
     }
     
+    fileprivate func initProductPairList() {
+        // I need a nillified list of the correct size, because I want to access items through the index.
+        if allProductPairs.isEmpty {
+            for index in 0..<storedHistory.barcodeTuples.count {
+                allProductPairs.append(ProductPair(with:storedHistory.barcodeTuples[index]))
+            }
+        }
+    }
+
     func removeAll() {
             storedHistory = History()
             allProductFetchResultList = []
             loadSampleProduct()
     }
     
+    func removeAllProductPairs() {
+        storedHistory = History()
+        allProductPairs = []
+        loadSampleProductPair()
+    }
+
     var storedHistory = History()
 
+    // does not have to be copied for productPairs
     fileprivate func fetchHistoryProduct(at index: Int) {
         // guard index >= 0 && index < count else { return }
         // only fetch if we do not started the loading yet
@@ -369,7 +471,6 @@ class OFFProducts {
             }
         }
         return nil
-
     }
     
     func saveMostRecentProduct(_ barcode: BarcodeType?) {
