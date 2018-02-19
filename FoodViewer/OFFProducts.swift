@@ -307,7 +307,7 @@ class OFFProducts {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         switch fetchResult {
                         case .success(let newProduct):
-                        // add product barcode to history
+                            // add product barcode to history
                             self.allProductFetchResultList.insert(fetchResult, at:0)
                             self.setCurrentProducts()
                             // try to get the product type out the json
