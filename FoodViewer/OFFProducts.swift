@@ -53,7 +53,7 @@ class OFFProducts {
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
-    private var fetchResultList: [ProductFetchStatus] = []
+    var fetchResultList: [ProductFetchStatus] = []
     
     func fetchResult(at index: Int) -> ProductFetchStatus? {
         guard index >= 0 && index < count else { return nil }
@@ -61,13 +61,14 @@ class OFFProducts {
     }
     
     func loadProduct(at index: Int) -> ProductFetchStatus? {
-        guard index >= 0 && index < count else { return nil }
-        loadProductRange(around: index)
+        if index >= 0 && index < allProductFetchResultList.count {
+            loadProductRange(around: index) // if it is not the sample product
+        }
         return fetchResultList[index]
     }
 
     var count: Int {
-        return fetchResultList.count
+        return  fetchResultList.count
     }
     
     private func loadProductRange(around index: Int) {
@@ -243,15 +244,18 @@ class OFFProducts {
     }
     
     func removeAll() {
-            storedHistory = History()
-            allProductFetchResultList = []
-            loadSampleProduct()
+        // remove all stored and current products
+        storedHistory = History()
+        storedHistory.removeAll()
+        allProductFetchResultList = []
+        // and start over again
+        loadSampleProduct()
     }
     
     var storedHistory = History()
 
     fileprivate func fetchHistoryProduct(at index: Int) {
-        // guard index >= 0 && index < count else { return }
+        guard index >= 0 && index < count else { return }
         // only fetch if we do not started the loading yet
         switch allProductFetchResultList[index] {
         case .productNotLoaded(let product),
@@ -510,7 +514,7 @@ class OFFProducts {
                 } else {
                     // The cold start case when the user has not yet used the app
                     loadSampleProduct()
-                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                    //NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                 }
             } else {
                 setCurrentProducts()
