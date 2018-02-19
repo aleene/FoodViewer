@@ -318,10 +318,9 @@ class OFFProducts {
                     let fetchResult = request.fetchProductForBarcode(validBarcode)
                     DispatchQueue.main.async(execute: { () -> Void in
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    })
                         switch fetchResult {
                         case .success(let newProduct):
-                        // add product barcode to history
+                            // add product barcode to history
                             self.allProductFetchResultList.insert(fetchResult, at:0)
                             self.setCurrentProducts()
                             // try to get the product type out the json
@@ -339,6 +338,7 @@ class OFFProducts {
                             self.handleProductNotAvailable(userInfo)
                         default: break
                         }
+                    })
                 })
                 return nil
             }
@@ -390,7 +390,9 @@ class OFFProducts {
     func saveMostRecentProduct(_ barcode: BarcodeType?) {
         if barcode != nil {
             let request = OpenFoodFactsRequest()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            DispatchQueue.main.async(execute: { () -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            })
             // loading the product from internet will be done off the main queue
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                 let fetchResult = request.fetchJsonForBarcode(barcode!)
