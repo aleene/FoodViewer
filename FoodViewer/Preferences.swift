@@ -32,7 +32,7 @@ class Preferences {
     var showProductType = ProductType.food {
         didSet {
             if showProductType != oldValue {
-                OFFProducts.manager.resetCurrentProducts()
+                OFFProducts.manager.resetCurrentProductPairs()
             }
         }
     }

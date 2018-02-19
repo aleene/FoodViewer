@@ -203,7 +203,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            //TODO: OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
@@ -1154,7 +1154,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        //TODO: OFFProducts.manager.reload(self.product!)
                     }
                 }
             }
@@ -1170,7 +1170,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        //TODO:OFFProducts.manager.reload(self.product!)
                     }
                 }
             }

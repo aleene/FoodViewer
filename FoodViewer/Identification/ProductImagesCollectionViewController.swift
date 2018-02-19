@@ -90,7 +90,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc private func refresh(sender: Any) {
         if refresher!.isRefreshing {
             if let validProduct = product {
-                OFFProducts.manager.reload(validProduct)
+                //TODO: OFFProducts.manager.reload(validProduct)
             }
             refresher?.endRefreshing()
         }
@@ -515,7 +515,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString {
                 // reload product data
-                OFFProducts.manager.reload(self.product!)
+                //TODO: OFFProducts.manager.reload(self.product!)
                 // THis will result in a new notification if successfull, which will load the new images in turn
             }
         }
@@ -526,7 +526,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == product!.barcode.asString {
                 // reload product data
-                OFFProducts.manager.reload(self.product!)
+                //TODO: OFFProducts.manager.reload(self.product!)
                 // This will result in a new notification if successfull, which will load the new images in turn
             }
         }

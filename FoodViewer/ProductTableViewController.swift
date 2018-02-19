@@ -35,7 +35,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate var barcode: BarcodeType? = nil {
         didSet {
-            if let validIndex = products.fetchProduct(barcode),
+            if let validIndex = products.productPairIndex(barcode),
                 let validFetchResult = products.fetchResult(at: validIndex) {
                 switch validFetchResult {
                 case .success(let product):

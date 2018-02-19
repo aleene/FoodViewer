@@ -323,7 +323,7 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            //TODO: OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
