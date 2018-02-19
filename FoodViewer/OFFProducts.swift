@@ -346,9 +346,12 @@ class OFFProducts {
 
     /*
     func removeAll() {
-            storedHistory = History()
-            allProductFetchResultList = []
-            loadSampleProduct()
+        // remove all stored and current products
+        storedHistory = History()
+        storedHistory.removeAll()
+        allProductFetchResultList = []
+        // and start over again
+        loadSampleProduct()
     }
   */
     
@@ -363,7 +366,7 @@ class OFFProducts {
     /*
     // does not have to be copied for productPairs
     fileprivate func fetchHistoryProduct(at index: Int) {
-        // guard index >= 0 && index < count else { return }
+        guard index >= 0 && index < count else { return }
         // only fetch if we do not started the loading yet
         switch allProductFetchResultList[index] {
         case .productNotLoaded(let product),
@@ -442,7 +445,7 @@ class OFFProducts {
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         switch fetchResult {
                         case .success(let newProduct):
-                        // add product barcode to history
+                            // add product barcode to history
                             self.allProductFetchResultList.insert(fetchResult, at:0)
                             self.setCurrentProducts()
                             // try to get the product type out the json
@@ -670,7 +673,7 @@ class OFFProducts {
                 } else {
                     // The cold start case when the user has not yet used the app
                     loadSampleProduct()
-                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                    //NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                 }
             } else {
                 setCurrentProducts()

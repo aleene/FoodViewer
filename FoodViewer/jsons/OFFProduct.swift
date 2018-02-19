@@ -68,7 +68,7 @@ class OFFProduct: Codable {
     var images: [String:OFFProductImage]? = nil
     var informers_tags: [String]? = nil
         var ingredients: [OFFProductIngredient]? = nil
-    var ingredients_debug: [String]? = nil
+    var ingredients_debug: [String?]? = nil
     var ingredients_from_or_that_may_be_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_tags: [String]? = nil

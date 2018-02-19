@@ -199,7 +199,7 @@ class OpenFoodFactsRequest {
                 }
             } catch let error {
                 print (error)
-                return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
+                return .loadingFailed(FoodProduct(with: BarcodeType(value:"sample product")), error.localizedDescription)
             }
             // return unpackJSONObject(JSON(data: validData))
         } else {

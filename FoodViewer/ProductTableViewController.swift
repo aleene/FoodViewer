@@ -261,7 +261,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return products.count
+        let count = products.count
+        return count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
