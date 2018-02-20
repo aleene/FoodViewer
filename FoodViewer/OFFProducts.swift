@@ -158,7 +158,7 @@ class OFFProducts {
                 list.append(searchPair)
             }
         }
-        self.allProductPairs = list
+        self.productPairList = list
     }
 
     /*
@@ -708,7 +708,6 @@ class OFFProducts {
         switch list {
         case .recent:
             if allProductPairs.isEmpty {
-                /*
                 // If there is no history, we are in the cold start case
                 if !storedHistory.barcodeTuples.isEmpty {
                     initProductPairList()
@@ -723,7 +722,7 @@ class OFFProducts {
                                     // the stored product might not correspond to the first product in the history
                                     // so it should be stored in the right spot
                                     if let index = self.storedHistory.index(for:product.barcode) {
-                                        self.allProductFetchResultList[index] = fetchResult
+                                        self.allProductPairs[index] = ProductPair.init(product: product)
                                         self.setCurrentProductPairs()
                                         NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                                     } else {
@@ -748,7 +747,9 @@ class OFFProducts {
                     } else {
                         // the data is not available
                         // has to be loaded from the OFF-servers
-                        _ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
+                        self.allProductPairs.append(ProductPair.init(barcodeType: BarcodeType.init(value: storedHistory.barcodeTuples[0].0)))
+
+                        //_ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
                         //historyLoadCount = 0
                     }
                 } else {
@@ -756,7 +757,6 @@ class OFFProducts {
                     //loadSampleProduct()
                     NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                 }
-                 */
             } else {
                 setCurrentProductPairs()
                 NotificationCenter.default.post(name: .ProductLoaded, object:nil)

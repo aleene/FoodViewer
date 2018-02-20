@@ -117,7 +117,9 @@ public struct Completion: Hashable {
         case .to_be_completed:
             category = .complete
             value = false
-
+        case .empty:
+            category = .complete
+            value = false
         }
     }
 
