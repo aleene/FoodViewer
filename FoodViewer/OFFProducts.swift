@@ -246,6 +246,12 @@ class OFFProducts {
         //TODO:
     }
     
+    func productPair(for barcode: BarcodeType) -> ProductPair? {
+        if let index = productPairIndex(barcode){
+            return productPair(at: index)
+        }
+        return nil
+    }
     /*
     private func loadSampleProduct() {
         // If the user runs for the first time, then there is no history available
@@ -578,9 +584,12 @@ class OFFProducts {
     }
   */
     
-    func reload(_ productPair: ProductPair) {
-        productPair.fetch()
+    func reload(productPair: ProductPair?) {
+        if let validProductPair = productPair {
+            validProductPair.fetch()
+        }
     }
+    
     /*
     func reload(_ product: FoodProduct) {
         let request = OpenFoodFactsRequest()

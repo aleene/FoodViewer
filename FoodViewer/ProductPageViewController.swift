@@ -99,7 +99,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                             switch fetchResult {
                             case .success:
                                 // get the new product data
-                                OFFProducts.manager.reload(self.product!)
+                                OFFProducts.manager.reload(productPair:self.productPair)
                                 self.updatedProduct = nil
                                 // send notification of success, so feedback can be given
                                 NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
@@ -138,6 +138,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
 
+    var productPair: ProductPair? = nil
+    
     private var product: FoodProduct? = nil {
         didSet {
             if oldValue == nil && product != nil {
@@ -517,10 +519,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // handle a notification that the first product has been set
     // this sets the current product and shows the first page
         let products = OFFProducts.manager
-        if let validFetchResult = products.fetchResult(at: 0) {
+        if let validFetchResult = products.productPair(at: 0)?.remoteStatus,
+            let validProduct = products.productPair(at: 0)?.remoteProduct {
             switch validFetchResult {
-            case .success(let firstItem):
-                tableItem = firstItem
+            case .available:
+                tableItem = validProduct
                 pageIndex = .identification
                 initPage(pageIndex)
             default: break
