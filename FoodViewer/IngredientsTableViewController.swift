@@ -316,7 +316,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode))
             refreshControl?.endRefreshing()
         }
     }
@@ -992,7 +992,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode))
                     }
                 }
             }
@@ -1007,7 +1007,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode) )
                     }
                 }
             }

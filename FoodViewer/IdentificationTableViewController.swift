@@ -295,7 +295,7 @@ class IdentificationTableViewController: UITableViewController {
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
             if let validProduct = product {
-                OFFProducts.manager.reload(validProduct)
+                OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: validProduct.barcode))
             }
             refreshControl?.endRefreshing()
         }
@@ -862,13 +862,9 @@ class IdentificationTableViewController: UITableViewController {
     
     @objc func loadFirstProduct() {
         let products = OFFProducts.manager
-        if let validFetchResult = products.fetchResult(at: 0) {
-            switch validFetchResult {
-            case .success(let firstProduct):
-                product = firstProduct
-                tableView.reloadData()
-            default: break
-            }
+        if let validProduct = products.productPair(at: 0)?.remoteProduct {
+            product = validProduct
+            tableView.reloadData()
         }
     }
     
@@ -932,7 +928,7 @@ class IdentificationTableViewController: UITableViewController {
                     if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                         if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
                             // reload product data
-                            OFFProducts.manager.reload(self.product!)
+                            OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode) )
                         }
                     }
                 }
@@ -948,7 +944,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode))
                     }
                 }
             }

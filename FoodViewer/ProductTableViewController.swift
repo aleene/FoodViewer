@@ -1164,7 +1164,7 @@ extension ProductTableViewController: TagListViewDelegate {
         if code == ProductFetchStatus.productNotLoaded(FoodProduct()).rawValue  ||
             code == ProductFetchStatus.loadingFailed(FoodProduct(), "").rawValue {
             let productIndex = tagListView.tag % Constants.Offset.Multiplier
-            products.loadProductPair(at: productIndex)
+            _ = products.loadProductPair(at: productIndex)
         }
     }
         
