@@ -424,7 +424,7 @@ class OFFProducts {
                 self.allProductPairs.insert(newProductPair, at: 0)
                 self.setCurrentProductPairs()
                 // try to get the product type out the json
-                self.storedHistory.add( (newProductPair.barcode!.asString, newProductPair.type.rawValue) )
+                self.storedHistory.add( (newProductPair.barcodeType!.asString, newProductPair.type.rawValue) )
                 // self.loadMainImage(newProduct)
                 self.saveMostRecentProduct(barcode!)
             }
@@ -520,11 +520,11 @@ class OFFProducts {
     }
   */
     
-    func productPairIndex(_ barcode: BarcodeType?) -> Int? {
-        guard barcode != nil else { return nil }
+    func productPairIndex(_ barcodeType: BarcodeType?) -> Int? {
+        guard barcodeType != nil else { return nil }
         for (index, productPair) in productPairList.enumerated() {
-            if let validBarcode = productPair.barcode {
-                if validBarcode.asString == barcode!.asString {
+            if let validBarcodeType = productPair.barcodeType {
+                if validBarcodeType.asString == barcodeType!.asString {
                     return index
                 }
             }
@@ -532,6 +532,20 @@ class OFFProducts {
         return nil
     }
 
+    func fetchProduct(with barcodeType: BarcodeType) -> Int {
+        if let index = productPairIndex(barcodeType) {
+            // The product aleady exists
+            return index
+        } else {
+            // Create the productPair
+            allProductPairs.insert(ProductPair(barcodeType: barcodeType), at: 0)
+            // and start fetching
+            allProductPairs[0].fetch()
+            // recalculate the productPairs
+            setCurrentProductPairs()
+            return 0
+        }
+    }
     
     func saveMostRecentProduct(_ barcode: BarcodeType?) {
         if let validBarcode = barcode {
@@ -1069,13 +1083,13 @@ class OFFProducts {
 
 extension Notification.Name {
     static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.ProductNotAvailable")
-    static let ProductLoaded = Notification.Name("OFFProducts.Notification.ProductLoaded")
+    //static let ProductLoaded = Notification.Name("OFFProducts.Notification.ProductLoaded")
     static let SearchStarted = Notification.Name("OFFProducts.Notification.SearchStarted")
     static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
     static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProductLoaded")
     static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
-    static let ProductUpdated = Notification.Name("OFFProducts.Notification.ProductUpdated")
-    static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")
+    //static let ProductUpdated = Notification.Name("OFFProducts.Notification.ProductUpdated")
+    //static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")
 }
 
 

@@ -33,22 +33,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     fileprivate var products = OFFProducts.manager
     
-    fileprivate var barcode: BarcodeType? = nil {
+    fileprivate var barcode = BarcodeType(value: "no barcode set") {
         didSet {
-            if let validIndex = products.productPairIndex(barcode) {
-                switch products.productPair(at: validIndex)!.remoteStatus {
+            let validIndex = products.fetchProduct(with: barcode)
+            if let validProductPair = products.productPair(at: validIndex) {
+                switch validProductPair.remoteStatus {
                 case .available:
-                    selectedProduct = products.productPair(at: validIndex)?.remoteProduct
+                    selectedProduct = validProductPair.remoteProduct
                     selectedIndex = validIndex
                     tableView.reloadData()
                     tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .middle, animated: true)
                 default:
                     break
                 }
-
-                
             } else {
-                assert(true, "No valid index")
+                assert(true, "no valid productPair")
             }
         }
     }
@@ -118,9 +117,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            if let searchText = barcode?.asString {
-                searchTextField.text = searchText
-            }
+            searchTextField.text = barcode.asString
         }
     }
     
@@ -532,26 +529,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         label.textColor = UIColor.white
         if let validFetchResult = products.productPair(at: section)?.remoteStatus {
             switch validFetchResult {
-            case .success(let product):
-                label.text = product.name != nil ? product.name! : Constants.Tag.ProductNameMissing
-                switch product.tracesInterpreted {
-                case .available(let validKeys):
-                    if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                        tempView.backgroundColor = UIColor.red
-                    }
-                default:
-                    break
-                }
-                switch product.tracesInterpreted {
-                case .available(let validKeys):
-                    if !validKeys.isEmpty {
-                        let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                        if warn {
+            case .available:
+                if let validProduct = products.productPair(at: section)?.remoteProduct {
+                    label.text = validProduct.name != nil ? validProduct.name! : Constants.Tag.ProductNameMissing
+                    switch validProduct.tracesInterpreted {
+                    case .available(let validKeys):
+                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
                             tempView.backgroundColor = UIColor.red
                         }
+                    default:
+                        break
                     }
-                default:
-                    break
+                    switch validProduct.tracesInterpreted {
+                    case .available(let validKeys):
+                        if !validKeys.isEmpty {
+                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
+                            if warn {
+                                tempView.backgroundColor = UIColor.red
+                            }
+                        }
+                    default:
+                        break
+                    }
+                } else {
+                    assert(true, "remoteStatus is available, but there is no product")
                 }
             case .other(let message):
                 label.text = message
@@ -948,13 +949,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switchToTab(withIndex: 1)
         }
 
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
+        // Notifications coming from ProductPair,
+        // which indicate that something in the productPair has changed
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
+
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
     }
     
