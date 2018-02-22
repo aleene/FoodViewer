@@ -23,19 +23,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     var delegate: ProductPageViewController? = nil
 
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
+            if let item = tableItem?.barcodeType {
+                switch item {
+                case .search(let template, _):
+                    self.query = template
+                default:
+                    self.productPair = tableItem
+                }
             }
         }
     }
 
-    fileprivate var product: FoodProduct? {
+    fileprivate var productPair: ProductPair? {
         didSet {
-            if product != nil {
+            if productPair != nil {
                 tableStructureForProduct = setupTableSections()
                 refreshProduct()
             }
@@ -66,11 +69,11 @@ class SupplyChainTableViewController: UITableViewController {
             }
             switch showProducerTagsType {
             case .interpreted:
-                return product!.manufacturingPlacesInterpreted
+                return productPair!.remoteProduct!.manufacturingPlacesInterpreted
             case .original:
-                return product!.manufacturingPlacesOriginal
+                return productPair!.remoteProduct!.manufacturingPlacesOriginal
             case .prefixed:
-                return product!.manufacturingPlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.manufacturingPlacesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -90,11 +93,11 @@ class SupplyChainTableViewController: UITableViewController {
             }
             switch showProducerCodeTagsType {
             case .interpreted:
-                return product!.embCodesInterpreted
+                return productPair!.remoteProduct!.embCodesInterpreted
             case .original:
-                return product!.embCodesOriginal
+                return productPair!.remoteProduct!.embCodesOriginal
             case .prefixed:
-                return product!.embCodesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.embCodesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -114,11 +117,11 @@ class SupplyChainTableViewController: UITableViewController {
             }
             switch showIngredientOriginTagsType {
             case .interpreted:
-                return product!.originsInterpreted
+                return productPair!.remoteProduct!.originsInterpreted
             case .original:
-                return product!.originsOriginal
+                return productPair!.remoteProduct!.originsOriginal
             case .prefixed:
-                return product!.originsOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.originsOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -138,11 +141,11 @@ class SupplyChainTableViewController: UITableViewController {
             }
             switch showPurchaseLocationTagsType {
             case .interpreted:
-                return product!.purchasePlacesInterpreted
+                return productPair!.remoteProduct!.purchasePlacesInterpreted
             case .original:
-                return product!.purchasePlacesOriginal
+                return productPair!.remoteProduct!.purchasePlacesOriginal
             case .prefixed:
-                return product!.purchasePlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.purchasePlacesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -162,11 +165,11 @@ class SupplyChainTableViewController: UITableViewController {
             }
             switch showStoresTagsType {
             case .interpreted:
-                return product!.storesInterpreted
+                return productPair!.remoteProduct!.storesInterpreted
             case .original:
-                return product!.storesOriginal
+                return productPair!.remoteProduct!.storesOriginal
             case .prefixed:
-                return product!.storesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.storesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -186,17 +189,17 @@ class SupplyChainTableViewController: UITableViewController {
             }
             switch showCountriesTagsType {
             case .interpreted:
-                return product!.countriesInterpreted
+                return productPair!.remoteProduct!.countriesInterpreted
             case .translated:
-                var list = product!.countriesTranslated.list
+                var list = productPair!.remoteProduct!.countriesTranslated.list
                 list = list.sorted(by: { $0 < $1 })
                 return Tags.init(list:list)
 
                 //return product!.countriesTranslated
             case .original:
-                return product!.countriesOriginal
+                return productPair!.remoteProduct!.countriesOriginal
             case .prefixed:
-                return product!.countriesTranslated.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.countriesTranslated.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -207,7 +210,7 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             if let validTags = delegate?.updatedProduct?.links {
                 return Tags.init(list:validTags.map( { $0.absoluteString } ))
-            } else if let validTags = product?.links {
+            } else if let validTags = productPair?.remoteProduct?.links {
                 return Tags.init(list:validTags.map( { $0.absoluteString } ))
             } else {
                 return Tags.undefined
@@ -572,7 +575,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .expirationDate:
-            if product!.type == .beauty {
+            if productPair!.type == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
                 
                 // has the product been edited?
@@ -583,7 +586,7 @@ class SupplyChainTableViewController: UITableViewController {
                     formatter.allowedUnits = .month
                     let formattedTimeLeft = formatter.string(from: periodInSeconds)
                     cell.textLabel?.text = formattedTimeLeft
-                } else if let validPeriod = product!.periodAfterReferenceDate {
+                } else if let validPeriod = productPair!.remoteProduct!.periodAfterReferenceDate {
                     let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
                     let formatter = DateComponentsFormatter()
                     formatter.unitsStyle = .full
@@ -599,7 +602,7 @@ class SupplyChainTableViewController: UITableViewController {
                 // has the product been edited?
                 if let validDate = delegate?.updatedProduct?.expirationDate {
                     cell.date = validDate
-                } else if let validDate = product!.expirationDate {
+                } else if let validDate = productPair!.remoteProduct!.expirationDate {
                     cell.date = validDate
                 }
                 cell.editMode = editMode
@@ -612,7 +615,7 @@ class SupplyChainTableViewController: UITableViewController {
 
             if let validPeriodAfterOpening = delegate?.updatedProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
-            } else if let validPeriodAfterOpening = product?.periodAfterOpeningString {
+            } else if let validPeriodAfterOpening = productPair!.remoteProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
             }
             cell.editMode = editMode
@@ -740,7 +743,7 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
     @objc func removeProduct() {
-        product = nil
+        productPair!.remoteProduct = nil
         tableView.reloadData()
     }
 //
@@ -766,7 +769,7 @@ class SupplyChainTableViewController: UITableViewController {
                                     formatter.dateStyle = .medium
                                     formatter.timeStyle = .none
                                     vc.currentDate = validName
-                                } else if let validName = product!.expirationDate {
+                                } else if let validName = productPair!.remoteProduct!.expirationDate {
                                     let formatter = DateFormatter()
                                     formatter.dateStyle = .medium
                                     formatter.timeStyle = .none
@@ -1577,7 +1580,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .country:
-            switch product!.countriesInterpreted {
+            switch productPair!.remoteProduct!.countriesInterpreted {
             case .available(let countries):
                 delegate?.search(for: countries[index], in: .country)
             default:
@@ -1585,41 +1588,41 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             }
             
         case .producerCode:
-            switch product!.embCodesInterpreted {
+            switch productPair!.remoteProduct!.embCodesInterpreted {
             case .available:
-                delegate?.search(for: product!.embCodesInterpreted.tag(at:index), in: .producerCode)
+                delegate?.search(for: productPair!.remoteProduct!.embCodesInterpreted.tag(at:index), in: .producerCode)
             default:
                 break
             }
             
         case .ingredientOrigin:
-            switch product!.originsOriginal {
+            switch productPair!.remoteProduct!.originsOriginal {
             case .available:
-                delegate?.search(for: product!.originsOriginal.tag(at:index), in: .origin)
+                delegate?.search(for: productPair!.remoteProduct!.originsOriginal.tag(at:index), in: .origin)
             default:
                 break
             }
 
         case .location:
-            switch product!.purchasePlacesOriginal {
+            switch productPair!.remoteProduct!.purchasePlacesOriginal {
             case .available:
-                delegate?.search(for: product!.purchasePlacesOriginal.tag(at:index), in: .purchasePlace)
+                delegate?.search(for: productPair!.remoteProduct!.purchasePlacesOriginal.tag(at:index), in: .purchasePlace)
             default:
                 break
             }
             
         case .producer:
-            switch product!.manufacturingPlacesOriginal {
+            switch productPair!.remoteProduct!.manufacturingPlacesOriginal {
             case .available:
-                delegate?.search(for: product!.manufacturingPlacesOriginal.tag(at:index), in: .manufacturingPlaces)
+                delegate?.search(for: productPair!.remoteProduct!.manufacturingPlacesOriginal.tag(at:index), in: .manufacturingPlaces)
             default:
                 break
             }
             
         case .store:
-            switch product!.storesInterpreted {
+            switch productPair!.remoteProduct!.storesInterpreted {
             case .available:
-                delegate?.search(for: product!.storesInterpreted.tag(at:index), in: .store)
+                delegate?.search(for: productPair!.remoteProduct!.storesInterpreted.tag(at:index), in: .store)
             default:
                 break
             }

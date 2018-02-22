@@ -307,7 +307,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         categoriesVC.tableItem = tableItem
         nutritionScoreVC.tableItem = tableItem
         completionStatusVC.tableItem = tableItem
-        galleryVC.product = productPair?.remoteProduct
+        galleryVC.productPair = productPair
     }
 
     private func setupEditMode() {
@@ -392,7 +392,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         case .gallery:
             galleryVC.delegate = self
-            galleryVC.product = productPair?.remoteProduct
+            galleryVC.productPair = productPair
             galleryVC.editMode = editMode
         }
         
