@@ -432,11 +432,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         if let validImage = originalImages[validKey]?.display?.image {
                             switch selectedImageTypeCategory {
                             case .front:
-                                delegate?.updated(frontImage: validImage, languageCode: selectedLanguageCode)
+                                productPair?.update(frontImage: validImage, for: selectedLanguageCode)
                             case .ingredients:
-                                delegate?.updated(ingredientsImage: validImage, languageCode: selectedLanguageCode)
+                                productPair?.update(ingredientsImage: validImage, for: selectedLanguageCode)
                             case .nutrition:
-                                delegate?.updated(nutritionImage: validImage, languageCode: selectedLanguageCode)
+                                productPair?.update(nutritionImage: validImage, for: selectedLanguageCode)
                             default:
                                 return
                             }
@@ -669,7 +669,7 @@ extension ProductImagesCollectionViewController: GKImagePickerDelegate {
         
         // print("front image", image.size)
         let newImageID = "\(originalImages.count + 1)"
-        delegate?.updated(image: image, id: newImageID)
+        productPair?.update(image: image, id: newImageID)
         
         collectionView?.reloadData()
         imagePicker.dismiss(animated: true, completion: nil)
@@ -807,7 +807,7 @@ extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
         guard let validImage = croppedImage,
         let validId = imageCropController.identifier else { return }
         imageCropController.dismiss(animated: true, completion: nil)
-        self.delegate?.updated(image: validImage, id: validId)
+        productPair?.update(image: validImage, id: validId)
         let indexSet = IndexSet.init(integer: Section.OriginalImages)
         self.collectionView?.reloadSections(indexSet)
     }

@@ -51,7 +51,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
-    var delegate: ProductPageViewController? = nil
+    var productPair: ProductPair? = nil
 
     var sourcePage = 0
 
@@ -177,7 +177,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         if let vc = segue.source as? AddLanguageViewController {
             if let newLanguageCode = vc.selectedLanguageCode {
                 // the languageCodes have been edited, so with have now an updated product
-                delegate?.update(addLanguageCode: newLanguageCode)
+                productPair?.update(addLanguageCode: newLanguageCode)
                 if updatedLanguageCodes.isEmpty {
                     updatedLanguageCodes = languageCodes
                 }

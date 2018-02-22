@@ -383,10 +383,10 @@ extension CategoriesTableViewController: TagListViewDelegate {
         case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
-                delegate?.update(categories: [title])
+                productPair?.update(categories: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(categories: list)
+                productPair?.update(categories: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }

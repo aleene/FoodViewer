@@ -790,7 +790,7 @@ class SupplyChainTableViewController: UITableViewController {
     @IBAction func unwindSetExpirationDateForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectExpirationDateViewController {
             if let newDate = vc.selectedDate {
-                delegate?.updated(expirationDate: newDate)
+                productPair?.update(expirationDate: newDate)
                 tableView.reloadData()
             }
         }
@@ -803,7 +803,7 @@ class SupplyChainTableViewController: UITableViewController {
 
     @IBAction func unwindSetFavoriteShopForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? FavoriteShopsTableViewController {
-            delegate?.update(shop: vc.selectedShop)
+            productPair?.update(shop: vc.selectedShop)
             tableView.reloadData()
         }
     }
@@ -1648,12 +1648,12 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
         case .expirationDate:
             // expiration date
             if let validText = textField.text {
-                delegate?.updated(expirationDateString: validText)
+                productPair?.update(expirationDateString: validText)
             }
         case .periodAfterOpening:
             // period after opening
             if let validText = textField.text {
-                delegate?.update(periodAfterOpeningString: validText + " M")
+                productPair?.update(periodAfterOpeningString: validText + " M")
             }
         default:
             break

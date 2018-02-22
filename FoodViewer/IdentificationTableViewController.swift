@@ -170,12 +170,12 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var brandsToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct?.brandsOriginal != nil  {
+            if let validBrandsOriginal = productPair?.localProduct?.brandsOriginal  {
                 // does it have brands redefined?
-                switch delegate!.updatedProduct!.brandsOriginal {
+                switch validBrandsOriginal {
                 case .available, .empty:
                     showBrandTagsType = .edited
-                    return delegate!.updatedProduct!.brandsOriginal
+                    return validBrandsOriginal
                 default:
                     showBrandTagsType = TagsTypeDefault.Brands
                 }
@@ -240,12 +240,12 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var packagingToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
+            if let validPackagingOriginal = productPair?.localProduct?.packagingOriginal {
                 // does it have edited packaging tags defined?
-                switch delegate!.updatedProduct!.packagingOriginal {
+                switch validPackagingOriginal {
                 case .available, .empty:
                     showPackagingTagsType = .edited
-                    return delegate!.updatedProduct!.packagingOriginal
+                    return validPackagingOriginal
                 default:
                     showPackagingTagsType = TagsTypeDefault.Packaging
                 }
@@ -268,12 +268,12 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var languagesToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
+            if let validLanguageTags = productPair?.localProduct?.languageTags {
                 // does it have edited packaging tags defined?
-                switch delegate!.updatedProduct!.languageTags {
+                switch validLanguageTags {
                 case .available, .empty:
                     showLanguagesTagsType = .edited
-                    return delegate!.updatedProduct!.languageTags
+                    return validLanguageTags
                 default:
                     break
                 }
@@ -402,7 +402,7 @@ class IdentificationTableViewController: UITableViewController {
             cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 // has the product name been edited?
-                if let validName = delegate?.updatedProduct?.nameLanguage[validCurrentLanguageCode]  {
+                if let validName = productPair?.localProduct?.nameLanguage[validCurrentLanguageCode]  {
                     cell!.name = validName
                 } else if let validName = productPair!.remoteProduct?.nameLanguage[validCurrentLanguageCode] {
                     cell!.name = validName
@@ -418,7 +418,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
-                if let validName = delegate?.updatedProduct?.genericNameLanguage[validCurrentLanguageCode] {
+                if let validName = productPair?.localProduct?.genericNameLanguage[validCurrentLanguageCode] {
                     cell.name = validName
                 } else if let validName = productPair!.remoteProduct!.genericNameLanguage[validCurrentLanguageCode] {
                         cell.name = validName
@@ -484,7 +484,7 @@ class IdentificationTableViewController: UITableViewController {
             
         case .quantity:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Quantity, for: indexPath) as! QuantityTableViewCell
-            if let validQuantity = delegate?.updatedProduct?.quantity {
+            if let validQuantity = productPair?.localProduct?.quantity {
                 cell.tekst = validQuantity
             } else if let validQuantity = productPair!.remoteProduct?.quantity {
                 cell.tekst = validQuantity
@@ -523,9 +523,10 @@ class IdentificationTableViewController: UITableViewController {
     
     public var currentImage: (UIImage?, String) {
         // are there any updated front images?
-        if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
+        if let frontImages = productPair?.localProduct?.frontImages,
+            !frontImages.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = delegate!.updatedProduct!.frontImages[currentLanguageCode!]!.original?.image {
+            if let image = productPair?.localProduct!.frontImages[currentLanguageCode!]!.original?.image {
                 return (image, "Updated Image")
             }
             
@@ -570,9 +571,10 @@ class IdentificationTableViewController: UITableViewController {
 
     fileprivate var currentProductImageSize: ProductImageSize? {
         // are there any updated front images?
-        if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty  {
+        if let frontImages = productPair?.localProduct?.frontImages,
+            !frontImages.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let productImageSize = delegate!.updatedProduct!.frontImages[currentLanguageCode!] {
+            if let productImageSize = frontImages[currentLanguageCode!] {
                 return productImageSize
             }
             
@@ -735,10 +737,11 @@ class IdentificationTableViewController: UITableViewController {
                 if let vc = segue.destination as? ImageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     // is there an updated image?
-                    if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-                        vc.imageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.front)
+                    if let localProduct = productPair?.localProduct,
+                        !localProduct.frontImages.isEmpty {
+                        vc.imageData = localProduct.image(for:currentLanguageCode!, of:.front)
                     } else {
-                        vc.imageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.front)
+                        vc.imageData = productPair?.localProduct?.image(for:currentLanguageCode!, of:.front)
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:
@@ -756,11 +759,11 @@ class IdentificationTableViewController: UITableViewController {
                                 
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = currentLanguageCode
-                                vc.primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
+                                vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode != nil ? productPair!.localProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
                                 vc.editMode = editMode
-                                vc.delegate = delegate
+                                vc.productPair = productPair
                                 vc.sourcePage = 0
                             }
                         }
@@ -779,7 +782,7 @@ class IdentificationTableViewController: UITableViewController {
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
+                                vc.currentLanguageCode = productPair?.localProduct?.primaryLanguageCode != nil ? productPair!.localProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
                             }
                         }
                     }
@@ -814,7 +817,7 @@ class IdentificationTableViewController: UITableViewController {
     @IBAction func unwindChangeMainLanguageForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? MainLanguageViewController {
             if let newLanguageCode = vc.selectedLanguageCode {
-                delegate?.updated(primaryLanguageCode: newLanguageCode)
+                productPair?.update(primaryLanguageCode: newLanguageCode)
                 currentLanguageCode = newLanguageCode
                 tableView.reloadData()
             }
@@ -1156,14 +1159,14 @@ extension IdentificationTableViewController: UITextViewDelegate {
             // productname
             if let validText = textView.text {
                 if let validCurrentLanguageCode = currentLanguageCode {
-                    delegate?.updated(name: validText, languageCode: validCurrentLanguageCode)
+                    productPair?.update(name: validText, in: validCurrentLanguageCode)
                 }
             }
         case .genericName:
             // generic name updated?
             if let validText = textView.text,
                 let validCurrentLanguageCode = currentLanguageCode {
-                    delegate?.updated(genericName: validText, languageCode: validCurrentLanguageCode)
+                    productPair?.update(genericName: validText, in: validCurrentLanguageCode)
             }
         case .nameSearch, .genericNameSearch:
             // name or generic name updated?
@@ -1281,7 +1284,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             switch brandsToDisplay {
             case .available(var list):
                 list.removeAll()
-                delegate?.update(brandTags: list)
+                productPair?.update(brandTags: list)
             default:
                 assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
             }
@@ -1314,7 +1317,7 @@ extension IdentificationTableViewController: TagListViewDataSource {
             switch packagingToDisplay {
             case .available(var list):
                 list.removeAll()
-                delegate?.update(packagingTags: list)
+                productPair?.update(packagingTags: list)
             default:
                 assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
 
@@ -1369,10 +1372,10 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .brands:
             switch brandsToDisplay {
             case .undefined, .empty:
-                delegate?.update(brandTags: [title])
+                productPair?.update(brandTags: [title])
             case .available(var list):
                 list.append(title)
-                delegate?.update(brandTags: list)
+                productPair?.update(brandTags: list)
             default:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
@@ -1395,17 +1398,17 @@ extension IdentificationTableViewController: TagListViewDelegate {
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
-                delegate?.update(packagingTags: [title])
+                productPair?.update(packagingTags: [title])
             case .available(var list):
                 list.append(title)
-                delegate?.update(packagingTags: list)
+                productPair?.update(packagingTags: list)
             default:
                 assert(true, "IdentificationTableViewController: How can I add a packaging tag when the field is non-editable")
             }
         case .languages:
             switch languagesToDisplay {
             case .undefined, .empty, .available:
-                delegate?.update(addLanguageCode: title)
+                productPair?.update(addLanguageCode: title)
             default:
                 assert(true, "IdentificationTableViewController: How can I add a languages tag when the field is non-editable")
             }
@@ -1459,7 +1462,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(brandTags: list)
+                productPair?.update(brandTags: list)
             case .notSearchable:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
@@ -1487,7 +1490,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(packagingTags: list)
+                productPair?.update(packagingTags: list)
             case .notSearchable:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
@@ -1558,7 +1561,7 @@ extension IdentificationTableViewController: UITextFieldDelegate {
         case .quantity:
             // quantity updated?
             if let validText = textField.text {
-                delegate?.update(quantity: validText)
+                productPair?.update(quantity: validText)
             }
         case .barcodeSearch:
             // barcode updated?
@@ -1634,7 +1637,7 @@ extension IdentificationTableViewController: GKImagePickerDelegate {
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         
         // print("front image", image.size)
-        delegate?.updated(frontImage: image, languageCode: currentLanguageCode!)
+        productPair?.update(frontImage: image, for: currentLanguageCode!)
         tableView.reloadData()
         imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -1666,10 +1669,12 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
         guard currentLanguageCode != nil else { return [] }
         var productImageData: ProductImageData? = nil
         // is there image data?
-        if delegate?.updatedProduct?.frontImages != nil && !delegate!.updatedProduct!.frontImages.isEmpty {
-            productImageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.front)
-        } else {
-            productImageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.front)
+        if let localProduct = productPair?.localProduct {
+            if !localProduct.frontImages.isEmpty {
+                productImageData = localProduct.image(for:currentLanguageCode!, of:.front)
+            } else {
+                productImageData = localProduct.image(for:currentLanguageCode!, of:.front)
+            }
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }
@@ -1776,7 +1781,7 @@ extension IdentificationTableViewController: GKImageCropControllerDelegate {
         guard let validLanguage = currentLanguageCode,
             let validImage = croppedImage else { return }
         imageCropController.dismiss(animated: true, completion: nil)
-        self.delegate?.updated(frontImage: validImage, languageCode:validLanguage)
+        productPair?.update(frontImage: validImage, for: validLanguage)
         self.reloadImageSection()
         //delegate?.imagePicker(self, cropped:croppedImage!)
     }

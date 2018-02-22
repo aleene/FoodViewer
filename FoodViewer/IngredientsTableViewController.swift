@@ -1200,7 +1200,7 @@ extension IngredientsTableViewController: UITextViewDelegate {
         switch tableStructure[textView.tag] {
         case .ingredients:
             if let validText = textView.text {
-                delegate?.updated(ingredients: validText, languageCode: currentLanguageCode!)
+                productPair?.update(ingredients: validText, for: currentLanguageCode!)
             }
         default:
             break
@@ -1226,10 +1226,10 @@ extension IngredientsTableViewController: TagListViewDelegate {
         case .traces:
             switch tracesToDisplay {
             case .undefined, .empty:
-                delegate?.update(tracesTags: [title])
+                productPair?.update(tracesTags: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(tracesTags: list)
+                productPair?.update(tracesTags: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1268,10 +1268,10 @@ extension IngredientsTableViewController: TagListViewDelegate {
         case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
-                delegate?.update(labelTags: [title])
+                productPair?.update(labelTags: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(labelTags: list)
+                productPair?.update(labelTags: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1340,7 +1340,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(tracesTags: list)
+                productPair?.update(tracesTags: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1380,7 +1380,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(labelTags: list)
+                productPair?.update(labelTags: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
