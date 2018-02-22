@@ -33,19 +33,20 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     fileprivate var products = OFFProducts.manager
     
-    fileprivate var barcode = BarcodeType(value: "no barcode set") {
+    //TODO: can I create a barcode type for not initialized?
+    fileprivate var barcodeType = BarcodeType(value: TranslatableStrings.EnterBarcode) {
         didSet {
-            let validIndex = products.fetchProduct(with: barcode)
-            if let validProductPair = products.productPair(at: validIndex) {
+            let index = products.indexOfNewProduct(with: barcodeType)
+            selectedIndex = index
+            if let validProductPair = products.productPair(at: index) {
                 switch validProductPair.remoteStatus {
                 case .available:
-                    selectedProduct = validProductPair.remoteProduct
-                    selectedIndex = validIndex
-                    tableView.reloadData()
-                    tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .middle, animated: true)
+                    selectedProductPair = validProductPair
                 default:
                     break
                 }
+                tableView.reloadData()
+                tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
             } else {
                 assert(true, "no valid productPair")
             }
@@ -54,20 +55,20 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate func startInterface(at index:Int) {
         if let validFetchResult = products.productPair(at: index)?.remoteStatus,
-            let validProduct = products.productPair(at: index)?.remoteProduct {
+            let validProductPair = products.productPair(at: index) {
             switch validFetchResult {
             case .available:
-                selectedProduct = validProduct
+                selectedProductPair = validProductPair
                 tableView.reloadData()
             case .searchQuery:
-                selectedProduct = validProduct
+                selectedProductPair = validProductPair
                 refreshInterface()
             default:
-                selectedProduct = nil
+                selectedProductPair = nil
                 tableView.reloadData()
             }
         } else {
-            selectedProduct = nil
+            selectedProductPair = nil
             tableView.reloadData()
         }
         setTitle()
@@ -117,7 +118,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            searchTextField.text = barcode.asString
+            searchTextField.text = barcodeType.asString
         }
     }
     
@@ -146,7 +147,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func enter() {
         view.endEditing(true)
         if !searchTextField.text!.isEmpty {
-            barcode = BarcodeType(barcodeTuple: (searchTextField.text!, currentProductType.rawValue))
+            barcodeType = BarcodeType(barcodeTuple: (searchTextField.text!, currentProductType.rawValue))
         }
     }
 
@@ -156,7 +157,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     // MARK: - Table view methods and vars
     
-    fileprivate var selectedProduct: Any? = nil {
+    fileprivate var selectedProductPair: ProductPair? = nil {
         didSet {
             if selectedIndex == nil {
                 selectedIndex = 0
@@ -503,17 +504,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
         if products.count > 0,
             let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
-            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
+            let validProductPair = products.productPair(at: indexPath.section) {
                 switch validFetchResult {
                 case .available,
                      .loading,
                      .productNotLoaded:
-                    selectedProduct = validProduct
+                    selectedProductPair = validProductPair
                 case .productNotAvailable,
                      .loadingFailed:
-                    selectedProduct = validProduct
+                    selectedProductPair = validProductPair
                 case .searchQuery(let query):
-                    selectedProduct = query
+                    selectedProductPair = ProductPair.init(barcodeType: .search(query, nil))
                 default: break
                 }
         }
@@ -631,20 +632,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case Storyboard.SegueIdentifier.ToPageViewController:
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
-                        ppvc.tableItem = selectedProduct
-
-                        if let validSelectedRowType = selectedRowType {
-                            if selectedProduct != nil && selectedProduct! is FoodProduct {
-                                ppvc.pageIndex = validSelectedRowType.productSection()
-                            } else if let search = selectedProduct as? SearchTemplate {
+                        ppvc.tableItem = selectedProductPair
+                        if let validSelectedRowType = selectedRowType,
+                            let validProductPair = selectedProductPair {
+                            switch validProductPair.barcodeType {
+                            case .search(let template, _):
                                 if let validIndex = selectedIndex {
-                                    let array = search.searchPairsWithArray()
+                                    let array = template.searchPairsWithArray()
                                     if array.count > 0 && validIndex < array.count {
                                         ppvc.pageIndex = searchRowType(array[validIndex].0)
                                     } else {
                                         ppvc.pageIndex = .identification
                                     }
                                 }
+                            default:
+                                ppvc.pageIndex = validSelectedRowType.productSection()
                             }
                         } else {
                             ppvc.pageIndex = .identification
@@ -701,7 +703,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             return .supplyChain
         case .label, .additive, .trace, .allergen, .ingredient:
             return .ingredients
-        case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
+    case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
             return .completion
         case .nutritionGrade:
             return .nutritionScore
@@ -715,17 +717,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         startInterface(at:0)
     }
     
-    //func unwindForBack() {
-     //   tableView.reloadData()
-    //}
-    
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
+            // the user has done a barcode scan, so switch to the right tab
             switchToTab(withIndex: 0)
-            barcode = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
+            // This will retrieve the corresponding product
+            barcodeType = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
+            // update the interface
             searchTextField.text = vc.barcode
-            products.list = .recent
-            startInterface(at: selectedIndex ?? 0)
+            // TODO: Should this be here?
+            //products.list = .recent
+            //startInterface(at: selectedIndex ?? 0)
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
             assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
@@ -823,7 +825,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         switch fetchResult {
                         case .success:
-                            self.barcode = BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue))
+                            self.barcodeType = BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue))
                             self.searchTextField.text = validBarcodeString
                             self.performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
                             break
@@ -1088,8 +1090,8 @@ extension ProductTableViewController: TagListViewDataSource {
             return ProductFetchStatus.productNotLoaded(FoodProduct()).description
         }
         
-        if code == ProductFetchStatus.loading(FoodProduct()).rawValue {
-            return ProductFetchStatus.loading(FoodProduct()).description
+        if code == ProductFetchStatus.loading.rawValue {
+            return ProductFetchStatus.loading.description
         }
         
         if code == ProductFetchStatus.loadingFailed(FoodProduct(), "").rawValue {

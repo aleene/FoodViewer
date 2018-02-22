@@ -82,7 +82,7 @@ class OpenFoodFactsRequest {
                             let newProduct = FoodProduct.init(json: offProduct)
                         return .success(newProduct)
                     } else {
-                        return .loadingFailed(FoodProduct.init(with: barcode), "no valid offProduct")
+                        return .loadingFailed(FoodProduct.init(with: barcode), TranslatableStrings.ProductNotAvailable)
                     }
                 } catch let error {
                     return .loadingFailed(FoodProduct.init(with: barcode), error.localizedDescription)

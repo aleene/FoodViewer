@@ -91,7 +91,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var allergensToDisplay: Tags {
         get {
             // is an updated product available? Is only relevant for the template
-            if product != nil && delegate?.updatedProduct != nil {
+            if productPair != nil && delegate?.updatedProduct != nil {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.allergensOriginal {
                 case .available, .empty:
@@ -104,13 +104,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
             switch allergensTagsTypeToShow {
             case .interpreted:
-                return product!.allergensInterpreted
+                return productPair!.remoteProduct!.allergensInterpreted
             case .hierarchy:
-                return product!.allergensHierarchy
+                return productPair!.remoteProduct!.allergensHierarchy
             case .translated:
-                return product!.allergensTranslated
+                return productPair!.remoteProduct!.allergensTranslated
             case .original:
-                return product!.allergensOriginal
+                return productPair!.remoteProduct!.allergensOriginal
             case .edited, .prefixed:
                 return .undefined
             }
@@ -141,13 +141,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             switch tracesTagsTypeToShow {
             case .interpreted:
-                return product!.tracesInterpreted
+                return productPair!.remoteProduct!.tracesInterpreted
             case .hierarchy:
-                return product!.tracesHierarchy
+                return productPair!.remoteProduct!.tracesHierarchy
             case .translated:
-                return product!.tracesTranslated
+                return productPair!.remoteProduct!.tracesTranslated
             case .original:
-                return product!.tracesOriginal
+                return productPair!.remoteProduct!.tracesOriginal
             case .edited, .prefixed:
                 return .undefined
             }
@@ -166,7 +166,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var additivesToDisplay: Tags {
         get {
             // is an updated product available?
-            if product != nil && delegate?.updatedProduct != nil {
+            if productPair!.remoteProduct != nil && delegate?.updatedProduct != nil {
                 // does it have brands defined?
                 switch delegate!.updatedProduct!.additivesOriginal {
                 case .available, .empty:
@@ -179,11 +179,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
             switch additivesTagsTypeToShow {
             case .interpreted:
-                return product!.additivesInterpreted
+                return productPair!.remoteProduct!.additivesInterpreted
             case .hierarchy, .edited, .original, .prefixed:
                 return .undefined
             case .translated:
-                return product!.additivesTranslated
+                return productPair!.remoteProduct!.additivesTranslated
             }
         }
     }
@@ -212,14 +212,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             switch labelsTagsTypeToShow {
             case .interpreted:
-                return product!.labelsInterpreted
+                return productPair!.remoteProduct!.labelsInterpreted
             case .translated:
-                return product!.translatedLabels()
+                return productPair!.remoteProduct!.translatedLabels()
             case .hierarchy:
-                return product!.labelsHierarchy
+                return productPair!.remoteProduct!.labelsHierarchy
                 // return product!.translatedLabels().prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
-                return product!.labelsOriginal
+                return productPair!.remoteProduct!.labelsOriginal
             case .edited, .prefixed:
                 return .undefined
             }
@@ -256,20 +256,25 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     // MARK: - Public variables
     
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
+            if let productPair = tableItem {
+                switch productPair.barcodeType {
+                case .search(let template, _):
+                    self.productPair = nil
+                    query = template
+                default:
+                    self.productPair = productPair
+                    query = nil
+                }
             }
         }
     }
     
 
-    fileprivate var product: FoodProduct? {
+    fileprivate var productPair: ProductPair? {
         didSet {
-            if product != nil {
+            if productPair != nil {
                 ingredientsImage = nil
                 tableStructure = setupSections()
                 refreshProduct()
@@ -281,7 +286,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     private var query: SearchTemplate? = nil {
         didSet {
             if query != nil {
-                product = nil
+                productPair = nil
                 tableStructure = setupSections()
                 refreshProduct()
             }
@@ -316,7 +321,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode))
+            OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.remoteProduct!.barcode))
             refreshControl?.endRefreshing()
         }
     }
@@ -385,7 +390,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 // has the product been edited?
                 if let validName = delegate?.updatedProduct?.ingredientsLanguage[validCurrentLanguageCode] {
                     cell!.ingredients = validName
-                } else if let validName = product?.ingredientsLanguage[validCurrentLanguageCode] {
+                } else if let validName = productPair!.remoteProduct?.ingredientsLanguage[validCurrentLanguageCode] {
                         cell!.ingredients = validName
                 } else {
                     cell!.ingredients = nil
@@ -504,23 +509,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             
             // try the regular ingredient images
-        } else if !product!.ingredientsImages.isEmpty {
+        } else if !productPair!.remoteProduct!.ingredientsImages.isEmpty {
             // is the data for the current language available?
-            if let result = product!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
+            if let result = productPair!.remoteProduct!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return product!.ingredientsImages[currentLanguageCode!]?.display?.image
+                    return productPair!.remoteProduct!.ingredientsImages[currentLanguageCode!]?.display?.image
                 default:
                     break
                 }
                 // fall back to the primary languagecode ingredient image
                 // if we are NOT in edit mode
             } else if !editMode,
-                let primaryLanguageCode = product!.primaryLanguageCode,
-                let result = product!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
+                let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
+                let result = productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return product!.ingredientsImages[primaryLanguageCode]?.display?.image
+                    return productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.image
                 default:
                     break
                 }
@@ -611,7 +616,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             headerView.delegate = self
             headerView.title = header
             headerView.languageCode = currentLanguageCode
-            headerView.buttonIsEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
+            headerView.buttonIsEnabled = editMode ? true : ( productPair!.remoteProduct!.languageCodes.count > 1 ? true : false )
             
             return headerView
         default:
@@ -620,10 +625,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate func nextLanguageCode() -> String {
-        let currentIndex = (product?.languageCodes.index(of: currentLanguageCode!))!
+        let currentIndex = (productPair!.remoteProduct?.languageCodes.index(of: currentLanguageCode!))!
         
-        let nextIndex = currentIndex == ((product?.languageCodes.count)! - 1) ? 0 : (currentIndex + 1)
-        return (product?.languageCodes[nextIndex])!
+        let nextIndex = currentIndex == ((productPair!.remoteProduct?.languageCodes.count)! - 1) ? 0 : (currentIndex + 1)
+        return (productPair!.remoteProduct?.languageCodes[nextIndex])!
     }
 
     fileprivate struct TableSection {
@@ -802,7 +807,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
                         vc.imageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.ingredients)
                     } else {
-                        vc.imageData = product!.image(for:currentLanguageCode!, of:.ingredients)
+                        vc.imageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.ingredients)
                     }
                 }
             case Storyboard.SegueIdentifier.SelectLanguage:
@@ -823,9 +828,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 
                                 vc.currentLanguageCode = currentLanguageCode
-                                vc.languageCodes = product!.languageCodes
+                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
                                 vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
-                                vc.primaryLanguageCode = product?.primaryLanguageCode
+                                vc.primaryLanguageCode = productPair!.remoteProduct?.primaryLanguageCode
                                 vc.sourcePage = 1
                                 vc.editMode = editMode
                             }
@@ -866,7 +871,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
-        if product!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+        if productPair!.remoteProduct!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
             if userInfo!.count == 1 {
                 reloadImageSection()
                 return
@@ -913,7 +918,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     @objc func removeProduct() {
-        product = nil
+        productPair = nil
         tableView.reloadData()
     }
 
@@ -987,12 +992,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         guard !editMode else { return }
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString {
+            if barcode == productPair!.barcodeType.asString {
                 // is it relevant to the ingredients image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode))
+                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.barcodeType))
                     }
                 }
             }
@@ -1002,12 +1007,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString {
+            if barcode == productPair!.barcodeType.asString {
                 // is it relevant to the ingredients image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.product!.barcode) )
+                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.barcodeType) )
                     }
                 }
             }
@@ -1107,9 +1112,9 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard currentLanguageCode != nil else { return }
-        guard product != nil else { return }
+        guard productPair != nil else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .ingredients, for: product!)
+        update.deselect([currentLanguageCode!], of: .ingredients, for: productPair!.remoteProduct!)
     }
 
 }
@@ -1428,17 +1433,17 @@ extension IngredientsTableViewController: TagListViewDelegate {
         
         switch tableStructure[tagListView.tag] {
         case .allergens:
-            switch product!.allergensInterpreted {
+            switch productPair!.remoteProduct!.allergensInterpreted {
             case .available:
-                delegate?.search(for: product!.allergensInterpreted.tag(at: index), in: .allergen)
+                delegate?.search(for: productPair!.remoteProduct!.allergensInterpreted.tag(at: index), in: .allergen)
             default:
                 break
             }
         case .traces:
             // the taxonomy key is used to define the search value
-            switch product!.tracesInterpreted {
+            switch productPair!.remoteProduct!.tracesInterpreted {
             case .available:
-                delegate?.search(for: product!.tracesInterpreted.tag(at: index), in: .trace)
+                delegate?.search(for: productPair!.remoteProduct!.tracesInterpreted.tag(at: index), in: .trace)
             default:
                 break
             }
@@ -1454,9 +1459,9 @@ extension IngredientsTableViewController: TagListViewDelegate {
 //                break
 //            }
         case .labels:
-            switch product!.labelsInterpreted {
+            switch productPair!.remoteProduct!.labelsInterpreted {
             case .available:
-                delegate?.search(for: product!.labelsInterpreted.tag(at: index), in: .label)
+                delegate?.search(for: productPair!.remoteProduct!.labelsInterpreted.tag(at: index), in: .label)
             default:
                 break
             }
@@ -1691,7 +1696,7 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
         if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
             productImageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.ingredients)
         } else {
-            productImageData = product!.image(for:currentLanguageCode!, of:.ingredients)
+            productImageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.ingredients)
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }

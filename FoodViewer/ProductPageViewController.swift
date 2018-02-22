@@ -25,17 +25,17 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         var sharingItems = [AnyObject]()
             
-        if let text = product?.name {
+        if let text = productPair?.name {
             sharingItems.append(text as AnyObject)
         }
         // add the front image for the primary languageCode if any
-        if let languageCode = product?.primaryLanguageCode {
-            if let image = product?.frontImages[languageCode]?.small?.image {
+        if let languageCode = productPair?.primaryLanguageCode {
+            if let image = productPair?.frontImages[languageCode]?.small?.image {
                 sharingItems.append(image)
             }
         }
         
-        if let url = product?.regionURL() {
+        if let url = productPair?.regionURL {
             sharingItems.append(url as AnyObject)
         }
             
@@ -126,34 +126,35 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 // MARK: - Public variables and functions
 //
     
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-                self.query = nil
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
-                self.product = nil
+            if let productPair = tableItem {
+                switch productPair.barcodeType {
+                case .search:
+                    self.query = productPair
+                    self.productPair = nil
+                default:
+                    self.productPair = productPair
+                    self.query = nil
+                }
             }
         }
     }
-
-    var productPair: ProductPair? = nil
     
-    private var product: FoodProduct? = nil {
+    private var productPair: ProductPair? = nil {
         didSet {
-            if oldValue == nil && product != nil {
+            if oldValue == nil && productPair != nil {
             // has the product been initailised?
                 setCurrentLanguage()
                 //setupProduct()
-            } else if oldValue != nil && product != nil && oldValue!.barcode.asString != product!.barcode.asString {
+            } else if oldValue != nil && productPair != nil && oldValue!.barcodeType.asString != productPair!.barcodeType.asString {
             // was there a product change?
                 setCurrentLanguage()
             } // otherwise the language can not be set
         }
     }
     
-    private var query: SearchTemplate? = nil
+    private var query: ProductPair? = nil
     
     private var isQuery: Bool {
         return query != nil
@@ -306,7 +307,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         categoriesVC.tableItem = tableItem
         nutritionScoreVC.tableItem = tableItem
         completionStatusVC.tableItem = tableItem
-        galleryVC.product = product
+        galleryVC.product = productPair?.remoteProduct
     }
 
     private func setupEditMode() {
@@ -335,7 +336,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         for languageLocale in Locale.preferredLanguages {
             // split language and locale
             let preferredLanguage = languageLocale.split(separator:"-").map(String.init)[0]
-            if let languageCodes = product?.languageCodes {
+            if let languageCodes = productPair?.languageCodes {
                 if languageCodes.contains(preferredLanguage) {
                     currentLanguageCode = preferredLanguage
                     // found a valid code
@@ -345,7 +346,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         // there is no match between preferred languages and product languages
         if currentLanguageCode == nil {
-            currentLanguageCode = product?.primaryLanguageCode
+            currentLanguageCode = productPair?.primaryLanguageCode
         }
     }
 
@@ -391,7 +392,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         case .gallery:
             galleryVC.delegate = self
-            galleryVC.product = product
+            galleryVC.product = productPair?.remoteProduct
             galleryVC.editMode = editMode
         }
         
@@ -520,10 +521,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // this sets the current product and shows the first page
         let products = OFFProducts.manager
         if let validFetchResult = products.productPair(at: 0)?.remoteStatus,
-            let validProduct = products.productPair(at: 0)?.remoteProduct {
+            let validProductPair = products.productPair(at: 0) {
             switch validFetchResult {
             case .available:
-                tableItem = validProduct
+                tableItem = validProductPair
                 pageIndex = .identification
                 initPage(pageIndex)
             default: break
@@ -560,118 +561,133 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     var updatedProduct: FoodProduct? = nil // Stays nil when no changes are made
 
     func updated(name: String, languageCode: String) {
-        guard product != nil else { return }
-        if !product!.contains(name: name, for: languageCode) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.set(newName: name, for: languageCode)
-            saveUpdatedProduct()
-        }
+        productPair?.update(name: name, in: languageCode)
+        //guard product != nil else { return }
+        //if !product!.contains(name: name, for: languageCode) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.set(newName: name, for: languageCode)
+        //    saveUpdatedProduct()
+        //}
     }
     
     func updated(genericName: String, languageCode: String) {
-        guard product != nil else { return }
-        if !product!.contains(genericName: genericName, for: languageCode) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.set(newGenericName: genericName, for: languageCode)
-            saveUpdatedProduct()
-        }
+        productPair?.update(genericName: genericName, in: languageCode)
+        //guard product != nil else { return }
+        //if !product!.contains(genericName: genericName, for: languageCode) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.set(newGenericName: genericName, for: languageCode)
+        //    saveUpdatedProduct()
+        //}
     }
     
+    /*
     func updated(searchText: String) {
         guard product != nil else { return }
         initUpdatedProductWith(product: product!)
         // updatedProduct?.searchText = searchText
         saveUpdatedProduct()
     }
+  */
 
     func updated(ingredients: String, languageCode: String) {
-        guard product != nil else { return }
-        if !product!.contains(ingredients: ingredients, in:languageCode) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.set(newIngredients: ingredients, for: languageCode)
-            saveUpdatedProduct()
-        }
+        productPair?.update(ingredients: ingredients, in: languageCode)
+        //guard product != nil else { return }
+        //if !product!.contains(ingredients: ingredients, in:languageCode) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.set(newIngredients: ingredients, for: languageCode)
+        //    saveUpdatedProduct()
+        //}
     }
     
     func updated(portion: String) {
-        guard product != nil else { return }
-        if !product!.contains(servingSize: portion) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.servingSize = portion
-            saveUpdatedProduct()
-        }
+        productPair?.update(portion: portion)
+        //guard product != nil else { return }
+        //if !product!.contains(servingSize: portion) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.servingSize = portion
+        //    saveUpdatedProduct()
+        //}
     }
 
     func updated(barcode: String) {
-        guard product != nil else { return }
-        if !product!.contains(barcode: barcode) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.barcode.string(barcode)
-            saveUpdatedProduct()
-        }
+        productPair?.update(barcode: barcode)
+        //guard product != nil else { return }
+        //if !product!.contains(barcode: barcode) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.barcode.string(barcode)
+        //    saveUpdatedProduct()
+        //}
     }
     
     func updated(expirationDate: Date) {
-        guard product != nil else { return }
-        if !product!.contains(expirationDate: expirationDate) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.expirationDate = expirationDate
-            saveUpdatedProduct()
-        }
+        productPair?.update(expirationDate: expirationDate)
+        //guard product != nil else { return }
+        //if !product!.contains(expirationDate: expirationDate) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.expirationDate = expirationDate
+        //    saveUpdatedProduct()
+        //}
     }
     
     func updated(expirationDateString: String) {
-        guard product != nil else { return }
-        if !product!.contains(expirationDateString: expirationDateString) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.expirationDateString = expirationDateString
-            saveUpdatedProduct()
-        }
+        productPair?.update(expirationDateString: expirationDateString)
+        //guard product != nil else { return }
+        //if !product!.contains(expirationDateString: expirationDateString) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.expirationDateString = expirationDateString
+        //    saveUpdatedProduct()
+        //}
     }
 
     func updated(primaryLanguageCode: String) {
-        guard product != nil else { return }
-        if !product!.contains(primaryLanguageCode: primaryLanguageCode) {
-            initUpdatedProductWith(product: product!)
+        productPair?.update(primaryLanguageCode: primaryLanguageCode)
+        //guard product != nil else { return }
+        //if !product!.contains(primaryLanguageCode: primaryLanguageCode) {
+        //    initUpdatedProductWith(product: product!)
             // what happens if the primary language is already an existing language?
-            if !product!.contains(languageCode: primaryLanguageCode) {
+        //    if !product!.contains(languageCode: primaryLanguageCode) {
                 // add a NEW language
-                updatedProduct?.add(languageCode: primaryLanguageCode)
-            } else {
+        //        updatedProduct?.add(languageCode: primaryLanguageCode)
+        //    } else {
                 // use the existing language
                 // copy existing fields so that they can be edited
-                if let validName = product!.nameLanguage[primaryLanguageCode] {
-                    if let name = validName {
-                        updated(name: name, languageCode: primaryLanguageCode)
-                    }
-                }
-                if let name = product?.genericNameLanguage[primaryLanguageCode] {
-                    if let validGenericName = name  {
-                        updated(genericName: validGenericName, languageCode: primaryLanguageCode)
-                    }
-                }
-                if let validIngredients = product?.ingredientsLanguage[primaryLanguageCode],
-                    let ingredients = validIngredients {
-                    updated(ingredients: ingredients, languageCode: primaryLanguageCode)
-                }
-            }
+        //        if let validName = product!.nameLanguage[primaryLanguageCode] {
+        //            if let name = validName {
+         //               updated(name: name, languageCode: primaryLanguageCode)
+         //           }
+         //       }
+         //       if let name = product?.genericNameLanguage[primaryLanguageCode] {
+          //          if let validGenericName = name  {
+           //             updated(genericName: validGenericName, languageCode: primaryLanguageCode)
+         //           }
+          //      }
+         //       if let validIngredients = product?.ingredientsLanguage[primaryLanguageCode],
+          //          let ingredients = validIngredients {
+          //          updated(ingredients: ingredients, languageCode: primaryLanguageCode)
+         //      }
+        //    }
             // now it is possible to change the primary languageCode
-            updatedProduct?.primaryLanguageCode = primaryLanguageCode
-            saveUpdatedProduct()
-            currentLanguageCode = primaryLanguageCode
-        }
+       //     updatedProduct?.primaryLanguageCode = primaryLanguageCode
+         //   saveUpdatedProduct()
+         //   currentLanguageCode = primaryLanguageCode
+      //  }
     }
 
     func update(addLanguageCode languageCode: String) {
+        productPair?.update(addLanguageCode: languageCode)
+        /*
         guard product != nil else { return }
         if !product!.contains(languageCode: languageCode) {
             initUpdatedProductWith(product: product!)
             updatedProduct?.add(languageCode: languageCode)
             saveUpdatedProduct()
         }
+  */
     }
 
     func update(shop: (String, Address)?) {
+        productPair?.update(shop: shop)
+        /*
         if let validShop = shop {
             guard product != nil else { return }
             if !product!.contains(shop: validShop.0) {
@@ -691,9 +707,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             saveUpdatedProduct()
         }
+  */
     }
     
     func update(brandTags: [String]?) {
+        productPair?.update(brandTags: brandTags)
+        /*
         if let validTags = brandTags {
             guard product != nil else { return }
             // Have the tags changed?
@@ -705,9 +724,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
 
     func update(packagingTags: [String]?) {
+        productPair?.update(packagingTags: packagingTags)
+        /*
         if let validTags = packagingTags {
             guard product != nil else { return }
             if !product!.contains(packaging: validTags) {
@@ -716,9 +738,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
     
     func update(tracesTags: [String]?) {
+        productPair?.update(categories: tracesTags)
+        /*
         if let validTags = tracesTags {
             guard product != nil else { return }
             if !product!.contains(traces: validTags) {
@@ -727,9 +752,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
 
     func update(labelTags: [String]?) {
+        productPair?.update(categories: labelTags)
+        /*
         if let validTags = labelTags {
             guard product != nil else { return }
             if !product!.contains(labels: validTags) {
@@ -738,9 +766,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
     
     func update(categories: [String]?) {
+        productPair?.update(categories: categories)
+        /*
         if let validTags = categories {
             guard product != nil else { return }
             if !product!.contains(categories: validTags) {
@@ -753,9 +784,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
 
     func update(producer: [String]?) {
+        productPair?.update(producer: producer)
+        /*
         if let validTags = producer {
             guard product != nil else { return }
             if !product!.contains(producer: validTags) {
@@ -764,9 +798,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
 
     func update(producerCode: [String]?) {
+        productPair?.update(producerCode: producerCode)
+        /*
         if let validTags = producerCode {
             guard product != nil else { return }
             if !product!.contains(producerCode: validTags) {
@@ -775,9 +812,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
     
     func update(ingredientsOrigin: [String]?) {
+        productPair?.update(ingredientsOrigin: ingredientsOrigin)
+        /*
         if let validTags = ingredientsOrigin {
             guard product != nil else { return }
             if !product!.contains(ingredientsOrigin: validTags) {
@@ -786,9 +826,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
 
     func update(stores: [String]?) {
+        productPair?.update(stores: stores)
+        /*
         if let validTags = stores {
             guard product != nil else { return }
             if !product!.contains(stores: validTags) {
@@ -797,9 +840,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
     
     func update(purchaseLocation: [String]?) {
+        productPair?.update(countries: purchaseLocation)
+        /*
         if let validTags = purchaseLocation {
             guard product != nil else { return }
             if !product!.contains(purchaseLocation: validTags) {
@@ -808,9 +854,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
 
     func update(countries: [String]?) {
+        productPair?.update(countries: countries)
+        /*
         if let validTags = countries {
             guard product != nil else { return }
             guard !validTags.isEmpty else { return }
@@ -827,28 +876,33 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
     
     func update(quantity: String) {
-        guard product != nil else { return }
-        if !product!.contains(quantity: quantity) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.quantity = quantity
-            saveUpdatedProduct()
-        }
+        productPair?.update(quantity: quantity)
+        //guard product != nil else { return }
+        //if !product!.contains(quantity: quantity) {
+        //    initUpdatedProductWith(product: product!)
+        //    updatedProduct?.quantity = quantity
+        //    saveUpdatedProduct()
+        //}
     }
     
     func update(periodAfterOpeningString: String) {
-        guard product != nil else { return }
-        if !product!.contains(periodAfterOpeningString: periodAfterOpeningString) {
-            initUpdatedProductWith(product: product!)
-            updatedProduct?.periodAfterOpeningString = periodAfterOpeningString
-            saveUpdatedProduct()
-        }
+        productPair?.update(periodAfterOpeningString: periodAfterOpeningString)
+        //guard product != nil else { return }
+        //if !product!.contains(periodAfterOpeningString: periodAfterOpeningString) {
+        //    initUpdatedProductWith(product: product!)
+         //   updatedProduct?.periodAfterOpeningString = periodAfterOpeningString
+        //    saveUpdatedProduct()
+        //}
     }
 
 
     func update(links: [String]?) {
+        productPair?.update(links: links)
+        /*
         if let validTags = links {
             guard product != nil else { return }
             if !product!.contains(links: validTags) {
@@ -862,20 +916,24 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 saveUpdatedProduct()
             }
         }
+  */
     }
     
     func updated(availability: Bool) {
-        guard product != nil else { return }
-        initUpdatedProductWith(product: product!)
-        updatedProduct?.hasNutritionFacts = availability
-        if !availability {
+        productPair?.update(availability: availability)
+        //guard product != nil else { return }
+        //initUpdatedProductWith(product: product!)
+        //updatedProduct?.hasNutritionFacts = availability
+        //if !availability {
             // if indicated as not available, delete the existing nutritionFacts
-            updated(facts: [])
-        }
-        saveUpdatedProduct()
+        //    updated(facts: [])
+        //}
+        //saveUpdatedProduct()
     }
     
     func updated(fact: NutritionFactItem?) {
+        productPair?.update(fact: fact)
+        /*
         if let validFact = fact {
             guard product != nil else { return }
             // initialize an updated product if it does not exist yet
@@ -938,9 +996,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             updatedProduct?.hasNutritionFacts = true
             saveUpdatedProduct()
         }
+  */
     }
 
     func updated(facts: [NutritionFactItem?]) {
+        productPair?.update(facts: facts)
+        /*
         // TODO: need to check if a fact has been updated
         
         initUpdatedProductWith(product: product!)
@@ -969,35 +1030,40 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             updatedProduct?.hasNutritionFacts = updatedProduct!.nutritionFacts!.count > 0 ? true : false
         }
         saveUpdatedProduct()
+  */
     }
 
     func updated(frontImage: UIImage, languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct!.frontImages[languageCode] = ProductImageSize()
-        updatedProduct!.frontImages[languageCode]?.original = ProductImageData.init(image: frontImage)
-        saveUpdatedProduct()
+        productPair?.update(frontImage: frontImage, for: languageCode)
+        //initUpdatedProductWith(product: product!)
+        //updatedProduct!.frontImages[languageCode] = ProductImageSize()
+        //updatedProduct!.frontImages[languageCode]?.original = ProductImageData.init(image: frontImage)
+        //saveUpdatedProduct()
     }
 
     func updated(nutritionImage: UIImage, languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct!.nutritionImages[languageCode] = ProductImageSize()
-        updatedProduct!.nutritionImages[languageCode]?.original = ProductImageData.init(image: nutritionImage)
-        print(updatedProduct!.nutritionImages[languageCode]!.original!.image!.description)
-        saveUpdatedProduct()
+        productPair?.update(nutritionImage: nutritionImage, for: languageCode)
+        //initUpdatedProductWith(product: product!)
+        //updatedProduct!.nutritionImages[languageCode] = ProductImageSize()
+        //updatedProduct!.nutritionImages[languageCode]?.original = ProductImageData.init(image: nutritionImage)
+        //print(updatedProduct!.nutritionImages[languageCode]!.original!.image!.description)
+        //saveUpdatedProduct()
     }
 
     func updated(ingredientsImage: UIImage, languageCode: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct!.ingredientsImages[languageCode] = ProductImageSize()
-        updatedProduct!.ingredientsImages[languageCode]?.original = ProductImageData.init(image: ingredientsImage)
-        saveUpdatedProduct()
+        productPair?.update(ingredientsImage: ingredientsImage, for: languageCode)
+        //initUpdatedProductWith(product: product!)
+        //updatedProduct!.ingredientsImages[languageCode] = ProductImageSize()
+        //updatedProduct!.ingredientsImages[languageCode]?.original = ProductImageData.init(image: ingredientsImage)
+        //saveUpdatedProduct()
     }
 
     func updated(image: UIImage, id: String) {
-        initUpdatedProductWith(product: product!)
-        updatedProduct!.images[id] = ProductImageSize()
-        updatedProduct!.images[id]?.display = ProductImageData.init(image: image)
-        saveUpdatedProduct()
+        productPair?.update(image: image, id: id)
+        //initUpdatedProductWith(product: product!)
+        //updatedProduct!.images[id] = ProductImageSize()
+        //updatedProduct!.images[id]?.display = ProductImageData.init(image: image)
+        //saveUpdatedProduct()
     }
 
     private func initUpdatedProductWith(product: FoodProduct) {

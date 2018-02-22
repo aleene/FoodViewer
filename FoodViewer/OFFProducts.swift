@@ -45,16 +45,13 @@ class OFFProducts {
     var mostRecentProduct = MostRecentProduct()
 
     //  Contains all the fetch results for all product types
-    //private var allProductFetchResultList: [ProductFetchStatus] = []
     private var allProductPairs: [ProductPair] = []
     
     // Contains all the search fetch results
-    //private var allSearchFetchResultList: [ProductFetchStatus] = []
     private var allSearchPairs: [ProductPair] = []
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
-    //private var fetchResultList: [ProductFetchStatus] = []
     private var productPairList: [ProductPair] = []
     
     func productPair(at index: Int) -> ProductPair? {
@@ -62,27 +59,12 @@ class OFFProducts {
         return productPairList[index]
     }
     
-    //func fetchResult(at index: Int) -> ProductFetchStatus? {
-    //    guard index >= 0 && index < oldCount else { return nil }
-    //    return fetchResultList[index]
-    //}
-    
     func loadProductPair(at index: Int) -> ProductPair? {
         guard index >= 0 && index < count else { return nil }
         loadProductPairRange(around: index)
         return productPairList[index]
 
     }
-    
-    //func loadProduct(at index: Int) -> ProductFetchStatus? {
-    //    guard index >= 0 && index < oldCount else { return nil }
-    //    loadProductRange(around: index)
-    //    return fetchResultList[index]
-    //}
-
-    //var oldCount: Int {
-    //    return fetchResultList.count
-    //}
     
     var count: Int {
         return productPairList.count
@@ -98,15 +80,6 @@ class OFFProducts {
         }
 
     }
-
-    //private func loadProductRange(around index: Int) {
-    //    let range = 5
-    //    let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
-    //    let upperBound = index + Int(range/2) < oldCount ? index + Int(range/2) : oldCount - 1
-    //    for ind in lowerBound...upperBound {
-    //        fetchHistoryProduct(at: ind)
-    //    }
-    //}
     
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
@@ -161,62 +134,6 @@ class OFFProducts {
         self.productPairList = list
     }
 
-    /*
-    private func setCurrentProducts() {
-        var list: [ProductFetchStatus] = []
-        switch self.list {
-        case .recent:
-            for fetchResult in allProductFetchResultList {
-                switch fetchResult {
-                case .success(let product):
-                    if let producttype = product.type?.rawValue {
-                        if producttype == currentProductType.rawValue {
-                            list.append(fetchResult)
-                        }
-                    }
-                default:
-                    list.append(fetchResult)
-                }
-            }
-            // If there is nothing on the list add the sample product
-            if list.isEmpty {
-                loadSampleProduct()
-                list.append(sampleProductFetchStatus)
-            }
-        case .search:
-            // show the search query as the first product in the search results
-            if let validQuery = searchQuery {
-                list.append(.searchQuery(validQuery))
-            } else {
-                // setup the first product, without a previous search defined
-                // with an empty searchQueryProduct
-                searchQuery = SearchTemplate()
-                if let validSearchQuery = searchQuery {
-                    list.append(.searchQuery(validSearchQuery))
-                }
-            }
-            
-            // add the search results
-            for fetchResult in allSearchFetchResultList {
-                switch fetchResult {
-                case .success(let product):
-                    if let producttype = product.type?.rawValue {
-                        if producttype == currentProductType.rawValue {
-                            list.append(fetchResult)
-                        }
-                    }
-                case .searchLoading:
-                    list.append(.searchLoading)
-                case .more(let pageNumber):
-                    list.append(.more(pageNumber))
-                default: break
-                }
-            }
-        }
-        self.fetchResultList = list
-    }
-  */
-
     init() {
         // Initialize the products, multiple options are possible:
         // - there is no history, the user usese the app the first time for instance -> show a sample product
@@ -233,10 +150,6 @@ class OFFProducts {
     func resetCurrentProductPairs() {
         setCurrentProductPairs()
     }
-
-    //func resetCurrentProducts() {
-    //    setCurrentProducts()
-    //}
     
     var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded( FoodProduct(with:  BarcodeType(value:"whatToPutHere?")))
     
@@ -349,17 +262,6 @@ class OFFProducts {
             }
         }
     }
-
-    /*
-    func removeAll() {
-        // remove all stored and current products
-        storedHistory = History()
-        storedHistory.removeAll()
-        allProductFetchResultList = []
-        // and start over again
-        loadSampleProduct()
-    }
-  */
     
     func removeAllProductPairs() {
         storedHistory = History()
@@ -412,6 +314,7 @@ class OFFProducts {
   */
     
     // This function inserts a new ProductPair in the current list, in the history and as most recent product
+    /*
     func insertProductPair(_ barcode: BarcodeType?) -> Int? {
         if let validBarcode = barcode {
             // is the product already fetched?
@@ -424,13 +327,14 @@ class OFFProducts {
                 self.allProductPairs.insert(newProductPair, at: 0)
                 self.setCurrentProductPairs()
                 // try to get the product type out the json
-                self.storedHistory.add( (newProductPair.barcodeType!.asString, newProductPair.type.rawValue) )
+                self.storedHistory.add( (newProductPair.barcodeType.asString, newProductPair.type.rawValue) )
                 // self.loadMainImage(newProduct)
                 self.saveMostRecentProduct(barcode!)
             }
         }
         return nil
     }
+  */
 
     /*
     func fetchProduct(_ barcode: BarcodeType?) -> Int? {
@@ -522,17 +426,15 @@ class OFFProducts {
     
     func productPairIndex(_ barcodeType: BarcodeType?) -> Int? {
         guard barcodeType != nil else { return nil }
-        for (index, productPair) in productPairList.enumerated() {
-            if let validBarcodeType = productPair.barcodeType {
-                if validBarcodeType.asString == barcodeType!.asString {
-                    return index
-                }
+        for (index, productPair) in allProductPairs.enumerated() {
+            if productPair.barcodeType.asString == barcodeType!.asString {
+                return index
             }
         }
         return nil
     }
 
-    func fetchProduct(with barcodeType: BarcodeType) -> Int {
+    func indexOfNewProduct(with barcodeType: BarcodeType) -> Int {
         if let index = productPairIndex(barcodeType) {
             // The product aleady exists
             return index
@@ -541,6 +443,11 @@ class OFFProducts {
             allProductPairs.insert(ProductPair(barcodeType: barcodeType), at: 0)
             // and start fetching
             allProductPairs[0].fetch()
+            // save the new product as the most recent one
+            saveMostRecentProduct(allProductPairs[0].barcodeType)
+            // save the new product in the history
+            storedHistory.add( (allProductPairs[0].barcodeType.asString, allProductPairs[0].type.rawValue) )
+
             // recalculate the productPairs
             setCurrentProductPairs()
             return 0
@@ -724,10 +631,13 @@ class OFFProducts {
             if allProductPairs.isEmpty {
                 // If there is no history, we are in the cold start case
                 if !storedHistory.barcodeTuples.isEmpty {
+                    // create all productPairs found in the history
                     initProductPairList()
                     // load the most recent product from the local storage
                     if let data = mostRecentProduct.jsonData {
-                        var fetchResult = ProductFetchStatus.initialized
+                        var fetchResult = ProductFetchStatus.loading
+                        // TODO: The most recent does not have to be at index 0
+                        allProductPairs[0].remoteStatus = fetchResult
                         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                             fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
                             DispatchQueue.main.async(execute: { () -> Void in
@@ -735,13 +645,12 @@ class OFFProducts {
                                 case .success(let product):
                                     // the stored product might not correspond to the first product in the history
                                     // so it should be stored in the right spot
-                                    if let index = self.storedHistory.index(for:product.barcode) {
-                                        self.allProductPairs[index] = ProductPair.init(product: product)
-                                        self.setCurrentProductPairs()
-                                        NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                                    } else {
-                                        print("OFFProducts - stored product not in history file")
-                                    }
+                                    let index = self.indexOfNewProduct(with: product.barcode)
+                                    self.allProductPairs[index].remoteProduct = product
+                                    self.setCurrentProductPairs()
+                                    // start loading the rest
+                                    self.loadProductPairRange(around: 0)
+                                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                                 case .loadingFailed(let product, let error):
                                     let userInfo = [Notification.ErrorKey:error,
                                                     Notification.BarcodeKey:product.barcode.asString]
@@ -754,17 +663,12 @@ class OFFProducts {
                                     // self.handleProductNotAvailable(userInfo)
                                 default: break
                                 }
-                                //self.historyLoadCount = 0
-                                //self.historyLoadCount! += 1
                             })
                         })
                     } else {
                         // the data is not available
                         // has to be loaded from the OFF-servers
-                        self.allProductPairs.append(ProductPair.init(barcodeType: BarcodeType.init(value: storedHistory.barcodeTuples[0].0)))
-
-                        //_ = fetchProduct(BarcodeType(value: storedHistory.barcodeTuples[0].0))
-                        //historyLoadCount = 0
+                        loadProductPairRange(around: 0)
                     }
                 } else {
                     // The cold start case when the user has not yet used the app
@@ -808,9 +712,7 @@ class OFFProducts {
             loadAll()
         }
     }
-    
-    // private var searchQueryProduct: FoodProduct? = nil
-    
+        
     var searchQuery: SearchTemplate? = nil
     
     private func createSearchQuery() {
