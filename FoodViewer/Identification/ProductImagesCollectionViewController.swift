@@ -21,7 +21,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     // MARK: - public variables
     
-    var product: FoodProduct? {
+    var productPair: ProductPair? {
         didSet {
 
         }
@@ -55,14 +55,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     fileprivate var originalImages: [String:ProductImageSize] {
         get {
-            var images: [String:ProductImageSize] = [:]
-            if product != nil {
-                images = product!.images
+            var newImages: [String:ProductImageSize] = [:]
+            if let product = productPair?.remoteProduct {
+                newImages = product.images
             }
-            if delegate?.updatedProduct != nil && delegate!.updatedProduct!.images.count > 0 {
-                images = images.merging(delegate!.updatedProduct!.images, uniquingKeysWith: { (first, last) in last } )
+            if let images = productPair?.localProduct?.images,
+                images.count > 0 {
+                newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             }
-            return images
+            return newImages
         }
     }
     
@@ -89,8 +90,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     // should redownload the current product and reload it in this scene
     @objc private func refresh(sender: Any) {
         if refresher!.isRefreshing {
-            if let validProduct = product {
-                OFFProducts.manager.reload(validProduct)
+            if let validProductPair = productPair {
+                //TODO: OFFProducts.manager.reload(validProduct)
             }
             refresher?.endRefreshing()
         }
@@ -127,15 +128,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard product != nil else { return 0 }
+        guard let remoteProduct = productPair?.remoteProduct else { return 0 }
         // If there are updated images, only show those
         switch section {
         case Section.FrontImages:
-            return delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ? delegate!.updatedProduct!.frontImages.count : product!.frontImages.count
+            return productPair?.localProduct?.frontImages != nil && productPair!.localProduct!.frontImages.count > 0 ? productPair!.localProduct!.frontImages.count : remoteProduct.frontImages.count
         case Section.IngredientsImages:
-            return delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ? delegate!.updatedProduct!.ingredientsImages.count : product!.ingredientsImages.count
+            return productPair?.localProduct?.ingredientsImages != nil && productPair!.localProduct!.ingredientsImages.count > 0 ? productPair!.localProduct!.ingredientsImages.count : remoteProduct.ingredientsImages.count
         case Section.NutrionImages:
-            return delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ? delegate!.updatedProduct!.nutritionImages.count : product!.nutritionImages.count
+            return productPair?.localProduct?.nutritionImages != nil && productPair!.localProduct!.nutritionImages.count > 0 ? productPair!.localProduct!.nutritionImages.count : remoteProduct.nutritionImages.count
         case Section.OriginalImages:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
@@ -150,7 +151,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         switch indexPath.section {
         case Section.FrontImages: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = delegate?.updatedProduct?.frontImages {
+            if let images = productPair?.localProduct?.frontImages {
                 if images.count > 0 && indexPath.row < images.count {
                     let key = keyTuples(for:Array(images.keys))[indexPath.row].0
                     if let validImage = images[key]?.original?.image {
@@ -163,18 +164,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 }
                 
             } else {
-                if indexPath.row < product!.frontImages.count {
-                    let key = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].0
-                    if let result = product!.frontImages[key]?.display?.fetch() {
+                if indexPath.row < productPair!.remoteProduct!.frontImages.count {
+                    let key = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[indexPath.row].0
+                    if let result = productPair!.remoteProduct!.frontImages[key]?.display?.fetch() {
                         switch result {
                         case .available:
-                            if let validImage = product!.frontImages[key]?.display?.image {
+                            if let validImage = productPair!.remoteProduct!.frontImages[key]?.display?.image {
                                 cell.imageView.image = validImage
                             }
                         default:
                             cell.imageView.image = UIImage.init(named:"NotOK")
                         }
-                        cell.label.text = keyTuples(for:Array(product!.frontImages.keys))[indexPath.row].1
+                        cell.label.text = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[indexPath.row].1
                     } else {
                         assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
                     }
@@ -187,7 +188,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         
         case Section.IngredientsImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = delegate?.updatedProduct?.ingredientsImages  {
+            if let images = productPair?.localProduct?.ingredientsImages  {
                 if indexPath.row < images.count && images.count > 0 {
                     let key = keyTuples(for:Array(images.keys))[indexPath.row].0
                     if let validImage = images[key]?.original?.image {
@@ -200,18 +201,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
                 }
             } else {
-                if indexPath.row < product!.ingredientsImages.count {
-                    let key = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].0
-                    if let result = product!.ingredientsImages[key]?.display?.fetch() {
+                if indexPath.row < productPair!.remoteProduct!.ingredientsImages.count {
+                    let key = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[indexPath.row].0
+                    if let result = productPair!.remoteProduct!.ingredientsImages[key]?.display?.fetch() {
                         switch result {
                         case .available:
-                            if let validImage = product!.ingredientsImages[key]?.display?.image {
+                            if let validImage = productPair!.remoteProduct!.ingredientsImages[key]?.display?.image {
                                 cell.imageView.image = validImage
                             }
                         default:
                             cell.imageView.image = UIImage.init(named:"NotOK")
                         }
-                        cell.label.text = keyTuples(for:Array(product!.ingredientsImages.keys))[indexPath.row].1
+                        cell.label.text = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[indexPath.row].1
                     } else {
                         assert(true, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
                     }
@@ -224,7 +225,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             
         case Section.NutrionImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = delegate?.updatedProduct?.nutritionImages {
+            if let images = productPair?.localProduct?.nutritionImages {
                 if indexPath.row < images.count && images.count > 0 {
                     let key = keyTuples(for:Array(images.keys))[indexPath.row].0
                     if let validImage = images[key]?.original?.image {
@@ -235,18 +236,18 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
                 }
             } else {
-                if indexPath.row < product!.nutritionImages.count {
-                    let key = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].0
-                    if let result = product!.nutritionImages[key]?.display?.fetch() {
+                if indexPath.row < productPair!.remoteProduct!.nutritionImages.count {
+                    let key = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[indexPath.row].0
+                    if let result = productPair!.remoteProduct!.nutritionImages[key]?.display?.fetch() {
                         switch result {
                         case .available:
-                            if let validImage = product!.nutritionImages[key]?.display?.image {
+                            if let validImage = productPair!.remoteProduct!.nutritionImages[key]?.display?.image {
                                 cell.imageView.image = validImage
                             }
                         default:
                             cell.imageView.image = UIImage.init(named:"NotOK")
                         }
-                        cell.label.text = keyTuples(for:Array(product!.nutritionImages.keys))[indexPath.row].1
+                        cell.label.text = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[indexPath.row].1
                     }
                 } else {
                     assert(true, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
@@ -305,13 +306,13 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             //3
             switch indexPath.section {
             case Section.FrontImages:
-                headerView.label.text =  delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ?
+                headerView.label.text = productPair?.localProduct?.frontImages != nil && productPair!.localProduct!.frontImages.count > 0 ?
                     Storyboard.HeaderTitle.Front + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Front
             case Section.IngredientsImages:
-                headerView.label.text =  delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ?
+                headerView.label.text =  productPair?.localProduct?.ingredientsImages != nil && productPair!.localProduct!.ingredientsImages.count > 0 ?
                     Storyboard.HeaderTitle.Ingredients + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Ingredients
             case Section.NutrionImages:
-                headerView.label.text =  delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ?
+                headerView.label.text =  productPair?.localProduct?.nutritionImages != nil && productPair!.localProduct!.nutritionImages.count > 0 ?
                     Storyboard.HeaderTitle.Nutrition + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Nutrition
             case Section.OriginalImages:
                 headerView.label.text = Storyboard.HeaderTitle.Original
@@ -372,23 +373,23 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     guard selectedImage != nil else { return }
                     switch selectedImage!.section {
                     case Section.FrontImages:
-                        let languageCode = Array(product!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = product!.image(for:languageCode, of:.front)
+                        let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.front)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
                     case Section.IngredientsImages:
-                        let languageCode = Array(product!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = product!.image(for:languageCode, of:.ingredients)
+                        let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.ingredients)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
                     case Section.NutrionImages:
-                        let languageCode = Array(product!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
-                        vc.imageData = product!.image(for:languageCode, of:.nutrition)
+                        let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
+                        vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.nutrition)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
                     case Section.OriginalImages:
-                        let key = Array(product!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
-                        vc.imageData = product!.images[key]?.largest
+                        let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
+                        vc.imageData = productPair!.remoteProduct!.images[key]?.largest
                         vc.imageTitle = key
                         
                     default:
@@ -408,7 +409,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                             ppc.delegate = self
                             
                             vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                            vc.languageCodes = product!.languageCodes
+                            vc.languageCodes = productPair!.remoteProduct!.languageCodes
                             vc.key = cell.imageKey
                         }
                     }
@@ -432,11 +433,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                         if let validImage = originalImages[validKey]?.display?.image {
                             switch selectedImageTypeCategory {
                             case .front:
-                                delegate?.updated(frontImage: validImage, languageCode: selectedLanguageCode)
+                                productPair?.update(frontImage: validImage, for: selectedLanguageCode)
                             case .ingredients:
-                                delegate?.updated(ingredientsImage: validImage, languageCode: selectedLanguageCode)
+                                productPair?.update(ingredientsImage: validImage, for: selectedLanguageCode)
                             case .nutrition:
-                                delegate?.updated(nutritionImage: validImage, languageCode: selectedLanguageCode)
+                                productPair?.update(nutritionImage: validImage, for: selectedLanguageCode)
                             default:
                                 return
                             }
@@ -513,9 +514,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc func reloadProduct(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString {
+            if barcode == productPair!.barcodeType.asString {
                 // reload product data
-                OFFProducts.manager.reload(self.product!)
+                //TODO: OFFProducts.manager.reload(self.product!)
                 // THis will result in a new notification if successfull, which will load the new images in turn
             }
         }
@@ -524,9 +525,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString {
+            if barcode == productPair!.barcodeType.asString {
                 // reload product data
-                OFFProducts.manager.reload(self.product!)
+                //TODO: OFFProducts.manager.reload(self.product!)
                 // This will result in a new notification if successfull, which will load the new images in turn
             }
         }
@@ -594,17 +595,17 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
         if let validIndexPath = sender.indexPath {
             switch validIndexPath.section {
             case Section.FrontImages:
-                let languageCode = keyTuples(for:Array(product!.frontImages.keys))[validIndexPath.row].0
+                let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
-                update.deselect([languageCode], of: .front, for: product!)
+                update.deselect([languageCode], of: .front, for: productPair!.remoteProduct!)
             case Section.IngredientsImages:
-                let languageCode = keyTuples(for:Array(product!.ingredientsImages.keys))[validIndexPath.row].0
+                let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
-                update.deselect([languageCode], of: .ingredients, for: product!)
+                update.deselect([languageCode], of: .ingredients, for: productPair!.remoteProduct!)
             case Section.NutrionImages:
-                let languageCode = keyTuples(for:Array(product!.nutritionImages.keys))[validIndexPath.row].0
+                let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
-                update.deselect([languageCode], of: .nutrition, for: product!)
+                update.deselect([languageCode], of: .nutrition, for: productPair!.remoteProduct!)
             default:
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
             }
@@ -669,7 +670,7 @@ extension ProductImagesCollectionViewController: GKImagePickerDelegate {
         
         // print("front image", image.size)
         let newImageID = "\(originalImages.count + 1)"
-        delegate?.updated(image: image, id: newImageID)
+        productPair?.update(image: image, id: newImageID)
         
         collectionView?.reloadData()
         imagePicker.dismiss(animated: true, completion: nil)
@@ -807,7 +808,7 @@ extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
         guard let validImage = croppedImage,
         let validId = imageCropController.identifier else { return }
         imageCropController.dismiss(animated: true, completion: nil)
-        self.delegate?.updated(image: validImage, id: validId)
+        productPair?.update(image: validImage, id: validId)
         let indexSet = IndexSet.init(integer: Section.OriginalImages)
         self.collectionView?.reloadSections(indexSet)
     }

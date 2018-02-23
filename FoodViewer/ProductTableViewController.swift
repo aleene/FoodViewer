@@ -33,40 +33,42 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     fileprivate var products = OFFProducts.manager
     
-    fileprivate var barcode: BarcodeType? = nil {
+    //TODO: can I create a barcode type for not initialized?
+    fileprivate var barcodeType = BarcodeType(value: TranslatableStrings.EnterBarcode) {
         didSet {
-            if let validIndex = products.fetchProduct(barcode),
-                let validFetchResult = products.fetchResult(at: validIndex) {
-                switch validFetchResult {
-                case .success(let product):
-                    selectedProduct = product
-                    selectedIndex = validIndex
-                    tableView.reloadData()
-                    tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .middle, animated: true)
+            let index = products.indexOfNewProduct(with: barcodeType)
+            selectedIndex = index
+            if let validProductPair = products.productPair(at: index) {
+                switch validProductPair.remoteStatus {
+                case .available:
+                    selectedProductPair = validProductPair
                 default:
                     break
                 }
+                tableView.reloadData()
+                tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
+            } else {
+                assert(true, "no valid productPair")
             }
         }
     }
     
     fileprivate func startInterface(at index:Int) {
-        if let validFetchResult = products.fetchResult(at: index) {
+        if let validFetchResult = products.productPair(at: index)?.remoteStatus,
+            let validProductPair = products.productPair(at: index) {
             switch validFetchResult {
-            case .success(let product):
-                selectedProduct = product
+            case .available:
+                selectedProductPair = validProductPair
                 tableView.reloadData()
-            //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
-            case .searchQuery(let product):
-                selectedProduct = product
+            case .searchQuery:
+                selectedProductPair = validProductPair
                 refreshInterface()
-            //tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: false)
             default:
-                selectedProduct = nil
+                selectedProductPair = nil
                 tableView.reloadData()
             }
         } else {
-            selectedProduct = nil
+            selectedProductPair = nil
             tableView.reloadData()
         }
         setTitle()
@@ -116,9 +118,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            if let searchText = barcode?.asString {
-                searchTextField.text = searchText
-            }
+            searchTextField.text = barcodeType.asString
         }
     }
     
@@ -147,7 +147,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func enter() {
         view.endEditing(true)
         if !searchTextField.text!.isEmpty {
-            barcode = BarcodeType(barcodeTuple: (searchTextField.text!, currentProductType.rawValue))
+            barcodeType = BarcodeType(barcodeTuple: (searchTextField.text!, currentProductType.rawValue))
         }
     }
 
@@ -157,7 +157,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     // MARK: - Table view methods and vars
     
-    fileprivate var selectedProduct: Any? = nil {
+    fileprivate var selectedProductPair: ProductPair? = nil {
         didSet {
             if selectedIndex == nil {
                 selectedIndex = 0
@@ -266,9 +266,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let validFetchResult = products.fetchResult(at: section) {
+        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
             switch validFetchResult {
-            case .success:
+            case .available:
                 return tableStructure.count
             case .searchQuery:
                 if section == 0 {
@@ -284,16 +284,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                 }
                 return tableStructure.count
-            case .more: // cells with a button
-                return 1
-            case .loadingFailed,
-                .searchLoading,
-                .loading,
-                .productNotAvailable,
-                .productNotLoaded: // cells with a single tag
-                return 1
             default:
-                break
+                return 1
             }
         }
         // no rows as the loading failed, the error message is in the header
@@ -302,16 +294,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let validFetchResult = products.loadProduct(at: indexPath.section) {
+        if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
+            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
             switch validFetchResult {
-            case .success(let currentProduct):
+            case .available:
                 let currentProductSection = tableStructure[indexPath.row]
                 switch currentProductSection {
                 case .name:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
-                    switch currentProduct.brandsOriginal {
+                    switch validProduct.brandsOriginal {
                     case .undefined, .empty:
-                        cell.productBrand = [currentProduct.brandsOriginal.description()]
+                        cell.productBrand = [validProduct.brandsOriginal.description()]
                     case let .available(list):
                         cell.productBrand = list
                     case .notSearchable:
@@ -320,13 +313,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 return cell
                         
                 case .image:
-                    if let language = currentProduct.primaryLanguageCode {
-                        if !currentProduct.frontImages.isEmpty {
-                            if let result = currentProduct.frontImages[language]?.small?.fetch() {
+                    if let language = validProduct.primaryLanguageCode {
+                        if !validProduct.frontImages.isEmpty {
+                            if let result = validProduct.frontImages[language]?.small?.fetch() {
                                 switch result {
                                 case .available:
                                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
-                                        cell.productImage = currentProduct.frontImages[language]?.small?.image
+                                        cell.productImage = validProduct.frontImages[language]?.small?.image
                                         return cell
                                 default:
                                     break
@@ -347,7 +340,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                     cell.ingredientsLabel?.text = TranslatableStrings.Ingredients
 
-                    if let number = currentProduct.numberOfIngredients {
+                    if let number = validProduct.numberOfIngredients {
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .decimal
                         cell.ingredientsBadgeString = "\(number)"
@@ -356,7 +349,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                         
                     cell.allergensLabel?.text = TranslatableStrings.Allergens
-                    switch currentProduct.allergensTranslated {
+                    switch validProduct.allergensTranslated {
                     case .available(let allergens):
                         cell.allergensBadgeString = "\(allergens.count)"
                     default:
@@ -364,7 +357,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     }
                         
                     cell.tracesLabel?.text = TranslatableStrings.Traces
-                    switch currentProduct.tracesInterpreted {
+                    switch validProduct.tracesInterpreted {
                     case .available(let traces):
                         cell.tracesBadgeString = "\(traces.count)"
                     default:
@@ -375,7 +368,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 case .ingredients:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = TranslatableStrings.Ingredients
-                        if let number = currentProduct.numberOfIngredients {
+                        if let number = validProduct.numberOfIngredients {
                             cell.badgeString = number
                         }
                         return cell
@@ -384,7 +377,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = TranslatableStrings.NutritionFacts
 
-                        if let count = currentProduct.nutritionFacts?.count {
+                        if let count = validProduct.nutritionFacts?.count {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
                             cell.badgeString = "\(count)"
@@ -395,14 +388,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         
                 case .nutritionScore:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
-                        cell?.product = currentProduct
+                        cell?.product = validProduct
                         return cell!
                         
                 case .categories:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = TranslatableStrings.Categories
 
-                        switch currentProduct.categoriesHierarchy {
+                        switch validProduct.categoriesHierarchy {
                         case .undefined, .empty:
                             cell.badgeString = TranslatableStrings.Undefined
                         case let .available(list):
@@ -416,13 +409,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 
                 case .completion:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
-                        cell?.product = currentProduct
+                        cell?.product = validProduct
                         return cell!
                 
                 case .supplyChain:
                         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
                         cell.textLabel!.text = TranslatableStrings.SalesCountries
-                        switch currentProduct.countriesTranslated {
+                        switch validProduct.countriesTranslated {
                         case .available(let countries):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
@@ -510,17 +503,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             selectedRowType = tableStructure[index]
         }
         if products.count > 0,
-            let validFetchResult = products.fetchResult(at: indexPath.section) {
+            let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
+            let validProductPair = products.productPair(at: indexPath.section) {
                 switch validFetchResult {
-                case .success(let product),
-                     .loading(let product),
-                     .productNotLoaded(let product):
-                    selectedProduct = product
-                case .productNotAvailable(let product, _),
-                     .loadingFailed(let product, _):
-                    selectedProduct = product
+                case .available,
+                     .loading,
+                     .productNotLoaded:
+                    selectedProductPair = validProductPair
+                case .productNotAvailable,
+                     .loadingFailed:
+                    selectedProductPair = validProductPair
                 case .searchQuery(let query):
-                    selectedProduct = query
+                    selectedProductPair = ProductPair.init(barcodeType: .search(query, nil))
                 default: break
                 }
         }
@@ -534,28 +528,32 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tempView.backgroundColor = UIColor.gray
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
-        if let validFetchResult = products.fetchResult(at: section) {
+        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
             switch validFetchResult {
-            case .success(let product):
-                label.text = product.name != nil ? product.name! : Constants.Tag.ProductNameMissing
-                switch product.tracesInterpreted {
-                case .available(let validKeys):
-                    if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                        tempView.backgroundColor = UIColor.red
-                    }
-                default:
-                    break
-                }
-                switch product.tracesInterpreted {
-                case .available(let validKeys):
-                    if !validKeys.isEmpty {
-                        let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                        if warn {
+            case .available:
+                if let validProduct = products.productPair(at: section)?.remoteProduct {
+                    label.text = validProduct.name != nil ? validProduct.name! : Constants.Tag.ProductNameMissing
+                    switch validProduct.tracesInterpreted {
+                    case .available(let validKeys):
+                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
                             tempView.backgroundColor = UIColor.red
                         }
+                    default:
+                        break
                     }
-                default:
-                    break
+                    switch validProduct.tracesInterpreted {
+                    case .available(let validKeys):
+                        if !validKeys.isEmpty {
+                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
+                            if warn {
+                                tempView.backgroundColor = UIColor.red
+                            }
+                        }
+                    default:
+                        break
+                    }
+                } else {
+                    assert(true, "remoteStatus is available, but there is no product")
                 }
             case .other(let message):
                 label.text = message
@@ -614,7 +612,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let validFetchResult = products.fetchResult(at: section) {
+        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
             switch validFetchResult {
             case .more:
                 // no header required in this case
@@ -634,20 +632,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case Storyboard.SegueIdentifier.ToPageViewController:
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
-                        ppvc.tableItem = selectedProduct
-
-                        if let validSelectedRowType = selectedRowType {
-                            if selectedProduct != nil && selectedProduct! is FoodProduct {
-                                ppvc.pageIndex = validSelectedRowType.productSection()
-                            } else if let search = selectedProduct as? SearchTemplate {
+                        ppvc.tableItem = selectedProductPair
+                        if let validSelectedRowType = selectedRowType,
+                            let validProductPair = selectedProductPair {
+                            switch validProductPair.barcodeType {
+                            case .search(let template, _):
                                 if let validIndex = selectedIndex {
-                                    let array = search.searchPairsWithArray()
+                                    let array = template.searchPairsWithArray()
                                     if array.count > 0 && validIndex < array.count {
                                         ppvc.pageIndex = searchRowType(array[validIndex].0)
                                     } else {
                                         ppvc.pageIndex = .identification
                                     }
                                 }
+                            default:
+                                ppvc.pageIndex = validSelectedRowType.productSection()
                             }
                         } else {
                             ppvc.pageIndex = .identification
@@ -674,7 +673,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                                 ppc.delegate = self
                                 
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                if let validFetchResult = products.fetchResult(at: 0) {
+                                if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
                                     switch validFetchResult {
                                     case .searchQuery(let query):
                                         vc.currentSortOrder = query.sortOrder
@@ -704,7 +703,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             return .supplyChain
         case .label, .additive, .trace, .allergen, .ingredient:
             return .ingredients
-        case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
+    case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
             return .completion
         case .nutritionGrade:
             return .nutritionScore
@@ -718,17 +717,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         startInterface(at:0)
     }
     
-    //func unwindForBack() {
-     //   tableView.reloadData()
-    //}
-    
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
+            // the user has done a barcode scan, so switch to the right tab
             switchToTab(withIndex: 0)
-            barcode = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
+            // This will retrieve the corresponding product
+            barcodeType = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
+            // update the interface
             searchTextField.text = vc.barcode
-            products.list = .recent
-            startInterface(at: selectedIndex ?? 0)
+            // TODO: Should this be here?
+            //products.list = .recent
+            //startInterface(at: selectedIndex ?? 0)
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
             assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
@@ -737,7 +736,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SetSortOrderViewController {
-            if let validFetchResult = products.fetchResult(at: 0) {
+            if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
                 switch validFetchResult {
                 case .searchQuery(let query):
                     if let validNewSortOrder = vc.selectedSortOrder {
@@ -758,7 +757,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SettingsTableViewController {
             if vc.historyHasBeenRemoved {
-                products.removeAll()
+                products.removeAllProductPairs()
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
             }
             // force a reload of all products
@@ -788,7 +787,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
-            let section = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+            let section = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
             // let indexPaths = [IndexPath.init(row: 1, section: section)]
             let aantal = tableView.numberOfSections
             if section < aantal {
@@ -826,7 +825,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         switch fetchResult {
                         case .success:
-                            self.barcode = BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue))
+                            self.barcodeType = BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue))
                             self.searchTextField.text = validBarcodeString
                             self.performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
                             break
@@ -861,7 +860,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
-            if let index = OFFProducts.manager.index(BarcodeType.init(value: barcodeString)) {
+            if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
                 if self.tableView.numberOfSections > index + 1 {
                     self.tableView.reloadSections([index], with: .automatic)
                 } else {
@@ -952,13 +951,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switchToTab(withIndex: 1)
         }
 
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
+        // Notifications coming from ProductPair,
+        // which indicate that something in the productPair has changed
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
+
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
     }
     
@@ -997,7 +999,7 @@ extension ProductTableViewController: SearchHeaderDelegate {
     }
     
     func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        if let validFetchResult = products.fetchResult(at: 0) {
+        if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
             switch validFetchResult {
             case .searchQuery(let query):
                 query.clear()
@@ -1059,7 +1061,7 @@ extension ProductTableViewController: TagListViewDataSource {
         
         // is this a searchQuery section?
         if tagListView.tag >= Constants.Offset.SearchQuery {
-            if let validFetchResult = products.fetchResult(at: 0) {
+            if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
                 switch validFetchResult {
                 case .searchQuery(let query):
                     let searchPairs = query.searchPairsWithArray()
@@ -1088,8 +1090,8 @@ extension ProductTableViewController: TagListViewDataSource {
             return ProductFetchStatus.productNotLoaded(FoodProduct()).description
         }
         
-        if code == ProductFetchStatus.loading(FoodProduct()).rawValue {
-            return ProductFetchStatus.loading(FoodProduct()).description
+        if code == ProductFetchStatus.loading.rawValue {
+            return ProductFetchStatus.loading.description
         }
         
         if code == ProductFetchStatus.loadingFailed(FoodProduct(), "").rawValue {
@@ -1105,7 +1107,7 @@ extension ProductTableViewController: TagListViewDataSource {
         }
         
         if code == ProductFetchStatus.searchLoading.rawValue {
-            if let validFetchResult = products.fetchResult(at: products.count - 1) {
+            if let validFetchResult = products.productPair(at: products.count - 1)?.remoteStatus {
                 switch validFetchResult {
                 case .searchLoading:
                     return TranslatableStrings.Loading
@@ -1122,7 +1124,7 @@ extension ProductTableViewController: TagListViewDataSource {
         }
         
         if tagListView.tag >= Constants.Offset.SearchQuery {
-            if let validFetchResult = products.fetchResult(at: 0) {
+            if let validFetchResult = products.productPair(at: products.count - 1)?.remoteStatus {
                 switch validFetchResult {
                 case .searchQuery(let query):
                     if query.isEmpty {
@@ -1168,7 +1170,7 @@ extension ProductTableViewController: TagListViewDelegate {
         if code == ProductFetchStatus.productNotLoaded(FoodProduct()).rawValue  ||
             code == ProductFetchStatus.loadingFailed(FoodProduct(), "").rawValue {
             let productIndex = tagListView.tag % Constants.Offset.Multiplier
-            _ = products.loadProduct(at: productIndex)
+            _ = products.loadProductPair(at: productIndex)
         }
     }
         
@@ -1201,15 +1203,16 @@ extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
 extension ProductTableViewController: UITableViewDragDelegate {
         
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        if let validFetchResult = products.fetchResult(at: indexPath.section) {
+        if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
+            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
             switch validFetchResult {
-            case .success(let currentProduct):
+            case .available:
                 let currentProductSection = tableStructure[indexPath.row]
                 switch currentProductSection {
                 case .image:
-                    if let language = currentProduct.primaryLanguageCode {
-                        if !currentProduct.frontImages.isEmpty {
-                            if let image = currentProduct.frontImages[language]?.largest?.image {
+                    if let language = validProduct.primaryLanguageCode {
+                        if !validProduct.frontImages.isEmpty {
+                            if let image = validProduct.frontImages[language]?.largest?.image {
                                 let provider = NSItemProvider(object: image)
                                 let item = UIDragItem(itemProvider: provider)
                                 item.localObject = image
@@ -1252,15 +1255,16 @@ extension ProductTableViewController: UITableViewDragDelegate {
             // Note kUTTypeImage needs an import of MobileCoreServices
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
-        if let validFetchResult = products.fetchResult(at: indexPath.section) {
+        if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
+            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
             switch validFetchResult {
-            case .success(let currentProduct):
+            case .available:
                 let currentProductSection = tableStructure[indexPath.row]
                 switch currentProductSection {
                 case .image:
-                    if let language = currentProduct.primaryLanguageCode {
-                        if !currentProduct.frontImages.isEmpty {
-                            if let image = currentProduct.frontImages[language]?.largest?.image {
+                    if let language = validProduct.primaryLanguageCode {
+                        if !validProduct.frontImages.isEmpty {
+                            if let image = validProduct.frontImages[language]?.largest?.image {
                                 // check if the selected image has not been added yet
                                 for item in session.items {
                                     guard item.localObject as! UIImage != image else { return [] }

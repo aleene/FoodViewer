@@ -23,19 +23,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     var delegate: ProductPageViewController? = nil
 
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
+            if let item = tableItem?.barcodeType {
+                switch item {
+                case .search(let template, _):
+                    self.query = template
+                default:
+                    self.productPair = tableItem
+                }
             }
         }
     }
 
-    fileprivate var product: FoodProduct? {
+    fileprivate var productPair: ProductPair? {
         didSet {
-            if product != nil {
+            if productPair != nil {
                 tableStructureForProduct = setupTableSections()
                 refreshProduct()
             }
@@ -55,22 +58,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var producerTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.manufacturingPlacesOriginal {
+            if let manufacturingPlacesOriginal = productPair?.localProduct?.manufacturingPlacesOriginal {
+                switch manufacturingPlacesOriginal {
                 case .available, .empty:
                     showProducerTagsType = .edited
-                    return delegate!.updatedProduct!.manufacturingPlacesOriginal
+                    return manufacturingPlacesOriginal
                 default:
                     break
                 }
             }
             switch showProducerTagsType {
             case .interpreted:
-                return product!.manufacturingPlacesInterpreted
+                return productPair!.remoteProduct!.manufacturingPlacesInterpreted
             case .original:
-                return product!.manufacturingPlacesOriginal
+                return productPair!.remoteProduct!.manufacturingPlacesOriginal
             case .prefixed:
-                return product!.manufacturingPlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.manufacturingPlacesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -79,22 +82,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var producerCodeTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.embCodesOriginal {
+            if let embCodesOriginal = productPair?.localProduct?.embCodesOriginal {
+                switch embCodesOriginal {
                 case .available, .empty:
                     showProducerCodeTagsType = .edited
-                    return delegate!.updatedProduct!.embCodesOriginal
+                    return embCodesOriginal
                 default:
                     break
                 }
             }
             switch showProducerCodeTagsType {
             case .interpreted:
-                return product!.embCodesInterpreted
+                return productPair!.remoteProduct!.embCodesInterpreted
             case .original:
-                return product!.embCodesOriginal
+                return productPair!.remoteProduct!.embCodesOriginal
             case .prefixed:
-                return product!.embCodesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.embCodesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -103,22 +106,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.originsOriginal {
+            if let originsOriginal = productPair?.localProduct?.originsOriginal {
+                switch originsOriginal {
                 case .available, .empty:
                     showIngredientOriginTagsType = .edited
-                    return delegate!.updatedProduct!.originsOriginal
+                    return originsOriginal
                 default:
                     break
                 }
             }
             switch showIngredientOriginTagsType {
             case .interpreted:
-                return product!.originsInterpreted
+                return productPair!.remoteProduct!.originsInterpreted
             case .original:
-                return product!.originsOriginal
+                return productPair!.remoteProduct!.originsOriginal
             case .prefixed:
-                return product!.originsOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.originsOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -127,22 +130,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var purchaseLocationTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.purchasePlacesOriginal {
+            if let purchasePlacesOriginal = productPair?.localProduct?.purchasePlacesOriginal {
+                switch purchasePlacesOriginal {
                 case .available, .empty:
                     showPurchaseLocationTagsType = .edited
-                    return delegate!.updatedProduct!.purchasePlacesOriginal
+                    return purchasePlacesOriginal
                 default:
                     break
                 }
             }
             switch showPurchaseLocationTagsType {
             case .interpreted:
-                return product!.purchasePlacesInterpreted
+                return productPair!.remoteProduct!.purchasePlacesInterpreted
             case .original:
-                return product!.purchasePlacesOriginal
+                return productPair!.remoteProduct!.purchasePlacesOriginal
             case .prefixed:
-                return product!.purchasePlacesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.purchasePlacesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -151,22 +154,22 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var storeTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.storesOriginal {
+            if let storesOriginal = productPair?.localProduct?.storesOriginal {
+                switch storesOriginal {
                 case .available, .empty:
                     showStoresTagsType = .edited
-                    return delegate!.updatedProduct!.storesOriginal
+                    return storesOriginal
                 default:
                     break
                 }
             }
             switch showStoresTagsType {
             case .interpreted:
-                return product!.storesInterpreted
+                return productPair!.remoteProduct!.storesInterpreted
             case .original:
-                return product!.storesOriginal
+                return productPair!.remoteProduct!.storesOriginal
             case .prefixed:
-                return product!.storesOriginal.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.storesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -175,28 +178,28 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var countriesToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.countriesOriginal {
+            if let countriesOriginal = productPair?.localProduct?.countriesOriginal {
+                switch countriesOriginal {
                 case .available, .empty:
                     showCountriesTagsType = .edited
-                    return delegate!.updatedProduct!.countriesOriginal
+                    return countriesOriginal
                 default:
                     break
                 }
             }
             switch showCountriesTagsType {
             case .interpreted:
-                return product!.countriesInterpreted
+                return productPair!.remoteProduct!.countriesInterpreted
             case .translated:
-                var list = product!.countriesTranslated.list
+                var list = productPair!.remoteProduct!.countriesTranslated.list
                 list = list.sorted(by: { $0 < $1 })
                 return Tags.init(list:list)
 
                 //return product!.countriesTranslated
             case .original:
-                return product!.countriesOriginal
+                return productPair!.remoteProduct!.countriesOriginal
             case .prefixed:
-                return product!.countriesTranslated.prefixed(withAdded:product!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair!.remoteProduct!.countriesTranslated.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
             default:
                 return .undefined
             }
@@ -205,9 +208,9 @@ class SupplyChainTableViewController: UITableViewController {
 
     fileprivate var linksToDisplay: Tags {
         get {
-            if let validTags = delegate?.updatedProduct?.links {
+            if let validTags = productPair?.localProduct?.links {
                 return Tags.init(list:validTags.map( { $0.absoluteString } ))
-            } else if let validTags = product?.links {
+            } else if let validTags = productPair?.remoteProduct?.links {
                 return Tags.init(list:validTags.map( { $0.absoluteString } ))
             } else {
                 return Tags.undefined
@@ -323,7 +326,7 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            //TODO: OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
@@ -572,18 +575,18 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .expirationDate:
-            if product!.type == .beauty {
+            if productPair!.type == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
                 
                 // has the product been edited?
-                if let validPeriod = delegate?.updatedProduct?.periodAfterReferenceDate {
+                if let validPeriod = productPair?.localProduct?.periodAfterReferenceDate {
                     let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
                     let formatter = DateComponentsFormatter()
                     formatter.unitsStyle = .full
                     formatter.allowedUnits = .month
                     let formattedTimeLeft = formatter.string(from: periodInSeconds)
                     cell.textLabel?.text = formattedTimeLeft
-                } else if let validPeriod = product!.periodAfterReferenceDate {
+                } else if let validPeriod = productPair!.remoteProduct!.periodAfterReferenceDate {
                     let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
                     let formatter = DateComponentsFormatter()
                     formatter.unitsStyle = .full
@@ -597,9 +600,9 @@ class SupplyChainTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ExpirationDate, for: indexPath) as! ExpirationDateTableViewCell
             
                 // has the product been edited?
-                if let validDate = delegate?.updatedProduct?.expirationDate {
+                if let validDate = productPair?.localProduct?.expirationDate {
                     cell.date = validDate
-                } else if let validDate = product!.expirationDate {
+                } else if let validDate = productPair!.remoteProduct!.expirationDate {
                     cell.date = validDate
                 }
                 cell.editMode = editMode
@@ -610,9 +613,9 @@ class SupplyChainTableViewController: UITableViewController {
         case .periodAfterOpening:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath) as! PeriodAfterOpeningTableViewCell
 
-            if let validPeriodAfterOpening = delegate?.updatedProduct?.periodAfterOpeningString {
+            if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
-            } else if let validPeriodAfterOpening = product?.periodAfterOpeningString {
+            } else if let validPeriodAfterOpening = productPair!.remoteProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
             }
             cell.editMode = editMode
@@ -740,7 +743,7 @@ class SupplyChainTableViewController: UITableViewController {
     }
 
     @objc func removeProduct() {
-        product = nil
+        productPair!.remoteProduct = nil
         tableView.reloadData()
     }
 //
@@ -761,12 +764,12 @@ class SupplyChainTableViewController: UITableViewController {
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                if let validName = delegate?.updatedProduct?.expirationDate {
+                                if let validName = productPair?.localProduct?.expirationDate {
                                     let formatter = DateFormatter()
                                     formatter.dateStyle = .medium
                                     formatter.timeStyle = .none
                                     vc.currentDate = validName
-                                } else if let validName = product!.expirationDate {
+                                } else if let validName = productPair!.remoteProduct!.expirationDate {
                                     let formatter = DateFormatter()
                                     formatter.dateStyle = .medium
                                     formatter.timeStyle = .none
@@ -787,7 +790,7 @@ class SupplyChainTableViewController: UITableViewController {
     @IBAction func unwindSetExpirationDateForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectExpirationDateViewController {
             if let newDate = vc.selectedDate {
-                delegate?.updated(expirationDate: newDate)
+                productPair?.update(expirationDate: newDate)
                 tableView.reloadData()
             }
         }
@@ -800,7 +803,7 @@ class SupplyChainTableViewController: UITableViewController {
 
     @IBAction func unwindSetFavoriteShopForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? FavoriteShopsTableViewController {
-            delegate?.update(shop: vc.selectedShop)
+            productPair?.update(shop: vc.selectedShop)
             tableView.reloadData()
         }
     }
@@ -1086,47 +1089,47 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         case .producer:
             switch producerTagsToDisplay {
             case .available:
-                delegate?.update(producer: [])
+                productPair?.update(producer: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .producerCode:
             switch producerCodeTagsToDisplay {
             case .available:
-                delegate?.update(producerCode: [])
+                productPair?.update(producerCode: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
             case .available:
-                delegate?.update(ingredientsOrigin: [])
+                productPair?.update(ingredientsOrigin: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .store:
             switch storeTagsToDisplay {
             case .available:
-                delegate?.update(stores: [])
+                productPair?.update(stores: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .location:
             switch purchaseLocationTagsToDisplay {
             case .available:
-                delegate?.update(purchaseLocation: [])
+                productPair?.update(purchaseLocation: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .country:
             switch countriesToDisplay {
             case .available:
-                delegate?.update(countries: [])
+                productPair?.update(countries: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .sites:
-            delegate?.update(links: [])
+            productPair?.update(links: [])
 
         case .producerSearch:
             switch searchProducerTagsToDisplay {
@@ -1205,70 +1208,70 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         case .producer:
             switch producerTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(producer: [title])
+                productPair?.update(producer: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(producer: list)
+                productPair?.update(producer: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .producerCode:
             switch producerCodeTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(producerCode: [title])
+                productPair?.update(producerCode: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(producerCode: list)
+                productPair?.update(producerCode: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(ingredientsOrigin: [title])
+                productPair?.update(ingredientsOrigin: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(ingredientsOrigin: list)
+                productPair?.update(ingredientsOrigin: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .store:
             switch storeTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(stores: [title])
+                productPair?.update(stores: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(stores: list)
+                productPair?.update(stores: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .location:
             switch purchaseLocationTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(purchaseLocation: [title])
+                productPair?.update(purchaseLocation: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(purchaseLocation: list)
+                productPair?.update(purchaseLocation: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .country:
             switch countriesToDisplay {
             case .undefined, .empty:
-                delegate?.update(countries: [title])
+                productPair?.update(countries: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(countries: list)
+                productPair?.update(countries: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .sites:
             switch linksToDisplay {
             case .undefined, .empty:
-                delegate?.update(links: [title])
+                productPair?.update(links: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(links: list)
+                productPair?.update(links: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1386,7 +1389,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(producer: list)
+                productPair?.update(producer: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1401,7 +1404,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(producerCode: list)
+                productPair?.update(producerCode: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1416,7 +1419,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(ingredientsOrigin: list)
+                productPair?.update(ingredientsOrigin: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1431,7 +1434,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(stores: list)
+                productPair?.update(stores: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1446,7 +1449,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(purchaseLocation: list)
+                productPair?.update(purchaseLocation: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1461,7 +1464,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(countries: list)
+                productPair?.update(countries: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1476,7 +1479,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(links: list)
+                productPair?.update(links: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1577,7 +1580,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .country:
-            switch product!.countriesInterpreted {
+            switch productPair!.remoteProduct!.countriesInterpreted {
             case .available(let countries):
                 delegate?.search(for: countries[index], in: .country)
             default:
@@ -1585,41 +1588,41 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             }
             
         case .producerCode:
-            switch product!.embCodesInterpreted {
+            switch productPair!.remoteProduct!.embCodesInterpreted {
             case .available:
-                delegate?.search(for: product!.embCodesInterpreted.tag(at:index), in: .producerCode)
+                delegate?.search(for: productPair!.remoteProduct!.embCodesInterpreted.tag(at:index), in: .producerCode)
             default:
                 break
             }
             
         case .ingredientOrigin:
-            switch product!.originsOriginal {
+            switch productPair!.remoteProduct!.originsOriginal {
             case .available:
-                delegate?.search(for: product!.originsOriginal.tag(at:index), in: .origin)
+                delegate?.search(for: productPair!.remoteProduct!.originsOriginal.tag(at:index), in: .origin)
             default:
                 break
             }
 
         case .location:
-            switch product!.purchasePlacesOriginal {
+            switch productPair!.remoteProduct!.purchasePlacesOriginal {
             case .available:
-                delegate?.search(for: product!.purchasePlacesOriginal.tag(at:index), in: .purchasePlace)
+                delegate?.search(for: productPair!.remoteProduct!.purchasePlacesOriginal.tag(at:index), in: .purchasePlace)
             default:
                 break
             }
             
         case .producer:
-            switch product!.manufacturingPlacesOriginal {
+            switch productPair!.remoteProduct!.manufacturingPlacesOriginal {
             case .available:
-                delegate?.search(for: product!.manufacturingPlacesOriginal.tag(at:index), in: .manufacturingPlaces)
+                delegate?.search(for: productPair!.remoteProduct!.manufacturingPlacesOriginal.tag(at:index), in: .manufacturingPlaces)
             default:
                 break
             }
             
         case .store:
-            switch product!.storesInterpreted {
+            switch productPair!.remoteProduct!.storesInterpreted {
             case .available:
-                delegate?.search(for: product!.storesInterpreted.tag(at:index), in: .store)
+                delegate?.search(for: productPair!.remoteProduct!.storesInterpreted.tag(at:index), in: .store)
             default:
                 break
             }
@@ -1645,12 +1648,12 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
         case .expirationDate:
             // expiration date
             if let validText = textField.text {
-                delegate?.updated(expirationDateString: validText)
+                productPair?.update(expirationDateString: validText)
             }
         case .periodAfterOpening:
             // period after opening
             if let validText = textField.text {
-                delegate?.update(periodAfterOpeningString: validText + " M")
+                productPair?.update(periodAfterOpeningString: validText + " M")
             }
         default:
             break

@@ -12,19 +12,22 @@ class CategoriesTableViewController: UITableViewController {
 
     // MARK: - Public functions / variables
     
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
+            if let item = tableItem?.barcodeType {
+                switch item {
+                case .search(let template, _):
+                    self.query = template
+                default:
+                    self.productPair = tableItem
+                }
             }
         }
     }
 
-    fileprivate var product: FoodProduct? {
+    fileprivate var productPair: ProductPair? {
         didSet {
-            if product != nil {
+            if productPair != nil {
                 tableStructureForProduct = setupTableSections()
                 tableView.reloadData()
             }
@@ -77,25 +80,25 @@ class CategoriesTableViewController: UITableViewController {
     fileprivate var categoriesToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
+            if let categoriesOriginal = productPair?.localProduct?.categoriesOriginal {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.categoriesOriginal {
+                switch categoriesOriginal {
                 case .available, .empty:
                     showCategoriesTagsType = .edited
-                    return delegate!.updatedProduct!.categoriesOriginal
+                    return categoriesOriginal
                 default:
                     break
                 }
             }
             switch showCategoriesTagsType {
             case .interpreted:
-                return product!.categoriesInterpreted
+                return productPair!.remoteProduct!.categoriesInterpreted
             case .original:
-                return product!.categoriesOriginal
+                return productPair!.remoteProduct!.categoriesOriginal
             case .hierarchy:
-                return product!.categoriesHierarchy
+                return productPair!.remoteProduct!.categoriesHierarchy
             case .translated:
-                return product!.categoriesTranslated
+                return productPair!.remoteProduct!.categoriesTranslated
             case .edited, .prefixed:
                 return .undefined
             }
@@ -116,7 +119,7 @@ class CategoriesTableViewController: UITableViewController {
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            //TODO: OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
@@ -227,7 +230,7 @@ class CategoriesTableViewController: UITableViewController {
     }
 
     @objc func removeProduct() {
-        product = nil
+        productPair!.remoteProduct = nil
         tableView.reloadData()
     }
 
@@ -380,10 +383,10 @@ extension CategoriesTableViewController: TagListViewDelegate {
         case .categories :
             switch categoriesToDisplay {
             case .undefined, .empty:
-                delegate?.update(categories: [title])
+                productPair?.update(categories: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(categories: list)
+                productPair?.update(categories: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -421,7 +424,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(categories: list)
+                productPair?.update(categories: list)
             case .notSearchable:
                 assert(true, "How can I deleted a tag when the field is non-editable")
 
@@ -448,7 +451,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
         
         switch  currentProductSection {
         case .categories:
-            delegate?.update(categories: [])
+            productPair?.update(categories: [])
         case .categoriesSearch:
             switch searchCategoriesToDisplay {
             case .available(var list):
@@ -470,7 +473,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
         switch currentProductSection {
         case .categories:
-            delegate?.search(for: product!.categoriesInterpreted.tag(at:index), in: .category)
+            delegate?.search(for: productPair!.remoteProduct!.categoriesInterpreted.tag(at:index), in: .category)
         default:
             break
         }

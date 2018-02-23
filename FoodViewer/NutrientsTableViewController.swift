@@ -30,19 +30,22 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         var key: String? = nil
     }
     
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
+            if let item = tableItem?.barcodeType {
+                switch item {
+                case .search(let template, _):
+                    self.query = template
+                default:
+                    self.productPair = tableItem
+                }
             }
         }
     }
 
-    fileprivate var product: FoodProduct? {
+    fileprivate var productPair: ProductPair? {
         didSet {
-            if product != nil {
+            if productPair != nil {
                 mergeNutritionFacts()
                 query = nil
                 tableStructure = setupTableSections()
@@ -56,7 +59,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         didSet {
             if query != nil {
                 tableStructure = setupTableSections()
-                product = nil
+                productPair = nil
                 tableView.reloadData()
             }
         }
@@ -73,7 +76,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
 
-    var delegate: ProductPageViewController? = nil
+    //var delegate: ProductPageViewController? = nil
 
     var currentLanguageCode: String? = nil {
         didSet {
@@ -171,9 +174,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     fileprivate func mergeNutritionFacts() {
         var newNutritionFacts: [NutritionFactItem?] = []
         // Are there any nutritionFacts defined?
-        if let validNutritionFacts = product?.nutritionFacts {
+        if let validNutritionFacts = productPair?.remoteProduct?.nutritionFacts {
             // Is there an edited version of the nutritionFacts?
-            if let updatedNutritionFacts = delegate?.updatedProduct?.nutritionFacts {
+            if let updatedNutritionFacts = productPair?.localProduct?.nutritionFacts {
                 // create a mixed array of unedited and edited items
                 for index in 0 ..< validNutritionFacts.count {
                     if updatedNutritionFacts.count != 0 {
@@ -203,7 +206,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            //TODO: OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
@@ -327,7 +330,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
             cell.editMode = editMode
             cell.delegate = self
-            cell.hasNutrimentFacts = delegate?.updatedProduct?.hasNutritionFacts != nil ? delegate!.updatedProduct!.nutrimentFactsAvailability : product!.nutrimentFactsAvailability
+            cell.hasNutrimentFacts = productPair?.localProduct?.hasNutritionFacts != nil ? productPair!.localProduct!.nutrimentFactsAvailability : productPair!.remoteProduct!.nutrimentFactsAvailability
             return cell
             
         case .perUnit:
@@ -335,7 +338,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.displayMode = showNutrientsAs
             cell.editMode = editMode
             cell.delegate = self
-            cell.nutritionFactsAvailability = product!.nutritionFactsAreAvailable
+            cell.nutritionFactsAvailability = productPair?.remoteProduct!.nutritionFactsAreAvailable
             return cell
             
         case .nutritionFacts:
@@ -351,7 +354,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.tag = indexPath.section
                     cell?.width = tableView.frame.size.width
                     cell?.datasource = self
-                    if let available = product?.nutritionFactsAreAvailable {
+                    if let available = productPair?.remoteProduct?.nutritionFactsAreAvailable {
                         nutritionFactsTagTitle = available.description()
                         switch available {
                         case .perServing, .perStandardUnit, .perServingAndStandardUnit:
@@ -437,9 +440,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell!.editMode = editMode
 
             // has the product been edited?
-            if let validName = delegate?.updatedProduct?.servingSize {
+            if let validName = productPair?.localProduct?.servingSize {
                 cell!.servingSize = validName
-            } else if let validName = product?.servingSize {
+            } else if let validName = productPair?.remoteProduct?.servingSize {
                 cell!.servingSize = validName
             } else {
                 cell!.servingSize = nil
@@ -486,30 +489,31 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     private var currentImage: UIImage? {
         // are there any updated nutrition images?
-        if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty  {
+        if let images = productPair?.localProduct?.nutritionImages,
+            !images.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = delegate!.updatedProduct!.nutritionImages[currentLanguageCode!]!.original?.image {
+            if let image = images[currentLanguageCode!]!.original?.image {
                 return image
             }
             
             // try the regular nutrition images
-        } else if !product!.nutritionImages.isEmpty {
+        } else if !productPair!.remoteProduct!.nutritionImages.isEmpty {
             // is the data for the current language available?
-            if let result = product!.nutritionImages[currentLanguageCode!]?.display?.fetch() {
+            if let result = productPair!.remoteProduct!.nutritionImages[currentLanguageCode!]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return product!.nutritionImages[currentLanguageCode!]?.display?.image
+                    return productPair!.remoteProduct!.nutritionImages[currentLanguageCode!]?.display?.image
                 default:
                     break
                 }
                 // fall back to the primary languagecode nutrition image
                 // if we are NOT in edit mode
             } else if !editMode,
-                let primaryLanguageCode = product!.primaryLanguageCode,
-                let result = product!.nutritionImages[primaryLanguageCode]?.display?.fetch() {
+                let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
+                let result = productPair!.remoteProduct!.nutritionImages[primaryLanguageCode]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return product!.nutritionImages[primaryLanguageCode]?.display?.image
+                    return productPair!.remoteProduct!.nutritionImages[primaryLanguageCode]?.display?.image
                 default:
                     break
                 }
@@ -558,7 +562,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             */
             headerView.title = tableStructure[section].header
             headerView.languageCode = currentLanguageCode
-            headerView.buttonIsEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
+            headerView.buttonIsEnabled = editMode ? true : ( productPair!.remoteProduct!.languageCodes.count > 1 ? true : false )
 
             return headerView
         default:
@@ -662,7 +666,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 TableSections.Header.NutritionFactsImage))
 
 
-        } else if product != nil {
+        } else if let validRemoteProduct = productPair?.remoteProduct {
         
             // Which sections are shown depends on whether the product has nutriment data
         
@@ -679,7 +683,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 switch showNutrientsAs {
                 case .perStandard:
                     // what is possible?
-                    switch product!.nutritionFactsAreAvailable {
+                    switch validRemoteProduct.nutritionFactsAreAvailable {
                     case .perStandardUnit, .perServingAndStandardUnit:
                         showNutrientsAs = .perStandard
                     case .perServing:
@@ -688,7 +692,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         break
                     }
                 case .perServing:
-                    switch product!.nutritionFactsAreAvailable {
+                    switch validRemoteProduct.nutritionFactsAreAvailable {
                     // what is possible?
                     case .perStandardUnit:
                         showNutrientsAs = .perStandard
@@ -698,7 +702,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         break
                     }
                 case .perDailyValue:
-                    switch product!.nutritionFactsAreAvailable {
+                    switch validRemoteProduct.nutritionFactsAreAvailable {
                     case .perStandardUnit:
                         // force showing perStandard as perServing is not available
                         showNutrientsAs = .perStandard
@@ -730,7 +734,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
             // Section 1 or 2 : nutrition facts
             
-            if product!.nutritionFacts == nil || product!.nutritionFacts!.isEmpty {
+            if productPair!.remoteProduct!.nutritionFacts == nil || productPair!.remoteProduct!.nutritionFacts!.isEmpty {
                 // Show a tag indicating no nutrition facts have been specified
                 sectionsAndRows.append(.nutritionFacts(
                     TableSections.Size.NutritionFactsEmpty,
@@ -759,14 +763,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     private var hasNutritionFacts: Bool {
-        // If the delegated product has been set, use that value
-        if delegate?.updatedProduct?.hasNutritionFacts != nil {
-            return delegate!.updatedProduct!.hasNutritionFacts!
-        // else use the unedited product
-        } else if product?.hasNutritionFacts != nil {
-            return product!.hasNutritionFacts!
-        }
-        return true
+        // If the local product has been set, use that value
+        return  productPair?.localProduct?.hasNutritionFacts ??
+                productPair?.remoteProduct?.hasNutritionFacts ??
+                true
     }
 
     // MARK: - Segue functions
@@ -790,11 +790,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = currentLanguageCode
-                                vc.primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
-                                vc.languageCodes = product!.languageCodes
-                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode ?? productPair!.remoteProduct!.primaryLanguageCode
+                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
+                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
                                 vc.editMode = editMode
-                                vc.delegate = delegate
+                                vc.productPair = productPair
                                 vc.sourcePage = 2
                             }
                             // The button should be in a view,
@@ -811,11 +811,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                     
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = currentLanguageCode
-                                vc.primaryLanguageCode = delegate?.updatedProduct?.primaryLanguageCode != nil ? delegate!.updatedProduct!.primaryLanguageCode : product!.primaryLanguageCode
-                                vc.languageCodes = product!.languageCodes
-                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode ?? productPair!.remoteProduct!.primaryLanguageCode
+                                vc.languageCodes = productPair!.remoteProduct!.languageCodes
+                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
                                 vc.editMode = editMode
-                                vc.delegate = delegate
+                                vc.productPair = productPair
                                 vc.sourcePage = 2
                             }
                         }
@@ -826,10 +826,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
                 if let vc = segue.destination as? ImageViewController {
                     vc.imageTitle = Storyboard.Title.ShowNutritionFactsImage
-                    if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty {
-                        vc.imageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.nutrition)
+                    if let images = productPair?.localProduct?.nutritionImages,
+                        !images.isEmpty {
+                        vc.imageData = productPair!.localProduct!.image(for:currentLanguageCode!, of:.nutrition)
                     } else {
-                        vc.imageData = product!.image(for:currentLanguageCode!, of:.nutrition)
+                        vc.imageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.nutrition)
                     }
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionFactsImage segue preparation wrongly configurated")
@@ -945,7 +946,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     newNutrient.itemName = newNutrientTuple.1
                     newNutrient.servingValueUnit = newNutrientTuple.2
                     newNutrient.standardValueUnit = newNutrientTuple.2
-                    delegate?.updated(fact: newNutrient)
+                    productPair?.update(fact: newNutrient)
                     refreshProductWithNewNutritionFacts()
                 }
             }
@@ -956,7 +957,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         if let vc = segue.source as? SelectNutrientUnitViewController {
             // The new nutrient unit should be set to the nutrient that was edited
             if let nutrientRow = vc.nutrientRow {
-                if product != nil {
+                if productPair!.remoteProduct != nil {
                     // copy the existing nutrient and change the unit
                     var editedNutritionFact = NutritionFactItem()
                     editedNutritionFact.key = adaptedNutritionFacts[nutrientRow].key
@@ -964,7 +965,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // this value has been changed
                     editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
                     editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
-                    delegate?.updated(fact: editedNutritionFact)
+                    productPair?.update(fact: editedNutritionFact)
                     refreshProductWithNewNutritionFacts()
                 } else if query != nil {
                     if let validUnit = vc.selectedNutritionUnit {
@@ -1040,7 +1041,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 // MARK: - Notification handlers
 //
     @objc func refreshProduct() {
-        guard product != nil else { return }
+        guard productPair != nil else { return }
         tableView.reloadData()
     }
     
@@ -1081,7 +1082,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
     func refreshProductWithNewNutritionFacts() {
-        if product != nil {
+        if productPair != nil {
             // recalculate the nutritionfacts that must be shown
             mergeNutritionFacts()
             tableStructure = setupTableSections()
@@ -1114,14 +1115,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             image = info[UIImagePickerControllerOriginalImage] as? UIImage
         }
         if image != nil {
-            delegate?.updated(nutritionImage: image!, languageCode: currentLanguageCode!)
+            productPair?.update(nutritionImage: image!, for: currentLanguageCode!)
             tableView.reloadData()
         }
     }
     
 
     @objc func removeProduct() {
-        product = nil
+        productPair = nil
         tableView.reloadData()
     }
 
@@ -1130,7 +1131,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
-        if product!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+        if productPair!.barcodeType.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
             if userInfo!.count == 1 {
                 reloadImageSection()
                 return
@@ -1149,12 +1150,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         guard !editMode else { return }
         // Check if this image is relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if product != nil && barcode == product!.barcode.asString {
+            if productPair != nil && barcode == productPair!.barcodeType.asString {
                 // is it relevant to the nutrition image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        //TODO: OFFProducts.manager.reload(self.product!)
                     }
                 }
             }
@@ -1165,12 +1166,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
-            if barcode == product!.barcode.asString {
+            if barcode == productPair!.barcodeType.asString {
                 // is it relevant to the nutrition image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
                         // reload product data
-                        OFFProducts.manager.reload(self.product!)
+                        //TODO:OFFProducts.manager.reload(self.product!)
                     }
                 }
             }
@@ -1238,36 +1239,36 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
     func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
         
         // Energy
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Joule))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Joule))
         }
         // Fat
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: NutritionFactUnit.Gram))
         }
         // Saturated Fat
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
         }
         // Carbohydrates
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: NutritionFactUnit.Gram))
         }
         // Sugars
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
         }
         // Fibers
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
         }
         // Proteins
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
         }
         // Salt
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaltKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaltKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SaltKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaltKey, unit: NutritionFactUnit.Gram))
         }
         refreshProductWithNewNutritionFacts()
     }
@@ -1281,81 +1282,81 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         ShowSaltAs = .sodium
         
         // Energy
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: .Calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: .Calories))
         }
         // Energy from Fat Old Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyFromFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: .Calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyFromFatKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: .Calories))
         }
 
         // Fat
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: .Gram))
         }
         // Saturated Fat
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: .Gram))
         }
         // Trans Fat
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.TransFatKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.TransFatKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: .Gram))
         }
 
         // Cholesterol
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CholesterolKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: .Milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CholesterolKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: .Milligram))
         }
         // Sodium
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SodiumKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SodiumKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: .Gram))
         }
         // Total Carbohydrates
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: .Gram))
         }
         // Dietary Fiber
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
         }
 
         // Sugars
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
         }
         // Added Sugars New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.AddedSugarsKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.AddedSugarsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.AddedSugarsKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.AddedSugarsKey, unit: NutritionFactUnit.Gram))
         }
 
         // Proteins
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
         }
         // Vitamin A New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminAKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminAKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminAKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminAKey, unit: NutritionFactUnit.Percent))
         }
         // Vitamin C Old Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminCKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminCKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminCKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminCKey, unit: NutritionFactUnit.Percent))
         }
         // Vitamin D New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminDKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminDKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminDKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminDKey, unit: NutritionFactUnit.Percent))
         }
 
         // Calcium
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.CalciumKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CalciumKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CalciumKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CalciumKey, unit: NutritionFactUnit.Percent))
         }
         // Iron Old Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.IronKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.IronKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.IronKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.IronKey, unit: NutritionFactUnit.Percent))
         }
         // Potassium New Label
-        if !product!.nutritionFactsContain(OFFReadAPIkeysJSON.PotassiumKey) {
-            delegate?.updated(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.PotassiumKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.PotassiumKey) {
+            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.PotassiumKey, unit: NutritionFactUnit.Percent))
         }
 
         mergeNutritionFacts()
@@ -1371,9 +1372,9 @@ extension NutrientsTableViewController: NutrimentsAvailableCellDelegate {
     
     // function to let the delegate know that the switch changed
     func nutrimentsAvailableTableViewCell(_ sender: NutrimentsAvailableTableViewCell, receivedActionOn mySwitch:UISwitch) {
-        guard product != nil else { return }
+        guard productPair?.remoteProduct != nil else { return }
         // change the updated product
-        delegate?.updated(availability: mySwitch.isOn)
+        productPair?.update(availability: mySwitch.isOn)
         refreshProductWithNewNutritionFacts()
     }
 }
@@ -1385,7 +1386,7 @@ extension NutrientsTableViewController:   PerUnitCellDelegate {
     
     // function to let the delegate know that the switch changed
     func perUnitTableViewCell(_ sender: PerUnitTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
-        guard product != nil else { return }
+        guard productPair?.remoteProduct != nil else { return }
         showNutrientsAs = NutritionDisplayMode.init(segmentedControl.selectedSegmentIndex)
         mergeNutritionFacts()
         tableView.reloadData()
@@ -1407,9 +1408,9 @@ extension NutrientsTableViewController:  ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard currentLanguageCode != nil else { return }
-        guard product != nil else { return }
+        guard let validProduct = productPair?.remoteProduct else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .nutrition, for: product!)
+        update.deselect([currentLanguageCode!], of: .nutrition, for: validProduct)
     }
     
 }
@@ -1461,7 +1462,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
         switch tableStructure[section] {
         case .servingSize:
             if let validText = textField.text {
-                delegate?.updated(portion: validText)
+                productPair?.update(portion: validText)
             }
         case .nutritionFacts:
             // decode the actual row from the tag by subtracting the section*100
@@ -1492,7 +1493,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                         })
                     }
                 }
-                delegate?.updated(fact: editedNutritionFact)
+                productPair?.update(fact: editedNutritionFact)
                 mergeNutritionFacts()
                 tableView.reloadData()
             }
@@ -1584,7 +1585,7 @@ extension NutrientsTableViewController: GKImagePickerDelegate {
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         
         // print("nutrients image", image.size)
-        delegate?.updated(nutritionImage: image, languageCode: currentLanguageCode!)
+        productPair?.update(nutritionImage: image, for: currentLanguageCode!)
         tableView.reloadData()
         
         imagePicker.dismiss(animated: true, completion: nil)
@@ -1618,10 +1619,11 @@ extension NutrientsTableViewController: UITableViewDragDelegate {
         guard currentLanguageCode != nil else { return [] }
         var productImageData: ProductImageData? = nil
         // is there image data?
-        if delegate?.updatedProduct?.nutritionImages != nil && !delegate!.updatedProduct!.nutritionImages.isEmpty {
-            productImageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.nutrition)
+        if let images = productPair?.localProduct?.nutritionImages,
+            !images.isEmpty {
+            productImageData = productPair!.localProduct!.image(for:currentLanguageCode!, of:.nutrition)
         } else {
-            productImageData = product!.image(for:currentLanguageCode!, of:.nutrition)
+            productImageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.nutrition)
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }
@@ -1726,7 +1728,7 @@ extension NutrientsTableViewController: GKImageCropControllerDelegate {
         guard let validLanguage = currentLanguageCode,
             let validImage = croppedImage else { return }
         imageCropController.dismiss(animated: true, completion: nil)
-        self.delegate?.updated(nutritionImage: validImage, languageCode:validLanguage)
+        productPair?.update(nutritionImage: validImage, for: validLanguage)
         self.reloadImageSection()
     }
 }

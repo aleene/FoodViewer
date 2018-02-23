@@ -11,15 +11,15 @@ import Foundation
 // protocol used for sending data back
 protocol ProductUpdatedProtocol: class {
     
-    var updatedProduct: FoodProduct? { get set }
+    //var updatedProduct: FoodProduct? { get set }
 
-    func updated(name: String, languageCode: String)
+    //func updated(name: String, languageCode: String)
 
-    func updated(genericName: String, languageCode: String)
+    //func updated(genericName: String, languageCode: String)
     
-    func updated(ingredients: String, languageCode: String)
+    //func updated(ingredients: String, languageCode: String)
     
-    func updated(facts: [NutritionFactItem?])
+    //func updated(facts: [NutritionFactItem?])
     
     func search(for string: String?, in component: SearchComponent)
 }

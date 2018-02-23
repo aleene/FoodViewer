@@ -12,8 +12,9 @@ enum BarcodeType {
     case ean13(String, ProductType?)
     case ean8(String, ProductType?)
     case upc12(String, ProductType?)
+    case search(SearchTemplate, ProductType?)
     case undefined(String, ProductType?)
-    // case search(String, ProductType?) // To indicate a search product, which does not have to have a barcode
+    case notSet
     
     init(typeCode: String, value: String) {
         if typeCode == "org.gs1.EAN-13" {
@@ -58,8 +59,8 @@ enum BarcodeType {
                 self = .upc12(newString, nil)
             case .undefined:
                 self = .undefined(newString, nil)
-            //case .search:
-            //    self = .search(newString, nil)
+            default:
+                self = .undefined("tried to set a search", nil)
             }
         }
     }
@@ -74,8 +75,8 @@ enum BarcodeType {
             return s
         case .undefined(let s, _):
             return s
-        //case .search(let s, _):
-        //    return s
+        default:
+            return "not relevant"
         }
     }
     
@@ -101,8 +102,8 @@ enum BarcodeType {
             return s
         case .undefined(let s, _):
             return s
-            //case .search(let s, _):
-            //    return s
+        default:
+            return "not relevant"
         }
     }
 
@@ -117,8 +118,10 @@ enum BarcodeType {
             return s
         case .undefined(_, let s):
             return s
-        //case .search(_, let s):
-        //    return s
+        case .search(_, let s):
+            return s
+        default:
+            return nil
         }
     }
     
@@ -132,12 +135,13 @@ enum BarcodeType {
             self = .upc12(code, type)
         case .undefined(let code, _):
             self = .undefined(code, type)
-        //case .search(let code, _):
-        //    self = .search(code, type)
+        case .search(let code, _):
+            self = .search(code, type)
+        default:
+            break
         }
         
     }
-    /*
     func isSearch() -> Bool {
         switch self {
         case .search:
@@ -146,5 +150,4 @@ enum BarcodeType {
             return false
         }
     }
- */
 }

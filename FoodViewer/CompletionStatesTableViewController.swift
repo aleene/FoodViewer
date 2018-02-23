@@ -19,17 +19,21 @@ class CompletionStatesTableViewController: UITableViewController {
         }
     }
 
-    public var tableItem: Any? = nil {
+    public var tableItem: ProductPair? = nil {
         didSet {
-            if let item = tableItem as? FoodProduct {
-                self.product = item
-            } else if let item = tableItem as? SearchTemplate {
-                self.query = item
+            if let item = tableItem?.barcodeType {
+                switch item {
+                case .search(let template, _):
+                    self.query = template
+                default:
+                    self.productPair = tableItem
+
+                }
             }
         }
     }
 
-    fileprivate var product: FoodProduct? = nil {
+    fileprivate var productPair: ProductPair? = nil {
         didSet {
             refreshProduct()
         }
@@ -47,7 +51,7 @@ class CompletionStatesTableViewController: UITableViewController {
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(product!)
+            //TODO: OFFProducts.manager.reload(product!)
             refreshControl?.endRefreshing()
         }
     }
@@ -84,7 +88,7 @@ class CompletionStatesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if product != nil {
+        if productPair != nil {
             return 4
         } else if query != nil {
             return 4
@@ -93,16 +97,16 @@ class CompletionStatesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if product != nil {
+        if let validProduct = productPair?.remoteProduct {
             switch section {
             case 0:
-                return product!.state.states.count
+                return validProduct.state.states.count
             case 1:
-                return product?.contributors != nil ? product!.contributors.count : 0
+                return validProduct.contributors.count
             case 2:
-                return product?.imageAddDates.count != nil ? product!.imageAddDates.count : 0
+                return validProduct.imageAddDates.count
             case 3:
-                return product?.additionDate != nil ? 1 : 0
+                return validProduct.additionDate != nil ? 1 : 0
             default:
                 break
             }
@@ -181,7 +185,7 @@ class CompletionStatesTableViewController: UITableViewController {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.CompletionState, for: indexPath) as! StateTableViewCell
                 cell.delegate = delegate
-                let completion = product!.state.array[indexPath.row]
+                let completion = productPair!.remoteProduct!.state.array[indexPath.row]
                 cell.state = completion.value
                 cell.tag = indexPath.row
                 cell.stateTitle = completion.description
@@ -220,7 +224,7 @@ class CompletionStatesTableViewController: UITableViewController {
             } else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Contributors, for: indexPath) as? ContributorTableViewCell
                 cell?.delegate = delegate
-                cell?.contributor = product!.contributors[indexPath.row]
+                cell?.contributor = productPair!.remoteProduct!.contributors[indexPath.row]
                 return cell!
                 
             } else if indexPath.section == 2 {
@@ -229,7 +233,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .none
                 // the lastEditDates array contains at least one date, if we arrive here
-                let dates: [Date] = Array.init(product!.imageAddDates)
+                let dates: [Date] = Array.init(productPair!.remoteProduct!.imageAddDates)
                 cell.textLabel!.text = formatter.string(from: dates[indexPath.row])
                 let longPressGestureRecognizer = UILongPressGestureRecognizer.init(target: self, action: #selector(CompletionStatesTableViewController.lastEditDateLongPress))
                 cell.addGestureRecognizer(longPressGestureRecognizer)
@@ -241,7 +245,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 let formatter = DateFormatter()
                 formatter.dateStyle = .medium
                 formatter.timeStyle = .none
-                if let validDate = product?.additionDate {
+                if let validDate = productPair?.remoteProduct?.additionDate {
                     cell.textLabel!.text = formatter.string(from: validDate)
                 } else {
                     cell.textLabel!.text = Constants.NoCreationDateAvailable
@@ -260,8 +264,8 @@ class CompletionStatesTableViewController: UITableViewController {
         case 0:
             return Constants.CompletenessHeaderTitle
         case 1:
-            if product != nil {
-                if section < product!.contributors.count {
+            if let validProduct = productPair?.remoteProduct {
+                if section < validProduct.contributors.count {
                     return Constants.ContributorsHeaderTitle
                 }
             } else if query != nil {
@@ -280,21 +284,21 @@ class CompletionStatesTableViewController: UITableViewController {
     @objc func creationDateLongPress() {
         // I should encode the search component
         // And the search status
-        guard product?.additionDate != nil else { return }
+        guard let validDate = productPair?.remoteProduct?.additionDate else { return }
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        let searchString = formatter.string(from: product!.additionDate! as Date)
+        let searchString = formatter.string(from: validDate)
         delegate?.search(for: searchString, in: .entryDates)
     }
 
     @objc func lastEditDateLongPress() {
         // I should encode the search component
         // And the search status
-        guard product?.lastEditDates?[0] != nil else { return }
+        guard let validEditDate = productPair?.remoteProduct?.lastEditDates?[0] else { return }
 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
-        let searchString = formatter.string(from: product!.lastEditDates![0] as Date)
+        let searchString = formatter.string(from: validEditDate)
         delegate?.search(for: searchString, in: .lastEditDate)
     }
     
@@ -447,7 +451,7 @@ class CompletionStatesTableViewController: UITableViewController {
     }
 
     @objc func removeProduct() {
-        product = nil
+        productPair?.remoteProduct = nil
         tableView.reloadData()
     }
 

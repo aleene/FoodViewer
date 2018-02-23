@@ -9,10 +9,11 @@
 import Foundation
 
 enum ProductFetchStatus {
+    case available
     case success(FoodProduct)
     // The searchList returns a facet of the search result, 
     // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-    case loading(FoodProduct) // (barcodeString)
+    case loading // (barcodeString)
     case productNotLoaded(FoodProduct) // (barcodeString)
     case productNotAvailable(FoodProduct, String) // (barcodeString, error string)
     case loadingFailed(FoodProduct, String) // (barcodeString, error string)
@@ -33,6 +34,7 @@ enum ProductFetchStatus {
         case .productNotLoaded: return TranslatableStrings.ProductNotLoaded
         case .loading: return TranslatableStrings.ProductLoading
         case .success: return TranslatableStrings.ProductIsLoaded
+        case .available: return TranslatableStrings.ProductIsLoaded
         case .loadingFailed: return TranslatableStrings.ProductLoadingFailed
         case .productNotAvailable: return TranslatableStrings.ProductNotAvailable
             
@@ -52,8 +54,9 @@ enum ProductFetchStatus {
         case .productNotLoaded: return 1
         case .loading: return 2
         case .success: return 3
-        case .productNotAvailable: return 4
-        case .loadingFailed: return 5
+        case .available: return 4
+        case .productNotAvailable: return 5
+        case .loadingFailed: return 6
 
         case .noSearchDefined: return 10
         case .searchLoading: return 11
