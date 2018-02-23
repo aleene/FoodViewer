@@ -87,7 +87,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // if editMode {
             if userWantsToSave {
                 // time to save
-                if let validUpdatedProduct = updatedProduct {
+                if let validUpdatedProduct = productPair?.localProduct {
                     let update = OFFUpdate()
                     confirmBarButtonItem?.isEnabled = false
                     UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -100,7 +100,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                             case .success:
                                 // get the new product data
                                 OFFProducts.manager.reload(productPair:self.productPair)
-                                self.updatedProduct = nil
+                                self.productPair?.localProduct = nil
                                 // send notification of success, so feedback can be given
                                 NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
                                 break
@@ -291,7 +291,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private func setupDelegates() {
         identificationVC.delegate = self
         ingredientsVC.delegate = self
-        nutritionFactsVC.delegate = self
+        //nutritionFactsVC.delegate = self
         supplyChainVC.delegate = self
         categoriesVC.delegate = self
         completionStatusVC.delegate = self
@@ -367,7 +367,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             ingredientsVC.currentLanguageCode = currentLanguageCode
             
         case .nutritionFacts:
-            nutritionFactsVC.delegate = self
+            //nutritionFactsVC.delegate = self
             nutritionFactsVC.tableItem = tableItem
             nutritionFactsVC.currentLanguageCode = currentLanguageCode
             nutritionFactsVC.editMode = editMode
@@ -537,7 +537,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
 
         _ = Timer.scheduledTimer(timeInterval: 4.0, target: self, selector: #selector(ProductPageViewController.resetSaveButtonColor), userInfo: nil, repeats: false)
-        updatedProduct = nil
+        productPair?.localProduct = nil
     }
   
     @objc func changeConfirmButtonToFailure() {
@@ -558,7 +558,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // The user can undo an edit in progress by stepping back, i.e. selecting another product
     // First it is checked whether a change to the field has been made
     
-    var updatedProduct: FoodProduct? = nil // Stays nil when no changes are made
+    //var updatedProduct: FoodProduct? = nil // Stays nil when no changes are made
 
     func updated(name: String, languageCode: String) {
         productPair?.update(name: name, in: languageCode)
@@ -1066,12 +1066,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         //saveUpdatedProduct()
     }
 
+    /*
     private func initUpdatedProductWith(product: FoodProduct) {
-        if updatedProduct == nil {
-            updatedProduct = FoodProduct.init(product:product)
+        if productPair?.localProduct == nil {
+            productPair?.localProduct = FoodProduct.init(product:product)
         }
         saveUpdatedProduct()
     }
+  */
     
     // MARK: - Authentication
     

@@ -55,14 +55,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     fileprivate var originalImages: [String:ProductImageSize] {
         get {
-            var images: [String:ProductImageSize] = [:]
+            var newImages: [String:ProductImageSize] = [:]
             if let product = productPair?.remoteProduct {
-                images = product.images
+                newImages = product.images
             }
-            if delegate?.updatedProduct != nil && delegate!.updatedProduct!.images.count > 0 {
-                images = images.merging(delegate!.updatedProduct!.images, uniquingKeysWith: { (first, last) in last } )
+            if let images = productPair?.localProduct?.images,
+                images.count > 0 {
+                newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             }
-            return images
+            return newImages
         }
     }
     
@@ -131,11 +132,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // If there are updated images, only show those
         switch section {
         case Section.FrontImages:
-            return delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ? delegate!.updatedProduct!.frontImages.count : remoteProduct.frontImages.count
+            return productPair?.localProduct?.frontImages != nil && productPair!.localProduct!.frontImages.count > 0 ? productPair!.localProduct!.frontImages.count : remoteProduct.frontImages.count
         case Section.IngredientsImages:
-            return delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ? delegate!.updatedProduct!.ingredientsImages.count : remoteProduct.ingredientsImages.count
+            return productPair?.localProduct?.ingredientsImages != nil && productPair!.localProduct!.ingredientsImages.count > 0 ? productPair!.localProduct!.ingredientsImages.count : remoteProduct.ingredientsImages.count
         case Section.NutrionImages:
-            return delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ? delegate!.updatedProduct!.nutritionImages.count : remoteProduct.nutritionImages.count
+            return productPair?.localProduct?.nutritionImages != nil && productPair!.localProduct!.nutritionImages.count > 0 ? productPair!.localProduct!.nutritionImages.count : remoteProduct.nutritionImages.count
         case Section.OriginalImages:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
@@ -150,7 +151,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         switch indexPath.section {
         case Section.FrontImages: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = delegate?.updatedProduct?.frontImages {
+            if let images = productPair?.localProduct?.frontImages {
                 if images.count > 0 && indexPath.row < images.count {
                     let key = keyTuples(for:Array(images.keys))[indexPath.row].0
                     if let validImage = images[key]?.original?.image {
@@ -187,7 +188,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         
         case Section.IngredientsImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = delegate?.updatedProduct?.ingredientsImages  {
+            if let images = productPair?.localProduct?.ingredientsImages  {
                 if indexPath.row < images.count && images.count > 0 {
                     let key = keyTuples(for:Array(images.keys))[indexPath.row].0
                     if let validImage = images[key]?.original?.image {
@@ -224,7 +225,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             
         case Section.NutrionImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = delegate?.updatedProduct?.nutritionImages {
+            if let images = productPair?.localProduct?.nutritionImages {
                 if indexPath.row < images.count && images.count > 0 {
                     let key = keyTuples(for:Array(images.keys))[indexPath.row].0
                     if let validImage = images[key]?.original?.image {
@@ -305,13 +306,13 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             //3
             switch indexPath.section {
             case Section.FrontImages:
-                headerView.label.text =  delegate?.updatedProduct?.frontImages != nil && delegate!.updatedProduct!.frontImages.count > 0 ?
+                headerView.label.text = productPair?.localProduct?.frontImages != nil && productPair!.localProduct!.frontImages.count > 0 ?
                     Storyboard.HeaderTitle.Front + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Front
             case Section.IngredientsImages:
-                headerView.label.text =  delegate?.updatedProduct?.ingredientsImages != nil && delegate!.updatedProduct!.ingredientsImages.count > 0 ?
+                headerView.label.text =  productPair?.localProduct?.ingredientsImages != nil && productPair!.localProduct!.ingredientsImages.count > 0 ?
                     Storyboard.HeaderTitle.Ingredients + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Ingredients
             case Section.NutrionImages:
-                headerView.label.text =  delegate?.updatedProduct?.nutritionImages != nil && delegate!.updatedProduct!.nutritionImages.count > 0 ?
+                headerView.label.text =  productPair?.localProduct?.nutritionImages != nil && productPair!.localProduct!.nutritionImages.count > 0 ?
                     Storyboard.HeaderTitle.Nutrition + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Nutrition
             case Section.OriginalImages:
                 headerView.label.text = Storyboard.HeaderTitle.Original

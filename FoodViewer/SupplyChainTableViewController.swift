@@ -58,11 +58,11 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var producerTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.manufacturingPlacesOriginal {
+            if let manufacturingPlacesOriginal = productPair?.localProduct?.manufacturingPlacesOriginal {
+                switch manufacturingPlacesOriginal {
                 case .available, .empty:
                     showProducerTagsType = .edited
-                    return delegate!.updatedProduct!.manufacturingPlacesOriginal
+                    return manufacturingPlacesOriginal
                 default:
                     break
                 }
@@ -82,11 +82,11 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var producerCodeTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.embCodesOriginal {
+            if let embCodesOriginal = productPair?.localProduct?.embCodesOriginal {
+                switch embCodesOriginal {
                 case .available, .empty:
                     showProducerCodeTagsType = .edited
-                    return delegate!.updatedProduct!.embCodesOriginal
+                    return embCodesOriginal
                 default:
                     break
                 }
@@ -106,11 +106,11 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.originsOriginal {
+            if let originsOriginal = productPair?.localProduct?.originsOriginal {
+                switch originsOriginal {
                 case .available, .empty:
                     showIngredientOriginTagsType = .edited
-                    return delegate!.updatedProduct!.originsOriginal
+                    return originsOriginal
                 default:
                     break
                 }
@@ -130,11 +130,11 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var purchaseLocationTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.purchasePlacesOriginal {
+            if let purchasePlacesOriginal = productPair?.localProduct?.purchasePlacesOriginal {
+                switch purchasePlacesOriginal {
                 case .available, .empty:
                     showPurchaseLocationTagsType = .edited
-                    return delegate!.updatedProduct!.purchasePlacesOriginal
+                    return purchasePlacesOriginal
                 default:
                     break
                 }
@@ -154,11 +154,11 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var storeTagsToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.storesOriginal {
+            if let storesOriginal = productPair?.localProduct?.storesOriginal {
+                switch storesOriginal {
                 case .available, .empty:
                     showStoresTagsType = .edited
-                    return delegate!.updatedProduct!.storesOriginal
+                    return storesOriginal
                 default:
                     break
                 }
@@ -178,11 +178,11 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var countriesToDisplay: Tags {
         get {
-            if delegate?.updatedProduct != nil {
-                switch delegate!.updatedProduct!.countriesOriginal {
+            if let countriesOriginal = productPair?.localProduct?.countriesOriginal {
+                switch countriesOriginal {
                 case .available, .empty:
                     showCountriesTagsType = .edited
-                    return delegate!.updatedProduct!.countriesOriginal
+                    return countriesOriginal
                 default:
                     break
                 }
@@ -208,7 +208,7 @@ class SupplyChainTableViewController: UITableViewController {
 
     fileprivate var linksToDisplay: Tags {
         get {
-            if let validTags = delegate?.updatedProduct?.links {
+            if let validTags = productPair?.localProduct?.links {
                 return Tags.init(list:validTags.map( { $0.absoluteString } ))
             } else if let validTags = productPair?.remoteProduct?.links {
                 return Tags.init(list:validTags.map( { $0.absoluteString } ))
@@ -579,7 +579,7 @@ class SupplyChainTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
                 
                 // has the product been edited?
-                if let validPeriod = delegate?.updatedProduct?.periodAfterReferenceDate {
+                if let validPeriod = productPair?.localProduct?.periodAfterReferenceDate {
                     let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
                     let formatter = DateComponentsFormatter()
                     formatter.unitsStyle = .full
@@ -600,7 +600,7 @@ class SupplyChainTableViewController: UITableViewController {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ExpirationDate, for: indexPath) as! ExpirationDateTableViewCell
             
                 // has the product been edited?
-                if let validDate = delegate?.updatedProduct?.expirationDate {
+                if let validDate = productPair?.localProduct?.expirationDate {
                     cell.date = validDate
                 } else if let validDate = productPair!.remoteProduct!.expirationDate {
                     cell.date = validDate
@@ -613,7 +613,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .periodAfterOpening:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath) as! PeriodAfterOpeningTableViewCell
 
-            if let validPeriodAfterOpening = delegate?.updatedProduct?.periodAfterOpeningString {
+            if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
             } else if let validPeriodAfterOpening = productPair!.remoteProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
@@ -764,7 +764,7 @@ class SupplyChainTableViewController: UITableViewController {
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                if let validName = delegate?.updatedProduct?.expirationDate {
+                                if let validName = productPair?.localProduct?.expirationDate {
                                     let formatter = DateFormatter()
                                     formatter.dateStyle = .medium
                                     formatter.timeStyle = .none
@@ -1089,47 +1089,47 @@ extension SupplyChainTableViewController: TagListViewDataSource {
         case .producer:
             switch producerTagsToDisplay {
             case .available:
-                delegate?.update(producer: [])
+                productPair?.update(producer: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .producerCode:
             switch producerCodeTagsToDisplay {
             case .available:
-                delegate?.update(producerCode: [])
+                productPair?.update(producerCode: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
             case .available:
-                delegate?.update(ingredientsOrigin: [])
+                productPair?.update(ingredientsOrigin: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .store:
             switch storeTagsToDisplay {
             case .available:
-                delegate?.update(stores: [])
+                productPair?.update(stores: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .location:
             switch purchaseLocationTagsToDisplay {
             case .available:
-                delegate?.update(purchaseLocation: [])
+                productPair?.update(purchaseLocation: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .country:
             switch countriesToDisplay {
             case .available:
-                delegate?.update(countries: [])
+                productPair?.update(countries: [])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .sites:
-            delegate?.update(links: [])
+            productPair?.update(links: [])
 
         case .producerSearch:
             switch searchProducerTagsToDisplay {
@@ -1208,70 +1208,70 @@ extension SupplyChainTableViewController: TagListViewDelegate {
         case .producer:
             switch producerTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(producer: [title])
+                productPair?.update(producer: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(producer: list)
+                productPair?.update(producer: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .producerCode:
             switch producerCodeTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(producerCode: [title])
+                productPair?.update(producerCode: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(producerCode: list)
+                productPair?.update(producerCode: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(ingredientsOrigin: [title])
+                productPair?.update(ingredientsOrigin: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(ingredientsOrigin: list)
+                productPair?.update(ingredientsOrigin: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .store:
             switch storeTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(stores: [title])
+                productPair?.update(stores: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(stores: list)
+                productPair?.update(stores: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .location:
             switch purchaseLocationTagsToDisplay {
             case .undefined, .empty:
-                delegate?.update(purchaseLocation: [title])
+                productPair?.update(purchaseLocation: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(purchaseLocation: list)
+                productPair?.update(purchaseLocation: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .country:
             switch countriesToDisplay {
             case .undefined, .empty:
-                delegate?.update(countries: [title])
+                productPair?.update(countries: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(countries: list)
+                productPair?.update(countries: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .sites:
             switch linksToDisplay {
             case .undefined, .empty:
-                delegate?.update(links: [title])
+                productPair?.update(links: [title])
             case var .available(list):
                 list.append(title)
-                delegate?.update(links: list)
+                productPair?.update(links: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1389,7 +1389,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(producer: list)
+                productPair?.update(producer: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1404,7 +1404,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(producerCode: list)
+                productPair?.update(producerCode: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1419,7 +1419,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(ingredientsOrigin: list)
+                productPair?.update(ingredientsOrigin: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1434,7 +1434,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(stores: list)
+                productPair?.update(stores: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1449,7 +1449,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(purchaseLocation: list)
+                productPair?.update(purchaseLocation: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1464,7 +1464,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(countries: list)
+                productPair?.update(countries: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1479,7 +1479,7 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(links: list)
+                productPair?.update(links: list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }

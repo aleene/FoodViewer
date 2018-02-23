@@ -80,12 +80,12 @@ class CategoriesTableViewController: UITableViewController {
     fileprivate var categoriesToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
+            if let categoriesOriginal = productPair?.localProduct?.categoriesOriginal {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.categoriesOriginal {
+                switch categoriesOriginal {
                 case .available, .empty:
                     showCategoriesTagsType = .edited
-                    return delegate!.updatedProduct!.categoriesOriginal
+                    return categoriesOriginal
                 default:
                     break
                 }
@@ -424,7 +424,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
                     break
                 }
                 list.remove(at: index)
-                delegate?.update(categories: list)
+                productPair?.update(categories: list)
             case .notSearchable:
                 assert(true, "How can I deleted a tag when the field is non-editable")
 
@@ -451,7 +451,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
         
         switch  currentProductSection {
         case .categories:
-            delegate?.update(categories: [])
+            productPair?.update(categories: [])
         case .categoriesSearch:
             switch searchCategoriesToDisplay {
             case .available(var list):

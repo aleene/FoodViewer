@@ -91,12 +91,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var allergensToDisplay: Tags {
         get {
             // is an updated product available? Is only relevant for the template
-            if productPair != nil && delegate?.updatedProduct != nil {
+            if let allergensOriginal = productPair?.localProduct?.allergensOriginal {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.allergensOriginal {
+                switch allergensOriginal {
                 case .available, .empty:
                     allergensTagsTypeToShow = .edited
-                    return delegate!.updatedProduct!.allergensOriginal
+                    return allergensOriginal
                 default:
                     allergensTagsTypeToShow = TagsTypeDefault.Allergens
                 }
@@ -129,12 +129,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var tracesToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
+            if let tracesOriginal = productPair?.localProduct?.tracesOriginal {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.tracesOriginal {
+                switch tracesOriginal {
                 case .available, .empty:
                     tracesTagsTypeToShow = .edited
-                    return delegate!.updatedProduct!.tracesOriginal
+                    return tracesOriginal
                 default:
                     break
                 }
@@ -166,12 +166,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var additivesToDisplay: Tags {
         get {
             // is an updated product available?
-            if productPair!.remoteProduct != nil && delegate?.updatedProduct != nil {
+            if let additivesOriginal = productPair!.remoteProduct?.additivesOriginal {
                 // does it have brands defined?
-                switch delegate!.updatedProduct!.additivesOriginal {
+                switch additivesOriginal {
                 case .available, .empty:
                     additivesTagsTypeToShow = .edited
-                    return delegate!.updatedProduct!.additivesOriginal
+                    return additivesOriginal
                 default:
                     additivesTagsTypeToShow = TagsTypeDefault.Additives
                 }
@@ -200,12 +200,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var labelsToDisplay: Tags {
         get {
             // is an updated product available?
-            if delegate?.updatedProduct != nil {
+            if let labelsOriginal = productPair?.localProduct?.labelsOriginal {
                 // does it have edited labels defined?
-                switch delegate!.updatedProduct!.labelsOriginal {
+                switch labelsOriginal {
                 case .available, .empty:
                     labelsTagsTypeToShow = .edited
-                    return delegate!.updatedProduct!.labelsOriginal
+                    return labelsOriginal
                 default:
                     break
                 }
@@ -388,7 +388,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             if let validCurrentLanguageCode = currentLanguageCode {
                 // has the product been edited?
-                if let validName = delegate?.updatedProduct?.ingredientsLanguage[validCurrentLanguageCode] {
+                if let validName = productPair?.localProduct?.ingredientsLanguage[validCurrentLanguageCode] {
                     cell!.ingredients = validName
                 } else if let validName = productPair!.remoteProduct?.ingredientsLanguage[validCurrentLanguageCode] {
                         cell!.ingredients = validName
@@ -502,9 +502,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     private var currentImage: UIImage? {
         // are there any updated ingredient images?
-        if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty  {
+        if let images = productPair?.localProduct?.ingredientsImages,
+            !images.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = delegate!.updatedProduct!.ingredientsImages[currentLanguageCode!]!.original?.image {
+            if let image = images[currentLanguageCode!]!.original?.image {
                 return image
             }
             
@@ -804,8 +805,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case Storyboard.SegueIdentifier.ShowIdentification:
                 if let vc = segue.destination as? ImageViewController {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
-                    if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
-                        vc.imageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.ingredients)
+                    if let images = productPair?.localProduct?.ingredientsImages,
+                        !images.isEmpty {
+                        vc.imageData = productPair!.localProduct!.image(for:currentLanguageCode!, of:.ingredients)
                     } else {
                         vc.imageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.ingredients)
                     }
@@ -829,7 +831,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 
                                 vc.currentLanguageCode = currentLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
-                                vc.updatedLanguageCodes = delegate?.updatedProduct != nil ? delegate!.updatedProduct!.languageCodes : []
+                                vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
                                 vc.primaryLanguageCode = productPair!.remoteProduct?.primaryLanguageCode
                                 vc.sourcePage = 1
                                 vc.editMode = editMode
@@ -983,7 +985,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             image = info[UIImagePickerControllerOriginalImage] as? UIImage
         }
         if image != nil {
-            delegate?.updated(ingredientsImage: image!, languageCode: currentLanguageCode!)
+            productPair?.update(ingredientsImage: image!, for: currentLanguageCode!)
             tableView.reloadData()
         }
     }
@@ -1200,7 +1202,7 @@ extension IngredientsTableViewController: UITextViewDelegate {
         switch tableStructure[textView.tag] {
         case .ingredients:
             if let validText = textView.text {
-                productPair?.update(ingredients: validText, for: currentLanguageCode!)
+                productPair?.update(ingredients: validText, in: currentLanguageCode!)
             }
         default:
             break
@@ -1596,7 +1598,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             switch labelsToDisplay {
             case .available(var list):
                 list.removeAll()
-                delegate?.update(labelTags: list)
+                productPair?.update(labelTags: list)
             default:
                 assert(true, "How can I delete a tag when there are none")
             }
@@ -1615,7 +1617,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             switch tracesToDisplay {
             case .available(var list):
                 list.removeAll()
-                delegate?.update(labelTags: list)
+                productPair?.update(labelTags: list)
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
@@ -1660,7 +1662,7 @@ extension IngredientsTableViewController: UINavigationControllerDelegate, UIImag
 extension IngredientsTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
-        delegate?.updated(ingredientsImage: image, languageCode: currentLanguageCode!)
+        productPair?.update(ingredientsImage: image, for: currentLanguageCode!)
         tableView.reloadData()
         
         imagePicker.dismiss(animated: true, completion: nil)
@@ -1693,8 +1695,9 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
         guard currentLanguageCode != nil else { return [] }
         var productImageData: ProductImageData? = nil
         // is there image data?
-        if delegate?.updatedProduct?.ingredientsImages != nil && !delegate!.updatedProduct!.ingredientsImages.isEmpty {
-            productImageData = delegate!.updatedProduct!.image(for:currentLanguageCode!, of:.ingredients)
+        if let images = productPair?.localProduct?.ingredientsImages,
+            !images.isEmpty {
+            productImageData = productPair!.localProduct!.image(for:currentLanguageCode!, of:.ingredients)
         } else {
             productImageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.ingredients)
         }
@@ -1801,7 +1804,7 @@ extension IngredientsTableViewController: GKImageCropControllerDelegate {
         guard let validLanguage = currentLanguageCode,
             let validImage = croppedImage else { return }
         imageCropController.dismiss(animated: true, completion: nil)
-        self.delegate?.updated(ingredientsImage: validImage, languageCode:validLanguage)
+        productPair?.update(ingredientsImage: validImage, for:validLanguage)
         self.reloadImageSection()
     }
 }
