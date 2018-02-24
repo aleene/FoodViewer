@@ -10,7 +10,7 @@
 
 import Foundation
 
-public struct MostRecentProduct {
+public class MostRecentProduct {
     
     // This calculated variable returns the jsonData for the current product type if it has been stored
     public var jsonData: Data? {
@@ -47,8 +47,28 @@ public struct MostRecentProduct {
         }
     }
     
+    func save(_ barcode: BarcodeType?) {
+        if let validBarcode = barcode {
+            let request = OpenFoodFactsRequest()
+            // loading the product from internet will be done off the main queue
+            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+                let fetchResult = request.fetchJsonForBarcode(validBarcode)
+                DispatchQueue.main.async(execute: { () -> Void in
+                    switch fetchResult {
+                    case .success(let data):
+                        // This will store the data in the user defaults file
+                        self.storedJsonData[self.currentProductType] = data
+                        self.rewrite()
+                    default:
+                        break
+                    }
+                })
+            })
+        }
+    }
+
     // The data (json) for the current product type will be added
-    mutating func addMostRecentProduct(_ data: Data?) {
+    func addMostRecentProduct(_ data: Data?) {
         
         if let newData = data {
             storedJsonData[currentProductType] = newData
@@ -58,14 +78,14 @@ public struct MostRecentProduct {
     }
     
     // The data (jsons) for ALL product types will be removed
-    mutating func removeAll() {
+    func removeAll() {
         let removedData: [[String:Any]] = []
         defaults.set(removedData, forKey: Key.MostRecentProduct)
         defaults.synchronize()
     }
     
     // The data (jsons) for the current product type will be removed
-    mutating func removeForCurrentProductType() {
+    func removeForCurrentProductType() {
         storedJsonData[currentProductType] = Data()
         rewrite()
     }

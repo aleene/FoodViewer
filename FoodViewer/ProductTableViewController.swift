@@ -838,8 +838,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
-        if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
-            let index = products.productPairIndex(BarcodeType.init(value: barcodeString))
+        if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
             if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
                 if self.tableView.numberOfSections > index + 1 {
                     self.tableView.reloadSections([index], with: .automatic)

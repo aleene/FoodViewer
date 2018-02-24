@@ -182,9 +182,9 @@ class IdentificationTableViewController: UITableViewController {
             }
             switch showBrandTagsType {
             case .interpreted:
-                return productPair!.remoteProduct!.brandsInterpreted
+                return productPair?.remoteProduct?.brandsInterpreted ?? .empty
             case .original:
-                return productPair!.remoteProduct!.brandsOriginal
+                return productPair?.remoteProduct?.brandsOriginal ?? .empty
             default:
                     break
             }
@@ -252,13 +252,13 @@ class IdentificationTableViewController: UITableViewController {
             }
             switch showPackagingTagsType {
             case .interpreted:
-                    return productPair!.remoteProduct!.packagingInterpreted
+                    return productPair?.remoteProduct?.packagingInterpreted ?? .empty
             case .original:
-                    return productPair!.remoteProduct!.packagingOriginal
+                    return productPair?.remoteProduct?.packagingOriginal ?? .empty
             case .hierarchy:
-                    return productPair!.remoteProduct!.packagingHierarchy
+                    return productPair?.remoteProduct?.packagingHierarchy ?? .empty
             case .prefixed:
-                return productPair!.remoteProduct!.packagingOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
+                return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode()) ?? .empty
             case .translated, .edited:
                 return .undefined
             }
@@ -522,19 +522,22 @@ class IdentificationTableViewController: UITableViewController {
     public var currentImage: (UIImage?, String) {
         // are there any updated front images?
         if let frontImages = productPair?.localProduct?.frontImages,
+            let validLanguageCode = currentLanguageCode,
             !frontImages.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = productPair?.localProduct!.frontImages[currentLanguageCode!]!.original?.image {
+            if let image = frontImages[validLanguageCode]?.original?.image {
                 return (image, "Updated Image")
             }
             
             // try the regular front images
-        } else if !productPair!.remoteProduct!.frontImages.isEmpty {
+        } else if let frontImages = productPair?.remoteProduct?.frontImages,
+            let validLanguageCode = currentLanguageCode,
+            !frontImages.isEmpty {
             // is the data for the current language available?
-            if let result = productPair!.remoteProduct!.frontImages[currentLanguageCode!]?.display?.fetch() {
+            if let result = frontImages[validLanguageCode]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return (productPair!.remoteProduct!.frontImages[currentLanguageCode!]?.display?.image, "Current Language Image")
+                    return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
                 case .loading:
                     return (nil, ImageFetchResult.loading.description)
                 case .loadingFailed(let error):
@@ -547,11 +550,11 @@ class IdentificationTableViewController: UITableViewController {
                 // fall back to the primary languagecode nutrition image
                 // if we are NOT in edit mode
             } else if !editMode,
-                let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-                let result = productPair!.remoteProduct!.frontImages[primaryLanguageCode]?.display?.fetch() {
+                let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
+                let result = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display?.fetch() {
                 switch result {
                 case .available:
-                    return (productPair!.remoteProduct!.frontImages[primaryLanguageCode]?.display?.image, "Primary language Image")
+                    return (productPair?.remoteProduct!.frontImages[primaryLanguageCode]?.display?.image, "Primary language Image")
                 case .loading:
                     return (nil, ImageFetchResult.loading.description)
                 case .loadingFailed(let error):
@@ -833,7 +836,9 @@ class IdentificationTableViewController: UITableViewController {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
-        if productPair!.remoteProduct!.barcode.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+        if let barcodeString = productPair?.remoteProduct?.barcode.asString,
+            let info = userInfo?[ProductImageData.Notification.BarcodeKey] as? String,
+            barcodeString == info {
             reloadImageSection()
             
             /* We are only interested in medium-sized front images
