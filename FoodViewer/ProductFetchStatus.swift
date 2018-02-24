@@ -9,24 +9,32 @@
 import Foundation
 
 enum ProductFetchStatus {
-    case available
-    case success(FoodProduct)
-    // The searchList returns a facet of the search result, 
-    // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-    case loading // (barcodeString)
-    case productNotLoaded(FoodProduct) // (barcodeString)
-    case productNotAvailable(FoodProduct, String) // (barcodeString, error string)
-    case loadingFailed(FoodProduct, String) // (barcodeString, error string)
+    // The productFetchStatus describes the prossible status changes of the remoteProduct
+    // nothing is known at the moment
     case initialized
+    // the barcode is set, but no load is initialised
+    case productNotLoaded(String) // (barcodeString)
+    // loading indicates that it is tried to load the product
+    case loading(String) // The string indicates the barcodeString
+    // the product has been loaded successfully and can be set.
+    case success(FoodProduct)
+    // available implies that the product has been retrieved and is available for usage
+    case available (String)
+    // the product is not available on the off servers
+    case productNotAvailable(String) // (barcodeString)
+    // the loading did not succeed
+    case loadingFailed(String) // (barcodeString)
     
+    
+    // TOD:
+    // The searchList returns a facet of the search result,
+    // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
     case noSearchDefined
     case searchLoading
     case searchQuery(SearchTemplate)
     case searchList((Int, Int, Int, [FoodProduct]))
     // The more parameter defines the search next page to retrieve
     case more(Int)
-
-    case other(String)
 
     var description: String {
         switch self {
@@ -43,8 +51,6 @@ enum ProductFetchStatus {
         case .searchQuery: return TranslatableStrings.SearchQuery
         case .searchList: return TranslatableStrings.ProductListIsLoaded
         case .more: return TranslatableStrings.LoadMoreResults
-
-        case .other: return TranslatableStrings.OtherProductType
         }
     }
     
@@ -54,17 +60,15 @@ enum ProductFetchStatus {
         case .productNotLoaded: return 1
         case .loading: return 2
         case .success: return 3
-        case .available: return 4
-        case .productNotAvailable: return 5
-        case .loadingFailed: return 6
+        case .available: return 3
+        case .productNotAvailable: return 4
+        case .loadingFailed: return 5
 
         case .noSearchDefined: return 10
         case .searchLoading: return 11
         case .searchQuery: return 12
         case .searchList: return 13
         case .more: return 14
-            
-        case .other: return 20
         }
     }
 }

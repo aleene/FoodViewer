@@ -90,9 +90,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     // should redownload the current product and reload it in this scene
     @objc private func refresh(sender: Any) {
         if refresher!.isRefreshing {
-            if let validProductPair = productPair {
-                //TODO: OFFProducts.manager.reload(validProduct)
-            }
+            OFFProducts.manager.reload(productPair: productPair)
             refresher?.endRefreshing()
         }
     }
@@ -516,8 +514,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // reload product data
-                //TODO: OFFProducts.manager.reload(self.product!)
-                // THis will result in a new notification if successfull, which will load the new images in turn
+                OFFProducts.manager.reload(productPair: productPair)
+                // This will result in a new notification if successfull, which will load the new images in turn
             }
         }
     }
@@ -527,7 +525,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // reload product data
-                //TODO: OFFProducts.manager.reload(self.product!)
+                OFFProducts.manager.reload(productPair: productPair)
                 // This will result in a new notification if successfull, which will load the new images in turn
             }
         }
@@ -568,7 +566,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct), name:.OFFUpdateImageUploadSuccess, object:nil)
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
 

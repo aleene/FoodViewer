@@ -283,7 +283,7 @@ class IdentificationTableViewController: UITableViewController {
             switch showLanguagesTagsType {
             case .translated:
                 // show the languageCodes in a localized language
-                return productPair!.remoteProduct!.languageTags
+                return productPair?.remoteProduct?.languageTags ?? .empty
             default:
                 return .undefined
             }
@@ -297,9 +297,7 @@ class IdentificationTableViewController: UITableViewController {
     // should redownload the current product and reload it in this scene
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            if let validProduct = productPair!.remoteProduct {
-                OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: validProduct.barcode))
-            }
+            OFFProducts.manager.reload(productPair: productPair)
             refreshControl?.endRefreshing()
         }
     }
@@ -666,7 +664,11 @@ class IdentificationTableViewController: UITableViewController {
             headerView.delegate = self
             headerView.title = tableStructure[section].header()
             headerView.languageCode = currentLanguageCode
-            headerView.buttonIsEnabled = editMode ? true : ( productPair!.remoteProduct!.languageCodes.count > 1 ? true : false )
+            if let validCount = productPair?.remoteProduct?.languageCodes.count {
+                headerView.buttonIsEnabled = editMode ? true : ( validCount > 1 ? true : false )
+            } else {
+                headerView.buttonIsEnabled = false
+            }
             return headerView
         default:
             return nil
@@ -990,7 +992,7 @@ class IdentificationTableViewController: UITableViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)

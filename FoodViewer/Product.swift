@@ -383,7 +383,6 @@ class FoodProduct {
     var server: String? = nil
     
     var type: ProductType? {
-        
         // I should look in the history first to see if there is an associated type
         // If the product is created from the history there should be a product type
         if barcode.productType() != nil {

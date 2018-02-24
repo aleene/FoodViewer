@@ -84,6 +84,13 @@ public struct History {
         }
     }
     
+    mutating func remove(_ barcodetype: BarcodeType) {
+        if let validIndex = index(for: barcodetype) {
+            barcodeTuples.remove(at: validIndex)
+            update()
+        }
+    }
+    
     private func barcodeExists(_ barcodeNumber: String) -> Bool {
         for barcodeTuple in barcodeTuples {
             if barcodeTuple.0 == barcodeNumber {
@@ -133,6 +140,7 @@ public struct History {
         defaults.set(newArray, forKey: historyKey)
         defaults.synchronize()
     }
+    
 }
 
 // Definition:

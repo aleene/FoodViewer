@@ -359,14 +359,26 @@ class OFFUpdate {
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + (Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) + "-" + validID )
         }
 
-        uploadImages(product!.frontImages, barcode: product!.barcode.asString, id:"front")
+        var imagesUpdated = false
+        if product!.frontImages.count > 0 {
+            uploadImages(product!.frontImages, barcode: product!.barcode.asString, id:"front")
+            imagesUpdated = true
+        }
+        
+        if product!.ingredientsImages.count > 0 {
+            uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString, id:"ingredients")
+            imagesUpdated = true
+        }
 
-        uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString, id:"ingredients")
-
-        uploadImages(product!.nutritionImages, barcode: product!.barcode.asString, id:"nutrition")
-
-        uploadImages(product!.images, barcode: product!.barcode.asString, id:"general")
-
+        if product!.nutritionImages.count > 0 {
+            uploadImages(product!.nutritionImages, barcode: product!.barcode.asString, id:"nutrition")
+            imagesUpdated = true
+        }
+        if product!.images.count > 0 {
+            uploadImages(product!.images, barcode: product!.barcode.asString, id:"general")
+            imagesUpdated = true
+        }
+        
         if productUpdated {
             if let url = URL(string: urlString) {
                 
@@ -380,6 +392,8 @@ class OFFUpdate {
             } else {
                 return .failure(urlString, "OFFUpdate Error: URL is wrong somehow")
             }
+        } else if imagesUpdated {
+            return .images(product!.barcode.asString)
         } else {
             return .failure(urlString, "OFFUpdate Error: No product changes detected")
         }

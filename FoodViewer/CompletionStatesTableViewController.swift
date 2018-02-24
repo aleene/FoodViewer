@@ -51,7 +51,7 @@ class CompletionStatesTableViewController: UITableViewController {
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            //TODO: OFFProducts.manager.reload(product!)
+            OFFProducts.manager.reload(productPair: productPair)
             refreshControl?.endRefreshing()
         }
     }
@@ -472,7 +472,7 @@ class CompletionStatesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
     }
 

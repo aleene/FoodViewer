@@ -83,4 +83,21 @@ public struct MostRecentProduct {
         defaults.synchronize()
     }
     
+    func load(completionHandler: @escaping (FoodProduct?) -> ()) {
+        // load the most recent product from the local storage
+        if let data = jsonData {
+            var fetchResult = ProductFetchStatus.loading("most recent")
+            fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
+            switch fetchResult {
+            case .success(let product):
+                completionHandler(product)
+                return
+            default:
+                break
+            }
+        }
+        completionHandler(nil)
+        return
+    }
+    
 }

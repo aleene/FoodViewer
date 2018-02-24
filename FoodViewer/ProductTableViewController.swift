@@ -36,20 +36,20 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     //TODO: can I create a barcode type for not initialized?
     fileprivate var barcodeType = BarcodeType(value: TranslatableStrings.EnterBarcode) {
         didSet {
-            let index = products.indexOfNewProduct(with: barcodeType)
-            selectedIndex = index
-            if let validProductPair = products.productPair(at: index) {
-                switch validProductPair.remoteStatus {
-                case .available:
-                    selectedProductPair = validProductPair
-                default:
-                    break
-                }
+            var section = 0
+            // get the index of the existing productPair
+            if let validSection = products.indexOfProduct(with: barcodeType) {
+                section = validSection
+           } else {
+                // create a new productPair
+                let validSection = products.createProduct(with: barcodeType)
+                section = validSection
+                // do a reload as the  number of products has changed
                 tableView.reloadData()
-                tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .middle, animated: true)
-            } else {
-                assert(true, "no valid productPair")
             }
+            // set the selectedProductPair
+            selectedProductPair = products.productPair(at: section)
+            tableView.scrollToRow(at: IndexPath.init(row: 0, section: section), at: .middle, animated: true)
         }
     }
     
@@ -555,12 +555,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 } else {
                     assert(true, "remoteStatus is available, but there is no product")
                 }
-            case .other(let message):
-                label.text = message
+            case .loading(let barcodeString):
+                label.text = barcodeString
             case .more:
                 // no header required in this case https://world.openfoodfacts.org/api/v0/product/737628064502.json
                 return nil
-            case.loadingFailed(_, let error):
+            case.loadingFailed(let error):
                 label.text = error
                 // Can we supply a specific error message?
                 if error.contains("NSCocoaErrorDomain Code=256") {
@@ -797,6 +797,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
+    /*
     @objc func showAlertProductNotAvailable(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         let error = userInfo!["error"] as? String ?? "ProductTableViewController:showAlertProductNotAvailable: No valid error"
@@ -804,7 +805,9 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let alert = UIAlertController(
             title: Constants.AlertSheet.Message,
             message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in // do nothing )
+        alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in
+            // As the product was already create, it can now be deleted
+                self.products.removeProduct(with:self.barcodeType)
             }
         )
         if let validBarcodeString = barcodeString {
@@ -815,35 +818,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 let currentLanguage = preferredLanguage.split(separator:"-").map(String.init)
 
                 newProduct.primaryLanguageCode = currentLanguage[0]
-                let update = OFFUpdate()
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
-                
-                // TBD kan de queue stuff niet in OFFUpdate gedaan worden?
-                DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                    let fetchResult = update.update(product: newProduct)
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                        switch fetchResult {
-                        case .success:
-                            self.barcodeType = BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue))
-                            self.searchTextField.text = validBarcodeString
-                            self.performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
-                            break
-                        case .notPossible:
-                            // Uploading to OFF is not possible at the moment
-                            // So save it locally
-                            let save = ProductStorage()
-                            save.save(newProduct)
-                        case .failure(let barcode, let error):
-                            print(barcode, error.description)
-                            break
-                        }
-                    })
-                })
             })
         }
         self.present(alert, animated: true, completion: nil)
     }
+     */
 
     @objc func productLoaded(_ notification: Notification) {
         
@@ -860,6 +839,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         if let barcodeString = userInfo![OFFProducts.Notification.BarcodeKey] as? String {
+            let index = products.productPairIndex(BarcodeType.init(value: barcodeString))
             if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
                 if self.tableView.numberOfSections > index + 1 {
                     self.tableView.reloadSections([index], with: .automatic)
@@ -953,11 +933,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductLoadingError, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.LocalStatusChanged, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
@@ -1086,20 +1067,20 @@ extension ProductTableViewController: TagListViewDataSource {
             return ProductFetchStatus.initialized.description
         }
         
-        if code == ProductFetchStatus.productNotLoaded(FoodProduct()).rawValue {
-            return ProductFetchStatus.productNotLoaded(FoodProduct()).description
+        if code == ProductFetchStatus.productNotLoaded("").rawValue {
+            return ProductFetchStatus.productNotLoaded("").description
         }
         
-        if code == ProductFetchStatus.loading.rawValue {
-            return ProductFetchStatus.loading.description
+        if code == ProductFetchStatus.loading(String()).rawValue {
+            return ProductFetchStatus.loading(String()).description
         }
         
-        if code == ProductFetchStatus.loadingFailed(FoodProduct(), "").rawValue {
-            return ProductFetchStatus.loadingFailed(FoodProduct(), "").description
+        if code == ProductFetchStatus.loadingFailed("").rawValue {
+            return ProductFetchStatus.loadingFailed("").description
         }
         
-        if code == ProductFetchStatus.productNotAvailable(FoodProduct(), "").rawValue {
-            return ProductFetchStatus.productNotAvailable(FoodProduct(), "").description
+        if code == ProductFetchStatus.productNotAvailable("").rawValue {
+            return ProductFetchStatus.productNotAvailable("").description
         }
         
         if code == Storyboard.CellTag.Image {
@@ -1167,8 +1148,8 @@ extension ProductTableViewController: TagListViewDelegate {
         
         let code = Int( tagListView.tag / Constants.Offset.Multiplier )
         // try to reload the product
-        if code == ProductFetchStatus.productNotLoaded(FoodProduct()).rawValue  ||
-            code == ProductFetchStatus.loadingFailed(FoodProduct(), "").rawValue {
+        if code == ProductFetchStatus.productNotLoaded("").rawValue  ||
+            code == ProductFetchStatus.loadingFailed("").rawValue {
             let productIndex = tagListView.tag % Constants.Offset.Multiplier
             _ = products.loadProductPair(at: productIndex)
         }

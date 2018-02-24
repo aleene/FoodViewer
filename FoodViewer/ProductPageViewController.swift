@@ -104,6 +104,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                 // send notification of success, so feedback can be given
                                 NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
                                 break
+                            case .images:
+                                break
                             case .notPossible:
                                 // Uploading to OFF is not possible at the moment
                                 // So save it locally
@@ -1106,6 +1108,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
                     } )
                 } )
+            } else {
+                self.saveUpdatedProduct()
             }
             // The login stuff has been done for the duration of this app run
             // so we will not bother the user any more

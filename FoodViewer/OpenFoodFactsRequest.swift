@@ -40,12 +40,12 @@ class OpenFoodFactsRequest {
                 let newProduct = FoodProduct.init(json: offProductDetailed)
                 return .success(newProduct)
             } else {
-                return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "No valid stored product json")
+                return .loadingFailed("No valid stored product json")
             }
             
         } catch let error {
             print (error)
-            return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
+            return .loadingFailed(error.localizedDescription)
         }
 
         //return unpackJSONObject(JSON(data: data))
@@ -82,17 +82,18 @@ class OpenFoodFactsRequest {
                             let newProduct = FoodProduct.init(json: offProduct)
                         return .success(newProduct)
                     } else {
-                        return .loadingFailed(FoodProduct.init(with: barcode), TranslatableStrings.ProductNotAvailable)
+                        return .loadingFailed(barcode.asString)
                     }
                 } catch let error {
-                    return .loadingFailed(FoodProduct.init(with: barcode), error.localizedDescription)
+                    print(error)
+                    return .loadingFailed(barcode.asString)
                 }
             } catch let error as NSError {
                 if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
-                return ProductFetchStatus.loadingFailed(FoodProduct(with:  BarcodeType(value:self.currentBarcode!.asString)), error.description)
+                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
             }
         } else {
-            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: URL not matched")
+            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
         }
     }
 
@@ -151,26 +152,28 @@ class OpenFoodFactsRequest {
                                 }
                                 return ProductFetchStatus.searchList((searchResultSize, searchPage, searchPageSize, products))
                             } else {
-                                return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Not a valid Search array")
+                                print("OpenFoodFactsRequest: Not a valid Search array")
+                                return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
                             }
                         } else {
-                            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: Not a valid OFF JSON")
+                            print ("OpenFoodFactsRequest: Not a valid OFF JSON")
+                            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
                         }
                     } catch let error {
                         print (error)
-                        return .loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), error.localizedDescription)
+                        return .loadingFailed(self.currentBarcode!.asString)
                         
                     }
                 } catch let error as NSError {
                     print(error);
-                    return ProductFetchStatus.loadingFailed(FoodProduct(), error.description)
+                    return ProductFetchStatus.loadingFailed(error.description)
                 }
             } else {
-                return ProductFetchStatus.loadingFailed(FoodProduct(),"Retrieved a json file that is no longer relevant for the app.")
+                return ProductFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
             }
             
         } else {
-            return ProductFetchStatus.loadingFailed(FoodProduct(),"Search URL could not be encoded.")
+            return ProductFetchStatus.loadingFailed("Search URL could not be encoded.")
         }
     }
 
@@ -195,15 +198,15 @@ class OpenFoodFactsRequest {
                     let newProduct = FoodProduct.init(json: offDetailedProductJson)
                     return .success(newProduct)
                 } else {
-                    return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: No valid product json in sample data")
+                    print("OpenFoodFactsRequest: No valid product json in sample data")
+                    return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
                 }
             } catch let error {
                 print (error)
-                return .loadingFailed(FoodProduct(with: BarcodeType(value:"sample product")), error.localizedDescription)
+                return .loadingFailed("sample product")
             }
-            // return unpackJSONObject(JSON(data: validData))
         } else {
-            return ProductFetchStatus.loadingFailed(FoodProduct(with: BarcodeType(value:self.currentBarcode!.asString)), "OpenFoodFactsRequest: No valid data")
+            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
         }
     }
     

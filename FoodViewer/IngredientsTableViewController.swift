@@ -321,7 +321,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.remoteProduct!.barcode))
+            OFFProducts.manager.reload(productPair: productPair)
             refreshControl?.endRefreshing()
         }
     }
@@ -505,7 +505,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if let images = productPair?.localProduct?.ingredientsImages,
             !images.isEmpty  {
             // Is there an updated image corresponding to the current language
-            if let image = images[currentLanguageCode!]!.original?.image {
+            if let image = images[currentLanguageCode!]?.original?.image {
                 return image
             }
             
@@ -1046,7 +1046,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         title = TextConstants.ViewControllerTitle
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdated, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)

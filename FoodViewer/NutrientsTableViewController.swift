@@ -206,7 +206,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
-            //TODO: OFFProducts.manager.reload(product!)
+            OFFProducts.manager.reload(productPair: productPair)
             refreshControl?.endRefreshing()
         }
     }
@@ -1206,8 +1206,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(NutrientsTableViewController.refreshProduct),
-            name: .ProductUpdated,
-            object:nil
+            name: .RemoteStatusChanged, object:nil
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
