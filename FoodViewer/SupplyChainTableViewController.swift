@@ -647,7 +647,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showIngredientOriginTagsType.description() +
+                    showIngredientOriginTagsType.description +
                 ")"
             }
             
@@ -659,7 +659,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showProducerTagsType.description() +
+                    showProducerTagsType.description +
                 ")"
             }
         case .store:
@@ -670,7 +670,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showStoresTagsType.description() +
+                    showStoresTagsType.description +
                 ")"
             }
         case .location:
@@ -681,7 +681,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showPurchaseLocationTagsType.description() +
+                    showPurchaseLocationTagsType.description +
                 ")"
             }
         case .country:
@@ -692,7 +692,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showCountriesTagsType.description() +
+                    showCountriesTagsType.description +
                 ")"
             }
         case .producerCode:
@@ -703,7 +703,7 @@ class SupplyChainTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showProducerCodeTagsType.description() +
+                    showProducerCodeTagsType.description +
                 ")"
             }
         default:
@@ -827,6 +827,8 @@ class SupplyChainTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
+
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         // Has been disabled for the moment
         // NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.reloadMapSection), name: .CoordinateHasBeenSet, object:nil)

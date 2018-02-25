@@ -418,7 +418,7 @@ class IdentificationTableViewController: UITableViewController {
             if let validCurrentLanguageCode = currentLanguageCode {
                 if let validName = productPair?.localProduct?.genericNameLanguage[validCurrentLanguageCode] {
                     cell.name = validName
-                } else if let validName = productPair!.remoteProduct!.genericNameLanguage[validCurrentLanguageCode] {
+                } else if let validName = productPair?.remoteProduct?.genericNameLanguage[validCurrentLanguageCode] {
                         cell.name = validName
                 } else {
                     cell.name = nil
@@ -636,7 +636,7 @@ class IdentificationTableViewController: UITableViewController {
                 return tableStructure[section].header() +
                     " " +
                     "(" +
-                    showBrandTagsType.description() +
+                    showBrandTagsType.description +
                     ")"
             }
             
@@ -648,7 +648,7 @@ class IdentificationTableViewController: UITableViewController {
                 return tableStructure[section].header() +
                     " " +
                     "(" +
-                    showPackagingTagsType.description() +
+                    showPackagingTagsType.description +
                     ")"
             }
 
@@ -998,6 +998,7 @@ class IdentificationTableViewController: UITableViewController {
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)

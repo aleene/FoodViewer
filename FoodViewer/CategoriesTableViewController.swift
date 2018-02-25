@@ -186,7 +186,7 @@ class CategoriesTableViewController: UITableViewController {
                 return header! +
                     " " +
                     "(" +
-                    showCategoriesTagsType.description() +
+                    showCategoriesTagsType.description +
                 ")"
             }
         case .categoriesSearch:
@@ -256,6 +256,8 @@ class CategoriesTableViewController: UITableViewController {
         // tableView.reloadData() // does not help
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
+
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
     }

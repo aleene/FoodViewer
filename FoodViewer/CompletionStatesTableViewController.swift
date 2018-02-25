@@ -473,6 +473,8 @@ class CompletionStatesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
+
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
     }
 

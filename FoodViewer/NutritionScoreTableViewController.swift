@@ -92,7 +92,7 @@ class NutritionScoreTableViewController: UITableViewController {
                     return productPair?.remoteProduct?.nutritionalScoreUK?.pointsA.count ?? 0
                 // section with good nutriments
                 case 1:
-                    return productPair?.remoteProduct?.nutritionalScoreUK!.pointsC.count ?? 0
+                    return productPair?.remoteProduct?.nutritionalScoreUK?.pointsC.count ?? 0
                 default:
                     return 1
                 }
@@ -104,7 +104,7 @@ class NutritionScoreTableViewController: UITableViewController {
                     return productPair?.remoteProduct?.nutritionalScoreFR?.pointsA.count ?? 0
                 // section with good nutriments
                 case 1:
-                    return productPair?.remoteProduct?.nutritionalScoreFR!.pointsC.count ?? 0
+                    return productPair?.remoteProduct?.nutritionalScoreFR?.pointsC.count ?? 0
                 case 2:
                     return 2
                 default:

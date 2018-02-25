@@ -33,7 +33,7 @@ enum TagsType {
         }
     }
     
-    func description() -> String {
+    var description: String {
         switch self {
         case .original:
             return TranslatableStrings.Original

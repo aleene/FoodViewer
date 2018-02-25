@@ -239,6 +239,7 @@ struct TranslatableStrings {
     static let ProductDoesNotExistAlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
     static let ProductDoesNotExistAlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
     static let ProductIsLoaded = NSLocalizedString("Product is loaded", comment: "String presented in a tagView if the product has been loaded")
+    static let ProductIsUpdated = NSLocalizedString("Product is updated", comment: "String presented in a tagView if the product is updated")
     static let ProductLoading = NSLocalizedString("Product loading", comment: "String presented in a tagView if the product is currently being loaded")
     static let ProductLoadingFailed = NSLocalizedString("Product loading failed", comment: "String presented in a tagView if the product loading has failed")
     static let ProductListIsLoaded = NSLocalizedString("Product list is loaded", comment: "String presented in a tagView if the product list has been loaded")

@@ -79,6 +79,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         static let Traces: TagsType = .translated
         static let Allergens: TagsType = .translated
         static let Additives: TagsType = .translated
+        static let Ingredients: TagsType = .original
     }
     
     // The interpreted labels have been translated to the interface language
@@ -86,22 +87,28 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var tracesTagsTypeToShow: TagsType = TagsTypeDefault.Traces
     fileprivate var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
     fileprivate var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
+    fileprivate var ingredientsTagsTypeToShow: TagsType = TagsTypeDefault.Ingredients
     
+    fileprivate var ingredientsToDisplay: Tags {
+        get {
+            switch ingredientsTagsTypeToShow {
+            case .original, .interpreted, .hierarchy, .translated, .prefixed:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
+            case .edited:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
+            }
+        }
+    }
+
 
     fileprivate var allergensToDisplay: Tags {
         get {
-            // is an updated product available? Is only relevant for the template
-            if let allergensOriginal = productPair?.localProduct?.allergensOriginal {
-                // does it have brands defined?
-                switch allergensOriginal {
-                case .available, .empty:
-                    allergensTagsTypeToShow = .edited
-                    return allergensOriginal
-                default:
-                    allergensTagsTypeToShow = TagsTypeDefault.Allergens
-                }
-            }
-
             switch allergensTagsTypeToShow {
             case .interpreted:
                 return productPair?.remoteProduct?.allergensInterpreted ?? .empty
@@ -112,7 +119,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .original:
                 return productPair?.remoteProduct?.allergensOriginal ?? .empty
             case .edited, .prefixed:
-                return .undefined
+                return .empty
             }
         }
     }
@@ -128,17 +135,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var tracesToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let tracesOriginal = productPair?.localProduct?.tracesOriginal {
-                // does it have brands defined?
-                switch tracesOriginal {
-                case .available, .empty:
-                    tracesTagsTypeToShow = .edited
-                    return tracesOriginal
-                default:
-                    break
-                }
-            }
             switch tracesTagsTypeToShow {
             case .interpreted:
                 return productPair?.remoteProduct?.tracesInterpreted ?? .empty
@@ -149,7 +145,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .original:
                 return productPair?.remoteProduct?.tracesOriginal ?? .empty
             case .edited, .prefixed:
-                return .undefined
+                return productPair?.localProduct?.tracesOriginal ?? .empty
             }
         }
     }
@@ -165,18 +161,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var additivesToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let additivesOriginal = productPair?.remoteProduct?.additivesOriginal {
-                // does it have brands defined?
-                switch additivesOriginal {
-                case .available, .empty:
-                    additivesTagsTypeToShow = .edited
-                    return additivesOriginal
-                default:
-                    additivesTagsTypeToShow = TagsTypeDefault.Additives
-                }
-            }
-
             switch additivesTagsTypeToShow {
             case .interpreted:
                 return productPair?.remoteProduct?.additivesInterpreted ?? .empty
@@ -199,17 +183,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var labelsToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let labelsOriginal = productPair?.localProduct?.labelsOriginal {
-                // does it have edited labels defined?
-                switch labelsOriginal {
-                case .available, .empty:
-                    labelsTagsTypeToShow = .edited
-                    return labelsOriginal
-                default:
-                    break
-                }
-            }
             switch labelsTagsTypeToShow {
             case .interpreted:
                 return productPair?.remoteProduct?.labelsInterpreted ?? .empty
@@ -217,11 +190,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return productPair?.remoteProduct?.translatedLabels() ?? .empty
             case .hierarchy:
                 return productPair?.remoteProduct?.labelsHierarchy ?? .empty
-                // return product!.translatedLabels().prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
                 return productPair?.remoteProduct?.labelsOriginal ?? .empty
             case .edited, .prefixed:
-                return .undefined
+                return productPair?.localProduct?.labelsOriginal ?? .empty
             }
         }
     }
@@ -382,21 +354,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
 
         case .ingredients:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as? IngredientsFullTableViewCell
-            cell!.delegate = self
-            cell!.textViewTag = indexPath.section
-            cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            if let validCurrentLanguageCode = currentLanguageCode {
-                // has the product been edited?
-                if let validName = productPair?.localProduct?.ingredientsLanguage[validCurrentLanguageCode] {
-                    cell!.ingredients = validName
-                } else if let validName = productPair!.remoteProduct?.ingredientsLanguage[validCurrentLanguageCode] {
-                        cell!.ingredients = validName
-                } else {
-                    cell!.ingredients = nil
-                }
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsFullTableViewCell
+            cell.delegate = self
+            cell.textViewTag = indexPath.section
+            cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            switch ingredientsToDisplay {
+            case .available(let array):
+                cell.ingredients = array[0]
+            default:
+                cell.ingredients = nil
             }
-            return cell!
+            return cell
             
         case .ingredientsSearch:
             if query!.type == .advanced {
@@ -539,10 +507,21 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch tableStructure[section] {
-        case .image, .ingredients:
+        case .image:
             return nil
         case .imageSearch, .ingredientsSearch:
             return tableStructure[section].header
+        case .ingredients:
+            switch ingredientsTagsTypeToShow {
+            case TagsTypeDefault.Ingredients:
+                return tableStructure[section].header
+            default:
+                return tableStructure[section].header +
+                    " " +
+                    "(" +
+                    ingredientsTagsTypeToShow.description +
+                ")"
+            }
         case .allergens, .allergensSearch:
             switch allergensTagsTypeToShow {
             case TagsTypeDefault.Allergens:
@@ -551,7 +530,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return tableStructure[section].header +
                     " " +
                     "(" +
-                    allergensTagsTypeToShow.description() +
+                    allergensTagsTypeToShow.description +
                     ")"
             }
         case .traces, .tracesSearch:
@@ -562,7 +541,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return tableStructure[section].header +
                     " " +
                     "(" +
-                    tracesTagsTypeToShow.description() +
+                    tracesTagsTypeToShow.description +
                     ")"
             }
         case .labels, .labelsSearch:
@@ -573,7 +552,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return tableStructure[section].header +
                     " " +
                     "(" +
-                    labelsTagsTypeToShow.description() +
+                    labelsTagsTypeToShow.description +
                     ")"
             }
         case .additives, .additivesSearch:
@@ -584,7 +563,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 return tableStructure[section].header +
                     " " +
                     "(" +
-                    additivesTagsTypeToShow.description() +
+                    additivesTagsTypeToShow.description +
                 ")"
             }
         }
@@ -608,7 +587,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch tableStructure[section] {
-        case .image, .ingredients :
+        case .image :
             let header = tableStructure[section].header
             
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
@@ -698,104 +677,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return sectionsAndRows
     }
     
-    /*
-    fileprivate func analyseProductForTable() -> [(SectionType,Int, String?)] {
-        // This function analyses to product in order to determine
-        // the required number of sections and rows per section
-        // The returnValue is an array with sections
-        // And each element is a tuple with the section type and number of rows
-        //
-        //  The order of each element determines the order in the table
-        var sectionsAndRows: [(SectionType,Int, String?)] = []
-        
-        if isQuery {
-            // 0: ingredients
-            sectionsAndRows.append((SectionType.ingredientsSearch,
-                                    TableSection.Size.Ingredients,
-                                    TableSection.Header.Ingredients))
-
-            // not needed for .petFood and .beauty
-            switch currentProductType {
-            case .food:
-                // 1:  allergens section
-                sectionsAndRows.append((
-                    SectionType.allergensSearch,
-                    TableSection.Size.Allergens,
-                    TableSection.Header.Allergens))
-                // 2: traces section
-                sectionsAndRows.append((
-                    SectionType.tracesSearch,
-                    TableSection.Size.Traces,
-                    TableSection.Header.Traces))
-            default :
-                break
-            }
-            
-            
-            // 3: additives section
-            sectionsAndRows.append((
-                SectionType.additivesSearch,
-                TableSection.Size.Additives,
-                TableSection.Header.Additives))
-            
-            // 4: labels section
-            sectionsAndRows.append((
-                SectionType.labelsSearch,
-                TableSection.Size.Labels,
-                TableSection.Header.Labels))
-            
-            // 5: image section
-            sectionsAndRows.append((
-                SectionType.imageSearch,
-                TableSection.Size.Image,
-                TableSection.Header.Image))
-
-        } else {
-            // 0: ingredients
-            sectionsAndRows.append((SectionType.ingredients,
-            TableSection.Size.Ingredients,
-            TableSection.Header.Ingredients))
-        
-        
-        // not needed for .petFood and .beauty
-        switch currentProductType {
-        case .food:
-            // 1:  allergens section
-            sectionsAndRows.append((
-                SectionType.allergens,
-                TableSection.Size.Allergens,
-                TableSection.Header.Allergens))
-            // 2: traces section
-            sectionsAndRows.append((
-                SectionType.traces,
-                TableSection.Size.Traces,
-                TableSection.Header.Traces))
-        default :
-            break
-        }
-
-    
-        // 3: additives section
-        sectionsAndRows.append((
-            SectionType.additives,
-            TableSection.Size.Additives,
-            TableSection.Header.Additives))
-        
-        // 4: labels section
-        sectionsAndRows.append((
-            SectionType.labels,
-            TableSection.Size.Labels,
-            TableSection.Header.Labels))
-        
-        // 5: image section
-            sectionsAndRows.append((
-                SectionType.image,
-                TableSection.Size.Image,
-                TableSection.Header.Image))
-        }
-        return sectionsAndRows
-    }
- */
     
     // MARK: - Navigation
     
@@ -1047,6 +928,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
+
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
@@ -1139,8 +1022,10 @@ extension IngredientsTableViewController: TagListViewAddImageCellDelegate {
 // MARK: - IngredientsFullCellDelegate Delegate Functions
 
 extension IngredientsTableViewController: IngredientsFullCellDelegate {
+
     func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView) {
-        changeLanguage()
+        ingredientsTagsTypeToShow.cycle()
+        tableView.reloadSections(IndexSet.init(integer: 0), with: .fade)
     }
 
 }

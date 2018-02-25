@@ -56,6 +56,12 @@ public enum Tags : Equatable {
         self.init(list:string?.split(separator: ",").map(String.init))
     }
     
+    public init(text: String) {
+        self.init()
+        self = .available([text])
+    }
+
+    
     // add a languageCode to tags that have no language and remove languageCode for another language
     public func prefixed(withAdded languageCode: String?, andRemoved otherLanguageCode: String?) -> Tags {
         switch self {

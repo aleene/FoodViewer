@@ -384,7 +384,7 @@ class OFFUpdate {
                 
                 do {
                     let data = try Data( contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe )
-                    return data.resultForProductUpload(barcode:urlString)
+                    return data.resultForProductUpload(barcode:product!.barcode.asString)
                 } catch let error as NSError {
                     print(error);
                     return .failure(urlString, error.description)
