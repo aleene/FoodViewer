@@ -119,5 +119,4 @@ public class MostRecentProduct {
         completionHandler(nil)
         return
     }
-    
-}
+    }

@@ -54,20 +54,20 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     fileprivate func startInterface(at index:Int) {
-        if let validFetchResult = products.productPair(at: index)?.remoteStatus,
-            let validProductPair = products.productPair(at: index) {
-            switch validFetchResult {
-            case .available:
-                selectedProductPair = validProductPair
-                tableView.reloadData()
-            case .searchQuery:
-                selectedProductPair = validProductPair
-                refreshInterface()
-            default:
-                selectedProductPair = nil
-                tableView.reloadData()
-            }
-        } else {
+        if let validProductPair = products.productPair(at: index),
+            let validFetchResult = products.productPair(at: index)?.status {
+                switch validFetchResult {
+                case .available:
+                    selectedProductPair = validProductPair
+                    tableView.reloadData()
+                case .searchQuery:
+                    selectedProductPair = validProductPair
+                    refreshInterface()
+                default:
+                    selectedProductPair = nil
+                    tableView.reloadData()
+                }
+         } else {
             selectedProductPair = nil
             tableView.reloadData()
         }
@@ -266,7 +266,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
+        if let validFetchResult = products.productPair(at: section)?.status {
             switch validFetchResult {
             case .available:
                 return tableStructure.count
@@ -294,8 +294,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
-            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
+        if let validFetchResult = products.productPair(at: indexPath.section)?.status,
+            let validProduct = products.productPair(at: indexPath.section)?.product {
             switch validFetchResult {
             case .available:
                 let currentProductSection = tableStructure[indexPath.row]
@@ -930,6 +930,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switchToTab(withIndex: 1)
         }
 
+        if products.count > 0 && selectedProductPair == nil {
+            // If nothing has been selected yet, start with the first product in the list
+            startInterface(at: 0)
+        }
+        
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.RemoteStatusChanged, object:nil)

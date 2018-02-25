@@ -586,7 +586,7 @@ class SupplyChainTableViewController: UITableViewController {
                     formatter.allowedUnits = .month
                     let formattedTimeLeft = formatter.string(from: periodInSeconds)
                     cell.textLabel?.text = formattedTimeLeft
-                } else if let validPeriod = productPair!.remoteProduct!.periodAfterReferenceDate {
+                } else if let validPeriod = productPair?.remoteProduct?.periodAfterReferenceDate {
                     let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
                     let formatter = DateComponentsFormatter()
                     formatter.unitsStyle = .full
@@ -602,7 +602,7 @@ class SupplyChainTableViewController: UITableViewController {
                 // has the product been edited?
                 if let validDate = productPair?.localProduct?.expirationDate {
                     cell.date = validDate
-                } else if let validDate = productPair!.remoteProduct!.expirationDate {
+                } else if let validDate = productPair?.product?.expirationDate {
                     cell.date = validDate
                 }
                 cell.editMode = editMode
@@ -615,7 +615,7 @@ class SupplyChainTableViewController: UITableViewController {
 
             if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
-            } else if let validPeriodAfterOpening = productPair!.remoteProduct?.periodAfterOpeningString {
+            } else if let validPeriodAfterOpening = productPair?.remoteProduct?.periodAfterOpeningString {
                 cell.tekst = validPeriodAfterOpening
             }
             cell.editMode = editMode

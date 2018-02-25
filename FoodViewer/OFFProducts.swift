@@ -80,7 +80,8 @@ class OFFProducts {
                     allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
                     MostRecentProduct().load() { (product: FoodProduct?) in
                         self.allProductPairs[0].localProduct = product
-                        //NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+                        // I could add a notification here to inform the vc.
+                        // However the vc is not loaded yet, so can not receive anything.
                     }
                     loadProductPairRange(around: 0)
                 } else {
@@ -106,7 +107,7 @@ class OFFProducts {
             
         }
     }
-    
+
     var count: Int {
         return productPairList.count
     }

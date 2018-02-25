@@ -104,13 +104,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
             switch allergensTagsTypeToShow {
             case .interpreted:
-                return productPair!.remoteProduct!.allergensInterpreted
+                return productPair?.remoteProduct?.allergensInterpreted ?? .empty
             case .hierarchy:
-                return productPair!.remoteProduct!.allergensHierarchy
+                return productPair?.remoteProduct?.allergensHierarchy ?? .empty
             case .translated:
-                return productPair!.remoteProduct!.allergensTranslated
+                return productPair?.remoteProduct?.allergensTranslated ?? .empty
             case .original:
-                return productPair!.remoteProduct!.allergensOriginal
+                return productPair?.remoteProduct?.allergensOriginal ?? .empty
             case .edited, .prefixed:
                 return .undefined
             }
@@ -141,13 +141,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             switch tracesTagsTypeToShow {
             case .interpreted:
-                return productPair!.remoteProduct!.tracesInterpreted
+                return productPair?.remoteProduct?.tracesInterpreted ?? .empty
             case .hierarchy:
-                return productPair!.remoteProduct!.tracesHierarchy
+                return productPair?.remoteProduct?.tracesHierarchy ?? .empty
             case .translated:
-                return productPair!.remoteProduct!.tracesTranslated
+                return productPair?.remoteProduct?.tracesTranslated ?? .empty
             case .original:
-                return productPair!.remoteProduct!.tracesOriginal
+                return productPair?.remoteProduct?.tracesOriginal ?? .empty
             case .edited, .prefixed:
                 return .undefined
             }
@@ -166,7 +166,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var additivesToDisplay: Tags {
         get {
             // is an updated product available?
-            if let additivesOriginal = productPair!.remoteProduct?.additivesOriginal {
+            if let additivesOriginal = productPair?.remoteProduct?.additivesOriginal {
                 // does it have brands defined?
                 switch additivesOriginal {
                 case .available, .empty:
@@ -179,11 +179,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
             switch additivesTagsTypeToShow {
             case .interpreted:
-                return productPair!.remoteProduct!.additivesInterpreted
+                return productPair?.remoteProduct?.additivesInterpreted ?? .empty
             case .hierarchy, .edited, .original, .prefixed:
                 return .undefined
             case .translated:
-                return productPair!.remoteProduct!.additivesTranslated
+                return productPair?.remoteProduct?.additivesTranslated ?? .empty
             }
         }
     }
@@ -212,14 +212,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
             switch labelsTagsTypeToShow {
             case .interpreted:
-                return productPair!.remoteProduct!.labelsInterpreted
+                return productPair?.remoteProduct?.labelsInterpreted ?? .empty
             case .translated:
-                return productPair!.remoteProduct!.translatedLabels()
+                return productPair?.remoteProduct?.translatedLabels() ?? .empty
             case .hierarchy:
-                return productPair!.remoteProduct!.labelsHierarchy
+                return productPair?.remoteProduct?.labelsHierarchy ?? .empty
                 // return product!.translatedLabels().prefixed(withAdded:product!.primaryLanguageCode!, andRemoved:Locale.interfaceLanguageCode())
             case .original:
-                return productPair!.remoteProduct!.labelsOriginal
+                return productPair?.remoteProduct?.labelsOriginal ?? .empty
             case .edited, .prefixed:
                 return .undefined
             }
@@ -617,7 +617,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             headerView.delegate = self
             headerView.title = header
             headerView.languageCode = currentLanguageCode
-            headerView.buttonIsEnabled = editMode ? true : ( productPair!.remoteProduct!.languageCodes.count > 1 ? true : false )
+            headerView.buttonIsEnabled = editMode ? true : ( productPair!.product!.languageCodes.count > 1 ? true : false )
             
             return headerView
         default:
