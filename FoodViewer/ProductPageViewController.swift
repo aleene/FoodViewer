@@ -19,7 +19,11 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     }
     
-    @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem! {
+        didSet {
+            confirmBarButtonItem.isEnabled = productPair?.updateIsAllowed ?? true
+        }
+    }
     
     @IBAction func actionButtonTapped(_ sender: UIBarButtonItem) {
             
@@ -148,6 +152,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     private var productPair: ProductPair? = nil {
         didSet {
+            confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
             if oldValue == nil && productPair != nil {
             // has the product been initailised?
                 setCurrentLanguage()

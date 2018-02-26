@@ -80,6 +80,7 @@ class OFFProducts {
                     allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
                     MostRecentProduct().load() { (product: FoodProduct?) in
                         self.allProductPairs[0].localProduct = product
+                        self.allProductPairs[0].updateIsAllowed = false
                         // I could add a notification here to inform the vc.
                         // However the vc is not loaded yet, so can not receive anything.
                     }
