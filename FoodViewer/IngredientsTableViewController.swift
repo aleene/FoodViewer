@@ -852,6 +852,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tracesTagsTypeToShow = TagsTypeDefault.Traces
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
         additivesTagsTypeToShow = TagsTypeDefault.Additives
+        ingredientsTagsTypeToShow = TagsTypeDefault.Ingredients
         tableView.reloadData()
     }
     

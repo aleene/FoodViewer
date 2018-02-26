@@ -19,6 +19,16 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         static let NutrionImages = 2
         static let OriginalImages = 3
     }
+    
+    fileprivate enum ProductVersion {
+        case local
+        case remote
+    }
+    
+    // Determines which version of the product needs to be shown, the remote or local
+    
+    fileprivate var productVersion: ProductVersion = .remote
+
     // MARK: - public variables
     
     var productPair: ProductPair? {
@@ -56,17 +66,79 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     fileprivate var originalImages: [String:ProductImageSize] {
         get {
             var newImages: [String:ProductImageSize] = [:]
-            if let product = productPair?.remoteProduct {
-                newImages = product.images
+            switch productVersion {
+            case .local:
+                if let validImages = productPair?.localProduct?.images {
+                    newImages = validImages
+                }
+            case .remote:
+                if let validImages = productPair?.remoteProduct?.images {
+                    newImages = validImages
+                }
             }
-            if let images = productPair?.localProduct?.images,
-                images.count > 0 {
-                newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
-            }
+            //images.count > 0 {
+            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
             return newImages
         }
     }
     
+    fileprivate var frontImages: [String:ProductImageSize] {
+        get {
+            var newImages: [String:ProductImageSize] = [:]
+            switch productVersion {
+            case .local:
+                if let validImages = productPair?.localProduct?.frontImages {
+                    newImages = validImages
+                }
+            case .remote:
+                if let validImages = productPair?.remoteProduct?.frontImages {
+                    newImages = validImages
+                }
+            }
+            //images.count > 0 {
+            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
+            return newImages
+        }
+    }
+
+    fileprivate var ingredientsImages: [String:ProductImageSize] {
+        get {
+            var newImages: [String:ProductImageSize] = [:]
+            switch productVersion {
+            case .local:
+                if let validImages = productPair?.localProduct?.ingredientsImages {
+                    newImages = validImages
+                }
+            case .remote:
+                if let validImages = productPair?.remoteProduct?.ingredientsImages {
+                    newImages = validImages
+                }
+            }
+            //images.count > 0 {
+            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
+            return newImages
+        }
+    }
+
+    fileprivate var nutritionImages: [String:ProductImageSize] {
+        get {
+            var newImages: [String:ProductImageSize] = [:]
+            switch productVersion {
+            case .local:
+                if let validImages = productPair?.localProduct?.nutritionImages {
+                    newImages = validImages
+                }
+            case .remote:
+                if let validImages = productPair?.remoteProduct?.nutritionImages {
+                    newImages = validImages
+                }
+            }
+            //images.count > 0 {
+            //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
+            return newImages
+        }
+    }
+
     fileprivate let itemsPerRow: CGFloat = 5
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
@@ -126,15 +198,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let remoteProduct = productPair?.remoteProduct else { return 0 }
         // If there are updated images, only show those
         switch section {
         case Section.FrontImages:
-            return productPair?.localProduct?.frontImages != nil && productPair!.localProduct!.frontImages.count > 0 ? productPair!.localProduct!.frontImages.count : remoteProduct.frontImages.count
+            return frontImages.count
         case Section.IngredientsImages:
-            return productPair?.localProduct?.ingredientsImages != nil && productPair!.localProduct!.ingredientsImages.count > 0 ? productPair!.localProduct!.ingredientsImages.count : remoteProduct.ingredientsImages.count
+            return ingredientsImages.count
         case Section.NutrionImages:
-            return productPair?.localProduct?.nutritionImages != nil && productPair!.localProduct!.nutritionImages.count > 0 ? productPair!.localProduct!.nutritionImages.count : remoteProduct.nutritionImages.count
+            return nutritionImages.count
         case Section.OriginalImages:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
@@ -149,35 +220,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         switch indexPath.section {
         case Section.FrontImages: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = productPair?.localProduct?.frontImages {
-                if images.count > 0 && indexPath.row < images.count {
-                    let key = keyTuples(for:Array(images.keys))[indexPath.row].0
-                    if let validImage = images[key]?.original?.image {
-                        cell.imageView.image = validImage
-                    } else {
-                        cell.imageView.image = UIImage.init(named:"NotOK")
-                        
-                    }
-                    cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
+            if frontImages.count > 0 && indexPath.row < frontImages.count {
+                let key = keyTuples(for:Array(frontImages.keys))[indexPath.row].0
+                if let validImage = frontImages[key]?.original?.image {
+                    cell.imageView.image = validImage
+                } else {
+                    cell.imageView.image = UIImage.init(named:"NotOK")
                 }
-                
-            } else {
-                if indexPath.row < productPair!.remoteProduct!.frontImages.count {
-                    let key = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[indexPath.row].0
-                    if let result = productPair!.remoteProduct!.frontImages[key]?.display?.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = productPair!.remoteProduct!.frontImages[key]?.display?.image {
-                                cell.imageView.image = validImage
-                            }
-                        default:
-                            cell.imageView.image = UIImage.init(named:"NotOK")
-                        }
-                        cell.label.text = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[indexPath.row].1
-                    } else {
-                        assert(false, "ProductImagesCollectionViewController: indexPath.row frontImages to large")
-                    }
-                }
+                cell.label.text = keyTuples(for:Array(frontImages.keys))[indexPath.row].1
             }
             cell.indexPath = indexPath
             cell.editMode = editMode
@@ -186,35 +236,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         
         case Section.IngredientsImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = productPair?.localProduct?.ingredientsImages  {
-                if indexPath.row < images.count && images.count > 0 {
-                    let key = keyTuples(for:Array(images.keys))[indexPath.row].0
-                    if let validImage = images[key]?.original?.image {
-                        cell.imageView.image = validImage
-                    } else {
-                        cell.imageView.image = UIImage.init(named:"NotOK")
-                        
-                    }
-
-                    cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
+            if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
+                let key = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].0
+                if let validImage = ingredientsImages[key]?.original?.image {
+                    cell.imageView.image = validImage
+                } else {
+                    cell.imageView.image = UIImage.init(named:"NotOK")
                 }
-            } else {
-                if indexPath.row < productPair!.remoteProduct!.ingredientsImages.count {
-                    let key = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[indexPath.row].0
-                    if let result = productPair!.remoteProduct!.ingredientsImages[key]?.display?.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = productPair!.remoteProduct!.ingredientsImages[key]?.display?.image {
-                                cell.imageView.image = validImage
-                            }
-                        default:
-                            cell.imageView.image = UIImage.init(named:"NotOK")
-                        }
-                        cell.label.text = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[indexPath.row].1
-                    } else {
-                        assert(true, "ProductImagesCollectionViewController: indexPath.row ingredientsImages to large")
-                    }
-                }
+                cell.label.text = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].1
             }
             cell.indexPath = indexPath
             cell.editMode = editMode
@@ -223,33 +252,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             
         case Section.NutrionImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
-            if let images = productPair?.localProduct?.nutritionImages {
-                if indexPath.row < images.count && images.count > 0 {
-                    let key = keyTuples(for:Array(images.keys))[indexPath.row].0
-                    if let validImage = images[key]?.original?.image {
-                        cell.imageView.image = validImage
-                    } else {
-                        cell.imageView.image = UIImage.init(named:"NotOK")
-                    }
-                    cell.label.text = keyTuples(for:Array(images.keys))[indexPath.row].1
-                }
-            } else {
-                if indexPath.row < productPair!.remoteProduct!.nutritionImages.count {
-                    let key = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[indexPath.row].0
-                    if let result = productPair!.remoteProduct!.nutritionImages[key]?.display?.fetch() {
-                        switch result {
-                        case .available:
-                            if let validImage = productPair!.remoteProduct!.nutritionImages[key]?.display?.image {
-                                cell.imageView.image = validImage
-                            }
-                        default:
-                            cell.imageView.image = UIImage.init(named:"NotOK")
-                        }
-                        cell.label.text = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[indexPath.row].1
-                    }
+            if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
+                let key = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].0
+                if let validImage = nutritionImages[key]?.original?.image {
+                    cell.imageView.image = validImage
                 } else {
-                    assert(true, "ProductImagesCollectionViewController: indexPath.row nutritionImages to large")
+                    cell.imageView.image = UIImage.init(named:"NotOK")
                 }
+                cell.label.text = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].1
             }
             cell.indexPath = indexPath
             cell.editMode = editMode
@@ -304,14 +314,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             //3
             switch indexPath.section {
             case Section.FrontImages:
-                headerView.label.text = productPair?.localProduct?.frontImages != nil && productPair!.localProduct!.frontImages.count > 0 ?
-                    Storyboard.HeaderTitle.Front + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Front
+                headerView.label.text = Storyboard.HeaderTitle.Front
             case Section.IngredientsImages:
-                headerView.label.text =  productPair?.localProduct?.ingredientsImages != nil && productPair!.localProduct!.ingredientsImages.count > 0 ?
-                    Storyboard.HeaderTitle.Ingredients + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Ingredients
+                headerView.label.text = Storyboard.HeaderTitle.Ingredients
             case Section.NutrionImages:
-                headerView.label.text =  productPair?.localProduct?.nutritionImages != nil && productPair!.localProduct!.nutritionImages.count > 0 ?
-                    Storyboard.HeaderTitle.Nutrition + " (" + TranslatableStrings.Edited + ")" : Storyboard.HeaderTitle.Nutrition
+                headerView.label.text = Storyboard.HeaderTitle.Nutrition
             case Section.OriginalImages:
                 headerView.label.text = Storyboard.HeaderTitle.Original
             default:
@@ -531,6 +538,19 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         }
     }
     
+    @objc func doubleTapOnTableView() {
+        switch productVersion {
+        case .remote:
+            productVersion = .local
+            delegate?.title = TranslatableStrings.Gallery + " (Local)"
+        case .local:
+            productVersion = .remote
+            delegate?.title = TranslatableStrings.Gallery + " (OFF)"
+            
+        }
+        collectionView?.reloadData()
+    }
+
     func registerCollectionViewCell() {
         guard let collectionView = self.collectionView else
         {
@@ -560,11 +580,22 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(ProductImagesCollectionViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.cancelsTouchesInView = false
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        collectionView?.addGestureRecognizer(doubleTapGestureRecognizer)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        delegate?.title = TranslatableStrings.Gallery
+
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdateSucceeded, object:nil)
 

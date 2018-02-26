@@ -805,7 +805,9 @@ class SupplyChainTableViewController: UITableViewController {
         showIngredientOriginTagsType = TagsTypeDefault.IngredientOrigin
         showProducerCodeTagsType = TagsTypeDefault.ProducerCode
         showProducerTagsType = TagsTypeDefault.Producer
-        
+        showLinksTagsType = TagsTypeDefault.Links
+        showExpirationDateTagsType = TagsTypeDefault.ExpirationDate
+        showPeriodAfterOpeningTagsType = TagsTypeDefault.PeriodAfterOpening
         tableView.reloadData()
     }
 
@@ -901,7 +903,6 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
 
-        delegate?.title = TranslatableStrings.SupplyChain
         
         // Add doubletapping to the TableView. Any double tap on headers is now received,
         // and used for changing the productVersion (local and remote)
@@ -916,6 +917,8 @@ class SupplyChainTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        delegate?.title = TranslatableStrings.SupplyChain
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)

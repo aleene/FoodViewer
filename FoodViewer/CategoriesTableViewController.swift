@@ -261,8 +261,6 @@ class CategoriesTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
-
-        title = TranslatableStrings.Categories
         
         // Add doubletapping to the TableView. Any double tap on headers is now received,
         // and used for changing the productVersion (local and remote)
@@ -279,7 +277,7 @@ class CategoriesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // tableView.reloadData() // does not help
+        delegate?.title = TranslatableStrings.Categories
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)

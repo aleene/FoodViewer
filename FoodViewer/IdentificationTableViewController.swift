@@ -903,8 +903,11 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     @objc func refreshProduct() {
-         showPackagingTagsType = TagsTypeDefault.Packaging
+        showPackagingTagsType = TagsTypeDefault.Packaging
         showBrandTagsType = TagsTypeDefault.Brands
+        showNameTagsType = TagsTypeDefault.Name
+        showGenericNameTagsType = TagsTypeDefault.GenericName
+        showQuantityTagsType = TagsTypeDefault.Quantity
         tableView.reloadData()
     }
     
@@ -1047,12 +1050,13 @@ class IdentificationTableViewController: UITableViewController {
         doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
         tableView.addGestureRecognizer(doubleTapGestureRecognizer)
 
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //print("id viewWillAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
+        
+        delegate?.title = TranslatableStrings.Identification
+
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)

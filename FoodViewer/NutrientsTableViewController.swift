@@ -1199,10 +1199,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch productVersion {
         case .remote:
             productVersion = .local
-            delegate?.title = TranslatableStrings.Nutrients + " (Local)"
+            delegate?.title = TranslatableStrings.NutritionFacts + " (Local)"
         case .local:
             productVersion = .remote
-            delegate?.title = TranslatableStrings.Nutrients + " (OFF)"
+            delegate?.title = TranslatableStrings.NutritionFacts + " (OFF)"
             
         }
         tableView.reloadData()
@@ -1234,12 +1234,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         doubleTapGestureRecognizer.cancelsTouchesInView = false
         doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
         tableView.addGestureRecognizer(doubleTapGestureRecognizer)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        delegate?.title = TranslatableStrings.Nutrients + " (OFF)"
 
         refreshProductWithNewNutritionFacts()
 
@@ -1254,6 +1252,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
+
+        delegate?.title = TranslatableStrings.NutritionFacts
 
     }
     

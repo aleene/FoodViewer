@@ -194,7 +194,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
             
             initPage(pageIndex)
-            title = pageIndex.description
         }
     }
     
@@ -296,7 +295,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private func setupDelegates() {
         identificationVC.delegate = self
         ingredientsVC.delegate = self
-        //nutritionFactsVC.delegate = self
+        nutritionFactsVC.delegate = self
         supplyChainVC.delegate = self
         categoriesVC.delegate = self
         completionStatusVC.delegate = self
@@ -372,7 +371,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             ingredientsVC.currentLanguageCode = currentLanguageCode
             
         case .nutritionFacts:
-            //nutritionFactsVC.delegate = self
+            nutritionFactsVC.delegate = self
             nutritionFactsVC.tableItem = tableItem
             nutritionFactsVC.currentLanguageCode = currentLanguageCode
             nutritionFactsVC.editMode = editMode
@@ -516,7 +515,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        title = pageIndex.description
+        // title = pageIndex.description
     }
     
     // MARK: - Notification Functions

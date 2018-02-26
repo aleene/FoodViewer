@@ -465,13 +465,14 @@ class CompletionStatesTableViewController: UITableViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44.0
 
-        title = Constants.ViewControllerTitle
         refreshProduct()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        delegate?.title = Constants.ViewControllerTitle
+
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
