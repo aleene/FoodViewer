@@ -222,10 +222,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if frontImages.count > 0 && indexPath.row < frontImages.count {
                 let key = keyTuples(for:Array(frontImages.keys))[indexPath.row].0
-                if let validImage = frontImages[key]?.original?.image {
-                    cell.imageView.image = validImage
-                } else {
-                    cell.imageView.image = UIImage.init(named:"NotOK")
+                if let result = frontImages[key]?.largest?.fetch() {
+                    switch result {
+                    case .available:
+                        if let validImage = frontImages[key]?.largest?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
+                    }
                 }
                 cell.label.text = keyTuples(for:Array(frontImages.keys))[indexPath.row].1
             }
@@ -238,10 +243,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
                 let key = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].0
-                if let validImage = ingredientsImages[key]?.original?.image {
-                    cell.imageView.image = validImage
-                } else {
-                    cell.imageView.image = UIImage.init(named:"NotOK")
+                if let result = ingredientsImages[key]?.largest?.fetch() {
+                    switch result {
+                    case .available:
+                        if let validImage = ingredientsImages[key]?.largest?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
+                    }
                 }
                 cell.label.text = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].1
             }
@@ -254,10 +264,15 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
                 let key = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].0
-                if let validImage = nutritionImages[key]?.original?.image {
-                    cell.imageView.image = validImage
-                } else {
-                    cell.imageView.image = UIImage.init(named:"NotOK")
+                if let result = nutritionImages[key]?.largest?.fetch() {
+                    switch result {
+                    case .available:
+                        if let validImage = nutritionImages[key]?.largest?.image {
+                            cell.imageView.image = validImage
+                        }
+                    default:
+                        cell.imageView.image = UIImage.init(named:"NotOK")
+                    }
                 }
                 cell.label.text = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].1
             }
