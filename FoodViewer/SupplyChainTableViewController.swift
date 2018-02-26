@@ -56,114 +56,15 @@ class SupplyChainTableViewController: UITableViewController {
 
 // MARK: Private Functions/Variables
     
-    fileprivate var producerTagsToDisplay: Tags {
-        get {
-            switch showProducerTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.manufacturingPlacesInterpreted
-            case .original:
-                return productPair!.remoteProduct!.manufacturingPlacesOriginal
-            case .prefixed:
-                return productPair!.remoteProduct!.manufacturingPlacesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-            default:
-                return .undefined
-            }
-        }
+    fileprivate enum ProductVersion {
+        case local
+        case remote
     }
     
-    fileprivate var producerCodeTagsToDisplay: Tags {
-        get {
-            switch showProducerCodeTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.embCodesInterpreted
-            case .original:
-                return productPair!.remoteProduct!.embCodesOriginal
-            case .prefixed:
-                return productPair!.remoteProduct!.embCodesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-            default:
-                return .undefined
-            }
-        }
-    }
-    
-    fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
-        get {
-            switch showIngredientOriginTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.originsInterpreted
-            case .original:
-                return productPair!.remoteProduct!.originsOriginal
-            case .prefixed:
-                return productPair!.remoteProduct!.originsOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-            default:
-                return .undefined
-            }
-        }
-    }
-    
-    fileprivate var purchaseLocationTagsToDisplay: Tags {
-        get {
-            switch showPurchaseLocationTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.purchasePlacesInterpreted
-            case .original:
-                return productPair!.remoteProduct!.purchasePlacesOriginal
-            case .prefixed:
-                return productPair!.remoteProduct!.purchasePlacesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-            default:
-                return .undefined
-            }
-        }
-    }
-    
-    fileprivate var storeTagsToDisplay: Tags {
-        get {
-            switch showStoresTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.storesInterpreted
-            case .original:
-                return productPair!.remoteProduct!.storesOriginal
-            case .prefixed:
-                return productPair!.remoteProduct!.storesOriginal.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-            default:
-                return .undefined
-            }
-        }
-    }
-    
-    fileprivate var countriesToDisplay: Tags {
-        get {
-            switch showCountriesTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.countriesInterpreted
-            case .translated:
-                var list = productPair!.remoteProduct!.countriesTranslated.list
-                list = list.sorted(by: { $0 < $1 })
-                return Tags.init(list:list)
+    // Determines which version of the product needs to be shown, the remote or local
 
-                //return product!.countriesTranslated
-            case .original:
-                return productPair!.remoteProduct!.countriesOriginal
-            case .prefixed:
-                return productPair!.remoteProduct!.countriesTranslated.prefixed(withAdded:productPair!.remoteProduct!.primaryLanguageCode, andRemoved:Locale.interfaceLanguageCode())
-            default:
-                return .undefined
-            }
-        }
-    }
+    fileprivate var productVersion: ProductVersion = .remote
 
-    fileprivate var linksToDisplay: Tags {
-        get {
-            if let validTags = productPair?.localProduct?.links {
-                return Tags.init(list:validTags.map( { $0.absoluteString } ))
-            } else if let validTags = productPair?.remoteProduct?.links {
-                return Tags.init(list:validTags.map( { $0.absoluteString } ))
-            } else {
-                return Tags.undefined
-            }
-        }
-    }
-    
     private struct TagsTypeDefault {
         static let Countries: TagsType = .translated
         static let Stores: TagsType = .original
@@ -171,6 +72,9 @@ class SupplyChainTableViewController: UITableViewController {
         static let IngredientOrigin: TagsType = .original
         static let ProducerCode: TagsType = .original
         static let Producer: TagsType = .original
+        static let ExpirationDate: TagsType = .original
+        static let PeriodAfterOpening: TagsType = .original
+        static let Links: TagsType = .original
     }
     
     fileprivate var showCountriesTagsType: TagsType = TagsTypeDefault.Countries
@@ -179,6 +83,216 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var showIngredientOriginTagsType: TagsType = TagsTypeDefault.IngredientOrigin
     fileprivate var showProducerCodeTagsType: TagsType = TagsTypeDefault.ProducerCode
     fileprivate var showProducerTagsType: TagsType = TagsTypeDefault.Producer
+    fileprivate var showExpirationDateTagsType: TagsType = TagsTypeDefault.ExpirationDate
+    fileprivate var showPeriodAfterOpeningTagsType: TagsType = TagsTypeDefault.PeriodAfterOpening
+    fileprivate var showLinksTagsType: TagsType = TagsTypeDefault.Links
+
+    fileprivate var producerTagsToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                switch showProducerTagsType {
+                case .original:
+                    return productPair?.localProduct?.manufacturingPlacesOriginal ?? .undefined
+                default:
+                    break
+                }
+            case .remote:
+                switch showProducerTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.manufacturingPlacesInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
+                case .prefixed:
+                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                        return productPair?.remoteProduct?.manufacturingPlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                    }
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var producerCodeTagsToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                switch showProducerCodeTagsType {
+                case .original:
+                    return productPair?.localProduct?.embCodesOriginal ?? .undefined
+                default:
+                    break
+                }
+            case .remote:
+                switch showProducerCodeTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.embCodesInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.embCodesOriginal ?? .undefined
+                case .prefixed:
+                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                        return productPair?.remoteProduct?.embCodesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                    }
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                switch showIngredientOriginTagsType {
+                case .original:
+                    return productPair?.localProduct?.originsOriginal ?? .undefined
+                default:
+                    break
+                }
+            case .remote:
+                switch showIngredientOriginTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.originsInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.originsOriginal ?? .undefined
+                case .prefixed:
+                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                        return productPair?.remoteProduct?.originsOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                    }
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var purchaseLocationTagsToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                switch showPurchaseLocationTagsType {
+                case .original:
+                    return productPair?.localProduct?.purchasePlacesOriginal ?? .undefined
+                default:
+                    break
+                }
+            case .remote:
+                switch showPurchaseLocationTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.purchasePlacesInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
+                case .prefixed:
+                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                        return productPair?.remoteProduct?.purchasePlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                    }
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var storeTagsToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                switch showStoresTagsType {
+                case .original:
+                    return productPair?.localProduct?.storesOriginal ?? .undefined
+                default:
+                    break
+                }
+            case .remote:
+                switch showStoresTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.storesInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.storesOriginal ?? .undefined
+                case .prefixed:
+                    if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
+                        return productPair?.remoteProduct?.storesOriginal.prefixed(withAdded:validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                    }
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var countriesToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                switch showStoresTagsType {
+                case .original:
+                    return productPair?.localProduct?.storesOriginal ?? .undefined
+                default:
+                    break
+                }
+            case .remote:
+                switch showCountriesTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
+                case .translated:
+                    if var list = productPair?.remoteProduct?.countriesTranslated.list {
+                        list = list.sorted(by: { $0 < $1 })
+                        return Tags.init(list:list)
+                    }
+                case .original:
+                    return productPair?.remoteProduct?.countriesOriginal ?? .undefined
+                case .prefixed:
+                    if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
+                        return productPair?.remoteProduct?.countriesTranslated.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                    }
+                default:
+                    break
+                }
+            }
+            return .undefined
+        }
+    }
+    
+    fileprivate var periodAfterOpeningToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .remote:
+                if let validPeriodAfterOpening = productPair?.remoteProduct?.periodAfterOpeningString {
+                    return Tags.init(text: validPeriodAfterOpening)
+                }
+            case .local:
+                if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
+                    return Tags.init(text: validPeriodAfterOpening)
+                }
+            }
+            return .undefined
+        }
+    }
+    
+
+    fileprivate var linksToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .local:
+                if let validTags = productPair?.localProduct?.links {
+                    return Tags.init(list:validTags.map( { $0.absoluteString } ))
+                }
+            case .remote:
+                if let validTags = productPair?.remoteProduct?.links {
+                    return Tags.init(list:validTags.map( { $0.absoluteString } ))
+                }
+                return Tags.undefined
+            }
+            return .undefined
+        }
+    }
 
     fileprivate var notSearchableToDisplay: Tags {
         get {
@@ -523,33 +637,39 @@ class SupplyChainTableViewController: UITableViewController {
         case .expirationDate:
             if productPair!.type == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
-                
-                // has the product been edited?
-                if let validPeriod = productPair?.localProduct?.periodAfterReferenceDate {
-                    let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
-                    let formatter = DateComponentsFormatter()
-                    formatter.unitsStyle = .full
-                    formatter.allowedUnits = .month
-                    let formattedTimeLeft = formatter.string(from: periodInSeconds)
-                    cell.textLabel?.text = formattedTimeLeft
-                } else if let validPeriod = productPair?.remoteProduct?.periodAfterReferenceDate {
-                    let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
-                    let formatter = DateComponentsFormatter()
-                    formatter.unitsStyle = .full
-                    formatter.allowedUnits = .month
-                    let formattedTimeLeft = formatter.string(from: periodInSeconds)
-                    cell.textLabel?.text = formattedTimeLeft
+                switch productVersion {
+                case .remote:
+                    if let validPeriod = productPair?.remoteProduct?.periodAfterReferenceDate {
+                        let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                        let formatter = DateComponentsFormatter()
+                        formatter.unitsStyle = .full
+                        formatter.allowedUnits = .month
+                        let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                        cell.textLabel?.text = formattedTimeLeft
+                    }
+                case .local:
+                    if let validPeriod = productPair?.localProduct?.periodAfterReferenceDate {
+                        let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                        let formatter = DateComponentsFormatter()
+                        formatter.unitsStyle = .full
+                        formatter.allowedUnits = .month
+                        let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                        cell.textLabel?.text = formattedTimeLeft
+                    }
                 }
                 cell.tag = indexPath.section
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ExpirationDate, for: indexPath) as! ExpirationDateTableViewCell
-            
-                // has the product been edited?
-                if let validDate = productPair?.localProduct?.expirationDate {
-                    cell.date = validDate
-                } else if let validDate = productPair?.product?.expirationDate {
-                    cell.date = validDate
+                switch productVersion {
+                case .remote:
+                    if let validDate = productPair?.remoteProduct?.expirationDate {
+                        cell.date = validDate
+                    }
+                case .local:
+                    if let validDate = productPair?.localProduct?.expirationDate {
+                        cell.date = validDate
+                    }
                 }
                 cell.editMode = editMode
                 cell.delegate = self
@@ -558,16 +678,17 @@ class SupplyChainTableViewController: UITableViewController {
             }
         case .periodAfterOpening:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath) as! PeriodAfterOpeningTableViewCell
-
-            if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
-                cell.tekst = validPeriodAfterOpening
-            } else if let validPeriodAfterOpening = productPair?.remoteProduct?.periodAfterOpeningString {
-                cell.tekst = validPeriodAfterOpening
+            switch periodAfterOpeningToDisplay {
+            case .available(let array):
+                cell.tekst = array[0]
+            default:
+                cell.tekst = nil
             }
             cell.editMode = editMode
             cell.delegate = self
             cell.tag = indexPath.section
             return cell
+            
         case .expirationDateSearch, .sitesSearch, .periodAfterOpeningSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -756,6 +877,20 @@ class SupplyChainTableViewController: UITableViewController {
     
     @IBAction func unwindSetFavoriteShopForCancel(_ segue:UIStoryboardSegue) {
     }
+    
+    @objc func doubleTapOnTableView() {
+        switch productVersion {
+        case .remote:
+            productVersion = .local
+            delegate?.title = TranslatableStrings.SupplyChain + " (Local)"
+        case .local:
+            productVersion = .remote
+            delegate?.title = TranslatableStrings.SupplyChain + " (OFF)"
+            
+        }
+        tableView.reloadData()
+    }
+
 //
 // MARK: - Controller Lifecycle
 //
@@ -766,7 +901,17 @@ class SupplyChainTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
 
-        title = Constants.ViewControllerTitle
+        delegate?.title = TranslatableStrings.SupplyChain
+        
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(SupplyChainTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.cancelsTouchesInView = false
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -23,6 +23,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     private var selectedIndexPath: IndexPath? = nil
     
+    fileprivate enum ProductVersion {
+        case local
+        case remote
+    }
+    
+    // Determines which version of the product needs to be shown, the remote or local
+    
+    fileprivate var productVersion: ProductVersion = .remote
+
     struct DisplayFact {
         var name: String? = nil
         var value: String? = nil
