@@ -1092,9 +1092,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             tableView.reloadData()
         }
     }
-
-    //func takePhotoButtonTapped() {
-    //}
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -1105,9 +1102,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return picker
     }()
 
-    //func useCameraRollButtonTapped() {
-    //}
-    
     fileprivate func newImageSelected(info: [String : Any]) {
         var image: UIImage? = nil
         image = info[UIImagePickerControllerEditedImage] as? UIImage

@@ -86,6 +86,15 @@ class IdentificationTableViewController: UITableViewController {
     
     private var selectedSection: Int? = nil
     
+    fileprivate enum ProductVersion {
+        case local
+        case remote
+    }
+    
+    // Determines which version of the product needs to be shown, the remote or local
+    
+    fileprivate var productVersion: ProductVersion = .remote
+
     // MARK: - public variables
     
     public var tableItem: ProductPair? = nil {
@@ -167,28 +176,68 @@ class IdentificationTableViewController: UITableViewController {
     
     // MARK: - Fileprivate Functions/variables
     
+    fileprivate var nameToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .remote:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
+            case .local:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
+            }
+        }
+    }
+
+    fileprivate var genericNameToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .remote:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
+            case .local:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
+            }
+        }
+    }
+
+    fileprivate var quantityToDisplay: Tags {
+        get {
+            switch productVersion {
+            case .remote:
+                guard let text = productPair?.remoteProduct?.quantity else { return .empty }
+                return Tags.init(text: text)
+            case .local:
+                guard let text = productPair?.localProduct?.quantity else { return .empty }
+                return Tags.init(text: text)
+            }
+        }
+    }
+
     fileprivate var brandsToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let validBrandsOriginal = productPair?.localProduct?.brandsOriginal  {
-                // does it have brands redefined?
-                switch validBrandsOriginal {
-                case .available, .empty:
-                    showBrandTagsType = .edited
-                    return validBrandsOriginal
+            switch productVersion {
+            case .remote:
+                switch showBrandTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.brandsInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.brandsOriginal ?? .undefined
                 default:
-                    showBrandTagsType = TagsTypeDefault.Brands
+                    return .undefined
                 }
+            case .local:
+                return productPair?.localProduct?.brandsOriginal ?? .undefined
             }
-            switch showBrandTagsType {
-            case .interpreted:
-                return productPair?.remoteProduct?.brandsInterpreted ?? .empty
-            case .original:
-                return productPair?.remoteProduct?.brandsOriginal ?? .empty
-            default:
-                    break
-            }
-            return .undefined
         }
     }
     
@@ -229,63 +278,55 @@ class IdentificationTableViewController: UITableViewController {
         static let Brands: TagsType = .original
         static let Packaging: TagsType = .prefixed
         static let Languages: TagsType = .translated
+        static let Name: TagsType = .original
+        static let GenericName: TagsType = .original
+        static let Quantity: TagsType = .original
     }
     
     fileprivate var showPackagingTagsType: TagsType = TagsTypeDefault.Packaging
-    
     fileprivate var showBrandTagsType: TagsType = TagsTypeDefault.Brands
+    fileprivate var showNameTagsType: TagsType = TagsTypeDefault.Name
+    fileprivate var showGenericNameTagsType: TagsType = TagsTypeDefault.GenericName
+    fileprivate var showQuantityTagsType: TagsType = TagsTypeDefault.Quantity
 
     private var showLanguagesTagsType: TagsType = TagsTypeDefault.Languages
 
     fileprivate var packagingToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let validPackagingOriginal = productPair?.localProduct?.packagingOriginal {
-                // does it have edited packaging tags defined?
-                switch validPackagingOriginal {
-                case .available, .empty:
-                    showPackagingTagsType = .edited
-                    return validPackagingOriginal
-                default:
-                    showPackagingTagsType = TagsTypeDefault.Packaging
+            switch productVersion {
+            case .remote:
+                switch showPackagingTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.packagingOriginal ?? .undefined
+                case .hierarchy:
+                    return productPair?.remoteProduct?.packagingHierarchy ?? .undefined
+                case .prefixed:
+                    return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode()) ?? .undefined
+                case .translated:
+                    return .undefined
                 }
-            }
-            switch showPackagingTagsType {
-            case .interpreted:
-                    return productPair?.remoteProduct?.packagingInterpreted ?? .empty
-            case .original:
-                    return productPair?.remoteProduct?.packagingOriginal ?? .empty
-            case .hierarchy:
-                    return productPair?.remoteProduct?.packagingHierarchy ?? .empty
-            case .prefixed:
-                return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode()) ?? .empty
-            case .translated, .edited:
-                return .undefined
+
+            case .local:
+                return productPair?.localProduct?.packagingOriginal ?? .undefined
             }
         }
     }
     
     fileprivate var languagesToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let validLanguageTags = productPair?.localProduct?.languageTags {
-                // does it have edited packaging tags defined?
-                switch validLanguageTags {
-                case .available, .empty:
-                    showLanguagesTagsType = .edited
-                    return validLanguageTags
+            switch productVersion {
+            case .remote:
+                switch showLanguagesTagsType {
+                case .translated:
+                    // show the languageCodes in a localized language
+                    return productPair?.remoteProduct?.languageTags ?? .undefined
                 default:
-                    break
+                    return .undefined
                 }
-            } else {
-                showLanguagesTagsType = TagsTypeDefault.Languages
-            }
-            switch showLanguagesTagsType {
-            case .translated:
-                // show the languageCodes in a localized language
-                return productPair?.remoteProduct?.languageTags ?? .empty
-            default:
-                return .undefined
+            case .local:
+                return productPair?.localProduct?.languageTags ?? .undefined
             }
         }
     }
@@ -394,35 +435,28 @@ class IdentificationTableViewController: UITableViewController {
                 return cell
             }
         case .name:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as? ProductNameTableViewCell
-            cell!.delegate = self
-            cell!.tag = indexPath.section
-            cell!.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            if let validCurrentLanguageCode = currentLanguageCode {
-                // has the product name been edited?
-                if let validName = productPair?.localProduct?.nameLanguage[validCurrentLanguageCode]  {
-                    cell!.name = validName
-                } else if let validName = productPair!.remoteProduct?.nameLanguage[validCurrentLanguageCode] {
-                    cell!.name = validName
-                } else {
-                    cell!.name = nil
-                }
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
+            cell.delegate = self
+            cell.tag = indexPath.section
+            cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            switch nameToDisplay {
+            case .available(let array):
+                cell.name = array[0]
+            default:
+                cell.name = nil
             }
-            return cell!
+            return cell
             
         case .genericName:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            if let validCurrentLanguageCode = currentLanguageCode {
-                if let validName = productPair?.localProduct?.genericNameLanguage[validCurrentLanguageCode] {
-                    cell.name = validName
-                } else if let validName = productPair?.remoteProduct?.genericNameLanguage[validCurrentLanguageCode] {
-                        cell.name = validName
-                } else {
-                    cell.name = nil
-                }
+            switch nameToDisplay {
+            case .available(let array):
+                cell.name = array[0]
+            default:
+                cell.name = nil
             }
             return cell
 
@@ -482,11 +516,10 @@ class IdentificationTableViewController: UITableViewController {
             
         case .quantity:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Quantity, for: indexPath) as! QuantityTableViewCell
-            if let validQuantity = productPair?.localProduct?.quantity {
-                cell.tekst = validQuantity
-            } else if let validQuantity = productPair!.remoteProduct?.quantity {
-                cell.tekst = validQuantity
-            } else {
+            switch quantityToDisplay {
+            case .available(let array):
+                cell.tekst = array[0]
+            default:
                 cell.tekst = nil
             }
             cell.editMode = editMode
@@ -520,54 +553,56 @@ class IdentificationTableViewController: UITableViewController {
     
     
     public var currentImage: (UIImage?, String) {
-        // are there any updated front images?
-        if let frontImages = productPair?.localProduct?.frontImages,
-            let validLanguageCode = currentLanguageCode,
-            !frontImages.isEmpty  {
-            // Is there an updated image corresponding to the current language
-            if let image = frontImages[validLanguageCode]?.original?.image {
-                return (image, "Updated Image")
+        switch productVersion {
+        case .local:
+            if let frontImages = productPair?.localProduct?.frontImages,
+                let validLanguageCode = currentLanguageCode,
+                !frontImages.isEmpty,
+                let image = frontImages[validLanguageCode]?.original?.image {
+                    return (image, "Updated Image")
             }
-            
-            // try the regular front images
-        } else if let frontImages = productPair?.remoteProduct?.frontImages,
-            let validLanguageCode = currentLanguageCode,
-            !frontImages.isEmpty {
-            // is the data for the current language available?
-            if let result = frontImages[validLanguageCode]?.display?.fetch() {
-                switch result {
-                case .available:
-                    return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
-                case .loading:
-                    return (nil, ImageFetchResult.loading.description)
-                case .loadingFailed(let error):
-                    return (nil, error.localizedDescription)
-                case .noResponse:
-                    return (nil, ImageFetchResult.noResponse.description)
-                default:
-                    break
-                }
-                // fall back to the primary languagecode nutrition image
-                // if we are NOT in edit mode
-            } else if !editMode,
-                let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
-                let result = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display?.fetch() {
-                switch result {
-                case .available:
-                    return (productPair?.remoteProduct!.frontImages[primaryLanguageCode]?.display?.image, "Primary language Image")
-                case .loading:
-                    return (nil, ImageFetchResult.loading.description)
-                case .loadingFailed(let error):
-                    return (nil, error.localizedDescription)
-                case .noResponse:
-                    return (nil, ImageFetchResult.noResponse.description)
-                default:
-                    break
-                }
+            return (nil, TranslatableStrings.NoImageAvailable)
+
+        case .remote:
+            // are there any updated front images?
+            if let frontImages = productPair?.remoteProduct?.frontImages,
+                let validLanguageCode = currentLanguageCode,
+                !frontImages.isEmpty,
+                let result = frontImages[validLanguageCode]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
+                    case .loading:
+                        return (nil, ImageFetchResult.loading.description)
+                    case .loadingFailed(let error):
+                        return (nil, error.localizedDescription)
+                    case .noResponse:
+                        return (nil, ImageFetchResult.noResponse.description)
+                    default:
+                        break
+                    }
+                    // fall back to the primary languagecode nutrition image
+                    // if we are NOT in edit mode
+                } else if !editMode,
+                    let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
+                    let image = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display,
+                    let fetch = image.fetch() {
+                    switch fetch {
+                    case .available:
+                        return (image.image, "Primary language Image")
+                    case .loading:
+                        return (nil, ImageFetchResult.loading.description)
+                    case .loadingFailed(let error):
+                        return (nil, error.localizedDescription)
+                    case .noResponse:
+                        return (nil, ImageFetchResult.noResponse.description)
+                    default:
+                        break
+                    }
             }
+            // No relevant image is available
+            return (nil, TranslatableStrings.NoImageAvailable)
         }
-        // No relevant image is available
-        return (nil, TranslatableStrings.NoImageAvailable)
     }
 
     fileprivate var currentProductImageSize: ProductImageSize? {
@@ -969,6 +1004,20 @@ class IdentificationTableViewController: UITableViewController {
         //productPair!.remoteProduct = nil
         tableView.reloadData()
     }
+    
+    @objc func doubleTapOnTableView() {
+        switch productVersion {
+        case .remote:
+            productVersion = .local
+            delegate?.title = TranslatableStrings.Identification + " (Local)"
+        case .local:
+            productVersion = .remote
+            delegate?.title = TranslatableStrings.Identification + " (OFF)"
+            
+        }
+        tableView.reloadData()
+    }
+
 //
 // MARK: - ViewController Lifecycle
 //
@@ -988,6 +1037,16 @@ class IdentificationTableViewController: UITableViewController {
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
         // print("viewDidLoad", self.view.frame, self.parent?.view.frame)
+        
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IdentificationTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.cancelsTouchesInView = false
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
+
 
     }
     

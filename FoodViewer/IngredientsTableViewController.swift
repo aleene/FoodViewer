@@ -10,10 +10,17 @@ import UIKit
 import MobileCoreServices
 
 class IngredientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
-
-    //fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate var tableStructure: [SectionType] = []
+    
+    fileprivate enum ProductVersion {
+        case local
+        case remote
+    }
+    
+    // Determines which version of the product needs to be shown, the remote or local
+    
+    fileprivate var productVersion: ProductVersion = .remote
     
     fileprivate enum SectionType {
         case ingredients(Int, String)
@@ -91,16 +98,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate var ingredientsToDisplay: Tags {
         get {
-            switch ingredientsTagsTypeToShow {
-            case .original, .interpreted, .hierarchy, .translated, .prefixed:
+            switch productVersion {
+            case .remote:
                 guard let validLanguageCode = currentLanguageCode else { return .empty }
-                guard let text = productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode] else { return .empty }
-                guard let validText = text else { return .empty }
+                guard let text = productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode] else { return .undefined }
+                guard let validText = text else { return .undefined }
                 return Tags.init(text: validText)
-            case .edited:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
-                guard let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode] else { return .empty }
-                guard let validText = text else { return .empty }
+            case .local:
+                guard   let validLanguageCode = currentLanguageCode,
+                        let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode],
+                        let validText = text else { return .undefined }
                 return Tags.init(text: validText)
             }
         }
@@ -109,17 +116,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var allergensToDisplay: Tags {
         get {
-            switch allergensTagsTypeToShow {
-            case .interpreted:
-                return productPair?.remoteProduct?.allergensInterpreted ?? .empty
-            case .hierarchy:
-                return productPair?.remoteProduct?.allergensHierarchy ?? .empty
-            case .translated:
-                return productPair?.remoteProduct?.allergensTranslated ?? .empty
-            case .original:
-                return productPair?.remoteProduct?.allergensOriginal ?? .empty
-            case .edited, .prefixed:
+            switch productVersion {
+            case .local:
+                // allergens have no local version and are determined by off
                 return .empty
+            case .remote:
+                switch allergensTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.allergensInterpreted ?? .undefined
+                case .hierarchy:
+                    return productPair?.remoteProduct?.allergensHierarchy ?? .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.allergensTranslated ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.allergensOriginal ?? .undefined
+                case .prefixed:
+                    return .undefined
+                }
             }
         }
     }
@@ -135,17 +148,27 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var tracesToDisplay: Tags {
         get {
-            switch tracesTagsTypeToShow {
-            case .interpreted:
-                return productPair?.remoteProduct?.tracesInterpreted ?? .empty
-            case .hierarchy:
-                return productPair?.remoteProduct?.tracesHierarchy ?? .empty
-            case .translated:
-                return productPair?.remoteProduct?.tracesTranslated ?? .empty
-            case .original:
-                return productPair?.remoteProduct?.tracesOriginal ?? .empty
-            case .edited, .prefixed:
-                return productPair?.localProduct?.tracesOriginal ?? .empty
+            switch productVersion {
+            case .remote:
+                switch tracesTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.tracesInterpreted ?? .undefined
+                case .hierarchy:
+                    return productPair?.remoteProduct?.tracesHierarchy ?? .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.tracesTranslated ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.tracesOriginal ?? .undefined
+                case .prefixed:
+                    return .undefined
+                }
+            case .local:
+                switch tracesTagsTypeToShow {
+                case .original:
+                    return productPair?.localProduct?.tracesOriginal ?? .undefined
+                default:
+                    return .undefined
+                }
             }
         }
     }
@@ -161,13 +184,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var additivesToDisplay: Tags {
         get {
-            switch additivesTagsTypeToShow {
-            case .interpreted:
-                return productPair?.remoteProduct?.additivesInterpreted ?? .empty
-            case .hierarchy, .edited, .original, .prefixed:
+            switch productVersion {
+            case .remote:
+                switch additivesTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.additivesInterpreted ?? .undefined
+                case .hierarchy, .original, .prefixed:
+                    return .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.additivesTranslated ?? .undefined
+                }
+            case .local:
                 return .undefined
-            case .translated:
-                return productPair?.remoteProduct?.additivesTranslated ?? .empty
             }
         }
     }
@@ -183,17 +211,27 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate var labelsToDisplay: Tags {
         get {
-            switch labelsTagsTypeToShow {
-            case .interpreted:
-                return productPair?.remoteProduct?.labelsInterpreted ?? .empty
-            case .translated:
-                return productPair?.remoteProduct?.translatedLabels() ?? .empty
-            case .hierarchy:
-                return productPair?.remoteProduct?.labelsHierarchy ?? .empty
-            case .original:
-                return productPair?.remoteProduct?.labelsOriginal ?? .empty
-            case .edited, .prefixed:
-                return productPair?.localProduct?.labelsOriginal ?? .empty
+            switch productVersion {
+            case .remote:
+                switch labelsTagsTypeToShow {
+                case .interpreted:
+                    return productPair?.remoteProduct?.labelsInterpreted ?? .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.translatedLabels() ?? .undefined
+                case .hierarchy:
+                    return productPair?.remoteProduct?.labelsHierarchy ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.labelsOriginal ?? .undefined
+                case .prefixed:
+                    return .undefined
+                }
+            case .local:
+                switch labelsTagsTypeToShow {
+                case .original:
+                    return productPair?.localProduct?.labelsOriginal ?? .undefined
+                default:
+                    return .undefined
+                }
             }
         }
     }
@@ -327,7 +365,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate struct TextConstants {
         static let ShowIdentificationTitle = TranslatableStrings.Image
-        static let ViewControllerTitle = TranslatableStrings.Ingredients
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -469,39 +506,43 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     private var currentImage: UIImage? {
-        // are there any updated ingredient images?
-        if let images = productPair?.localProduct?.ingredientsImages,
-            !images.isEmpty  {
-            // Is there an updated image corresponding to the current language
-            if let image = images[currentLanguageCode!]?.original?.image {
-                return image
-            }
-            
-            // try the regular ingredient images
-        } else if !productPair!.remoteProduct!.ingredientsImages.isEmpty {
-            // is the data for the current language available?
-            if let result = productPair!.remoteProduct!.ingredientsImages[currentLanguageCode!]?.display?.fetch() {
-                switch result {
-                case .available:
-                    return productPair!.remoteProduct!.ingredientsImages[currentLanguageCode!]?.display?.image
-                default:
-                    break
-                }
+        switch productVersion {
+        case .remote:
+            if let images = productPair?.remoteProduct?.ingredientsImages,
+                !images.isEmpty,
+                let validLanguageCode = currentLanguageCode,
+                let result = images[validLanguageCode]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        return productPair!.remoteProduct!.ingredientsImages[currentLanguageCode!]?.display?.image
+                    default:
+                        break
+                    }
                 // fall back to the primary languagecode ingredient image
                 // if we are NOT in edit mode
-            } else if !editMode,
-                let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-                let result = productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
-                switch result {
-                case .available:
-                    return productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.image
-                default:
-                    break
-                }
+                } else if !editMode,
+                    let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
+                    let result = productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
+                    switch result {
+                    case .available:
+                        return productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.image
+                    default:
+                        break
+                    }
             }
+            // No relevant image is available
+            return nil
+        case .local:
+            if let images = productPair?.localProduct?.ingredientsImages,
+                !images.isEmpty,
+                let validLanguageCode = currentLanguageCode,
+                let image = images[validLanguageCode]?.original?.image {
+                    return image
+            }
+            return nil
         }
-        // No relevant image is available
-        return nil
+        
+            // try the regular ingredient images
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -734,6 +775,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return newFrame
     }
     
+    @objc func doubleTapOnTableView() {
+        switch productVersion {
+        case .remote:
+            productVersion = .local
+            delegate?.title = TranslatableStrings.Ingredients + " (Local)"
+        case .local:
+            productVersion = .remote
+            delegate?.title = TranslatableStrings.Ingredients + " (OFF)"
+
+        }
+        tableView.reloadData()
+    }
+    
     // MARK: - Popover delegation functions
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -919,12 +973,21 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         tableView.sectionHeaderHeight = UITableViewAutomaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
+        
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(IngredientsTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.cancelsTouchesInView = false
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
 
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = TextConstants.ViewControllerTitle
+        delegate?.title = TranslatableStrings.Ingredients
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
@@ -1024,8 +1087,7 @@ extension IngredientsTableViewController: TagListViewAddImageCellDelegate {
 extension IngredientsTableViewController: IngredientsFullCellDelegate {
 
     func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView) {
-        ingredientsTagsTypeToShow.cycle()
-        tableView.reloadSections(IndexSet.init(integer: 0), with: .fade)
+        changeLanguage()
     }
 
 }

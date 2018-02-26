@@ -60,10 +60,16 @@ class CategoriesTableViewController: UITableViewController {
 
     // MARK: - Private Functions / Variables
     
-    fileprivate struct Constants {
-        static let ViewControllerTitle = TranslatableStrings.Categories
+    
+    fileprivate enum ProductVersion {
+        case local
+        case remote
     }
     
+    // Determines which version of the product needs to be shown, the remote or local
+    
+    fileprivate var productVersion: ProductVersion = .remote
+
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
     fileprivate enum SectionType {
@@ -79,28 +85,28 @@ class CategoriesTableViewController: UITableViewController {
 
     fileprivate var categoriesToDisplay: Tags {
         get {
-            // is an updated product available?
-            if let categoriesOriginal = productPair?.localProduct?.categoriesOriginal {
-                // does it have brands defined?
-                switch categoriesOriginal {
-                case .available, .empty:
-                    showCategoriesTagsType = .edited
-                    return categoriesOriginal
+            switch productVersion {
+            case .local:
+                switch showCategoriesTagsType {
+                case .original:
+                    return productPair?.localProduct?.categoriesOriginal ?? .undefined
                 default:
-                    break
+                    return .undefined
                 }
-            }
-            switch showCategoriesTagsType {
-            case .interpreted:
-                return productPair!.remoteProduct!.categoriesInterpreted
-            case .original:
-                return productPair!.remoteProduct!.categoriesOriginal
-            case .hierarchy:
-                return productPair!.remoteProduct!.categoriesHierarchy
-            case .translated:
-                return productPair!.remoteProduct!.categoriesTranslated
-            case .edited, .prefixed:
-                return .undefined
+
+            case .remote:
+                switch showCategoriesTagsType {
+                case .interpreted:
+                    return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
+                case .original:
+                    return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
+                case .hierarchy:
+                    return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
+                case .translated:
+                    return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
+                case .prefixed:
+                    return .undefined
+                }
             }
         }
     }
@@ -234,8 +240,18 @@ class CategoriesTableViewController: UITableViewController {
         tableView.reloadData()
     }
 
-    //func changeTagsTypeToShow(_ notification: Notification) {
-    //}
+    @objc func doubleTapOnTableView() {
+        switch productVersion {
+        case .remote:
+            productVersion = .local
+            delegate?.title = TranslatableStrings.Categories + " (Local)"
+        case .local:
+            productVersion = .remote
+            delegate?.title = TranslatableStrings.Categories + " (OFF)"
+            
+        }
+        tableView.reloadData()
+    }
 
     // MARK: - Controller Lifecycle
 
@@ -246,7 +262,17 @@ class CategoriesTableViewController: UITableViewController {
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
 
-        title = Constants.ViewControllerTitle
+        title = TranslatableStrings.Categories
+        
+        // Add doubletapping to the TableView. Any double tap on headers is now received,
+        // and used for changing the productVersion (local and remote)
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(CategoriesTableViewController.doubleTapOnTableView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.cancelsTouchesInView = false
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        tableView.addGestureRecognizer(doubleTapGestureRecognizer)
+
     }
 
     

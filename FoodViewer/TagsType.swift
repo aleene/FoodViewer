@@ -13,7 +13,6 @@ enum TagsType {
     case interpreted
     case translated
     case hierarchy
-    case edited
     case prefixed
     
     public mutating func cycle() {
@@ -27,9 +26,7 @@ enum TagsType {
         case .hierarchy:
             self = .prefixed
         case .prefixed:
-            self = .edited
-        case .edited:
-            self = .original
+            self = .interpreted
         }
     }
     
@@ -45,8 +42,6 @@ enum TagsType {
             return TranslatableStrings.Hierarchy
         case .prefixed:
             return TranslatableStrings.PrefixCorrected
-        case .edited:
-            return TranslatableStrings.Edited
         }
     }
 

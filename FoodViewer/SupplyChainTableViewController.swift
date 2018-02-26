@@ -58,15 +58,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var producerTagsToDisplay: Tags {
         get {
-            if let manufacturingPlacesOriginal = productPair?.localProduct?.manufacturingPlacesOriginal {
-                switch manufacturingPlacesOriginal {
-                case .available, .empty:
-                    showProducerTagsType = .edited
-                    return manufacturingPlacesOriginal
-                default:
-                    break
-                }
-            }
             switch showProducerTagsType {
             case .interpreted:
                 return productPair!.remoteProduct!.manufacturingPlacesInterpreted
@@ -82,15 +73,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var producerCodeTagsToDisplay: Tags {
         get {
-            if let embCodesOriginal = productPair?.localProduct?.embCodesOriginal {
-                switch embCodesOriginal {
-                case .available, .empty:
-                    showProducerCodeTagsType = .edited
-                    return embCodesOriginal
-                default:
-                    break
-                }
-            }
             switch showProducerCodeTagsType {
             case .interpreted:
                 return productPair!.remoteProduct!.embCodesInterpreted
@@ -106,15 +88,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
         get {
-            if let originsOriginal = productPair?.localProduct?.originsOriginal {
-                switch originsOriginal {
-                case .available, .empty:
-                    showIngredientOriginTagsType = .edited
-                    return originsOriginal
-                default:
-                    break
-                }
-            }
             switch showIngredientOriginTagsType {
             case .interpreted:
                 return productPair!.remoteProduct!.originsInterpreted
@@ -130,15 +103,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var purchaseLocationTagsToDisplay: Tags {
         get {
-            if let purchasePlacesOriginal = productPair?.localProduct?.purchasePlacesOriginal {
-                switch purchasePlacesOriginal {
-                case .available, .empty:
-                    showPurchaseLocationTagsType = .edited
-                    return purchasePlacesOriginal
-                default:
-                    break
-                }
-            }
             switch showPurchaseLocationTagsType {
             case .interpreted:
                 return productPair!.remoteProduct!.purchasePlacesInterpreted
@@ -154,15 +118,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var storeTagsToDisplay: Tags {
         get {
-            if let storesOriginal = productPair?.localProduct?.storesOriginal {
-                switch storesOriginal {
-                case .available, .empty:
-                    showStoresTagsType = .edited
-                    return storesOriginal
-                default:
-                    break
-                }
-            }
             switch showStoresTagsType {
             case .interpreted:
                 return productPair!.remoteProduct!.storesInterpreted
@@ -178,15 +133,6 @@ class SupplyChainTableViewController: UITableViewController {
     
     fileprivate var countriesToDisplay: Tags {
         get {
-            if let countriesOriginal = productPair?.localProduct?.countriesOriginal {
-                switch countriesOriginal {
-                case .available, .empty:
-                    showCountriesTagsType = .edited
-                    return countriesOriginal
-                default:
-                    break
-                }
-            }
             switch showCountriesTagsType {
             case .interpreted:
                 return productPair!.remoteProduct!.countriesInterpreted
