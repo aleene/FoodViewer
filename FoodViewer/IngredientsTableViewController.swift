@@ -514,18 +514,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 let result = images[validLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
-                        return productPair!.remoteProduct!.ingredientsImages[currentLanguageCode!]?.display?.image
+                        return images[currentLanguageCode!]?.display?.image
                     default:
                         break
                     }
                 // fall back to the primary languagecode ingredient image
                 // if we are NOT in edit mode
                 } else if !editMode,
+                    let images = productPair?.remoteProduct?.ingredientsImages,
                     let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-                    let result = productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.fetch() {
+                    let result = images[primaryLanguageCode]?.display?.fetch() {
                     switch result {
                     case .available:
-                        return productPair!.remoteProduct!.ingredientsImages[primaryLanguageCode]?.display?.image
+                        return images[primaryLanguageCode]?.display?.image
                     default:
                         break
                     }
