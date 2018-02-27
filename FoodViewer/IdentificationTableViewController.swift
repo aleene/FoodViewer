@@ -1157,7 +1157,7 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
         guard currentLanguageCode != nil else { return }
         guard productPair!.remoteProduct != nil else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .front, for: productPair!.remoteProduct!)
+        update.deselect([currentLanguageCode!], of: .front, for: productPair!)
     }
     
 }

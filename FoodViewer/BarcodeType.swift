@@ -142,7 +142,8 @@ enum BarcodeType {
         }
         
     }
-    func isSearch() -> Bool {
+    
+    var isSearch: Bool {
         switch self {
         case .search:
             return true
@@ -150,4 +151,15 @@ enum BarcodeType {
             return false
         }
     }
+    
+    var isSet: Bool {
+        switch self {
+        case .notSet:
+            return false
+        default:
+            return true
+        }
+    }
+
+
 }

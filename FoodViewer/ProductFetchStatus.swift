@@ -63,10 +63,10 @@ enum ProductFetchStatus {
         case .productNotLoaded: return 1
         case .loading: return 2
         case .success: return 3
-        case .available: return 3
-        case .updating: return 4
-        case .productNotAvailable: return 5
-        case .loadingFailed: return 6
+        case .available: return 4
+        case .updating: return 5
+        case .productNotAvailable: return 6
+        case .loadingFailed: return 7
 
         case .noSearchDefined: return 10
         case .searchLoading: return 11

@@ -643,15 +643,15 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
             case Section.FrontImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
-                update.deselect([languageCode], of: .front, for: productPair!.remoteProduct!)
+                update.deselect([languageCode], of: .front, for: productPair!)
             case Section.IngredientsImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
-                update.deselect([languageCode], of: .ingredients, for: productPair!.remoteProduct!)
+                update.deselect([languageCode], of: .ingredients, for: productPair!)
             case Section.NutrionImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
-                update.deselect([languageCode], of: .nutrition, for: productPair!.remoteProduct!)
+                update.deselect([languageCode], of: .nutrition, for: productPair!)
             default:
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
             }

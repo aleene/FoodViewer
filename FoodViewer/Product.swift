@@ -1432,11 +1432,74 @@ class FoodProduct {
                     return true
                 }
             }
-
         }
         return false
     }
     
+    // If an update is successfull, the updated data can be removed
+    func removedUpdatedData() {
+        barcode = BarcodeType.notSet
+        nameLanguage = [:]
+        genericNameLanguage = [:]
+        languageCodes = []
+        brandsOriginal = .undefined
+        packagingOriginal = .undefined
+        quantity = nil
+        
+        ingredientsLanguage = [:]
+        tracesOriginal = .undefined
+        labelsOriginal = .undefined
+        
+        servingSize = nil
+        nutritionFacts = []
+        hasNutritionFacts = nil
+
+        manufacturingPlacesOriginal = .undefined
+        originsOriginal = .undefined
+        embCodesOriginal = .undefined
+        purchasePlacesAddress = nil
+        purchasePlacesOriginal = .undefined
+        storesOriginal = .undefined
+        countriesOriginal = .undefined
+         
+        categoriesOriginal = .undefined
+    }
+    
+    // Checks if the product has any images defined
+    var hasImages: Bool {
+        return images.count > 0 ||
+            nutritionImages.count > 0 ||
+            frontImages.count > 0 ||
+            ingredientsImages.count > 0
+    }
+
+    // checks if the product has any fields defined
+    // (looks only at editable fields)
+    var isEmpty: Bool {
+        return barcode.isSet == false &&
+        nameLanguage.isEmpty &&
+        genericNameLanguage.isEmpty &&
+        ingredientsLanguage.isEmpty &&
+        brandsOriginal == .undefined &&
+        packagingOriginal == .undefined &&
+        quantity == nil &&
+        tracesOriginal == .undefined &&
+        labelsOriginal == .undefined &&
+        manufacturingPlacesOriginal == .undefined &&
+        originsOriginal == .undefined &&
+        embCodesOriginal == .undefined &&
+        servingSize == nil &&
+        nutritionFacts!.isEmpty &&
+        purchasePlacesAddress == nil &&
+        purchasePlacesOriginal == .undefined &&
+        storesOriginal == .undefined &&
+        countriesOriginal == .undefined &&
+        languageCodes.isEmpty &&
+        categoriesOriginal == .undefined &&
+        hasNutritionFacts == nil
+    }
+    
+    /*
     // updates a product with new product data
     func updateDataWith(_ product: FoodProduct) {
         // all image data is set to nil, in order to force a reload
@@ -1509,8 +1572,7 @@ class FoodProduct {
             // did I miss something?
         }
     }
-    
-    
+ 
     // updates a product with new product data
     func mergeUpdates(from product: FoodProduct?) {
 
@@ -1663,6 +1725,7 @@ class FoodProduct {
             informers = product!.informers!
         }
     }
+     */
 
     
     //func worldURL() -> URL? {

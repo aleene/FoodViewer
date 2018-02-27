@@ -1449,9 +1449,9 @@ extension NutrientsTableViewController:  ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard currentLanguageCode != nil else { return }
-        guard let validProduct = productPair?.remoteProduct else { return }
+        guard let validProductPair = productPair else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .nutrition, for: validProduct)
+        update.deselect([currentLanguageCode!], of: .nutrition, for: validProductPair)
     }
     
 }

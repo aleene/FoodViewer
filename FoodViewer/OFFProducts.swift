@@ -198,19 +198,19 @@ class OFFProducts {
         return productPairList[index]
     }
     
+    @discardableResult
     func loadProductPair(at index: Int) -> ProductPair? {
         guard index >= 0 && index < count else { return nil }
         loadProductPairRange(around: index)
         return productPairList[index]
     }
-
+    
     func productPair(for barcode: BarcodeType) -> ProductPair? {
         if let index = productPairIndex(barcode){
             return productPair(at: index)
         }
         return nil
     }
-
     
     func productPairIndex(_ barcodeType: BarcodeType?) -> Int? {
         guard barcodeType != nil else { return nil }

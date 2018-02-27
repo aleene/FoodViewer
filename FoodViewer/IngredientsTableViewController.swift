@@ -1062,9 +1062,9 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard currentLanguageCode != nil else { return }
-        guard productPair != nil else { return }
+        guard let validProductPair = productPair else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .ingredients, for: productPair!.remoteProduct!)
+        update.deselect([currentLanguageCode!], of: .ingredients, for: validProductPair)
     }
 
 }

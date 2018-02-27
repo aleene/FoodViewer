@@ -90,7 +90,7 @@ class OFFUpdate {
         return Preferences.manager.showProductType
     }
     
-    func update(product: FoodProduct?) -> ProductUpdateStatus {
+    func update(productPair: ProductPair) -> ProductUpdateStatus {
         // update the product on OFF
         
         // update only the fields that have something defined, i.e. are not nil
@@ -101,18 +101,18 @@ class OFFUpdate {
         // The OFF interface assumes that values are in english
         let languageCodeToUse = "en"
 
-        guard product != nil else { return .failure("No product", "OFFUpdate: No product defined") }
+        guard let product = productPair.localProduct else { return .failure("No product", "OFFUpdate: No product defined") }
 
         var urlString = OFFWriteAPI.SecurePrefix
             + currentProductType.rawValue
             + OFFWriteAPI.Domain
             + OFFWriteAPI.PostPrefix
-            + OFFWriteAPI.Barcode + product!.barcode.asString + OFFWriteAPI.Delimiter
+            + OFFWriteAPI.Barcode + product.barcode.asString + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
 
-        if product!.nameLanguage.count > 0 {
-            for name in product!.nameLanguage {
+        if product.nameLanguage.count > 0 {
+            for name in product.nameLanguage {
                 if let validName = name.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(OFFWriteAPI.Delimiter +
                         OFFWriteAPI.Name +
@@ -125,8 +125,8 @@ class OFFUpdate {
             }
         }
 
-        if product!.genericNameLanguage.count > 0 {
-            for genericName in product!.genericNameLanguage {
+        if product.genericNameLanguage.count > 0 {
+            for genericName in product.genericNameLanguage {
                 if let name = genericName.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(OFFWriteAPI.Delimiter +
                         OFFWriteAPI.GenericName +
@@ -139,14 +139,14 @@ class OFFUpdate {
             }
         }
  
-        if let quantity = product?.quantity?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+        if let quantity = product.quantity?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Quantity + quantity)
             productUpdated = true
         }
         
         // Using this for writing in a specific language (ingredients_text_fr=) has no effect
-        if product!.ingredientsLanguage.count > 0 {
-            for name in product!.ingredientsLanguage {
+        if product.ingredientsLanguage.count > 0 {
+            for name in product.ingredientsLanguage {
                 if let validName = name.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(
                         OFFWriteAPI.Delimiter +
@@ -161,13 +161,13 @@ class OFFUpdate {
             }
         }
 
-        if let primaryLanguage = product?.primaryLanguageCode?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+        if let primaryLanguage = product.primaryLanguageCode?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
             // TODO - this is also updated if no change has taken place
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PrimaryLanguageCode + primaryLanguage)
             productUpdated = true
         }
 
-        if let expirationDate = product!.expirationDate {
+        if let expirationDate = product.expirationDate {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
@@ -177,7 +177,7 @@ class OFFUpdate {
             productUpdated = true
         }
         
-        switch product!.purchasePlacesOriginal {
+        switch product.purchasePlacesOriginal {
         case .available(let location):
             let string = location.flatMap{
                     $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
@@ -189,7 +189,7 @@ class OFFUpdate {
             break
         }
         
-        switch product!.storesOriginal {
+        switch product.storesOriginal {
         case .available(let validShop):
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
@@ -198,8 +198,8 @@ class OFFUpdate {
             break
         }
         
-        if product?.type != nil && product!.type != .beauty {
-            if let validNutritionFacts = product!.nutritionFacts {
+        if product.type != nil && product.type != .beauty {
+            if let validNutritionFacts = product.nutritionFacts {
                 for fact in validNutritionFacts {
                     if fact != nil {
                         if let validValue = fact?.standardValue,
@@ -228,7 +228,7 @@ class OFFUpdate {
             }
         }
         
-        switch product!.brandsOriginal {
+        switch product.brandsOriginal {
         case let .available(list):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
@@ -239,11 +239,11 @@ class OFFUpdate {
             break
         }
 
-        switch product!.packagingOriginal {
+        switch product.packagingOriginal {
         case .available:
             // take into account the language of the tags
             // if a tag has no prefix, a prefix must be added
-            let list = product!.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -253,10 +253,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.labelsOriginal {
+        switch product.labelsOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product!.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -266,10 +266,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.tracesOriginal {
+        switch product.tracesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product!.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -279,10 +279,10 @@ class OFFUpdate {
             break
         }
 
-        switch product!.categoriesOriginal {
+        switch product.categoriesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product!.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -292,7 +292,7 @@ class OFFUpdate {
             break
         }
         
-        switch product!.manufacturingPlacesOriginal {
+        switch product.manufacturingPlacesOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
@@ -300,7 +300,7 @@ class OFFUpdate {
             break
         }
 
-        switch product!.originsOriginal {
+        switch product.originsOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + places.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
             productUpdated = true
@@ -308,7 +308,7 @@ class OFFUpdate {
             break
         }
         
-        switch product!.embCodesOriginal {
+        switch product.embCodesOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
@@ -316,29 +316,29 @@ class OFFUpdate {
             break
         }
 
-        switch product!.countriesOriginal {
+        switch product.countriesOriginal {
         case .available:
-            let list = product!.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = product.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         default:
             break
         }
 
-        if let validLinks = product!.links {
+        if let validLinks = product.links {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Links + validLinks.flatMap{ $0.absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",") )
             productUpdated = true
         }
 
-        if let validServingSize = product!.servingSize {
+        if let validServingSize = product.servingSize {
             if let encodedServingSize = validServingSize.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                 urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ServingSize + encodedServingSize)
                 productUpdated = true
             }
         }
         
-        if product?.type != nil && product!.type != .beauty {
-            if let validHasNutritionFacts = product!.hasNutritionFacts {
+        if product.type != nil && product.type != .beauty {
+            if let validHasNutritionFacts = product.hasNutritionFacts {
                 if !validHasNutritionFacts {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NoNutriments )
                 } else {
@@ -348,7 +348,7 @@ class OFFUpdate {
             }
         }
         
-        if let validPeriodAfterOpeningString = product!.periodAfterOpeningString {
+        if let validPeriodAfterOpeningString = product.periodAfterOpeningString {
             if let encodedValidPeriodAfterOpeningString = validPeriodAfterOpeningString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                 urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PeriodAfterOpening + encodedValidPeriodAfterOpeningString )
                 productUpdated = true
@@ -360,22 +360,22 @@ class OFFUpdate {
         }
 
         var imagesUpdated = false
-        if product!.frontImages.count > 0 {
-            uploadImages(product!.frontImages, barcode: product!.barcode.asString, id:"front")
+        if product.frontImages.count > 0 {
+            uploadImages(product.frontImages, barcode: product.barcode.asString, id:"front", productPair: productPair)
             imagesUpdated = true
         }
         
-        if product!.ingredientsImages.count > 0 {
-            uploadImages(product!.ingredientsImages, barcode: product!.barcode.asString, id:"ingredients")
+        if product.ingredientsImages.count > 0 {
+            uploadImages(product.ingredientsImages, barcode: product.barcode.asString, id:"ingredients", productPair: productPair)
             imagesUpdated = true
         }
 
-        if product!.nutritionImages.count > 0 {
-            uploadImages(product!.nutritionImages, barcode: product!.barcode.asString, id:"nutrition")
+        if product.nutritionImages.count > 0 {
+            uploadImages(product.nutritionImages, barcode: product.barcode.asString, id:"nutrition", productPair: productPair)
             imagesUpdated = true
         }
-        if product!.images.count > 0 {
-            uploadImages(product!.images, barcode: product!.barcode.asString, id:"general")
+        if product.images.count > 0 {
+            uploadImages(product.images, barcode: product.barcode.asString, id:"general", productPair: productPair)
             imagesUpdated = true
         }
         
@@ -384,7 +384,7 @@ class OFFUpdate {
                 
                 do {
                     let data = try Data( contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe )
-                    return data.resultForProductUpload(barcode:product!.barcode.asString)
+                    return data.resultForProductUpload(barcode:product.barcode.asString)
                 } catch let error as NSError {
                     print(error);
                     return .failure(urlString, error.description)
@@ -393,13 +393,13 @@ class OFFUpdate {
                 return .failure(urlString, "OFFUpdate Error: URL is wrong somehow")
             }
         } else if imagesUpdated {
-            return .images(product!.barcode.asString)
+            return .images(product.barcode.asString)
         } else {
             return .failure(urlString, "OFFUpdate Error: No product changes detected")
         }
     }
 
-    private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String) {
+    private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String, productPair: ProductPair) {
         // any image to upload?
         guard dict.count > 0 else { return }
         
@@ -407,41 +407,41 @@ class OFFUpdate {
             
             // Is there a valid original image?
             if let imageData = element.value.largest {
-                    if let image = imageData.image {
-                        guard image != UIImage() else { return }
-                        // Is this a selected image?
-                        if id != "general" {
-                            // start by unselecting any existing image
-                            postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
-                                                    OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
-                                // Adding credentials is not accepted by OFF
-                                //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
-                                //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
-                                ],
-                                       url: OFFHttpPost.URL.SecurePrefix +
-                                        currentProductType.rawValue +
-                                        OFFHttpPost.URL.Domain +
-                                        OFFHttpPost.URL.UnselectPostFix
-                            )
-                        }
-                        
-                        post(image: image,
-                             parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
-                                          OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:element.key),
-                                          OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
-                                          OFFHttpPost.AddParameter.Password: OFFAccount().password],
-                             imageType: id,
-                             url: OFFHttpPost.URL.SecurePrefix +
-                                currentProductType.rawValue +
-                                OFFHttpPost.URL.Domain +
-                                OFFHttpPost.URL.AddPostFix,
-                             languageCode: element.key)
+                if let image = imageData.image {
+                    guard image != UIImage() else { return }
+                    // Is this a selected image?
+                    if id != "general" {
+                        // start by unselecting any existing image
+                        postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
+                                                OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
+                            // Adding credentials is not accepted by OFF
+                            //, OFFHttpPost.UnselectParameter.UserId: OFFAccount().userId
+                            //, OFFHttpPost.UnselectParameter.Password: OFFAccount().password
+                            ],
+                                    url: OFFHttpPost.URL.SecurePrefix +
+                                    currentProductType.rawValue +
+                                    OFFHttpPost.URL.Domain +
+                                    OFFHttpPost.URL.UnselectPostFix
+                        )
                     }
+                        
+                    post(image: image,
+                            parameters: [OFFHttpPost.AddParameter.BarcodeKey: barcode,
+                                          OFFHttpPost.AddParameter.ImageField.Key:OFFHttpPost.idValue(for:id, in:element.key),
+                                        OFFHttpPost.AddParameter.UserId: OFFAccount().userId,
+                                        OFFHttpPost.AddParameter.Password: OFFAccount().password],
+                            imageType: id,
+                            url: OFFHttpPost.URL.SecurePrefix +
+                            currentProductType.rawValue +
+                            OFFHttpPost.URL.Domain +
+                            OFFHttpPost.URL.AddPostFix,
+                            languageCode: element.key, productPair: productPair)
+                }
             }
         }
     }
     
-    private func post(image: UIImage, parameters: Dictionary<String, String>, imageType: String, url: String, languageCode: String) {
+    private func post(image: UIImage, parameters: Dictionary<String, String>, imageType: String, url: String, languageCode: String, productPair: ProductPair) {
         let urlString = URL(string: url)
         guard urlString != nil else { return }
         
@@ -523,7 +523,7 @@ class OFFUpdate {
             }
             guard let data = data else { return }
             //result = self.unpackImageJSONObject( JSON(data: data) )
-            result = data.resultForImageUpload(barcode:url)
+            result = data.resultForImageUpload(productPair: productPair)
             DispatchQueue.main.async(execute: { () -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if result != nil {
@@ -578,11 +578,11 @@ class OFFUpdate {
     // The dict specifies which language must be deselected
     // the image category is .identification, .nutrition or .ingredients
     // And naturally the product
-    func deselect(_ languageCodes: [String], of imageCategory: ImageTypeCategory, for product: FoodProduct) {
+    func deselect(_ languageCodes: [String], of imageCategory: ImageTypeCategory, for productPair: ProductPair) {
         for element in languageCodes {
             switch imageCategory {
             case .front, .ingredients, .nutrition:
-                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:product.barcode.asString,
+                postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:productPair.barcodeType.asString,
                                         OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:imageCategory.description, in:element)],
                            url: OFFHttpPost.URL.SecurePrefix +
                             currentProductType.rawValue +
@@ -757,20 +757,36 @@ extension Notification.Name {
  
  extension Data {
     
-    fileprivate func resultForImageUpload(barcode: String) -> ProductUpdateStatus {
+    fileprivate func resultForImageUpload(productPair: ProductPair) -> ProductUpdateStatus {
         do {
             let result = try JSONDecoder().decode(OFFImageUploadResultJson.self, from:self)
             if let validStatus = result.status {
                 if validStatus == "status ok" {
-                    return ProductUpdateStatus.success(barcode, "\(validStatus)")
+                    if let valid = result.imagefield {
+                        var elements = valid.split(separator: "_").map(String.init)
+                        switch elements[0] {
+                        case "general":
+                            productPair.localProduct?.images.removeValue(forKey: elements[1])
+                        case "front":
+                            productPair.localProduct?.frontImages.removeValue(forKey: elements[1])
+                        case "ingredients":
+                            productPair.localProduct?.ingredientsImages.removeValue(forKey: elements[1])
+                        case "nutrition":
+                            productPair.localProduct?.nutritionImages.removeValue(forKey: elements[1])
+                        default:
+                            break
+                        }
+                        productPair.removeLocalProduct()
+                    }
+                    return ProductUpdateStatus.success(productPair.barcodeType.asString, "\(validStatus)")
                 } else {
-                    return ProductUpdateStatus.failure(barcode, "OFFImageUploadResultJson \(validStatus)")
+                    return ProductUpdateStatus.failure(productPair.barcodeType.asString, "OFFImageUploadResultJson \(validStatus)")
                 }
             }
         } catch(let error) {
-            return ProductUpdateStatus.failure(barcode, error.localizedDescription)
+            return ProductUpdateStatus.failure(productPair.barcodeType.asString, error.localizedDescription)
         }
-        return ProductUpdateStatus.failure(barcode, "OFFUpdate: no valid status")
+        return ProductUpdateStatus.failure(productPair.barcodeType.asString, "OFFUpdate: no valid status")
     }
 
     fileprivate func resultForImageDeselect(barcode: String) -> ProductUpdateStatus {
