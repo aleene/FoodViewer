@@ -12,8 +12,9 @@ enum ImageTypeCategory: Int {
     case front = 0
     case ingredients
     case nutrition
-    case unknown
+    case general
     
+    // These decriptions are used in the deselect/update API's to OFF
     var description: String {
         switch self {
         case .front:
@@ -22,8 +23,8 @@ enum ImageTypeCategory: Int {
             return "ingredients"
         case .nutrition:
             return "nutrition"
-        case .unknown:
-            return "unknown"
+        case .general:
+            return "general"
         }
     }
 

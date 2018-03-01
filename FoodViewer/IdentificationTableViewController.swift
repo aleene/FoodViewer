@@ -89,11 +89,12 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate enum ProductVersion {
         case local
         case remote
+        case new // mix of local and remote
     }
     
     // Determines which version of the product needs to be shown, the remote or local
     
-    fileprivate var productVersion: ProductVersion = .remote
+    fileprivate var productVersion: ProductVersion = .new
 
     // MARK: - public variables
     
@@ -189,6 +190,12 @@ class IdentificationTableViewController: UITableViewController {
                 guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
+            case .new:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] ??
+                    productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
             }
         }
     }
@@ -206,6 +213,11 @@ class IdentificationTableViewController: UITableViewController {
                 guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
+            case .new:
+                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] ?? productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
+                guard let validText = text else { return .empty }
+                return Tags.init(text: validText)
             }
         }
     }
@@ -218,6 +230,10 @@ class IdentificationTableViewController: UITableViewController {
                 return Tags.init(text: text)
             case .local:
                 guard let text = productPair?.localProduct?.quantity else { return .empty }
+                return Tags.init(text: text)
+            case .new:
+                guard let text = productPair?.localProduct?.quantity ??
+                productPair?.remoteProduct?.quantity else { return .empty }
                 return Tags.init(text: text)
             }
         }
@@ -237,6 +253,8 @@ class IdentificationTableViewController: UITableViewController {
                 }
             case .local:
                 return productPair?.localProduct?.brandsOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.brandsOriginal ?? productPair?.remoteProduct?.brandsOriginal ?? .undefined
             }
         }
     }
@@ -307,9 +325,10 @@ class IdentificationTableViewController: UITableViewController {
                 case .translated:
                     return .undefined
                 }
-
             case .local:
                 return productPair?.localProduct?.packagingOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.packagingOriginal ?? productPair?.remoteProduct?.packagingOriginal ?? .undefined
             }
         }
     }
@@ -327,6 +346,8 @@ class IdentificationTableViewController: UITableViewController {
                 }
             case .local:
                 return productPair?.localProduct?.languageTags ?? .undefined
+            case .new:
+                return productPair?.localProduct?.languageTags ?? productPair?.remoteProduct?.languageTags ?? .undefined
             }
         }
     }
@@ -383,7 +404,7 @@ class IdentificationTableViewController: UITableViewController {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
             cell.barcode = productPair?.barcodeType.asString
-            cell.mainLanguageCode = productPair!.primaryLanguageCode ?? "NS"
+            cell.mainLanguageCode = productPair?.primaryLanguageCode ?? Locale.interfaceLanguageCode()
             cell.editMode = editMode
             return cell
             
@@ -452,7 +473,7 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            switch nameToDisplay {
+            switch genericNameToDisplay {
             case .available(let array):
                 cell.name = array[0]
             default:
@@ -555,54 +576,63 @@ class IdentificationTableViewController: UITableViewController {
     public var currentImage: (UIImage?, String) {
         switch productVersion {
         case .local:
-            if let frontImages = productPair?.localProduct?.frontImages,
-                let validLanguageCode = currentLanguageCode,
-                !frontImages.isEmpty,
-                let image = frontImages[validLanguageCode]?.original?.image {
-                    return (image, "Updated Image")
-            }
-            return (nil, TranslatableStrings.NoImageAvailable)
-
+            return localFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
         case .remote:
-            // are there any updated front images?
-            if let frontImages = productPair?.remoteProduct?.frontImages,
-                let validLanguageCode = currentLanguageCode,
-                !frontImages.isEmpty,
-                let result = frontImages[validLanguageCode]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
-                    case .loading:
-                        return (nil, ImageFetchResult.loading.description)
-                    case .loadingFailed(let error):
-                        return (nil, error.localizedDescription)
-                    case .noResponse:
-                        return (nil, ImageFetchResult.noResponse.description)
-                    default:
-                        break
-                    }
-                    // fall back to the primary languagecode nutrition image
-                    // if we are NOT in edit mode
-                } else if !editMode,
-                    let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
-                    let image = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display,
-                    let fetch = image.fetch() {
-                    switch fetch {
-                    case .available:
-                        return (image.image, "Primary language Image")
-                    case .loading:
-                        return (nil, ImageFetchResult.loading.description)
-                    case .loadingFailed(let error):
-                        return (nil, error.localizedDescription)
-                    case .noResponse:
-                        return (nil, ImageFetchResult.noResponse.description)
-                    default:
-                        break
-                    }
-            }
-            // No relevant image is available
-            return (nil, TranslatableStrings.NoImageAvailable)
+            return remoteFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
+        case .new:
+            return localFrontImage ?? remoteFrontImage ?? ( nil,TranslatableStrings.NoImageAvailable)
         }
+    }
+    
+    private var localFrontImage: (UIImage?, String)? {
+        if let frontImages = productPair?.localProduct?.frontImages,
+            let validLanguageCode = currentLanguageCode,
+            !frontImages.isEmpty,
+            let image = frontImages[validLanguageCode]?.original?.image {
+            return (image, "Updated Image")
+        }
+        return nil
+    }
+    
+    private var remoteFrontImage: (UIImage?, String)? {
+        // are there any updated front images?
+        if let frontImages = productPair?.remoteProduct?.frontImages,
+            let validLanguageCode = currentLanguageCode,
+            !frontImages.isEmpty,
+            let result = frontImages[validLanguageCode]?.display?.fetch() {
+            switch result {
+            case .available:
+                return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
+            case .loading:
+                return (nil, ImageFetchResult.loading.description)
+            case .loadingFailed(let error):
+                return (nil, error.localizedDescription)
+            case .noResponse:
+                return (nil, ImageFetchResult.noResponse.description)
+            default:
+                break
+            }
+            // fall back to the primary languagecode nutrition image
+            // if we are NOT in edit mode
+        } else if !editMode,
+            let primaryLanguageCode = productPair?.remoteProduct?.primaryLanguageCode,
+            let image = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display,
+            let fetch = image.fetch() {
+            switch fetch {
+            case .available:
+                return (image.image, "Primary language Image")
+            case .loading:
+                return (nil, ImageFetchResult.loading.description)
+            case .loadingFailed(let error):
+                return (nil, error.localizedDescription)
+            case .noResponse:
+                return (nil, ImageFetchResult.noResponse.description)
+            default:
+                break
+            }
+        }
+        // No relevant image is available
+        return nil
     }
 
     fileprivate var currentProductImageSize: ProductImageSize? {
@@ -822,7 +852,7 @@ class IdentificationTableViewController: UITableViewController {
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentLanguageCode = productPair?.localProduct?.primaryLanguageCode != nil ? productPair!.localProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
+                                vc.currentLanguageCode = productPair?.primaryLanguageCode ?? "en"
                             }
                         }
                     }
@@ -1014,9 +1044,11 @@ class IdentificationTableViewController: UITableViewController {
             productVersion = .local
             delegate?.title = TranslatableStrings.Identification + " (Local)"
         case .local:
+            productVersion = .new
+            delegate?.title = TranslatableStrings.Identification + " (New)"
+        case .new:
             productVersion = .remote
             delegate?.title = TranslatableStrings.Identification + " (OFF)"
-            
         }
         tableView.reloadData()
     }

@@ -64,11 +64,12 @@ class CategoriesTableViewController: UITableViewController {
     fileprivate enum ProductVersion {
         case local
         case remote
+        case new
     }
     
     // Determines which version of the product needs to be shown, the remote or local
     
-    fileprivate var productVersion: ProductVersion = .remote
+    fileprivate var productVersion: ProductVersion = .new
 
     fileprivate var tableStructureForProduct: [(SectionType, Int, String?)] = []
     
@@ -86,13 +87,6 @@ class CategoriesTableViewController: UITableViewController {
     fileprivate var categoriesToDisplay: Tags {
         get {
             switch productVersion {
-            case .local:
-                switch showCategoriesTagsType {
-                case .original:
-                    return productPair?.localProduct?.categoriesOriginal ?? .undefined
-                default:
-                    return .undefined
-                }
 
             case .remote:
                 switch showCategoriesTagsType {
@@ -107,6 +101,10 @@ class CategoriesTableViewController: UITableViewController {
                 case .prefixed:
                     return .undefined
                 }
+            case .local:
+                return productPair?.localProduct?.categoriesOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.categoriesOriginal ?? productPair?.remoteProduct?.categoriesOriginal ?? .undefined
             }
         }
     }
@@ -246,9 +244,11 @@ class CategoriesTableViewController: UITableViewController {
             productVersion = .local
             delegate?.title = TranslatableStrings.Categories + " (Local)"
         case .local:
+            productVersion = .new
+            delegate?.title = TranslatableStrings.Categories + " (New)"
+        case .new:
             productVersion = .remote
             delegate?.title = TranslatableStrings.Categories + " (OFF)"
-            
         }
         tableView.reloadData()
     }

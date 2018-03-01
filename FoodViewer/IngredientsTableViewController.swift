@@ -16,11 +16,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate enum ProductVersion {
         case local
         case remote
+        case new
     }
     
     // Determines which version of the product needs to be shown, the remote or local
     
-    fileprivate var productVersion: ProductVersion = .remote
+    fileprivate var productVersion: ProductVersion = .new
     
     fileprivate enum SectionType {
         case ingredients(Int, String)
@@ -100,14 +101,19 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remote:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
-                guard let text = productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode] else { return .undefined }
-                guard let validText = text else { return .undefined }
+                guard let validLanguageCode = currentLanguageCode,
+                    let text = productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode],
+                    let validText = text else { return .undefined }
                 return Tags.init(text: validText)
             case .local:
-                guard   let validLanguageCode = currentLanguageCode,
-                        let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode],
-                        let validText = text else { return .undefined }
+                guard let validLanguageCode = currentLanguageCode,
+                    let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode],
+                    let validText = text else { return .undefined }
+                return Tags.init(text: validText)
+            case .new:
+                guard let validLanguageCode = currentLanguageCode,
+                    let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode] ?? productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode],
+                    let validText = text else { return .undefined }
                 return Tags.init(text: validText)
             }
         }
@@ -120,7 +126,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .local:
                 // allergens have no local version and are determined by off
                 return .empty
-            case .remote:
+            case .remote, .new:
                 switch allergensTagsTypeToShow {
                 case .interpreted:
                     return productPair?.remoteProduct?.allergensInterpreted ?? .undefined
@@ -163,12 +169,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     return .undefined
                 }
             case .local:
-                switch tracesTagsTypeToShow {
-                case .original:
-                    return productPair?.localProduct?.tracesOriginal ?? .undefined
-                default:
-                    return .undefined
-                }
+                return productPair?.localProduct?.tracesOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.tracesOriginal ?? productPair?.remoteProduct?.tracesOriginal ?? .undefined
             }
         }
     }
@@ -185,7 +188,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var additivesToDisplay: Tags {
         get {
             switch productVersion {
-            case .remote:
+            case .remote, .new:
                 switch additivesTagsTypeToShow {
                 case .interpreted:
                     return productPair?.remoteProduct?.additivesInterpreted ?? .undefined
@@ -226,12 +229,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     return .undefined
                 }
             case .local:
-                switch labelsTagsTypeToShow {
-                case .original:
-                    return productPair?.localProduct?.labelsOriginal ?? .undefined
-                default:
-                    return .undefined
-                }
+                return productPair?.localProduct?.labelsOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.labelsOriginal ?? productPair?.remoteProduct?.labelsOriginal ?? .undefined
             }
         }
     }
@@ -483,14 +483,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return cell
         
         case .image:
-            if currentImage != nil {
+            if imageToShow != nil {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ProductImageTableViewCell
                 cell.editMode = editMode
-                cell.productImage = currentImage
+                cell.productImage = imageToShow
                 cell.delegate = self
                 return cell
             } else {
-                searchResult = ImageFetchResult.noImageAvailable.description
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.width = tableView.frame.size.width
@@ -505,65 +504,63 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    private var currentImage: UIImage? {
+    private var imageToShow: UIImage? {
         switch productVersion {
         case .remote:
-            if let images = productPair?.remoteProduct?.ingredientsImages,
-                !images.isEmpty,
-                let validLanguageCode = currentLanguageCode,
-                let result = images[validLanguageCode]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        return images[currentLanguageCode!]?.display?.image
-                    default:
-                        break
-                    }
-                // fall back to the primary languagecode ingredient image
-                // if we are NOT in edit mode
-                } else if !editMode,
-                    let images = productPair?.remoteProduct?.ingredientsImages,
-                    let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-                    let result = images[primaryLanguageCode]?.display?.fetch() {
-                    switch result {
-                    case .available:
-                        return images[primaryLanguageCode]?.display?.image
-                    default:
-                        break
-                    }
-            }
-            // No relevant image is available
-            return nil
+            return remoteImageToShow
         case .local:
-            if let images = productPair?.localProduct?.ingredientsImages,
-                !images.isEmpty,
-                let validLanguageCode = currentLanguageCode,
-                let image = images[validLanguageCode]?.original?.image {
-                    return image
-            }
-            return nil
+            return localImageToShow
+        case .new:
+            return localImageToShow ?? remoteImageToShow
         }
-        
-            // try the regular ingredient images
+    }
+    
+    private var remoteImageToShow: UIImage? {
+        if let images = productPair?.remoteProduct?.ingredientsImages,
+            !images.isEmpty,
+            let validLanguageCode = currentLanguageCode,
+            let result = images[validLanguageCode]?.display?.fetch() {
+            switch result {
+            case .available:
+                return images[currentLanguageCode!]?.display?.image
+            default:
+                searchResult = result.description
+                break
+            }
+            // fall back to the primary languagecode ingredient image
+            // if we are NOT in edit mode
+        } else if !editMode,
+            let images = productPair?.remoteProduct?.ingredientsImages,
+            let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
+            let result = images[primaryLanguageCode]?.display?.fetch() {
+            switch result {
+            case .available:
+                return images[primaryLanguageCode]?.display?.image
+            default:
+                break
+            }
+        }
+        // No relevant image is available
+        return nil
+    }
+    
+    private var localImageToShow: UIImage? {
+        if let images = productPair?.localProduct?.ingredientsImages,
+            !images.isEmpty,
+            let validLanguageCode = currentLanguageCode,
+            let image = images[validLanguageCode]?.original?.image {
+            return image
+        }
+        return nil
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch tableStructure[section] {
-        case .image:
+        case .image, .ingredients:
             return nil
         case .imageSearch, .ingredientsSearch:
             return tableStructure[section].header
-        case .ingredients:
-            switch ingredientsTagsTypeToShow {
-            case TagsTypeDefault.Ingredients:
-                return tableStructure[section].header
-            default:
-                return tableStructure[section].header +
-                    " " +
-                    "(" +
-                    ingredientsTagsTypeToShow.description +
-                ")"
-            }
         case .allergens, .allergensSearch:
             switch allergensTagsTypeToShow {
             case TagsTypeDefault.Allergens:
@@ -629,16 +626,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         switch tableStructure[section] {
-        case .image :
+        case .image, .ingredients :
             let header = tableStructure[section].header
             
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
             
             headerView.section = section
             headerView.delegate = self
-            headerView.title = header
+            headerView.title = header 
             headerView.languageCode = currentLanguageCode
-            headerView.buttonIsEnabled = editMode ? true : ( productPair!.product!.languageCodes.count > 1 ? true : false )
+            headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             
             return headerView
         default:
@@ -782,9 +779,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             productVersion = .local
             delegate?.title = TranslatableStrings.Ingredients + " (Local)"
         case .local:
+            productVersion = .new
+            delegate?.title = TranslatableStrings.Ingredients + " (New)"
+        case .new:
             productVersion = .remote
             delegate?.title = TranslatableStrings.Ingredients + " (OFF)"
-
         }
         tableView.reloadData()
     }
@@ -814,19 +813,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 reloadImageSection()
                 return
             }
-            var imageTypeCategory: ImageTypeCategory? = nil
-            var imageSizeCategory: ImageSizeCategory? = nil
-            // We are only interested in medium-sized front images
-            if let validValue = userInfo?[ProductImageData.Notification.ImageSizeCategoryKey] as? Int {
-                imageSizeCategory = ImageSizeCategory(rawValue: validValue)
-            }
             if let validValue = userInfo?[ProductImageData.Notification.ImageTypeCategoryKey] as? Int {
-                imageTypeCategory = ImageTypeCategory(rawValue: validValue)
-            }
-            if imageSizeCategory != nil &&
-                imageTypeCategory != nil &&
-                imageSizeCategory! == .display && imageTypeCategory! == .ingredients {
-                reloadImageSection()
+                if let category = ImageTypeCategory(rawValue: validValue),
+                    category == .ingredients {
+                    // We are only interested in medium-sized front images
+                    //if let validValue = userInfo?[ProductImageData.Notification.ImageSizeCategoryKey] as? Int {
+                    //    imageSizeCategory = ImageSizeCategory(rawValue: validValue)
+                    reloadImageSection()
+                }
             }
         }
     }

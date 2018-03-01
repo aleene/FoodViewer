@@ -105,22 +105,21 @@ import MobileCoreServices
             // If an image has been retrieved fetchResult is set
             // and the image can be set as well
             if fetchResult != nil {
+                // inform the user what is happening
+                var userInfo: [String:Any] = [:]
                 switch fetchResult! {
                 case .success(let data):
                     image = UIImage.init(data: data)
-                default:
                     DispatchQueue.main.async(execute: { () -> Void in
-                        // inform the user what is happening
-                        var userInfo: [String:Any] = [:]
                         userInfo[Notification.BarcodeKey] = self.barcode ?? "ProductImageData: no valid barcode"
-                        if self.imageType() != .unknown {
-                            userInfo[Notification.ImageTypeCategoryKey] = self.imageType().rawValue
-                        }
+                        userInfo[Notification.ImageTypeCategoryKey] = self.imageType().rawValue
                         if self.imageSize() != .unknown {
                             userInfo[Notification.ImageSizeCategoryKey] = self.imageSize().rawValue
                         }
                         NotificationCenter.default.post(name: .ImageSet, object: nil, userInfo: userInfo)
                     })
+                default:
+                    break
                 }
             }
         }
@@ -294,7 +293,7 @@ import MobileCoreServices
     }
     
     private func imageType() -> ImageTypeCategory {
-        guard url != nil else { return .unknown }
+        guard url != nil else { return .general }
         
         if url!.absoluteString.contains(OFF.URL.ImageType.Front) {
             return .front
@@ -303,7 +302,7 @@ import MobileCoreServices
         } else if url!.absoluteString.contains(OFF.URL.ImageType.Nutrition) {
             return .nutrition
         }
-        return .unknown
+        return .general
     }
     
     private func imageSize() -> ImageSizeCategory {

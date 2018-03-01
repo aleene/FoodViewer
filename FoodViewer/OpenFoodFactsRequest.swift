@@ -82,6 +82,9 @@ class OpenFoodFactsRequest {
                             let newProduct = FoodProduct.init(json: offProduct)
                         return .success(newProduct)
                     } else {
+                        if productJson.status_verbose == "product not found" {
+                            return .productNotAvailable(barcode.asString)
+                        }
                         return .loadingFailed(barcode.asString)
                     }
                 } catch let error {

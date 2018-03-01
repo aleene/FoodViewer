@@ -61,9 +61,9 @@ class FoodProduct {
                 if !languageCodes.contains(validLanguage) {
                     // add the language if it does not exist yet
                     languageCodes.append(validLanguage)
-                    set(newName: "", for: validLanguage)
-                    set(newGenericName: "", for: validLanguage)
-                    set(newIngredients: "", for: validLanguage)
+                    //set(newName: "", for: validLanguage)
+                    //set(newGenericName: "", for: validLanguage)
+                    //set(newIngredients: "", for: validLanguage)
                 }
             }
         }
@@ -696,6 +696,9 @@ class FoodProduct {
         barcode = BarcodeType.undefined("", Preferences.manager.showProductType)
         brandsOriginal = .undefined
         brandsInterpreted = .undefined
+        nameLanguage = [:]
+        genericNameLanguage = [:]
+        ingredientsLanguage = [:]
         //mainUrlThumb = nil
         //mainImageUrl = nil
         //mainImageData = nil

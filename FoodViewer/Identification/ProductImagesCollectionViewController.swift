@@ -23,6 +23,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     fileprivate enum ProductVersion {
         case local
         case remote
+        case new
     }
     
     // Determines which version of the product needs to be shown, the remote or local
@@ -75,6 +76,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 if let validImages = productPair?.remoteProduct?.images {
                     newImages = validImages
                 }
+            case .new:
+                if let validImages = productPair?.localProduct?.images {
+                    newImages = validImages
+                }
+                if let validImages = productPair?.remoteProduct?.images {
+                    let images = validImages
+                    newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
+                }
             }
             //images.count > 0 {
             //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
@@ -92,6 +101,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.frontImages {
+                    newImages = validImages
+                }
+            case .new:
+                if let validImages = productPair?.localProduct?.frontImages {
+                    newImages = validImages
+                } else if let validImages = productPair?.remoteProduct?.frontImages {
                     newImages = validImages
                 }
             }
@@ -113,6 +128,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 if let validImages = productPair?.remoteProduct?.ingredientsImages {
                     newImages = validImages
                 }
+            case .new:
+                if let validImages = productPair?.localProduct?.ingredientsImages {
+                    newImages = validImages
+                } else if let validImages = productPair?.remoteProduct?.ingredientsImages {
+                    newImages = validImages
+                }
             }
             //images.count > 0 {
             //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
@@ -132,6 +153,13 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 if let validImages = productPair?.remoteProduct?.nutritionImages {
                     newImages = validImages
                 }
+            case .new:
+                if let validImages = productPair?.localProduct?.nutritionImages {
+                    newImages = validImages
+                } else if let validImages = productPair?.remoteProduct?.nutritionImages {
+                    newImages = validImages
+                }
+
             }
             //images.count > 0 {
             //newImages = images.merging(images, uniquingKeysWith: { (first, last) in last } )
@@ -559,9 +587,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             productVersion = .local
             delegate?.title = TranslatableStrings.Gallery + " (Local)"
         case .local:
+            productVersion = .new
+            delegate?.title = TranslatableStrings.Gallery + " (New)"
+        case .new:
             productVersion = .remote
             delegate?.title = TranslatableStrings.Gallery + " (OFF)"
-            
         }
         collectionView?.reloadData()
     }

@@ -26,6 +26,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     fileprivate enum ProductVersion {
         case local
         case remote
+        case new
     }
     
     var delegate: ProductPageViewController? = nil
@@ -346,6 +347,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.hasNutrimentFacts = productPair?.localProduct?.nutrimentFactsAvailability
             case .remote:
                 cell.hasNutrimentFacts = productPair?.remoteProduct?.nutrimentFactsAvailability
+            case .new:
+                cell.hasNutrimentFacts = productPair?.localProduct?.nutrimentFactsAvailability ?? productPair?.remoteProduct?.nutrimentFactsAvailability
             }
             return cell
             
@@ -359,6 +362,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.nutritionFactsAvailability = productPair?.localProduct?.nutritionFactsAreAvailable
             case .remote:
                 cell.nutritionFactsAvailability = productPair?.remoteProduct?.nutritionFactsAreAvailable
+            case .new:
+                cell.nutritionFactsAvailability = productPair?.localProduct?.nutritionFactsAreAvailable ?? productPair?.remoteProduct?.nutritionFactsAreAvailable
             }
             return cell
             
@@ -464,6 +469,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.servingSize = productPair?.localProduct?.servingSize
             case .remote:
                 cell.servingSize = productPair?.remoteProduct?.servingSize
+            case .new:
+                cell.servingSize = productPair?.localProduct?.servingSize ?? productPair?.remoteProduct?.servingSize
             }
             return cell
 
@@ -508,44 +515,54 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var currentImage: UIImage? {
         switch productVersion {
         case .local:
-            if  let images = productPair?.localProduct?.nutritionImages,
-                !images.isEmpty,
-                let validLanguageCode = currentLanguageCode  {
-                // Is there an updated image corresponding to the current language
-                if let image = images[validLanguageCode]!.original?.image {
-                    return image
-                }
-            }
+            return localImageToShow
         case .remote:
-            // are there any updated nutrition images?
-            if  let images = productPair?.remoteProduct?.nutritionImages,
-                !images.isEmpty,
-                let result = images[currentLanguageCode!]?.display?.fetch(),
-                let validLanguageCode = currentLanguageCode {
-                switch result {
-                case .available:
-                    return images[validLanguageCode]?.display?.image
-                default:
-                    break
-                }
-                // fall back to the primary languagecode nutrition image
-                // if we are NOT in edit mode
-            } else if !editMode,
-                let images = productPair?.remoteProduct?.nutritionImages,
-                let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
-                let result = images[primaryLanguageCode]?.display?.fetch() {
-                switch result {
-                case .available:
-                    return images[primaryLanguageCode]?.display?.image
-                default:
-                    break
-                }
+            return remoteImageToShow
+        case .new:
+            return localImageToShow ?? remoteImageToShow
+        }
+    }
+    
+    private var localImageToShow: UIImage? {
+        if let images = productPair?.localProduct?.nutritionImages,
+            !images.isEmpty,
+            let validLanguageCode = currentLanguageCode  {
+            // Is there an updated image corresponding to the current language
+            if let image = images[validLanguageCode]!.original?.image {
+                return image
             }
         }
-        // No relevant image is available
         return nil
     }
     
+    private var remoteImageToShow: UIImage? {
+        // are there any updated nutrition images?
+        if  let images = productPair?.remoteProduct?.nutritionImages,
+            !images.isEmpty,
+            let result = images[currentLanguageCode!]?.display?.fetch(),
+            let validLanguageCode = currentLanguageCode {
+            switch result {
+            case .available:
+                return images[validLanguageCode]?.display?.image
+            default:
+                break
+            }
+            // fall back to the primary languagecode nutrition image
+            // if we are NOT in edit mode
+        } else if !editMode,
+            let images = productPair?.remoteProduct?.nutritionImages,
+            let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
+            let result = images[primaryLanguageCode]?.display?.fetch() {
+            switch result {
+            case .available:
+                return images[primaryLanguageCode]?.display?.image
+            default:
+                break
+            }
+        }
+        return nil
+    }
+
     private struct Header {
         static let FontSize = CGFloat(18.0)
         static let HorizontalOffSet = CGFloat(20.0)
@@ -1201,9 +1218,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             productVersion = .local
             delegate?.title = TranslatableStrings.NutritionFacts + " (Local)"
         case .local:
+            productVersion = .new
+            delegate?.title = TranslatableStrings.NutritionFacts + " (New)"
+        case .new:
             productVersion = .remote
             delegate?.title = TranslatableStrings.NutritionFacts + " (OFF)"
-            
         }
         tableView.reloadData()
     }

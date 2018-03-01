@@ -79,10 +79,13 @@ class OFFProducts {
                     // load the locally stored product
                     allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
                     MostRecentProduct().load() { (product: FoodProduct?) in
-                        self.allProductPairs[0].localProduct = product
-                        self.allProductPairs[0].updateIsAllowed = false
+                        if let validProduct = product {
+                            self.allProductPairs[0].localProduct = product
+                            self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
+                            self.allProductPairs[0].updateIsAllowed = true
+                        }
                         // I could add a notification here to inform the vc.
-                        // However the vc is not loaded yet, so can not receive anything.
+                        // However the vc is not loaded yet, so it can not receive anything.
                     }
                     loadProductPairRange(around: 0)
                 } else {
@@ -242,7 +245,7 @@ class OFFProducts {
         // save the new product as the most recent one
         MostRecentProduct().save(allProductPairs[0].barcodeType)
         // save the new product in the history
-        storedHistory.add( (allProductPairs[0].barcodeType.asString, allProductPairs[0].type.rawValue) )
+        storedHistory.add( (allProductPairs[0].barcodeType.asString, allProductPairs[0].productType.rawValue) )
         
         // recalculate the productPairs
         setCurrentProductPairs()

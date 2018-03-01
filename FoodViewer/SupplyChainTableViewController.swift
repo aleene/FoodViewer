@@ -59,11 +59,12 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate enum ProductVersion {
         case local
         case remote
+        case new
     }
     
     // Determines which version of the product needs to be shown, the remote or local
 
-    fileprivate var productVersion: ProductVersion = .remote
+    fileprivate var productVersion: ProductVersion = .new
 
     private struct TagsTypeDefault {
         static let Countries: TagsType = .translated
@@ -91,12 +92,7 @@ class SupplyChainTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .local:
-                switch showProducerTagsType {
-                case .original:
-                    return productPair?.localProduct?.manufacturingPlacesOriginal ?? .undefined
-                default:
-                    break
-                }
+                return productPair?.localProduct?.manufacturingPlacesOriginal ?? .undefined
             case .remote:
                 switch showProducerTagsType {
                 case .interpreted:
@@ -110,6 +106,8 @@ class SupplyChainTableViewController: UITableViewController {
                 default:
                     break
                 }
+            case .new:
+                return productPair?.localProduct?.manufacturingPlacesOriginal ?? productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
             }
             return .undefined
         }
@@ -118,13 +116,6 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var producerCodeTagsToDisplay: Tags {
         get {
             switch productVersion {
-            case .local:
-                switch showProducerCodeTagsType {
-                case .original:
-                    return productPair?.localProduct?.embCodesOriginal ?? .undefined
-                default:
-                    break
-                }
             case .remote:
                 switch showProducerCodeTagsType {
                 case .interpreted:
@@ -138,21 +129,19 @@ class SupplyChainTableViewController: UITableViewController {
                 default:
                     break
                 }
+            case .local:
+                return productPair?.localProduct?.embCodesOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.embCodesOriginal ?? productPair?.remoteProduct?.embCodesOriginal ?? .undefined
             }
             return .undefined
+            
         }
     }
     
     fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
         get {
             switch productVersion {
-            case .local:
-                switch showIngredientOriginTagsType {
-                case .original:
-                    return productPair?.localProduct?.originsOriginal ?? .undefined
-                default:
-                    break
-                }
             case .remote:
                 switch showIngredientOriginTagsType {
                 case .interpreted:
@@ -166,6 +155,11 @@ class SupplyChainTableViewController: UITableViewController {
                 default:
                     break
                 }
+            case .local:
+                return productPair?.localProduct?.originsOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.originsOriginal ?? productPair?.remoteProduct?.originsOriginal ?? .undefined
+
             }
             return .undefined
         }
@@ -174,13 +168,6 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var purchaseLocationTagsToDisplay: Tags {
         get {
             switch productVersion {
-            case .local:
-                switch showPurchaseLocationTagsType {
-                case .original:
-                    return productPair?.localProduct?.purchasePlacesOriginal ?? .undefined
-                default:
-                    break
-                }
             case .remote:
                 switch showPurchaseLocationTagsType {
                 case .interpreted:
@@ -194,6 +181,11 @@ class SupplyChainTableViewController: UITableViewController {
                 default:
                     break
                 }
+            case .local:
+                return productPair?.localProduct?.purchasePlacesOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.purchasePlacesOriginal ?? productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
+
             }
             return .undefined
         }
@@ -202,13 +194,6 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var storeTagsToDisplay: Tags {
         get {
             switch productVersion {
-            case .local:
-                switch showStoresTagsType {
-                case .original:
-                    return productPair?.localProduct?.storesOriginal ?? .undefined
-                default:
-                    break
-                }
             case .remote:
                 switch showStoresTagsType {
                 case .interpreted:
@@ -222,6 +207,11 @@ class SupplyChainTableViewController: UITableViewController {
                 default:
                     break
                 }
+            case .local:
+                return productPair?.localProduct?.storesOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.storesOriginal ?? productPair?.remoteProduct?.storesOriginal ?? .undefined
+
             }
             return .undefined
         }
@@ -230,13 +220,6 @@ class SupplyChainTableViewController: UITableViewController {
     fileprivate var countriesToDisplay: Tags {
         get {
             switch productVersion {
-            case .local:
-                switch showStoresTagsType {
-                case .original:
-                    return productPair?.localProduct?.storesOriginal ?? .undefined
-                default:
-                    break
-                }
             case .remote:
                 switch showCountriesTagsType {
                 case .interpreted:
@@ -255,6 +238,10 @@ class SupplyChainTableViewController: UITableViewController {
                 default:
                     break
                 }
+            case .local:
+                return productPair?.localProduct?.countriesOriginal ?? .undefined
+            case .new:
+                return productPair?.localProduct?.countriesOriginal ?? productPair?.remoteProduct?.countriesOriginal ?? .undefined
             }
             return .undefined
         }
@@ -271,6 +258,14 @@ class SupplyChainTableViewController: UITableViewController {
                 if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
                     return Tags.init(text: validPeriodAfterOpening)
                 }
+            case .new:
+                if let validPeriodAfterOpening = productPair?.localProduct?.periodAfterOpeningString {
+                    return Tags.init(text: validPeriodAfterOpening)
+                } else if let validPeriodAfterOpening = productPair?.remoteProduct?.periodAfterOpeningString {
+                    return Tags.init(text: validPeriodAfterOpening)
+                }
+
+
             }
             return .undefined
         }
@@ -288,7 +283,12 @@ class SupplyChainTableViewController: UITableViewController {
                 if let validTags = productPair?.remoteProduct?.links {
                     return Tags.init(list:validTags.map( { $0.absoluteString } ))
                 }
-                return Tags.undefined
+            case .new:
+                if let validTags = productPair?.localProduct?.links {
+                    return Tags.init(list:validTags.map( { $0.absoluteString } ))
+                } else if let validTags = productPair?.remoteProduct?.links {
+                    return Tags.init(list:validTags.map( { $0.absoluteString } ))
+                }
             }
             return .undefined
         }
@@ -635,7 +635,7 @@ class SupplyChainTableViewController: UITableViewController {
             return cell
             
         case .expirationDate:
-            if productPair!.type == .beauty {
+            if productPair!.productType == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
                 switch productVersion {
                 case .remote:
@@ -656,6 +656,19 @@ class SupplyChainTableViewController: UITableViewController {
                         let formattedTimeLeft = formatter.string(from: periodInSeconds)
                         cell.textLabel?.text = formattedTimeLeft
                     }
+                case .new:
+                    let formatter = DateComponentsFormatter()
+                    formatter.unitsStyle = .full
+                    formatter.allowedUnits = .month
+                    if let validPeriod = productPair?.localProduct?.periodAfterReferenceDate {
+                        let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                        let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                        cell.textLabel?.text = formattedTimeLeft
+                    } else if let validPeriod = productPair?.remoteProduct?.periodAfterReferenceDate {
+                        let periodInSeconds = validPeriod.timeIntervalSinceReferenceDate
+                        let formattedTimeLeft = formatter.string(from: periodInSeconds)
+                        cell.textLabel?.text = formattedTimeLeft
+                    }
                 }
                 cell.tag = indexPath.section
                 return cell
@@ -668,6 +681,12 @@ class SupplyChainTableViewController: UITableViewController {
                     }
                 case .local:
                     if let validDate = productPair?.localProduct?.expirationDate {
+                        cell.date = validDate
+                    }
+                case .new:
+                    if let validDate = productPair?.localProduct?.expirationDate {
+                        cell.date = validDate
+                    } else if let validDate = productPair?.remoteProduct?.expirationDate {
                         cell.date = validDate
                     }
                 }
@@ -886,9 +905,11 @@ class SupplyChainTableViewController: UITableViewController {
             productVersion = .local
             delegate?.title = TranslatableStrings.SupplyChain + " (Local)"
         case .local:
+            productVersion = .new
+            delegate?.title = TranslatableStrings.SupplyChain + " (New)"
+        case .new:
             productVersion = .remote
             delegate?.title = TranslatableStrings.SupplyChain + " (OFF)"
-            
         }
         tableView.reloadData()
     }

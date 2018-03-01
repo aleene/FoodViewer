@@ -15,6 +15,7 @@ enum BarcodeType {
     case search(SearchTemplate, ProductType?)
     case undefined(String, ProductType?)
     case notSet
+    case mostRecent(String, ProductType?)
     
     init(typeCode: String, value: String) {
         if typeCode == "org.gs1.EAN-13" {
@@ -74,6 +75,8 @@ enum BarcodeType {
         case .upc12(let s, _):
             return s
         case .undefined(let s, _):
+            return s
+        case .mostRecent(let s, _):
             return s
         default:
             return "not relevant"

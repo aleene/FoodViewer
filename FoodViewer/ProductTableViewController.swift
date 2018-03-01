@@ -296,105 +296,109 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let validFetchResult = products.productPair(at: indexPath.section)?.status {
             switch validFetchResult {
             case .available:
-                if let validProduct = products.productPair(at: indexPath.section)?.product {
-                    let currentProductSection = tableStructure[indexPath.row]
-                    switch currentProductSection {
-                    case .name:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
-                    switch validProduct.brandsOriginal {
+                let productPair = products.productPair(at: indexPath.section)
+                let currentProductSection = tableStructure[indexPath.row]
+                switch currentProductSection {
+                case .name:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
+                    if let validBrands = productPair?.remoteProduct?.brandsOriginal ?? productPair?.localProduct?.brandsOriginal {
+                        switch validBrands {
                         case .undefined, .empty:
-                        cell.productBrand = [validProduct.brandsOriginal.description()]
+                            cell.productBrand = [validBrands.description()]
                         case let .available(list):
                             cell.productBrand = list
                         case .notSearchable:
                             assert(true, "ProductTableViewController Error: How can I set a brand a tag when the field is non-editable")
-                            }
+                        }
+                    }
                     return cell
                         
-                    case .image:
-                        if let language = validProduct.primaryLanguageCode {
-                            if !validProduct.frontImages.isEmpty {
-                                if let result = validProduct.frontImages[language]?.small?.fetch() {
-                                    switch result {
-                                    case .available:
-                                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
-                                        cell.productImage = validProduct.frontImages[language]?.small?.image
-                                            return cell
-                                    default:
-                                        break
-                                    }
-                                }
-                            }
+                case .image:
+                    if let language = productPair?.primaryLanguageCode,
+                        let frontImages = productPair?.remoteProduct?.frontImages ?? productPair?.localProduct?.frontImages,
+                        !frontImages.isEmpty,
+                        let result = frontImages[language]?.small?.fetch() {
+                        switch result {
+                        case .available:
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
+                            cell.productImage = frontImages[language]?.small?.image
+                            return cell
+                        default:
+                            break
                         }
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                        cell.datasource = self
-                        cell.tag = Storyboard.CellTag.Image
-                        //cell.width = tableView.frame.size.width
-                        cell.scheme = ColorSchemes.error
-                        cell.accessoryType = .disclosureIndicator
-                        return cell
+                    }
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                    cell.datasource = self
+                    cell.tag = Storyboard.CellTag.Image
+                    //cell.width = tableView.frame.size.width
+                    cell.scheme = ColorSchemes.error
+                    cell.accessoryType = .disclosureIndicator
+                    return cell
                 
-                    case .ingredientsAllergensTraces:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
+                case .ingredientsAllergensTraces:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as!IngredientsPageTableViewCell
                         
-                        cell.ingredientsLabel?.text = TranslatableStrings.Ingredients
-
-                        if let number = validProduct.numberOfIngredients {
-                            let formatter = NumberFormatter()
-                            formatter.numberStyle = .decimal
-                            cell.ingredientsBadgeString = "\(number)"
-                        } else {
-                            cell.ingredientsBadgeString = TranslatableStrings.Undefined
-                        }
+                    cell.ingredientsLabel?.text = TranslatableStrings.Ingredients
+                    if let number = productPair?.remoteProduct?.numberOfIngredients {
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .decimal
+                        cell.ingredientsBadgeString = "\(number)"
+                    } else {
+                        cell.ingredientsBadgeString = TranslatableStrings.Undefined
+                    }
                         
-                        cell.allergensLabel?.text = TranslatableStrings.Allergens
-                        switch validProduct.allergensTranslated {
+                    cell.allergensLabel?.text = TranslatableStrings.Allergens
+                    if let validAllergens = productPair?.remoteProduct?.allergensTranslated ?? productPair?.localProduct?.allergensOriginal {
+                        switch validAllergens {
                         case .available(let allergens):
                             cell.allergensBadgeString = "\(allergens.count)"
                         default:
                             cell.allergensBadgeString = TranslatableStrings.Undefined
                         }
+                    }
                         
-                        cell.tracesLabel?.text = TranslatableStrings.Traces
-                        switch validProduct.tracesInterpreted {
+                    cell.tracesLabel?.text = TranslatableStrings.Traces
+                    if let validTraces = productPair?.remoteProduct?.tracesInterpreted ?? productPair?.localProduct?.tracesOriginal {
+                        switch validTraces {
                         case .available(let traces):
                             cell.tracesBadgeString = "\(traces.count)"
                         default:
                             cell.tracesBadgeString = TranslatableStrings.Undefined
                         }
-                        return cell
+                    }
+                    return cell
                         
-                    case .ingredients:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = TranslatableStrings.Ingredients
-                        if let number = validProduct.numberOfIngredients {
-                            cell.badgeString = number
-                        }
-                        return cell
+                case .ingredients:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
+                    cell.textLabel!.text = TranslatableStrings.Ingredients
+                    if let number = productPair?.remoteProduct?.numberOfIngredients ?? productPair?.localProduct?.numberOfIngredients {
+                        cell.badgeString = number
+                    }
+                    return cell
                         
-                    case .nutritionFacts:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = TranslatableStrings.NutritionFacts
+                case .nutritionFacts:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
+                    cell.textLabel!.text = TranslatableStrings.NutritionFacts
 
-                        if let count = validProduct.nutritionFacts?.count {
-                            let formatter = NumberFormatter()
-                            formatter.numberStyle = .decimal
-                            cell.badgeString = "\(count)"
-                        } else {
-                            cell.badgeString = TranslatableStrings.Undefined
-                        }
-                        return cell
+                    if let facts = productPair?.remoteProduct?.nutritionFacts ?? productPair?.localProduct?.nutritionFacts{
+                        let formatter = NumberFormatter()
+                        formatter.numberStyle = .decimal
+                        cell.badgeString = "\(facts.count)"
+                    } else {
+                        cell.badgeString = TranslatableStrings.Undefined
+                    }
+                    return cell
                         
-                    case .nutritionScore:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
-                        cell?.product = validProduct
-                        return cell!
+                case .nutritionScore:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
+                    cell?.product = productPair?.remoteProduct ?? productPair?.localProduct
+                    return cell!
                         
-                    case .categories:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = TranslatableStrings.Categories
-
-                        switch validProduct.categoriesHierarchy {
+                case .categories:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
+                    cell.textLabel!.text = TranslatableStrings.Categories
+                    if let validCategories = productPair?.remoteProduct?.categoriesHierarchy ?? productPair?.localProduct?.categoriesOriginal {
+                        switch validCategories {
                         case .undefined, .empty:
                             cell.badgeString = TranslatableStrings.Undefined
                         case let .available(list):
@@ -404,17 +408,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         case .notSearchable:
                             assert(true, "ProductTableViewController Error: How can I set a categorie is non-editable")
                         }
-                        return cell
+                    }
+                    return cell
                 
-                    case .completion:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
-                        cell?.product = validProduct
-                        return cell!
+                case .completion:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
+                    cell?.product = productPair?.remoteProduct ?? productPair?.localProduct
+                    return cell!
                 
-                    case .supplyChain:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
-                        cell.textLabel!.text = TranslatableStrings.SalesCountries
-                        switch validProduct.countriesTranslated {
+                case .supplyChain:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
+                    cell.textLabel!.text = TranslatableStrings.SalesCountries
+                    if let validCountries = productPair?.remoteProduct?.countriesTranslated ?? productPair?.localProduct?.countriesOriginal {
+                        switch validCountries {
                         case .available(let countries):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
@@ -422,58 +428,58 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         default:
                             cell.badgeString = TranslatableStrings.Undefined
                         }
-                        return cell
                     }
-                }
-                case .more:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
-                    cell.delegate = self
-                    cell.title = validFetchResult.description
-                    cell.editMode = true
-                    cell.tag = validFetchResult.rawValue
                     return cell
+                }
+            case .more:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
+                cell.delegate = self
+                cell.title = validFetchResult.description
+                cell.editMode = true
+                cell.tag = validFetchResult.rawValue
+                return cell
                     
-                case .productNotAvailable,
-                     .loading,
-                     .loadingFailed:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+            case .productNotAvailable,
+                .loading,
+                .loadingFailed:
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
+                cell.datasource = self
+                cell.delegate = self
+                // encode the product number and result into the tag
+                cell.tag = validFetchResult.rawValue * Constants.Offset.Multiplier + indexPath.section
+                // cell.width = tableView.frame.size.width
+                cell.scheme = ColorSchemes.error
+                cell.accessoryType = .none
+                return cell
+                    
+            case .searchQuery(let query):
+                // What should appear in this cell depends on the search query element
+                let searchPairs = query.searchPairsWithArray()
+                if searchPairs.count > 0 && indexPath.row < searchPairs.count {
+                    // Search labels with switches to include or exclude the label
+                    //  -- tag values as tags and inclusion as labelText
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
                     cell.datasource = self
-                    cell.delegate = self
-                    // encode the product number and result into the tag
-                    cell.tag = validFetchResult.rawValue * Constants.Offset.Multiplier + indexPath.section
-                    // cell.width = tableView.frame.size.width
-                    cell.scheme = ColorSchemes.error
+                    // The hundreds define a searchQuery section, the rest is just the row
+                    cell.tag = Constants.Offset.SearchQuery + indexPath.row
+                    cell.categoryLabel.text = searchPairs[indexPath.row].0.description
+                    switch searchPairs[indexPath.row].0 {
+                    case .searchText:
+                        cell.labelText = ""
+                    default:
+                        cell.labelText = searchPairs[indexPath.row].2
+                    }
+                    cell.width = tableView.frame.size.width
                     cell.accessoryType = .none
                     return cell
-                    
-                case .searchQuery(let query):
-                    // What should appear in this cell depends on the search query element
-                    let searchPairs = query.searchPairsWithArray()
-                    if searchPairs.count > 0 && indexPath.row < searchPairs.count {
-                        // Search labels with switches to include or exclude the label
-                        //  -- tag values as tags and inclusion as labelText
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-                        cell.datasource = self
-                        // The hundreds define a searchQuery section, the rest is just the row
-                        cell.tag = Constants.Offset.SearchQuery + indexPath.row
-                        cell.categoryLabel.text = searchPairs[indexPath.row].0.description
-                        switch searchPairs[indexPath.row].0 {
-                        case .searchText:
-                            cell.labelText = ""
-                        default:
-                            cell.labelText = searchPairs[indexPath.row].2
-                        }
-                        cell.width = tableView.frame.size.width
-                        cell.accessoryType = .none
-                        return cell
-                    } else {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                        cell.datasource = self
-                        cell.tag = ProductFetchStatus.noSearchDefined.rawValue
-                        //cell.width = tableView.frame.size.width
-                        cell.scheme = ColorSchemes.normal
-                        return cell
-                    }
+                } else {
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for:indexPath) as! TagListViewTableViewCell
+                    cell.datasource = self
+                    cell.tag = ProductFetchStatus.noSearchDefined.rawValue
+                    //cell.width = tableView.frame.size.width
+                    cell.scheme = ColorSchemes.normal
+                    return cell
+                }
             case .searchLoading:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                 cell.datasource = self
@@ -536,11 +542,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tempView.backgroundColor = UIColor.gray
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
-        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
+        if let validFetchResult = products.productPair(at: section)?.status {
             switch validFetchResult {
             case .available:
-                if let validProduct = products.productPair(at: section)?.remoteProduct {
-                    label.text = validProduct.name != nil ? validProduct.name! : Constants.Tag.ProductNameMissing
+                if let validProduct = products.productPair(at: section)?.remoteProduct ?? products.productPair(at: section)?.localProduct,
+                let languageCode = products.productPair(at: section)?.primaryLanguageCode {
+                    label.text = products.productPair(at: section)?.remoteProduct?.nameLanguage[languageCode] ?? products.productPair(at: section)?.localProduct?.nameLanguage[languageCode] ?? Constants.Tag.ProductNameMissing
                     switch validProduct.tracesInterpreted {
                     case .available(let validKeys):
                         if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
@@ -846,15 +853,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
-        if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
-            if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
-                if self.tableView.numberOfSections > index + 1 {
-                    self.tableView.reloadSections([index], with: .automatic)
-                } else {
-                    self.tableView.reloadData()
-                }
-            }
-        }
+        //if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
+            //if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
+                DispatchQueue.main.async(execute: { () -> Void in
+                    //if self.tableView.numberOfSections > index + 1 {
+                    //    self.tableView.reloadSections([index], with: .automatic)
+                    //} else {
+                        self.tableView.reloadData()
+                    //}
+                })
+            //}
+        //}
     }
     
     // 
