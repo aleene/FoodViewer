@@ -24,9 +24,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let ProductNameMissing = TranslatableStrings.ProductNameMissing
         }
         
+        // The tag-value of a cell is used to codify the type of cell
+        // The product index is given by the ProductMultiplier, i.e. section * multipier
+        // The product loading status (ProductFetchStatus.rawValue) is the remainer if < Offset.Image
+        // image-loading status (ImageFetchResult) is the remainer if > Offset.Image < Offset.SearchQuery
+        // searchQuery (add Offset.SearchQuery) is the remainer if > Offset.SearchQuery
+        //
+        //
+        
         struct Offset {
-            static let SearchQuery = 2000
-            static let Multiplier = 1000
+            static let Image = 50
+            static let SearchQuery = 80
+            static let ProductMultiplier = 1000
         }
     }
     
@@ -254,9 +263,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             static let ShowSettings = "Show Settings Segue"
             static let ShowSortOrder = "Set Sort Order Segue Identifier"
         }
-        struct CellTag {
-            static let Image = 5555
-        }
     }
     
     
@@ -324,12 +330,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             cell.productImage = frontImages[language]?.small?.image
                             return cell
                         default:
-                            break
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                            cell.datasource = self
+                            cell.tag = result.rawValue + Constants.Offset.Image
+                            cell.width = tableView.frame.size.width
+                            cell.scheme = ColorSchemes.error
+                            cell.accessoryType = .disclosureIndicator
+                            return cell
+
                         }
                     }
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                     cell.datasource = self
-                    cell.tag = Storyboard.CellTag.Image
+                    cell.tag = ImageFetchResult.noImageAvailable.rawValue + Constants.Offset.Image
                     //cell.width = tableView.frame.size.width
                     cell.scheme = ColorSchemes.error
                     cell.accessoryType = .disclosureIndicator
@@ -436,7 +449,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 cell.delegate = self
                 cell.title = validFetchResult.description
                 cell.editMode = true
-                cell.tag = validFetchResult.rawValue
+                cell.tag = validFetchResult.rawValue + indexPath.section * Constants.Offset.ProductMultiplier
                 return cell
                     
             case .productNotAvailable,
@@ -446,7 +459,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 cell.datasource = self
                 cell.delegate = self
                 // encode the product number and result into the tag
-                cell.tag = validFetchResult.rawValue * Constants.Offset.Multiplier + indexPath.section
+                cell.tag = validFetchResult.rawValue + indexPath.section * Constants.Offset.ProductMultiplier
                 // cell.width = tableView.frame.size.width
                 cell.scheme = ColorSchemes.error
                 cell.accessoryType = .none
@@ -475,7 +488,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for:indexPath) as! TagListViewTableViewCell
                     cell.datasource = self
-                    cell.tag = ProductFetchStatus.noSearchDefined.rawValue
+                    cell.tag = ProductFetchStatus.noSearchDefined.rawValue + Constants.Offset.SearchQuery
                     //cell.width = tableView.frame.size.width
                     cell.scheme = ColorSchemes.normal
                     return cell
@@ -483,7 +496,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             case .searchLoading:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                 cell.datasource = self
-                cell.tag = ProductFetchStatus.searchLoading.rawValue
+                cell.tag = ProductFetchStatus.searchLoading.rawValue + Constants.Offset.SearchQuery
                 cell.width = tableView.frame.size.width
                 cell.accessoryType = .none
                 return cell
@@ -491,13 +504,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 products.loadProductPair(at: indexPath.section)
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                 cell.datasource = self
-                cell.tag = validFetchResult.rawValue
+                cell.tag = validFetchResult.rawValue + Constants.Offset.ProductMultiplier * indexPath.section
                 cell.scheme = ColorSchemes.normal
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                 cell.datasource = self
-                cell.tag = validFetchResult.rawValue
+                cell.tag = validFetchResult.rawValue + Constants.Offset.ProductMultiplier * indexPath.section
                 cell.scheme = ColorSchemes.normal
                 return cell
                 }
@@ -1082,59 +1095,13 @@ extension ProductTableViewController: TagListViewDataSource {
         
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
 
-        let code = Int( tagListView.tag / Constants.Offset.Multiplier )
+        // find the product that has been tapped on
+        let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
+        // find the status of the product
+        let code = tagListView.tag % Constants.Offset.ProductMultiplier
         
-        if code == ProductFetchStatus.initialized.rawValue {
-            return ProductFetchStatus.initialized.description
-        }
         
-        if code == ProductFetchStatus.productNotLoaded("").rawValue {
-            return ProductFetchStatus.productNotLoaded("").description
-        }
-        
-        if code == ProductFetchStatus.success(FoodProduct()).rawValue {
-            return ProductFetchStatus.success(FoodProduct()).description
-        }
-
-        if code == ProductFetchStatus.available(String()).rawValue {
-            return ProductFetchStatus.available(String()).description
-        }
-
-        
-        if code == ProductFetchStatus.loading(String()).rawValue {
-            return ProductFetchStatus.loading(String()).description
-        }
-        
-        if code == ProductFetchStatus.loadingFailed(String()).rawValue {
-            return ProductFetchStatus.loadingFailed(String()).description
-        }
-        
-        if code == ProductFetchStatus.productNotAvailable(String()).rawValue {
-            return ProductFetchStatus.productNotAvailable(String()).description
-        }
-        
-        if code == Storyboard.CellTag.Image {
-            return TranslatableStrings.NoImageInTheRightLanguage
-        }
-        
-        if code == ProductFetchStatus.searchLoading.rawValue {
-            if let validFetchResult = products.productPair(at: products.count - 1)?.remoteStatus {
-                switch validFetchResult {
-                case .searchLoading:
-                    return TranslatableStrings.Loading
-                case .more:
-                    return TranslatableStrings.LoadMoreResults
-                default:
-                    break
-                }
-            }
-        }
-        
-        if code == ProductFetchStatus.noSearchDefined.rawValue {
-            return ProductFetchStatus.noSearchDefined.description
-        }
-        
-        if tagListView.tag >= Constants.Offset.SearchQuery {
+        if code >= Constants.Offset.SearchQuery {
             if let validFetchResult = products.productPair(at: products.count - 1)?.remoteStatus {
                 switch validFetchResult {
                 case .searchQuery(let query):
@@ -1151,13 +1118,31 @@ extension ProductTableViewController: TagListViewDataSource {
                         }
                     }
                 default:
-                    break
+                    if code == ProductFetchStatus.searchLoading.rawValue - Constants.Offset.SearchQuery {
+                        if let validFetchResult = products.productPair(at: products.count - 1)?.remoteStatus {
+                            switch validFetchResult {
+                            case .searchLoading:
+                                return TranslatableStrings.Loading
+                            case .more:
+                                return TranslatableStrings.LoadMoreResults
+                            default:
+                                break
+                            }
+                        }
+                    }
+                    
+                    if code == ProductFetchStatus.noSearchDefined.rawValue - Constants.Offset.SearchQuery {
+                        return ProductFetchStatus.noSearchDefined.description
+                    }
                 }
 
             }
+        } else if code >= Constants.Offset.Image {
+            return ImageFetchResult.description(for: code - Constants.Offset.Image)
         }
-        return "ProductTableViewController: tagListView.tag not recognized"
-    }
+        
+        return ProductFetchStatus.description(for: code)
+        }
     
     /// Which text should be displayed when the TagListView is collapsed?
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
@@ -1176,11 +1161,13 @@ extension ProductTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
         
-        let code = Int( tagListView.tag / Constants.Offset.Multiplier )
+        // find the product that has been tapped on
+        let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
+        // find the status of the product
+        let code = tagListView.tag % Constants.Offset.ProductMultiplier
         // try to reload the product
         if code == ProductFetchStatus.productNotLoaded("").rawValue  ||
             code == ProductFetchStatus.loadingFailed("").rawValue {
-            let productIndex = tagListView.tag % Constants.Offset.Multiplier
             _ = products.loadProductPair(at: productIndex)
         }
     }

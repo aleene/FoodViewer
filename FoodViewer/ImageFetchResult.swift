@@ -34,4 +34,37 @@ enum ImageFetchResult {
         }
     }
 
+    var rawValue: Int {
+        switch self {
+        case .available: return 0
+        case .success: return 1
+        case .loading: return 2
+        case .loadingFailed: return 3
+        case .response: return 4
+        case .noResponse: return 5
+        case .noData: return 6
+        case .noImageAvailable: return 7
+            
+        case .uploading: return 10
+        }
+    }
+
+    static func description(for value: Int) -> String {
+        switch value {
+        case ImageFetchResult.available.rawValue: return ImageFetchResult.available.description
+        case ImageFetchResult.success(Data()).rawValue: return ImageFetchResult.success(Data()).description
+        case ImageFetchResult.loading.rawValue: return ImageFetchResult.loading.description
+        case 3:
+            let error = Error.self
+            return ImageFetchResult.loadingFailed(error as! Error).description
+        case ImageFetchResult.response(HTTPURLResponse()).rawValue: return ImageFetchResult.response(HTTPURLResponse()).description
+        case ImageFetchResult.noResponse.rawValue: return ImageFetchResult.noResponse.description
+        case ImageFetchResult.noData.rawValue: return ImageFetchResult.noData.description
+        case ImageFetchResult.noImageAvailable.rawValue: return ImageFetchResult.noImageAvailable.description
+            
+        case ImageFetchResult.uploading.rawValue: return ImageFetchResult.uploading.description
+            
+        default: return "No valid ImageFetchResult value"
+        }
+    }
 }

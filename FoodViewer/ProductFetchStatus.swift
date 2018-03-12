@@ -75,4 +75,23 @@ enum ProductFetchStatus {
         case .more: return 14
         }
     }
+    
+    static func description(for value: Int) -> String {
+        switch value {
+        case ProductFetchStatus.initialized.rawValue: return ProductFetchStatus.initialized.description
+        case ProductFetchStatus.productNotLoaded(String()).rawValue : return  ProductFetchStatus.productNotLoaded(String()).description
+        case ProductFetchStatus.success(FoodProduct()).rawValue :
+            return ProductFetchStatus.success(FoodProduct()).description
+        case ProductFetchStatus.available(String()).rawValue :
+            return ProductFetchStatus.available(String()).description
+        case ProductFetchStatus.loading(String()).rawValue :
+            return ProductFetchStatus.loading(String()).description
+        case ProductFetchStatus.loadingFailed(String()).rawValue :
+            return ProductFetchStatus.loadingFailed(String()).description
+        case ProductFetchStatus.productNotAvailable(String()).rawValue :
+            return ProductFetchStatus.productNotAvailable(String()).description
+        default:
+            return "ProductFetchStatus: unknown rawValue"
+        }
+    }
 }
