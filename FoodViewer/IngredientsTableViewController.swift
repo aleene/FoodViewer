@@ -156,23 +156,27 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remote:
-                switch tracesTagsTypeToShow {
-                case .interpreted:
-                    return productPair?.remoteProduct?.tracesInterpreted ?? .undefined
-                case .hierarchy:
-                    return productPair?.remoteProduct?.tracesHierarchy ?? .undefined
-                case .translated:
-                    return productPair?.remoteProduct?.tracesTranslated ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.tracesOriginal ?? .undefined
-                case .prefixed:
-                    return .undefined
-                }
+                return remoteTraces
             case .local:
                 return productPair?.localProduct?.tracesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.tracesOriginal ?? productPair?.remoteProduct?.tracesOriginal ?? .undefined
+                return productPair?.localProduct?.tracesOriginal ?? remoteTraces
             }
+        }
+    }
+    
+    private var remoteTraces: Tags {
+        switch tracesTagsTypeToShow {
+        case .interpreted:
+            return productPair?.remoteProduct?.tracesInterpreted ?? .undefined
+        case .hierarchy:
+            return productPair?.remoteProduct?.tracesHierarchy ?? .undefined
+        case .translated:
+            return productPair?.remoteProduct?.tracesTranslated ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.tracesOriginal ?? .undefined
+        case .prefixed:
+            return .undefined
         }
     }
     
@@ -216,23 +220,27 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remote:
-                switch labelsTagsTypeToShow {
-                case .interpreted:
-                    return productPair?.remoteProduct?.labelsInterpreted ?? .undefined
-                case .translated:
-                    return productPair?.remoteProduct?.translatedLabels() ?? .undefined
-                case .hierarchy:
-                    return productPair?.remoteProduct?.labelsHierarchy ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.labelsOriginal ?? .undefined
-                case .prefixed:
-                    return .undefined
-                }
+                return remoteLabels
             case .local:
                 return productPair?.localProduct?.labelsOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.labelsOriginal ?? productPair?.remoteProduct?.labelsOriginal ?? .undefined
+                return productPair?.localProduct?.labelsOriginal ?? remoteLabels
             }
+        }
+    }
+    
+    private var remoteLabels: Tags {
+        switch labelsTagsTypeToShow {
+        case .interpreted:
+            return productPair?.remoteProduct?.labelsInterpreted ?? .undefined
+        case .translated:
+            return productPair?.remoteProduct?.translatedLabels() ?? .undefined
+        case .hierarchy:
+            return productPair?.remoteProduct?.labelsHierarchy ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.labelsOriginal ?? .undefined
+        case .prefixed:
+            return .undefined
         }
     }
 
@@ -490,6 +498,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.delegate = self
                 return cell
             } else {
+                searchResult = TranslatableStrings.NoImageAvailable
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.width = tableView.frame.size.width

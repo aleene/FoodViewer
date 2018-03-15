@@ -33,7 +33,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     // Determines which version of the product needs to be shown, the remote or local
     
-    fileprivate var productVersion: ProductVersion = .remote
+    fileprivate var productVersion: ProductVersion = .new
 
     struct DisplayFact {
         var name: String? = nil
@@ -104,59 +104,55 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
 
-    private func adaptNutritionFacts(_ facts: [NutritionFactItem?]?) -> [DisplayFact] {
+    private func adaptNutritionFacts(_ facts: [String:NutritionFactItem]) -> [DisplayFact] {
         var displayFacts: [DisplayFact] = []
-        if let validFacts = facts {
-            for fact in validFacts {
-                if let validFact = fact {
-                    var newFact: NutritionFactItem? = nil
+        for fact in facts {
+            var newFact: NutritionFactItem? = nil
 
-                    // if the validFact is sodium or salt, add either one to the list of facts, but not both
-                    if (validFact.key == NatriumChloride.salt.key()) {
-                        switch ShowSaltAs {
-                        // do not show sodium
-                        case .sodium: break
-                        default:
-                            newFact = validFact
-                        }
-                    } else if (validFact.key == NatriumChloride.sodium.key()) {
-                        switch ShowSaltAs {
-                        // do not show salt
-                        case .salt: break
-                        default:
-                            newFact = validFact
-                        }
-                    } else if ( validFact.key == LocalizedEnergy.key ) {
-                        switch showEnergyAs {
-                        // show energy as Calories (US)
-                        case .calories:
-                            newFact = NutritionFactItem.init(
-                                name: EnergyUnitUsed.calories.description(),
-                                                             standard: validFact.valueInCalories(validFact.standardValue),
-                                                             serving: validFact.valueInCalories(validFact.servingValue),
-                                                             unit: EnergyUnitUsed.calories.unit(),
-                                                             key: validFact.key)
-                        // show energy as kcalorie
-                        case .kilocalorie:
-                            newFact = NutritionFactItem.init(name: EnergyUnitUsed.kilocalorie.description(),
-                                                             standard: validFact.valueInCalories(validFact.standardValue),
-                                                             serving: validFact.valueInCalories(validFact.servingValue),
-                                                             unit: EnergyUnitUsed.kilocalorie.unit(),
-                                                             key: validFact.key)
-                        case .joule:
-                            // this assumes that fact is in Joule
-                            newFact = validFact
-                        }
-                    } else {
-                        newFact = validFact
-                    }
-                    if let finalFact = newFact {
-                        let validDisplayFact = localizeFact(finalFact)
-                        displayFacts.append(validDisplayFact)
-                    }
-
+            // if the validFact is sodium or salt, add either one to the list of facts, but not both
+            if fact.key == NatriumChloride.salt.key {
+                switch ShowSaltAs {
+                // do not show sodium
+                case .sodium: break
+                default:
+                    newFact = fact.value
                 }
+            } else if fact.key == NatriumChloride.sodium.key {
+                switch ShowSaltAs {
+                // do not show salt
+                case .salt: break
+                default:
+                    newFact = fact.value
+                }
+            } else if fact.key == LocalizedEnergy.key {
+                switch showEnergyAs {
+                // show energy as Calories (US)
+                case .calories:
+                    newFact = NutritionFactItem.init(
+                            name: EnergyUnitUsed.calories.description(),
+                                                             standard: fact.value.valueInCalories(fact.value.standardValue),
+                                                             serving: fact.value.valueInCalories(fact.value.servingValue),
+                                                             unit: EnergyUnitUsed.calories.unit(),
+                                                             key: fact.key)
+                // show energy as kcalorie
+                case .kilocalorie:
+                    newFact = NutritionFactItem.init(name: EnergyUnitUsed.kilocalorie.description(),
+                                                             standard: fact.value.valueInCalories(fact.value.standardValue),
+                                                             serving: fact.value.valueInCalories(fact.value.servingValue),
+                                                             unit: EnergyUnitUsed.kilocalorie.unit(),
+                                                             key: fact.key)
+                case .joule:
+                    // this assumes that fact is in Joule
+                    newFact = fact.value
+                }
+            } else {
+                newFact = fact.value
             }
+            if let finalFact = newFact {
+                let validDisplayFact = localizeFact(finalFact)
+                displayFacts.append(validDisplayFact)
+            }
+
         }
         return displayFacts
     }
@@ -184,36 +180,17 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // The functions creates a mixed array of edited and unedited nutrients
     
     fileprivate func mergeNutritionFacts() {
-        var newNutritionFacts: [NutritionFactItem?] = []
-        // Are there any nutritionFacts defined?
-        if let validNutritionFacts = productPair?.remoteProduct?.nutritionFacts {
-            // Is there an edited version of the nutritionFacts?
-            if let updatedNutritionFacts = productPair?.localProduct?.nutritionFacts {
-                // create a mixed array of unedited and edited items
-                for index in 0 ..< validNutritionFacts.count {
-                    if updatedNutritionFacts.count != 0 {
-                        // has this nutritionFact been updated?
-                        if updatedNutritionFacts[index] == nil {
-                            newNutritionFacts.append(validNutritionFacts[index]!)
-                        } else {
-                            var newFact = NutritionFactItem()
-                            newFact.key = updatedNutritionFacts[index]?.key
-                            newFact.itemName = updatedNutritionFacts[index]?.itemName
-                            // check out whether an update occured
-                            newFact.standardValue = updatedNutritionFacts[index]?.standardValue ?? validNutritionFacts[index]?.standardValue
-                            newFact.standardValueUnit = updatedNutritionFacts[index]?.standardValueUnit ?? validNutritionFacts[index]?.standardValueUnit
-                            newFact.servingValue = updatedNutritionFacts[index]?.servingValue ?? validNutritionFacts[index]?.servingValue
-                            newFact.servingValueUnit = updatedNutritionFacts[index]?.servingValueUnit ?? validNutritionFacts[index]?.servingValueUnit
-                            newNutritionFacts.append(newFact)
-                        }
-                    }
-                }
-                adaptedNutritionFacts = adaptNutritionFacts(newNutritionFacts)
-            } else {
-                // just use the original facts
-                adaptedNutritionFacts = adaptNutritionFacts(validNutritionFacts)
-            }
+        switch productVersion {
+        case .remote:
+            adaptedNutritionFacts = adaptNutritionFacts(productPair?.remoteProduct?.nutritionFactsDict ?? [:])
+        case .local:
+            adaptedNutritionFacts = adaptNutritionFacts(productPair?.localProduct?.nutritionFactsDict ?? [:])
+        case .new:
+            // merge the two dictionaries, the local version wins!
+            let facts = productPair?.remoteProduct?.nutritionFactsDict.merging(productPair?.localProduct?.nutritionFactsDict ?? [:]) { (_, new) in new }
+            adaptedNutritionFacts = adaptNutritionFacts(facts ?? [:])
         }
+
     }
 
     @IBAction func refresh(_ sender: UIRefreshControl) {
@@ -321,7 +298,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         default:
             break
         }
-//        let noRows = (tableStructure[section]  == .nutritionFacts || tableStructure[section]  == .nutritionFactsSearch ) && editMode ? tableStructure[section].numberOfRows + 1 : tableStructure[section].numberOfRows
         return tableStructure[section].numberOfRows
     }
     
@@ -403,8 +379,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.tag = indexPath.section * 100 + indexPath.row
                     // only add taps gestures when NOT in editMode
                     if !editMode {
-                        if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key ==   NatriumChloride.salt.key()) ||
-                            (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key()) {
+                        if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key ==   NatriumChloride.salt.key) ||
+                            (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -687,13 +663,15 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
             if query!.allNutrimentsSearch.isEmpty {
                 // Show a tag indicating no nutrition facts search has been specified
-                sectionsAndRows.append(.nutritionFactsSearch(TableSections.Size.NutritionFactsEmpty,
-                    TableSections.Header.NutritionFactItems))
+                sectionsAndRows.append(
+                    .nutritionFactsSearch(
+                        TableSections.Size.NutritionFactsEmpty,
+                        TableSections.Header.NutritionFactItems ) )
             } else {
                 // show a list with defined nutrition facts search
                 sectionsAndRows.append( .nutritionFactsSearch(
                     query!.allNutrimentsSearch.count,
-                    TableSections.Header.NutritionFactItems))
+                    TableSections.Header.NutritionFactItems ) )
             }
             
             sectionsAndRows.append(.servingSizeSearch(
@@ -706,7 +684,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 TableSections.Header.NutritionFactsImage))
 
 
-        } else if let validRemoteProduct = productPair?.remoteProduct {
+        } else {
         
             // Which sections are shown depends on whether the product has nutriment data
         
@@ -722,8 +700,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // how does the user want the data presented
                 switch showNutrientsAs {
                 case .perStandard:
+                    guard let available = productPair?.product?.nutritionFactsAreAvailable else {
+                        break
+                    }
                     // what is possible?
-                    switch validRemoteProduct.nutritionFactsAreAvailable {
+                    switch available {
                     case .perStandardUnit, .perServingAndStandardUnit:
                         showNutrientsAs = .perStandard
                     case .perServing:
@@ -732,7 +713,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         break
                     }
                 case .perServing:
-                    switch validRemoteProduct.nutritionFactsAreAvailable {
+                    guard let available = productPair?.product?.nutritionFactsAreAvailable else {
+                        break
+                    }
+                    switch available {
                     // what is possible?
                     case .perStandardUnit:
                         showNutrientsAs = .perStandard
@@ -742,7 +726,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         break
                     }
                 case .perDailyValue:
-                    switch validRemoteProduct.nutritionFactsAreAvailable {
+                    guard let available = productPair?.product?.nutritionFactsAreAvailable else {
+                        break
+                    }
+                    switch available {
                     case .perStandardUnit:
                         // force showing perStandard as perServing is not available
                         showNutrientsAs = .perStandard
@@ -772,25 +759,25 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                       TableSections.Header.PerUnit )
                 )
         
-            // Section 1 or 2 : nutrition facts
+                // Section 1 or 2 : nutrition facts
             
-            if productPair!.remoteProduct!.nutritionFacts == nil || productPair!.remoteProduct!.nutritionFacts!.isEmpty {
-                // Show a tag indicating no nutrition facts have been specified
-                sectionsAndRows.append(.nutritionFacts(
-                    TableSections.Size.NutritionFactsEmpty,
-                    TableSections.Header.NutritionFactItems))
-            } else {
-                // show a list with nutrition facts
-                sectionsAndRows.append( .nutritionFacts(
-                    adaptedNutritionFacts.count,
-                    TableSections.Header.NutritionFactItems))
-            }
+                if adaptedNutritionFacts.isEmpty {
+                    // Show a tag indicating no nutrition facts have been specified
+                    sectionsAndRows.append(.nutritionFacts(
+                        TableSections.Size.NutritionFactsEmpty,
+                        TableSections.Header.NutritionFactItems))
+                } else {
+                    // show a list with nutrition facts
+                    sectionsAndRows.append( .nutritionFacts(
+                        adaptedNutritionFacts.count,
+                        TableSections.Header.NutritionFactItems))
+                }
         
-            // Section 2 or 3 or 4 : serving size
+                // Section 2 or 3 or 4 : serving size
             
-            sectionsAndRows.append( .servingSize(
-                TableSections.Size.ServingSize,
-                TableSections.Header.ServingSize))
+                sectionsAndRows.append( .servingSize(
+                    TableSections.Size.ServingSize,
+                    TableSections.Header.ServingSize))
         
                 // Section 3 or 4 or 5: image section
                 sectionsAndRows.append( .image(

@@ -313,22 +313,11 @@ class IdentificationTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .remote:
-                switch showPackagingTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.packagingOriginal ?? .undefined
-                case .hierarchy:
-                    return productPair?.remoteProduct?.packagingHierarchy ?? .undefined
-                case .prefixed:
-                    return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode()) ?? .undefined
-                case .translated:
-                    return .undefined
-                }
+                return remotePackaging
             case .local:
                 return productPair?.localProduct?.packagingOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.packagingOriginal ?? productPair?.remoteProduct?.packagingOriginal ?? .undefined
+                return productPair?.localProduct?.packagingOriginal ?? remotePackaging
             }
         }
     }
@@ -337,18 +326,37 @@ class IdentificationTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .remote:
-                switch showLanguagesTagsType {
-                case .translated:
-                    // show the languageCodes in a localized language
-                    return productPair?.remoteProduct?.languageTags ?? .undefined
-                default:
-                    return .undefined
-                }
+                return remoteLanguages
             case .local:
                 return productPair?.localProduct?.languageTags ?? .undefined
             case .new:
-                return productPair?.localProduct?.languageTags ?? productPair?.remoteProduct?.languageTags ?? .undefined
+                return productPair?.localProduct?.languageTags ?? remoteLanguages
             }
+        }
+    }
+    
+    private var remoteLanguages: Tags {
+        switch showLanguagesTagsType {
+        case .translated:
+            // show the languageCodes in a localized language
+            return productPair?.remoteProduct?.languageTags ?? .undefined
+        default:
+            return .undefined
+        }
+    }
+    
+    private var remotePackaging: Tags {
+        switch showPackagingTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.packagingInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.packagingOriginal ?? .undefined
+        case .hierarchy:
+            return productPair?.remoteProduct?.packagingHierarchy ?? .undefined
+        case .prefixed:
+            return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode()) ?? .undefined
+        case .translated:
+            return .undefined
         }
     }
 

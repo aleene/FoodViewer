@@ -116,32 +116,23 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
         
         if product.type != nil && product.type != .beauty {
-            if let validNutritionFacts = product.nutritionFacts {
-                for fact in validNutritionFacts {
-                    if fact != nil {
-                        if let validValue = fact?.standardValue,
-                            let validKey = fact?.key {
-                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey) + OFFWriteAPI.Equal + validValue)
+            for fact in product.nutritionFactsDict {
+                if let validValue = fact.value.standardValue {
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
-                        } else if let validValue = fact?.servingValue,
-                            let validKey = fact?.key {
-                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey) + OFFWriteAPI.Equal + validValue)
+                } else if let validValue = fact.value.servingValue {
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPerServing)
-                        }
-                        
-                        if let validValueUnit = fact?.standardValueUnit?.short(),
-                            let validKey = fact?.key {
-                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
-                            urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                        } else if let validValueUnit = fact?.servingValueUnit?.short(),
-                            let validKey = fact?.key {
-                            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: validKey))
-                            urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
-                        }
-                        
-                        productUpdated = true
-                    }
                 }
+                        
+                if let validValueUnit = fact.value.standardValueUnit?.short() {
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
+                            urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
+                } else if let validValueUnit = fact.value.servingValueUnit?.short() {
+                    urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key))
+                    urlString.append(OFFWriteAPI.NutrimentUnit + OFFWriteAPI.Equal + validValueUnit.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!)
+                }
+                productUpdated = true
             }
         }
         

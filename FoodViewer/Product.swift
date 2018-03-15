@@ -236,22 +236,20 @@ class FoodProduct {
     var nutritionFactsAreAvailable: NutritionAvailability {
         get {
             // Figures out whether a nutrition fact contains values per serving and/or standard
-            if let validNutritionFacts = nutritionFacts {
-                if !validNutritionFacts.isEmpty {
-                    if validNutritionFacts[0]?.servingValue != nil &&
-                        !validNutritionFacts[0]!.servingValue!.isEmpty &&
-                        validNutritionFacts[0]?.standardValue != nil &&
-                        !validNutritionFacts[0]!.standardValue!.isEmpty {
+                if !nutritionFactsDict.isEmpty {
+                    if nutritionFactsDict.first?.value.servingValue != nil &&
+                        !nutritionFactsDict.first!.value.servingValue!.isEmpty &&
+                        nutritionFactsDict.first?.value.standardValue != nil &&
+                        !nutritionFactsDict.first!.value.standardValue!.isEmpty {
                         return .perServingAndStandardUnit
-                    } else if validNutritionFacts[0]?.servingValue != nil &&
-                        !validNutritionFacts[0]!.servingValue!.isEmpty {
+                    } else if nutritionFactsDict.first?.value.servingValue != nil &&
+                        !nutritionFactsDict.first!.value.servingValue!.isEmpty {
                         return .perServing
-                    } else if validNutritionFacts[0]?.standardValue != nil &&
-                        !validNutritionFacts[0]!.standardValue!.isEmpty {
+                    } else if nutritionFactsDict.first?.value.standardValue != nil &&
+                        !nutritionFactsDict.first!.value.standardValue!.isEmpty {
                         return .perStandardUnit
                     }
                 }
-            }
             return .notIndicated
         }
     }
@@ -262,10 +260,10 @@ class FoodProduct {
     // hasNutritionFacts can be nil even if there are nutriments defined
     var nutrimentFactsAvailability: Bool {
         get {
-            if hasNutritionFacts != nil {
-                return hasNutritionFacts!
+            if let hasFacts = hasNutritionFacts {
+                return hasFacts
             } else {
-                return nutritionFacts != nil ? true : false
+                return !nutritionFactsDict.isEmpty ? true : false
             }
         }
     }
@@ -273,15 +271,14 @@ class FoodProduct {
     
     // The nutritionFacts array can be nil, if nothing has been defined
     // An element in the array can be nil as well
-    var nutritionFacts: [NutritionFactItem?]? = nil
+    //var nutritionFacts: [NutritionFactItem?]? = nil
+    
+    var nutritionFactsDict: [String:NutritionFactItem] = [:]
     
     func add(fact: NutritionFactItem?) {
-        guard let validFact = fact else { return }
-        if nutritionFacts == nil {
-            nutritionFacts = []
-        }
-        nutritionFacts?.append(validFact)
-        
+        guard let validFact = fact,
+            let key = validFact.key else { return }
+        nutritionFactsDict[key] = validFact
     }
     
     var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
@@ -725,7 +722,7 @@ class FoodProduct {
         embCodesInterpreted = .undefined
         embCodesOriginal = .undefined
         servingSize = nil
-        nutritionFacts = []
+        nutritionFactsDict = [:]
         nutritionScore = nil
         //imageNutritionSmallUrl = nil
         //nutritionFactsImageUrl = nil
@@ -1429,14 +1426,7 @@ class FoodProduct {
     }
     
     func nutritionFactsContain(_ key: String) -> Bool {
-        if let validNutritionFacts = self.nutritionFacts {
-            for fact in validNutritionFacts {
-                if fact != nil && fact!.key == key {
-                    return true
-                }
-            }
-        }
-        return false
+        return nutritionFactsDict.contains(where: {( $0.key == key )})
     }
     
     // If an update is successfull, the updated data can be removed
@@ -1454,7 +1444,7 @@ class FoodProduct {
         labelsOriginal = .undefined
         
         servingSize = nil
-        nutritionFacts = []
+        nutritionFactsDict = [:]
         hasNutritionFacts = nil
 
         manufacturingPlacesOriginal = .undefined
@@ -1492,7 +1482,7 @@ class FoodProduct {
         originsOriginal == .undefined &&
         embCodesOriginal == .undefined &&
         servingSize == nil &&
-        nutritionFacts!.isEmpty &&
+        nutritionFactsDict.isEmpty &&
         purchasePlacesAddress == nil &&
         purchasePlacesOriginal == .undefined &&
         storesOriginal == .undefined &&
@@ -2000,22 +1990,14 @@ class FoodProduct {
     // This calculated variable is needed for the creation of a OFF json
     var asOFFProductJson: OFFProductJson {
         
-        var validNutritionFacts: [NutritionFactItem] = []
-        if let existingNutritionFacts = self.nutritionFacts {
-            for nutritionFact in existingNutritionFacts {
-                if nutritionFact != nil {
-                    validNutritionFacts.append(nutritionFact!)
-                }
-            }
+    let offNutriments = OFFProductNutriments(nutritionFactsDict: self.nutritionFactsDict)
+    
+    var validLinks = ""
+    if let validLinkUrls = self.links {
+        for link in validLinkUrls {
+            validLinks += link.absoluteString + ","
         }
-        
-        let offNutriments = OFFProductNutriments(nutritionFacts: validNutritionFacts)
-        var validLinks = ""
-        if let validLinkUrls = self.links {
-            for link in validLinkUrls {
-                validLinks += link.absoluteString + ","
-            }
-        }
+    }
         
         var validNames: [String:String] = [:]
         for (languageCode, name) in self.nameLanguage {

@@ -142,17 +142,15 @@ class OFFProductNutriments: Codable {
         self.nutriments = [:]
     }
 
-    convenience init(nutritionFacts: [NutritionFactItem]) {
+    convenience init(nutritionFactsDict: [String:NutritionFactItem]) {
         self.init()
-        for nutritionFact in nutritionFacts {
-            guard let validKey = nutritionFact.key else { continue }
-            
-            self.nutriments[validKey] = OFFProductNutrimentValues(base: nil,
-                                                                  per100g: nutritionFact.standardValue,
-                                                                  serving: nutritionFact.servingValue,
+        for nutritionFact in nutritionFactsDict {
+            self.nutriments[nutritionFact.key] = OFFProductNutrimentValues(base: nil,
+                                                                  per100g: nutritionFact.value.standardValue,
+                                                                  serving: nutritionFact.value.servingValue,
                                                                   value: nil,
                                                                   label: nil,
-                                                                  unit: nutritionFact.standardValueUnit?.short())
+                                                                  unit: nutritionFact.value.standardValueUnit?.short())
         }
     }
     

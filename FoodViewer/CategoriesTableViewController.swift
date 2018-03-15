@@ -89,24 +89,29 @@ class CategoriesTableViewController: UITableViewController {
             switch productVersion {
 
             case .remote:
-                switch showCategoriesTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
-                case .hierarchy:
-                    return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
-                case .translated:
-                    return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
-                case .prefixed:
-                    return .undefined
-                }
+                return remoteCategories
             case .local:
                 return productPair?.localProduct?.categoriesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.categoriesOriginal ?? productPair?.remoteProduct?.categoriesOriginal ?? .undefined
+                return productPair?.localProduct?.categoriesOriginal ?? remoteCategories
             }
         }
+    }
+    
+    private var remoteCategories: Tags {
+        switch showCategoriesTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.categoriesInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.categoriesOriginal ?? .undefined
+        case .hierarchy:
+            return productPair?.remoteProduct?.categoriesHierarchy ?? .undefined
+        case .translated:
+            return productPair?.remoteProduct?.categoriesTranslated ?? .undefined
+        case .prefixed:
+            return .undefined
+        }
+
     }
     
     fileprivate var searchCategoriesToDisplay: Tags {

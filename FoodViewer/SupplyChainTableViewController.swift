@@ -94,157 +94,180 @@ class SupplyChainTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.manufacturingPlacesOriginal ?? .undefined
             case .remote:
-                switch showProducerTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.manufacturingPlacesInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
-                case .prefixed:
-                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                        return productPair?.remoteProduct?.manufacturingPlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
-                    }
-                default:
-                    break
-                }
+                return remoteProducerTags
             case .new:
-                return productPair?.localProduct?.manufacturingPlacesOriginal ?? productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
+                return productPair?.localProduct?.manufacturingPlacesOriginal ?? remoteProducerTags
             }
-            return .undefined
         }
+    }
+    
+    private var remoteProducerTags: Tags {
+        switch showProducerTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.manufacturingPlacesInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
+        case .prefixed:
+            if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                return productPair?.remoteProduct?.manufacturingPlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+            }
+        default:
+            break
+        }
+        return .undefined
     }
     
     fileprivate var producerCodeTagsToDisplay: Tags {
         get {
             switch productVersion {
             case .remote:
-                switch showProducerCodeTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.embCodesInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.embCodesOriginal ?? .undefined
-                case .prefixed:
-                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                        return productPair?.remoteProduct?.embCodesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
-                    }
-                default:
-                    break
-                }
+                return remoteProducerCodeTags
             case .local:
                 return productPair?.localProduct?.embCodesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.embCodesOriginal ?? productPair?.remoteProduct?.embCodesOriginal ?? .undefined
+                return productPair?.localProduct?.embCodesOriginal ?? remoteProducerCodeTags
             }
-            return .undefined
-            
         }
+    }
+    
+    private var remoteProducerCodeTags: Tags {
+        switch showProducerCodeTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.embCodesInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.embCodesOriginal ?? .undefined
+        case .prefixed:
+            if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                return productPair?.remoteProduct?.embCodesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+            }
+        default:
+            break
+        }
+        return .undefined
     }
     
     fileprivate var ingredientOriginLocationTagsToDisplay: Tags {
         get {
             switch productVersion {
             case .remote:
-                switch showIngredientOriginTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.originsInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.originsOriginal ?? .undefined
-                case .prefixed:
-                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                        return productPair?.remoteProduct?.originsOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
-                    }
-                default:
-                    break
-                }
+                return remoteIngredientsOriginLocationTags
             case .local:
                 return productPair?.localProduct?.originsOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.originsOriginal ?? productPair?.remoteProduct?.originsOriginal ?? .undefined
+                return productPair?.localProduct?.originsOriginal ?? remoteIngredientsOriginLocationTags
 
             }
-            return .undefined
         }
+    }
+    
+    private var remoteIngredientsOriginLocationTags: Tags {
+        switch showIngredientOriginTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.originsInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.originsOriginal ?? .undefined
+        case .prefixed:
+            if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                return productPair?.remoteProduct?.originsOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+            }
+        default:
+            break
+        }
+        return .undefined
     }
     
     fileprivate var purchaseLocationTagsToDisplay: Tags {
         get {
             switch productVersion {
             case .remote:
-                switch showPurchaseLocationTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.purchasePlacesInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
-                case .prefixed:
-                    if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                        return productPair?.remoteProduct?.purchasePlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
-                    }
-                default:
-                    break
-                }
+                return remotePurchaseLocationTags
             case .local:
                 return productPair?.localProduct?.purchasePlacesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.purchasePlacesOriginal ?? productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
+                return productPair?.localProduct?.purchasePlacesOriginal ?? remotePurchaseLocationTags
 
             }
-            return .undefined
         }
+    }
+    
+    private var remotePurchaseLocationTags: Tags {
+        switch showPurchaseLocationTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.purchasePlacesInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
+        case .prefixed:
+            if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
+                return productPair?.remoteProduct?.purchasePlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+            }
+        default:
+            break
+        }
+        return .undefined
     }
     
     fileprivate var storeTagsToDisplay: Tags {
         get {
             switch productVersion {
             case .remote:
-                switch showStoresTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.storesInterpreted ?? .undefined
-                case .original:
-                    return productPair?.remoteProduct?.storesOriginal ?? .undefined
-                case .prefixed:
-                    if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
-                        return productPair?.remoteProduct?.storesOriginal.prefixed(withAdded:validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
-                    }
-                default:
-                    break
-                }
+                return remoteStoreTags
             case .local:
                 return productPair?.localProduct?.storesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.storesOriginal ?? productPair?.remoteProduct?.storesOriginal ?? .undefined
+                return productPair?.localProduct?.storesOriginal ?? remoteStoreTags
 
             }
-            return .undefined
         }
+    }
+    
+    private var remoteStoreTags: Tags {
+        switch showStoresTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.storesInterpreted ?? .undefined
+        case .original:
+            return productPair?.remoteProduct?.storesOriginal ?? .undefined
+        case .prefixed:
+            if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
+                return productPair?.remoteProduct?.storesOriginal.prefixed(withAdded:validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+            }
+        default:
+            break
+        }
+        return .undefined
     }
     
     fileprivate var countriesToDisplay: Tags {
         get {
             switch productVersion {
             case .remote:
-                switch showCountriesTagsType {
-                case .interpreted:
-                    return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
-                case .translated:
-                    if var list = productPair?.remoteProduct?.countriesTranslated.list {
-                        list = list.sorted(by: { $0 < $1 })
-                        return Tags.init(list:list)
-                    }
-                case .original:
-                    return productPair?.remoteProduct?.countriesOriginal ?? .undefined
-                case .prefixed:
-                    if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
-                        return productPair?.remoteProduct?.countriesTranslated.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
-                    }
-                default:
-                    break
-                }
+                return remoteCountriesTags
             case .local:
                 return productPair?.localProduct?.countriesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.countriesOriginal ?? productPair?.remoteProduct?.countriesOriginal ?? .undefined
+                return productPair?.localProduct?.countriesOriginal ?? remoteCountriesTags
             }
-            return .undefined
         }
+    }
+    
+    private var remoteCountriesTags: Tags {
+        switch showCountriesTagsType {
+        case .interpreted:
+            return productPair?.remoteProduct?.countriesInterpreted ?? .undefined
+        case .translated:
+            if var list = productPair?.remoteProduct?.countriesTranslated.list {
+                list = list.sorted(by: { $0 < $1 })
+                return Tags.init(list:list)
+            }
+        case .original:
+            return productPair?.remoteProduct?.countriesOriginal ?? .undefined
+        case .prefixed:
+            if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
+                return productPair?.remoteProduct?.countriesTranslated.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+            }
+        default:
+            break
+        }
+        return .undefined
     }
     
     fileprivate var periodAfterOpeningToDisplay: Tags {

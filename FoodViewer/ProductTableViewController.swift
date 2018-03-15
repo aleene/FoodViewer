@@ -393,7 +393,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
                     cell.textLabel!.text = TranslatableStrings.NutritionFacts
 
-                    if let facts = productPair?.remoteProduct?.nutritionFacts ?? productPair?.localProduct?.nutritionFacts{
+                    if let facts = productPair?.remoteProduct?.nutritionFactsDict ?? productPair?.localProduct?.nutritionFactsDict {
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .decimal
                         cell.badgeString = "\(facts.count)"
