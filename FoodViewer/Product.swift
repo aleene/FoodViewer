@@ -1236,11 +1236,17 @@ class FoodProduct {
         additivesInterpreted = Tags(list:validProduct.additives_tags)
         
         creator = validProduct.creator
+        addUserRole(creator!, role: .creator)
         correctors = validProduct.correctors_tags
+        correctors?.forEach({ addUserRole($0, role: .corrector) })
         informers = validProduct.informers_tags
+        correctors?.forEach({ addUserRole($0, role: .informer) })
         photographers = validProduct.photographers_tags
+        correctors?.forEach({ addUserRole($0, role: .photographer) })
         editors = validProduct.editors_tags
+        correctors?.forEach({ addUserRole($0, role: .editor) })
 
+        
         packagingInterpreted = Tags(list:validProduct.packaging_tags)
         packagingOriginal = Tags(string:validProduct.packaging)
         

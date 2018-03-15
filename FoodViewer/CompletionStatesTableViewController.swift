@@ -265,7 +265,7 @@ class CompletionStatesTableViewController: UITableViewController {
             return Constants.CompletenessHeaderTitle
         case 1:
             if let validProduct = productPair?.remoteProduct {
-                if section < validProduct.contributors.count {
+                if validProduct.contributors.count != 0 {
                     return Constants.ContributorsHeaderTitle
                 }
             } else if query != nil {
