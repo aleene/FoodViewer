@@ -484,7 +484,7 @@ public struct OFF {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
         urlString += "\(region)."
-        urlString += server(for:barcode.productType() ?? .food)
+        urlString += server(for:barcode.productType ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.EnglishProduct
         urlString += barcode.asString
@@ -496,7 +496,7 @@ public struct OFF {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
         urlString += "\(region)."
-        urlString += server(for:barcode.productType() ?? .food)
+        urlString += server(for:barcode.productType ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.Images
         if let str = imageURLComponentFor(barcode.asString) {
@@ -512,7 +512,7 @@ public struct OFF {
         let region = Bundle.main.preferredLocalizations[0] as NSString
         var urlString = OFF.URL.Scheme
         urlString += "\(region)."
-        urlString += server(for:barcode.productType() ?? .food)
+        urlString += server(for:barcode.productType ?? .food)
         urlString += OFF.URL.TopDomain
         urlString += OFF.URL.Images
         if let str = imageURLComponentFor(barcode.asString) {

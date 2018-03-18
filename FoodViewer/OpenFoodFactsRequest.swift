@@ -62,7 +62,7 @@ class OpenFoodFactsRequest {
         })
         var fetchUrlString = OFF.URL.Prefix
         // add the right server
-        fetchUrlString += barcode.productType() != nil ? barcode.productType()!.rawValue : currentProductType.rawValue
+        fetchUrlString += barcode.productType != nil ? barcode.productType!.rawValue : currentProductType.rawValue
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString + OFF.URL.JSONExtension
         let fetchUrl = URL(string: fetchUrlString)

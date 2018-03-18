@@ -505,7 +505,7 @@ class SearchTemplate {
         
         // barcode // SIMPLE search only
         if barcode != nil && !barcode!.asString.isEmpty {
-            pairs.append((.barcode, [barcode!.fill()], display(true)))
+            pairs.append((.barcode, [barcode!.fill], display(true)))
         }
         
         // search text

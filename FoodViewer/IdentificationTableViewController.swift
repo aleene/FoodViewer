@@ -1133,7 +1133,7 @@ extension IdentificationTableViewController: BarcodeEditCellDelegate {
     // function to let the delegate know that the switch changed
     func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
         if let validCode = query!.barcode?.asString,
-            let validProductType = query!.barcode?.productType() {
+            let validProductType = query!.barcode?.productType {
             switch segmentedControl.selectedSegmentIndex {
             case 0:
                 query!.barcode = .ean8(validCode, validProductType)

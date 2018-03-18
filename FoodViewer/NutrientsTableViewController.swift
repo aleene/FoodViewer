@@ -175,14 +175,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         displayFact.name = fact.itemName
         switch showNutrientsAs {
         case .perStandard:
-            let localizedValue = fact.localeStandardValue() // editMode ? fact.standardValue : fact.localeStandardValue()
+            let localizedValue = fact.localeStandardValue // editMode ? fact.standardValue : fact.localeStandardValue()
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
             displayFact.unit = fact.standardValueUnit
         case .perServing:
-            displayFact.value = fact.servingValue != nil ? fact.localeServingValue() : ""
+            displayFact.value = fact.servingValue != nil ? fact.localeServingValue : ""
             displayFact.unit = fact.servingValueUnit
         case .perDailyValue:
-            displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue() : ""
+            displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue : ""
             displayFact.unit = NutritionFactUnit.None // The numberformatter already provides a % sign
         }
         displayFact.nutrient = fact.nutrient

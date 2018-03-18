@@ -50,7 +50,7 @@ public struct NutritionFactItem {
         return nutrient.rawValue
     }
     
-    func valid() -> Bool {
+    public var isValid: Bool {
         return standardValue != nil && !standardValue!.isEmpty
     }
     
@@ -78,11 +78,12 @@ public struct NutritionFactItem {
         }
         return ""
     }
-    func localeStandardValue() -> String {
+    
+    public var localeStandardValue: String {
         return localeValue(standardValue)
     }
     
-    func localeServingValue() -> String {
+    public var localeServingValue: String {
         return localeValue(servingValue)
     }
 
@@ -114,7 +115,7 @@ public struct NutritionFactItem {
 
     }
 
-    func localeDailyValue() -> String {
+    var localeDailyValue: String {
         
         if let validValue = dailyFractionPerServing {
             
@@ -130,21 +131,7 @@ public struct NutritionFactItem {
 
 }
 
-extension String {
-    var floatValue: Float? {
-        let nf = NumberFormatter()
-        nf.decimalSeparator = "."
-        if let result = nf.number(from: self) {
-            return result.floatValue
-        } else {
-            nf.decimalSeparator = ","
-            if let result = nf.number(from: self) {
-                return result.floatValue
-            }
-        }
-        return nil
-    }
-}
+
 
 
 

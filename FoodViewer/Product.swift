@@ -17,7 +17,7 @@ class FoodProduct {
     
     var barcode: BarcodeType {
         didSet {
-            if barcode.productType() == nil {
+            if barcode.productType == nil {
                 barcode.setType(type)
             }
         }
@@ -381,8 +381,8 @@ class FoodProduct {
     var type: ProductType? {
         // I should look in the history first to see if there is an associated type
         // If the product is created from the history there should be a product type
-        if barcode.productType() != nil {
-            return barcode.productType()
+        if barcode.productType != nil {
+            return barcode.productType
         }
         
         if let validServer = server {

@@ -92,7 +92,7 @@ enum NutritionFactsLabelStyle {
         }
     }
     
-    var keys: Set<Nutrient> {
+    var keys: [Nutrient] {
         switch self {
         case .australia, .newZealand:
             return [.energy, .proteins, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
@@ -151,11 +151,11 @@ enum NutritionFactsLabelStyle {
             
 
         case .europe:
-            return [.energy, .proteins, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+            return [.energy, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
                     .transFat, .carbohydrates, .sugars,
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     
-                    .fiber,  .sodium, .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
+                    .fiber, .proteins, .salt, .sodium, .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
                     .vitaminB6, .biotin, .vitaminB9, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK, .vitaminPP,
                     
                     .butyricAcid, .caproicAcid, .caprylicAcid, .capricAcid, .lauricAcid, .myristicAcid,

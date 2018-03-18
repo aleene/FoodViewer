@@ -83,7 +83,7 @@ enum BarcodeType {
         }
     }
     
-    func fill() -> String {
+    var fill: String {
         switch self {
         case .ean13(var s, _):
             let len = s.count + 1
@@ -111,7 +111,7 @@ enum BarcodeType {
     }
 
     
-    func productType() -> ProductType? {
+    var productType: ProductType? {
         switch self {
         case .ean13(_, let s):
             return s
