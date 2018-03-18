@@ -55,7 +55,7 @@ class OFFplists {
     lazy var OFFcategories: Set <VertexNew>? = nil
     lazy var OFFnutrients: Set <VertexNew>? = nil
     lazy var OFFlanguages: Set <VertexNew>? = nil
-    lazy var nutrients: [(String, String, NutritionFactUnit)] = [] // tuple (nutrient key, nutrient name in local language, default nutrien unit?)
+    lazy var nutrients: [(Nutrient, String, NutritionFactUnit)] = [] // tuple (nutrient enum, nutrient name in local language, default nutrient unit?)
     
     init() {
         // read all necessary plists in the background
@@ -185,16 +185,15 @@ class OFFplists {
         return translate(OFFcategories, file: Constants.CategoriesFileName, key: key, language: language)
     }
     
+    func translateNutrients(nutrient: Nutrient, language:String) -> String {
+        return translateNutrients(nutrient.key, language: language)
+    }
+
     func translateNutrients(_ key: String, language:String) -> String {
         // remark that the key has been extended with a language for in order to be consistent with the other taxonomy keys.
         return translate(OFFnutrients, file: Constants.NutrientsFileName, key: "en:" + key, language: language)
     }
     
-    func translateNutrients(extendedKey: String, language:String) -> String {
-        // the extendedKey includes the language prefix such as en:
-        return translate(OFFnutrients, file: Constants.NutrientsFileName, key: extendedKey, language: language)
-    }
-
 
     func translateLanguage(_ key: String, language:String) -> String {
         return translate(OFFlanguages, file: Constants.LanguagesFileName, key: key, language: language)
@@ -233,13 +232,18 @@ class OFFplists {
     
     // Setup the nutrients to be used in the local language
     
-    private func localNutrients() -> [(String, String, NutritionFactUnit)] {
-        var nutrients: [(String, String, NutritionFactUnit)] = []
+    private func localNutrients() -> [(Nutrient, String, NutritionFactUnit)] {
+        var nutrients: [(Nutrient, String, NutritionFactUnit)] = []
         if let nutrientVerteces = OFFnutrients {
             for (index,_) in nutrientVerteces.enumerated() {
                 let nutrientTuple = nutrientText(at:index, languageCode:Locale.preferredLanguages[0])
-                if nutrientTuple != nil {
-                    nutrients.append(nutrientTuple!)
+                if let validTuple = nutrientTuple {
+                    switch validTuple.0 {
+                    case .undefined:
+                        break
+                    default:
+                        nutrients.append(validTuple)
+                    }
                 }
             }
         }
@@ -249,11 +253,11 @@ class OFFplists {
     }
     
     // function to find the unit for a specific nutrient
-    func nutrientUnit(for key: String) -> NutritionFactUnit {
+    func unit(for nutrient: Nutrient) -> NutritionFactUnit {
         // find nutrient
         if let nutrientVerteces = OFFnutrients {
             for vertex in nutrientVerteces {
-                if vertex.key == "en:" + key {
+                if vertex.key == "en:" + nutrient.key {
                     if let validUnit = vertex.leaves["unit"] {
                         if !validUnit.isEmpty {
                             return NutritionFactUnit(validUnit[0])
@@ -265,7 +269,7 @@ class OFFplists {
         return .None
     }
 
-    func nutrientText(at index: Int, languageCode key: String) -> (String, String, NutritionFactUnit)? {
+    func nutrientText(at index: Int, languageCode key: String) -> (Nutrient, String, NutritionFactUnit)? {
         if index >= 0 && OFFnutrients != nil && index <= OFFlanguages!.count {
             let currentVertex = OFFnutrients![OFFnutrients!.index(OFFnutrients!.startIndex, offsetBy: index)]
             let firstSplit = key.split(separator:"-").map(String.init)
@@ -284,10 +288,10 @@ class OFFplists {
                 }
             }
             if translatedValues == nil {
-                return englishValues != nil ? (currentVertex.key, englishValues![0], unit) : (key, currentVertex.key, unit )
+                return englishValues != nil ? (Nutrient.value(for:currentVertex.key), englishValues![0], unit) : (Nutrient.value(for:key), currentVertex.key, unit )
             } else {
                 // return the first value of the translation array
-                return  !translatedValues!.isEmpty ? (currentVertex.key, translatedValues![0], unit) : (key, TranslatableStrings.NoTranslation, unit )
+                return  !translatedValues!.isEmpty ? (Nutrient.value(for:currentVertex.key), translatedValues![0], unit) : (Nutrient.value(for:key), TranslatableStrings.NoTranslation, unit )
             }
         } else {
             return nil

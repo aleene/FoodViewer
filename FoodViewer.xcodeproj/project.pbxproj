@@ -32,6 +32,7 @@
 		510D9FC51E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */; };
 		510D9FC81E742E7800B95B1B /* NutritionFactUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */; };
 		510D9FCA1E7431B400B95B1B /* NutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */; };
+		510DB60B205AF02500782DEE /* NutritionFactsLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */; };
 		5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592A1CB1368E00D25116 /* CompletionStatus.swift */; };
 		5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592C1CB1385100D25116 /* Taxonomy.swift */; };
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
@@ -48,7 +49,7 @@
 		511D58AB20387C7A00F5D313 /* ProductPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511D58AA20387C7A00F5D313 /* ProductPair.swift */; };
 		511DB40D1E09B181009D4A4B /* OFFWriteAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */; };
 		511DB4341E09B615009D4A4B /* OFF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4331E09B615009D4A4B /* OFF.swift */; };
-		511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */; };
+		511DB4381E0A821E009D4A4B /* Nutrient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4371E0A821D009D4A4B /* Nutrient.swift */; };
 		511DB4411E0ADC03009D4A4B /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4401E0ADC03009D4A4B /* ColorScheme.swift */; };
 		511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4421E0AE994009D4A4B /* ColorSchemes.swift */; };
 		511DB4451E0C499A009D4A4B /* TagViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511DB4441E0C4999009D4A4B /* TagViewState.swift */; };
@@ -335,6 +336,7 @@
 		510D9FC41E72E5AF00B95B1B /* NutritionalScoreTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreTestSuite.swift; sourceTree = "<group>"; };
 		510D9FC71E742E7800B95B1B /* NutritionFactUnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnitTest.swift; sourceTree = "<group>"; };
 		510D9FC91E7431B400B95B1B /* NutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionalScoreUK.swift; sourceTree = "<group>"; };
+		510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NutritionFactsLabelStyle.swift; path = Model/NutritionFactsLabelStyle.swift; sourceTree = "<group>"; };
 		5114592A1CB1368E00D25116 /* CompletionStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatus.swift; sourceTree = "<group>"; };
 		5114592C1CB1385100D25116 /* Taxonomy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Taxonomy.swift; sourceTree = "<group>"; };
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
@@ -351,7 +353,7 @@
 		511D58AA20387C7A00F5D313 /* ProductPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductPair.swift; path = Model/ProductPair.swift; sourceTree = "<group>"; };
 		511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFWriteAPI.swift; sourceTree = "<group>"; };
 		511DB4331E09B615009D4A4B /* OFF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFF.swift; sourceTree = "<group>"; };
-		511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentsFactKeys.swift; sourceTree = "<group>"; };
+		511DB4371E0A821D009D4A4B /* Nutrient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Nutrient.swift; sourceTree = "<group>"; };
 		511DB43F1E0AD533009D4A4B /* TagListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TagListView.h; sourceTree = "<group>"; };
 		511DB4401E0ADC03009D4A4B /* ColorScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		511DB4421E0AE994009D4A4B /* ColorSchemes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
@@ -1040,6 +1042,7 @@
 				511B2C421E78687E00336CE8 /* Mass.swift */,
 				5150D9C31F8133FE0003DE8E /* NutrimentSearch.swift */,
 				51F057FA1CB68A3000849532 /* NatriumChloride.swift */,
+				511DB4371E0A821D009D4A4B /* Nutrient.swift */,
 				516B32841C75F5120031EF80 /* NutritionItem.swift */,
 				519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */,
 				5150C0631CBAC3F800161616 /* NutritionFactItem.swift */,
@@ -1181,8 +1184,8 @@
 			children = (
 				519884E11CE4EA5E0020B3A1 /* Components */,
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
-				511DB4371E0A821D009D4A4B /* NutrimentsFactKeys.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
+				510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */,
 				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
 				51578C081DB23177005BEEF6 /* OFF */,
@@ -1461,6 +1464,7 @@
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
 				5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
+				510DB60B205AF02500782DEE /* NutritionFactsLabelStyle.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
 				51E1C3632045DBEB00CB68B1 /* OFFImageDeselectAPI.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,
@@ -1522,7 +1526,7 @@
 				51CCA8642031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift in Sources */,
 				5104F4B01FA074C3008D074F /* SetSortOrderViewController.swift in Sources */,
 				51B3838C1F89007E0086581C /* TranslatableStrings.swift in Sources */,
-				511DB4381E0A821E009D4A4B /* NutrimentsFactKeys.swift in Sources */,
+				511DB4381E0A821E009D4A4B /* Nutrient.swift in Sources */,
 				5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */,
 				519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */,
 				5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */,

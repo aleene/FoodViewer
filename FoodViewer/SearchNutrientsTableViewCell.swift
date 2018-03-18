@@ -20,7 +20,7 @@ class SearchNutrientsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
-            itemLabel.text = searchNutrition?.key ?? TranslatableStrings.UnknownValue
+            itemLabel.text = searchNutrition?.nutrient.key ?? TranslatableStrings.UnknownValue
         }
     }
     

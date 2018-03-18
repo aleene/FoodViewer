@@ -9,7 +9,7 @@
 import Foundation
 
 struct NutrimentSearch {
-    var key: String = "" // Use the Nutrients.plist keys for this (without the en:-prefix)
+    var nutrient: Nutrient = .undefined
     var searchOperator: Operator = .equal
     var value: Double = 0.0
     var unit: NutritionFactUnit = .None

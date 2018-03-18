@@ -374,13 +374,10 @@ public struct OFF {
         
         search_tag_index = 0
         for nutriment in template.allNutrimentsSearch {
-            // only add if there is a valid nutrient key
-            let elements = nutriment.key.split(separator:":").map(String.init)
-            if elements[0] == "en" && elements.count > 1 {
                 urlString += URL.Search.Nutriments.Tiep
                 urlString += "\(search_tag_index)"
                 urlString += URL.Divider.Equal
-                urlString += elements[1]
+                urlString += nutriment.nutrient.key
                 urlString += URL.Search.Nutriments.Compare
                 urlString += "\(search_tag_index)"
                 urlString += URL.Divider.Equal
@@ -402,7 +399,6 @@ public struct OFF {
                 urlString += "\(nutriment.value)"
                 
                 search_tag_index += 1
-            }
         }
         
         for contributor in template.contributors {

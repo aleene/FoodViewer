@@ -15,7 +15,7 @@ public struct NutritionFactItem {
     public var servingValue: String? = nil
     public var servingValueUnit: NutritionFactUnit? = nil
     public var dailyFractionPerServing: Double? = nil
-    public var key: String? = nil
+    public var nutrient: Nutrient = .undefined
 
     public init() {
         itemName = nil
@@ -23,10 +23,10 @@ public struct NutritionFactItem {
         standardValueUnit = nil
         servingValue = nil
         servingValueUnit = nil
-        key = nil
+        nutrient = .undefined
     }
 
-    public init(name: String?, standard: String?, serving: String?, unit: String?, key: String?) {
+    public init(name: String?, standard: String?, serving: String?, unit: String?, nutrient: Nutrient) {
         itemName = name
         standardValue = standard
         servingValue = serving
@@ -34,18 +34,22 @@ public struct NutritionFactItem {
             standardValueUnit = NutritionFactUnit(validUnit)
             servingValueUnit = NutritionFactUnit(validUnit)
         }
-        self.key = key
+        self.nutrient = nutrient
     }
 
-    public init(key: String, unit: NutritionFactUnit) {
-        itemName = OFFplists.manager.translateNutrients(key, language:Locale.preferredLanguages[0])
+    public init(nutrient: Nutrient, unit: NutritionFactUnit) {
+        itemName = OFFplists.manager.translateNutrients(nutrient: nutrient, language:Locale.preferredLanguages[0])
         standardValue = nil
         servingValue = nil
         standardValueUnit = unit
         servingValueUnit = unit
-        self.key = key
+        self.nutrient = nutrient
     }
 
+    public var key: String {
+        return nutrient.rawValue
+    }
+    
     func valid() -> Bool {
         return standardValue != nil && !standardValue!.isEmpty
     }

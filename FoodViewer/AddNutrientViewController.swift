@@ -10,7 +10,7 @@ import UIKit
 
 class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    var addedNutrientTuple: (String, String, NutritionFactUnit)? = nil
+    var addedNutrientTuple: (Nutrient, String, NutritionFactUnit)? = nil
     
     var existingNutrients: [String]? = nil
     

@@ -10,8 +10,11 @@ import Foundation
 
 extension Locale {
     
-    static func interfaceLanguageCode() -> String {
+    static var interfaceLanguageCode: String {
         return Locale.preferredLanguages[0].split(separator:"-").map(String.init)[0]
     }
     
+    static var countryCode: String {
+        return Locale.current.identifier.split(separator:"_").map(String.init)[1]
+    }
 }

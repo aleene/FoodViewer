@@ -354,7 +354,7 @@ class IdentificationTableViewController: UITableViewController {
         case .hierarchy:
             return productPair?.remoteProduct?.packagingHierarchy ?? .undefined
         case .prefixed:
-            return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode()) ?? .undefined
+            return productPair?.remoteProduct?.packagingOriginal.prefixed(withAdded:productPair?.remoteProduct?.primaryLanguageCode ?? "??", andRemoved:Locale.interfaceLanguageCode) ?? .undefined
         case .translated:
             return .undefined
         }
@@ -412,7 +412,7 @@ class IdentificationTableViewController: UITableViewController {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
             cell.barcode = productPair?.barcodeType.asString
-            cell.mainLanguageCode = productPair?.primaryLanguageCode ?? Locale.interfaceLanguageCode()
+            cell.mainLanguageCode = productPair?.primaryLanguageCode ?? Locale.interfaceLanguageCode
             cell.editMode = editMode
             return cell
             

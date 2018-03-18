@@ -109,7 +109,7 @@ class SupplyChainTableViewController: UITableViewController {
             return productPair?.remoteProduct?.manufacturingPlacesOriginal ?? .undefined
         case .prefixed:
             if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                return productPair?.remoteProduct?.manufacturingPlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                return productPair?.remoteProduct?.manufacturingPlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode) ?? .undefined
             }
         default:
             break
@@ -138,7 +138,7 @@ class SupplyChainTableViewController: UITableViewController {
             return productPair?.remoteProduct?.embCodesOriginal ?? .undefined
         case .prefixed:
             if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                return productPair?.remoteProduct?.embCodesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                return productPair?.remoteProduct?.embCodesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode) ?? .undefined
             }
         default:
             break
@@ -168,7 +168,7 @@ class SupplyChainTableViewController: UITableViewController {
             return productPair?.remoteProduct?.originsOriginal ?? .undefined
         case .prefixed:
             if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                return productPair?.remoteProduct?.originsOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                return productPair?.remoteProduct?.originsOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode) ?? .undefined
             }
         default:
             break
@@ -198,7 +198,7 @@ class SupplyChainTableViewController: UITableViewController {
             return productPair?.remoteProduct?.purchasePlacesOriginal ?? .undefined
         case .prefixed:
             if let validLanguageCode = productPair?.remoteProduct?.primaryLanguageCode {
-                return productPair?.remoteProduct?.purchasePlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                return productPair?.remoteProduct?.purchasePlacesOriginal.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode) ?? .undefined
             }
         default:
             break
@@ -228,7 +228,7 @@ class SupplyChainTableViewController: UITableViewController {
             return productPair?.remoteProduct?.storesOriginal ?? .undefined
         case .prefixed:
             if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
-                return productPair?.remoteProduct?.storesOriginal.prefixed(withAdded:validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                return productPair?.remoteProduct?.storesOriginal.prefixed(withAdded:validLanguageCode, andRemoved: Locale.interfaceLanguageCode) ?? .undefined
             }
         default:
             break
@@ -262,7 +262,7 @@ class SupplyChainTableViewController: UITableViewController {
             return productPair?.remoteProduct?.countriesOriginal ?? .undefined
         case .prefixed:
             if let validLanguageCode = productPair!.remoteProduct!.primaryLanguageCode {
-                return productPair?.remoteProduct?.countriesTranslated.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode()) ?? .undefined
+                return productPair?.remoteProduct?.countriesTranslated.prefixed(withAdded: validLanguageCode, andRemoved: Locale.interfaceLanguageCode) ?? .undefined
             }
         default:
             break

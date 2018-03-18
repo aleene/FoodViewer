@@ -39,7 +39,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         var name: String? = nil
         var value: String? = nil
         var unit: NutritionFactUnit? = nil
-        var key: String? = nil
+        var nutrient: Nutrient = .undefined
     }
     
     public var tableItem: ProductPair? = nil {
@@ -133,14 +133,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                                              standard: fact.value.valueInCalories(fact.value.standardValue),
                                                              serving: fact.value.valueInCalories(fact.value.servingValue),
                                                              unit: EnergyUnitUsed.calories.unit(),
-                                                             key: fact.key)
+                                                             nutrient: .energy)
                 // show energy as kcalorie
                 case .kilocalorie:
                     newFact = NutritionFactItem.init(name: EnergyUnitUsed.kilocalorie.description(),
                                                              standard: fact.value.valueInCalories(fact.value.standardValue),
                                                              serving: fact.value.valueInCalories(fact.value.servingValue),
                                                              unit: EnergyUnitUsed.kilocalorie.unit(),
-                                                             key: fact.key)
+                                                             nutrient: .energy)
                 case .joule:
                     // this assumes that fact is in Joule
                     newFact = fact.value
@@ -152,9 +152,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 let validDisplayFact = localizeFact(finalFact)
                 displayFacts.append(validDisplayFact)
             }
-
         }
-        return displayFacts
+        let orderedFacts = order(displayFacts)
+        return orderedFacts
+    }
+    
+    private func order(_ facts: [DisplayFact]) -> [DisplayFact] {
+
+        let label: NutritionFactsLabelStyle = .europe
+        var orderedFacts: [DisplayFact] = []
+        for key in label.keys {
+            if let index = facts.index(where: { $0.nutrient.key == key.rawValue } ) {
+                orderedFacts.append(facts[index])
+            }
+        }
+        return orderedFacts
     }
     
     // transform the nutrition fact values to values that must be displayed
@@ -173,7 +185,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue() : ""
             displayFact.unit = NutritionFactUnit.None // The numberformatter already provides a % sign
         }
-        displayFact.key = fact.key
+        displayFact.nutrient = fact.nutrient
         return displayFact
     }
     
@@ -379,16 +391,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     cell?.tag = indexPath.section * 100 + indexPath.row
                     // only add taps gestures when NOT in editMode
                     if !editMode {
-                        if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key ==   NatriumChloride.salt.key) ||
-                            (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == NatriumChloride.sodium.key) {
+                        if  (adaptedNutritionFacts[indexPath.row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
+                            (adaptedNutritionFacts[indexPath.row].nutrient.rawValue == NatriumChloride.sodium.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                        } else if  (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) ||
-                            (adaptedNutritionFacts[(indexPath as NSIndexPath).row].key == LocalizedEnergy.key) {
+                        } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
+                            (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -899,7 +911,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 let row = button.tag % 100
                                 vc.nutrientRow = row
                                 if row >= 0 && row < adaptedNutritionFacts.count {
-                                    vc.currentNutritionFactKey = adaptedNutritionFacts[row].key
+                                    vc.currentNutritionFactKey = adaptedNutritionFacts[row].nutrient.key
                                 }
                             }
                         } else if button.superview?.superview as? SearchNutrientsTableViewCell != nil {
@@ -962,14 +974,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             if let newNutrientTuple = vc.addedNutrientTuple {
                 if query != nil {
                     var nutrimentSearch = NutrimentSearch()
-                    nutrimentSearch.key = newNutrientTuple.0 // key with en: prefix
+                    nutrimentSearch.nutrient = newNutrientTuple.0 // key with en: prefix
                     nutrimentSearch.name = newNutrientTuple.1 // name in local language
                     nutrimentSearch.unit = newNutrientTuple.2 // default unit
                     query!.allNutrimentsSearch.append(nutrimentSearch)
                     tableView.reloadData()
                 } else {
                     var newNutrient = NutritionFactItem()
-                    newNutrient.key = newNutrientTuple.0
+                    newNutrient.nutrient = newNutrientTuple.0
                     newNutrient.itemName = newNutrientTuple.1
                     newNutrient.servingValueUnit = newNutrientTuple.2
                     newNutrient.standardValueUnit = newNutrientTuple.2
@@ -987,7 +999,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 if productPair!.remoteProduct != nil {
                     // copy the existing nutrient and change the unit
                     var editedNutritionFact = NutritionFactItem()
-                    editedNutritionFact.key = adaptedNutritionFacts[nutrientRow].key
+                    editedNutritionFact.nutrient = adaptedNutritionFacts[nutrientRow].nutrient
                     editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
                     // this value has been changed
                     editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
@@ -1152,16 +1164,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil && imageSectionIndex != nil else { return }
         // only update if the image barcode corresponds to the current product
-        if productPair!.barcodeType.asString == userInfo![ProductImageData.Notification.BarcodeKey] as! String {
+        if productPair!.barcodeType.asString == userInfo![ProductImageData.Notification.BarcodeKey] as? String {
             if userInfo!.count == 1 {
                 reloadImageSection()
                 return
             }
             
             // We are only interested in medium-sized front images
-            let imageSizeCategory = ImageSizeCategory(rawValue: userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as! Int )
-            let imageTypeCategory = ImageTypeCategory(rawValue: userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as! Int )
-            if imageSizeCategory == .display && imageTypeCategory == .nutrition {
+            if let value = userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as? Int,
+                let imageSizeCategory = ImageSizeCategory(rawValue: value),
+                let otherValue = userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as? Int,
+                let imageTypeCategory = ImageTypeCategory(rawValue: otherValue),
+                imageSizeCategory == .display && imageTypeCategory == .nutrition {
                 reloadImageSection()
             }
         }
@@ -1286,36 +1300,36 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
     func addEUNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
         
         // Energy
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: NutritionFactUnit.Joule))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: NutritionFactUnit.Joule))
         }
         // Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .fat, unit: .Gram))
         }
         // Saturated Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: NutritionFactUnit.Gram))
         }
         // Carbohydrates
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: NutritionFactUnit.Gram))
         }
         // Sugars
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .sugars, unit: .Gram))
         }
         // Fibers
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fiber) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .fiber, unit: .Gram))
         }
         // Proteins
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.proteins) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .proteins, unit: .Gram))
         }
         // Salt
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SaltKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaltKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.salt) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .salt, unit: .Gram))
         }
         refreshProductWithNewNutritionFacts()
     }
@@ -1329,81 +1343,81 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         ShowSaltAs = .sodium
         
         // Energy
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyKey, unit: .Calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: .Calories))
         }
         // Energy from Fat Old Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.EnergyFromFatKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.EnergyFromFatKey, unit: .Calories))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.energyFromFat) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .energyFromFat, unit: .Calories))
         }
 
         // Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FatKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FatKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .fat, unit: .Gram))
         }
         // Saturated Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SaturatedFatKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SaturatedFatKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram))
         }
         // Trans Fat
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.TransFatKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.TransFatKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.transFat) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .transFat, unit: .Gram))
         }
 
         // Cholesterol
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CholesterolKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CholesterolKey, unit: .Milligram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.cholesterol) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .cholesterol, unit: .Milligram))
         }
         // Sodium
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SodiumKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SodiumKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.sodium) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .sodium, unit: .Gram))
         }
         // Total Carbohydrates
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CarbohydratesKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CarbohydratesKey, unit: .Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .Gram))
         }
         // Dietary Fiber
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.FiberKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.FiberKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.fiber) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .fiber, unit: .Gram))
         }
 
         // Sugars
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.SugarsKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.SugarsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .sugars, unit: .Gram))
         }
         // Added Sugars New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.AddedSugarsKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.AddedSugarsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.addedSugars) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .addedSugars, unit: .Gram))
         }
 
         // Proteins
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.ProteinsKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.ProteinsKey, unit: NutritionFactUnit.Gram))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.proteins) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .proteins, unit: .Gram))
         }
         // Vitamin A New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminAKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminAKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminA) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .vitaminA, unit: .Percent))
         }
         // Vitamin C Old Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminCKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminCKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminC) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .vitaminC, unit: .Percent))
         }
         // Vitamin D New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.VitaminDKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.VitaminDKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.vitaminD) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .vitaminD, unit: .Percent))
         }
 
         // Calcium
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.CalciumKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.CalciumKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.calcium) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .calcium, unit: .Percent))
         }
         // Iron Old Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.IronKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.IronKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.iron) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .iron, unit: .Percent))
         }
         // Potassium New Label
-        if !productPair!.remoteProduct!.nutritionFactsContain(OFFReadAPIkeysJSON.PotassiumKey) {
-            productPair?.update(fact: NutritionFactItem.init(key: OFFReadAPIkeysJSON.PotassiumKey, unit: NutritionFactUnit.Percent))
+        if !productPair!.remoteProduct!.nutritionFactsContain(.potassium) {
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .potassium, unit: .Percent))
         }
 
         mergeNutritionFacts()
@@ -1519,7 +1533,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 // The new nutrient unit should be set to the nutrient that was edited
                 // copy the existing nutrient and change the unit
                 var editedNutritionFact = NutritionFactItem()
-                editedNutritionFact.key = adaptedNutritionFacts[row].key
+                editedNutritionFact.nutrient = adaptedNutritionFacts[row].nutrient
                 editedNutritionFact.itemName = adaptedNutritionFacts[row].name
                 if showNutrientsAs == .perStandard {
                     editedNutritionFact.standardValueUnit = adaptedNutritionFacts[row].unit
@@ -1597,7 +1611,7 @@ extension NutrientsTableViewController: TagListViewDataSource {
                     return TranslatableStrings.NotFilled
                 } else {
                     if tagListView.tag >= 0 && tagListView.tag < query!.allNutrimentsSearch.count {
-                        return query!.allNutrimentsSearch[tagListView.tag].key
+                        return query!.allNutrimentsSearch[tagListView.tag].nutrient.key
                     }
                 }
             }
