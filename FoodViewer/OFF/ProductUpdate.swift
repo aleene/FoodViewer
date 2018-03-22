@@ -10,11 +10,16 @@ import Foundation
 import UIKit
 class ProductUpdate: OFFProductUpdateAPI {
     
-    func update(product: FoodProduct, barcodeString: String, completionHandler: @escaping (ProductUpdateStatus?) -> () ) {
+    func update(product: FoodProduct, completionHandler: @escaping (ProductUpdateStatus?) -> () ) {
         
         // update only the fields that have something defined, i.e. are not nil
         var productUpdated: Bool = false
-        
+        switch product.barcode {
+        case .undefined:
+            assert(true,"ProductUpdate: barcode not defined")
+        default:
+            break
+        }
         let interfaceLanguageCode = Locale.preferredLanguages[0].split(separator:"-").map(String.init)[0]
         
         // The OFF interface assumes that values are in english
@@ -273,11 +278,11 @@ class ProductUpdate: OFFProductUpdateAPI {
                 if let validJson = json {
                     if let validStatus = validJson.status {
                         if validStatus == 0 {
-                            return completionHandler (ProductUpdateStatus.failure(barcodeString, "\(validStatus)") )
+                            return completionHandler (ProductUpdateStatus.failure(product.barcode.asString, "\(validStatus)") )
                         } else if validJson.status == 1 {
-                            return completionHandler (ProductUpdateStatus.success(barcodeString, "\(validStatus)"))
+                            return completionHandler (ProductUpdateStatus.success(product.barcode.asString, "\(validStatus)"))
                         } else {
-                            return completionHandler (ProductUpdateStatus.failure(barcodeString, "ProductUpdate: unexpected status_code"))
+                            return completionHandler (ProductUpdateStatus.failure(product.barcode.asString, "ProductUpdate: unexpected status_code"))
                         }
                     }
                     completionHandler(nil)

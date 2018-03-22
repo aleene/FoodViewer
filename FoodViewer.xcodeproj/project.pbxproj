@@ -249,7 +249,7 @@
 		51E1C3672046B52B00CB68B1 /* OFFImageUploadAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3662046B52B00CB68B1 /* OFFImageUploadAPI.swift */; };
 		51E1C36A2046B9F600CB68B1 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3692046B9F600CB68B1 /* ImageUpload.swift */; };
 		51E1C36C2046C59100CB68B1 /* OFFProductUpdateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36B2046C59100CB68B1 /* OFFProductUpdateAPI.swift */; };
-		51E1C36E2046C79E00CB68B1 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36D2046C79E00CB68B1 /* File.swift */; };
+		51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
 		51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */; };
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
@@ -567,7 +567,7 @@
 		51E1C3662046B52B00CB68B1 /* OFFImageUploadAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFImageUploadAPI.swift; sourceTree = "<group>"; };
 		51E1C3692046B9F600CB68B1 /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageUpload.swift; path = OFF/ImageUpload.swift; sourceTree = "<group>"; };
 		51E1C36B2046C59100CB68B1 /* OFFProductUpdateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductUpdateAPI.swift; sourceTree = "<group>"; };
-		51E1C36D2046C79E00CB68B1 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = File.swift; path = OFF/File.swift; sourceTree = "<group>"; };
+		51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductUpdate.swift; path = OFF/ProductUpdate.swift; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51E5CC951CAD13A400216868 /* 54004207.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 54004207.json; sourceTree = "<group>"; };
 		51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
@@ -840,7 +840,7 @@
 				51E1C3682046B53B00CB68B1 /* API */,
 				51E1C3642045EB4200CB68B1 /* ImageDeselect.swift */,
 				51E1C3692046B9F600CB68B1 /* ImageUpload.swift */,
-				51E1C36D2046C79E00CB68B1 /* File.swift */,
+				51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */,
 				5107554E202DE0240047EC09 /* jsons */,
 				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
@@ -1519,7 +1519,7 @@
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */,
-				51E1C36E2046C79E00CB68B1 /* File.swift in Sources */,
+				51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
 				51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */,
 				516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */,

@@ -1,4 +1,4 @@
-    //
+//
 //  ProductTableViewController.swift
 //  FoodViewer
 //
@@ -866,17 +866,23 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
-        //if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
-            //if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
-                DispatchQueue.main.async(execute: { () -> Void in
-                    //if self.tableView.numberOfSections > index + 1 {
-                    //    self.tableView.reloadSections([index], with: .automatic)
-                    //} else {
-                        self.tableView.reloadData()
-                    //}
-                })
-            //}
-        //}
+        if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
+            if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
+                if let barcode = products.productPair(at: index)?.remoteProduct?.barcode {
+                    // If this is the product at the top,
+                    // save the updates also locally.
+                    MostRecentProduct().save(barcode)
+                }
+                // This results sometimes in a crash. No idea what is happening
+                // I like to reload only the product that has been updated
+                
+                //if self.tableView.numberOfSections > index + 1 {
+                //    self.tableView.reloadSections([index], with: .automatic)
+                //} else {
+                    self.tableView.reloadData()
+                //}
+            }
+        }
     }
     
     // 
@@ -967,6 +973,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
+        // either the local product or the remote product
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.RemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.LocalStatusChanged, object:nil)
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)

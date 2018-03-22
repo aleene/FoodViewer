@@ -67,6 +67,14 @@ public class MostRecentProduct {
         }
     }
 
+    //func save(product: FoodProduct?) {
+    //    if let validProduct = product {
+            // This will store the data in the user defaults file
+            //self.storedJsonData[self.currentProductType] = OFFProductJson().encode()
+    //        self.rewrite()
+    //    }
+    //}
+
     // The data (json) for the current product type will be added
     func addMostRecentProduct(_ data: Data?) {
         
