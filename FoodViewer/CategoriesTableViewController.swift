@@ -93,7 +93,23 @@ class CategoriesTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.categoriesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.categoriesOriginal ?? remoteCategories
+                if let oldTags = productPair?.localProduct?.categoriesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                if let oldTags = productPair?.remoteProduct?.categoriesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return remoteCategories
+                    default:
+                        break
+                    }
+                }
+                return .undefined
             }
         }
     }

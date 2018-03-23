@@ -160,7 +160,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .local:
                 return productPair?.localProduct?.tracesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.tracesOriginal ?? remoteTraces
+                if let oldTags = productPair?.localProduct?.tracesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                if let oldTags = productPair?.remoteProduct?.tracesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                return .undefined
             }
         }
     }
@@ -224,7 +240,23 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .local:
                 return productPair?.localProduct?.labelsOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.labelsOriginal ?? remoteLabels
+                if let oldTags = productPair?.localProduct?.labelsOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                if let oldTags = productPair?.remoteProduct?.labelsOriginal {
+                    switch oldTags {
+                    case .available:
+                        return remoteLabels
+                    default:
+                        break
+                    }
+                }
+                return .undefined
             }
         }
     }

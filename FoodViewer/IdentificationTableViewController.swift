@@ -254,7 +254,23 @@ class IdentificationTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.brandsOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.brandsOriginal ?? productPair?.remoteProduct?.brandsOriginal ?? .undefined
+                if let oldTags = productPair?.localProduct?.brandsOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                if let oldTags = productPair?.remoteProduct?.brandsOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                return .undefined
             }
         }
     }
@@ -317,7 +333,21 @@ class IdentificationTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.packagingOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.packagingOriginal ?? remotePackaging
+                if let packaging = productPair?.localProduct?.packagingOriginal {
+                    switch packaging {
+                    case .available:
+                        return packaging
+                    default:
+                        break
+                    }
+                }
+                switch remotePackaging {
+                case .available:
+                    return remotePackaging
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
@@ -1368,7 +1398,6 @@ extension IdentificationTableViewController: TagListViewDataSource {
         case .barcodeSearch, .nameSearch, .genericNameSearch:
             return title(Tags.empty)
         case .brands:
-            // no language adjustments need to be done
             return title(brandsToDisplay)
         case .brandsSearch:
             return title(searchBrandsToDisplay)

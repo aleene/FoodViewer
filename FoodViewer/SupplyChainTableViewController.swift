@@ -96,7 +96,21 @@ class SupplyChainTableViewController: UITableViewController {
             case .remote:
                 return remoteProducerTags
             case .new:
-                return productPair?.localProduct?.manufacturingPlacesOriginal ?? remoteProducerTags
+                if let oldTags = productPair?.localProduct?.manufacturingPlacesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                switch remoteProducerTags {
+                case .available:
+                    return remoteProducerTags
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
@@ -125,7 +139,21 @@ class SupplyChainTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.embCodesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.embCodesOriginal ?? remoteProducerCodeTags
+                if let oldTags = productPair?.localProduct?.embCodesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                switch remoteProducerCodeTags {
+                case .available:
+                    return remoteProducerCodeTags
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
@@ -154,8 +182,21 @@ class SupplyChainTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.originsOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.originsOriginal ?? remoteIngredientsOriginLocationTags
-
+                if let oldTags = productPair?.localProduct?.originsOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                switch remoteIngredientsOriginLocationTags {
+                case .available:
+                    return remoteIngredientsOriginLocationTags
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
@@ -184,8 +225,21 @@ class SupplyChainTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.purchasePlacesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.purchasePlacesOriginal ?? remotePurchaseLocationTags
-
+                if let oldTags = productPair?.localProduct?.purchasePlacesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                switch remotePurchaseLocationTags {
+                case .available:
+                    return remotePurchaseLocationTags
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
@@ -214,8 +268,21 @@ class SupplyChainTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.storesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.storesOriginal ?? remoteStoreTags
-
+                if let oldTags = productPair?.localProduct?.storesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                switch remoteStoreTags {
+                case .available:
+                    return remoteStoreTags
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
@@ -244,7 +311,21 @@ class SupplyChainTableViewController: UITableViewController {
             case .local:
                 return productPair?.localProduct?.countriesOriginal ?? .undefined
             case .new:
-                return productPair?.localProduct?.countriesOriginal ?? remoteCountriesTags
+                if let oldTags = productPair?.localProduct?.countriesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return oldTags
+                    default:
+                        break
+                    }
+                }
+                switch remoteCountriesTags {
+                case .available:
+                    return remoteCountriesTags
+                default:
+                    break
+                }
+                return .undefined
             }
         }
     }
