@@ -24,7 +24,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var selectedIndexPath: IndexPath? = nil
     
     fileprivate enum ProductVersion {
-        case local
+        //case local
         case remote
         case new
     }
@@ -195,8 +195,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch productVersion {
         case .remote:
             adaptedNutritionFacts = adaptNutritionFacts(productPair?.remoteProduct?.nutritionFactsDict ?? [:])
-        case .local:
-            adaptedNutritionFacts = adaptNutritionFacts(productPair?.localProduct?.nutritionFactsDict ?? [:])
+        //case .local:
+        //    adaptedNutritionFacts = adaptNutritionFacts(productPair?.localProduct?.nutritionFactsDict ?? [:])
         case .new:
             // merge the two dictionaries, the local version wins!
             let facts = productPair?.remoteProduct?.nutritionFactsDict.merging(productPair?.localProduct?.nutritionFactsDict ?? [:]) { (_, new) in new }
@@ -331,8 +331,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.editMode = editMode
             cell.delegate = self
             switch productVersion {
-            case .local:
-                cell.hasNutrimentFacts = productPair?.localProduct?.nutrimentFactsAvailability
+            //case .local:
+            //    cell.hasNutrimentFacts = productPair?.localProduct?.nutrimentFactsAvailability
             case .remote:
                 cell.hasNutrimentFacts = productPair?.remoteProduct?.nutrimentFactsAvailability
             case .new:
@@ -346,8 +346,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.editMode = editMode
             cell.delegate = self
             switch productVersion {
-            case .local:
-                cell.nutritionFactsAvailability = productPair?.localProduct?.nutritionFactsAreAvailable
+            //case .local:
+            //    cell.nutritionFactsAvailability = productPair?.localProduct?.nutritionFactsAreAvailable
             case .remote:
                 cell.nutritionFactsAvailability = productPair?.remoteProduct?.nutritionFactsAreAvailable
             case .new:
@@ -453,8 +453,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             cell.servingSizeTextField.tag = indexPath.section
             cell.editMode = editMode
             switch productVersion {
-            case .local:
-                cell.servingSize = productPair?.localProduct?.servingSize
+            //case .local:
+            //    cell.servingSize = productPair?.localProduct?.servingSize
             case .remote:
                 cell.servingSize = productPair?.remoteProduct?.servingSize
             case .new:
@@ -494,16 +494,53 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         switch tableStructure[section] {
         case .image :
             return nil
+        case .servingSize:
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if productPair?.localProduct?.servingSize != nil {
+                        return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                }
+            }
+        case .nutritionFacts:
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if let facts = productPair?.localProduct?.nutritionFactsDict,
+                    !facts.isEmpty {
+                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                }
+            }
+        case .perUnit:
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if productPair?.localProduct?.nutritionFactsIndicationUnit != nil {
+                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                }
+            }
+        case .noNutrimentsAvailable:
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if productPair?.localProduct?.nutrimentFactsAvailability != nil {
+                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                }
+            }
         default:
-            return tableStructure[section].header
-
+            break
         }
+        return tableStructure[section].header
     }
     
     private var currentImage: UIImage? {
         switch productVersion {
-        case .local:
-            return localImageToShow
+        //case .local:
+        //    return localImageToShow
         case .remote:
             return remoteImageToShow
         case .new:
@@ -1216,14 +1253,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .remote:
-            productVersion = .local
-            delegate?.title = TranslatableStrings.NutritionFacts + " (Local)"
-        case .local:
+            //productVersion = .local
+            //delegate?.title = TranslatableStrings.NutritionFacts + " (Local)"
+        //case .local:
             productVersion = .new
-            delegate?.title = TranslatableStrings.NutritionFacts + " (New)"
+            //delegate?.title = TranslatableStrings.NutritionFacts + " (New)"
         case .new:
             productVersion = .remote
-            delegate?.title = TranslatableStrings.NutritionFacts + " (OFF)"
+            //delegate?.title = TranslatableStrings.NutritionFacts + " (OFF)"
         }
         tableView.reloadData()
     }

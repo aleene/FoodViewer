@@ -62,7 +62,7 @@ class CategoriesTableViewController: UITableViewController {
     
     
     fileprivate enum ProductVersion {
-        case local
+        //case local
         case remote
         case new
     }
@@ -90,8 +90,8 @@ class CategoriesTableViewController: UITableViewController {
 
             case .remote:
                 return remoteCategories
-            case .local:
-                return productPair?.localProduct?.categoriesOriginal ?? .undefined
+            //case .local:
+            //    return productPair?.localProduct?.categoriesOriginal ?? .undefined
             case .new:
                 if let oldTags = productPair?.localProduct?.categoriesOriginal {
                     switch oldTags {
@@ -201,22 +201,35 @@ class CategoriesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let (currentProductSection, _, header) = tableStructureForProduct[section]
         
-        guard header != nil else { return "No header" }
+        guard let validHeader = header else { return "No header" }
         switch currentProductSection {
         case .categories:
-            switch showCategoriesTagsType {
-            case TagsTypeDefault.Categories:
-                return header
-            default:
-                return header! +
-                    " " +
-                    "(" +
-                    showCategoriesTagsType.description +
-                ")"
+            switch productVersion {
+            case .remote:
+                switch showCategoriesTagsType {
+                case TagsTypeDefault.Categories:
+                    return validHeader
+                default:
+                    return validHeader +
+                        " " +
+                        "(" +
+                        showCategoriesTagsType.description +
+                    ")"
+                }
+            case .new:
+                if let oldTags = productPair?.localProduct?.categoriesOriginal {
+                    switch oldTags {
+                    case .available:
+                        return validHeader + " " + "(" + TranslatableStrings.Edited + ")"
+                    default:
+                        break
+                    }
+                }
             }
         case .categoriesSearch:
-            return header
+            break
         }
+        return validHeader
     }
     
     struct TableStructure {
@@ -262,14 +275,14 @@ class CategoriesTableViewController: UITableViewController {
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .remote:
-            productVersion = .local
-            delegate?.title = TranslatableStrings.Categories + " (Local)"
-        case .local:
+            //productVersion = .local
+            //delegate?.title = TranslatableStrings.Categories + " (Local)"
+        //case .local:
             productVersion = .new
-            delegate?.title = TranslatableStrings.Categories + " (New)"
+            //delegate?.title = TranslatableStrings.Categories + " (New)"
         case .new:
             productVersion = .remote
-            delegate?.title = TranslatableStrings.Categories + " (OFF)"
+            //delegate?.title = TranslatableStrings.Categories + " (OFF)"
         }
         tableView.reloadData()
     }
