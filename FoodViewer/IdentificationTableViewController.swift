@@ -87,7 +87,7 @@ class IdentificationTableViewController: UITableViewController {
     private var selectedSection: Int? = nil
     
     fileprivate enum ProductVersion {
-        case local
+        //case local
         case remote
         case new // mix of local and remote
     }
@@ -185,11 +185,11 @@ class IdentificationTableViewController: UITableViewController {
                 guard let text = productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
-            case .local:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
-                guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] else { return .empty }
-                guard let validText = text else { return .empty }
-                return Tags.init(text: validText)
+            //case .local:
+            //    guard let validLanguageCode = currentLanguageCode else { return .empty }
+            //    guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] else { return .empty }
+            //    guard let validText = text else { return .empty }
+            //    return Tags.init(text: validText)
             case .new:
                 guard let validLanguageCode = currentLanguageCode else { return .empty }
                 guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] ??
@@ -208,11 +208,11 @@ class IdentificationTableViewController: UITableViewController {
                 guard let text = productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
-            case .local:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
-                guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
-                guard let validText = text else { return .empty }
-                return Tags.init(text: validText)
+            //case .local:
+            //    guard let validLanguageCode = currentLanguageCode else { return .empty }
+            //    guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
+            //    guard let validText = text else { return .empty }
+            //    return Tags.init(text: validText)
             case .new:
                 guard let validLanguageCode = currentLanguageCode else { return .empty }
                 guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] ?? productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
@@ -228,9 +228,9 @@ class IdentificationTableViewController: UITableViewController {
             case .remote:
                 guard let text = productPair?.remoteProduct?.quantity else { return .empty }
                 return Tags.init(text: text)
-            case .local:
-                guard let text = productPair?.localProduct?.quantity else { return .empty }
-                return Tags.init(text: text)
+            //case .local:
+            //    guard let text = productPair?.localProduct?.quantity else { return .empty }
+            //    return Tags.init(text: text)
             case .new:
                 guard let text = productPair?.localProduct?.quantity ??
                 productPair?.remoteProduct?.quantity else { return .empty }
@@ -251,8 +251,8 @@ class IdentificationTableViewController: UITableViewController {
                 default:
                     return .undefined
                 }
-            case .local:
-                return productPair?.localProduct?.brandsOriginal ?? .undefined
+            //case .local:
+            //    return productPair?.localProduct?.brandsOriginal ?? .undefined
             case .new:
                 if let oldTags = productPair?.localProduct?.brandsOriginal {
                     switch oldTags {
@@ -330,8 +330,8 @@ class IdentificationTableViewController: UITableViewController {
             switch productVersion {
             case .remote:
                 return remotePackaging
-            case .local:
-                return productPair?.localProduct?.packagingOriginal ?? .undefined
+            //case .local:
+            //    return productPair?.localProduct?.packagingOriginal ?? .undefined
             case .new:
                 if let packaging = productPair?.localProduct?.packagingOriginal {
                     switch packaging {
@@ -357,8 +357,8 @@ class IdentificationTableViewController: UITableViewController {
             switch productVersion {
             case .remote:
                 return remoteLanguages
-            case .local:
-                return productPair?.localProduct?.languageTags ?? .undefined
+            //case .local:
+            //    return productPair?.localProduct?.languageTags ?? .undefined
             case .new:
                 return productPair?.localProduct?.languageTags ?? remoteLanguages
             }
@@ -613,8 +613,8 @@ class IdentificationTableViewController: UITableViewController {
     
     public var currentImage: (UIImage?, String) {
         switch productVersion {
-        case .local:
-            return localFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
+        //case .local:
+        //    return localFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
         case .remote:
             return remoteFrontImage ?? (nil, TranslatableStrings.NoImageAvailable)
         case .new:
@@ -732,32 +732,54 @@ class IdentificationTableViewController: UITableViewController {
             return nil
             
         case .brands:
-            switch showBrandTagsType {
-            case TagsTypeDefault.Brands:
-                return tableStructure[section].header()
-            default:
-                return tableStructure[section].header() +
-                    " " +
-                    "(" +
-                    showBrandTagsType.description +
-                    ")"
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if let oldTags = productPair?.localProduct?.brandsOriginal {
+                    switch oldTags {
+                    case .available:
+                        return tableStructure[section].header() +
+                            " " +
+                            "(" +
+                            TranslatableStrings.Edited +
+                        ")"
+                    default:
+                        break
+                    }
+                }
             }
-            
         case .packaging:
-            switch showPackagingTagsType {
-            case TagsTypeDefault.Packaging:
-                return tableStructure[section].header()
-            default:
-                return tableStructure[section].header() +
-                    " " +
-                    "(" +
-                    showPackagingTagsType.description +
+            switch productVersion {
+            case .remote:
+                switch showPackagingTagsType {
+                case TagsTypeDefault.Packaging:
+                    return tableStructure[section].header()
+                default:
+                    return tableStructure[section].header() +
+                        " " +
+                        "(" +
+                        showPackagingTagsType.description +
+                        ")"
+                }
+            case .new:
+                if let oldTags = productPair?.localProduct?.packagingOriginal {
+                    switch oldTags {
+                    case .available:
+                        return tableStructure[section].header() +
+                            " " +
+                            "(" +
+                        TranslatableStrings.Edited +
                     ")"
+                    default:
+                        break
+                    }
+                }
             }
-
         default:
-            return tableStructure[section].header()
+            break
         }
+        return tableStructure[section].header()
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -769,6 +791,30 @@ class IdentificationTableViewController: UITableViewController {
             headerView.section = section
             headerView.delegate = self
             headerView.title = tableStructure[section].header()
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                switch currentProductSection {
+                case .image:
+                    guard let localPair = localFrontImage else { break }
+                    if localPair.0 != nil {
+                        headerView.title = tableStructure[section].header() + " " + "(" + TranslatableStrings.Edited + ")"
+                    }
+                case .name:
+                    guard let validLanguageCode = currentLanguageCode else { break }
+                    if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
+                        headerView.title = tableStructure[section].header() + " " + "(" + TranslatableStrings.Edited + ")"
+                    }
+                case .genericName :
+                    guard let validLanguageCode = currentLanguageCode else { break }
+                    if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
+                        headerView.title = tableStructure[section].header() + " " + "(" + TranslatableStrings.Edited + ")"
+                    }
+                default:
+                    break
+                }
+            }
             headerView.languageCode = currentLanguageCode
             if let validCount = productPair?.remoteProduct?.languageCodes.count {
                 headerView.buttonIsEnabled = editMode ? true : ( validCount > 1 ? true : false )
@@ -1079,14 +1125,11 @@ class IdentificationTableViewController: UITableViewController {
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .remote:
-            productVersion = .local
-            delegate?.title = TranslatableStrings.Identification + " (Local)"
-        case .local:
+            //productVersion = .local
+        //case .local:
             productVersion = .new
-            delegate?.title = TranslatableStrings.Identification + " (New)"
         case .new:
             productVersion = .remote
-            delegate?.title = TranslatableStrings.Identification + " (OFF)"
         }
         tableView.reloadData()
     }
