@@ -790,10 +790,10 @@ class IdentificationTableViewController: UITableViewController {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
             headerView.section = section
             headerView.delegate = self
-            headerView.title = tableStructure[section].header()
             switch productVersion {
             case .remote:
-                break
+                headerView.title = tableStructure[section].header()
+
             case .new:
                 switch currentProductSection {
                 case .image:

@@ -598,34 +598,24 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
         switch tableStructure[section] {
         case .image :
-
-            /*
-            let frame: CGRect = tableView.frame
-            
-            let headerLabel = UILabel.init(frame: CGRect.init(x: Header.HorizontalOffSet, y: Header.VerticalOffSet, width: 100.0, height: tableView.sectionHeaderHeight))
-            headerLabel.text = (header != nil ? header! : "No header") + " - "
-            headerLabel.font = UIFont.boldSystemFont(ofSize: Header.FontSize)
-            headerLabel.sizeToFit()
-            
-            let changeCurrentLanguageButton = UIButton(frame: CGRect.init(x: Header.HorizontalOffSet + headerLabel.frame.size.width, y: -1.0, width: 50.0, height: tableView.sectionHeaderHeight)) //
-            changeCurrentLanguageButton.setTitle(OFFplists.manager.languageName(for:currentLanguageCode), for: .normal)
-            changeCurrentLanguageButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: Header.FontSize - 2.0)
-            changeCurrentLanguageButton.addTarget(self, action: #selector(NutrientsTableViewController.changeLanguageButtonTapped(sender:)), for: .touchUpInside)
-            changeCurrentLanguageButton.sizeToFit()
-            changeCurrentLanguageButton.isEnabled = editMode ? true : ( product!.languageCodes.count > 1 ? true : false )
-            changeCurrentLanguageButton.isEnabled ? changeCurrentLanguageButton.setTitleColor(.blue, for: .normal) : changeCurrentLanguageButton.setTitleColor(.darkGray, for: .normal)
-            */
-            
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
             
-            // headerView.customLabel.text = content[section].name  // set this however is appropriate for your app's model
             headerView.section = section
             headerView.delegate = self
+            switch productVersion {
+            case .remote:
+                headerView.title = tableStructure[section].header
+            case .new:
+                switch tableStructure[section] {
+                case .image:
+                    if localImageToShow != nil {
+                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                    }
+                default:
+                    break
+                }
+            }
 
-            /*
-            let headerView: LanguageHeaderView = UIView(frame: CGRect.init(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: tableView.frame.size.height)) as! LanguageHeaderView
-            */
-            headerView.title = tableStructure[section].header
             headerView.languageCode = currentLanguageCode
             headerView.buttonIsEnabled = editMode ? true : ( productPair!.remoteProduct!.languageCodes.count > 1 ? true : false )
 
