@@ -154,7 +154,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         didSet {
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
             if oldValue == nil && productPair != nil {
-            // has the product been initailised?
+            // has the product been initialised?
                 setCurrentLanguage()
                 //setupProduct()
             } else if oldValue != nil && productPair != nil && oldValue!.barcodeType.asString != productPair!.barcodeType.asString {
@@ -341,22 +341,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private func setCurrentLanguage() {
         // is there already a current language?
         guard currentLanguageCode == nil else { return }
-        // find the first preferred language that can be used
-        for languageLocale in Locale.preferredLanguages {
-            // split language and locale
-            let preferredLanguage = languageLocale.split(separator:"-").map(String.init)[0]
-            if let languageCodes = productPair?.languageCodes {
-                if languageCodes.contains(preferredLanguage) {
-                    currentLanguageCode = preferredLanguage
-                    // found a valid code
-                    return
-                }
-            }
-        }
-        // there is no match between preferred languages and product languages
-        if currentLanguageCode == nil {
-            currentLanguageCode = productPair?.primaryLanguageCode
-        }
+        currentLanguageCode = productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
 
     private func initPage(_ page: ProductSection) {

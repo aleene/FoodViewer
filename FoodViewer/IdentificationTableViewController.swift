@@ -39,7 +39,7 @@ class IdentificationTableViewController: UITableViewController {
         case image(Int, String)
         case imageSearch(Int, String)
         
-        func header() -> String {
+        var header: String {
             switch self {
             case .barcode(_, let headerTitle),
                  .barcodeSearch(_, let headerTitle),
@@ -61,7 +61,7 @@ class IdentificationTableViewController: UITableViewController {
             }
         }
         
-        func numberOfRows() -> Int {
+        var numberOfRows: Int {
             switch self {
             case .barcode(let numberOfRows, _),
                  .barcodeSearch(let numberOfRows, _),
@@ -115,8 +115,6 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             if productPair != nil {
                 tableStructure = setupSections()
-                // check if the currentLanguage needs to be updated
-                setCurrentLanguage()
                 tableView.reloadData()
             }
         }
@@ -126,17 +124,16 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             if query != nil {
                 tableStructure = setupSections()
-                // check if the currentLanguage needs to be updated
-                setCurrentLanguage()
                 tableView.reloadData()
             }
         }
     }
     
+    /*
     // This function finds the language that must be used to display the product
     private func setCurrentLanguage() {
-        // is there already a current language?
-        guard currentLanguageCode == nil else { return }
+        // use the primary product language
+        currentLanguageCode = productPair?.remoteProduct?.primaryLanguageCode
         // find the first preferred language that can be used
         for languageLocale in Locale.preferredLanguages {
             // split language and locale
@@ -149,11 +146,12 @@ class IdentificationTableViewController: UITableViewController {
                 }
             }
         }
-        // there is no match between preferred languages and product languages
+        // if needed revert back to the first preferred language
         if currentLanguageCode == nil {
-            currentLanguageCode = productPair!.remoteProduct?.primaryLanguageCode
+            currentLanguageCode = Locale.preferredLanguages.split(separator:"-").map(String.init)[0]
         }
     }
+    */
 
     var delegate: ProductPageViewController? = nil
     
@@ -166,10 +164,10 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    var currentLanguageCode: String? = nil {
+    var currentLanguageCode: String? {
         didSet {
-            if currentLanguageCode != oldValue {
-                tableView.reloadData()
+            if oldValue == nil {
+                currentLanguageCode = productPair?.product?.matchedLanguageCode(codes:  Locale.preferredLanguageCodes)
             }
         }
     }
@@ -431,7 +429,7 @@ class IdentificationTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableStructure[section].numberOfRows()
+        return tableStructure[section].numberOfRows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -715,10 +713,18 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     fileprivate func nextLanguageCode() -> String {
-        let currentIndex = (productPair!.remoteProduct?.languageCodes.index(of: currentLanguageCode!))!
-        
-        let nextIndex = currentIndex == ((productPair!.remoteProduct?.languageCodes.count)! - 1) ? 0 : (currentIndex + 1)
-        return (productPair!.remoteProduct?.languageCodes[nextIndex])!
+        if let product = productPair?.remoteProduct {
+            if let validLanguageCode = currentLanguageCode,
+                let currentIndex = product.languageCodes.index(of: validLanguageCode) {
+                    let nextIndex = currentIndex == ( product.languageCodes.count - 1 ) ? 0 : currentIndex + 1
+                    return product.languageCodes[nextIndex]
+            } else {
+                if let code = product.primaryLanguageCode {
+                    return code
+                }
+            }
+        }
+        return "??"
     }
         
     fileprivate struct Constants {
@@ -739,7 +745,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let oldTags = productPair?.localProduct?.brandsOriginal {
                     switch oldTags {
                     case .available:
-                        return tableStructure[section].header() +
+                        return tableStructure[section].header +
                             " " +
                             "(" +
                             TranslatableStrings.Edited +
@@ -754,9 +760,9 @@ class IdentificationTableViewController: UITableViewController {
             case .remote:
                 switch showPackagingTagsType {
                 case TagsTypeDefault.Packaging:
-                    return tableStructure[section].header()
+                    return tableStructure[section].header
                 default:
-                    return tableStructure[section].header() +
+                    return tableStructure[section].header +
                         " " +
                         "(" +
                         showPackagingTagsType.description +
@@ -766,7 +772,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let oldTags = productPair?.localProduct?.packagingOriginal {
                     switch oldTags {
                     case .available:
-                        return tableStructure[section].header() +
+                        return tableStructure[section].header +
                             " " +
                             "(" +
                         TranslatableStrings.Edited +
@@ -779,7 +785,7 @@ class IdentificationTableViewController: UITableViewController {
         default:
             break
         }
-        return tableStructure[section].header()
+        return tableStructure[section].header
     }
 
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -790,26 +796,26 @@ class IdentificationTableViewController: UITableViewController {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
             headerView.section = section
             headerView.delegate = self
+            headerView.title = tableStructure[section].header
             switch productVersion {
             case .remote:
-                headerView.title = tableStructure[section].header()
-
+                break
             case .new:
                 switch currentProductSection {
                 case .image:
                     guard let localPair = localFrontImage else { break }
                     if localPair.0 != nil {
-                        headerView.title = tableStructure[section].header() + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
                 case .name:
                     guard let validLanguageCode = currentLanguageCode else { break }
                     if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
-                        headerView.title = tableStructure[section].header() + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
                 case .genericName :
                     guard let validLanguageCode = currentLanguageCode else { break }
                     if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
-                        headerView.title = tableStructure[section].header() + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
                 default:
                     break
@@ -1144,6 +1150,9 @@ class IdentificationTableViewController: UITableViewController {
             tableView.dragDelegate = self
             tableView.dropDelegate = self
         }
+        
+        // reset the current languagecode
+        currentLanguageCode = nil
         
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true

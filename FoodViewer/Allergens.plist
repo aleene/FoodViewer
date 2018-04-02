@@ -183,12 +183,12 @@
 				<string> œuf</string>
 				<string> oeufs</string>
 				<string> oeuf</string>
-				<string> blanc d'oeuf</string>
-				<string> jaune d'oeuf</string>
-				<string> blanc d'œuf</string>
-				<string> jaune d'œuf</string>
-				<string> blanc d'œufs</string>
-				<string> jaune d'œufs</string>
+				<string> blanc d&apos;oeuf</string>
+				<string> jaune d&apos;oeuf</string>
+				<string> blanc d&apos;œuf</string>
+				<string> jaune d&apos;œuf</string>
+				<string> blanc d&apos;œufs</string>
+				<string> jaune d&apos;œufs</string>
 				<string> oeuf frais</string>
 				<string> œuf frais</string>
 				<string> œufs frais</string>
@@ -246,7 +246,7 @@
 				<string> sardine</string>
 				<string> sardines</string>
 				<string> loup</string>
-				<string> colin d'Alaska</string>
+				<string> colin d&apos;Alaska</string>
 				<string> anchois</string>
 				<string> brochet</string>
 				<string> hareng</string>
@@ -325,7 +325,7 @@
 				<string> blé complet</string>
 				<string> gluten de blé</string>
 				<string> fibre de blé</string>
-				<string> malt d'orge</string>
+				<string> malt d&apos;orge</string>
 				<string> malt</string>
 				<string> froment</string>
 				<string> farine de blé</string>
@@ -699,6 +699,8 @@
 				<string>pinda</string>
 				<string> aardnoten</string>
 				<string> pindas</string>
+				<string>pinda&apos;s</string>
+				<string>pinda-s</string>
 				<string> arachis hypogaea</string>
 			</array>
 		</dict>

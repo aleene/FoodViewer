@@ -17,4 +17,13 @@ extension Locale {
     static var countryCode: String {
         return Locale.current.identifier.split(separator:"_").map(String.init)[1]
     }
+    
+    static var preferredLanguageCodes: [String] {
+        return Locale.preferredLanguages[0].split(separator:"-").map(String.init)
+    }
+    
+    static var preferredLanguageCode: String {
+        return Locale.preferredLanguageCodes[0]
+    }
+    
 }

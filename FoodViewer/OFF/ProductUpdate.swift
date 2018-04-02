@@ -15,8 +15,8 @@ class ProductUpdate: OFFProductUpdateAPI {
         // update only the fields that have something defined, i.e. are not nil
         var productUpdated: Bool = false
         switch product.barcode {
-        case .undefined:
-            assert(true,"ProductUpdate: barcode not defined")
+        case .notSet:
+            assert(true,"ProductUpdate: barcode not set")
         default:
             break
         }

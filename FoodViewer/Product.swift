@@ -69,6 +69,15 @@ class FoodProduct {
         }
     }
     
+    func matchedLanguageCode(codes:[String]) -> String? {
+        for code in codes {
+            if languageCodes.contains(code) {
+                return code
+            }
+        }
+        return primaryLanguageCode
+    }
+    
     // dictionaries with languageCode as key
     var frontImages: [String:ProductImageSize] = [:]
     var nutritionImages: [String:ProductImageSize] = [:]

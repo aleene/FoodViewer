@@ -92,6 +92,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     var currentLanguageCode: String? = nil {
         didSet {
+            if oldValue == nil {
+                currentLanguageCode = productPair?.product?.matchedLanguageCode(codes:  Locale.preferredLanguageCodes)
+            }
             if currentLanguageCode != oldValue {
                 tableView.reloadData()
             }
@@ -602,9 +605,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
             headerView.section = section
             headerView.delegate = self
+            headerView.title = tableStructure[section].header
             switch productVersion {
             case .remote:
-                headerView.title = tableStructure[section].header
+                break
             case .new:
                 switch tableStructure[section] {
                 case .image:
@@ -615,10 +619,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     break
                 }
             }
-
             headerView.languageCode = currentLanguageCode
-            headerView.buttonIsEnabled = editMode ? true : ( productPair!.remoteProduct!.languageCodes.count > 1 ? true : false )
-
+            if let aantal = productPair?.remoteProduct?.languageCodes.count {
+                headerView.buttonIsEnabled = editMode ? true : ( aantal > 1 ? true : false )
+            } else {
+                headerView.buttonIsEnabled = false
+            }
             return headerView
         default:
             return nil

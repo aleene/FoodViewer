@@ -156,7 +156,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remote:
-                return remoteTraces
+                break
             //case .local:
             //    return productPair?.localProduct?.tracesOriginal ?? .undefined
             case .new:
@@ -168,16 +168,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         break
                     }
                 }
-                if let oldTags = productPair?.remoteProduct?.tracesOriginal {
-                    switch oldTags {
-                    case .available:
-                        return oldTags
-                    default:
-                        break
-                    }
-                }
-                return .undefined
             }
+            return remoteTraces
+
         }
     }
     
@@ -236,7 +229,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remote:
-                return remoteLabels
+                break
             //case .local:
             //    return productPair?.localProduct?.labelsOriginal ?? .undefined
             case .new:
@@ -248,16 +241,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         break
                     }
                 }
-                if let oldTags = productPair?.remoteProduct?.labelsOriginal {
-                    switch oldTags {
-                    case .available:
-                        return remoteLabels
-                    default:
-                        break
-                    }
-                }
-                return .undefined
             }
+            return remoteLabels
         }
     }
     
@@ -349,6 +334,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     var currentLanguageCode: String? = nil {
         didSet {
+            if oldValue == nil {
+                currentLanguageCode = productPair?.product?.matchedLanguageCode(codes:  Locale.preferredLanguageCodes)
+            }
             if currentLanguageCode != oldValue {
                 tableView.reloadData()
             }
@@ -738,10 +726,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     fileprivate func nextLanguageCode() -> String {
-        let currentIndex = (productPair!.remoteProduct?.languageCodes.index(of: currentLanguageCode!))!
-        
-        let nextIndex = currentIndex == ((productPair!.remoteProduct?.languageCodes.count)! - 1) ? 0 : (currentIndex + 1)
-        return (productPair!.remoteProduct?.languageCodes[nextIndex])!
+        if let product = productPair?.remoteProduct {
+            if let validLanguageCode = currentLanguageCode,
+                let currentIndex = product.languageCodes.index(of: validLanguageCode) {
+                let nextIndex = currentIndex == ( product.languageCodes.count - 1 ) ? 0 : currentIndex + 1
+                return product.languageCodes[nextIndex]
+            } else {
+                if let code = product.primaryLanguageCode {
+                    return code
+                }
+            }
+        }
+        return "??"
     }
 
     fileprivate struct TableSection {

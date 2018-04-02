@@ -868,12 +868,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         guard userInfo != nil else { return }
         if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
             if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
-                if let barcode = products.productPair(at: index)?.remoteProduct?.barcode {
+                if index == 0 {
                     // If this is the product at the top,
                     // save the updates also locally.
-                    MostRecentProduct().save(barcode)
+                    MostRecentProduct().save(BarcodeType.init(value: barcodeString))
                 }
-                // This results sometimes in a crash. No idea what is happening
+                
+                // This codepart results sometimes in a crash. No idea what is happening
                 // I like to reload only the product that has been updated
                 
                 //if self.tableView.numberOfSections > index + 1 {
