@@ -312,7 +312,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if productPair != nil {
                 ingredientsImage = nil
                 tableStructure = setupSections()
-                currentLanguageCode = newCurrentLanguage
+                //currentLanguageCode = newCurrentLanguage
                 refreshProduct()
             }
         }
@@ -333,7 +333,25 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return query != nil
     }
 
-    var currentLanguageCode: String? = nil
+    var currentLanguageCode: String? = nil{
+        didSet {
+            if currentLanguageCode != oldValue {
+                // reload the ingredients/image
+                //let indexPaths = [IndexPath.init(row: 0, section: 1),
+                //                 IndexPath.init(row: 0, section: 2),
+                //                IndexPath.init(row: 0, section: 6)]
+                switch currentProductType {
+                case .food:
+                    tableView.reloadSections([0,5], with: .fade)
+                default :
+                    tableView.reloadSections([0,3], with: .fade)
+                }
+
+                //tableView.deselectRow(at: indexPaths.first!, animated: true)
+                //tableView.deselectRow(at: indexPaths.last!, animated: true)
+            }
+        }
+    }
     
     // This variable defined the languageCode that must be used to display the product data
     // It first does a validity check

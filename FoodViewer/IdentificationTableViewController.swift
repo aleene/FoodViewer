@@ -115,7 +115,7 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             if productPair != nil {
                 tableStructure = setupSections()
-                currentLanguageCode = newCurrentLanguage
+                //currentLanguageCode = newCurrentLanguage
                 tableView.reloadData()
             }
         }
@@ -143,7 +143,19 @@ class IdentificationTableViewController: UITableViewController {
 
     // The languageCode as defined by the user (double tapping) or a valid product
     // The user can set for which language he wants to see the name/genericName and front image
-    var currentLanguageCode: String? = nil
+    var currentLanguageCode: String? = nil {
+        didSet {
+            if currentLanguageCode != oldValue {
+                // reload the name/generic name/image
+                //let indexPaths = [IndexPath.init(row: 0, section: 1),
+                 //                 IndexPath.init(row: 0, section: 2),
+                  //                IndexPath.init(row: 0, section: 6)]
+                tableView.reloadSections([1,2,7], with: .fade)
+                //tableView.deselectRow(at: indexPaths.first!, animated: true)
+                //tableView.deselectRow(at: indexPaths.last!, animated: true)
+            }
+        }
+    }
     
     // This variable defined the languageCode that must be used to display the product data
     // It first does a validity check
@@ -694,12 +706,6 @@ class IdentificationTableViewController: UITableViewController {
         if let availableLanguages = productPair!.remoteProduct?.languageCodes {
             if availableLanguages.count > 1 && currentLanguageCode != nextLanguageCode() {
                 currentLanguageCode = nextLanguageCode()
-                // reload the first two rows
-                let indexPaths = [IndexPath.init(row: 0, section: 1),
-                                  IndexPath.init(row: 0, section: 2)]
-                tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
-                tableView.deselectRow(at: indexPaths.first!, animated: true)
-                tableView.deselectRow(at: indexPaths.last!, animated: true)
             }
         }
     }

@@ -92,13 +92,29 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
     var currentLanguageCode: String? = nil {
         didSet {
-            if oldValue == nil {
-                currentLanguageCode = productPair?.product?.matchedLanguageCode(codes:  Locale.preferredLanguageCodes)
-            }
             if currentLanguageCode != oldValue {
-                tableView.reloadData()
+                // reload the image
+                reloadImageSection()
             }
         }
+    }
+    
+    // This variable defined the languageCode that must be used to display the product data
+    // It first does a validity check
+    private var displayLanguageCode: String? {
+        get {
+            // if the languageCode is nil, try to set it
+            if currentLanguageCode == nil,
+                let languageCode = newCurrentLanguage {
+                currentLanguageCode = languageCode
+            }
+            return currentLanguageCode
+        }
+    }
+    
+    // This var finds the language that must be used to display the product
+    private var newCurrentLanguage: String? {
+        return productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
 
     fileprivate var notSearchableToDisplay: Tags {
@@ -1138,7 +1154,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
  */
     
     @objc func reloadImageSection() { // (_ notification: Notification) {
-        tableView.reloadSections([imageSectionIndex!], with: .none)
+        if let valid = imageSectionIndex {
+            tableView.reloadSections([valid], with: .fade)
+        }
     }
 
     fileprivate var imageSectionIndex: Int? {
