@@ -312,6 +312,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if productPair != nil {
                 ingredientsImage = nil
                 tableStructure = setupSections()
+                currentLanguageCode = newCurrentLanguage
                 refreshProduct()
             }
         }
@@ -332,15 +333,24 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         return query != nil
     }
 
-    var currentLanguageCode: String? = nil {
-        didSet {
-            if oldValue == nil {
-                currentLanguageCode = productPair?.product?.matchedLanguageCode(codes:  Locale.preferredLanguageCodes)
+    var currentLanguageCode: String? = nil
+    
+    // This variable defined the languageCode that must be used to display the product data
+    // It first does a validity check
+    private var displayLanguageCode: String? {
+        get {
+            // if the languageCode is nil, try to set it
+            if currentLanguageCode == nil,
+                let languageCode = newCurrentLanguage {
+                currentLanguageCode = languageCode
             }
-            if currentLanguageCode != oldValue {
-                tableView.reloadData()
-            }
+            return currentLanguageCode
         }
+    }
+    
+    // This var finds the language that must be used to display the product
+    private var newCurrentLanguage: String? {
+        return productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
 
     var editMode: Bool = false {
@@ -547,11 +557,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     private var remoteImageToShow: UIImage? {
         if let images = productPair?.remoteProduct?.ingredientsImages,
             !images.isEmpty,
-            let validLanguageCode = currentLanguageCode,
+            let validLanguageCode = displayLanguageCode,
             let result = images[validLanguageCode]?.display?.fetch() {
             switch result {
             case .available:
-                return images[currentLanguageCode!]?.display?.image
+                return images[validLanguageCode]?.display?.image
             default:
                 searchResult = result.description
                 break
@@ -576,7 +586,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     private var localImageToShow: UIImage? {
         if let images = productPair?.localProduct?.ingredientsImages,
             !images.isEmpty,
-            let validLanguageCode = currentLanguageCode,
+            let validLanguageCode = displayLanguageCode,
             let image = images[validLanguageCode]?.original?.image {
             return image
         }
@@ -708,7 +718,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                         headerView.title = header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
                 case .ingredients:
-                    guard let validLanguageCode = currentLanguageCode else { break }
+                    guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.ingredientsLanguage[validLanguageCode] != nil {
                         headerView.title = header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
@@ -716,7 +726,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     break
                 }
             }
-            headerView.languageCode = currentLanguageCode
+            headerView.languageCode = displayLanguageCode
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             
             return headerView
@@ -727,7 +737,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     fileprivate func nextLanguageCode() -> String {
         if let product = productPair?.remoteProduct {
-            if let validLanguageCode = currentLanguageCode,
+            if let validLanguageCode = displayLanguageCode,
                 let currentIndex = product.languageCodes.index(of: validLanguageCode) {
                 let nextIndex = currentIndex == ( product.languageCodes.count - 1 ) ? 0 : currentIndex + 1
                 return product.languageCodes[nextIndex]
@@ -813,13 +823,14 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentification:
-                if let vc = segue.destination as? ImageViewController {
+                if let vc = segue.destination as? ImageViewController,
+                    let validLanguageCode = displayLanguageCode {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     if let images = productPair?.localProduct?.ingredientsImages,
                         !images.isEmpty {
-                        vc.imageData = productPair!.localProduct!.image(for:currentLanguageCode!, of:.ingredients)
+                        vc.imageData = productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients)
                     } else {
-                        vc.imageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.ingredients)
+                        vc.imageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
                     }
                 }
             case Storyboard.SegueIdentifier.SelectLanguage:
@@ -839,7 +850,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 
-                                vc.currentLanguageCode = currentLanguageCode
+                                vc.currentLanguageCode = displayLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
                                 vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
                                 vc.primaryLanguageCode = productPair!.remoteProduct?.primaryLanguageCode
@@ -1005,8 +1016,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if image == nil {
             image = info[UIImagePickerControllerOriginalImage] as? UIImage
         }
-        if image != nil {
-            productPair?.update(ingredientsImage: image!, for: currentLanguageCode!)
+        if image != nil,
+            let validLanguageCode = displayLanguageCode {
+            productPair?.update(ingredientsImage: image!, for: validLanguageCode)
             tableView.reloadData()
         }
     }
@@ -1145,10 +1157,10 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
-        guard currentLanguageCode != nil else { return }
+        guard let validLanguageCode = displayLanguageCode else { return }
         guard let validProductPair = productPair else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .ingredients, for: validProductPair)
+        update.deselect([validLanguageCode], of: .ingredients, for: validProductPair)
     }
 
 }
@@ -1234,8 +1246,9 @@ extension IngredientsTableViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         switch tableStructure[textView.tag] {
         case .ingredients:
-            if let validText = textView.text {
-                productPair?.update(ingredients: validText, in: currentLanguageCode!)
+            if let validText = textView.text,
+                let validLanguageCode = displayLanguageCode {
+                productPair?.update(ingredients: validText, in: validLanguageCode)
             }
         default:
             break
@@ -1695,7 +1708,8 @@ extension IngredientsTableViewController: UINavigationControllerDelegate, UIImag
 extension IngredientsTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
-        productPair?.update(ingredientsImage: image, for: currentLanguageCode!)
+        guard let validLanguageCode = displayLanguageCode else { return }
+        productPair?.update(ingredientsImage: image, for: validLanguageCode)
         tableView.reloadData()
         
         imagePicker.dismiss(animated: true, completion: nil)
@@ -1725,14 +1739,14 @@ extension IngredientsTableViewController: UITableViewDragDelegate {
     }
 
     private func dragItems(for session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard currentLanguageCode != nil else { return [] }
+        guard let validLanguageCode = displayLanguageCode else { return [] }
         var productImageData: ProductImageData? = nil
         // is there image data?
         if let images = productPair?.localProduct?.ingredientsImages,
             !images.isEmpty {
-            productImageData = productPair!.localProduct!.image(for:currentLanguageCode!, of:.ingredients)
+            productImageData = productPair!.localProduct!.image(for:validLanguageCode, of:.ingredients)
         } else {
-            productImageData = productPair!.remoteProduct!.image(for:currentLanguageCode!, of:.ingredients)
+            productImageData = productPair!.remoteProduct!.image(for:validLanguageCode, of:.ingredients)
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
         guard productImageData != nil else { return [] }
@@ -1803,7 +1817,7 @@ extension IngredientsTableViewController: UITableViewDropDelegate {
             }
         }
         
-        guard currentLanguageCode != nil else { return }
+        // guard currentLanguageCode != nil else { return }
         coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
             // Only one image is accepted as ingredients image for the current language
             if let validImage = (images as? [UIImage])?.first {
@@ -1834,10 +1848,10 @@ extension IngredientsTableViewController: UITableViewDropDelegate {
 extension IngredientsTableViewController: GKImageCropControllerDelegate {
     
     public func imageCropController(_ imageCropController: GKImageCropViewController, didFinishWith croppedImage: UIImage?) {
-        guard let validLanguage = currentLanguageCode,
+        guard let validLanguageCode = currentLanguageCode,
             let validImage = croppedImage else { return }
         imageCropController.dismiss(animated: true, completion: nil)
-        productPair?.update(ingredientsImage: validImage, for:validLanguage)
+        productPair?.update(ingredientsImage: validImage, for:validLanguageCode)
         self.reloadImageSection()
     }
 }

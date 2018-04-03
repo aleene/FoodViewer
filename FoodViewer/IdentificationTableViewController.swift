@@ -115,6 +115,7 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             if productPair != nil {
                 tableStructure = setupSections()
+                currentLanguageCode = newCurrentLanguage
                 tableView.reloadData()
             }
         }
@@ -129,30 +130,6 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
     
-    /*
-    // This function finds the language that must be used to display the product
-    private func setCurrentLanguage() {
-        // use the primary product language
-        currentLanguageCode = productPair?.remoteProduct?.primaryLanguageCode
-        // find the first preferred language that can be used
-        for languageLocale in Locale.preferredLanguages {
-            // split language and locale
-            let preferredLanguage = languageLocale.split(separator:"-").map(String.init)[0]
-            if let languageCodes = productPair!.remoteProduct?.languageCodes {
-                if languageCodes.contains(preferredLanguage) {
-                    currentLanguageCode = preferredLanguage
-                    // found a valid code
-                    return
-                }
-            }
-        }
-        // if needed revert back to the first preferred language
-        if currentLanguageCode == nil {
-            currentLanguageCode = Locale.preferredLanguages.split(separator:"-").map(String.init)[0]
-        }
-    }
-    */
-
     var delegate: ProductPageViewController? = nil
     
     var editMode: Bool = false {
@@ -164,22 +141,35 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    var currentLanguageCode: String? {
-        didSet {
-            if oldValue == nil {
-                currentLanguageCode = productPair?.product?.matchedLanguageCode(codes:  Locale.preferredLanguageCodes)
+    // The languageCode as defined by the user (double tapping) or a valid product
+    // The user can set for which language he wants to see the name/genericName and front image
+    var currentLanguageCode: String? = nil
+    
+    // This variable defined the languageCode that must be used to display the product data
+    // It first does a validity check
+    private var displayLanguageCode: String? {
+        get {
+            // if the languageCode is nil, try to set it
+            if currentLanguageCode == nil,
+                let languageCode = newCurrentLanguage {
+                    currentLanguageCode = languageCode
             }
+            return currentLanguageCode
         }
     }
     
-    
+    // This var finds the language that must be used to display the product
+    private var newCurrentLanguage: String? {
+        return productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+    }
+
     // MARK: - Fileprivate Functions/variables
     
     fileprivate var nameToDisplay: Tags {
         get {
             switch productVersion {
             case .remote:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
@@ -189,7 +179,7 @@ class IdentificationTableViewController: UITableViewController {
             //    guard let validText = text else { return .empty }
             //    return Tags.init(text: validText)
             case .new:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.localProduct?.nameLanguage[validLanguageCode] ??
                     productPair?.remoteProduct?.nameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
@@ -202,7 +192,7 @@ class IdentificationTableViewController: UITableViewController {
         get {
             switch productVersion {
             case .remote:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
@@ -212,7 +202,7 @@ class IdentificationTableViewController: UITableViewController {
             //    guard let validText = text else { return .empty }
             //    return Tags.init(text: validText)
             case .new:
-                guard let validLanguageCode = currentLanguageCode else { return .empty }
+                guard let validLanguageCode = displayLanguageCode else { return .empty }
                 guard let text = productPair?.localProduct?.genericNameLanguage[validLanguageCode] ?? productPair?.remoteProduct?.genericNameLanguage[validLanguageCode] else { return .empty }
                 guard let validText = text else { return .empty }
                 return Tags.init(text: validText)
@@ -622,7 +612,7 @@ class IdentificationTableViewController: UITableViewController {
     
     private var localFrontImage: (UIImage?, String)? {
         if let frontImages = productPair?.localProduct?.frontImages,
-            let validLanguageCode = currentLanguageCode,
+            let validLanguageCode = displayLanguageCode,
             !frontImages.isEmpty,
             let image = frontImages[validLanguageCode]?.original?.image {
             return (image, "Updated Image")
@@ -633,7 +623,7 @@ class IdentificationTableViewController: UITableViewController {
     private var remoteFrontImage: (UIImage?, String)? {
         // are there any updated front images?
         if let frontImages = productPair?.remoteProduct?.frontImages,
-            let validLanguageCode = currentLanguageCode,
+            let validLanguageCode = displayLanguageCode,
             !frontImages.isEmpty,
             let result = frontImages[validLanguageCode]?.display?.fetch() {
             switch result {
@@ -674,16 +664,18 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate var currentProductImageSize: ProductImageSize? {
         // are there any updated front images?
         if let frontImages = productPair?.localProduct?.frontImages,
-            !frontImages.isEmpty  {
+            !frontImages.isEmpty,
+            let validLanguageCode = displayLanguageCode {
             // Is there an updated image corresponding to the current language
-            if let productImageSize = frontImages[currentLanguageCode!] {
+            if let productImageSize = frontImages[validLanguageCode] {
                 return productImageSize
             }
             
             // try the regular front images
-        } else if !productPair!.remoteProduct!.frontImages.isEmpty {
+        } else if !productPair!.remoteProduct!.frontImages.isEmpty,
+            let validLanguageCode = displayLanguageCode {
             // is the data for the current language available?
-            if let productImageSize = productPair!.remoteProduct!.frontImages[currentLanguageCode!] {
+            if let productImageSize = productPair!.remoteProduct!.frontImages[validLanguageCode] {
                 return productImageSize
                 // fall back to the primary languagecode nutrition image
                 // if we are NOT in edit mode
@@ -808,12 +800,12 @@ class IdentificationTableViewController: UITableViewController {
                         headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
                 case .name:
-                    guard let validLanguageCode = currentLanguageCode else { break }
+                    guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
                         headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
                 case .genericName :
-                    guard let validLanguageCode = currentLanguageCode else { break }
+                    guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
                         headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                     }
@@ -821,7 +813,7 @@ class IdentificationTableViewController: UITableViewController {
                     break
                 }
             }
-            headerView.languageCode = currentLanguageCode
+            headerView.languageCode = displayLanguageCode
             if let validCount = productPair?.remoteProduct?.languageCodes.count {
                 headerView.buttonIsEnabled = editMode ? true : ( validCount > 1 ? true : false )
             } else {
@@ -894,14 +886,15 @@ class IdentificationTableViewController: UITableViewController {
         if let identifier = segue.identifier {
             switch identifier {
             case Storyboard.SegueIdentifier.ShowIdentificationImage:
-                if let vc = segue.destination as? ImageViewController {
+                if let vc = segue.destination as? ImageViewController,
+                    let validLanguageCode = displayLanguageCode {
                     vc.imageTitle = TextConstants.ShowIdentificationTitle
                     // is there an updated image?
                     if let localProduct = productPair?.localProduct,
                         !localProduct.frontImages.isEmpty {
-                        vc.imageData = localProduct.image(for:currentLanguageCode!, of:.front)
+                        vc.imageData = localProduct.image(for:validLanguageCode, of:.front)
                     } else {
-                        vc.imageData = productPair?.localProduct?.image(for:currentLanguageCode!, of:.front)
+                        vc.imageData = productPair?.localProduct?.image(for:validLanguageCode, of:.front)
                     }
                 }
             case Storyboard.SegueIdentifier.ShowNamesLanguages:
@@ -918,7 +911,7 @@ class IdentificationTableViewController: UITableViewController {
                                 ppc.delegate = self
                                 
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentLanguageCode = currentLanguageCode
+                                vc.currentLanguageCode = displayLanguageCode
                                 vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode != nil ? productPair!.localProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
                                 vc.updatedLanguageCodes = productPair?.localProduct?.languageCodes ?? []
@@ -1276,10 +1269,10 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
-        guard currentLanguageCode != nil else { return }
+        guard let validLanguageCode = displayLanguageCode else { return }
         guard productPair!.remoteProduct != nil else { return }
         let update = OFFUpdate()
-        update.deselect([currentLanguageCode!], of: .front, for: productPair!)
+        update.deselect([validLanguageCode], of: .front, for: productPair!)
     }
     
 }
@@ -1351,14 +1344,14 @@ extension IdentificationTableViewController: UITextViewDelegate {
         case .name:
             // productname
             if let validText = textView.text {
-                if let validCurrentLanguageCode = currentLanguageCode {
+                if let validCurrentLanguageCode = displayLanguageCode {
                     productPair?.update(name: validText, in: validCurrentLanguageCode)
                 }
             }
         case .genericName:
             // generic name updated?
             if let validText = textView.text,
-                let validCurrentLanguageCode = currentLanguageCode {
+                let validCurrentLanguageCode = displayLanguageCode {
                     productPair?.update(genericName: validText, in: validCurrentLanguageCode)
             }
         case .nameSearch, .genericNameSearch:
@@ -1827,9 +1820,9 @@ extension IdentificationTableViewController: UIPopoverPresentationControllerDele
 extension IdentificationTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
-        
+        guard let validLanguageCode = displayLanguageCode else { return }
         // print("front image", image.size)
-        productPair?.update(frontImage: image, for: currentLanguageCode!)
+        productPair?.update(frontImage: image, for: validLanguageCode)
         tableView.reloadData()
         imagePicker.dismiss(animated: true, completion: nil)
     }
@@ -1858,14 +1851,14 @@ extension IdentificationTableViewController: UITableViewDragDelegate {
     }
     
     private func dragItems(for session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard currentLanguageCode != nil else { return [] }
+        guard let validLanguageCode = displayLanguageCode else { return [] }
         var productImageData: ProductImageData? = nil
         // is there image data?
         if let localProduct = productPair?.localProduct {
             if !localProduct.frontImages.isEmpty {
-                productImageData = localProduct.image(for:currentLanguageCode!, of:.front)
+                productImageData = localProduct.image(for:validLanguageCode, of:.front)
             } else {
-                productImageData = localProduct.image(for:currentLanguageCode!, of:.front)
+                productImageData = localProduct.image(for:validLanguageCode, of:.front)
             }
         }
         // The largest image here is the display image, as the url for the original front image is not offered by OFF in an easy way
@@ -1939,7 +1932,7 @@ extension IdentificationTableViewController: UITableViewDropDelegate {
             //self.pushViewController(cropController, animated: false)
         }
 
-        guard currentLanguageCode != nil else { return }
+        //guard currentLanguageCode != nil else { return }
         coordinator.session.loadObjects(ofClass: UIImage.self) { (images) in
             // Only one image is accepted as ingredients image for the current language
             if let validImage = (images as? [UIImage])?.first {
@@ -1970,7 +1963,7 @@ extension IdentificationTableViewController: UITableViewDropDelegate {
 extension IdentificationTableViewController: GKImageCropControllerDelegate {
     
     public func imageCropController(_ imageCropController: GKImageCropViewController, didFinishWith croppedImage: UIImage?) {
-        guard let validLanguage = currentLanguageCode,
+        guard let validLanguage = displayLanguageCode,
             let validImage = croppedImage else { return }
         imageCropController.dismiss(animated: true, completion: nil)
         productPair?.update(frontImage: validImage, for: validLanguage)
