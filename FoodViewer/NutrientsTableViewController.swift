@@ -519,7 +519,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 break
             case .new:
                 if productPair?.localProduct?.servingSize != nil {
-                        return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                 }
             }
         case .nutritionFacts:

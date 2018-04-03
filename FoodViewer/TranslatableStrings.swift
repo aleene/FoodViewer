@@ -229,7 +229,7 @@ struct TranslatableStrings {
     static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + TranslatableStrings.Space + TranslatableStrings.PhotographerUnicode
     static let PhotographerUnicode = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")
     static let Popularity = NSLocalizedString("Popularity", comment: "String in picker, which lets the user select the search result order. Order on the popularity.")
-    static let PortionSize = NSLocalizedString("Nutrition Facts Image", comment: "Tableview header section for the image of the nutritional facts")
+    static let PortionSize = NSLocalizedString("Portion size", comment: "Tableview header section for the size of a portion")
     static let Preferences = NSLocalizedString("Preferences", comment: "TableViewController title for the settings scene.")
     static let PrefixCorrected = NSLocalizedString("Prefix corrected", comment: "Description of the prefixed corrected tags")
     static let PresentationFormat = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
