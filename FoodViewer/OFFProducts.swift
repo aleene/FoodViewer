@@ -76,6 +76,9 @@ class OFFProducts {
                 if !storedHistory.barcodeTuples.isEmpty {
                     // create all productPairs found in the history
                     initProductPairList()
+                    if allProductPairs.isEmpty {
+                        loadSampleProductPair()
+                    }
                     // load the locally stored product
                     allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
                     MostRecentProduct().load() { (product: FoodProduct?) in
@@ -90,7 +93,7 @@ class OFFProducts {
                     loadProductPairRange(around: 0)
                 } else {
                     // The cold start case when the user has not yet used the app
-                    //loadSampleProduct()
+                    loadSampleProductPair()
                     NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                 }
             }
@@ -147,7 +150,7 @@ class OFFProducts {
         case .search:
             // show the search query as the first product in the search results
             if let validQuery = searchQuery {
-                let searchProductPair = ProductPair(barcodeType:BarcodeType.init(value: "Search Template"))
+                let searchProductPair = ProductPair.init(barcodeType: BarcodeType(barcodeString: "Search Template", type: Preferences.manager.showProductType))
                 searchProductPair.searchTemplate = validQuery
                 list.append(searchProductPair)
             } else {
@@ -155,7 +158,7 @@ class OFFProducts {
                 // with an empty searchQueryProduct
                 searchQuery = SearchTemplate()
                 if let validSearchQuery = searchQuery {
-                    let searchProductPair = ProductPair(barcodeType:BarcodeType.init(value: "Empty Search Template"))
+                    let searchProductPair = ProductPair.init(barcodeType: BarcodeType(barcodeString: "Empty Search Template", type: Preferences.manager.showProductType))
                     searchProductPair.searchTemplate = validSearchQuery
                     list.append(searchProductPair)
                 }
@@ -182,7 +185,10 @@ class OFFProducts {
         // I need a nillified list of the correct size, because I want to access items through the index.
         if allProductPairs.isEmpty {
             for index in 0..<storedHistory.barcodeTuples.count {
-                allProductPairs.append(ProductPair(with:storedHistory.barcodeTuples[index]))
+                // only append the products for the current product type
+                if storedHistory.barcodeTuples[index].1 == Preferences.manager.showProductType.rawValue {
+                    allProductPairs.append(ProductPair(barcodeString:storedHistory.barcodeTuples[index].0, type:Preferences.manager.showProductType))
+                }
             }
         }
     }
@@ -245,7 +251,7 @@ class OFFProducts {
         // save the new product as the most recent one
         MostRecentProduct().save(allProductPairs[0].barcodeType)
         // save the new product in the history
-        storedHistory.add( (allProductPairs[0].barcodeType.asString, allProductPairs[0].productType.rawValue) )
+        storedHistory.add(barcodeType: allProductPairs[0].barcodeType )
         
         // recalculate the productPairs
         setCurrentProductPairs()
@@ -269,11 +275,21 @@ class OFFProducts {
     
     var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded( "whatToPutHere?")
     
-    var sampleProductPair: ProductPair = ProductPair(barcodeType: BarcodeType(value:"whatToPutHere?"))
+    var sampleProductPair: ProductPair {
+        switch Preferences.manager.showProductType {
+        case .beauty:
+            return ProductPair.init(barcodeString: "4005900122063", type: .beauty)
+        case .food:
+            return ProductPair.init(barcodeString: "40111490", type: .food )
+        case .petFood:
+            return ProductPair.init(barcodeString: "3166780740950", type: .petFood)
+        }
+    }
     
     private func loadSampleProductPair() {
-        //TODO:
+        allProductPairs.append(sampleProductPair)
     }
+    
     /*
     private func loadSampleProduct() {
         // If the user runs for the first time, then there is no history available
@@ -448,14 +464,9 @@ class OFFProducts {
     }
     
     func reloadAll() {
-        // allProductFetchResultList = []
-        // get the latest history file
-        // storedHistory = History()
         sampleProductFetchStatus = .initialized
         // reset the current list of products
-        // the product type might have changed
-        setCurrentProductPairs()
-        // historyLoadCount = nil
+        allProductPairs = []
         loadAll()
     }
     
@@ -573,7 +584,7 @@ class OFFProducts {
                 // reset search page
                 currentSearchPage = 0
                 allSearchPairs = []
-                allSearchPairs.append(ProductPair(remoteStatus: .searchLoading))
+                allSearchPairs.append(ProductPair(remoteStatus: .searchLoading, type: Preferences.manager.showProductType))
                 setCurrentProductPairs()
                 // send a notification to inform that a search has started
                 let userInfo: [String:Any] = [Notification.SearchStringKey:"Search Defined",
@@ -619,7 +630,7 @@ class OFFProducts {
                 //let validSearchValue = validSearchPairs[0].1
                 currentSearchPage += 1
                 if allSearchPairs.isEmpty {
-                    allSearchPairs.append(ProductPair(remoteStatus: .searchLoading))
+                    allSearchPairs.append(ProductPair(remoteStatus: .searchLoading, type: Preferences.manager.showProductType))
                 } else {
                     if let lastItem = allSearchPairs.last?.remoteStatus {
                         switch lastItem {
@@ -664,7 +675,7 @@ class OFFProducts {
                         }
                         // are there more products available?
                         if searchResult.0 > self.allSearchPairs.count + 1 {
-                            self.allSearchPairs.append(ProductPair(remoteStatus: .more(searchResult.1 + 1)))
+                            self.allSearchPairs.append(ProductPair(remoteStatus: .more(searchResult.1 + 1), type: Preferences.manager.showProductType))
                         }
                     
                         self.setCurrentProductPairs()

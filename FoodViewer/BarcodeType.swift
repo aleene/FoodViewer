@@ -37,16 +37,12 @@ enum BarcodeType {
         }
     }
 
-    init(value: String) {
-        self = .undefined(value, .food)
-    }
+    //init(value: String) {
+    //    self = .undefined(value, .food)
+    //}
     
-    init(barcodeTuple: (String, String)) {
-        if let productType = ProductType.contains(barcodeTuple.1) {
-            self = .undefined(barcodeTuple.0, productType)
-        } else {
-            self = .undefined(barcodeTuple.0, nil)
-        }
+    init(barcodeString: String, type: ProductType) {
+        self = .undefined(barcodeString, type)
     }
     
     mutating func string(_ s: String?) {

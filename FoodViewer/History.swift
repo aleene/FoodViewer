@@ -13,9 +13,7 @@ import Foundation
 
 public struct History {
 
-    // this is the old barcode structure set to private as we no longer need it
-    // private var barcodes = [String]()
-    // this is the new barcode structure, each barcode also contains the product type
+    // this is the  barcode structure, each barcode also contains the product type
     public var barcodeTuples: [(String,String)] = []
     
     private var debug = false
@@ -66,22 +64,20 @@ public struct History {
         
     // see also http://stackoverflow.com/questions/30790882/unable-to-append-string-to-array-in-swift/30790932#30790932
     //
-    mutating func add(_ barcodeTuple: (String, String?)?) {
-        if let newBarcode = barcodeTuple {
-            // is this barcode new?
-            if !barcodeExists(newBarcode.0) {
-                var newBarcodeTuple: (String,String) = ("", "")
-                newBarcodeTuple.0 = newBarcode.0
-                // default to a food product
-                newBarcodeTuple.1 = newBarcode.1 ?? ProductType.food.rawValue
-                barcodeTuples.insert(newBarcodeTuple, at: 0)
-                while barcodeTuples.count > Constants.HistorySize {
-                    barcodeTuples.removeLast()
-                }
+    mutating func add(barcodeType: BarcodeType) {
+        // is this barcode new?
+        if !barcodeExists(barcodeType.asString) {
+            var newBarcodeTuple: (String,String) = ("", "")
+            newBarcodeTuple.0 = barcodeType.asString
+            // default to a food product
+            newBarcodeTuple.1 = barcodeType.productType?.rawValue ?? ProductType.food.rawValue
+            barcodeTuples.insert(newBarcodeTuple, at: 0)
+            while barcodeTuples.count > Constants.HistorySize {
+                barcodeTuples.removeLast()
             }
-            // rewrite the entire history file
-            update()
         }
+        // rewrite the entire history file
+        update()
     }
     
     mutating func remove(_ barcodetype: BarcodeType) {

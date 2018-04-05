@@ -13,8 +13,6 @@ class OFFProduct: Codable {
     // the vars are those that the user can create/edit
     var additives: String? = nil
     var additives_debug_tags: [String]? = nil
-    var additives_n: Int? = nil
-    var additives_old_n: Int? = nil
     var additives_old_tags: [String]? = nil
     var additives_prev: String? = nil
     var additives_prev_n: Int? = nil
@@ -69,12 +67,9 @@ class OFFProduct: Codable {
     var informers_tags: [String]? = nil
         var ingredients: [OFFProductIngredient]? = nil
     var ingredients_debug: [String?]? = nil
-    var ingredients_from_or_that_may_be_from_palm_oil_n: Int? = nil
-    var ingredients_from_palm_oil_n: Int? = nil
     var ingredients_from_palm_oil_tags: [String]? = nil
     var ingredients_ids_debug: [String]? = nil
     var ingredients_n_tags: [String]? = nil
-    var ingredients_that_may_be_from_palm_oil_n: Int? = nil
     var ingredients_tags: [String]? = nil
     var ingredients_text: String? = nil
     // ingredients_text_fr is handled in the child
@@ -133,7 +128,6 @@ class OFFProduct: Codable {
     var scans_n: Int? = nil
     var selected_images: OFFProductSelectedImages? = nil
     var server: String? = nil
-    var serving_quantity: Double? = nil
         var serving_size: String? = nil
     var sortkey: Int? = nil
     var states: String? = nil

@@ -43,7 +43,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate var products = OFFProducts.manager
     
     //TODO: can I create a barcode type for not initialized?
-    fileprivate var barcodeType = BarcodeType(value: TranslatableStrings.EnterBarcode) {
+    fileprivate var barcodeType = BarcodeType(barcodeString: TranslatableStrings.EnterBarcode, type: Preferences.manager.showProductType) {
         didSet {
             var section = 0
             // get the index of the existing productPair
@@ -156,7 +156,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     func enter() {
         view.endEditing(true)
         if !searchTextField.text!.isEmpty {
-            barcodeType = BarcodeType(barcodeTuple: (searchTextField.text!, currentProductType.rawValue))
+            barcodeType = BarcodeType(barcodeString: searchTextField.text!, type: currentProductType)
         }
     }
 
@@ -541,7 +541,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                      .loadingFailed:
                     selectedProductPair = validProductPair
                 case .searchQuery(let query):
-                    selectedProductPair = ProductPair.init(barcodeType: .search(query, nil))
+                    selectedProductPair = ProductPair.init(barcodeType: .search(query, Preferences.manager.showProductType))
                 default: break
                 }
         }
@@ -815,7 +815,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
-            let section = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
+            let section = products.productPairIndex(BarcodeType(barcodeString: barcodeString, type:Preferences.manager.showProductType)) {
             // let indexPaths = [IndexPath.init(row: 1, section: section)]
             let aantal = tableView.numberOfSections
             if section < aantal {
@@ -867,11 +867,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
-            if let index = products.productPairIndex(BarcodeType.init(value: barcodeString)) {
+            if let index = products.productPairIndex(BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType)) {
                 if index == 0 {
                     // If this is the product at the top,
                     // save the updates also locally.
-                    MostRecentProduct().save(BarcodeType.init(value: barcodeString))
+                    MostRecentProduct().save(BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType))
                 }
                 
                 // This codepart results sometimes in a crash. No idea what is happening
@@ -919,6 +919,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // start out with the history tab
             if tabVC.selectedIndex == 0 {
                 Preferences.manager.cycleProductType()
+                products.reloadAll()
                 startInterface(at: 0)
             }
         }

@@ -14,6 +14,18 @@ enum ProductType: String {
     case petFood = "openpetfoodfacts"
     case beauty = "openbeautyfacts"
     
+    init(string: String) {
+        switch string {
+        case "openfoodfacts":
+            self = .food
+        case "openpetfoodfacts":
+            self = .petFood
+        case "openbeautyfacts":
+            self = .beauty
+        default:
+            self = .food
+        }
+    }
     static func onServer(_ str: String) -> String? {
         if str == ProductType.food.rawValue {
             return ProductType.food.description()

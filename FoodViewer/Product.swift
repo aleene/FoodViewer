@@ -1093,7 +1093,7 @@ class FoodProduct {
 
         self.init()
         
-        barcode = BarcodeType.init(value: validProduct.code ?? "no code")
+        barcode = BarcodeType(barcodeString: validProduct.code ?? "no code", type: Preferences.manager.showProductType)
 
         primaryLanguageCode = validProduct.lang
         
