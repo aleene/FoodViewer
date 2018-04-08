@@ -12,6 +12,7 @@ enum BarcodeType {
     case ean13(String, ProductType?)
     case ean8(String, ProductType?)
     case upc12(String, ProductType?)
+    case sample(String, ProductType?)
     case search(SearchTemplate, ProductType?)
     case undefined(String, ProductType?)
     case notSet
@@ -48,6 +49,8 @@ enum BarcodeType {
     mutating func string(_ s: String?) {
         if let newString = s {
             switch self {
+            case .sample:
+                self = .sample(newString, nil)
             case .ean13:
                 self = .ean13(newString, nil)
             case .ean8:
@@ -65,6 +68,8 @@ enum BarcodeType {
     var asString: String {
         switch self {
         case .ean13(let s, _):
+            return s
+        case .sample(let s, _):
             return s
         case .ean8(let s, _):
             return s
@@ -111,6 +116,8 @@ enum BarcodeType {
         switch self {
         case .ean13(_, let s):
             return s
+        case .sample(_, let s):
+            return s
         case .ean8(_, let s):
             return s
         case .upc12(_, let s):
@@ -126,6 +133,9 @@ enum BarcodeType {
     
     mutating func setType(_ type:ProductType?) {
         switch self {
+        case .sample(let code, _):
+            self = .sample(code, type)
+
         case .ean13(let code, _):
             self = .ean13(code, type)
         case .ean8(let code, _):

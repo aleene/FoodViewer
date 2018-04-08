@@ -180,38 +180,6 @@ class OpenFoodFactsRequest {
         }
     }
 
-    func fetchSampleProduct() -> ProductFetchStatus {
-        var resource: String = ""
-        switch currentProductType {
-        case .food:
-            resource = OpenFoodFacts.FoodSampleProductBarcode
-        case .petFood:
-            resource = OpenFoodFacts.PetFoodSampleProductBarcode
-        case .beauty:
-            resource = OpenFoodFacts.BeautySampleProductBarcode
-        }
-        let filePath  = Bundle.main.path(forResource: resource, ofType:OFF.URL.JSONExtension)
-        let data = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
-        if let validData = data {
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .secondsSince1970
-                let productJson = try decoder.decode(OFFProductJson.self, from:validData)
-                if let offDetailedProductJson = productJson.product {
-                    let newProduct = FoodProduct.init(json: offDetailedProductJson)
-                    return .success(newProduct)
-                } else {
-                    print("OpenFoodFactsRequest: No valid product json in sample data")
-                    return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
-                }
-            } catch let error {
-                print (error)
-                return .loadingFailed("sample product")
-            }
-        } else {
-            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
-        }
-    }
     
     // MARK: - The keys for decoding the json-files
     

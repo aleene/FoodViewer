@@ -340,13 +340,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 //let indexPaths = [IndexPath.init(row: 0, section: 1),
                 //                 IndexPath.init(row: 0, section: 2),
                 //                IndexPath.init(row: 0, section: 6)]
+                
+                /* Results in a crash
                 switch currentProductType {
                 case .food:
                     tableView.reloadSections([0,5], with: .fade)
                 default :
                     tableView.reloadSections([0,3], with: .fade)
                 }
-
+ */
+                tableView.reloadData()
                 //tableView.deselectRow(at: indexPaths.first!, animated: true)
                 //tableView.deselectRow(at: indexPaths.last!, animated: true)
             }

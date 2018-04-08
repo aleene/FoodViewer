@@ -94,7 +94,6 @@ class OFFProducts {
                 } else {
                     // The cold start case when the user has not yet used the app
                     loadSampleProductPair()
-                    NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
                 }
             }
             // define the public set of products
@@ -143,9 +142,9 @@ class OFFProducts {
             }
             // If there is nothing on the list add the sample product
             if list.isEmpty {
-                //loadSampleProduct()
+                loadSampleProductPair()
                 // TODO: Must be for the type!!!!
-                list.append(sampleProductPair)
+                //list.append(sampleProductPair)
             }
         case .search:
             // show the search query as the first product in the search results
@@ -244,6 +243,15 @@ class OFFProducts {
             // check if the product does not exist
             return existingIndex
         }
+        // if the first one is a sample product remove it
+        if allProductPairs.count == 1 {
+            switch allProductPairs[0].barcodeType {
+            case .sample:
+                allProductPairs = []
+            default:
+                break
+            }
+        }
         // Create the productPair
         allProductPairs.insert(ProductPair(barcodeType: barcodeType), at: 0)
         // and start fetching
@@ -269,103 +277,9 @@ class OFFProducts {
         }
     }
 
-//
-// MARK: Product sample functions
-//
-    
-    var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded( "whatToPutHere?")
-    
-    var sampleProductPair: ProductPair {
-        switch Preferences.manager.showProductType {
-        case .beauty:
-            return ProductPair.init(barcodeString: "4005900122063", type: .beauty)
-        case .food:
-            return ProductPair.init(barcodeString: "40111490", type: .food )
-        case .petFood:
-            return ProductPair.init(barcodeString: "3166780740950", type: .petFood)
-        }
-    }
-    
     private func loadSampleProductPair() {
-        allProductPairs.append(sampleProductPair)
-    }
-    
-    /*
-    private func loadSampleProduct() {
-        // If the user runs for the first time, then there is no history available
-        // Then a sample product will be shown, which is stored with the app
-        switch sampleProductFetchStatus {
-        case .productNotLoaded(let product):
-            sampleProductFetchStatus = ProductFetchStatus.loading(product)
-            DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                let fetchResult = OpenFoodFactsRequest().fetchSampleProduct()
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.sampleProductFetchStatus = fetchResult
-                    self.setCurrentProducts()
-                    switch fetchResult {
-                    case .success:
-                        self.loadSampleImages()
-                        NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
-                    case .loadingFailed(let product, let error),
-                         .productNotAvailable(let product, let error):
-                        let userInfo = [Notification.ErrorKey:error,
-                                        Notification.BarcodeKey:product.barcode.asString]
-                        self.handleLoadingFailed(userInfo)
-                    default: break
-                    }
-                })
-            })
-        default:
-            break
-        }
-    }
-  */
-    
-    func loadSampleImages() {
-
-        // The images are read from the assets catalog as UIImage
-        // this ensure that the right resolution will be read
-        // and then they are internally stored as PNG data
-        /*
-        // I need to find where the demo product is.
-        if let validFetchResult = allProductFetchResultList[0] {
-            switch validFetchResult {
-            case .success(let sampleProduct):
-                let languageCode = sampleProduct.primaryLanguageCode ?? "en"
-                
-                if let image = UIImage(named: "SampleMain") {
-                    if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.frontImages?.small[languageCode]?.fetchResult = .success(data)
-                        sampleProduct.frontImages?.display[languageCode]?.fetchResult = .success(data)
-                    }
-                } else {
-                    sampleProduct.frontImages?.small[languageCode]?.fetchResult = .noData
-                    sampleProduct.frontImages?.display[languageCode]?.fetchResult = .noData
-                }
-                
-                if let image = UIImage(named: "SampleIngredients") {
-                    if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.ingredientsImages?.small[languageCode]?.fetchResult = .success(data)
-                    }
-                } else {
-                    sampleProduct.ingredientsImages?.small[languageCode]?.fetchResult = .noData
-                }
-                
-                if let image = UIImage(named: "SampleNutrition") {
-                    if let data = UIImagePNGRepresentation(image) {
-                        sampleProduct.nutritionImages?.small[languageCode]?.fetchResult = .success(data)
-                    }
-                } else {
-                    sampleProduct.nutritionImages?.small[languageCode]?.fetchResult = .noData
-                }
-                
-                sampleProduct.nameLanguage["en"] = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
-                sampleProduct.genericNameLanguage["en"] = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
-                
-            default: break
-            }
-        }
-         */
+        let sample = Sample()
+        allProductPairs.append(ProductPair(product: sample.product))
     }
 
     var storedHistory = History()
@@ -464,7 +378,7 @@ class OFFProducts {
     }
     
     func reloadAll() {
-        sampleProductFetchStatus = .initialized
+        //sampleProductFetchStatus = .initialized
         // reset the current list of products
         allProductPairs = []
         loadAll()

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5100A96320791DAC00E6E368 /* Sample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5100A96220791DAC00E6E368 /* Sample.swift */; };
 		5104F4A81F9E5400008D074F /* SetLastEditDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */; };
 		5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */; };
 		5104F4AC1F9F3D01008D074F /* SearchHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5104F4AB1F9F3D01008D074F /* SearchHeaderView.xib */; };
@@ -306,6 +307,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5100A96220791DAC00E6E368 /* Sample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sample.swift; sourceTree = "<group>"; };
 		5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetLastEditDateViewController.swift; sourceTree = "<group>"; };
 		5104F4A91F9E55FB008D074F /* LastEditDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastEditDateTableViewCell.swift; sourceTree = "<group>"; };
 		5104F4AB1F9F3D01008D074F /* SearchHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchHeaderView.xib; path = UI/SearchHeaderView.xib; sourceTree = "<group>"; };
@@ -1185,17 +1187,18 @@
 		51E925ED1C678FAC009C52E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				519884E11CE4EA5E0020B3A1 /* Components */,
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
+				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */,
-				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
-				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
-				51578C081DB23177005BEEF6 /* OFF */,
-				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
-				511459301CB1389C00D25116 /* Taxonomy */,
 				5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */,
+				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
+				5100A96220791DAC00E6E368 /* Sample.swift */,
+				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
+				519884E11CE4EA5E0020B3A1 /* Components */,
 				519ACDFE1D9960C100B81D11 /* Defaults */,
+				51578C081DB23177005BEEF6 /* OFF */,
+				511459301CB1389C00D25116 /* Taxonomy */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1391,6 +1394,7 @@
 				518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */,
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
+				5100A96320791DAC00E6E368 /* Sample.swift in Sources */,
 				51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */,
 				5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */,
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
