@@ -13,11 +13,55 @@ private let reuseIdentifier = "Cell"
 
 class ProductImagesCollectionViewController: UICollectionViewController {
 
-    private struct Section {
-        static let FrontImages = 0
-        static let IngredientsImages = 1
-        static let NutrionImages = 2
-        static let OriginalImages = 3
+    fileprivate var tableStructure: [SectionType] = []
+
+    fileprivate enum SectionType {
+        case frontImages(String)
+        case ingredientsImages(String)
+        case nutritionImages(String)
+        case originalImages(String)
+        
+        var header: String {
+            switch self {
+            case .frontImages(let headerTitle),
+                 .ingredientsImages(let headerTitle),
+                 .nutritionImages(let headerTitle),
+                 .originalImages(let headerTitle):
+                return headerTitle
+            }
+        }
+    }
+    
+    fileprivate func setupSections() -> [SectionType] {
+        // The returnValue is an array with sections
+        // And each element is a  section type with the number of rows and the section title
+        //
+        var sectionsAndRows: [SectionType] = []
+        
+        sectionsAndRows.append(.frontImages(TranslatableStrings.SelectedFrontImages))
+        sectionsAndRows.append(.ingredientsImages(TranslatableStrings.SelectedIngredientImages))
+
+        switch Preferences.manager.showProductType {
+        case .beauty:
+            break
+        default:
+            sectionsAndRows.append(.nutritionImages(TranslatableStrings.SelectedNutritionImages))
+        }
+        sectionsAndRows.append(.originalImages(TranslatableStrings.OriginalImages))
+        
+        return sectionsAndRows
+    }
+    
+    var originalImagesSection: Int? {
+        for (index,section) in tableStructure.enumerated() {
+            switch section {
+            case .originalImages:
+                return index
+            default:
+                break
+            }
+        }
+        return nil
     }
     
     fileprivate enum ProductVersion {
@@ -34,7 +78,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     var productPair: ProductPair? {
         didSet {
-
+            tableStructure = setupSections()
         }
     }
 
@@ -203,12 +247,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             static let AddImageCell = "Add Image Cell"
             static let SectionHeader =  "SectionHeaderView"
         }
-        struct HeaderTitle {
-            static let Front = TranslatableStrings.SelectedFrontImages
-            static let Ingredients = TranslatableStrings.SelectedIngredientImages
-            static let Nutrition = TranslatableStrings.SelectedNutritionImages
-            static let Original = TranslatableStrings.OriginalImages
-        }
         struct NibIdentifier {
             static let AddImageCollectionCell = "AddImageCollectionViewCell"
         }
@@ -221,32 +259,30 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return tableStructure.count
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
         // If there are updated images, only show those
-        switch section {
-        case Section.FrontImages:
+        switch tableStructure[section] {
+        case .frontImages:
             return frontImages.count
-        case Section.IngredientsImages:
+        case .ingredientsImages:
             return ingredientsImages.count
-        case Section.NutrionImages:
+        case .nutritionImages:
             return nutritionImages.count
-        case Section.OriginalImages:
+        case .originalImages:
             // Allow the user to add an image when in editMode
             return editMode ? originalImages.count + 1 : originalImages.count
-        default:
-            assert(false, "ProductImagesCollectionViewController: unexpected number of sections")
         }
-        return 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch indexPath.section {
-        case Section.FrontImages: // Front Images
+        switch tableStructure[indexPath.section] {
+        case .frontImages: // Front Images
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if frontImages.count > 0 && indexPath.row < frontImages.count {
                 let key = keyTuples(for:Array(frontImages.keys))[indexPath.row].0
@@ -267,7 +303,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.delegate = self
             return cell
         
-        case Section.IngredientsImages:
+        case .ingredientsImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if indexPath.row < ingredientsImages.count && ingredientsImages.count > 0 {
                 let key = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].0
@@ -288,7 +324,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             cell.delegate = self
             return cell
             
-        case Section.NutrionImages:
+        case .nutritionImages:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Storyboard.CellIdentifier.GalleryImageCell, for: indexPath) as! GalleryCollectionViewCell
             if indexPath.row < nutritionImages.count && nutritionImages.count > 0 {
                 let key = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].0
@@ -355,19 +391,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         //2
         case UICollectionElementKindSectionHeader:
             //3
-            switch indexPath.section {
-            case Section.FrontImages:
-                headerView.label.text = Storyboard.HeaderTitle.Front
-            case Section.IngredientsImages:
-                headerView.label.text = Storyboard.HeaderTitle.Ingredients
-            case Section.NutrionImages:
-                headerView.label.text = Storyboard.HeaderTitle.Nutrition
-            case Section.OriginalImages:
-                headerView.label.text = Storyboard.HeaderTitle.Original
-            default:
-                assert(true, "ProductImagesCollectionViewController: unexpected number of sections")
-            }
-            
+            headerView.label.text = tableStructure[indexPath.section].header
         default:
             //4
             assert(false, "ProductImagesCollectionViewController: Unexpected element kind")
@@ -419,29 +443,26 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case Storyboard.SegueIdentifier.ShowImage:
                 if let vc = segue.destination as? ImageViewController {
                     guard selectedImage != nil else { return }
-                    switch selectedImage!.section {
-                    case Section.FrontImages:
+                    switch tableStructure[selectedImage!.section] {
+                    case .frontImages:
                         let languageCode = Array(productPair!.remoteProduct!.frontImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
                         vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.front)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
-                    case Section.IngredientsImages:
+                    case .ingredientsImages:
                         let languageCode = Array(productPair!.remoteProduct!.ingredientsImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
                         vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.ingredients)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
-                    case Section.NutrionImages:
+                    case .nutritionImages:
                         let languageCode = Array(productPair!.remoteProduct!.nutritionImages.keys.sorted(by: { $0 < $1 }))[selectedImage!.row]
                         vc.imageData = productPair!.remoteProduct!.image(for:languageCode, of:.nutrition)
                         vc.imageTitle = OFFplists.manager.languageName(for:languageCode)
                         
-                    case Section.OriginalImages:
+                    case .originalImages:
                         let key = Array(productPair!.remoteProduct!.images.keys.sorted(by: { Int($0)! < Int($1)! }))[selectedImage!.row]
                         vc.imageData = productPair!.remoteProduct!.images[key]?.largest
                         vc.imageTitle = key
-                        
-                    default:
-                        assert(false, "ProductImagesCollectionViewController: inexisting section")
                     }
                 }
             case Storyboard.SegueIdentifier.ShowLanguageAndImageType:
@@ -669,20 +690,20 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
     // function to let the delegate know that the deselect button has been tapped
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton) {
         if let validIndexPath = sender.indexPath {
-            switch validIndexPath.section {
-            case Section.FrontImages:
+            switch tableStructure[validIndexPath.section] {
+            case .frontImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .front, for: productPair!)
-            case Section.IngredientsImages:
+            case .ingredientsImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .ingredients, for: productPair!)
-            case Section.NutrionImages:
+            case .nutritionImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
                 let update = OFFUpdate()
                 update.deselect([languageCode], of: .nutrition, for: productPair!)
-            default:
+            case .originalImages:
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
             }
         }
@@ -765,8 +786,8 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
             return []
         }
         
-        switch indexPath.section {
-        case Section.OriginalImages:
+        switch tableStructure[indexPath.section] {
+        case .originalImages:
             let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
                 
             if let validImageData = originalImages[key]?.largest {
@@ -792,8 +813,8 @@ extension ProductImagesCollectionViewController: UICollectionViewDragDelegate {
             guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
         }
         
-        switch indexPath.section {
-        case Section.OriginalImages:
+        switch tableStructure[indexPath.section] {
+        case .originalImages:
             let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[indexPath.row]
             
             if let validProductImageData = originalImages[key]?.largest {
@@ -866,7 +887,7 @@ extension ProductImagesCollectionViewController: UICollectionViewDropDelegate {
         
         // Only accept if an image is hovered above the original images section
         if let validIndexPathSection = destinationIndexPath?.section {
-            if validIndexPathSection == Section.OriginalImages {
+            if validIndexPathSection == originalImagesSection {
                 return editMode ? UICollectionViewDropProposal(operation: .copy, intent: .unspecified) : UICollectionViewDropProposal(operation: .forbidden, intent: .unspecified)
             }
         }
@@ -885,8 +906,10 @@ extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
         let validId = imageCropController.identifier else { return }
         imageCropController.dismiss(animated: true, completion: nil)
         productPair?.update(image: validImage, id: validId)
-        let indexSet = IndexSet.init(integer: Section.OriginalImages)
-        self.collectionView?.reloadSections(indexSet)
+        if let validIndex = originalImagesSection {
+            let indexSet = IndexSet.init(integer: validIndex)
+            self.collectionView?.reloadSections(indexSet)
+        }
     }
 }
 
