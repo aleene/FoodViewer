@@ -76,21 +76,23 @@ class OFFProducts {
                 if !storedHistory.barcodeTuples.isEmpty {
                     // create all productPairs found in the history
                     initProductPairList()
+                    // was the history relevant to this product type?
                     if allProductPairs.isEmpty {
                         loadSampleProductPair()
-                    }
-                    // load the locally stored product
-                    allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
-                    MostRecentProduct().load() { (product: FoodProduct?) in
-                        if let validProduct = product {
-                            self.allProductPairs[0].localProduct = product
-                            self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
-                            self.allProductPairs[0].updateIsAllowed = false
+                    } else {
+                        // load the locally stored product
+                        allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
+                            MostRecentProduct().load() { (product: FoodProduct?) in
+                                if let validProduct = product {
+                                    self.allProductPairs[0].localProduct = product
+                                    self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
+                                    self.allProductPairs[0].updateIsAllowed = false
+                                }
+                            // I could add a notification here to inform the vc.
+                            // However the vc is not loaded yet, so it can not receive anything.
                         }
-                        // I could add a notification here to inform the vc.
-                        // However the vc is not loaded yet, so it can not receive anything.
+                        loadProductPairRange(around: 0)
                     }
-                    loadProductPairRange(around: 0)
                 } else {
                     // The cold start case when the user has not yet used the app
                     loadSampleProductPair()
@@ -142,7 +144,7 @@ class OFFProducts {
             }
             // If there is nothing on the list add the sample product
             if list.isEmpty {
-                loadSampleProductPair()
+                //loadSampleProductPair()
                 // TODO: Must be for the type!!!!
                 //list.append(sampleProductPair)
             }
@@ -216,6 +218,7 @@ class OFFProducts {
     func productPair(for barcode: BarcodeType) -> ProductPair? {
         if let index = productPairIndex(barcode){
             return productPair(at: index)
+            // do we ever get here?
         }
         return nil
     }
@@ -233,6 +236,7 @@ class OFFProducts {
     func indexOfProduct(with barcodeType: BarcodeType) -> Int? {
         if let index = productPairIndex(barcodeType) {
             // The product aleady exists
+            // do we ever get here?
             return index
         }
         return nil
@@ -278,8 +282,17 @@ class OFFProducts {
     }
 
     private func loadSampleProductPair() {
-        let sample = Sample()
-        allProductPairs.append(ProductPair(product: sample.product))
+        Sample().load() { (product: FoodProduct?) in
+            if let validProduct = product {
+                let productPair = ProductPair(product: validProduct)
+                productPair.updateIsAllowed = false
+                self.allProductPairs.append(productPair)
+                self.setCurrentProductPairs()
+                NotificationCenter.default.post(name: .FirstProductLoaded, object:nil)
+            }
+            // I could add a notification here to inform the vc.
+            // However the vc is not loaded yet, so it can not receive anything.
+        }
     }
 
     var storedHistory = History()
@@ -731,12 +744,10 @@ class OFFProducts {
 extension Notification.Name {
     static let ProductListExtended = Notification.Name("OFFProducts.Notification.ProductListExtended")
     static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.ProductNotAvailable")
-    //static let ProductLoaded = Notification.Name("OFFProducts.Notification.ProductLoaded")
     static let SearchStarted = Notification.Name("OFFProducts.Notification.SearchStarted")
     static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
     static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProductLoaded")
     static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
-    //static let ProductUpdated = Notification.Name("OFFProducts.Notification.ProductUpdated")
     static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")
 }
 

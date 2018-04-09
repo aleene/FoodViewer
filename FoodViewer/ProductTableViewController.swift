@@ -983,6 +983,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.SampleLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
@@ -1105,7 +1106,7 @@ extension ProductTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
 
         // find the product that has been tapped on
-        let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
+        //let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
         // find the status of the product
         let code = tagListView.tag % Constants.Offset.ProductMultiplier
         

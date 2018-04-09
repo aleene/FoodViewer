@@ -8,6 +8,7 @@
 //  This class ets up the sample product for the current product type
 
 import Foundation
+import UIKit
 
 class Sample {
     
@@ -15,15 +16,29 @@ class Sample {
         static let BarcodeKey = "Sample.Notification.Barcode.Key"
     }
 
-    fileprivate struct Barcode {
-        static let FoodSample = "40111490"
-        static let BeautySample = "4005900122063"
-        static let PetFoodSample = "3166780740950"
-    }
-
-    // on init we can start the load process
-    init() {
-        load()
+    fileprivate struct Sample {
+        fileprivate struct Barcode {
+            static let Food = "40111490"
+            static let Beauty = "4005900122063"
+            static let PetFood = "7613034182067"
+        }
+        fileprivate struct Image {
+            fileprivate struct Main {
+                static let Food = "SampleFoodMain"
+                static let Beauty = "SampleBeautyMain"
+                static let PetFood = "SamplePetFoodMain"
+            }
+            fileprivate struct Ingredients {
+                static let Food = "SampleFoodIngredients"
+                static let Beauty = "SampleBeautyIngredients"
+                static let PetFood = "SamplePetFoodIngredients"
+            }
+            fileprivate struct Nutrition {
+                static let Food = "SampleFoodNutrition"
+                static let Beauty = "SampleBeautyNutrition"
+                static let PetFood = "SamplePetFoodNutrition"
+            }
+        }
     }
     
     private var currentProductType: ProductType {
@@ -32,33 +47,53 @@ class Sample {
     
     private var sampleProductFetchStatus: ProductFetchStatus = .productNotLoaded( "Barcode not set")
 
-    var product: FoodProduct {
-        get {
-            switch sampleProductFetchStatus {
-            case .success(let product):
-                return product
-            case .productNotLoaded:
-                load() // do we ever get here '
-            default:
-                break
-            }
-            // if the product is not loaded yet, return an empty food product.
-            return FoodProduct(with: BarcodeType(barcodeString: currentBarcodeString, type: currentProductType))
-        }
-    }
+    var product: FoodProduct? = nil
     
     private var currentBarcodeString: String {
         switch currentProductType {
         case .food:
-            return Barcode.FoodSample
+            return Sample.Barcode.Food
         case .petFood:
-            return Barcode.PetFoodSample
+            return Sample.Barcode.PetFood
         case .beauty:
-            return Barcode.BeautySample
+            return Sample.Barcode.Beauty
         }
     }
     
-    private func load() {
+    private var mainImage: String {
+        switch currentProductType {
+        case .food:
+            return Sample.Image.Main.Food
+        case .petFood:
+            return Sample.Image.Main.PetFood
+        case .beauty:
+            return Sample.Image.Main.Beauty
+        }
+    }
+
+    private var ingredientsImage: String {
+        switch currentProductType {
+        case .food:
+            return Sample.Image.Ingredients.Food
+        case .petFood:
+            return Sample.Image.Ingredients.PetFood
+        case .beauty:
+            return Sample.Image.Ingredients.Beauty
+        }
+    }
+
+    private var nutritionImage: String {
+        switch currentProductType {
+        case .food:
+            return Sample.Image.Nutrition.Food
+        case .petFood:
+            return Sample.Image.Nutrition.PetFood
+        case .beauty:
+            return Sample.Image.Nutrition.Beauty
+        }
+    }
+
+    func load(completionHandler: @escaping (FoodProduct?) -> ()) {
         // If the user runs for the first time, then there is no history available
         // Then a sample product will be shown, which is stored within the app
         switch sampleProductFetchStatus {
@@ -66,8 +101,16 @@ class Sample {
             self.sampleProductFetchStatus = .loading(currentBarcodeString)
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                 let fetchResult = self.fetch()
+                self.sampleProductFetchStatus = fetchResult
                 DispatchQueue.main.async(execute: { () -> Void in
-                    self.sampleProductFetchStatus = fetchResult
+                    switch fetchResult {
+                    case .success(let product):
+                        completionHandler(product)
+                        self.loadSampleImages()
+                        return
+                    default:
+                        break
+                    }
                 })
             })
         default:
@@ -76,16 +119,7 @@ class Sample {
     }
 
     private func fetch() -> ProductFetchStatus {
-        var resource: String = ""
-        switch currentProductType {
-        case .food:
-            resource = Barcode.FoodSample
-        case .petFood:
-            resource = Barcode.PetFoodSample
-        case .beauty:
-            resource = Barcode.BeautySample
-        }
-        let filePath  = Bundle.main.path(forResource: resource, ofType:OFF.URL.JSONExtension)
+        let filePath  = Bundle.main.path(forResource: currentBarcodeString, ofType:OFF.URL.JSONExtension)
         let data = try? Data(contentsOf: URL(fileURLWithPath: filePath!))
         if let validData = data {
             do {
@@ -94,18 +128,17 @@ class Sample {
                 let productJson = try decoder.decode(OFFProductJson.self, from:validData)
                 if let offDetailedProductJson = productJson.product {
                     let newProduct = FoodProduct.init(json: offDetailedProductJson)
+                    newProduct.barcode = BarcodeType.sample(newProduct.barcode.asString, newProduct.type)
                     return .success(newProduct)
                 } else {
                     print("OpenFoodFactsRequest: No valid product json in sample data")
-                    return ProductFetchStatus.loadingFailed(resource)
                 }
             } catch let error {
                 print (error)
                 return .loadingFailed("sample product")
             }
-        } else {
-            return ProductFetchStatus.loadingFailed(resource)
         }
+        return ProductFetchStatus.loadingFailed(currentBarcodeString)
     }
 
     private func loadSampleImages() {
@@ -113,46 +146,50 @@ class Sample {
         // The images are read from the assets catalog as UIImage
         // this ensure that the right resolution will be read
         // and then they are internally stored as PNG data
-        /*
          // I need to find where the demo product is.
-         if let validFetchResult = allProductFetchResultList[0] {
-         switch validFetchResult {
-         case .success(let sampleProduct):
-         let languageCode = sampleProduct.primaryLanguageCode ?? "en"
+        switch sampleProductFetchStatus {
+        case .success(let sampleProduct):
+            let languageCode = sampleProduct.primaryLanguageCode ?? "en"
+            if sampleProduct.frontImages[languageCode] == nil {
+                sampleProduct.frontImages[languageCode] = ProductImageSize()
+            }
+            if let image = UIImage(named: mainImage) {
+                if let data = UIImagePNGRepresentation(image) {
+                    sampleProduct.frontImages[languageCode]?.small?.fetchResult = .success(data)
+                    sampleProduct.frontImages[languageCode]?.display?.fetchResult = .success(data)
+                }
+            } else {
+                sampleProduct.frontImages[languageCode]?.small?.fetchResult = .noData
+                sampleProduct.frontImages[languageCode]?.display?.fetchResult = .noData
+            }
+            
+            if sampleProduct.ingredientsImages[languageCode] == nil {
+                sampleProduct.ingredientsImages[languageCode] = ProductImageSize()
+            }
+            if let image = UIImage(named: ingredientsImage) {
+                if let data = UIImagePNGRepresentation(image) {
+                    sampleProduct.ingredientsImages[languageCode]?.small?.fetchResult = .success(data)
+                }
+            } else {
+                sampleProduct.ingredientsImages[languageCode]?.small?.fetchResult = .noData
+            }
          
-         if let image = UIImage(named: "SampleMain") {
-         if let data = UIImagePNGRepresentation(image) {
-         sampleProduct.frontImages?.small[languageCode]?.fetchResult = .success(data)
-         sampleProduct.frontImages?.display[languageCode]?.fetchResult = .success(data)
-         }
-         } else {
-         sampleProduct.frontImages?.small[languageCode]?.fetchResult = .noData
-         sampleProduct.frontImages?.display[languageCode]?.fetchResult = .noData
-         }
+            if sampleProduct.nutritionImages[languageCode] == nil {
+                sampleProduct.nutritionImages[languageCode] = ProductImageSize()
+            }
+            if let image = UIImage(named: nutritionImage) {
+                if let data = UIImagePNGRepresentation(image) {
+                    sampleProduct.nutritionImages[languageCode]?.small?.fetchResult = .success(data)
+                }
+            } else {
+                sampleProduct.nutritionImages[languageCode]?.small?.fetchResult = .noData
+            }
          
-         if let image = UIImage(named: "SampleIngredients") {
-         if let data = UIImagePNGRepresentation(image) {
-         sampleProduct.ingredientsImages?.small[languageCode]?.fetchResult = .success(data)
-         }
-         } else {
-         sampleProduct.ingredientsImages?.small[languageCode]?.fetchResult = .noData
-         }
+            sampleProduct.nameLanguage[languageCode] = TranslatableStrings.SampleProductName
+            sampleProduct.genericNameLanguage[languageCode] = TranslatableStrings.SampleGenericProductName
          
-         if let image = UIImage(named: "SampleNutrition") {
-         if let data = UIImagePNGRepresentation(image) {
-         sampleProduct.nutritionImages?.small[languageCode]?.fetchResult = .success(data)
+            default: break
          }
-         } else {
-         sampleProduct.nutritionImages?.small[languageCode]?.fetchResult = .noData
-         }
-         
-         sampleProduct.nameLanguage["en"] = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
-         sampleProduct.genericNameLanguage["en"] = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
-         
-         default: break
-         }
-         }
-         */
     }
 
 }

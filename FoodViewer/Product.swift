@@ -1444,7 +1444,7 @@ class FoodProduct {
     
     // If an update is successfull, the updated data can be removed
     func removedUpdatedData() {
-        barcode = BarcodeType.notSet
+        //barcode = BarcodeType.notSet
         nameLanguage = [:]
         genericNameLanguage = [:]
         languageCodes = []
@@ -1482,8 +1482,7 @@ class FoodProduct {
     // checks if the product has any fields defined
     // (looks only at editable fields)
     var isEmpty: Bool {
-        return barcode.isSet == false &&
-        nameLanguage.isEmpty &&
+        return nameLanguage.isEmpty &&
         genericNameLanguage.isEmpty &&
         ingredientsLanguage.isEmpty &&
         brandsOriginal == .undefined &&

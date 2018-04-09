@@ -1032,8 +1032,8 @@ class IdentificationTableViewController: UITableViewController {
     
     @objc func loadFirstProduct() {
         let products = OFFProducts.manager
-        if let validProductPair = products.productPair(at: 0)?.remoteProduct {
-            productPair!.remoteProduct = validProductPair
+        if let validProduct = products.productPair(at: 0)?.remoteProduct {
+            self.productPair = ProductPair(product: validProduct)
             tableView.reloadData()
         }
     }

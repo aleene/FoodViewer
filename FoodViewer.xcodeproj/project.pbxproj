@@ -89,7 +89,7 @@
 		5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */; };
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
-		514EEF9C1ED9B79100C4CF54 /* 3166780740950.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 3166780740950.json */; };
+		514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */; };
 		515046512009056D0094EE50 /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046502009056D0094EE50 /* ResultType.swift */; };
 		515046552009062F0094EE50 /* GenericDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046542009062F0094EE50 /* GenericDownloadTask.swift */; };
 		51504657200906B10094EE50 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51504656200906B10094EE50 /* DownloadService.swift */; };
@@ -399,7 +399,7 @@
 		5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectExpirationDateViewController.swift; sourceTree = "<group>"; };
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
-		514EEF9B1ED9B79100C4CF54 /* 3166780740950.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 3166780740950.json; sourceTree = "<group>"; };
+		514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 7613034182067.json; sourceTree = "<group>"; };
 		515046502009056D0094EE50 /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ResultType.swift; path = Frameworks/Download/ResultType.swift; sourceTree = "<group>"; };
 		515046542009062F0094EE50 /* GenericDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GenericDownloadTask.swift; path = Frameworks/Download/GenericDownloadTask.swift; sourceTree = "<group>"; };
 		51504656200906B10094EE50 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DownloadService.swift; path = Frameworks/Download/DownloadService.swift; sourceTree = "<group>"; };
@@ -981,7 +981,7 @@
 				5180B9131C5D3B57002DBD21 /* Info.plist */,
 				516BA58B1CC4E6BE008A094A /* 40111490.json */,
 				514EEF991ED9B70000C4CF54 /* 4005900122063.json */,
-				514EEF9B1ED9B79100C4CF54 /* 3166780740950.json */,
+				514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */,
 			);
 			name = "Support files";
 			sourceTree = "<group>";
@@ -1335,7 +1335,7 @@
 				510BA29820162A6A0028107B /* Additives.plist in Resources */,
 				51CF42C71E02F48600C9AD91 /* TagView.xib in Resources */,
 				51DD35861EFEAB60000A8484 /* emb-30569c in Resources */,
-				514EEF9C1ED9B79100C4CF54 /* 3166780740950.json in Resources */,
+				514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */,
 				510BA29A20162B3E0028107B /* Allergens.plist in Resources */,
 				51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */,
 			);

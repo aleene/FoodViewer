@@ -272,6 +272,8 @@ struct TranslatableStrings {
     
     static let SalesCountries = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
     static let Salt = NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium")
+    static let SampleGenericProductName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
+    static let SampleProductName = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
     static let SaturatedFatToFatRatio = NSLocalizedString("Saturated Fat to Total Fat ratio", comment: "Title in cell with the saturated fat to all fat ratio")
     // static let Search = NSLocalizedString("Search", comment: "Prefix of a title of a Tableview controller")
     static let SearchFoodProducts = NSLocalizedString("Search Food Products", comment: "Title of a Tableview controller, indicating the tableview shows search food products.")
