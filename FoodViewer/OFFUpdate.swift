@@ -179,7 +179,7 @@ class OFFUpdate {
         
         switch product.purchasePlacesOriginal {
         case .available(let location):
-            let string = location.flatMap{
+            let string = location.compactMap{
                     $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
                 }.joined(separator: ",")
                 urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.PurchasePlaces + string )
@@ -191,7 +191,7 @@ class OFFUpdate {
         
         switch product.storesOriginal {
         case .available(let validShop):
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
 
         default:
@@ -222,7 +222,7 @@ class OFFUpdate {
         
         switch product.brandsOriginal {
         case let .available(list):
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands)
@@ -236,7 +236,7 @@ class OFFUpdate {
             // take into account the language of the tags
             // if a tag has no prefix, a prefix must be added
             let list = product.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging)
@@ -249,7 +249,7 @@ class OFFUpdate {
         case .available:
             // take into account the language of the tags
             let list = product.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels)
@@ -262,7 +262,7 @@ class OFFUpdate {
         case .available:
             // take into account the language of the tags
             let list = product.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces)
@@ -275,7 +275,7 @@ class OFFUpdate {
         case .available:
             // take into account the language of the tags
             let list = product.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories)
@@ -286,7 +286,7 @@ class OFFUpdate {
         
         switch product.manufacturingPlacesOriginal {
         case .available(let places):
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + places.compactMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
         default:
             break
@@ -294,7 +294,7 @@ class OFFUpdate {
 
         switch product.originsOriginal {
         case .available(let places):
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + places.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + places.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
             productUpdated = true
         default:
             break
@@ -302,7 +302,7 @@ class OFFUpdate {
         
         switch product.embCodesOriginal {
         case .available(let places):
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.flatMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.compactMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
         default:
             break
@@ -311,14 +311,14 @@ class OFFUpdate {
         switch product.countriesOriginal {
         case .available:
             let list = product.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.flatMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         default:
             break
         }
 
         if let validLinks = product.links {
-            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Links + validLinks.flatMap{ $0.absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",") )
+            urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Links + validLinks.compactMap{ $0.absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",") )
             productUpdated = true
         }
 

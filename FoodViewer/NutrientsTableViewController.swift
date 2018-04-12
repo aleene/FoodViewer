@@ -936,7 +936,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.existingNutrients = adaptedNutritionFacts.flatMap { $0.name }
+                                vc.existingNutrients = adaptedNutritionFacts.compactMap { $0.name }
                             }
                         }
                     }

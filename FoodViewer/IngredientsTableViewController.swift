@@ -436,8 +436,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // we assume that product exists
+        print(tableView.frame.size.width)
+
         switch tableStructure[indexPath.section] {
             
         case .imageSearch:
@@ -1106,6 +1106,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         delegate?.title = TranslatableStrings.Ingredients
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
@@ -1120,11 +1121,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    //override func viewDidAppear(_ animated: Bool) {
+    //    super.viewDidAppear(animated)
         // print("ing didAppear", self.view.frame, self.parent?.view.frame)
 
-    }
+    //}
     
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)

@@ -741,6 +741,7 @@ class SupplyChainTableViewController: UITableViewController {
         case .expirationDate:
             if productPair!.barcodeType.productType == .beauty {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PeriodAfterOpening, for: indexPath)
+                cell.frame.size.width = tableView.frame.size.width
                 switch productVersion {
                 case .remote:
                     if let validPeriod = productPair?.remoteProduct?.periodAfterReferenceDate {

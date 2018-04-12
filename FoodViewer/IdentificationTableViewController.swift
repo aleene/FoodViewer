@@ -104,8 +104,10 @@ class IdentificationTableViewController: UITableViewController {
                 switch validProductPair.barcodeType {
                 case .search(let template, _):
                     self.query = template
+                    self.productPair = nil
                 default:
                     self.productPair = validProductPair
+                    query = nil
                 }
             }
         }
@@ -116,7 +118,7 @@ class IdentificationTableViewController: UITableViewController {
             if productPair != nil {
                 tableStructure = setupSections()
                 //currentLanguageCode = newCurrentLanguage
-                tableView.reloadData()
+                refreshProduct()
             }
         }
     }
@@ -125,7 +127,7 @@ class IdentificationTableViewController: UITableViewController {
         didSet {
             if query != nil {
                 tableStructure = setupSections()
-                tableView.reloadData()
+                refreshProduct()
             }
         }
     }
@@ -150,7 +152,8 @@ class IdentificationTableViewController: UITableViewController {
                 //let indexPaths = [IndexPath.init(row: 0, section: 1),
                  //                 IndexPath.init(row: 0, section: 2),
                   //                IndexPath.init(row: 0, section: 6)]
-                tableView.reloadSections([1,2,7], with: .fade)
+                // tableView.reloadSections([1,2,7], with: .fade)
+                tableView.reloadData()
                 //tableView.deselectRow(at: indexPaths.first!, animated: true)
                 //tableView.deselectRow(at: indexPaths.last!, animated: true)
             }
@@ -436,9 +439,8 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentProductSection = tableStructure[indexPath.section]
-        
-        switch currentProductSection {
+        print(tableView.frame.size.width)
+        switch tableStructure[indexPath.section] {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
             cell.barcode = productPair?.barcodeType.asString
@@ -1190,11 +1192,11 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    //override func viewDidAppear(_ animated: Bool) {
+    //    super.viewDidAppear(animated)
         //print("id viewDidAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
         // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
-    }
+    //}
     
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)

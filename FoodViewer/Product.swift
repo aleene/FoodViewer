@@ -370,7 +370,7 @@ class FoodProduct {
             case .available(let manufacturingPlace):
                 if !manufacturingPlace.isEmpty {
                     let newAddress = Address()
-                    newAddress.raw = manufacturingPlace.flatMap{ $0 }.joined(separator: ",")
+                    newAddress.raw = manufacturingPlace.compactMap{ $0 }.joined(separator: ",")
                     return newAddress
                 }
             default:
@@ -513,7 +513,7 @@ class FoodProduct {
             case .available(let origin):
                 if !origin.isEmpty {
                     let newAddress = Address()
-                    newAddress.raw = origin.flatMap{ $0 }.joined(separator: ",")
+                    newAddress.raw = origin.compactMap{ $0 }.joined(separator: ",")
                     return newAddress
                 }
             default:
