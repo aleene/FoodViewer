@@ -349,8 +349,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="8qF-wB-zag">
-                            <rect key="frame" x="0.0" y="856" width="375" height="44"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
+                            <rect key="frame" x="0.0" y="900" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -737,6 +737,42 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagListView Button Cell" id="h2H-jh-3lz" customClass="TagListViewButtonTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="856" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="h2H-jh-3lz" id="yu6-kq-Bs9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wrh-xM-vEY" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="334" height="44"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x1N-DK-jl8">
+                                            <rect key="frame" x="342" y="10" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="x1N-DK-jl8" secondAttribute="height" multiplier="1:1" id="f02-qo-bWx"/>
+                                            </constraints>
+                                            <state key="normal" image="Edit"/>
+                                            <connections>
+                                                <action selector="buttonTapped:" destination="h2H-jh-3lz" eventType="touchUpInside" id="Zdr-ev-lI6"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Wrh-xM-vEY" secondAttribute="bottom" id="0sT-GS-nvm"/>
+                                        <constraint firstItem="Wrh-xM-vEY" firstAttribute="centerY" secondItem="x1N-DK-jl8" secondAttribute="centerY" id="8fX-fd-psp"/>
+                                        <constraint firstItem="x1N-DK-jl8" firstAttribute="leading" secondItem="Wrh-xM-vEY" secondAttribute="trailing" constant="8" id="Acb-aF-qXT"/>
+                                        <constraint firstItem="Wrh-xM-vEY" firstAttribute="top" secondItem="yu6-kq-Bs9" secondAttribute="top" id="F08-R6-LYU"/>
+                                        <constraint firstAttribute="trailing" secondItem="x1N-DK-jl8" secondAttribute="trailing" constant="8" id="OFB-9D-pdR"/>
+                                        <constraint firstItem="Wrh-xM-vEY" firstAttribute="leading" secondItem="yu6-kq-Bs9" secondAttribute="leading" id="cKM-Rl-NQE"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="button" destination="x1N-DK-jl8" id="f18-l1-ehc"/>
+                                    <outlet property="tagListView" destination="Wrh-xM-vEY" id="ic9-ch-r7r"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -3487,7 +3523,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -4140,8 +4176,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="ntk-NT-VGC"/>
-        <segue reference="z8D-RP-i6i"/>
+        <segue reference="NIk-rX-rWX"/>
+        <segue reference="TJD-zt-Jpp"/>
         <segue reference="bL1-eB-rEY"/>
     </inferredMetricsTieBreakers>
 </document>

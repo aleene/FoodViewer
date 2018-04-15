@@ -94,6 +94,7 @@
 		514196AF20839ED400528877 /* PetFoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196AE20839ED400528877 /* PetFoodProductsDB.csv */; };
 		514196B120839EDF00528877 /* FoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196B020839EDE00528877 /* FoodProductsDB.csv */; };
 		514196B320839EF000528877 /* BeautyProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196B220839EF000528877 /* BeautyProductsDB.csv */; };
+		514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */; };
 		51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */; };
 		51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */; };
 		5148F0F11DD3291500EF1B67 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F01DD3291500EF1B67 /* Language.swift */; };
@@ -415,6 +416,7 @@
 		514196AE20839ED400528877 /* PetFoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PetFoodProductsDB.csv; path = Support/PetFoodProductsDB.csv; sourceTree = "<group>"; };
 		514196B020839EDE00528877 /* FoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FoodProductsDB.csv; path = Support/FoodProductsDB.csv; sourceTree = "<group>"; };
 		514196B220839EF000528877 /* BeautyProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BeautyProductsDB.csv; path = Support/BeautyProductsDB.csv; sourceTree = "<group>"; };
+		514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagListViewButtonTableViewCell.swift; path = Cells/TagListViewButtonTableViewCell.swift; sourceTree = "<group>"; };
 		51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectLanguageAndImageTypeViewController.swift; path = Select/SelectLanguageAndImageTypeViewController.swift; sourceTree = "<group>"; };
 		51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewAddImageTableViewCell.swift; path = Cells/TagListViewAddImageTableViewCell.swift; sourceTree = "<group>"; };
 		5148F0F01DD3291500EF1B67 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
@@ -1150,6 +1152,7 @@
 			isa = PBXGroup;
 			children = (
 				51FB322C1CF44E8A00A17312 /* BarcodeTableViewCell.swift */,
+				514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */,
 				5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */,
 				5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */,
 				51D3B3E51F6C3B6600050DA8 /* BarcodeEditTableViewCell.swift */,
@@ -1642,6 +1645,7 @@
 				516BA5961CC769DD008A094A /* EnergyUnitUsed.swift in Sources */,
 				51CC54B41F9E212D00350424 /* SetCreationDateViewController.swift in Sources */,
 				5150D9C41F8133FE0003DE8E /* NutrimentSearch.swift in Sources */,
+				514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,
 				514196A120839CE600528877 /* CSV.swift in Sources */,
 				519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */,
