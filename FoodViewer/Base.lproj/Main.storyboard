@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a8d-2e-7z8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="a8d-2e-7z8">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -349,7 +349,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="8qF-wB-zag">
                             <rect key="frame" x="0.0" y="856" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1396,7 +1396,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="xIo-3N-Ski">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="xIo-3N-Ski">
                             <rect key="frame" x="0.0" y="586" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2790,7 +2790,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="A40-hk-PcF">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="A40-hk-PcF">
                             <rect key="frame" x="0.0" y="636" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3350,7 +3350,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5S-av-cA3" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="288" height="22"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="27.5"/>
                                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
                                     </subviews>
@@ -3374,16 +3374,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="aEN-Va-dLO">
-                                            <rect key="frame" x="8" y="11" width="304" height="22"/>
+                                            <rect key="frame" x="8" y="8" width="304" height="27.5"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZ1-Cg-ox8" userLabel="US">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="27.5"/>
                                                     <connections>
                                                         <action selector="usDefaultsButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="wGB-PK-fYr"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PU9-ny-duI">
-                                                    <rect key="frame" x="137" y="0.0" width="30" height="22"/>
+                                                    <rect key="frame" x="137" y="0.0" width="30" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" title="Add"/>
                                                     <connections>
@@ -3393,7 +3393,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-4q-5sl" userLabel="EU">
-                                                    <rect key="frame" x="274" y="0.0" width="30" height="22"/>
+                                                    <rect key="frame" x="274" y="0.0" width="30" height="27.5"/>
                                                     <connections>
                                                         <action selector="euDefaultsButtonTapped:" destination="EeR-VC-2i8" eventType="touchUpInside" id="EzC-ld-aCb"/>
                                                     </connections>
@@ -3422,7 +3422,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Swp-Bc-P0i" userLabel="Nutriments available?">
-                                            <rect key="frame" x="8" y="11" width="247" height="22"/>
+                                            <rect key="frame" x="8" y="8" width="247" height="27.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -4132,7 +4132,7 @@
         <image name="CameraRoll" width="25" height="25"/>
         <image name="Clear" width="25" height="25"/>
         <image name="ClearBlue" width="25" height="25"/>
-        <image name="ClearGrey" width="13" height="13"/>
+        <image name="ClearGrey" width="25" height="25"/>
         <image name="Edit" width="25" height="25"/>
         <image name="Heart" width="25" height="25"/>
         <image name="NotOK" width="25" height="25"/>

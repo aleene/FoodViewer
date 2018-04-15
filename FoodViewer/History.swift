@@ -96,6 +96,17 @@ public struct History {
         return false
     }
     
+    func barcodes(for type: ProductType) -> [String] {
+        var list: [String] = []
+        for index in 0..<barcodeTuples.count {
+            // only append the products for the current product type
+            if barcodeTuples[index].1 == type.rawValue {
+                list.append(barcodeTuples[index].0)
+            }
+        }
+        return list
+    }
+    
     private func index(_ barcodeNumber: String?) -> Int? {
         for (index, barcodeTuple) in barcodeTuples.enumerated() {
             if barcodeTuple.0 == barcodeNumber {

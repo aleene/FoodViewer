@@ -72,27 +72,23 @@ class OFFProducts {
         switch list {
         case .recent:
             if allProductPairs.isEmpty {
+                let storedList = storedHistory.barcodes(for: currentProductType)
                 // If there is no history, we are in the cold start case
-                if !storedHistory.barcodeTuples.isEmpty {
+                if !storedList.isEmpty {
                     // create all productPairs found in the history
-                    initProductPairList()
-                    // was the history relevant to this product type?
-                    if allProductPairs.isEmpty {
-                        loadSampleProductPair()
-                    } else {
-                        // load the locally stored product
-                        allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
-                            MostRecentProduct().load() { (product: FoodProduct?) in
-                                if let validProduct = product {
-                                    self.allProductPairs[0].localProduct = product
-                                    self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
-                                    self.allProductPairs[0].updateIsAllowed = false
-                                }
+                    storedList.forEach( { allProductPairs.append(ProductPair(barcodeString: $0, type: currentProductType))})
+                    // load the locally stored product
+                    allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
+                        MostRecentProduct().load() { (product: FoodProduct?) in
+                        if let validProduct = product {
+                            self.allProductPairs[0].localProduct = product
+                            self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
+                             self.allProductPairs[0].updateIsAllowed = false
+                        }
                             // I could add a notification here to inform the vc.
                             // However the vc is not loaded yet, so it can not receive anything.
-                        }
-                        loadProductPairRange(around: 0)
                     }
+                    loadProductPairRange(around: 0)
                 } else {
                     // The cold start case when the user has not yet used the app
                     loadSampleProductPair()
@@ -181,18 +177,6 @@ class OFFProducts {
             allProductPairs[ind].fetch()
         }
     }
-
-    fileprivate func initProductPairList() {
-        // I need a nillified list of the correct size, because I want to access items through the index.
-        if allProductPairs.isEmpty {
-            for index in 0..<storedHistory.barcodeTuples.count {
-                // only append the products for the current product type
-                if storedHistory.barcodeTuples[index].1 == Preferences.manager.showProductType.rawValue {
-                    allProductPairs.append(ProductPair(barcodeString:storedHistory.barcodeTuples[index].0, type:Preferences.manager.showProductType))
-                }
-            }
-        }
-    }
     
     func removeAllProductPairs() {
         storedHistory = History()
@@ -218,7 +202,6 @@ class OFFProducts {
     func productPair(for barcode: BarcodeType) -> ProductPair? {
         if let index = productPairIndex(barcode){
             return productPair(at: index)
-            // do we ever get here?
         }
         return nil
     }

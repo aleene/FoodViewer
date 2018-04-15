@@ -83,6 +83,17 @@
 		5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */; };
 		513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513D16AF1DB4C02D005B1971 /* OFFAccount.swift */; };
 		513E00981F867F2D003153D4 /* TagListViewLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */; };
+		5141969F20839CDB00528877 /* BinaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5141969E20839CDA00528877 /* BinaryReader.swift */; };
+		514196A120839CE600528877 /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196A020839CE500528877 /* CSV.swift */; };
+		514196A320839CF000528877 /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196A220839CF000528877 /* CSVError.swift */; };
+		514196A520839CFB00528877 /* CSVReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196A420839CFB00528877 /* CSVReader.swift */; };
+		514196A720839D0A00528877 /* CSVWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196A620839D0A00528877 /* CSVWriter.swift */; };
+		514196A920839D1200528877 /* Endian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196A820839D1200528877 /* Endian.swift */; };
+		514196AB20839D1C00528877 /* UnicodeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196AA20839D1C00528877 /* UnicodeIterator.swift */; };
+		514196AD20839EA900528877 /* OFFDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196AC20839EA800528877 /* OFFDatabase.swift */; };
+		514196AF20839ED400528877 /* PetFoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196AE20839ED400528877 /* PetFoodProductsDB.csv */; };
+		514196B120839EDF00528877 /* FoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196B020839EDE00528877 /* FoodProductsDB.csv */; };
+		514196B320839EF000528877 /* BeautyProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196B220839EF000528877 /* BeautyProductsDB.csv */; };
 		51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */; };
 		51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */; };
 		5148F0F11DD3291500EF1B67 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F01DD3291500EF1B67 /* Language.swift */; };
@@ -393,6 +404,17 @@
 		513982491C8C700B00250FB1 /* EmptyNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyNutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		513D16AF1DB4C02D005B1971 /* OFFAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFAccount.swift; sourceTree = "<group>"; };
 		513E00971F867F2C003153D4 /* TagListViewLabelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewLabelTableViewCell.swift; sourceTree = "<group>"; };
+		5141969E20839CDA00528877 /* BinaryReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BinaryReader.swift; path = "../../../Downloads/CSV.swift-master/Sources/BinaryReader.swift"; sourceTree = "<group>"; };
+		514196A020839CE500528877 /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = "../../../Downloads/CSV.swift-master/Sources/CSV.swift"; sourceTree = "<group>"; };
+		514196A220839CF000528877 /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSVError.swift; path = "../../../Downloads/CSV.swift-master/Sources/CSVError.swift"; sourceTree = "<group>"; };
+		514196A420839CFB00528877 /* CSVReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSVReader.swift; path = "../../../Downloads/CSV.swift-master/Sources/CSVReader.swift"; sourceTree = "<group>"; };
+		514196A620839D0A00528877 /* CSVWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSVWriter.swift; path = "../../../Downloads/CSV.swift-master/Sources/CSVWriter.swift"; sourceTree = "<group>"; };
+		514196A820839D1200528877 /* Endian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Endian.swift; path = "../../../Downloads/CSV.swift-master/Sources/Endian.swift"; sourceTree = "<group>"; };
+		514196AA20839D1C00528877 /* UnicodeIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnicodeIterator.swift; path = "../../../Downloads/CSV.swift-master/Sources/UnicodeIterator.swift"; sourceTree = "<group>"; };
+		514196AC20839EA800528877 /* OFFDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFDatabase.swift; path = OFF/OFFDatabase.swift; sourceTree = "<group>"; };
+		514196AE20839ED400528877 /* PetFoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PetFoodProductsDB.csv; path = Support/PetFoodProductsDB.csv; sourceTree = "<group>"; };
+		514196B020839EDE00528877 /* FoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FoodProductsDB.csv; path = Support/FoodProductsDB.csv; sourceTree = "<group>"; };
+		514196B220839EF000528877 /* BeautyProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BeautyProductsDB.csv; path = Support/BeautyProductsDB.csv; sourceTree = "<group>"; };
 		51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectLanguageAndImageTypeViewController.swift; path = Select/SelectLanguageAndImageTypeViewController.swift; sourceTree = "<group>"; };
 		51485F141FB74E9300167437 /* TagListViewAddImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TagListViewAddImageTableViewCell.swift; path = Cells/TagListViewAddImageTableViewCell.swift; sourceTree = "<group>"; };
 		5148F0F01DD3291500EF1B67 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
@@ -781,6 +803,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5141969C20839C2100528877 /* CSV */,
 				5150464F200904610094EE50 /* Download */,
 				5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */,
 				512039E31E5B3E7900BE62CB /* GKImagePickerSwift */,
@@ -825,6 +848,56 @@
 			name = Pages;
 			sourceTree = "<group>";
 		};
+		5141969C20839C2100528877 /* CSV */ = {
+			isa = PBXGroup;
+			children = (
+				5141969E20839CDA00528877 /* BinaryReader.swift */,
+				514196A020839CE500528877 /* CSV.swift */,
+				514196A220839CF000528877 /* CSVError.swift */,
+				514196A420839CFB00528877 /* CSVReader.swift */,
+				514196A620839D0A00528877 /* CSVWriter.swift */,
+				514196AA20839D1C00528877 /* UnicodeIterator.swift */,
+				514196A820839D1200528877 /* Endian.swift */,
+			);
+			name = CSV;
+			sourceTree = "<group>";
+		};
+		514196B420839EFB00528877 /* csv */ = {
+			isa = PBXGroup;
+			children = (
+				514196B220839EF000528877 /* BeautyProductsDB.csv */,
+				514196AE20839ED400528877 /* PetFoodProductsDB.csv */,
+				514196B020839EDE00528877 /* FoodProductsDB.csv */,
+			);
+			name = csv;
+			sourceTree = "<group>";
+		};
+		514196B520839F1000528877 /* plist */ = {
+			isa = PBXGroup;
+			children = (
+				510BA29720162A690028107B /* Additives.plist */,
+				510BA29920162B3E0028107B /* Allergens.plist */,
+				510BA29D20162C330028107B /* Categories.plist */,
+				51B150041CB2DFA400A57D42 /* Countries.plist */,
+				510BA29B20162BDA0028107B /* GlobalLabels.plist */,
+				5174A6751D82F9AC00BA61F1 /* Languages.plist */,
+				5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */,
+				51A4CAF21CF1C30B003F9763 /* Nutrients.plist */,
+				51B14FFE1CB2DD8B00A57D42 /* States.plist */,
+			);
+			name = plist;
+			sourceTree = "<group>";
+		};
+		514196B620839F2500528877 /* sampleJson */ = {
+			isa = PBXGroup;
+			children = (
+				516BA58B1CC4E6BE008A094A /* 40111490.json */,
+				514EEF991ED9B70000C4CF54 /* 4005900122063.json */,
+				514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */,
+			);
+			name = sampleJson;
+			sourceTree = "<group>";
+		};
 		5150464F200904610094EE50 /* Download */ = {
 			isa = PBXGroup;
 			children = (
@@ -848,6 +921,7 @@
 				516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */,
 				51F057FC1CB6AFEF00849532 /* OFFProducts.swift */,
 				513D16AF1DB4C02D005B1971 /* OFFAccount.swift */,
+				514196AC20839EA800528877 /* OFFDatabase.swift */,
 				5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */,
 				511DB40C1E09B180009D4A4B /* OFFWriteAPI.swift */,
 				51BED0C71CE36723006ED62B /* ProductFetchStatus.swift */,
@@ -962,26 +1036,17 @@
 		5180B9191C5D3B75002DBD21 /* Support files */ = {
 			isa = PBXGroup;
 			children = (
+				514196B420839EFB00528877 /* csv */,
 				511DB43F1E0AD533009D4A4B /* TagListView.h */,
 				51B3838B1F89007E0086581C /* TranslatableStrings.swift */,
 				517FC9331CD500C100CB89ED /* Localizable.strings */,
 				517FC92C1CD5009A00CB89ED /* InfoPlist.strings */,
-				510BA29720162A690028107B /* Additives.plist */,
-				510BA29920162B3E0028107B /* Allergens.plist */,
-				510BA29D20162C330028107B /* Categories.plist */,
-				51B150041CB2DFA400A57D42 /* Countries.plist */,
-				510BA29B20162BDA0028107B /* GlobalLabels.plist */,
-				5174A6751D82F9AC00BA61F1 /* Languages.plist */,
-				5150C0751CBE81D900161616 /* ReferenceDailyIntakeValues.plist */,
-				51A4CAF21CF1C30B003F9763 /* Nutrients.plist */,
-				51B14FFE1CB2DD8B00A57D42 /* States.plist */,
+				514196B520839F1000528877 /* plist */,
 				5180B9071C5D3B57002DBD21 /* AppDelegate.swift */,
 				5180B90E1C5D3B57002DBD21 /* Assets.xcassets */,
 				5180B9101C5D3B57002DBD21 /* LaunchScreen.storyboard */,
 				5180B9131C5D3B57002DBD21 /* Info.plist */,
-				516BA58B1CC4E6BE008A094A /* 40111490.json */,
-				514EEF991ED9B70000C4CF54 /* 4005900122063.json */,
-				514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */,
+				514196B620839F2500528877 /* sampleJson */,
 			);
 			name = "Support files";
 			sourceTree = "<group>";
@@ -1318,7 +1383,9 @@
 				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
 				51B11D501E509DE900823630 /* test.json in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
+				514196B120839EDF00528877 /* FoodProductsDB.csv in Resources */,
 				5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */,
+				514196B320839EF000528877 /* BeautyProductsDB.csv in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
 				5104F4AC1F9F3D01008D074F /* SearchHeaderView.xib in Resources */,
 				5180B9121C5D3B57002DBD21 /* LaunchScreen.storyboard in Resources */,
@@ -1330,6 +1397,7 @@
 				514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */,
 				5184F5811EB5EF78009ECF73 /* NutriScoreView.xib in Resources */,
 				5180B90F1C5D3B57002DBD21 /* Assets.xcassets in Resources */,
+				514196AF20839ED400528877 /* PetFoodProductsDB.csv in Resources */,
 				510BA29E20162C340028107B /* Categories.plist in Resources */,
 				510BA29C20162BDA0028107B /* GlobalLabels.plist in Resources */,
 				510BA29820162A6A0028107B /* Additives.plist in Resources */,
@@ -1365,6 +1433,7 @@
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
 				5124036A1D9594D2007FED5A /* FavoriteShopsTableViewController.swift in Sources */,
 				51B741721F966ECD0025F8A1 /* ProductImageTableViewCell.swift in Sources */,
+				514196AD20839EA900528877 /* OFFDatabase.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
 				512499A11C6CD0100061A083 /* ImageViewController.swift in Sources */,
 				51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */,
@@ -1377,6 +1446,7 @@
 				51DAD3741C5F642C00895513 /* NutritionScoreTableViewCell.swift in Sources */,
 				512039EF1E5B3E9500BE62CB /* GKImageCropView.swift in Sources */,
 				5150C0661CBCD66F00161616 /* Preferences.swift in Sources */,
+				514196A720839D0A00528877 /* CSVWriter.swift in Sources */,
 				51B9048E1E7AF09B004E3439 /* OFFEnergy.swift in Sources */,
 				518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */,
 				51BED0C81CE36723006ED62B /* ProductFetchStatus.swift in Sources */,
@@ -1394,10 +1464,13 @@
 				518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */,
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
+				514196A920839D1200528877 /* Endian.swift in Sources */,
 				5100A96320791DAC00E6E368 /* Sample.swift in Sources */,
 				51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */,
 				5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */,
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
+				514196A520839CFB00528877 /* CSVReader.swift in Sources */,
+				5141969F20839CDB00528877 /* BinaryReader.swift in Sources */,
 				517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
@@ -1470,6 +1543,7 @@
 				51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */,
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
 				51D53D44205ECBFC00FE7BEF /* StringExtension2.swift in Sources */,
+				514196AB20839D1C00528877 /* UnicodeIterator.swift in Sources */,
 				5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
 				510DB60B205AF02500782DEE /* NutritionFactsLabelStyle.swift in Sources */,
@@ -1510,6 +1584,7 @@
 				517907FA1F8F6C950017FCA0 /* Contributor.swift in Sources */,
 				519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */,
 				51E1C3672046B52B00CB68B1 /* OFFImageUploadAPI.swift in Sources */,
+				514196A320839CF000528877 /* CSVError.swift in Sources */,
 				5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */,
 				51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
@@ -1568,6 +1643,7 @@
 				51CC54B41F9E212D00350424 /* SetCreationDateViewController.swift in Sources */,
 				5150D9C41F8133FE0003DE8E /* NutrimentSearch.swift in Sources */,
 				51BED0C41CE1C044006ED62B /* MapPinCategories.swift in Sources */,
+				514196A120839CE600528877 /* CSV.swift in Sources */,
 				519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */,
 				5157426E1CDB63B200BE8E2D /* RSCodeGenerator.swift in Sources */,
 				51B9048A1E7AEC9C004E3439 /* Weight.swift in Sources */,
