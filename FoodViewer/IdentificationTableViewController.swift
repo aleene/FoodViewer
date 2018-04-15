@@ -419,6 +419,7 @@ class IdentificationTableViewController: UITableViewController {
             static let TagListViewWithSegmentedControl = "TagListView With SegmentedControl Cell"
             static let Image = "Identification Image Cell"
             static let TagListViewAddImage = "Identification TagListView Add Image Cell"
+            static let TagListViewButton = "TagListView Button Cell"
         }
         struct SegueIdentifier {
             static let ShowIdentificationImage = "Show Identification Image"
@@ -522,15 +523,25 @@ class IdentificationTableViewController: UITableViewController {
             return cell
 
         case .languages:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = query != nil ? editMode : false
-            cell.tag = indexPath.section
+            if editMode {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewButton, for: indexPath) as! TagListViewButtonTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.delegate = self
+                cell.editMode = query != nil ? editMode : false
+                cell.tag = indexPath.section
+                
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+                cell.width = tableView.frame.size.width
+                cell.datasource = self
+                cell.delegate = self
+                cell.editMode = query != nil ? editMode : false
+                cell.tag = indexPath.section
 
-            return cell
-
+                return cell
+            }
         case .brands, .packaging:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -1208,6 +1219,25 @@ class IdentificationTableViewController: UITableViewController {
     }
 
 }
+//
+// MARK: - TagListViewButtonCellDelegate Functions
+//
+extension IdentificationTableViewController: TagListViewButtonCellDelegate {
+    
+    // function to let the delegate know that a tag was single tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that a tag was double tapped
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        
+    }
+    // function to let the delegate know that the switch changed
+    func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
+        
+    }
+}
+
 //
 // MARK: - TagListViewCellDelegate Functions
 //
