@@ -982,6 +982,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let vc = segue.destination as? ExtendLanguagesViewController,
                     let languageCodes = productPair?.languageCodes {
                     vc.currentLanguageCodes = languageCodes
+                    vc.sourcePage = 0
                     vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                 }
             default: break

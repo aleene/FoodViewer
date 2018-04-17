@@ -665,7 +665,23 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     @IBAction func unwindConfirmProductForDone(_ segue:UIStoryboardSegue) {
     }
-        
+    
+    @IBAction func unwindExtendLanguagesForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? ExtendLanguagesViewController {
+            if let newLanguageCode = vc.selectedLanguageCode {
+                currentLanguageCode = newLanguageCode
+
+                // the languageCodes have been edited, so with have now an updated product
+                productPair?.update(addLanguageCode: newLanguageCode)
+                if vc.sourcePage > 0 && vc.sourcePage < pages.count {
+                    pageIndex = pages[vc.sourcePage]
+                } else {
+                    pageIndex = .identification
+                }
+            }
+        }
+    }
+
         
     func updateCurrentLanguage() {
         if let index = pages.index(where: { $0 == .identification } ),
