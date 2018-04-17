@@ -426,6 +426,7 @@ class IdentificationTableViewController: UITableViewController {
             static let ShowNamesLanguages = "Show Names Languages"
             static let ShowSelectMainLanguage = "Show Select Main Language Segue"
             static let ShowImageSourceSelector = "Show Select Image Source Segue"
+            static let ShowAddLanguage = "Show Extend Languages Segue"
         }
     }
 
@@ -977,6 +978,12 @@ class IdentificationTableViewController: UITableViewController {
                         }
                     }
                 }
+            case Storyboard.SegueIdentifier.ShowAddLanguage:
+                if let vc = segue.destination as? ExtendLanguagesViewController,
+                    let languageCodes = productPair?.languageCodes {
+                    vc.currentLanguageCodes = languageCodes
+                    vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                }
             default: break
             }
         }
@@ -1234,7 +1241,7 @@ extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     }
     // function to let the delegate know that the switch changed
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowAddLanguage, sender: self)
     }
 }
 

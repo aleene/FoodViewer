@@ -166,6 +166,7 @@
 		517907FA1F8F6C950017FCA0 /* Contributor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907F91F8F6C940017FCA0 /* Contributor.swift */; };
 		517907FC1F8F6CDC0017FCA0 /* ContributorRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907FB1F8F6CDC0017FCA0 /* ContributorRole.swift */; };
 		517907FE1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517907FD1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift */; };
+		517A65952086636800B4F728 /* ExtendLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517A65942086636800B4F728 /* ExtendLanguagesViewController.swift */; };
 		517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */; };
 		517AAD4A1C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */; };
 		517BF2C61E44AF3800876E24 /* DynamicCustomSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517BF2C51E44AF3700876E24 /* DynamicCustomSegue.swift */; };
@@ -490,6 +491,7 @@
 		517907F91F8F6C940017FCA0 /* Contributor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contributor.swift; sourceTree = "<group>"; };
 		517907FB1F8F6CDC0017FCA0 /* ContributorRole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContributorRole.swift; path = Model/ContributorRole.swift; sourceTree = "<group>"; };
 		517907FD1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectContributorRoleViewController.swift; sourceTree = "<group>"; };
+		517A65942086636800B4F728 /* ExtendLanguagesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendLanguagesViewController.swift; sourceTree = "<group>"; };
 		517AAD471C7DB07F00B12F3C /* IngredientsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewController.swift; sourceTree = "<group>"; };
 		517AAD491C7DB5AD00B12F3C /* IngredientsFullTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsFullTableViewCell.swift; sourceTree = "<group>"; };
 		517BF2C51E44AF3700876E24 /* DynamicCustomSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCustomSegue.swift; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				5104F4AF1FA074C3008D074F /* SetSortOrderViewController.swift */,
 				51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */,
 				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
+				517A65942086636800B4F728 /* ExtendLanguagesViewController.swift */,
 				51B721731DD5F268003AF608 /* AddNutrientViewController.swift */,
 				517907F51F8BBC730017FCA0 /* SelectCompletionStateViewController.swift */,
 				512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */,
@@ -1476,6 +1479,7 @@
 				5141969F20839CDB00528877 /* BinaryReader.swift in Sources */,
 				517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
+				517A65952086636800B4F728 /* ExtendLanguagesViewController.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
 				512039ED1E5B3E9500BE62CB /* GKImageCropViewController.swift in Sources */,
 				5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */,
