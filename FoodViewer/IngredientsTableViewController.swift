@@ -1053,7 +1053,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.barcodeType))
+                        self.productPair?.fetch()
                     }
                 }
             }
@@ -1068,7 +1068,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.barcodeType) )
+                        self.productPair?.fetch()
                     }
                 }
             }

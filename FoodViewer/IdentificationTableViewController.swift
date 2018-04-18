@@ -441,7 +441,7 @@ class IdentificationTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        print(tableView.frame.size.width)
+        //print(tableView.frame.size.width)
         switch tableStructure[indexPath.section] {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
@@ -1119,7 +1119,7 @@ class IdentificationTableViewController: UITableViewController {
                     if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                         if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
                             // reload product data
-                            OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.remoteProduct!.barcode) )
+                            self.productPair?.fetch()
                         }
                     }
                 }
@@ -1135,7 +1135,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
                         // reload product data
-                        OFFProducts.manager.reload(productPair: OFFProducts.manager.productPair(for: self.productPair!.remoteProduct!.barcode))
+                        self.productPair?.fetch()
                     }
                 }
             }

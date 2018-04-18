@@ -1240,8 +1240,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // is it relevant to the nutrition image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
-                        // reload product data
-                        //TODO: OFFProducts.manager.reload(self.product!)
+                        self.productPair?.fetch()
                     }
                 }
             }
@@ -1256,8 +1255,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 // is it relevant to the nutrition image?
                 if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
-                        // reload product data
-                        //TODO:OFFProducts.manager.reload(self.product!)
+                        self.productPair?.fetch()
                     }
                 }
             }
