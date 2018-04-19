@@ -2951,6 +2951,10 @@
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3P-fF-cbC">
                                                             <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="ief-u3-DWO"/>
+                                                                <constraint firstAttribute="width" constant="25" id="nYI-gI-bbX"/>
+                                                            </constraints>
                                                             <state key="normal" image="Clear"/>
                                                             <connections>
                                                                 <action selector="deselectImageButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="JrS-xZ-s0u"/>
@@ -2976,10 +2980,7 @@
                                                         <constraint firstItem="jWz-fA-YUG" firstAttribute="width" secondItem="L3P-fF-cbC" secondAttribute="width" id="7E2-Ke-Uia"/>
                                                         <constraint firstItem="64u-QN-3dx" firstAttribute="width" secondItem="L3P-fF-cbC" secondAttribute="width" id="Gj0-06-laC"/>
                                                         <constraint firstItem="64u-QN-3dx" firstAttribute="height" secondItem="L3P-fF-cbC" secondAttribute="height" id="SFR-ei-pDl"/>
-                                                        <constraint firstItem="L3P-fF-cbC" firstAttribute="top" secondItem="8Nj-Wi-cYZ" secondAttribute="top" id="dWo-va-pG5"/>
                                                         <constraint firstItem="jWz-fA-YUG" firstAttribute="height" secondItem="L3P-fF-cbC" secondAttribute="height" id="fe4-81-bbU"/>
-                                                        <constraint firstAttribute="trailing" secondItem="L3P-fF-cbC" secondAttribute="trailing" id="wuY-82-jcD"/>
-                                                        <constraint firstItem="L3P-fF-cbC" firstAttribute="leading" secondItem="8Nj-Wi-cYZ" secondAttribute="leading" id="xzA-wn-opj"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -3273,56 +3274,56 @@
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="299.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="258" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-Iy-n3f">
-                                            <rect key="frame" x="46" y="11" width="232" height="278"/>
-                                        </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3A-ke-Yqc">
-                                            <rect key="frame" x="228" y="83.5" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="t3A-ke-Yqc" secondAttribute="height" multiplier="1:1" id="Hhe-dd-7Uu"/>
-                                            </constraints>
-                                            <state key="normal" image="Clear"/>
-                                            <connections>
-                                                <action selector="deselectImageButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="Qc6-Nk-H7l"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNm-Ld-LTE">
-                                            <rect key="frame" x="228" y="125" width="50" height="50.5"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="UNm-Ld-LTE" secondAttribute="height" multiplier="1:1" id="O1b-3h-jhm"/>
-                                                <constraint firstAttribute="width" constant="50" id="SWG-ge-Euf"/>
-                                            </constraints>
-                                            <state key="normal" image="Camera"/>
-                                            <connections>
-                                                <action selector="takePhotoButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="7W6-f3-ZTw"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qcy-nj-zO3">
-                                            <rect key="frame" x="228" y="183.5" width="50" height="50"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="Qcy-nj-zO3" secondAttribute="height" multiplier="1:1" id="Rrd-Pn-cuI"/>
-                                            </constraints>
-                                            <state key="normal" image="CameraRoll"/>
-                                            <connections>
-                                                <action selector="selectFromCamerRollButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="Iio-VL-Ah8"/>
-                                            </connections>
-                                        </button>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gJE-77-DpR">
+                                            <rect key="frame" x="16" y="11" width="270" height="278"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="258" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-Iy-n3f">
+                                                    <rect key="frame" x="0.0" y="0.0" width="237" height="278"/>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="bUh-TP-hHt">
+                                                    <rect key="frame" x="245" y="85.5" width="25" height="107"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3A-ke-Yqc">
+                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="8lu-Uz-bL5"/>
+                                                                <constraint firstAttribute="width" constant="25" id="JMN-pW-ptq"/>
+                                                            </constraints>
+                                                            <state key="normal" image="Clear"/>
+                                                            <connections>
+                                                                <action selector="deselectImageButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="Qc6-Nk-H7l"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNm-Ld-LTE">
+                                                            <rect key="frame" x="0.0" y="41" width="25" height="25"/>
+                                                            <state key="normal" image="Camera"/>
+                                                            <connections>
+                                                                <action selector="takePhotoButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="7W6-f3-ZTw"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qcy-nj-zO3">
+                                                            <rect key="frame" x="0.0" y="82" width="25" height="25"/>
+                                                            <state key="normal" image="CameraRoll"/>
+                                                            <connections>
+                                                                <action selector="selectFromCamerRollButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="Iio-VL-Ah8"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="height" secondItem="t3A-ke-Yqc" secondAttribute="height" id="FlV-vn-x0b"/>
+                                                        <constraint firstItem="Qcy-nj-zO3" firstAttribute="height" secondItem="t3A-ke-Yqc" secondAttribute="height" id="JdG-gZ-fPS"/>
+                                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="width" secondItem="t3A-ke-Yqc" secondAttribute="width" id="SHS-xY-q4N"/>
+                                                        <constraint firstItem="Qcy-nj-zO3" firstAttribute="width" secondItem="t3A-ke-Yqc" secondAttribute="width" id="YdP-by-CFY"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="bPg-Iy-n3f" firstAttribute="leading" secondItem="pbH-bk-fc1" secondAttribute="leadingMargin" constant="30" id="2FO-pX-GlB"/>
-                                        <constraint firstItem="Qcy-nj-zO3" firstAttribute="top" secondItem="UNm-Ld-LTE" secondAttribute="bottom" constant="8" id="590-82-jP8"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="bPg-Iy-n3f" secondAttribute="trailing" id="8Mp-3s-JFD"/>
-                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="trailing" secondItem="bPg-Iy-n3f" secondAttribute="trailing" id="8TF-a7-xZR"/>
-                                        <constraint firstItem="bPg-Iy-n3f" firstAttribute="top" secondItem="pbH-bk-fc1" secondAttribute="topMargin" id="9zT-9t-Qmb"/>
-                                        <constraint firstItem="Qcy-nj-zO3" firstAttribute="width" secondItem="UNm-Ld-LTE" secondAttribute="width" id="AQf-Kp-RSh"/>
-                                        <constraint firstItem="t3A-ke-Yqc" firstAttribute="centerX" secondItem="UNm-Ld-LTE" secondAttribute="centerX" id="J9X-X6-Yky"/>
-                                        <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="t3A-ke-Yqc" secondAttribute="bottom" constant="8" id="Wbs-fU-gLa"/>
-                                        <constraint firstAttribute="topMargin" relation="lessThanOrEqual" secondItem="t3A-ke-Yqc" secondAttribute="top" constant="8" id="Wyq-BS-OgZ"/>
-                                        <constraint firstItem="Qcy-nj-zO3" firstAttribute="centerX" secondItem="UNm-Ld-LTE" secondAttribute="centerX" id="Yrp-AZ-cgI"/>
-                                        <constraint firstItem="t3A-ke-Yqc" firstAttribute="width" secondItem="UNm-Ld-LTE" secondAttribute="width" id="jCf-cx-nhx"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="bPg-Iy-n3f" secondAttribute="bottom" id="kX1-Rd-rR1"/>
-                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="centerY" secondItem="bPg-Iy-n3f" secondAttribute="centerY" id="pXe-BI-kW1"/>
-                                        <constraint firstItem="t3A-ke-Yqc" firstAttribute="bottom" secondItem="UNm-Ld-LTE" secondAttribute="top" constant="8" id="wTu-pi-Zr5"/>
+                                        <constraint firstItem="gJE-77-DpR" firstAttribute="bottom" secondItem="pbH-bk-fc1" secondAttribute="bottomMargin" id="16q-p0-Fvl"/>
+                                        <constraint firstAttribute="topMargin" secondItem="gJE-77-DpR" secondAttribute="top" id="hRt-fm-6A3"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="gJE-77-DpR" secondAttribute="leading" id="nTy-NT-36d"/>
+                                        <constraint firstItem="gJE-77-DpR" firstAttribute="trailing" secondItem="pbH-bk-fc1" secondAttribute="trailing" id="yJD-Cr-k7F"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -3532,7 +3533,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -4236,8 +4237,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="LXh-Zn-OsY"/>
-        <segue reference="Jg3-Zr-U6z"/>
+        <segue reference="ntk-NT-VGC"/>
+        <segue reference="z8D-RP-i6i"/>
         <segue reference="bL1-eB-rEY"/>
     </inferredMetricsTieBreakers>
 </document>
