@@ -3352,17 +3352,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="rvy-Sc-xEQ">
-                                            <rect key="frame" x="16" y="0.0" width="296" height="77"/>
+                                            <rect key="frame" x="16" y="11" width="288" height="66"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" horizontalCompressionResistancePriority="748" translatesAutoresizingMaskIntoConstraints="NO" id="odK-VQ-nAP" customClass="TagListView" customModule="FoodViewer" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="13.5" width="256.5" height="50"/>
+                                                    <rect key="frame" x="0.0" y="8" width="252" height="50"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="6OZ-SI-d31">
-                                                    <rect key="frame" x="267.5" y="5.5" width="28.5" height="66"/>
+                                                    <rect key="frame" x="263" y="0.0" width="25" height="66"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKb-Cu-6nQ">
-                                                            <rect key="frame" x="2" y="0.0" width="25" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="25" id="iQr-hz-InY"/>
                                                                 <constraint firstAttribute="width" constant="25" id="oLJ-Qm-LQL"/>
@@ -3373,7 +3373,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xNa-8U-Hef">
-                                                            <rect key="frame" x="2" y="41" width="25" height="25"/>
+                                                            <rect key="frame" x="0.0" y="41" width="25" height="25"/>
                                                             <state key="normal" image="CameraRoll"/>
                                                             <connections>
                                                                 <action selector="selectFromCamerRollButtonTapped:" destination="E5V-dR-M1f" eventType="touchUpInside" id="AIw-Nx-Vbh"/>
@@ -3391,8 +3391,8 @@
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="rvy-Sc-xEQ" secondAttribute="bottom" id="0O8-lW-hBm"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="rvy-Sc-xEQ" secondAttribute="leading" id="erX-2P-zVI"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="rvy-Sc-xEQ" secondAttribute="trailing" constant="-8" id="hCT-gi-RZX"/>
-                                        <constraint firstItem="rvy-Sc-xEQ" firstAttribute="topMargin" secondItem="X7g-i0-3Lb" secondAttribute="top" id="wDK-ke-t1L"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="rvy-Sc-xEQ" secondAttribute="trailing" id="hCT-gi-RZX"/>
+                                        <constraint firstItem="rvy-Sc-xEQ" firstAttribute="top" secondItem="X7g-i0-3Lb" secondAttribute="topMargin" id="wDK-ke-t1L"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

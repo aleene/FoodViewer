@@ -51,9 +51,9 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextView?.layer.borderColor = UIColor.white.cgColor
         }
         
-        if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
-            nameTextView?.sizeToFit()
-        }
+        //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
+        //    nameTextView?.sizeToFit()
+        //}
 
     }
     

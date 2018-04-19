@@ -67,7 +67,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
                 // needed to reset the color of the text. It is not actually shown.
                 textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
                 textView?.text = unAttributedIngredients
-                textView?.sizeToFit()
+                //textView?.sizeToFit()
             } else {
                 textView?.text = ""
             }
