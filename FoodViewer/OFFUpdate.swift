@@ -438,26 +438,26 @@ class OFFUpdate {
         guard urlString != nil else { return }
         
         
-        if image.imageOrientation == UIImageOrientation.left {
-            print("left")
-        } else if image.imageOrientation == UIImageOrientation.right {
-            print("right")
-        } else if image.imageOrientation == UIImageOrientation.down {
-            print("down")
-        } else if image.imageOrientation == UIImageOrientation.up {
-            print("up")
-        }
+        //if image.imageOrientation == UIImageOrientation.left {
+        //    print("left")
+        //} else if image.imageOrientation == UIImageOrientation.right {
+        //    print("right")
+        //} else if image.imageOrientation == UIImageOrientation.down {
+        //    print("down")
+        //} else if image.imageOrientation == UIImageOrientation.up {
+        //    print("up")
+        //}
         let ewImage = image.setOrientationToLeftUpCorner()
         
-        if ewImage.imageOrientation == UIImageOrientation.left {
-            print("left")
-        } else if ewImage.imageOrientation == UIImageOrientation.right {
-            print("right")
-        } else if ewImage.imageOrientation == UIImageOrientation.down {
-            print("down")
-        } else if ewImage.imageOrientation == UIImageOrientation.up {
-            print("up")
-        }
+        //if ewImage.imageOrientation == UIImageOrientation.left {
+        //    print("left")
+        //} else if ewImage.imageOrientation == UIImageOrientation.right {
+        //    print("right")
+        //} else if ewImage.imageOrientation == UIImageOrientation.down {
+        //    print("down")
+        //} else if ewImage.imageOrientation == UIImageOrientation.up {
+        //    print("up")
+        //}
         //print(image.description)
         let data = UIImagePNGRepresentation(ewImage)
         //print(ewImage.description)

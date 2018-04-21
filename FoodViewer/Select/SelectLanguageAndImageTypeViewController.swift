@@ -46,10 +46,10 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
     // MARK: - Delegates and datasource
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
+        if component == 0 { // image type
             selectedImageCategory = row > 0 ? ImageTypeCategory.list[row - 1] : nil
-        } else if component == 1 {
-            selectedLanguageCode = row > 0 ? sortedLanguages[row - 1].code : nil
+        } else if component == 1 { // language
+            selectedLanguageCode = row > 0 ? sortedLanguages[row - 1].code : languageCodes[0]
         }
     }
     

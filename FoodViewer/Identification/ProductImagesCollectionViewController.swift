@@ -65,14 +65,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     
     fileprivate enum ProductVersion {
-        case local
+        //case local
         case remote
         case new
     }
     
     // Determines which version of the product needs to be shown, the remote or local
     
-    fileprivate var productVersion: ProductVersion = .remote
+    fileprivate var productVersion: ProductVersion = .new//
 
     // MARK: - public variables
     
@@ -112,10 +112,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            case .local:
-                if let validImages = productPair?.localProduct?.images {
-                    newImages = validImages
-                }
+            //case .local:
+            //    if let validImages = productPair?.localProduct?.images {
+            //        newImages = validImages
+            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.images {
                     newImages = validImages
@@ -139,10 +139,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            case .local:
-                if let validImages = productPair?.localProduct?.frontImages {
-                    newImages = validImages
-                }
+            //case .local:
+            //    if let validImages = productPair?.localProduct?.frontImages {
+            //        newImages = validImages
+            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.frontImages {
                     newImages = validImages
@@ -164,10 +164,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            case .local:
-                if let validImages = productPair?.localProduct?.ingredientsImages {
-                    newImages = validImages
-                }
+            //case .local:
+            //    if let validImages = productPair?.localProduct?.ingredientsImages {
+             //       newImages = validImages
+            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.ingredientsImages {
                     newImages = validImages
@@ -189,10 +189,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         get {
             var newImages: [String:ProductImageSize] = [:]
             switch productVersion {
-            case .local:
-                if let validImages = productPair?.localProduct?.nutritionImages {
-                    newImages = validImages
-                }
+            //case .local:
+            //    if let validImages = productPair?.localProduct?.nutritionImages {
+            //        newImages = validImages
+            //    }
             case .remote:
                 if let validImages = productPair?.remoteProduct?.nutritionImages {
                     newImages = validImages
@@ -495,11 +495,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 let validKey = vc.key {
                 
                 // let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[validKey]
-                if let result = originalImages[validKey]?.display?.fetch() {
+                if let result = originalImages[validKey]?.largest?.fetch() {
                     switch result {
                     case .available:
                         
-                        if let validImage = originalImages[validKey]?.display?.image {
+                        if let validImage = originalImages[validKey]?.largest?.image {
                             switch selectedImageTypeCategory {
                             case .front:
                                 productPair?.update(frontImage: validImage, for: selectedLanguageCode)
@@ -605,9 +605,9 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     @objc func doubleTapOnTableView() {
         switch productVersion {
         case .remote:
-            productVersion = .local
-            delegate?.title = TranslatableStrings.Gallery + " (Local)"
-        case .local:
+            //productVersion = .local
+            //delegate?.title = TranslatableStrings.Gallery + " (Local)"
+        //case .local:
             productVersion = .new
             delegate?.title = TranslatableStrings.Gallery + " (New)"
         case .new:

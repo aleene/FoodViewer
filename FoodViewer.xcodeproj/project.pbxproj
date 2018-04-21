@@ -687,25 +687,25 @@
 		5107C82B1D9D07AB006A628C /* EditPages */ = {
 			isa = PBXGroup;
 			children = (
-				51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */,
+				5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */,
+				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
+				51B721731DD5F268003AF608 /* AddNutrientViewController.swift */,
+				5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */,
+				517A65942086636800B4F728 /* ExtendLanguagesViewController.swift */,
+				512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */,
+				5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */,
+				51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */,
+				51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */,
 				5104F4A71F9E5400008D074F /* SetLastEditDateViewController.swift */,
 				5104F4AF1FA074C3008D074F /* SetSortOrderViewController.swift */,
-				51CC54B31F9E212D00350424 /* SetCreationDateViewController.swift */,
-				5158AE511DE2190300D75CFD /* AddLanguageViewController.swift */,
-				517A65942086636800B4F728 /* ExtendLanguagesViewController.swift */,
-				51B721731DD5F268003AF608 /* AddNutrientViewController.swift */,
+				5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */,
 				517907F51F8BBC730017FCA0 /* SelectCompletionStateViewController.swift */,
-				512403691D9594D2007FED5A /* FavoriteShopsTableViewController.swift */,
-				5124036B1D96BA0A007FED5A /* AddFavoriteShopTableViewController.swift */,
-				51A16AA31DC0DB16005F59E6 /* ProductUpdatedProtocol.swift */,
-				5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */,
-				5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */,
 				517907FD1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift */,
+				5148F0F21DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift */,
+				5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */,
+				51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */,
 				518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */,
 				51A056F91E2D23340099092E /* SelectNutrientUnitViewController.swift */,
-				5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */,
-				5124D88A1E3E4DBE00C36F90 /* MainLanguageViewController.swift */,
-				5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */,
 			);
 			name = EditPages;
 			sourceTree = "<group>";
