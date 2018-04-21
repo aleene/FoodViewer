@@ -150,8 +150,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case .new:
                 if let validImages = productPair?.localProduct?.frontImages {
                     newImages = validImages
-                } else if let validImages = productPair?.remoteProduct?.frontImages {
-                    newImages = validImages
+                }
+                if let validImages = productPair?.remoteProduct?.frontImages {
+                    let images = validImages
+                    newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
                 }
             }
             //images.count > 0 {
@@ -175,8 +177,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case .new:
                 if let validImages = productPair?.localProduct?.ingredientsImages {
                     newImages = validImages
-                } else if let validImages = productPair?.remoteProduct?.ingredientsImages {
-                    newImages = validImages
+                }
+                if let validImages = productPair?.remoteProduct?.ingredientsImages {
+                    let images = validImages
+                    newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
                 }
             }
             //images.count > 0 {
@@ -200,8 +204,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             case .new:
                 if let validImages = productPair?.localProduct?.nutritionImages {
                     newImages = validImages
-                } else if let validImages = productPair?.remoteProduct?.nutritionImages {
-                    newImages = validImages
+                }
+                if let validImages = productPair?.remoteProduct?.nutritionImages {
+                    let images = validImages
+                    newImages = newImages.merging(images, uniquingKeysWith: { (first, last) in last } )
                 }
 
             }
