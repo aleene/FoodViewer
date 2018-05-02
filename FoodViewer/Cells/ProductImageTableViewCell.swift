@@ -52,13 +52,14 @@ class ProductImageTableViewCell: UITableViewCell {
             } else {
                 imageView?.image = UIImage(named: "ImageLoading")
             }
+            setButtonVisibility()
+            //print(takePhotoButton?.isHidden, selectFromCameraRollButton?.isHidden)
         }
     }
     
     var editMode: Bool = false {
         didSet {
-            takePhotoButton?.isHidden = !editMode
-            selectFromCameraRollButton?.isHidden = !editMode
+            setButtonVisibility()
             hideClearButton()
             // deselect button only relevant if there is a photo
         }
@@ -102,5 +103,9 @@ class ProductImageTableViewCell: UITableViewCell {
         delegate?.productImageTableViewCell(self, receivedActionOnDeselect: sender)
     }
 
+    private func setButtonVisibility() {
+        takePhotoButton?.isHidden = !editMode
+        selectFromCameraRollButton?.isHidden = !editMode
+    }
 }
 
