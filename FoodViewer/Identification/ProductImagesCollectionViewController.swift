@@ -392,12 +392,37 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                          withReuseIdentifier: Storyboard.CellIdentifier.SectionHeader,
                                                                          for: indexPath) as! GalleryCollectionReusableView
-//1
+        //1
         switch kind {
         //2
         case UICollectionElementKindSectionHeader:
+            var newTitle = tableStructure[indexPath.section].header
+            switch productVersion {
+            case .new:
+                switch tableStructure[indexPath.section] {
+                case .frontImages:
+                    if productPair?.localProduct?.frontImages != nil && !productPair!.localProduct!.frontImages.isEmpty {
+                        newTitle += " (New)"
+                    }
+                case .ingredientsImages:
+                    if productPair?.localProduct?.ingredientsImages != nil && !productPair!.localProduct!.ingredientsImages.isEmpty {
+                        newTitle += " (New)"
+                    }
+                case .nutritionImages:
+                    if productPair?.localProduct?.nutritionImages != nil && !productPair!.localProduct!.nutritionImages.isEmpty {
+                        newTitle += " (New)"
+                    }
+                case .originalImages:
+                    if productPair?.localProduct?.images != nil && !productPair!.localProduct!.images.isEmpty {
+                        newTitle += " (New)"
+                    }
+                }
+            default:
+                break
+            }
             //3
-            headerView.label.text = tableStructure[indexPath.section].header
+            headerView.label.text = newTitle
+
         default:
             //4
             assert(false, "ProductImagesCollectionViewController: Unexpected element kind")
@@ -405,14 +430,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         return headerView
     }
 
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    // Uncomment this method to specify if the specified item should be selected
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -424,22 +441,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowImage, sender: self)
         }
     }
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
     
     // MARK: - Segue stuff
     
