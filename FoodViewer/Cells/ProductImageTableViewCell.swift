@@ -53,7 +53,6 @@ class ProductImageTableViewCell: UITableViewCell {
                 imageView?.image = UIImage(named: "ImageLoading")
             }
             setButtonVisibility()
-            //print(takePhotoButton?.isHidden, selectFromCameraRollButton?.isHidden)
         }
     }
     
@@ -62,12 +61,17 @@ class ProductImageTableViewCell: UITableViewCell {
             setButtonVisibility()
             hideClearButton()
             // deselect button only relevant if there is a photo
+            layoutSubviews()
         }
     }
     
     var delegate: ProductImageCellDelegate? = nil
     
-    @IBOutlet weak var productImageView: UIImageView!
+    @IBOutlet weak var productImageView: UIImageView! {
+        didSet {
+            setButtonVisibility()
+        }
+    }
     
     @IBOutlet weak var takePhotoButton: UIButton! {
         didSet {

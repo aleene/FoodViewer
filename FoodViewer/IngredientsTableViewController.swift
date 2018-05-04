@@ -436,7 +436,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print(tableView.frame.size.width)
+        //print(tableView.frame.size.width)
 
         switch tableStructure[indexPath.section] {
             
