@@ -979,12 +979,21 @@ class IdentificationTableViewController: UITableViewController {
                     }
                 }
             case Storyboard.SegueIdentifier.ShowAddLanguage:
-                if let vc = segue.destination as? ExtendLanguagesViewController,
-                    let languageCodes = productPair?.languageCodes {
+                if let vc = segue.destination as? ExtendLanguagesViewController { if
+                    let languageCodes = productPair?.languageCodes { if
+                    let button = sender as? UIButton { if
+                    button.superview?.superview as? TagListViewButtonTableViewCell != nil { if
+                    let ppc = vc.popoverPresentationController {
+                        // set the main language button as the anchor of the popOver
+                        ppc.permittedArrowDirections = .any
+                        // I need the button coordinates in the coordinates of the current controller view
+                        let anchorFrame = button.convert(button.bounds, to: self.view)
+                        ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                        ppc.delegate = self
                     vc.currentLanguageCodes = languageCodes
                     vc.sourcePage = 0
                     vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                }
+                        } }}}}
             default: break
             }
         }
@@ -1242,7 +1251,7 @@ extension IdentificationTableViewController: TagListViewButtonCellDelegate {
     }
     // function to let the delegate know that the switch changed
     func tagListViewButtonTableViewCell(_ sender: TagListViewButtonTableViewCell, receivedTapOn button:UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowAddLanguage, sender: self)
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowAddLanguage, sender: button)
     }
 }
 
