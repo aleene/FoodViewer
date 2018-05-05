@@ -570,7 +570,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var localImageToShow: UIImage? {
         if let images = productPair?.localProduct?.nutritionImages,
             !images.isEmpty,
-            let validLanguageCode = currentLanguageCode  {
+            let validLanguageCode = displayLanguageCode  {
             // Is there an updated image corresponding to the current language
             if let image = images[validLanguageCode]!.original?.image {
                 return image
@@ -583,8 +583,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         // are there any updated nutrition images?
         if  let images = productPair?.remoteProduct?.nutritionImages,
             !images.isEmpty,
-            let result = images[currentLanguageCode!]?.display?.fetch(),
-            let validLanguageCode = currentLanguageCode {
+            let validLanguageCode = displayLanguageCode,
+            let result = images[validLanguageCode]?.display?.fetch() {
             switch result {
             case .available:
                 return images[validLanguageCode]?.display?.image
@@ -1222,11 +1222,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
             
             // We are only interested in medium-sized front images
-            if let value = userInfo![ProductImageData.Notification.ImageSizeCategoryKey] as? Int,
-                let imageSizeCategory = ImageSizeCategory(rawValue: value),
-                let otherValue = userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as? Int,
+            if let otherValue = userInfo![ProductImageData.Notification.ImageTypeCategoryKey] as? Int,
                 let imageTypeCategory = ImageTypeCategory(rawValue: otherValue),
-                imageSizeCategory == .display && imageTypeCategory == .nutrition {
+                imageTypeCategory == .nutrition {
                 reloadImageSection()
             }
         }

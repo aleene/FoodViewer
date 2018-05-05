@@ -92,7 +92,6 @@
 		514196AB20839D1C00528877 /* UnicodeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196AA20839D1C00528877 /* UnicodeIterator.swift */; };
 		514196AD20839EA900528877 /* OFFDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196AC20839EA800528877 /* OFFDatabase.swift */; };
 		514196AF20839ED400528877 /* PetFoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196AE20839ED400528877 /* PetFoodProductsDB.csv */; };
-		514196B120839EDF00528877 /* FoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196B020839EDE00528877 /* FoodProductsDB.csv */; };
 		514196B320839EF000528877 /* BeautyProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 514196B220839EF000528877 /* BeautyProductsDB.csv */; };
 		514196B82083B66300528877 /* TagListViewButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */; };
 		51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */; };
@@ -144,6 +143,7 @@
 		51649A501DE3306C000F305E /* ExpirationDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */; };
 		51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */; };
 		516619281C61EFCE00956EB4 /* OpenFoodFactsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */; };
+		5169F086209CC85100134553 /* FoodProductsDB.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5169F085209CC85100134553 /* FoodProductsDB.csv */; };
 		516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B327E1C74D9560031EF80 /* EditProductViewController.swift */; };
 		516B32811C75F2430031EF80 /* BarcodeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32801C75F2430031EF80 /* BarcodeType.swift */; };
 		516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */; };
@@ -415,7 +415,6 @@
 		514196AA20839D1C00528877 /* UnicodeIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnicodeIterator.swift; path = "../../../Downloads/CSV.swift-master/Sources/UnicodeIterator.swift"; sourceTree = "<group>"; };
 		514196AC20839EA800528877 /* OFFDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OFFDatabase.swift; path = OFF/OFFDatabase.swift; sourceTree = "<group>"; };
 		514196AE20839ED400528877 /* PetFoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = PetFoodProductsDB.csv; path = Support/PetFoodProductsDB.csv; sourceTree = "<group>"; };
-		514196B020839EDE00528877 /* FoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FoodProductsDB.csv; path = Support/FoodProductsDB.csv; sourceTree = "<group>"; };
 		514196B220839EF000528877 /* BeautyProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BeautyProductsDB.csv; path = Support/BeautyProductsDB.csv; sourceTree = "<group>"; };
 		514196B72083B66300528877 /* TagListViewButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TagListViewButtonTableViewCell.swift; path = Cells/TagListViewButtonTableViewCell.swift; sourceTree = "<group>"; };
 		51482A0C1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectLanguageAndImageTypeViewController.swift; path = Select/SelectLanguageAndImageTypeViewController.swift; sourceTree = "<group>"; };
@@ -468,6 +467,7 @@
 		51649A4F1DE3306C000F305E /* ExpirationDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpirationDateTableViewCell.swift; sourceTree = "<group>"; };
 		51649A511DE33A5C000F305E /* PurchacePlaceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchacePlaceTableViewCell.swift; sourceTree = "<group>"; };
 		516619271C61EFCE00956EB4 /* OpenFoodFactsRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenFoodFactsRequest.swift; sourceTree = "<group>"; };
+		5169F085209CC85100134553 /* FoodProductsDB.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FoodProductsDB.csv; sourceTree = "<group>"; };
 		516B327E1C74D9560031EF80 /* EditProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProductViewController.swift; sourceTree = "<group>"; };
 		516B32801C75F2430031EF80 /* BarcodeType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeType.swift; sourceTree = "<group>"; };
 		516B32821C75F47F0031EF80 /* NutritionLevelQuantity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionLevelQuantity.swift; sourceTree = "<group>"; };
@@ -872,7 +872,7 @@
 			children = (
 				514196B220839EF000528877 /* BeautyProductsDB.csv */,
 				514196AE20839ED400528877 /* PetFoodProductsDB.csv */,
-				514196B020839EDE00528877 /* FoodProductsDB.csv */,
+				5169F085209CC85100134553 /* FoodProductsDB.csv */,
 			);
 			name = csv;
 			sourceTree = "<group>";
@@ -1385,11 +1385,11 @@
 			files = (
 				51A056FB1E31205F0099092E /* 40111490.json in Resources */,
 				517FC9311CD500C100CB89ED /* Localizable.strings in Resources */,
+				5169F086209CC85100134553 /* FoodProductsDB.csv in Resources */,
 				51A7DC7E1EE6BF5F00F231B0 /* LanguageHeaderView.xib in Resources */,
 				51B150051CB2DFA400A57D42 /* Countries.plist in Resources */,
 				51B11D501E509DE900823630 /* test.json in Resources */,
 				517FC92A1CD5009A00CB89ED /* InfoPlist.strings in Resources */,
-				514196B120839EDF00528877 /* FoodProductsDB.csv in Resources */,
 				5150C0761CBE81D900161616 /* ReferenceDailyIntakeValues.plist in Resources */,
 				514196B320839EF000528877 /* BeautyProductsDB.csv in Resources */,
 				51E306A01C68E0B900485A8D /* Main.storyboard in Resources */,
