@@ -269,9 +269,20 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
         
         if let validID = UIDevice.current.identifierForVendor?.uuidString {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + (Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) + "-" + validID )
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment)
+            if let validAppName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as? String {
+                urlString.append("-" + validAppName)
+            }
+            if let validVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                urlString.append("-" + validVersion)
+            }
+
+            if let validBuild = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+                urlString.append("-" + validBuild)
+            }
+            urlString.append("-" + validID)
         }
-        
+
         if productUpdated {
             super.update(urlString: urlString ) {
                 ( json: OFFProductUploadResultJson? ) in

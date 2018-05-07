@@ -348,8 +348,19 @@ class OFFUpdate {
         }
         
         if let validID = UIDevice.current.identifierForVendor?.uuidString {
-            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment + (Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String) + "-" + validID )
+            urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Comment)
+            if let appName = Bundle.main.infoDictionary![kCFBundleNameKey as String] as? String {
+                urlString.append("-" + appName)
+            }
+            if let version = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+                urlString.append("-" + version)
+            }
+            if let build = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                urlString.append("-" + build)
+            }
+            urlString.append("-" + validID)
         }
+        
 
         var imagesUpdated = false
         if product.frontImages.count > 0 {
@@ -370,7 +381,7 @@ class OFFUpdate {
             uploadImages(product.images, barcode: product.barcode.asString, id:"general", productPair: productPair)
             imagesUpdated = true
         }
-        
+//  This class seems to be no longer in use
         if productUpdated {
             if let url = URL(string: urlString) {
                 
