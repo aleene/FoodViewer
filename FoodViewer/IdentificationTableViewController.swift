@@ -484,7 +484,7 @@ class IdentificationTableViewController: UITableViewController {
                 if let validQueryText = query?.text {
                     cell.name =  validQueryText
                 } else {
-                    cell.name =  editMode ? nil : TranslatableStrings.SearchInNameEtc
+                    cell.name =  editMode ? nil : TranslatableStrings.PlaceholderProductNameSearch
                 }
                 cell.tag = indexPath.section
                 cell.editMode = query!.type == .simple ? false : editMode
@@ -502,11 +502,16 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
+            cell.nameTextView.textColor = .gray
             switch nameToDisplay {
             case .available(let array):
-                cell.name = array[0]
+                if !array.isEmpty && !array[0].isEmpty {
+                    cell.name = array[0]
+                    cell.nameTextView.textColor = .black
+                }
             default:
-                cell.name = nil
+                break
             }
             return cell
             
@@ -515,11 +520,16 @@ class IdentificationTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            switch genericNameToDisplay {
+            cell.name = editMode ? TranslatableStrings.PlaceholderGenericProductName : nil
+            cell.nameTextView.textColor = .gray
+            switch nameToDisplay {
             case .available(let array):
-                cell.name = array[0]
+                if !array.isEmpty && !array[0].isEmpty {
+                    cell.name = array[0]
+                    cell.nameTextView.textColor = .black
+                }
             default:
-                cell.name = nil
+                break
             }
             return cell
 
@@ -1387,32 +1397,49 @@ extension IdentificationTableViewController: UITextViewDelegate {
         
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == TranslatableStrings.PlaceholderProductName ||
+            textView.text == TranslatableStrings.PlaceholderGenericProductName ||
+            textView.text == TranslatableStrings.PlaceholderProductNameSearch {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+    
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if textView.isFirstResponder { textView.resignFirstResponder() }
         return true
     }
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        let currentProductSection = tableStructure[textView.tag]
-        
-        switch currentProductSection {
+    func textViewDidEndEditing(_ textView: UITextView) {        
+        switch tableStructure[textView.tag] {
         case .name:
             // productname
             if let validText = textView.text {
-                if let validCurrentLanguageCode = displayLanguageCode {
+                if (textView.text == "") {
+                    textView.text = TranslatableStrings.PlaceholderProductName
+                    textView.textColor = .lightGray
+                } else if let validCurrentLanguageCode = displayLanguageCode {
                     productPair?.update(name: validText, in: validCurrentLanguageCode)
                 }
             }
         case .genericName:
             // generic name updated?
-            if let validText = textView.text,
-                let validCurrentLanguageCode = displayLanguageCode {
+            if let validText = textView.text {
+                if (textView.text == "") {
+                    textView.text = TranslatableStrings.PlaceholderGenericProductName
+                    textView.textColor = .lightGray
+                } else if let validCurrentLanguageCode = displayLanguageCode {
                     productPair?.update(genericName: validText, in: validCurrentLanguageCode)
+                }
             }
         case .nameSearch, .genericNameSearch:
             // name or generic name updated?
             if let validText = textView.text {
-                if OFFProducts.manager.searchQuery == nil {
+                if (textView.text == "") {
+                    textView.text = TranslatableStrings.PlaceholderProductNameSearch
+                    textView.textColor = .lightGray
+                } else if OFFProducts.manager.searchQuery == nil {
                     OFFProducts.manager.searchQuery = SearchTemplate.init()
                 }
                 OFFProducts.manager.searchQuery!.text = validText

@@ -454,11 +454,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.textViewTag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
+            cell.ingredients = editMode ? TranslatableStrings.PlaceholderIngredients : nil
+            cell.textView.textColor = .gray
             switch ingredientsToDisplay {
             case .available(let array):
-                cell.ingredients = array[0]
+                if !array.isEmpty && !array[0].isEmpty {
+                    cell.ingredients = array[0]
+                    cell.textView.textColor = .black
+                }
             default:
-                cell.ingredients = nil
+                break
             }
             return cell
             
@@ -1260,6 +1265,13 @@ extension IngredientsTableViewController: UITextViewDelegate {
         
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == TranslatableStrings.PlaceholderIngredients {
+            textView.text = ""
+            textView.textColor = .black
+        }
+    }
+
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if textView.isFirstResponder { textView.resignFirstResponder() }
         return true
@@ -1268,9 +1280,14 @@ extension IngredientsTableViewController: UITextViewDelegate {
     func textViewDidEndEditing(_ textView: UITextView) {
         switch tableStructure[textView.tag] {
         case .ingredients:
-            if let validText = textView.text,
-                let validLanguageCode = displayLanguageCode {
-                productPair?.update(ingredients: validText, in: validLanguageCode)
+            if let validText = textView.text {
+                if (textView.text == "") {
+                    textView.text = TranslatableStrings.PlaceholderIngredients
+                    textView.textColor = .lightGray
+                } else if
+                    let validLanguageCode = displayLanguageCode {
+                    productPair?.update(ingredients: validText, in: validLanguageCode)
+                }
             }
         default:
             break
