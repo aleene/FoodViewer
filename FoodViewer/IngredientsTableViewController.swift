@@ -458,9 +458,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.textView.textColor = .gray
             switch ingredientsToDisplay {
             case .available(let array):
-                if !array.isEmpty && !array[0].isEmpty {
-                    cell.ingredients = array[0]
-                    cell.textView.textColor = .black
+                if !array.isEmpty && !array.first!.isEmpty {
+                    cell.ingredients = array.first
                 }
             default:
                 break

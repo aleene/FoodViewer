@@ -506,8 +506,8 @@ class IdentificationTableViewController: UITableViewController {
             cell.nameTextView.textColor = .gray
             switch nameToDisplay {
             case .available(let array):
-                if !array.isEmpty && !array[0].isEmpty {
-                    cell.name = array[0]
+                if !array.isEmpty && !array.first!.isEmpty {
+                    cell.name = array.first
                     cell.nameTextView.textColor = .black
                 }
             default:
@@ -522,10 +522,10 @@ class IdentificationTableViewController: UITableViewController {
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             cell.name = editMode ? TranslatableStrings.PlaceholderGenericProductName : nil
             cell.nameTextView.textColor = .gray
-            switch nameToDisplay {
+            switch genericNameToDisplay {
             case .available(let array):
-                if !array.isEmpty && !array[0].isEmpty {
-                    cell.name = array[0]
+                if !array.isEmpty && !array.first!.isEmpty {
+                    cell.name = array.first
                     cell.nameTextView.textColor = .black
                 }
             default:
@@ -1416,7 +1416,7 @@ extension IdentificationTableViewController: UITextViewDelegate {
         case .name:
             // productname
             if let validText = textView.text {
-                if (textView.text == "") {
+                if validText.isEmpty {
                     textView.text = TranslatableStrings.PlaceholderProductName
                     textView.textColor = .lightGray
                 } else if let validCurrentLanguageCode = displayLanguageCode {
@@ -1426,7 +1426,7 @@ extension IdentificationTableViewController: UITextViewDelegate {
         case .genericName:
             // generic name updated?
             if let validText = textView.text {
-                if (textView.text == "") {
+                if validText.isEmpty {
                     textView.text = TranslatableStrings.PlaceholderGenericProductName
                     textView.textColor = .lightGray
                 } else if let validCurrentLanguageCode = displayLanguageCode {
