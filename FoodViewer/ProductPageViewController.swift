@@ -436,18 +436,18 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // Does the product exist on OFF?
         if let remotePair = productPair?.remoteProduct {
             if remotePair.state.isEmpty {
-                temp += "🎉" // product exists , but is empty
+                temp += "○" // product exists , but is empty
             } else {
-                temp += "👍" // product exists
+                temp += "✓" // product exists
             }
         } else {
-            temp += "👎"
+            temp += "✕"
         }
         // Does the product exist locally?
         if productPair?.localProduct != nil {
-            temp += "👍" // product exists locally
+            temp += "✓" // product exists locally
         } else {
-            temp += "👎" // product does not exist locally
+            temp += "✕" // product does not exist locally
         }
         return temp
     }

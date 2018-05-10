@@ -2757,9 +2757,6 @@
                                             <state key="normal" image="ClearBlue"/>
                                             <connections>
                                                 <action selector="buttonTapped:" destination="ze3-ij-q0C" eventType="touchUpInside" id="w9I-Xj-AVp"/>
-                                                <segue destination="ate-7s-vCG" kind="popoverPresentation" identifier="Show Language And ImageType Segue Identifier" popoverAnchorView="tKr-4F-rmF" id="L3d-nU-3oM">
-                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                </segue>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -2814,9 +2811,14 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <segue destination="oCr-2A-ZDa" kind="show" identifier="Show Image" id="w6I-Mb-BbL"/>
+                        <segue destination="ate-7s-vCG" kind="popoverPresentation" identifier="Show Language And ImageType Segue Identifier" popoverAnchorView="tKr-4F-rmF" id="giD-uB-n2s">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
+                        <segue destination="yDz-f3-wd1" kind="unwind" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="iZG-hJ-xYJ"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="yDz-f3-wd1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="8614" y="2745"/>
         </scene>
@@ -3528,7 +3530,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -4232,7 +4234,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="ntk-NT-VGC"/>
+        <segue reference="w6I-Mb-BbL"/>
         <segue reference="z8D-RP-i6i"/>
         <segue reference="bL1-eB-rEY"/>
     </inferredMetricsTieBreakers>
