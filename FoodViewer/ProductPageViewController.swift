@@ -161,6 +161,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // was there a product change?
                 setCurrentLanguage()
             } // otherwise the language can not be set
+            title = prefixedTitle
         }
     }
     
@@ -429,6 +430,32 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
+    //  The prefix adds two characters for the existence of the product locally and remote
+    private var prefix: String {
+        var temp = ""
+        // Does the product exist on OFF?
+        if let remotePair = productPair?.remoteProduct {
+            if remotePair.state.isEmpty {
+                temp += "🎉" // product exists , but is empty
+            } else {
+                temp += "👍" // product exists
+            }
+        } else {
+            temp += "👎"
+        }
+        // Does the product exist locally?
+        if productPair?.localProduct != nil {
+            temp += "👍" // product exists locally
+        } else {
+            temp += "👎" // product does not exist locally
+        }
+        return temp
+    }
+
+    private var prefixedTitle: String {
+        return prefix + " " + pageIndex.description
+    }
+    
     fileprivate let identificationVC: IdentificationTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier) as! IdentificationTableViewController
 
     fileprivate let ingredientsVC: IngredientsTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IngredientsVCIdentifier) as! IngredientsTableViewController
@@ -505,7 +532,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        // title = pageIndex.description
+        self.title = prefixedTitle
     }
     
     // MARK: - Notification Functions
@@ -760,7 +787,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        title = pageIndex.description // Make sure there is an initial title
+        title = prefixedTitle
 
         // listen if a product is set outside of the MasterViewController
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)

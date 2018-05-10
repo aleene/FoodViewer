@@ -174,7 +174,7 @@ class OFFProducts {
         let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
         let upperBound = index + Int(range/2) < allProductPairs.count ? index + Int(range/2) : allProductPairs.count - 1
         for ind in lowerBound...upperBound {
-            allProductPairs[ind].fetch()
+            allProductPairs[ind].fetchIfNotAvailable()
         }
     }
     

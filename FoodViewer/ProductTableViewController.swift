@@ -302,6 +302,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let validFetchResult = products.productPair(at: indexPath.section)?.status {
             switch validFetchResult {
             case .available:
+                products.loadProductPair(at: indexPath.section) //make sure the next set is loaded
                 let productPair = products.productPair(at: indexPath.section)
                 let currentProductSection = tableStructure[indexPath.row]
                 switch currentProductSection {

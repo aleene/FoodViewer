@@ -36,9 +36,8 @@ public enum ProductSection {
         case .completion:
             return TranslatableStrings.CommunityEffort
         case .supplyChain:
-            return  TranslatableStrings.SupplyChain
+            return TranslatableStrings.SupplyChain
         }
     }
     
-
 }

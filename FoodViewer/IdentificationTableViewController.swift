@@ -1216,7 +1216,7 @@ class IdentificationTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delegate?.title = TranslatableStrings.Identification
+        //delegate?.title = TranslatableStrings.Identification
 
         navigationController?.setNavigationBarHidden(false, animated: false)
         

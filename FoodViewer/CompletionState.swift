@@ -38,6 +38,15 @@ struct CompletionState {
         return array
     }
     
+    var isEmpty: Bool {
+        for state in states {
+            if state.value {
+                return false
+            }
+        }
+        return true
+    }
+    
     /*
     func searchStringForState(with key:String) -> String? {
         
