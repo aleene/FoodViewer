@@ -570,6 +570,16 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         confirmBarButtonItem.tintColor = self.view.tintColor
     }
     
+    @objc func setPrefixedTitle(_ notification: Notification) {
+        // Check if this image was relevant to this product
+        if let barcodeString = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
+            if let validBarcodeString = productPair?.barcodeType.asString {
+                if barcodeString == validBarcodeString {
+                    title = prefixedTitle
+                }
+            }
+        }
+    }
     // MARK: - Product Updated Protocol functions
 
     // The updated product contains only those fields that have been edited.
@@ -794,6 +804,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.searchStarted), name:.SearchStarted, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.setPrefixedTitle(_:)), name:.ProductPairUpdated, object:nil)
 
     }
     

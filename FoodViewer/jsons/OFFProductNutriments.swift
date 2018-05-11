@@ -122,6 +122,8 @@ class OFFProductNutriments: Codable {
                             nutrimentsFound[nutriment] = OFFProductNutrimentValues()
                         }
                         nutrimentsFound[nutriment]?.unit = try container.decode(String.self, forKey: key)
+                    } catch {
+                        nutrimentsFound[nutriment]?.unit = ""
                     }
                 } else if key.stringValue == nutriment + Constants.Label  {
                     do {
@@ -129,6 +131,8 @@ class OFFProductNutriments: Codable {
                             nutrimentsFound[nutriment] = OFFProductNutrimentValues()
                         }
                         nutrimentsFound[nutriment]?.label = try container.decode(String.self, forKey: key)
+                    } catch {
+                        nutrimentsFound[nutriment]?.label = ""
                     }
                     break
                 }
