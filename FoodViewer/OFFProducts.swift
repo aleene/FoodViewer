@@ -174,7 +174,7 @@ class OFFProducts {
         let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
         let upperBound = index + Int(range/2) < allProductPairs.count ? index + Int(range/2) : allProductPairs.count - 1
         for ind in lowerBound...upperBound {
-            allProductPairs[ind].fetchIfNotAvailable()
+            allProductPairs[ind].preFetch()
         }
     }
     
@@ -244,7 +244,7 @@ class OFFProducts {
         // and start fetching
         allProductPairs[0].fetch()
         // save the new product as the most recent one
-        MostRecentProduct().save(allProductPairs[0].barcodeType)
+        MostRecentProduct().save(product:allProductPairs[0].remoteProduct)
         // save the new product in the history
         storedHistory.add(barcodeType: allProductPairs[0].barcodeType )
         

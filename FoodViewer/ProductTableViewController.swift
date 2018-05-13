@@ -870,9 +870,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
             if let index = products.productPairIndex(BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType)) {
                 if index == 0 {
+                    if let validProductPair = products.productPair(at: index) {
                     // If this is the product at the top,
                     // save the updates also locally.
-                    MostRecentProduct().save(BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType))
+                        switch validProductPair.remoteStatus {
+                        case .available:
+                            MostRecentProduct().save(product:validProductPair.remoteProduct)
+                        default:
+                            break
+                        }
+                    }
                 }
                 
                 // This codepart results sometimes in a crash. No idea what is happening

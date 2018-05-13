@@ -35,12 +35,19 @@ class OpenFoodFactsRequest {
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
+            print(String(data: data, encoding: .utf8)!)
+
             let productJson = try decoder.decode(OFFProductJson.self, from:data)
+
             if let offProductDetailed = productJson.product {
                 let newProduct = FoodProduct.init(json: offProductDetailed)
+                // in case the code was missing in the product json
+                if newProduct.barcode.asString == "no code" {
+                    newProduct.barcode = BarcodeType(barcodeString: productJson.code, type: newProduct.barcode.productType!)
+                }
                 return .success(newProduct)
             } else {
-                return .loadingFailed("No valid stored product json")
+                return .loadingFailed("OpenFoodFactsRequest: No valid stored product json")
             }
             
         } catch let error {

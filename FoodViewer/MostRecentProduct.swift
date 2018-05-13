@@ -67,13 +67,19 @@ public class MostRecentProduct {
         }
     }
 
-    //func save(product: FoodProduct?) {
-    //    if let validProduct = product {
+    func save(product: FoodProduct?) {
+        if let validProduct = product {
+            let encoder = JSONEncoder()
             // This will store the data in the user defaults file
-            //self.storedJsonData[self.currentProductType] = OFFProductJson().encode()
-    //        self.rewrite()
-    //    }
-    //}
+            do {
+                self.storedJsonData[self.currentProductType] = try encoder.encode(validProduct.asOFFProductJson)
+                //print(String(data: self.storedJsonData[self.currentProductType]!, encoding: .utf8)!)
+            } catch let error {
+                print("MostRecentProduct: Failed to write JSON data: \(error.localizedDescription)")
+            }
+            self.rewrite()
+        }
+    }
 
     // The data (json) for the current product type will be added
     func addMostRecentProduct(_ data: Data?) {
@@ -114,6 +120,7 @@ public class MostRecentProduct {
     func load(completionHandler: @escaping (FoodProduct?) -> ()) {
         // load the most recent product from the local storage
         if let data = jsonData {
+            // print(String(data: data, encoding: .utf8)!)
             var fetchResult = ProductFetchStatus.loading("most recent")
             fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
             switch fetchResult {

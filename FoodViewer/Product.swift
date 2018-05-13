@@ -1243,7 +1243,9 @@ class FoodProduct {
         additivesInterpreted = Tags(list:validProduct.additives_tags)
         
         creator = validProduct.creator
-        addUserRole(creator!, role: .creator)
+        if let validCreator = creator {
+            addUserRole(validCreator, role: .creator)
+        }
         correctors = validProduct.correctors_tags
         correctors?.forEach({ addUserRole($0, role: .corrector) })
         informers = validProduct.informers_tags
@@ -2002,14 +2004,14 @@ class FoodProduct {
     // This calculated variable is needed for the creation of a OFF json
     var asOFFProductJson: OFFProductJson {
         
-    let offNutriments = OFFProductNutriments(nutritionFactsDict: self.nutritionFactsDict)
+        let offNutriments = OFFProductNutriments(nutritionFactsDict: self.nutritionFactsDict)
     
-    var validLinks = ""
-    if let validLinkUrls = self.links {
-        for link in validLinkUrls {
-            validLinks += link.absoluteString + ","
+        var validLinks = ""
+        if let validLinkUrls = self.links {
+            for link in validLinkUrls {
+                validLinks += link.absoluteString + ","
+            }
         }
-    }
         
         var validNames: [String:String] = [:]
         for (languageCode, name) in self.nameLanguage {
@@ -2055,7 +2057,7 @@ class FoodProduct {
                                                  stores_tags: self.storesOriginal.list,
                                                  traces_tags: self.tracesOriginal.list )
         
-        return OFFProductJson(product: offProduct, status: 1, code: self.barcode.asString, status_verbose: "Stored from FoodViewer")
+        return OFFProductJson(product: offProduct, status: 1, code: self.barcode.asString, status_verbose: "Restored from FoodViewer")
     }
 
     // End product
