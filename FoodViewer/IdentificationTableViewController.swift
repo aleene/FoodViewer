@@ -843,7 +843,7 @@ class IdentificationTableViewController: UITableViewController {
                     break
                 }
             }
-            headerView.languageCode = displayLanguageCode
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             if let validCount = productPair?.remoteProduct?.languageCodes.count {
                 headerView.buttonIsEnabled = editMode ? true : ( validCount > 1 ? true : false )
             } else {

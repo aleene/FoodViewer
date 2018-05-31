@@ -284,14 +284,40 @@ class FoodProduct {
     
     var nutritionFactsDict: [String:NutritionFactItem] = [:]
     
+    var nutritionFacts: Set<Nutrient> {
+        var nutrients: Set<Nutrient> = []
+        for nutritionFactItem in nutritionFactsDict {
+            nutrients.insert(nutritionFactItem.value.nutrient)
+        }
+        return nutrients
+    }
+    
     func add(fact: NutritionFactItem?) {
         guard let validFact = fact else { return }
         nutritionFactsDict[validFact.key] = validFact
     }
     
-    var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
-    //MARK: - Supply chain variables
+    var possibleNutritionFactTableStyles: Set<NutritionFactsLabelStyle> {
+        return NutritionFactsLabelStyle.styles(for: Set(nutritionFacts))
+    }
     
+    // The style that best fits the nutrients
+    var bestNutritionFactTableStyle: NutritionFactsLabelStyle {
+        let countryBasedStyles = NutritionFactsLabelStyle.styles(for: Set(self.countriesInterpreted.list))
+        //print(self.name, "country", countryBasedStyles)
+        //let nutritionFactsBasedStyles = NutritionFactsLabelStyle.styles(for: Set(nutritionFacts))
+        let bestStyles = NutritionFactsLabelStyle.optimumStyle(for: Set(nutritionFacts))
+        //print("nutrition", nutritionFactsBasedStyles)
+        //print("current", NutritionFactsLabelStyle.current)
+        let interSection = countryBasedStyles.intersection(bestStyles).first
+        //let returnValue = interSection ?? NutritionFactsLabelStyle.current
+        return interSection ?? NutritionFactsLabelStyle.current
+    }
+    
+    var nutritionScore: [(NutritionItem, NutritionLevelQuantity)]? = nil
+//
+// MARK: - Supply chain variables
+//
     var nutritionGrade: NutritionalScoreLevel? = nil
     var nutritionalScoreUK: LocalizedNutritionalScoreUK? = nil
     var nutritionalScoreFR: LocalizedNutritionalScoreFR? = nil
@@ -1434,6 +1460,8 @@ class FoodProduct {
         add(fact: nutritionDecode(.ph, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.PhKey]))
         add(fact: nutritionDecode(.cocoa, with: validProduct.nutriments?.nutriments[OFFReadAPIkeysJSON.CacaoKey]))
         
+        //print(self.name, self.possibleNutritionFactTableStyles)
+        //print(self.name, self.bestNutritionFactTableStyle)
     }
     
     init(product: FoodProduct) {

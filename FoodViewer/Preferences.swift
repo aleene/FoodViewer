@@ -21,7 +21,8 @@ class Preferences {
 
     static let manager = Preferences()
     
-    
+    var nutritionFactsTableStyleSetter: NutritionFactsTableStyleSetter
+    var showNutritionFactsTableStyle: NutritionFactsLabelStyle
     var showSaltOrSodium: NatriumChloride
     var showCaloriesOrJoule: EnergyUnitUsed
     var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
@@ -38,14 +39,28 @@ class Preferences {
     }
     
     init() {
-        showSaltOrSodium = .salt
-        showCaloriesOrJoule = .joule
-        showNutritionDataPerServingOrPerStandard = .perStandard
+        // The default values are determined by the locale of the user
+        // i.e. a user in the US will see the extended list of nutrients, with sodium, in Cal and per serving
+        // a user in Europe will see a list of nutrients starting with energy, fat, etc with salt, Joule and per 100 g
+        // use standard the style as defined by the current locale
+        nutritionFactsTableStyleSetter = .product
+        showNutritionFactsTableStyle = .current
+        showSaltOrSodium = NutritionFactsLabelStyle.current.saltUnit
+        showCaloriesOrJoule = NutritionFactsLabelStyle.current.energyUnit
+        switch NutritionFactsLabelStyle.current.entryUnit {
+        case .perStandardUnit:
+            showNutritionDataPerServingOrPerStandard = .perStandard
+        default:
+            showNutritionDataPerServingOrPerStandard = .perServing
+        }
         
         mapAddress = Address()
         mapAddress.title = "Address used for center of map"
-        let locale = Locale.current
-        mapAddress.country = (locale as NSLocale).displayName(forKey: NSLocale.Key.countryCode, value: (locale as NSLocale).object(forKey: NSLocale.Key.countryCode)!)!
+        let locale = Locale.current as NSLocale
+        if let validLocale = locale.object(forKey: .countryCode),
+            let validCountry = locale.displayName(forKey: .countryCode, value: validLocale) {
+            mapAddress.country = validCountry
+        }
         mapAddress.setCoordinates()
     }
     

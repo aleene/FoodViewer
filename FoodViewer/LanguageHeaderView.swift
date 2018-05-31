@@ -36,7 +36,7 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
     
     var section: Int!
     
-    var languageCode: String? = nil {
+    var buttonText: String? = nil {
         didSet {
             setButton()
         }
@@ -64,7 +64,7 @@ class LanguageHeaderView: UITableViewHeaderFooterView {
     
     private func setButton() {
         if changeLanguageButton != nil {
-            changeLanguageButton.setTitle(OFFplists.manager.languageName(for:languageCode), for: .normal)
+            changeLanguageButton.setTitle(buttonText, for: .normal)
             changeLanguageButton.sizeToFit()
         }
     }

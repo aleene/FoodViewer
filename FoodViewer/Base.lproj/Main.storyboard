@@ -222,7 +222,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ac-sw-5AD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="9Mk-6V-ku1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4406" y="4109"/>
+            <point key="canvasLocation" x="4978" y="4108"/>
         </scene>
         <!--Allergen Warnings Table View Controller-->
         <scene sceneID="euK-Dx-95p">
@@ -1022,6 +1022,37 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Nutrition Facts Table Format" id="mg1-Aw-Gzt">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Z7O-Ab-zeM">
+                                        <rect key="frame" x="0.0" y="380" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z7O-Ab-zeM" id="btk-6L-H17">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9fw-bj-GNl">
+                                                    <rect key="frame" x="16" y="11" width="288" height="23"/>
+                                                    <segments>
+                                                        <segment title="Food"/>
+                                                        <segment title="Beauty"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="jhQ-eF-gwO"/>
+                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="zCo-Sw-FeO"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="leading" secondItem="btk-6L-H17" secondAttribute="leadingMargin" id="DMi-nK-slf"/>
+                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="bottom" secondItem="btk-6L-H17" secondAttribute="bottomMargin" id="Fbl-Ec-tqT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9fw-bj-GNl" secondAttribute="trailing" id="Ho0-ob-icW"/>
+                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="top" secondItem="btk-6L-H17" secondAttribute="topMargin" id="e1C-VJ-oKe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="HoC-g1-BPV" id="hqW-Zz-az3"/>
@@ -1034,6 +1065,7 @@
                         <outlet property="clearHistoryButton" destination="7bH-Lm-Fh3" id="VJD-53-1qK"/>
                         <outlet property="foodOrBeautySgmentedControl" destination="Zxj-MC-Q9J" id="bYR-sJ-7fZ"/>
                         <outlet property="jouleOrCaloriesSegmentedControl" destination="iLS-3y-yF5" id="tw0-QT-u8C"/>
+                        <outlet property="nutritionFactsLabelStyleSegmentedControl" destination="9fw-bj-GNl" id="dVE-sT-B5z"/>
                         <outlet property="nutritionUnitSegmentedControl" destination="h25-t4-qRW" id="fbn-xd-cNY"/>
                         <outlet property="offAccountSegmentedControl" destination="M4v-mg-2eX" id="yus-OJ-xaA"/>
                         <outlet property="saltOrSodiumSegmentedControl" destination="qLB-2k-Ecw" id="K8t-EF-jCw"/>
@@ -3511,6 +3543,9 @@
                         <segue destination="jr5-WB-3MY" kind="popoverPresentation" identifier="Show Nutrition Image Languages" popoverAnchorView="jbQ-6K-nWx" id="z8D-RP-i6i">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
+                        <segue destination="j1G-tW-ocT" kind="popoverPresentation" identifier="Show Select Nutrition Table Style Segue Identifier" popoverAnchorView="jbQ-6K-nWx" id="MY8-QN-2G4">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mXN-b8-Ula" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3530,7 +3565,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -3909,7 +3944,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nBB-MI-hjt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="WFj-eC-tCc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3658" y="4109"/>
+            <point key="canvasLocation" x="3679" y="4106"/>
         </scene>
         <!--Select Completion State View Controller-->
         <scene sceneID="tPV-6K-Ih2">
@@ -4217,6 +4252,56 @@
             </objects>
             <point key="canvasLocation" x="8614" y="4109"/>
         </scene>
+        <!--Select Nutrition Facts Table Style Table View Cell-->
+        <scene sceneID="7gm-dT-eUM">
+            <objects>
+                <viewController id="j1G-tW-ocT" customClass="SelectNutritionFactsTableStyleTableViewCell" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kvm-pU-luq"/>
+                        <viewControllerLayoutGuide type="bottom" id="SJd-cL-N1N"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Axn-fu-PPa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="V0I-6R-fr2">
+                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                            </pickerView>
+                            <navigationBar contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="i29-Ps-xCJ">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <items>
+                                    <navigationItem id="VBa-Rm-yAB">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="mf8-h0-dI5">
+                                            <connections>
+                                                <segue destination="sn8-Ik-Yij" kind="unwind" identifier="Unwind Set Nutrition Facts Table Style For Done" unwindAction="unwindSetNutritionFactsTableStyle:" id="eqm-5O-AUm"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="i29-Ps-xCJ" firstAttribute="top" secondItem="Axn-fu-PPa" secondAttribute="top" id="50o-9I-hPc"/>
+                            <constraint firstItem="V0I-6R-fr2" firstAttribute="leading" secondItem="Axn-fu-PPa" secondAttribute="leading" id="87u-g6-rqS"/>
+                            <constraint firstItem="SJd-cL-N1N" firstAttribute="top" secondItem="V0I-6R-fr2" secondAttribute="bottom" id="aMp-yu-aq0"/>
+                            <constraint firstAttribute="trailing" secondItem="i29-Ps-xCJ" secondAttribute="trailing" id="dTm-Nq-r5K"/>
+                            <constraint firstAttribute="trailing" secondItem="V0I-6R-fr2" secondAttribute="trailing" id="owg-qD-yXL"/>
+                            <constraint firstItem="i29-Ps-xCJ" firstAttribute="leading" secondItem="Axn-fu-PPa" secondAttribute="leading" id="sKY-Nc-VPV"/>
+                            <constraint firstItem="V0I-6R-fr2" firstAttribute="top" secondItem="i29-Ps-xCJ" secondAttribute="bottom" id="z1K-NX-d8a"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="navItem" destination="VBa-Rm-yAB" id="Yha-lX-y08"/>
+                        <outlet property="nutritionFactsTableStylesPickerView" destination="V0I-6R-fr2" id="PjT-2s-9zP"/>
+                        <segue destination="sn8-Ik-Yij" kind="unwind" identifier="Unwind Set Nutrition Facts Table Style For Exit" unwindAction="unwindSetNutritionFactsTableStyle:" id="QwT-gx-ItR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nex-WU-APW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="sn8-Ik-Yij" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4309" y="4107"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Add" width="25" height="25"/>
@@ -4234,7 +4319,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="ntk-NT-VGC"/>
         <segue reference="z8D-RP-i6i"/>
         <segue reference="bL1-eB-rEY"/>
     </inferredMetricsTieBreakers>

@@ -751,7 +751,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     break
                 }
             }
-            headerView.languageCode = displayLanguageCode
+            headerView.buttonText = OFFplists.manager.languageName(for: currentLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             
             return headerView

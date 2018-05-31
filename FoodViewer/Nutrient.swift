@@ -120,6 +120,23 @@ public enum Nutrient: String, EnumCollection {
         return .undefined
     }
     
+    func unit(for style:NutritionFactsLabelStyle) -> NutritionFactUnit {
+        switch self {
+        case .energy:
+            switch style.energyUnit {
+            case .calories:
+                return .Calories
+            case .joule:
+                return .Joule
+            case .kilocalorie:
+                return .KiloCalories
+            }
+        case .ph:
+            return .None
+        default:
+            return .Gram
+        }
+    }
 }
 
 public protocol EnumCollection : Hashable {}

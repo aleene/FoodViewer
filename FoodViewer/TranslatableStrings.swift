@@ -61,7 +61,8 @@ struct TranslatableStrings {
     static let Creator = NSLocalizedString("Creator", comment: "String in PickerViewController to indicate the creator role of a contributor")
     static let CreatorUnicode = NSLocalizedString("❤️", comment: "Image to indicate that the user who created the product.")
     static let Countries = NSLocalizedString("Countries", comment: "Generic string (plural) to indicate the countries where the product is sold.")
-    
+    //static let CurrentLocale = NSLocalizedString("Current Locale", comment: "Title of segment in segmentedControlto indicate the current local should be used.")
+
 //
 // MARK: - DDDDDDDDDDDDDDDD strings
 //
@@ -239,6 +240,7 @@ struct TranslatableStrings {
     static let PresentationFormat = NSLocalizedString("Presentation format", comment: "Tableview header for the section per unit shown, i.e. whether the nutrients are shown per 100 mg/ml or per portion.")
     static let Producers = NSLocalizedString("Producers", comment: "Header for section of tableView with information of the producer (name, geographic location).")
     static let ProductCodes = NSLocalizedString("Producer Codes", comment: "Header for section of tableView with codes for the producer (EMB 123456 or FR.666.666).")
+    static let ProductDefined = NSLocalizedString("Product Defined", comment: "Title of a segment in a UISegmentedControl, which indicates that the values of the product are leading.")
     static let ProductDoesNotExistAlertSheetMessage = NSLocalizedString("Product does not exist. Add?", comment: "Alert message, when the product could not be retrieved from Internet.")
     static let ProductDoesNotExistAlertSheetActionTitleForCancel = NSLocalizedString("Nope", comment: "Alert title, to indicate product should NOT be added")
     static let ProductDoesNotExistAlertSheetActionTitleForAdd = NSLocalizedString("Sure", comment: "Alert title, to indicate product should be added")
@@ -328,6 +330,7 @@ struct TranslatableStrings {
     static let UploadingImage = NSLocalizedString("Uploading image", comment: "String presented in a tagView if an image is being uploaded")
     static let Use = NSLocalizedString("Use", comment: "Title of a button in a navigation bar, which allows the user to adapt an image and use the result.")
     static let Username = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
+    static let UserDefined = NSLocalizedString("User defined", comment: "Title of a segment in a segmentedControl that this parameter will be set by the user.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
 
     static let Warnings = NSLocalizedString("Warnings", comment: "Title of a tableView section, which lets the user set warnings")

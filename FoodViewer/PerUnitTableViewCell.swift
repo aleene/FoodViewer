@@ -28,14 +28,7 @@ class PerUnitTableViewCell: UITableViewCell {
     
     var displayMode: NutritionDisplayMode = .perStandard {
         didSet {
-            switch displayMode {
-            case .perStandard:
-                perUnitSegmentedControl.selectedSegmentIndex = 0
-            case .perServing:
-                perUnitSegmentedControl.selectedSegmentIndex = 1
-            case .perDailyValue:
-                perUnitSegmentedControl.selectedSegmentIndex = 0
-            }
+            setView()
         }
     }
     
@@ -54,6 +47,14 @@ class PerUnitTableViewCell: UITableViewCell {
     var delegate: PerUnitCellDelegate? = nil
     
     private func setView() {
+        switch displayMode {
+        case .perStandard:
+            perUnitSegmentedControl.selectedSegmentIndex = 0
+        case .perServing:
+            perUnitSegmentedControl.selectedSegmentIndex = 1
+        case .perDailyValue:
+            perUnitSegmentedControl.selectedSegmentIndex = 0
+        }
         if editMode {
             perUnitSegmentedControl.isEnabled = true
         } else {
@@ -65,10 +66,10 @@ class PerUnitTableViewCell: UITableViewCell {
                     perUnitSegmentedControl.isEnabled = true
                 case .perServing:
                     perUnitSegmentedControl.isEnabledForSegment(at: 1)
-                    perUnitSegmentedControl.selectedSegmentIndex = 1
+                    //perUnitSegmentedControl.selectedSegmentIndex = 1
                 case .perStandardUnit:
                     perUnitSegmentedControl.isEnabledForSegment(at: 0)
-                    perUnitSegmentedControl.selectedSegmentIndex = 0
+                    //perUnitSegmentedControl.selectedSegmentIndex = 0
                 default:
                     break
                 }

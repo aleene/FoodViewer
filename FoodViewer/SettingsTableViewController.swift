@@ -54,6 +54,7 @@ class SettingsTableViewController: UITableViewController {
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
+    
 
     @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
         didSet {
@@ -84,6 +85,31 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBOutlet weak var nutritionFactsLabelStyleSegmentedControl: UISegmentedControl! {
+        didSet {
+            nutritionFactsLabelStyleSegmentedControl.setTitle(TranslatableStrings.ProductDefined, forSegmentAt: 0)
+            nutritionFactsLabelStyleSegmentedControl.setTitle(TranslatableStrings.UserDefined, forSegmentAt: 1)
+            
+            switch Preferences.manager.nutritionFactsTableStyleSetter {
+            case .product:
+                nutritionFactsLabelStyleSegmentedControl?.selectedSegmentIndex = 0
+            default:
+                nutritionFactsLabelStyleSegmentedControl?.selectedSegmentIndex = 1
+            }
+        }
+    }
+    
+    @IBAction func nutritionFactsLabelStyleSegmentedControlTapped(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0:
+            Preferences.manager.nutritionFactsTableStyleSetter = .product
+        case 1:
+            Preferences.manager.nutritionFactsTableStyleSetter = .user
+        default:
+            break
+        }
+    }
+
     // MARK: - Salt Or Sodium Functions
 
     private func refreshAll() {
@@ -106,6 +132,12 @@ class SettingsTableViewController: UITableViewController {
             saltOrSodiumSegmentedControl.setTitle(TranslatableStrings.Salt, forSegmentAt: 0)
             saltOrSodiumSegmentedControl.setTitle(TranslatableStrings.Sodium, forSegmentAt: 1)
             refreshSaltOrSodium()
+            switch Preferences.manager.nutritionFactsTableStyleSetter {
+            case .product:
+                saltOrSodiumSegmentedControl.isEnabled = false
+            default:
+                saltOrSodiumSegmentedControl.isEnabled = true
+            }
         }
     }
     
@@ -139,6 +171,13 @@ class SettingsTableViewController: UITableViewController {
             jouleOrCaloriesSegmentedControl.setTitle(TranslatableStrings.KiloCalorie, forSegmentAt: 1)
             jouleOrCaloriesSegmentedControl.setTitle(TranslatableStrings.Calories, forSegmentAt: 2)
             refreshJouleOrCalories()
+            switch Preferences.manager.nutritionFactsTableStyleSetter {
+            case .product:
+                jouleOrCaloriesSegmentedControl.isEnabled = false
+            default:
+                jouleOrCaloriesSegmentedControl.isEnabled = true
+            }
+
         }
     }
     
@@ -163,6 +202,13 @@ class SettingsTableViewController: UITableViewController {
             nutritionUnitSegmentedControl.setTitle(TranslatableStrings.Serving, forSegmentAt: 1)
             nutritionUnitSegmentedControl.setTitle(TranslatableStrings.DailyValue, forSegmentAt: 2)
             refreshNutritionUnit()
+            switch Preferences.manager.nutritionFactsTableStyleSetter {
+            case .product:
+                nutritionUnitSegmentedControl.isEnabled = false
+            default:
+                nutritionUnitSegmentedControl.isEnabled = true
+            }
+
         }
     }
     

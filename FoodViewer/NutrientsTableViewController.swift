@@ -13,10 +13,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     fileprivate var adaptedNutritionFacts: [DisplayFact] = []
     
-    // set to app wide default
-    fileprivate var showNutrientsAs = Preferences.manager.showNutritionDataPerServingOrPerStandard
-    fileprivate var showEnergyAs = Preferences.manager.showCaloriesOrJoule
-    fileprivate var ShowSaltAs = Preferences.manager.showSaltOrSodium
+    // setup the current display modes to app wide defaults
+    fileprivate var currentNutritionQuantityDisplayMode: NutritionDisplayMode = .perStandard
+    fileprivate var currentEnergyDisplayMode = Preferences.manager.showCaloriesOrJoule
+    fileprivate var currentSaltDisplayMode = Preferences.manager.showSaltOrSodium
+    fileprivate var currentTableStyleSetter = Preferences.manager.nutritionFactsTableStyleSetter
+    fileprivate var currentNutritionFactsTableStyle: NutritionFactsLabelStyle {
+        switch currentTableStyleSetter {
+        case .product:
+            return productPair?.product?.bestNutritionFactTableStyle ?? Preferences.manager.showNutritionFactsTableStyle
+        case .user:
+            return selectedNutritionFactsTableStyle ?? Preferences.manager.showNutritionFactsTableStyle
+        }
+    }
+    fileprivate var selectedNutritionFactsTableStyle: NutritionFactsLabelStyle? = nil
+    
     fileprivate var searchResult: String = ""
     
     fileprivate var nutritionFactsTagTitle: String = ""
@@ -130,21 +141,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 
             // if the validFact is sodium or salt, add either one to the list of facts, but not both
             if fact.key == NatriumChloride.salt.key {
-                switch ShowSaltAs {
+                switch currentSaltDisplayMode {
                 // do not show sodium
                 case .sodium: break
                 default:
                     newFact = fact.value
                 }
             } else if fact.key == NatriumChloride.sodium.key {
-                switch ShowSaltAs {
+                switch currentSaltDisplayMode {
                 // do not show salt
                 case .salt: break
                 default:
                     newFact = fact.value
                 }
             } else if fact.key == LocalizedEnergy.key {
-                switch showEnergyAs {
+                switch currentEnergyDisplayMode {
                 // show energy as Calories (US)
                 case .calories:
                     newFact = NutritionFactItem.init(
@@ -177,8 +188,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     private func order(_ facts: [DisplayFact]) -> [DisplayFact] {
-
-        let label: NutritionFactsLabelStyle = .europe
+        let label = currentNutritionFactsTableStyle
         var orderedFacts: [DisplayFact] = []
         for key in label.keys {
             if let index = facts.index(where: { $0.nutrient.key == key.rawValue } ) {
@@ -192,7 +202,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     fileprivate func localizeFact(_ fact: NutritionFactItem) -> DisplayFact {
         var displayFact = DisplayFact()
         displayFact.name = fact.itemName
-        switch showNutrientsAs {
+        switch currentNutritionQuantityDisplayMode {
         case .perStandard:
             let localizedValue = fact.localeStandardValue // editMode ? fact.standardValue : fact.localeStandardValue()
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
@@ -256,6 +266,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             static let SelectNutrientUnitForSearch = "Select Nutrient Unit For Search Nutrition Fact Segue Identifier"
             static let ShowNutritionImageLanguages = "Show Nutrition Image Languages"
             static let SelectComparisonOperator = "Show Select Comparison Operator Segue Identifier"
+            static let ShowNutritionFactsTableStyles = "Show Select Nutrition Table Style Segue Identifier"
         }
         struct Title {
             static let ShowNutritionFactsImage = TranslatableStrings.Image
@@ -361,7 +372,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
         case .perUnit:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.PerUnit, for: indexPath) as! PerUnitTableViewCell
-            cell.displayMode = showNutrientsAs
+            cell.displayMode = currentNutritionQuantityDisplayMode
             cell.editMode = editMode
             cell.delegate = self
             switch productVersion {
@@ -522,16 +533,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
                 }
             }
-        case .nutritionFacts:
-            switch productVersion {
-            case .remote:
-                break
-            case .new:
-                if let facts = productPair?.localProduct?.nutritionFactsDict,
-                    !facts.isEmpty {
-                    return tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
-                }
-            }
         case .perUnit:
             switch productVersion {
             case .remote:
@@ -622,6 +623,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             headerView.section = section
             headerView.delegate = self
             headerView.title = tableStructure[section].header
+            headerView.changeLanguageButton.tag = 0
             switch productVersion {
             case .remote:
                 break
@@ -635,13 +637,33 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     break
                 }
             }
-            headerView.languageCode = currentLanguageCode
+            headerView.buttonText = OFFplists.manager.languageName(for: currentLanguageCode)
             if let aantal = productPair?.remoteProduct?.languageCodes.count {
                 headerView.buttonIsEnabled = editMode ? true : ( aantal > 1 ? true : false )
             } else {
                 headerView.buttonIsEnabled = false
             }
             return headerView
+        case .nutritionFacts:
+            let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
+            
+            headerView.section = section
+            headerView.delegate = self
+            headerView.title = tableStructure[section].header
+            headerView.changeLanguageButton.tag = 1
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if let facts = productPair?.localProduct?.nutritionFactsDict,
+                    !facts.isEmpty {
+                    headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                }
+            }
+            headerView.buttonText = currentNutritionFactsTableStyle.description
+            headerView.buttonIsEnabled = true
+            return headerView
+
         default:
             return nil
         }
@@ -684,7 +706,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     @objc func doubleTapOnSaltSodiumTableViewCell(_ recognizer: UITapGestureRecognizer) {
-        ShowSaltAs = ShowSaltAs == .salt ? .sodium : .salt
+        currentSaltDisplayMode = currentSaltDisplayMode == .salt ? .sodium : .salt
         
         mergeNutritionFacts()
         tableView.reloadData()
@@ -692,13 +714,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     @objc func doubleTapOnEnergyTableViewCell(_ recognizer: UITapGestureRecognizer) {
         /////
-        switch showEnergyAs {
+        switch currentEnergyDisplayMode {
         case .calories:
-            showEnergyAs = .joule
+            currentEnergyDisplayMode = .joule
         case .joule:
-            showEnergyAs = .kilocalorie
+            currentEnergyDisplayMode = .kilocalorie
         case .kilocalorie:
-            showEnergyAs = .joule
+            currentEnergyDisplayMode = .joule
         }
         
         mergeNutritionFacts()
@@ -757,9 +779,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                       TableSections.Header.NutrimentsAvailable )
                 )
             } else {
-            
+            /*
                 // how does the user want the data presented
-                switch showNutrientsAs {
+                switch currentNutritionQuantityDisplayMode {
                 case .perStandard:
                     guard let available = productPair?.product?.nutritionFactsAreAvailable else {
                         break
@@ -767,9 +789,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // what is possible?
                     switch available {
                     case .perStandardUnit, .perServingAndStandardUnit:
-                        showNutrientsAs = .perStandard
+                        currentNutritionQuantityDisplayMode = .perStandard
                     case .perServing:
-                        showNutrientsAs = .perServing
+                        currentNutritionQuantityDisplayMode = .perServing
                     default:
                         break
                     }
@@ -780,9 +802,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     switch available {
                     // what is possible?
                     case .perStandardUnit:
-                        showNutrientsAs = .perStandard
+                        currentNutritionQuantityDisplayMode = .perStandard
                     case .perServing, .perServingAndStandardUnit:
-                        showNutrientsAs = .perServing
+                        currentNutritionQuantityDisplayMode = .perServing
                     default:
                         break
                     }
@@ -793,16 +815,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     switch available {
                     case .perStandardUnit:
                         // force showing perStandard as perServing is not available
-                        showNutrientsAs = .perStandard
+                        currentNutritionQuantityDisplayMode = .perStandard
                     case .perServingAndStandardUnit:
-                        showNutrientsAs = .perDailyValue
+                        currentNutritionQuantityDisplayMode = .perDailyValue
                     case .perServing:
-                        showNutrientsAs = .perDailyValue
+                        currentNutritionQuantityDisplayMode = .perDailyValue
                     default:
                         break
                     }
                 }
-
+                 */
             
                 // Section 0 : switch to indicate whether any nutritional data is available on the product
             
@@ -910,6 +932,31 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                 } else {
                     assert(true, "NutrientsTableViewController: ShowNutritionImageLanguages segue preparation wrongly configurated")
+                }
+            case Storyboard.SegueIdentifier.ShowNutritionFactsTableStyles:
+                if let vc = segue.destination as? SelectNutritionFactsTableStyleTableViewCell {
+                    // The segue can only be initiated from a button within a ProductNameTableViewCell
+                    if let button = sender as? UIButton {
+                        if button.superview?.superview as? LanguageHeaderView != nil {
+                            if let ppc = vc.popoverPresentationController {
+                                // set the main language button as the anchor of the popOver
+                                ppc.permittedArrowDirections = .any
+                                // I need the button coordinates in the coordinates of the current controller view
+                                let anchorFrame = button.convert(button.bounds, to: self.view)
+                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                ppc.delegate = self
+                                
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.currentNutritionFactsTableStyle = self.currentNutritionFactsTableStyle
+                                vc.editMode = self.editMode
+                            }
+                            // The button should be in a view,
+                            // which is in a TableHeaderFooterView,
+                            // which is in a TableView
+                        }
+                    }
+                } else {
+                    assert(true, "NutrientsTableViewController: ShowNutritionFactsTableStyles segue preparation wrongly configurated")
                 }
             case Storyboard.SegueIdentifier.ShowNutritionFactsImage:
                 if let vc = segue.destination as? ImageViewController {
@@ -1065,7 +1112,33 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         }
     }
 
-    
+    @IBAction func unwindSetNutritionFactsTableStyle(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? SelectNutritionFactsTableStyleTableViewCell {
+            // The user decided to not follow the global preferences
+            currentTableStyleSetter = .user
+            if let validSelectedNutritionFactsTableStyle = vc.selectedNutritionFactsTableStyle {
+                selectedNutritionFactsTableStyle = validSelectedNutritionFactsTableStyle
+                currentEnergyDisplayMode = validSelectedNutritionFactsTableStyle.energyUnit
+                currentSaltDisplayMode = validSelectedNutritionFactsTableStyle.saltUnit
+                switch validSelectedNutritionFactsTableStyle.entryUnit {
+                case .perServing:
+                    currentNutritionQuantityDisplayMode = .perServing
+                default:
+                    currentNutritionQuantityDisplayMode = .perStandard
+                }
+                // fill the nutritionList with the missing values
+                if editMode {
+                    for nutrient in validSelectedNutritionFactsTableStyle.mandatoryNutrients {
+                        if !productPair!.remoteProduct!.nutritionFactsContain(nutrient) {
+                            productPair?.update(fact: NutritionFactItem.init(nutrient: nutrient, unit: nutrient.unit(for:validSelectedNutritionFactsTableStyle)))
+                        }
+                    }
+                }
+                refreshProductWithNewNutritionFacts()
+            }
+        }
+    }
+
     @IBAction func unwindSetComparisonOperator(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectCompareViewController {
             // The new comparison operator should be set to the nutrient that was edited
@@ -1348,7 +1421,7 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         
         // Energy
         if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: NutritionFactUnit.Joule))
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .energy, unit: .Joule))
         }
         // Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.fat) {
@@ -1356,11 +1429,11 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         }
         // Saturated Fat
         if !productPair!.remoteProduct!.nutritionFactsContain(.saturatedFat) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: NutritionFactUnit.Gram))
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram))
         }
         // Carbohydrates
         if !productPair!.remoteProduct!.nutritionFactsContain(.carbohydrates) {
-            productPair?.update(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: NutritionFactUnit.Gram))
+            productPair?.update(fact: NutritionFactItem.init(nutrient: .carbohydrates, unit: .Gram))
         }
         // Sugars
         if !productPair!.remoteProduct!.nutritionFactsContain(.sugars) {
@@ -1385,9 +1458,9 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
     func addUSNutrientSetTableViewCell(_ sender: AddNutrientTableViewCell, receivedTapOn button:UIButton) {
         
         // US data must be perServing
-        showNutrientsAs = .perServing
-        showEnergyAs = .calories
-        ShowSaltAs = .sodium
+        currentNutritionQuantityDisplayMode = .perServing
+        currentEnergyDisplayMode = .calories
+        currentSaltDisplayMode = .sodium
         
         // Energy
         if !productPair!.remoteProduct!.nutritionFactsContain(.energy) {
@@ -1490,12 +1563,12 @@ extension NutrientsTableViewController: NutrimentsAvailableCellDelegate {
 
 // MARK: - PerUnitCellDelegate functions
 
-extension NutrientsTableViewController:   PerUnitCellDelegate {
+extension NutrientsTableViewController: PerUnitCellDelegate {
     
     // function to let the delegate know that the switch changed
     func perUnitTableViewCell(_ sender: PerUnitTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
         guard productPair?.remoteProduct != nil else { return }
-        showNutrientsAs = NutritionDisplayMode.init(segmentedControl.selectedSegmentIndex)
+        currentNutritionQuantityDisplayMode = NutritionDisplayMode.init(segmentedControl.selectedSegmentIndex)
         mergeNutritionFacts()
         tableView.reloadData()
     }
@@ -1582,7 +1655,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                 var editedNutritionFact = NutritionFactItem()
                 editedNutritionFact.nutrient = adaptedNutritionFacts[row].nutrient
                 editedNutritionFact.itemName = adaptedNutritionFacts[row].name
-                if showNutrientsAs == .perStandard {
+                if currentNutritionQuantityDisplayMode == .perStandard {
                     editedNutritionFact.standardValueUnit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
@@ -1591,7 +1664,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                             $0 == "," ? "." : $0
                         })
                     }
-                } else if showNutrientsAs == .perServing {
+                } else if currentNutritionQuantityDisplayMode == .perServing {
                     editedNutritionFact.servingValueUnit = adaptedNutritionFacts[row].unit
 
                     // this value has been changed
@@ -1705,7 +1778,14 @@ extension NutrientsTableViewController: GKImagePickerDelegate {
 extension NutrientsTableViewController: LanguageHeaderDelegate {
     
     func changeLanguageButtonTapped(_ sender: UIButton, in section: Int) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
+        switch sender.tag {
+        case 0:
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionImageLanguages, sender: sender)
+        case 1:
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowNutritionFactsTableStyles, sender: sender)
+        default:
+            break
+        }
     }
 }
 
