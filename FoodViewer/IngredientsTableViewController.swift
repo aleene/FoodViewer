@@ -101,7 +101,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         get {
             switch productVersion {
             case .remote:
-                guard let validLanguageCode = currentLanguageCode,
+                guard let validLanguageCode = displayLanguageCode,
                     let text = productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode],
                     let validText = text else { return .undefined }
                 return Tags.init(text: validText)
@@ -111,7 +111,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             //        let validText = text else { return .undefined }
             //    return Tags.init(text: validText)
             case .new:
-                guard let validLanguageCode = currentLanguageCode,
+                guard let validLanguageCode = displayLanguageCode,
                     let text = productPair?.localProduct?.ingredientsLanguage[validLanguageCode] ?? productPair?.remoteProduct?.ingredientsLanguage[validLanguageCode],
                     let validText = text else { return .undefined }
                 return Tags.init(text: validText)
@@ -312,7 +312,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             if productPair != nil {
                 ingredientsImage = nil
                 tableStructure = setupSections()
-                //currentLanguageCode = newCurrentLanguage
                 refreshProduct()
             }
         }
@@ -360,7 +359,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     // It first does a validity check
     private var displayLanguageCode: String? {
         get {
-            return currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+            let value = currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+            return value
         }
     }
     
@@ -741,7 +741,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     break
                 }
             }
-            headerView.buttonText = OFFplists.manager.languageName(for: currentLanguageCode)
+            headerView.buttonText = OFFplists.manager.languageName(for: displayLanguageCode)
             headerView.buttonIsEnabled = editMode ? true : ( (productPair?.product?.languageCodes.count ?? 0) > 1 ? true : false )
             
             return headerView
@@ -1876,7 +1876,7 @@ extension IngredientsTableViewController: UITableViewDropDelegate {
 extension IngredientsTableViewController: GKImageCropControllerDelegate {
     
     public func imageCropController(_ imageCropController: GKImageCropViewController, didFinishWith croppedImage: UIImage?) {
-        guard let validLanguageCode = currentLanguageCode,
+        guard let validLanguageCode = displayLanguageCode,
             let validImage = croppedImage else { return }
         imageCropController.dismiss(animated: true, completion: nil)
         productPair?.update(ingredientsImage: validImage, for:validLanguageCode)
