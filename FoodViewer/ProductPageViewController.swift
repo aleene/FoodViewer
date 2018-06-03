@@ -153,14 +153,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private var productPair: ProductPair? = nil {
         didSet {
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
-            if oldValue == nil && productPair != nil {
+            //if oldValue == nil && productPair != nil {
             // has the product been initialised?
-                setCurrentLanguage()
+                //setCurrentLanguage()
                 //setupProduct()
-            } else if oldValue != nil && productPair != nil && oldValue!.barcodeType.asString != productPair!.barcodeType.asString {
+            //} else if oldValue != nil && productPair != nil && oldValue!.barcodeType.asString != productPair!.barcodeType.asString {
             // was there a product change?
-                setCurrentLanguage()
-            } // otherwise the language can not be set
+                //setCurrentLanguage()
+            //} // otherwise the language can not be set
             title = prefixedTitle
         }
     }
@@ -340,9 +340,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     // This function finds the language that must be used to display the product
     private func setCurrentLanguage() {
-        // is there already a current language?
-        guard currentLanguageCode == nil else { return }
-        currentLanguageCode = productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+        currentLanguageCode = currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
 
     private func initPage(_ page: ProductSection) {

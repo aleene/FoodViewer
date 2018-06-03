@@ -143,7 +143,7 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
-    // The languageCode as defined by the user (double tapping) or a valid product
+    // The languageCode as defined by the user (double tapping/selecting)
     // The user can set for which language he wants to see the name/genericName and front image
     var currentLanguageCode: String? = nil {
         didSet {
@@ -161,24 +161,12 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     // This variable defined the languageCode that must be used to display the product data
-    // It first does a validity check
+    // This is either the languageCode selected by the user or the best match for the current product
     private var displayLanguageCode: String? {
-        get {
-            // if the languageCode is nil, try to set it
-            if currentLanguageCode == nil,
-                let languageCode = newCurrentLanguage {
-                    currentLanguageCode = languageCode
-            }
-            return currentLanguageCode
-        }
+        return currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
     
-    // This var finds the language that must be used to display the product
-    private var newCurrentLanguage: String? {
-        return productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
-    }
-
-    // MARK: - Fileprivate Functions/variables
+// MARK: - Fileprivate Functions/variables
     
     fileprivate var nameToDisplay: Tags {
         get {
@@ -1191,7 +1179,7 @@ class IdentificationTableViewController: UITableViewController {
         }
         
         // reset the current languagecode
-        currentLanguageCode = nil
+        // currentLanguageCode = nil
         
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true

@@ -114,12 +114,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // It first does a validity check
     private var displayLanguageCode: String? {
         get {
-            // if the languageCode is nil, try to set it
-            if currentLanguageCode == nil,
-                let languageCode = newCurrentLanguage {
-                currentLanguageCode = languageCode
-            }
-            return currentLanguageCode
+            return currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
         }
     }
     

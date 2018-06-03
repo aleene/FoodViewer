@@ -360,20 +360,10 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     // It first does a validity check
     private var displayLanguageCode: String? {
         get {
-            // if the languageCode is nil, try to set it
-            if currentLanguageCode == nil,
-                let languageCode = newCurrentLanguage {
-                currentLanguageCode = languageCode
-            }
-            return currentLanguageCode
+            return currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
         }
     }
     
-    // This var finds the language that must be used to display the product
-    private var newCurrentLanguage: String? {
-        return productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
-    }
-
     var editMode: Bool = false {
         didSet {
             // vc changed from/to editMode, need to repaint
