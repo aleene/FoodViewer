@@ -13,12 +13,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
 // MARK: - Interface Actions
     
-    @IBOutlet weak var backButton: UIBarButtonItem!
-    
-    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
-        
-    }
-    
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem! {
         didSet {
             confirmBarButtonItem.isEnabled = productPair?.updateIsAllowed ?? true
@@ -67,19 +61,40 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 // start a new search
                 OFFProducts.manager.startSearch()
             } else {
-                if OFFAccount().personalExists() {
-                    // maybe the user has to authenticate himself before continuing
-                    authenticate()
-                }
-                // Saving can be done
-                if !loginInProcess {
-                    saveUpdatedProduct()
-                }
+                self.askSavePermission()
             }
         }
         editMode = !editMode
     }
     
+    private func askSavePermission() {
+        
+        let alertController = UIAlertController(title: TranslatableStrings.AskSavePermissionTitle,
+                                                message: TranslatableStrings.AskSavePermissionMessage,
+                                                preferredStyle:.alert)
+        let useFoodViewer = UIAlertAction(title: TranslatableStrings.Discard,
+                                          style: .default)
+        { action -> Void in
+            self.productPair?.localProduct = nil
+            self.pageIndex = .identification
+        }
+        
+        let useMyOwn = UIAlertAction(title: TranslatableStrings.Save, style: .default)
+        { action -> Void in
+            if OFFAccount().personalExists() {
+                // maybe the user has to authenticate himself before continuing
+                self.authenticate()
+            }
+            // Saving can be done
+            if !self.loginInProcess {
+                self.saveUpdatedProduct()
+            }
+        }
+        alertController.addAction(useFoodViewer)
+        alertController.addAction(useMyOwn)
+        self.present(alertController, animated: true, completion: nil)
+    }
+
 // MARK: - Save product functions
 
     private var userWantsToSave = false
@@ -578,6 +593,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             }
         }
     }
+    
     // MARK: - Product Updated Protocol functions
 
     // The updated product contains only those fields that have been edited.

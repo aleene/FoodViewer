@@ -2038,7 +2038,6 @@
                     <navigationItem key="navigationItem" id="fIR-X2-BuT">
                         <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="TkC-c1-5dl">
                             <connections>
-                                <action selector="backButtonTapped:" destination="PaB-Sk-wD0" id="dsa-hT-Mhj"/>
                                 <segue destination="Qr3-EH-gv1" kind="unwind" identifier="Unwind For Cancel" unwindAction="unwindForCancel:" id="Zz6-Lb-BAK"/>
                             </connections>
                         </barButtonItem>
@@ -2056,7 +2055,6 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="backButton" destination="TkC-c1-5dl" id="kfL-An-Dqm"/>
                         <outlet property="confirmBarButtonItem" destination="faJ-id-Sfe" id="8B3-VQ-Pcl"/>
                         <segue destination="a0t-M1-5KH" kind="presentation" identifier="Confirm Product Segue" id="cwF-P7-Jeg"/>
                     </connections>
