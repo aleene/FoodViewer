@@ -213,6 +213,17 @@ class IdentificationTableViewController: UITableViewController {
         }
     }
 
+    fileprivate var primaryLanguageCodeToDisplay: String {
+        get {
+            switch productVersion {
+            case .remote:
+                return productPair?.remoteProduct?.primaryLanguageCode ?? productPair?.localProduct?.primaryLanguageCode ?? TranslatableStrings.QuestionMark
+            case .new:
+                return productPair?.localProduct?.primaryLanguageCode ?? productPair?.remoteProduct?.primaryLanguageCode ?? TranslatableStrings.QuestionMark
+            }
+        }
+    }
+
     fileprivate var quantityToDisplay: Tags {
         get {
             switch productVersion {
@@ -434,7 +445,7 @@ class IdentificationTableViewController: UITableViewController {
         case .barcode:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Barcode, for: indexPath) as! BarcodeTableViewCell
             cell.barcode = productPair?.barcodeType.asString
-            cell.mainLanguageCode = productPair?.primaryLanguageCode ?? Locale.interfaceLanguageCode
+            cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
             return cell
             
