@@ -86,6 +86,7 @@ struct TranslatableStrings {
     static let EditDate = NSLocalizedString("Edit date", comment: "String in picker, which lets the user select the search result order")
     static let EditNutrient = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
     static let Edited = NSLocalizedString("Edited", comment: "Added to a tableview section header to indicated the item has been edited.")
+    static let EditedInParentheses = NSLocalizedString("(Edited)", comment: "Added to a tableview section header to indicated the item has been edited.")
     static let Editor = NSLocalizedString("Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
     static let EditorUnicode = NSLocalizedString("📝", comment: "Image to indicate that the user who added or deleted information of the product.")
     static let EnterBarcode = NSLocalizedString("Enter barcode.", comment: "Placeholder string to explain the purpose of a barcode search in a tableview cell")

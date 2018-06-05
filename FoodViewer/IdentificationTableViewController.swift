@@ -813,7 +813,7 @@ class IdentificationTableViewController: UITableViewController {
         let currentProductSection = tableStructure[section]
         
         switch currentProductSection {
-        case .image, .name, .genericName :
+        case .image, .name, .genericName, .barcode :
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
             headerView.section = section
             headerView.delegate = self
@@ -823,20 +823,24 @@ class IdentificationTableViewController: UITableViewController {
                 break
             case .new:
                 switch currentProductSection {
+                case .barcode:
+                    if productPair?.localProduct != nil && productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
+                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
+                    }
                 case .image:
                     guard let localPair = localFrontImage else { break }
                     if localPair.0 != nil {
-                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
                     }
                 case .name:
                     guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.nameLanguage[validLanguageCode] != nil {
-                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
                     }
                 case .genericName :
                     guard let validLanguageCode = displayLanguageCode else { break }
                     if productPair?.localProduct?.genericNameLanguage[validLanguageCode] != nil {
-                        headerView.title = tableStructure[section].header + " " + "(" + TranslatableStrings.Edited + ")"
+                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
                     }
                 default:
                     break
