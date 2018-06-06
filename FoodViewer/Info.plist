@@ -28,11 +28,11 @@
 		<true/>
 	</dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>Select image to upload</string>
+	<string>The photo library is used to select images of products for uploading to OpenFoodFacts.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Used to scan barcodes</string>
+	<string>The camera is needed to scan barcodes and take images of products for uploading to OpenFoodFacts.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to select and upload images</string>
+	<string>The photo library is used to select images of products for uploading to OpenFoodFacts.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>

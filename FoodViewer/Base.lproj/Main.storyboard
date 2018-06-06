@@ -131,7 +131,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jW6-1f-Qnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="0na-7c-rwo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4406" y="4984"/>
+            <point key="canvasLocation" x="4976" y="4993"/>
         </scene>
         <!--Favorite Shops Table View Controller-->
         <scene sceneID="0ro-al-cXx">
@@ -1420,7 +1420,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Barcode Scanner" id="shz-nC-ghT">
                             <connections>
-                                <segue destination="mXx-7P-ucJ" kind="presentation" id="MXA-qG-KSa"/>
+                                <segue destination="mXx-7P-ucJ" kind="presentation" identifier="Show Barcode Scanner Segue" id="MXA-qG-KSa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1632,7 +1632,7 @@
                                             <rect key="frame" x="279" y="10" width="25" height="25"/>
                                             <state key="normal" image="Heart"/>
                                             <connections>
-                                                <segue destination="jNk-e2-kVa" kind="presentation" modalPresentationStyle="formSheet" id="GUZ-MJ-1ik"/>
+                                                <segue destination="jNk-e2-kVa" kind="presentation" identifier="Favorit Shops Segue 2" modalPresentationStyle="formSheet" id="GUZ-MJ-1ik"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -3563,7 +3563,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -4317,7 +4317,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="ntk-NT-VGC"/>
+        <segue reference="w6I-Mb-BbL"/>
         <segue reference="z8D-RP-i6i"/>
         <segue reference="bL1-eB-rEY"/>
     </inferredMetricsTieBreakers>
