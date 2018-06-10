@@ -70,16 +70,18 @@ enum ProductFetchStatus {
 
         case .noSearchDefined: return 10
         case .searchLoading: return 11
-        case .searchQuery: return 12
+        case .searchQuery: return 14
         case .searchList: return 13
-        case .more: return 14
+        case .more: return 12
         }
     }
     
     static func description(for value: Int) -> String {
         switch value {
-        case ProductFetchStatus.initialized.rawValue: return ProductFetchStatus.initialized.description
-        case ProductFetchStatus.productNotLoaded(String()).rawValue : return  ProductFetchStatus.productNotLoaded(String()).description
+        case ProductFetchStatus.initialized.rawValue:
+            return ProductFetchStatus.initialized.description
+        case ProductFetchStatus.productNotLoaded(String()).rawValue :
+            return  ProductFetchStatus.productNotLoaded(String()).description
         case ProductFetchStatus.success(FoodProduct()).rawValue :
             return ProductFetchStatus.success(FoodProduct()).description
         case ProductFetchStatus.available(String()).rawValue :

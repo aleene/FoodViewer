@@ -11,6 +11,7 @@ import Foundation
 enum NutritionDisplayMode {
     case perServing
     case perStandard
+    case perThousandGram
     case perDailyValue
     
     var description: String {
@@ -18,7 +19,9 @@ enum NutritionDisplayMode {
         case .perServing:
             return TranslatableStrings.NutritionFactsPerServing
         case .perStandard:
-            return TranslatableStrings.NutritionFactsPer100mgml
+            return TranslatableStrings.NutritionFactsPer100gml
+        case .perThousandGram:
+            return TranslatableStrings.NutritionFactsPer1000Gram
         case .perDailyValue:
             return TranslatableStrings.DailyValuesPerServing
         }
@@ -29,6 +32,8 @@ enum NutritionDisplayMode {
         case 1:
             self = .perServing
         case 2:
+            self = .perThousandGram
+        case 3:
             self = .perServing
         default:
             self = .perStandard
@@ -39,7 +44,8 @@ enum NutritionDisplayMode {
         switch self {
         case .perServing: return 0
         case .perStandard: return 1
-        case .perDailyValue: return 2
+        case .perThousandGram: return 2
+        case .perDailyValue: return 3
         }
     }
     
@@ -47,6 +53,7 @@ enum NutritionDisplayMode {
         switch self {
         case .perServing: return "per serving"
         case .perStandard: return "per standard unit"
+        case .perThousandGram: return "per 1000 gram"
         case .perDailyValue: return "per daily value"
         }
     }

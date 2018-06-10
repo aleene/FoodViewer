@@ -80,28 +80,28 @@ public struct NutritionFactItem {
     }
     
     public var localeStandardValue: String {
-        return localeValue(standardValue)
+        return localeValue(standardValue, multiplier: 1.0)
     }
     
-    public var localeServingValue: String {
-        return localeValue(servingValue)
+    public var localeThousandValue: String {
+        return localeValue(standardValue, multiplier: 10.0)
     }
 
-    fileprivate func localeValue(_ stringValue: String?) -> String {
+    public var localeServingValue: String {
+        return localeValue(servingValue, multiplier: 1.0)
+    }
+
+    fileprivate func localeValue(_ stringValue: String?, multiplier: Float) -> String {
 
         if let value = stringValue {
             // an empty string does not have to be analysed
             guard !value.isEmpty else { return "" }
-            /*
-            for c in value.unicodeScalars {
-                print(String(c.value, radix: 16))
-            }
-             */
             // remove any unicode a0 (non-breaking space)
             let newValue = value.replacingOccurrences(of: "\u{a0}", with: "")
 
             // accept numbers with a , or . separator
-            if let floatValue = newValue.floatValue {
+            if var floatValue = newValue.floatValue {
+                floatValue = floatValue * multiplier
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
                 let str = numberFormatter.string(from: NSNumber(value: floatValue))
@@ -114,7 +114,7 @@ public struct NutritionFactItem {
         return ""
 
     }
-
+    
     var localeDailyValue: String {
         
         if let validValue = dailyFractionPerServing {

@@ -171,11 +171,11 @@ class OpenFoodFactsRequest {
                         }
                     } catch let error {
                         print (error)
-                        return .loadingFailed(self.currentBarcode!.asString)
+                        return .loadingFailed(url.absoluteString)
                         
                     }
                 } catch let error as NSError {
-                    print(error);
+                    print(error)
                     return ProductFetchStatus.loadingFailed(error.description)
                 }
             } else {

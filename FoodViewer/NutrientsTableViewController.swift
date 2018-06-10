@@ -72,11 +72,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 mergeNutritionFacts()
                 query = nil
                 tableStructure = setupTableSections()
+                if let validType = type {
+                    switch validType {
+                    case .petFood:
+                        currentNutritionQuantityDisplayMode = .perThousandGram
+                    default: break
+                    }
+                }
                 tableView.reloadData()
             }
         }
     }
     
+    private var type: ProductType? {
+        return productPair?.remoteProduct?.type ?? productPair?.localProduct?.type
+    }
     
     fileprivate var query: SearchTemplate? = nil {
         didSet {
@@ -199,9 +209,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         displayFact.name = fact.itemName
         switch currentNutritionQuantityDisplayMode {
         case .perStandard:
-            let localizedValue = fact.localeStandardValue // editMode ? fact.standardValue : fact.localeStandardValue()
+            let localizedValue = fact.localeStandardValue
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
             displayFact.unit = fact.standardValueUnit
+        case .perThousandGram:
+            let localizedValue = fact.localeThousandValue
+            displayFact.value = fact.standardValue != nil ? localizedValue : ""
+            switch fact.nutrient {
+            case .fat, .proteins, .fiber:
+                displayFact.unit = .Percent
+            default:
+                displayFact.unit = .Gram
+            }
         case .perServing:
             displayFact.value = fact.servingValue != nil ? fact.localeServingValue : ""
             displayFact.unit = fact.servingValueUnit
@@ -832,10 +851,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             
                 // Section 0 or 1 : presentation format
             
-                sectionsAndRows.append(.perUnit(
-                      TableSections.Size.PerUnit,
-                      TableSections.Header.PerUnit )
-                )
+                if let validType = type {
+                    switch validType {
+                    case .food:
+                        sectionsAndRows.append(.perUnit(
+                            TableSections.Size.PerUnit,
+                            TableSections.Header.PerUnit )
+                        )
+                    default: break
+                    }
+                }
         
                 // Section 1 or 2 : nutrition facts
             
@@ -1669,6 +1694,28 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                         editedNutritionFact.servingValue = String(text.map {
                             $0 == "," ? "." : $0
                         })
+                    }
+                } else if currentNutritionQuantityDisplayMode == .perThousandGram {
+                    editedNutritionFact.standardValueUnit = adaptedNutritionFacts[row].unit
+                    
+                    // this value has been changed
+                    if let validText = textField.text {
+                        editedNutritionFact.standardValue = String(validText.map {
+                            $0 == "," ? "." : $0
+                        })
+                        if let validType = type,
+                            let validValue = editedNutritionFact.standardValue {
+                            switch validType {
+                            case .petFood:
+                                if var floatValue = Float(validValue) {
+                                    floatValue = floatValue / 10.0
+                                    let numberFormatter = NumberFormatter()
+                                    numberFormatter.numberStyle = .decimal
+                                    editedNutritionFact.standardValue = numberFormatter.string(from: NSNumber(value: floatValue))
+                                }
+                            default: break
+                            }
+                        }
                     }
                 }
                 productPair?.update(fact: editedNutritionFact)

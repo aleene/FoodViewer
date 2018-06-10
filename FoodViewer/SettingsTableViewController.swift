@@ -228,7 +228,7 @@ class SettingsTableViewController: UITableViewController {
     private func refreshNutritionUnit() {
         if nutritionUnitSegmentedControl != nil {
             switch Preferences.manager.showNutritionDataPerServingOrPerStandard {
-            case .perStandard:
+            case .perStandard, .perThousandGram:
                 nutritionUnitSegmentedControl!.selectedSegmentIndex = 0
             case .perServing:
                 nutritionUnitSegmentedControl!.selectedSegmentIndex = 1

@@ -48,7 +48,7 @@ class PerUnitTableViewCell: UITableViewCell {
     
     private func setView() {
         switch displayMode {
-        case .perStandard:
+        case .perStandard, .perThousandGram :
             perUnitSegmentedControl.selectedSegmentIndex = 0
         case .perServing:
             perUnitSegmentedControl.selectedSegmentIndex = 1

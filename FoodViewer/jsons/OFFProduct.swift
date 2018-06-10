@@ -99,7 +99,6 @@ class OFFProduct: Codable {
         var link: String? = nil
     var manufacturing_places: String? = nil
         var manufacturing_places_tags: [String]? = nil
-    var max_imgid: String? = nil
     var new_additives_n: Int? = nil
     var no_nutrition_data: String? = nil
     var nutrient_levels: OFFProductNutrientLevels? = nil
