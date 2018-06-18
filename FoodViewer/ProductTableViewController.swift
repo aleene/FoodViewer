@@ -121,9 +121,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     fileprivate func refreshInterface() {
-        if products.count > 0 {
-            tableView.reloadData()
-        }
+        guard products.count > 0 else { return }
+        tableView.reloadData()
     }
 
     var productPageViewController: ProductPageViewController? = nil
@@ -345,6 +344,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 switch currentProductSection {
                 case .name:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
+                    //print(productPair?.remoteProduct?.brandsOriginal, productPair?.localProduct?.brandsOriginal)
                     if let validBrands = productPair?.remoteProduct?.brandsOriginal ?? productPair?.localProduct?.brandsOriginal {
                         switch validBrands {
                         case .undefined, .empty:
@@ -387,7 +387,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     return cell
                 
                 case .ingredientsAllergensTraces:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as!IngredientsPageTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                         
                     cell.ingredientsLabel?.text = TranslatableStrings.Ingredients
                     if let number = productPair?.remoteProduct?.numberOfIngredients {
