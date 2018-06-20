@@ -12,13 +12,13 @@ class NutrientsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemLabel: UILabel! {
         didSet {
-            itemLabel.text = nutritionDisplayFactItem?.name != nil ? nutritionDisplayFactItem!.name! : TranslatableStrings.UnknownValue
+            itemLabel.text =  nutritionDisplayFactItem?.name ?? TranslatableStrings.UnknownValue
         }
     }
     
     @IBOutlet weak var textField: UITextField! {
         didSet {
-            textField.text = nutritionDisplayFactItem?.value != nil ? nutritionDisplayFactItem!.value! : TranslatableStrings.UnknownValue
+            textField.text = nutritionDisplayFactItem?.value ?? TranslatableStrings.UnknownValue
             textField.tag = tag
             textField.delegate = delegate
         }
@@ -34,8 +34,8 @@ class NutrientsTableViewCell: UITableViewCell {
     var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
         didSet {
             if let item = nutritionDisplayFactItem {
-                itemLabel.text = item.name != nil ? item.name! : TranslatableStrings.UnknownValue
-                textField?.text = item.value != nil ? item.value! : TranslatableStrings.UnknownValue
+                itemLabel.text = item.name ?? TranslatableStrings.UnknownValue
+                textField?.text = item.value ?? TranslatableStrings.UnknownValue
                 item.unit != nil ? unitButton.setTitle(item.unit!.short(), for: .normal) : unitButton.setTitle(TranslatableStrings.UnknownValue, for: .normal)
             }
         }

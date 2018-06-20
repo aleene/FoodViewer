@@ -104,6 +104,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             // vc changed from/to editMode, need to repaint
             if editMode != oldValue {
                 tableStructure = setupTableSections()
+                mergeNutritionFacts()
                 tableView.reloadData()
             }
         }
@@ -209,11 +210,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         displayFact.name = fact.itemName
         switch currentNutritionQuantityDisplayMode {
         case .perStandard:
-            let localizedValue = fact.localeStandardValue
+            let localizedValue = fact.localeStandardValue(editMode: editMode)
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
             displayFact.unit = fact.standardValueUnit
         case .perThousandGram:
-            let localizedValue = fact.localeThousandValue
+            let localizedValue = fact.localeThousandValue(editMode: editMode)
             displayFact.value = fact.standardValue != nil ? localizedValue : ""
             switch fact.nutrient {
             case .fat, .proteins, .fiber:
@@ -222,7 +223,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 displayFact.unit = .Gram
             }
         case .perServing:
-            displayFact.value = fact.servingValue != nil ? fact.localeServingValue : ""
+            displayFact.value = fact.servingValue != nil ? fact.localeServingValue(editMode: editMode) : ""
             displayFact.unit = fact.servingValueUnit
         case .perDailyValue:
             displayFact.value = fact.dailyFractionPerServing != nil ? fact.localeDailyValue : ""
@@ -430,7 +431,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
                     // warning set FIRST the saltOrSodium
-                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[(indexPath as NSIndexPath).row]
+                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[indexPath.row]
                     cell?.delegate = self
                     cell?.tag = indexPath.section * 100 + indexPath.row
                     // only add taps gestures when NOT in editMode

@@ -79,19 +79,19 @@ public struct NutritionFactItem {
         return ""
     }
     
-    public var localeStandardValue: String {
-        return localeValue(standardValue, multiplier: 1.0)
+    public func localeStandardValue(editMode: Bool) -> String {
+        return localeValue(standardValue, multiplier: 1.0, editMode: editMode)
     }
     
-    public var localeThousandValue: String {
-        return localeValue(standardValue, multiplier: 10.0)
+    public func localeThousandValue(editMode: Bool) -> String {
+        return localeValue(standardValue, multiplier: 10.0, editMode: editMode)
     }
 
-    public var localeServingValue: String {
-        return localeValue(servingValue, multiplier: 1.0)
+    public func localeServingValue(editMode: Bool) -> String {
+        return localeValue(servingValue, multiplier: 1.0, editMode: editMode)
     }
 
-    fileprivate func localeValue(_ stringValue: String?, multiplier: Float) -> String {
+    fileprivate func localeValue(_ stringValue: String?, multiplier: Float, editMode: Bool) -> String {
 
         if let value = stringValue {
             // an empty string does not have to be analysed
@@ -104,9 +104,8 @@ public struct NutritionFactItem {
                 floatValue = floatValue * multiplier
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
-                let str = numberFormatter.string(from: NSNumber(value: floatValue))
-                guard (str != nil) else { return "" }
-                return str!
+                numberFormatter.usesGroupingSeparator = !editMode
+                return numberFormatter.string(from: NSNumber(value: floatValue)) ?? ""
             } else {
                 return value
             }

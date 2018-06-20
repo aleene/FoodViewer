@@ -3179,13 +3179,13 @@
                                             <rect key="frame" x="16" y="11" width="288" height="22"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PY2-Eu-268">
-                                                    <rect key="frame" x="0.0" y="0.0" width="186" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="178" height="22"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tfR-RY-KYa">
-                                                    <rect key="frame" x="191" y="0.0" width="52" height="22"/>
+                                                    <rect key="frame" x="183" y="0.0" width="60" height="22"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3204,7 +3204,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="tfR-RY-KYa" firstAttribute="width" secondItem="Phy-lP-wsX" secondAttribute="width" multiplier="1.3" id="0jg-fc-OFS"/>
+                                                <constraint firstItem="tfR-RY-KYa" firstAttribute="width" secondItem="Phy-lP-wsX" secondAttribute="width" multiplier="1.5" id="0jg-fc-OFS"/>
                                             </constraints>
                                         </stackView>
                                     </subviews>
@@ -3579,7 +3579,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -4333,8 +4333,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="NIk-rX-rWX"/>
-        <segue reference="TJD-zt-Jpp"/>
+        <segue reference="ntk-NT-VGC"/>
+        <segue reference="z8D-RP-i6i"/>
         <segue reference="ssy-1Q-8zi"/>
     </inferredMetricsTieBreakers>
 </document>
