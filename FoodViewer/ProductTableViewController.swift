@@ -389,54 +389,54 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 case .ingredientsAllergensTraces:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                         
-                    cell.ingredientsLabel?.text = TranslatableStrings.Ingredients
+                    cell.ingredientsText = TranslatableStrings.Ingredients
                     if let number = productPair?.remoteProduct?.numberOfIngredients {
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .decimal
-                        cell.ingredientsBadgeString = "\(number)"
+                        cell.ingredientsBadgeText = "\(number)"
                     } else {
-                        cell.ingredientsBadgeString = TranslatableStrings.Undefined
+                        cell.ingredientsBadgeText = TranslatableStrings.Undefined
                     }
                         
-                    cell.allergensLabel?.text = TranslatableStrings.Allergens
+                    cell.allergensText = TranslatableStrings.Allergens
                     if let validAllergens = productPair?.remoteProduct?.allergensTranslated ?? productPair?.localProduct?.allergensOriginal {
                         switch validAllergens {
                         case .available(let allergens):
-                            cell.allergensBadgeString = "\(allergens.count)"
+                            cell.allergensBadgeText = "\(allergens.count)"
                         default:
-                            cell.allergensBadgeString = TranslatableStrings.Undefined
+                            cell.allergensBadgeText = TranslatableStrings.Undefined
                         }
                     }
                         
-                    cell.tracesLabel?.text = TranslatableStrings.Traces
+                    cell.tracesText = TranslatableStrings.Traces
                     if let validTraces = productPair?.remoteProduct?.tracesInterpreted ?? productPair?.localProduct?.tracesOriginal {
                         switch validTraces {
                         case .available(let traces):
-                            cell.tracesBadgeString = "\(traces.count)"
+                            cell.tracesBadgeText = "\(traces.count)"
                         default:
-                            cell.tracesBadgeString = TranslatableStrings.Undefined
+                            cell.tracesBadgeText = TranslatableStrings.Undefined
                         }
                     }
                     return cell
                         
                 case .ingredients:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! TDBadgedCell
-                    cell.textLabel!.text = TranslatableStrings.Ingredients
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+                    cell.labelText = TranslatableStrings.Ingredients
                     if let number = productPair?.remoteProduct?.numberOfIngredients ?? productPair?.localProduct?.numberOfIngredients {
-                        cell.badgeString = number
+                        cell.badgeText = number
                     }
                     return cell
                         
                 case .nutritionFacts:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFacts, for: indexPath) as! TDBadgedCell
-                    cell.textLabel!.text = TranslatableStrings.NutritionFacts
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+                    cell.labelText = TranslatableStrings.NutritionFacts
 
                     if let facts = productPair?.remoteProduct?.nutritionFactsDict ?? productPair?.localProduct?.nutritionFactsDict {
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .decimal
-                        cell.badgeString = "\(facts.count)"
+                        cell.badgeText = "\(facts.count)"
                     } else {
-                        cell.badgeString = TranslatableStrings.Undefined
+                        cell.badgeText = TranslatableStrings.Undefined
                     }
                     return cell
                         
@@ -446,16 +446,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     return cell!
                         
                 case .categories:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! TDBadgedCell
-                    cell.textLabel!.text = TranslatableStrings.Categories
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+                    cell.labelText = TranslatableStrings.Categories
                     if let validCategories = productPair?.remoteProduct?.categoriesHierarchy ?? productPair?.localProduct?.categoriesOriginal {
                         switch validCategories {
                         case .undefined, .empty:
-                            cell.badgeString = TranslatableStrings.Undefined
+                            cell.badgeText = TranslatableStrings.Undefined
                         case let .available(list):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
-                            cell.badgeString = "\(list.count)"
+                            cell.badgeText = "\(list.count)"
                         case .notSearchable:
                             assert(true, "ProductTableViewController Error: How can I set a categorie is non-editable")
                         }
@@ -468,16 +468,16 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     return cell!
                 
                 case .supplyChain:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Producer, for: indexPath) as! TDBadgedCell
-                    cell.textLabel!.text = TranslatableStrings.SalesCountries
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
+                    cell.labelText = TranslatableStrings.SalesCountries
                     if let validCountries = productPair?.remoteProduct?.countriesTranslated ?? productPair?.localProduct?.countriesOriginal {
                         switch validCountries {
                         case .available(let countries):
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
-                            cell.badgeString = "\(countries.count)"
+                            cell.badgeText = "\(countries.count)"
                         default:
-                            cell.badgeString = TranslatableStrings.Undefined
+                            cell.badgeText = TranslatableStrings.Undefined
                         }
                     }
                     return cell

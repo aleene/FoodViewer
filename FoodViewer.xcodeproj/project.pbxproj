@@ -180,6 +180,7 @@
 		518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */; };
 		518ED6DD2028B008002176A9 /* ProductStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DC2028B007002176A9 /* ProductStorage.swift */; };
 		518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 518ED6DE2028BB00002176A9 /* URLExtension.swift */; };
+		5192BE1120DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5192BE1020DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift */; };
 		5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */; };
 		5193DC101F3E1A79009EE70B /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */; };
 		5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */; };
@@ -510,6 +511,7 @@
 		518ED3641D7B38CA00F9D2F9 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
 		518ED6DC2028B007002176A9 /* ProductStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductStorage.swift; sourceTree = "<group>"; };
 		518ED6DE2028BB00002176A9 /* URLExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = URLExtension.swift; path = FoodViewer/Extensions/URLExtension.swift; sourceTree = SOURCE_ROOT; };
+		5192BE1020DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LabelWithBadgeTableViewCell.swift; path = Cells/LabelWithBadgeTableViewCell.swift; sourceTree = "<group>"; };
 		5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductImagesCollectionViewController.swift; path = Identification/ProductImagesCollectionViewController.swift; sourceTree = "<group>"; };
 		5193DC0F1F3E1A79009EE70B /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		5193DC111F3E2388009EE70B /* GalleryCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -986,6 +988,7 @@
 			isa = PBXGroup;
 			children = (
 				516BA5891CC3F06C008A094A /* BeingLoadedTableViewCell.swift */,
+				5192BE1020DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift */,
 				5159D8A61C6666C60082C60E /* NameTableViewCell.swift */,
 				51F669421F4B164C0074AACB /* ImagesPageTableViewCell.swift */,
 				51DAD3731C5F642C00895513 /* NutritionScoreTableViewCell.swift */,
@@ -1524,6 +1527,7 @@
 				51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */,
 				5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */,
 				51F96662202DA01A00CD58C3 /* OFFProductNutrientLevels.swift in Sources */,
+				5192BE1120DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
 				51F9666A202DA48800CD58C3 /* OFFProductImage.swift in Sources */,
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
