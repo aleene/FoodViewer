@@ -294,6 +294,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 let key = keyTuples(for:Array(frontImages.keys))[indexPath.row].0
                 if let result = frontImages[key]?.largest?.fetch() {
                     switch result {
+                    case .success(let image):
+                        cell.imageView.image = image
                     case .available:
                         if let validImage = frontImages[key]?.largest?.image {
                             cell.imageView.image = validImage
@@ -315,6 +317,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 let key = keyTuples(for:Array(ingredientsImages.keys))[indexPath.row].0
                 if let result = ingredientsImages[key]?.largest?.fetch() {
                     switch result {
+                    case .success(let image):
+                        cell.imageView.image = image
                     case .available:
                         if let validImage = ingredientsImages[key]?.largest?.image {
                             cell.imageView.image = validImage
@@ -336,6 +340,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 let key = keyTuples(for:Array(nutritionImages.keys))[indexPath.row].0
                 if let result = nutritionImages[key]?.largest?.fetch() {
                     switch result {
+                    case .success(let image):
+                        cell.imageView.image = image
                     case .available:
                         if let validImage = nutritionImages[key]?.largest?.image {
                             cell.imageView.image = validImage
@@ -366,6 +372,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 if let result = originalImages[key]?.largest?.fetch() {
                  
                     switch result {
+                    case .success(let image):
+                        cell.imageView.image = image
                     case .available:
                         if let validImage = originalImages[key]?.largest?.image {
                             cell.imageView.image = validImage

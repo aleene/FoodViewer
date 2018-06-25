@@ -233,6 +233,15 @@
 		51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */; };
 		51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */; };
 		51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */; };
+		51C2FF2520E0FE3D00B65509 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF2420E0FE3D00B65509 /* Queue.swift */; };
+		51C2FF2720E0FE4B00B65509 /* LRUFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF2620E0FE4A00B65509 /* LRUFileCache.swift */; };
+		51C2FF2920E0FE5600B65509 /* LRUCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF2820E0FE5600B65509 /* LRUCache.swift */; };
+		51C2FF2B20E0FE6000B65509 /* ItemCacheProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF2A20E0FE6000B65509 /* ItemCacheProtocol.swift */; };
+		51C2FF2D20E0FE6A00B65509 /* FileJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF2C20E0FE6A00B65509 /* FileJournal.swift */; };
+		51C2FF2F20E0FE7A00B65509 /* FileCacheDestinationEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF2E20E0FE7900B65509 /* FileCacheDestinationEnum.swift */; };
+		51C2FF3120E0FE8800B65509 /* FileCacheConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF3020E0FE8800B65509 /* FileCacheConstants.swift */; };
+		51C2FF3320E0FE9700B65509 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF3220E0FE9700B65509 /* FileCache.swift */; };
+		51C2FF3520E101A200B65509 /* ImageFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF3420E101A200B65509 /* ImageFileCache.swift */; };
 		51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C769B31DDA0D010000D260 /* CaseCountable.swift */; };
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
@@ -566,6 +575,15 @@
 		51C29E471C70A96900271708 /* SupplyChainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplyChainTableViewController.swift; sourceTree = "<group>"; };
 		51C29E491C70AA4700271708 /* TagListViewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewTableViewCell.swift; sourceTree = "<group>"; };
 		51C29E4B1C70B85C00271708 /* BarcodeScanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarcodeScanViewController.swift; sourceTree = "<group>"; };
+		51C2FF2420E0FE3D00B65509 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		51C2FF2620E0FE4A00B65509 /* LRUFileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUFileCache.swift; sourceTree = "<group>"; };
+		51C2FF2820E0FE5600B65509 /* LRUCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LRUCache.swift; sourceTree = "<group>"; };
+		51C2FF2A20E0FE6000B65509 /* ItemCacheProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCacheProtocol.swift; sourceTree = "<group>"; };
+		51C2FF2C20E0FE6A00B65509 /* FileJournal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileJournal.swift; sourceTree = "<group>"; };
+		51C2FF2E20E0FE7900B65509 /* FileCacheDestinationEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCacheDestinationEnum.swift; sourceTree = "<group>"; };
+		51C2FF3020E0FE8800B65509 /* FileCacheConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCacheConstants.swift; sourceTree = "<group>"; };
+		51C2FF3220E0FE9700B65509 /* FileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
+		51C2FF3420E101A200B65509 /* ImageFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageFileCache.swift; path = Model/ImageFileCache.swift; sourceTree = "<group>"; };
 		51C769B31DDA0D010000D260 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
@@ -813,6 +831,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51C2FF2320E0FE1B00B65509 /* UniversalCache */,
 				5141969C20839C2100528877 /* CSV */,
 				5150464F200904610094EE50 /* Download */,
 				5184F57B1EB35BFC009ECF73 /* BarGaugeView.swift */,
@@ -1206,6 +1225,21 @@
 			name = SupplyChainCells;
 			sourceTree = "<group>";
 		};
+		51C2FF2320E0FE1B00B65509 /* UniversalCache */ = {
+			isa = PBXGroup;
+			children = (
+				51C2FF3220E0FE9700B65509 /* FileCache.swift */,
+				51C2FF3020E0FE8800B65509 /* FileCacheConstants.swift */,
+				51C2FF2E20E0FE7900B65509 /* FileCacheDestinationEnum.swift */,
+				51C2FF2C20E0FE6A00B65509 /* FileJournal.swift */,
+				51C2FF2A20E0FE6000B65509 /* ItemCacheProtocol.swift */,
+				51C2FF2820E0FE5600B65509 /* LRUCache.swift */,
+				51C2FF2620E0FE4A00B65509 /* LRUFileCache.swift */,
+				51C2FF2420E0FE3D00B65509 /* Queue.swift */,
+			);
+			name = UniversalCache;
+			sourceTree = "<group>";
+		};
 		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1265,6 +1299,7 @@
 			isa = PBXGroup;
 			children = (
 				51C769B31DDA0D010000D260 /* CaseCountable.swift */,
+				51C2FF3420E101A200B65509 /* ImageFileCache.swift */,
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */,
@@ -1440,6 +1475,7 @@
 				51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */,
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
 				512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */,
+				51C2FF2920E0FE5600B65509 /* LRUCache.swift in Sources */,
 				5104F4B21FA07E33008D074F /* SearchSortOrder.swift in Sources */,
 				5180B9081C5D3B57002DBD21 /* AppDelegate.swift in Sources */,
 				51C29E4C1C70B85D00271708 /* BarcodeScanViewController.swift in Sources */,
@@ -1447,6 +1483,7 @@
 				51B741721F966ECD0025F8A1 /* ProductImageTableViewCell.swift in Sources */,
 				514196AD20839EA900528877 /* OFFDatabase.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
+				51C2FF2D20E0FE6A00B65509 /* FileJournal.swift in Sources */,
 				512499A11C6CD0100061A083 /* ImageViewController.swift in Sources */,
 				51F0752E20A33A0700C2D15C /* CSVError.swift in Sources */,
 				51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */,
@@ -1483,6 +1520,7 @@
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
 				517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
+				51C2FF2F20E0FE7A00B65509 /* FileCacheDestinationEnum.swift in Sources */,
 				517A65952086636800B4F728 /* ExtendLanguagesViewController.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
 				512039ED1E5B3E9500BE62CB /* GKImageCropViewController.swift in Sources */,
@@ -1546,6 +1584,7 @@
 				5160FE611CD3ADC300CA4A6E /* StringExtension.swift in Sources */,
 				51504657200906B10094EE50 /* DownloadService.swift in Sources */,
 				51A3D3151CA1BC0900B36B5A /* MapTableViewCell.swift in Sources */,
+				51C2FF3520E101A200B65509 /* ImageFileCache.swift in Sources */,
 				518B70201EA2779D00AB35CC /* ProductType.swift in Sources */,
 				51485F151FB74E9400167437 /* TagListViewAddImageTableViewCell.swift in Sources */,
 				517907FC1F8F6CDC0017FCA0 /* ContributorRole.swift in Sources */,
@@ -1592,6 +1631,7 @@
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
 				51CC54B21F9E1D9500350424 /* ButtonTableViewCell.swift in Sources */,
+				51C2FF3320E0FE9700B65509 /* FileCache.swift in Sources */,
 				518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */,
 				51A7DC801EE6C04400F231B0 /* LanguageHeaderView.swift in Sources */,
 				511D58A920372EC600F5D313 /* OFFProductImageSize.swift in Sources */,
@@ -1617,6 +1657,7 @@
 				51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */,
 				516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */,
 				510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */,
+				51C2FF2720E0FE4B00B65509 /* LRUFileCache.swift in Sources */,
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
@@ -1629,6 +1670,7 @@
 				5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */,
 				5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */,
 				516B32891C75F74F0031EF80 /* CompletionState.swift in Sources */,
+				51C2FF3120E0FE8800B65509 /* FileCacheConstants.swift in Sources */,
 				5157426F1CDB63B200BE8E2D /* RSCodeLayer.swift in Sources */,
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
@@ -1646,9 +1688,11 @@
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
 				51DA03251F7674BF000C5F93 /* SearchTemplate.swift in Sources */,
 				51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */,
+				51C2FF2B20E0FE6000B65509 /* ItemCacheProtocol.swift in Sources */,
 				51FB322D1CF44E8A00A17312 /* BarcodeTableViewCell.swift in Sources */,
 				515742781CDB63B200BE8E2D /* RSUnifiedCodeValidator.swift in Sources */,
 				51649A501DE3306C000F305E /* ExpirationDateTableViewCell.swift in Sources */,
+				51C2FF2520E0FE3D00B65509 /* Queue.swift in Sources */,
 				51B3838E1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift in Sources */,
 				51B721721DD5D208003AF608 /* NutritionFactUnit.swift in Sources */,
 				51352FBB1DA6570E008FF151 /* ProductPageViewController.swift in Sources */,

@@ -231,15 +231,22 @@ import MobileCoreServices
     }
     
     func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
-        // I could check the cache to see wether there is the corresponding image
+        // I could check the cache to see whether there is the corresponding image
         if let image = self.url?.cachedImage {
             completion(.success(image))
+            return
+        // if not is there something in the image cache?
+        } else if ImageFileCache.manager.cache.checkInCache(key: "testImage") {
+            ImageFileCache.manager.cache.get(key: "testImage") { image in
+                guard let validImage = image else {
+                    completion(.noImageAvailable)
+                    return
+                }
+                completion(.success(validImage))
+                return
+            }
+        // if not try the off-server
         } else {
-        //print(self.url)
-        // change the url to an url of the cache
-        // check if the file exists
-        // then load the file
-        // othrwise try internet
         retrieveData(for: self.url, completionHandler: { (data, response, error)
             in
             guard error == nil else {

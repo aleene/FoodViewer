@@ -1,4 +1,5 @@
-//  SwiftyJSON.swift
+/*
+ //  SwiftyJSON.swift
 //
 //  Copyright (c) 2014 Ruoyu Fu, Pinglin Tang
 //
@@ -1298,3 +1299,4 @@ func >=(lhs: NSNumber, rhs: NSNumber) -> Bool {
         return lhs.compare(rhs) != ComparisonResult.orderedAscending
     }
 }
+ */
