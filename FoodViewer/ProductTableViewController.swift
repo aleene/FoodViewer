@@ -367,6 +367,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
                             cell.productImage = frontImages[language]?.small?.image
                             return cell
+                        case .success(let image):
+                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
+                            cell.productImage = image
+                            return cell
                         default:
                             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
                             cell.datasource = self

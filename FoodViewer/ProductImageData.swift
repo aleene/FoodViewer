@@ -19,7 +19,7 @@ import MobileCoreServices
     @available(iOS 11.0, *)
     public func loadData(withTypeIdentifier typeIdentifier: String, forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Void) -> Progress? {
 
-        // Is there an image available?
+        // Is there a local image available?
         if let validImage = self.image {
             switch typeIdentifier {
             case kUTTypeJPEG as NSString as String:
@@ -29,6 +29,17 @@ import MobileCoreServices
             default:
                 completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
             }
+            // is there a cached image?
+        } else if let validImage = self.url?.cachedImage {
+            switch typeIdentifier {
+            case kUTTypeJPEG as NSString as String:
+                completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+            case kUTTypePNG as NSString as String:
+                completionHandler(UIImagePNGRepresentation(validImage), nil)
+            default:
+                completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
+            }
+        // load the image
         } else {
             if let validUrl = self.url {
                 retrieveData(for: validUrl, completionHandler: { (data, response, error)
@@ -54,19 +65,21 @@ import MobileCoreServices
                         completionHandler(nil, ImageLoadError.response(httpResponse))
                         return
                     }
-                    if data != nil && data?.count != 0 {
-                        self.fetchResult = .success(data!)
-                        if let validImage = self.image {
-                            switch typeIdentifier {
-                            case kUTTypeJPEG as NSString as String:
-                                completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
-                            case kUTTypePNG as NSString as String:
-                                completionHandler(UIImagePNGRepresentation(validImage), nil)
-                            default:
-                                completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
-                            }
-                        } else {
-                            completionHandler(nil, ImageLoadError.noValidImage)
+                    if let validData = data,
+                        validData.count != 0,
+                        let validImage = UIImage(data: validData) {
+                        self.fetchResult = .success(validImage)
+                        ImageCache.shared.setObject(
+                            validImage,
+                            forKey: validUrl.absoluteString as NSString,
+                            cost: validData.count)
+                        switch typeIdentifier {
+                        case kUTTypeJPEG as NSString as String:
+                            completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+                        case kUTTypePNG as NSString as String:
+                            completionHandler(UIImagePNGRepresentation(validImage), nil)
+                        default:
+                            completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
                         }
                     } else {
                         self.fetchResult = .noData
@@ -108,8 +121,7 @@ import MobileCoreServices
                 // inform the user what is happening
                 var userInfo: [String:Any] = [:]
                 switch fetchResult! {
-                case .success(let data):
-                    image = UIImage.init(data: data)
+                case .success:
                     DispatchQueue.main.async(execute: { () -> Void in
                         userInfo[Notification.BarcodeKey] = self.barcode ?? "ProductImageData: no valid barcode"
                         userInfo[Notification.ImageTypeCategoryKey] = self.imageType().rawValue
@@ -125,11 +137,10 @@ import MobileCoreServices
         }
     }
 
+    // A local image can be set, then no url will be defined.
     var image: UIImage? = nil {
         didSet {
-            if image == nil {
-                fetchResult = nil
-            } else {
+            if image != nil {
                 fetchResult = .available
                 // encode imageSize, imageType and barcode
                 var userInfo: [String:Any] = [:]
@@ -220,6 +231,15 @@ import MobileCoreServices
     }
     
     func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
+        // I could check the cache to see wether there is the corresponding image
+        if let image = self.url?.cachedImage {
+            completion(.success(image))
+        } else {
+        //print(self.url)
+        // change the url to an url of the cache
+        // check if the file exists
+        // then load the file
+        // othrwise try internet
         retrieveData(for: self.url, completionHandler: { (data, response, error)
             in
             guard error == nil else {
@@ -248,16 +268,23 @@ import MobileCoreServices
                     dateFormatter.locale = Locale(identifier: "en_US_POSIX") // This is essential as otherwise the language of the string is unknown?
                     self.date = dateFormatter.date(from: shortDateString)
                 }
-                guard data != nil && data?.count != 0 else { completion (.noData); return }
-                completion(.success(data!))
+                guard let validData = data,
+                    validData.count != 0,
+                    let validUrlString = self.url?.absoluteString,
+                    let validImage = UIImage(data: validData) else { completion (.noData); return }
+                ImageCache.shared.setObject(
+                        validImage,
+                        forKey: validUrlString as NSString,
+                        cost: validData.count)
+                completion(.success(validImage))
                 return
             default:
                 print(httpResponse.description)
                 completion(.response(httpResponse))
                 return
             }
-  
         })
+        }
     }
     
     func retrieveData(for url: URL?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {

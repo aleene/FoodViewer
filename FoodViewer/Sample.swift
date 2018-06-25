@@ -153,11 +153,9 @@ class Sample {
             if sampleProduct.frontImages[languageCode] == nil {
                 sampleProduct.frontImages[languageCode] = ProductImageSize()
             }
-            if let image = UIImage(named: mainImage) {
-                if let data = UIImagePNGRepresentation(image) {
-                    sampleProduct.frontImages[languageCode]?.small?.fetchResult = .success(data)
-                    sampleProduct.frontImages[languageCode]?.display?.fetchResult = .success(data)
-                }
+            if let validImage = UIImage(named: mainImage) {
+                    sampleProduct.frontImages[languageCode]?.small?.fetchResult = .success(validImage)
+                    sampleProduct.frontImages[languageCode]?.display?.fetchResult = .success(validImage)
             } else {
                 sampleProduct.frontImages[languageCode]?.small?.fetchResult = .noData
                 sampleProduct.frontImages[languageCode]?.display?.fetchResult = .noData
@@ -166,10 +164,8 @@ class Sample {
             if sampleProduct.ingredientsImages[languageCode] == nil {
                 sampleProduct.ingredientsImages[languageCode] = ProductImageSize()
             }
-            if let image = UIImage(named: ingredientsImage) {
-                if let data = UIImagePNGRepresentation(image) {
-                    sampleProduct.ingredientsImages[languageCode]?.small?.fetchResult = .success(data)
-                }
+            if let validImage = UIImage(named: ingredientsImage) {
+                    sampleProduct.ingredientsImages[languageCode]?.small?.fetchResult = .success(validImage)
             } else {
                 sampleProduct.ingredientsImages[languageCode]?.small?.fetchResult = .noData
             }
@@ -177,10 +173,8 @@ class Sample {
             if sampleProduct.nutritionImages[languageCode] == nil {
                 sampleProduct.nutritionImages[languageCode] = ProductImageSize()
             }
-            if let image = UIImage(named: nutritionImage) {
-                if let data = UIImagePNGRepresentation(image) {
-                    sampleProduct.nutritionImages[languageCode]?.small?.fetchResult = .success(data)
-                }
+            if let validImage = UIImage(named: nutritionImage) {
+                sampleProduct.nutritionImages[languageCode]?.small?.fetchResult = .success(validImage)
             } else {
                 sampleProduct.nutritionImages[languageCode]?.small?.fetchResult = .noData
             }

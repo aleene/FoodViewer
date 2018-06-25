@@ -39,7 +39,6 @@
 		5114592F1CB1389400D25116 /* OFFFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5114592E1CB1389400D25116 /* OFFFiles.swift */; };
 		511459341CB138DC00D25116 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459331CB138DC00D25116 /* Node.swift */; };
 		511459361CB1391300D25116 /* VertexNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511459351CB1391300D25116 /* VertexNew.swift */; };
-		511620CC1E9E7E2900C90358 /* TDBadgedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511620CB1E9E7E2800C90358 /* TDBadgedCell.swift */; };
 		511B2C3B1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */; };
 		511B2C3F1E7866AA00336CE8 /* SIUnitTestSuite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */; };
 		511B2C411E78672900336CE8 /* SIUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 511B2C401E78672800336CE8 /* SIUnit.swift */; };
@@ -260,6 +259,7 @@
 		51E1C36A2046B9F600CB68B1 /* ImageUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C3692046B9F600CB68B1 /* ImageUpload.swift */; };
 		51E1C36C2046C59100CB68B1 /* OFFProductUpdateAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36B2046C59100CB68B1 /* OFFProductUpdateAPI.swift */; };
 		51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */; };
+		51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E2926D20DBE1B2001C7471 /* ImageCache.swift */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
 		51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */; };
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
@@ -360,7 +360,6 @@
 		5114592E1CB1389400D25116 /* OFFFiles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFFiles.swift; sourceTree = "<group>"; };
 		511459331CB138DC00D25116 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		511459351CB1391300D25116 /* VertexNew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertexNew.swift; sourceTree = "<group>"; };
-		511620CB1E9E7E2800C90358 /* TDBadgedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TDBadgedCell.swift; sourceTree = "<group>"; };
 		511B2C3A1E76F7C200336CE8 /* NutritionFactItemTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactItemTestSuite.swift; sourceTree = "<group>"; };
 		511B2C3E1E7866A900336CE8 /* SIUnitTestSuite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnitTestSuite.swift; sourceTree = "<group>"; };
 		511B2C401E78672800336CE8 /* SIUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIUnit.swift; sourceTree = "<group>"; };
@@ -594,6 +593,7 @@
 		51E1C3692046B9F600CB68B1 /* ImageUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageUpload.swift; path = OFF/ImageUpload.swift; sourceTree = "<group>"; };
 		51E1C36B2046C59100CB68B1 /* OFFProductUpdateAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductUpdateAPI.swift; sourceTree = "<group>"; };
 		51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductUpdate.swift; path = OFF/ProductUpdate.swift; sourceTree = "<group>"; };
+		51E2926D20DBE1B2001C7471 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Model/ImageCache.swift; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		51E5CC951CAD13A400216868 /* 54004207.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 54004207.json; sourceTree = "<group>"; };
 		51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
@@ -667,23 +667,23 @@
 		5107554E202DE0240047EC09 /* jsons */ = {
 			isa = PBXGroup;
 			children = (
-				51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */,
-				511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */,
-				511D58A820372EC600F5D313 /* OFFProductImageSize.swift */,
-				5107554F202F57E90047EC09 /* OFFProductNutrientLevelValue.swift */,
-				51075551202F647C0047EC09 /* OFFProductNutrimentValues.swift */,
 				51CCA8632031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift */,
-				5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */,
 				5158ECD82032DD170072261C /* OFFImageUploadResultJson.swift */,
 				51F96663202DA09A00CD58C3 /* OFFProduct.swift */,
 				51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */,
-				51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */,
-				51F96667202DA44A00CD58C3 /* OFFProductIngredient.swift */,
 				51F96669202DA48800CD58C3 /* OFFProductImage.swift */,
+				511D58A820372EC600F5D313 /* OFFProductImageSize.swift */,
+				51F96667202DA44A00CD58C3 /* OFFProductIngredient.swift */,
+				51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */,
+				5107554F202F57E90047EC09 /* OFFProductNutrientLevelValue.swift */,
+				51075551202F647C0047EC09 /* OFFProductNutrimentValues.swift */,
 				51F9665F202D9FC400CD58C3 /* OFFProductNutrientLevel.swift */,
 				51F96661202DA01900CD58C3 /* OFFProductNutrientLevels.swift */,
 				51F9666B202DA51E00CD58C3 /* OFFProductNutriments.swift */,
+				51AB5F1320342E9D004D74C7 /* OFFProductSelectedImages.swift */,
 				51F9665D202D9E4000CD58C3 /* OFFProductStates.swift */,
+				5158ECDA2032DF760072261C /* OFFProductUploadResultJson.swift */,
+				511D58A620371CC500F5D313 /* OFFSearchResultJson.swift */,
 			);
 			path = jsons;
 			sourceTree = "<group>";
@@ -826,7 +826,6 @@
 				510A38E51CD3B01B00BAEB61 /* TagListView */,
 				5160FE631CD3ADD200CA4A6E /* RSBarcodesSwift */,
 				51E5CC9D1CB1106900216868 /* CustomKeyboard */,
-				511620CB1E9E7E2800C90358 /* TDBadgedCell.swift */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -925,6 +924,7 @@
 				51E1C3682046B53B00CB68B1 /* API */,
 				51E1C3642045EB4200CB68B1 /* ImageDeselect.swift */,
 				51E1C3692046B9F600CB68B1 /* ImageUpload.swift */,
+				5127CDEE1E48A03600944FE8 /* ProductImageData.swift */,
 				51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */,
 				5107554E202DE0240047EC09 /* jsons */,
 				5124013F1CDB8A5D0051F120 /* ImageFetchResult.swift */,
@@ -1132,7 +1132,6 @@
 				510D9FC11E72B88600B95B1B /* NutritionalScore */,
 				51D50F161CE78904008DD98C /* NutritionEntryUnit.swift */,
 				5180B91A1C5D3B9E002DBD21 /* Product.swift */,
-				5127CDEE1E48A03600944FE8 /* ProductImageData.swift */,
 				5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */,
 				511D58AA20387C7A00F5D313 /* ProductPair.swift */,
 				5153FDC41F5016A100F3E20F /* ProductSection.swift */,
@@ -1148,6 +1147,7 @@
 			isa = PBXGroup;
 			children = (
 				518ED6DC2028B007002176A9 /* ProductStorage.swift */,
+				51E2926D20DBE1B2001C7471 /* ImageCache.swift */,
 				516BA5931CC522D8008A094A /* MostRecentProduct.swift */,
 				51E614931C8349AD00DAEE6C /* History.swift */,
 				51FB32321CF762FC00A17312 /* AllergenWarningDefaults.swift */,
@@ -1479,6 +1479,7 @@
 				5100A96320791DAC00E6E368 /* Sample.swift in Sources */,
 				51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */,
 				5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */,
+				51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */,
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
 				517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
@@ -1574,7 +1575,6 @@
 				51AFB00E1C74876E00598444 /* ContributorTableViewCell.swift in Sources */,
 				51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */,
 				512039EC1E5B3E9500BE62CB /* GKImagePickerProtocol.swift in Sources */,
-				511620CC1E9E7E2900C90358 /* TDBadgedCell.swift in Sources */,
 				51F669391F4499190074AACB /* AddImageCollectionViewCell.swift in Sources */,
 				516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */,
 				512039F31E5B3E9500BE62CB /* GKCropBorderView.swift in Sources */,

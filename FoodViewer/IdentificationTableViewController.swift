@@ -664,6 +664,8 @@ class IdentificationTableViewController: UITableViewController {
             switch result {
             case .available:
                 return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
+            case .success(let image):
+                return (image, "Current Language Image")
             case .loading:
                 return (nil, ImageFetchResult.loading.description)
             case .loadingFailed(let error):
@@ -682,6 +684,8 @@ class IdentificationTableViewController: UITableViewController {
             switch fetch {
             case .available:
                 return (image.image, "Primary language Image")
+            case .success(let image):
+                return (image, "Current Language Image")
             case .loading:
                 return (nil, ImageFetchResult.loading.description)
             case .loadingFailed(let error):

@@ -8,10 +8,11 @@
 //  The function of this enum is to start a network call in order to retrieve an image based on an url
 
 import Foundation
+import UIKit
 
 enum ImageFetchResult {
     case available
-    case success(Data)
+    case success(UIImage)
     case loading
     case loadingFailed(Error)
     case response(HTTPURLResponse)
@@ -52,7 +53,7 @@ enum ImageFetchResult {
     static func description(for value: Int) -> String {
         switch value {
         case ImageFetchResult.available.rawValue: return ImageFetchResult.available.description
-        case ImageFetchResult.success(Data()).rawValue: return ImageFetchResult.success(Data()).description
+        case ImageFetchResult.success(UIImage()).rawValue: return ImageFetchResult.success(UIImage()).description
         case ImageFetchResult.loading.rawValue: return ImageFetchResult.loading.description
         case 3:
             let error = Error.self

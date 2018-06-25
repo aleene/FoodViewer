@@ -604,6 +604,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             switch result {
             case .available:
                 return images[validLanguageCode]?.display?.image
+            case .success(let image):
+                return image
             default:
                 break
             }
@@ -616,6 +618,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             switch result {
             case .available:
                 return images[primaryLanguageCode]?.display?.image
+            case .success(let image):
+                return image
             default:
                 break
             }

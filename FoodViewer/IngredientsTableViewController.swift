@@ -577,6 +577,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch result {
             case .available:
                 return images[validLanguageCode]?.display?.image
+            case .success(let image):
+                return image
             default:
                 searchResult = result.description
                 break
@@ -590,6 +592,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             switch result {
             case .available:
                 return images[primaryLanguageCode]?.display?.image
+            case .success(let image):
+                return image
             default:
                 break
             }
