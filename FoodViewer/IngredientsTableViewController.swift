@@ -575,8 +575,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             let validLanguageCode = displayLanguageCode,
             let result = images[validLanguageCode]?.display?.fetch() {
             switch result {
-            case .available:
-                return images[validLanguageCode]?.display?.image
             case .success(let image):
                 return image
             default:
@@ -590,8 +588,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
             let result = images[primaryLanguageCode]?.display?.fetch() {
             switch result {
-            case .available:
-                return images[primaryLanguageCode]?.display?.image
             case .success(let image):
                 return image
             default:
@@ -606,8 +602,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         if let images = productPair?.localProduct?.ingredientsImages,
             !images.isEmpty,
             let validLanguageCode = displayLanguageCode,
-            let image = images[validLanguageCode]?.original?.image {
-            return image
+            let fetchResult = images[validLanguageCode]?.original?.fetch() {
+            switch fetchResult {
+            case .success(let image):
+                return image
+            default: break
+            }
         }
         return nil
     }

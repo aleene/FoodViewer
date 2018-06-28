@@ -46,45 +46,65 @@ public struct ProductStorage {
         // convert the data to a json file and store that
         // store the new images
         for imageDict in product.images {
-            if let image = imageDict.value.original?.image {
-                do {
-                    let fileURL =  directoryURL.appendingPathComponent("\(imageDict.key)" + Constant.ImageExtension)
-                    try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                } catch {
-                    assert(true, "ProductStorage: Not able to create and write image")
+            if let fetchResult = imageDict.value.original?.fetch() {
+                switch fetchResult {
+                case .success(let image):
+                    do {
+                        let fileURL =  directoryURL.appendingPathComponent("\(imageDict.key)" + Constant.ImageExtension)
+                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                    } catch {
+                        assert(true, "ProductStorage: Not able to create and write image")
+                    }
+                default:
+                    break
                 }
             }
         }
         // store the front images
         for imageDict in product.frontImages {
-            if let image = imageDict.value.original?.image {
-                do {
-                    let fileURL =  directoryURL.appendingPathComponent(Constant.FrontImage + "\(imageDict.key)" + Constant.ImageExtension)
-                    try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                } catch {
-                    assert(true, "ProductStorage: Not able to create and write front image")
+            if let fetchResult = imageDict.value.original?.fetch() {
+                switch fetchResult {
+                case .success(let image):
+                    do {
+                        let fileURL =  directoryURL.appendingPathComponent(Constant.FrontImage + "\(imageDict.key)" + Constant.ImageExtension)
+                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                    } catch {
+                        assert(true, "ProductStorage: Not able to create and write image")
+                    }
+                default:
+                    break
                 }
             }
         }
         // store the selected ingredients images
         for imageDict in product.ingredientsImages {
-            if let image = imageDict.value.original?.image {
-                do {
-                    let fileURL =  directoryURL.appendingPathComponent(Constant.IngredientsImage + "\(imageDict.key)" + Constant.ImageExtension)
-                    try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                } catch {
-                    assert(true, "ProductStorage: Not able to create and write ingredients image")
+            if let fetchResult = imageDict.value.original?.fetch() {
+                switch fetchResult {
+                case .success(let image):
+                    do {
+                        let fileURL =  directoryURL.appendingPathComponent(Constant.IngredientsImage + "\(imageDict.key)" + Constant.ImageExtension)
+                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                    } catch {
+                        assert(true, "ProductStorage: Not able to create and write image")
+                    }
+                default:
+                    break
                 }
             }
         }
         // store the selected nutrition images
         for imageDict in product.nutritionImages {
-            if let image = imageDict.value.original?.image {
-                do {
-                    let fileURL =  directoryURL.appendingPathComponent(Constant.NutritionImage + "\(imageDict.key)" + Constant.ImageExtension)
-                    try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                } catch {
-                    assert(true, "ProductStorage: Not able to create and write nutrition image")
+            if let fetchResult = imageDict.value.original?.fetch() {
+                switch fetchResult {
+                case .success(let image):
+                    do {
+                        let fileURL =  directoryURL.appendingPathComponent(Constant.IngredientsImage + "\(imageDict.key)" + Constant.ImageExtension)
+                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                    } catch {
+                        assert(true, "ProductStorage: Not able to create and write image")
+                    }
+                default:
+                    break
                 }
             }
         }

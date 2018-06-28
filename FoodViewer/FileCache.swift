@@ -21,7 +21,7 @@ internal class FileCache<Key:Hashable,Value:ItemCacheProtocol> {
         case .temporary:
             self.destination = URL(fileURLWithPath: NSTemporaryDirectory())
         case .folder(let folderName):
-            let documentFolder = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let documentFolder = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)[0]
             self.destination = URL(fileURLWithPath: documentFolder).appendingPathComponent(folderName, isDirectory: true)
         }
         do {

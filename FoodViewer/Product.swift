@@ -859,7 +859,7 @@ class FoodProduct {
                         .product_name_to_be_completed,
                         .quantity_completed,
                         .quantity_to_be_completed:
-                            state.states.insert(Completion(with: currentState))
+                            state.states.insert(ProductCompletion(with: currentState))
                     default:
                         break
                     }

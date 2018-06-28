@@ -28,8 +28,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         // add the front image for the primary languageCode if any
         if let languageCode = productPair?.primaryLanguageCode {
-            if let image = productPair?.frontImages[languageCode]?.small?.image {
-                sharingItems.append(image)
+            if let fetchResult = productPair?.frontImages[languageCode]?.small?.fetch() {
+                switch fetchResult {
+                case .success(let image):
+                    sharingItems.append(image)
+                default: break
+                }
             }
         }
         

@@ -349,7 +349,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="8qF-wB-zag">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
                             <rect key="frame" x="0.0" y="944" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1092,8 +1092,8 @@
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                         </textField>
-                        <view key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" id="pLB-EC-tip">
-                            <rect key="frame" x="0.0" y="815.5" width="320" height="44"/>
+                        <view key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleToFill" id="pLB-EC-tip">
+                            <rect key="frame" x="0.0" y="815.5" width="320" height="332"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -1598,7 +1598,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="xIo-3N-Ski">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="xIo-3N-Ski">
                             <rect key="frame" x="0.0" y="586" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2980,7 +2980,7 @@
                         <segue destination="ate-7s-vCG" kind="popoverPresentation" identifier="Show Language And ImageType Segue Identifier" popoverAnchorView="tKr-4F-rmF" id="giD-uB-n2s">
                             <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
                         </segue>
-                        <segue destination="yDz-f3-wd1" kind="unwind" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="iZG-hJ-xYJ"/>
+                        <segue destination="yDz-f3-wd1" kind="unwind" identifier="Unwind Set ImageType And Language For Done Segue" unwindAction="unwindSetImageTypeAndLanguageForDone:" id="iZG-hJ-xYJ"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2996,7 +2996,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="A40-hk-PcF">
+                        <view key="tableFooterView" contentMode="scaleToFill" id="A40-hk-PcF">
                             <rect key="frame" x="0.0" y="680" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3704,7 +3704,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="KL0-pq-7Ws">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="PnH-HO-Mzj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -3764,12 +3764,12 @@
                                     <navigationItem id="A9l-Yd-38c">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="VhW-UR-XJh">
                                             <connections>
-                                                <segue destination="hN1-hb-NjU" kind="unwind" unwindAction="unwindAddNutrientForCancel:" id="plR-4O-BtP"/>
+                                                <segue destination="hN1-hb-NjU" kind="unwind" identifier="Unwind Add Nutrient For Cancel Segue" unwindAction="unwindAddNutrientForCancel:" id="plR-4O-BtP"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="yDL-58-zQ8">
                                             <connections>
-                                                <segue destination="hN1-hb-NjU" kind="unwind" unwindAction="unwindAddNutrientForDone:" id="bjh-Km-hYA"/>
+                                                <segue destination="hN1-hb-NjU" kind="unwind" identifier="Unwind Add Nutrient For Done Segue" unwindAction="unwindAddNutrientForDone:" id="bjh-Km-hYA"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -3816,7 +3816,7 @@
                                     <navigationItem id="hha-cD-Ejl">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="gM5-PA-jxn">
                                             <connections>
-                                                <segue destination="cjF-Ec-3gy" kind="unwind" unwindAction="unwindSetExpirationDateForCancel:" id="oyl-ht-brJ"/>
+                                                <segue destination="cjF-Ec-3gy" kind="unwind" identifier="Unind Set ExpirationDate For Cancel" unwindAction="unwindSetExpirationDateForCancel:" id="oyl-ht-brJ"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="UMH-HI-QIo">
@@ -4458,8 +4458,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="ntk-NT-VGC"/>
-        <segue reference="z8D-RP-i6i"/>
+        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="Jg3-Zr-U6z"/>
         <segue reference="ssy-1Q-8zi"/>
     </inferredMetricsTieBreakers>
 </document>

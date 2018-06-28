@@ -10,7 +10,7 @@ import Foundation
 
 protocol DownloadTask {
     
-    var completionHandler: ResultType<Data>.Completion? { get set }
+    var completionHandler: ResultType<Data>.ImaginaryCompletion? { get set }
     var progressHandler: ((Progress) -> Void)? { get set }
     var responseHandler: ((URLResponse) -> Void)? { get set }
 

@@ -10,7 +10,7 @@ import Foundation
 
 class GenericDownloadTask {
     
-    var completionHandler: ResultType<Data>.Completion?
+    var completionHandler: ResultType<Data>.ImaginaryCompletion?
     var progressHandler: ((Progress) -> Void)?
     var responseHandler: ((URLResponse) -> Void)?
 

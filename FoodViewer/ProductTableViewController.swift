@@ -363,10 +363,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         !frontImages.isEmpty,
                         let result = frontImages[language]?.small?.fetch() {
                         switch result {
-                        case .available:
-                            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
-                            cell.productImage = frontImages[language]?.small?.image
-                            return cell
                         case .success(let image):
                             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
                             cell.productImage = image
@@ -1263,14 +1259,17 @@ extension ProductTableViewController: UITableViewDragDelegate {
                 let currentProductSection = tableStructure[indexPath.row]
                 switch currentProductSection {
                 case .image:
-                    if let language = validProduct.primaryLanguageCode {
-                        if !validProduct.frontImages.isEmpty {
-                            if let image = validProduct.frontImages[language]?.largest?.image {
-                                let provider = NSItemProvider(object: image)
-                                let item = UIDragItem(itemProvider: provider)
-                                item.localObject = image
-                                return [item]
-                            }
+                    if let language = validProduct.primaryLanguageCode,
+                        !validProduct.frontImages.isEmpty,
+                        let fetchResult = validProduct.frontImages[language]?.largest?.fetch() {
+                        switch fetchResult {
+                        case .success(let image):
+                            let provider = NSItemProvider(object: image)
+                            let item = UIDragItem(itemProvider: provider)
+                            item.localObject = image
+                            return [item]
+                        default:
+                            break
                         }
                     }
                 default:
@@ -1315,9 +1314,11 @@ extension ProductTableViewController: UITableViewDragDelegate {
                 let currentProductSection = tableStructure[indexPath.row]
                 switch currentProductSection {
                 case .image:
-                    if let language = validProduct.primaryLanguageCode {
-                        if !validProduct.frontImages.isEmpty {
-                            if let image = validProduct.frontImages[language]?.largest?.image {
+                    if let language = validProduct.primaryLanguageCode,
+                        !validProduct.frontImages.isEmpty,
+                        let fetchResult = validProduct.frontImages[language]?.largest?.fetch() {
+                        switch fetchResult {
+                        case .success(let image):
                                 // check if the selected image has not been added yet
                                 for item in session.items {
                                     guard item.localObject as! UIImage != image else { return [] }
@@ -1326,7 +1327,8 @@ extension ProductTableViewController: UITableViewDragDelegate {
                                 let item = UIDragItem(itemProvider: provider)
                                 item.localObject = image
                                 return [item]
-                            }
+                        default:
+                            break
                         }
                     }
                 default:

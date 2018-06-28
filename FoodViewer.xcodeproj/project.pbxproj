@@ -242,6 +242,26 @@
 		51C2FF3120E0FE8800B65509 /* FileCacheConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF3020E0FE8800B65509 /* FileCacheConstants.swift */; };
 		51C2FF3320E0FE9700B65509 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF3220E0FE9700B65509 /* FileCache.swift */; };
 		51C2FF3520E101A200B65509 /* ImageFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF3420E101A200B65509 /* ImageFileCache.swift */; };
+		51C2FF6820E5076000B65509 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF6720E5076000B65509 /* Cache.swift */; };
+		51C2FF6A20E5076B00B65509 /* CGSize+Swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF6920E5076A00B65509 /* CGSize+Swift.swift */; };
+		51C2FF6C20E5077500B65509 /* CryptoSwiftMD5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF6B20E5077400B65509 /* CryptoSwiftMD5.swift */; };
+		51C2FF6E20E5078000B65509 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF6D20E5078000B65509 /* Data.swift */; };
+		51C2FF7020E5078B00B65509 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF6F20E5078A00B65509 /* DiskCache.swift */; };
+		51C2FF7220E5079400B65509 /* DiskFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7120E5079400B65509 /* DiskFetcher.swift */; };
+		51C2FF7420E507A000B65509 /* Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7320E507A000B65509 /* Fetch.swift */; };
+		51C2FF7620E507A900B65509 /* Fetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7520E507A800B65509 /* Fetcher.swift */; };
+		51C2FF7820E507B500B65509 /* Format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7720E507B500B65509 /* Format.swift */; };
+		51C2FF7A20E507D400B65509 /* Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7920E507D400B65509 /* Haneke.swift */; };
+		51C2FF7C20E507DC00B65509 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7B20E507DC00B65509 /* Log.swift */; };
+		51C2FF7E20E507E300B65509 /* NetworkFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7D20E507E300B65509 /* NetworkFetcher.swift */; };
+		51C2FF8720E5081200B65509 /* UIView+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF7F20E5081000B65509 /* UIView+Haneke.swift */; };
+		51C2FF8820E5081200B65509 /* NSURLResponse+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8020E5081000B65509 /* NSURLResponse+Haneke.swift */; };
+		51C2FF8920E5081200B65509 /* UIImageView+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8120E5081100B65509 /* UIImageView+Haneke.swift */; };
+		51C2FF8A20E5081200B65509 /* NSHTTPURLResponse+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8220E5081100B65509 /* NSHTTPURLResponse+Haneke.swift */; };
+		51C2FF8B20E5081200B65509 /* NSFileManager+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8320E5081100B65509 /* NSFileManager+Haneke.swift */; };
+		51C2FF8C20E5081200B65509 /* UIButton+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8420E5081100B65509 /* UIButton+Haneke.swift */; };
+		51C2FF8D20E5081200B65509 /* UIImage+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8520E5081200B65509 /* UIImage+Haneke.swift */; };
+		51C2FF8E20E5081200B65509 /* String+Haneke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C2FF8620E5081200B65509 /* String+Haneke.swift */; };
 		51C769B41DDA0D010000D260 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C769B31DDA0D010000D260 /* CaseCountable.swift */; };
 		51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */; };
 		51C86B611C6E322C002B7566 /* CompletionStatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */; };
@@ -584,6 +604,26 @@
 		51C2FF3020E0FE8800B65509 /* FileCacheConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCacheConstants.swift; sourceTree = "<group>"; };
 		51C2FF3220E0FE9700B65509 /* FileCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		51C2FF3420E101A200B65509 /* ImageFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageFileCache.swift; path = Model/ImageFileCache.swift; sourceTree = "<group>"; };
+		51C2FF6720E5076000B65509 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
+		51C2FF6920E5076A00B65509 /* CGSize+Swift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+Swift.swift"; sourceTree = "<group>"; };
+		51C2FF6B20E5077400B65509 /* CryptoSwiftMD5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoSwiftMD5.swift; sourceTree = "<group>"; };
+		51C2FF6D20E5078000B65509 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		51C2FF6F20E5078A00B65509 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
+		51C2FF7120E5079400B65509 /* DiskFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskFetcher.swift; sourceTree = "<group>"; };
+		51C2FF7320E507A000B65509 /* Fetch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetch.swift; sourceTree = "<group>"; };
+		51C2FF7520E507A800B65509 /* Fetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fetcher.swift; sourceTree = "<group>"; };
+		51C2FF7720E507B500B65509 /* Format.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Format.swift; sourceTree = "<group>"; };
+		51C2FF7920E507D400B65509 /* Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Haneke.swift; sourceTree = "<group>"; };
+		51C2FF7B20E507DC00B65509 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		51C2FF7D20E507E300B65509 /* NetworkFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkFetcher.swift; sourceTree = "<group>"; };
+		51C2FF7F20E5081000B65509 /* UIView+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8020E5081000B65509 /* NSURLResponse+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLResponse+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8120E5081100B65509 /* UIImageView+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8220E5081100B65509 /* NSHTTPURLResponse+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSHTTPURLResponse+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8320E5081100B65509 /* NSFileManager+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSFileManager+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8420E5081100B65509 /* UIButton+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8520E5081200B65509 /* UIImage+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Haneke.swift"; sourceTree = "<group>"; };
+		51C2FF8620E5081200B65509 /* String+Haneke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Haneke.swift"; sourceTree = "<group>"; };
 		51C769B31DDA0D010000D260 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		51C86B5E1C6E272A002B7566 /* CompletionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionTableViewCell.swift; sourceTree = "<group>"; };
 		51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletionStatesTableViewController.swift; sourceTree = "<group>"; };
@@ -831,6 +871,7 @@
 		5124013E1CDB84910051F120 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51C2FF6620E5074C00B65509 /* Haneke */,
 				51C2FF2320E0FE1B00B65509 /* UniversalCache */,
 				5141969C20839C2100528877 /* CSV */,
 				5150464F200904610094EE50 /* Download */,
@@ -1240,6 +1281,33 @@
 			name = UniversalCache;
 			sourceTree = "<group>";
 		};
+		51C2FF6620E5074C00B65509 /* Haneke */ = {
+			isa = PBXGroup;
+			children = (
+				51C2FF6720E5076000B65509 /* Cache.swift */,
+				51C2FF6920E5076A00B65509 /* CGSize+Swift.swift */,
+				51C2FF6B20E5077400B65509 /* CryptoSwiftMD5.swift */,
+				51C2FF6D20E5078000B65509 /* Data.swift */,
+				51C2FF6F20E5078A00B65509 /* DiskCache.swift */,
+				51C2FF7120E5079400B65509 /* DiskFetcher.swift */,
+				51C2FF7320E507A000B65509 /* Fetch.swift */,
+				51C2FF7520E507A800B65509 /* Fetcher.swift */,
+				51C2FF7720E507B500B65509 /* Format.swift */,
+				51C2FF7920E507D400B65509 /* Haneke.swift */,
+				51C2FF7B20E507DC00B65509 /* Log.swift */,
+				51C2FF7D20E507E300B65509 /* NetworkFetcher.swift */,
+				51C2FF8320E5081100B65509 /* NSFileManager+Haneke.swift */,
+				51C2FF8220E5081100B65509 /* NSHTTPURLResponse+Haneke.swift */,
+				51C2FF8020E5081000B65509 /* NSURLResponse+Haneke.swift */,
+				51C2FF8620E5081200B65509 /* String+Haneke.swift */,
+				51C2FF8420E5081100B65509 /* UIButton+Haneke.swift */,
+				51C2FF8520E5081200B65509 /* UIImage+Haneke.swift */,
+				51C2FF8120E5081100B65509 /* UIImageView+Haneke.swift */,
+				51C2FF7F20E5081000B65509 /* UIView+Haneke.swift */,
+			);
+			path = Haneke;
+			sourceTree = "<group>";
+		};
 		51DAD3771C5F757A00895513 /* ProductTableCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1473,6 +1541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				51E8573D1FF00ABC0045B4B3 /* UIImageViewExtension.swift in Sources */,
+				51C2FF6C20E5077500B65509 /* CryptoSwiftMD5.swift in Sources */,
 				5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */,
 				512039E21E5B3E7200BE62CB /* GKImagePicker.swift in Sources */,
 				51C2FF2920E0FE5600B65509 /* LRUCache.swift in Sources */,
@@ -1510,16 +1579,19 @@
 				51075552202F647C0047EC09 /* OFFProductNutrimentValues.swift in Sources */,
 				512039EE1E5B3E9500BE62CB /* GKImageCropControllerDelegate.swift in Sources */,
 				51F669431F4B164D0074AACB /* ImagesPageTableViewCell.swift in Sources */,
+				51C2FF8A20E5081200B65509 /* NSHTTPURLResponse+Haneke.swift in Sources */,
 				518ED3651D7B38CA00F9D2F9 /* SelectLanguageViewController.swift in Sources */,
 				5148F0F31DD4A66F00EF1B67 /* SelectExpirationDateViewController.swift in Sources */,
 				51C86B631C6E33E2002B7566 /* StateTableViewCell.swift in Sources */,
 				5100A96320791DAC00E6E368 /* Sample.swift in Sources */,
 				51A16AA41DC0DB16005F59E6 /* ProductUpdatedProtocol.swift in Sources */,
+				51C2FF7220E5079400B65509 /* DiskFetcher.swift in Sources */,
 				5193DC0E1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift in Sources */,
 				51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */,
 				51C29E481C70A96900271708 /* SupplyChainTableViewController.swift in Sources */,
 				517907F61F8BBC730017FCA0 /* SelectCompletionStateViewController.swift in Sources */,
 				512403681D93DD10007FED5A /* SwiftyJSON.swift in Sources */,
+				51C2FF7620E507A900B65509 /* Fetcher.swift in Sources */,
 				51C2FF2F20E0FE7A00B65509 /* FileCacheDestinationEnum.swift in Sources */,
 				517A65952086636800B4F728 /* ExtendLanguagesViewController.swift in Sources */,
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
@@ -1530,6 +1602,8 @@
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				51255EA91EBB463E00A241E9 /* LeftNutrimentScoreTableViewCell.swift in Sources */,
 				51F0752020A3396800C2D15C /* BinaryReader.swift in Sources */,
+				51C2FF7E20E507E300B65509 /* NetworkFetcher.swift in Sources */,
+				51C2FF6820E5076000B65509 /* Cache.swift in Sources */,
 				515742711CDB63B200BE8E2D /* RSCornersLayer.swift in Sources */,
 				51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */,
 				511DB4431E0AE994009D4A4B /* ColorSchemes.swift in Sources */,
@@ -1567,7 +1641,9 @@
 				5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */,
 				51F96662202DA01A00CD58C3 /* OFFProductNutrientLevels.swift in Sources */,
 				5192BE1120DA8AE40068C961 /* LabelWithBadgeTableViewCell.swift in Sources */,
+				51C2FF8820E5081200B65509 /* NSURLResponse+Haneke.swift in Sources */,
 				51C29E4A1C70AA4700271708 /* TagListViewTableViewCell.swift in Sources */,
+				51C2FF6E20E5078000B65509 /* Data.swift in Sources */,
 				51F9666A202DA48800CD58C3 /* OFFProductImage.swift in Sources */,
 				511459361CB1391300D25116 /* VertexNew.swift in Sources */,
 				511B2C411E78672900336CE8 /* SIUnit.swift in Sources */,
@@ -1578,6 +1654,7 @@
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
 				518B2FAC1CB13BB5007D8AB9 /* Section.swift in Sources */,
 				51DA03231F754FC4000C5F93 /* TagListViewSegmentedControlTableViewCell.swift in Sources */,
+				51C2FF7A20E507D400B65509 /* Haneke.swift in Sources */,
 				516B32831C75F47F0031EF80 /* NutritionLevelQuantity.swift in Sources */,
 				515046512009056D0094EE50 /* ResultType.swift in Sources */,
 				515A29D21EC08FB000916F3D /* LastServerDefaults.swift in Sources */,
@@ -1590,6 +1667,7 @@
 				517907FC1F8F6CDC0017FCA0 /* ContributorRole.swift in Sources */,
 				51C29E421C708BAA00271708 /* CategoriesTableViewController.swift in Sources */,
 				51FB322F1CF7589700A17312 /* AllergenWarningsTableViewController.swift in Sources */,
+				51C2FF6A20E5076B00B65509 /* CGSize+Swift.swift in Sources */,
 				51F669411F49CB620074AACB /* IngredientsPageTableViewCell.swift in Sources */,
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */,
@@ -1616,6 +1694,7 @@
 				512039EC1E5B3E9500BE62CB /* GKImagePickerProtocol.swift in Sources */,
 				51F669391F4499190074AACB /* AddImageCollectionViewCell.swift in Sources */,
 				516BA58A1CC3F06D008A094A /* BeingLoadedTableViewCell.swift in Sources */,
+				51C2FF8E20E5081200B65509 /* String+Haneke.swift in Sources */,
 				512039F31E5B3E9500BE62CB /* GKCropBorderView.swift in Sources */,
 				5180B91B1C5D3B9E002DBD21 /* Product.swift in Sources */,
 				51B741701F949E280025F8A1 /* SearchComponent.swift in Sources */,
@@ -1630,6 +1709,7 @@
 				5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */,
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
 				5150C0641CBAC3F800161616 /* NutritionFactItem.swift in Sources */,
+				51C2FF8B20E5081200B65509 /* NSFileManager+Haneke.swift in Sources */,
 				51CC54B21F9E1D9500350424 /* ButtonTableViewCell.swift in Sources */,
 				51C2FF3320E0FE9700B65509 /* FileCache.swift in Sources */,
 				518ED6DF2028BB00002176A9 /* URLExtension.swift in Sources */,
@@ -1642,6 +1722,7 @@
 				51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
 				51AB5F1420342E9D004D74C7 /* OFFProductSelectedImages.swift in Sources */,
+				51C2FF7820E507B500B65509 /* Format.swift in Sources */,
 				51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */,
 				51F0752820A339DE00C2D15C /* Endian.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,
@@ -1649,6 +1730,7 @@
 				517907FE1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift in Sources */,
 				519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */,
 				51F96668202DA44A00CD58C3 /* OFFProductIngredient.swift in Sources */,
+				51C2FF8720E5081200B65509 /* UIView+Haneke.swift in Sources */,
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */,
@@ -1657,16 +1739,20 @@
 				51CF42C51E02F47200C9AD91 /* BackspaceTextField.swift in Sources */,
 				516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */,
 				510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */,
+				51C2FF7020E5078B00B65509 /* DiskCache.swift in Sources */,
 				51C2FF2720E0FE4B00B65509 /* LRUFileCache.swift in Sources */,
 				5114592D1CB1385100D25116 /* Taxonomy.swift in Sources */,
+				51C2FF8C20E5081200B65509 /* UIButton+Haneke.swift in Sources */,
 				51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */,
 				51FB32311CF75B4500A17312 /* SetWarningTableViewCell.swift in Sources */,
 				51CCA8642031CC9F00F1B1B1 /* OFFImageDeselectResultJson.swift in Sources */,
 				5104F4B01FA074C3008D074F /* SetSortOrderViewController.swift in Sources */,
 				51B3838C1F89007E0086581C /* TranslatableStrings.swift in Sources */,
+				51C2FF8D20E5081200B65509 /* UIImage+Haneke.swift in Sources */,
 				511DB4381E0A821E009D4A4B /* Nutrient.swift in Sources */,
 				5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */,
 				519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */,
+				51C2FF7C20E507DC00B65509 /* Log.swift in Sources */,
 				5114592B1CB1368F00D25116 /* CompletionStatus.swift in Sources */,
 				5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */,
 				516B32891C75F74F0031EF80 /* CompletionState.swift in Sources */,
@@ -1676,6 +1762,7 @@
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
 				5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */,
+				51C2FF7420E507A000B65509 /* Fetch.swift in Sources */,
 				5150D9C81F8154F20003DE8E /* SelectCompareViewController.swift in Sources */,
 				511B2C431E78687E00336CE8 /* Mass.swift in Sources */,
 				5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */,
@@ -1708,6 +1795,7 @@
 				515742731CDB63B200BE8E2D /* RSExtendedCode39Generator.swift in Sources */,
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,
 				51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */,
+				51C2FF8920E5081200B65509 /* UIImageView+Haneke.swift in Sources */,
 				51F0752C20A339F700C2D15C /* CSVReader.swift in Sources */,
 				5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */,
 				51F0752A20A339E900C2D15C /* CSVWriter.swift in Sources */,

@@ -9,7 +9,7 @@
 import Foundation
 
 // The strings are used in the URL's of the search query, so we look for the right thing
-public struct Completion: Hashable {
+public struct ProductCompletion: Hashable {
     
     
     var category: CompletionCategory = .productName
@@ -22,7 +22,7 @@ public struct Completion: Hashable {
         return category.rawValue
     }
     
-    public static func ==(lhs: Completion, rhs: Completion) -> Bool {
+    public static func ==(lhs: ProductCompletion, rhs: ProductCompletion) -> Bool {
         return lhs.category.rawValue == rhs.category.rawValue
     }
     

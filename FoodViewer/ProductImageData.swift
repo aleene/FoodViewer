@@ -138,10 +138,10 @@ import MobileCoreServices
     }
 
     // A local image can be set, then no url will be defined.
-    var image: UIImage? = nil {
+    private var image: UIImage? = nil {
         didSet {
             if image != nil {
-                fetchResult = .available
+                //fetchResult = .available
                 // encode imageSize, imageType and barcode
                 var userInfo: [String:Any] = [:]
                 userInfo[Notification.ImageSizeCategoryKey] = imageSize().rawValue
@@ -177,11 +177,12 @@ import MobileCoreServices
         fetchResult = nil
     }
     
-    init(image: UIImage) {
+    init(image: UIImage, key:String) {
         super.init()
         self.url = nil
         self.image = image
-        self.fetchResult = .available
+        ImageFileCache.manager.cache.put(key: key, value: image)
+        self.fetchResult = .success(image)
     }
     
     
@@ -194,7 +195,8 @@ import MobileCoreServices
         switch typeIdentifier {
         case kUTTypeImage as NSString as String:
             if let validImage = UIImage.init(data: data) {
-                self.init(image:validImage)
+                let validKey = "DraggedImage"
+                self.init(image:validImage, key: validKey)
             }
         default:
             break
@@ -231,13 +233,25 @@ import MobileCoreServices
     }
     
     func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
+        // Is there a local image?
+        if let validImage = image {
+            completion(.success(validImage))
+            return
+        } else if let validURL = self.url {
+            let fetcher = NetworkFetcher<UIImage>(URL: validURL)
+            let cache = Shared.imageCache
+            cache.fetch(fetcher: fetcher).onSuccess { image in
+                completion(.success(image))
+            }
+        }
+        /*
         // I could check the cache to see whether there is the corresponding image
-        if let image = self.url?.cachedImage {
+        } else if let image = self.url?.cachedImage {
             completion(.success(image))
             return
         // if not is there something in the image cache?
-        } else if ImageFileCache.manager.cache.checkInCache(key: "testImage") {
-            ImageFileCache.manager.cache.get(key: "testImage") { image in
+        } else if let validUrlString = self.url?.absoluteString, ImageFileCache.manager.cache.checkInCache(key: validUrlString) {
+            ImageFileCache.manager.cache.get(key: validUrlString) { image in
                 guard let validImage = image else {
                     completion(.noImageAvailable)
                     return
@@ -283,6 +297,7 @@ import MobileCoreServices
                         validImage,
                         forKey: validUrlString as NSString,
                         cost: validData.count)
+                ImageFileCache.manager.cache.put(key: validUrlString, value: validImage)
                 completion(.success(validImage))
                 return
             default:
@@ -292,6 +307,7 @@ import MobileCoreServices
             }
         })
         }
+  */
     }
     
     func retrieveData(for url: URL?, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {

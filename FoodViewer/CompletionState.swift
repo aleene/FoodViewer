@@ -11,7 +11,7 @@ import Foundation
 // completion states parameters
 struct CompletionState {
     
-    var states = Set<Completion>()
+    var states = Set<ProductCompletion>()
     
     func completionPercentage() -> Int {
         var val = 0.0
@@ -30,8 +30,8 @@ struct CompletionState {
         return Double(completionPercentage()) / 100.0
     }
     
-    var array: [Completion] {
-        var array: [Completion] = []
+    var array: [ProductCompletion] {
+        var array: [ProductCompletion] = []
         for item in self.states {
             array.append(item)
         }

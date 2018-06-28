@@ -409,9 +409,9 @@ class OFFUpdate {
         for element in dict {
             
             // Is there a valid original image?
-            if let imageData = element.value.largest {
-                if let image = imageData.image {
-                    guard image != UIImage() else { return }
+            if let fetchResult = element.value.largest?.fetch() {
+                switch fetchResult {
+                case .success(let image):
                     // Is this a selected image?
                     if id != "general" {
                         // start by unselecting any existing image
@@ -439,6 +439,7 @@ class OFFUpdate {
                             OFFHttpPost.URL.Domain +
                             OFFHttpPost.URL.AddPostFix,
                             languageCode: element.key, productPair: productPair)
+                    default: break
                 }
             }
         }

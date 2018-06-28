@@ -586,10 +586,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var localImageToShow: UIImage? {
         if let images = productPair?.localProduct?.nutritionImages,
             !images.isEmpty,
-            let validLanguageCode = displayLanguageCode  {
+            let validLanguageCode = displayLanguageCode,
             // Is there an updated image corresponding to the current language
-            if let image = images[validLanguageCode]!.original?.image {
+            let fetchResult = images[validLanguageCode]!.original?.fetch() {
+            switch fetchResult {
+            case .success(let image):
                 return image
+            default:
+                break
             }
         }
         return nil
@@ -602,8 +606,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             let validLanguageCode = displayLanguageCode,
             let result = images[validLanguageCode]?.display?.fetch() {
             switch result {
-            case .available:
-                return images[validLanguageCode]?.display?.image
             case .success(let image):
                 return image
             default:
@@ -616,8 +618,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             let primaryLanguageCode = productPair!.remoteProduct!.primaryLanguageCode,
             let result = images[primaryLanguageCode]?.display?.fetch() {
             switch result {
-            case .available:
-                return images[primaryLanguageCode]?.display?.image
             case .success(let image):
                 return image
             default:

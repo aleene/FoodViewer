@@ -649,8 +649,12 @@ class IdentificationTableViewController: UITableViewController {
         if let frontImages = productPair?.localProduct?.frontImages,
             let validLanguageCode = displayLanguageCode,
             !frontImages.isEmpty,
-            let image = frontImages[validLanguageCode]?.original?.image {
-            return (image, "Updated Image")
+            let fetchResult = frontImages[validLanguageCode]?.original?.fetch() {
+            switch fetchResult {
+            case .success(let image):
+                return (image, "Updated Image")
+            default: break
+            }
         }
         return nil
     }
@@ -662,8 +666,6 @@ class IdentificationTableViewController: UITableViewController {
             !frontImages.isEmpty,
             let result = frontImages[validLanguageCode]?.display?.fetch() {
             switch result {
-            case .available:
-                return (frontImages[validLanguageCode]?.display?.image, "Current Language Image")
             case .success(let image):
                 return (image, "Current Language Image")
             case .loading:
@@ -682,8 +684,6 @@ class IdentificationTableViewController: UITableViewController {
             let image = productPair?.remoteProduct?.frontImages[primaryLanguageCode]?.display,
             let fetch = image.fetch() {
             switch fetch {
-            case .available:
-                return (image.image, "Primary language Image")
             case .success(let image):
                 return (image, "Current Language Image")
             case .loading:
@@ -1053,7 +1053,8 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     private func reloadImageSection() {
-        tableView.reloadSections([imageSectionIndex!], with: .none)
+        // The reloading of the image sectionresults in a crash
+        tableView.reloadData() //.reloadSections([imageSectionIndex!], with: .none)
     }
     
     fileprivate var imageSectionIndex: Int? {

@@ -9,7 +9,7 @@
 
 public enum ResultType<T> {
     
-    public typealias Completion = (ResultType<T>) -> Void
+    public typealias ImaginaryCompletion = (ResultType<T>) -> Void
     
     case success(T)
     case failure(Swift.Error)

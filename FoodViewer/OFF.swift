@@ -151,7 +151,7 @@ public struct OFF {
     }
 
     // The base strings which represent the various states on OFF
-    public static func string(for completion: Completion) -> String {
+    public static func string(for completion: ProductCompletion) -> String {
         switch completion.category {
         case .productName: // in JSON and search
             return "product-name"
@@ -184,21 +184,21 @@ public struct OFF {
         }
     }
     
-    public static var allCompletionStates: [Completion] {
-        return [Completion.init(.productName, isCompleted: true),
-            Completion.init(.brands, isCompleted: true),
-            Completion.init(.quantity, isCompleted: true),
-            Completion.init(.packaging, isCompleted: true),
-            Completion.init(.ingredients, isCompleted: true),
-            Completion.init(.categories, isCompleted: true),
-            Completion.init(.expirationDate, isCompleted: true),
-            Completion.init(.nutritionFacts, isCompleted: true),
-            Completion.init(.photosUploaded, isCompleted: true),
-            Completion.init(.photosValidated, isCompleted: true)]
+    public static var allCompletionStates: [ProductCompletion] {
+        return [ProductCompletion.init(.productName, isCompleted: true),
+            ProductCompletion.init(.brands, isCompleted: true),
+            ProductCompletion.init(.quantity, isCompleted: true),
+            ProductCompletion.init(.packaging, isCompleted: true),
+            ProductCompletion.init(.ingredients, isCompleted: true),
+            ProductCompletion.init(.categories, isCompleted: true),
+            ProductCompletion.init(.expirationDate, isCompleted: true),
+            ProductCompletion.init(.nutritionFacts, isCompleted: true),
+            ProductCompletion.init(.photosUploaded, isCompleted: true),
+            ProductCompletion.init(.photosValidated, isCompleted: true)]
     }
 
     // The value strings needed for searching a status
-    public static func searchKey(for completion:Completion) -> String {
+    public static func searchKey(for completion:ProductCompletion) -> String {
         var test = ""
         switch completion.category {
         case .photosUploaded:
@@ -213,12 +213,12 @@ public struct OFF {
 
     // The strings used to encode the status values in the product JSON
     // These are also the keys in the taxonomy
-    public static func JSONkey(for completion:Completion) -> String {
+    public static func JSONkey(for completion:ProductCompletion) -> String {
         return "en:" + searchKey(for:completion)
     }
     
     // Convert the key values found in the JSON to a Completion
-    public static func JSONcompletion(for string: String) -> Completion? {
+    public static func JSONcompletion(for string: String) -> ProductCompletion? {
         // remove the language component
         let elements = string.split(separator:":").map(String.init)
         if elements.count > 1 {
@@ -228,57 +228,57 @@ public struct OFF {
     }
 
     // Converts the status searchKey back to a Completion object
-    static func completion(for string: String) -> Completion? {
+    static func completion(for string: String) -> ProductCompletion? {
         
-        if string == searchKey(for: Completion.init(.productName, isCompleted:true)) {
-            return Completion.init(.productName, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.productName, isCompleted:false)) {
-            return Completion.init(.productName, isCompleted:false)
+        if string == searchKey(for: ProductCompletion.init(.productName, isCompleted:true)) {
+            return ProductCompletion.init(.productName, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.productName, isCompleted:false)) {
+            return ProductCompletion.init(.productName, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.brands, isCompleted:true)) {
-            return Completion.init(.brands, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.brands, isCompleted:false)) {
-            return Completion.init(.brands, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.brands, isCompleted:true)) {
+            return ProductCompletion.init(.brands, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.brands, isCompleted:false)) {
+            return ProductCompletion.init(.brands, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:true)) {
-            return Completion.init(.quantity, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.quantity, isCompleted:false)) {
-            return Completion.init(.quantity, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.quantity, isCompleted:true)) {
+            return ProductCompletion.init(.quantity, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.quantity, isCompleted:false)) {
+            return ProductCompletion.init(.quantity, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.packaging, isCompleted:true)) {
-            return Completion.init(.packaging, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.packaging, isCompleted:false)) {
-            return Completion.init(.packaging, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.packaging, isCompleted:true)) {
+            return ProductCompletion.init(.packaging, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.packaging, isCompleted:false)) {
+            return ProductCompletion.init(.packaging, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.ingredients, isCompleted:true)) {
-            return Completion.init(.ingredients, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.ingredients, isCompleted:false)) {
-            return Completion.init(.ingredients, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.ingredients, isCompleted:true)) {
+            return ProductCompletion.init(.ingredients, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.ingredients, isCompleted:false)) {
+            return ProductCompletion.init(.ingredients, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.categories, isCompleted:true)) {
-            return Completion.init(.categories, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.categories, isCompleted:false)) {
-            return Completion.init(.categories, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.categories, isCompleted:true)) {
+            return ProductCompletion.init(.categories, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.categories, isCompleted:false)) {
+            return ProductCompletion.init(.categories, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.expirationDate, isCompleted:true)) {
-            return Completion.init(.expirationDate, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.expirationDate, isCompleted:false)) {
-            return Completion.init(.expirationDate, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.expirationDate, isCompleted:true)) {
+            return ProductCompletion.init(.expirationDate, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.expirationDate, isCompleted:false)) {
+            return ProductCompletion.init(.expirationDate, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.nutritionFacts, isCompleted:true)) {
-            return Completion.init(.nutritionFacts, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.nutritionFacts, isCompleted:true)) {
+            return ProductCompletion.init(.nutritionFacts, isCompleted:true)
         } else if string == searchKey(for: .init(.nutritionFacts, isCompleted:false)) {
-            return Completion.init(.nutritionFacts, isCompleted:false)
+            return ProductCompletion.init(.nutritionFacts, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.photosUploaded, isCompleted:true)) {
-            return Completion.init(.photosUploaded, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.photosUploaded, isCompleted:false)) {
-            return Completion.init(.photosUploaded, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.photosUploaded, isCompleted:true)) {
+            return ProductCompletion.init(.photosUploaded, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.photosUploaded, isCompleted:false)) {
+            return ProductCompletion.init(.photosUploaded, isCompleted:false)
             
-        } else if string == searchKey(for: Completion.init(.photosValidated, isCompleted:true)) {
-            return Completion.init(.photosValidated, isCompleted:true)
-        } else if string == searchKey(for: Completion.init(.photosValidated, isCompleted:false)) {
-            return Completion.init(.photosValidated, isCompleted:false)
+        } else if string == searchKey(for: ProductCompletion.init(.photosValidated, isCompleted:true)) {
+            return ProductCompletion.init(.photosValidated, isCompleted:true)
+        } else if string == searchKey(for: ProductCompletion.init(.photosValidated, isCompleted:false)) {
+            return ProductCompletion.init(.photosValidated, isCompleted:false)
         }
         return nil
     }

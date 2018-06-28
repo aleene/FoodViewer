@@ -14,9 +14,9 @@ class SelectCompletionStateViewController: UIViewController, UIPickerViewDelegat
         static let UnwindSegue = "Unwind Select Completion State"
     }
     
-    var currentCompletion: Completion? = nil
+    var currentCompletion: ProductCompletion? = nil
     
-    var selectedCompletion: Completion? = nil
+    var selectedCompletion: ProductCompletion? = nil
 
 // MARK: - Interface elements
 

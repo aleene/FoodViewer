@@ -316,7 +316,7 @@ class SearchTemplate {
         }
     }
     
-    var completion: Completion? = nil
+    var completion: ProductCompletion? = nil
     
     // https://world.openfoodfacts.org/cgi/search.pl?action=process&additives=with
     // https://world.openfoodfacts.org/cgi/search.pl?action=process&ingredients_from_palm_oil=with

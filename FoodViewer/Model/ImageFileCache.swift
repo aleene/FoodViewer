@@ -18,7 +18,7 @@ class ImageFileCache {
     init() {
         cache = LRUFileCache <String, UIImage> (maxSize: Double(Int.max),
                                                    capacity: Int.max,
-                                                   cacheDestination:FileCacheDestination.folder("ImageFileCacheFolder"))
+                                                   cacheDestination:FileCacheDestination.folder("Images"))
         { value in
             guard let data = value.toData() else { return 0 }
             //return size in bytes

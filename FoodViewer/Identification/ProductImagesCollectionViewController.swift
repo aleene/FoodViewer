@@ -296,10 +296,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
-                    case .available:
-                        if let validImage = frontImages[key]?.largest?.image {
-                            cell.imageView.image = validImage
-                        }
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
@@ -319,10 +315,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
-                    case .available:
-                        if let validImage = ingredientsImages[key]?.largest?.image {
-                            cell.imageView.image = validImage
-                        }
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
@@ -342,10 +334,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
-                    case .available:
-                        if let validImage = nutritionImages[key]?.largest?.image {
-                            cell.imageView.image = validImage
-                        }
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
@@ -374,10 +362,6 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                     switch result {
                     case .success(let image):
                         cell.imageView.image = image
-                    case .available:
-                        if let validImage = originalImages[key]?.largest?.image {
-                            cell.imageView.image = validImage
-                        }
                     default:
                         cell.imageView.image = UIImage.init(named:"NotOK")
                     }
@@ -512,19 +496,16 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                 // let key = Array(originalImages.keys.sorted(by: { Int($0)! < Int($1)! }))[validKey]
                 if let result = originalImages[validKey]?.largest?.fetch() {
                     switch result {
-                    case .available:
-                        
-                        if let validImage = originalImages[validKey]?.largest?.image {
-                            switch selectedImageTypeCategory {
-                            case .front:
-                                productPair?.update(frontImage: validImage, for: selectedLanguageCode)
-                            case .ingredients:
-                                productPair?.update(ingredientsImage: validImage, for: selectedLanguageCode)
-                            case .nutrition:
-                                productPair?.update(nutritionImage: validImage, for: selectedLanguageCode)
-                            default:
-                                return
-                            }
+                    case .success(let image):
+                        switch selectedImageTypeCategory {
+                        case .front:
+                            productPair?.update(frontImage: image, for: selectedLanguageCode)
+                        case .ingredients:
+                            productPair?.update(ingredientsImage: image, for: selectedLanguageCode)
+                        case .nutrition:
+                            productPair?.update(nutritionImage: image, for: selectedLanguageCode)
+                        default:
+                            return
                         }
                     default:
                         return
