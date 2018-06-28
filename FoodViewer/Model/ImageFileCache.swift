@@ -5,7 +5,7 @@
 //  Created by arnaud on 25/06/2018.
 //  Copyright © 2018 Hovering Above. All rights reserved.
 //
-
+/*
 import Foundation
 import UIKit
 
@@ -27,3 +27,4 @@ class ImageFileCache {
     }
 
 }
+ */

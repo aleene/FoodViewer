@@ -1105,8 +1105,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     var newNutrient = NutritionFactItem()
                     newNutrient.nutrient = newNutrientTuple.0
                     newNutrient.itemName = newNutrientTuple.1
-                    newNutrient.servingValueUnit = newNutrientTuple.2
-                    newNutrient.standardValueUnit = newNutrientTuple.2
+                    switch currentNutritionQuantityDisplayMode {
+                    case .perServing:
+                        newNutrient.servingValueUnit = newNutrientTuple.2
+                    case .perStandard:
+                        newNutrient.standardValueUnit = newNutrientTuple.2
+                    default:
+                        break
+                    }
                     productPair?.update(fact: newNutrient)
                     refreshProductWithNewNutritionFacts()
                 }
@@ -1124,8 +1130,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     editedNutritionFact.nutrient = adaptedNutritionFacts[nutrientRow].nutrient
                     editedNutritionFact.itemName = adaptedNutritionFacts[nutrientRow].name
                     // this value has been changed
-                    editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
-                    editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
+                    switch currentNutritionQuantityDisplayMode {
+                    case .perServing:
+                        editedNutritionFact.servingValueUnit = vc.selectedNutritionUnit
+                        editedNutritionFact.servingValue = adaptedNutritionFacts[nutrientRow].value
+                    case .perStandard:
+                        editedNutritionFact.standardValueUnit = vc.selectedNutritionUnit
+                        editedNutritionFact.standardValue = adaptedNutritionFacts[nutrientRow].value
+                    default:
+                        break
+                    }
                     productPair?.update(fact: editedNutritionFact)
                     refreshProductWithNewNutritionFacts()
                 } else if query != nil {

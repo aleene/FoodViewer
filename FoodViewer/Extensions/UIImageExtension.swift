@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIImage: ItemCacheProtocol {
+extension UIImage {
     
     // https://stackoverflow.com/questions/158914/cropping-an-uiimage
     func crop(rect: CGRect) -> UIImage? {
@@ -172,13 +172,6 @@ extension UIImage: ItemCacheProtocol {
         
         // pass back new image
         return outImage
-    }
-
-    public func toData() -> Data? {
-        guard let data = UIImagePNGRepresentation(self) else {
-            return nil
-        }
-        return data
     }
 
 }

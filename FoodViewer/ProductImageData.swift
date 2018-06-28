@@ -181,7 +181,7 @@ import MobileCoreServices
         super.init()
         self.url = nil
         self.image = image
-        ImageFileCache.manager.cache.put(key: key, value: image)
+        //ImageFileCache.manager.cache.put(key: key, value: image)
         self.fetchResult = .success(image)
     }
     
