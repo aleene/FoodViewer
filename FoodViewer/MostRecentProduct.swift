@@ -52,7 +52,7 @@ public class MostRecentProduct {
             let request = OpenFoodFactsRequest()
             // loading the product from internet will be done off the main queue
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                let fetchResult = request.fetchJsonForBarcode(validBarcode)
+                let fetchResult = request.fetchJson(for: validBarcode)
                 DispatchQueue.main.async(execute: { () -> Void in
                     switch fetchResult {
                     case .success(let data):
@@ -122,13 +122,15 @@ public class MostRecentProduct {
         if let data = jsonData {
             // print(String(data: data, encoding: .utf8)!)
             var fetchResult = ProductFetchStatus.loading("most recent")
-            fetchResult = OpenFoodFactsRequest().fetchStoredProduct(data)
-            switch fetchResult {
-            case .success(let product):
-                completionHandler(product)
-                return
-            default:
-                break
+            OpenFoodFactsRequest().fetchStoredProduct(data) { (completion:ProductFetchStatus) in
+                fetchResult = completion
+                switch fetchResult {
+                case .success(let product):
+                    completionHandler(product)
+                    return
+                default:
+                    break
+                }
             }
         }
         completionHandler(nil)

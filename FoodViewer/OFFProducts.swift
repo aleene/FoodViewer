@@ -83,7 +83,7 @@ class OFFProducts {
                         if let validProduct = product {
                             self.allProductPairs[0].localProduct = product
                             self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
-                             self.allProductPairs[0].updateIsAllowed = false
+                             self.allProductPairs[0].updateIsAllowed = true
                         }
                             // I could add a notification here to inform the vc.
                             // However the vc is not loaded yet, so it can not receive anything.

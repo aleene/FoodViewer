@@ -31,7 +31,7 @@ class OpenFoodFactsRequest {
     
     var currentBarcode: BarcodeType? = nil
     
-    func fetchStoredProduct(_ data: Data) -> ProductFetchStatus {
+    func fetchStoredProduct(_ data: Data, completion: @escaping (ProductFetchStatus) -> ()) {
         do {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .secondsSince1970
@@ -45,25 +45,26 @@ class OpenFoodFactsRequest {
                 if newProduct.barcode.asString == "no code" {
                     newProduct.barcode = BarcodeType(barcodeString: productJson.code, type: newProduct.barcode.productType!)
                 }
-                return .success(newProduct)
+                completion(.success(newProduct))
             } else {
-                return .loadingFailed("OpenFoodFactsRequest: No valid stored product json")
+                completion(.loadingFailed("OpenFoodFactsRequest: No valid stored product json"))
             }
             
         } catch let error {
             print (error)
-            return .loadingFailed(error.localizedDescription)
+            completion(.loadingFailed(error.localizedDescription))
         }
 
-        //return unpackJSONObject(JSON(data: data))
+        return
     }
     
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
 
-    func fetchProductForBarcode(_ barcode: BarcodeType) -> ProductFetchStatus {
+    func fetchProduct(for barcode: BarcodeType, completion: @escaping (ProductFetchStatus) -> ()) {
         self.currentBarcode = barcode
+
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         })
@@ -72,13 +73,35 @@ class OpenFoodFactsRequest {
         fetchUrlString += barcode.productType != nil ? barcode.productType!.rawValue : currentProductType.rawValue
         fetchUrlString += OFF.URL.Postfix
         fetchUrlString += barcode.asString + OFF.URL.JSONExtension
-        let fetchUrl = URL(string: fetchUrlString)
-        if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(String(describing: fetchUrl))") }
-            DispatchQueue.main.async(execute: { () -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            })
 
-        if let url = fetchUrl {
+        let fetchUrl = URL(string: fetchUrlString)
+        //if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(String(describing: fetchUrl))") }
+        //    DispatchQueue.main.async(execute: { () -> Void in
+         //       UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        //    })
+        if let validURL = fetchUrl {
+            let cache = Shared.dataCache
+            cache.fetch(URL: validURL).onSuccess { data in
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                do {
+                    let productJson = try decoder.decode(OFFProductJson.self, from: data)
+                    if let offProduct = productJson.product {
+                        let newProduct = FoodProduct.init(json: offProduct)
+                        completion(.success(newProduct))
+                    } else {
+                        if productJson.status_verbose == "product not found" {
+                            completion(.productNotAvailable(barcode.asString))
+                        }
+                        completion(.loadingFailed(barcode.asString))
+                    }
+                } catch let error {
+                    print(error)
+                    completion(.loadingFailed(barcode.asString))
+                }
+                return
+            }
+            /*
             do {
                 let data = try Data(contentsOf: url, options: NSData.ReadingOptions.mappedIfSafe)
                 let decoder = JSONDecoder()
@@ -102,12 +125,14 @@ class OpenFoodFactsRequest {
                 if debug { print("OpenFoodFactsRequest:fetchJsonForBarcode(_:_) - \(error.description)") }
                 return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
             }
+             */
         } else {
-            return ProductFetchStatus.loadingFailed(self.currentBarcode!.asString)
+            completion(.loadingFailed(self.currentBarcode!.asString))
+            return
         }
     }
 
-    func fetchJsonForBarcode(_ barcode: BarcodeType) -> FetchJsonResult {
+    func fetchJson(for barcode: BarcodeType) -> FetchJsonResult {
         self.currentBarcode = barcode
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true

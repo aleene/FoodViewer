@@ -29,68 +29,24 @@ import MobileCoreServices
             default:
                 completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
             }
-            // is there a cached image?
-        } else if let validImage = self.url?.cachedImage {
-            switch typeIdentifier {
-            case kUTTypeJPEG as NSString as String:
-                completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
-            case kUTTypePNG as NSString as String:
-                completionHandler(UIImagePNGRepresentation(validImage), nil)
-            default:
-                completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
+        // is there a cached image?
+        } else if let validURL = self.url {
+            let fetcher = NetworkFetcher<UIImage>(URL: validURL)
+            let cache = Shared.imageCache
+            cache.fetch(fetcher: fetcher).onSuccess { image in
+                switch typeIdentifier {
+                case kUTTypeJPEG as NSString as String:
+                    completionHandler(UIImageJPEGRepresentation(image, 1.0), nil)
+                case kUTTypePNG as NSString as String:
+                    completionHandler(UIImagePNGRepresentation(image), nil)
+                default:
+                    completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
+                }
             }
-        // load the image
         } else {
-            if let validUrl = self.url {
-                retrieveData(for: validUrl, completionHandler: { (data, response, error)
-                in
-                    guard error == nil else {
-                        print(error!.localizedDescription)
-                        self.fetchResult = .loadingFailed(error!)
-                        completionHandler(nil, ImageLoadError.baseError(error!) )
-                        return
-                    }
-                
-                    //print(httpResponse.description)
-                    guard let httpResponse = response as? HTTPURLResponse else {
-                        completionHandler(nil, ImageLoadError.noValidHttpResponseReceived)
-                        return
-                    }
-  
-                    switch httpResponse.statusCode {
-                    case 200 :
-                        break
-                    default:
-                        print(httpResponse.description)
-                        completionHandler(nil, ImageLoadError.response(httpResponse))
-                        return
-                    }
-                    if let validData = data,
-                        validData.count != 0,
-                        let validImage = UIImage(data: validData) {
-                        self.fetchResult = .success(validImage)
-                        ImageCache.shared.setObject(
-                            validImage,
-                            forKey: validUrl.absoluteString as NSString,
-                            cost: validData.count)
-                        switch typeIdentifier {
-                        case kUTTypeJPEG as NSString as String:
-                            completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
-                        case kUTTypePNG as NSString as String:
-                            completionHandler(UIImagePNGRepresentation(validImage), nil)
-                        default:
-                            completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
-                        }
-                    } else {
-                        self.fetchResult = .noData
-                        completionHandler (nil, ImageLoadError.noDataReceived)
-                    }
-                })
-            } else {
-                self.fetchResult = .noData
-                // No image can be retrieved
-                completionHandler(nil, ImageLoadError.noValidUrl)
-            }
+            self.fetchResult = .noData
+            // No image can be retrieved
+            completionHandler(nil, ImageLoadError.noValidUrl)
         }
         return self.progress
     }
@@ -242,6 +198,7 @@ import MobileCoreServices
             let cache = Shared.imageCache
             cache.fetch(fetcher: fetcher).onSuccess { image in
                 completion(.success(image))
+                return
             }
         }
         /*

@@ -8,7 +8,7 @@
 
 // This class stores images retrieved from the internet in the cache
 // http://www.splinter.com.au/2015/09/24/swift-image-cache/
-
+/*
 import Foundation
 import UIKit
 
@@ -22,3 +22,4 @@ public class ImageCache {
     }()
 
 }
+*/
