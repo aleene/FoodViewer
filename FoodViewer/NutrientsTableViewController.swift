@@ -1268,7 +1268,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     @objc func reloadImageSection() { // (_ notification: Notification) {
         if let valid = imageSectionIndex {
-            tableView.reloadSections([valid], with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections([valid], with: .fade)
         }
     }
 
@@ -1347,27 +1348,24 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @objc func imageUploaded(_ notification: Notification) {
         guard !editMode else { return }
         // Check if this image is relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
-            if productPair != nil && barcode == productPair!.barcodeType.asString {
-                // is it relevant to the nutrition image?
-                if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
-                    if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
-                        self.productPair?.fetch()
-                    }
-                }
-            }
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String,
+            let validProductPair = productPair,
+            barcode == validProductPair.barcodeType.asString,
+            let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String,
+            id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
+                validProductPair.reload()
         }
     }
     
     
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // is it relevant to the nutrition image?
-                if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
+                if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Nutrition) {
-                        self.productPair?.fetch()
+                        self.productPair?.reload()
                     }
                 }
             }
@@ -1425,14 +1423,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(NutrientsTableViewController.refreshProduct),
-            name: .RemoteStatusChanged, object:nil
+            name: .ProductPairRemoteStatusChanged, object:nil
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.ProductPairImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
 
         delegate?.title = TranslatableStrings.NutritionFacts
 
@@ -1630,9 +1628,7 @@ extension NutrientsTableViewController:  ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard let validLanguageCode = displayLanguageCode else { return }
-        guard let validProductPair = productPair else { return }
-        let update = OFFUpdate()
-        update.deselect([validLanguageCode], of: .nutrition, for: validProductPair)
+        productPair?.deselect([validLanguageCode], of: .nutrition)
     }
     
 }

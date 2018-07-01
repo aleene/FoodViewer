@@ -313,7 +313,7 @@ class CategoriesTableViewController: UITableViewController {
         
         delegate?.title = TranslatableStrings.Categories
 
-        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
@@ -371,7 +371,8 @@ extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.categories.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }
@@ -425,7 +426,8 @@ extension CategoriesTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         // Assume that the tag value corresponds to the section
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.reloadData()
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
 }

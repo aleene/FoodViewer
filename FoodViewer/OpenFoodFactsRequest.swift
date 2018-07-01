@@ -61,26 +61,34 @@ class OpenFoodFactsRequest {
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
+    
+    func url(for barcodeType: BarcodeType) -> URL? {
+        var fetchUrlString = OFF.URL.Prefix
+        // add the right server
+        fetchUrlString += barcodeType.productType != nil ? barcodeType.productType!.rawValue : currentProductType.rawValue
+        fetchUrlString += OFF.URL.Postfix
+        fetchUrlString += barcodeType.asString + OFF.URL.JSONExtension
+        return URL(string: fetchUrlString)
 
-    func fetchProduct(for barcode: BarcodeType, completion: @escaping (ProductFetchStatus) -> ()) {
+    }
+
+    func fetchProduct(for barcode: BarcodeType, shouldBeReloaded: Bool, completion: @escaping (ProductFetchStatus) -> ()) {
         self.currentBarcode = barcode
 
         DispatchQueue.main.async(execute: { () -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
         })
-        var fetchUrlString = OFF.URL.Prefix
-        // add the right server
-        fetchUrlString += barcode.productType != nil ? barcode.productType!.rawValue : currentProductType.rawValue
-        fetchUrlString += OFF.URL.Postfix
-        fetchUrlString += barcode.asString + OFF.URL.JSONExtension
 
-        let fetchUrl = URL(string: fetchUrlString)
         //if debug { print("OpenFoodFactsRequest:fetchProductForBarcode(_:_) - \(String(describing: fetchUrl))") }
         //    DispatchQueue.main.async(execute: { () -> Void in
          //       UIApplication.shared.isNetworkActivityIndicatorVisible = false
         //    })
-        if let validURL = fetchUrl {
+        if let validURL = url(for: barcode) {
             let cache = Shared.dataCache
+            // the data should be reloaded from off
+            if shouldBeReloaded {
+                cache.remove(key: validURL.absoluteString)
+            }
             cache.fetch(URL: validURL).onSuccess { data in
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .secondsSince1970

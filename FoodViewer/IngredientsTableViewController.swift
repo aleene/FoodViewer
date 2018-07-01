@@ -946,7 +946,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
 
     @objc func reloadImageSection() { // (_ notification: Notification) {
-        tableView.reloadSections([imageSectionIndex!], with: .none)
+        tableView.reloadData()
+        //tableView.reloadSections([imageSectionIndex!], with: .none)
     }
     
     fileprivate var imageSectionIndex: Int? {
@@ -1045,13 +1046,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     @objc func imageUploaded(_ notification: Notification) {
         guard !editMode else { return }
         // Check if this image is relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // is it relevant to the ingredients image?
-                if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
+                if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        self.productPair?.fetch()
+                        self.productPair?.reload()
                     }
                 }
             }
@@ -1060,13 +1061,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // is it relevant to the ingredients image?
-                if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
+                if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Ingredients) {
                         // reload product data
-                        self.productPair?.fetch()
+                        self.productPair?.reload()
                     }
                 }
             }
@@ -1108,13 +1109,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         delegate?.title = TranslatableStrings.Ingredients
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
         // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
 
     }
@@ -1149,16 +1150,20 @@ extension IngredientsTableViewController: TagListViewCellDelegate {
         switch tableStructure[tagListView.tag] {
         case .labels:
             labelsTagsTypeToShow.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .traces:
             tracesTagsTypeToShow.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .allergens:
             allergensTagsTypeToShow.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .additives:
             additivesTagsTypeToShow.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         default:
             break
         }
@@ -1178,9 +1183,7 @@ extension IngredientsTableViewController: ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard let validLanguageCode = displayLanguageCode else { return }
-        guard let validProductPair = productPair else { return }
-        let update = OFFUpdate()
-        update.deselect([validLanguageCode], of: .ingredients, for: validProductPair)
+        productPair?.deselect([validLanguageCode], of: .ingredients)
     }
 
 }
@@ -1223,25 +1226,29 @@ extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegat
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.labels.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .tracesSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.traces.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .additivesSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.additives.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .allergensSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.allergens.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }
@@ -1633,7 +1640,8 @@ extension IngredientsTableViewController: TagListViewDataSource {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.reloadData()
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
     /// Called if the user wants to delete all tags

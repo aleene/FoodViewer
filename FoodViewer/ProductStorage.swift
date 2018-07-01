@@ -11,6 +11,12 @@ import UIKit
 
 public struct ProductStorage {
     
+    // This class is implemented as a singleton
+    // It is only needed by OpenFoodFactRequests.
+    // An instance could be loaded for each request
+    // A singleton limits however the number of file loads
+    static let manager = ProductStorage()
+
     private struct Constant {
         static let ImageExtension = ".jpg"
         static let JsonExtension = ".json"

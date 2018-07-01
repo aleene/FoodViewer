@@ -1020,8 +1020,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
         // either the local product or the remote product
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.RemoteStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.LocalStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductPairRemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductPairLocalStatusChanged, object:nil)
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
 
@@ -1207,7 +1207,8 @@ extension ProductTableViewController: TagListViewDataSource {
 extension ProductTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.reloadData()
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {

@@ -242,7 +242,7 @@ class OFFProducts {
         // Create the productPair
         allProductPairs.insert(ProductPair(barcodeType: barcodeType), at: 0)
         // and start fetching
-        allProductPairs[0].fetch()
+        allProductPairs[0].newFetch()
         // save the new product as the most recent one
         MostRecentProduct().save(product:allProductPairs[0].remoteProduct)
         // save the new product in the history
@@ -260,7 +260,7 @@ class OFFProducts {
     func fetchProduct(with barcodeType: BarcodeType) {
         if let index = productPairIndex(barcodeType) {
             // The product exists
-            allProductPairs[index].fetch()
+            allProductPairs[index].newFetch()
         }
     }
 
@@ -368,9 +368,7 @@ class OFFProducts {
     //TODO: This can be replaced with the JSON encoder
     
     func reload(productPair: ProductPair?) {
-        if let validProductPair = productPair {
-            validProductPair.fetch()
-        }
+        productPair?.reload()
     }
     
     func reloadAll() {

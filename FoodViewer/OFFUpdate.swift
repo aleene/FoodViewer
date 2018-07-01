@@ -361,7 +361,7 @@ class OFFUpdate {
             urlString.append("-" + validID)
         }
         
-
+/*
         var imagesUpdated = false
         if product.frontImages.count > 0 {
             uploadImages(product.frontImages, barcode: product.barcode.asString, id:"front", productPair: productPair)
@@ -381,6 +381,7 @@ class OFFUpdate {
             uploadImages(product.images, barcode: product.barcode.asString, id:"general", productPair: productPair)
             imagesUpdated = true
         }
+  */
 //  This class seems to be no longer in use
         if productUpdated {
             if let url = URL(string: urlString) {
@@ -395,13 +396,14 @@ class OFFUpdate {
             } else {
                 return .failure(urlString, "OFFUpdate Error: URL is wrong somehow")
             }
-        } else if imagesUpdated {
-            return .images(product.barcode.asString)
+        //} else if imagesUpdated {
+        //    return .images(product.barcode.asString)
         } else {
             return .failure(urlString, "OFFUpdate Error: No product changes detected")
         }
     }
 
+    /*
     private func uploadImages(_ dict: [String:ProductImageSize], barcode: String, id: String, productPair: ProductPair) {
         // any image to upload?
         guard dict.count > 0 else { return }
@@ -414,6 +416,7 @@ class OFFUpdate {
                 case .success(let image):
                     // Is this a selected image?
                     if id != "general" {
+                        // The image is no longer relevant and can be removed from the image cache as well
                         // start by unselecting any existing image
                         postDelete(parameters: [OFFHttpPost.UnselectParameter.CodeKey:barcode,
                                                 OFFHttpPost.UnselectParameter.IdKey:OFFHttpPost.idValue(for:id, in:element.key)
@@ -530,8 +533,8 @@ class OFFUpdate {
             result = data.resultForImageUpload(productPair: productPair)
             DispatchQueue.main.async(execute: { () -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                if result != nil {
-                    switch result! {
+                if let validResult = result {
+                    switch validResult {
                     case .success(_, let error):
                         print("OFFUpdate:post", error)
                         let userInfo = [Notification.ImageUploadSuccessStatusKey:error as String,
@@ -539,7 +542,7 @@ class OFFUpdate {
                                         Notification.ImageUploadSuccessImagetypeKey: parameters[OFFHttpPost.AddParameter.ImageField.Key]! as String]
                         NotificationCenter.default.post(name: .OFFUpdateImageUploadSuccess, object: nil, userInfo: userInfo)
                     default:
-                        break
+                         break
                     }
                 }
             })
@@ -658,6 +661,7 @@ class OFFUpdate {
         })
         task.resume()
     }
+  */
 
     /*
     fileprivate struct OFFJson {
@@ -752,12 +756,13 @@ class OFFUpdate {
     }
     
 }
-
+/*
 // Definition:
 extension Notification.Name {
     static let OFFUpdateImageUploadSuccess = Notification.Name("OFFUpdate.Notification.ImageUploadSuccess")
     static let OFFUpdateImageDeleteSuccess = Notification.Name("OFFUpdate.Notification.ImageDeleteSuccess")
 }
+  */
  
  extension Data {
     

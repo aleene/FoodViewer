@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 class ProductUpdate: OFFProductUpdateAPI {
     
-    func update(product: FoodProduct, completionHandler: @escaping (ProductUpdateStatus?) -> () ) {
+    func update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () ) {
         
         // update only the fields that have something defined, i.e. are not nil
         var productUpdated: Bool = false
@@ -285,22 +285,46 @@ class ProductUpdate: OFFProductUpdateAPI {
 
         if productUpdated {
             super.update(urlString: urlString ) {
-                ( json: OFFProductUploadResultJson? ) in
-                if let validJson = json {
-                    if let validStatus = validJson.status {
+                ( completionHandler: ResultType<OFFProductUploadResultJson> ) in
+                switch completionHandler {
+                case .success(let json):
+                    if let validStatus = json.status {
                         if validStatus == 0 {
-                            return completionHandler (ProductUpdateStatus.failure(product.barcode.asString, "\(validStatus)") )
-                        } else if validJson.status == 1 {
-                            return completionHandler (ProductUpdateStatus.success(product.barcode.asString, "\(validStatus)"))
+                            let error = NSError.init(domain: "FoodViewer",
+                                                     code: 13,
+                                                     userInfo:["Class": "ProductUpdate",
+                                                               "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                                               "Reason": "status 0 received"])
+                            return completion(.failure(error))
+                        } else if json.status == 1 {
+                            return completion (.success(json))
                         } else {
-                            return completionHandler (ProductUpdateStatus.failure(product.barcode.asString, "ProductUpdate: unexpected status_code"))
+                            let error = NSError.init(domain: "FoodViewer",
+                                                     code: 13,
+                                                     userInfo:["Class": "ProductUpdate",
+                                                               "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                                               "Reason": "Unrecognized status_code received"])
+                            return completion(.failure(error))
                         }
                     }
-                    completionHandler(nil)
+                    let error = NSError.init(domain: "FoodViewer",
+                                             code: 13,
+                                             userInfo:["Class": "ProductUpdate",
+                                                       "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                                       "Reason": "no valid status_code received"])
+                    return completion(.failure(error))
+
+                case .failure(let error):
+                    return completion (.failure(error))
                 }
             }
         } else {
-            completionHandler(nil)
+            let error = NSError.init(domain: "FoodViewer",
+                                     code: 13,
+                                     userInfo:["Class": "ProductUpdate",
+                                               "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                               "Reason": "product not updated"])
+            return completion(.failure(error))
         }
     }
     

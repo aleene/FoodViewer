@@ -473,7 +473,7 @@ class CompletionStatesTableViewController: UITableViewController {
         
         delegate?.title = Constants.ViewControllerTitle
 
-        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
         NotificationCenter.default.addObserver(self, selector:#selector(CompletionStatesTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
@@ -593,7 +593,8 @@ extension CompletionStatesTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         // Assume that the tag value corresponds to the section
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.reloadData()
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
 }

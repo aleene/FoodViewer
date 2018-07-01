@@ -1139,14 +1139,14 @@ class IdentificationTableViewController: UITableViewController {
     @objc func imageUploaded(_ notification: Notification) {
         guard !editMode else { return }
         // Check if this image is relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if let productBarcode = productPair!.remoteProduct?.barcode.asString {
                 if barcode == productBarcode {
                     // is it relevant to the main image?
-                    if let id = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessImagetypeKey] as? String {
+                    if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
                         if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
                             // reload product data
-                            self.productPair?.fetch()
+                            self.productPair?.reload()
                         }
                     }
                 }
@@ -1156,13 +1156,13 @@ class IdentificationTableViewController: UITableViewController {
     
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if barcode == productPair!.remoteProduct!.barcode.asString {
                 // is it relevant to the main image?
-                if let id = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessImagetypeKey] as? String {
+                if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
                     if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
                         // reload product data
-                        self.productPair?.fetch()
+                        self.productPair?.reload()
                     }
                 }
             }
@@ -1229,13 +1229,13 @@ class IdentificationTableViewController: UITableViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
         
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.OFFUpdateImageUploadSuccess, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
     }
     
     //override func viewDidAppear(_ animated: Bool) {
@@ -1310,10 +1310,12 @@ extension IdentificationTableViewController: TagListViewCellDelegate {
         switch currentProductSection {
         case .packaging:
             showPackagingTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .brands:
             showBrandTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         default:
             break
         }
@@ -1343,9 +1345,7 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
         guard let validLanguageCode = displayLanguageCode else { return }
-        guard productPair!.remoteProduct != nil else { return }
-        let update = OFFUpdate()
-        update.deselect([validLanguageCode], of: .front, for: productPair!)
+        productPair?.deselect([validLanguageCode], of: .front)
     }
     
 }
@@ -1377,19 +1377,23 @@ extension IdentificationTableViewController: TagListViewSegmentedControlCellDele
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.languages.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .packagingSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.packaging.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .brandsSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.brands.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }
@@ -1788,7 +1792,8 @@ extension IdentificationTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        // causes a crash
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {

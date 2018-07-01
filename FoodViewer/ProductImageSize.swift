@@ -18,10 +18,31 @@ struct ProductImageSize {
     var usedIn: [(String,ImageTypeCategory)] = []
     
     mutating func reset() {
-        if display != nil { display!.fetchResult = nil }
-        if small != nil { small!.fetchResult = nil }
-        if thumb != nil { thumb!.fetchResult = nil }
-        if original != nil { original!.fetchResult = nil }
+        let cache = Shared.imageCache
+        if let validDisplay = display {
+            validDisplay.fetchResult = nil
+            if let validURL = validDisplay.url {
+                cache.remove(key: validURL.absoluteString)
+            }
+        }
+        if let validDisplay = small {
+            validDisplay.fetchResult = nil
+            if let validURL = validDisplay.url {
+                cache.remove(key: validURL.absoluteString)
+            }
+        }
+        if let validDisplay = thumb {
+            validDisplay.fetchResult = nil
+            if let validURL = validDisplay.url {
+                cache.remove(key: validURL.absoluteString)
+            }
+        }
+        if let validDisplay = original {
+            validDisplay.fetchResult = nil
+            if let validURL = validDisplay.url {
+                cache.remove(key: validURL.absoluteString)
+            }
+        }
     }
     
     var largest: ProductImageData? {

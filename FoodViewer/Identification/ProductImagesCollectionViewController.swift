@@ -578,7 +578,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     @objc func reloadProduct(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageUploadSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // reload product data
                 OFFProducts.manager.reload(productPair: productPair)
@@ -589,7 +589,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     @objc func imageDeleted(_ notification: Notification) {
         // Check if this image was relevant to this product
-        if let barcode = notification.userInfo?[OFFUpdate.Notification.ImageDeleteSuccessBarcodeKey] as? String {
+        if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
             if barcode == productPair!.barcodeType.asString {
                 // reload product data
                 OFFProducts.manager.reload(productPair: productPair)
@@ -661,8 +661,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdateSucceeded, object:nil)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.RemoteStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct), name:.OFFUpdateImageUploadSuccess, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductPairRemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct), name:.ProductPairImageUploadSuccess, object:nil)
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
 
     }
@@ -689,16 +689,13 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
             switch tableStructure[validIndexPath.section] {
             case .frontImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[validIndexPath.row].0
-                let update = OFFUpdate()
-                update.deselect([languageCode], of: .front, for: productPair!)
+                productPair?.deselect([languageCode], of: .front)
             case .ingredientsImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
-                let update = OFFUpdate()
-                update.deselect([languageCode], of: .ingredients, for: productPair!)
+                productPair?.deselect([languageCode], of: .ingredients)
             case .nutritionImages:
                 let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
-                let update = OFFUpdate()
-                update.deselect([languageCode], of: .nutrition, for: productPair!)
+                productPair?.deselect([languageCode], of: .nutrition)
             case .originalImages:
                 performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
             }

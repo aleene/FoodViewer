@@ -1100,7 +1100,7 @@ class SupplyChainTableViewController: UITableViewController {
 
         delegate?.title = TranslatableStrings.SupplyChain
 
-        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .RemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name: .ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
         NotificationCenter.default.addObserver(self, selector:#selector(SupplyChainTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
@@ -1136,16 +1136,20 @@ extension SupplyChainTableViewController: TagListViewCellDelegate {
         switch currentProductSection {
         case .producer:
             showProducerTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .producerCode:
             showProducerCodeTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .country:
             showCountriesTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .ingredientOrigin:
             showIngredientOriginTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         default:
             break
         }
@@ -1162,10 +1166,12 @@ extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
         switch currentProductSection {
         case .location:
             showPurchaseLocationTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .store:
             showStoresTagsType.cycle()
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         default:
             break
         }
@@ -1186,37 +1192,43 @@ extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegat
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.origins.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .producerSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.manufacturing_places.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .producerCodeSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.emb_codes.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .storeSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.stores.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .locationSearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.purchase_places.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .countrySearch:
             if OFFProducts.manager.searchQuery == nil {
                 OFFProducts.manager.searchQuery = SearchTemplate.init()
             }
             OFFProducts.manager.searchQuery!.countries.1 = inclusion
-            tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }
@@ -1669,7 +1681,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
         case .producerCode:
             switch producerCodeTagsToDisplay {
@@ -1684,7 +1697,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
         case .ingredientOrigin:
             switch ingredientOriginLocationTagsToDisplay {
@@ -1699,7 +1713,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
 
         case .store:
             switch storeTagsToDisplay {
@@ -1714,7 +1729,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
         case .location:
             switch purchaseLocationTagsToDisplay {
@@ -1729,7 +1745,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
         case .country:
             switch countriesToDisplay {
@@ -1744,7 +1761,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
             
         case .sites:
             switch linksToDisplay {
@@ -1759,7 +1777,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+            tableView.reloadData()
+            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         
         case .producerSearch:
             switch searchProducerTagsToDisplay {
@@ -1848,7 +1867,8 @@ extension SupplyChainTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         // print("reloading section", tagListView.tag)
-        tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
+        tableView.reloadData()
+        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
     }
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
