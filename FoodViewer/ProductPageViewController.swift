@@ -172,14 +172,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private var productPair: ProductPair? = nil {
         didSet {
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
-            //if oldValue == nil && productPair != nil {
-            // has the product been initialised?
-                //setCurrentLanguage()
-                //setupProduct()
-            //} else if oldValue != nil && productPair != nil && oldValue!.barcodeType.asString != productPair!.barcodeType.asString {
-            // was there a product change?
-                //setCurrentLanguage()
-            //} // otherwise the language can not be set
             title = prefixedTitle
         }
     }
@@ -598,7 +590,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    // MARK: - Product Updated Protocol functions
+// MARK: - Product Updated Protocol functions
 
     // The updated product contains only those fields that have been edited.
     // Thus one can always revert to the original product
@@ -606,15 +598,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // The user can undo an edit in progress by stepping back, i.e. selecting another product
     // First it is checked whether a change to the field has been made
     
-    
-    /*
-    func updated(searchText: String) {
-        guard product != nil else { return }
-        initUpdatedProductWith(product: product!)
-        // updatedProduct?.searchText = searchText
-        saveUpdatedProduct()
-    }
-  */
 //
 // MARK: - Authentication
 //

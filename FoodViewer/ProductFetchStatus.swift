@@ -21,7 +21,7 @@ enum ProductFetchStatus {
     // available implies that the product has been retrieved and is available for usage
     case available(String)
     // when the user has successfully uploaded a new version
-    case updating(String)
+    case updated(String)
     // the product is not available on the off servers
     case productNotAvailable(String) // (barcodeString)
     // the loading did not succeed
@@ -45,7 +45,7 @@ enum ProductFetchStatus {
         case .loading: return TranslatableStrings.ProductLoading
         case .success: return TranslatableStrings.ProductIsLoaded
         case .available: return TranslatableStrings.ProductIsLoaded
-        case .updating: return TranslatableStrings.ProductIsUpdated
+        case .updated: return TranslatableStrings.ProductIsUpdated
         case .loadingFailed: return TranslatableStrings.ProductLoadingFailed
         case .productNotAvailable: return TranslatableStrings.ProductNotAvailable
             
@@ -64,7 +64,7 @@ enum ProductFetchStatus {
         case .loading: return 2
         case .success: return 3
         case .available: return 4
-        case .updating: return 5
+        case .updated: return 5
         case .productNotAvailable: return 6
         case .loadingFailed: return 7
 

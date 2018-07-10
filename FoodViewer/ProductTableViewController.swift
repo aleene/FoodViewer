@@ -63,7 +63,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case .loading: return Constants.TagValue.Product.Loading
         case .success: return Constants.TagValue.Product.Success
         case .available: return Constants.TagValue.Product.Available
-        case .updating: return Constants.TagValue.Product.Updating
+        case .updated: return Constants.TagValue.Product.Updating
         case .productNotAvailable: return Constants.TagValue.Product.NotAvailable
         case .loadingFailed: return Constants.TagValue.Product.LoadingFailed
             
@@ -84,7 +84,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         didSet {
             var section = 0
             // get the index of the existing productPair
-            if let validSection = products.indexOfProduct(with: barcodeType) {
+            if let validSection = products.indexOfProductPair(with: barcodeType) {
                 section = validSection
            } else {
                 // create a new productPair
@@ -98,6 +98,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             tableView.scrollToRow(at: IndexPath.init(row: 0, section: section), at: .middle, animated: true)
         }
     }
+    
+    fileprivate var focusOnNewSearchedProductPair = false
     
     fileprivate func startInterface(at index:Int) {
         if let validProductPair = products.productPair(at: index),
@@ -310,7 +312,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let validFetchResult = products.productPair(at: section)?.status {
             switch validFetchResult {
-            case .available:
+            case .available, .updated:
                 return tableStructure.count
             case .searchQuery:
                 if section == 0 {
@@ -337,7 +339,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         if let validFetchResult = products.productPair(at: indexPath.section)?.status {
             switch validFetchResult {
-            case .available:
+            case .available, .updated:
                 products.loadProductPair(at: indexPath.section) //make sure the next set is loaded
                 let productPair = products.productPair(at: indexPath.section)
                 let currentProductSection = tableStructure[indexPath.row]
@@ -689,6 +691,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         return UITableViewAutomaticDimension
     }
     
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        // if the user starts scrolling the barcode search focus can be reset
+         self.focusOnNewSearchedProductPair = false
+    }
+    
 // MARK: - Scene changes
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -790,9 +797,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             barcodeType = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
             // update the interface
             searchTextField.text = vc.barcode
-            // TODO: Should this be here?
-            //products.list = .recent
-            //startInterface(at: selectedIndex ?? 0)
+            focusOnNewSearchedProductPair = true
             performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         } else {
             assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
@@ -852,12 +857,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
-            let section = products.productPairIndex(BarcodeType(barcodeString: barcodeString, type:Preferences.manager.showProductType)) {
-            // let indexPaths = [IndexPath.init(row: 1, section: section)]
-            let aantal = tableView.numberOfSections
-            if section < aantal {
+            let section = products.indexOfProductPair(with: BarcodeType(barcodeString: barcodeString, type:Preferences.manager.showProductType)) {
+            let visibleIndexPaths = self.tableView.indexPathsForVisibleRows
+            let indexPathForProductPair = IndexPath(row: 1, section: section)
+            if let validVisibleIndexPaths = visibleIndexPaths,
+                // only look for rows with an image
+                validVisibleIndexPaths.contains(indexPathForProductPair) {
                 tableView.reloadData()
-                // tableView.reloadRows(at: indexPaths, with: .none)
+            }
+            // If the user just scanned a product, it should stays focussed on that product
+            if focusOnNewSearchedProductPair {
+                if let validSelectedIndex = products.index(of: selectedProductPair) {
+                    tableView.scrollToRow(at: IndexPath(row: 0, section: validSelectedIndex), at: .top, animated: false)
+                }
             }
         }
     }
@@ -904,7 +916,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
         if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
-            if let index = products.productPairIndex(BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType)) {
+            if let index = products.indexOfProductPair(with: BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType)) {
                 if index == 0 {
                     if let validProductPair = products.productPair(at: index) {
                     // If this is the product at the top,
@@ -917,15 +929,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                 }
-                
-                // This codepart results sometimes in a crash. No idea what is happening
-                // I like to reload only the product that has been updated
-                
-                //if self.tableView.numberOfSections > index + 1 {
-                //    self.tableView.reloadSections([index], with: .automatic)
-                //} else {
-                    self.tableView.reloadData()
-                //}
+                // If the user just scanned a product, it should stays focussed on that product
+                if focusOnNewSearchedProductPair {
+                    if let validSelectedIndex = products.index(of: selectedProductPair) {
+                        tableView.reloadData()
+                        tableView.scrollToRow(at: IndexPath(row: 0, section: validSelectedIndex), at: .top, animated: false)
+                    }
+                } else {
+                    let visibleIndexPaths = self.tableView.indexPathsForVisibleRows
+                    let indexPathForProductPair = IndexPath(row: 0, section: index)
+                    if let validVisibleIndexPaths = visibleIndexPaths,
+                    // only look for rows with an image
+                        validVisibleIndexPaths.contains(indexPathForProductPair) {
+                        tableView.reloadData()
+                    }
+                }
             }
         }
     }
@@ -952,9 +970,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
-
-    //func showPopOver() {
-    //}
     
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
@@ -969,9 +984,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    // MARK: - Viewcontroller lifecycle
+// MARK: - Viewcontroller lifecycle
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -1022,10 +1036,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // either the local product or the remote product
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductPairLocalStatusChanged, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductUpdated, object:nil)
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productLoaded(_:)), name:.ProductLoaded, object:nil)
-
-        //NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.showAlertProductNotAvailable(_:)), name:.ProductNotAvailable, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.SampleLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)

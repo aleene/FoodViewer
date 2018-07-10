@@ -47,8 +47,8 @@ class ImageViewController: UIViewController {
         if imageData != nil {
             if let result = imageData!.fetch() {
                 switch result {
-                case .available:
-                    return imageData!.image
+                case .success(let image):
+                    return image
                 // in the other case I should show a loading or impossible image
                 case .loading:
                     return UIImage.init(named:"Loading")

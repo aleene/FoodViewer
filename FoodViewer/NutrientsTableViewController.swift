@@ -1243,7 +1243,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
 //
     @objc func refreshProduct() {
         guard productPair != nil else { return }
-        tableView.reloadData()
+        refreshProductWithNewNutritionFacts()
+
     }
     
     func newPerUnitSettings(_ notification: Notification) {
@@ -1267,10 +1268,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
  */
     
     @objc func reloadImageSection() { // (_ notification: Notification) {
-        if let valid = imageSectionIndex {
+        //if let valid = imageSectionIndex {
             tableView.reloadData()
             //tableView.reloadSections([valid], with: .fade)
-        }
+        //}
     }
 
     fileprivate var imageSectionIndex: Int? {

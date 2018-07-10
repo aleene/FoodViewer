@@ -170,7 +170,7 @@ class OFFProducts {
     }
 
     private func loadProductPairRange(around index: Int) {
-        let range = 5
+        let range = 8
         let lowerBound = index - Int(range/2) < 0 ? 0 : index - Int(range/2)
         let upperBound = index + Int(range/2) < allProductPairs.count ? index + Int(range/2) : allProductPairs.count - 1
         for ind in lowerBound...upperBound {
@@ -200,33 +200,24 @@ class OFFProducts {
     }
     
     func productPair(for barcode: BarcodeType) -> ProductPair? {
-        if let index = productPairIndex(barcode){
+        if let index = indexOfProductPair(with: barcode){
             return productPair(at: index)
         }
         return nil
     }
     
-    func productPairIndex(_ barcodeType: BarcodeType?) -> Int? {
-        guard barcodeType != nil else { return nil }
-        for (index, productPair) in allProductPairs.enumerated() {
-            if productPair.barcodeType.asString == barcodeType!.asString {
-                return index
-            }
-        }
-        return nil
+    func indexOfProductPair(with barcodeType: BarcodeType?) -> Int? {
+        guard let validbarcodeType = barcodeType else { return nil }
+        return allProductPairs.index(where: { $0.barcodeType.asString == validbarcodeType.asString })
     }
     
-    func indexOfProduct(with barcodeType: BarcodeType) -> Int? {
-        if let index = productPairIndex(barcodeType) {
-            // The product aleady exists
-            // do we ever get here?
-            return index
-        }
-        return nil
+    func index(of productPair: ProductPair?) -> Int? {
+        guard let validProductPair = productPair else { return nil }
+        return allProductPairs.index(where: { $0.barcodeType.asString == validProductPair.barcodeType.asString })
     }
     
     func createProduct(with barcodeType: BarcodeType) -> Int {
-        if let existingIndex = indexOfProduct(with: barcodeType) {
+        if let existingIndex = indexOfProductPair(with: barcodeType) {
             // check if the product does not exist
             return existingIndex
         }
@@ -258,7 +249,7 @@ class OFFProducts {
     }
     
     func fetchProduct(with barcodeType: BarcodeType) {
-        if let index = productPairIndex(barcodeType) {
+        if let index = indexOfProductPair(with: barcodeType) {
             // The product exists
             allProductPairs[index].newFetch()
         }
