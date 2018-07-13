@@ -133,14 +133,20 @@ import MobileCoreServices
         fetchResult = nil
     }
     
-    init(image: UIImage, key:String) {
+    init(image: UIImage) {
         super.init()
         self.url = nil
         self.image = image
-        //ImageFileCache.manager.cache.put(key: key, value: image)
         self.fetchResult = .success(image)
     }
     
+    init(image: UIImage, url: URL) {
+        super.init()
+        self.url = url
+        self.image = image
+        self.fetchResult = .success(image)
+    }
+
     
     convenience init(barcode: BarcodeType, key: String, size: ImageSizeCategory) {
         self.init(url: URL.init(string: OFF.imageURLFor(barcode, with:key, size:size)))
@@ -151,8 +157,7 @@ import MobileCoreServices
         switch typeIdentifier {
         case kUTTypeImage as NSString as String:
             if let validImage = UIImage.init(data: data) {
-                let validKey = "DraggedImage"
-                self.init(image:validImage, key: validKey)
+                self.init(image:validImage)
             }
         default:
             break
@@ -191,14 +196,19 @@ import MobileCoreServices
     func retrieveImage(completion: @escaping (ImageFetchResult) -> ()) {
         // Is there a local image?
         if let validImage = image {
+            // The local image can no longer be present due to flushing
             completion(.success(validImage))
             return
         } else if let validURL = self.url {
-            let fetcher = NetworkFetcher<UIImage>(URL: validURL)
-            let cache = Shared.imageCache
-            cache.fetch(fetcher: fetcher).onSuccess { image in
-                completion(.success(image))
-                return
+            if validURL.isFileURL {
+                
+            } else {
+                let fetcher = NetworkFetcher<UIImage>(URL: validURL)
+                let cache = Shared.imageCache
+                cache.fetch(fetcher: fetcher).onSuccess { image in
+                    completion(.success(image))
+                    return
+                }
             }
         }
         /*

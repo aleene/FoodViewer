@@ -76,17 +76,17 @@ class OFFProducts {
                 // If there is no history, we are in the cold start case
                 if !storedList.isEmpty {
                     // create all productPairs found in the history
-                    storedList.forEach( { allProductPairs.append(ProductPair(barcodeString: $0, type: currentProductType))})
-                    // load the locally stored product
-                    allProductPairs[0].localStatus = .loading(allProductPairs[0].barcodeType.asString)
+                    storedList.forEach({
+                        allProductPairs.append( ProductPair( barcodeString: $0, type: currentProductType))
+                    })
+                    // load the most recent stored product
+                    allProductPairs[0].localStatus = .loading( allProductPairs[0].barcodeType.asString )
                         MostRecentProduct().load() { (product: FoodProduct?) in
                         if let validProduct = product {
                             self.allProductPairs[0].localProduct = product
                             self.allProductPairs[0].barcodeType = BarcodeType.mostRecent(validProduct.barcode.asString, validProduct.type)
                              self.allProductPairs[0].updateIsAllowed = true
                         }
-                            // I could add a notification here to inform the vc.
-                            // However the vc is not loaded yet, so it can not receive anything.
                     }
                     loadProductPairRange(around: 0)
                 } else {

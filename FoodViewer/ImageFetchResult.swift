@@ -11,33 +11,30 @@ import Foundation
 import UIKit
 
 enum ImageFetchResult {
-    //case available
-    case success(UIImage)
     case loading
     case loadingFailed(Error)
-    case response(HTTPURLResponse)
-    case noResponse
     case noData
     case noImageAvailable
+    case noResponse
+    case response(HTTPURLResponse)
+    case success(UIImage)
     case uploading
     
     public var description: String {
         switch self {
-        //case .available: return TranslatableStrings.ImageIsAvailable
-        case .success: return TranslatableStrings.DataIsLoaded
         case .loading: return TranslatableStrings.ImageIsBeingLoaded
         case .loadingFailed: return TranslatableStrings.ImageLoadingHasFailed
         case .noData: return TranslatableStrings.ImageWasEmpty
-        case .response: return TranslatableStrings.ResponseReceived
         case .noImageAvailable: return TranslatableStrings.NoImageAvailable
         case .noResponse: return TranslatableStrings.NoResponse
+        case .response: return TranslatableStrings.ResponseReceived
+        case .success: return TranslatableStrings.DataIsLoaded
         case .uploading: return TranslatableStrings.UploadingImage
         }
     }
 
     var rawValue: Int {
         switch self {
-        //case .available: return 0
         case .success: return 1
         case .loading: return 2
         case .loadingFailed: return 3
@@ -52,7 +49,6 @@ enum ImageFetchResult {
 
     static func description(for value: Int) -> String {
         switch value {
-        //case ImageFetchResult.available.rawValue: return ImageFetchResult.available.description
         case ImageFetchResult.success(UIImage()).rawValue: return ImageFetchResult.success(UIImage()).description
         case ImageFetchResult.loading.rawValue: return ImageFetchResult.loading.description
         case 3:

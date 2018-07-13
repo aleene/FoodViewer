@@ -107,5 +107,14 @@ struct ProductImageSize {
         }
         return false
     }
+    
+    func flush() {
+        // This will remove the stored images and set the fetchResult to flushed
+        // The images will be retrieved again from disk or internet
+        display?.fetchResult = nil // 400
+        small?.fetchResult = nil // 200
+        thumb?.fetchResult = nil // 100
+        original?.fetchResult = nil // any
+    }
 
 }

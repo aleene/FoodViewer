@@ -18,159 +18,278 @@ public struct ProductStorage {
     static let manager = ProductStorage()
 
     private struct Constant {
-        static let ImageExtension = ".jpg"
-        static let JsonExtension = ".json"
-        static let FrontImage = "front_"
-        static let IngredientsImage = "ingredients_"
-        static let NutritionImage = "nutrition_"
+        static let ImageExtension = "jpg"
+        static let JsonExtension = "json"
     }
     // Provide the number of stored products
     var count: Int {
         return 0
     }
-    
-    func save(_ product: FoodProduct) {
-        // create a directory for this product
-        guard let directoryURL = URL.createDirectory(with:product.barcode.asString) else {
-            assert(true, "ProductStorage: Not able to create directory")
-            return
+    func save(_ product: FoodProduct, completion: @escaping (ResultType<FoodProduct>) -> () ) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+            self.write( product ) {( completionHandler: ResultType<FoodProduct> ) in
+                DispatchQueue.main.async(execute: {( ) -> Void in
+                    switch completionHandler {
+                    case .success(let product):
+                        return completion (.success(product))
+                    case .failure(let error):
+                        return completion(.failure(error))
+                    }
+                })
+            }
+        })
+    }
+
+    private func write(_ product: FoodProduct, completionHandler: @escaping (ResultType<FoodProduct>) -> () ) {
+        
+        if !fileManager.fileExists(atPath: productUrl(for:product.barcode).path) {
+            // create a directory for this product
+            do {
+                try fileManager.createDirectory(at: productUrl(for:product.barcode), withIntermediateDirectories: false, attributes: nil)
+            } catch let error {
+                print("FileStorage: Product directory creation failed \(error.localizedDescription)")
+                return completionHandler(.failure(error))
+            }
         }
         let encoder = JSONEncoder()
         do {
             let encodedData = try encoder.encode(product.asOFFProductJson)
-            let fileURL =  directoryURL.appendingPathComponent(product.barcode.asString + Constant.JsonExtension)
+            let fileURL =  productUrl(for:product.barcode).appendingPathComponent(product.barcode.asString).appendingPathExtension(Constant.JsonExtension)
             do {
                 try encodedData.write(to: fileURL)
-            }
-            catch let error {
+            } catch let error {
                 print("ProductStorage: Failed to write JSON data: \(error.localizedDescription)")
+                return completionHandler(.failure(error))
             }
         } catch let error {
             print("ProductStorage: Failed to encode: \(error.localizedDescription)")
+            return completionHandler(.failure(error))
         }
 
-        // convert the data to a json file and store that
-        // store the new images
-        for imageDict in product.images {
-            if let fetchResult = imageDict.value.original?.fetch() {
-                switch fetchResult {
-                case .success(let image):
-                    do {
-                        let fileURL =  directoryURL.appendingPathComponent("\(imageDict.key)" + Constant.ImageExtension)
-                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                    } catch {
-                        assert(true, "ProductStorage: Not able to create and write image")
+        if !product.images.isEmpty {
+            let newImagesUrl = productUrl(for:product.barcode).appendingPathComponent(ImageTypeCategory.general.description)
+            if !fileManager.fileExists(atPath: newImagesUrl.path) {
+                // create a directory for this product
+                do {
+                    try fileManager.createDirectory(at: newImagesUrl, withIntermediateDirectories: false, attributes: nil)
+                } catch let error {
+                    print("FileStorage: Product directory creation failed \(error.localizedDescription)")
+                    return completionHandler(.failure(error))
+                }
+            }
+
+            // convert the data to a json file and store that
+            // store the new images
+            for imageDict in product.images {
+                if let fetchResult = imageDict.value.original?.fetch() {
+                    switch fetchResult {
+                    case .success(let image):
+                        do {
+                            let fileURL =  newImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
+                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                        } catch {
+                            assert(true, "ProductStorage: Not able to create and write image")
+                            return completionHandler(.failure(error))
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
                 }
             }
         }
+        
         // store the front images
-        for imageDict in product.frontImages {
-            if let fetchResult = imageDict.value.original?.fetch() {
-                switch fetchResult {
-                case .success(let image):
-                    do {
-                        let fileURL =  directoryURL.appendingPathComponent(Constant.FrontImage + "\(imageDict.key)" + Constant.ImageExtension)
-                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                    } catch {
-                        assert(true, "ProductStorage: Not able to create and write image")
+        
+        if !product.frontImages.isEmpty {
+            let frontImagesUrl = productUrl(for: product.barcode).appendingPathComponent(ImageTypeCategory.front.description)
+            if !fileManager.fileExists(atPath: frontImagesUrl.path) {
+                // create a directory for this product
+                do {
+                    try fileManager.createDirectory(at: frontImagesUrl, withIntermediateDirectories: false, attributes: nil)
+                } catch let error {
+                    print("ProductStorage: Product directory creation failed \(error.localizedDescription)")
+                    return completionHandler(.failure(error))
+                }
+            }
+
+            for imageDict in product.frontImages {
+                if let fetchResult = imageDict.value.original?.fetch() {
+                    switch fetchResult {
+                    case .success(let image):
+                        do {
+                            let fileURL =  frontImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
+                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                        } catch {
+                            print("ProductStorage: Not able to create and write front image")
+                            return completionHandler(.failure(error))
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
                 }
             }
         }
+        
         // store the selected ingredients images
-        for imageDict in product.ingredientsImages {
-            if let fetchResult = imageDict.value.original?.fetch() {
-                switch fetchResult {
-                case .success(let image):
-                    do {
-                        let fileURL =  directoryURL.appendingPathComponent(Constant.IngredientsImage + "\(imageDict.key)" + Constant.ImageExtension)
-                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                    } catch {
-                        assert(true, "ProductStorage: Not able to create and write image")
+        
+        if !product.ingredientsImages.isEmpty {
+            let ingredientsImagesUrl = productUrl(for: product.barcode).appendingPathComponent(ImageTypeCategory.general.description)
+            if !fileManager.fileExists(atPath: ingredientsImagesUrl.path) {
+                // create a directory for this product
+                do {
+                    try fileManager.createDirectory(at: ingredientsImagesUrl, withIntermediateDirectories: false, attributes: nil)
+                } catch let error {
+                    print("ProductStorage: Product directory creation failed \(error.localizedDescription)")
+                    return completionHandler(.failure(error))
+                }
+            }
+
+            for imageDict in product.ingredientsImages {
+                if let fetchResult = imageDict.value.original?.fetch() {
+                    switch fetchResult {
+                    case .success(let image):
+                        do {
+                            let fileURL =  ingredientsImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
+                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                        } catch {
+                            assert(true, "ProductStorage: Not able to create and write image")
+                            return completionHandler(.failure(error))
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
                 }
             }
         }
         // store the selected nutrition images
-        for imageDict in product.nutritionImages {
-            if let fetchResult = imageDict.value.original?.fetch() {
-                switch fetchResult {
-                case .success(let image):
-                    do {
-                        let fileURL =  directoryURL.appendingPathComponent(Constant.IngredientsImage + "\(imageDict.key)" + Constant.ImageExtension)
-                        try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
-                    } catch {
-                        assert(true, "ProductStorage: Not able to create and write image")
-                    }
-                default:
-                    break
-                }
-            }
-        }
-
-    }
-    
-    // read all products locally stored
-    func readAll() -> [FoodProduct] {
-        return []
-    }
-    
-    // read all products locally stored
-    func read(_ barcode: String) -> FoodProduct? {
-        let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let url = NSURL(fileURLWithPath: path)
-        if let pathComponent = url.appendingPathComponent(barcode)?.appendingPathComponent(barcode).appendingPathExtension(Constant.JsonExtension) {
-            let filePath = pathComponent.path
-            let fileManager = FileManager.default
-            if fileManager.fileExists(atPath: filePath) {
+        
+        if !product.nutritionImages.isEmpty {
+            let nutritionImagesUrl = productUrl(for: product.barcode).appendingPathComponent(ImageTypeCategory.nutrition.description)
+            if !fileManager.fileExists(atPath: nutritionImagesUrl.path) {
+                // create a directory for this product
                 do {
-                    let data = try Data.init(contentsOf: pathComponent)
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .secondsSince1970
-                    do {
-                        let productJson = try decoder.decode(OFFProductJson.self, from: data)
-                        if let offProduct = productJson.product {
-                            return FoodProduct.init(json: offProduct)
-                        } else {
-                            print("ProductStorage: no valid offProduct")
-                        }
-                    } catch let error {
-                        print(error.localizedDescription)
-                    }
-                    print("ProductStorage: FILE AVAILABLE")
+                    try fileManager.createDirectory(at: nutritionImagesUrl, withIntermediateDirectories: false, attributes: nil)
                 } catch let error {
-                    print(error.localizedDescription)
+                    print("ProductStorage: Product directory creation failed \(error.localizedDescription)")
+                    return completionHandler(.failure(error))
                 }
-            } else {
-                print("ProductStorage FILE NOT AVAILABLE")
             }
-        } else {
-            print("ProductStorage FILE PATH NOT AVAILABLE")
+
+            for imageDict in product.nutritionImages {
+                if let fetchResult = imageDict.value.original?.fetch() {
+                    switch fetchResult {
+                    case .success(let image):
+                        do {
+                            let fileURL =  nutritionImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
+                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                        } catch {
+                            print("ProductStorage: Not able to create and write image")
+                            return completionHandler(.failure(error))
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
         }
-        return nil
+        return completionHandler(.success(product))
+    }
+    
+    func load(_ barcodeType: BarcodeType, completionHandler: @escaping ( FoodProduct?) -> () ) {
+        DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
+            let product = self.read(barcodeType)
+            DispatchQueue.main.async(execute: { () -> Void in
+                completionHandler(product)
+            })
+        })
+        completionHandler(nil)
+        return
     }
 
-    // delete a specif locally stored product
-    func delete(_ barcode: String) {
-        // does the directory with this barcode exist?
-        // delete all files in the directory
+    // read locally stored product
+    private func read(_ barcodeType: BarcodeType) -> FoodProduct? {
+        let jsonUrl = productUrl(for: barcodeType).appendingPathExtension(Constant.JsonExtension)
+        var storedFoodProduct: FoodProduct? = nil
+        
+        // Read the product data
+        if fileManager.fileExists(atPath: jsonUrl.path) {
+            do {
+                let data = try Data.init(contentsOf: jsonUrl)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                do {
+                    let productJson = try decoder.decode(OFFProductJson.self, from: data)
+                    if let offProduct = productJson.product {
+                        storedFoodProduct = FoodProduct.init(json: offProduct)
+                    } else {
+                        print("ProductStorage: no valid offProduct")
+                    }
+                } catch let error {
+                       print(error.localizedDescription)
+                }
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        storedFoodProduct?.images.merge(loadImages(for:barcodeType, in:.general), uniquingKeysWith: { (first, last) in last })
+        
+        storedFoodProduct?.frontImages.merge(loadImages(for:barcodeType, in:.front), uniquingKeysWith: { (first, last) in last })
+        
+        storedFoodProduct?.ingredientsImages.merge(loadImages(for:barcodeType, in:.ingredients), uniquingKeysWith: { (first, last) in last })
+
+        storedFoodProduct?.nutritionImages.merge(loadImages(for:barcodeType, in:.nutrition), uniquingKeysWith: { (first, last) in last })
+
+        return storedFoodProduct
+    }
+    
+    // delete the locally stored product directory and the files contained within
+    func delete(_ barcodeType: BarcodeType) {
+        do {
+            try fileManager.removeItem(at: productUrl(for: barcodeType))
+        } catch let error {
+            print("ProductStorage: Not able to delete product: \(error.localizedDescription)")
+        }
+    }
+    
+    func fileUrl(with barcodeType:BarcodeType, for languageCode:String, and imageCategory:ImageTypeCategory) -> URL {
+        // The url has the structure: /docDirectory/barcode/imageTypeCategory/languageCode.jpg
+        return productUrl(for: barcodeType).appendingPathComponent(imageCategory.description).appendingPathComponent(languageCode).appendingPathExtension(Constant.ImageExtension)
         
     }
     
-    //private var documentsURL: FileManager {
-    //    return FileManager.defaults.urls(for: .documentDirectory, in: .userDomainMask).first!
-    //}
-    
-    
-    private func json(for _product: FoodProduct) {
-        
+    private func loadImages(for barcodeType:BarcodeType, in imageTypeCategory:ImageTypeCategory) -> [String:ProductImageSize] {
+        let imagesUrl = productUrl(for: barcodeType).appendingPathComponent(imageTypeCategory.description)
+        var images: [String:ProductImageSize] = [:]
+        // is there a new files directory?
+        do {
+            let fileUrls = try fileManager.contentsOfDirectory(at: imagesUrl,includingPropertiesForKeys: nil, options: [])
+            for fileUrl in fileUrls {
+                if fileUrl.pathExtension == Constant.ImageExtension {
+                    if let validImage = UIImage(contentsOfFile: fileUrl.path) {
+                        var productImageSize = ProductImageSize()
+                        let key = fileUrl.deletingPathExtension().lastPathComponent
+                        productImageSize.original = ProductImageData.init(image: validImage)
+                        images[key] = productImageSize
+                    }
+                }
+            }
+        } catch let error {
+            assert(true, "ProductStorage: Not able to create a file list \(error.localizedDescription)")
+        }
+        return images
     }
     
+    private var fileManager: FileManager {
+        return FileManager.default
+    }
+
+    private var documentsDirectoryUrl: URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
+    }
+    
+    private func productUrl(for barcodeType:BarcodeType) -> URL {
+        return documentsDirectoryUrl.appendingPathComponent(barcodeType.asString)
+
+    }
 }

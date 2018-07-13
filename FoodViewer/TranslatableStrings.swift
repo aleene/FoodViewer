@@ -126,7 +126,7 @@ struct TranslatableStrings {
     static let Identification = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
     static let Image = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
     static let ImageDates = NSLocalizedString("Image Dates", comment: "Table Section Header with dates of the images")
-    static let ImageIsAvailable = NSLocalizedString("Image is available", comment: "String presented in a tagView if the image is available")
+    static let ImageIsFlushed = NSLocalizedString("Image is flushed", comment: "String presented in a tagView if the image had been flushed.")
     static let ImageIsBeingLoaded = NSLocalizedString("Image is being loaded", comment: "String presented in a tagView if the image is currently being loaded")
     static let ImageLoadingHasFailed = NSLocalizedString("Image loading has failed", comment: "String presented in a tagView if the image loading has failed")
     static let ImageWasEmpty = NSLocalizedString("Image was empty", comment: "String presented in a tagView if the image data contained no data")
