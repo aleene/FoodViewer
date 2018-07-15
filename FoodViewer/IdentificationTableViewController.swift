@@ -759,6 +759,16 @@ class IdentificationTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let currentProductSection = tableStructure[section]
         switch currentProductSection {
+        case .barcode:
+            switch productVersion {
+            case .remote:
+                break
+            case .new:
+                if productPair?.localProduct != nil && productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
+                    return tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
+                }
+            }
+            
         case .image, .name, .genericName :
             return nil
             
@@ -827,10 +837,6 @@ class IdentificationTableViewController: UITableViewController {
                 break
             case .new:
                 switch currentProductSection {
-                case .barcode:
-                    if productPair?.localProduct != nil && productPair?.localProduct?.primaryLanguageCode != productPair?.remoteProduct?.primaryLanguageCode {
-                        headerView.title = tableStructure[section].header + " " + TranslatableStrings.EditedInParentheses
-                    }
                 case .image:
                     guard let localPair = localFrontImage else { break }
                     if localPair.0 != nil {

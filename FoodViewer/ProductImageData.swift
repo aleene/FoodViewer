@@ -201,7 +201,16 @@ import MobileCoreServices
             return
         } else if let validURL = self.url {
             if validURL.isFileURL {
-                
+                ProductStorage.manager.fetchImage(for: validURL) { compl in
+                    switch compl {
+                    case .success(let image):
+                        completion( .success(image) )
+                        return
+                    case .failure:
+                        completion( .noImageAvailable )
+                        return
+                    }
+                }
             } else {
                 let fetcher = NetworkFetcher<UIImage>(URL: validURL)
                 let cache = Shared.imageCache

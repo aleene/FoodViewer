@@ -100,14 +100,21 @@ class OpenFoodFactsRequest {
                     } else {
                         if productJson.status_verbose == "product not found" {
                             completion(.productNotAvailable(barcode.asString))
+                        } else {
+                            completion(.loadingFailed(barcode.asString))
                         }
-                        completion(.loadingFailed(barcode.asString))
                     }
                 } catch let error {
                     print(error)
                     completion(.loadingFailed(barcode.asString))
                 }
+                DispatchQueue.main.async(execute: { () -> Void in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
                 return
+            }
+            cache.fetch(URL: validURL).onFailure { error in
+                completion(.loadingFailed(barcode.asString))
             }
             /*
             do {

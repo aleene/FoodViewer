@@ -243,6 +243,16 @@ public struct ProductStorage {
         return storedFoodProduct
     }
     
+    func fetchImage(for url: URL, compl: @escaping (ResultType<UIImage>) -> () ) {
+        if let validImage = UIImage(contentsOfFile: url.path) {
+            compl( .success(validImage) )
+            return
+        } else {
+            compl( .failure(ImageLoadError.noValidImage) )
+            return
+        }
+    }
+    
     // delete the locally stored product directory and the files contained within
     func delete(_ barcodeType: BarcodeType) {
         do {

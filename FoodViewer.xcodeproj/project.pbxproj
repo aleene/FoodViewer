@@ -191,6 +191,7 @@
 		519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */; };
 		519884E01CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */; };
 		5198D9A01DC25C1000799797 /* QuantityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */; };
+		5199718020FA528600556467 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5199717F20FA528600556467 /* Reachability.swift */; };
 		519A8E031E827F23001C026A /* ImageSizeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E021E827F23001C026A /* ImageSizeCategory.swift */; };
 		519A8E051E827F7C001C026A /* ImageTypeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519A8E041E827F7C001C026A /* ImageTypeCategory.swift */; };
 		519B7EF31CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */; };
@@ -545,6 +546,7 @@
 		519884DD1CE4C62F0020B3A1 /* NutritionAvailability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionAvailability.swift; sourceTree = "<group>"; };
 		519884DF1CE4CB8F0020B3A1 /* NoServingSizeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoServingSizeTableViewCell.swift; sourceTree = "<group>"; };
 		5198D99F1DC25C0F00799797 /* QuantityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuantityTableViewCell.swift; sourceTree = "<group>"; };
+		5199717F20FA528600556467 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Model/Reachability.swift; sourceTree = "<group>"; };
 		519A8E021E827F23001C026A /* ImageSizeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSizeCategory.swift; sourceTree = "<group>"; };
 		519A8E041E827F7C001C026A /* ImageTypeCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTypeCategory.swift; sourceTree = "<group>"; };
 		519B7EF21CBEAF1D000E26DE /* NoNutrientsImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoNutrientsImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -1340,6 +1342,7 @@
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */,
 				5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */,
+				5199717F20FA528600556467 /* Reachability.swift */,
 				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
 				5100A96220791DAC00E6E368 /* Sample.swift */,
 				51A3D3161CA1BFDD00B36B5A /* SupplyChainLocation.swift */,
@@ -1686,6 +1689,7 @@
 				51C8A6CE1F6677C400B3C361 /* Completion.swift in Sources */,
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
 				51AB5F1420342E9D004D74C7 /* OFFProductSelectedImages.swift in Sources */,
+				5199718020FA528600556467 /* Reachability.swift in Sources */,
 				51C2FF7820E507B500B65509 /* Format.swift in Sources */,
 				51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */,
 				51F0752820A339DE00C2D15C /* Endian.swift in Sources */,
