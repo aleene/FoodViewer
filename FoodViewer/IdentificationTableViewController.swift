@@ -827,7 +827,7 @@ class IdentificationTableViewController: UITableViewController {
         let currentProductSection = tableStructure[section]
         
         switch currentProductSection {
-        case .image, .name, .genericName, .barcode :
+        case .image, .name, .genericName :
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "LanguageHeaderView") as! LanguageHeaderView
             headerView.section = section
             headerView.delegate = self
@@ -1800,6 +1800,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         // causes a crash
         //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
+        tableView.reloadData()
     }
     
     public func tagListView(_ tagListView: TagListView, didLongPressTagAt index: Int) {
