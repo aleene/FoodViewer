@@ -706,6 +706,30 @@ class OFFProducts {
     
     let pendingOperations = PendingOperations()
 
+    func deselectImage(for productPair: ProductPair, in languageCode: String, of imageTypeCategory: ImageTypeCategory) {
+        // loop over all operations needed to upload a product
+        for (key, operation) in productPair.deselect(languageCode, of: imageTypeCategory) {
+            //1 - if the operation already exists do not add it again and move to the next operation
+            if pendingOperations.uploadsInProgress[key] == nil {
+            
+                //3
+                operation.completionBlock = {
+                if operation.isCancelled {
+                    return
+                }
+                // the operation is finished, it can be removed from the uploads in progress
+                self.pendingOperations.uploadsInProgress.removeValue(forKey: key)
+            }
+            
+            //4
+            pendingOperations.uploadsInProgress[key] = operation
+            
+            //5
+            pendingOperations.uploadQueue.addOperation(operation)
+        }
+        }
+    }
+
     func startUpload(for productPair: ProductPair) {
         
         // loop over all operations needed to upload a product

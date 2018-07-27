@@ -11,19 +11,22 @@ import UIKit
 
 class ImageUpload : OFFImageUploadAPI {
     
-    func upload(image: UIImage, languageCode: String, productType: ProductType, imageTypeCategory: ImageTypeCategory, barcodeString: String, completionHandler: @escaping (ProductUpdateStatus?) -> () ) {
+    init(image: UIImage, languageCode: String, productType: ProductType, imageTypeCategory: ImageTypeCategory, barcodeString: String, completion: @escaping (ProductUpdateStatus?) -> () ) {
         
-        super.upload(image: image, languageCode: languageCode, offServer: productType.rawValue, imageTypeString: imageTypeCategory.description, barcodeString: barcodeString ) {
+        super.init(image: image, languageCode: languageCode, OFFServer: productType.rawValue, imageTypeString: imageTypeCategory.description, barcodeString: barcodeString ) {
             ( json: OFFImageUploadResultJson? ) in
             if let validStatus = json?.status {
                 if validStatus == "status ok" {
-                    return completionHandler(ProductUpdateStatus.success(barcodeString, "\(validStatus)"))
+                    return completion(ProductUpdateStatus.success(barcodeString, "\(validStatus)"))
                 } else {
-                    return completionHandler(ProductUpdateStatus.failure(barcodeString, "OFFImageUploadResultJson \(validStatus)"))
+                    return completion(ProductUpdateStatus.failure(barcodeString, "OFFImageUploadResultJson \(validStatus)"))
                 }
             }
-            return completionHandler(nil)
+            return completion(nil)
         }
     }
     
+    override func main() {
+        super.main()
+    }
 }

@@ -685,20 +685,20 @@ extension ProductImagesCollectionViewController : GalleryCollectionViewCellDeleg
     
     // function to let the delegate know that the deselect button has been tapped
     func galleryCollectionViewCell(_ sender: GalleryCollectionViewCell, receivedTapOn button:UIButton) {
-        if let validIndexPath = sender.indexPath {
-            switch tableStructure[validIndexPath.section] {
-            case .frontImages:
-                let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.frontImages.keys))[validIndexPath.row].0
-                productPair?.deselect([languageCode], of: .front)
-            case .ingredientsImages:
-                let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
-                productPair?.deselect([languageCode], of: .ingredients)
-            case .nutritionImages:
-                let languageCode = keyTuples(for:Array(productPair!.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
-                productPair?.deselect([languageCode], of: .nutrition)
-            case .originalImages:
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
-            }
+        guard let validIndexPath = sender.indexPath,
+             let validProductPair = productPair else { return }
+        switch tableStructure[validIndexPath.section] {
+        case .frontImages:
+            let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.frontImages.keys))[validIndexPath.row].0
+                OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .front)
+        case .ingredientsImages:
+                let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.ingredientsImages.keys))[validIndexPath.row].0
+            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .ingredients)
+        case .nutritionImages:
+            let languageCode = keyTuples(for:Array(validProductPair.remoteProduct!.nutritionImages.keys))[validIndexPath.row].0
+            OFFProducts.manager.deselectImage(for: validProductPair, in: languageCode, of: .nutrition)
+        case .originalImages:
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowLanguageAndImageType, sender: button)
         }
     }
 }

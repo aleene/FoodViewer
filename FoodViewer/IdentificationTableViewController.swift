@@ -1350,8 +1350,9 @@ extension IdentificationTableViewController: ProductImageCellDelegate {
     }
     
     func productImageTableViewCell(_ sender: ProductImageTableViewCell, receivedActionOnDeselect button: UIButton) {
-        guard let validLanguageCode = displayLanguageCode else { return }
-        productPair?.deselect([validLanguageCode], of: .front)
+        guard let validLanguageCode = displayLanguageCode,
+        let validProductPair = productPair else { return }
+        OFFProducts.manager.deselectImage(for: validProductPair, in: validLanguageCode, of: .front)
     }
     
 }
