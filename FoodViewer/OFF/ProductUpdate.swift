@@ -10,11 +10,53 @@ import Foundation
 import UIKit
 class ProductUpdate: OFFProductUpdateAPI {
     
-    func update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () ) {
-        
+    private var product: FoodProduct? = nil
+    private var productUpdateCompletion: ((ResultType<OFFProductUploadResultJson>) -> () ) = { _ in }
+    
+    init(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () ) {
+        super.init(URLString: nil, completion: {
+            ( myCompletionHandler: ResultType<OFFProductUploadResultJson> ) in
+            switch myCompletionHandler {
+            case .success(let json):
+                if let validStatus = json.status {
+                    if validStatus == 0 {
+                        let error = NSError.init(domain: "FoodViewer",
+                                                 code: 13,
+                                                 userInfo:["Class": "ProductUpdate",
+                                                           "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                                           "Reason": "status 0 received"])
+                        return completion(.failure(error))
+                    } else if json.status == 1 {
+                        return completion (.success(json))
+                    } else {
+                        let error = NSError.init(domain: "FoodViewer",
+                                                 code: 13,
+                                                 userInfo:["Class": "ProductUpdate",
+                                                           "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                                           "Reason": "Unrecognized status_code received"])
+                        return completion(.failure(error))
+                    }
+                }
+                let error = NSError.init(domain: "FoodViewer",
+                                         code: 13,
+                                         userInfo:["Class": "ProductUpdate",
+                                                   "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
+                                                   "Reason": "no valid status_code received"])
+                return completion(.failure(error))
+                
+            case .failure(let error):
+                return completion (.failure(error))
+            }
+        })
+        self.product = product
+        self.productUpdateCompletion = completion
+    }
+    
+    override func main() {
+        guard let validProduct = product else { return }
         // update only the fields that have something defined, i.e. are not nil
         var productUpdated: Bool = false
-        switch product.barcode {
+        switch validProduct.barcode {
         case .notSet:
             assert(true,"ProductUpdate: barcode not set")
         default:
@@ -26,15 +68,15 @@ class ProductUpdate: OFFProductUpdateAPI {
         let languageCodeToUse = "en"
         
         var urlString = OFFWriteAPI.SecurePrefix
-            + ( product.type?.rawValue ?? ProductType.food.rawValue )
+            + ( validProduct.type?.rawValue ?? ProductType.food.rawValue )
             + OFFWriteAPI.Domain
             + OFFWriteAPI.PostPrefix
-            + OFFWriteAPI.Barcode + product.barcode.asString + OFFWriteAPI.Delimiter
+            + OFFWriteAPI.Barcode + validProduct.barcode.asString + OFFWriteAPI.Delimiter
             + OFFWriteAPI.UserId + OFFAccount().userId + OFFWriteAPI.Delimiter
             + OFFWriteAPI.Password + OFFAccount().password
         
-        if product.nameLanguage.count > 0 {
-            for name in product.nameLanguage {
+        if validProduct.nameLanguage.count > 0 {
+            for name in validProduct.nameLanguage {
                 if let validName = name.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(OFFWriteAPI.Delimiter +
                         OFFWriteAPI.Name +
@@ -47,8 +89,8 @@ class ProductUpdate: OFFProductUpdateAPI {
             }
         }
         
-        if product.genericNameLanguage.count > 0 {
-            for genericName in product.genericNameLanguage {
+        if validProduct.genericNameLanguage.count > 0 {
+            for genericName in validProduct.genericNameLanguage {
                 if let name = genericName.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(OFFWriteAPI.Delimiter +
                         OFFWriteAPI.GenericName +
@@ -61,14 +103,14 @@ class ProductUpdate: OFFProductUpdateAPI {
             }
         }
         
-        if let quantity = product.quantity?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+        if let quantity = validProduct.quantity?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Quantity + quantity)
             productUpdated = true
         }
         
         // Using this for writing in a specific language (ingredients_text_fr=) has no effect
-        if product.ingredientsLanguage.count > 0 {
-            for name in product.ingredientsLanguage {
+        if validProduct.ingredientsLanguage.count > 0 {
+            for name in validProduct.ingredientsLanguage {
                 if let validName = name.value?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                     urlString.append(
                         OFFWriteAPI.Delimiter +
@@ -83,13 +125,13 @@ class ProductUpdate: OFFProductUpdateAPI {
             }
         }
         
-        if let primaryLanguage = product.primaryLanguageCode?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
+        if let primaryLanguage = validProduct.primaryLanguageCode?.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
             // TODO - this is also updated if no change has taken place
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PrimaryLanguageCode + primaryLanguage)
             productUpdated = true
         }
         
-        if let expirationDate = product.expirationDate {
+        if let expirationDate = validProduct.expirationDate {
             let formatter = DateFormatter()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
@@ -99,7 +141,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             productUpdated = true
         }
         
-        switch product.purchasePlacesOriginal {
+        switch validProduct.purchasePlacesOriginal {
         case .available(let location):
             let string = location.compactMap{
                 $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)
@@ -111,7 +153,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.storesOriginal {
+        switch validProduct.storesOriginal {
         case .available(let validShop):
             urlString.append( OFFWriteAPI.Delimiter + OFFWriteAPI.Stores + validShop.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
@@ -120,8 +162,8 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        if product.type != nil && product.type != .beauty {
-            for fact in product.nutritionFactsDict {
+        if validProduct.type != nil && validProduct.type != .beauty {
+            for fact in validProduct.nutritionFactsDict {
                 if let validValue = fact.value.standardValue {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPrefix + removeLanguage(from: fact.key) + OFFWriteAPI.Equal + validValue)
                             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NutrimentPer100g)
@@ -141,7 +183,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             }
         }
         
-        switch product.brandsOriginal {
+        switch validProduct.brandsOriginal {
         case let .available(list):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Brands + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ","))
             productUpdated = true
@@ -152,11 +194,11 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.packagingOriginal {
+        switch validProduct.packagingOriginal {
         case .available:
             // take into account the language of the tags
             // if a tag has no prefix, a prefix must be added
-            let list = product.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.packagingOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Packaging + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -166,10 +208,10 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.labelsOriginal {
+        switch validProduct.labelsOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.labelsOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Labels + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -179,10 +221,10 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.tracesOriginal {
+        switch validProduct.tracesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.tracesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Traces + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -192,10 +234,10 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.categoriesOriginal {
+        switch validProduct.categoriesOriginal {
         case .available:
             // take into account the language of the tags
-            let list = product.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.categoriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Categories + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         case .empty:
@@ -205,7 +247,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.manufacturingPlacesOriginal {
+        switch validProduct.manufacturingPlacesOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Producer + places.compactMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
@@ -213,7 +255,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.originsOriginal {
+        switch validProduct.originsOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.IngredientsOrigin + places.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined( separator: ",") )
             productUpdated = true
@@ -221,7 +263,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.embCodesOriginal {
+        switch validProduct.embCodesOriginal {
         case .available(let places):
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ProducerCode + places.compactMap{ $0.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined( separator: ",") )
             productUpdated = true
@@ -229,29 +271,29 @@ class ProductUpdate: OFFProductUpdateAPI {
             break
         }
         
-        switch product.countriesOriginal {
+        switch validProduct.countriesOriginal {
         case .available:
-            let list = product.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
+            let list = validProduct.countriesOriginal.tags(withAdded: interfaceLanguageCode, andRemoved: languageCodeToUse)
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Countries + list.compactMap{$0.addingPercentEncoding(withAllowedCharacters: .alphanumerics)}.joined(separator: ",") )
             productUpdated = true
         default:
             break
         }
         
-        if let validLinks = product.links {
+        if let validLinks = validProduct.links {
             urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.Links + validLinks.compactMap{ $0.absoluteString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) }.joined(separator: ",") )
             productUpdated = true
         }
         
-        if let validServingSize = product.servingSize {
+        if let validServingSize = validProduct.servingSize {
             if let encodedServingSize = validServingSize.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                 urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.ServingSize + encodedServingSize)
                 productUpdated = true
             }
         }
         
-        if product.type != nil && product.type != .beauty {
-            if let validHasNutritionFacts = product.hasNutritionFacts {
+        if validProduct.type != nil && validProduct.type != .beauty {
+            if let validHasNutritionFacts = validProduct.hasNutritionFacts {
                 if !validHasNutritionFacts {
                     urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.NoNutriments )
                 } else {
@@ -261,7 +303,7 @@ class ProductUpdate: OFFProductUpdateAPI {
             }
         }
         
-        if let validPeriodAfterOpeningString = product.periodAfterOpeningString {
+        if let validPeriodAfterOpeningString = validProduct.periodAfterOpeningString {
             if let encodedValidPeriodAfterOpeningString = validPeriodAfterOpeningString.addingPercentEncoding(withAllowedCharacters: .alphanumerics) {
                 urlString.append(OFFWriteAPI.Delimiter + OFFWriteAPI.PeriodAfterOpening + encodedValidPeriodAfterOpeningString )
                 productUpdated = true
@@ -284,48 +326,10 @@ class ProductUpdate: OFFProductUpdateAPI {
         }
 
         if productUpdated {
-            super.update(urlString: urlString ) {
-                ( completionHandler: ResultType<OFFProductUploadResultJson> ) in
-                switch completionHandler {
-                case .success(let json):
-                    if let validStatus = json.status {
-                        if validStatus == 0 {
-                            let error = NSError.init(domain: "FoodViewer",
-                                                     code: 13,
-                                                     userInfo:["Class": "ProductUpdate",
-                                                               "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
-                                                               "Reason": "status 0 received"])
-                            return completion(.failure(error))
-                        } else if json.status == 1 {
-                            return completion (.success(json))
-                        } else {
-                            let error = NSError.init(domain: "FoodViewer",
-                                                     code: 13,
-                                                     userInfo:["Class": "ProductUpdate",
-                                                               "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
-                                                               "Reason": "Unrecognized status_code received"])
-                            return completion(.failure(error))
-                        }
-                    }
-                    let error = NSError.init(domain: "FoodViewer",
-                                             code: 13,
-                                             userInfo:["Class": "ProductUpdate",
-                                                       "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
-                                                       "Reason": "no valid status_code received"])
-                    return completion(.failure(error))
-
-                case .failure(let error):
-                    return completion (.failure(error))
-                }
-            }
-        } else {
-            let error = NSError.init(domain: "FoodViewer",
-                                     code: 13,
-                                     userInfo:["Class": "ProductUpdate",
-                                               "Function": "update(product: FoodProduct, completion: @escaping (ResultType<OFFProductUploadResultJson>) -> () )",
-                                               "Reason": "product not updated"])
-            return completion(.failure(error))
+            self.URLString = urlString
+            super.main()
         }
+        return
     }
     
     // remove the language identifier before the colon

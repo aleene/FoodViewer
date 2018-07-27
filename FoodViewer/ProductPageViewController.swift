@@ -110,7 +110,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // if editMode {
             if userWantsToSave {
                 // time to save
-                productPair?.upload()
+                //productPair?.upload()
+                if let validProductPair = self.productPair {
+                    OFFProducts.manager.startUpload(for: validProductPair)
+                }
                 /*
                 if let validUpdatedProduct = productPair?.localProduct {
                     let update = OFFUpdate()

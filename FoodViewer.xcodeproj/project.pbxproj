@@ -18,6 +18,7 @@
 		51075552202F647C0047EC09 /* OFFProductNutrimentValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51075551202F647C0047EC09 /* OFFProductNutrimentValues.swift */; };
 		5107C82F1D9D4E8E006A628C /* OFFUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */; };
 		5107C8311D9D883F006A628C /* ProductUpdateStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */; };
+		5108280D210A3CD40089977D /* PendingOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5108280C210A3CD40089977D /* PendingOperations.swift */; };
 		510A5B201EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A5B1F1EB619EA0089AD01 /* PeriodAfterOpeningTableViewCell.swift */; };
 		510A5B231EB8A7B90089AD01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510A5B251EB8A7B90089AD01 /* InfoPlist.strings */; };
 		510BA29820162A6A0028107B /* Additives.plist in Resources */ = {isa = PBXBuildFile; fileRef = 510BA29720162A690028107B /* Additives.plist */; };
@@ -355,6 +356,7 @@
 		51075551202F647C0047EC09 /* OFFProductNutrimentValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductNutrimentValues.swift; sourceTree = "<group>"; };
 		5107C82E1D9D4E8D006A628C /* OFFUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OFFUpdate.swift; sourceTree = "<group>"; };
 		5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductUpdateStatus.swift; sourceTree = "<group>"; };
+		5108280C210A3CD40089977D /* PendingOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PendingOperations.swift; path = Model/PendingOperations.swift; sourceTree = "<group>"; };
 		510A38EC1CD3B67900BAEB61 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		510A38ED1CD3B67A00BAEB61 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		510A38EE1CD3B68200BAEB61 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
@@ -1341,6 +1343,7 @@
 				51BED0C31CE1C044006ED62B /* MapPinCategories.swift */,
 				51974E661CE61F2C0008585D /* NutritionDisplayMode.swift */,
 				510DB60A205AF02500782DEE /* NutritionFactsLabelStyle.swift */,
+				5108280C210A3CD40089977D /* PendingOperations.swift */,
 				5107C8301D9D883F006A628C /* ProductUpdateStatus.swift */,
 				5199717F20FA528600556467 /* Reachability.swift */,
 				51FB32281CF2139D00A17312 /* ReferenceDailyIntakeList.swift */,
@@ -1701,6 +1704,7 @@
 				51C2FF8720E5081200B65509 /* UIView+Haneke.swift in Sources */,
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
+				5108280D210A3CD40089977D /* PendingOperations.swift in Sources */,
 				5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */,
 				51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */,
 				516B32901C7600F30031EF80 /* ServingSizeTableViewCell.swift in Sources */,
