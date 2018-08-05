@@ -73,7 +73,7 @@ open class DiskFetcher<T : DataConvertible> : Fetcher<T> {
         }
         
         guard let value : T.Result = T.convertFromData(data) else {
-            let localizedFormat = NSLocalizedString("Failed to convert value from data at path %@", comment: "Error description")
+            let localizedFormat = "Failed to convert value from data at path %@"
             let description = String(format:localizedFormat, self.path)
             let error = errorWithCode(HanekeGlobals.DiskFetcher.ErrorCode.invalidData.rawValue, description: description)
             DispatchQueue.main.async {

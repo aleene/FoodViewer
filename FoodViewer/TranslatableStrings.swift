@@ -34,6 +34,7 @@ struct TranslatableStrings {
     static let Barcode = NSLocalizedString("Barcode", comment: "Tableview sectionheader for Barcode")
     static let BadNutrients = NSLocalizedString("Bad nutrients", comment: "Header for a table sectionshowing the appreciations of the bad nutrients")
     static let BeautyProducts = NSLocalizedString("Beauty Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
+    static let Beauty = NSLocalizedString("Beauty", comment: "Title of a segmented control.")
     static let BeveragesCategory = NSLocalizedString("Beverages category", comment: "Cell title indicating the product belongs to the beverages category")
     static let Brands = NSLocalizedString("Brands", comment: "Tableview sectionheader for brands.")
     
@@ -107,7 +108,8 @@ struct TranslatableStrings {
 //
     
     static let FoodProducts = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
-    
+    static let Food = NSLocalizedString("Food", comment: "Title of SegmentedControl segment.")
+
 //
 // MARK: - GGGGGGGGGGGGGGG strings
 //
@@ -126,7 +128,6 @@ struct TranslatableStrings {
     static let Identification = NSLocalizedString("Identification", comment: "Title for the view controller with the product image, title, etc.")
     static let Image = NSLocalizedString("Image", comment: "Title for the viewcontroller with an enlarged image")
     static let ImageDates = NSLocalizedString("Image Dates", comment: "Table Section Header with dates of the images")
-    static let ImageIsFlushed = NSLocalizedString("Image is flushed", comment: "String presented in a tagView if the image had been flushed.")
     static let ImageIsBeingLoaded = NSLocalizedString("Image is being loaded", comment: "String presented in a tagView if the image is currently being loaded")
     static let ImageLoadingHasFailed = NSLocalizedString("Image loading has failed", comment: "String presented in a tagView if the image loading has failed")
     static let ImageWasEmpty = NSLocalizedString("Image was empty", comment: "String presented in a tagView if the image data contained no data")
@@ -231,6 +232,7 @@ struct TranslatableStrings {
     static let PerServingAndStandardUnit = NSLocalizedString("nutrition data per serving and standard unit available", comment: "Text in a TagListView, when the nutrition data has been specified in the product data.")
     static let PersonalAccount = NSLocalizedString("Personal Account", comment: "Title in AlertViewController, which lets the user enter his username/password.")
     static let Per100mgml = NSLocalizedString("Per 100 mg/ml", comment: "Text of 1st segment of a SegmentedControl, indicating the model of the nutrient values, i.e. per standard 100g or 100 ml")
+    static let PetFood = NSLocalizedString("Petfood", comment: "Title of a segmented control.")
     static let PetFoodProducts = NSLocalizedString("Petfood Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Photographer = NSLocalizedString("Photographer", comment: "String in PickerViewController to indicate the photographer role of a contributor") + TranslatableStrings.Space + TranslatableStrings.PhotographerUnicode
     static let PhotographerUnicode = NSLocalizedString("📷", comment: "Image to indicate that the user took pictures of the product.")

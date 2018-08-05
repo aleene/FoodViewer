@@ -80,14 +80,14 @@ open class NetworkFetcher<T : DataConvertible> : Fetcher<T> {
         }
 
         if !response.hnk_validateLength(ofData: data) {
-            let localizedFormat = NSLocalizedString("Request expected %ld bytes and received %ld bytes", comment: "Error description")
+            let localizedFormat = "Request expected %ld bytes and received %ld bytes"
             let description = String(format:localizedFormat, response.expectedContentLength, data.count)
             self.failWithCode(.missingData, localizedDescription: description, failure: fail)
             return
         }
         
         guard let value = T.convertFromData(data) else {
-            let localizedFormat = NSLocalizedString("Failed to convert value from data at URL %@", comment: "Error description")
+            let localizedFormat = "Failed to convert value from data at URL %@"
             let description = String(format:localizedFormat, URL.absoluteString)
             self.failWithCode(.invalidData, localizedDescription: description, failure: fail)
             return

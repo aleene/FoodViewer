@@ -58,6 +58,9 @@ class SettingsTableViewController: UITableViewController {
 
     @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
         didSet {
+            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Food, forSegmentAt: 0)
+            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Beauty, forSegmentAt: 1)
+            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.PetFood, forSegmentAt: 2)
             switch currentProductType {
             case .food:
                 foodOrBeautySgmentedControl?.selectedSegmentIndex = 0

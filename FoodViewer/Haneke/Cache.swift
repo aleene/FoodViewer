@@ -91,7 +91,7 @@ open class Cache<T: DataConvertible> where T.Result == T, T : DataRepresentable 
             }
 
         } else {
-            let localizedFormat = NSLocalizedString("Format %@ not found", comment: "Error description")
+            let localizedFormat = "Format %@ not found"
             let description = String(format:localizedFormat, formatName)
             let error = errorWithCode(HanekeGlobals.Cache.ErrorCode.formatNotFound.rawValue, description: description)
             fetch.fail(error)
@@ -218,7 +218,7 @@ open class Cache<T: DataConvertible> where T.Result == T, T : DataRepresentable 
         diskCache.fetchData(key: key, failure: { error in
             if let block = fail {
                 if (error as NSError?)?.code == NSFileReadNoSuchFileError {
-                    let localizedFormat = NSLocalizedString("Object not found for key %@", comment: "Error description")
+                    let localizedFormat = "Object not found for key %@"
                     let description = String(format:localizedFormat, key)
                     let error = errorWithCode(HanekeGlobals.Cache.ErrorCode.objectNotFound.rawValue, description: description)
                     block(error)

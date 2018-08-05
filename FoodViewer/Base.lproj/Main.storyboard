@@ -191,14 +191,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IL2-Vr-5wd">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IL2-Vr-5wd">
                                             <rect key="frame" x="16" y="3" width="35.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="807-If-TeI">
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="807-If-TeI">
                                             <rect key="frame" x="16" y="23.5" width="53" height="18"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
@@ -349,7 +349,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="8qF-wB-zag">
                             <rect key="frame" x="0.0" y="944" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -835,8 +835,8 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qLB-2k-Ecw">
                                                     <rect key="frame" x="16" y="11" width="288" height="23"/>
                                                     <segments>
-                                                        <segment title="Salt"/>
-                                                        <segment title="Sodium"/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="saltOrSodiumSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="wT8-hy-4bS"/>
@@ -867,7 +867,6 @@
                                                     </segments>
                                                     <connections>
                                                         <action selector="jouleOrCaloriesSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="pcL-LN-RHn"/>
-                                                        <action selector="saltOrSodiumSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="VJe-PW-l2n"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -889,14 +888,12 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h25-t4-qRW">
                                                     <rect key="frame" x="16" y="11" width="288" height="23"/>
                                                     <segments>
-                                                        <segment title="100 mg/ml"/>
-                                                        <segment title="portion"/>
-                                                        <segment title="daily value"/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="jouleOrCaloriesSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="8du-A3-btP"/>
-                                                        <action selector="nutritionUnitSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="JGh-MH-JSs"/>
-                                                        <action selector="saltOrSodiumSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="jgT-9f-3Ch"/>
+                                                        <action selector="nutritionUnitSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="GNC-EP-Gc9"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -943,8 +940,8 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M4v-mg-2eX">
                                                     <rect key="frame" x="16" y="11" width="288" height="23"/>
                                                     <segments>
-                                                        <segment title="foodviewer"/>
-                                                        <segment title="OFF account"/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="offAccountSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="O79-5P-fxY"/>
@@ -1004,12 +1001,12 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zxj-MC-Q9J">
                                                     <rect key="frame" x="16" y="11" width="288" height="23"/>
                                                     <segments>
-                                                        <segment title="Food"/>
-                                                        <segment title="Beauty"/>
-                                                        <segment title="PetFood"/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="CG0-QZ-nHc"/>
+                                                        <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="yId-qT-ZhA"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -1035,12 +1032,11 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9fw-bj-GNl">
                                                     <rect key="frame" x="16" y="11" width="288" height="23"/>
                                                     <segments>
-                                                        <segment title="Food"/>
-                                                        <segment title="Beauty"/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="jhQ-eF-gwO"/>
-                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="zCo-Sw-FeO"/>
+                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="RLM-of-eR7"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -1092,8 +1088,8 @@
                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad"/>
                         </textField>
-                        <view key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleToFill" id="pLB-EC-tip">
-                            <rect key="frame" x="0.0" y="815.5" width="320" height="332"/>
+                        <view key="tableFooterView" userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" id="pLB-EC-tip">
+                            <rect key="frame" x="0.0" y="771.5" width="320" height="332"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -1203,7 +1199,7 @@
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="GwO-gh-KmB" userLabel="Ingredients Badge">
                                             <rect key="frame" x="258" y="13.5" width="28" height="28"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arc-30-Mfx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="arc-30-Mfx">
                                                     <rect key="frame" x="8" y="0.0" width="12" height="28"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1234,7 +1230,7 @@
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="N6z-Zh-n4E" userLabel="Allergens Badge">
                                             <rect key="frame" x="258" y="53.5" width="28" height="28"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gJ-Kj-gnw">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3gJ-Kj-gnw">
                                                     <rect key="frame" x="8" y="0.0" width="12" height="28"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1265,7 +1261,7 @@
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="xps-qJ-QeU" userLabel="Traces Badge">
                                             <rect key="frame" x="258" y="95" width="28" height="28"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAy-dT-LTs">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pAy-dT-LTs">
                                                     <rect key="frame" x="8" y="0.0" width="12" height="28"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1379,25 +1375,8 @@
                                     <outlet property="nutriScoreView" destination="kS6-HZ-Zs9" id="4OP-0p-wcp"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Producer Cell" textLabel="wud-xG-KwE" style="IBUITableViewCellStyleDefault" id="Fde-me-f3L" userLabel="Production Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="577.5" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fde-me-f3L" id="E1b-fC-kgQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wud-xG-KwE">
-                                            <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Categories Cell" id="oa3-dE-ble" customClass="LabelWithBadgeTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="621.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="577.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oa3-dE-ble" id="s44-5e-9qk">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -1406,7 +1385,7 @@
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="us6-rd-EZ2">
                                             <rect key="frame" x="258" y="10" width="28" height="28"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4H-Qh-zMa">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" verticalCompressionResistancePriority="752" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4H-Qh-zMa">
                                                     <rect key="frame" x="8" y="0.0" width="12" height="28"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1428,8 +1407,8 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKb-39-mxm">
-                                            <rect key="frame" x="16" y="0.0" width="234" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKb-39-mxm">
+                                            <rect key="frame" x="16" y="0.0" width="234" height="0.0"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1452,7 +1431,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Completion State Cell" rowHeight="44" id="aDa-2B-qYf" userLabel="Product Completion Cell" customClass="CompletionTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="665.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="621.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aDa-2B-qYf" id="pgA-Rg-zGf">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -1486,7 +1465,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product TagListView Cell" id="KO8-HA-oMU" userLabel="Being Loaded Cell" customClass="TagListViewTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="709.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="665.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KO8-HA-oMU" id="Sn6-4w-I0S">
                                     <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
@@ -1509,7 +1488,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Products More Button Cell" id="iLp-Xv-9id" customClass="ButtonTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="753.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="709.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iLp-Xv-9id" id="cfW-Uo-j4y">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1574,6 +1553,23 @@
                         <outlet property="delegate" destination="gMe-4s-6cz" id="oU4-Bh-qJt"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Producer Cell" textLabel="wud-xG-KwE" style="IBUITableViewCellStyleDefault" id="Fde-me-f3L" userLabel="Production Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fde-me-f3L" id="E1b-fC-kgQ">
+                        <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wud-xG-KwE">
+                                <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </tableViewCellContentView>
+                </tableViewCell>
             </objects>
             <point key="canvasLocation" x="772.5" y="407.74647887323943"/>
         </scene>
@@ -1598,7 +1594,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="xIo-3N-Ski">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="xIo-3N-Ski">
                             <rect key="frame" x="0.0" y="586" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2881,7 +2877,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pwd-xJ-AdK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6894.375" y="2745"/>
+            <point key="canvasLocation" x="7373" y="2744"/>
         </scene>
         <!--Product Images Collection View Controller-->
         <scene sceneID="8A8-1p-UDU">
@@ -2986,7 +2982,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dvt-B0-1dl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="yDz-f3-wd1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="8614" y="2745"/>
+            <point key="canvasLocation" x="9159" y="2743"/>
         </scene>
         <!--Ingredients Table View Controller-->
         <scene sceneID="2bd-NI-S3Q">
@@ -2996,7 +2992,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="A40-hk-PcF">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="A40-hk-PcF">
                             <rect key="frame" x="0.0" y="680" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -3111,10 +3107,10 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Rx-n8-WDV">
-                                            <rect key="frame" x="16" y="11" width="229" height="278"/>
+                                            <rect key="frame" x="16" y="11" width="237" height="278"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3P-fF-cbC">
-                                            <rect key="frame" x="261" y="170" width="25" height="25"/>
+                                            <rect key="frame" x="261" y="178" width="25" height="25"/>
                                             <state key="normal" image="Clear"/>
                                             <connections>
                                                 <action selector="deselectImageButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="JrS-xZ-s0u"/>
@@ -3131,7 +3127,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jWz-fA-YUG">
-                                            <rect key="frame" x="261" y="104" width="25" height="25"/>
+                                            <rect key="frame" x="261" y="96" width="25" height="25"/>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
                                                 <action selector="selectFromCamerRollButtonTapped:" destination="ae1-IC-EpV" eventType="touchUpInside" id="OHE-45-gJb"/>
@@ -3143,12 +3139,12 @@
                                         <constraint firstItem="jWz-fA-YUG" firstAttribute="height" secondItem="64u-QN-3dx" secondAttribute="height" id="6Ul-f3-4PM"/>
                                         <constraint firstItem="L3P-fF-cbC" firstAttribute="width" secondItem="64u-QN-3dx" secondAttribute="width" id="GnX-QX-emw"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="2Rx-n8-WDV" secondAttribute="bottom" id="Mfq-Sz-99D"/>
-                                        <constraint firstItem="64u-QN-3dx" firstAttribute="top" secondItem="jWz-fA-YUG" secondAttribute="bottom" constant="8" id="PAi-Ik-eEV"/>
+                                        <constraint firstItem="64u-QN-3dx" firstAttribute="top" secondItem="jWz-fA-YUG" secondAttribute="bottom" constant="16" id="PAi-Ik-eEV"/>
                                         <constraint firstItem="2Rx-n8-WDV" firstAttribute="leading" secondItem="ELm-nP-Bga" secondAttribute="leadingMargin" id="U9s-hT-y4X"/>
                                         <constraint firstItem="2Rx-n8-WDV" firstAttribute="top" secondItem="ELm-nP-Bga" secondAttribute="topMargin" id="WyJ-nv-zlT"/>
                                         <constraint firstAttribute="trailing" secondItem="64u-QN-3dx" secondAttribute="trailing" id="btr-XV-IJL"/>
-                                        <constraint firstItem="64u-QN-3dx" firstAttribute="leading" secondItem="2Rx-n8-WDV" secondAttribute="trailing" constant="16" id="eKX-VL-0dv"/>
-                                        <constraint firstItem="L3P-fF-cbC" firstAttribute="top" secondItem="64u-QN-3dx" secondAttribute="bottom" constant="8" id="eci-0i-1CD"/>
+                                        <constraint firstItem="64u-QN-3dx" firstAttribute="leading" secondItem="2Rx-n8-WDV" secondAttribute="trailing" constant="8" id="eKX-VL-0dv"/>
+                                        <constraint firstItem="L3P-fF-cbC" firstAttribute="top" secondItem="64u-QN-3dx" secondAttribute="bottom" constant="16" id="eci-0i-1CD"/>
                                         <constraint firstItem="L3P-fF-cbC" firstAttribute="height" secondItem="64u-QN-3dx" secondAttribute="height" id="gCd-hN-6XZ"/>
                                         <constraint firstItem="jWz-fA-YUG" firstAttribute="centerX" secondItem="64u-QN-3dx" secondAttribute="centerX" id="jkh-js-VNw"/>
                                         <constraint firstItem="jWz-fA-YUG" firstAttribute="width" secondItem="64u-QN-3dx" secondAttribute="width" id="oW6-qK-B55"/>
@@ -3441,7 +3437,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="bPg-Iy-n3f">
-                                            <rect key="frame" x="16" y="11" width="229" height="278"/>
+                                            <rect key="frame" x="16" y="11" width="237" height="278"/>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t3A-ke-Yqc">
                                             <rect key="frame" x="261" y="178" width="25" height="25"/>
@@ -3461,7 +3457,7 @@
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qcy-nj-zO3">
-                                            <rect key="frame" x="261" y="104" width="25" height="25"/>
+                                            <rect key="frame" x="261" y="96" width="25" height="25"/>
                                             <state key="normal" image="CameraRoll"/>
                                             <connections>
                                                 <action selector="selectFromCamerRollButtonTapped:" destination="S31-TZ-O7G" eventType="touchUpInside" id="Iio-VL-Ah8"/>
@@ -3476,11 +3472,11 @@
                                         <constraint firstItem="t3A-ke-Yqc" firstAttribute="top" secondItem="UNm-Ld-LTE" secondAttribute="bottom" constant="16" id="G9j-6B-Zha"/>
                                         <constraint firstItem="Qcy-nj-zO3" firstAttribute="width" secondItem="UNm-Ld-LTE" secondAttribute="width" id="SNb-OJ-fy9"/>
                                         <constraint firstAttribute="trailing" secondItem="UNm-Ld-LTE" secondAttribute="trailing" id="WsI-er-rRK"/>
-                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="leading" secondItem="bPg-Iy-n3f" secondAttribute="trailing" constant="16" id="ZEi-xL-ugu"/>
+                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="leading" secondItem="bPg-Iy-n3f" secondAttribute="trailing" constant="8" id="ZEi-xL-ugu"/>
                                         <constraint firstItem="bPg-Iy-n3f" firstAttribute="centerY" secondItem="UNm-Ld-LTE" secondAttribute="centerY" id="fyG-pe-b2c"/>
                                         <constraint firstItem="t3A-ke-Yqc" firstAttribute="width" secondItem="UNm-Ld-LTE" secondAttribute="width" id="iZY-iA-Ebf"/>
                                         <constraint firstItem="t3A-ke-Yqc" firstAttribute="centerX" secondItem="UNm-Ld-LTE" secondAttribute="centerX" id="ll7-Eb-duj"/>
-                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="top" secondItem="Qcy-nj-zO3" secondAttribute="bottom" constant="8" id="oq0-Td-uGD"/>
+                                        <constraint firstItem="UNm-Ld-LTE" firstAttribute="top" secondItem="Qcy-nj-zO3" secondAttribute="bottom" constant="16" id="oq0-Td-uGD"/>
                                         <constraint firstItem="t3A-ke-Yqc" firstAttribute="height" secondItem="UNm-Ld-LTE" secondAttribute="height" id="rwQ-x2-41o"/>
                                         <constraint firstItem="bPg-Iy-n3f" firstAttribute="top" secondItem="pbH-bk-fc1" secondAttribute="topMargin" id="xUe-Ix-Oi3"/>
                                     </constraints>
@@ -3858,7 +3854,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1D5-2L-NQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="cjF-Ec-3gy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5226" y="4109"/>
+            <point key="canvasLocation" x="5627" y="4107"/>
         </scene>
         <!--Products-->
         <scene sceneID="RSI-qe-sXU">
@@ -4129,7 +4125,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNM-j5-4uv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="nx9-lU-Bg8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7213" y="4109"/>
+            <point key="canvasLocation" x="8316" y="4106"/>
         </scene>
         <!--Select Contributor Role View Controller-->
         <scene sceneID="zvJ-8j-Kqa">
@@ -4175,7 +4171,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cue-8U-B4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="S7V-7U-QTJ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7937" y="4109"/>
+            <point key="canvasLocation" x="7641" y="4106"/>
         </scene>
         <!--Set Creation Date View Controller-->
         <scene sceneID="itY-fZ-mYz">
@@ -4233,7 +4229,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="njA-qM-ldv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="S7k-h7-HNy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5874" y="4109"/>
+            <point key="canvasLocation" x="6300" y="4108"/>
         </scene>
         <!--Set Last Edit Date View Controller-->
         <scene sceneID="19N-HM-6ph">
@@ -4290,7 +4286,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v6t-lV-ckq" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="g7o-mq-7jI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6555" y="4109"/>
+            <point key="canvasLocation" x="6953" y="4106"/>
         </scene>
         <!--Set Sort Order View Controller-->
         <scene sceneID="h5T-Tt-jEV">
@@ -4389,7 +4385,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtE-2p-q02" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VCc-Ih-huA" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="8614" y="4109"/>
+            <point key="canvasLocation" x="8991" y="4106"/>
         </scene>
         <!--Select Nutrition Facts Table Style Table View Cell-->
         <scene sceneID="7gm-dT-eUM">
@@ -4458,7 +4454,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="w6I-Mb-BbL"/>
+        <segue reference="LXh-Zn-OsY"/>
         <segue reference="Jg3-Zr-U6z"/>
         <segue reference="ssy-1Q-8zi"/>
     </inferredMetricsTieBreakers>
