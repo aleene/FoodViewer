@@ -38,6 +38,8 @@ class Preferences {
         }
     }
     
+    var editMode: Bool = false
+    
     init() {
         // The default values are determined by the locale of the user
         // i.e. a user in the US will see the extended list of nutrients, with sodium, in Cal and per serving

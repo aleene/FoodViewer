@@ -82,7 +82,8 @@ class ProductNameTableViewCell: UITableViewCell {
     }
     
     private func setName() {
-        nameTextView.text = (name != nil) && (name!.count > 0) ? name! :  ( editMode ? "" : TranslatableStrings.NoName )
+        let test = (name != nil) && (name!.count > 0) ? name! :  ( editMode ? " " : TranslatableStrings.NoName )
+        nameTextView.text = test
     }
     
     override var tag: Int {

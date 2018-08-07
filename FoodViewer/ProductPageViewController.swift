@@ -232,7 +232,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
 
-    fileprivate var editMode: Bool = false {
+    fileprivate var editMode: Bool = Preferences.manager.editMode {
         didSet {
             if editMode != oldValue {
                 // change look edit button
@@ -243,6 +243,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
                 setupEditMode()
             }
+            Preferences.manager.editMode = editMode
         }
     }
     
