@@ -235,15 +235,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     fileprivate var editMode: Bool = Preferences.manager.editMode {
         didSet {
             if editMode != oldValue {
-                // change look edit button
-                let test = isQuery ? "Search" : "CheckMark"
-                if let image = UIImage.init(named: editMode ? test : "Edit") {
-                    confirmBarButtonItem.image = image
-                }
-
                 setupEditMode()
+                Preferences.manager.editMode = editMode
             }
-            Preferences.manager.editMode = editMode
+            // change look edit button
+            let buttonText = isQuery ? "Search" : "CheckMark"
+            if let image = UIImage.init(named: editMode ? buttonText  : "Edit") {
+                confirmBarButtonItem.image = image
+            }
         }
     }
     
@@ -802,6 +801,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // set look edit button
+        let buttonText = isQuery ? "Search" : "CheckMark"
+        if let image = UIImage.init(named: editMode ? buttonText  : "Edit") {
+            confirmBarButtonItem.image = image
+        }
+
         title = prefixedTitle
 
         // listen if a product is set outside of the MasterViewController

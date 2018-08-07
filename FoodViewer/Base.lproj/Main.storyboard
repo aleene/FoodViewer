@@ -456,6 +456,9 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LOZ-Hm-Mnd">
                                                     <rect key="frame" x="0.0" y="0.0" width="315" height="33"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="33" id="BwX-hk-fje"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -4463,8 +4466,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GR8-bW-x6k"/>
-        <segue reference="LXh-Zn-OsY"/>
-        <segue reference="Jg3-Zr-U6z"/>
+        <segue reference="NIk-rX-rWX"/>
+        <segue reference="TJD-zt-Jpp"/>
         <segue reference="ssy-1Q-8zi"/>
     </inferredMetricsTieBreakers>
 </document>
