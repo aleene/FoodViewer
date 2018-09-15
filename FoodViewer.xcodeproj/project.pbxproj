@@ -96,6 +96,13 @@
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */; };
+		514FC912213E7BB6007577FC /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC90E213E7BB5007577FC /* CSVError.swift */; };
+		514FC913213E7BB6007577FC /* CSVReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC90F213E7BB5007577FC /* CSVReader.swift */; };
+		514FC914213E7BB6007577FC /* CSVWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC910213E7BB5007577FC /* CSVWriter.swift */; };
+		514FC915213E7BB6007577FC /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC911213E7BB5007577FC /* CSV.swift */; };
+		514FC917213E7BCA007577FC /* UnicodeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC916213E7BCA007577FC /* UnicodeIterator.swift */; };
+		514FC919213E7BD7007577FC /* Endian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC918213E7BD6007577FC /* Endian.swift */; };
+		514FC91B213E7BE2007577FC /* BinaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC91A213E7BE2007577FC /* BinaryReader.swift */; };
 		515046512009056D0094EE50 /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046502009056D0094EE50 /* ResultType.swift */; };
 		515046552009062F0094EE50 /* GenericDownloadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515046542009062F0094EE50 /* GenericDownloadTask.swift */; };
 		51504657200906B10094EE50 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51504656200906B10094EE50 /* DownloadService.swift */; };
@@ -297,12 +304,6 @@
 		51EE97F41D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51EE97F31D119CC500A96312 /* ColourCodedNutritionalScoreTableViewCell.swift */; };
 		51F057FB1CB68A3000849532 /* NatriumChloride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FA1CB68A3000849532 /* NatriumChloride.swift */; };
 		51F057FD1CB6AFEF00849532 /* OFFProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F057FC1CB6AFEF00849532 /* OFFProducts.swift */; };
-		51F0752020A3396800C2D15C /* BinaryReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0751F20A3396700C2D15C /* BinaryReader.swift */; };
-		51F0752620A339D000C2D15C /* UnicodeIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0752520A339D000C2D15C /* UnicodeIterator.swift */; };
-		51F0752820A339DE00C2D15C /* Endian.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0752720A339DD00C2D15C /* Endian.swift */; };
-		51F0752A20A339E900C2D15C /* CSVWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0752920A339E900C2D15C /* CSVWriter.swift */; };
-		51F0752C20A339F700C2D15C /* CSVReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0752B20A339F700C2D15C /* CSVReader.swift */; };
-		51F0752E20A33A0700C2D15C /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F0752D20A33A0600C2D15C /* CSVError.swift */; };
 		51F669391F4499190074AACB /* AddImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F669371F4499190074AACB /* AddImageCollectionViewCell.swift */; };
 		51F6693A1F4499190074AACB /* AddImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51F669381F4499190074AACB /* AddImageCollectionViewCell.xib */; };
 		51F669411F49CB620074AACB /* IngredientsPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51F669401F49CB620074AACB /* IngredientsPageTableViewCell.swift */; };
@@ -444,6 +445,13 @@
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 7613034182067.json; sourceTree = "<group>"; };
+		514FC90E213E7BB5007577FC /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVError.swift; sourceTree = "<group>"; };
+		514FC90F213E7BB5007577FC /* CSVReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVReader.swift; sourceTree = "<group>"; };
+		514FC910213E7BB5007577FC /* CSVWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVWriter.swift; sourceTree = "<group>"; };
+		514FC911213E7BB5007577FC /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSV.swift; sourceTree = "<group>"; };
+		514FC916213E7BCA007577FC /* UnicodeIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnicodeIterator.swift; sourceTree = "<group>"; };
+		514FC918213E7BD6007577FC /* Endian.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endian.swift; sourceTree = "<group>"; };
+		514FC91A213E7BE2007577FC /* BinaryReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryReader.swift; sourceTree = "<group>"; };
 		515046502009056D0094EE50 /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ResultType.swift; path = Frameworks/Download/ResultType.swift; sourceTree = "<group>"; };
 		515046542009062F0094EE50 /* GenericDownloadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GenericDownloadTask.swift; path = Frameworks/Download/GenericDownloadTask.swift; sourceTree = "<group>"; };
 		51504656200906B10094EE50 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DownloadService.swift; path = Frameworks/Download/DownloadService.swift; sourceTree = "<group>"; };
@@ -908,6 +916,13 @@
 		5141969C20839C2100528877 /* CSV */ = {
 			isa = PBXGroup;
 			children = (
+				514FC91A213E7BE2007577FC /* BinaryReader.swift */,
+				514FC911213E7BB5007577FC /* CSV.swift */,
+				514FC90E213E7BB5007577FC /* CSVError.swift */,
+				514FC90F213E7BB5007577FC /* CSVReader.swift */,
+				514FC910213E7BB5007577FC /* CSVWriter.swift */,
+				514FC918213E7BD6007577FC /* Endian.swift */,
+				514FC916213E7BCA007577FC /* UnicodeIterator.swift */,
 				51F0751F20A3396700C2D15C /* BinaryReader.swift */,
 				51F0752D20A33A0600C2D15C /* CSVError.swift */,
 				51F0752B20A339F700C2D15C /* CSVReader.swift */,
@@ -1526,7 +1541,6 @@
 				514196AD20839EA900528877 /* OFFDatabase.swift in Sources */,
 				512401401CDB8A5D0051F120 /* ImageFetchResult.swift in Sources */,
 				512499A11C6CD0100061A083 /* ImageViewController.swift in Sources */,
-				51F0752E20A33A0700C2D15C /* CSVError.swift in Sources */,
 				51B11D281E4F37C400823630 /* OFFHttpPost.swift in Sources */,
 				51075550202F57E90047EC09 /* OFFProductNutrientLevelValue.swift in Sources */,
 				5148F0F11DD3291500EF1B67 /* Language.swift in Sources */,
@@ -1568,11 +1582,12 @@
 				51BED0C11CE0DC75006ED62B /* TUSafariActivity.swift in Sources */,
 				512039ED1E5B3E9500BE62CB /* GKImageCropViewController.swift in Sources */,
 				5160FE621CD3ADC300CA4A6E /* UIColorExtension.swift in Sources */,
+				514FC917213E7BCA007577FC /* UnicodeIterator.swift in Sources */,
 				515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */,
 				515742751CDB63B200BE8E2D /* RSITF14Generator.swift in Sources */,
+				514FC912213E7BB6007577FC /* CSVError.swift in Sources */,
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				51255EA91EBB463E00A241E9 /* LeftNutrimentScoreTableViewCell.swift in Sources */,
-				51F0752020A3396800C2D15C /* BinaryReader.swift in Sources */,
 				51C2FF7E20E507E300B65509 /* NetworkFetcher.swift in Sources */,
 				51C2FF6820E5076000B65509 /* Cache.swift in Sources */,
 				515742711CDB63B200BE8E2D /* RSCornersLayer.swift in Sources */,
@@ -1643,7 +1658,9 @@
 				51FB32291CF2139D00A17312 /* ReferenceDailyIntakeList.swift in Sources */,
 				5180B91F1C5E5BB8002DBD21 /* ProductTableViewController.swift in Sources */,
 				51FDC3152029D99900ED0DD7 /* OFFProductJson.swift in Sources */,
+				514FC919213E7BD7007577FC /* Endian.swift in Sources */,
 				515742741CDB63B200BE8E2D /* RSFocusMarkLayer.swift in Sources */,
+				514FC91B213E7BE2007577FC /* BinaryReader.swift in Sources */,
 				51D53D44205ECBFC00FE7BEF /* StringExtension2.swift in Sources */,
 				5193DC121F3E2388009EE70B /* GalleryCollectionReusableView.swift in Sources */,
 				51649A521DE33A5C000F305E /* PurchacePlaceTableViewCell.swift in Sources */,
@@ -1675,7 +1692,6 @@
 				512039F21E5B3E9500BE62CB /* GKResizableCropOverlayView.swift in Sources */,
 				512403701D96C625007FED5A /* TextFieldTableViewCell.swift in Sources */,
 				510D9FC01E72B20C00B95B1B /* NutritionalScore.swift in Sources */,
-				51F0752620A339D000C2D15C /* UnicodeIterator.swift in Sources */,
 				5158ECD92032DD170072261C /* OFFImageUploadResultJson.swift in Sources */,
 				5104F4AE1F9F9E44008D074F /* SearchHeaderView.swift in Sources */,
 				51F96664202DA09A00CD58C3 /* OFFProduct.swift in Sources */,
@@ -1693,9 +1709,9 @@
 				5160C29C1DBCFEE200CB3EF0 /* KeychainSwiftDistrib.swift in Sources */,
 				51AB5F1420342E9D004D74C7 /* OFFProductSelectedImages.swift in Sources */,
 				5199718020FA528600556467 /* Reachability.swift in Sources */,
+				514FC913213E7BB6007577FC /* CSVReader.swift in Sources */,
 				51C2FF7820E507B500B65509 /* Format.swift in Sources */,
 				51E1C3652045EB4200CB68B1 /* ImageDeselect.swift in Sources */,
-				51F0752820A339DE00C2D15C /* Endian.swift in Sources */,
 				5157426D1CDB63B200BE8E2D /* RSCodeDataMatrixGenerator.swift in Sources */,
 				5125AB851D0864BB000DCD29 /* NutritionScoreTableViewController.swift in Sources */,
 				517907FE1F8FB3130017FCA0 /* SelectContributorRoleViewController.swift in Sources */,
@@ -1731,6 +1747,7 @@
 				51A3D3171CA1BFDD00B36B5A /* SupplyChainLocation.swift in Sources */,
 				51B721741DD5F268003AF608 /* AddNutrientViewController.swift in Sources */,
 				5124D88B1E3E4DBE00C36F90 /* MainLanguageViewController.swift in Sources */,
+				514FC915213E7BB6007577FC /* CSV.swift in Sources */,
 				5104F4AA1F9E55FB008D074F /* LastEditDateTableViewCell.swift in Sources */,
 				51C2FF7420E507A000B65509 /* Fetch.swift in Sources */,
 				5150D9C81F8154F20003DE8E /* SelectCompareViewController.swift in Sources */,
@@ -1743,6 +1760,7 @@
 				51F96660202D9FC400CD58C3 /* OFFProductNutrientLevel.swift in Sources */,
 				51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
+				514FC914213E7BB6007577FC /* CSVWriter.swift in Sources */,
 				51DA03251F7674BF000C5F93 /* SearchTemplate.swift in Sources */,
 				51B9048C1E7AEE38004E3439 /* Energy.swift in Sources */,
 				51FB322D1CF44E8A00A17312 /* BarcodeTableViewCell.swift in Sources */,
@@ -1764,9 +1782,7 @@
 				516B32851C75F5130031EF80 /* NutritionItem.swift in Sources */,
 				51E92AFD1E13D6100071B293 /* TagListViewDelegate.swift in Sources */,
 				51C2FF8920E5081200B65509 /* UIImageView+Haneke.swift in Sources */,
-				51F0752C20A339F700C2D15C /* CSVReader.swift in Sources */,
 				5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */,
-				51F0752A20A339E900C2D15C /* CSVWriter.swift in Sources */,
 				5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */,
 				513D16B01DB4C02D005B1971 /* OFFAccount.swift in Sources */,
 				51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */,

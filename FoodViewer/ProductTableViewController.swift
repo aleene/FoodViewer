@@ -912,6 +912,24 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
     }
     
+    // Show an alert if the product can not be loaded
+    @objc func alertUser(_ notification: Notification) {
+        // Check if this image was relevant to this product
+        /*
+         if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
+         if barcode == productPair!.remoteProduct!.barcode.asString {
+         // is it relevant to the main image?
+         if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
+         if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
+         // reload product data
+         self.productPair?.reload()
+         }
+         }
+         }
+         }
+         */
+    }
+
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }

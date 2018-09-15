@@ -84,7 +84,7 @@ public struct NutritionFactItem {
     }
     
     public func localeThousandValue(editMode: Bool) -> String {
-        return localeValue(standardValue, multiplier: 10.0, editMode: editMode)
+        return localeValue(standardValue, multiplier: 1.0, editMode: editMode)
     }
 
     public func localeServingValue(editMode: Bool) -> String {

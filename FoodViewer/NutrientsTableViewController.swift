@@ -588,7 +588,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             !images.isEmpty,
             let validLanguageCode = displayLanguageCode,
             // Is there an updated image corresponding to the current language
-            let fetchResult = images[validLanguageCode]!.original?.fetch() {
+            let fetchResult = images[validLanguageCode]?.original?.fetch() {
             switch fetchResult {
             case .success(let image):
                 return image
@@ -1673,7 +1673,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
         
         var section = textField.tag
         // is this the nutrients section?
-        if section > 100 {
+        if section >= 100 {
             // the tag is a combination of the section and the row
             // section*100 + row
             section = (section - section % 100) / 100
@@ -1724,8 +1724,8 @@ extension NutrientsTableViewController: UITextFieldDelegate {
                             let validValue = editedNutritionFact.standardValue {
                             switch validType {
                             case .petFood:
-                                if var floatValue = Float(validValue) {
-                                    floatValue = floatValue / 10.0
+                                if let floatValue = Float(validValue) {
+                                    // floatValue = floatValue / 10.0
                                     let numberFormatter = NumberFormatter()
                                     numberFormatter.numberStyle = .decimal
                                     editedNutritionFact.standardValue = numberFormatter.string(from: NSNumber(value: floatValue))

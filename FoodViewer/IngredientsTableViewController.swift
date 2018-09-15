@@ -444,16 +444,18 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.textViewTag = indexPath.section
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
-            cell.ingredients = editMode ? TranslatableStrings.PlaceholderIngredients : nil
             cell.textView.textColor = .gray
             switch ingredientsToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
                     cell.ingredients = array.first
+                } else {
+                    fallthrough
                 }
             default:
-                break
+                cell.ingredients = editMode ? TranslatableStrings.PlaceholderIngredients : nil
             }
+            print("cell frame", cell.frame)
             return cell
             
         case .ingredientsSearch:

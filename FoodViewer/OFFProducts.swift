@@ -585,8 +585,11 @@ class OFFProducts {
                          .productNotAvailable(let barcodeString):
                         let userInfo = [Notification.BarcodeKey: barcodeString]
                         NotificationCenter.default.post(name: .ProductLoadingError, object:nil, userInfo: userInfo)
-
-                    default: break
+                    case .productNotLoaded(let barcodeString):
+                        let userInfo = [Notification.BarcodeKey: barcodeString]
+                        NotificationCenter.default.post(name: .ProductLoadingError, object:nil, userInfo: userInfo)
+                    default:
+                        break
                     }
                 })
             })

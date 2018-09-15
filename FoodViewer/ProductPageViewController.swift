@@ -783,6 +783,26 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     @objc func searchStarted() {
         performSegue(withIdentifier: "Unwind For Cancel", sender: self)
     }
+    
+    
+    // Show an alert if the product can not be loaded
+    @objc func alertUser(_ notification: Notification) {
+        
+        let error = "Load error"
+        let message = "Could not load your request. Server down? Internet down?"
+        let alertController = UIAlertController(title: error,
+                                                message: message,
+                                                preferredStyle:.alert)
+        let ok = UIAlertAction(title: TranslatableStrings.OK,
+                               style: .default)
+        { action -> Void in
+        }
+        
+        alertController.addAction(ok)
+        self.present(alertController, animated: true, completion: nil)
+
+    }
+    
     // MARK: - ViewController Lifecycle
         
     override func viewDidLoad() {
@@ -815,7 +835,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.searchStarted), name:.SearchStarted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.setPrefixedTitle(_:)), name:.ProductPairUpdated, object:nil)
-
+        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.alertUser(_:)), name:.ProductLoadingError, object:nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
