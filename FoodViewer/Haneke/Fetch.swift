@@ -84,6 +84,6 @@ open class Fetch<T> {
 }
 
 open class Wrapper<T> {
-    open let value: T
+    final let value: T
     public init(_ value: T) { self.value = value }
 }

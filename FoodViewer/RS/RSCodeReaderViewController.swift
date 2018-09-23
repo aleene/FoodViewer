@@ -179,7 +179,7 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         if self.session.canAddOutput(self.output) {
             self.session.addOutput(self.output)
             if let metadataObjectTypes = metadataObjectTypes {
-                self.output.metadataObjectTypes = metadataObjectTypes as! [AVMetadataObject.ObjectType]
+                self.output.metadataObjectTypes = (metadataObjectTypes as! [AVMetadataObject.ObjectType])
             } else  {
                 self.output.metadataObjectTypes = self.output.availableMetadataObjectTypes
             }

@@ -186,7 +186,7 @@ class NutriScoreView: UIView {
     
     func loadViewFromNib() -> UIView! {
         if let view = Bundle.main.loadNibNamed("NutriScoreView", owner: self, options: nil)  {
-            return view.first as! UIView
+            return (view.first as! UIView)
         } else {
             // xib not loaded, or it's top view is of the wrong type
             return nil
