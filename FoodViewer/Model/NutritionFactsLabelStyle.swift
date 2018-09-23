@@ -17,6 +17,7 @@ enum NutritionFactsLabelStyle {
     case india
     case japan
     case mexico
+    case thailand
     case unitedStates
     case world
 
@@ -42,12 +43,14 @@ enum NutritionFactsLabelStyle {
             return ["en:japan"]
         case .mexico:
             return ["en:mexico"]
+        case .thailand:
+            return ["en:thailand"]
         case .world:
             return []
         }
     }
     static var allStyles: [NutritionFactsLabelStyle] {
-        return [.australia, .unitedStates, .northAmerica, .china, .europe, .india, .mexico, .world]
+        return [.australia, .unitedStates, .northAmerica, .china, .europe, .india, .mexico, .thailand, .world]
     }
     
     // The default nutrients can be used to quickly setup a nutrition table
@@ -70,7 +73,8 @@ enum NutritionFactsLabelStyle {
         case .unitedStates:
             return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .sodium, .carbohydrates, .fiber, .sugars,
                     .addedSugars, .proteins, .vitaminD, .calcium, .iron, .potassium]
-
+        case .thailand:
+            return [.energy, .fat, .saturatedFat, .transFat, .cholesterol, .proteins, .carbohydrates, .fiber, .sugars, .sodium, .vitaminA, .vitaminB1, .vitaminB2, .calcium, .iron, .vitaminE, .iodine]
         }
     }
     
@@ -148,6 +152,8 @@ enum NutritionFactsLabelStyle {
             return .japan
         case "MX":
             return .mexico
+        case "TH":
+            return .thailand
         case "US":
             return .unitedStates
         default:
@@ -177,6 +183,8 @@ enum NutritionFactsLabelStyle {
             return "Japan"
         case .mexico:
             return "Mexico"
+        case .thailand:
+            return "Thailand"
         case .world:
             return "World"
         }
@@ -184,7 +192,7 @@ enum NutritionFactsLabelStyle {
     // the reference value used to calculate the nutrient values
     var entryUnit: NutritionEntryUnit {
         switch self {
-        case .australia, .northAmerica, .unitedStates:
+        case .australia, .northAmerica, .unitedStates, .thailand:
             return .perServing
         case .china, .europe, .india, .japan, .mexico, .world:
             return .perStandardUnit
@@ -197,7 +205,7 @@ enum NutritionFactsLabelStyle {
             return .joule
         case .northAmerica, .unitedStates:
             return .calories
-        case .india, .japan:
+        case .india, .japan, .thailand:
             return .kilocalorie
         }
     }
@@ -240,6 +248,25 @@ enum NutritionFactsLabelStyle {
                     .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins, .polyols, .sucrose, .starch,
                     
                     .fiber,  .sodium, .cholesterol, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
+                    .vitaminB6, .biotin, .vitaminB9, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK, .vitaminPP,
+                    
+                    .butyricAcid, .caproicAcid, .caprylicAcid, .capricAcid, .lauricAcid, .myristicAcid,
+                    .palmiticAcid, .stearicAcid, .arachidicAcid, .behenicAcid, .lignocericAcid, .ceroticAcid,
+                    .montanicAcid, .melissicAcid, .omega3Fat, .alphaLinolenicAcid, .eicosapentaenoicAcid,
+                    .docosahexaenoicAcid, .omega6Fat, .linoleicAcid, .arachidonicAcid, .gammaLinolenicAcid, .dihomoGammaLinolenicAcid,
+                    .omega9Fat, .oleicAcid, .elaidicAcid, .gondoicAcid, .meadAcid, .erucicAcid, .nervonicAcid, .taurine,
+                    
+                    .bicarbonate,  .chloride, .calcium, .chromium, .copper, .fluoride, .iron, .iodine,
+                    .manganese, .magnesium, .molybdenum, .phosphorus, .potassium, .selenium, .silica, .zinc,
+                    
+                    .caffeine, .casein, .serumProteins, .nucleotides, .alcohol, .ph, .cocoa]
+        case .thailand:
+            return [.energy, .fat, .saturatedFat, .monounsaturatedFat, .polyunsaturatedFat,
+                     .transFat, .carbohydrates,
+                     .cholesterol, .proteins,
+                    .sugars, .addedSugars, .fructose, .glucose, .lactose, .maltose, .maltodextrins,
+                    .polyols, .sucrose, .starch,
+                    .fiber, .sodium, .vitaminA, .vitaminB1, .vitaminB2, .pantothenicAcid,
                     .vitaminB6, .biotin, .vitaminB9, .vitaminB12, .vitaminC, .vitaminD, .vitaminE, .vitaminK, .vitaminPP,
                     
                     .butyricAcid, .caproicAcid, .caprylicAcid, .capricAcid, .lauricAcid, .myristicAcid,

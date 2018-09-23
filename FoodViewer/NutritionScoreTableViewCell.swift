@@ -102,8 +102,9 @@ class NutritionScoreTableViewCell: UITableViewCell {
     }
     
     func regionHasNutritionalScoreLogo() -> Bool {
-        let inFrance = Locale.current.regionCode?.contains("FR")
-        return inFrance ?? false
+        /* let inFrance = Locale.current.regionCode?.contains("FR")
+         return inFrance ?? false */
+        return true
     }
 
 }
