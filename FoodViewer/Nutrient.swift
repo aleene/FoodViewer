@@ -8,7 +8,7 @@
 //  These are the possible keys for the nutriments that are used in the OFF taxonomies
 import Foundation
 
-public enum Nutrient: String, EnumCollection {
+public enum Nutrient: String, CaseIterable {
     
     case addedSugars = "added-sugars"
     case alcohol = "alcohol"
@@ -111,7 +111,7 @@ public enum Nutrient: String, EnumCollection {
     }
     
     static func value(for key: String) -> Nutrient {
-        for value in allValues() {
+        for value in Nutrient.allCases {
             if "en:" + value.key == key {
                 return value
             }
@@ -139,6 +139,7 @@ public enum Nutrient: String, EnumCollection {
     }
 }
 
+/*
 public protocol EnumCollection : Hashable {}
 
 extension EnumCollection {
@@ -162,5 +163,5 @@ extension EnumCollection {
     }
 
 }
-
+*/
 

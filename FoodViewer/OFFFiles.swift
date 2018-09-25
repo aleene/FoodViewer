@@ -291,7 +291,8 @@ class OFFplists {
                 return englishValues != nil ? (Nutrient.value(for:currentVertex.key), englishValues![0], unit) : (Nutrient.value(for:key), currentVertex.key, unit )
             } else {
                 // return the first value of the translation array
-                return  !translatedValues!.isEmpty ? (Nutrient.value(for:currentVertex.key), translatedValues![0], unit) : (Nutrient.value(for:key), TranslatableStrings.NoTranslation, unit )
+                let x =  !translatedValues!.isEmpty ? (Nutrient.value(for:currentVertex.key), translatedValues![0], unit) : (Nutrient.value(for:key), TranslatableStrings.NoTranslation, unit )
+                return x
             }
         } else {
             return nil
