@@ -48,6 +48,9 @@ public struct ProductCompletion: Hashable {
         case .categories_to_be_completed:
             category = .categories
             value = false
+        case .checked:
+            category = .checked
+            value = true
         case .expiration_date_completed:
             category = .expirationDate
             value = true

@@ -15,6 +15,7 @@ public enum OFFProductStates: String, Codable {
     case categories_to_be_completed = "en:categories-to-be-completed"
     case characteristics_completed = "en:characteristics-completed"
     case characteristics_to_be_completed = "en:characteristics-to-be-completed"
+    case checked = "en:checked"
     case complete = "en:complete"
     case empty = "en:empty"
     case expiration_date_completed = "en:expiration-date-completed"
