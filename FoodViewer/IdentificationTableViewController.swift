@@ -1261,6 +1261,23 @@ class IdentificationTableViewController: UITableViewController {
 
 }
 //
+// MARK: - QuantityTableViewCellDelegate Function
+//
+extension IdentificationTableViewController: QuantityTableViewCellDelegate {
+    
+    // function to let the delegate know that a tag was single tapped
+    func quantityTableViewCell(_ sender: QuantityTableViewCell, receivedTapOn button: UIButton) {
+        switch quantityToDisplay {
+        case .available(let array):
+            productPair?.update(quantity: array[0] + " ℮")
+        default:
+            productPair?.update(quantity: " ℮")
+        }
+        self.tableView.reloadData()
+    }
+}
+
+//
 // MARK: - TagListViewButtonCellDelegate Functions
 //
 extension IdentificationTableViewController: TagListViewButtonCellDelegate {

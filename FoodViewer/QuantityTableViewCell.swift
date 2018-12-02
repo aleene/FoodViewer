@@ -9,6 +9,13 @@
 import Foundation
 import UIKit
 
+protocol QuantityTableViewCellDelegate: class {
+    
+    // function to let the delegate know that the button was tapped
+    func quantityTableViewCell(_ sender: QuantityTableViewCell, receivedTapOn button:UIButton)
+    
+}
+
 class QuantityTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField! {
@@ -21,6 +28,17 @@ class QuantityTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var eButton: UIButton! {
+        didSet {
+            eButton.isEnabled = editMode
+        }
+    }
+    
+
+    @IBAction func eButtonPressed(_ sender: UIButton) {
+        delegate?.quantityTableViewCell(self, receivedTapOn: eButton)
+    }
+    
     var tekst: String? = nil {
         didSet {
             textField.text = tekst
@@ -29,6 +47,7 @@ class QuantityTableViewCell: UITableViewCell {
     
     var editMode: Bool = false {
         didSet {
+            eButton.isEnabled = editMode
             setTextFieldStyle()
         }
     }
