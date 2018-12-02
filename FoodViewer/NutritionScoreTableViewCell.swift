@@ -56,6 +56,31 @@ class NutritionScoreTableViewCell: UITableViewCell {
                     nutriScoreView.currentScore = nil
                 }
             }
+            
+            if let nova = product?.novaGroup {
+                switch nova {
+                case "1":
+                    novaValueLabel.text = nova
+                    novaValueLabel.textColor = .white
+                    novaValueLabel.backgroundColor = .green
+                case "2":
+                    novaValueLabel.text = nova
+                    novaValueLabel.textColor = .white
+                    novaValueLabel.backgroundColor = .yellow
+                case "3":
+                    novaValueLabel.text = nova
+                    novaValueLabel.textColor = .white
+                    novaValueLabel.backgroundColor = .orange
+                case "4":
+                    novaValueLabel.text = nova
+                    novaValueLabel.textColor = .white
+                    novaValueLabel.backgroundColor = .red
+                default:
+                    novaValueLabel.text = "?"
+                    novaValueLabel.textColor = .black
+                    novaValueLabel.backgroundColor = .white
+                }
+            }
         }
     }
     
@@ -79,6 +104,18 @@ class NutritionScoreTableViewCell: UITableViewCell {
     @IBOutlet weak var saltLabel: UILabel! {
         didSet {
             saltLabel.isHidden = regionHasNutritionalScoreLogo()
+        }
+    }
+    
+    @IBOutlet weak var novaTitleLabel: UILabel! {
+        didSet {
+            novaTitleLabel.text = "nova"
+        }
+    }
+    
+    @IBOutlet weak var novaValueLabel: UILabel! {
+        didSet {
+            novaValueLabel.text = "?"
         }
     }
     

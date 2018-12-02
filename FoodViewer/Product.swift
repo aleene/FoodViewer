@@ -503,6 +503,15 @@ class FoodProduct {
         }
     }
 
+//
+// NOVA variables
+//
+    var novaGroup: String? = nil
+    var novaGroupsTags: Tags = .undefined
+    var novaGroupDebug: String? = nil
+    var novaGroupServing: String? = nil
+    var novaGroup100g: String? = nil
+    
     private func decodeInterval(_ interval: String?) -> Date? {
         if let validInterval = interval {
             if !validInterval.isEmpty {
@@ -1123,8 +1132,8 @@ class FoodProduct {
 
         primaryLanguageCode = validProduct.lang
         
-        for (languageCode, _) in validProduct.languages_codes {
-            languageCodes.append(languageCode)
+        for languageCode in validProduct.languages_codes {
+            languageCodes.append(languageCode.key)
         }
         
         decodeCompletionStates(validProduct.states_tags)
@@ -1353,6 +1362,9 @@ class FoodProduct {
         allergensInterpreted = Tags(list: validProduct.allergens_tags)
         allergensOriginal = Tags(string: validProduct.allergens)
         allergensHierarchy = Tags(list: validProduct.allergens_hierarchy)
+        
+        novaGroupsTags = Tags(list: validProduct.nova_groups_tags)
+        novaGroup = validProduct.nova_group
         
         nutritionScore = [(NutritionItem.fat,
                            NutritionLevelQuantity.value(for:validProduct.nutrient_levels?.fat)),

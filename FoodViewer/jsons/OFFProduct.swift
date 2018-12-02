@@ -101,6 +101,9 @@ class OFFProduct: Codable {
         var manufacturing_places_tags: [String]? = nil
     var new_additives_n: Int? = nil
     var no_nutrition_data: String? = nil
+    var nova_group_debug: String? = nil
+    var nova_groups_tags: [String]? = nil
+    // var nova-group: String? = nil the - is not allowed
     var nutrient_levels: OFFProductNutrientLevels? = nil
     var nutrient_levels_tags: [OFFProductNutrientLevel]? = nil
     var nutrition_grade_fr: String? = nil
