@@ -581,7 +581,7 @@
 		51B3838B1F89007E0086581C /* TranslatableStrings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TranslatableStrings.swift; sourceTree = "<group>"; };
 		51B3838D1F8936D30086581C /* ButtonWithSegmentedControlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ButtonWithSegmentedControlTableViewCell.swift; path = Cells/ButtonWithSegmentedControlTableViewCell.swift; sourceTree = "<group>"; };
 		51B384FA1FED52BD00F201AE /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = FoodViewer/Extensions/UIImageExtension.swift; sourceTree = SOURCE_ROOT; };
-		51B63CFE1CA80C4000391C34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		51B63CFE1CA80C4000391C34 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		51B721711DD5D208003AF608 /* NutritionFactUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionFactUnit.swift; sourceTree = "<group>"; };
 		51B721731DD5F268003AF608 /* AddNutrientViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNutrientViewController.swift; sourceTree = "<group>"; };
 		51B7416F1F949E280025F8A1 /* SearchComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchComponent.swift; sourceTree = "<group>"; };

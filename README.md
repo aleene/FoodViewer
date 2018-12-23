@@ -6,13 +6,13 @@ The purpose of this app is to view products stored in the Open Food Facts databa
 ## User group
 The app is intended for users that help maintain the OFF products database. It helps finding elements of a product that are lacking or wrongly entered. However it can also be used by anyone interested in reading the labels on products.
 
-#Capabilities
+# Capabilities
 The main purpose of the app is viewing the OFFproduct data for specic products.
 
-##History
+## History
 The app maintains a history of searches carried out by the user. The maximum size of this list is 100 products.
 
-##Taxonomy support
+## Taxonomy support
 The app uses the various taxonomies defined by OFF (status, allergens, additives, global labels, categories). These are used for translation purpose. It helps also to pinpoint tags, which are either not yet translated or are not a part of a taxonomy yet.
 
 ## Requirements
