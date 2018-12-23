@@ -75,6 +75,7 @@ public struct OFF {
         case food = "openfoodfacts"
         case beauty = "openbeautyfacts"
         case petFood = "openpetfoodfacts"
+        case product = "openproductfacts"
     }
     
     public enum ImageSize: String {
@@ -565,6 +566,8 @@ public struct OFF {
             return OFF.Server.petFood.rawValue
         case .beauty:
             return OFF.Server.beauty.rawValue
+        case .product:
+            return OFF.Server.product.rawValue
         }
     }
 

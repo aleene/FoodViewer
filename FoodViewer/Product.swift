@@ -158,6 +158,9 @@ class FoodProduct {
     
     var numberOfIngredients: String? = nil
 
+    var containsPalm: Bool = false
+    var mightContainPalm: Bool = false
+
     // This includes the language prefix en:
     // var allergenKeys: [String]? = nil
     
@@ -425,6 +428,8 @@ class FoodProduct {
                 return .petFood
             } else if validServer == "obf" {
                 return .beauty
+            } else if validServer == "opf" {
+                return .product
             }
         }
         
@@ -1274,6 +1279,21 @@ class FoodProduct {
             }
 
         }
+        
+        if let numberOfIngredientsFromPalmOil = validProduct.ingredients_from_palm_oil_n,
+            numberOfIngredientsFromPalmOil > 0 {
+            containsPalm = true
+        } else {
+            containsPalm = false
+        }
+        
+        if let numberOfIngredientsThatMayBeFromPalmOil = validProduct.ingredients_that_may_be_from_palm_oil_n,
+            numberOfIngredientsThatMayBeFromPalmOil > 0 {
+            mightContainPalm = true
+        } else {
+            mightContainPalm = false
+        }
+
         
         additivesInterpreted = Tags(list:validProduct.additives_tags)
         

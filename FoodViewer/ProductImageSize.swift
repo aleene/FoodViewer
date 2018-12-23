@@ -68,7 +68,7 @@ struct ProductImageSize {
             return thumb!.date
         }
     }
-    
+
     init() {
         display = nil
         small = nil

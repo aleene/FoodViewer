@@ -73,6 +73,8 @@ class Preferences {
         case .beauty:
             showProductType = .petFood
         case .petFood:
+            showProductType = .product
+        case .product:
             showProductType = .food
         }
     }

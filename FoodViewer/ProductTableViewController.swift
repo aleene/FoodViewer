@@ -142,6 +142,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 title = TranslatableStrings.PetFoodProducts
             case .beauty:
                 title = TranslatableStrings.BeautyProducts
+            case .product:
+                title = TranslatableStrings.SearchProducts
             }
         } else {
             switch currentProductType {
@@ -151,6 +153,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 title = TranslatableStrings.SearchPetFoodProducts
             case .beauty:
                 title = TranslatableStrings.SearchBeautyProducts
+            case .product:
+                title = TranslatableStrings.SearchProducts
             }
         }
         guard title != nil else { return }
@@ -274,6 +278,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case .petFood:
             return [.name, .image, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
         case .beauty:
+            return [.name, .image, .ingredients, .supplyChain, .categories, .completion ]
+        case .product:
             return [.name, .image, .ingredients, .supplyChain, .categories, .completion ]
         }
     }

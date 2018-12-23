@@ -1016,6 +1016,7 @@
                                                         <segment title=""/>
                                                         <segment title=""/>
                                                         <segment title=""/>
+                                                        <segment title=""/>
                                                     </segments>
                                                     <connections>
                                                         <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="yId-qT-ZhA"/>
@@ -1374,18 +1375,18 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-HZ-Zs9" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
-                                            <rect key="frame" x="8" y="0.0" width="204.5" height="43.5"/>
+                                            <rect key="frame" x="8" y="2" width="204.5" height="39.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-8S-99b">
-                                            <rect key="frame" x="220.5" y="12" width="61.5" height="31.5"/>
+                                            <rect key="frame" x="220.5" y="14" width="61.5" height="31.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="NOVA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yis-pt-oy6">
-                                            <rect key="frame" x="220.5" y="0.0" width="61.5" height="12"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <rect key="frame" x="220.5" y="0.0" width="61.5" height="18"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1395,14 +1396,19 @@
                                         <constraint firstAttribute="trailing" secondItem="yis-pt-oy6" secondAttribute="trailing" constant="4" id="20t-Zg-Cf6"/>
                                         <constraint firstItem="Xkg-8S-99b" firstAttribute="bottom" secondItem="fbs-DK-n1R" secondAttribute="bottom" id="8pX-lX-jsb"/>
                                         <constraint firstItem="kS6-HZ-Zs9" firstAttribute="centerY" secondItem="fbs-DK-n1R" secondAttribute="centerY" id="Dxu-iJ-fXf"/>
-                                        <constraint firstItem="kS6-HZ-Zs9" firstAttribute="height" secondItem="fbs-DK-n1R" secondAttribute="height" id="MTt-NA-iBE"/>
-                                        <constraint firstItem="Xkg-8S-99b" firstAttribute="top" secondItem="yis-pt-oy6" secondAttribute="bottom" id="Qbp-jv-NVC"/>
+                                        <constraint firstItem="kS6-HZ-Zs9" firstAttribute="height" secondItem="fbs-DK-n1R" secondAttribute="height" multiplier="0.9" id="MTt-NA-iBE"/>
+                                        <constraint firstItem="Xkg-8S-99b" firstAttribute="top" secondItem="yis-pt-oy6" secondAttribute="bottom" constant="-4" id="Qbp-jv-NVC"/>
                                         <constraint firstItem="yis-pt-oy6" firstAttribute="leading" secondItem="kS6-HZ-Zs9" secondAttribute="trailing" constant="8" id="WKP-mO-io9"/>
                                         <constraint firstItem="yis-pt-oy6" firstAttribute="width" secondItem="Xkg-8S-99b" secondAttribute="width" id="XTS-ya-y4k"/>
                                         <constraint firstItem="yis-pt-oy6" firstAttribute="top" secondItem="fbs-DK-n1R" secondAttribute="top" id="Yw9-wr-XiR"/>
                                         <constraint firstItem="kS6-HZ-Zs9" firstAttribute="leading" secondItem="fbs-DK-n1R" secondAttribute="leading" constant="8" id="ZbB-E8-8BX"/>
                                         <constraint firstItem="yis-pt-oy6" firstAttribute="centerX" secondItem="Xkg-8S-99b" secondAttribute="centerX" id="bMF-AQ-X44"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="8pX-lX-jsb"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="novaTitleLabel" destination="yis-pt-oy6" id="lUR-lx-65Z"/>

@@ -721,8 +721,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         switch tableStructure[section] {
         case .image, .ingredients :
-            let header = tableStructure[section].header
+            var header = tableStructure[section].header
             
+            //     // ⃣ 🍫⃠  b + ⃠ 🌴 + ⃠   👩+❤+💋+👨
+            
+            if let validProduct = productPair?.remoteProduct,
+                validProduct.containsPalm {
+                header = "🌴 " + header
+            } else if let validProduct = productPair?.remoteProduct,
+            validProduct.mightContainPalm {
+                header = "🌴? " + header
+            }
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: Storyboard.ReusableHeaderFooterView.Language) as! LanguageHeaderView
             
             headerView.section = section
@@ -803,7 +812,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         
         if query != nil {
             sectionsAndRows.append(.ingredientsSearch(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
-            // not needed for .petFood and .beauty
+            // not needed for .petFood, .product and .beauty
             switch currentProductType {
             case .food:
                 // 1:  allergens section
@@ -819,7 +828,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             
         } else {
             sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
-            // not needed for .petFood and .beauty
+            // not needed for .product, .petFood and .beauty
             switch currentProductType {
             case .food:
                 // 1:  allergens section

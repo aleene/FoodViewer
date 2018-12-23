@@ -61,6 +61,7 @@ class SettingsTableViewController: UITableViewController {
             foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Food, forSegmentAt: 0)
             foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Beauty, forSegmentAt: 1)
             foodOrBeautySgmentedControl.setTitle(TranslatableStrings.PetFood, forSegmentAt: 2)
+            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Product, forSegmentAt: 3)
             switch currentProductType {
             case .food:
                 foodOrBeautySgmentedControl?.selectedSegmentIndex = 0
@@ -68,7 +69,8 @@ class SettingsTableViewController: UITableViewController {
                 foodOrBeautySgmentedControl?.selectedSegmentIndex = 1
             case .petFood:
                 foodOrBeautySgmentedControl?.selectedSegmentIndex = 2
-
+            case .product:
+                foodOrBeautySgmentedControl?.selectedSegmentIndex = 3
             }
         }
     }
@@ -83,6 +85,8 @@ class SettingsTableViewController: UITableViewController {
             changedCurrentProductType = .beauty
         case 2:
             changedCurrentProductType = .petFood
+        case 3:
+            changedCurrentProductType = .product
         default:
             break
         }

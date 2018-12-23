@@ -188,6 +188,8 @@ import MobileCoreServices
                 return .petFood
             } else if validUrl.absoluteString.contains(ProductType.beauty.rawValue) {
                 return .beauty
+            } else if validUrl.absoluteString.contains(ProductType.product.rawValue) {
+                return .product
             }
         }
         return nil
@@ -215,6 +217,8 @@ import MobileCoreServices
                 let fetcher = NetworkFetcher<UIImage>(URL: validURL)
                 let cache = Shared.imageCache
                 cache.fetch(fetcher: fetcher).onSuccess { image in
+                    
+                    self.getExifDataFrom(image)
                     completion(.success(image))
                     return
                 }
@@ -358,6 +362,18 @@ import MobileCoreServices
             return elements[4]
         } else {
             return "ProductImageData: No valid barcode"
+        }
+    }
+    
+    
+    private func getExifDataFrom(_ image: UIImage) {
+        if let imageData = UIImageJPEGRepresentation(image, 1.0) {
+            let imageCFData = imageData as CFData
+            if let cgImage = CGImageSourceCreateWithData(imageCFData, nil),
+                let metaDict: NSDictionary = CGImageSourceCopyPropertiesAtIndex(cgImage, 0, nil) {
+                let exifDict: NSDictionary = metaDict.object(forKey: kCGImagePropertyExifDictionary) as! NSDictionary
+                print(exifDict)
+            }
         }
     }
 }

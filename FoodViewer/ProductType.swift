@@ -13,6 +13,7 @@ enum ProductType: String {
     case food = "openfoodfacts"
     case petFood = "openpetfoodfacts"
     case beauty = "openbeautyfacts"
+    case product = "openproductfacts"
     
     init(string: String) {
         switch string {
@@ -22,6 +23,8 @@ enum ProductType: String {
             self = .petFood
         case "openbeautyfacts":
             self = .beauty
+        case "openproductfacts":
+            self = .product
         default:
             self = .food
         }
@@ -33,6 +36,8 @@ enum ProductType: String {
             return ProductType.petFood.description()
         } else if str == ProductType.beauty.rawValue {
             return ProductType.beauty.description()
+        } else if str == ProductType.product.rawValue {
+            return ProductType.product.description()
         }
         return nil
     }
@@ -44,6 +49,8 @@ enum ProductType: String {
             return .petFood
         } else if server == ProductType.beauty.rawValue {
             return .beauty
+        } else if server == ProductType.product.rawValue {
+            return .product
         }
         return nil
     }
@@ -56,6 +63,8 @@ enum ProductType: String {
             return "Petfood product"
         case .beauty:
             return "Beauty product"
+        case .product:
+            return "General product"
         }
     }
 }

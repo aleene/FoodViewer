@@ -309,6 +309,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             } else {
                 pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
             }
+        case .product:
+            if isQuery {
+                // search page has no gallery
+                pages = [.identification, .ingredients, .supplyChain, .categories, .completion]
+            } else {
+                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+            }
+
         }
     }
     

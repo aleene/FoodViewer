@@ -57,6 +57,8 @@ class Sample {
             return Sample.Barcode.PetFood
         case .beauty:
             return Sample.Barcode.Beauty
+        case .product:
+            return Sample.Barcode.Beauty
         }
     }
     
@@ -67,6 +69,8 @@ class Sample {
         case .petFood:
             return Sample.Image.Main.PetFood
         case .beauty:
+            return Sample.Image.Main.Beauty
+        case .product:
             return Sample.Image.Main.Beauty
         }
     }
@@ -79,6 +83,8 @@ class Sample {
             return Sample.Image.Ingredients.PetFood
         case .beauty:
             return Sample.Image.Ingredients.Beauty
+        case .product:
+            return Sample.Image.Ingredients.Beauty
         }
     }
 
@@ -89,6 +95,8 @@ class Sample {
         case .petFood:
             return Sample.Image.Nutrition.PetFood
         case .beauty:
+            return Sample.Image.Nutrition.Beauty
+        case .product:
             return Sample.Image.Nutrition.Beauty
         }
     }
