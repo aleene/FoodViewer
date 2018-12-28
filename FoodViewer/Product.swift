@@ -872,7 +872,9 @@ class FoodProduct {
                         .product_name_completed,
                         .product_name_to_be_completed,
                         .quantity_completed,
-                        .quantity_to_be_completed:
+                        .quantity_to_be_completed,
+                        .checked,
+                        .to_be_checked:
                             state.states.insert(ProductCompletion(with: currentState))
                     default:
                         break

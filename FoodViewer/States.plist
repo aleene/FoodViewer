@@ -134,7 +134,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:checked</key>
+	<key>en:checked-completed</key>
 	<dict>
 		<key>Languages</key>
 		<dict>
@@ -552,7 +552,7 @@
 			</array>
 		</dict>
 	</dict>
-	<key>en:to-be-checked</key>
+	<key>en:checked-to-be-completed</key>
 	<dict>
 		<key>Languages</key>
 		<dict>

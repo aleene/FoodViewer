@@ -372,7 +372,7 @@ import MobileCoreServices
             if let cgImage = CGImageSourceCreateWithData(imageCFData, nil),
                 let metaDict: NSDictionary = CGImageSourceCopyPropertiesAtIndex(cgImage, 0, nil) {
                 let exifDict: NSDictionary = metaDict.object(forKey: kCGImagePropertyExifDictionary) as! NSDictionary
-                print(exifDict)
+                // print(getExifDataFrom: exifDict)
             }
         }
     }

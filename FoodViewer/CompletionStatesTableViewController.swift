@@ -100,6 +100,7 @@ class CompletionStatesTableViewController: UITableViewController {
         if let validProduct = productPair?.remoteProduct {
             switch section {
             case 0:
+                
                 return validProduct.state.states.count
             case 1:
                 return validProduct.contributors.count

@@ -104,7 +104,7 @@ class VertexNew: Node {
                                         parentVertex.key = value3
                                         vertex.parents.insert(parentVertex)
                                     } else {
-                                        print("unknown key in Parents dictionary")
+                                        print("VertexNew: unknown key in Parents dictionary")
                                     }
                                 }
                             }
@@ -113,12 +113,12 @@ class VertexNew: Node {
                         }
                     }
                 } else {
-                    print("not a dictionary")
+                    print("VertexNew: not a dictionary")
                 }
 
             }
         } else {
-            print ("wrong length")
+            print ("VertexNew: wrong length")
         }
 
         return vertex

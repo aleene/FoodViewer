@@ -67,10 +67,15 @@ class IngredientsFullTableViewCell: UITableViewCell {
                 // needed to reset the color of the text. It is not actually shown.
                 textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
                 textView?.text = unAttributedIngredients
-                //textView?.sizeToFit()
             } else {
                 textView?.text = ""
             }
+            // print(textView?.text, self.frame.size, textView.frame.size)
+            // let fixedWidth = self.frame.size.width - 20.0 - 32.0
+            // let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+            // textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+            print(textView?.text, self.frame.size, textView.frame.size)
+            // textView?.sizeToFit() this allows for incompatible widths
             // textView?.removeGestureRecognizer(tapGestureRecognizer)
         } else {
             if attributedIngredients.length > 0 {
@@ -80,7 +85,6 @@ class IngredientsFullTableViewCell: UITableViewCell {
             }
             textView?.sizeToFit()
         }
-        // print(textView.frame.size)
         // self.frame.size.height = textView.frame.size.height
     }
     

@@ -51,6 +51,9 @@ public struct ProductCompletion: Hashable {
         case .checked:
             category = .checked
             value = true
+        case .to_be_checked:
+            category = .checked
+            value = false
         case .expiration_date_completed:
             category = .expirationDate
             value = true
@@ -98,9 +101,6 @@ public struct ProductCompletion: Hashable {
             value = true
         case .quantity_to_be_completed:
             category = .quantity
-            value = false
-        case .to_be_checked:
-            category = .checked
             value = false
         case .characteristics_completed:
             category = .characteristics
