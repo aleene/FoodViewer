@@ -82,7 +82,7 @@ struct TranslatableStrings {
 // MARK: - EEEEEEEEEEEEEEEEE strings
 //
     
-    static let E = NSLocalizedString("E", comment: "String in Segmented Control to indicate the fifth best (and last) nutritional score level")
+    static let E = NSLocalizedString("E", comment: "String in Segmented Control to indicate the fifth best (and last) nutrition score level")
     static let Edit = NSLocalizedString("Edit", comment: "Title of viewcontroller which allows editing of the product in a webview.") 
     static let EditDate = NSLocalizedString("Edit date", comment: "String in picker, which lets the user select the search result order")
     static let EditNutrient = NSLocalizedString("Edit Nutrient", comment: "Title of view controller, which allows editing of the nutrients")
@@ -205,7 +205,7 @@ struct TranslatableStrings {
     static let NoTranslation = NSLocalizedString("No translation", comment: "Text in a pickerView, when no translated text is available")
     static let Nutrients = NSLocalizedString("Nutrients", comment: "Generic text to indicate the nutrients of a product.")
     static let NutrimentsAvailability = NSLocalizedString("Nutriments Availability", comment: "Tableview header for the section with nutriments availability, i.e. whether the nutrients are on the package.")
-    static let NutritionalScore = NSLocalizedString("Nutritional Score", comment: "Header for a table section showing the search for nutritional score")
+    static let NutritionalScore = NSLocalizedString("Nutrition Score", comment: "Header for a table section showing the search for nutrition score")
     static let NutritionalScoreFrance = NSLocalizedString("Nutritional Score France", comment: "Header for a table section showing the total results France")
     static let NutritionalScoreUK = NSLocalizedString("Nutritional Score UK", comment: "Header for a table section showing the total results UK")
     static let NutritionFacts = NSLocalizedString("Nutrition Facts", comment: "Text to indicate the nutrition facts of a product.")
