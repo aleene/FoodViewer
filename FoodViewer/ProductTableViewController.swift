@@ -221,18 +221,27 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate var selectedRowType: RowType? = nil
     
+    private var isCompactOrientation: Bool {
+        get {
+            return self.splitViewController?.traitCollection.horizontalSizeClass == .compact
+        }
+    }
+
     fileprivate func showSelectedProduct() {
         // prevent that to many changes are pushed on the view stack
         // check the current presented controller
         // only segue if we are at the top of the stack
         // i.e. only segue once
-        if let parentVC = self.parent as? UINavigationController {
-            let testVC = parentVC.visibleViewController as? ProductTableViewController
-            if testVC != nil {
-                //print("perform", testVC?.view?.frame, testVC?.parent)
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+        if !isCompactOrientation {
+        // It's an iPad
+            if let parentVC = self.parent as? UINavigationController {
+                if parentVC.visibleViewController as? ProductTableViewController != nil {
+                    //print("perform", testVC?.view?.frame, testVC?.parent)
+                    performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+                }
             }
         }
+
     }
 
     // The row types are mapped onto custom cells
