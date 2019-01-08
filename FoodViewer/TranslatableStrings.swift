@@ -144,9 +144,9 @@ struct TranslatableStrings {
 // MARK: - JJJJJJJJJjjjjJJJJJJ strings
 //
 
-    static let Joule = NSLocalizedString("Joule", comment: "Title of first segment in switch, which lets the user select between joule, kilo-calories or Calories")
+    static let Joule = NSLocalizedString("Joules", comment: "Title of first segment in switch, which lets the user select between joules, kilo-calories or Calories")
     
-    static let KiloCalorie = NSLocalizedString("kilocalorie", comment: "Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories")
+    static let KiloCalorie = NSLocalizedString("Kilocalories", comment: "Title of second segment in switch, which lets the user select between joule, kilo-calories or Calories")
 //
 // MARK: - LLLLLLLLLLLLLLLL strings
 //
