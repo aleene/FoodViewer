@@ -75,7 +75,7 @@ struct TranslatableStrings {
     static let DailyValuesPerServing = NSLocalizedString("Daily Values (per serving)", comment: "Description for NutritionData Daily Value per serving")
     static let DataIsLoaded = NSLocalizedString("Data is loaded", comment: "String presented in a tagView if the data has been loaded")
     static let Discard = NSLocalizedString("Discard", comment: "Title of a button in an alert sheet, which allows the user to discard alle changes to the local product.")
-    static let DisplayPrefs = NSLocalizedString("Display Prefs", comment: "Title of a tableView section, which lets the user select display options")
+    static let DisplayPrefs = NSLocalizedString("Display Preferences", comment: "Title of a tableView section, which lets the user select display options")
     static let Done = NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input.")
     
 //
@@ -136,7 +136,7 @@ struct TranslatableStrings {
     static let InformerUnicode = NSLocalizedString("💭", comment: "Image to indicate that the user who added information to the product.")
     static let Ingredients = NSLocalizedString("Ingredients", comment: "Text to indicate the ingredients of a product.")
     static let IngredientsImage = NSLocalizedString("Ingredients Image", comment: "Header title for the ingredients image section, i.e. the image of the package with the ingredients")
-    static let IngredientOrigins = NSLocalizedString("Ingredients Origin", comment: "Generic string to indicate the origins of the ingredients")
+    static let IngredientOrigins = NSLocalizedString("Origins of ingredients", comment: "Generic string to indicate the origins of the ingredients")
     static let Initialized = NSLocalizedString("Initialized", comment: "String presented in a tagView if nothing has happened yet")
     static let Interpreted = NSLocalizedString("Interpreted", comment: "Description of the by OFF interpreted tags in the json")
     
@@ -261,7 +261,7 @@ struct TranslatableStrings {
     static let ProductNameMissing = NSLocalizedString("Product name missing", comment: "Secction title, to indicate the product name does not exist")
     static let ProductNotAvailable = NSLocalizedString("Product not available", comment: "String presented in a tagView if no product is available on OFF")
     static let ProductNotLoaded = NSLocalizedString("Product not loaded", comment: "String to indicate a product has not yet been retrieved from OFF yet and is only locally available")
-    static let ProductWebSites = NSLocalizedString("Product Websites", comment: "Header title of tableview section, indicating the websites for the product")
+    static let ProductWebSites = NSLocalizedString("Official product website", comment: "Header title of tableview section, indicating the websites for the product")
     static let PurchaseAddress = NSLocalizedString("Purchase address", comment: "Generic string to indicate the address (street/city/postalcode/country) where the product was bought")
     
     static let OpenFoodFactsAccount = NSLocalizedString("OpenFoodFacts Account", comment: "Title of a tableView section, which lets the user set the off account to use")
@@ -284,7 +284,7 @@ struct TranslatableStrings {
 // MARK: - SSSSSSSSSSSSSSSSS strings
 //
     
-    static let SalesCountries = NSLocalizedString("Sales countries", comment: "Text to indicate the sales countries of a product.")
+    static let SalesCountries = NSLocalizedString("Countries where sold", comment: "Text to indicate the sales countries of a product.")
     static let Salt = NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium")
     static let SampleGenericProductName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
     static let SampleProductName = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
