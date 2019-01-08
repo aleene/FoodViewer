@@ -835,7 +835,7 @@
                             </items>
                         </navigationBar>
                         <sections>
-                            <tableViewSection id="IX8-eF-0Vp">
+                            <tableViewSection id="IX8-eF-0Vp" userLabel="SaltOrSodiumPreferences">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="wrk-E7-xZk">
                                         <rect key="frame" x="0.0" y="44" width="320" height="44"/>
@@ -863,6 +863,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="GoD-a7-jqG" userLabel="EnergyUnitPreferences">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hVm-vn-Ji3">
                                         <rect key="frame" x="0.0" y="88" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -890,6 +894,10 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="XHL-sB-f8d" userLabel="NutritionUnitPreferences">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="mFu-Bk-Nvj">
                                         <rect key="frame" x="0.0" y="132" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -919,31 +927,68 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="RKN-H0-BL2">
+                            <tableViewSection id="mg1-Aw-Gzt" userLabel="NutritionFactsTableFormatPreferences">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="RFc-0b-oYh" style="IBUITableViewCellStyleDefault" id="fJA-ZI-FOv">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Z7O-Ab-zeM">
                                         <rect key="frame" x="0.0" y="176" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJA-ZI-FOv" id="2oX-yY-AyU">
-                                            <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z7O-Ab-zeM" id="btk-6L-H17">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Allergens / Traces" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RFc-0b-oYh">
-                                                    <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9fw-bj-GNl">
+                                                    <rect key="frame" x="16" y="11" width="288" height="23"/>
+                                                    <segments>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="RLM-of-eR7"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="leading" secondItem="btk-6L-H17" secondAttribute="leadingMargin" id="DMi-nK-slf"/>
+                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="bottom" secondItem="btk-6L-H17" secondAttribute="bottomMargin" id="Fbl-Ec-tqT"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9fw-bj-GNl" secondAttribute="trailing" id="Ho0-ob-icW"/>
+                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="top" secondItem="btk-6L-H17" secondAttribute="topMargin" id="e1C-VJ-oKe"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="ATg-Bj-orl" userLabel="ProductTypePreferences">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="eIs-ua-45Q">
+                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eIs-ua-45Q" id="sPg-Qk-95B">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6sH-al-X1Q">
+                                                    <rect key="frame" x="16" y="10" width="288" height="23"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <segments>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                        <segment title=""/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="utz-Io-eQM"/>
+                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="vq2-KV-UAh"/>
+                                                    </connections>
+                                                </segmentedControl>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="68J-Mf-bIs">
+                            <tableViewSection id="68J-Mf-bIs" userLabel="OFFAccountPreferences">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="WXA-OX-61J">
-                                        <rect key="frame" x="0.0" y="220" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="264" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WXA-OX-61J" id="9w0-50-ygX">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -970,10 +1015,31 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="GoD-a7-jqG">
+                            <tableViewSection id="RKN-H0-BL2" userLabel="AllergenWarningPreferences">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="RFc-0b-oYh" style="IBUITableViewCellStyleDefault" id="fJA-ZI-FOv">
+                                        <rect key="frame" x="0.0" y="308" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJA-ZI-FOv" id="2oX-yY-AyU">
+                                            <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Allergens / Traces" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RFc-0b-oYh">
+                                                    <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="LM4-jg-XSP" userLabel="HistoryReset">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hoE-SS-5xU">
-                                        <rect key="frame" x="0.0" y="264" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="352" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hoE-SS-5xU" id="h5H-aD-k1n">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1001,68 +1067,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="XHL-sB-f8d">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="dAa-Nv-t8A">
-                                        <rect key="frame" x="0.0" y="308" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dAa-Nv-t8A" id="qXQ-1M-fRN">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zxj-MC-Q9J">
-                                                    <rect key="frame" x="16" y="11" width="288" height="23"/>
-                                                    <segments>
-                                                        <segment title=""/>
-                                                        <segment title=""/>
-                                                        <segment title=""/>
-                                                        <segment title=""/>
-                                                    </segments>
-                                                    <connections>
-                                                        <action selector="foodOrBeautySegmentedControlledTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="yId-qT-ZhA"/>
-                                                    </connections>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Zxj-MC-Q9J" firstAttribute="top" secondItem="qXQ-1M-fRN" secondAttribute="topMargin" id="NqH-ma-SlS"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Zxj-MC-Q9J" secondAttribute="trailing" id="S9I-le-xWd"/>
-                                                <constraint firstItem="Zxj-MC-Q9J" firstAttribute="leading" secondItem="qXQ-1M-fRN" secondAttribute="leadingMargin" id="WW8-E0-bYp"/>
-                                                <constraint firstItem="Zxj-MC-Q9J" firstAttribute="bottom" secondItem="qXQ-1M-fRN" secondAttribute="bottomMargin" id="X2n-bC-e5Y"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection headerTitle="Nutrition Facts Table Format" id="mg1-Aw-Gzt">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Z7O-Ab-zeM">
-                                        <rect key="frame" x="0.0" y="380" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z7O-Ab-zeM" id="btk-6L-H17">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9fw-bj-GNl">
-                                                    <rect key="frame" x="16" y="11" width="288" height="23"/>
-                                                    <segments>
-                                                        <segment title=""/>
-                                                        <segment title=""/>
-                                                    </segments>
-                                                    <connections>
-                                                        <action selector="nutritionFactsLabelStyleSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="RLM-of-eR7"/>
-                                                    </connections>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="leading" secondItem="btk-6L-H17" secondAttribute="leadingMargin" id="DMi-nK-slf"/>
-                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="bottom" secondItem="btk-6L-H17" secondAttribute="bottomMargin" id="Fbl-Ec-tqT"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="9fw-bj-GNl" secondAttribute="trailing" id="Ho0-ob-icW"/>
-                                                <constraint firstItem="9fw-bj-GNl" firstAttribute="top" secondItem="btk-6L-H17" secondAttribute="topMargin" id="e1C-VJ-oKe"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="HoC-g1-BPV" id="hqW-Zz-az3"/>
@@ -1073,7 +1077,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="clearHistoryButton" destination="7bH-Lm-Fh3" id="VJD-53-1qK"/>
-                        <outlet property="foodOrBeautySgmentedControl" destination="Zxj-MC-Q9J" id="bYR-sJ-7fZ"/>
+                        <outlet property="foodOrBeautySgmentedControl" destination="6sH-al-X1Q" id="kYr-gM-bIa"/>
                         <outlet property="jouleOrCaloriesSegmentedControl" destination="iLS-3y-yF5" id="tw0-QT-u8C"/>
                         <outlet property="nutritionFactsLabelStyleSegmentedControl" destination="9fw-bj-GNl" id="dVE-sT-B5z"/>
                         <outlet property="nutritionUnitSegmentedControl" destination="h25-t4-qRW" id="fbn-xd-cNY"/>
@@ -1084,7 +1088,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L7h-nT-Kym" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Qre-lC-csc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1791" y="-465"/>
+            <point key="canvasLocation" x="1680" y="-466"/>
         </scene>
         <!--Products-->
         <scene sceneID="B20-Pm-QF1">

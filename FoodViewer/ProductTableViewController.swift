@@ -232,7 +232,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // check the current presented controller
         // only segue if we are at the top of the stack
         // i.e. only segue once
-        if !isCompactOrientation {
+        //if !isCompactOrientation {
         // It's an iPad
             if let parentVC = self.parent as? UINavigationController {
                 if parentVC.visibleViewController as? ProductTableViewController != nil {
@@ -240,8 +240,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
                 }
             }
-        }
-
+        //}
     }
 
     // The row types are mapped onto custom cells

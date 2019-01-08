@@ -358,14 +358,22 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
-        case 3:
-            return TranslatableStrings.Reset
         case 0:
-            return TranslatableStrings.DisplayPrefs
+            return TranslatableStrings.SaltOrSodiumPreferences
         case 1:
-            return TranslatableStrings.Warnings
+            return TranslatableStrings.EneryUnitPreferences
         case 2:
+            return TranslatableStrings.NutritionUnitPreferences
+        case 3:
+            return TranslatableStrings.NutritionTableFormatPreferences
+        case 4:
+            return TranslatableStrings.ProductTypePreferences
+        case 5:
             return TranslatableStrings.OpenFoodFactsAccount
+        case 6:
+            return TranslatableStrings.Warnings
+        case 7:
+            return TranslatableStrings.Reset
         default:
             break
         }
