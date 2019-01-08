@@ -473,7 +473,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
 
     private var prefixedTitle: String {
-        return prefix + " " + pageIndex.description
+        return pageIndex.description + " " + prefix  
     }
     
     fileprivate let identificationVC: IdentificationTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier) as! IdentificationTableViewController
