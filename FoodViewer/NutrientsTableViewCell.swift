@@ -49,10 +49,13 @@ class NutrientsTableViewCell: UITableViewCell {
                 textField.layer.cornerRadius = 5
                 textField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
                 textField.clipsToBounds = true
+                unitButton.setTitleColor(.gray, for: .normal)
+
             } else {
                 textField.layer.cornerRadius = 5
-                textField.backgroundColor = UIColor.white
-                textField.layer.borderColor = UIColor.white.cgColor
+                textField.backgroundColor = .white
+                textField.borderStyle = .none
+                unitButton.setTitleColor(.black, for: .normal)
             }
         }
     }
