@@ -213,7 +213,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             if selectedIndex == nil {
                 selectedIndex = 0
             }
-            showSelectedProduct()
         }
     }
     
@@ -221,26 +220,27 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     fileprivate var selectedRowType: RowType? = nil
     
-    private var isCompactOrientation: Bool {
+    // is the current device in compact orientation?
+    private var deviceHasCompactOrientation: Bool {
         get {
             return self.splitViewController?.traitCollection.horizontalSizeClass == .compact
         }
     }
 
-    fileprivate func showSelectedProduct() {
+    fileprivate func showProductPageInCompactOrientation(_ show: Bool) {
         // prevent that to many changes are pushed on the view stack
         // check the current presented controller
         // only segue if we are at the top of the stack
         // i.e. only segue once
-        //if !isCompactOrientation {
-        // It's an iPad
+        // Segue only if the user tapped on the iPhone and always on the iPad
+        if show {
             if let parentVC = self.parent as? UINavigationController {
                 if parentVC.visibleViewController as? ProductTableViewController != nil {
                     //print("perform", testVC?.view?.frame, testVC?.parent)
                     performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
                 }
             }
-        //}
+        }
     }
 
     // The row types are mapped onto custom cells
@@ -582,6 +582,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let index = selectedIndex {
             selectedRowType = tableStructure[index]
         }
+        showProductPageInCompactOrientation(true)
         if products.count > 0,
             let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
             let validProductPair = products.productPair(at: indexPath.section) {
@@ -801,6 +802,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
         startInterface(at:0)
+        showProductPageInCompactOrientation(!deviceHasCompactOrientation)
     }
     
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
@@ -983,12 +985,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     // 
     @objc func firstProductLoaded(_ notification: Notification) {
         startInterface(at: 0)
+        showProductPageInCompactOrientation(!deviceHasCompactOrientation)
     }
     
     @objc func searchLoaded(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
             startInterface(at:index >= 0 ? index : 0)
+            showProductPageInCompactOrientation(!deviceHasCompactOrientation)
         }
     }
 
@@ -999,6 +1003,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // If it is the first page, position the interface on the first section
             if firstPage == 0 {
                 startInterface(at:0)
+                showProductPageInCompactOrientation(!deviceHasCompactOrientation)
             }
         }
     }
@@ -1012,6 +1017,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 Preferences.manager.cycleProductType()
                 products.reloadAll()
                 startInterface(at: 0)
+                showProductPageInCompactOrientation(!deviceHasCompactOrientation)
             }
         }
     }
@@ -1058,9 +1064,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switchToTab(withIndex: 1)
         }
 
-        if products.count > 0 && selectedProductPair == nil {
-            // If nothing has been selected yet, start with the first product in the list
+        if products.count > 0 && selectedProductPair == nil{
+            // If nothing has been selected yet, start with the first product in the list, and on the iPad
             startInterface(at: 0)
+            showProductPageInCompactOrientation(!deviceHasCompactOrientation)
         }
         
         // Notifications coming from ProductPair,
@@ -1146,6 +1153,7 @@ extension ProductTableViewController: UITabBarControllerDelegate {
         products.list = tabBarController.selectedIndex == 0 ? .recent : .search
         // refreshInterface()
         startInterface(at: 0)
+        showProductPageInCompactOrientation(!deviceHasCompactOrientation)
     }
     
 }

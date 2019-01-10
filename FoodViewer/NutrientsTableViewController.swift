@@ -360,6 +360,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var nutritionFactRow: Int {
+            return  indexPath.row - ( editMode ? 1 : 0 )
+        }
+        
         // we assume that product exists
         switch tableStructure[indexPath.section] {
         case .perUnitSearch, .servingSizeSearch, .imageSearch:
@@ -401,8 +405,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell
             
         case .nutritionFacts:
-            if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
-                // This cell should only be added when in editMode and as the last row
+            if indexPath.row == 0 && editMode {
+                // This cell should only be added when in editMode and as the first row
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
                 cell.delegate = self
                 cell.buttonText = TranslatableStrings.AddNutrient
@@ -431,21 +435,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
                     // warning set FIRST the saltOrSodium
-                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[indexPath.row]
+                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[nutritionFactRow*]
                     cell?.delegate = self
-                    cell?.tag = indexPath.section * 100 + indexPath.row
+                    cell?.tag = indexPath.section * 100 + indexPath.row + ( editMode ? 1 : 0 )
                     // only add taps gestures when NOT in editMode
                     if !editMode {
-                        if  (adaptedNutritionFacts[indexPath.row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
-                            (adaptedNutritionFacts[indexPath.row].nutrient.rawValue == NatriumChloride.sodium.key) {
+                        if  (adaptedNutritionFacts[nutritionFactRow].nutrient.rawValue ==   NatriumChloride.salt.key) ||
+                            (adaptedNutritionFacts[nutritionFactRow].nutrient.rawValue == NatriumChloride.sodium.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                        } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
-                            (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
+                        } else if  (adaptedNutritionFacts[nutritionFactRow].nutrient.key == LocalizedEnergy.key) ||
+                            (adaptedNutritionFacts[nutritionFactRow].nutrient.key == LocalizedEnergy.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -1686,7 +1690,7 @@ extension NutrientsTableViewController: UITextFieldDelegate {
             }
         case .nutritionFacts:
             // decode the actual row from the tag by subtracting the section*100
-            let row = textField.tag % 100
+            let row = textField.tag % 100 - ( editMode ? 1 : 0 )
             // print(textField.tag, row)
             if row >= 0 && row < adaptedNutritionFacts.count {
                 // The new nutrient unit should be set to the nutrient that was edited
