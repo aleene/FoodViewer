@@ -69,6 +69,7 @@ public struct NutritionFactItem {
                 let division = floatValue / Constants.CaloriesPerJoule
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
+                numberFormatter.maximumSignificantDigits = 4
                 let str = numberFormatter.string(from: NSNumber(floatLiteral: Double(division)))
                 guard (str != nil) else { return "" }
                 return str!
@@ -104,6 +105,7 @@ public struct NutritionFactItem {
                 floatValue = floatValue * multiplier
                 let numberFormatter = NumberFormatter()
                 numberFormatter.numberStyle = .decimal
+                numberFormatter.maximumSignificantDigits = 4
                 numberFormatter.usesGroupingSeparator = !editMode
                 return numberFormatter.string(from: NSNumber(value: floatValue)) ?? ""
             } else {

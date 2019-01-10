@@ -435,7 +435,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
                     // warning set FIRST the saltOrSodium
-                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[nutritionFactRow*]
+                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[nutritionFactRow]
                     cell?.delegate = self
                     cell?.tag = indexPath.section * 100 + indexPath.row + ( editMode ? 1 : 0 )
                     // only add taps gestures when NOT in editMode
