@@ -437,7 +437,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // warning set FIRST the saltOrSodium
                     cell?.nutritionDisplayFactItem = adaptedNutritionFacts[nutritionFactRow]
                     cell?.delegate = self
-                    cell?.tag = indexPath.section * 100 + indexPath.row + ( editMode ? 1 : 0 )
+                    cell?.tag = indexPath.section * 100 + indexPath.row
                     // only add taps gestures when NOT in editMode
                     if !editMode {
                         if  (adaptedNutritionFacts[nutritionFactRow].nutrient.rawValue ==   NatriumChloride.salt.key) ||

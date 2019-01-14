@@ -13,27 +13,7 @@ class NutritionScoreTableViewCell: UITableViewCell {
     var product: FoodProduct? = nil {
         didSet {
             self.backgroundColor = .white
-            /*
-            if let score = product?.nutritionScore {
-                for (item, level) in score {
-                    switch item {
-                    case .fat:
-                        fatLabel.backgroundColor = colorForLevel(level)
-                    case .saturatedFat:
-                        saturatedFatLabel.backgroundColor = colorForLevel(level)
-                    case .sugar:
-                        sugarLabel.backgroundColor = colorForLevel(level)
-                    case .salt:
-                        saltLabel.backgroundColor = colorForLevel(level)
-                    case .undefined:
-                        fatLabel.backgroundColor = UIColor.white
-                        saturatedFatLabel.backgroundColor = UIColor.white
-                        sugarLabel.backgroundColor = UIColor.white
-                        saltLabel.backgroundColor = UIColor.white
-                    }
-                }
-            }
- */
+ 
             if let score = product?.nutritionGrade {
                 switch  score {
                 case .a:
@@ -81,29 +61,6 @@ class NutritionScoreTableViewCell: UITableViewCell {
                     novaValueLabel.backgroundColor = .white
                 }
             }
-        }
-    }
-    
-    @IBOutlet weak var fatLabel: UILabel! {
-        didSet {
-            fatLabel.isHidden = regionHasNutritionalScoreLogo()
-        }
-    }
-    @IBOutlet weak var saturatedFatLabel: UILabel! {
-        didSet {
-            saturatedFatLabel.isHidden = regionHasNutritionalScoreLogo()
-        }
-    }
-
-    @IBOutlet weak var sugarLabel: UILabel! {
-        didSet {
-            sugarLabel.isHidden = regionHasNutritionalScoreLogo()
-        }
-    }
-
-    @IBOutlet weak var saltLabel: UILabel! {
-        didSet {
-            saltLabel.isHidden = regionHasNutritionalScoreLogo()
         }
     }
     

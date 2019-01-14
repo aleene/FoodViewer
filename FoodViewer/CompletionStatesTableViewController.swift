@@ -464,7 +464,7 @@ class CompletionStatesTableViewController: UITableViewController {
         tableView.dataSource = self
         tableView.allowsSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 80.0
 
         refreshProduct()
     }

@@ -155,7 +155,6 @@ class NutriScoreView: UIView {
         ESuperView?.layer.cornerRadius = scale * Constant.largeCornerScale * Constant.CornerRadius
         ESuperView?.layer.borderWidth = scale * Constant.borderScale * Constant.BorderWidth
         ESelectedLabel.font = UIFont.boldSystemFont(ofSize: Constant.largerFontScale * scale * Constant.SelectedFontSize)
-        
     }
 
     //
@@ -176,7 +175,6 @@ class NutriScoreView: UIView {
         
         // use bounds not frame or it'll be offset
         view.frame = bounds
-        
         // Make the view stretch with containing view
         view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
         

@@ -1382,22 +1382,22 @@
                                             <rect key="frame" x="8" y="2" width="204.5" height="39.5"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-8S-99b">
-                                            <rect key="frame" x="220.5" y="14" width="61.5" height="31.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="NOVA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yis-pt-oy6">
                                             <rect key="frame" x="220.5" y="0.0" width="61.5" height="18"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xkg-8S-99b">
+                                            <rect key="frame" x="220.5" y="14" width="61.5" height="31.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="yis-pt-oy6" secondAttribute="trailing" constant="4" id="20t-Zg-Cf6"/>
+                                        <constraint firstItem="yis-pt-oy6" firstAttribute="trailing" secondItem="fbs-DK-n1R" secondAttribute="trailing" constant="-4" id="20t-Zg-Cf6"/>
                                         <constraint firstItem="Xkg-8S-99b" firstAttribute="bottom" secondItem="fbs-DK-n1R" secondAttribute="bottom" id="8pX-lX-jsb"/>
                                         <constraint firstItem="kS6-HZ-Zs9" firstAttribute="centerY" secondItem="fbs-DK-n1R" secondAttribute="centerY" id="Dxu-iJ-fXf"/>
                                         <constraint firstItem="kS6-HZ-Zs9" firstAttribute="height" secondItem="fbs-DK-n1R" secondAttribute="height" multiplier="0.9" id="MTt-NA-iBE"/>
@@ -1603,23 +1603,6 @@
                         <outlet property="delegate" destination="gMe-4s-6cz" id="oU4-Bh-qJt"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Product Producer Cell" textLabel="wud-xG-KwE" style="IBUITableViewCellStyleDefault" id="Fde-me-f3L" userLabel="Production Cell" customClass="TDBadgedCell" customModule="FoodViewer" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fde-me-f3L" id="E1b-fC-kgQ">
-                        <rect key="frame" x="0.0" y="0.0" width="286" height="43.5"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wud-xG-KwE">
-                                <rect key="frame" x="16" y="0.0" width="269" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                    </tableViewCellContentView>
-                </tableViewCell>
             </objects>
             <point key="canvasLocation" x="772.5" y="407.74647887323943"/>
         </scene>
@@ -2595,8 +2578,60 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Left Nutriment Score Cell" id="zPg-pw-1ZC" customClass="LeftNutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Nutrition Score Nova Cell Identifier" rowHeight="44" id="EhH-it-PLa" userLabel="Set Nutrition Score Level" customClass="NutritionScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EhH-it-PLa" id="Reb-AF-MNH">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xGV-rX-fVB" customClass="NutriScoreView" customModule="FoodViewer" customModuleProvider="target">
+                                            <rect key="frame" x="66" y="2" width="188" height="39.5"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="xGV-rX-fVB" secondAttribute="height" multiplier="4.8:1" id="OdQ-Oa-ZvQ"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="NOVA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="edL-tS-gco">
+                                            <rect key="frame" x="263" y="4" width="41" height="49.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="253" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qxp-Dq-WB0">
+                                            <rect key="frame" x="263" y="49.5" width="41" height="0.0"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="edL-tS-gco" secondAttribute="trailing" constant="16" id="BQY-sJ-Fjn"/>
+                                        <constraint firstItem="Qxp-Dq-WB0" firstAttribute="bottom" secondItem="xGV-rX-fVB" secondAttribute="bottom" constant="8" id="Joa-Hl-IK5"/>
+                                        <constraint firstItem="edL-tS-gco" firstAttribute="bottom" secondItem="Qxp-Dq-WB0" secondAttribute="top" constant="4" id="Rf8-dh-qKY"/>
+                                        <constraint firstItem="xGV-rX-fVB" firstAttribute="height" secondItem="Reb-AF-MNH" secondAttribute="height" multiplier="0.9" id="ejS-uz-mzz"/>
+                                        <constraint firstItem="xGV-rX-fVB" firstAttribute="centerY" secondItem="Reb-AF-MNH" secondAttribute="centerY" id="f5f-0s-CKc"/>
+                                        <constraint firstItem="edL-tS-gco" firstAttribute="leading" secondItem="xGV-rX-fVB" secondAttribute="trailing" constant="8" id="gUC-Yb-T4A"/>
+                                        <constraint firstItem="edL-tS-gco" firstAttribute="width" secondItem="Qxp-Dq-WB0" secondAttribute="width" id="jUL-cH-Ebt"/>
+                                        <constraint firstItem="Qxp-Dq-WB0" firstAttribute="centerX" secondItem="edL-tS-gco" secondAttribute="centerX" id="pbU-Ql-Rde"/>
+                                        <constraint firstItem="xGV-rX-fVB" firstAttribute="leading" secondItem="Reb-AF-MNH" secondAttribute="leading" constant="8" id="tRa-WX-a1F"/>
+                                        <constraint firstItem="xGV-rX-fVB" firstAttribute="centerX" secondItem="Reb-AF-MNH" secondAttribute="centerX" id="xf7-LY-18G"/>
+                                        <constraint firstItem="edL-tS-gco" firstAttribute="top" secondItem="Reb-AF-MNH" secondAttribute="top" constant="4" id="yX7-rH-BA7"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="tRa-WX-a1F"/>
+                                            <exclude reference="gUC-Yb-T4A"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="novaTitleLabel" destination="edL-tS-gco" id="bCu-Z4-R1I"/>
+                                    <outlet property="novaValueLabel" destination="Qxp-Dq-WB0" id="6bg-qR-yN7"/>
+                                    <outlet property="nutriScoreView" destination="xGV-rX-fVB" id="QFk-s3-XYL"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Left Nutriment Score Cell" id="zPg-pw-1ZC" customClass="LeftNutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="99.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zPg-pw-1ZC" id="AcA-dG-PGX">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2641,7 +2676,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Right Nutriment Score Cell" id="yDg-Oe-5wo" customClass="NutrimentScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="143.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yDg-Oe-5wo" id="3I3-TO-oex">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2686,7 +2721,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Product Category Cell" id="6W2-KJ-661" customClass="ProductCategoryTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="143.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="187.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6W2-KJ-661" id="bcG-uu-Zaj">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2720,7 +2755,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Colour Coded Nutritional Score Cell" id="mMW-fi-nXC" customClass="ColourCodedNutritionalScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="187.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="231.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mMW-fi-nXC" id="Gal-15-pDB">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2871,7 +2906,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Set Nutrition Score Level Cell Identifier" id="mxu-zG-iRu" userLabel="Set Nutrition Score Level" customClass="SetNutritionScoreTableViewCell" customModule="FoodViewer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="231.5" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="275.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mxu-zG-iRu" id="9jv-2b-OqK">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>

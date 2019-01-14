@@ -58,6 +58,7 @@ class NutritionScoreTableViewController: UITableViewController {
 
     fileprivate struct Storyboard {
         struct CellIdentifier {
+            static let NutritionScore = "Nutrition Score Nova Cell Identifier"
             static let LeftNutrimentScore = "Left Nutriment Score Cell"
             static let RightNutrimentScore = "Right Nutriment Score Cell"
             static let BelongsToCategory = "Product Category Cell"
@@ -72,9 +73,9 @@ class NutritionScoreTableViewController: UITableViewController {
         } else {
             switch showNutritionalScore {
             case .uk:
-                return 3
-            case .france:
                 return 4
+            case .france:
+                return 5
         }
         }
     }
@@ -88,10 +89,10 @@ class NutritionScoreTableViewController: UITableViewController {
             case .uk:
                 switch section {
                 // section with bad nutriments
-                case 0:
+                case 1:
                     return productPair?.remoteProduct?.nutritionalScoreUK?.pointsA.count ?? 0
                 // section with good nutriments
-                case 1:
+                case 2:
                     return productPair?.remoteProduct?.nutritionalScoreUK?.pointsC.count ?? 0
                 default:
                     return 1
@@ -100,12 +101,12 @@ class NutritionScoreTableViewController: UITableViewController {
             case .france:
                 switch section {
                 // section with bad nutriments
-                case 0:
+                case 1:
                     return productPair?.remoteProduct?.nutritionalScoreFR?.pointsA.count ?? 0
                 // section with good nutriments
-                case 1:
-                    return productPair?.remoteProduct?.nutritionalScoreFR?.pointsC.count ?? 0
                 case 2:
+                    return productPair?.remoteProduct?.nutritionalScoreFR?.pointsC.count ?? 0
+                case 3:
                     return 2
                 default:
                     return 1
@@ -128,6 +129,10 @@ class NutritionScoreTableViewController: UITableViewController {
             case .uk:
                 switch (indexPath as NSIndexPath).section {
                 case 0:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as! NutritionScoreTableViewCell
+                    cell.product = productPair?.remoteProduct ?? productPair?.localProduct
+                    return cell
+                case 1:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as? LeftNutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreUK?.pointsA {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 10, 0, .bad)
@@ -135,8 +140,8 @@ class NutritionScoreTableViewController: UITableViewController {
                         cell!.nutrimentScore = nil
                     }
                     return cell!
-                case 1:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath)as? NutrimentScoreTableViewCell
+                case 2:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as? NutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreUK?.pointsC {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 5, 0, .good)
                     } else {
@@ -144,7 +149,7 @@ class NutritionScoreTableViewController: UITableViewController {
                     }
                     return cell!
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath)as! ColourCodedNutritionalScoreTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ColourCodedNutritionalScore, for: indexPath) as! ColourCodedNutritionalScoreTableViewCell
                     cell.score = productPair?.remoteProduct?.nutritionalScoreUK?.total
                     cell.delegate = delegate
                     return cell
@@ -152,25 +157,29 @@ class NutritionScoreTableViewController: UITableViewController {
             case .france:
                 switch (indexPath as NSIndexPath).section {
                 case 0:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath)as? LeftNutrimentScoreTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
+                    cell?.product = productPair?.remoteProduct ?? productPair?.localProduct
+                    return cell!
+                case 1:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.LeftNutrimentScore, for: indexPath) as? LeftNutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreFR?.pointsA {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 10, 0, .bad)
                     } else {
                         cell!.nutrimentScore = nil
                     }
                     return cell!
-                case 1:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath)as? NutrimentScoreTableViewCell
+                case 2:
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.RightNutrimentScore, for: indexPath) as? NutrimentScoreTableViewCell
                     if let score = productPair?.remoteProduct?.nutritionalScoreFR?.pointsC {
                         cell!.nutrimentScore = (score[indexPath.row].nutriment, score[indexPath.row].points, 5, 0, .good)
                     } else {
                         cell!.nutrimentScore = nil
                     }
                     return cell!
-                case 2:
+                case 3:
                     switch (indexPath as NSIndexPath).row {
                     case 0:
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath)as? ProductCategoryTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BelongsToCategory, for: indexPath) as? ProductCategoryTableViewCell
                         cell!.belongsToCategory = productPair?.remoteProduct?.nutritionalScoreFR?.cheese
                         cell!.belongsToCategoryTitle = TranslatableStrings.CheesesCategory
                         return cell!
@@ -198,8 +207,10 @@ class NutritionScoreTableViewController: UITableViewController {
             case .uk:
                 switch section {
                 case 0:
-                    return TranslatableStrings.BadNutrients
+                    return TranslatableStrings.ScoreSummary
                 case 1:
+                    return TranslatableStrings.BadNutrients
+                case 2:
                     return TranslatableStrings.GoodNutrients
                 default:
                     return TranslatableStrings.NutritionalScoreUK
@@ -208,10 +219,12 @@ class NutritionScoreTableViewController: UITableViewController {
             case .france:
                 switch section {
                 case 0:
-                    return TranslatableStrings.BadNutrients
+                    return TranslatableStrings.ScoreSummary
                 case 1:
-                    return TranslatableStrings.GoodNutrients
+                    return TranslatableStrings.BadNutrients
                 case 2:
+                    return TranslatableStrings.GoodNutrients
+                case 3:
                     return TranslatableStrings.SpecialCategories
                 default:
                     return TranslatableStrings.NutritionalScoreFrance
@@ -238,7 +251,7 @@ class NutritionScoreTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // tableStructure = setupSections()
-        tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 88.0
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.allowsSelection = false
 

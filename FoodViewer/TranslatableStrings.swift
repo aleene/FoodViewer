@@ -296,6 +296,7 @@ struct TranslatableStrings {
     static let SaturatedFatToFatRatio = NSLocalizedString("Saturated Fat to Total Fat ratio", comment: "Title in cell with the saturated fat to all fat ratio")
     static let Save = NSLocalizedString("Save", comment: "Title of a button in an alert sheet, which allows the user to save any changes to the local product")
     // static let Search = NSLocalizedString("Search", comment: "Prefix of a title of a Tableview controller")
+    static let ScoreSummary = NSLocalizedString("Score Summary", comment: "Title of a tableview header, which shows the Nutrition Score and Nova Value")
     static let SearchFoodProducts = NSLocalizedString("Search Food Products", comment: "Title of a Tableview controller, indicating the tableview shows search food products.")
     static let SearchProducts = NSLocalizedString("Search Products", comment: "Title of a Tableview controller, indicating the tableview shows search products.")
     //static let SearchInNameEtc = NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
