@@ -945,15 +945,15 @@ class IdentificationTableViewController: UITableViewController {
                     // The segue can only be initiated from a button within a ProductNameTableViewCell
                     if let button = sender as? UIButton {
                         if button.superview?.superview?.superview as? UITableView != nil {
-                            if let ppc = vc.popoverPresentationController {
+                            //if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
+                                //ppc.permittedArrowDirections = .right
                                 // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
+                                //let anchorFrame = button.convert(button.bounds, to: self.view)
+                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                //ppc.delegate = self
                                 
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                //vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = displayLanguageCode
                                 vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode != nil ? productPair!.localProduct!.primaryLanguageCode : productPair!.remoteProduct!.primaryLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
@@ -961,7 +961,7 @@ class IdentificationTableViewController: UITableViewController {
                                 vc.editMode = editMode
                                 vc.productPair = productPair
                                 vc.sourcePage = 0
-                            }
+                            //}
                         }
                     }
                 }
@@ -970,16 +970,16 @@ class IdentificationTableViewController: UITableViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? BarcodeTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
+                            //if let ppc = vc. {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
+                            //    ppc.permittedArrowDirections = .any
                                 // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                vc.currentLanguageCode = productPair?.primaryLanguageCode ?? "en"
-                            }
+                           //     let anchorFrame = button.convert(button.bounds, to: self.view)
+                           //     ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                           //     ppc.delegate = self
+                           //     vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.currentLanguageCodes = [productPair?.primaryLanguageCode ?? "en"]
+                          //  }
                         }
                     }
                 }
@@ -1002,21 +1002,29 @@ class IdentificationTableViewController: UITableViewController {
                     }
                 }
             case Storyboard.SegueIdentifier.ShowAddLanguage:
-                if let vc = segue.destination as? ExtendLanguagesViewController { if
+                if let vc = segue.destination as? MainLanguageViewController { if
                     let languageCodes = productPair?.languageCodes { if
                     let button = sender as? UIButton { if
-                    button.superview?.superview as? TagListViewButtonTableViewCell != nil { if
-                    let ppc = vc.popoverPresentationController {
+                    button.superview?.superview as? TagListViewButtonTableViewCell != nil {
+                        // if let ppc = vc.popoverPresentationController {
                         // set the main language button as the anchor of the popOver
-                        ppc.permittedArrowDirections = .any
+                     //   ppc.permittedArrowDirections = .any
                         // I need the button coordinates in the coordinates of the current controller view
-                        let anchorFrame = button.convert(button.bounds, to: self.view)
-                        ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                        ppc.delegate = self
+                      //  let anchorFrame = button.convert(button.bounds, to: self.view)
+                      //  ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                     //   ppc.delegate = self
                     vc.currentLanguageCodes = languageCodes
                     vc.sourcePage = 0
-                    vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                        } }}}}
+                    //vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                        //}
+                        
+                    }
+                    
+                    }
+                    
+                }
+                
+            }
             default: break
             }
         }

@@ -919,13 +919,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     if let button = sender as? UIButton {
                         if button.superview?.superview as? NoNutrientsImageTableViewCell != nil ||
                             button.superview?.superview as? ProductImageTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
+                            //if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
+                                //ppc.permittedArrowDirections = .right
                                 // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
+                                //let anchorFrame = button.convert(button.bounds, to: self.view)
+                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                //ppc.delegate = self
                                 
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = displayLanguageCode
@@ -935,18 +935,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 vc.editMode = editMode
                                 vc.productPair = productPair
                                 vc.sourcePage = 2
-                            }
+                            //}
                             // The button should be in a view,
                             // which is in a TableHeaderFooterView,
                             // which is in a TableView
                         } else if button.superview?.superview?.superview as? UITableView != nil {
-                            if let ppc = vc.popoverPresentationController {
+                            //if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .right
+                                //ppc.permittedArrowDirections = .right
                                 // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
+                                //let anchorFrame = button.convert(button.bounds, to: self.view)
+                                //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
+                                //ppc.delegate = self
                                     
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.currentLanguageCode = displayLanguageCode
@@ -956,7 +956,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 vc.editMode = editMode
                                 vc.productPair = productPair
                                 vc.sourcePage = 2
-                            }
+                            //}
                         }
                     }
                 } else {

@@ -14,6 +14,7 @@ struct TranslatableStrings {
 // MARK: - AAAAAAAAAAAAAAAAAAAA strings
 //
     static let A = NSLocalizedString("A", comment: "String (in Segmented Control) to indicate the best nutritional score level")
+    static let AddLanguage = NSLocalizedString("Add Language", comment: "Title of a viewcontroller which allows the user to add a new language to the product languages.")
     static let AddNutrient = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
     static let Allergens = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
     static let AllergenWarnings = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
@@ -108,6 +109,7 @@ struct TranslatableStrings {
 // MARK: - FFFFFFFFFFFFFF strings
 //
     
+    static let FilterLanguagePlaceholder = NSLocalizedString("Enter characters to filter the list.", comment: "Placeholder in a textField, where a user can enter characters to filter a list.")
     static let FoodProducts = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Food = NSLocalizedString("Food", comment: "Title of SegmentedControl segment.")
 
@@ -188,6 +190,7 @@ struct TranslatableStrings {
     static let NoLanguageDefined = NSLocalizedString("no language defined", comment: "Text for language of product, when there is no language defined.")
     static let NoName = NSLocalizedString("no name specified", comment: "Text for productname, when no productname is available in the product data.")
     static let None = NSLocalizedString("none", comment: "Text for a cell, when no status title has been provided, such as 'completed', etc.")
+    static let NoneSelected = NSLocalizedString("None selected", comment: "First element of a pickerView where the user has to select an element in the picker.")
     static let NoNutrients = NSLocalizedString("No nutrients", comment: "Text of Label, indicating that the product has no nutrients defined")
     static let NoQuantityAvailable = NSLocalizedString("No quantity available", comment: "String if no quantity is available")
     static let NoResponse = NSLocalizedString("No reponse", comment: "String presented in a tagView if the site did not respond")
@@ -310,6 +313,7 @@ struct TranslatableStrings {
     static let SearchSetup = NSLocalizedString("Search set up", comment: "Indicating that a search has been defined")
     static let SearchText = NSLocalizedString("Search Text", comment: "String to indicate the text, which will be used to search multiple fileds of a product.")
     static let Select = NSLocalizedString("Select", comment: "Title of a viewcontroller where the user has to select an element in the picker.")
+    static let SelectLanguage = NSLocalizedString("Select language", comment: "Title of a viewcontroller where the user has to select a language in a pickerView list of languages.")
     static let SelectCompletionStatus = NSLocalizedString("Select Completion Status", comment: "Title of a picker row where the user has to select an element in the picker.")
     static let SelectedFrontImages = NSLocalizedString("Selected Front Images", comment: "Gallery header text presenting the selected front images")
     static let SelectedIngredientImages = NSLocalizedString("Selected Ingredients Images", comment: "Gallery header text presenting the selected ingredients images")

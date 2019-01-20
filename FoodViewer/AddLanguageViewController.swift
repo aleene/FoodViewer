@@ -26,6 +26,14 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     private var sortedLanguages: [Language] = []
     
+    private var filteredLanguages: [Language] = []
+
+    var textFilter: String = "" {
+        didSet {
+            filteredLanguages = textFilter.isEmpty ? sortedLanguages :
+                sortedLanguages.filter({ $0.name.lowercased().contains(textFilter) })        }
+    }
+
 //  MARK : Interface elements
     
     @IBOutlet weak var languagesPickerView: UIPickerView! {
@@ -37,11 +45,13 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     @IBOutlet weak var navItem: UINavigationItem!
 
+    @IBOutlet weak var languageTextField: UITextField!
+    
 // MARK: - Delegates and datasource
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        selectedLanguageCode = row > 0 ? sortedLanguages[row - 1].code : nil
+        selectedLanguageCode = row > 0 ? filteredLanguages[row - 1].code : nil
     }
     
     
@@ -50,15 +60,15 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     internal func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return allLanguages.count + 1
+        return filteredLanguages.count + 1
     }
     
     internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if row == 0 {
-            return "---"
+            return ""
         } else {
-            return sortedLanguages[row - 1].name
+            return filteredLanguages[row - 1].name
         }
     }
     
@@ -82,13 +92,62 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
         }
     }
 
+    @objc func textChanged(notification: Notification) {
+        if let text = languageTextField.text {
+            textFilter = text
+            self.languagesPickerView.reloadAllComponents()
+            selectedLanguageCode = filteredLanguages.first?.code
+        }
+    }
+
     // MARK: - ViewController Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navItem.title = TranslatableStrings.Select
+        navItem.title = TranslatableStrings.AddLanguage
+        textFilter = ""
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.textChanged(notification:)),
+            name: Notification.Name.UITextFieldTextDidChange,
+            object: nil)
     }
-        
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+        super.viewDidDisappear(animated)
+    }
+
+}
+
+// MARK: - UITextFieldDelegate Functions
+
+extension AddLanguageViewController: UITextFieldDelegate {
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // reset the filter
+        if !textFilter.isEmpty {
+            textFilter = ""
+            self.languagesPickerView.reloadAllComponents()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
 }
 
 

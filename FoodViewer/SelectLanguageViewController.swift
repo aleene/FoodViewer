@@ -12,6 +12,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     // MARK: - External properties
     
+    
     var languageCodes: [String] = [] {
         didSet {
             setupLanguages()
@@ -22,7 +23,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         didSet {
             setupLanguages()
         }
-    }
+     }
 
     var currentLanguageCode: String? = nil {
         didSet {
@@ -32,13 +33,8 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         
     var primaryLanguageCode: String? = nil
     
-    // Seems no longer used/relevant. Changing primary language is now elsewhere
-    var updatedPrimaryLanguageCode: String? = nil {
-        didSet {
-            // delegate?.updated(primaryLanguageCode: updatedPrimaryLanguageCode!)
-        }
-    }
-    
+    var updatedPrimaryLanguageCode: String? = nil
+
     var selectedLanguageCode: String? = nil {
         didSet {
             positionPickerView()
@@ -59,6 +55,15 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     private var sortedLanguages: [Language] = []
     
+    private var filteredLanguages: [Language] = []
+    
+    var textFilter: String = "" {
+        didSet {
+            filteredLanguages = textFilter.isEmpty ? sortedLanguages :
+                sortedLanguages.filter({ $0.name.lowercased().contains(textFilter) })        }
+    }
+    
+    // These are only the languageCodes that are not yet on the product
     private var languageCodesToUse: [String] {
         get {
             return updatedLanguageCodes.count > languageCodes.count ? updatedLanguageCodes : languageCodes
@@ -75,11 +80,17 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         }
     }
     
+    @IBOutlet weak var languageTextField: UITextField!
+    
+    @IBAction func defineLanguageTextField(_ sender: UITextField) {
+        
+    }
+    
     // MARK: - Delegates and datasource
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        selectedLanguageCode = sortedLanguages[row].code
+        selectedLanguageCode = filteredLanguages[row].code
     }
     
     
@@ -88,21 +99,14 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return sortedLanguages.isEmpty ? 1 : sortedLanguages.count
-//        if sortedLanguages.isEmpty {
-//            return 1
-//        } else {
-//            return sortedLanguages.count + 1
-//        }
+        return filteredLanguages.isEmpty ? 1 : filteredLanguages.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if sortedLanguages.isEmpty {
+        if filteredLanguages.isEmpty {
             return TranslatableStrings.NoLanguageDefined
-        //} else if row == 0 {
-        //    return  Constants.Select
         } else {
-            return sortedLanguages[row].name
+            return filteredLanguages[row].name
         }
     }
 
@@ -112,21 +116,21 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         
         var attributedRowText = NSMutableAttributedString()
 
-        if sortedLanguages.isEmpty {
+        if filteredLanguages.isEmpty {
             attributedRowText = NSMutableAttributedString(string: TranslatableStrings.NoLanguageDefined)
         //} else if row == 0 {
         //    attributedRowText = NSMutableAttributedString(string: Constants.Select)
         } else {
-            attributedRowText = NSMutableAttributedString(string: sortedLanguages[row].name)
+            attributedRowText = NSMutableAttributedString(string: filteredLanguages[row].name)
         }
 
         myLabel?.textAlignment = .center
 
         // has the primary languageCode been updated?
         let currentLanguageCode = updatedPrimaryLanguageCode != nil ? updatedPrimaryLanguageCode : primaryLanguageCode
-        if !sortedLanguages.isEmpty && row > 0 {
+        if !filteredLanguages.isEmpty && row > 0 {
             // is this the primary language?
-            if (sortedLanguages[row].code == currentLanguageCode) {
+            if (filteredLanguages[row].code == currentLanguageCode) {
                 attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
             } else {
                 attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
@@ -140,7 +144,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     private func positionPickerView() {
         if let validCurrentLanguageCode = selectedLanguageCode {
-            if let validIndex = sortedLanguages.index(where: { (s: Language) -> Bool in
+            if let validIndex = filteredLanguages.index(where: { (s: Language) -> Bool in
                 s.code == validCurrentLanguageCode
             }){
                 languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
@@ -152,6 +156,10 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         didSet {
             setAddBarButtonItem()
         }
+    }
+    
+    @IBAction func addBarButtonItemTapped(_ sender: UIBarButtonItem) {
+        // self.performSegue(withIdentifier: Storyboard.AddLanguageSegueIdentifier, sender: self)
     }
     
     @IBOutlet weak var navItem: UINavigationItem!
@@ -170,11 +178,11 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
 
     @IBAction func unwindAddLanguageForCancel(_ segue:UIStoryboardSegue) {
-        // reload with first nutrient?
+        // reload with first language?
     }
     
     @IBAction func unwindAddLanguageForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? AddLanguageViewController {
+        if let vc = segue.source as? MainLanguageViewController {
             if let newLanguageCode = vc.selectedLanguageCode {
                 // the languageCodes have been edited, so with have now an updated product
                 productPair?.update(addLanguageCode: newLanguageCode)
@@ -182,6 +190,11 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
                     updatedLanguageCodes = languageCodes
                 }
                 updatedLanguageCodes.append(newLanguageCode)
+                
+                // recreate the language list
+                sortedLanguages = []
+                setupLanguages()
+                textFilter = ""
                 languagesPickerView.reloadComponent(0)
                 selectedLanguageCode = newLanguageCode
                 positionPickerView()
@@ -195,28 +208,55 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
             case Storyboard.AddLanguageSegueIdentifier:
                 if let vc = segue.destination as? AddLanguageViewController {
                     vc.currentLanguageCodes = languageCodesToUse
-                    vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                    // vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                 }
             default: break
             }
         }
     }
+    
+    @objc func textChanged(notification: Notification) {
+        if let text = languageTextField.text {
+            textFilter = text
+            self.languagesPickerView.reloadAllComponents()
+            selectedLanguageCode = filteredLanguages.first?.code
+        }
+    }
 
     // MARK: - ViewController Lifecycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        languageTextField.delegate = self
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        textFilter = ""
         navItem.title = TranslatableStrings.Select
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.textChanged(notification:)),
+            name: Notification.Name.UITextFieldTextDidChange,
+            object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         positionPickerView()
+
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+        super.viewDidDisappear(animated)
     }
 
     private func setupLanguages() {
-        buildLanguagesToUse()
-        sortedLanguages = sortedLanguages.sorted(by: forward)
+        if sortedLanguages.isEmpty {
+            buildLanguagesToUse()
+            sortedLanguages = sortedLanguages.sorted(by: forward)
+        }
     }
     
     private func buildLanguagesToUse() {
@@ -239,4 +279,34 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     
 }
 
+
+// MARK: - UITextFieldDelegate Functions
+
+extension SelectLanguageViewController: UITextFieldDelegate {
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder { textField.resignFirstResponder() }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // reset the filter
+        if !textFilter.isEmpty {
+            textFilter = ""
+            self.languagesPickerView.reloadAllComponents()
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.isFirstResponder {
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+    
+}
 

@@ -716,7 +716,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     @IBAction func unwindExtendLanguagesForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? ExtendLanguagesViewController {
+        if let vc = segue.source as? MainLanguageViewController {
             if let newLanguageCode = vc.selectedLanguageCode {
                 currentLanguageCode = newLanguageCode
 
@@ -729,6 +729,10 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 }
             }
         }
+    }
+    
+    @IBAction func unwindExtendLanguagesForCancel(_ segue:UIStoryboardSegue) {
+        // nothing needs to be done
     }
 
         
