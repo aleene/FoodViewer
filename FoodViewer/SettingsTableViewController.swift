@@ -159,6 +159,20 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBOutlet weak var appVersionAndBuildLabel: UILabel! {
+        didSet {
+            var label = ""
+            
+            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+                label.append(version)
+            }
+            if let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
+                label.append(" / " + build)
+            }
+            appVersionAndBuildLabel.text = label
+        }
+    }
+    
     // MARK: - Joule or Calories Functions
     
     private func refreshJouleOrCalories() {
@@ -374,6 +388,8 @@ class SettingsTableViewController: UITableViewController {
             return TranslatableStrings.Warnings
         case 7:
             return TranslatableStrings.Reset
+        case 8:
+            return TranslatableStrings.AppVersionAndBuild
         default:
             break
         }

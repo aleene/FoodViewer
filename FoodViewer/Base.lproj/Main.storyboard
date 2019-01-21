@@ -1061,6 +1061,32 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Section-9" id="xF9-ZY-mvW" userLabel="About App">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="RAH-Uv-CDT">
+                                        <rect key="frame" x="0.0" y="424" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RAH-Uv-CDT" id="ATf-IN-Ec2">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bse-2D-Vyd">
+                                                    <rect key="frame" x="16" y="11" width="288" height="22"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="leadingMargin" secondItem="Bse-2D-Vyd" secondAttribute="leading" id="4bd-he-NWR"/>
+                                                <constraint firstAttribute="topMargin" secondItem="Bse-2D-Vyd" secondAttribute="top" id="7p2-4W-kjI"/>
+                                                <constraint firstItem="Bse-2D-Vyd" firstAttribute="trailing" secondItem="ATf-IN-Ec2" secondAttribute="trailingMargin" id="gEi-FQ-85l"/>
+                                                <constraint firstItem="Bse-2D-Vyd" firstAttribute="bottom" secondItem="ATf-IN-Ec2" secondAttribute="bottomMargin" id="kaJ-oW-Q9C"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="HoC-g1-BPV" id="hqW-Zz-az3"/>
@@ -1070,6 +1096,7 @@
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="appVersionAndBuildLabel" destination="Bse-2D-Vyd" id="6wV-3j-DdA"/>
                         <outlet property="clearHistoryButton" destination="7bH-Lm-Fh3" id="VJD-53-1qK"/>
                         <outlet property="foodOrBeautySgmentedControl" destination="6sH-al-X1Q" id="kYr-gM-bIa"/>
                         <outlet property="jouleOrCaloriesSegmentedControl" destination="iLS-3y-yF5" id="tw0-QT-u8C"/>
@@ -1082,7 +1109,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L7h-nT-Kym" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Qre-lC-csc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1680" y="-466"/>
+            <point key="canvasLocation" x="1680" y="-466.90140845070425"/>
         </scene>
         <!--Products-->
         <scene sceneID="B20-Pm-QF1">
