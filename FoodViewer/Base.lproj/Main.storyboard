@@ -2015,14 +2015,14 @@
                                 </items>
                             </navigationBar>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GY8-NT-FaZ">
-                                <rect key="frame" x="0.0" y="44" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="216"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="UMg-WK-BNt"/>
+                                    <constraint firstAttribute="height" constant="216" id="UMg-WK-BNt"/>
                                 </constraints>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ufw-WL-WHm">
-                                <rect key="frame" x="32" y="292" width="256" height="30"/>
+                                <rect key="frame" x="32" y="268" width="256" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="MBc-Z1-WQX"/>
                                 </constraints>
@@ -2089,13 +2089,13 @@
                                 </items>
                             </navigationBar>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="wz9-lT-1nW">
-                                <rect key="frame" x="0.0" y="44" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="216"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="26R-OF-YUS"/>
+                                    <constraint firstAttribute="height" constant="216" id="26R-OF-YUS"/>
                                 </constraints>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bVx-bo-2Tk">
-                                <rect key="frame" x="32" y="292" width="256" height="30"/>
+                                <rect key="frame" x="32" y="268" width="256" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ej5-xk-Syr"/>
                                 </constraints>
@@ -3716,9 +3716,7 @@
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                     <state key="normal" title="Add"/>
                                                     <connections>
-                                                        <segue destination="nVr-vx-E3e" kind="popoverPresentation" identifier="Add Nutrient Segue" popoverAnchorView="jbQ-6K-nWx" id="EyW-g9-Aks">
-                                                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                                        </segue>
+                                                        <segue destination="nVr-vx-E3e" kind="presentation" identifier="Add Nutrient Segue" modalPresentationStyle="formSheet" id="EyW-g9-Aks"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoS-4q-5sl" userLabel="EU">
@@ -3870,7 +3868,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="35y-j3-Xby">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="Xbo-pF-VkY"/>
+                                </constraints>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="pfI-Vf-yJ5">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -3889,19 +3890,32 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Rmg-p1-y5b">
+                                <rect key="frame" x="32" y="268" width="256" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="PrS-1H-ilz"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="35y-j3-Xby" firstAttribute="top" secondItem="pfI-Vf-yJ5" secondAttribute="bottom" id="627-X0-tSn"/>
-                            <constraint firstItem="gKk-dg-c7v" firstAttribute="top" secondItem="35y-j3-Xby" secondAttribute="bottom" id="7vi-Tj-KXD"/>
+                            <constraint firstAttribute="trailing" secondItem="Rmg-p1-y5b" secondAttribute="trailing" constant="32" id="8yq-KS-eFw"/>
                             <constraint firstItem="pfI-Vf-yJ5" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="CYQ-qG-3ci"/>
+                            <constraint firstItem="Rmg-p1-y5b" firstAttribute="top" secondItem="35y-j3-Xby" secondAttribute="bottom" constant="8" id="FX8-Ps-c5C"/>
+                            <constraint firstItem="Rmg-p1-y5b" firstAttribute="top" secondItem="35y-j3-Xby" secondAttribute="bottom" constant="8" id="IuN-JE-JAM"/>
                             <constraint firstItem="35y-j3-Xby" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" id="L8h-hf-qdp"/>
+                            <constraint firstItem="Rmg-p1-y5b" firstAttribute="leading" secondItem="UCd-Ts-NY0" secondAttribute="leading" constant="32" id="Zwr-lb-Zdh"/>
                             <constraint firstItem="pfI-Vf-yJ5" firstAttribute="top" secondItem="UCd-Ts-NY0" secondAttribute="top" id="dAj-XH-fmH"/>
                             <constraint firstAttribute="trailing" secondItem="35y-j3-Xby" secondAttribute="trailing" id="v4L-4b-mMP"/>
                             <constraint firstAttribute="trailing" secondItem="pfI-Vf-yJ5" secondAttribute="trailing" id="vGB-x0-8dM"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="filterTextField" destination="Rmg-p1-y5b" id="M45-wP-fDS"/>
                         <outlet property="navItem" destination="A9l-Yd-38c" id="MAN-1v-jd6"/>
                         <outlet property="nutrientsPickerView" destination="35y-j3-Xby" id="flJ-Mr-YLp"/>
                         <segue destination="hN1-hb-NjU" kind="unwind" identifier="Unwind Add Nutrient For Done" unwindAction="unwindAddNutrientForDone:" id="paz-Qn-xzv"/>
@@ -4028,14 +4042,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" translatesAutoresizingMaskIntoConstraints="NO" id="29H-HT-btt">
-                                <rect key="frame" x="0.0" y="44" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="216"/>
                                 <gestureRecognizers/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="bLo-if-tnX"/>
+                                    <constraint firstAttribute="height" constant="216" id="bLo-if-tnX"/>
                                 </constraints>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="OzQ-WD-27J">
-                                <rect key="frame" x="32" y="292" width="256" height="30"/>
+                                <rect key="frame" x="32" y="268" width="256" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Bwv-64-45T"/>
                                 </constraints>
@@ -4098,9 +4112,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <pickerView contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="LpA-Y2-RlQ">
-                                <rect key="frame" x="0.0" y="44" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="216"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="240" id="mPc-0r-7xX"/>
+                                    <constraint firstAttribute="height" constant="216" id="mPc-0r-7xX"/>
                                 </constraints>
                             </pickerView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sV8-Os-Vwb">
@@ -4121,7 +4135,7 @@
                                 </items>
                             </navigationBar>
                             <textField opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JmH-j5-lzp">
-                                <rect key="frame" x="32" y="292" width="256" height="30"/>
+                                <rect key="frame" x="32" y="268" width="256" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="8Z4-i1-HHA"/>
                                 </constraints>

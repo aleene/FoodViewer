@@ -1005,16 +1005,16 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
                     if let button = sender as? UIButton {
                         if button.superview?.superview?.superview as? AddNutrientTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
+                            //if let ppc = vc.popoverPresentationController {
                                 // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
+                                //ppc.permittedArrowDirections = .any
                                 // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
+                                //let anchorFrame = button.convert(button.bounds, to: self.view)
+                                //ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
+                                //ppc.delegate = self
                                 vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
                                 vc.existingNutrients = adaptedNutritionFacts.compactMap { $0.name }
-                            }
+                            //}
                         }
                     }
                 } else {
