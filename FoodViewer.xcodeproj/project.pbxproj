@@ -78,6 +78,7 @@
 		5125AB871D086880000DCD29 /* NutrimentScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */; };
 		5125AB891D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB881D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift */; };
 		5125AB8F1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */; };
+		512702E621F62651002EC65C /* CreateOFFAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512702E521F62651002EC65C /* CreateOFFAccountViewController.swift */; };
 		5127CDEF1E48A03600944FE8 /* ProductImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDEE1E48A03600944FE8 /* ProductImageData.swift */; };
 		5127CDF11E48A0FF00944FE8 /* ProductImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */; };
 		5127CDF71E4B225E00944FE8 /* SelectImageSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */; };
@@ -426,6 +427,7 @@
 		5125AB861D086880000DCD29 /* NutrimentScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutrimentScoreTableViewCell.swift; sourceTree = "<group>"; };
 		5125AB881D095A14000DCD29 /* LocalizedNutritionalScoreUK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedNutritionalScoreUK.swift; sourceTree = "<group>"; };
 		5125AB8E1D0ADA7A000DCD29 /* ProductCategoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductCategoryTableViewCell.swift; sourceTree = "<group>"; };
+		512702E521F62651002EC65C /* CreateOFFAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOFFAccountViewController.swift; sourceTree = "<group>"; };
 		5127CDEE1E48A03600944FE8 /* ProductImageData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageData.swift; sourceTree = "<group>"; };
 		5127CDF01E48A0FF00944FE8 /* ProductImageSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductImageSize.swift; sourceTree = "<group>"; };
 		5127CDF61E4B225C00944FE8 /* SelectImageSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectImageSourceViewController.swift; sourceTree = "<group>"; };
@@ -891,6 +893,7 @@
 				5150C0651CBCD66F00161616 /* Preferences.swift */,
 				51216E2920B5ABAE004D356C /* NutritionFactsTableStyleSetter.swift */,
 				516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */,
+				512702E521F62651002EC65C /* CreateOFFAccountViewController.swift */,
 				51FB322E1CF7589700A17312 /* AllergenWarningsTableViewController.swift */,
 				5124036F1D96C625007FED5A /* TextFieldTableViewCell.swift */,
 				511DB4421E0AE994009D4A4B /* ColorSchemes.swift */,
@@ -1586,6 +1589,7 @@
 				515742791CDB63B200BE8E2D /* RSUPCEGenerator.swift in Sources */,
 				515742751CDB63B200BE8E2D /* RSITF14Generator.swift in Sources */,
 				514FC912213E7BB6007577FC /* CSVError.swift in Sources */,
+				512702E621F62651002EC65C /* CreateOFFAccountViewController.swift in Sources */,
 				51CF42CF1E069BDD00C9AD91 /* Tags.swift in Sources */,
 				51255EA91EBB463E00A241E9 /* LeftNutrimentScoreTableViewCell.swift in Sources */,
 				51C2FF7E20E507E300B65509 /* NetworkFetcher.swift in Sources */,

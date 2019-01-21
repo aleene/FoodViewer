@@ -989,7 +989,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="M4v-mg-2eX">
-                                                    <rect key="frame" x="16" y="11" width="288" height="23"/>
+                                                    <rect key="frame" x="16" y="11" width="250" height="23"/>
                                                     <segments>
                                                         <segment title=""/>
                                                         <segment title=""/>
@@ -998,12 +998,20 @@
                                                         <action selector="offAccountSegmentedControlTapped:" destination="HoC-g1-BPV" eventType="valueChanged" id="O79-5P-fxY"/>
                                                     </connections>
                                                 </segmentedControl>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PLK-8j-TxL">
+                                                    <rect key="frame" x="274" y="7" width="30" height="30"/>
+                                                    <connections>
+                                                        <action selector="createOffAccountButtonTapped:" destination="HoC-g1-BPV" eventType="touchUpInside" id="tGh-Aj-V8N"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="M4v-mg-2eX" secondAttribute="trailing" id="Qqg-rC-kGH"/>
+                                                <constraint firstAttribute="trailing" secondItem="PLK-8j-TxL" secondAttribute="trailing" constant="16" id="U6h-Pp-R79"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="M4v-mg-2eX" secondAttribute="bottom" id="WeZ-N7-FCa"/>
                                                 <constraint firstItem="M4v-mg-2eX" firstAttribute="leading" secondItem="9w0-50-ygX" secondAttribute="leadingMargin" id="XGi-pA-oS4"/>
                                                 <constraint firstItem="M4v-mg-2eX" firstAttribute="top" secondItem="9w0-50-ygX" secondAttribute="topMargin" id="bjY-yJ-g87"/>
+                                                <constraint firstItem="PLK-8j-TxL" firstAttribute="centerY" secondItem="9w0-50-ygX" secondAttribute="centerY" id="eCj-Ju-mFA"/>
+                                                <constraint firstItem="PLK-8j-TxL" firstAttribute="leading" secondItem="M4v-mg-2eX" secondAttribute="trailing" constant="8" id="uJR-QF-yTs"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1061,10 +1069,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Section-9" id="xF9-ZY-mvW" userLabel="About App">
+                            <tableViewSection id="xF9-ZY-mvW" userLabel="About App">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="RAH-Uv-CDT">
-                                        <rect key="frame" x="0.0" y="424" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="396" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RAH-Uv-CDT" id="ATf-IN-Ec2">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -1098,6 +1106,7 @@
                     <connections>
                         <outlet property="appVersionAndBuildLabel" destination="Bse-2D-Vyd" id="6wV-3j-DdA"/>
                         <outlet property="clearHistoryButton" destination="7bH-Lm-Fh3" id="VJD-53-1qK"/>
+                        <outlet property="createOffAccountButton" destination="PLK-8j-TxL" id="qv0-4l-3hv"/>
                         <outlet property="foodOrBeautySgmentedControl" destination="6sH-al-X1Q" id="kYr-gM-bIa"/>
                         <outlet property="jouleOrCaloriesSegmentedControl" destination="iLS-3y-yF5" id="tw0-QT-u8C"/>
                         <outlet property="nutritionFactsLabelStyleSegmentedControl" destination="9fw-bj-GNl" id="dVE-sT-B5z"/>

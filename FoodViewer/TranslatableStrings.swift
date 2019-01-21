@@ -62,7 +62,7 @@ struct TranslatableStrings {
     static let Contributor = NSLocalizedString("Contributor", comment: "String in PickerViewController to indicate the creator role of a contributor (any role)")
     static let Contributors = NSLocalizedString("Contributors", comment: "Header title of the tableview section, indicating whether which users did contribute.")
     static let CreationDate = NSLocalizedString("Creation date", comment: "String in picker, which lets the user select the search result order. Order on the creation dates.")
-
+    static let CreateOffAccount = NSLocalizedString("Create OFF Account", comment: "Title of a button, which opens a web-page that allows a user to create an OFF account.")
     static let Creator = NSLocalizedString("Creator", comment: "String in PickerViewController to indicate the creator role of a contributor")
     static let CreatorUnicode = NSLocalizedString("❤️", comment: "Image to indicate that the user who created the product.")
     static let Countries = NSLocalizedString("Countries", comment: "Generic string (plural) to indicate the countries where the product is sold.")

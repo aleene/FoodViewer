@@ -305,6 +305,25 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBOutlet weak var createOffAccountButton: UIButton! {
+        didSet {
+            createOffAccountButton.setTitle(TranslatableStrings.CreateOffAccount, for: .normal)
+        }
+    }
+    
+    @IBAction func createOffAccountButtonTapped(_ sender: UIButton) {
+        guard let url = URL(string: "https://world.openfoodfacts.org/cgi/user.pl") else { return }
+        if #available(iOS 10.0, *) {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:])
+            }
+        } else {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    
     private func privateCredentialsHaveBeenSet() {
         // only write if both items have been set
         if username != nil && password != nil {
@@ -365,6 +384,13 @@ class SettingsTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+    
+    @IBAction func unwindCreateOFFAcountForDone(_ segue:UIStoryboardSegue) {
+        //if let vc = segue.source as? CreateOFFAccountViewController {
+            // nothing needs to be done?
+        //}
+    }
+
 
     
    
