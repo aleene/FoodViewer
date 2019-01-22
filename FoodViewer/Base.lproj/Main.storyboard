@@ -2266,7 +2266,7 @@
                 <pageViewController storyboardIdentifier="ProductPageViewController" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="PaB-Sk-wD0" customClass="ProductPageViewController" customModule="FoodViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="fIR-X2-BuT">
-                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="TkC-c1-5dl">
+                        <barButtonItem key="leftBarButtonItem" title="Back" image="Back" id="TkC-c1-5dl">
                             <connections>
                                 <segue destination="Qr3-EH-gv1" kind="unwind" identifier="Unwind For Cancel" unwindAction="unwindForCancel:" id="Zz6-Lb-BAK"/>
                             </connections>
@@ -4648,6 +4648,7 @@
     <resources>
         <image name="Add" width="25" height="25"/>
         <image name="Agenda" width="25" height="25"/>
+        <image name="Back" width="25" height="25"/>
         <image name="Barcode Scanner" width="25" height="25"/>
         <image name="Camera" width="25" height="25"/>
         <image name="CameraRoll" width="25" height="25"/>
