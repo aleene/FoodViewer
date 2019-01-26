@@ -32,6 +32,8 @@ class OFFProducts {
         case search
     }
     
+    var selectedProduct: Int? = nil
+    
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }

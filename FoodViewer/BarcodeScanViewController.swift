@@ -11,13 +11,42 @@ import AVFoundation
 
 class BarcodeScanViewController: RSCodeReaderViewController {
         
-    var barcode: String = ""
+    private var barcode: String = ""
     var type: String = ""
     var dispatched: Bool = false
     
+    fileprivate var products = OFFProducts.manager
+    
+    fileprivate var barcodeType = BarcodeType(barcodeString: TranslatableStrings.EnterBarcode, type: Preferences.manager.showProductType) {
+        didSet {
+            // get the index of the existing productPair
+            if let validSection = products.indexOfProductPair(with: barcodeType) {
+                OFFProducts.manager.selectedProduct = validSection
+            } else {
+                // create a new productPair
+                let validSection = products.createProduct(with: barcodeType)
+                OFFProducts.manager.selectedProduct = validSection
+            }
+        }
+    }
+    
+    private func switchToTab(with index: Int) {
+        if let tabVC = self.parent as? UITabBarController {
+            tabVC.selectedIndex = index
+        } else {
+            assert(true, "BarcodeScanViewController:switchToTab:with: TabBar hierarchy error")
+        }
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        if let tabVC = self.parent as? UITabBarController {
+            // start out with the scanner tab
+            tabVC.selectedIndex = 0
+            tabVC.delegate = self
+        }
+
         self.focusMarkLayer.strokeColor = UIColor.red.cgColor
         
         self.cornersLayer.strokeColor = UIColor.yellow.cgColor
@@ -46,12 +75,14 @@ class BarcodeScanViewController: RSCodeReaderViewController {
                 for barcode in barcodes {
                     self.barcode = barcode.stringValue!
                     self.type = barcode.type.rawValue
-                    // print("Barcode found: type=" + barcode.type + " value=" + barcode.stringValue)
-                    
+                    print("Barcode found: type= " +  self.type + " value=" + self.barcode)
+                    // create this barcode in the history
+                    self.barcodeType = BarcodeType(typeCode:self.type, value:self.barcode, type:Preferences.manager.showProductType)
                     DispatchQueue.main.async(execute: {
-                        self.performSegue(withIdentifier: "Unwind New Search", sender: self)
+                        // I should move to the history tab and open the product found
+                        self.switchToTab(with: 1)
+                        //self.performSegue(withIdentifier: "Unwind New Search", sender: self)
                         
-                        // MARK: NOTE: Perform UI related actions here.
                     })
                 }
             }
@@ -63,7 +94,15 @@ class BarcodeScanViewController: RSCodeReaderViewController {
         
         super.viewWillAppear(animated)
         
-        // self.navigationController?.navigationBarHidden = true
-        
     }
+}
+
+// MARK: - UITabBarControllerDelegate Functions
+
+extension BarcodeScanViewController: UITabBarControllerDelegate {
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+
+    }
+    
 }

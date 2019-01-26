@@ -15,82 +15,6 @@ class SettingsTableViewController: UITableViewController {
         static let AllergenSegue = "Show Allergen Segue"
     }
 
-    // MARK: - Clear History functions
-    
-    var storedHistory = History() {
-        didSet {
-            enableClearHistoryButton()
-        }
-    }
-    
-    var historyHasBeenRemoved = false
-
-    var mostRecentProduct = MostRecentProduct()
-
-    fileprivate func enableClearHistoryButton() {
-        if clearHistoryButton != nil {
-            if storedHistory.barcodeTuples.isEmpty {
-                clearHistoryButton.isEnabled = false
-            } else {
-                clearHistoryButton.isEnabled = true
-            }
-        }
-    }
-
-    @IBOutlet weak var clearHistoryButton: UIButton! {
-        didSet {
-            enableClearHistoryButton()
-            clearHistoryButton.setTitle(TranslatableStrings.ClearHistory, for: .normal)
-        }
-    }
-
-    @IBAction func clearHistoryButtonTapped(_ sender: UIButton) {
-        storedHistory.removeAll()
-        mostRecentProduct.removeForCurrentProductType()
-        historyHasBeenRemoved = true
-        enableClearHistoryButton()
-    }
-    
-    private var currentProductType: ProductType {
-        return Preferences.manager.showProductType
-    }
-    
-
-    @IBOutlet weak var foodOrBeautySgmentedControl: UISegmentedControl! {
-        didSet {
-            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Food, forSegmentAt: 0)
-            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Beauty, forSegmentAt: 1)
-            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.PetFood, forSegmentAt: 2)
-            foodOrBeautySgmentedControl.setTitle(TranslatableStrings.Product, forSegmentAt: 3)
-            switch currentProductType {
-            case .food:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 0
-            case .beauty:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 1
-            case .petFood:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 2
-            case .product:
-                foodOrBeautySgmentedControl?.selectedSegmentIndex = 3
-            }
-        }
-    }
-    
-    var changedCurrentProductType: ProductType = .food
-    
-    @IBAction func foodOrBeautySegmentedControlledTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            changedCurrentProductType = .food
-        case 1:
-            changedCurrentProductType = .beauty
-        case 2:
-            changedCurrentProductType = .petFood
-        case 3:
-            changedCurrentProductType = .product
-        default:
-            break
-        }
-    }
     
     @IBOutlet weak var nutritionFactsLabelStyleSegmentedControl: UISegmentedControl! {
         didSet {
@@ -159,19 +83,6 @@ class SettingsTableViewController: UITableViewController {
         }
     }
     
-    @IBOutlet weak var appVersionAndBuildLabel: UILabel! {
-        didSet {
-            var label = ""
-            
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
-                label.append(version)
-            }
-            if let build = Bundle.main.infoDictionary?[kCFBundleVersionKey as String] as? String {
-                label.append(" / " + build)
-            }
-            appVersionAndBuildLabel.text = label
-        }
-    }
     
     // MARK: - Joule or Calories Functions
     
@@ -258,141 +169,6 @@ class SettingsTableViewController: UITableViewController {
             }
         }
     }
-
-    // MARK: - OFF Account Functions
-    
-    fileprivate var username: String? = nil {
-        didSet {
-            privateCredentialsHaveBeenSet()
-        }
-    }
-    fileprivate var password: String? = nil {
-        didSet {
-            privateCredentialsHaveBeenSet()
-        }
-    }
-    
-    private var offAccount = OFFAccount()
-
-    @IBOutlet weak var offAccountSegmentedControl: UISegmentedControl! {
-        didSet {
-            offAccountSegmentedControl.setTitle((Bundle.main.infoDictionary![kCFBundleNameKey as String] as! String), forSegmentAt: 0)
-            // is a personal userID available?
-            if OFFAccount().personalExists() {
-                offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)
-                offAccountSegmentedControl.selectedSegmentIndex = 1
-            } else {
-                offAccountSegmentedControl.setTitle(TranslatableStrings.SetAccount, forSegmentAt: 1)
-                offAccountSegmentedControl.selectedSegmentIndex = 0
-            }
-        }
-    }
-    @IBAction func offAccountSegmentedControlTapped(_ sender: UISegmentedControl) {
-        switch sender.selectedSegmentIndex {
-        case 0:
-            // The user wants to use foodviewer
-            // session unlock is no longer relevant
-            Preferences.manager.userDidAuthenticate = false
-            // delete the personal OFF Account credentials
-            OFFAccount().removePersonal()
-            offAccountSegmentedControl.setTitle(TranslatableStrings.SetAccount, forSegmentAt: 1)
-        case 1:
-            // The user has to define his credentials
-            setUserNamePassword()
-            Preferences.manager.userDidAuthenticate = true
-        default:
-            break
-        }
-    }
-    
-    @IBOutlet weak var createOffAccountButton: UIButton! {
-        didSet {
-            createOffAccountButton.setTitle(TranslatableStrings.CreateOffAccount, for: .normal)
-        }
-    }
-    
-    @IBAction func createOffAccountButtonTapped(_ sender: UIButton) {
-        guard let url = URL(string: "https://world.openfoodfacts.org/cgi/user.pl") else { return }
-        if #available(iOS 10.0, *) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:])
-            }
-        } else {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.openURL(url)
-            }
-        }
-    }
-    
-    private func privateCredentialsHaveBeenSet() {
-        // only write if both items have been set
-        if username != nil && password != nil {
-            offAccount.userId = username!
-            offAccount.password = password!
-            // once stored in the keychain, remove the items
-            username = nil
-            password = nil
-            // the user has specified a username and password, so we no longer bother him
-            Preferences.manager.userDidAuthenticate = true
-        }
-    }
-    
-
-    // Function to ask username/password and store it in the keychain
-    private func setUserNamePassword() {
-        
-        let alertController = UIAlertController(title: TranslatableStrings.PersonalAccount,
-                                                message: TranslatableStrings.SpecifyYourCredentialsForOFF,
-                                                preferredStyle:.alert)
-        let useFoodViewer = UIAlertAction(title: TranslatableStrings.Cancel,
-                                          style: .default) { action -> Void in
-                                            // set the foodviewer selected index
-                                            self.offAccountSegmentedControl.selectedSegmentIndex = 0
-        }
-        
-        let useMyOwn = UIAlertAction(title: TranslatableStrings.Done, style: .default)
-        { action -> Void in
-            // change the title of the segmented controller to the account the user just entered
-            self.offAccountSegmentedControl.setTitle(OFFAccount().userId, forSegmentAt: 1)
-            // alertController.view.resignFirstResponder()
-            // all depends on other asynchronic processes
-        }
-        alertController.addTextField { textField -> Void in
-            textField.tag = 0
-            textField.placeholder = TranslatableStrings.Username
-            textField.delegate = self
-        }
-        alertController.addTextField { textField -> Void in
-            textField.tag = 1
-            textField.placeholder = TranslatableStrings.Password
-            textField.delegate = self
-        }
-        
-        alertController.addAction(useFoodViewer)
-        alertController.addAction(useMyOwn)
-        self.present(alertController, animated: true, completion: nil)
-    }
-
-    @IBAction func unwindAllergenWarningForCancel(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? AllergenWarningsTableViewController {
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func unwindAllergenWarningForDone(_ segue:UIStoryboardSegue) {
-        if let _ = segue.source as? AllergenWarningsTableViewController {
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func unwindCreateOFFAcountForDone(_ segue:UIStoryboardSegue) {
-        //if let vc = segue.source as? CreateOFFAccountViewController {
-            // nothing needs to be done?
-        //}
-    }
-
-
-    
    
     // MARK: - TableView Delegate Functions
     
@@ -406,38 +182,14 @@ class SettingsTableViewController: UITableViewController {
             return TranslatableStrings.NutritionUnitPreferences
         case 3:
             return TranslatableStrings.NutritionTableFormatPreferences
-        case 4:
-            return TranslatableStrings.ProductTypePreferences
-        case 5:
-            return TranslatableStrings.OpenFoodFactsAccount
-        case 6:
-            return TranslatableStrings.Warnings
-        case 7:
-            return TranslatableStrings.Reset
-        case 8:
-            return TranslatableStrings.AppVersionAndBuild
         default:
             break
         }
         return nil
     }
     
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 1:
-            performSegue(withIdentifier: Constants.AllergenSegue, sender: self)
-        default:
-            break
-        }
-    }
-
     // MARK: - ViewController Lifecycle
     
-    override var prefersStatusBarHidden : Bool {
-        return true
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -449,36 +201,3 @@ class SettingsTableViewController: UITableViewController {
     }
 
 }
-  
-// MARK: - UITextField Delegate Functions
-  
-extension SettingsTableViewController: UITextFieldDelegate {
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        // username
-        switch textField.tag {
-        case 0:
-            if let validText = textField.text {
-                username = validText
-            }
-        // password
-        default:
-            if let validText = textField.text {
-                password = validText
-            }
-        }
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        if textField.isFirstResponder { textField.resignFirstResponder() }
-        
-        return true
-    }
-
-  }

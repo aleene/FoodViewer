@@ -14,13 +14,21 @@ struct TranslatableStrings {
 // MARK: - AAAAAAAAAAAAAAAAAAAA strings
 //
     static let A = NSLocalizedString("A", comment: "String (in Segmented Control) to indicate the best nutritional score level")
+    static let AddFrontImage = NSLocalizedString("Add Front Image", comment: "Title of a button to indicate that the front image is missing.")
+    static let AddFrontImageMessage = NSLocalizedString("Add Front Image", comment: "Title of a button to indicate that the front image is missing.")
+    static let AddFrontImageFromCamera = NSLocalizedString("Use Camera", comment: "Title of a button to indicate that user can take an image with the Camera.")
+    static let AddFrontImageFromPhotos = NSLocalizedString("Use Photos", comment: "Title of a button to indicate that user can pick an image from Photos.")
     static let AddLanguage = NSLocalizedString("Add Language", comment: "Title of a viewcontroller which allows the user to add a new language to the product languages.")
     static let AddNutrient = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
+    static let AlertPreferences = NSLocalizedString("Alert Preferences", comment: "ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.")
+    static let AlertPreferencesExtended = NSLocalizedString("Set a warning for specific allergen(s).", comment: "cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.")
     static let Allergens = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
     static let AllergenWarnings = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
     static let Additives = NSLocalizedString("Additives", comment: "Generic used string to indicate the additives of a product.")
     static let AskSavePermissionTitle = NSLocalizedString("Save Product Updates?", comment: "The title of an alert sheet, which allows the user to save he product.")
     static let AskSavePermissionMessage = NSLocalizedString("The local product has been changed. Should these changes be saved?", comment: "The title of an alert sheet, which allows the user to save he product.")
+    static let ApplicationPreferences = NSLocalizedString("Application Preferences", comment: "ViewController/row title, which allows the user to set up the application.")
+    static let ApplicationPreferencesExtended = NSLocalizedString("Set product type (food/beauty/petFood), reset, etc.", comment: "TableView row label, which allows the user to set up the application.")
     static let AppVersionAndBuild = NSLocalizedString("Application version/build", comment: "Title of a table section header, which display the app version nnumber and build number.")
     static let AssignImage = NSLocalizedString("Assign Image", comment: "ViewController title, which allows to set an image to a language and image category (front/ingredients/nutrition).")
     static let AuthenticateForOFFLogin = NSLocalizedString("Authenticate for OFF login", comment: "Reason string in TouchID authenticate alert")
@@ -77,7 +85,8 @@ struct TranslatableStrings {
     static let DailyValuesPerServing = NSLocalizedString("Daily Values (per serving)", comment: "Description for NutritionData Daily Value per serving")
     static let DataIsLoaded = NSLocalizedString("Data is loaded", comment: "String presented in a tagView if the data has been loaded")
     static let Discard = NSLocalizedString("Discard", comment: "Title of a button in an alert sheet, which allows the user to discard alle changes to the local product.")
-    static let DisplayPrefs = NSLocalizedString("Display Preferences", comment: "Title of a tableView section, which lets the user select display options")
+    static let DisplayPreferences = NSLocalizedString("Display Preferences", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
+    static let DisplayPreferencesExtended = NSLocalizedString("Set preferences for salt/sodium, kJ/kcal/Cal, etc.", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
     static let Done = NSLocalizedString("Done", comment: "String in button, to let the user indicate he is ready with username/password input.")
     
 //
@@ -223,6 +232,9 @@ struct TranslatableStrings {
 
     
     static let OK = NSLocalizedString("OK", comment: "String in button, to let the user indicate he wants to start the search.")
+    static let OpenFoodFactsPreferences = NSLocalizedString("Open Food Facts Preferences", comment: "ViewController/row title, which allows the user to set his open food facts username.")
+    static let OpenFoodFactsPreferencesExtended = NSLocalizedString("Set your OpenFoodFacts account.", comment: "Row title, which allows the user to set his open food facts username.")
+
     static let OpenInSafari = NSLocalizedString("Open in Safari", comment: "String for the Activity Action Screen")
     static let Original = NSLocalizedString("Original", comment: "Description of the original tags in the json")
     static let OtherProductType = NSLocalizedString("Other product type", comment: "String presented in a tagView if this is not the current product type")
@@ -351,6 +363,8 @@ struct TranslatableStrings {
     static let UploadingImage = NSLocalizedString("Uploading image", comment: "String presented in a tagView if an image is being uploaded")
     static let Use = NSLocalizedString("Use", comment: "Title of a button in a navigation bar, which allows the user to adapt an image and use the result.")
     static let Username = NSLocalizedString("Username", comment: "String in textField placeholder, to show that the user has to enter his username.")
+    static let UserScene = NSLocalizedString("User Preferences", comment: "ViewController/row title, which allows the user to set the application preferences.")
+
     static let UserDefined = NSLocalizedString("User defined", comment: "Title of a segment in a segmentedControl that this parameter will be set by the user.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
 

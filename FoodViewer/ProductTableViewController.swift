@@ -227,18 +227,30 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
 
-    fileprivate func showProductPageInCompactOrientation(_ show: Bool) {
-        // prevent that to many changes are pushed on the view stack
-        // check the current presented controller
+    fileprivate func showProductPage() {
         // only segue if we are at the top of the stack
-        // i.e. only segue once
-        // Segue only if the user tapped on the iPhone and always on the iPad
-        if show {
-            if let parentVC = self.parent as? UINavigationController {
-                if parentVC.visibleViewController as? ProductTableViewController != nil {
-                    //print("perform", testVC?.view?.frame, testVC?.parent)
-                    performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+        if  let parentVC = self.parent as? UINavigationController,
+            let parentParentVC = parentVC.parent as? UISplitViewController,
+            let detailVC = parentParentVC.viewControllers.last as? UINavigationController,
+            let ppvc = detailVC.childViewControllers.first as? ProductPageViewController {
+            ppvc.tableItem = selectedProductPair
+            if let validSelectedRowType = selectedRowType,
+                let validProductPair = selectedProductPair {
+                   switch validProductPair.barcodeType {
+                case .search(let template, _):
+                    if let validIndex = selectedIndex {
+                        let array = template.searchPairsWithArray()
+                        if array.count > 0 && validIndex < array.count {
+                            ppvc.pageIndex = searchRowType(array[validIndex].0)
+                        } else {
+                            ppvc.pageIndex = .identification
+                        }
+                    }
+                default:
+                    ppvc.pageIndex = validSelectedRowType.productSection()
                 }
+            } else {
+                ppvc.pageIndex = .identification
             }
         }
     }
@@ -394,14 +406,15 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
                         }
                     }
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                    cell.datasource = self
-                    cell.tag = Constants.TagValue.Image + ImageFetchResult.noImageAvailable.rawValue
-                    //cell.width = tableView.frame.size.width
-                    cell.scheme = ColorSchemes.error
-                    cell.accessoryType = .disclosureIndicator
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
+                    cell.delegate = self
+                    cell.title = TranslatableStrings.AddFrontImage
+                    // This enables the button
+                    cell.editMode = true
+                    // The tag should identify the product in the list
+                    cell.tag = -1 * indexPath.section
                     return cell
-                
+
                 case .ingredientsAllergensTraces:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                         
@@ -582,7 +595,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if let index = selectedIndex {
             selectedRowType = tableStructure[index]
         }
-        showProductPageInCompactOrientation(true)
+        showProductPage()
         if products.count > 0,
             let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
             let validProductPair = products.productPair(at: indexPath.section) {
@@ -740,12 +753,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowSettings:
-                if let vc = segue.destination as? SettingsTableViewController {
-                    vc.storedHistory = products.storedHistory
-                    vc.modalPresentationCapturesStatusBarAppearance = true
-                    setNeedsStatusBarAppearanceUpdate()
-                }
             case Storyboard.SegueIdentifier.ShowSortOrder:
                 if let vc = segue.destination as? SetSortOrderViewController {
                     // The segue can only be initiated from a button within a searchHeaderView
@@ -800,11 +807,74 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
-        startInterface(at:0)
-        showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+    @objc func showAlertAddFrontImage(forProductWith index:Int) {
+        let alert = UIAlertController(
+            title: TranslatableStrings.AddFrontImage,
+            message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in
+            // the user cancels to add image
+            })
+        alert.addAction(UIAlertAction(title: TranslatableStrings.AddFrontImageFromCamera, style: .destructive) { (action: UIAlertAction) -> Void in
+                self.takePhoto(forProductWith: index)
+        })
+        alert.addAction(UIAlertAction(title: TranslatableStrings.AddFrontImageFromPhotos, style: .destructive) { (action: UIAlertAction) -> Void in
+            self.selectCameraRollPhoto(forProductWith: index)
+        })
+
+        self.present(alert, animated: true, completion: nil)
+    }
+
+    fileprivate lazy var imagePicker: GKImagePicker = {
+        let picker = GKImagePicker.init()
+        picker.imagePickerController = UIImagePickerController.init()
+        // picker.mediaTypes = [kUTTypeImage as String]
+        return picker
+    }()
+    
+    private var productIndexForMainImage: Int? = nil
+
+    func takePhoto(forProductWith index:Int) {
+        // opens the camera and allows the user to take an image and crop
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            productIndexForMainImage = index
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.delegate = self
+            imagePicker.imagePickerController?.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
     }
     
+    private func selectCameraRollPhoto(forProductWith index:Int) {
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            productIndexForMainImage = index
+            imagePicker.cropSize = CGSize.init(width: 300, height: 300)
+            imagePicker.hasResizeableCropArea = true
+            imagePicker.imagePickerController!.modalPresentationStyle = .fullScreen
+            imagePicker.sourceType = .savedPhotosAlbum
+            
+            imagePicker.delegate = self
+            
+            present(imagePicker.imagePickerController!, animated: true, completion: nil)
+            if let popoverPresentationController = imagePicker.imagePickerController!.popoverPresentationController {
+                popoverPresentationController.sourceRect = tableView.frame
+                popoverPresentationController.sourceView = self.view
+            }
+        }
+    }
+    
+    @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
+        startInterface(at:0)
+        showProductPage()
+    }
+    
+    /*
     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? BarcodeScanViewController {
             // the user has done a barcode scan, so switch to the right tab
@@ -819,6 +889,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
         }
     }
+ */
     
     @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SetSortOrderViewController {
@@ -834,11 +905,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 default:
                     break
                 }
-
             }
         }
     }
 
+    /*
     
     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SettingsTableViewController {
@@ -854,6 +925,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             tableView.reloadData()
         }
     }
+ 
+ */
     
     private func switchToTab(withIndex index: Int) {
         if let tabVC = self.parent?.parent as? UITabBarController {
@@ -863,6 +936,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
         setTitle()
     }
+    
     
     // MARK: - Notification methods
     
@@ -890,33 +964,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    /*
-    @objc func showAlertProductNotAvailable(_ notification: Notification) {
-        let userInfo = (notification as NSNotification).userInfo
-        let error = userInfo!["error"] as? String ?? "ProductTableViewController:showAlertProductNotAvailable: No valid error"
-        let barcodeString = userInfo![OFFProducts.Notification.BarcodeDoesNotExistKey] as? String
-        let alert = UIAlertController(
-            title: Constants.AlertSheet.Message,
-            message: error, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in
-            // As the product was already create, it can now be deleted
-                self.products.removeProduct(with:self.barcodeType)
-            }
-        )
-        if let validBarcodeString = barcodeString {
-            // if there is a valid barcode, allow the user to add it
-            alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForAdd, style: .destructive) { (action: UIAlertAction) -> Void in
-                let newProduct = FoodProduct(with: BarcodeType(barcodeTuple: (validBarcodeString, self.currentProductType.rawValue)))
-                let preferredLanguage = Locale.preferredLanguages[0]
-                let currentLanguage = preferredLanguage.split(separator:"-").map(String.init)
-
-                newProduct.primaryLanguageCode = currentLanguage[0]
-            })
-        }
-        self.present(alert, animated: true, completion: nil)
-    }
-     */
-
     @objc func productLoaded(_ notification: Notification) {
         
         // This is needed to increase the tablesize as each product is added.
@@ -926,24 +973,6 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 
         tableView.reloadData()
 
-    }
-    
-    // Show an alert if the product can not be loaded
-    @objc func alertUser(_ notification: Notification) {
-        // Check if this image was relevant to this product
-        /*
-         if let barcode = notification.userInfo?[ProductPair.Notification.BarcodeKey] as? String {
-         if barcode == productPair!.remoteProduct!.barcode.asString {
-         // is it relevant to the main image?
-         if let id = notification.userInfo?[ProductPair.Notification.ImageTypeCategoryKey] as? String {
-         if id.contains(OFFHttpPost.AddParameter.ImageField.Value.Front) {
-         // reload product data
-         self.productPair?.reload()
-         }
-         }
-         }
-         }
-         */
     }
 
     @objc func productUpdated(_ notification: Notification) {
@@ -985,14 +1014,14 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     // 
     @objc func firstProductLoaded(_ notification: Notification) {
         startInterface(at: 0)
-        showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+        showProductPage()
     }
     
     @objc func searchLoaded(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
             startInterface(at:index >= 0 ? index : 0)
-            showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+            showProductPage()
         }
     }
 
@@ -1003,7 +1032,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // If it is the first page, position the interface on the first section
             if firstPage == 0 {
                 startInterface(at:0)
-                showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+                showProductPage()
             }
         }
     }
@@ -1017,7 +1046,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 Preferences.manager.cycleProductType()
                 products.reloadAll()
                 startInterface(at: 0)
-                showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+                showProductPage()
             }
         }
     }
@@ -1059,15 +1088,19 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // setTitle()
         // make sure we show the right tab
         if products.list == .recent {
-            switchToTab(withIndex: 0)
-        } else {
             switchToTab(withIndex: 1)
+        } else {
+            switchToTab(withIndex: 2)
         }
 
-        if products.count > 0 && selectedProductPair == nil{
+        if let validSelectedProductIndex = products.selectedProduct {
+            startInterface(at: validSelectedProductIndex)
+            tableView.scrollToRow(at: IndexPath.init(row: 0, section: validSelectedProductIndex), at: .top, animated: true)
+            showProductPage()
+        } else if products.count > 0 && selectedProductPair == nil {
             // If nothing has been selected yet, start with the first product in the list, and on the iPad
             startInterface(at: 0)
-            showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+            showProductPage()
         }
         
         // Notifications coming from ProductPair,
@@ -1096,7 +1129,24 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         OFFProducts.manager.flushImages()
     }
 }
+
+//
+// MARK: - GKImagePickerDelegate Functions
+//
+extension ProductTableViewController: GKImagePickerDelegate {
     
+    func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
+        guard let validIndex = productIndexForMainImage else { return }
+        guard let validLanguageCode =  products.productPair(at: validIndex)?.primaryLanguageCode else { return }
+        products.productPair(at: validIndex)?.update(frontImage: image, for: validLanguageCode)
+        imagePicker.dismiss(animated: true, completion: nil)
+        // The app should now move to edit mode and the first page
+        selectedRowType = .name
+        selectedProductPair = products.productPair(at: validIndex)
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+    }
+}
+
     // MARK: - ButtonCellDelegate Functions
     
 
@@ -1104,7 +1154,11 @@ extension ProductTableViewController: ButtonCellDelegate {
         
     // function to let the delegate know that a button was tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
-        products.fetchSearchProductsForNextPage()
+        if sender.tag < 0 {
+            showAlertAddFrontImage(forProductWith: -1 * sender.tag)
+        } else {
+            products.fetchSearchProductsForNextPage()
+        }
     }
 }
 
@@ -1150,10 +1204,18 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
 extension ProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        products.list = tabBarController.selectedIndex == 0 ? .recent : .search
+        switch tabBarController.selectedIndex {
+        case 1:
+            products.list = .recent
+        case 2:
+            products.list = .search
+        default:
+            break
+        }
+        // products.list = tabBarController.selectedIndex == 0 ? .recent : .search
         // refreshInterface()
         startInterface(at: 0)
-        showProductPageInCompactOrientation(!deviceHasCompactOrientation)
+        showProductPage()
     }
     
 }
