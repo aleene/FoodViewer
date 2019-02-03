@@ -59,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     // Correctly Handle Portrait to Landscape transition for iPhone 6+ when TableView2 is open in Portrait. Comment and see for yourself, what happens when you don't write this.
     func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
         if let primaryAsNavController = primaryViewController as? UINavigationController {
-            if let _ = primaryAsNavController.topViewController as? ProductTableViewController {
+            if let _ = primaryAsNavController.topViewController as? AllProductsTableViewController {
                 //Return Navigation controller containing Product ID to be used as secondary view for Split View
                 return (UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LaunchDetailViewController") )
             }

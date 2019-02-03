@@ -33,6 +33,8 @@ class OpenFoodFactsPreferencesTableViewController: UITableViewController {
             privateCredentialsHaveBeenSet()
         }
     }
+    @IBAction func allowContinuousScanSwitched(_ sender: UISwitch) {
+    }
     
     private var offAccount = OFFAccount()
     

@@ -1,18 +1,18 @@
 //
-//  ProductTableViewController.swift
+//  SearchTableViewController.swift
 //  FoodViewer
 //
-//  Created by arnaud on 31/01/16.
-//  Copyright © 2016 Hovering Above. All rights reserved.
+//  Created by arnaud on 26/01/2019.
+//  Copyright © 2019 Hovering Above. All rights reserved.
 //
 
 import UIKit
 import MobileCoreServices
 
-class ProductTableViewController: UITableViewController, UITextFieldDelegate, KeyboardDelegate {
-
+class SearchTableViewController: UITableViewController, UITextFieldDelegate {
+    
     fileprivate struct Constants {
-
+        
         struct AlertSheet {
             static let Message = TranslatableStrings.ProductDoesNotExistAlertSheetMessage
             static let ActionTitleForCancel = TranslatableStrings.ProductDoesNotExistAlertSheetActionTitleForCancel
@@ -76,17 +76,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-
+    
     fileprivate var products = OFFProducts.manager
     
     //TODO: can I create a barcode type for not initialized?
-    fileprivate var barcodeType = BarcodeType(barcodeString: TranslatableStrings.EnterBarcode, type: Preferences.manager.showProductType) {
+    fileprivate var barcodeType = BarcodeType(barcodeString: "What to put here?", type: Preferences.manager.showProductType) {
         didSet {
             var section = 0
             // get the index of the existing productPair
             if let validSection = products.indexOfProductPair(with: barcodeType) {
                 section = validSection
-           } else {
+            } else {
                 // create a new productPair
                 let validSection = products.createProduct(with: barcodeType)
                 section = validSection
@@ -104,18 +104,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     fileprivate func startInterface(at index:Int) {
         if let validProductPair = products.productPair(at: index),
             let validFetchResult = products.productPair(at: index)?.status {
-                switch validFetchResult {
-                case .available:
-                    selectedProductPair = validProductPair
-                    tableView.reloadData()
-                case .searchQuery:
-                    selectedProductPair = validProductPair
-                    refreshInterface()
-                default:
-                    selectedProductPair = nil
-                    tableView.reloadData()
-                }
-         } else {
+            switch validFetchResult {
+            case .available:
+                selectedProductPair = validProductPair
+                tableView.reloadData()
+            case .searchQuery:
+                selectedProductPair = validProductPair
+                refreshInterface()
+            default:
+                selectedProductPair = nil
+                tableView.reloadData()
+            }
+        } else {
             selectedProductPair = nil
             tableView.reloadData()
         }
@@ -126,7 +126,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         guard products.count > 0 else { return }
         tableView.reloadData()
     }
-
+    
     var productPageViewController: ProductPageViewController? = nil
     
     // Function to set the title of this viewController
@@ -161,51 +161,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         
     }
     
-    // MARK: - TextField Methods
-    
-    var activeTextField = UITextField()
- 
- 
-    @IBOutlet weak var searchTextField: UITextField! {
-        didSet {
-            searchTextField.delegate = self
-            searchTextField.text = barcodeType.asString
-        }
-    }
-    
-    func textFieldDidBeginEditing(_ textFieldUser: UITextField) {
-        activeTextField = textFieldUser
-    }
-    
-    func initializeCustomKeyboard() {
-        // initialize custom keyboard
-        let keyboardView = Keyboard(frame: CGRect(x: 0, y: 0, width: 0, height: 300))
-        
-        searchTextField.inputView = keyboardView
-
-        // the view controller will be notified by the keyboard whenever a key is tapped
-        keyboardView.delegate = self
-    }
-
-    func keyWasTapped(_ character: String) {
-        activeTextField.insertText(character)
-    }
-    
-    func backspace() {
-        activeTextField.deleteBackward()
-    }
-
-    func enter() {
-        view.endEditing(true)
-        if !searchTextField.text!.isEmpty {
-            barcodeType = BarcodeType(barcodeString: searchTextField.text!, type: currentProductType)
-        }
-    }
-
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
     }
-
+    
     // MARK: - Table view methods and vars
     
     fileprivate var selectedProductPair: ProductPair? = nil {
@@ -226,7 +185,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             return self.splitViewController?.traitCollection.horizontalSizeClass == .compact
         }
     }
-
+    
     fileprivate func showProductPage() {
         // only segue if we are at the top of the stack
         if  let parentVC = self.parent as? UINavigationController,
@@ -236,7 +195,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             ppvc.tableItem = selectedProductPair
             if let validSelectedRowType = selectedRowType,
                 let validProductPair = selectedProductPair {
-                   switch validProductPair.barcodeType {
+                switch validProductPair.barcodeType {
                 case .search(let template, _):
                     if let validIndex = selectedIndex {
                         let array = template.searchPairsWithArray()
@@ -254,7 +213,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
-
+    
     // The row types are mapped onto custom cells
     fileprivate enum RowType {
         case name
@@ -268,7 +227,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         case supplyChain
         
         // map the row types to corresponding product sections
-        func productSection() -> ProductSection {
+        func productSection() -> ProductPage {
             switch self {
             case .name:
                 return .identification
@@ -289,7 +248,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
-
+    
     // defines the order of the rows
     private var tableStructure: [RowType] {
         switch currentProductType {
@@ -360,7 +319,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
         return 0
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let validFetchResult = products.productPair(at: indexPath.section)?.status {
@@ -384,7 +343,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                     return cell
-                        
+                    
                 case .image:
                     if let language = productPair?.primaryLanguageCode,
                         let frontImages = productPair?.remoteProduct?.frontImages ?? productPair?.localProduct?.frontImages,
@@ -403,7 +362,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             cell.scheme = ColorSchemes.error
                             cell.accessoryType = .disclosureIndicator
                             return cell
-
+                            
                         }
                     }
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
@@ -414,10 +373,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     // The tag should identify the product in the list
                     cell.tag = -1 * indexPath.section
                     return cell
-
+                    
                 case .ingredientsAllergensTraces:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
-                        
+                    
                     cell.ingredientsText = TranslatableStrings.Ingredients
                     if let number = productPair?.remoteProduct?.numberOfIngredients {
                         let formatter = NumberFormatter()
@@ -426,7 +385,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     } else {
                         cell.ingredientsBadgeText = TranslatableStrings.Undefined
                     }
-                        
+                    
                     cell.allergensText = TranslatableStrings.Allergens
                     if let validAllergens = productPair?.remoteProduct?.allergensTranslated ?? productPair?.localProduct?.allergensOriginal {
                         switch validAllergens {
@@ -436,7 +395,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                             cell.allergensBadgeText = TranslatableStrings.Undefined
                         }
                     }
-                        
+                    
                     cell.tracesText = TranslatableStrings.Traces
                     if let validTraces = productPair?.remoteProduct?.tracesInterpreted ?? productPair?.localProduct?.tracesOriginal {
                         switch validTraces {
@@ -447,7 +406,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                     return cell
-                        
+                    
                 case .ingredients:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.Ingredients
@@ -455,11 +414,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         cell.badgeText = number
                     }
                     return cell
-                        
+                    
                 case .nutritionFacts:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.NutritionFacts
-
+                    
                     if let facts = productPair?.remoteProduct?.nutritionFactsDict ?? productPair?.localProduct?.nutritionFactsDict {
                         let formatter = NumberFormatter()
                         formatter.numberStyle = .decimal
@@ -468,12 +427,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         cell.badgeText = TranslatableStrings.Undefined
                     }
                     return cell
-                        
+                    
                 case .nutritionScore:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
                     cell?.product = productPair?.remoteProduct ?? productPair?.localProduct
                     return cell!
-                        
+                    
                 case .categories:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.Categories
@@ -490,12 +449,12 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                         }
                     }
                     return cell
-                
+                    
                 case .completion:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
                     cell?.product = productPair?.remoteProduct ?? productPair?.localProduct
                     return cell!
-                
+                    
                 case .supplyChain:
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
                     cell.labelText = TranslatableStrings.SalesCountries
@@ -518,10 +477,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 cell.editMode = true
                 cell.tag = indexPath.section * Constants.TagValue.Product.Multiplier + validFetchResult.rawValue
                 return cell
-                    
+                
             case .productNotAvailable,
-                .loading,
-                .loadingFailed:
+                 .loading,
+                 .loadingFailed:
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
                 cell.datasource = self
                 cell.delegate = self
@@ -531,7 +490,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 cell.scheme = ColorSchemes.error
                 cell.accessoryType = .none
                 return cell
-                    
+                
             case .searchQuery(let query):
                 // What should appear in this cell depends on the search query element
                 let searchPairs = query.searchPairsWithArray()
@@ -579,7 +538,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                 cell.tag = validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.section
                 cell.scheme = ColorSchemes.normal
                 return cell
-                }
+            }
         } // No validFetchResult
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
         cell.datasource = self
@@ -588,7 +547,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         return cell
     }
     
-
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         selectedIndex = indexPath.row
@@ -599,18 +558,18 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         if products.count > 0,
             let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
             let validProductPair = products.productPair(at: indexPath.section) {
-                switch validFetchResult {
-                case .available,
-                     .loading,
-                     .productNotLoaded:
-                    selectedProductPair = validProductPair
-                case .productNotAvailable,
-                     .loadingFailed:
-                    selectedProductPair = validProductPair
-                case .searchQuery(let query):
-                    selectedProductPair = ProductPair.init(barcodeType: .search(query, Preferences.manager.showProductType))
-                default: break
-                }
+            switch validFetchResult {
+            case .available,
+                 .loading,
+                 .productNotLoaded:
+                selectedProductPair = validProductPair
+            case .productNotAvailable,
+                 .loadingFailed:
+                selectedProductPair = validProductPair
+            case .searchQuery(let query):
+                selectedProductPair = ProductPair.init(barcodeType: .search(query, Preferences.manager.showProductType))
+            default: break
+            }
         }
     }
     
@@ -626,7 +585,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             switch validFetchResult {
             case .available:
                 if let validProduct = products.productPair(at: section)?.remoteProduct ?? products.productPair(at: section)?.localProduct,
-                let languageCode = products.productPair(at: section)?.primaryLanguageCode {
+                    let languageCode = products.productPair(at: section)?.primaryLanguageCode {
                     label.text = products.productPair(at: section)?.remoteProduct?.nameLanguage[languageCode] ?? products.productPair(at: section)?.localProduct?.nameLanguage[languageCode] ?? Constants.Tag.ProductNameMissing
                     switch validProduct.tracesInterpreted {
                     case .available(let validKeys):
@@ -700,7 +659,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tempView.tag = section
         return tempView
     }
-
+    
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
@@ -721,10 +680,10 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // if the user starts scrolling the barcode search focus can be reset
-         self.focusOnNewSearchedProductPair = false
+        self.focusOnNewSearchedProductPair = false
     }
     
-// MARK: - Scene changes
+    // MARK: - Scene changes
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
@@ -774,20 +733,20 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                                     default:
                                         break
                                     }
-
+                                    
                                 }
                             }
                         }
                     }
                 }
-
+                
             default: break
             }
         }
     }
     
     // convert between the search categories and the display pages type
-    private func searchRowType(_ component: SearchComponent) -> ProductSection {
+    private func searchRowType(_ component: SearchComponent) -> ProductPage {
         switch component {
         case .barcode, .searchText, .brand, .language, .packaging:
             return .identification
@@ -797,13 +756,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             return .supplyChain
         case .label, .additive, .trace, .allergen, .ingredient:
             return .ingredients
-    case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
+        case .contributor, .creator, .informer, .editor, .photographer, .corrector, .state, .checker, .lastEditDate, .entryDates:
             return .completion
         case .nutritionGrade:
             return .nutritionScore
         case .nutrient:
             return .nutritionFacts
-
+            
         }
     }
     
@@ -813,17 +772,17 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in
             // the user cancels to add image
-            })
+        })
         alert.addAction(UIAlertAction(title: TranslatableStrings.AddFrontImageFromCamera, style: .destructive) { (action: UIAlertAction) -> Void in
-                self.takePhoto(forProductWith: index)
+            self.takePhoto(forProductWith: index)
         })
         alert.addAction(UIAlertAction(title: TranslatableStrings.AddFrontImageFromPhotos, style: .destructive) { (action: UIAlertAction) -> Void in
             self.selectCameraRollPhoto(forProductWith: index)
         })
-
+        
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
         picker.imagePickerController = UIImagePickerController.init()
@@ -832,7 +791,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }()
     
     private var productIndexForMainImage: Int? = nil
-
+    
     func takePhoto(forProductWith index:Int) {
         // opens the camera and allows the user to take an image and crop
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -875,21 +834,21 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
     }
     
     /*
-    @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? BarcodeScanViewController {
-            // the user has done a barcode scan, so switch to the right tab
-            switchToTab(withIndex: 0)
-            // This will retrieve the corresponding product
-            barcodeType = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
-            // update the interface
-            searchTextField.text = vc.barcode
-            focusOnNewSearchedProductPair = true
-            performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
-        } else {
-            assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
-        }
-    }
- */
+     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
+     if let vc = segue.source as? BarcodeScanViewController {
+     // the user has done a barcode scan, so switch to the right tab
+     switchToTab(withIndex: 0)
+     // This will retrieve the corresponding product
+     barcodeType = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
+     // update the interface
+     searchTextField.text = vc.barcode
+     focusOnNewSearchedProductPair = true
+     performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+     } else {
+     assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
+     }
+     }
+     */
     
     @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SetSortOrderViewController {
@@ -908,25 +867,25 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             }
         }
     }
-
-    /*
     
-    @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SettingsTableViewController {
-            if vc.historyHasBeenRemoved {
-                products.removeAllProductPairs()
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
-            }
-            // force a reload of all products
-            if currentProductType != vc.changedCurrentProductType {
-                Preferences.manager.showProductType = vc.changedCurrentProductType
-                products.reloadAll()
-            }
-            tableView.reloadData()
-        }
-    }
- 
- */
+    /*
+     
+     @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
+     if let vc = segue.source as? SettingsTableViewController {
+     if vc.historyHasBeenRemoved {
+     products.removeAllProductPairs()
+     performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
+     }
+     // force a reload of all products
+     if currentProductType != vc.changedCurrentProductType {
+     Preferences.manager.showProductType = vc.changedCurrentProductType
+     products.reloadAll()
+     }
+     tableView.reloadData()
+     }
+     }
+     
+     */
     
     private func switchToTab(withIndex index: Int) {
         if let tabVC = self.parent?.parent as? UITabBarController {
@@ -970,11 +929,11 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // The issue is the size of the product array that is determined by the number of received products.
         // It should be related to the size of the history file.
         // At least I think that that is the issue.
-
+        
         tableView.reloadData()
-
+        
     }
-
+    
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
@@ -982,8 +941,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             if let index = products.indexOfProductPair(with: BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType)) {
                 if index == 0 {
                     if let validProductPair = products.productPair(at: index) {
-                    // If this is the product at the top,
-                    // save the updates also locally.
+                        // If this is the product at the top,
+                        // save the updates also locally.
                         switch validProductPair.remoteStatus {
                         case .available:
                             MostRecentProduct().save(product:validProductPair.remoteProduct)
@@ -1002,7 +961,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
                     let visibleIndexPaths = self.tableView.indexPathsForVisibleRows
                     let indexPathForProductPair = IndexPath(row: 0, section: index)
                     if let validVisibleIndexPaths = visibleIndexPaths,
-                    // only look for rows with an image
+                        // only look for rows with an image
                         validVisibleIndexPaths.contains(indexPathForProductPair) {
                         tableView.reloadData()
                     }
@@ -1011,7 +970,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-    // 
+    //
     @objc func firstProductLoaded(_ notification: Notification) {
         startInterface(at: 0)
         showProductPage()
@@ -1024,7 +983,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             showProductPage()
         }
     }
-
+    
     @objc func searchStarted(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let firstPage = notification.userInfo?[OFFProducts.Notification.SearchPageKey] as? Int {
@@ -1051,7 +1010,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         }
     }
     
-// MARK: - Viewcontroller lifecycle
+    // MARK: - Viewcontroller lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -1060,7 +1019,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
             // start out with the recents tab
             tabVC.selectedIndex = 0
             tabVC.delegate = self
-
+            
             // show history products
             products.list = .recent
             products.search = nil
@@ -1078,9 +1037,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
         tableView.register(UINib(nibName: "SearchHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SearchHeaderView")
-
-        initializeCustomKeyboard()
-    }
+            }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -1092,8 +1049,8 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         } else {
             switchToTab(withIndex: 2)
         }
-
-        if let validSelectedProductIndex = products.selectedProduct {
+        
+        if let validSelectedProductIndex = products.currentScannedProduct {
             startInterface(at: validSelectedProductIndex)
             tableView.scrollToRow(at: IndexPath.init(row: 0, section: validSelectedProductIndex), at: .top, animated: true)
             showProductPage()
@@ -1106,13 +1063,13 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
         // either the local product or the remote product
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductPairRemoteStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.productUpdated(_:)), name:.ProductPairLocalStatusChanged, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.firstProductLoaded(_:)), name:.SampleLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SearchTableViewController.productUpdated(_:)), name:.ProductPairRemoteStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SearchTableViewController.productUpdated(_:)), name:.ProductPairLocalStatusChanged, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SearchTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SearchTableViewController.firstProductLoaded(_:)), name:.SampleLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SearchTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(SearchTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -1133,7 +1090,7 @@ class ProductTableViewController: UITableViewController, UITextFieldDelegate, Ke
 //
 // MARK: - GKImagePickerDelegate Functions
 //
-extension ProductTableViewController: GKImagePickerDelegate {
+extension SearchTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         guard let validIndex = productIndexForMainImage else { return }
@@ -1147,11 +1104,11 @@ extension ProductTableViewController: GKImagePickerDelegate {
     }
 }
 
-    // MARK: - ButtonCellDelegate Functions
-    
+// MARK: - ButtonCellDelegate Functions
 
-extension ProductTableViewController: ButtonCellDelegate {
-        
+
+extension SearchTableViewController: ButtonCellDelegate {
+    
     // function to let the delegate know that a button was tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
         if sender.tag < 0 {
@@ -1163,8 +1120,8 @@ extension ProductTableViewController: ButtonCellDelegate {
 }
 
 // MARK: - SearchHeaderDelegate Functions
-    
-extension ProductTableViewController: SearchHeaderDelegate {
+
+extension SearchTableViewController: SearchHeaderDelegate {
     
     func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSortOrder, sender: button)
@@ -1180,15 +1137,15 @@ extension ProductTableViewController: SearchHeaderDelegate {
             default:
                 break
             }
-
+            
         }
     }
 }
-    
-// MARK: - UIGestureRecognizerDelegate Functions
-    
-extension ProductTableViewController: UIGestureRecognizerDelegate {
 
+// MARK: - UIGestureRecognizerDelegate Functions
+
+extension SearchTableViewController: UIGestureRecognizerDelegate {
+    
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
@@ -1198,10 +1155,10 @@ extension ProductTableViewController: UIGestureRecognizerDelegate {
         return gestureRecognizer.isEqual(self.downTwoFingerSwipe) ? true : false
     }
 }
-    
+
 // MARK: - UITabBarControllerDelegate Functions
-    
-extension ProductTableViewController: UITabBarControllerDelegate {
+
+extension SearchTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         switch tabBarController.selectedIndex {
@@ -1219,11 +1176,11 @@ extension ProductTableViewController: UITabBarControllerDelegate {
     }
     
 }
- 
+
 // MARK: - TagListViewCellDelegate Functions
+
+extension SearchTableViewController: TagListViewCellDelegate {
     
-extension ProductTableViewController: TagListViewCellDelegate {
-        
     // function to let the delegate know that a tag has been single
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
     }
@@ -1232,12 +1189,12 @@ extension ProductTableViewController: TagListViewCellDelegate {
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
     }
 }
-    
+
 
 // MARK: - TagListView DataSource Functions
+
+extension SearchTableViewController: TagListViewDataSource {
     
-extension ProductTableViewController: TagListViewDataSource {
-        
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         
         // is this a searchQuery section?
@@ -1253,14 +1210,14 @@ extension ProductTableViewController: TagListViewDataSource {
                 default:
                     break
                 }
-
+                
             }
         }
         return 1
     }
-        
+    
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-
+        
         // find the product that has been tapped on
         //let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
         // find the status of the product
@@ -1271,33 +1228,33 @@ extension ProductTableViewController: TagListViewDataSource {
             // is this a no search defined cell
             if code == Constants.TagValue.Search.NotDefined {
                 return ProductFetchStatus.noSearchDefined.description
-            // is this a search Loading cell?
+                // is this a search Loading cell?
             } else if code == Constants.TagValue.Search.Loading {
                 return TranslatableStrings.Loading
             } else if code == Constants.TagValue.Search.MoreResults {
                 return ProductFetchStatus.noSearchDefined.description
-            // is this (part of ) a search query cell?
+                // is this (part of ) a search query cell?
             } else if code >= Constants.TagValue.Search.Query {
-                    if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-                switch validFetchResult {
-                case .searchQuery(let query):
-                    if query.isEmpty {
-                        return TranslatableStrings.SetupQuery
-                    } else {
-                        let searchPairs = query.searchPairsWithArray()
-                        let tagIndex = tagListView.tag - Constants.TagValue.Search.Query
-                        if tagIndex >= 0 && tagIndex < searchPairs.count {
-                            let array = searchPairs[tagIndex].1
-                            if index >= 0 && index < array.count {
-                                return array[index]
+                if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
+                    switch validFetchResult {
+                    case .searchQuery(let query):
+                        if query.isEmpty {
+                            return TranslatableStrings.SetupQuery
+                        } else {
+                            let searchPairs = query.searchPairsWithArray()
+                            let tagIndex = tagListView.tag - Constants.TagValue.Search.Query
+                            if tagIndex >= 0 && tagIndex < searchPairs.count {
+                                let array = searchPairs[tagIndex].1
+                                if index >= 0 && index < array.count {
+                                    return array[index]
+                                }
                             }
                         }
+                    default:
+                        break
                     }
-                default:
-                    break
-                }
-        
-                return ProductFetchStatus.description(for: code  - Constants.TagValue.Search.Query)
+                    
+                    return ProductFetchStatus.description(for: code  - Constants.TagValue.Search.Query)
                 }
             }
         } else if code >= Constants.TagValue.Image {
@@ -1311,12 +1268,12 @@ extension ProductTableViewController: TagListViewDataSource {
     public func tagListViewCollapsedText(_ tagListView: TagListView) -> String {
         return "Collapsed"
     }
-        
+    
 }
-    
+
 // MARK: - TagListView Delegate Functions
-    
-extension ProductTableViewController: TagListViewDelegate {
+
+extension SearchTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
@@ -1335,20 +1292,20 @@ extension ProductTableViewController: TagListViewDelegate {
             _ = products.loadProductPair(at: productIndex)
         }
     }
-        
+    
 }
 
-    
+
 // MARK: - UIPopoverPresentationControllerDelegate Functions
+
+extension SearchTableViewController: UIPopoverPresentationControllerDelegate {
     
-extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
-        
     // MARK: - Popover delegation functions
-        
+    
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
     }
-        
+    
     func presentationController(_ controller: UIPresentationController, viewControllerForAdaptivePresentationStyle style: UIModalPresentationStyle) -> UIViewController? {
         let navcon = UINavigationController(rootViewController: controller.presentedViewController)
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .extraLight))
@@ -1357,13 +1314,13 @@ extension ProductTableViewController: UIPopoverPresentationControllerDelegate {
         return navcon
     }
 }
-    
+
 
 // MARK: - UIDragInteractionDelegate Functions
 
 @available(iOS 11.0, *)
-extension ProductTableViewController: UITableViewDragDelegate {
-        
+extension SearchTableViewController: UITableViewDragDelegate {
+    
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
             let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
@@ -1391,11 +1348,11 @@ extension ProductTableViewController: UITableViewDragDelegate {
             default:
                 break
             }
-
+            
         }
         return []
     }
-        
+    
     func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
         let currentProductSection = tableStructure[indexPath.row]
         switch currentProductSection {
@@ -1414,7 +1371,7 @@ extension ProductTableViewController: UITableViewDragDelegate {
     }
     
     func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
-
+        
         // only allow flocking of another image
         for item in session.items {
             // Note kUTTypeImage needs an import of MobileCoreServices
@@ -1432,14 +1389,14 @@ extension ProductTableViewController: UITableViewDragDelegate {
                         let fetchResult = validProduct.frontImages[language]?.largest?.fetch() {
                         switch fetchResult {
                         case .success(let image):
-                                // check if the selected image has not been added yet
-                                for item in session.items {
-                                    guard item.localObject as! UIImage != image else { return [] }
-                                }
-                                let provider = NSItemProvider(object: image)
-                                let item = UIDragItem(itemProvider: provider)
-                                item.localObject = image
-                                return [item]
+                            // check if the selected image has not been added yet
+                            for item in session.items {
+                                guard item.localObject as! UIImage != image else { return [] }
+                            }
+                            let provider = NSItemProvider(object: image)
+                            let item = UIDragItem(itemProvider: provider)
+                            item.localObject = image
+                            return [item]
                         default:
                             break
                         }
@@ -1453,6 +1410,6 @@ extension ProductTableViewController: UITableViewDragDelegate {
         }
         return []
     }
-
+    
 }
 

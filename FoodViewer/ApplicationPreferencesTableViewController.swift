@@ -31,6 +31,21 @@ class ApplicationPreferencesTableViewController: UITableViewController {
             }
         }
     }
+    @IBOutlet weak var allowContinuousScanLabel: UILabel! {
+        didSet {
+            allowContinuousScanLabel?.text = TranslatableStrings.AllowContinuousScan
+        }
+    }
+    
+    @IBOutlet weak var allowContinuousScanSwitch: UISwitch! {
+        didSet {
+            allowContinuousScanSwitch.isOn = Preferences.manager.allowContinuousScan
+        }
+    }
+    
+    @IBAction func allowContinuousScanSwitchChanged(_ sender: UISwitch) {
+        Preferences.manager.allowContinuousScan = allowContinuousScanSwitch.isOn
+    }
     
     @IBOutlet weak var clearHistoryButton: UIButton! {
         didSet {

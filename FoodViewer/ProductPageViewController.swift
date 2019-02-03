@@ -185,7 +185,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         return query != nil
     }
 
-    var pageIndex: ProductSection = .identification {
+    var pageIndex: ProductPage = .identification {
         didSet {
             if pageIndex != oldValue {
                 // has the initialisation been done?
@@ -246,7 +246,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
     }
     
-    private func type(for viewController: UIViewController) -> ProductSection {
+    private func type(for viewController: UIViewController) -> ProductPage {
         
         if viewController is IdentificationTableViewController {
             return .identification
@@ -281,7 +281,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     // MARK: - Init the individual pages
     //
 
-    private var pages: [ProductSection] = []
+    private var pages: [ProductPage] = []
 
     private func initPages() {
         // define the pages (and order), which will be shown
@@ -365,7 +365,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         currentLanguageCode = currentLanguageCode ?? productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
 
-    private func initPage(_ page: ProductSection) {
+    private func initPage(_ page: ProductPage) {
         
         // setup individual pages
         switch page {
@@ -429,7 +429,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
 
-    private func viewController(for section: ProductSection) -> UIViewController {
+    private func viewController(for section: ProductPage) -> UIViewController {
         switch section {
         case .identification:
             return identificationVC

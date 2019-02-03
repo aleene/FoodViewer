@@ -27,6 +27,7 @@ class Preferences {
     var showCaloriesOrJoule: EnergyUnitUsed
     var showNutritionDataPerServingOrPerStandard: NutritionDisplayMode
     var mapAddress: Address
+    var allowContinuousScan: Bool
     var allergenWarnings: [(String, Bool)] = []
     var favoriteShops: [(String, Address)] = []
     var userDidAuthenticate = false
@@ -55,6 +56,7 @@ class Preferences {
         default:
             showNutritionDataPerServingOrPerStandard = .perServing
         }
+        allowContinuousScan = false
         
         mapAddress = Address()
         mapAddress.title = "Address used for center of map"

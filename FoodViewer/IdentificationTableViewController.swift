@@ -456,7 +456,7 @@ class IdentificationTableViewController: UITableViewController {
                 cell.delegate = self
                 cell.editMode = editMode
                 cell.tag = indexPath.section
-                cell.barcodeTextField.placeholder = TranslatableStrings.EnterBarcode
+                cell.barcodeTextField.placeholder = "What to put here?"
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell

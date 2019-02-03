@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum ProductSection {
+public enum ProductPage {
     
     case identification
     case gallery

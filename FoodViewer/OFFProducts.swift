@@ -32,7 +32,8 @@ class OFFProducts {
         case search
     }
     
-    var selectedProduct: Int? = nil
+    // The index of the latest product that was added (scanned or typed)
+    var currentScannedProduct: Int? = nil
     
     private var currentProductType: ProductType {
         return Preferences.manager.showProductType
@@ -248,6 +249,22 @@ class OFFProducts {
         NotificationCenter.default.post(name: .ProductListExtended, object:nil, userInfo: userInfo)
         
         return 0
+    }
+    
+    func createProductPair(with barcodeType: BarcodeType) -> ProductPair? {
+        // get the index of the existing productPair
+        if let validIndex = indexOfProductPair(with: barcodeType) {
+            currentScannedProduct = validIndex
+            loadProductPair(at: validIndex)
+            return productPair(at: validIndex)
+            
+        } else {
+            let validIndex = createProduct(with: barcodeType)
+            // create a new productPair
+            currentScannedProduct = validIndex
+            loadProductPair(at: validIndex)
+            return productPair(at: validIndex)
+        }
     }
     
     func fetchProduct(with barcodeType: BarcodeType) {

@@ -25,6 +25,7 @@ struct TranslatableStrings {
     static let Allergens = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
     static let AllergenWarnings = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
     static let Additives = NSLocalizedString("Additives", comment: "Generic used string to indicate the additives of a product.")
+    static let AllowContinuousScan = NSLocalizedString("Allow continuous scan?", comment: "Explanatory label text for a switch, which can set the application to scan products continuously.")
     static let AskSavePermissionTitle = NSLocalizedString("Save Product Updates?", comment: "The title of an alert sheet, which allows the user to save he product.")
     static let AskSavePermissionMessage = NSLocalizedString("The local product has been changed. Should these changes be saved?", comment: "The title of an alert sheet, which allows the user to save he product.")
     static let ApplicationPreferences = NSLocalizedString("Application Preferences", comment: "ViewController/row title, which allows the user to set up the application.")
@@ -102,7 +103,10 @@ struct TranslatableStrings {
     static let Editor = NSLocalizedString("Editor", comment: "String in PickerViewController to indicate the editor role of a contributor")
     static let EditorUnicode = NSLocalizedString("📝", comment: "Image to indicate that the user who added or deleted information of the product.")
     static let EneryUnitPreferences = NSLocalizedString("Default energy unit", comment: "Title of a table section, which allows the user to define the default energy unit (joules, calories, kilocalories).")
-    static let EnterBarcode = NSLocalizedString("Enter barcode.", comment: "Placeholder string to explain the purpose of a barcode search in a tableview cell")
+    static let EnterFoodProductBarcode = NSLocalizedString("Enter food product barcode.", comment: "Placeholder string in a textfield to explain the purpose of a food product barcode search")
+    static let EnterPetFoodProductBarcode = NSLocalizedString("Enter pet food product barcode.", comment: "Placeholder string in a textfield to explain the purpose of a pet food barcode search")
+    static let EnterBeautyProductBarcode = NSLocalizedString("Enter beauty product barcode.", comment: "Placeholder string in a textfield to explain the purpose of a beauty product barcode search")
+    static let EnterProductBarcode = NSLocalizedString("Enter product barcode.", comment: "Placeholder string in a textfield to explain the purpose of a product barcode search")
     static let EnterCityName = NSLocalizedString("Enter city name", comment: "Placeholder text for field where user should enter a city name.")
     static let EnterContributorName = NSLocalizedString("Enter contributor name to search for", comment: "placeholder in a textField where the user can specify a search for contributors.")
     static let EnterCountryName = NSLocalizedString("Enter country name", comment: "Placeholder text for field where user should enter a country name.")
@@ -118,7 +122,8 @@ struct TranslatableStrings {
 //
 // MARK: - FFFFFFFFFFFFFF strings
 //
-    
+
+    static let FatLevel = NSLocalizedString("Fat level", comment: "Text of a label that wil indicate the fat level (low/medium/high) by colour.")
     static let FilterLanguagePlaceholder = NSLocalizedString("Enter characters to filter the list.", comment: "Placeholder in a textField, where a user can enter characters to filter a list.")
     static let FoodProducts = NSLocalizedString("Food Products", comment: "Title of ViewController with a list of all food products that has been viewed.")
     static let Food = NSLocalizedString("Food", comment: "Title of SegmentedControl segment.")
@@ -259,6 +264,7 @@ struct TranslatableStrings {
     static let PlaceholderProductNameSearch = NSLocalizedString("Search in name, generic name, label, brand.", comment: "String show to explain the purpose of a search field in a tableview cell")
     static let PlaceholderProductName = NSLocalizedString("Enter the name of the product", comment: "Placeholder text of a textView for the product name.")
     static let PlaceholderIngredients = NSLocalizedString("Enter the ingredients of the product", comment: "Placeholder text of a textView for the ingredients.")
+    static let PointCamera = NSLocalizedString("Point your camera to a barcode to recognize a product", comment: "Text of a lable, which explains the user to point the camera of his device to a barcode to start working.")
     static let Popularity = NSLocalizedString("Popularity", comment: "String in picker, which lets the user select the search result order. Order on the popularity.")
     static let PortionSize = NSLocalizedString("Portion size", comment: "Tableview header section for the size of a portion")
     static let Preferences = NSLocalizedString("Preferences", comment: "TableViewController title for the settings scene.")
@@ -306,10 +312,12 @@ struct TranslatableStrings {
     
     static let SalesCountries = NSLocalizedString("Countries where sold", comment: "Text to indicate the sales countries of a product.")
     static let Salt = NSLocalizedString("Salt", comment: "Title of first segment in switch, which lets the user select between salt or sodium")
+    static let SaltLevel = NSLocalizedString("Salt level", comment: "Text of a label that wil indicate the fat level (low/medium/high) by colour.")
     static let SaltOrSodiumPreferences = NSLocalizedString("Default for salt/sodium", comment: "Title of a tableView section, which lets the user select between salt or sodium")
     static let SampleGenericProductName = NSLocalizedString("This sample product shows you how a product is presented. Slide to the following pages, in order to see more product details. Once you start scanning barcodes, you will no longer see this sample product.", comment: "An explanatory text in the common name field.")
     static let SampleProductName = NSLocalizedString("Sample Product for Demonstration, the globally known M&M's", comment: "Product name of the product shown at first start")
     static let SaturatedFatToFatRatio = NSLocalizedString("Saturated Fat to Total Fat ratio", comment: "Title in cell with the saturated fat to all fat ratio")
+    static let SaturatedFatLevel = NSLocalizedString("Saturated Fat level", comment: "Text of a label that will indicate the saturated fat level (low/medium/high) by colour.")
     static let Save = NSLocalizedString("Save", comment: "Title of a button in an alert sheet, which allows the user to save any changes to the local product")
     // static let Search = NSLocalizedString("Search", comment: "Prefix of a title of a Tableview controller")
     static let ScoreSummary = NSLocalizedString("Score Summary", comment: "Title of a tableview header, which shows the Nutrition Score and Nova Value")
@@ -344,6 +352,7 @@ struct TranslatableStrings {
     static let StartSearch = NSLocalizedString("Start Search?",
                                                comment: "Title in AlertViewController, which lets the user decide if he wants to start a search.")
     static let Stores = NSLocalizedString("Stores", comment: "Generic string to indicate the stores where the product is sold.")
+    static let SugarLevel = NSLocalizedString("Sugar level", comment: "Text of a label that will indicate the sugar level (low/medium/high) by colour.")
     static let SupplyChain = NSLocalizedString("Supply Chain", comment: "Title for the view controller with information about the Supply Chain (origin ingredients, producer, shop, locations).")
     
 //
@@ -367,6 +376,8 @@ struct TranslatableStrings {
 
     static let UserDefined = NSLocalizedString("User defined", comment: "Title of a segment in a segmentedControl that this parameter will be set by the user.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
+
+    static let ViewDetails = NSLocalizedString("View Details", comment: "Title of abutton, which allows the user to view the details of a scanned product.")
 
     static let Warnings = NSLocalizedString("Set ingredient warnings", comment: "Title of a tableView section, which lets the user set warnings")
     
