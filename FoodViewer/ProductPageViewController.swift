@@ -61,12 +61,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             // wait a few seconds, so the other processes (UITextField, UITextView) have time to finish
             //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ProductPageViewController.saveUpdatedProduct), userInfo: nil, repeats: false)
             self.view.endEditing(true)
-            if isQuery {
+            
+            //if isQuery {
                 // start a new search
-                OFFProducts.manager.startSearch()
-            } else {
+            //    OFFProducts.manager.startSearch()
+            //} else {
                 self.askSavePermission()
-            }
+            //}
         }
         editMode = !editMode
     }
@@ -789,7 +790,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
     
     internal func startSearch(for string: String, in component: SearchComponent) {
-        OFFProducts.manager.search(string, in:component)
+        OFFSearchProducts.manager.search(string, in:component)
     }
 
     @objc func searchStarted() {

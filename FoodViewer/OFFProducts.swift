@@ -18,19 +18,19 @@ class OFFProducts {
     
     internal struct Notification {
         static let BarcodeDoesNotExistKey = "OFFProducts.Notification.BarcodeDoesNotExist.Key"
-        static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
-        static let SearchOffsetKey = "OFFProducts.Notification.SearchOffset.Key"
-        static let SearchPageKey = "OFFProducts.Notification.SearchPage.Key"
+        //static let SearchStringKey = "OFFProducts.Notification.SearchString.Key"
+        //static let SearchOffsetKey = "OFFProducts.Notification.SearchOffset.Key"
+        //static let SearchPageKey = "OFFProducts.Notification.SearchPage.Key"
         static let BarcodeKey = "OFFProducts.Notification.Barcode.Key"
         static let ErrorKey = "OFFProducts.Notification.Error.Key"
     }
     
     static let manager = OFFProducts()
     
-    enum ProductsTab {
-        case recent
-        case search
-    }
+    //enum ProductsTab {
+    //    case recent
+    //    case search
+    //}
     
     // The index of the latest product that was added (scanned or typed)
     var currentScannedProduct: Int? = nil
@@ -52,28 +52,28 @@ class OFFProducts {
         NotificationCenter.default.removeObserver(self)
     }
 
-    var list = ProductsTab.recent {
-        didSet {
+    //var list = ProductsTab.recent {
+    //    didSet {
             // reload if there is a change of tabs
-            if list != oldValue {
-                setCurrentProductPairs()
-            }
-        }
-    }
+    //       if list != oldValue {
+     //           setCurrentProductPairs()
+     //       }
+     //   }
+    //}
 
     //  Contains all the fetch results for all product types
     private var allProductPairs: [ProductPair] = []
     
     // Contains all the search fetch results
-    private var allSearchPairs: [ProductPair] = []
+    //private var allSearchPairs: [ProductPair] = []
     
     // This list contains the product fetch results for the current product type
     //TODO: - make this a fixed variable that is changed when something is added to the allProductFetchResultList
     private var productPairList: [ProductPair] = []
     
     private func loadAll() {
-        switch list {
-        case .recent:
+        //switch list {
+        //case .recent:
             if allProductPairs.isEmpty {
                 let storedList = storedHistory.barcodes(for: currentProductType)
                 // If there is no history, we are in the cold start case
@@ -100,19 +100,19 @@ class OFFProducts {
             // define the public set of products
             setCurrentProductPairs()
             
-        case .search:
+        //default:break
             // Has a search been setup?
-            if searchQuery != nil {
-                startFreshSearch()
-            } else {
-                setCurrentProductPairs()
-                if allSearchPairs.count > 0 {
-                    let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
-                    NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
-                }
-            }
+            //if searchQuery != nil {
+            //    startFreshSearch()
+            //} else {
+             //   setCurrentProductPairs()
+             //   if allSearchPairs.count > 0 {
+             //       let userInfo = [Notification.SearchStringKey:"NO SEARCH"]
+              //      NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
+              //  }
+           // }
             
-        }
+        //}
     }
 
     var count: Int {
@@ -125,8 +125,8 @@ class OFFProducts {
 
     private func setCurrentProductPairs() {
         var list: [ProductPair] = []
-        switch self.list {
-        case .recent:
+        //switch self.list {
+        //case .recent:
             for productPair in allProductPairs {
                 // TODO: Is this needed? The idea is to only selectd the right productType,
                 // but do I not already know that?
@@ -147,6 +147,7 @@ class OFFProducts {
                 // TODO: Must be for the type!!!!
                 //list.append(sampleProductPair)
             }
+            /*
         case .search:
             // show the search query as the first product in the search results
             if let validQuery = searchQuery {
@@ -168,7 +169,9 @@ class OFFProducts {
             for searchPair in allSearchPairs {
                 list.append(searchPair)
             }
-        }
+  */
+        //default:break
+        //}
         self.productPairList = list
     }
 
@@ -355,7 +358,7 @@ class OFFProducts {
     }
   */
 
-    
+    /*
     func search(_ string: String?, in category: SearchComponent) {
         guard string != nil else { return }
         let validString = string!.contains(":") ?
@@ -363,6 +366,7 @@ class OFFProducts {
         list = .search
         search = (category, validString)
     }
+  */
 
     /*
     func removeProduct(with barcodeType:BarcodeType) {
@@ -463,6 +467,7 @@ class OFFProducts {
 // MARK: - Search Specific functions and variables
 //
     // no search has been set at the start
+    /*
     var search: (SearchComponent?, String?)? = nil {
         didSet {
             if search != nil {
@@ -492,7 +497,9 @@ class OFFProducts {
             searchQuery = nil
         }
     }
+  */
     
+    /*
     var searchResultSize: Int? = nil
 
     private func startFreshSearch() {
@@ -516,6 +523,7 @@ class OFFProducts {
             setCurrentProductPairs()
         }
     }
+  */
     /*
     private func startFreshSearch() {
         if let validQuery = searchQuery {
@@ -539,6 +547,7 @@ class OFFProducts {
         }
     }
     */
+    /*
     private var currentSearchPage: Int = 0
     
     public func fetchSearchProductsForNextPage() {
@@ -615,7 +624,7 @@ class OFFProducts {
             }
         }
     }
-    
+    */
     /*
     public func fetchSearchProductsForNextPage() {
         if let validQuery = searchQuery {
@@ -791,8 +800,8 @@ class OFFProducts {
 extension Notification.Name {
     static let ProductListExtended = Notification.Name("OFFProducts.Notification.ProductListExtended")
     static let ProductNotAvailable = Notification.Name("OFFProducts.Notification.ProductNotAvailable")
-    static let SearchStarted = Notification.Name("OFFProducts.Notification.SearchStarted")
-    static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
+    //static let SearchStarted = Notification.Name("OFFProducts.Notification.SearchStarted")
+    //static let SearchLoaded = Notification.Name("OFFProducts.Notification.SearchLoaded")
     static let FirstProductLoaded = Notification.Name("OFFProducts.Notification.FirstProductLoaded")
     static let HistoryIsLoaded = Notification.Name("OFFProducts.Notification.HistoryIsLoaded")
     static let ProductLoadingError = Notification.Name("OFFProducts.Notification.ProductLoadingError")

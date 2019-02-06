@@ -26,17 +26,6 @@ enum ProductFetchStatus {
     case productNotAvailable(String) // (barcodeString)
     // the loading did not succeed
     case loadingFailed(String) // (barcodeString)
-    
-    
-    // TOD:
-    // The searchList returns a facet of the search result,
-    // as a tuple (searchResultSize, pageNumber, pageSize, products for pageNumber)
-    case noSearchDefined
-    case searchLoading
-    case searchQuery(SearchTemplate)
-    case searchList((Int, Int, Int, [FoodProduct]))
-    // The more parameter defines the search next page to retrieve
-    case more(Int)
 
     var description: String {
         switch self {
@@ -48,12 +37,6 @@ enum ProductFetchStatus {
         case .updated: return TranslatableStrings.ProductIsUpdated
         case .loadingFailed: return TranslatableStrings.ProductLoadingFailed
         case .productNotAvailable: return TranslatableStrings.ProductNotAvailable
-            
-        case .noSearchDefined: return TranslatableStrings.NoSearchDefined
-        case .searchLoading: return TranslatableStrings.SearchLoading
-        case .searchQuery: return TranslatableStrings.SearchQuery
-        case .searchList: return TranslatableStrings.ProductListIsLoaded
-        case .more: return TranslatableStrings.LoadMoreResults
         }
     }
     
@@ -67,12 +50,6 @@ enum ProductFetchStatus {
         case .updated: return 5
         case .productNotAvailable: return 6
         case .loadingFailed: return 7
-
-        case .noSearchDefined: return 10
-        case .searchLoading: return 11
-        case .searchQuery: return 14
-        case .searchList: return 13
-        case .more: return 12
         }
     }
     

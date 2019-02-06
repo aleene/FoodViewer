@@ -169,11 +169,11 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
+        //let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
         
         // we assume that product exists
-        switch currentProductSection {
-        case .categories:
+        //switch currentProductSection {
+        //case .categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
@@ -182,6 +182,7 @@ class CategoriesTableViewController: UITableViewController {
             cell.datasource = self
             return cell
             
+            /*
         case .categoriesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
@@ -193,8 +194,11 @@ class CategoriesTableViewController: UITableViewController {
             cell.allowInclusionEdit = query!.type != .simple
 
             return cell
+ */
+        //default:
+           // break
 
-        }
+        //}
 
     }
 
@@ -367,10 +371,10 @@ extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate
         
         switch currentProductSection {
         case .categoriesSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.categories.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.categories.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
@@ -455,16 +459,16 @@ extension CategoriesTableViewController: TagListViewDelegate {
         case .categoriesSearch:
             switch searchCategoriesToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.categories.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.categories.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.categories.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.categories.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -491,19 +495,22 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 assert(true, "How can I deleted a tag when the field is non-editable")
 
             }
+            /*
         case .categoriesSearch:
             switch searchCategoriesToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.categories.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.categories.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+ */
+        default: break
 
         }
     }
@@ -514,6 +521,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
         switch  currentProductSection {
         case .categories:
             productPair?.update(categories: [])
+            /*
         case .categoriesSearch:
             switch searchCategoriesToDisplay {
             case .available(var list):
@@ -526,6 +534,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 assert(true, "How can I clear a tag when there are none")
                 
             }
+ */
+        default:break
 
         }
     }

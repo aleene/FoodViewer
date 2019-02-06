@@ -234,13 +234,9 @@ class SingleProductTableViewController: UITableViewController {
             static let Completion = "Product Completion State Cell"
             static let Producer = "Product Producer Cell"
             static let TagListView = "Single Product TagListView Cell Identifier"
-            static let TagListViewWithLabel = "TagListView With Label Cell Identifier"
-            static let Button = "Products More Button Cell"
         }
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
-            static let ShowSettings = "Show Settings Segue"
-            static let ShowSortOrder = "Set Sort Order Segue Identifier"
         }
     }
     
@@ -284,25 +280,11 @@ class SingleProductTableViewController: UITableViewController {
                             cell.productImage = image
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                    cell.datasource = self
-                    cell.tag = Constants.TagValue.Image + result.rawValue
-                    cell.width = tableView.frame.size.width
-                    cell.scheme = ColorSchemes.error
-                    cell.accessoryType = .disclosureIndicator
-                    return cell
-                            
+                    break
                 }
-            } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
-            cell.delegate = self
-            cell.title = TranslatableStrings.AddFrontImage
-            // This enables the button
-            cell.editMode = true
-            // The tag should identify the product in the list
-            cell.tag = -1 * indexPath.section
-            return cell
             }
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+            return cell
         case .ingredientsAllergensTraces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.IngredientsPage, for: indexPath) as! IngredientsPageTableViewCell
                     
@@ -399,6 +381,8 @@ class SingleProductTableViewController: UITableViewController {
             }
             return cell
         }
+        //let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+        //return cell
     }
     
     
@@ -496,6 +480,7 @@ class SingleProductTableViewController: UITableViewController {
         return 44
     }
     
+    /*
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if let validFetchResult = products.productPair(at: section)?.remoteStatus {
             switch validFetchResult {
@@ -508,6 +493,7 @@ class SingleProductTableViewController: UITableViewController {
         }
         return UITableViewAutomaticDimension
     }
+ */
     
     // MARK: - Scene changes
     
@@ -538,34 +524,6 @@ class SingleProductTableViewController: UITableViewController {
                         }
                     }
                 }
-            case Storyboard.SegueIdentifier.ShowSortOrder:
-                if let vc = segue.destination as? SetSortOrderViewController {
-                    // The segue can only be initiated from a button within a searchHeaderView
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? SearchHeaderView != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of  the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
-                                
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-                                    switch validFetchResult {
-                                    case .searchQuery(let query):
-                                        vc.currentSortOrder = query.sortOrder
-                                    default:
-                                        break
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-                
             default: break
             }
         }
@@ -659,24 +617,6 @@ class SingleProductTableViewController: UITableViewController {
         showProductPage()
     }
     
-    @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? SetSortOrderViewController {
-            if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-                switch validFetchResult {
-                case .searchQuery(let query):
-                    if let validNewSortOrder = vc.selectedSortOrder {
-                        if validNewSortOrder != query.sortOrder && !query.isEmpty {
-                            query.sortOrder =  validNewSortOrder
-                            OFFProducts.manager.startSearch()
-                        }
-                    }
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
     private func switchToTab(withIndex index: Int) {
         if let tabVC = self.parent?.parent as? UITabBarController {
             tabVC.selectedIndex = index
@@ -696,14 +636,9 @@ class SingleProductTableViewController: UITableViewController {
         
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
-            let section = products.indexOfProductPair(with: BarcodeType(barcodeString: barcodeString, type:Preferences.manager.showProductType)) {
-            let visibleIndexPaths = self.tableView.indexPathsForVisibleRows
-            let indexPathForProductPair = IndexPath(row: 1, section: section)
-            if let validVisibleIndexPaths = visibleIndexPaths,
-                // only look for rows with an image
-                validVisibleIndexPaths.contains(indexPathForProductPair) {
+            let productBarcode = selectedProductPair?.barcodeType.asString,
+            productBarcode == barcodeString {
                 tableView.reloadData()
-            }
         }
     }
     
@@ -744,11 +679,13 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
         }
+        /*
         // keep focus on selectedProduct
         if let validProductPair = selectedProductPair,
             let validIndex = products.index(of: validProductPair) {
             tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .top, animated: true)
         }
+ */
     }
     
     //
@@ -756,7 +693,7 @@ class SingleProductTableViewController: UITableViewController {
         startInterface(at: 0)
         showProductPage()
     }
-    
+    /*
     @objc func searchLoaded(_ notification: Notification) {
         switchToTab(withIndex: 1)
         if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
@@ -776,6 +713,7 @@ class SingleProductTableViewController: UITableViewController {
             }
         }
     }
+ */
     
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
@@ -802,8 +740,8 @@ class SingleProductTableViewController: UITableViewController {
         }
         
         // show history products
-        products.list = .recent
-        products.search = nil
+        //products.list = .recent
+        //products.search = nil
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0
@@ -816,16 +754,21 @@ class SingleProductTableViewController: UITableViewController {
         // addGesture()
         // setTitle()
         // make sure we show the right tab
-        if products.list == .recent {
-            switchToTab(withIndex: 1)
-        } else {
-            switchToTab(withIndex: 2)
-        }
+        //if products.list == .recent {
+         //   switchToTab(withIndex: 1)
+        //} else {
+          //  switchToTab(withIndex: 2)
+        //}
         
         // Is there a scanned product?
         if let validSelectedProductIndex = products.currentScannedProduct {
             startInterface(at: validSelectedProductIndex)
-        } else if products.count > 0 && selectedProductPair == nil {
+        // has a selected product been passed in?
+        } else if let validProductPair = selectedProductPair,
+            let validIndex = products.index(of: validProductPair) {
+            startInterface(at: validIndex)
+        // just start at the top
+        } else if products.count > 0 {
             // If nothing has been selected yet, start with the first product in the list, and on the iPad
             startInterface(at: 0)
         }
@@ -837,13 +780,14 @@ class SingleProductTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(SingleProductTableViewController.productUpdated(_:)), name:.ProductPairLocalStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SingleProductTableViewController.firstProductLoaded(_:)), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(SingleProductTableViewController.firstProductLoaded(_:)), name:.SampleLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(SingleProductTableViewController.searchLoaded(_:)), name:.SearchLoaded, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(SingleProductTableViewController.searchStarted(_:)), name:.SearchStarted, object:nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SingleProductTableViewController.imageSet(_:)), name: .ImageSet, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if let validName = selectedProductPair?.name {
+            title = validName
+        }
         refreshInterface()
     }
     
@@ -878,17 +822,18 @@ extension SingleProductTableViewController: GKImagePickerDelegate {
 
 
 extension SingleProductTableViewController: ButtonCellDelegate {
-    
     // function to let the delegate know that a button was tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
+        /*
         if sender.tag < 0 {
             showAlertAddFrontImage(forProductWith: -1 * sender.tag)
         } else {
             products.fetchSearchProductsForNextPage()
         }
+ */
     }
 }
-
+/*
 // MARK: - SearchHeaderDelegate Functions
 
 extension SingleProductTableViewController: SearchHeaderDelegate {
@@ -911,6 +856,7 @@ extension SingleProductTableViewController: SearchHeaderDelegate {
         }
     }
 }
+ */
 
 // MARK: - UIGestureRecognizerDelegate Functions
 
@@ -931,14 +877,14 @@ extension SingleProductTableViewController: UIGestureRecognizerDelegate {
 extension SingleProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        switch tabBarController.selectedIndex {
-        case 1:
-            products.list = .recent
-        case 2:
-            products.list = .search
-        default:
-            break
-        }
+        //switch tabBarController.selectedIndex {
+        //case 1:
+        //    products.list = .recent
+        //case 2:
+         //   products.list = .search
+        //default:
+          //  break
+        //}
         // products.list = tabBarController.selectedIndex == 0 ? .recent : .search
         // refreshInterface()
         startInterface(at: 0)

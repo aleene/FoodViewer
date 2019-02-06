@@ -25,32 +25,32 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate enum SectionType {
         case ingredients(Int, String)
-        case ingredientsSearch(Int, String)
+        //case ingredientsSearch(Int, String)
         case allergens(Int, String)
-        case allergensSearch(Int, String)
+        //case allergensSearch(Int, String)
         case traces(Int, String)
-        case tracesSearch(Int, String)
+        //case tracesSearch(Int, String)
         case labels(Int, String)
-        case labelsSearch(Int, String)
+        //case labelsSearch(Int, String)
         case additives(Int, String)
-        case additivesSearch(Int, String)
+        //case additivesSearch(Int, String)
         case image(Int, String)
-        case imageSearch(Int, String)
+        //case imageSearch(Int, String)
 
         var header: String {
             switch self {
             case .ingredients(_, let headerTitle),
-                 .ingredientsSearch(_, let headerTitle),
+                 //.ingredientsSearch(_, let headerTitle),
                  .allergens(_, let headerTitle),
-                 .allergensSearch(_, let headerTitle),
+                 //.allergensSearch(_, let headerTitle),
                  .traces(_, let headerTitle),
-                 .tracesSearch(_, let headerTitle),
+                 //.tracesSearch(_, let headerTitle),
                  .labels(_, let headerTitle),
-                 .labelsSearch(_, let headerTitle),
+                 //.labelsSearch(_, let headerTitle),
                  .additives(_, let headerTitle),
-                 .additivesSearch(_, let headerTitle),
-                 .image(_, let headerTitle),
-                 .imageSearch(_, let headerTitle):
+                 //.additivesSearch(_, let headerTitle),
+            .image(_, let headerTitle):
+                 //.imageSearch(_, let headerTitle):
                 return headerTitle
             }
         }
@@ -58,17 +58,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         var numberOfRows: Int {
             switch self {
             case .ingredients(let numberOfRows, _),
-                 .ingredientsSearch(let numberOfRows, _),
+                 //.ingredientsSearch(let numberOfRows, _),
                  .allergens(let numberOfRows, _),
-                 .allergensSearch(let numberOfRows, _),
+                 //.allergensSearch(let numberOfRows, _),
                  .traces(let numberOfRows, _),
-                 .tracesSearch(let numberOfRows, _),
+                 //.tracesSearch(let numberOfRows, _),
                  .labels(let numberOfRows, _),
-                 .labelsSearch(let numberOfRows, _),
+                 //.labelsSearch(let numberOfRows, _),
                  .additives(let numberOfRows, _),
-                 .additivesSearch(let numberOfRows, _),
-                 .image(let numberOfRows, _),
-                 .imageSearch(let numberOfRows, _):
+                 //.additivesSearch(let numberOfRows, _),
+            .image(let numberOfRows, _):
+                 //.imageSearch(let numberOfRows, _):
                 return numberOfRows
             }
         }
@@ -429,7 +429,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //print(tableView.frame.size.width)
 
         switch tableStructure[indexPath.section] {
-            
+          /*
         case .imageSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -438,7 +438,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.tag = indexPath.section
             cell.tagListView.normalColorScheme = ColorSchemes.error
             return cell
-
+*/
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsFullTableViewCell
             cell.delegate = self
@@ -458,6 +458,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             print("cell frame", cell.frame)
             return cell
             
+            /*
         case .ingredientsSearch:
             if query!.type == .advanced {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -475,7 +476,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 cell.tag = indexPath.section
                 return cell
             }
-            
+            */
         case .allergens, .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -483,7 +484,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.tag = indexPath.section
             return cell
-            
+            /*
         case .allergensSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
@@ -494,7 +495,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.inclusion = OFFProducts.manager.searchQuery?.allergens.1 ?? true
             cell.allowInclusionEdit = query!.type != .simple
             return cell
-            
         case .tracesSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
@@ -527,7 +527,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.inclusion = OFFProducts.manager.searchQuery?.labels.1 ?? true
             cell.allowInclusionEdit = query!.type != .simple
             return cell
-            
+             */
+
         case .traces, .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -619,9 +620,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         switch tableStructure[section] {
         case .image, .ingredients:
             return nil
-        case .imageSearch, .ingredientsSearch:
-            break
-        case .allergens, .allergensSearch:
+        //case .imageSearch, .ingredientsSearch:
+         //   break
+        case .allergens:
             switch allergensTagsTypeToShow {
             case TagsTypeDefault.Allergens:
                 break
@@ -632,7 +633,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     allergensTagsTypeToShow.description +
                     ")"
             }
-        case .traces, .tracesSearch:
+        case .traces:
             switch productVersion {
             case .remote:
                 switch tracesTagsTypeToShow {
@@ -660,7 +661,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 }
             }
 
-        case .labels, .labelsSearch:
+        case .labels:
             switch productVersion {
             case .remote:
                 switch labelsTagsTypeToShow {
@@ -687,7 +688,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     }
                 }
             }
-        case .additives, .additivesSearch:
+        case .additives:
             switch additivesTagsTypeToShow {
             case TagsTypeDefault.Additives:
                 break
@@ -809,7 +810,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
-        
+        /*
         if query != nil {
             sectionsAndRows.append(.ingredientsSearch(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
             // not needed for .petFood, .product and .beauty
@@ -827,6 +828,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             sectionsAndRows.append(.imageSearch(TableSection.Size.Image, TableSection.Header.Image))
             
         } else {
+ */
             sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
             // not needed for .product, .petFood and .beauty
             switch currentProductType {
@@ -841,7 +843,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             sectionsAndRows.append(.additives(TableSection.Size.Additives, TableSection.Header.Additives))
             sectionsAndRows.append(.labels(TableSection.Size.Labels, TableSection.Header.Labels))
             sectionsAndRows.append(.image(TableSection.Size.Image, TableSection.Header.Image))
-        }
+        //}
         
         return sectionsAndRows
     }
@@ -1230,40 +1232,42 @@ extension IngredientsTableViewController: IngredientsFullCellDelegate {
 extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+        /*
         let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
         
         switch tableStructure[sender.tag] {
         case .labelsSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.labels.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.labels.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .tracesSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.traces.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.traces.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .additivesSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.additives.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.additives.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .allergensSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.allergens.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.allergens.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }
+ */
     }
 }
 
@@ -1332,6 +1336,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+            /*
         case .tracesSearch:
             switch searchTracesToDisplay {
             case .undefined, .empty:
@@ -1364,6 +1369,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+ */
         case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
@@ -1374,6 +1380,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+            /*
         case .labelsSearch:
             switch searchLabelsToDisplay {
             case .undefined, .empty:
@@ -1422,7 +1429,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-
+*/
         default:
             break
         }
@@ -1443,6 +1450,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+            /*
         case .tracesSearch:
             switch searchTracesToDisplay {
             case .undefined, .empty:
@@ -1469,6 +1477,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+ */
 
         case .labels:
             switch labelsToDisplay {
@@ -1483,6 +1492,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+            /*
         case .labelsSearch:
             switch searchLabelsToDisplay {
             case .undefined, .empty:
@@ -1522,7 +1532,7 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-
+*/
         default:
             break
         }
@@ -1595,28 +1605,28 @@ extension IngredientsTableViewController: TagListViewDataSource {
         }
 
         switch tableStructure[tagListView.tag] {
-        case .imageSearch:
-            return 1
+        //case .imageSearch:
+          //  return 1
         case .additives:
             return count(additivesToDisplay)
-        case .additivesSearch:
-            return count(searchAdditivesToDisplay)
+        //case .additivesSearch:
+           // return count(searchAdditivesToDisplay)
         case .allergens:
             return count(allergensToDisplay)
-        case .allergensSearch:
-            return count(searchAllergensToDisplay)
+        //case .allergensSearch:
+          //  return count(searchAllergensToDisplay)
         case .labels:
             return count(labelsToDisplay)
-        case .labelsSearch:
-            return count(searchLabelsToDisplay)
+        //case .labelsSearch:
+          //  return count(searchLabelsToDisplay)
         case .image:
             return 1
-        case .ingredientsSearch:
-            return count(searchIngredientsToDisplay)
+        //case .ingredientsSearch:
+          //  return count(searchIngredientsToDisplay)
         case .traces:
             return count(tracesToDisplay)
-        case .tracesSearch:
-            return count(searchTracesToDisplay)
+        //case .tracesSearch:
+        //    return count(searchTracesToDisplay)
         default: break
         }
         return 0
@@ -1626,26 +1636,26 @@ extension IngredientsTableViewController: TagListViewDataSource {
         switch tableStructure[tagListView.tag] {
         case .additives:
             return additivesToDisplay.tag(at:index)!
-        case .additivesSearch:
-            return searchAdditivesToDisplay.tag(at:index)!
+        //case .additivesSearch:
+        //    return searchAdditivesToDisplay.tag(at:index)!
         case .allergens:
             return allergensToDisplay.tag(at:index)!
-        case .allergensSearch:
-            return searchAllergensToDisplay.tag(at:index)!
+        //case .allergensSearch:
+         //   return searchAllergensToDisplay.tag(at:index)!
         case .image:
             return searchResult
-        case .imageSearch:
-            return notSearchableToDisplay.tag(at:index)!
-        case .ingredientsSearch:
-            return searchIngredientsToDisplay.tag(at: index)!
+        //case .imageSearch:
+         //   return notSearchableToDisplay.tag(at:index)!
+        //case .ingredientsSearch:
+          //  return searchIngredientsToDisplay.tag(at: index)!
         case .labels:
             return labelsToDisplay.tag(at:index)!
-        case .labelsSearch:
-            return searchLabelsToDisplay.tag(at:index)!
+        //case .labelsSearch:
+         //   return searchLabelsToDisplay.tag(at:index)!
         case .traces:
             return tracesToDisplay.tag(at:index)!
-        case .tracesSearch:
-            return searchTracesToDisplay.tag(at:index)!
+        //case .tracesSearch:
+           // return searchTracesToDisplay.tag(at:index)!
         default: break
         }
         return("tagListView error")
@@ -1659,6 +1669,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
         switch tableStructure[tagListView.tag] {
+            /*
         case .additivesSearch:
             switch searchAdditivesToDisplay {
             case .available(var list):
@@ -1692,6 +1703,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I delete a tag when there are none")
             }
+ */
         case .labels:
             switch labelsToDisplay {
             case .available(var list):
@@ -1700,6 +1712,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I delete a tag when there are none")
             }
+            /*
         case .labelsSearch:
             switch searchLabelsToDisplay {
             case .available(var list):
@@ -1711,6 +1724,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
+ */
         case .traces:
             switch tracesToDisplay {
             case .available(var list):
@@ -1719,6 +1733,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
+            /*
         case .tracesSearch:
             switch searchTracesToDisplay {
             case .available(var list):
@@ -1730,7 +1745,7 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
-
+*/
         default:
             break
         }

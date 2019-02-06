@@ -460,24 +460,24 @@ class SupplyChainTableViewController: UITableViewController {
 
     fileprivate enum SectionType {
         case ingredientOrigin
-        case ingredientOriginSearch
+        //case ingredientOriginSearch
         case producer
-        case producerSearch
+        //case producerSearch
         case producerCode
-        case producerCodeSearch
+        //case producerCodeSearch
         case location
-        case locationSearch
+        //case locationSearch
         case store
-        case storeSearch
+        //case storeSearch
         case country
-        case countrySearch
+        //case countrySearch
         case map
         case expirationDate
-        case expirationDateSearch
+        //case expirationDateSearch
         case sites
-        case sitesSearch
+        //case sitesSearch
         case periodAfterOpening
-        case periodAfterOpeningSearch
+        //case periodAfterOpeningSearch
     }
     
     fileprivate struct Constants {
@@ -549,6 +549,7 @@ class SupplyChainTableViewController: UITableViewController {
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
         
+    /*
         if query != nil {
             switch currentProductType {
             case .beauty:
@@ -563,17 +564,17 @@ class SupplyChainTableViewController: UITableViewController {
                     TableStructure.ExpirationDateSectionHeader))
             }
             // ingredient origin section
-            sectionsAndRows.append((
+            //sectionsAndRows.append((
                 SectionType.ingredientOriginSearch,
                 TableStructure.IngredientOriginSectionSize,
                 TableStructure.IngredientOriginSectionHeader))
             // producer section
-            sectionsAndRows.append((
+            //sectionsAndRows.append((
                 SectionType.producerSearch,
                 TableStructure.ProducerSectionSize,
                 TableStructure.ProducerSectionHeader))
             // producer codes section
-            sectionsAndRows.append((
+            //sectionsAndRows.append((
                 SectionType.producerCodeSearch,
                 TableStructure.ProducerCodeSectionSize,
                 TableStructure.ProducerCodeSectionHeader))
@@ -597,7 +598,7 @@ class SupplyChainTableViewController: UITableViewController {
                 SectionType.countrySearch,
                 TableStructure.CountriesSectionSize,
                 TableStructure.CountriesSectionHeader))
-        } else {
+        } else {*/
             switch currentProductType {
             case .beauty:
                 sectionsAndRows.append((
@@ -649,7 +650,7 @@ class SupplyChainTableViewController: UITableViewController {
         //    SectionType.map,
         //    TableStructure.MapSectionSize,
         //    TableStructure.MapSectionHeader))
-        }
+        //}
         return sectionsAndRows
     }
 
@@ -697,7 +698,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.editMode = editMode
             return cell
 
-        case .producerSearch, .producerCodeSearch, .ingredientOriginSearch, .storeSearch, .locationSearch, .countrySearch:
+       /* case .producerSearch, .producerCodeSearch, .ingredientOriginSearch, .storeSearch, .locationSearch, .countrySearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -723,6 +724,7 @@ class SupplyChainTableViewController: UITableViewController {
                 break
             }
             return cell
+ */
 
         case .map:
             // This is just have some harmless code here
@@ -812,7 +814,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.delegate = self
             cell.tag = indexPath.section
             return cell
-            
+            /*
         case .expirationDateSearch, .sitesSearch, .periodAfterOpeningSearch:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -821,6 +823,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.tag = indexPath.section
             cell.tagListView.normalColorScheme = ColorSchemes.error
             return cell
+ */
         }
     }
     
@@ -1183,55 +1186,57 @@ extension SupplyChainTableViewController: PurchacePlaceCellDelegate {
 extension SupplyChainTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
+        /*
         let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
         let (currentProductSection, _, _) = tableStructureForProduct[segmentedControl.tag]
         
         switch currentProductSection {
         case .ingredientOriginSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.origins.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.origins.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .producerSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.manufacturing_places.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.manufacturing_places.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .producerCodeSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.emb_codes.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.emb_codes.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .storeSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.stores.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.stores.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .locationSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.purchase_places.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.purchase_places.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         case .countrySearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
+            if OFFSearchProducts.manager.searchQuery == nil {
+                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
             }
-            OFFProducts.manager.searchQuery!.countries.1 = inclusion
+            OFFSearchProducts.manager.searchQuery!.countries.1 = inclusion
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
         default:
             break
         }
+ */
     }
 }
 
@@ -1314,6 +1319,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return countTags(countriesToDisplay)
             case .sites:
                 return countTags(linksToDisplay)
+            /*
             case .producerSearch:
                 return countTags(searchProducerTagsToDisplay)
             case .producerCodeSearch:
@@ -1328,6 +1334,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return countTags(searchCountriesToDisplay)
             case .sitesSearch, .periodAfterOpeningSearch, .expirationDateSearch:
                 return 1
+ */
             default: break
         }
         return 0
@@ -1351,6 +1358,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return countriesToDisplay.tag(at:index)!
             case .sites:
                 return linksToDisplay.tag(at:index)!
+            /*
             case .producerSearch:
                 return searchProducerTagsToDisplay.tag(at:index)!
             case .producerCodeSearch:
@@ -1365,6 +1373,7 @@ extension SupplyChainTableViewController: TagListViewDataSource {
                 return searchCountriesToDisplay.tag(at:index)!
             case .sitesSearch, .periodAfterOpeningSearch, .expirationDateSearch:
                 return notSearchableToDisplay.tag(at:index)!
+ */
             default: break
         }
         return("error")
@@ -1418,67 +1427,68 @@ extension SupplyChainTableViewController: TagListViewDataSource {
             }
         case .sites:
             productPair?.update(links: [])
-
+/*
         case .producerSearch:
             switch searchProducerTagsToDisplay {
             case .available:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.manufacturing_places.0 = .available([])
+                OFFSearchProducts.manager.searchQuery!.manufacturing_places.0 = .available([])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .producerCodeSearch:
             switch searchProducerCodeTagsToDisplay {
             case .available:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.emb_codes.0 = .available([])
+                OFFSearchProducts.manager.searchQuery!.emb_codes.0 = .available([])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .ingredientOriginSearch:
             switch searchIngredientOriginLocationTagsToDisplay {
             case .available:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.origins.0 = .available([])
+                OFFSearchProducts.manager.searchQuery!.origins.0 = .available([])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .storeSearch:
             switch searchStoreTagsToDisplay {
             case .available:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.stores.0 = .available([])
+                OFFSearchProducts.manager.searchQuery!.stores.0 = .available([])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .locationSearch:
             switch searchPurchaseLocationTagsToDisplay {
             case .available:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.purchase_places.0 = .available([])
+                OFFSearchProducts.manager.searchQuery!.purchase_places.0 = .available([])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
         case .countrySearch:
             switch countriesToDisplay {
             case .available:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.countries.0 = .available([])
+                OFFSearchProducts.manager.searchQuery!.countries.0 = .available([])
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
+ */
         default:
             break
         }
@@ -1563,103 +1573,104 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            
+            /*
         case .producerSearch:
             switch searchProducerTagsToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.manufacturing_places.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.manufacturing_places.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.manufacturing_places.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.manufacturing_places.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .producerCodeSearch:
             switch searchProducerCodeTagsToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.emb_codes.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.emb_codes.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.emb_codes.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.emb_codes.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .ingredientOriginSearch:
             switch searchIngredientOriginLocationTagsToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.origins.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.origins.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.origins.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.origins.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .storeSearch:
             switch searchStoreTagsToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.stores.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.stores.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.stores.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.stores.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .locationSearch:
             switch searchPurchaseLocationTagsToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.purchase_places.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.purchase_places.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.purchase_places.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.purchase_places.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
         case .countrySearch:
             switch searchCountriesToDisplay {
             case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.countries.0 = .available([title])
+                OFFSearchProducts.manager.searchQuery!.countries.0 = .available([title])
             case .available(var list):
                 list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.countries.0 = .available(list)
+                OFFSearchProducts.manager.searchQuery!.countries.0 = .available(list)
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+ */
         default:
             break
         }
@@ -1780,16 +1791,17 @@ extension SupplyChainTableViewController: TagListViewDelegate {
             tableView.reloadData()
             //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         
+            /*
         case .producerSearch:
             switch searchProducerTagsToDisplay {
             case .undefined, .empty:
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.manufacturing_places.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.manufacturing_places.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1800,10 +1812,10 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.emb_codes.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.emb_codes.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1813,10 +1825,10 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.origins.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.origins.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1826,10 +1838,10 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.stores.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.stores.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1839,10 +1851,10 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.purchase_places.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.purchase_places.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
@@ -1852,14 +1864,14 @@ extension SupplyChainTableViewController: TagListViewDelegate {
                 assert(true, "How can I delete a tag when there are none")
             case .available(var list):
                 list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
+                if OFFSearchProducts.manager.searchQuery == nil {
+                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
                 }
-                OFFProducts.manager.searchQuery!.countries.0 = Tags.init(list:list)
+                OFFSearchProducts.manager.searchQuery!.countries.0 = Tags.init(list:list)
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-
+*/
         default:
             break
         }

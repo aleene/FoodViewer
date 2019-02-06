@@ -105,7 +105,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         tableView.reloadData()
     }
 
-    var productPageViewController: ProductPageViewController? = nil
+    // var productPageViewController: ProductPageViewController? = nil
     
     // Function to set the title of this viewController
     // It is important to set the title at the right moment in the lifecycle
@@ -214,93 +214,11 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
-        let label = UILabel.init(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width, height: 20))
-        tempView.backgroundColor = UIColor.gray
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor.white
-        if let validFetchResult = products.productPair(at: section)?.status {
-            switch validFetchResult {
-            case .available:
-                if let validProduct = products.productPair(at: section)?.remoteProduct ?? products.productPair(at: section)?.localProduct,
-                let languageCode = products.productPair(at: section)?.primaryLanguageCode {
-                    label.text = products.productPair(at: section)?.remoteProduct?.nameLanguage[languageCode] ?? products.productPair(at: section)?.localProduct?.nameLanguage[languageCode] ?? Constants.Tag.ProductNameMissing
-                    switch validProduct.tracesInterpreted {
-                    case .available(let validKeys):
-                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                            tempView.backgroundColor = UIColor.red
-                        }
-                    default:
-                        break
-                    }
-                    switch validProduct.tracesInterpreted {
-                    case .available(let validKeys):
-                        if !validKeys.isEmpty {
-                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                            if warn {
-                                tempView.backgroundColor = UIColor.red
-                            }
-                        }
-                    default:
-                        break
-                    }
-                } else {
-                    assert(true, "remoteStatus is available, but there is no product")
-                }
-            case .loading(let barcodeString):
-                label.text = barcodeString
-            case.loadingFailed(let error):
-                label.text = error
-                // Can we supply a specific error message?
-                if error.contains("NSCocoaErrorDomain Code=256") {
-                    // The error message when the server can not be reached:
-                    // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
-                    let parts = error.components(separatedBy: ".json")
-                    if !parts.isEmpty {
-                        let partsTwo = parts[0].components(separatedBy:"\'")
-                        if partsTwo.count > 1 {
-                            label.text = partsTwo[1]
-                        }
-                    }
-                }
-                
-            default:
-                label.text = products.productPair(at: section)?.barcodeType.asString
-            }
-        } else {
-            label.text = Constants.Tag.NoProductsInHistory
-        }
-        
-        tempView.addSubview(label)
-        tempView.tag = section
-        return tempView
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        // if the user starts scrolling the barcode search focus can be reset
+        products.currentScannedProduct = nil
+        selectedProductPair = nil
     }
- */
-
-    /*
-    // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
-    override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
-        return 44
-    }
-    */
-
-    /*
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
-            switch validFetchResult {
-            case .more:
-                // no header required in this case
-                return 0.0
-            default:
-                break
-            }
-        }
-        return UITableViewAutomaticDimension
-    }
- */
     
 // MARK: - Scene changes
     
@@ -316,9 +234,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         }
     }
     
-    private var productIndexForMainImage: Int? = nil
-    
-    
+    // private var productIndexForMainImage: Int? = nil
     
     private func switchToTab(withIndex index: Int) {
         if let tabVC = self.parent?.parent as? UITabBarController {
@@ -418,9 +334,6 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // show history products
-        products.list = .recent
-        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
@@ -432,8 +345,14 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
         
         // Is there a scanned product?
         if let validSelectedProductIndex = products.currentScannedProduct {
+            // Then open de product details right away
             startInterface(at: validSelectedProductIndex)
-        } else if products.count > 0 && selectedProductPair == nil {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowProductSegue, sender: self)
+        } else if let validProductPair = selectedProductPair,
+            let validIndex = products.index(of: validProductPair) {
+            startInterface(at: validIndex)
+            // just start at the top
+        } else if products.count > 0 {
             // If nothing has been selected yet, start with the first product in the list, and on the iPad
             startInterface(at: 0)
         }
@@ -454,6 +373,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        products.currentScannedProduct = nil
         NotificationCenter.default.removeObserver(self)
         super.viewDidDisappear(animated)
     }
