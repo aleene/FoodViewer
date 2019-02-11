@@ -128,7 +128,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             // the first rows define the search
             if indexPath.row != search.componentsCount {
                 // the row counts start after the multiplier
-                tag = indexPath.row + Constants.TagValue.Multiplier.Row
+                tag = tag + indexPath.row + Constants.TagValue.Multiplier.Row
             } else {
             // the last row defines the search status for a defined query
                 switch search.status {

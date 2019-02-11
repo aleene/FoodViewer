@@ -119,6 +119,7 @@
 		5150D9C61F814D830003DE8E /* SearchNutrientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150D9C51F814D830003DE8E /* SearchNutrientsTableViewCell.swift */; };
 		5150D9C81F8154F20003DE8E /* SelectCompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */; };
 		5153FDC51F5016A100F3E20F /* ProductSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5153FDC41F5016A100F3E20F /* ProductSection.swift */; };
+		5154DEE52211C5F900C49EBE /* OFFProductImageDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */; };
 		515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742581CDB63B100BE8E2D /* RSCode39Generator.swift */; };
 		5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */; };
 		5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */; };
@@ -478,6 +479,7 @@
 		5150D9C51F814D830003DE8E /* SearchNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCompareViewController.swift; sourceTree = "<group>"; };
 		5153FDC41F5016A100F3E20F /* ProductSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSection.swift; sourceTree = "<group>"; };
+		5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductImageDetailed.swift; path = FoodViewer/jsons/OFFProductImageDetailed.swift; sourceTree = "<group>"; };
 		515742581CDB63B100BE8E2D /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Generator.swift; path = RS/RSCode39Generator.swift; sourceTree = "<group>"; };
 		515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Mod43Generator.swift; path = RS/RSCode39Mod43Generator.swift; sourceTree = "<group>"; };
 		5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode93Generator.swift; path = RS/RSCode93Generator.swift; sourceTree = "<group>"; };
@@ -1117,6 +1119,7 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
+				5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */,
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
@@ -1813,6 +1816,7 @@
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				51F96660202D9FC400CD58C3 /* OFFProductNutrientLevel.swift in Sources */,
 				51749980220C592700C3ED3E /* Search.swift in Sources */,
+				5154DEE52211C5F900C49EBE /* OFFProductImageDetailed.swift in Sources */,
 				51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
 				514FC914213E7BB6007577FC /* CSVWriter.swift in Sources */,

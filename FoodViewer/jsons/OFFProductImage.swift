@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct OFFProductImage: Codable {
+class OFFProductImage: Codable {
     let geometry: String?
-    let imgid: String?
+    //let imgid: String? or Int?
     let normalize: String?
     let rev: String?
     let sizes: OFFProductImageSizes

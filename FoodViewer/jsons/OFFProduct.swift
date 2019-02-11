@@ -62,7 +62,7 @@ class OFFProduct: Codable {
     var image_small_url: URL? = nil
     var image_thumb_url: URL? = nil
     var image_url: String? = nil
-    var images: [String:OFFProductImage]? = nil
+    var images: [String:OFFProductImageDetailed]? = nil
     var informers_tags: [String]? = nil
         var ingredients: [OFFProductIngredient]? = nil
     var ingredients_debug: [String?]? = nil
