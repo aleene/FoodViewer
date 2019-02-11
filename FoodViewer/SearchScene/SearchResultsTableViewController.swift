@@ -279,7 +279,8 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
     @objc func imageSet(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
-        
+        tableView.reloadData()
+        /*
         // only update if the image barcode corresponds to the current product
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
             let section = search?.indexOfProductPair(with: BarcodeType(barcodeString: barcodeString, type:Preferences.manager.showProductType)) {
@@ -297,6 +298,7 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
                 }
             }
         }
+ */
     }
     
     @objc func productLoaded(_ notification: Notification) {

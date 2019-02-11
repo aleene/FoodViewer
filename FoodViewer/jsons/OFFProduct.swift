@@ -31,7 +31,6 @@ class OFFProduct: Codable {
         var categories_tags: [String]? = nil
     var checkers_tags: [String]? = nil
         var cities_tags: [String]? = nil
-    var codes_tags: [String]? = nil
     var complete: Int? = nil
     var completed_t: Date? = nil
     var correctors_tags: [String]? = nil
