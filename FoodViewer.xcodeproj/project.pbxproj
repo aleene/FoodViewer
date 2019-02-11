@@ -164,11 +164,13 @@
 		516BA5941CC522D8008A094A /* MostRecentProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5931CC522D8008A094A /* MostRecentProduct.swift */; };
 		516BA5961CC769DD008A094A /* EnergyUnitUsed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516BA5951CC769DD008A094A /* EnergyUnitUsed.swift */; };
 		516D0C331C91CC5D00C1C789 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */; };
+		5173BD95220F34B4001AC1F6 /* SingleSearchProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5173BD94220F34B4001AC1F6 /* SingleSearchProductTableViewController.swift */; };
 		517499752204ADFF00C3ED3E /* SingleProductTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517499742204ADFF00C3ED3E /* SingleProductTableViewController.swift */; };
 		51749978220762EF00C3ED3E /* SearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51749977220762EF00C3ED3E /* SearchResultsTableViewController.swift */; };
 		5174997A2208957000C3ED3E /* OFFSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 517499792208957000C3ED3E /* OFFSearchRequest.swift */; };
 		5174997C2208961100C3ED3E /* SearchFetchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997B2208961100C3ED3E /* SearchFetchStatus.swift */; };
 		5174997E22098A9D00C3ED3E /* OFFSearchProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */; };
+		51749980220C592700C3ED3E /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174997F220C592600C3ED3E /* Search.swift */; };
 		5174A66C1D804C1A00BA61F1 /* ProductNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */; };
 		5174A6761D82F9AD00BA61F1 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5174A6751D82F9AC00BA61F1 /* Languages.plist */; };
 		5176AAEB1CA44F5A00B0494A /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5176AAEA1CA44F5A00B0494A /* Address.swift */; };
@@ -524,11 +526,13 @@
 		516BA5931CC522D8008A094A /* MostRecentProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MostRecentProduct.swift; sourceTree = "<group>"; };
 		516BA5951CC769DD008A094A /* EnergyUnitUsed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyUnitUsed.swift; sourceTree = "<group>"; };
 		516D0C321C91CC5C00C1C789 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		5173BD94220F34B4001AC1F6 /* SingleSearchProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSearchProductTableViewController.swift; sourceTree = "<group>"; };
 		517499742204ADFF00C3ED3E /* SingleProductTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleProductTableViewController.swift; sourceTree = "<group>"; };
 		51749977220762EF00C3ED3E /* SearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchResultsTableViewController.swift; path = SearchScene/SearchResultsTableViewController.swift; sourceTree = "<group>"; };
 		517499792208957000C3ED3E /* OFFSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchRequest.swift; path = API/OFFSearchRequest.swift; sourceTree = "<group>"; };
 		5174997B2208961100C3ED3E /* SearchFetchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFetchStatus.swift; sourceTree = "<group>"; };
 		5174997D22098A9D00C3ED3E /* OFFSearchProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFSearchProducts.swift; path = API/OFFSearchProducts.swift; sourceTree = "<group>"; };
+		5174997F220C592600C3ED3E /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		5174A66B1D804C1900BA61F1 /* ProductNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductNameTableViewCell.swift; sourceTree = "<group>"; };
 		5174A6751D82F9AC00BA61F1 /* Languages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
 		5176AAEA1CA44F5A00B0494A /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
@@ -729,6 +733,7 @@
 		5104F4B31FA08171008D074F /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				5174997F220C592600C3ED3E /* Search.swift */,
 				51DA03241F7674BF000C5F93 /* SearchTemplate.swift */,
 				5104F4B11FA07E33008D074F /* SearchSortOrder.swift */,
 				51B7416F1F949E280025F8A1 /* SearchComponent.swift */,
@@ -925,6 +930,7 @@
 			children = (
 				512702ED21FCB58F002EC65C /* SearchesHistoryTableViewController.swift */,
 				51749977220762EF00C3ED3E /* SearchResultsTableViewController.swift */,
+				5173BD94220F34B4001AC1F6 /* SingleSearchProductTableViewController.swift */,
 			);
 			name = SearchScene;
 			sourceTree = "<group>";
@@ -1682,6 +1688,7 @@
 				5124036C1D96BA0B007FED5A /* AddFavoriteShopTableViewController.swift in Sources */,
 				511D58AB20387C7A00F5D313 /* ProductPair.swift in Sources */,
 				512702EA21FB6162002EC65C /* ApplicationPreferencesTableViewController.swift in Sources */,
+				5173BD95220F34B4001AC1F6 /* SingleSearchProductTableViewController.swift in Sources */,
 				51A37D59200F992F00AAF5D7 /* ImageLoadError.swift in Sources */,
 				5184F57C1EB35BFC009ECF73 /* BarGaugeView.swift in Sources */,
 				516B327F1C74D9560031EF80 /* EditProductViewController.swift in Sources */,
@@ -1809,6 +1816,7 @@
 				51E92AFF1E13D6210071B293 /* TagListViewDatasource.swift in Sources */,
 				5139824A1C8C700D00250FB1 /* EmptyNutrientsTableViewCell.swift in Sources */,
 				51F96660202D9FC400CD58C3 /* OFFProductNutrientLevel.swift in Sources */,
+				51749980220C592700C3ED3E /* Search.swift in Sources */,
 				51482A0D1FAE256A00F5E91A /* SelectLanguageAndImageTypeViewController.swift in Sources */,
 				511C6ECE1D0C6E1D00E2E318 /* NutritionalScoreFR.swift in Sources */,
 				514FC914213E7BB6007577FC /* CSVWriter.swift in Sources */,

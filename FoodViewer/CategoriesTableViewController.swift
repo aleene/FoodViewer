@@ -362,7 +362,7 @@ extension CategoriesTableViewController: TagListViewCellDelegate {
 }
 
 // MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
-
+/*
 extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
@@ -382,7 +382,7 @@ extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate
         }
     }
 }
-
+*/
 
 // MARK: - TagListView Datasource Functions
 
@@ -456,6 +456,7 @@ extension CategoriesTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
+            /*
         case .categoriesSearch:
             switch searchCategoriesToDisplay {
             case .undefined, .empty:
@@ -472,7 +473,8 @@ extension CategoriesTableViewController: TagListViewDelegate {
             default:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-
+*/
+        default: break
         }
         
     }

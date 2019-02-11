@@ -1,29 +1,18 @@
 //
-//  SingleProductTableViewController.swift
+//  SingleSearchProductTableViewController.swift
 //  FoodViewer
 //
-//  Created by arnaud on 01/02/2019.
+//  Created by arnaud on 09/02/2019.
 //  Copyright © 2019 Hovering Above. All rights reserved.
 //
 
 import UIKit
 import MobileCoreServices
 
-class SingleProductTableViewController: UITableViewController {
-
-
+class SingleSearchProductTableViewController: UITableViewController {
+    
+    
     fileprivate struct Constants {
-        
-        struct AlertSheet {
-            static let Message = TranslatableStrings.ProductDoesNotExistAlertSheetMessage
-            static let ActionTitleForCancel = TranslatableStrings.ProductDoesNotExistAlertSheetActionTitleForCancel
-            static let ActionTitleForAdd = TranslatableStrings.ProductDoesNotExistAlertSheetActionTitleForAdd
-        }
-        
-        struct Tag {
-            static let NoProductsInHistory = TranslatableStrings.NoProductsListed
-            static let ProductNameMissing = TranslatableStrings.ProductNameMissing
-        }
         
         // The tag-value of a cell is used to codify the type of cell
         // The product index is given by the ProductMultiplier, i.e. section * multipier
@@ -77,11 +66,12 @@ class SingleProductTableViewController: UITableViewController {
         return Preferences.manager.showProductType
     }
     
-    fileprivate var products = OFFProducts.manager
+    // var selectedSearch: Search? = nil
     
+    /*
     fileprivate func startInterface(at index:Int) {
-        if let validProductPair = products.productPair(at: index),
-            let validFetchResult = products.productPair(at: index)?.status {
+        if let validProductPair = selectedSearch?.productPair(at: index),
+            let validFetchResult = selectedSearch?.productPair(at: index)?.status {
             switch validFetchResult {
             case .available, .loading:
                 selectedProductPair = validProductPair
@@ -97,11 +87,15 @@ class SingleProductTableViewController: UITableViewController {
         }
         setTitle()
     }
+ */
     
+    /*
     fileprivate func refreshInterface() {
-        guard products.count > 0 else { return }
+        guard selectedSearch != nil else { return }
+        guard selectedSearch!.productPairs.count > 0 else { return }
         tableView.reloadData()
     }
+ */
     
     var productPageViewController: ProductPageViewController? = nil
     
@@ -146,9 +140,11 @@ class SingleProductTableViewController: UITableViewController {
     
     fileprivate func showProductPage() {
         // only segue if we are at the top of the stack
-        if  let parentVC = self.parent as? UINavigationController,
-            let parentParentVC = parentVC.parent as? UISplitViewController,
-            let detailVC = parentParentVC.viewControllers.last as? UINavigationController,
+        if  let pVC = self.parent as? UINavigationController {
+            //if let ppVC = pVC.parent as? UINavigationController {
+              //  if let pppVC = ppVC.parent as? UINavigationController {
+            if let parentParentVC = pVC.parent as? UISplitViewController {
+            if let detailVC = parentParentVC.viewControllers.last as? UINavigationController,
             let ppvc = detailVC.childViewControllers.first as? ProductPageViewController {
             ppvc.tableItem = selectedProductPair
             if let validSelectedRowType = selectedRowType,
@@ -170,6 +166,10 @@ class SingleProductTableViewController: UITableViewController {
                 ppvc.pageIndex = .identification
             }
         }
+        }
+            }
+    //    }
+     //   }
     }
     
     // The row types are mapped onto custom cells
@@ -223,17 +223,17 @@ class SingleProductTableViewController: UITableViewController {
     
     fileprivate struct Storyboard {
         struct CellIdentifier {
-            static let Name = "Single Product Name Cell Identifier"
-            static let Image = "Single Product Image Cell Identifier"
-            static let Ingredients = "Single Product Ingredients Cell Identifier"
+            static let Name = "Single Search Product Name Cell Identifier"
+            static let Image = "Single Search Product Image Cell Identifier"
+            static let Ingredients = "Single Search Product Ingredients Cell Identifier"
             //static let IngredientsPage = "Ingredients Page Cell"
             //static let Countries = "Countries Cell"
             //static let NutritionFacts = "Product Nutrition Facts Name Cell"
-            static let NutritionScore = "Single Product Nutrition Score Cell Identifier"
-            static let Categories = "Single Product Categories Cell Identifier"
-            static let Completion = "Single Product Completion State Cell Identifier"
+            static let NutritionScore = "Single Search Product Nutrition Score Cell Identifier"
+            static let Categories = "Single Search Product Categories Cell Identifier"
+            static let Completion = "Single Search Product Completion Cell Identifier"
             //static let Producer = "Product Producer Cell"
-            static let TagListView = "Single Product TagListView Cell Identifier"
+            static let TagListView = "Single Search Product TagListView Cell Identifier"
         }
         struct SegueIdentifier {
             static let ToPageViewController = "Show Page Controller"
@@ -256,7 +256,7 @@ class SingleProductTableViewController: UITableViewController {
         switch currentProductSection {
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Name, for: indexPath) as! NameTableViewCell
-                    //print(productPair?.remoteProduct?.brandsOriginal, productPair?.localProduct?.brandsOriginal)
+            //print(productPair?.remoteProduct?.brandsOriginal, productPair?.localProduct?.brandsOriginal)
             if let validBrands = selectedProductPair?.remoteProduct?.brandsOriginal ?? selectedProductPair?.localProduct?.brandsOriginal {
                 switch validBrands {
                 case .undefined, .empty:
@@ -268,7 +268,7 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
             return cell
-                    
+            
         case .image:
             if let language = selectedProductPair?.primaryLanguageCode,
                 let frontImages = selectedProductPair?.remoteProduct?.frontImages ?? selectedProductPair?.localProduct?.frontImages,
@@ -277,7 +277,7 @@ class SingleProductTableViewController: UITableViewController {
                 switch result {
                 case .success(let image):
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Image, for: indexPath) as! ImagesPageTableViewCell
-                            cell.productImage = image
+                    cell.productImage = image
                     return cell
                 default:
                     break
@@ -287,7 +287,7 @@ class SingleProductTableViewController: UITableViewController {
             return cell
         case .ingredientsAllergensTraces:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsPageTableViewCell
-                    
+            
             cell.ingredientsText = TranslatableStrings.Ingredients
             if let number = selectedProductPair?.remoteProduct?.numberOfIngredients {
                 let formatter = NumberFormatter()
@@ -296,7 +296,7 @@ class SingleProductTableViewController: UITableViewController {
             } else {
                 cell.ingredientsBadgeText = TranslatableStrings.Undefined
             }
-                    
+            
             cell.allergensText = TranslatableStrings.Allergens
             if let validAllergens = selectedProductPair?.remoteProduct?.allergensTranslated ?? selectedProductPair?.localProduct?.allergensOriginal {
                 switch validAllergens {
@@ -306,7 +306,7 @@ class SingleProductTableViewController: UITableViewController {
                     cell.allergensBadgeText = TranslatableStrings.Undefined
                 }
             }
-                    
+            
             cell.tracesText = TranslatableStrings.Traces
             if let validTraces = selectedProductPair?.remoteProduct?.tracesInterpreted ?? selectedProductPair?.localProduct?.tracesOriginal {
                 switch validTraces {
@@ -317,19 +317,19 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
             return cell
-                    
+            
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
-                    cell.labelText = TranslatableStrings.Ingredients
+            cell.labelText = TranslatableStrings.Ingredients
             if let number = selectedProductPair?.remoteProduct?.numberOfIngredients ?? selectedProductPair?.localProduct?.numberOfIngredients {
                 cell.badgeText = number
             }
             return cell
-                    
+            
         case .nutritionFacts:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
-                    cell.labelText = TranslatableStrings.NutritionFacts
-                    
+            cell.labelText = TranslatableStrings.NutritionFacts
+            
             if let facts = selectedProductPair?.remoteProduct?.nutritionFactsDict ?? selectedProductPair?.localProduct?.nutritionFactsDict {
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
@@ -338,12 +338,12 @@ class SingleProductTableViewController: UITableViewController {
                 cell.badgeText = TranslatableStrings.Undefined
             }
             return cell
-                    
+            
         case .nutritionScore:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionScore, for: indexPath) as? NutritionScoreTableViewCell
             cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
             return cell!
-                    
+            
         case .categories:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
             cell.labelText = TranslatableStrings.Categories
@@ -360,12 +360,12 @@ class SingleProductTableViewController: UITableViewController {
                 }
             }
             return cell
-                    
+            
         case .completion:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Completion, for: indexPath) as? CompletionTableViewCell
-                    cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
+            cell?.product = selectedProductPair?.remoteProduct ?? selectedProductPair?.localProduct
             return cell!
-                    
+            
         case .supplyChain:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Categories, for: indexPath) as! LabelWithBadgeTableViewCell
             cell.labelText = TranslatableStrings.SalesCountries
@@ -393,87 +393,73 @@ class SingleProductTableViewController: UITableViewController {
             selectedRowType = tableStructure[index]
         }
         showProductPage()
-        if products.count > 0,
-            let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
-            let validProductPair = products.productPair(at: indexPath.section) {
-            switch validFetchResult {
-            case .available,
-                 .loading,
-                 .productNotLoaded:
-                selectedProductPair = validProductPair
-            case .productNotAvailable,
-                 .loadingFailed:
-                selectedProductPair = validProductPair
-            default: break
-            }
-        }
     }
     
     /*
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
-        let label = UILabel.init(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width, height: 20))
-        tempView.backgroundColor = UIColor.gray
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor.white
-        if let validFetchResult = products.productPair(at: section)?.status {
-            switch validFetchResult {
-            case .available:
-                if let validProduct = products.productPair(at: section)?.remoteProduct ?? products.productPair(at: section)?.localProduct,
-                    let languageCode = products.productPair(at: section)?.primaryLanguageCode {
-                    label.text = products.productPair(at: section)?.remoteProduct?.nameLanguage[languageCode] ?? products.productPair(at: section)?.localProduct?.nameLanguage[languageCode] ?? Constants.Tag.ProductNameMissing
-                    switch validProduct.tracesInterpreted {
-                    case .available(let validKeys):
-                        if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                            tempView.backgroundColor = UIColor.red
-                        }
-                    default:
-                        break
-                    }
-                    switch validProduct.tracesInterpreted {
-                    case .available(let validKeys):
-                        if !validKeys.isEmpty {
-                            let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
-                            if warn {
-                                tempView.backgroundColor = UIColor.red
-                            }
-                        }
-                    default:
-                        break
-                    }
-                } else {
-                    assert(true, "remoteStatus is available, but there is no product")
-                }
-            case .loading(let barcodeString):
-                label.text = barcodeString
-            case.loadingFailed(let error):
-                label.text = error
-                // Can we supply a specific error message?
-                if error.contains("NSCocoaErrorDomain Code=256") {
-                    // The error message when the server can not be reached:
-                    // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
-                    let parts = error.components(separatedBy: ".json")
-                    if !parts.isEmpty {
-                        let partsTwo = parts[0].components(separatedBy:"\'")
-                        if partsTwo.count > 1 {
-                            label.text = partsTwo[1]
-                        }
-                    }
-                }
-                
-            default:
-                label.text = products.productPair(at: section)?.barcodeType.asString
-            }
-        } else {
-            label.text = Constants.Tag.NoProductsInHistory
-        }
-        
-        tempView.addSubview(label)
-        tempView.tag = section
-        return tempView
-    }
- */
+     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+     
+     let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
+     let label = UILabel.init(frame: CGRect(x: 10, y: 5, width: tableView.frame.size.width, height: 20))
+     tempView.backgroundColor = UIColor.gray
+     label.font = UIFont.boldSystemFont(ofSize: 20)
+     label.textColor = UIColor.white
+     if let validFetchResult = products.productPair(at: section)?.status {
+     switch validFetchResult {
+     case .available:
+     if let validProduct = products.productPair(at: section)?.remoteProduct ?? products.productPair(at: section)?.localProduct,
+     let languageCode = products.productPair(at: section)?.primaryLanguageCode {
+     label.text = products.productPair(at: section)?.remoteProduct?.nameLanguage[languageCode] ?? products.productPair(at: section)?.localProduct?.nameLanguage[languageCode] ?? Constants.Tag.ProductNameMissing
+     switch validProduct.tracesInterpreted {
+     case .available(let validKeys):
+     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
+     tempView.backgroundColor = UIColor.red
+     }
+     default:
+     break
+     }
+     switch validProduct.tracesInterpreted {
+     case .available(let validKeys):
+     if !validKeys.isEmpty {
+     let warn = AllergenWarningDefaults.manager.hasValidWarning(validKeys)
+     if warn {
+     tempView.backgroundColor = UIColor.red
+     }
+     }
+     default:
+     break
+     }
+     } else {
+     assert(true, "remoteStatus is available, but there is no product")
+     }
+     case .loading(let barcodeString):
+     label.text = barcodeString
+     case.loadingFailed(let error):
+     label.text = error
+     // Can we supply a specific error message?
+     if error.contains("NSCocoaErrorDomain Code=256") {
+     // The error message when the server can not be reached:
+     // "Error Domain=NSCocoaErrorDomain Code=256 \"The file “7610207742059.json” couldn’t be opened.\" UserInfo={NSURL=http://world.openfoodfacts.org/api/v0/product/7610207742059.json}"
+     let parts = error.components(separatedBy: ".json")
+     if !parts.isEmpty {
+     let partsTwo = parts[0].components(separatedBy:"\'")
+     if partsTwo.count > 1 {
+     label.text = partsTwo[1]
+     }
+     }
+     }
+     
+     default:
+     label.text = products.productPair(at: section)?.barcodeType.asString
+     }
+     } else {
+     label.text = Constants.Tag.NoProductsInHistory
+     }
+     
+     tempView.addSubview(label)
+     tempView.tag = section
+     return tempView
+     }
+     */
     
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
@@ -481,19 +467,19 @@ class SingleProductTableViewController: UITableViewController {
     }
     
     /*
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if let validFetchResult = products.productPair(at: section)?.remoteStatus {
-            switch validFetchResult {
-            case .more:
-                // no header required in this case
-                return 0.0
-            default:
-                break
-            }
-        }
-        return UITableViewAutomaticDimension
-    }
- */
+     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+     if let validFetchResult = products.productPair(at: section)?.remoteStatus {
+     switch validFetchResult {
+     case .more:
+     // no header required in this case
+     return 0.0
+     default:
+     break
+     }
+     }
+     return UITableViewAutomaticDimension
+     }
+     */
     
     // MARK: - Scene changes
     
@@ -554,7 +540,7 @@ class SingleProductTableViewController: UITableViewController {
         let alert = UIAlertController(
             title: TranslatableStrings.AddFrontImage,
             message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: "What to put?", style: .cancel) { (action: UIAlertAction) -> Void in
             // the user cancels to add image
         })
         alert.addAction(UIAlertAction(title: TranslatableStrings.AddFrontImageFromCamera, style: .destructive) { (action: UIAlertAction) -> Void in
@@ -613,7 +599,6 @@ class SingleProductTableViewController: UITableViewController {
     }
     
     @IBAction func unwindForCancel(_ segue:UIStoryboardSegue) {
-        startInterface(at:0)
         showProductPage()
     }
     
@@ -638,7 +623,7 @@ class SingleProductTableViewController: UITableViewController {
         if let barcodeString = userInfo![ProductImageData.Notification.BarcodeKey] as? String,
             let productBarcode = selectedProductPair?.barcodeType.asString,
             productBarcode == barcodeString {
-                tableView.reloadData()
+            tableView.reloadData()
         }
     }
     
@@ -656,64 +641,34 @@ class SingleProductTableViewController: UITableViewController {
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
         guard userInfo != nil else { return }
-        if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String {
-            if let index = products.indexOfProductPair(with: BarcodeType(barcodeString: barcodeString, type: Preferences.manager.showProductType)) {
-                if index == 0 {
-                    if let validProductPair = products.productPair(at: index) {
-                        // If this is the product at the top,
-                        // save the updates also locally.
-                        switch validProductPair.remoteStatus {
-                        case .available:
-                            MostRecentProduct().save(product:validProductPair.remoteProduct)
-                        default:
-                            break
-                        }
-                    }
-                }
-                let visibleIndexPaths = self.tableView.indexPathsForVisibleRows
-                let indexPathForProductPair = IndexPath(row: 0, section: index)
-                if let validVisibleIndexPaths = visibleIndexPaths,
-                    // only look for rows with an image
-                    validVisibleIndexPaths.contains(indexPathForProductPair) {
-                    tableView.reloadData()
-                }
-            }
+        if let barcodeString = userInfo![ProductPair.Notification.BarcodeKey] as? String,
+            let validProductPair = selectedProductPair,
+            barcodeString == validProductPair.barcodeType.asString {
+                tableView.reloadData()
         }
-        /*
-        // keep focus on selectedProduct
-        if let validProductPair = selectedProductPair,
-            let validIndex = products.index(of: validProductPair) {
-            tableView.scrollToRow(at: IndexPath(row: 0, section: validIndex), at: .top, animated: true)
-        }
- */
     }
-    
-    //
-    @objc func firstProductLoaded(_ notification: Notification) {
-        startInterface(at: 0)
-        showProductPage()
-    }
+
     /*
-    @objc func searchLoaded(_ notification: Notification) {
-        switchToTab(withIndex: 1)
-        if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
-            startInterface(at:index >= 0 ? index : 0)
-            showProductPage()
-        }
-    }
-    
-    @objc func searchStarted(_ notification: Notification) {
-        switchToTab(withIndex: 1)
-        if let firstPage = notification.userInfo?[OFFProducts.Notification.SearchPageKey] as? Int {
-            // if there is no SearchOffSet, then the search just started
-            // If it is the first page, position the interface on the first section
-            if firstPage == 0 {
-                startInterface(at:0)
-                showProductPage()
-            }
-        }
-    }
- */
+     @objc func searchLoaded(_ notification: Notification) {
+     switchToTab(withIndex: 1)
+     if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
+     startInterface(at:index >= 0 ? index : 0)
+     showProductPage()
+     }
+     }
+     
+     @objc func searchStarted(_ notification: Notification) {
+     switchToTab(withIndex: 1)
+     if let firstPage = notification.userInfo?[OFFProducts.Notification.SearchPageKey] as? Int {
+     // if there is no SearchOffSet, then the search just started
+     // If it is the first page, position the interface on the first section
+     if firstPage == 0 {
+     startInterface(at:0)
+     showProductPage()
+     }
+     }
+     }
+     */
     
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
@@ -722,8 +677,8 @@ class SingleProductTableViewController: UITableViewController {
             // start out with the history tab
             if tabVC.selectedIndex == 0 {
                 Preferences.manager.cycleProductType()
-                products.reloadAll()
-                startInterface(at: 0)
+                //selectedSearch?.reloadAll()
+                //startInterface(at: 0)
                 showProductPage()
             }
         }
@@ -735,44 +690,19 @@ class SingleProductTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 11.0, *) {
-            tableView.dragDelegate = self
-        }
-        
-        // show history products
-        //products.list = .recent
-        //products.search = nil
-        
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // addGesture()
-        // setTitle()
-        // make sure we show the right tab
-        //if products.list == .recent {
-         //   switchToTab(withIndex: 1)
-        //} else {
-          //  switchToTab(withIndex: 2)
-        //}
-        
-        // Is there a scanned product?
-        if let validSelectedProductIndex = products.currentScannedProduct {
-            startInterface(at: validSelectedProductIndex)
-        // has a selected product been passed in?
-        } else if let validProductPair = selectedProductPair,
-            let validIndex = products.index(of: validProductPair) {
-            startInterface(at: validIndex)
-        // just start at the top
-        } else if products.count > 0 {
-            // If nothing has been selected yet, start with the first product in the list, and on the iPad
-            startInterface(at: 0)
+
+        if selectedProductPair != nil {
+            tableView.reloadData()
+            // show the productPage as detailVC
+            showProductPage()
         }
-        
         // Notifications coming from ProductPair,
         // which indicate that something in the productPair has changed
         // either the local product or the remote product
@@ -788,7 +718,7 @@ class SingleProductTableViewController: UITableViewController {
         if let validName = selectedProductPair?.name {
             title = validName
         }
-        refreshInterface()
+        //tableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -804,16 +734,15 @@ class SingleProductTableViewController: UITableViewController {
 //
 // MARK: - GKImagePickerDelegate Functions
 //
-extension SingleProductTableViewController: GKImagePickerDelegate {
+extension SingleSearchProductTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
         guard let validIndex = productIndexForMainImage else { return }
-        guard let validLanguageCode =  products.productPair(at: validIndex)?.primaryLanguageCode else { return }
-        products.productPair(at: validIndex)?.update(frontImage: image, for: validLanguageCode)
+        guard let validLanguageCode =  selectedProductPair?.primaryLanguageCode else { return }
+        selectedProductPair?.update(frontImage: image, for: validLanguageCode)
         imagePicker.dismiss(animated: true, completion: nil)
         // The app should now move to edit mode and the first page
         selectedRowType = .name
-        selectedProductPair = products.productPair(at: validIndex)
         performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
     }
 }
@@ -821,46 +750,46 @@ extension SingleProductTableViewController: GKImagePickerDelegate {
 // MARK: - ButtonCellDelegate Functions
 
 
-extension SingleProductTableViewController: ButtonCellDelegate {
+extension SingleSearchProductTableViewController: ButtonCellDelegate {
     // function to let the delegate know that a button was tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
         /*
-        if sender.tag < 0 {
-            showAlertAddFrontImage(forProductWith: -1 * sender.tag)
-        } else {
-            products.fetchSearchProductsForNextPage()
-        }
- */
+         if sender.tag < 0 {
+         showAlertAddFrontImage(forProductWith: -1 * sender.tag)
+         } else {
+         products.fetchSearchProductsForNextPage()
+         }
+         */
     }
 }
 /*
-// MARK: - SearchHeaderDelegate Functions
-
-extension SingleProductTableViewController: SearchHeaderDelegate {
-    
-    func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSortOrder, sender: button)
-    }
-    
-    func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-            switch validFetchResult {
-            case .searchQuery(let query):
-                query.clear()
-                products.reloadAll()
-                tableView.reloadData()
-            default:
-                break
-            }
-            
-        }
-    }
-}
+ // MARK: - SearchHeaderDelegate Functions
+ 
+ extension SingleProductTableViewController: SearchHeaderDelegate {
+ 
+ func sortButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
+ performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSortOrder, sender: button)
+ }
+ 
+ func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
+ if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
+ switch validFetchResult {
+ case .searchQuery(let query):
+ query.clear()
+ products.reloadAll()
+ tableView.reloadData()
+ default:
+ break
+ }
+ 
+ }
+ }
+ }
  */
 
 // MARK: - UIGestureRecognizerDelegate Functions
 
-extension SingleProductTableViewController: UIGestureRecognizerDelegate {
+extension SingleSearchProductTableViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
@@ -874,28 +803,16 @@ extension SingleProductTableViewController: UIGestureRecognizerDelegate {
 
 // MARK: - UITabBarControllerDelegate Functions
 
-extension SingleProductTableViewController: UITabBarControllerDelegate {
+extension SingleSearchProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        //switch tabBarController.selectedIndex {
-        //case 1:
-        //    products.list = .recent
-        //case 2:
-         //   products.list = .search
-        //default:
-          //  break
-        //}
-        // products.list = tabBarController.selectedIndex == 0 ? .recent : .search
-        // refreshInterface()
-        startInterface(at: 0)
-        showProductPage()
     }
     
 }
 
 // MARK: - TagListViewCellDelegate Functions
 
-extension SingleProductTableViewController: TagListViewCellDelegate {
+extension SingleSearchProductTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that a tag has been single
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
@@ -909,7 +826,7 @@ extension SingleProductTableViewController: TagListViewCellDelegate {
 
 // MARK: - TagListView DataSource Functions
 
-extension SingleProductTableViewController: TagListViewDataSource {
+extension SingleSearchProductTableViewController: TagListViewDataSource {
     
     public func numberOfTagsIn(_ tagListView: TagListView) -> Int {
         return 1
@@ -938,7 +855,7 @@ extension SingleProductTableViewController: TagListViewDataSource {
 
 // MARK: - TagListView Delegate Functions
 
-extension SingleProductTableViewController: TagListViewDelegate {
+extension SingleSearchProductTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
@@ -946,16 +863,6 @@ extension SingleProductTableViewController: TagListViewDelegate {
     }
     
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
-        
-        // find the product that has been tapped on
-        let productIndex = Int( tagListView.tag / Constants.TagValue.Product.Multiplier )
-        // find the status of the product
-        let code = tagListView.tag % Constants.TagValue.Product.Multiplier
-        // try to reload the product
-        if code == ProductFetchStatus.productNotLoaded("").rawValue  ||
-            code == ProductFetchStatus.loadingFailed("").rawValue {
-            _ = products.loadProductPair(at: productIndex)
-        }
     }
     
 }
@@ -963,7 +870,7 @@ extension SingleProductTableViewController: TagListViewDelegate {
 
 // MARK: - UIPopoverPresentationControllerDelegate Functions
 
-extension SingleProductTableViewController: UIPopoverPresentationControllerDelegate {
+extension SingleSearchProductTableViewController: UIPopoverPresentationControllerDelegate {
     
     // MARK: - Popover delegation functions
     
@@ -979,102 +886,3 @@ extension SingleProductTableViewController: UIPopoverPresentationControllerDeleg
         return navcon
     }
 }
-
-
-// MARK: - UIDragInteractionDelegate Functions
-
-@available(iOS 11.0, *)
-extension SingleProductTableViewController: UITableViewDragDelegate {
-    
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
-            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
-            switch validFetchResult {
-            case .available:
-                let currentProductSection = tableStructure[indexPath.row]
-                switch currentProductSection {
-                case .image:
-                    if let language = validProduct.primaryLanguageCode,
-                        !validProduct.frontImages.isEmpty,
-                        let fetchResult = validProduct.frontImages[language]?.largest?.fetch() {
-                        switch fetchResult {
-                        case .success(let image):
-                            let provider = NSItemProvider(object: image)
-                            let item = UIDragItem(itemProvider: provider)
-                            item.localObject = image
-                            return [item]
-                        default:
-                            break
-                        }
-                    }
-                default:
-                    break
-                }
-            default:
-                break
-            }
-            
-        }
-        return []
-    }
-    
-    func tableView(_ tableView: UITableView, dragPreviewParametersForRowAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        let currentProductSection = tableStructure[indexPath.row]
-        switch currentProductSection {
-        case .image :
-            if let cell = tableView.cellForRow(at: indexPath) as? ImagesPageTableViewCell {
-                if let rect = cell.productImageView.imageRect {
-                    let parameters = UIDragPreviewParameters.init()
-                    parameters.visiblePath = UIBezierPath(roundedRect: rect, cornerRadius: 15)
-                    return parameters
-                }
-            }
-        default:
-            break
-        }
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
-        
-        // only allow flocking of another image
-        for item in session.items {
-            // Note kUTTypeImage needs an import of MobileCoreServices
-            guard item.itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) else { return [] }
-        }
-        if let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
-            let validProduct = products.productPair(at: indexPath.section)?.remoteProduct {
-            switch validFetchResult {
-            case .available:
-                let currentProductSection = tableStructure[indexPath.row]
-                switch currentProductSection {
-                case .image:
-                    if let language = validProduct.primaryLanguageCode,
-                        !validProduct.frontImages.isEmpty,
-                        let fetchResult = validProduct.frontImages[language]?.largest?.fetch() {
-                        switch fetchResult {
-                        case .success(let image):
-                            // check if the selected image has not been added yet
-                            for item in session.items {
-                                guard item.localObject as! UIImage != image else { return [] }
-                            }
-                            let provider = NSItemProvider(object: image)
-                            let item = UIDragItem(itemProvider: provider)
-                            item.localObject = image
-                            return [item]
-                        default:
-                            break
-                        }
-                    }
-                default:
-                    break
-                }
-            default:
-                break
-            }
-        }
-        return []
-    }
-    
-}
-

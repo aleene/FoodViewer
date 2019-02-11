@@ -59,30 +59,30 @@ class OFFSearchRequest {
                                 for jsonProduct in jsonProducts {
                                     products.append(FoodProduct.init(json: jsonProduct))
                                 }
-                                return SearchFetchStatus.searchList((searchResultSize, searchPage, searchPageSize, products))
+                                return SearchFetchStatus.list((searchResultSize, searchPage, searchPageSize, products))
                             } else {
                                 print("OpenFoodFactsRequest: Not a valid Search array")
-                                return SearchFetchStatus.searchLoadingFailed("Search loading failed")
+                                return SearchFetchStatus.loadingFailed("Search loading failed")
                             }
                         } else {
                             print ("OpenFoodFactsRequest: Not a valid OFF JSON")
-                            return SearchFetchStatus.searchLoadingFailed("Search loading failed")
+                            return SearchFetchStatus.loadingFailed("Search loading failed")
                         }
                     } catch let error {
                         print (error)
-                        return .searchLoadingFailed(url.absoluteString)
+                        return .loadingFailed(url.absoluteString)
                         
                     }
                 } catch let error as NSError {
                     print(error)
-                    return SearchFetchStatus.searchLoadingFailed(error.description)
+                    return SearchFetchStatus.loadingFailed(error.description)
                 }
             } else {
-                return SearchFetchStatus.searchLoadingFailed("Retrieved a json file that is no longer relevant for the app.")
+                return SearchFetchStatus.loadingFailed("Retrieved a json file that is no longer relevant for the app.")
             }
             
         } else {
-            return SearchFetchStatus.searchLoadingFailed("Search URL could not be encoded.")
+            return SearchFetchStatus.loadingFailed("Search URL could not be encoded.")
         }
     }
     

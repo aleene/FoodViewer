@@ -12,68 +12,29 @@ import MobileCoreServices
 class SearchesHistoryTableViewController: UITableViewController, UITextFieldDelegate {
     
     fileprivate struct Constants {
-        
-        struct Tag {
-            static let ProductNameMissing = TranslatableStrings.ProductNameMissing
-        }
-        
-        // The tag-value of a cell is used to codify the type of cell
-        // The product index is given by the ProductMultiplier, i.e. section * multipier
-        // The product loading status (ProductFetchStatus.rawValue) is the remainer if < Offset.Image
-        // image-loading status (ImageFetchResult) is the remainer if > Offset.Image < Offset.SearchQuery
-        // searchQuery (add Offset.SearchQuery) is the remainer if > Offset.SearchQuery
-        //
-        //
-        
         struct TagValue {
-            static let Image = 10
+            struct Multiplier {
+                static let Section = 1000
+                static let Row = 10
+            }
             struct Search {
-                static let NotDefined = 100
-                static let Loading = 101
-                static let MoreResults = 102
-                static let List = 103
-                static let Query = 104
-            }
-            struct Product {
-                // if there is a list of products, their tag values start at 1000
-                static let Multiplier = 1000
-                // no list of products yet, so the status of the query is encoded as:
                 static let Initialized = 0
-                static let NotLoaded = 1
-                static let Loading = 2
-                static let Success = 3
-                static let Available = 4
-                static let Updating = 5
-                static let NotAvailable = 6
-                static let LoadingFailed = 7
+                static let NotDefined = 1
+                static let NotLoaded = 2
+                static let Loading = 3
+                static let Loaded = 4
+                static let Failed = 5
             }
         }
     }
-    
-    private func tagValue(for status: SearchFetchStatus) -> Int {
-        switch status {
-        case .noSearchDefined:
-            return Constants.TagValue.Search.NotDefined
-        case .searchLoading:
-            return Constants.TagValue.Search.Loading
-        case .searchQuery:
-            return Constants.TagValue.Search.Query
-        case .searchList:
-            return Constants.TagValue.Search.List
-        case .more:
-            return Constants.TagValue.Search.MoreResults
-        default:
-            return -1
-        }
-    }
-    
     
     fileprivate var products = OFFSearchProducts.manager
     
-    fileprivate var focusOnNewSearchedProductPair = false
+    //fileprivate var focusOnNewSearchedProductPair = false
+    
+    private var selectedSearch: Search? = nil
     
     fileprivate func startInterface(at index:Int) {
-        
         setTitle()
     }
     
@@ -106,89 +67,108 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     
     fileprivate struct Storyboard {
         struct CellIdentifier {
-            static let TagListViewWithLabel = "Search TagListView With Label Cell Identifier"
-            static let TagListView = "Searches TagListView Cell Identifier"
-            static let Button = "Products More Button Cell"
+            static let TagListViewWithLabel = "Search History TagListView With Label Cell Identifier"
+            static let TagListView = "Search History TagListView Cell Identifier"
+            static let Label = "Search History Label Cell Identifier"
+        }
+        struct SegueIdentifier {
+            static let ShowSearchResults = "Show Search Results Segue Identifier"
         }
     }
     
-    // There is 1 section for all searches
+    // There is a section for each search
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return products.allSearchQueries.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Either there is a query defined or there should be one defined
-        return 1
+        guard let numberOfQueryElements = products.allSearchQueries[section].query?.searchPairsWithArray().count else { return 2 }
+        // For each search we specify:
+        // - the search definition (not set or the query elements
+        // - the search results
+        return numberOfQueryElements + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch products.searchStatus {
-        case .more:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell //
-            cell.delegate = self
-            cell.title = products.searchStatus.description
-            cell.editMode = true
-            cell.tag = indexPath.section * Constants.TagValue.Product.Multiplier + products.searchStatus.rawValue
+        let search = products.allSearchQueries[indexPath.section]
+        let tagValue = tag(for: indexPath, for: search)
+        // if a query is defined show the query
+        if search.isDefined && indexPath.row < search.componentsCount  {
+            // Search labels with switches to include or exclude the label
+            //  -- tag values as tags and inclusion as labelText
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+            cell.datasource = self
+            cell.tag = tagValue
+            cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
+            cell.labelText = search.text(for:indexPath.row) ?? TranslatableStrings.NotSet
+            cell.width = tableView.frame.size.width
+            cell.accessoryType = .none
             return cell
-                                
-        case .searchQuery(let query):
-            // What should appear in this cell depends on the search query element
-            let searchPairs = query.searchPairsWithArray()
-            if searchPairs.count > 0 && indexPath.row < searchPairs.count {
-                // Search labels with switches to include or exclude the label
-                //  -- tag values as tags and inclusion as labelText
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-                cell.datasource = self
-                cell.tag = tagValue(for: products.searchStatus) + indexPath.row
-                cell.categoryLabel.text = searchPairs[indexPath.row].0.description
-                switch searchPairs[indexPath.row].0 {
-                case .searchText:
-                    cell.labelText = ""
-                default:
-                    cell.labelText = searchPairs[indexPath.row].2
-                }
-                cell.width = tableView.frame.size.width
-                cell.accessoryType = .none
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for:indexPath) as! TagListViewTableViewCell
-                    cell.datasource = self
-                    //cell.tag = tagValue(for: validFetchResult)
-                    //cell.width = tableView.frame.size.width
-                    cell.scheme = ColorSchemes.normal
-                    return cell
-                }
-            case .searchLoading:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell //
-                cell.datasource = self
-                //cell.tag = tagValue(for: validFetchResult)
-                cell.width = tableView.frame.size.width
-                cell.accessoryType = .none
-                return cell
-            case .initialized:
-                //products.loadProductPair(at: indexPath.section)
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.datasource = self
-                //cell.tag = tagValue(for: validFetchResult)
-                cell.scheme = ColorSchemes.normal
-                return cell
-            default:
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.datasource = self
-                //cell.tag = validFetchResult.rawValue + Constants.TagValue.Product.Multiplier * indexPath.section
-                cell.scheme = ColorSchemes.normal
-                return cell
-            }
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+        cell.datasource = self
+        cell.tag = tagValue
+        cell.scheme = ColorSchemes.normal
+        return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Show the search results for the selected query
+        selectedSearch = products.allSearchQueries[indexPath.section]
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
     }
     
+    private func tag(for indexPath:IndexPath, for search:Search) -> Int {
+        // the section indicates the query
+        var tag = indexPath.section * Constants.TagValue.Multiplier.Section
+        let search = products.allSearchQueries[indexPath.section]
+        // has the search a validQuery?
+        if search.isDefined {
+            // the first rows define the search
+            if indexPath.row != search.componentsCount {
+                // the row counts start after the multiplier
+                tag = indexPath.row + Constants.TagValue.Multiplier.Row
+            } else {
+            // the last row defines the search status for a defined query
+                switch search.status {
+                case .notLoaded:
+                    tag = tag + Constants.TagValue.Search.NotLoaded
+                case .loading:
+                    tag = tag + Constants.TagValue.Search.Loading
+                case .loadingFailed:
+                    tag = tag + Constants.TagValue.Search.Failed
+                default:
+                    break
+                }
+            }
+        } else {
+            // the status if there is not a query
+            switch search.status {
+            case .initialized:
+                tag = tag + Constants.TagValue.Search.Initialized
+            case .notDefined:
+                tag = tag + Constants.TagValue.Search.NotDefined
+            default:
+                break
+            }
+        }
+        return tag
+    }
     
+    private func title(for tag:Int) -> String {
+        let remainder = tag % Constants.TagValue.Multiplier.Section
+        let section = ( tag - remainder ) / Constants.TagValue.Multiplier.Section
+        let search = products.allSearchQueries[section]
+        if remainder < Constants.TagValue.Multiplier.Row {
+            // the last row defines the search status for a defined query
+            return search.status.description
+        } else {
+            return search.label(for: remainder - Constants.TagValue.Multiplier.Row) ?? TranslatableStrings.NotSet
+        }
+    }
+
+    /*
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let tempView = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 25))
@@ -196,13 +176,14 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         tempView.backgroundColor = UIColor.gray
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor.white
-            switch products.searchStatus {
+        let search = products.allSearchQueries[section]
+        switch search.status {
             //case .loading(let barcodeString):
             //    label.text = barcodeString
             //case .more:
                 // no header required in this case https://world.openfoodfacts.org/api/v0/product/737628064502.json
             //    return nil
-            case .searchLoadingFailed(let error):
+            case .loadingFailed(let error):
                 label.text = error
                 // Can we supply a specific error message?
                 if error.contains("NSCocoaErrorDomain Code=256") {
@@ -234,21 +215,23 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                     headerView.title = TranslatableStrings.NoSearchDefined
                 }
                 return headerView
-            case .searchLoading:
+            case .loading:
                 label.text = TranslatableStrings.Searching
             default:
-                label.text = products.productPair(at: section)?.barcodeType.asString
+                label.text = "What to put here?"
             }
         
         tempView.addSubview(label)
         tempView.tag = section
         return tempView
     }
-    
+    */
+    /*
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
+ */
     /*
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
@@ -264,51 +247,29 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         return UITableViewAutomaticDimension
     }
  */
-    
+    /*
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // if the user starts scrolling the barcode search focus can be reset
         self.focusOnNewSearchedProductPair = false
     }
+ */
     
     // MARK: - Scene changes
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*
         if let identifier = segue.identifier {
             switch identifier {
-            case Storyboard.SegueIdentifier.ToPageViewController:
-                if let vc = segue.destination as? UINavigationController {
-                    if let ppvc = vc.topViewController as? ProductPageViewController {
-                        ppvc.tableItem = selectedProductPair
-                        if let validSelectedRowType = selectedRowType,
-                            let validProductPair = selectedProductPair {
-                            switch validProductPair.barcodeType {
-                            case .search(let template, _):
-                                if let validIndex = selectedIndex {
-                                    let array = template.searchPairsWithArray()
-                                    if array.count > 0 && validIndex < array.count {
-                                        ppvc.pageIndex = searchRowType(array[validIndex].0)
-                                    } else {
-                                        ppvc.pageIndex = .identification
-                                    }
-                                }
-                            default:
-                                ppvc.pageIndex = validSelectedRowType.productSection()
-                            }
-                        } else {
-                            ppvc.pageIndex = .identification
-                        }
-                    }
+            case Storyboard.SegueIdentifier.ShowSearchResults:
+                if let vc = segue.destination as? SearchResultsTableViewController {
+                    vc.search = selectedSearch
                 }
-                
             default: break
             }
         }
- */
     }
     
     
-    private var productIndexForMainImage: Int? = nil
+    // private var productIndexForMainImage: Int? = nil
     
     /*
      @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
@@ -365,7 +326,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
      }
      
      */
-    
+    /*
     private func switchToTab(withIndex index: Int) {
         if let tabVC = self.parent?.parent as? UITabBarController {
             tabVC.selectedIndex = index
@@ -374,7 +335,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
         setTitle()
     }
-    
+    */
     
     // MARK: - Notification methods
     
@@ -403,7 +364,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
     }
  */
-    
+    /*
     @objc func productLoaded(_ notification: Notification) {
         
         // This is needed to increase the tablesize as each product is added.
@@ -414,6 +375,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         tableView.reloadData()
         
     }
+ */
     /*
     @objc func productUpdated(_ notification: Notification) {
         let userInfo = (notification as NSNotification).userInfo
@@ -460,23 +422,11 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
  */
     
     @objc func searchLoaded(_ notification: Notification) {
-        switchToTab(withIndex: 1)
-        if let index = notification.userInfo?[OFFSearchProducts.Notification.SearchOffsetKey] as? Int {
-            startInterface(at:index >= 0 ? index : 0)
-            //showProductPage()
-        }
+        tableView.reloadData()
     }
     
     @objc func searchStarted(_ notification: Notification) {
-        switchToTab(withIndex: 1)
-        if let firstPage = notification.userInfo?[OFFSearchProducts.Notification.SearchPageKey] as? Int {
-            // if there is no SearchOffSet, then the search just started
-            // If it is the first page, position the interface on the first section
-            if firstPage == 0 {
-                startInterface(at:0)
-                //showProductPage()
-            }
-        }
+        tableView.reloadData()
     }
     
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
@@ -486,7 +436,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             // start out with the history tab
             if tabVC.selectedIndex == 0 {
                 Preferences.manager.cycleProductType()
-                products.reloadAll()
+                //products.reloadAll()
                 startInterface(at: 0)
                 //showProductPage()
             }
@@ -515,13 +465,15 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
+        
         tableView.register(UINib(nibName: "SearchHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SearchHeaderView")
-            }
+        }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tableView.reloadData()
         // addGesture()
-        // setTitle()
+        setTitle()
         // make sure we show the right tab
         //if products.list == .recent {
         //    switchToTab(withIndex: 1)
@@ -565,22 +517,6 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     }
 }
 
-// MARK: - ButtonCellDelegate Functions
-
-
-extension SearchesHistoryTableViewController: ButtonCellDelegate {
-    
-    // function to let the delegate know that a button was tapped
-    func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
-        //if sender.tag < 0 {
-        //    showAlertAddFrontImage(forProductWith: -1 * sender.tag)
-        //} else {
-            products.fetchSearchProductsForNextPage()
-        //}
-    }
-}
-
-
 // MARK: - SearchHeaderDelegate Functions
 
 extension SearchesHistoryTableViewController: SearchHeaderDelegate {
@@ -590,19 +526,6 @@ extension SearchesHistoryTableViewController: SearchHeaderDelegate {
     }
     
     func clearButtonTapped(_ sender: SearchHeaderView, button: UIButton) {
-        /*
-        if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-            switch validFetchResult {
-            case .searchQuery(let query):
-                query.clear()
-                products.reloadAll()
-                tableView.reloadData()
-            default:
-                break
-            }
-            
-        }
- */
     }
 }
 
@@ -625,18 +548,6 @@ extension SearchesHistoryTableViewController: UIGestureRecognizerDelegate {
 extension SearchesHistoryTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        //switch tabBarController.selectedIndex {
-        //case 1:
-        //    products.list = .recent
-        //case 2:
-        //    products.list = .search
-        //default:
-        //    break
-        //}
-        // products.list = tabBarController.selectedIndex == 0 ? .recent : .search
-        // refreshInterface()
-        //startInterface(at: 0)
-        //showProductPage()
     }
     
 }
@@ -664,6 +575,7 @@ extension SearchesHistoryTableViewController: TagListViewDataSource {
         // is this a searchQuery section?
         //if tagListView.tag >= Constants.TagValue.Search.Query {
             //if let validFetchResult = products.searchStatus {
+        /*
                 switch products.searchStatus {
                 case .searchQuery(let query):
                     let searchPairs = query.searchPairsWithArray()
@@ -677,55 +589,12 @@ extension SearchesHistoryTableViewController: TagListViewDataSource {
                 
             //}
         //}
+ */
         return 1
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
-        
-        // find the product that has been tapped on
-        //let productIndex = Int( tagListView.tag / Constants.Offset.ProductMultiplier )
-        // find the status of the product
-        let code = tagListView.tag % Constants.TagValue.Product.Multiplier
-        
-        // Is the cell related to a query?
-        if code >= Constants.TagValue.Search.NotDefined {
-            // is this a no search defined cell
-            if code == Constants.TagValue.Search.NotDefined {
-                return SearchFetchStatus.noSearchDefined.description
-                // is this a search Loading cell?
-            } else if code == Constants.TagValue.Search.Loading {
-                return TranslatableStrings.Loading
-            } else if code == Constants.TagValue.Search.MoreResults {
-                return SearchFetchStatus.noSearchDefined.description
-                // is this (part of ) a search query cell?
-            } else if code >= Constants.TagValue.Search.Query {
-                //if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-                    switch products.searchStatus {
-                    case .searchQuery(let query):
-                        if query.isEmpty {
-                            return TranslatableStrings.SetupQuery
-                        } else {
-                            let searchPairs = query.searchPairsWithArray()
-                            let tagIndex = tagListView.tag - Constants.TagValue.Search.Query
-                            if tagIndex >= 0 && tagIndex < searchPairs.count {
-                                let array = searchPairs[tagIndex].1
-                                if index >= 0 && index < array.count {
-                                    return array[index]
-                                }
-                            }
-                        }
-                    default:
-                        break
-                    }
-                    
-                    return ProductFetchStatus.description(for: code  - Constants.TagValue.Search.Query)
-                //}
-            }
-        } else if code >= Constants.TagValue.Image {
-            return ImageFetchResult.description(for: code - Constants.TagValue.Image)
-        }
-        
-        return ProductFetchStatus.description(for: code)
+        return title(for:tagListView.tag)
     }
     
     /// Which text should be displayed when the TagListView is collapsed?
@@ -741,20 +610,10 @@ extension SearchesHistoryTableViewController: TagListViewDelegate {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
     
     public func tagListView(_ tagListView: TagListView, didTapTagAt index: Int) {
         
-        // find the product that has been tapped on
-        let productIndex = Int( tagListView.tag / Constants.TagValue.Product.Multiplier )
-        // find the status of the product
-        let code = tagListView.tag % Constants.TagValue.Product.Multiplier
-        // try to reload the product
-        if code == ProductFetchStatus.productNotLoaded("").rawValue  ||
-            code == ProductFetchStatus.loadingFailed("").rawValue {
-            // _ = products.loadProductPair(at: productIndex)
-        }
     }
     
 }

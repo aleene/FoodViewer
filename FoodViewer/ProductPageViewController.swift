@@ -791,12 +791,23 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     internal func startSearch(for string: String, in component: SearchComponent) {
         OFFSearchProducts.manager.search(string, in:component)
+        switchToTab(withIndex:2)
     }
 
-    @objc func searchStarted() {
-        performSegue(withIdentifier: "Unwind For Cancel", sender: self)
-    }
+    //@objc func searchStarted() {
+    //    switchToTab(withIndex:2)
+        // performSegue(withIdentifier: "Unwind For Cancel", sender: self)
+    //}
     
+    private func switchToTab(withIndex index: Int) {
+        // TabBarController -> SplitViewController -> NavigationController -> PageViewController - ViewController
+        if let tabVC = self.parent?.parent?.parent as? UITabBarController {
+            tabVC.selectedIndex = index
+        } else {
+            assert(true, "ProductPageViewController:switchToTab: TabBar hierarchy error")
+        }
+    }
+
     
     // Show an alert if the product can not be loaded
     @objc func alertUser(_ notification: Notification) {
@@ -846,7 +857,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToSuccess), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.changeConfirmButtonToFailure), name:.ProductUpdateFailed, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.searchStarted), name:.SearchStarted, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.searchStarted), name:.SearchStarted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.setPrefixedTitle(_:)), name:.ProductPairUpdated, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductPageViewController.alertUser(_:)), name:.ProductLoadingError, object:nil)
     }
