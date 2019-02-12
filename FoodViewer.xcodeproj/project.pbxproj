@@ -479,7 +479,7 @@
 		5150D9C51F814D830003DE8E /* SearchNutrientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchNutrientsTableViewCell.swift; sourceTree = "<group>"; };
 		5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCompareViewController.swift; sourceTree = "<group>"; };
 		5153FDC41F5016A100F3E20F /* ProductSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSection.swift; sourceTree = "<group>"; };
-		5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OFFProductImageDetailed.swift; path = FoodViewer/jsons/OFFProductImageDetailed.swift; sourceTree = "<group>"; };
+		5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductImageDetailed.swift; sourceTree = "<group>"; };
 		515742581CDB63B100BE8E2D /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Generator.swift; path = RS/RSCode39Generator.swift; sourceTree = "<group>"; };
 		515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Mod43Generator.swift; path = RS/RSCode39Mod43Generator.swift; sourceTree = "<group>"; };
 		5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode93Generator.swift; path = RS/RSCode93Generator.swift; sourceTree = "<group>"; };
@@ -749,6 +749,7 @@
 				51F96663202DA09A00CD58C3 /* OFFProduct.swift */,
 				51AB5F1120342E8D004D74C7 /* OFFProductDetailed.swift */,
 				51F96669202DA48800CD58C3 /* OFFProductImage.swift */,
+				5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */,
 				511D58A820372EC600F5D313 /* OFFProductImageSize.swift */,
 				51F96667202DA44A00CD58C3 /* OFFProductIngredient.swift */,
 				51FDC3142029D99900ED0DD7 /* OFFProductJson.swift */,
@@ -1119,7 +1120,6 @@
 		5180B8FB1C5D3B57002DBD21 = {
 			isa = PBXGroup;
 			children = (
-				5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */,
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
