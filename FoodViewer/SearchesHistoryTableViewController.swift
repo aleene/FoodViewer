@@ -70,6 +70,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             static let TagListViewWithLabel = "Search History TagListView With Label Cell Identifier"
             static let TagListView = "Search History TagListView Cell Identifier"
             static let Label = "Search History Label Cell Identifier"
+            // static let SortOrder = "Search History Sort Order Cell Identifier"
         }
         struct SegueIdentifier {
             static let ShowSearchResults = "Show Search Results Segue Identifier"
@@ -82,11 +83,15 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let numberOfQueryElements = products.allSearchQueries[section].query?.searchPairsWithArray().count else { return 2 }
-        // For each search we specify:
-        // - the search definition (not set or the query elements
-        // - the search results
-        return numberOfQueryElements + 1
+        // A search-description consists of three parts:
+        // - the search components, one row per component (SearchComponent)
+        // - search result sort order (SearchSortOrder)
+        // - the search status (Search.status)
+        
+        // Are there any search components defined?
+        guard let numberOfQueryElements = products.allSearchQueries[section].query?.searchPairsWithArray().count else { return 2 } // no search defined and sort
+        
+        return numberOfQueryElements + 2
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -94,15 +99,29 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         let search = products.allSearchQueries[indexPath.section]
         let tagValue = tag(for: indexPath, for: search)
         // if a query is defined show the query
-        if search.isDefined && indexPath.row < search.componentsCount  {
-            // Search labels with switches to include or exclude the label
-            //  -- tag values as tags and inclusion as labelText
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-            cell.datasource = self
-            cell.tag = tagValue
-            cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
-            cell.labelText = search.text(for:indexPath.row) ?? TranslatableStrings.NotSet
-            cell.width = tableView.frame.size.width
+        if search.isDefined {
+            // is there a search with one or more search components?
+            // for each component show a row with a description
+            if indexPath.row < search.componentsCount  {
+                // Search labels with switches to include or exclude the label
+                //  -- tag values as tags and inclusion as labelText
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+                cell.datasource = self
+                cell.tag = tagValue
+                cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
+                cell.labelText = search.text(for:indexPath.row) ?? TranslatableStrings.NotSet
+                cell.width = tableView.frame.size.width
+                // cell.accessoryType = .none
+                return cell
+            }
+        }
+        // cell for the sortOrder
+        // if there is a search query, the penultimate (row n)
+        // if there is no search query the last (row 1)
+        if (search.isDefined && indexPath.row == search.componentsCount) ||
+            (!search.isDefined && indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
+            cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
             cell.accessoryType = .none
             return cell
         }
@@ -110,6 +129,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         cell.datasource = self
         cell.tag = tagValue
         cell.scheme = ColorSchemes.normal
+        cell.accessoryType = .none
         return cell
     }
     
@@ -126,7 +146,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         // has the search a validQuery?
         if search.isDefined {
             // the first rows define the search
-            if indexPath.row != search.componentsCount {
+            if indexPath.row < search.componentsCount {
                 // the row counts start after the multiplier
                 tag = tag + indexPath.row + Constants.TagValue.Multiplier.Row
             } else {
@@ -164,7 +184,12 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             // the last row defines the search status for a defined query
             return search.status.description
         } else {
-            return search.label(for: remainder - Constants.TagValue.Multiplier.Row) ?? TranslatableStrings.NotSet
+            let row = remainder - Constants.TagValue.Multiplier.Row
+            if row < search.componentsCount {
+                return search.label(for: row) ?? TranslatableStrings.NotSet
+            } else {
+                return "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
+            }
         }
     }
 
@@ -197,7 +222,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                         }
                     }
                 }
-                
+                /*
             case .searchQuery(let query):
                 let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "SearchHeaderView") as! SearchHeaderView
                 headerView.delegate = self
@@ -215,6 +240,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                     headerView.title = TranslatableStrings.NoSearchDefined
                 }
                 return headerView
+ */
             case .loading:
                 label.text = TranslatableStrings.Searching
             default:
@@ -225,17 +251,41 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         tempView.tag = section
         return tempView
     }
-    */
+ */
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let search = products.allSearchQueries[section]
+        if search.isDefined {
+            let category = search.category(for: 0) ?? "?"
+            return "Searching in " + category
+        }
+        return TranslatableStrings.NoSearchDefined
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let search = products.allSearchQueries[section]
+        if search.isDefined  {
+            switch search.status {
+            case .loaded, .partiallyLoaded:
+                let numberOfResults = search.query?.numberOfSearchResults
+                let string = numberOfResults != nil ? "\(numberOfResults!)" : "none"
+                return "Number of results " +  string
+            default:
+                break
+            }
+        }
+        return ""
+    }
     /*
     // http://stackoverflow.com/questions/25902288/detected-a-case-where-constraints-ambiguously-suggest-a-height-of-zero
     override func tableView(_ tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
  */
+
     /*
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if let validFetchResult = products.searchStatus {
+        if let validFetchResult = search.status {
             switch validFetchResult {
             case .more:
                 // no header required in this case
@@ -247,6 +297,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         return UITableViewAutomaticDimension
     }
  */
+
     /*
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // if the user starts scrolling the barcode search focus can be reset

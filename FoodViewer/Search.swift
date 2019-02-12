@@ -50,6 +50,10 @@ class Search {
     func category(for component:Int) -> String? {
         return query?.searchPairsWithArray()[component].0.description
     }
+    
+    var sortOrder: SearchSortOrder? {
+        return query?.sortOrder
+    }
 
     func label(for component:Int) -> String? {
         return query?.searchPairsWithArray()[component].1.first
