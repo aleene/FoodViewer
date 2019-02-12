@@ -10,6 +10,9 @@ import UIKit
 
 class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+    private struct Constant {
+        static let RowOffset = 1
+    }
     
     // MARK: - External properties
     
@@ -19,7 +22,7 @@ class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPick
         didSet {
             if let validCurrentSortOrder = currentSortOrder,
                 let selectedRow = SearchSortOrder.all.index(where: { $0 == validCurrentSortOrder } ) {
-                pickerView.selectRow(selectedRow + 1, inComponent: 0, animated: false)
+                //pickerView.selectRow(selectedRow + Constant.RowOffset, inComponent: 0, animated: false)
             } 
         }
     }
@@ -39,7 +42,7 @@ class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     internal func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        selectedSortOrder = row > 0 ? SearchSortOrder.all[row - 1] : nil
+        selectedSortOrder = row > 0 ? SearchSortOrder.all[row - Constant.RowOffset] : nil
     }
     
     
@@ -56,7 +59,7 @@ class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPick
         if row == 0 {
             return "---"
         } else {
-            return SearchSortOrder.all[row - 1].description
+            return SearchSortOrder.all[row - Constant.RowOffset].description
         }
     }
     

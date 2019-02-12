@@ -74,6 +74,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
         struct SegueIdentifier {
             static let ShowSearchResults = "Show Search Results Segue Identifier"
+            static let SelectSortOrder = "Select Sort Order Segue Identifier"
         }
     }
     
@@ -136,7 +137,20 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSearch = products.allSearchQueries[indexPath.section]
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+        if let validSearch = selectedSearch {
+            if validSearch.isDefined {
+            // is there a search with one or more search components?
+            // for each component show a row with a description
+                if indexPath.row < validSearch.componentsCount  {
+                    performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+                }
+            }
+            if (validSearch.isDefined && indexPath.row == validSearch.componentsCount) ||
+            (!validSearch.isDefined && indexPath.row == 1) {
+                performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
+            }
+        }
+    
     }
     
     private func tag(for indexPath:IndexPath, for search:Search) -> Int {
@@ -314,6 +328,10 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 if let vc = segue.destination as? SearchResultsTableViewController {
                     vc.search = selectedSearch
                 }
+            case Storyboard.SegueIdentifier.SelectSortOrder:
+                if let vc = segue.destination as? SetSortOrderViewController {
+                    vc.currentSortOrder = selectedSearch?.sortOrder
+                }
             default: break
             }
         }
@@ -339,25 +357,14 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
      }
      */
     
-    /*
     @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SetSortOrderViewController {
-            if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-                switch validFetchResult {
-                case .searchQuery(let query):
-                    if let validNewSortOrder = vc.selectedSortOrder {
-                        if validNewSortOrder != query.sortOrder && !query.isEmpty {
-                            query.sortOrder =  validNewSortOrder
-                            OFFProducts.manager.startSearch()
-                        }
-                    }
-                default:
-                    break
-                }
+            if let validSortOrder = vc.selectedSortOrder {
+                selectedSearch?.query?.sortOrder = validSortOrder
+                selectedSearch?.startSearch()
             }
         }
     }
- */
     
     /*
      

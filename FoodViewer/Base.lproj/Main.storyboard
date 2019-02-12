@@ -2245,6 +2245,9 @@
                     <navigationItem key="navigationItem" id="LDj-w5-ftW"/>
                     <connections>
                         <segue destination="5P6-ZC-dM3" kind="show" identifier="Show Search Results Segue Identifier" id="6Zd-TA-lvc"/>
+                        <segue destination="wWn-z8-Ycj" kind="popoverPresentation" identifier="Select Sort Order Segue Identifier" popoverAnchorView="KJ1-AA-utB" id="vyX-fv-pMP">
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                        </segue>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JHI-Zk-bhW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5279,12 +5282,13 @@
                     <connections>
                         <outlet property="navItem" destination="ihQ-81-7Sx" id="xT4-Kw-t0m"/>
                         <outlet property="pickerView" destination="3TJ-87-VCD" id="p8E-UY-0Cb"/>
+                        <segue destination="xjd-YS-Sel" kind="unwind" unwindAction="unwindSetSortOrder:" id="mFE-sf-nKs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5z5-eh-uLy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xjd-YS-Sel" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="772" y="-413"/>
+            <point key="canvasLocation" x="1029" y="3620"/>
         </scene>
         <!--Select Language And Image Type View Controller-->
         <scene sceneID="N9V-q1-oQM">
