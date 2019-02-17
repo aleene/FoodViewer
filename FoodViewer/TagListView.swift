@@ -51,6 +51,8 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         static let defaultVerticalPadding: CGFloat = 5.0
         /// Default padding between view objects
         static let defaultHorizontalPadding: CGFloat = 5.0
+        /// margin between clear button and trailing edge
+        static let defaultHorizontalClearPadding: CGFloat = 30.0
         /// Default margin between tag rows
         static let defaultVerticalMargin: CGFloat = 1.5
         /// Default margin outside a tag row
@@ -790,7 +792,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         guard tagViews.count > 0 else { return }
         
         // calculate the rowWidth available for tags
-        let rowWidth = allowsRemoval && clearButtonIsEnabled ? frame.size.width - clearView.frame.width : frame.size.width
+        let rowWidth = allowsRemoval && clearButtonIsEnabled ? frame.size.width - clearView.frame.width - Constants.defaultHorizontalClearPadding : frame.size.width
         //print(frame.size.width, rowWidth)
         for (index,tagView) in tagViews.enumerated() {
             tagView.cornerRadius = self.cornerRadius
@@ -921,11 +923,11 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         inputTextField.frame = CGRect(
             x: inputTextViewOrigin.x,
             y: inputTextViewOrigin.y,
-            width: frame.width - inputTextViewOrigin.x - clearButtonWidth,
+            width: frame.width - inputTextViewOrigin.x - clearButtonWidth  - Constants.defaultHorizontalClearPadding,
             height: tagViewHeight //  + Constants.defaultVerticalPadding
         )
         //print("frame",frame)
-        //print(inputTextField.frame)
+        // print("input", inputTextField.frame)
 
         /*
          var exclusionPaths: [UIBezierPath] = []
@@ -978,7 +980,7 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
         // And vertically centered in the TagListView
         // Note that if TagListView is in another view, you might not see it.
         
-        clearView.frame.origin.x = frame.size.width - clearView.frame.size.width
+        clearView.frame.origin.x = frame.size.width - clearView.frame.size.width - Constants.defaultHorizontalClearPadding
         clearView.frame.origin.y = (frame.size.height - clearView.frame.size.height) / 2.0
         //print("clear",clearView.frame)
         addSubview(clearView)

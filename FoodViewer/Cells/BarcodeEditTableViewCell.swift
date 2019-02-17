@@ -55,7 +55,7 @@ class BarcodeEditTableViewCell: UITableViewCell {
 
             }
             
-            segmentedControl.isEnabled = barcode != nil ? true : false
+            segmentedControl?.isEnabled = editMode
         }
     }
     
@@ -83,12 +83,14 @@ class BarcodeEditTableViewCell: UITableViewCell {
             barcodeTextField.layer.cornerRadius = 5
             barcodeTextField.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             barcodeTextField.clipsToBounds = true
+            segmentedControl.isEnabled = true
             
         } else {
             barcodeTextField.borderStyle = .roundedRect
             barcodeTextField.backgroundColor = UIColor.white
             barcodeTextField.layer.borderColor = UIColor.white.cgColor
         }
+        segmentedControl?.isEnabled = editMode
     }
 
 }

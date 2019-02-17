@@ -50,7 +50,7 @@ class ProductNameTableViewCell: UITableViewCell {
         } else {
             nameTextView?.layer.borderColor = UIColor.white.cgColor
         }
-        
+        print ("setTextView", self.frame)
         //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
         //    nameTextView?.sizeToFit()
         //}

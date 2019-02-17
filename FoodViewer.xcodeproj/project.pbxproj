@@ -120,6 +120,7 @@
 		5150D9C81F8154F20003DE8E /* SelectCompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */; };
 		5153FDC51F5016A100F3E20F /* ProductSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5153FDC41F5016A100F3E20F /* ProductSection.swift */; };
 		5154DEE52211C5F900C49EBE /* OFFProductImageDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */; };
+		5154DEE722141C8800C49EBE /* AddSearchQueryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5154DEE622141C8800C49EBE /* AddSearchQueryTableViewController.swift */; };
 		515742691CDB63B200BE8E2D /* RSCode39Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742581CDB63B100BE8E2D /* RSCode39Generator.swift */; };
 		5157426A1CDB63B200BE8E2D /* RSCode39Mod43Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */; };
 		5157426B1CDB63B200BE8E2D /* RSCode93Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */; };
@@ -480,6 +481,7 @@
 		5150D9C71F8154F20003DE8E /* SelectCompareViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectCompareViewController.swift; sourceTree = "<group>"; };
 		5153FDC41F5016A100F3E20F /* ProductSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductSection.swift; sourceTree = "<group>"; };
 		5154DEE42211C5F900C49EBE /* OFFProductImageDetailed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFFProductImageDetailed.swift; sourceTree = "<group>"; };
+		5154DEE622141C8800C49EBE /* AddSearchQueryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSearchQueryTableViewController.swift; sourceTree = "<group>"; };
 		515742581CDB63B100BE8E2D /* RSCode39Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Generator.swift; path = RS/RSCode39Generator.swift; sourceTree = "<group>"; };
 		515742591CDB63B200BE8E2D /* RSCode39Mod43Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode39Mod43Generator.swift; path = RS/RSCode39Mod43Generator.swift; sourceTree = "<group>"; };
 		5157425A1CDB63B200BE8E2D /* RSCode93Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RSCode93Generator.swift; path = RS/RSCode93Generator.swift; sourceTree = "<group>"; };
@@ -929,6 +931,7 @@
 		512702EF21FCB5A8002EC65C /* SearchScene */ = {
 			isa = PBXGroup;
 			children = (
+				5154DEE622141C8800C49EBE /* AddSearchQueryTableViewController.swift */,
 				512702ED21FCB58F002EC65C /* SearchesHistoryTableViewController.swift */,
 				51749977220762EF00C3ED3E /* SearchResultsTableViewController.swift */,
 				5173BD94220F34B4001AC1F6 /* SingleSearchProductTableViewController.swift */,
@@ -1721,6 +1724,7 @@
 				510DB60B205AF02500782DEE /* NutritionFactsLabelStyle.swift in Sources */,
 				51C86B5F1C6E272A002B7566 /* CompletionTableViewCell.swift in Sources */,
 				51E1C3632045DBEB00CB68B1 /* OFFImageDeselectAPI.swift in Sources */,
+				5154DEE722141C8800C49EBE /* AddSearchQueryTableViewController.swift in Sources */,
 				515742701CDB63B200BE8E2D /* RSCodeReaderViewController.swift in Sources */,
 				51CF42C91E02F4A200C9AD91 /* TagView.swift in Sources */,
 				51E1C36A2046B9F600CB68B1 /* ImageUpload.swift in Sources */,

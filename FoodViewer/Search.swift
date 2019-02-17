@@ -69,13 +69,18 @@ class Search {
         }
     }
 
+    init() {
+        self.query = SearchTemplate()
+    }
     
     // initialize with a defined template
-    init(query:SearchTemplate) {
+    convenience init(query:SearchTemplate) {
+        self.init()
         self.query = query
     }
     
-    init(for string: String?, in category: SearchComponent) {
+    convenience init(for string: String?, in category: SearchComponent) {
+        self.init()
         guard string != nil else { return }
         let validString = string!.contains(":") ?
             string!.split(separator:":").map(String.init)[1] : string!

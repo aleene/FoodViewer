@@ -22,9 +22,15 @@ class NameTableViewCell: UITableViewCell {
             } else {
                 brandLabel.text = TranslatableStrings.NoBrandsIndicated
             }
+            //print ("name xxx", self.frame)
         }
+
     }
 
-    @IBOutlet weak var brandLabel: UILabel!
+    @IBOutlet weak var brandLabel: UILabel! {
+        didSet {
+            //print ("name yyy", self.frame)
+        }
+    }
 
 }

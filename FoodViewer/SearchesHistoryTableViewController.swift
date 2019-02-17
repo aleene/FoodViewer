@@ -28,7 +28,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
     }
     
-    fileprivate var products = OFFSearchProducts.manager
+    fileprivate var searches = OFFSearchProducts.manager
     
     //fileprivate var focusOnNewSearchedProductPair = false
     
@@ -70,17 +70,18 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
             static let TagListViewWithLabel = "Search History TagListView With Label Cell Identifier"
             static let TagListView = "Search History TagListView Cell Identifier"
             static let Label = "Search History Label Cell Identifier"
-            // static let SortOrder = "Search History Sort Order Cell Identifier"
+            static let Button = "Search History Button Cell Identifier"
         }
         struct SegueIdentifier {
             static let ShowSearchResults = "Show Search Results Segue Identifier"
             static let SelectSortOrder = "Select Sort Order Segue Identifier"
+            static let AddSearch = "Add Search Query Segue Identifier"
         }
     }
     
     // There is a section for each search
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return products.allSearchQueries.count
+        return searches.allSearchQueries.count != 0 ? searches.allSearchQueries.count : 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -89,42 +90,45 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         // - search result sort order (SearchSortOrder)
         // - the search status (Search.status)
         
+        guard searches.allSearchQueries.count != 0 else { return 1 }
         // Are there any search components defined?
-        guard let numberOfQueryElements = products.allSearchQueries[section].query?.searchPairsWithArray().count else { return 2 } // no search defined and sort
+        guard let numberOfQueryElements = searches.allSearchQueries[section].query?.searchPairsWithArray().count else { return 2 } // no search defined and sort
         
         return numberOfQueryElements + 2
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let search = products.allSearchQueries[indexPath.section]
-        let tagValue = tag(for: indexPath, for: search)
-        // if a query is defined show the query
-        if search.isDefined {
-            // is there a search with one or more search components?
-            // for each component show a row with a description
-            if indexPath.row < search.componentsCount  {
-                // Search labels with switches to include or exclude the label
-                //  -- tag values as tags and inclusion as labelText
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
-                cell.datasource = self
-                cell.tag = tagValue
-                cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
-                cell.labelText = search.text(for:indexPath.row) ?? TranslatableStrings.NotSet
-                cell.width = tableView.frame.size.width
+        var tagValue = Constants.TagValue.Search.NotDefined
+        if searches.allSearchQueries.count > 0 {
+            let search = searches.allSearchQueries[indexPath.section]
+            tagValue = tag(for: indexPath, for: search)
+            // if a query is defined show the query
+            if search.isDefined {
+                // is there a search with one or more search components?
+                // for each component show a row with a description
+                if indexPath.row < search.componentsCount  {
+                    // Search labels with switches to include or exclude the label
+                    //  -- tag values as tags and inclusion as labelText
+                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithLabel, for: indexPath) as! TagListViewLabelTableViewCell //
+                    cell.datasource = self
+                    cell.tag = tagValue
+                    cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
+                    cell.labelText = search.text(for:indexPath.row) ?? TranslatableStrings.NotSet
+                    cell.width = tableView.frame.size.width
                 // cell.accessoryType = .none
+                    return cell
+                }
+            }
+            // cell for the sortOrder
+            // if there is a search query, the penultimate (row n)
+            // if there is no search query the last (row 1)
+            if (search.isDefined && indexPath.row == search.componentsCount) ||
+                (!search.isDefined && indexPath.row == 1) {
+                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
+                cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
+                cell.accessoryType = .none
                 return cell
             }
-        }
-        // cell for the sortOrder
-        // if there is a search query, the penultimate (row n)
-        // if there is no search query the last (row 1)
-        if (search.isDefined && indexPath.row == search.componentsCount) ||
-            (!search.isDefined && indexPath.row == 1) {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
-            cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
-            cell.accessoryType = .none
-            return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
         cell.datasource = self
@@ -136,7 +140,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedSearch = products.allSearchQueries[indexPath.section]
+        selectedSearch = searches.allSearchQueries[indexPath.section]
         if let validSearch = selectedSearch {
             if validSearch.isDefined {
             // is there a search with one or more search components?
@@ -156,7 +160,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     private func tag(for indexPath:IndexPath, for search:Search) -> Int {
         // the section indicates the query
         var tag = indexPath.section * Constants.TagValue.Multiplier.Section
-        let search = products.allSearchQueries[indexPath.section]
+        let search = searches.allSearchQueries[indexPath.section]
         // has the search a validQuery?
         if search.isDefined {
             // the first rows define the search
@@ -191,9 +195,10 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     }
     
     private func title(for tag:Int) -> String {
+        guard searches.allSearchQueries.count > 0 else { return TranslatableStrings.NotSet }
         let remainder = tag % Constants.TagValue.Multiplier.Section
         let section = ( tag - remainder ) / Constants.TagValue.Multiplier.Section
-        let search = products.allSearchQueries[section]
+        let search = searches.allSearchQueries[section]
         if remainder < Constants.TagValue.Multiplier.Row {
             // the last row defines the search status for a defined query
             return search.status.description
@@ -267,7 +272,8 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     }
  */
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let search = products.allSearchQueries[section]
+        guard searches.allSearchQueries.count > 0 else { return nil }
+        let search = searches.allSearchQueries[section]
         if search.isDefined {
             let category = search.category(for: 0) ?? "?"
             return "Searching in " + category
@@ -276,7 +282,8 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        let search = products.allSearchQueries[section]
+        guard searches.allSearchQueries.count > 0 else { return nil }
+        let search = searches.allSearchQueries[section]
         if search.isDefined  {
             switch search.status {
             case .loaded, .partiallyLoaded:
@@ -366,6 +373,21 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         }
     }
     
+    @IBAction func unwindAddSearchQueryForCancel(_ segue:UIStoryboardSegue) {
+        // nothing needs to be done?
+        
+    }
+
+    @IBAction func unwindAddSearchQueryForDone(_ segue:UIStoryboardSegue) {
+        if let vc = segue.source as? AddSearchQueryTableViewController {
+            if let validSearch = vc.search,
+                validSearch.isDefined {
+                searches.allSearchQueries.append(validSearch)
+                selectedSearch = validSearch
+            }
+        }
+    }
+
     /*
      
      @IBAction func settingsDone(_ segue:UIStoryboardSegue) {
@@ -574,6 +596,17 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
         OFFProducts.manager.flushImages()
     }
 }
+
+// MARK: - SearchHeaderDelegate Functions
+
+extension SearchesHistoryTableViewController: ButtonCellDelegate {
+
+    // function to let the delegate know that a tag was single tapped
+    func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
+        performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+    }
+}
+
 
 // MARK: - SearchHeaderDelegate Functions
 

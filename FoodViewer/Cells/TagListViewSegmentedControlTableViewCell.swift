@@ -32,14 +32,8 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     @IBOutlet weak var segmentedControl: UISegmentedControl! {
         didSet {
-            //print(self.traitCollection)
-            //if self.traitCollection.horizontalSizeClass == .compact {
-                segmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
-                segmentedControl.setImage(UIImage.init(named: "CheckMark"), forSegmentAt: Constants.SegmentedControlIndex.Included)
-            //} else {0
-             //   segmentedControl.setTitle(Constants.SegmentedControlStrings.Left, forSegmentAt: Constants.SegmentedControlIndex.Excluded)
-             //   segmentedControl.setTitle(Constants.SegmentedControlStrings.Right, forSegmentAt: Constants.SegmentedControlIndex.Included)
-            //}
+                //segmentedControl.setImage(UIImage.init(named: "NotOK"), forSegmentAt: Constants.SegmentedControlIndex.Excluded)
+                //segmentedControl.setImage(UIImage.init(named: "CheckMark"), forSegmentAt: Constants.SegmentedControlIndex.Included)
             segmentedControl.selectedSegmentIndex = Constants.SegmentedControlIndex.Included
             segmentedControl.isEnabled = allowInclusionEdit && editMode
         }
@@ -117,8 +111,12 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     var width: CGFloat = CGFloat(320.0) {
         didSet {
+            // for some reason the width of the tagListView is not well set by the storyboard
             // also correct for the clear tags button
-            tagListView?.frame.size.width = width - 2 * Constants.Margin - segmentedControl.frame.size.width
+            let dus = self.width - 2 * Constants.Margin - segmentedControl.frame.size.width
+            tagListView?.frame.size.width = dus
+            // print ("sel",self.width, segmentedControl.frame.size.width, dus)
+
         }
     }
     
