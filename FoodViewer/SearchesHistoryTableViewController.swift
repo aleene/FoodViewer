@@ -18,12 +18,13 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 static let Row = 10
             }
             struct Search {
-                static let Initialized = 0
-                static let NotDefined = 1
-                static let NotLoaded = 2
-                static let Loading = 3
-                static let Loaded = 4
-                static let Failed = 5
+                static let Unitialized = SearchFetchStatus.uninitialized.rawValue
+                static let Initialized = SearchFetchStatus.initialized.rawValue
+                static let NotDefined = SearchFetchStatus.notDefined.rawValue
+                static let NotLoaded = SearchFetchStatus.notLoaded.rawValue
+                static let Loading = SearchFetchStatus.loading.rawValue
+                static let Loaded = SearchFetchStatus.loaded.rawValue
+                static let Failed = SearchFetchStatus.loadingFailed("").rawValue
             }
         }
     }
@@ -113,7 +114,7 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                     cell.datasource = self
                     cell.tag = tagValue
                     cell.categoryLabel.text = search.category(for:indexPath.row) ?? TranslatableStrings.NotSet
-                    cell.labelText = search.text(for:indexPath.row) ?? TranslatableStrings.NotSet
+                    cell.labelText = search.text(for:indexPath.row) ?? ""
                     cell.width = tableView.frame.size.width
                 // cell.accessoryType = .none
                     return cell
@@ -126,70 +127,94 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 (!search.isDefined && indexPath.row == 1) {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Label, for: indexPath) as! NameTableViewCell //
                 cell.brandLabel.text = "Results sorted by " + ( search.sortOrder?.description ?? "No sort order defined" )
-                cell.accessoryType = .none
+                cell.accessoryType = .disclosureIndicator
                 return cell
             }
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+            cell.delegate = self
+            cell.tag = tagValue
+            cell.editMode = true
+            switch search.status {
+            case .loaded, .loading, .partiallyLoaded:
+                cell.title = "Show search results"
+            case .notLoaded:
+                cell.title = "Load search results"
+            default:
+                cell.title = "????"
+            }
+            cell.accessoryType = .none
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Button, for: indexPath) as! ButtonTableViewCell
+            cell.delegate = self
+            cell.tag = tagValue
+            cell.editMode = true
+            cell.title = "Create search query"
+                cell.accessoryType = .none
+            return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-        cell.datasource = self
-        cell.tag = tagValue
-        cell.scheme = ColorSchemes.normal
-        cell.accessoryType = .none
-        return cell
     }
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedSearch = searches.allSearchQueries[indexPath.section]
-        if let validSearch = selectedSearch {
-            if validSearch.isDefined {
-            // is there a search with one or more search components?
-            // for each component show a row with a description
-                if indexPath.row < validSearch.componentsCount  {
+        if searches.allSearchQueries.count > 0 {
+            selectedSearch = searches.allSearchQueries[indexPath.section]
+            if let validSearch = selectedSearch {
+                if validSearch.isDefined {
+                    // the search is defined let's edit it
+                    if indexPath.row < validSearch.componentsCount  {
+                        performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+                    } else if indexPath.row == validSearch.componentsCount {
+                        performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
+                    } else if indexPath.row == validSearch.componentsCount + 1 {
                     performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+                    }
+                } else if
+                    // the penultimate row
+                    (!validSearch.isDefined && indexPath.row == 1) {
+                    performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
                 }
             }
-            if (validSearch.isDefined && indexPath.row == validSearch.componentsCount) ||
-            (!validSearch.isDefined && indexPath.row == 1) {
-                performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectSortOrder, sender: self)
-            }
         }
-    
     }
     
-    private func tag(for indexPath:IndexPath, for search:Search) -> Int {
+    private func tag(for indexPath:IndexPath, for search:Search?) -> Int {
         // the section indicates the query
         var tag = indexPath.section * Constants.TagValue.Multiplier.Section
-        let search = searches.allSearchQueries[indexPath.section]
-        // has the search a validQuery?
-        if search.isDefined {
-            // the first rows define the search
-            if indexPath.row < search.componentsCount {
-                // the row counts start after the multiplier
-                tag = tag + indexPath.row + Constants.TagValue.Multiplier.Row
+        if let validSearch = search {
+            // has the search a validQuery?
+            if validSearch.isDefined {
+                // the first rows define the search
+                if indexPath.row < validSearch.componentsCount {
+                    // the row counts start after the multiplier
+                    tag = tag + indexPath.row + Constants.TagValue.Multiplier.Row
+                } else {
+                    // the last row defines the search status for a defined query
+                    switch validSearch.status {
+                    case .notLoaded:
+                        tag = tag + Constants.TagValue.Search.NotLoaded
+                    case .loading:
+                        tag = tag + Constants.TagValue.Search.Loading
+                    case .loadingFailed:
+                        tag = tag + Constants.TagValue.Search.Failed
+                    default:
+                        break
+                    }
+                }
             } else {
-            // the last row defines the search status for a defined query
-                switch search.status {
-                case .notLoaded:
-                    tag = tag + Constants.TagValue.Search.NotLoaded
-                case .loading:
-                    tag = tag + Constants.TagValue.Search.Loading
-                case .loadingFailed:
-                    tag = tag + Constants.TagValue.Search.Failed
+                // the status if there is not a query
+                switch validSearch.status {
+                case .initialized:
+                    tag = tag + Constants.TagValue.Search.Initialized
+                case .notDefined:
+                    tag = tag + Constants.TagValue.Search.NotDefined
                 default:
                     break
                 }
             }
         } else {
-            // the status if there is not a query
-            switch search.status {
-            case .initialized:
-                tag = tag + Constants.TagValue.Search.Initialized
-            case .notDefined:
-                tag = tag + Constants.TagValue.Search.NotDefined
-            default:
-                break
-            }
+            
+            tag = tag + Constants.TagValue.Search.Unitialized
         }
         return tag
     }
@@ -339,30 +364,15 @@ class SearchesHistoryTableViewController: UITableViewController, UITextFieldDele
                 if let vc = segue.destination as? SetSortOrderViewController {
                     vc.currentSortOrder = selectedSearch?.sortOrder
                 }
+            case Storyboard.SegueIdentifier.AddSearch:
+                if let vc = segue.destination as? AddSearchQueryTableViewController {
+                    vc.search = selectedSearch
+                }
+
             default: break
             }
         }
     }
-    
-    
-    // private var productIndexForMainImage: Int? = nil
-    
-    /*
-     @IBAction func unwindNewSearch(_ segue:UIStoryboardSegue) {
-     if let vc = segue.source as? BarcodeScanViewController {
-     // the user has done a barcode scan, so switch to the right tab
-     switchToTab(withIndex: 0)
-     // This will retrieve the corresponding product
-     barcodeType = BarcodeType(typeCode:vc.type, value:vc.barcode, type:currentProductType)
-     // update the interface
-     searchTextField.text = vc.barcode
-     focusOnNewSearchedProductPair = true
-     performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
-     } else {
-     assert(true, "ProductTableViewController:unwindNewSearch BarcodeScanViewController hierarchy error")
-     }
-     }
-     */
     
     @IBAction func unwindSetSortOrder(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SetSortOrderViewController {
@@ -603,7 +613,22 @@ extension SearchesHistoryTableViewController: ButtonCellDelegate {
 
     // function to let the delegate know that a tag was single tapped
     func buttonTableViewCell(_ sender: ButtonTableViewCell, receivedTapOn button:UIButton) {
-        performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+        if searches.allSearchQueries.count > 0 {
+            let remainder = sender.tag % Constants.TagValue.Multiplier.Section
+            let section = ( sender.tag - remainder ) / Constants.TagValue.Multiplier.Section
+            selectedSearch = searches.allSearchQueries[section]
+            switch searches.allSearchQueries[section].status {
+            case .notLoaded,
+                 .partiallyLoaded,
+                 .loaded,
+                 .loading:
+                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+            default:
+                break
+            }
+        } else {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+        }
     }
 }
 
@@ -649,10 +674,27 @@ extension SearchesHistoryTableViewController: TagListViewCellDelegate {
     
     // function to let the delegate know that a tag has been single
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedSingleTapOn tagListView:TagListView) {
+        if searches.allSearchQueries.count > 0 {
+            let remainder = tagListView.tag % Constants.TagValue.Multiplier.Section
+            let section = ( tagListView.tag - remainder ) / Constants.TagValue.Multiplier.Section
+            selectedSearch = searches.allSearchQueries[section]
+            switch searches.allSearchQueries[section].status {
+            case .notLoaded,
+                 .partiallyLoaded,
+                 .loaded,
+                 .loading:
+                performSegue(withIdentifier: Storyboard.SegueIdentifier.ShowSearchResults, sender: self)
+            default:
+                break
+            }
+        } else {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.AddSearch, sender: self)
+        }
     }
     
     // function to let the delegate know that a tag has been double tapped
     func tagListViewTableViewCell(_ sender: TagListViewTableViewCell, receivedDoubleTapOn tagListView:TagListView) {
+        
     }
 }
 

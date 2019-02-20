@@ -439,7 +439,9 @@ class AddSearchQueryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // create an empty search on start
-        search = Search.init()
+        if search == nil {
+            search = Search.init()
+        }
         tableStructure = setupSections()
         title = "Define Search"
         self.tableView.estimatedRowHeight = 44.0

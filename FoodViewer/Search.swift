@@ -16,17 +16,7 @@ class Search {
         static let SearchPageKey = "OFFSearchProducts.Notification.SearchPage.Key"
     }
     
-    var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                status = .notLoaded
-            } else {
-                status = .initialized
-            }
-        }
-    }
-    
-    var status: SearchFetchStatus = .initialized
+    var query: SearchTemplate? = nil
     
     var isDefined: Bool {
         if let count = query?.searchPairsWithArray().count {
@@ -44,6 +34,24 @@ class Search {
         }
     }
     
+    var status: SearchFetchStatus {
+        if query == nil {
+            return .uninitialized
+        } else {
+            if componentsCount > 0 {
+                if productPairs.count > 0 {
+                    return loadStatus
+                } else {
+                    return .notLoaded
+                }
+            } else {
+                return .initialized
+            }
+        }
+    }
+    
+    private var loadStatus: SearchFetchStatus = .notLoaded
+
     // Contains all the search fetch results
     var productPairs: [ProductPair] = []
     
@@ -101,7 +109,6 @@ class Search {
     
     func startSearch() {
         if query != nil {
-            // searchQueryProduct = product
             loadAll()
         }
     }
@@ -165,7 +172,7 @@ class Search {
                 let userInfo: [String:Any] = [Notification.SearchStringKey:"Search set",
                                               Notification.SearchPageKey:currentSearchPage]
                 NotificationCenter.default.post(name: .SearchStarted, object:nil, userInfo: userInfo)
-                
+                loadStatus = .loading
                 DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
                     let fetchResult = OFFSearchRequest().fetchProducts(for:validQuery, on:self.currentSearchPage)
                     DispatchQueue.main.async(execute: { () -> Void in
@@ -187,9 +194,9 @@ class Search {
                             }
                             // are there more products available?
                             if searchResult.0 > self.productPairs.count + 1 {
-                                self.status = .partiallyLoaded
+                                self.loadStatus = .partiallyLoaded
                             } else {
-                                self.status = .loaded
+                                self.loadStatus = .loaded
                             }
                             
                             //    self.setCurrentProductPairs()
@@ -197,7 +204,7 @@ class Search {
                                                           Notification.SearchOffsetKey:searchResult.1 * searchResult.2]
                             NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
                         case .loadingFailed(let barcodeString):
-                            self.status = .loadingFailed(barcodeString)
+                            self.loadStatus = .loadingFailed(barcodeString)
                             let userInfo: [String:Any] = [:]
                             NotificationCenter.default.post(name: .SearchLoaded, object:nil, userInfo: userInfo)
                         default:
@@ -237,7 +244,7 @@ class Search {
     func flush() {
         print("Search.flush - flushing products")
         productPairs = []
-        status = .notLoaded
+        loadStatus = .notLoaded
     }
 }
 

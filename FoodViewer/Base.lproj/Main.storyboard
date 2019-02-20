@@ -2245,7 +2245,7 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="byB-Xn-N5p">
                                             <rect key="frame" x="20" y="11" width="348" height="22"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <connections>
                                                 <action selector="buttonTapped:" destination="xV8-Ch-6h0" eventType="touchUpInside" id="KKk-7r-FfH"/>
                                             </connections>
@@ -4993,7 +4993,7 @@
             <objects>
                 <navigationController id="3f0-DT-UvG" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vwB-4b-xNd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

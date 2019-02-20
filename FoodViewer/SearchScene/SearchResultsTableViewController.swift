@@ -238,35 +238,6 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
                 if let vc = segue.destination as? SingleSearchProductTableViewController {
                     vc.selectedProductPair = selectedProductPair
                 }
-                /*
-            case Storyboard.SegueIdentifier.ShowSortOrder:
-                if let vc = segue.destination as? SetSortOrderViewController {
-                    // The segue can only be initiated from a button within a searchHeaderView
-                    if let button = sender as? UIButton {
-                        if button.superview?.superview as? SearchHeaderView != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of  the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
-                                ppc.delegate = self
-                                
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                //if let validFetchResult = products.productPair(at: 0)?.remoteStatus {
-                                    switch products.searchStatus {
-                                    case .searchQuery(let query):
-                                        vc.currentSortOrder = query.sortOrder
-                                    default:
-                                        break
-                                    }
-                                    
-                                //}
-                            }
-                        }
-                    }
-                }
-                */
             default: break
             }
 
@@ -352,8 +323,13 @@ class SearchResultsTableViewController: UITableViewController, UITextFieldDelega
         tableView.allowsSelection = true
         tableView.register(UINib(nibName: "SearchHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "SearchHeaderView")
         
-        if search != nil {
-            search?.startSearch()
+        if let validSearch = search {
+            switch validSearch.status {
+            case .notLoaded:
+                search?.startSearch()
+            default:
+                tableView.reloadData()
+            }
         }
     }
     
