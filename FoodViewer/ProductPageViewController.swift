@@ -148,19 +148,19 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                         setViewControllers(
                             [viewController(for:pageIndex)],
                             direction: .forward,
-                            animated: true, completion: nil)
+                            animated: false, completion: nil)
                     } else {
                         setViewControllers(
                             [viewController(for:pageIndex)],
                             direction: .reverse,
-                            animated: true, completion: nil)
+                            animated: false, completion: nil)
                     }
                 }
             } else {
                 setViewControllers(
                     [viewController(for:pageIndex)],
                     direction: .forward,
-                    animated: true, completion: nil)
+                    animated: false, completion: nil)
             }
             
             initPage(pageIndex)
@@ -770,12 +770,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         OFFProducts.manager.flushImages()
     }
         
-}
-
-// Definition:
-extension Notification.Name {
-    //static let ProductUpdateSucceeded = Notification.Name("Product Update Succeeded")
-    //static let ProductUpdateFailed = Notification.Name("Product Update Failed")
 }
 
 // MARK: - TextField Delegation Functions
