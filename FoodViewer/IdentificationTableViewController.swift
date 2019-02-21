@@ -11,52 +11,46 @@ import MobileCoreServices
 
 class IdentificationTableViewController: UITableViewController {
     
+    
     private struct TextConstants {
-        static let ShowIdentificationTitle = TranslatableStrings.Image
-        static let ViewControllerTitle = TranslatableStrings.Identification
-        static let NoCommonName = TranslatableStrings.NoGenericNameAvailable
-        static let NoName = TranslatableStrings.NoName
-        static let NoQuantity = TranslatableStrings.NoQuantityAvailable
+        static let ShowIdentificationTitleX = TranslatableStrings.Image
+        static let ViewControllerTitleX = TranslatableStrings.Identification
+        static let NoCommonNameX = TranslatableStrings.NoGenericNameAvailable
+        static let NoNameX = TranslatableStrings.NoName
+        static let NoQuantityX = TranslatableStrings.NoQuantityAvailable
     }
+    
+    // MARK: - public variables
+    
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            delegate?.productPageViewControllerdelegate = self
+        }
+    }
+    
     
     fileprivate var tableStructure: [SectionType] = []
     
     fileprivate enum SectionType {
         case barcode(Int, String)
-        //case barcodeSearch(Int, String)
         case name(Int, String)
-        //case nameSearch(Int, String)
         case genericName(Int, String)
-        //case genericNameSearch(Int, String)
         case languages(Int, String)
-        //case languagesSearch(Int, String)
         case brands(Int, String)
-        //case brandsSearch(Int, String)
         case packaging(Int, String)
-        //case packagingSearch(Int, String)
         case quantity(Int, String)
-        //case quantitySearch(Int, String)
         case image(Int, String)
-        //case imageSearch(Int, String)
         
         var header: String {
             switch self {
             case .barcode(_, let headerTitle),
-                 //.barcodeSearch(_, let headerTitle),
                  .name(_, let headerTitle),
-                 //.nameSearch(_, let headerTitle),
                  .genericName(_, let headerTitle),
-                 //.genericNameSearch(_, let headerTitle),
                  .languages(_, let headerTitle),
-                 //.languagesSearch(_, let headerTitle),
                  .brands(_, let headerTitle),
-                 //.brandsSearch(_, let headerTitle),
                  .packaging(_, let headerTitle),
-                 //.packagingSearch(_, let headerTitle),
                  .quantity(_, let headerTitle),
-                 //.quantitySearch(_, let headerTitle),
-            .image(_, let headerTitle):
-                 //.imageSearch(_, let headerTitle):
+                 .image(_, let headerTitle):
                 return headerTitle
             }
         }
@@ -64,27 +58,19 @@ class IdentificationTableViewController: UITableViewController {
         var numberOfRows: Int {
             switch self {
             case .barcode(let numberOfRows, _),
-                 //.barcodeSearch(let numberOfRows, _),
                  .name(let numberOfRows, _),
-                 //.nameSearch(let numberOfRows, _),
                  .genericName(let numberOfRows, _),
-                 //.genericNameSearch(let numberOfRows, _),
                  .languages(let numberOfRows, _),
-                 //.languagesSearch(let numberOfRows, _),
                  .brands(let numberOfRows, _),
-                 //.brandsSearch(let numberOfRows, _),
                  .packaging(let numberOfRows, _),
-                 //.packagingSearch(let numberOfRows, _),
                  .quantity(let numberOfRows, _),
-                 //.quantitySearch(let numberOfRows, _),
-            .image(let numberOfRows, _):
-                 //.imageSearch(let numberOfRows, _):
+                 .image(let numberOfRows, _):
                 return numberOfRows
             }
         }
     }
     
-    private var selectedSection: Int? = nil
+    // private var selectedSection: Int? = nil
     
     fileprivate enum ProductVersion {
         //case local
@@ -96,67 +82,24 @@ class IdentificationTableViewController: UITableViewController {
     
     fileprivate var productVersion: ProductVersion = .new
 
-    // MARK: - public variables
-    
-    public var tableItem: ProductPair? = nil {
-        didSet {
-            if let validProductPair = tableItem {
-                switch validProductPair.barcodeType {
-                case .search(let template, _):
-                    self.query = template
-                    self.productPair = nil
-                default:
-                    self.productPair = validProductPair
-                    query = nil
-                }
-            }
-        }
-    }
     
     fileprivate var productPair: ProductPair? {
-        didSet {
-            if productPair != nil {
-                tableStructure = setupSections()
-                //currentLanguageCode = newCurrentLanguage
-                refreshProduct()
-            }
-        }
+        return delegate?.productPair
     }
     
-    fileprivate var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                tableStructure = setupSections()
-                refreshProduct()
-            }
-        }
-    }
     
-    var delegate: ProductPageViewController? = nil
-    
-    var editMode: Bool = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableView.reloadData()
-            }
-        }
+    fileprivate var editMode: Bool {
+        return delegate?.editMode ?? false
     }
 
     // The languageCode as defined by the user (double tapping/selecting)
     // The user can set for which language he wants to see the name/genericName and front image
-    var currentLanguageCode: String? = nil {
-        didSet {
-            if currentLanguageCode != oldValue {
-                // reload the name/generic name/image
-                //let indexPaths = [IndexPath.init(row: 0, section: 1),
-                 //                 IndexPath.init(row: 0, section: 2),
-                  //                IndexPath.init(row: 0, section: 6)]
-                // tableView.reloadSections([1,2,7], with: .fade)
-                tableView.reloadData()
-                //tableView.deselectRow(at: indexPaths.first!, animated: true)
-                //tableView.deselectRow(at: indexPaths.last!, animated: true)
-            }
+    fileprivate var currentLanguageCode: String? {
+        get {
+            return delegate?.currentLanguageCode
+        }
+        set {
+            delegate?.currentLanguageCode = currentLanguageCode
         }
     }
     
@@ -274,39 +217,6 @@ class IdentificationTableViewController: UITableViewController {
                 }
                 return .undefined
             }
-        }
-    }
-    
-    fileprivate var searchBrandsToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.brands {
-                return tags
-            }
-            return .undefined
-        }
-    }
-
-    fileprivate var notSearchableToDisplay: Tags {
-        get {
-            return .notSearchable
-        }
-    }
-
-    fileprivate var searchPackagingToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.packaging {
-                return tags
-            }
-            return .undefined
-        }
-    }
-
-    fileprivate var searchLanguagesToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.languages {
-                return tags
-            }
-            return .undefined
         }
     }
 
@@ -448,54 +358,6 @@ class IdentificationTableViewController: UITableViewController {
             cell.mainLanguageCode = primaryLanguageCodeToDisplay
             cell.editMode = editMode
             return cell
-            /*
-        case .barcodeSearch:
-            if query?.barcode != nil || editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.BarcodeEdit, for: indexPath) as! BarcodeEditTableViewCell
-                cell.barcode = query?.barcode
-                cell.delegate = self
-                cell.editMode = editMode
-                cell.tag = indexPath.section
-                cell.barcodeTextField.placeholder = "What to put here?"
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.editMode = false
-                cell.tag = indexPath.section
-                return cell
-            }
-        case .quantitySearch, .imageSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.editMode = false
-            cell.tag = indexPath.section
-            cell.tagListView.normalColorScheme = ColorSchemes.error
-            return cell
-            
-        case .nameSearch, .genericNameSearch:
-            if query?.text != nil || editMode {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
-                cell.delegate = self
-                if let validQueryText = query?.text {
-                    cell.name =  validQueryText
-                } else {
-                    cell.name =  editMode ? nil : TranslatableStrings.PlaceholderProductNameSearch
-                }
-                cell.tag = indexPath.section
-                cell.editMode = query!.type == .simple ? false : editMode
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.editMode = false
-                cell.tag = indexPath.section
-                return cell
-            }
-             */
 
         case .name:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ProductName, for: indexPath) as! ProductNameTableViewCell
@@ -539,7 +401,7 @@ class IdentificationTableViewController: UITableViewController {
                 cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.delegate = self
-                cell.editMode = query != nil ? editMode : false
+                cell.editMode = editMode
                 cell.tag = indexPath.section
                 
                 return cell
@@ -548,7 +410,7 @@ class IdentificationTableViewController: UITableViewController {
                 cell.width = tableView.frame.size.width
                 cell.datasource = self
                 cell.delegate = self
-                cell.editMode = query != nil ? editMode : false
+                cell.editMode = editMode
                 cell.tag = indexPath.section
 
                 return cell
@@ -563,40 +425,6 @@ class IdentificationTableViewController: UITableViewController {
             cell.editMode = editMode
             cell.tag = indexPath.section
             return cell
-            /*
-        case .brandsSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.allowInclusionEdit = query!.type != .simple
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.brands.1 ?? true
-            return cell
-            
-        case  .languagesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.allowInclusionEdit = query!.type != .simple
-            cell.inclusion = OFFProducts.manager.searchQuery?.languages.1 ?? true
-            return cell
-
-        case .packagingSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.packaging.1 ?? true
-            cell.allowInclusionEdit = query!.type != .simple
-            return cell
-            */
         case .quantity:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Quantity, for: indexPath) as! QuantityTableViewCell
             switch quantityToDisplay {
@@ -899,27 +727,14 @@ class IdentificationTableViewController: UITableViewController {
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
-        /*
-        if query != nil {
-            sectionsAndRows.append(.barcodeSearch(TableSection.Size.Barcode, TableSection.Header.Barcode))
-            sectionsAndRows.append(.nameSearch(TableSection.Size.Name, TableSection.Header.Name))
-            sectionsAndRows.append(.genericNameSearch(TableSection.Size.CommonName, TableSection.Header.CommonName))
-            sectionsAndRows.append(.languagesSearch(TableSection.Size.Languages, TableSection.Header.Languages))
-            sectionsAndRows.append(.brandsSearch(TableSection.Size.Brands, TableSection.Header.Brands))
-            sectionsAndRows.append(.packagingSearch(TableSection.Size.Packaging, TableSection.Header.Packaging))
-            sectionsAndRows.append(.quantitySearch(TableSection.Size.Quantity, TableSection.Header.Quantity))
-            sectionsAndRows.append(.imageSearch(TableSection.Size.Image, TableSection.Header.Image))
-
-        } else {*/
-            sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
-            sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
-            sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
-            sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
-            sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
-            sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
-            sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
-            sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
-       //}
+        sectionsAndRows.append(.barcode(TableSection.Size.Barcode, TableSection.Header.Barcode))
+        sectionsAndRows.append(.name(TableSection.Size.Name, TableSection.Header.Name))
+        sectionsAndRows.append(.genericName(TableSection.Size.CommonName, TableSection.Header.CommonName))
+        sectionsAndRows.append(.languages(TableSection.Size.Languages, TableSection.Header.Languages))
+        sectionsAndRows.append(.brands(TableSection.Size.Brands, TableSection.Header.Brands))
+        sectionsAndRows.append(.packaging(TableSection.Size.Packaging, TableSection.Header.Packaging))
+        sectionsAndRows.append(.quantity(TableSection.Size.Quantity, TableSection.Header.Quantity))
+        sectionsAndRows.append(.image(TableSection.Size.Image,TableSection.Header.Image))
         
         return sectionsAndRows
     }
@@ -932,7 +747,7 @@ class IdentificationTableViewController: UITableViewController {
             case Storyboard.SegueIdentifier.ShowIdentificationImage:
                 if let vc = segue.destination as? ImageViewController,
                     let validLanguageCode = displayLanguageCode {
-                    vc.imageTitle = TextConstants.ShowIdentificationTitle
+                    vc.imageTitle = TranslatableStrings.Identification
                     // is there an updated image?
                     if let localProduct = productPair?.localProduct,
                         !localProduct.frontImages.isEmpty {
@@ -1092,7 +907,7 @@ class IdentificationTableViewController: UITableViewController {
         showQuantityTagsType = TagsTypeDefault.Quantity
         tableView.reloadData()
     }
-    
+    /*
     @objc func loadFirstProduct() {
         let products = OFFProducts.manager
         if let validProduct = products.productPair(at: 0)?.remoteProduct {
@@ -1100,6 +915,7 @@ class IdentificationTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
+ */
     
     fileprivate lazy var imagePicker: GKImagePicker = {
         let picker = GKImagePicker.init()
@@ -1239,7 +1055,8 @@ class IdentificationTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //delegate?.title = TranslatableStrings.Identification
+        tableStructure = setupSections()
+        tableView.reloadData()
 
         navigationController?.setNavigationBarHidden(false, animated: false)
         
@@ -1247,17 +1064,11 @@ class IdentificationTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.loadFirstProduct), name:.FirstProductLoaded, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.refreshProduct), name:.SearchTypeChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
     }
-    
-    //override func viewDidAppear(_ animated: Bool) {
-    //    super.viewDidAppear(animated)
-        //print("id viewDidAppear frame", self.view.frame.size.width, "parent", self.parent?.view.frame.size.width, "tableView", self.tableView.frame.size.width)
-        // suggested by http://useyourloaf.com/blog/self-sizing-table-view-cells/
-    //}
     
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -1312,19 +1123,6 @@ extension IdentificationTableViewController: BarcodeEditCellDelegate {
     
     // function to let the delegate know that the switch changed
     func barcodeEditTableViewCell(_ sender: BarcodeEditTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
-        if let validCode = query!.barcode?.asString,
-            let validProductType = query!.barcode?.productType {
-            switch segmentedControl.selectedSegmentIndex {
-            case 0:
-                query!.barcode = .ean8(validCode, validProductType)
-            case 1:
-                query!.barcode = .upc12(validCode, validProductType)
-            case 2:
-                query!.barcode = .ean13(validCode, validProductType)
-            default:
-                break
-            }
-        }
     }
 }
 //
@@ -1402,36 +1200,6 @@ extension IdentificationTableViewController: TagListViewAddImageCellDelegate {
 extension IdentificationTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl:UISegmentedControl) {
-        /*
-        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
-        let currentProductSection = tableStructure[sender.tag]
-        switch currentProductSection {
-        case .languagesSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFProducts.manager.searchQuery!.languages.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        case .packagingSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFProducts.manager.searchQuery!.packaging.1 = inclusion
-            tableView.reloadData()
-
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        case .brandsSearch:
-            if OFFProducts.manager.searchQuery == nil {
-                OFFProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFProducts.manager.searchQuery!.brands.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        default:
-            break
-        }
- */
     }
 }
 //
@@ -1480,20 +1248,6 @@ extension IdentificationTableViewController: UITextViewDelegate {
                     productPair?.update(genericName: validText, in: validCurrentLanguageCode)
                 }
             }
-            /*
-        case .nameSearch, .genericNameSearch:
-            // name or generic name updated?
-            if let validText = textView.text {
-                if (textView.text == "") {
-                    textView.text = TranslatableStrings.PlaceholderProductNameSearch
-                    textView.textColor = .lightGray
-                } else if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.text = validText
-            }
- */
-            
         default:
             break
         }
@@ -1534,22 +1288,12 @@ extension IdentificationTableViewController: TagListViewDataSource {
         let currentProductSection = tableStructure[tagListView.tag]
         
         switch currentProductSection {
-        //case .quantitySearch, .imageSearch, .image:
-        //    return 1
-        //case .barcodeSearch, .nameSearch, .genericNameSearch:
-        //    return count(Tags.empty)
         case .brands:
             return count(brandsToDisplay)
-        //case .brandsSearch:
-        //    return count(searchBrandsToDisplay)
         case .packaging:
             return count(packagingToDisplay)
-        //case .packagingSearch:
-         //   return count(searchPackagingToDisplay)
         case .languages:
             return count(languagesToDisplay)
-        //case .languagesSearch:
-         //   return count(searchLanguagesToDisplay)
         default:
             return 0
         }
@@ -1569,22 +1313,12 @@ extension IdentificationTableViewController: TagListViewDataSource {
         
         let currentProductSection = tableStructure[tagListView.tag]
         switch currentProductSection {
-        //case .quantitySearch, .imageSearch:
-         //   return title(notSearchableToDisplay)
-        //case .barcodeSearch, .nameSearch, .genericNameSearch:
-         //   return title(Tags.empty)
         case .brands:
             return title(brandsToDisplay)
-        //case .brandsSearch:
-        //    return title(searchBrandsToDisplay)
         case .packaging:
             return title(packagingToDisplay)
-        //case .packagingSearch:
-        //    return title(searchPackagingToDisplay)
         case .languages:
             return title(languagesToDisplay)
-        //case .languagesSearch:
-        //    return title(searchLanguagesToDisplay)
         case .image:
             return searchResult
         default:
@@ -1604,32 +1338,6 @@ extension IdentificationTableViewController: TagListViewDataSource {
             default:
                 assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
             }
-            /*
-        case .brandsSearch:
-            switch searchBrandsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.brands.0 = .available(list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
-
-            }
-            
-        case .languagesSearch:
-            switch searchLanguagesToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.languages.0 = .available(list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
-            }
-*/
         case .packaging:
             switch packagingToDisplay {
             case .available(var list):
@@ -1639,19 +1347,6 @@ extension IdentificationTableViewController: TagListViewDataSource {
                 assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
 
             }
-            /*
-        case .packagingSearch:
-            switch searchBrandsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.packaging.0 = .available(list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I clear a tag when there are none")
-            }
-*/
         default:
             break
         }
@@ -1675,7 +1370,7 @@ extension IdentificationTableViewController: TagListViewDelegate {
             switch languagesToDisplay {
             case .available(let languages):
                 let language = languages[index]
-                currentLanguageCode = OFFplists.manager.languageCode(for:language)
+                delegate?.currentLanguageCode = OFFplists.manager.languageCode(for:language)
             default:
                 assert(true, "IdentificationTableViewController: How can I select a tag that is not there")
             }
@@ -1696,24 +1391,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
             default:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
-            /*
-        case .brandsSearch:
-            switch searchBrandsToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.brands.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.brands.0 = .available(list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
-            }
- */
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
@@ -1731,40 +1408,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
             default:
                 assert(true, "IdentificationTableViewController: How can I add a languages tag when the field is non-editable")
             }
-            /*
-        case .languagesSearch:
-            switch searchLanguagesToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.languages.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.languages.0 = .available(list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I add a search languages tag when the field is non-editable")
-            }
-        case .packagingSearch:
-            switch searchPackagingToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list:[title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list:list)
-            default:
-                assert(true, "IdentificationTableViewController: How can I add a packaging tag when the field is non-editable")
-            }
-*/
         default:
             break
         }
@@ -1786,21 +1429,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
-            /*
-        case .brandsSearch:
-            switch searchBrandsToDisplay {
-            case .undefined, .empty:
-                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.brands.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
-            }
-*/
         case .packaging:
             switch packagingToDisplay {
             case .undefined, .empty:
@@ -1814,21 +1442,6 @@ extension IdentificationTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
             }
-            /*
-        case .packagingSearch:
-            switch searchPackagingToDisplay {
-            case .undefined, .empty:
-                assert(true, "IdentificationTableViewController: How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.packaging.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "IdentificationTableViewController: How can I add a tag when the field is non-editable")
-            }
- */
         default:
             break
         }
@@ -2115,3 +1728,19 @@ extension IdentificationTableViewController: GKImageCropControllerDelegate {
     }
 }
 
+// MARK: - ProductPageViewController Delegate Methods
+
+extension IdentificationTableViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+
+}

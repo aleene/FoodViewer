@@ -10,6 +10,16 @@ import UIKit
 
 class NutritionScoreTableViewController: UITableViewController {
     
+    
+    // MARK: - public variables
+    
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            delegate?.productPageViewControllerdelegate = self
+        }
+    }
+    
+    
     fileprivate var showNutritionalScore: NutritionalScoreType = .uk
     
     fileprivate enum NutritionalScoreType {
@@ -17,44 +27,14 @@ class NutritionScoreTableViewController: UITableViewController {
         case france
     }
     
-    public var editMode: Bool = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableView.reloadData()
-            }
-        }
-    }
-
-    public var tableItem: ProductPair? = nil {
-        didSet {
-            if let item = tableItem?.barcodeType {
-                switch item {
-                case .search(let template, _ ):
-                    self.query = template
-                default:
-                    self.productPair = tableItem
-                }
-            }
-        }
+    public var editMode: Bool {
+        return delegate?.editMode ?? false
     }
     
-    var delegate: ProductPageViewController? = nil
-
     fileprivate var productPair: ProductPair? {
-        didSet {
-            refreshProduct()
-        }
+        return delegate?.productPair
     }
     
-    
-    fileprivate var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                refreshProduct()
-            }
-        }
-    }
 
     fileprivate struct Storyboard {
         struct CellIdentifier {
@@ -68,23 +48,15 @@ class NutritionScoreTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if query != nil {
-            return 1
-        } else {
-            switch showNutritionalScore {
-            case .uk:
-                return 4
-            case .france:
-                return 5
-        }
+        switch showNutritionalScore {
+        case .uk:
+            return 4
+        case .france:
+            return 5
         }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if query != nil {
-            // In the case of a query, only the level can be specified
-            return section == 0 ? 1 : 0
-        } else {
             switch showNutritionalScore {
             case .uk:
                 switch section {
@@ -111,20 +83,10 @@ class NutritionScoreTableViewController: UITableViewController {
                 default:
                     return 1
                 }
-            }
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if query != nil {
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SetNutritionScoreLevel, for: indexPath) as! SetNutritionScoreTableViewCell
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.level = query!.level ?? .undefined
-            cell.shouldInclude = query!.includeLevel 
-            return cell
-
-        } else {
             switch showNutritionalScore {
             case .uk:
                 switch (indexPath as NSIndexPath).section {
@@ -196,13 +158,9 @@ class NutritionScoreTableViewController: UITableViewController {
                     return cell
                 }
             }
-        }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if query != nil {
-            return TranslatableStrings.NutritionalScore
-        } else {
             switch showNutritionalScore {
             case .uk:
                 switch section {
@@ -230,7 +188,6 @@ class NutritionScoreTableViewController: UITableViewController {
                     return TranslatableStrings.NutritionalScoreFrance
                 }
             }
-        }
     }
     
     func refreshProduct() {
@@ -289,6 +246,7 @@ class NutritionScoreTableViewController: UITableViewController {
 extension NutritionScoreTableViewController: SetNutritionScoreCellDelegate {
     
     func firstSegmentedControlToggled(_ sender: UISegmentedControl) {
+        /*
         guard query != nil else { return }
         switch sender.selectedSegmentIndex {
         case 0:
@@ -306,9 +264,11 @@ extension NutritionScoreTableViewController: SetNutritionScoreCellDelegate {
         default:
             break
         }
+ */
     }
     
     func secondSegmentedControlToggled(_ sender: UISegmentedControl) {
+        /*
         guard query != nil else { return }
         switch sender.selectedSegmentIndex {
         case 0:
@@ -318,8 +278,25 @@ extension NutritionScoreTableViewController: SetNutritionScoreCellDelegate {
         default:
             break
         }
+ */
     }
 
 }
 
+// MARK: - ProductPageViewController Delegate Methods
+
+extension NutritionScoreTableViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+}
 

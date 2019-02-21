@@ -10,44 +10,24 @@ import UIKit
 
 class CompletionStatesTableViewController: UITableViewController {
     
-    public var editMode: Bool = false {
+    
+// MARK: - public variables
+    
+    var delegate: ProductPageViewController? = nil {
         didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableView.reloadData()
-            }
-        }
-    }
-
-    public var tableItem: ProductPair? = nil {
-        didSet {
-            if let item = tableItem?.barcodeType {
-                switch item {
-                case .search(let template, _):
-                    self.query = template
-                default:
-                    self.productPair = tableItem
-
-                }
-            }
-        }
-    }
-
-    fileprivate var productPair: ProductPair? = nil {
-        didSet {
-            refreshProduct()
+            delegate?.productPageViewControllerdelegate = self
         }
     }
     
-    fileprivate var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                refreshProduct()
-            }
-        }
+    // MARK: - private variables
+
+    private var editMode: Bool {
+        return delegate?.editMode ?? false
     }
 
-    var delegate: ProductPageViewController? = nil
+    fileprivate var productPair: ProductPair? {
+        return delegate?.productPair
+    }
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
         if refreshControl!.isRefreshing {
@@ -90,8 +70,6 @@ class CompletionStatesTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         if productPair != nil {
             return 4
-        } else if query != nil {
-            return 4
         }
         return 0
     }
@@ -111,8 +89,6 @@ class CompletionStatesTableViewController: UITableViewController {
             default:
                 break
             }
-        } else if query != nil {
-            return 1
         }
         return 0
     }
@@ -122,6 +98,7 @@ class CompletionStatesTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        /*
         if query != nil {
             switch indexPath.section {
             case 0:
@@ -182,7 +159,7 @@ class CompletionStatesTableViewController: UITableViewController {
             cell.editMode = editMode
             cell.tag = indexPath.section
             return cell
-        } else {
+        } else {*/
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.CompletionState, for: indexPath) as! StateTableViewCell
                 cell.delegate = delegate
@@ -256,7 +233,7 @@ class CompletionStatesTableViewController: UITableViewController {
                 
                 return cell
             }
-        }
+       // }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -269,8 +246,6 @@ class CompletionStatesTableViewController: UITableViewController {
                 if validProduct.contributors.count != 0 {
                     return Constants.ContributorsHeaderTitle
                 }
-            } else if query != nil {
-                return Constants.ContributorsHeaderTitle
             }
         case 2:
             return Constants.LastEditDateHeaderTitle
@@ -332,6 +307,7 @@ class CompletionStatesTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let identifier = segue.identifier {
             switch identifier {
+                /*
             case Storyboard.SegueIdentifier.SelectCompletionState:
                 if  let vc = segue.destination as? SelectCompletionStateViewController {
                     if let button = sender as? UIButton {
@@ -404,12 +380,12 @@ class CompletionStatesTableViewController: UITableViewController {
                         }
                     }
                 }
-
+*/
             default: break
             }
         }
     }
-
+/*
     @IBAction func unwindSetCompletionStateForDone(_ segue:UIStoryboardSegue) {
         guard query != nil else { return }
         if let vc = segue.source as? SelectCompletionStateViewController {
@@ -444,8 +420,9 @@ class CompletionStatesTableViewController: UITableViewController {
             tableView.reloadData()
         }
     }
-    // MARK: - Notification handler
+ */
     
+    // MARK: - Notification handlers
     
     @objc func refreshProduct() {
         tableView.reloadData()
@@ -494,7 +471,7 @@ class CompletionStatesTableViewController: UITableViewController {
     }
 
     // Can I change this to a protocol?
-    
+    /*
     public func setCompletion() {
         performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCompletionState, sender: self)
     }
@@ -502,6 +479,7 @@ class CompletionStatesTableViewController: UITableViewController {
     func setInclusion(_ value: Bool) {
         query?.completion?.value = value
     }
+ */
 
 }
 
@@ -522,11 +500,15 @@ extension CompletionStatesTableViewController:  ButtonCellDelegate {
 extension CompletionStatesTableViewController: ButtonWithSegmentedControlCellDelegate {
     
     func buttonTapped(_ sender: ButtonWithSegmentedControlTableViewCell, button: UIButton) {
+        /*
         performSegue(withIdentifier: Storyboard.SegueIdentifier.SelectCompletionState, sender: button)
+ */
     }
     
     func segmentedControlToggled(_ sender: ButtonWithSegmentedControlTableViewCell, segmentedControl: UISegmentedControl) {
+        /*
         query?.completion?.value = segmentedControl.selectedSegmentIndex == 1 ? true : false
+ */
     }
 }
 
@@ -611,13 +593,15 @@ extension CompletionStatesTableViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let validText = textField.text {
+        //if let validText = textField.text {
             // does this contributor exist already?
+            /*
             if query!.contributors.index(where: { $0.name == validText } ) == nil {
                 query!.contributors.append(Contributor.init(validText, role: .creator))
             }
-            tableView.reloadData()
-        }
+ */
+         //   tableView.reloadData()
+       // }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -633,6 +617,24 @@ extension CompletionStatesTableViewController: UITextFieldDelegate {
     
     
 }
+
+// MARK: - ProductPageViewController Delegate Methods
+
+extension CompletionStatesTableViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+}
+
 
 
 

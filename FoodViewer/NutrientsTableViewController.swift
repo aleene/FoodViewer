@@ -28,8 +28,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     fileprivate var selectedNutritionFactsTableStyle: NutritionFactsLabelStyle? = nil
     
-    fileprivate var searchResult: String = ""
-    
     fileprivate var nutritionFactsTagTitle: String = ""
 
     private var selectedIndexPath: IndexPath? = nil
@@ -40,7 +38,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case new
     }
     
-    var delegate: ProductPageViewController? = nil
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            delegate?.productPageViewControllerdelegate = self
+        }
+    }
 
     // Determines which version of the product needs to be shown, the remote or local
     
@@ -52,72 +54,26 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         var unit: NutritionFactUnit? = nil
         var nutrient: Nutrient = .undefined
     }
-    
-    public var tableItem: ProductPair? = nil {
-        didSet {
-            if let item = tableItem?.barcodeType {
-                switch item {
-                case .search(let template, _):
-                    self.query = template
-                default:
-                    self.productPair = tableItem
-                }
-            }
-        }
-    }
 
     fileprivate var productPair: ProductPair? {
-        didSet {
-            if productPair != nil {
-                mergeNutritionFacts()
-                query = nil
-                tableStructure = setupTableSections()
-                if let validType = type {
-                    switch validType {
-                    case .petFood:
-                        currentNutritionQuantityDisplayMode = .perThousandGram
-                    default: break
-                    }
-                }
-                tableView.reloadData()
-            }
-        }
+        return delegate?.productPair
     }
     
     private var type: ProductType? {
         return productPair?.remoteProduct?.type ?? productPair?.localProduct?.type
     }
     
-    fileprivate var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                tableStructure = setupTableSections()
-                productPair = nil
-                tableView.reloadData()
-            }
-        }
-    }
-    
 
-    var editMode = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableStructure = setupTableSections()
-                mergeNutritionFacts()
-                tableView.reloadData()
-            }
-        }
+    var editMode: Bool {
+        return delegate?.editMode ?? false
     }
 
-    //var delegate: ProductPageViewController? = nil
-
-    var currentLanguageCode: String? = nil {
-        didSet {
-            if currentLanguageCode != oldValue {
-                // reload the image
-                reloadImageSection()
-            }
+    var currentLanguageCode: String? {
+        get {
+            return delegate?.currentLanguageCode
+        }
+        set {
+            delegate?.currentLanguageCode = currentLanguageCode
         }
     }
     
@@ -133,13 +89,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     private var newCurrentLanguage: String? {
         return productPair?.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
     }
-
-    fileprivate var notSearchableToDisplay: Tags {
-        get {
-            return .notSearchable
-        }
-    }
-
+    
     private func adaptNutritionFacts(_ facts: [String:NutritionFactItem]) -> [DisplayFact] {
         var displayFacts: [DisplayFact] = []
         for fact in facts {
@@ -296,27 +246,19 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     // The different sections of the tableView
     fileprivate enum SectionType {
         case perUnit(Int, String)
-        case perUnitSearch(Int, String)
         case nutritionFacts(Int, String)
-        case nutritionFactsSearch(Int, String)
         case addNutrient(Int, String)
         case servingSize(Int, String)
-        case servingSizeSearch(Int, String)
         case image(Int, String)
-        case imageSearch(Int, String)
         case noNutrimentsAvailable(Int, String)
         
         var header: String {
             switch self {
             case .perUnit(_, let headerTitle),
-                 .perUnitSearch(_, let headerTitle),
                  .nutritionFacts(_, let headerTitle),
-                 .nutritionFactsSearch(_, let headerTitle),
                  .addNutrient(_, let headerTitle),
                  .servingSize(_, let headerTitle),
-                 .servingSizeSearch(_, let headerTitle),
                  .image(_, let headerTitle),
-                 .imageSearch(_, let headerTitle),
                  .noNutrimentsAvailable(_, let headerTitle):
                 return headerTitle
             }
@@ -325,14 +267,10 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         var numberOfRows: Int {
             switch self {
             case .perUnit(let numberOfRows, _),
-                 .perUnitSearch(let numberOfRows, _),
                  .nutritionFacts(let numberOfRows, _),
-                 .nutritionFactsSearch(let numberOfRows, _),
                  .addNutrient(let numberOfRows, _),
                  .servingSize(let numberOfRows, _),
-                 .servingSizeSearch(let numberOfRows, _),
                  .image(let numberOfRows, _),
-                 .imageSearch(let numberOfRows, _),
                  .noNutrimentsAvailable(let numberOfRows, _):
                 return numberOfRows
             }
@@ -348,7 +286,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // in editMode the nutritionFacts have a button added
         switch tableStructure[section] {
-        case .nutritionFacts(let numberOfRows, _), .nutritionFactsSearch(let numberOfRows, _):
+        case .nutritionFacts(let numberOfRows, _):
             if editMode {
                 return numberOfRows + 1
             }
@@ -366,14 +304,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         
         // we assume that product exists
         switch tableStructure[indexPath.section] {
-        case .perUnitSearch, .servingSizeSearch, .imageSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.editMode = false
-            cell.tag = indexPath.section
-            cell.tagListView.normalColorScheme = ColorSchemes.error
-            return cell
             
         case .noNutrimentsAvailable:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NoNutrimentsAvailable, for: indexPath) as! NutrimentsAvailableTableViewCell
@@ -462,7 +392,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     return cell!
                 }
             }
-            
+            /*
         case .nutritionFactsSearch:
             if query!.type != .simple {
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -495,7 +425,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                 }
             }
-
+*/
         case .servingSize:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ServingSize, for: indexPath) as! ServingSizeTableViewCell
             cell.servingSizeTextField.delegate = self
@@ -519,7 +449,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.delegate = self
                 return cell
             } else {
-                searchResult = ImageFetchResult.noImageAvailable.description
+                // searchResult = ImageFetchResult.noImageAvailable.description
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.width = tableView.frame.size.width
@@ -762,35 +692,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         //  The order of each element determines the order in the table
         var sectionsAndRows: [SectionType] = []
         
-        if query != nil {
-            
-            sectionsAndRows.append(.perUnitSearch( TableSections.Size.PerUnit,
-                  TableSections.Header.PerUnit ))
-            
-            if query!.allNutrimentsSearch.isEmpty {
-                // Show a tag indicating no nutrition facts search has been specified
-                sectionsAndRows.append(
-                    .nutritionFactsSearch(
-                        TableSections.Size.NutritionFactsEmpty,
-                        TableSections.Header.NutritionFactItems ) )
-            } else {
-                // show a list with defined nutrition facts search
-                sectionsAndRows.append( .nutritionFactsSearch(
-                    query!.allNutrimentsSearch.count,
-                    TableSections.Header.NutritionFactItems ) )
-            }
-            
-            sectionsAndRows.append(.servingSizeSearch(
-                TableSections.Size.ServingSize,
-                TableSections.Header.ServingSize))
-            
-            // Section 3 or 4 or 5: image section
-            sectionsAndRows.append( SectionType.imageSearch(
-                TableSections.Size.NutritionFactsImage,
-                TableSections.Header.NutritionFactsImage))
-
-
-        } else {
         
             // Which sections are shown depends on whether the product has nutriment data
         
@@ -896,7 +797,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     TableSections.Size.NutritionFactsImage,
                     TableSections.Header.NutritionFactsImage))
         
-            }
         }
         return sectionsAndRows
     }
@@ -1040,27 +940,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                     vc.currentNutritionFactKey = adaptedNutritionFacts[row].nutrient.key
                                 }
                             }
-                        } else if button.superview?.superview as? SearchNutrientsTableViewCell != nil {
-                            if let ppc = vc.popoverPresentationController {
-                                // set the main language button as the anchor of the popOver
-                                ppc.permittedArrowDirections = .any
-                                // I need the button coordinates in the coordinates of the current controller view
-                                let anchorFrame = button.convert(button.bounds, to: self.view)
-                                ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
-                                ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-                                let row = button.tag % 100
-                                vc.nutrientRow = row
-                                if row >= 0 && row < query!.allNutrimentsSearch.count  {
-                                    vc.currentNutritionUnit = query!.allNutrimentsSearch[row].unit
-                                }
-                            }
                         }
                     }
                 } else {
                     assert(true, "NutrientsTableViewController: SelectNutrientUnit segue preparation wrongly configurated")
                 }
-                
+                /*
             case Storyboard.SegueIdentifier.SelectComparisonOperator:
                 if let vc = segue.destination as? SelectCompareViewController {
                     // The segue can only be initiated from a button within a BarcodeTableViewCell
@@ -1085,6 +970,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     assert(true, "NutrientsTableViewController: SelectComparisonOperator segue preparation wrongly configurated")
                 }
+ */
 
             default: break
             }
@@ -1098,14 +984,13 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     @IBAction func unwindAddNutrientForDone(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? AddNutrientViewController {
             if let newNutrientTuple = vc.addedNutrientTuple {
-                if query != nil {
-                    var nutrimentSearch = NutrimentSearch()
+                /*    var nutrimentSearch = NutrimentSearch()
                     nutrimentSearch.nutrient = newNutrientTuple.0 // key with en: prefix
                     nutrimentSearch.name = newNutrientTuple.1 // name in local language
                     nutrimentSearch.unit = newNutrientTuple.2 // default unit
                     query!.allNutrimentsSearch.append(nutrimentSearch)
                     tableView.reloadData()
-                } else {
+                } else {*/
                     var newNutrient = NutritionFactItem()
                     newNutrient.nutrient = newNutrientTuple.0
                     newNutrient.itemName = newNutrientTuple.1
@@ -1119,7 +1004,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                     productPair?.update(fact: newNutrient)
                     refreshProductWithNewNutritionFacts()
-                }
+                //}
             }
         }
     }
@@ -1146,12 +1031,14 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     }
                     productPair?.update(fact: editedNutritionFact)
                     refreshProductWithNewNutritionFacts()
+                    /*
                 } else if query != nil {
                     if let validUnit = vc.selectedNutritionUnit {
                         query!.allNutrimentsSearch[nutrientRow].unit = validUnit
                         tableView.reloadData()
                     }
-                }
+*/                }
+ 
             }
         }
     }
@@ -1182,17 +1069,18 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             }
         }
     }
-
+/*
     @IBAction func unwindSetComparisonOperator(_ segue:UIStoryboardSegue) {
         if let vc = segue.source as? SelectCompareViewController {
             // The new comparison operator should be set to the nutrient that was edited
             if let nutrientRow = vc.nutrientRow,
             let selectedOperator = vc.selectedCompareOperator {
-                query!.allNutrimentsSearch[nutrientRow].searchOperator = selectedOperator
-                tableView.reloadData()
+                //query!.allNutrimentsSearch[nutrientRow].searchOperator = selectedOperator
+                //tableView.reloadData()
             }
         }
     }
+ */
 
     // MARK: - Popover delegation functions
     
@@ -1296,9 +1184,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             mergeNutritionFacts()
             tableStructure = setupTableSections()
             tableView.reloadData()
-        } else if query != nil {
-            tableStructure = setupTableSections()
-            tableView.reloadData()
         }
     }
     
@@ -1322,12 +1207,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             productPair?.update(nutritionImage: image!, for: validLanguageCode)
             tableView.reloadData()
         }
-    }
-    
-
-    @objc func removeProduct() {
-        productPair = nil
-        tableView.reloadData()
     }
 
     @objc func imageUpdated(_ notification: Notification) {
@@ -1422,7 +1301,19 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
+        tableStructure = setupTableSections()
+        if productPair != nil {
+            mergeNutritionFacts()
+            if let validType = type {
+                switch validType {
+                case .petFood:
+                    currentNutritionQuantityDisplayMode = .perThousandGram
+                default: break
+                }
+            }
+            tableView.reloadData()
+        }
         refreshProductWithNewNutritionFacts()
 
         NotificationCenter.default.addObserver(
@@ -1432,12 +1323,12 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         )
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
+        // NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.removeProduct), name: .HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(NutrientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageUploaded), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IdentificationTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
 
-        delegate?.title = TranslatableStrings.NutritionFacts
+        // delegate?.title = TranslatableStrings.NutritionFacts
 
     }
     
@@ -1771,11 +1662,6 @@ extension NutrientsTableViewController: TagListViewDataSource {
             switch tableStructure[tagListView.tag] {
             case .image, .nutritionFacts:
                 return 1
-            case .servingSizeSearch, .imageSearch, .perUnitSearch:
-                return 1
-            case .nutritionFactsSearch:
-                tagListView.normalColorScheme = ColorSchemes.none
-                return 1
             default:
                 break
             }
@@ -1786,22 +1672,8 @@ extension NutrientsTableViewController: TagListViewDataSource {
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
         
         switch tableStructure[tagListView.tag] {
-        case .image:
-            return searchResult
         case .nutritionFacts:
             return nutritionFactsTagTitle
-        case .nutritionFactsSearch:
-            if query != nil {
-                if query!.allNutrimentsSearch.isEmpty {
-                    return TranslatableStrings.NotFilled
-                } else {
-                    if tagListView.tag >= 0 && tagListView.tag < query!.allNutrimentsSearch.count {
-                        return query!.allNutrimentsSearch[tagListView.tag].nutrient.key
-                    }
-                }
-            }
-        case .servingSizeSearch, .imageSearch, .perUnitSearch:
-            return notSearchableToDisplay.tag(at: index)!
         default:
             break
         }
@@ -1982,6 +1854,23 @@ extension NutrientsTableViewController: GKImageCropControllerDelegate {
         imageCropController.dismiss(animated: true, completion: nil)
         productPair?.update(nutritionImage: validImage, for: validLanguage)
         self.reloadImageSection()
+    }
+}
+
+// MARK: - ProductPageViewController Delegate Methods
+
+extension NutrientsTableViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
     }
 }
 

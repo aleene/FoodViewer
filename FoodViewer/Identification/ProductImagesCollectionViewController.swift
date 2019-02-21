@@ -13,6 +13,16 @@ private let reuseIdentifier = "Cell"
 
 class ProductImagesCollectionViewController: UICollectionViewController {
 
+    
+    // MARK: - public variables
+    
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            delegate?.productPageViewControllerdelegate = self
+        }
+    }
+    
+    
     fileprivate var tableStructure: [SectionType] = []
 
     fileprivate enum SectionType {
@@ -77,25 +87,22 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     // MARK: - public variables
     
     var productPair: ProductPair? {
-        didSet {
-            tableStructure = setupSections()
-        }
+        return delegate?.productPair
     }
 
     // Needed to show or hide buttons
-    var editMode: Bool = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                collectionView?.reloadData()
-            }
-        }
+    private var editMode: Bool {
+        return delegate?.editMode ?? false
     }
     
-    var languageCode: String? = nil
-    
-    // Needed to add new images
-    var delegate: ProductPageViewController? = nil
+    private var languageCode: String? {
+        get {
+            return delegate?.currentLanguageCode
+        }
+        //set {
+        //    delegate?.currentLanguageCode = languageCode
+        //}
+    }
     
     // This variable returns an array with tuples.
     // A tuple consists of a languageCode and the corresponding language in the interface language.
@@ -656,7 +663,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delegate?.title = TranslatableStrings.Gallery
+        tableStructure = setupSections()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdateSucceeded, object:nil)
@@ -906,6 +913,22 @@ extension ProductImagesCollectionViewController: GKImageCropControllerDelegate {
     }
 }
 
+// MARK: - ProductPageViewController Delegate Methods
+
+extension ProductImagesCollectionViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        collectionView?.reloadData()
+    }
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        collectionView?.reloadData()
+    }
+
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        collectionView?.reloadData()
+    }
+}
 
 
 

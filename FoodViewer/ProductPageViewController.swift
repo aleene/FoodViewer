@@ -9,8 +9,17 @@
 import UIKit
 import LocalAuthentication
 
+ protocol ProductPageViewControllerDelegate: class {
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController)
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController)
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController)
+ }
+
 class ProductPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, ProductUpdatedProtocol {
     
+    var productPageViewControllerdelegate: ProductPageViewControllerDelegate? = nil
+
 // MARK: - Interface Actions
     
     @IBOutlet weak var confirmBarButtonItem: UIBarButtonItem! {
@@ -62,12 +71,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             //Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(ProductPageViewController.saveUpdatedProduct), userInfo: nil, repeats: false)
             self.view.endEditing(true)
             
-            //if isQuery {
-                // start a new search
-            //    OFFProducts.manager.startSearch()
-            //} else {
-                self.askSavePermission()
-            //}
+            self.askSavePermission()
         }
         editMode = !editMode
     }
@@ -115,41 +119,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                 if let validProductPair = self.productPair {
                     OFFProducts.manager.startUpload(for: validProductPair)
                 }
-                /*
-                if let validUpdatedProduct = productPair?.localProduct {
-                    let update = OFFUpdate()
-                    confirmBarButtonItem?.isEnabled = false
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-
-                    DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async(execute: { () -> Void in
-                        let fetchResult = update.update(product: validUpdatedProduct)
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                            switch fetchResult {
-                            case .success:
-                                // get the new product data
-                                OFFProducts.manager.reload(productPair:self.productPair)
-                                self.productPair?.localProduct = nil
-                                // send notification of success, so feedback can be given
-                                NotificationCenter.default.post(name: .ProductUpdateSucceeded, object:nil)
-                                break
-                            case .images:
-                                break
-                            case .notPossible:
-                                // Uploading to OFF is not possible at the moment
-                                // So save it locally
-                                let save = ProductStorage()
-                                save.save(validUpdatedProduct)
-                            case .failure:
-                                // send notification of failure, so feedback can be given
-                                NotificationCenter.default.post(name: .ProductUpdateFailed, object:nil)
-                                break
-                            }
-                            self.confirmBarButtonItem?.isEnabled = true
-                        })
-                    })
-                }
-                */
                 userWantsToSave = false
             }
         //}
@@ -158,34 +127,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 // MARK: - Public variables and functions
 //
     
-    public var tableItem: ProductPair? = nil {
-        didSet {
-            if let productPair = tableItem {
-                switch productPair.barcodeType {
-                case .search:
-                    self.query = productPair
-                    self.productPair = nil
-                default:
-                    self.productPair = productPair
-                    self.query = nil
-                }
-            }
-        }
-    }
-    
-    private var productPair: ProductPair? = nil {
+    var productPair: ProductPair? = nil {
         didSet {
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
+            productPageViewControllerdelegate?.productPageViewControllerProductPairChanged(self)
             title = prefixedTitle
         }
     }
     
-    private var query: ProductPair? = nil
-    
-    private var isQuery: Bool {
-        return query != nil
-    }
-
     var pageIndex: ProductPage = .identification {
         didSet {
             if pageIndex != oldValue {
@@ -224,23 +173,23 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     
     // The languageCode for the language in which the fields are shown
-    fileprivate var currentLanguageCode: String? = nil {
+    var currentLanguageCode: String? = nil {
         didSet {
             // pass the changed language on
             if currentLanguageCode != oldValue {
-                setupCurrentLanguage()
+                productPageViewControllerdelegate?.productPageViewControllerEditModeChanged(self)
             }
         }
     }
 
-    fileprivate var editMode: Bool = Preferences.manager.editMode {
+    public var editMode: Bool = Preferences.manager.editMode {
         didSet {
             if editMode != oldValue {
-                setupEditMode()
+                productPageViewControllerdelegate?.productPageViewControllerEditModeChanged(self)
                 Preferences.manager.editMode = editMode
             }
             // change look edit button
-            let buttonText = isQuery ? "Search" : "CheckMark"
+            let buttonText = "CheckMark"
             if let image = UIImage.init(named: editMode ? buttonText  : "Edit") {
                 confirmBarButtonItem.image = image
             }
@@ -288,36 +237,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // define the pages (and order), which will be shown
         switch currentProductType {
         case .food:
-            if isQuery {
-                // search page has no gallery
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories,
-                         .nutritionScore, .completion]
-            } else {
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories,
-                         .gallery, .nutritionScore, .completion]
-            }
+            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .completion]
         case .beauty:
-            if isQuery {
-                // search page has no gallery
-                pages = [.identification, .ingredients, .supplyChain, .categories, .completion]
-            } else {
-                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
-            }
+            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
         case .petFood:
-            if isQuery {
-                // search page has no gallery
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .completion]
-            } else {
-                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
-            }
+            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
         case .product:
-            if isQuery {
-                // search page has no gallery
-                pages = [.identification, .ingredients, .supplyChain, .categories, .completion]
-            } else {
                 pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
-            }
-
         }
     }
     
@@ -332,34 +258,6 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         galleryVC.delegate = self
     }
     
-    private func setupProduct() {
-        ingredientsVC.tableItem = tableItem
-        identificationVC.tableItem = tableItem
-        nutritionFactsVC.tableItem = tableItem
-        supplyChainVC.tableItem = tableItem
-        categoriesVC.tableItem = tableItem
-        nutritionScoreVC.tableItem = tableItem
-        completionStatusVC.tableItem = tableItem
-        galleryVC.productPair = productPair
-    }
-
-    private func setupEditMode() {
-        // pass changed value on
-        identificationVC.editMode = editMode
-        ingredientsVC.editMode = editMode
-        nutritionFactsVC.editMode = editMode
-        supplyChainVC.editMode = editMode
-        categoriesVC.editMode = editMode
-        nutritionScoreVC.editMode = editMode
-        completionStatusVC.editMode = editMode
-        galleryVC.editMode = editMode
-    }
-    
-    private func setupCurrentLanguage() {
-        identificationVC.currentLanguageCode = currentLanguageCode
-        ingredientsVC.currentLanguageCode = currentLanguageCode
-        nutritionFactsVC.currentLanguageCode = currentLanguageCode
-    }
 
     // This function finds the language that must be used to display the product
     private func setCurrentLanguage() {
@@ -372,44 +270,44 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         switch page {
         case .identification:
             identificationVC.delegate = self
-            identificationVC.tableItem = tableItem
-            identificationVC.currentLanguageCode = currentLanguageCode
-            identificationVC.editMode = editMode
+            // identificationVC.tableItem = tableItem
+            // identificationVC.currentLanguageCode = currentLanguageCode
+            // identificationVC.editMode = editMode
             
         case .ingredients:
             ingredientsVC.delegate = self
-            ingredientsVC.tableItem = tableItem
-            ingredientsVC.editMode = editMode
-            ingredientsVC.currentLanguageCode = currentLanguageCode
+            //ingredientsVC.tableItem = tableItem
+            //ingredientsVC.editMode = editMode
+            //ingredientsVC.currentLanguageCode = currentLanguageCode
             
         case .nutritionFacts:
             nutritionFactsVC.delegate = self
-            nutritionFactsVC.tableItem = tableItem
-            nutritionFactsVC.currentLanguageCode = currentLanguageCode
-            nutritionFactsVC.editMode = editMode
+            //nutritionFactsVC.tableItem = tableItem
+            //nutritionFactsVC.currentLanguageCode = currentLanguageCode
+            //nutritionFactsVC.editMode = editMode
             
         case .supplyChain:
             supplyChainVC.delegate = self
-            supplyChainVC.tableItem = tableItem
-            supplyChainVC.editMode = editMode
+            //supplyChainVC.tableItem = tableItem
+            //supplyChainVC.editMode = editMode
             
         case .categories:
             categoriesVC.delegate = self
-            categoriesVC.tableItem = tableItem
-            categoriesVC.editMode = editMode
+            //categoriesVC.tableItem = tableItem
+            //categoriesVC.editMode = editMode
             
         case .nutritionScore:
-            nutritionScoreVC.tableItem = tableItem
+            //nutritionScoreVC.tableItem = tableItem
             nutritionScoreVC.delegate = self
             
         case .completion :
-            completionStatusVC.tableItem = tableItem
+            //completionStatusVC.tableItem = tableItem
             completionStatusVC.delegate = self
             
         case .gallery:
             galleryVC.delegate = self
-            galleryVC.productPair = productPair
-            galleryVC.editMode = editMode
+            //galleryVC.productPair = productPair
+            //galleryVC.editMode = editMode
         }
         
     }
@@ -566,7 +464,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             let validProductPair = products.productPair(at: 0) {
             switch validFetchResult {
             case .available:
-                tableItem = validProductPair
+                productPair = validProductPair
                 pageIndex = .identification
                 initPage(pageIndex)
             default: break
@@ -739,8 +637,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     func updateCurrentLanguage() {
         if let index = pages.index(where: { $0 == .identification } ),
-            let vc = viewController(for: pages[index]) as? IdentificationTableViewController {
-            vc.currentLanguageCode = currentLanguageCode
+            let _ = viewController(for: pages[index]) as? IdentificationTableViewController {
+            // vc.currentLanguageCode = currentLanguageCode
         }
         if let index = pages.index(where: { $0 == .ingredients } ),
             let vc = viewController(for: pages[index]) as? IngredientsTableViewController {
@@ -837,17 +735,14 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         dataSource = self
         delegate = self
         
-        if pages.isEmpty {
-            initPages()
-        }
+        initPages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // set look edit button
-        let buttonText = isQuery ? "Search" : "CheckMark"
-        if let image = UIImage.init(named: editMode ? buttonText  : "Edit") {
+        if let image = UIImage.init(named: editMode ? "CheckMark"  : "Edit") {
             confirmBarButtonItem.image = image
         }
 

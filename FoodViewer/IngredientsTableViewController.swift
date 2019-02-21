@@ -142,15 +142,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
         }
     }
-    
-    fileprivate var searchAllergensToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.allergens {
-                return tags
-            }
-            return .undefined
-        }
-    }
 
     fileprivate var tracesToDisplay: Tags {
         get {
@@ -188,15 +179,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return .undefined
         }
     }
-    
-    fileprivate var searchTracesToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.traces {
-                return tags
-            }
-            return .undefined
-        }
-    }
 
     fileprivate var additivesToDisplay: Tags {
         get {
@@ -213,15 +195,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             //case .local:
             //    return .undefined
             }
-        }
-    }
-    
-    fileprivate var searchAdditivesToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.additives {
-                return tags
-            }
-            return .undefined
         }
     }
 
@@ -261,97 +234,21 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
 
-    fileprivate var searchLabelsToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.labels {
-                return tags
-            }
-            return .undefined
-        }
-    }
-
-    fileprivate var searchIngredientsToDisplay: Tags {
-        get {
-            if let tags = query?.ingredients {
-                return tags
-            }
-            return .empty
-        }
-    }
-    
-    fileprivate var notSearchableToDisplay: Tags {
-        get {
-            return .notSearchable
-        }
-    }
-
     fileprivate var searchResult: String = ""
         
     private var selectedSection: Int? = nil
 
-    // MARK: - Public variables
-    
-    public var tableItem: ProductPair? = nil {
-        didSet {
-            if let productPair = tableItem {
-                switch productPair.barcodeType {
-                case .search(let template, _):
-                    self.productPair = nil
-                    query = template
-                default:
-                    self.productPair = productPair
-                    query = nil
-                }
-            }
-        }
-    }
-    
-
     fileprivate var productPair: ProductPair? {
-        didSet {
-            if productPair != nil {
-                ingredientsImage = nil
-                tableStructure = setupSections()
-                refreshProduct()
-            }
-        }
+        return delegate?.productPair
     }
     
-    
-    private var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                productPair = nil
-                tableStructure = setupSections()
-                refreshProduct()
-            }
-        }
-    }
-    
-    private var isQuery: Bool {
-        return query != nil
-    }
 
-    var currentLanguageCode: String? = nil{
-        didSet {
-            if currentLanguageCode != oldValue {
-                // reload the ingredients/image
-                //let indexPaths = [IndexPath.init(row: 0, section: 1),
-                //                 IndexPath.init(row: 0, section: 2),
-                //                IndexPath.init(row: 0, section: 6)]
-                
-                /* Results in a crash
-                switch currentProductType {
-                case .food:
-                    tableView.reloadSections([0,5], with: .fade)
-                default :
-                    tableView.reloadSections([0,3], with: .fade)
-                }
- */
-                tableView.reloadData()
-                //tableView.deselectRow(at: indexPaths.first!, animated: true)
-                //tableView.deselectRow(at: indexPaths.last!, animated: true)
-            }
+    var currentLanguageCode: String? {
+        get {
+            return delegate?.currentLanguageCode
+        }
+        set {
+            delegate?.currentLanguageCode = currentLanguageCode
         }
     }
     
@@ -364,18 +261,17 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    var editMode: Bool = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-
-                tableView.reloadData()
-            }
-        }
+    var editMode: Bool {
+        return delegate?.editMode ?? false
     }
 
-    var delegate: ProductPageViewController? = nil
-
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            delegate?.productPageViewControllerdelegate = self
+            
+        }
+    }
+    
     // MARK: - Actions and Outlets
     
     @IBAction func refresh(_ sender: UIRefreshControl) {
@@ -429,16 +325,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //print(tableView.frame.size.width)
 
         switch tableStructure[indexPath.section] {
-          /*
-        case .imageSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.editMode = false
-            cell.tag = indexPath.section
-            cell.tagListView.normalColorScheme = ColorSchemes.error
-            return cell
-*/
         case .ingredients:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.Ingredients, for: indexPath) as! IngredientsFullTableViewCell
             cell.delegate = self
@@ -458,25 +344,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             print("cell frame", cell.frame)
             return cell
             
-            /*
-        case .ingredientsSearch:
-            if query!.type == .advanced {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.editMode = false
-                cell.tag = indexPath.section
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.delegate = self
-                cell.editMode = editMode
-                cell.tag = indexPath.section
-                return cell
-            }
-            */
         case .allergens, .additives:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
@@ -484,50 +351,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             cell.delegate = self
             cell.tag = indexPath.section
             return cell
-            /*
-        case .allergensSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.allergens.1 ?? true
-            cell.allowInclusionEdit = query!.type != .simple
-            return cell
-        case .tracesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.traces.1 ?? true
-            cell.allowInclusionEdit = query!.type != .simple
-            return cell
-            
-        case .additivesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.additives.1 ?? true
-            cell.allowInclusionEdit = query!.type != .simple
-            return cell
-            
-        case .labelsSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.labels.1 ?? true
-            cell.allowInclusionEdit = query!.type != .simple
-            return cell
-             */
 
         case .traces, .labels:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
@@ -620,8 +443,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         switch tableStructure[section] {
         case .image, .ingredients:
             return nil
-        //case .imageSearch, .ingredientsSearch:
-         //   break
         case .allergens:
             switch allergensTagsTypeToShow {
             case TagsTypeDefault.Allergens:
@@ -810,26 +631,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         //
         //  The order of each element determines the order in the presentation
         var sectionsAndRows: [SectionType] = []
-        /*
-        if query != nil {
-            sectionsAndRows.append(.ingredientsSearch(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
-            // not needed for .petFood, .product and .beauty
-            switch currentProductType {
-            case .food:
-                // 1:  allergens section
-                sectionsAndRows.append(.allergensSearch(TableSection.Size.Allergens, TableSection.Header.Allergens))
-                // 2: traces section
-                sectionsAndRows.append(.tracesSearch(TableSection.Size.Traces, TableSection.Header.Traces))
-            default :
-                break
-            }
-            sectionsAndRows.append(.additivesSearch(TableSection.Size.Additives, TableSection.Header.Additives))
-            sectionsAndRows.append(.labelsSearch(TableSection.Size.Labels, TableSection.Header.Labels))
-            sectionsAndRows.append(.imageSearch(TableSection.Size.Image, TableSection.Header.Image))
-            
-        } else {
- */
-            sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
+
+        sectionsAndRows.append(.ingredients(TableSection.Size.Ingredients, TableSection.Header.Ingredients))
             // not needed for .product, .petFood and .beauty
             switch currentProductType {
             case .food:
@@ -843,7 +646,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             sectionsAndRows.append(.additives(TableSection.Size.Additives, TableSection.Header.Additives))
             sectionsAndRows.append(.labels(TableSection.Size.Labels, TableSection.Header.Labels))
             sectionsAndRows.append(.image(TableSection.Size.Image, TableSection.Header.Image))
-        //}
         
         return sectionsAndRows
     }
@@ -960,7 +762,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
 
     @objc func reloadImageSection() { // (_ notification: Notification) {
         tableView.reloadData()
-        //tableView.reloadSections([imageSectionIndex!], with: .none)
     }
     
     fileprivate var imageSectionIndex: Int? {
@@ -981,11 +782,6 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         allergensTagsTypeToShow = TagsTypeDefault.Allergens
         additivesTagsTypeToShow = TagsTypeDefault.Additives
         ingredientsTagsTypeToShow = TagsTypeDefault.Ingredients
-        tableView.reloadData()
-    }
-    
-    @objc func removeProduct() {
-        productPair = nil
         tableView.reloadData()
     }
 
@@ -1119,25 +915,20 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delegate?.title = TranslatableStrings.Ingredients
+        tableStructure = setupSections()
+        tableView.reloadData()
+
+        // delegate?.title = TranslatableStrings.Ingredients
         // print("ing viewWillAppear", self.view.frame, self.parent?.view.frame)
 
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
 
-        NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
+        //NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.removeProduct), name:.HistoryHasBeenDeleted, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUpdated(_:)), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageUploaded(_:)), name:.ProductPairImageUploadSuccess, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.imageDeleted(_:)), name:.ProductPairImageDeleteSuccess, object:nil)
-        // NotificationCenter.default.addObserver(self, selector:#selector(IngredientsTableViewController.changeTagsTypeToShow), name:.TagListViewTapped, object:nil)
-
     }
-    
-    //override func viewDidAppear(_ animated: Bool) {
-    //    super.viewDidAppear(animated)
-        // print("ing didAppear", self.view.frame, self.parent?.view.frame)
-
-    //}
     
     override func viewDidDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
@@ -1164,19 +955,15 @@ extension IngredientsTableViewController: TagListViewCellDelegate {
         case .labels:
             labelsTagsTypeToShow.cycle()
             tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .traces:
             tracesTagsTypeToShow.cycle()
             tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .allergens:
             allergensTagsTypeToShow.cycle()
             tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .additives:
             additivesTagsTypeToShow.cycle()
             tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         default:
             break
         }
@@ -1232,42 +1019,6 @@ extension IngredientsTableViewController: IngredientsFullCellDelegate {
 extension IngredientsTableViewController: TagListViewSegmentedControlCellDelegate {
     
     func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
-        /*
-        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
-        
-        switch tableStructure[sender.tag] {
-        case .labelsSearch:
-            if OFFSearchProducts.manager.searchQuery == nil {
-                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFSearchProducts.manager.searchQuery!.labels.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        case .tracesSearch:
-            if OFFSearchProducts.manager.searchQuery == nil {
-                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFSearchProducts.manager.searchQuery!.traces.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        case .additivesSearch:
-            if OFFSearchProducts.manager.searchQuery == nil {
-                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFSearchProducts.manager.searchQuery!.additives.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        case .allergensSearch:
-            if OFFSearchProducts.manager.searchQuery == nil {
-                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFSearchProducts.manager.searchQuery!.allergens.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        default:
-            break
-        }
- */
     }
 }
 
@@ -1336,40 +1087,6 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            /*
-        case .tracesSearch:
-            switch searchTracesToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.traces.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.traces.0 = .available(list)
-            default:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-        case .ingredientsSearch:
-            switch searchIngredientsToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.ingredients = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.ingredients = .available(list)
-            default:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
- */
         case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
@@ -1380,56 +1097,6 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            /*
-        case .labelsSearch:
-            switch searchLabelsToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.labels.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.labels.0 = .available(list)
-            default:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-        case .additivesSearch:
-            switch searchAdditivesToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.additives.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.additives.0 = .available(list)
-            default:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-        case .allergensSearch:
-            switch searchAllergensToDisplay {
-            case .undefined, .empty:
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.allergens.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.allergens.0 = .available(list)
-            default:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-*/
         default:
             break
         }
@@ -1450,35 +1117,6 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            /*
-        case .tracesSearch:
-            switch searchTracesToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.traces.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-        case .ingredientsSearch:
-            switch searchIngredientsToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.ingredients = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
- */
-
         case .labels:
             switch labelsToDisplay {
             case .undefined, .empty:
@@ -1492,47 +1130,6 @@ extension IngredientsTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            /*
-        case .labelsSearch:
-            switch searchLabelsToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.labels.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-        case .additivesSearch:
-            switch searchAdditivesToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.additives.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-        case .allergensSearch:
-            switch searchAllergensToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.allergens.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-*/
         default:
             break
         }
@@ -1605,28 +1202,16 @@ extension IngredientsTableViewController: TagListViewDataSource {
         }
 
         switch tableStructure[tagListView.tag] {
-        //case .imageSearch:
-          //  return 1
         case .additives:
             return count(additivesToDisplay)
-        //case .additivesSearch:
-           // return count(searchAdditivesToDisplay)
         case .allergens:
             return count(allergensToDisplay)
-        //case .allergensSearch:
-          //  return count(searchAllergensToDisplay)
         case .labels:
             return count(labelsToDisplay)
-        //case .labelsSearch:
-          //  return count(searchLabelsToDisplay)
         case .image:
             return 1
-        //case .ingredientsSearch:
-          //  return count(searchIngredientsToDisplay)
         case .traces:
             return count(tracesToDisplay)
-        //case .tracesSearch:
-        //    return count(searchTracesToDisplay)
         default: break
         }
         return 0
@@ -1636,26 +1221,14 @@ extension IngredientsTableViewController: TagListViewDataSource {
         switch tableStructure[tagListView.tag] {
         case .additives:
             return additivesToDisplay.tag(at:index)!
-        //case .additivesSearch:
-        //    return searchAdditivesToDisplay.tag(at:index)!
         case .allergens:
             return allergensToDisplay.tag(at:index)!
-        //case .allergensSearch:
-         //   return searchAllergensToDisplay.tag(at:index)!
         case .image:
             return searchResult
-        //case .imageSearch:
-         //   return notSearchableToDisplay.tag(at:index)!
-        //case .ingredientsSearch:
-          //  return searchIngredientsToDisplay.tag(at: index)!
         case .labels:
             return labelsToDisplay.tag(at:index)!
-        //case .labelsSearch:
-         //   return searchLabelsToDisplay.tag(at:index)!
         case .traces:
             return tracesToDisplay.tag(at:index)!
-        //case .tracesSearch:
-           // return searchTracesToDisplay.tag(at:index)!
         default: break
         }
         return("tagListView error")
@@ -1663,47 +1236,11 @@ extension IngredientsTableViewController: TagListViewDataSource {
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {
         tableView.reloadData()
-        //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .automatic)
     }
 
     /// Called if the user wants to delete all tags
     public func didClear(_ tagListView: TagListView) {
         switch tableStructure[tagListView.tag] {
-            /*
-        case .additivesSearch:
-            switch searchAdditivesToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.additives.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .allergensSearch:
-            switch searchAllergensToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.allergens.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-        case .ingredientsSearch:
-            switch searchIngredientsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.ingredients = .available(list)
-            default:
-                assert(true, "How can I delete a tag when there are none")
-            }
- */
         case .labels:
             switch labelsToDisplay {
             case .available(var list):
@@ -1712,19 +1249,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I delete a tag when there are none")
             }
-            /*
-        case .labelsSearch:
-            switch searchLabelsToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.labels.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
- */
         case .traces:
             switch tracesToDisplay {
             case .available(var list):
@@ -1733,19 +1257,6 @@ extension IngredientsTableViewController: TagListViewDataSource {
             default:
                 assert(true, "How can I clear a tag when there are none")
             }
-            /*
-        case .tracesSearch:
-            switch searchTracesToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.traces.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-            }
-*/
         default:
             break
         }
@@ -1925,4 +1436,19 @@ extension IngredientsTableViewController: GKImageCropControllerDelegate {
 
 
 
+// MARK: - ProductPageViewController Delegate Methods
 
+extension IngredientsTableViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+}

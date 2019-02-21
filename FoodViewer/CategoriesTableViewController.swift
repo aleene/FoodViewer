@@ -12,54 +12,21 @@ class CategoriesTableViewController: UITableViewController {
 
     // MARK: - Public functions / variables
     
-    public var tableItem: ProductPair? = nil {
+    var delegate: ProductPageViewController? = nil {
         didSet {
-            if let item = tableItem?.barcodeType {
-                switch item {
-                case .search(let template, _):
-                    self.query = template
-                default:
-                    self.productPair = tableItem
-                }
-            }
+            delegate?.productPageViewControllerdelegate = self
         }
     }
-
-    fileprivate var productPair: ProductPair? {
-        didSet {
-            if productPair != nil {
-                tableStructureForProduct = setupTableSections()
-                tableView.reloadData()
-            }
-        }
-    }
-    
-    private var query: SearchTemplate? = nil {
-        didSet {
-            if query != nil {
-                tableStructureForProduct = setupTableSections()
-                tableView.reloadData()
-            }
-        }
-    }
-    
-    private var isQuery: Bool {
-        return query != nil
-    }
-
-    var editMode = false {
-        didSet {
-            // vc changed from/to editMode, need to repaint
-            if editMode != oldValue {
-                tableView.reloadData()
-            }
-        }
-    }
-    
-    var delegate: ProductPageViewController? = nil
 
     // MARK: - Private Functions / Variables
     
+    fileprivate var productPair: ProductPair? {
+        return delegate?.productPair
+    }
+    
+    private var editMode: Bool {
+        return delegate?.editMode ?? false
+    }
     
     fileprivate enum ProductVersion {
         //case local
@@ -75,7 +42,6 @@ class CategoriesTableViewController: UITableViewController {
     
     fileprivate enum SectionType {
         case categories
-        case categoriesSearch
     }
     
     private struct TagsTypeDefault {
@@ -129,16 +95,6 @@ class CategoriesTableViewController: UITableViewController {
         }
 
     }
-    
-    fileprivate var searchCategoriesToDisplay: Tags {
-        get {
-            if let (tags, _) = query?.categories {
-                return tags
-            }
-            return .undefined
-        }
-    }
-    
 
     // MARK: - Interface Functions
     
@@ -169,37 +125,13 @@ class CategoriesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //let (currentProductSection, _, _) = tableStructureForProduct[(indexPath as NSIndexPath).section]
-        
-        // we assume that product exists
-        //switch currentProductSection {
-        //case .categories:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.tag = indexPath.section
-            cell.editMode = editMode
-            cell.delegate = self
-            cell.datasource = self
-            return cell
-            
-            /*
-        case .categoriesSearch:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithSegmentedControl, for: indexPath) as! TagListViewSegmentedControlTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.datasource = self
-            cell.delegate = self
-            cell.editMode = editMode
-            cell.tag = indexPath.section
-            cell.inclusion = OFFProducts.manager.searchQuery?.categories.1 ?? true
-            cell.allowInclusionEdit = query!.type != .simple
-
-            return cell
- */
-        //default:
-           // break
-
-        //}
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
+        cell.width = tableView.frame.size.width
+        cell.tag = indexPath.section
+        cell.editMode = editMode
+        cell.delegate = self
+        cell.datasource = self
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -230,8 +162,6 @@ class CategoriesTableViewController: UITableViewController {
                     }
                 }
             }
-        case .categoriesSearch:
-            break
         }
         return validHeader
     }
@@ -248,17 +178,10 @@ class CategoriesTableViewController: UITableViewController {
         // And each element is a tuple with the section type and number of rows
         //
         var sectionsAndRows: [(SectionType,Int, String?)] = []
-        if isQuery {
-            sectionsAndRows.append((
-                SectionType.categoriesSearch,
-                TableStructure.CategoriesSectionSize,
-                TableStructure.CategoriesSectionHeader))
-        } else {
-            sectionsAndRows.append((
-                SectionType.categories,
-                TableStructure.CategoriesSectionSize,
-                TableStructure.CategoriesSectionHeader))
-        }
+        sectionsAndRows.append((
+            SectionType.categories,
+            TableStructure.CategoriesSectionSize,
+            TableStructure.CategoriesSectionHeader))
         return sectionsAndRows
             
     }
@@ -315,7 +238,8 @@ class CategoriesTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        delegate?.title = TranslatableStrings.Categories
+        tableStructureForProduct = setupTableSections()
+        tableView.reloadData()
 
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name: .ProductPairRemoteStatusChanged, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(CategoriesTableViewController.refreshProduct), name:.ProductUpdateSucceeded, object:nil)
@@ -354,35 +278,9 @@ extension CategoriesTableViewController: TagListViewCellDelegate {
         case .categories:
             showCategoriesTagsType.cycle()
             tableView.reloadData()
-        // tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
-        default:
-            break
         }
     }
 }
-
-// MARK: - TagListViewSegmentedControlCellDelegate Delegate Functions
-/*
-extension CategoriesTableViewController: TagListViewSegmentedControlCellDelegate {
-    
-    func tagListViewSegmentedControlTableViewCell(_ sender: TagListViewSegmentedControlTableViewCell, receivedActionOn segmentedControl: UISegmentedControl) {
-        let inclusion = segmentedControl.selectedSegmentIndex == 0 ? false : true
-        let (currentProductSection, _, _) = tableStructureForProduct[sender.tag]
-        
-        switch currentProductSection {
-        case .categoriesSearch:
-            if OFFSearchProducts.manager.searchQuery == nil {
-                OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-            }
-            OFFSearchProducts.manager.searchQuery!.categories.1 = inclusion
-            tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: segmentedControl.tag), with: .fade)
-        default:
-            break
-        }
-    }
-}
-*/
 
 // MARK: - TagListView Datasource Functions
 
@@ -409,11 +307,9 @@ extension CategoriesTableViewController: TagListViewDataSource {
 
         let (currentProductSection, _, _) = tableStructureForProduct[tagListView.tag]
 
-        switch  currentProductSection {
+        switch currentProductSection {
         case .categories :
             return count(categoriesToDisplay)
-        case .categoriesSearch:
-            return count(searchCategoriesToDisplay)
         }
     }
     
@@ -423,8 +319,6 @@ extension CategoriesTableViewController: TagListViewDataSource {
         switch  currentProductSection {
         case .categories :
             return categoriesToDisplay.tag(at: index)!
-        case .categoriesSearch:
-            return searchCategoriesToDisplay.tag(at: index)!
         }
     }
     
@@ -456,25 +350,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
             case .notSearchable:
                 assert(true, "How can I add a tag when the field is non-editable")
             }
-            /*
-        case .categoriesSearch:
-            switch searchCategoriesToDisplay {
-            case .undefined, .empty:
-                if OFFSearchProducts.manager.searchQuery == nil {
-                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFSearchProducts.manager.searchQuery!.categories.0 = .available([title])
-            case .available(var list):
-                list.append(title)
-                if OFFSearchProducts.manager.searchQuery == nil {
-                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFSearchProducts.manager.searchQuery!.categories.0 = .available(list)
-            default:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
-*/
-        default: break
         }
         
     }
@@ -497,23 +372,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
                 assert(true, "How can I deleted a tag when the field is non-editable")
 
             }
-            /*
-        case .categoriesSearch:
-            switch searchCategoriesToDisplay {
-            case .undefined, .empty:
-                assert(true, "How can I delete a tag when there are none")
-            case .available(var list):
-                list.remove(at: index)
-                if OFFSearchProducts.manager.searchQuery == nil {
-                    OFFSearchProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFSearchProducts.manager.searchQuery!.categories.0 = Tags.init(list:list)
-            case .notSearchable:
-                assert(true, "How can I add a tag when the field is non-editable")
-            }
- */
-        default: break
-
         }
     }
     
@@ -523,22 +381,6 @@ extension CategoriesTableViewController: TagListViewDelegate {
         switch  currentProductSection {
         case .categories:
             productPair?.update(categories: [])
-            /*
-        case .categoriesSearch:
-            switch searchCategoriesToDisplay {
-            case .available(var list):
-                list.removeAll()
-                if OFFProducts.manager.searchQuery == nil {
-                    OFFProducts.manager.searchQuery = SearchTemplate.init()
-                }
-                OFFProducts.manager.searchQuery!.categories.0 = .available(list)
-            default:
-                assert(true, "How can I clear a tag when there are none")
-                
-            }
- */
-        default:break
-
         }
     }
     
@@ -548,10 +390,26 @@ extension CategoriesTableViewController: TagListViewDelegate {
         switch currentProductSection {
         case .categories:
             delegate?.search(for: productPair!.remoteProduct!.categoriesInterpreted.tag(at:index), in: .category)
-        default:
-            break
         }
     }
 
 
 }
+
+// MARK: - ProductPageViewController Delegate Methods
+
+extension CategoriesTableViewController: ProductPageViewControllerDelegate {
+    
+    func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+    
+    func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+
+    func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        tableView.reloadData()
+    }
+}
+

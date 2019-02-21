@@ -146,7 +146,7 @@ class SingleSearchProductTableViewController: UITableViewController {
             if let parentParentVC = pVC.parent as? UISplitViewController {
             if let detailVC = parentParentVC.viewControllers.last as? UINavigationController,
             let ppvc = detailVC.childViewControllers.first as? ProductPageViewController {
-            ppvc.tableItem = selectedProductPair
+            ppvc.productPair = selectedProductPair
             if let validSelectedRowType = selectedRowType,
                 let validProductPair = selectedProductPair {
                 switch validProductPair.barcodeType {
@@ -489,7 +489,7 @@ class SingleSearchProductTableViewController: UITableViewController {
             case Storyboard.SegueIdentifier.ToPageViewController:
                 if let vc = segue.destination as? UINavigationController {
                     if let ppvc = vc.topViewController as? ProductPageViewController {
-                        ppvc.tableItem = selectedProductPair
+                        ppvc.productPair = selectedProductPair
                         if let validSelectedRowType = selectedRowType,
                             let validProductPair = selectedProductPair {
                             switch validProductPair.barcodeType {
