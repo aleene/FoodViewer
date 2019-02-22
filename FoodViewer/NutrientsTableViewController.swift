@@ -64,11 +64,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
 
-    var editMode: Bool {
+    private var editMode: Bool {
         return delegate?.editMode ?? false
     }
 
-    var currentLanguageCode: String? {
+    private var currentLanguageCode: String? {
         get {
             return delegate?.currentLanguageCode
         }
@@ -449,7 +449,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 cell.delegate = self
                 return cell
             } else {
-                // searchResult = ImageFetchResult.noImageAvailable.description
                 // Show a tag with the option to set an image
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewAddImage, for: indexPath) as! TagListViewAddImageTableViewCell
                 cell.width = tableView.frame.size.width
@@ -1674,6 +1673,9 @@ extension NutrientsTableViewController: TagListViewDataSource {
         switch tableStructure[tagListView.tag] {
         case .nutritionFacts:
             return nutritionFactsTagTitle
+        case .image:
+            return ImageFetchResult.noImageAvailable.description
+
         default:
             break
         }

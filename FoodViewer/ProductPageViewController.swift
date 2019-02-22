@@ -622,7 +622,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         // nothing needs to be done
     }
 
-        
+        /*
     func updateCurrentLanguage() {
         if let index = pages.index(where: { $0 == .identification } ),
             let _ = viewController(for: pages[index]) as? IdentificationTableViewController {
@@ -630,14 +630,15 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         }
         if let index = pages.index(where: { $0 == .ingredients } ),
             let vc = viewController(for: pages[index]) as? IngredientsTableViewController {
-            vc.currentLanguageCode = currentLanguageCode
+            //vc.currentLanguageCode = currentLanguageCode
         }
         if let index = pages.index(where: { $0 == .nutritionFacts } ),
             let vc = viewController(for: pages[index]) as? NutrientsTableViewController {
-            vc.currentLanguageCode = currentLanguageCode
+            // vc.currentLanguageCode = currentLanguageCode
         }
 
     }
+  */
     
     func search(for string: String?, in component: SearchComponent) {
         if let validString = string {
