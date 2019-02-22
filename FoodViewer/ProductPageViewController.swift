@@ -85,7 +85,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
                                           style: .default)
         { action -> Void in
             self.productPair?.localProduct = nil
-            self.pageIndex = .identification
+            //self.pageIndex = .identification
         }
         
         let useMyOwn = UIAlertAction(title: TranslatableStrings.Save, style: .default)
@@ -275,44 +275,27 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         switch page {
         case .identification:
             identificationVC.delegate = self
-            // identificationVC.tableItem = tableItem
-            // identificationVC.currentLanguageCode = currentLanguageCode
-            // identificationVC.editMode = editMode
             
         case .ingredients:
             ingredientsVC.delegate = self
-            //ingredientsVC.tableItem = tableItem
-            //ingredientsVC.editMode = editMode
-            //ingredientsVC.currentLanguageCode = currentLanguageCode
             
         case .nutritionFacts:
             nutritionFactsVC.delegate = self
-            //nutritionFactsVC.tableItem = tableItem
-            //nutritionFactsVC.currentLanguageCode = currentLanguageCode
-            //nutritionFactsVC.editMode = editMode
             
         case .supplyChain:
             supplyChainVC.delegate = self
-            //supplyChainVC.tableItem = tableItem
-            //supplyChainVC.editMode = editMode
             
         case .categories:
             categoriesVC.delegate = self
-            //categoriesVC.tableItem = tableItem
-            //categoriesVC.editMode = editMode
             
         case .nutritionScore:
-            //nutritionScoreVC.tableItem = tableItem
             nutritionScoreVC.delegate = self
             
         case .completion :
-            //completionStatusVC.tableItem = tableItem
             completionStatusVC.delegate = self
             
         case .gallery:
             galleryVC.delegate = self
-            //galleryVC.productPair = productPair
-            //galleryVC.editMode = editMode
         }
         
     }

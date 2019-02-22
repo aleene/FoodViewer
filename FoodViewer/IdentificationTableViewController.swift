@@ -907,6 +907,7 @@ class IdentificationTableViewController: UITableViewController {
         showGenericNameTagsType = TagsTypeDefault.GenericName
         showQuantityTagsType = TagsTypeDefault.Quantity
         tableView.reloadData()
+        
     }
     /*
     @objc func loadFirstProduct() {
