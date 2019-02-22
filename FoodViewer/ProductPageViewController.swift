@@ -130,8 +130,13 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     var productPair: ProductPair? = nil {
         didSet {
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
-            productPageViewControllerdelegate?.productPageViewControllerProductPairChanged(self)
-            title = prefixedTitle
+            guard let validProductPair = productPair else { return }
+            if oldValue == nil ||
+                validProductPair.barcodeType.asString != oldValue!.barcodeType.asString {
+                productPageViewControllerdelegate?.productPageViewControllerProductPairChanged(self)
+                title = prefixedTitle
+                currentLanguageCode = validProductPair.product?.matchedLanguageCode(codes: Locale.preferredLanguageCodes)
+            }
         }
     }
     
