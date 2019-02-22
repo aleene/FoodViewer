@@ -52,10 +52,10 @@ class ExpirationDateTableViewCell: UITableViewCell {
         // expirationDateTextField?.layer.borderWidth = 0.0
         expirationDateTextField?.delegate = delegate
         expirationDateTextField?.tag = tag
-        expirationDateTextField?.isEnabled = editMode
+        expirationDateTextField?.isEnabled = false
         expirationDateButton?.isHidden = !editMode
-        expirationDateTextField?.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
-        expirationDateTextField?.borderStyle = editMode ? .roundedRect : .none
+        expirationDateTextField?.backgroundColor = UIColor.white // editMode ? UIColor.groupTableViewBackground : UIColor.white
+        expirationDateTextField?.borderStyle = .none // editMode ? .roundedRect : .none
     }
 
     @IBOutlet weak var expirationDateButton: UIButton! {

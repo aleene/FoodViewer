@@ -535,16 +535,7 @@ class SupplyChainTableViewController: UITableViewController {
             cell.editMode = editMode
             return cell
             
-        case .store:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
-            cell.width = tableView.frame.size.width
-            cell.tag = indexPath.section
-            cell.delegate = self
-            cell.datasource = self
-            cell.editMode = editMode
-            return cell
-            
-        case .location:
+        case .store, .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListViewWithButton, for: indexPath) as! PurchacePlaceTableViewCell
             cell.width = tableView.frame.size.width
             cell.tag = indexPath.section
@@ -1433,11 +1424,6 @@ extension SupplyChainTableViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         let (currentProductSection, _, _) = tableStructureForProduct[textField.tag]
         switch currentProductSection {
-        case .expirationDate:
-            // expiration date
-            if let validText = textField.text {
-                productPair?.update(expirationDateString: validText)
-            }
         case .periodAfterOpening:
             // period after opening
             if let validText = textField.text {
