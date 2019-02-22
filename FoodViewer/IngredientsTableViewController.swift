@@ -248,7 +248,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             return delegate?.currentLanguageCode
         }
         set {
-            delegate?.currentLanguageCode = currentLanguageCode
+            delegate?.currentLanguageCode = newValue
         }
     }
     

@@ -99,7 +99,7 @@ class IdentificationTableViewController: UITableViewController {
             return delegate?.currentLanguageCode
         }
         set {
-            delegate?.currentLanguageCode = currentLanguageCode
+            delegate?.currentLanguageCode = newValue
         }
     }
     
@@ -560,8 +560,9 @@ class IdentificationTableViewController: UITableViewController {
     func changeLanguage() {
         // set the next language in the array
         if let availableLanguages = productPair!.remoteProduct?.languageCodes {
-            if availableLanguages.count > 1 && currentLanguageCode != nextLanguageCode() {
-                currentLanguageCode = nextLanguageCode()
+            let nextCode = nextLanguageCode()
+            if availableLanguages.count > 1 && currentLanguageCode != nextCode {
+                currentLanguageCode = nextCode
             }
         }
     }
@@ -1141,11 +1142,9 @@ extension IdentificationTableViewController: TagListViewCellDelegate {
         case .packaging:
             showPackagingTagsType.cycle()
             tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         case .brands:
             showBrandTagsType.cycle()
             tableView.reloadData()
-            //tableView.reloadSections(IndexSet.init(integer: tagListView.tag), with: .fade)
         default:
             break
         }

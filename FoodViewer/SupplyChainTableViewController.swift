@@ -1474,7 +1474,7 @@ extension SupplyChainTableViewController: ProductPageViewControllerDelegate {
     }
 
     func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        tableView.reloadData()
+        // tableView.reloadData()
     }
 }
 
