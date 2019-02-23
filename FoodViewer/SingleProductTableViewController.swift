@@ -735,6 +735,8 @@ class SingleProductTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        splitViewController?.delegate = self
+        
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
         }
@@ -751,14 +753,13 @@ class SingleProductTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // addGesture()
-        // setTitle()
-        // make sure we show the right tab
-        //if products.list == .recent {
-         //   switchToTab(withIndex: 1)
-        //} else {
-          //  switchToTab(withIndex: 2)
-        //}
+
+        // add the back button
+        if let rightNavController = splitViewController?.viewControllers.last as? UINavigationController,
+            let detailViewController = rightNavController.topViewController as? UIPageViewController {
+                detailViewController.navigationItem.leftItemsSupplementBackButton = true
+                detailViewController.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        }
         
         // Is there a scanned product?
         if let validSelectedProductIndex = products.currentScannedProduct {
@@ -1078,3 +1079,6 @@ extension SingleProductTableViewController: UITableViewDragDelegate {
     
 }
 
+extension SingleProductTableViewController: UISplitViewControllerDelegate {
+
+}
