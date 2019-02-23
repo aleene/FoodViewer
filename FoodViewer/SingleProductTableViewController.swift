@@ -393,6 +393,7 @@ class SingleProductTableViewController: UITableViewController {
             selectedRowType = tableStructure[index]
         }
         showProductPage()
+        /*
         if products.count > 0,
             let validFetchResult = products.productPair(at: indexPath.section)?.remoteStatus,
             let validProductPair = products.productPair(at: indexPath.section) {
@@ -407,6 +408,7 @@ class SingleProductTableViewController: UITableViewController {
             default: break
             }
         }
+ */
     }
     
     /*

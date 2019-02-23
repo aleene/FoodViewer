@@ -86,13 +86,14 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     // MARK: - public variables
     
-    var productPair: ProductPair? {
+    private var productPair: ProductPair? {
         return delegate?.productPair
     }
 
     // Needed to show or hide buttons
     private var editMode: Bool {
         return delegate?.editMode ?? false
+        
     }
     
     private var languageCode: String? {
@@ -100,7 +101,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             return delegate?.currentLanguageCode
         }
         //set {
-        //    delegate?.currentLanguageCode = languageCode
+        //    delegate?.currentLanguageCode = newValue
         //}
     }
     
@@ -634,10 +635,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.refresher = UIRefreshControl()
-        self.collectionView!.alwaysBounceVertical = true
         self.refresher.tintColor = UIColor.red
         self.refresher.addTarget(self, action: #selector(ProductImagesCollectionViewController.refresh(sender:)), for: .valueChanged)
+        self.collectionView!.alwaysBounceVertical = true
         self.collectionView?.addSubview(refresher)
         self.collectionView?.delegate = self
         if #available(iOS 11.0, *) {
@@ -645,6 +647,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
             self.collectionView?.dropDelegate = self
         }
         
+        tableStructure = setupSections()
+
         registerCollectionViewCell()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -663,7 +667,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableStructure = setupSections()
+        collectionView?.reloadData()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdateSucceeded, object:nil)
@@ -922,11 +926,11 @@ extension ProductImagesCollectionViewController: ProductPageViewControllerDelega
     }
     
     func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        collectionView?.reloadData()
+        // collectionView?.reloadData()
     }
 
     func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
-        collectionView?.reloadData()
+        // collectionView?.reloadData()
     }
 }
 
