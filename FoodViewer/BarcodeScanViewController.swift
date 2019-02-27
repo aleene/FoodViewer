@@ -50,31 +50,31 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     @IBOutlet weak var fatLabel: UILabel! {
         didSet {
-            fatLabel.text = TranslatableStrings.FatLevel
+            fatLabel.text = NutritionFactItem.init(nutrient: .fat, unit: .Gram).itemName
         }
     }
     
     @IBOutlet weak var saturatedFatLabel: UILabel! {
         didSet {
-            saturatedFatLabel.text = TranslatableStrings.SaturatedFatLevel
+            saturatedFatLabel.text = NutritionFactItem.init(nutrient: .saturatedFat, unit: .Gram).itemName
         }
     }
     
     @IBOutlet weak var sugarLabel: UILabel! {
         didSet {
-            sugarLabel.text = TranslatableStrings.SugarLevel
+            sugarLabel.text = NutritionFactItem.init(nutrient: .sugars, unit: .Gram).itemName
         }
     }
     
     @IBOutlet weak var saltLabel: UILabel! {
         didSet {
-            saltLabel.text = TranslatableStrings.SaltLevel
+            saltLabel.text = NutritionFactItem.init(nutrient: .salt, unit: .Gram).itemName
         }
     }
     
     @IBOutlet weak var viewProductButton: UIButton! {
         didSet {
-            viewProductButton.setTitle(TranslatableStrings.ViewDetails, for: .normal)
+            viewProductButton.setTitle(TranslatableStrings.Details, for: .normal)
         }
     }
     
@@ -198,7 +198,8 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     print("Barcode found: type= " +  barcode.type.rawValue + " value=" + self.currentBarcode)
                     // create this barcode in the history and launch te fetch
                     DispatchQueue.main.async(execute: {
-                        if self.preferences.allowContinuousScan {
+                        if let continuousScanIsSet = ContinuousScanDefaults.manager.allowContinuousScan,
+                            continuousScanIsSet {
                             // start a timer to delay the next scan
                             self.startTimer()
                             // show the product data
@@ -273,12 +274,13 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                             default:
                                 break
                             }
-                            productView.backgroundColor = UIColor.black
+                            productView.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+
                             if let validProduct = scannedProductPair?.remoteProduct?.tracesInterpreted ?? scannedProductPair?.localProduct?.tracesInterpreted {
                                 switch validProduct {
                                 case .available(let validKeys):
                                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                                        productView.backgroundColor = UIColor.red
+                                        productView.backgroundColor = UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
                                     }
                                 default:
                                     break
@@ -288,7 +290,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                                 switch validProduct {
                                 case .available(let validKeys):
                                     if (!validKeys.isEmpty) && (AllergenWarningDefaults.manager.hasValidWarning(validKeys)) {
-                                        productView.backgroundColor = UIColor.red
+                                        productView.backgroundColor = UIColor.init(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
                                     }
                                 default:
                                     break
@@ -299,7 +301,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                     if let language = scannedProductPair?.remoteProduct?.primaryLanguageCode,
                         let frontImages = scannedProductPair?.remoteProduct?.frontImages ?? scannedProductPair?.localProduct?.frontImages,
                         !frontImages.isEmpty,
-                        let result = frontImages[language]?.display?.fetch() {
+                        let result = frontImages[language]?.small?.fetch() {
                         switch result {
                         case .success(let image):
                             self.frontImageView.image = image
@@ -388,6 +390,14 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         }
     }
     
+    @objc func doubleTapOnProductView() {
+        if let allowContinuousScan = ContinuousScanDefaults.manager.allowContinuousScan {
+        ContinuousScanDefaults.manager.set(!allowContinuousScan)
+        } else {
+            ContinuousScanDefaults.manager.set(true)
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -405,6 +415,13 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         scanBarcodes()
         setupProductType()
         
+        let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(BarcodeScanViewController.doubleTapOnProductView))
+        doubleTapGestureRecognizer.numberOfTapsRequired = 2
+        doubleTapGestureRecognizer.numberOfTouchesRequired = 1
+        doubleTapGestureRecognizer.cancelsTouchesInView = false
+        doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
+        productView.addGestureRecognizer(doubleTapGestureRecognizer)
+
         initializeCustomKeyboard()
     }
     

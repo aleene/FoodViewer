@@ -62,7 +62,7 @@ class AllergenWarningDefaults {
             }
         }
         if updateNeeded {
-            updateAllergenWarnings()
+            update()
             updateNeeded = false
         }
     }
@@ -70,7 +70,7 @@ class AllergenWarningDefaults {
     fileprivate func allergenMap(_ s1: VertexNew) -> String { return s1.key }
 
     
-    func updateAllergenWarnings() {
+    func update() {
         var newArray: [[String:AnyObject]] = [[:]]
         for (allergen, _, warning) in list {
             var newDict: [String:AnyObject] = [:]

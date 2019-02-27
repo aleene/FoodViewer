@@ -85,6 +85,8 @@ struct TranslatableStrings {
     static let DailyValue = NSLocalizedString("Daily Value", comment: "Title of third segment in switch, which lets the user select between per daily value (per 100 mg/ml / per serving / per daily value)")
     static let DailyValuesPerServing = NSLocalizedString("Daily Values (per serving)", comment: "Description for NutritionData Daily Value per serving")
     static let DataIsLoaded = NSLocalizedString("Data is loaded", comment: "String presented in a tagView if the data has been loaded")
+    static let Details = NSLocalizedString("Details", comment: "Title of abutton, which allows the user to view the details of a scanned product.")
+
     static let Discard = NSLocalizedString("Discard", comment: "Title of a button in an alert sheet, which allows the user to discard alle changes to the local product.")
     static let DisplayPreferences = NSLocalizedString("Display Preferences", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
     static let DisplayPreferencesExtended = NSLocalizedString("Set preferences for salt/sodium, kJ/kcal/Cal, etc.", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
@@ -377,7 +379,6 @@ struct TranslatableStrings {
     static let UserDefined = NSLocalizedString("User defined", comment: "Title of a segment in a segmentedControl that this parameter will be set by the user.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
 
-    static let ViewDetails = NSLocalizedString("View Details", comment: "Title of abutton, which allows the user to view the details of a scanned product.")
 
     static let Warnings = NSLocalizedString("Set ingredient warnings", comment: "Title of a tableView section, which lets the user set warnings")
     

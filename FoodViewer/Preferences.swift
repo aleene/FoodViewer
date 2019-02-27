@@ -15,10 +15,6 @@ class Preferences {
     // Unfortunately moving to another VC deletes the products, so it must be stored somewhere more permanently.
     // A singleton limits however the number of file loads
     
-//    public struct Notification {
-//        static let ShowProductTypeSetKey = "Preferences.Notification.ShowProductTypeSe.Key"
-//    }
-
     static let manager = Preferences()
     
     var nutritionFactsTableStyleSetter: NutritionFactsTableStyleSetter

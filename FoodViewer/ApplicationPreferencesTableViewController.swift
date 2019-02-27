@@ -39,12 +39,12 @@ class ApplicationPreferencesTableViewController: UITableViewController {
     
     @IBOutlet weak var allowContinuousScanSwitch: UISwitch! {
         didSet {
-            allowContinuousScanSwitch.isOn = Preferences.manager.allowContinuousScan
+            allowContinuousScanSwitch.isOn = ContinuousScanDefaults.manager.allowContinuousScan ?? true
         }
     }
     
     @IBAction func allowContinuousScanSwitchChanged(_ sender: UISwitch) {
-        Preferences.manager.allowContinuousScan = allowContinuousScanSwitch.isOn
+        ContinuousScanDefaults.manager.set(allowContinuousScanSwitch.isOn)
     }
     
     @IBOutlet weak var clearHistoryButton: UIButton! {

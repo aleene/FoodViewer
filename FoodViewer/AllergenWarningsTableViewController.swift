@@ -61,7 +61,7 @@ class AllergenWarningsTableViewController: UITableViewController {
     }
 
     override func viewDidDisappear(_ animated: Bool) {
-        AllergenWarningDefaults.manager.updateAllergenWarnings()
+        AllergenWarningDefaults.manager.update()
         super.viewDidDisappear(animated)
     }
 
