@@ -168,8 +168,11 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
         view.endEditing(true)
         if let validBarcode = activeTextField.text,
             !validBarcode.isEmpty,
-            validBarcode.count == 8 || validBarcode.count == 13 || validBarcode.count == 10 {
+            validBarcode.count == 8 ||
+            validBarcode.count == 13 ||
+            validBarcode.count == 10 {
             self.scannedProductPair = self.products.createProductPair(with:BarcodeType(barcodeString:validBarcode, type: preferences.showProductType))
+            showProductData()
         }
     }
     
@@ -177,7 +180,11 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
     
     fileprivate var products = OFFProducts.manager
     
-    fileprivate var scannedProductPair: ProductPair? = nil
+    fileprivate var scannedProductPair: ProductPair? = nil {
+        didSet {
+            
+        }
+    }
     
     private func switchToHistoryTab() {
         if let tabVC = self.parent as? UITabBarController {
@@ -310,6 +317,10 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                         }
                     }
 
+                case .productNotAvailable:
+                    self.nameLabel.text = TranslatableStrings.ProductNotAvailable
+                case .loadingFailed(let error):
+                    self.nameLabel.text = error
                 default:
                     break
                 }

@@ -236,6 +236,10 @@ class FoodProduct {
             return .undefined
         }
     }
+    
+    var minerals: Tags = .undefined
+    var vitamins: Tags = .undefined
+
     var labelsInterpreted: Tags = .undefined
     var labelsOriginal: Tags = .undefined
     var labelsHierarchy: Tags = .undefined
@@ -531,20 +535,6 @@ class FoodProduct {
         return nil
     }
     
-//    func producerElements(_ elements: String?) {
-//        if elements != nil {
-//            let addressElements = elements?.characters.split{$0 == ","}.map(String.init)
-//            self.producer = Address()
-//            self.producer!.rawArray = addressElements
-//        }
-//    }
-//    
-//    func producerElementsArray(_ elements: [String]?) {
-//        if let validElements = elements {
-//            self.producer = Address()
-//            self.producer!.rawArray = validElements
-//        }
-//    }
     var originsOriginal: Tags = .undefined
     var originsInterpreted: Tags = .undefined
     var originsAddress: Address? {
@@ -760,6 +750,8 @@ class FoodProduct {
         tracesOriginal = .undefined
         tracesInterpreted = .undefined
         additivesInterpreted = .undefined
+        vitamins = .undefined
+        minerals = .undefined
         labelsOriginal = .undefined
         labelsHierarchy = .undefined
         labelsInterpreted = .undefined
@@ -1156,7 +1148,10 @@ class FoodProduct {
         tracesOriginal = Tags(string: validProduct.traces)
         tracesHierarchy = Tags(list: validProduct.traces_hierarchy)
         tracesInterpreted = Tags(list: validProduct.traces_tags)
-        
+
+        minerals = Tags(list: validProduct.minerals_tags)
+        vitamins = Tags(list: validProduct.vitamins_tags)
+
         nameLanguage = validProduct.product_names_
         ingredientsLanguage = validProduct.ingredients_texts_
         genericNameLanguage = validProduct.generic_names_

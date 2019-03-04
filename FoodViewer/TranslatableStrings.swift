@@ -189,6 +189,7 @@ struct TranslatableStrings {
     static let Map = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
     static let Microgram = NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
     static let Milligram = NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
+    static let Minerals = NSLocalizedString("Minerals", comment: "Tableview section header, which list the detected minderals in an ingredients list.")
     static let MoveScale = NSLocalizedString("Move/Scale", comment: "Title of a navigation bar, wich allows the user to adapt an image.")
     
 //
@@ -379,6 +380,7 @@ struct TranslatableStrings {
     static let UserDefined = NSLocalizedString("User defined", comment: "Title of a segment in a segmentedControl that this parameter will be set by the user.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
 
+    static let Vitamins = NSLocalizedString("Vitamins", comment: "Tableview section header, which list the detected vitamins in an ingredients list.")
 
     static let Warnings = NSLocalizedString("Set ingredient warnings", comment: "Title of a tableView section, which lets the user set warnings")
     

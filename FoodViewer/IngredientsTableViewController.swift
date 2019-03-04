@@ -25,32 +25,24 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate enum SectionType {
         case ingredients(Int, String)
-        //case ingredientsSearch(Int, String)
+        case minerals(Int, String)
+        case vitamins(Int, String)
         case allergens(Int, String)
-        //case allergensSearch(Int, String)
         case traces(Int, String)
-        //case tracesSearch(Int, String)
         case labels(Int, String)
-        //case labelsSearch(Int, String)
         case additives(Int, String)
-        //case additivesSearch(Int, String)
         case image(Int, String)
-        //case imageSearch(Int, String)
 
         var header: String {
             switch self {
             case .ingredients(_, let headerTitle),
-                 //.ingredientsSearch(_, let headerTitle),
+                 .minerals(_, let headerTitle),
+                 .vitamins(_, let headerTitle),
                  .allergens(_, let headerTitle),
-                 //.allergensSearch(_, let headerTitle),
                  .traces(_, let headerTitle),
-                 //.tracesSearch(_, let headerTitle),
                  .labels(_, let headerTitle),
-                 //.labelsSearch(_, let headerTitle),
                  .additives(_, let headerTitle),
-                 //.additivesSearch(_, let headerTitle),
             .image(_, let headerTitle):
-                 //.imageSearch(_, let headerTitle):
                 return headerTitle
             }
         }
@@ -58,17 +50,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         var numberOfRows: Int {
             switch self {
             case .ingredients(let numberOfRows, _),
-                 //.ingredientsSearch(let numberOfRows, _),
+                 .minerals(let numberOfRows, _),
+                 .vitamins(let numberOfRows, _),
                  .allergens(let numberOfRows, _),
-                 //.allergensSearch(let numberOfRows, _),
                  .traces(let numberOfRows, _),
-                 //.tracesSearch(let numberOfRows, _),
                  .labels(let numberOfRows, _),
-                 //.labelsSearch(let numberOfRows, _),
                  .additives(let numberOfRows, _),
-                 //.additivesSearch(let numberOfRows, _),
-            .image(let numberOfRows, _):
-                 //.imageSearch(let numberOfRows, _):
+                 .image(let numberOfRows, _):
                 return numberOfRows
             }
         }
@@ -88,6 +76,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         static let Allergens: TagsType = .translated
         static let Additives: TagsType = .translated
         static let Ingredients: TagsType = .original
+        static let Minerals: TagsType = .translated
+        static let Vitamins: TagsType = .translated
     }
     
     // The interpreted labels have been translated to the interface language
@@ -96,7 +86,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var allergensTagsTypeToShow: TagsType = TagsTypeDefault.Allergens
     fileprivate var additivesTagsTypeToShow: TagsType = TagsTypeDefault.Additives
     fileprivate var ingredientsTagsTypeToShow: TagsType = TagsTypeDefault.Ingredients
-    
+    fileprivate var mineralsTagsTypeToShow: TagsType = TagsTypeDefault.Minerals
+    fileprivate var vitaminsTagsTypeToShow: TagsType = TagsTypeDefault.Vitamins
+
     fileprivate var ingredientsToDisplay: Tags {
         get {
             switch productVersion {
@@ -139,6 +131,30 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                 case .prefixed:
                     return .undefined
                 }
+            }
+        }
+    }
+
+    fileprivate var mineralsToDisplay: Tags {
+        get {
+            switch productVersion {
+                //case .local:
+                // allergens have no local version and are determined by off
+            //    return .empty
+            case .remote, .new:
+                return productPair?.remoteProduct?.minerals ?? .undefined
+            }
+        }
+    }
+
+    fileprivate var vitaminsToDisplay: Tags {
+        get {
+            switch productVersion {
+                //case .local:
+                // allergens have no local version and are determined by off
+            //    return .empty
+            case .remote, .new:
+                return productPair?.remoteProduct?.vitamins ?? .undefined
             }
         }
     }
@@ -344,7 +360,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             print("cell frame", cell.frame)
             return cell
             
-        case .allergens, .additives:
+        case .allergens, .additives, .minerals, .vitamins:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
@@ -520,7 +536,31 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     additivesTagsTypeToShow.description +
                 ")"
             }
+        case .minerals:
+            switch mineralsTagsTypeToShow {
+            case TagsTypeDefault.Additives:
+                break
+            default:
+                return tableStructure[section].header +
+                    " " +
+                    "(" +
+                    mineralsTagsTypeToShow.description +
+                ")"
+            }
+        case .vitamins:
+            switch vitaminsTagsTypeToShow {
+            case TagsTypeDefault.Additives:
+                break
+            default:
+                return tableStructure[section].header +
+                    " " +
+                    "(" +
+                    vitaminsTagsTypeToShow.description +
+                ")"
+            }
+
         }
+        
         return tableStructure[section].header
     }
     
@@ -605,6 +645,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate struct TableSection {
         struct Size {
             static let Ingredients = 1
+            static let Minerals = 1
+            static let Vitamins = 1
             static let Allergens = 1
             static let Traces = 1
             static let Additives = 1
@@ -613,6 +655,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         struct Header {
             static let Ingredients = TranslatableStrings.Ingredients
+            static let Minerals = TranslatableStrings.Minerals
+            static let Vitamins = TranslatableStrings.Vitamins
             static let Allergens = TranslatableStrings.Allergens
             static let Traces = TranslatableStrings.Traces
             static let Additives = TranslatableStrings.Additives
@@ -636,6 +680,9 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // not needed for .product, .petFood and .beauty
             switch currentProductType {
             case .food:
+                sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
+                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
+
                 // 1:  allergens section
                 sectionsAndRows.append(.allergens(TableSection.Size.Allergens, TableSection.Header.Allergens))
                 // 2: traces section
@@ -1212,9 +1259,13 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return 1
         case .traces:
             return count(tracesToDisplay)
-        default: break
+        case .ingredients(_, _):
+            return 0
+        case .minerals:
+            return count(mineralsToDisplay)
+        case .vitamins:
+            return count(vitaminsToDisplay)
         }
-        return 0
     }
     
     public func tagListView(_ tagListView: TagListView, titleForTagAt index: Int) -> String {
@@ -1229,9 +1280,13 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return labelsToDisplay.tag(at:index)!
         case .traces:
             return tracesToDisplay.tag(at:index)!
-        default: break
+        case .minerals(_, _):
+            return mineralsToDisplay.tag(at:index)!
+        case .vitamins(_, _):
+            return vitaminsToDisplay.tag(at:index)!
+        case .ingredients(_, _):
+            return("tagListView error")
         }
-        return("tagListView error")
     }
     
     public func tagListView(_ tagListView: TagListView, didChange height: CGFloat) {

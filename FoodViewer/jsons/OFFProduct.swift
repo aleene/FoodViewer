@@ -98,6 +98,7 @@ class OFFProduct: Codable {
         var link: String? = nil
     var manufacturing_places: String? = nil
         var manufacturing_places_tags: [String]? = nil
+    var minerals_tags: [String]? = nil
     var new_additives_n: Int? = nil
     var no_nutrition_data: String? = nil
     var nova_group_debug: String? = nil
@@ -142,6 +143,7 @@ class OFFProduct: Codable {
     var unique_scans_n: Int? = nil
     var unknown_nutrients_tags: [String]? = nil
     var update_key: String? = nil
+    var vitamins_tags: [String]? = nil
     var _id: String? = nil
     var _keywords: [String]? = nil
     
