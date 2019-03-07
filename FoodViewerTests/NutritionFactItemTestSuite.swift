@@ -36,10 +36,10 @@ class NutritionFactItemTestSuite: XCTestCase {
     //
     
     func testInitNameStandardServingUnitKey() {
-        let nfi = NutritionFactItem(name:"testName", standard:"testStandard", serving:"testServing", unit:"kJ", key:"testKey" )
+        let nfi = NutritionFactItem(name:"testName", standard:"testStandard", serving:"testServing", unit:"kJ", nutrient:.alcohol )
         XCTAssertNil(nfi.itemName,"Init() correctly initailzed itemName")
         XCTAssertNil(nfi.standardValue,"Init() correctly initailzed itemName")
-        XCTAssertNil(nfi.standardValueUnit,"Init() correctly initailzed itemName")
+        XCTAssertNil(nfi.standardValueUnit,"Init() correctly initalized itemName")
         XCTAssertNil(nfi.servingValue,"Init() correctly initailzed itemName")
         XCTAssertNil(nfi.servingValueUnit,"Init() correctly initailzed itemName")
         XCTAssertNil(nfi.dailyFractionPerServing,"Init() correctly initailzed itemName")

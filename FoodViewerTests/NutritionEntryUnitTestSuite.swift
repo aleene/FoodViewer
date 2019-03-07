@@ -23,7 +23,7 @@ class NutritionEntryUnitTestSuite: XCTestCase {
     //
     
     func testInit() {
-        XCTAssertEqual(unit!.key(),"100g","The correct key is returned")
+        XCTAssertEqual(unit!.key,"100g","The correct key is returned")
     }
 
     //
@@ -32,12 +32,12 @@ class NutritionEntryUnitTestSuite: XCTestCase {
     
     func testKeyValuePerServing() {
         unit = .perServing
-        XCTAssertEqual(unit!.key(),"serving","The correct key is returned")
+        XCTAssertEqual(unit!.key,"serving","The correct key is returned")
     }
     
     func testKeyValuePerStandardUnit() {
         unit = .perStandardUnit
-        XCTAssertEqual(unit!.key(),"100g","The correct key is returned")
+        XCTAssertEqual(unit!.key,"100g","The correct key is returned")
     }
 
 }

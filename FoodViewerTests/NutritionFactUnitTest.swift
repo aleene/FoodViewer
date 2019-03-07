@@ -91,9 +91,9 @@ class NutritionFactUnitTest: XCTestCase {
     //
     // MARK: - caseCount() test
     //
-
+/*
     func testNFUCaseCount() {
-        XCTAssertEqual(NutritionFactUnit.caseCount, 7, "NutritionFactUnit.CaseCount() correctly returns 7")
+        XCTAssertEqual(NutritionFactUnit., 7, "NutritionFactUnit.CaseCount() correctly returns 7")
     }
     
     //
@@ -101,13 +101,13 @@ class NutritionFactUnitTest: XCTestCase {
     //
     
     func testCaseCountValueEnergy() {
-        XCTAssertEqual(NutritionFactUnit.caseCount(key:"en:energy"), 4, "NutritionFactUnit.CaseCount(key:\"en:energy\") correctly returns 4")
+        XCTAssertEqual(NutritionFactUnit.count(key:"en:energy"), 4, "NutritionFactUnit.CaseCount(key:\"en:energy\") correctly returns 4")
     }
     
     func testCaseCountValueSomething() {
-        XCTAssertEqual(NutritionFactUnit.caseCount(key:"something"), 5, "NutritionFactUnit.CaseCount(key:\"something\" correctly returns 5")
+        XCTAssertEqual(NutritionFactUnit.count(key:"something"), 5, "NutritionFactUnit.CaseCount(key:\"something\" correctly returns 5")
     }
-
+*/
     //
     // MARK: - value(for:and:) test
     //

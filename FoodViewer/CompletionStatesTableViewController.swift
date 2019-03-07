@@ -22,7 +22,17 @@ class CompletionStatesTableViewController: UITableViewController {
     // MARK: - private variables
 
     private var editMode: Bool {
-        return delegate?.editMode ?? false
+        guard let delegate = self.delegate else { return false }
+        trackEditMode = delegate.editMode
+        return trackEditMode
+    }
+    
+    private var trackEditMode: Bool = false {
+        didSet {
+            if trackEditMode != oldValue {
+                tableView.reloadData()
+            }
+        }
     }
 
     fileprivate var productPair: ProductPair? {

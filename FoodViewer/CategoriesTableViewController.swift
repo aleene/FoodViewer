@@ -25,9 +25,19 @@ class CategoriesTableViewController: UITableViewController {
     }
     
     private var editMode: Bool {
-        return delegate?.editMode ?? false
+        guard let delegate = self.delegate else { return false }
+        trackEditMode = delegate.editMode
+        return trackEditMode
     }
     
+    private var trackEditMode: Bool = false {
+        didSet {
+            if trackEditMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+
     fileprivate enum ProductVersion {
         //case local
         case remote

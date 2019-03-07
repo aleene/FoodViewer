@@ -71,7 +71,7 @@ class TagsTestSuite: XCTestCase {
     
     func testInitWithList() {
         let list = ["1","2"]
-        let tags = Tags.init(list)
+        let tags = Tags.init(list:list)
         switch tags {
         case .available(let newList):
             XCTAssertTrue(true,"init(list:) successfull")
@@ -85,7 +85,7 @@ class TagsTestSuite: XCTestCase {
     
     func testInitWithListWithEmptyItem() {
         let list = ["1", "", "2"]
-        let tags = Tags.init(list)
+        let tags = Tags.init(list:list)
         switch tags {
         case .available(let newList):
             XCTAssertTrue(true,"init(list:) successfull")
@@ -100,7 +100,7 @@ class TagsTestSuite: XCTestCase {
     
     func testInitWithListThatIsNil() {
         let list: [String]? = nil
-        let tags = Tags.init(list)
+        let tags = Tags.init(list:list)
         switch tags {
         case .available:
             XCTFail("Init(list:nil) does NOT give the correct value")
@@ -119,7 +119,7 @@ class TagsTestSuite: XCTestCase {
     
     func testInitWithCommaDelimitedString() {
         let string = "1,2,3"
-        let tags = Tags.init(string)
+        let tags = Tags.init(string:string)
         switch tags {
         case .available(let newList):
             XCTAssertTrue(true,"init(string:) successfull")
@@ -133,7 +133,7 @@ class TagsTestSuite: XCTestCase {
 
     func testInitWithCommaDelimitedStringWithTwoCommas() {
         let string = "1,,3"
-        let tags = Tags.init(string)
+        let tags = Tags.init(string:string)
         switch tags {
         case .available(let newList):
             XCTAssertTrue(true,"init(string:) successfull")
@@ -148,7 +148,7 @@ class TagsTestSuite: XCTestCase {
     
     func testInitWithStringThatIsNil() {
         let string: String? = nil
-        let tags = Tags.init(string)
+        let tags = Tags.init(string:string)
         switch tags {
         case .available:
             XCTFail("Init(list:nil) does NOT give the correct value")
@@ -159,10 +159,11 @@ class TagsTestSuite: XCTestCase {
         }
     }
 
+    /*
     func testInitWithListAndLanguageCode() {
         let list = ["fr:1","2","3"]
         let lc = "en"
-        let tags = Tags.init(list:list)
+        var tags = Tags.init(list:list)
         tags = tags.addPrefix(lc)
         switch tags {
         case .available(let newList):
@@ -177,7 +178,7 @@ class TagsTestSuite: XCTestCase {
     func testInitWithListThatIsNilAndLanguageCode() {
         let list: [String]? = nil
         let lc = "en"
-        let tags = Tags.init(list:list)
+        var tags = Tags.init(list:list)
         tags = tags.addPrefix(lc)
         switch tags {
         case .undefined:
@@ -190,7 +191,7 @@ class TagsTestSuite: XCTestCase {
     func testInitWithListThatHasNoElementsAndLanguageCode() {
         let list: [String]? = []
         let lc = "en"
-        let tags = Tags.init(list:list)
+        var tags = Tags.init(list:list)
         tags = tags.addPrefix(lc)
         switch tags {
         case .empty:
@@ -203,7 +204,7 @@ class TagsTestSuite: XCTestCase {
     func testInitWithCommaDelimitedStringAndLanguageCode() {
         let string = "1,fr:2,3"
         let lc = "en"
-        let tags = Tags.init(string:string)
+        var tags = Tags.init(string:string)
         tags = tags.addPrefix(lc)
         switch tags {
         case .available(let newList):
@@ -218,7 +219,7 @@ class TagsTestSuite: XCTestCase {
     func testInitWithStringThatIsNilAndLanguageCode() {
         let string: String? = nil
         let lc = "en"
-        let tags = Tags.init(string:string)
+        var tags = Tags.init(string:string)
         tags = tags.addPrefix(lc)
         switch tags {
         case .undefined:
@@ -231,7 +232,7 @@ class TagsTestSuite: XCTestCase {
     func testInitWithStringThatIsEmptyAndLanguageCode() {
         let string: String? = ""
         let lc = "en"
-        let tags = Tags.init(string:string)
+        var tags = Tags.init(string:string)
         tags = tags.addPrefix(lc)
         switch tags {
         case .empty:
@@ -240,7 +241,8 @@ class TagsTestSuite: XCTestCase {
             XCTFail("Init(list:) does NOT give the correct value")
         }
     }
-    
+     */
+
     //
     // MARK: - tag(_:)
     //
@@ -249,13 +251,13 @@ class TagsTestSuite: XCTestCase {
     
     func testTagWithValidIndex() {
         let list = ["1","2","3"]
-        let tags = Tags(list)
+        let tags = Tags(list:list)
         XCTAssertEqual(tags.tag(at: 1),  "2", "Value of second tag, with index 1")
     }
 
     func testTagWithInvalidIndex() {
         let list = ["1","2","3"]
-        let tags = Tags.init(list)
+        let tags = Tags.init(list:list)
         let string = tags.tag(at: 6)
         XCTAssertNil(string, "tag with out of bounds returns nil")
     }
@@ -303,7 +305,7 @@ class TagsTestSuite: XCTestCase {
     
     func testRemoveItemAtAValidIndex() {
         let list = ["1","2","3"]
-        var tags = Tags(list)
+        var tags = Tags(list:list)
         tags.remove(0)
         switch tags {
         case .available(let newList):
@@ -317,7 +319,7 @@ class TagsTestSuite: XCTestCase {
 
     func testRemoveItemAtAnInvalidIndex() {
         let list = ["1","2","3"]
-        var tags = Tags(list)
+        var tags = Tags(list:list)
         tags.remove(4)
         switch tags {
         case .available(let newList):

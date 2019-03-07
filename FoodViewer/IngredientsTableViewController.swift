@@ -277,9 +277,21 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
     }
     
-    var editMode: Bool {
-        return delegate?.editMode ?? false
+    private var editMode: Bool {
+        guard let delegate = self.delegate else { return false }
+        trackEditMode = delegate.editMode
+        return trackEditMode
     }
+    
+    private var trackEditMode: Bool = false {
+        didSet {
+            if trackEditMode != oldValue {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    
 
     var delegate: ProductPageViewController? = nil {
         didSet {

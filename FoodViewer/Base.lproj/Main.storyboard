@@ -281,7 +281,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="8qF-wB-zag">
+                        <view key="tableFooterView" contentMode="scaleToFill" misplaced="YES" id="8qF-wB-zag">
                             <rect key="frame" x="0.0" y="944" width="375" height="308"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

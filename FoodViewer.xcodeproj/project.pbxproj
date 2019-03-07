@@ -101,6 +101,8 @@
 		5148F0F51DD4D9CE00EF1B67 /* EditNutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */; };
 		514EEF9A1ED9B70000C4CF54 /* 4005900122063.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF991ED9B70000C4CF54 /* 4005900122063.json */; };
 		514EEF9C1ED9B79100C4CF54 /* 7613034182067.json in Resources */ = {isa = PBXBuildFile; fileRef = 514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */; };
+		514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */; };
+		514EFA8A222FF770008FFD2A /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514EFA89222FF770008FFD2A /* SnapshotHelper.swift */; };
 		514FC912213E7BB6007577FC /* CSVError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC90E213E7BB5007577FC /* CSVError.swift */; };
 		514FC913213E7BB6007577FC /* CSVReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC90F213E7BB5007577FC /* CSVReader.swift */; };
 		514FC914213E7BB6007577FC /* CSVWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514FC910213E7BB5007577FC /* CSVWriter.swift */; };
@@ -337,6 +339,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		514EFA84222FEBB3008FFD2A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5180B8FC1C5D3B57002DBD21 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5180B9031C5D3B57002DBD21;
+			remoteInfo = FoodViewer;
+		};
 		51975CD01E6EB8580075B57B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5180B8FC1C5D3B57002DBD21 /* Project object */;
@@ -463,6 +472,10 @@
 		5148F0F41DD4D9CE00EF1B67 /* EditNutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNutrientsViewController.swift; sourceTree = "<group>"; };
 		514EEF991ED9B70000C4CF54 /* 4005900122063.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 4005900122063.json; sourceTree = "<group>"; };
 		514EEF9B1ED9B79100C4CF54 /* 7613034182067.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 7613034182067.json; sourceTree = "<group>"; };
+		514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FoodViewerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodViewerUITests.swift; sourceTree = "<group>"; };
+		514EFA83222FEBB3008FFD2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		514EFA89222FF770008FFD2A /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		514FC90E213E7BB5007577FC /* CSVError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVError.swift; sourceTree = "<group>"; };
 		514FC90F213E7BB5007577FC /* CSVReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVReader.swift; sourceTree = "<group>"; };
 		514FC910213E7BB5007577FC /* CSVWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVWriter.swift; sourceTree = "<group>"; };
@@ -717,6 +730,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		514EFA7C222FEBB3008FFD2A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5180B9011C5D3B57002DBD21 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1012,6 +1032,16 @@
 			name = sampleJson;
 			sourceTree = "<group>";
 		};
+		514EFA80222FEBB3008FFD2A /* FoodViewerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				514EFA89222FF770008FFD2A /* SnapshotHelper.swift */,
+				514EFA81222FEBB3008FFD2A /* FoodViewerUITests.swift */,
+				514EFA83222FEBB3008FFD2A /* Info.plist */,
+			);
+			path = FoodViewerUITests;
+			sourceTree = "<group>";
+		};
 		5150464F200904610094EE50 /* Download */ = {
 			isa = PBXGroup;
 			children = (
@@ -1128,6 +1158,7 @@
 				51B63CFE1CA80C4000391C34 /* README.md */,
 				5180B9061C5D3B57002DBD21 /* FoodViewer */,
 				51975CCC1E6EB8550075B57B /* FoodViewerTests */,
+				514EFA80222FEBB3008FFD2A /* FoodViewerUITests */,
 				5180B9051C5D3B57002DBD21 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -1137,6 +1168,7 @@
 			children = (
 				5180B9041C5D3B57002DBD21 /* FoodViewer.app */,
 				51975CCB1E6EB84F0075B57B /* FoodViewerTests.xctest */,
+				514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1443,6 +1475,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		514EFA7E222FEBB3008FFD2A /* FoodViewerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 514EFA88222FEBB3008FFD2A /* Build configuration list for PBXNativeTarget "FoodViewerUITests" */;
+			buildPhases = (
+				514EFA7B222FEBB3008FFD2A /* Sources */,
+				514EFA7C222FEBB3008FFD2A /* Frameworks */,
+				514EFA7D222FEBB3008FFD2A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				514EFA85222FEBB3008FFD2A /* PBXTargetDependency */,
+			);
+			name = FoodViewerUITests;
+			productName = FoodViewerUITests;
+			productReference = 514EFA7F222FEBB3008FFD2A /* FoodViewerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		5180B9031C5D3B57002DBD21 /* FoodViewer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5180B9161C5D3B57002DBD21 /* Build configuration list for PBXNativeTarget "FoodViewer" */;
@@ -1485,10 +1535,19 @@
 		5180B8FC1C5D3B57002DBD21 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				KnownAssetTags = (
+					New,
+				);
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Hovering Above";
 				TargetAttributes = {
+					514EFA7E222FEBB3008FFD2A = {
+						CreatedOnToolsVersion = 10.1;
+						DevelopmentTeam = Q4FXMVWJ7V;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 5180B9031C5D3B57002DBD21;
+					};
 					5180B9031C5D3B57002DBD21 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = Q4FXMVWJ7V;
@@ -1527,11 +1586,19 @@
 			targets = (
 				5180B9031C5D3B57002DBD21 /* FoodViewer */,
 				51975CCA1E6EB84F0075B57B /* FoodViewerTests */,
+				514EFA7E222FEBB3008FFD2A /* FoodViewerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		514EFA7D222FEBB3008FFD2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5180B9021C5D3B57002DBD21 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1579,6 +1646,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		514EFA7B222FEBB3008FFD2A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				514EFA82222FEBB3008FFD2A /* FoodViewerUITests.swift in Sources */,
+				514EFA8A222FF770008FFD2A /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5180B9001C5D3B57002DBD21 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1893,6 +1969,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		514EFA85222FEBB3008FFD2A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5180B9031C5D3B57002DBD21 /* FoodViewer */;
+			targetProxy = 514EFA84222FEBB3008FFD2A /* PBXContainerItemProxy */;
+		};
 		51975CD11E6EB8580075B57B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 5180B9031C5D3B57002DBD21 /* FoodViewer */;
@@ -1960,6 +2041,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		514EFA86222FEBB3008FFD2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FoodViewerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FoodViewer;
+			};
+			name = Debug;
+		};
+		514EFA87222FEBB3008FFD2A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q4FXMVWJ7V;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = FoodViewerUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sivas.hoveringabove.FoodViewerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = FoodViewer;
+			};
+			name = Release;
+		};
 		5180B9141C5D3B57002DBD21 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2151,6 +2284,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		514EFA88222FEBB3008FFD2A /* Build configuration list for PBXNativeTarget "FoodViewerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				514EFA86222FEBB3008FFD2A /* Debug */,
+				514EFA87222FEBB3008FFD2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5180B8FF1C5D3B57002DBD21 /* Build configuration list for PBXProject "FoodViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
