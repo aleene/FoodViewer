@@ -88,21 +88,12 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     private var productPair: ProductPair? {
         return delegate?.productPair
+        collectionView?.reloadData()
     }
 
     // Needed to show or hide buttons
     private var editMode: Bool {
-        guard let delegate = self.delegate else { return false }
-        trackEditMode = delegate.editMode
-        return trackEditMode
-    }
-    
-    private var trackEditMode: Bool = false {
-        didSet {
-            if trackEditMode != oldValue {
-                collectionView?.reloadData()
-            }
-        }
+        return delegate?.editMode ?? false
     }
 
     private var languageCode: String? {

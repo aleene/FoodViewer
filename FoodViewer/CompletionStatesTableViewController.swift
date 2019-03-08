@@ -16,23 +16,14 @@ class CompletionStatesTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             delegate?.productPageViewControllerdelegate = self
+            tableView.reloadData()
         }
     }
     
     // MARK: - private variables
 
     private var editMode: Bool {
-        guard let delegate = self.delegate else { return false }
-        trackEditMode = delegate.editMode
-        return trackEditMode
-    }
-    
-    private var trackEditMode: Bool = false {
-        didSet {
-            if trackEditMode != oldValue {
-                tableView.reloadData()
-            }
-        }
+        return delegate?.editMode ?? false
     }
 
     fileprivate var productPair: ProductPair? {

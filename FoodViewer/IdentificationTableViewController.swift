@@ -25,6 +25,7 @@ class IdentificationTableViewController: UITableViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             delegate?.productPageViewControllerdelegate = self
+            tableView.reloadData()
         }
     }
     

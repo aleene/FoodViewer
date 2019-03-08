@@ -11,6 +11,14 @@ import MobileCoreServices
 
 class NutrientsTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
     
+    
+    var delegate: ProductPageViewController? = nil {
+        didSet {
+            delegate?.productPageViewControllerdelegate = self
+            tableView.reloadData()
+        }
+    }
+    
     fileprivate var adaptedNutritionFacts: [DisplayFact] = []
     
     // setup the current display modes to app wide defaults
@@ -38,11 +46,6 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         case new
     }
     
-    var delegate: ProductPageViewController? = nil {
-        didSet {
-            delegate?.productPageViewControllerdelegate = self
-        }
-    }
 
     // Determines which version of the product needs to be shown, the remote or local
     

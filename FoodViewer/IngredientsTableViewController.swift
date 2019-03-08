@@ -318,7 +318,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     var delegate: ProductPageViewController? = nil {
         didSet {
             delegate?.productPageViewControllerdelegate = self
-            
+            tableView.reloadData()
         }
     }
     
