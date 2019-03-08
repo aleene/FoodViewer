@@ -25,9 +25,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     fileprivate enum SectionType {
         case ingredients(Int, String)
+        case allergens(Int, String)
         case minerals(Int, String)
         case vitamins(Int, String)
-        case allergens(Int, String)
+        case nucleotides(Int, String)
+        case otherNutritionalSubstances(Int, String)
         case traces(Int, String)
         case labels(Int, String)
         case additives(Int, String)
@@ -38,6 +40,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .ingredients(_, let headerTitle),
                  .minerals(_, let headerTitle),
                  .vitamins(_, let headerTitle),
+                 .nucleotides(_, let headerTitle),
+                 .otherNutritionalSubstances(_, let headerTitle),
                  .allergens(_, let headerTitle),
                  .traces(_, let headerTitle),
                  .labels(_, let headerTitle),
@@ -52,6 +56,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             case .ingredients(let numberOfRows, _),
                  .minerals(let numberOfRows, _),
                  .vitamins(let numberOfRows, _),
+                 .nucleotides(let numberOfRows, _),
+                 .otherNutritionalSubstances(let numberOfRows, _),
                  .allergens(let numberOfRows, _),
                  .traces(let numberOfRows, _),
                  .labels(let numberOfRows, _),
@@ -78,6 +84,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         static let Ingredients: TagsType = .original
         static let Minerals: TagsType = .translated
         static let Vitamins: TagsType = .translated
+        static let Nucleotides: TagsType = .translated
+        static let OtherNutritionalSubstances: TagsType = .translated
     }
     
     // The interpreted labels have been translated to the interface language
@@ -88,6 +96,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate var ingredientsTagsTypeToShow: TagsType = TagsTypeDefault.Ingredients
     fileprivate var mineralsTagsTypeToShow: TagsType = TagsTypeDefault.Minerals
     fileprivate var vitaminsTagsTypeToShow: TagsType = TagsTypeDefault.Vitamins
+    fileprivate var nucleotidesTagsTypeToShow: TagsType = TagsTypeDefault.Nucleotides
+    fileprivate var otherNutritionalSubstancesTagsTypeToShow: TagsType = TagsTypeDefault.OtherNutritionalSubstances
 
     fileprivate var ingredientsToDisplay: Tags {
         get {
@@ -155,6 +165,30 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             //    return .empty
             case .remote, .new:
                 return productPair?.remoteProduct?.vitamins ?? .undefined
+            }
+        }
+    }
+    
+    fileprivate var nucleotidesToDisplay: Tags {
+        get {
+            switch productVersion {
+                //case .local:
+                // nucleotides have no local version and are determined by off
+            //    return .empty
+            case .remote, .new:
+                return productPair?.remoteProduct?.nucleotides ?? .undefined
+            }
+        }
+    }
+
+    fileprivate var otherNutritionalSubstancesToDisplay: Tags {
+        get {
+            switch productVersion {
+                //case .local:
+                // otherNutritionalSubstances have no local version and are determined by off
+            //    return .empty
+            case .remote, .new:
+                return productPair?.remoteProduct?.otherNutritionalSubstances ?? .undefined
             }
         }
     }
@@ -278,20 +312,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }
     
     private var editMode: Bool {
-        guard let delegate = self.delegate else { return false }
-        trackEditMode = delegate.editMode
-        return trackEditMode
+        return self.delegate?.editMode ?? false
     }
-    
-    private var trackEditMode: Bool = false {
-        didSet {
-            if trackEditMode != oldValue {
-                tableView.reloadData()
-            }
-        }
-    }
-    
-    
 
     var delegate: ProductPageViewController? = nil {
         didSet {
@@ -372,11 +394,12 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             print("cell frame", cell.frame)
             return cell
             
-        case .allergens, .additives, .minerals, .vitamins:
+        case .allergens, .additives, .minerals, .vitamins, .nucleotides, .otherNutritionalSubstances:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
             cell.width = tableView.frame.size.width
             cell.datasource = self
             cell.delegate = self
+            cell.editMode = false
             cell.tag = indexPath.section
             return cell
 
@@ -550,7 +573,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
         case .minerals:
             switch mineralsTagsTypeToShow {
-            case TagsTypeDefault.Additives:
+            case TagsTypeDefault.Minerals:
                 break
             default:
                 return tableStructure[section].header +
@@ -561,7 +584,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             }
         case .vitamins:
             switch vitaminsTagsTypeToShow {
-            case TagsTypeDefault.Additives:
+            case TagsTypeDefault.Vitamins:
                 break
             default:
                 return tableStructure[section].header +
@@ -570,7 +593,28 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                     vitaminsTagsTypeToShow.description +
                 ")"
             }
-
+        case .nucleotides:
+            switch nucleotidesTagsTypeToShow {
+            case TagsTypeDefault.Nucleotides:
+                break
+            default:
+                return tableStructure[section].header +
+                    " " +
+                    "(" +
+                    nucleotidesTagsTypeToShow.description +
+                ")"
+            }
+        case .otherNutritionalSubstances:
+            switch otherNutritionalSubstancesTagsTypeToShow {
+            case TagsTypeDefault.OtherNutritionalSubstances:
+                break
+            default:
+                return tableStructure[section].header +
+                    " " +
+                    "(" +
+                    otherNutritionalSubstancesTagsTypeToShow.description +
+                ")"
+            }
         }
         
         return tableStructure[section].header
@@ -659,6 +703,8 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             static let Ingredients = 1
             static let Minerals = 1
             static let Vitamins = 1
+            static let Nucleotides = 1
+            static let OtherNutritionalSubstances = 1
             static let Allergens = 1
             static let Traces = 1
             static let Additives = 1
@@ -667,11 +713,13 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         struct Header {
             static let Ingredients = TranslatableStrings.Ingredients
-            static let Minerals = TranslatableStrings.Minerals
-            static let Vitamins = TranslatableStrings.Vitamins
-            static let Allergens = TranslatableStrings.Allergens
+            static let Minerals = TranslatableStrings.DetectedMinerals
+            static let Vitamins = TranslatableStrings.DetectedVitamins
+            static let Nucleotides = TranslatableStrings.DetectedNucleotides
+            static let OtherNutritionalSubstances = TranslatableStrings.DetectedOtherNutritionalSubstances
+            static let Allergens = TranslatableStrings.DetectedAllergens
             static let Traces = TranslatableStrings.Traces
-            static let Additives = TranslatableStrings.Additives
+            static let Additives = TranslatableStrings.DetectedAdditives
             static let Labels = TranslatableStrings.Labels
             static let Image = TranslatableStrings.IngredientsImage
         }
@@ -692,13 +740,16 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             // not needed for .product, .petFood and .beauty
             switch currentProductType {
             case .food:
-                sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
-                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
 
                 // 1:  allergens section
                 sectionsAndRows.append(.allergens(TableSection.Size.Allergens, TableSection.Header.Allergens))
                 // 2: traces section
                 sectionsAndRows.append(.traces(TableSection.Size.Traces, TableSection.Header.Traces))
+                sectionsAndRows.append(.minerals(TableSection.Size.Minerals, TableSection.Header.Minerals))
+                sectionsAndRows.append(.vitamins(TableSection.Size.Vitamins, TableSection.Header.Vitamins))
+                sectionsAndRows.append(.minerals(TableSection.Size.Nucleotides, TableSection.Header.Nucleotides))
+                sectionsAndRows.append(.vitamins(TableSection.Size.OtherNutritionalSubstances, TableSection.Header.OtherNutritionalSubstances))
+
             default :
                 break
             }
@@ -1247,10 +1298,10 @@ extension IngredientsTableViewController: TagListViewDataSource {
             switch tags {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
-                return editMode ? 0 : 1
+                return 1 // editMode ? 0 : 1
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
-                return editMode ? 0 : 1
+                return 1 // editMode ? 0 : 1
             case let .available(list):
                 tagListView.normalColorScheme = ColorSchemes.normal
                 return list.count
@@ -1277,6 +1328,10 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return count(mineralsToDisplay)
         case .vitamins:
             return count(vitaminsToDisplay)
+        case .nucleotides:
+            return count(nucleotidesToDisplay)
+        case .otherNutritionalSubstances:
+            return count(otherNutritionalSubstancesToDisplay)
         }
     }
     
@@ -1292,12 +1347,16 @@ extension IngredientsTableViewController: TagListViewDataSource {
             return labelsToDisplay.tag(at:index)!
         case .traces:
             return tracesToDisplay.tag(at:index)!
-        case .minerals(_, _):
+        case .minerals:
             return mineralsToDisplay.tag(at:index)!
-        case .vitamins(_, _):
+        case .vitamins:
             return vitaminsToDisplay.tag(at:index)!
-        case .ingredients(_, _):
-            return("tagListView error")
+        case .nucleotides:
+            return nucleotidesToDisplay.tag(at:index)!
+        case .otherNutritionalSubstances(_, _):
+            return otherNutritionalSubstancesToDisplay.tag(at:index)!
+        case .ingredients:
+            return("IngredientsTableViewController: ingredients field does not have tags")
         }
     }
     

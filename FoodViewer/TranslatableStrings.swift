@@ -22,9 +22,7 @@ struct TranslatableStrings {
     static let AddNutrient = NSLocalizedString("Add Nutrient", comment: "Title of a button in normal state allowing the user to add a nutrient")
     static let AlertPreferences = NSLocalizedString("Alert Preferences", comment: "ViewController title, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.")
     static let AlertPreferencesExtended = NSLocalizedString("Set a warning for specific allergen(s).", comment: "cell title label, which allows the user to set alerts for products elements (allergens, traces, ingredients, nurtiscore, nova, labels.")
-    static let Allergens = NSLocalizedString("Allergens", comment: "Text to indicate the allergens of a product.")
     static let AllergenWarnings = NSLocalizedString("Allergen warnings", comment: "TableViewController title for the allergen warnings setting scene.")
-    static let Additives = NSLocalizedString("Additives", comment: "Generic used string to indicate the additives of a product.")
     static let AllowContinuousScan = NSLocalizedString("Allow continuous scan?", comment: "Explanatory label text for a switch, which can set the application to scan products continuously.")
     static let AskSavePermissionTitle = NSLocalizedString("Save Product Updates?", comment: "The title of an alert sheet, which allows the user to save he product.")
     static let AskSavePermissionMessage = NSLocalizedString("The local product has been changed. Should these changes be saved?", comment: "The title of an alert sheet, which allows the user to save he product.")
@@ -86,7 +84,12 @@ struct TranslatableStrings {
     static let DailyValuesPerServing = NSLocalizedString("Daily Values (per serving)", comment: "Description for NutritionData Daily Value per serving")
     static let DataIsLoaded = NSLocalizedString("Data is loaded", comment: "String presented in a tagView if the data has been loaded")
     static let Details = NSLocalizedString("Details", comment: "Title of abutton, which allows the user to view the details of a scanned product.")
-
+    static let DetectedAdditives = NSLocalizedString("Detected Additives", comment: "Text to indicate the detected allergens of a product.")
+    static let DetectedAllergens = NSLocalizedString("Detected Allergens", comment: "Text to indicate the detected allergens of a product.")
+    static let DetectedMinerals = NSLocalizedString("Detected Minerals", comment: "Tableview section header, which list the detected minderals in an ingredients list.")
+    static let DetectedNucleotides = NSLocalizedString("Detected Nucleotides", comment: "Tableview section header, which list the detected nucleotides in an ingredients list.")
+    static let DetectedOtherNutritionalSubstances = NSLocalizedString("Detected Other Nutritional Substances", comment: "Tableview section header, which list the detected other nutritional substances in an ingredients list.")
+    static let DetectedVitamins = NSLocalizedString("Detected Vitamins", comment: "Tableview section header, which list the detected vitamins in an ingredients list.")
     static let Discard = NSLocalizedString("Discard", comment: "Title of a button in an alert sheet, which allows the user to discard alle changes to the local product.")
     static let DisplayPreferences = NSLocalizedString("Display Preferences", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
     static let DisplayPreferencesExtended = NSLocalizedString("Set preferences for salt/sodium, kJ/kcal/Cal, etc.", comment: "Title of a viewController, which lets the user select product display options (salt vs sodium), kJoule or kcal, etc")
@@ -189,7 +192,6 @@ struct TranslatableStrings {
     static let Map = NSLocalizedString("Sale Stores", comment: "Header for section of tableView with names of the stores where the product is sold.")
     static let Microgram = NSLocalizedString("microgram (µm)", comment: "Standard weight unit divided by million.")
     static let Milligram = NSLocalizedString("milligram (mg)", comment: "Standard weight unit divided by thousand.")
-    static let Minerals = NSLocalizedString("Minerals", comment: "Tableview section header, which list the detected minderals in an ingredients list.")
     static let MoveScale = NSLocalizedString("Move/Scale", comment: "Title of a navigation bar, wich allows the user to adapt an image.")
     
 //
@@ -222,6 +224,7 @@ struct TranslatableStrings {
     static let NoNutritionDataIndicated = NSLocalizedString("no nutrition data indicated", comment: "Text in a TagListView, when no nutrition data has been specified in the product data.")
     static let NotOnPackage = NSLocalizedString("nutrition data not on package", comment: "Text in a TagListView, when no nutrition data is available on the package.")
     static let NotSearchable = NSLocalizedString("Not searchable", comment: "Text in a search TagListView, when tags can not be set up.")
+    // static let NotYetDetected = NSLocalizedString("Ingredients will be analysed after upload by OFF", comment: "Text in a tag when a new/edited product is seen.")
     static let NotSet = NSLocalizedString("Not set", comment: "Generic text if a value has not yet been set.")
     static let NoProductsListed = NSLocalizedString("No products listed", comment: "Text to indicate that the history of products is empty.")
     static let NoTranslation = NSLocalizedString("No translation", comment: "Text in a pickerView, when no translated text is available")
@@ -295,6 +298,8 @@ struct TranslatableStrings {
     
     static let OpenFoodFactsAccount = NSLocalizedString("Default OpenFoodFacts account", comment: "Title of a tableView section, which lets the user set the off account to use")
     static let OriginalImages = NSLocalizedString("Original Images", comment: "Gallery header text presenting the original images")
+    static let OtherNutritionalSubstances = NSLocalizedString("Other Nutritional Substances", comment: "Tableview section header, which list the detected other nutritional substances in an ingredients list.")
+
 //
 // MARK: - QQQQQQQQQQQQQQQQ strings
 //
@@ -380,7 +385,6 @@ struct TranslatableStrings {
     static let UserDefined = NSLocalizedString("User defined", comment: "Title of a segment in a segmentedControl that this parameter will be set by the user.")
     static let USSet = NSLocalizedString("US Set", comment: "String of a button, to prefill the nutrients with the standard US set.")
 
-    static let Vitamins = NSLocalizedString("Vitamins", comment: "Tableview section header, which list the detected vitamins in an ingredients list.")
 
     static let Warnings = NSLocalizedString("Set ingredient warnings", comment: "Title of a tableView section, which lets the user set warnings")
     

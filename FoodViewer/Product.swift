@@ -239,7 +239,9 @@ class FoodProduct {
     
     var minerals: Tags = .undefined
     var vitamins: Tags = .undefined
-
+    var nucleotides: Tags = .undefined
+    var otherNutritionalSubstances: Tags = .undefined
+    
     var labelsInterpreted: Tags = .undefined
     var labelsOriginal: Tags = .undefined
     var labelsHierarchy: Tags = .undefined
@@ -752,6 +754,8 @@ class FoodProduct {
         additivesInterpreted = .undefined
         vitamins = .undefined
         minerals = .undefined
+        nucleotides = .undefined
+        otherNutritionalSubstances = .undefined
         labelsOriginal = .undefined
         labelsHierarchy = .undefined
         labelsInterpreted = .undefined
@@ -1151,6 +1155,8 @@ class FoodProduct {
 
         minerals = Tags(list: validProduct.minerals_tags)
         vitamins = Tags(list: validProduct.vitamins_tags)
+        nucleotides = Tags(list: validProduct.nucleotides_tags)
+        otherNutritionalSubstances = Tags(list: validProduct.other_nutritional_substances_tags)
 
         nameLanguage = validProduct.product_names_
         ingredientsLanguage = validProduct.ingredients_texts_

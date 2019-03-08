@@ -264,9 +264,9 @@ class AddSearchQueryTableViewController: UITableViewController {
             static let Brands = TranslatableStrings.Brands
             static let Packaging = TranslatableStrings.Packaging
             static let Ingredients = TranslatableStrings.Ingredients
-            static let Allergens = TranslatableStrings.Allergens
+            static let Allergens = TranslatableStrings.DetectedAllergens
             static let Traces = TranslatableStrings.Traces
-            static let Additives = TranslatableStrings.Additives
+            static let Additives = TranslatableStrings.DetectedAdditives
             static let Labels = TranslatableStrings.Labels
             static let Producer = TranslatableStrings.Producers
             static let ProducerCode = TranslatableStrings.ProductCodes

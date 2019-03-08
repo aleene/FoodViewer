@@ -65,17 +65,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     
 
     private var editMode: Bool {
-        guard let delegate = self.delegate else { return false }
-        trackEditMode = delegate.editMode
-        return trackEditMode
-    }
-    
-    private var trackEditMode: Bool = false {
-        didSet {
-            if trackEditMode != oldValue {
-                tableView.reloadData()
-            }
-        }
+        return delegate?.editMode ?? false
     }
 
     private var currentLanguageCode: String? {

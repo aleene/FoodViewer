@@ -88,18 +88,8 @@ class IdentificationTableViewController: UITableViewController {
     }
     
     
-    private var editMode: Bool {
-        guard let delegate = self.delegate else { return false }
-        trackEditMode = delegate.editMode
-        return trackEditMode
-    }
-    
-    private var trackEditMode: Bool = false {
-        didSet {
-            if trackEditMode != oldValue {
-                tableView.reloadData()
-            }
-        }
+    var editMode: Bool {
+        return delegate?.editMode ?? false
     }
 
     // The languageCode as defined by the user (double tapping/selecting)

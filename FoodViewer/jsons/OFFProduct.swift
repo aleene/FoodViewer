@@ -113,6 +113,7 @@ class OFFProduct: Codable {
     var nutrition_grades_tags: [String]? = nil
     var origins: String? = nil
         var origins_tags: [String]? = nil
+    var other_nutritional_substances_tags: [String]? = nil
     var packaging: String? = nil
         var packaging_tags: [String]? = nil
     var period_after_opening: String? = nil
@@ -144,6 +145,7 @@ class OFFProduct: Codable {
     var unknown_nutrients_tags: [String]? = nil
     var update_key: String? = nil
     var vitamins_tags: [String]? = nil
+    var nucleotides_tags: [String]? = nil
     var _id: String? = nil
     var _keywords: [String]? = nil
     

@@ -43,9 +43,9 @@ public enum SearchComponent {
     public var description: String {
         switch self {
         case .additive:
-            return TranslatableStrings.Additives
+            return TranslatableStrings.DetectedAdditives
         case .allergen:
-            return TranslatableStrings.Allergens
+            return TranslatableStrings.DetectedAllergens
         case .barcode:
             return TranslatableStrings.Barcode
         case .brand:
