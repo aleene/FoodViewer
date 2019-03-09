@@ -1119,6 +1119,7 @@ extension IngredientsTableViewController: TagListViewAddImageCellDelegate {
 extension IngredientsTableViewController: IngredientsFullCellDelegate {
 
     func ingredientsFullTableViewCell(_ sender: IngredientsFullTableViewCell, receivedActionOn textView:UITextView) {
+        textView.endEditing(true)
         changeLanguage()
     }
 

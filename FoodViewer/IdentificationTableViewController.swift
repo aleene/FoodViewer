@@ -1158,6 +1158,7 @@ extension IdentificationTableViewController: TagListViewCellDelegate {
 extension IdentificationTableViewController: ProductNameCellDelegate {
     
     func productNameTableViewCell(_ sender: ProductNameTableViewCell, receivedDoubleTap textView:UITextView) {
+        textView.endEditing(true)
         changeLanguage()
     }
 }
