@@ -306,6 +306,7 @@
 		51E1C36E2046C79E00CB68B1 /* ProductUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */; };
 		51E2926E20DBE1B2001C7471 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E2926D20DBE1B2001C7471 /* ImageCache.swift */; };
 		51E306A01C68E0B900485A8D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 51E3069E1C68E0B900485A8D /* Main.storyboard */; };
+		51E3E85A2238376700B03B25 /* NotSetPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E3E8592238376400B03B25 /* NotSetPageViewController.swift */; };
 		51E5CC981CB10A7E00216868 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */; };
 		51E5CC9B1CB1105E00216868 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51E5CC991CB1105E00216868 /* Keyboard.swift */; };
 		51E5CC9C1CB1105E00216868 /* Keyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51E5CC9A1CB1105E00216868 /* Keyboard.xib */; };
@@ -688,6 +689,7 @@
 		51E1C36D2046C79E00CB68B1 /* ProductUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductUpdate.swift; path = OFF/ProductUpdate.swift; sourceTree = "<group>"; };
 		51E2926D20DBE1B2001C7471 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCache.swift; path = Model/ImageCache.swift; sourceTree = "<group>"; };
 		51E3069F1C68E0B900485A8D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		51E3E8592238376400B03B25 /* NotSetPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotSetPageViewController.swift; sourceTree = "<group>"; };
 		51E5CC951CAD13A400216868 /* 54004207.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 54004207.json; sourceTree = "<group>"; };
 		51E5CC971CB10A7A00216868 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		51E5CC991CB1105E00216868 /* Keyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
@@ -972,6 +974,7 @@
 				51C86B601C6E322B002B7566 /* CompletionStatesTableViewController.swift */,
 				5125AB841D0864BB000DCD29 /* NutritionScoreTableViewController.swift */,
 				5193DC0D1F3DFA5F009EE70B /* ProductImagesCollectionViewController.swift */,
+				51E3E8592238376400B03B25 /* NotSetPageViewController.swift */,
 			);
 			name = Pages;
 			sourceTree = "<group>";
@@ -1857,6 +1860,7 @@
 				519884DE1CE4C62F0020B3A1 /* NutritionAvailability.swift in Sources */,
 				51F96668202DA44A00CD58C3 /* OFFProductIngredient.swift in Sources */,
 				51C2FF8720E5081200B65509 /* UIView+Haneke.swift in Sources */,
+				51E3E85A2238376700B03B25 /* NotSetPageViewController.swift in Sources */,
 				51F9665E202D9E4000CD58C3 /* OFFProductStates.swift in Sources */,
 				517AAD481C7DB08100B12F3C /* IngredientsTableViewController.swift in Sources */,
 				5108280D210A3CD40089977D /* PendingOperations.swift in Sources */,

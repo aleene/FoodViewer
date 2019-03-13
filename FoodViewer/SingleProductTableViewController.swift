@@ -145,12 +145,8 @@ class SingleProductTableViewController: UITableViewController {
     }
     
     fileprivate func showProductPage() {
-        // only segue if we are at the top of the stack
-        if  let parentVC = self.parent as? UINavigationController,
-            let parentParentVC = parentVC.parent as? UISplitViewController,
-            let detailVC = parentParentVC.viewControllers.last as? UINavigationController,
-            let ppvc = detailVC.childViewControllers.first as? ProductPageViewController {
-            ppvc.productPair = selectedProductPair
+        if let validProductPageViewController = productPageViewController {
+            validProductPageViewController.productPair = selectedProductPair
             if let validSelectedRowType = selectedRowType,
                 let validProductPair = selectedProductPair {
                 switch validProductPair.barcodeType {
@@ -158,17 +154,19 @@ class SingleProductTableViewController: UITableViewController {
                     if let validIndex = selectedPageIndex {
                         let array = template.searchPairsWithArray()
                         if array.count > 0 && validIndex < array.count {
-                            ppvc.pageIndex = searchRowType(array[validIndex].0)
+                            validProductPageViewController.pageIndex = searchRowType(array[validIndex].0)
                         } else {
-                            ppvc.pageIndex = .identification
+                            validProductPageViewController.pageIndex = .identification
                         }
                     }
                 default:
-                    ppvc.pageIndex = validSelectedRowType.productSection()
+                    validProductPageViewController.pageIndex = validSelectedRowType.productSection()
                 }
             } else {
-                ppvc.pageIndex = .identification
+                validProductPageViewController.pageIndex = .identification
             }
+        } else {
+            performSegue(withIdentifier: Storyboard.SegueIdentifier.ToPageViewController, sender: self)
         }
     }
     
@@ -236,7 +234,7 @@ class SingleProductTableViewController: UITableViewController {
             static let TagListView = "Single Product TagListView Cell Identifier"
         }
         struct SegueIdentifier {
-            static let ToPageViewController = "Show Page Controller"
+            static let ToPageViewController = "Show Single Product Details Segue"
         }
     }
     
@@ -737,12 +735,17 @@ class SingleProductTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        splitViewController?.delegate = self
+        // splitViewController?.delegate = self
         
         if #available(iOS 11.0, *) {
             tableView.dragDelegate = self
         }
         
+        if let splitVC = self.splitViewController,
+            let detailNavVC = splitVC.viewControllers.last as? UINavigationController,
+            let pageVC = detailNavVC.topViewController as? ProductPageViewController {
+            productPageViewController = pageVC
+        }
         // show history products
         //products.list = .recent
         //products.search = nil
@@ -880,16 +883,6 @@ extension SingleProductTableViewController: UIGestureRecognizerDelegate {
 extension SingleProductTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        //switch tabBarController.selectedIndex {
-        //case 1:
-        //    products.list = .recent
-        //case 2:
-         //   products.list = .search
-        //default:
-          //  break
-        //}
-        // products.list = tabBarController.selectedIndex == 0 ? .recent : .search
-        // refreshInterface()
         startInterface(at: 0)
         showProductPage()
     }

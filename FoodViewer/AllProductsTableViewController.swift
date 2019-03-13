@@ -369,7 +369,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        refreshInterface()
+        // refreshInterface()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -402,7 +402,6 @@ extension AllProductsTableViewController: UIGestureRecognizerDelegate {
 extension AllProductsTableViewController: UITabBarControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-
     }
     
 }

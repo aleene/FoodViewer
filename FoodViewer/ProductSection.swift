@@ -18,6 +18,7 @@ public enum ProductPage {
     case categories
     case completion
     case supplyChain
+    case notSet
 
     var description: String {
         switch self {
@@ -37,6 +38,8 @@ public enum ProductPage {
             return TranslatableStrings.CommunityEffort
         case .supplyChain:
             return TranslatableStrings.SupplyChain
+        case .notSet:
+            return TranslatableStrings.ProductNotSet
         }
     }
     

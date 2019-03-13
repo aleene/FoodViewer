@@ -129,6 +129,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var productPair: ProductPair? = nil {
         didSet {
+            initPages()
             confirmBarButtonItem?.isEnabled = productPair?.updateIsAllowed ?? true
             guard let validProductPair = productPair else { return }
             if oldValue == nil ||
@@ -142,33 +143,40 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     var pageIndex: ProductPage = .identification {
         didSet {
-            if pageIndex != oldValue {
-                // has the initialisation been done?
-                initPages()
-                
-                if let oldIndex = pages.index(where: { $0 == oldValue } ),
-                    let newIndex = pages.index(where: { $0 == pageIndex } ) {
-                    // open de corresponding page
-                    if newIndex > oldIndex {
-                        setViewControllers(
-                            [viewController(for:pageIndex)],
-                            direction: .forward,
-                            animated: false, completion: nil)
-                    } else {
-                        setViewControllers(
-                            [viewController(for:pageIndex)],
-                            direction: .reverse,
-                            animated: false, completion: nil)
-                    }
-                }
-            } else {
+            switch pageIndex {
+            case .notSet:
                 setViewControllers(
                     [viewController(for:pageIndex)],
                     direction: .forward,
                     animated: false, completion: nil)
+            default:
+                if pageIndex != oldValue {
+                    // has the initialisation been done?
+                    if let oldIndex = pages.index(where: { $0 == oldValue } ),
+                        let newIndex = pages.index(where: { $0 == pageIndex } ) {
+                        // open de corresponding page
+                        if newIndex > oldIndex {
+                            setViewControllers(
+                                [viewController(for:pageIndex)],
+                                direction: .forward,
+                                animated: false, completion: nil)
+                        } else {
+                            setViewControllers(
+                                [viewController(for:pageIndex)],
+                                direction: .reverse,
+                                animated: false, completion: nil)
+                        }
+                    }
+                } else {
+                    setViewControllers(
+                        [viewController(for:pageIndex)],
+                        direction: .forward,
+                        animated: false, completion: nil)
+                }
+                
+                initPage(pageIndex)
             }
-            
-            initPage(pageIndex)
+                
         }
     }
     
@@ -227,6 +235,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         } else if viewController is ProductImagesCollectionViewController {
                 return .gallery
             
+        } else if viewController is NotSetPageViewController {
+            return .notSet
+            
         } else {
             return .identification
         }
@@ -239,16 +250,21 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     private var pages: [ProductPage] = []
 
     private func initPages() {
-        // define the pages (and order), which will be shown
-        switch currentProductType {
-        case .food:
-            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .completion]
-        case .beauty:
-            pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
-        case .petFood:
-            pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
-        case .product:
+        if productPair == nil {
+            pages = [.notSet]
+            pageIndex = .notSet
+        } else {
+            // define the pages (and order), which will be shown
+            switch currentProductType {
+            case .food:
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .nutritionScore, .completion]
+            case .beauty:
                 pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+            case .petFood:
+                pages = [.identification, .ingredients, .nutritionFacts, .supplyChain, .categories, .gallery, .completion]
+            case .product:
+                pages = [.identification, .ingredients, .supplyChain, .categories, .gallery, .completion]
+            }
         }
     }
     
@@ -296,6 +312,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         case .gallery:
             galleryVC.delegate = self
+            
+        case .notSet:
+            break
         }
         
     }
@@ -311,7 +330,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         static let CategoriesVCIdentifier = "CategoriesTableViewController"
         static let CommunityEffortVCIdentifier = "CommunityEffortTableViewController"
         static let NutritionalScoreVCIdentifier = "NutritionScoreTableViewController"
-        static let ProductImagesVCIndentifier = "ProductImagesCollectionViewController"
+        static let ProductImagesVCIdentifier = "ProductImagesCollectionViewController"
+        static let NotSetVCIdentifier = "NotSetViewController"
         static let ConfirmProductViewControllerSegue = "Confirm Product Segue"
     }
     
@@ -334,6 +354,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             return completionStatusVC
         case .supplyChain:
             return supplyChainVC
+        case .notSet:
+            return notSetVC
         }
     }
     
@@ -360,7 +382,12 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
 
     private var prefixedTitle: String {
-        return pageIndex.description + " " + prefix  
+        switch pageIndex {
+        case .notSet:
+            return pageIndex.description
+        default:
+            return pageIndex.description + " " + prefix
+        }
     }
     
     fileprivate let identificationVC: IdentificationTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.IdentificationVCIdentifier) as! IdentificationTableViewController
@@ -377,7 +404,9 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     
     fileprivate let nutritionScoreVC: NutritionScoreTableViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NutritionalScoreVCIdentifier) as! NutritionScoreTableViewController
 
-    fileprivate let galleryVC: ProductImagesCollectionViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.ProductImagesVCIndentifier) as! ProductImagesCollectionViewController
+    fileprivate let galleryVC: ProductImagesCollectionViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.ProductImagesVCIdentifier) as! ProductImagesCollectionViewController
+
+    fileprivate let notSetVC: NotSetPageViewController = UIStoryboard(name: Constants.StoryBoardIdentifier, bundle: nil).instantiateViewController(withIdentifier: Constants.NotSetVCIdentifier) as! NotSetPageViewController
 
 //
 //          MARK: - Pageview Controller DataSource Functions
@@ -719,12 +748,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // setProductListButton()
-        
         dataSource = self
         delegate = self
-        
-        initPages()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -735,6 +760,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             confirmBarButtonItem.image = image
         }
 
+        initPages()
         title = prefixedTitle
 
         // listen if a product is set outside of the MasterViewController
