@@ -86,6 +86,8 @@ class SingleProductTableViewController: UITableViewController {
             case .available, .loading:
                 selectedProductPair = validProductPair
                 // tableView.scrollToRow(at: IndexPath(row: 0, section: index), at: .top, animated: true)
+                selectedPageIndex = index
+                selectedRowType = .name
                 showProductPage()
             default:
                 selectedProductPair = nil
@@ -147,21 +149,8 @@ class SingleProductTableViewController: UITableViewController {
     fileprivate func showProductPage() {
         if let validProductPageViewController = productPageViewController {
             validProductPageViewController.productPair = selectedProductPair
-            if let validSelectedRowType = selectedRowType,
-                let validProductPair = selectedProductPair {
-                switch validProductPair.barcodeType {
-                case .search(let template, _):
-                    if let validIndex = selectedPageIndex {
-                        let array = template.searchPairsWithArray()
-                        if array.count > 0 && validIndex < array.count {
-                            validProductPageViewController.pageIndex = searchRowType(array[validIndex].0)
-                        } else {
-                            validProductPageViewController.pageIndex = .identification
-                        }
-                    }
-                default:
-                    validProductPageViewController.pageIndex = validSelectedRowType.productSection()
-                }
+            if let validSelectedRowType = selectedRowType {
+                validProductPageViewController.pageIndex = validSelectedRowType.productSection()
             } else {
                 validProductPageViewController.pageIndex = .identification
             }
@@ -693,28 +682,7 @@ class SingleProductTableViewController: UITableViewController {
         startInterface(at: 0)
         showProductPage()
     }
-    /*
-    @objc func searchLoaded(_ notification: Notification) {
-        switchToTab(withIndex: 1)
-        if let index = notification.userInfo?[OFFProducts.Notification.SearchOffsetKey] as? Int {
-            startInterface(at:index >= 0 ? index : 0)
-            showProductPage()
-        }
-    }
-    
-    @objc func searchStarted(_ notification: Notification) {
-        switchToTab(withIndex: 1)
-        if let firstPage = notification.userInfo?[OFFProducts.Notification.SearchPageKey] as? Int {
-            // if there is no SearchOffSet, then the search just started
-            // If it is the first page, position the interface on the first section
-            if firstPage == 0 {
-                startInterface(at:0)
-                showProductPage()
-            }
-        }
-    }
- */
-    
+
     @IBOutlet var downTwoFingerSwipe: UISwipeGestureRecognizer!
     
     @IBAction func nextProductType(_ sender: UISwipeGestureRecognizer) {
@@ -769,10 +737,12 @@ class SingleProductTableViewController: UITableViewController {
         // Is there a scanned product?
         if let validSelectedProductIndex = products.currentScannedProduct {
             startInterface(at: validSelectedProductIndex)
+            showProductPage()
         // has a selected product been passed in?
         } else if let validProductPair = selectedProductPair,
             let validIndex = products.index(of: validProductPair) {
             startInterface(at: validIndex)
+            showProductPage()
         // just start at the top
         } else if products.count > 0 {
             // If nothing has been selected yet, start with the first product in the list, and on the iPad

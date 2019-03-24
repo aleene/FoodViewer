@@ -1299,6 +1299,23 @@ extension IngredientsTableViewController: TagListViewDataSource {
             switch tags {
             case .undefined:
                 tagListView.normalColorScheme = ColorSchemes.error
+                return editMode ? 0 : 1
+            case .empty:
+                tagListView.normalColorScheme = ColorSchemes.none
+                return editMode ? 0 : 1
+            case let .available(list):
+                tagListView.normalColorScheme = ColorSchemes.normal
+                return list.count
+            case .notSearchable:
+                tagListView.normalColorScheme = ColorSchemes.error
+                return 1
+            }
+        }
+
+        func detectedCount(_ tags: Tags) -> Int {
+            switch tags {
+            case .undefined:
+                tagListView.normalColorScheme = ColorSchemes.error
                 return 1 // editMode ? 0 : 1
             case .empty:
                 tagListView.normalColorScheme = ColorSchemes.none
@@ -1314,9 +1331,9 @@ extension IngredientsTableViewController: TagListViewDataSource {
 
         switch tableStructure[tagListView.tag] {
         case .additives:
-            return count(additivesToDisplay)
+            return detectedCount(additivesToDisplay)
         case .allergens:
-            return count(allergensToDisplay)
+            return detectedCount(allergensToDisplay)
         case .labels:
             return count(labelsToDisplay)
         case .image:
@@ -1326,13 +1343,13 @@ extension IngredientsTableViewController: TagListViewDataSource {
         case .ingredients(_, _):
             return 0
         case .minerals:
-            return count(mineralsToDisplay)
+            return detectedCount(mineralsToDisplay)
         case .vitamins:
-            return count(vitaminsToDisplay)
+            return detectedCount(vitaminsToDisplay)
         case .nucleotides:
-            return count(nucleotidesToDisplay)
+            return detectedCount(nucleotidesToDisplay)
         case .otherNutritionalSubstances:
-            return count(otherNutritionalSubstancesToDisplay)
+            return detectedCount(otherNutritionalSubstancesToDisplay)
         }
     }
     
