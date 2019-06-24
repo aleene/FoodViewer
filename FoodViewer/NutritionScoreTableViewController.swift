@@ -210,7 +210,7 @@ class NutritionScoreTableViewController: UITableViewController {
         
         // tableStructure = setupSections()
         tableView.estimatedRowHeight = 88.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
 
         showNutritionalScore = .uk

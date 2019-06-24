@@ -13,9 +13,9 @@ class TUSafariActivity : UIActivity {
     
     fileprivate var openURL: URL? = nil
     
-    override var activityType : UIActivityType? {
+    override var activityType : UIActivity.ActivityType? {
         get {
-            return UIActivityType(rawValue: "FoodViewer.OpenInSafari")
+            return UIActivity.ActivityType(rawValue: "FoodViewer.OpenInSafari")
         }
     }
     

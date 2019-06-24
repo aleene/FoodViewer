@@ -571,7 +571,7 @@ class IdentificationTableViewController: UITableViewController {
     fileprivate func nextLanguageCode() -> String {
         if let product = productPair?.remoteProduct {
             if let validLanguageCode = currentLanguageCode,
-                let currentIndex = product.languageCodes.index(of: validLanguageCode) {
+                let currentIndex = product.languageCodes.firstIndex(of: validLanguageCode) {
                     let nextIndex = currentIndex == ( product.languageCodes.count - 1 ) ? 0 : currentIndex + 1
                     return product.languageCodes[nextIndex]
             } else {
@@ -813,7 +813,7 @@ class IdentificationTableViewController: UITableViewController {
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 vc.delegate = self
                             }
                         }
@@ -927,11 +927,11 @@ class IdentificationTableViewController: UITableViewController {
         return picker
     }()
     
-    fileprivate func newImageSelected(info: [String : Any]) {
+    fileprivate func newImageSelected(info: [UIImagePickerController.InfoKey : Any]) {
         var image: UIImage? = nil
-        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if image == nil {
-            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
     }
     
@@ -1037,9 +1037,9 @@ class IdentificationTableViewController: UITableViewController {
         
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
         // print("viewDidLoad", self.view.frame, self.parent?.view.frame)
@@ -1546,7 +1546,7 @@ extension IdentificationTableViewController: UINavigationControllerDelegate, UII
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         newImageSelected(info: info)
         picker.dismiss(animated: true, completion: nil)
     }

@@ -192,14 +192,14 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
         switch (orientation) {
         case .unknown:
             fallthrough
-        case .portrait:
-            return AVCaptureVideoOrientation.portrait
         case .portraitUpsideDown:
             return AVCaptureVideoOrientation.portraitUpsideDown
         case .landscapeLeft:
             return AVCaptureVideoOrientation.landscapeLeft
         case .landscapeRight:
             return AVCaptureVideoOrientation.landscapeRight
+        default: // portrait
+            return AVCaptureVideoOrientation.portrait
         }
     }
     
@@ -360,8 +360,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationWillEnterForeground), name:UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RSCodeReaderViewController.onApplicationDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         
         if !Platform.isSimulator {
             self.session.startRunning()
@@ -371,8 +371,8 @@ open class RSCodeReaderViewController: UIViewController, AVCaptureMetadataOutput
     override open func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
         if !Platform.isSimulator {
             self.session.stopRunning()
         }

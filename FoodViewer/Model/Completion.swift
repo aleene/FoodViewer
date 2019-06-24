@@ -18,8 +18,8 @@ public struct ProductCompletion: Hashable {
         return OFFplists.manager.translateStates(OFF.JSONkey(for: self), language:Locale.preferredLanguages[0])
     }
     
-    public var hashValue: Int {
-        return category.rawValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(category.rawValue)
     }
     
     public static func ==(lhs: ProductCompletion, rhs: ProductCompletion) -> Bool {

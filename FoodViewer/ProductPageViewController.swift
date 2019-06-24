@@ -54,7 +54,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             
         let activityViewController = UIActivityViewController(activityItems: sharingItems, applicationActivities: [activity])
             
-        activityViewController.excludedActivityTypes = [UIActivityType.airDrop, UIActivityType.print, UIActivityType.openInIBooks, UIActivityType.assignToContact, UIActivityType.addToReadingList]
+        activityViewController.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.print, UIActivity.ActivityType.openInIBooks, UIActivity.ActivityType.assignToContact, UIActivity.ActivityType.addToReadingList]
             
         // This is necessary for the iPad
         let presCon = activityViewController.popoverPresentationController
@@ -152,8 +152,8 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             default:
                 if pageIndex != oldValue {
                     // has the initialisation been done?
-                    if let oldIndex = pages.index(where: { $0 == oldValue } ),
-                        let newIndex = pages.index(where: { $0 == pageIndex } ) {
+                    if let oldIndex = pages.firstIndex(where: { $0 == oldValue } ),
+                        let newIndex = pages.firstIndex(where: { $0 == pageIndex } ) {
                         // open de corresponding page
                         if newIndex > oldIndex {
                             setViewControllers(
@@ -414,7 +414,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-        if let viewControllerIndex = pages.index(where: { $0 == type(for: viewController) } ) {
+        if let viewControllerIndex = pages.firstIndex(where: { $0 == type(for: viewController) } ) {
             
             guard pages.count != viewControllerIndex + 1 else {
                 return nil
@@ -433,7 +433,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
         
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let viewControllerIndex = pages.index(where: { $0 == type(for: viewController) } ) {
+        if let viewControllerIndex = pages.firstIndex(where: { $0 == type(for: viewController) } ) {
 
             let previousIndex = viewControllerIndex - 1
             
@@ -464,7 +464,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
     }
         
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return pages.index(where: { $0 == pageIndex } ) ?? 0
+        return pages.firstIndex(where: { $0 == pageIndex } ) ?? 0
     }
         
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

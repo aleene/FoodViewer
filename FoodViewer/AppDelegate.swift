@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // let pageViewController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UIPageViewController
         // pageViewController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()

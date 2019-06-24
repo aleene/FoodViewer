@@ -1046,11 +1046,11 @@ open class TagListView: UIView, TagViewDelegate, BackspaceTextFieldDelegate {
     
     public func didTapTagView(_ tagView: TagView) {
         if isEditable {
-            if let currentIndex = self.tagViews.index(of: tagView) {
+            if let currentIndex = self.tagViews.firstIndex(of: tagView) {
                 removeTag(at: currentIndex)
             }
         } else {
-            if let currentIndex = self.tagViews.index(of: tagView) {
+            if let currentIndex = self.tagViews.firstIndex(of: tagView) {
                 tagView.state == .selected ? filterDeselectionAt(currentIndex) : filterSelectionAt(currentIndex)
             }
         }

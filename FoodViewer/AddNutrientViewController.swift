@@ -77,7 +77,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
     private func purgeNutrients() {
         // remove the existing nutrient(s) from the nutrients list
         for nutrient in existingNutrients {
-            if let validIndex = allNutrients.index(where: { (s: (Nutrient, String, NutritionFactUnit)) -> Bool in
+            if let validIndex = allNutrients.firstIndex(where: { (s: (Nutrient, String, NutritionFactUnit)) -> Bool in
                 s.1 == nutrient
             }){
                 allNutrients.remove(at: validIndex)
@@ -111,7 +111,7 @@ class AddNutrientViewController: UIViewController, UIPickerViewDelegate, UIPicke
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.textChanged(notification:)),
-            name: Notification.Name.UITextFieldTextDidChange,
+            name: UITextField.textDidChangeNotification,
             object: nil)
 
     }

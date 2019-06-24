@@ -542,7 +542,7 @@ class SingleProductTableViewController: UITableViewController {
     @objc func showAlertAddFrontImage(forProductWith index:Int) {
         let alert = UIAlertController(
             title: TranslatableStrings.AddFrontImage,
-            message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertControllerStyle.alert)
+            message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: Constants.AlertSheet.ActionTitleForCancel, style: .cancel) { (action: UIAlertAction) -> Void in
             // the user cancels to add image
         })
@@ -718,7 +718,7 @@ class SingleProductTableViewController: UITableViewController {
         //products.list = .recent
         //products.search = nil
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
         

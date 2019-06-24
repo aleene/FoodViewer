@@ -84,7 +84,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     private func purgeLanguageCodes() {
         for code in currentLanguageCodes {
-            if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+            if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
                 s.code == code
             }){
                 allLanguages.remove(at: validIndex)
@@ -109,7 +109,7 @@ class AddLanguageViewController: UIViewController, UIPickerViewDelegate, UIPicke
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.textChanged(notification:)),
-            name: Notification.Name.UITextFieldTextDidChange,
+            name: UITextField.textDidChangeNotification,
             object: nil)
     }
     

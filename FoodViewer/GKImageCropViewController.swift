@@ -37,7 +37,7 @@
         }
     }
     
-    var sourceType: UIImagePickerControllerSourceType? = nil
+    var sourceType: UIImagePickerController.SourceType? = nil
     
     var delegate: GKImageCropControllerDelegate? = nil
     

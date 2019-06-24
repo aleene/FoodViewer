@@ -214,12 +214,12 @@ class OFFProducts {
     
     func indexOfProductPair(with barcodeType: BarcodeType?) -> Int? {
         guard let validbarcodeType = barcodeType else { return nil }
-        return allProductPairs.index(where: { $0.barcodeType.asString == validbarcodeType.asString })
+        return allProductPairs.firstIndex(where: { $0.barcodeType.asString == validbarcodeType.asString })
     }
     
     func index(of productPair: ProductPair?) -> Int? {
         guard let validProductPair = productPair else { return nil }
-        return allProductPairs.index(where: { $0.barcodeType.asString == validProductPair.barcodeType.asString })
+        return allProductPairs.firstIndex(where: { $0.barcodeType.asString == validProductPair.barcodeType.asString })
     }
     
     func createProduct(with barcodeType: BarcodeType) -> Int {

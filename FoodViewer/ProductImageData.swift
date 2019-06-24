@@ -23,9 +23,10 @@ import MobileCoreServices
         if let validImage = self.image {
             switch typeIdentifier {
             case kUTTypeJPEG as NSString as String:
-                completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
+                completionHandler(validImage.jpegData(compressionQuality: 1.0), nil)
+                // completionHandler(UIImageJPEGRepresentation(validImage, 1.0), nil)
             case kUTTypePNG as NSString as String:
-                completionHandler(UIImagePNGRepresentation(validImage), nil)
+                completionHandler(validImage.pngData(), nil)
             default:
                 completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
             }
@@ -36,9 +37,10 @@ import MobileCoreServices
             cache.fetch(fetcher: fetcher).onSuccess { image in
                 switch typeIdentifier {
                 case kUTTypeJPEG as NSString as String:
-                    completionHandler(UIImageJPEGRepresentation(image, 1.0), nil)
+                    completionHandler(image.jpegData(compressionQuality: 1.0), nil)
+                    // completionHandler(UIImageJPEGRepresentation(image, 1.0), nil)
                 case kUTTypePNG as NSString as String:
-                    completionHandler(UIImagePNGRepresentation(image), nil)
+                    completionHandler(image.pngData(), nil)
                 default:
                     completionHandler(nil, ImageLoadError.unsupportedTypeIdentifier(typeIdentifier))
                 }
@@ -367,14 +369,14 @@ import MobileCoreServices
     
     
     private func getExifDataFrom(_ image: UIImage) {
-        if let imageData = UIImageJPEGRepresentation(image, 1.0) {
-            let imageCFData = imageData as CFData
-            if let cgImage = CGImageSourceCreateWithData(imageCFData, nil),
-                let metaDict: NSDictionary = CGImageSourceCopyPropertiesAtIndex(cgImage, 0, nil) {
-                let exifDict: NSDictionary = metaDict.object(forKey: kCGImagePropertyExifDictionary) as! NSDictionary
+        //if let imageData = UIImageJPEGRepresentation(image, 1.0) {
+        //   let imageCFData = imageData as CFData
+         //   if let cgImage = CGImageSourceCreateWithData(imageCFData, nil),
+         //       let metaDict: NSDictionary = CGImageSourceCopyPropertiesAtIndex(cgImage, 0, nil) {
+         //       let exifDict: NSDictionary = metaDict.object(forKey: kCGImagePropertyExifDictionary) as! NSDictionary
                 // print(getExifDataFrom: exifDict)
-            }
-        }
+         //   }
+       // }
     }
 }
 

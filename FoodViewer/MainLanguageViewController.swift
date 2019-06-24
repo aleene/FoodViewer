@@ -98,7 +98,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
     private func purgeLanguageCodes() {
         // remove the existing language(s) from the language list
         for validCode in currentLanguageCodes {
-            if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+            if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
                 s.code == validCode
             }){
                 allLanguages.remove(at: validIndex)
@@ -133,7 +133,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.textChanged(notification:)),
-            name: Notification.Name.UITextFieldTextDidChange,
+            name: UITextField.textDidChangeNotification,
             object: nil)
     }
 

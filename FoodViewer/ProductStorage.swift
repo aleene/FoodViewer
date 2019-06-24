@@ -86,7 +86,7 @@ public struct ProductStorage {
                     case .success(let image):
                         do {
                             let fileURL =  newImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
-                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                            try image.jpegData(compressionQuality: 1.0)?.write(to: fileURL, options: .atomic)
                         } catch {
                             assert(true, "ProductStorage: Not able to create and write image")
                             return completionHandler(.failure(error))
@@ -118,7 +118,7 @@ public struct ProductStorage {
                     case .success(let image):
                         do {
                             let fileURL =  frontImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
-                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                            try image.jpegData(compressionQuality: 1.0)?.write(to: fileURL, options: .atomic)
                         } catch {
                             print("ProductStorage: Not able to create and write front image")
                             return completionHandler(.failure(error))
@@ -150,7 +150,7 @@ public struct ProductStorage {
                     case .success(let image):
                         do {
                             let fileURL =  ingredientsImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
-                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                            try image.jpegData(compressionQuality: 1.0)?.write(to: fileURL, options: .atomic)
                         } catch {
                             assert(true, "ProductStorage: Not able to create and write image")
                             return completionHandler(.failure(error))
@@ -181,7 +181,7 @@ public struct ProductStorage {
                     case .success(let image):
                         do {
                             let fileURL =  nutritionImagesUrl.appendingPathComponent(imageDict.key).appendingPathExtension(Constant.ImageExtension)
-                            try UIImageJPEGRepresentation(image, 1.0)?.write(to: fileURL, options: .atomic)
+                            try image.jpegData(compressionQuality: 1.0)?.write(to: fileURL, options: .atomic)
                         } catch {
                             print("ProductStorage: Not able to create and write image")
                             return completionHandler(.failure(error))

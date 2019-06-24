@@ -78,7 +78,7 @@ class OFFplists {
 
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFstates!.index(of: vertex)
+            let index = OFFstates!.firstIndex(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFstates![index!].leaves
@@ -108,7 +108,7 @@ class OFFplists {
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFadditives!.index(of: vertex)
+            let index = OFFadditives!.firstIndex(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFadditives![index!].leaves
@@ -127,7 +127,7 @@ class OFFplists {
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFallergens!.index(of: vertex)
+            let index = OFFallergens!.firstIndex(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFallergens![index!].leaves
@@ -146,7 +146,7 @@ class OFFplists {
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFcountries!.index(of: vertex)
+            let index = OFFcountries!.firstIndex(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFcountries![index!].leaves
@@ -166,7 +166,7 @@ class OFFplists {
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = OFFglobalLabels!.index(of: vertex)
+            let index = OFFglobalLabels!.firstIndex(of: vertex)
             if  index != nil {
                 
                 let currentVertex = OFFglobalLabels![index!].leaves
@@ -205,7 +205,7 @@ class OFFplists {
             
             let vertex = VertexNew(key:key)
             // find the Vertex.Node with the key
-            let index = taxonomy!.index(of: vertex)
+            let index = taxonomy!.firstIndex(of: vertex)
             if  index != nil {
                 
                 let currentVertex = taxonomy![index!].leaves
@@ -332,7 +332,7 @@ class OFFplists {
         var language: Language? = nil
         guard languageCode != nil else { return TextConstants.NoLanguage }
         let allLanguages: [Language] = self.allLanguages(Locale.preferredLanguages[0])
-        if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+        if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
             s.code == languageCode!
         }){
             language = allLanguages[validIndex]
@@ -345,7 +345,7 @@ class OFFplists {
         var language: Language? = nil
         guard languageString != nil else { return TextConstants.NoLanguage }
         let allLanguages: [Language] = self.allLanguages(Locale.preferredLanguages[0])
-        if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+        if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
             s.name == languageString!
         }){
             language = allLanguages[validIndex]

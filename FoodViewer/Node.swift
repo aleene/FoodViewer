@@ -25,10 +25,14 @@ class Node: Hashable, Equatable, CustomStringConvertible {
     // this is a list of languages with one or more titles describing this node
     var leaves: [String:[String]] = [:]
 
-    // use the key string to return a hashValue
-    var hashValue: Int {
-        return key.hashValue
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(key)
     }
+    // use the key string to return a hashValue
+    //var hashValue: Int {
+    //    return key.hashValue
+    //}
 
     var description: String {
         get {

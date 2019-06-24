@@ -22,14 +22,14 @@ extension UIImage {
         switch alphaInfo {
         case .first, .last, .premultipliedFirst, .premultipliedLast, .alphaOnly:
             return true
-        case .none, .noneSkipFirst, .noneSkipLast:
+        default:
             return false
         }
     }
     
     func hnk_data(compressionQuality: Float = 1.0) -> Data! {
         let hasAlpha = self.hnk_hasAlpha()
-        let data = hasAlpha ? UIImagePNGRepresentation(self) : UIImageJPEGRepresentation(self, CGFloat(compressionQuality))
+        let data = hasAlpha ? self.pngData() : self.jpegData(compressionQuality: CGFloat(compressionQuality))
         return data
     }
     
@@ -47,7 +47,7 @@ extension UIImage {
             bitmapInfo = CGBitmapInfo(rawValue: rawBitmapInfo)
         case .premultipliedFirst, .premultipliedLast, .noneSkipFirst, .noneSkipLast:
             break
-        case .alphaOnly, .last, .first: // Unsupported
+        default: // Unsupported
             return self
         }
         
@@ -73,7 +73,7 @@ extension UIImage {
         }
         
         let scale = UIScreen.main.scale
-        let image = UIImage(cgImage: decompressedImageRef, scale:scale, orientation:UIImageOrientation.up)
+        let image = UIImage(cgImage: decompressedImageRef, scale:scale, orientation:UIImage.Orientation.up)
         return image
     }
 

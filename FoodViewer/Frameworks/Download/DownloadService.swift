@@ -57,7 +57,7 @@ extension DownloadService: URLSessionDataDelegate {
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let index = downloadTasks.index(where: { $0.task == task }) else {
+        guard let index = downloadTasks.firstIndex(where: { $0.task == task }) else {
             return
         }
         let task = downloadTasks.remove(at: index)

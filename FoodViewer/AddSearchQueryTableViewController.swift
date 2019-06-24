@@ -433,7 +433,7 @@ class AddSearchQueryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     override func viewDidLoad() {
@@ -446,7 +446,7 @@ class AddSearchQueryTableViewController: UITableViewController {
         title = "Define Search"
         self.tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = true
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
     }
 

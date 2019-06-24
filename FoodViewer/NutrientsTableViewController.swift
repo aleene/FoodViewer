@@ -150,7 +150,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         let label = currentNutritionFactsTableStyle
         var orderedFacts: [DisplayFact] = []
         for key in label.keys {
-            if let index = facts.index(where: { $0.nutrient.key == key.rawValue } ) {
+            if let index = facts.firstIndex(where: { $0.nutrient.key == key.rawValue } ) {
                 orderedFacts.append(facts[index])
             }
         }
@@ -829,7 +829,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 //ppc.delegate = self
                                 
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 vc.currentLanguageCode = displayLanguageCode
                                 vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode ?? productPair!.remoteProduct!.primaryLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
@@ -850,7 +850,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 //ppc.delegate = self
                                     
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 vc.currentLanguageCode = displayLanguageCode
                                 vc.primaryLanguageCode = productPair?.localProduct?.primaryLanguageCode ?? productPair!.remoteProduct!.primaryLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
@@ -877,7 +877,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 ppc.delegate = self
                                 
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 vc.currentNutritionFactsTableStyle = self.currentNutritionFactsTableStyle
                                 vc.editMode = self.editMode
                             }
@@ -914,7 +914,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 //let anchorFrame = button.convert(button.bounds, to: self.view)
                                 //ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 //ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 vc.existingNutrients = adaptedNutritionFacts.compactMap { $0.name }
                             //}
                         }
@@ -935,7 +935,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 let row = button.tag % 100
                                 vc.nutrientRow = row
                                 if row >= 0 && row < adaptedNutritionFacts.count {
@@ -1198,11 +1198,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         return picker
     }()
 
-    fileprivate func newImageSelected(info: [String : Any]) {
+    fileprivate func newImageSelected(info: [UIImagePickerController.InfoKey : Any]) {
         var image: UIImage? = nil
-        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if image == nil {
-            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
         if image != nil,
             let validLanguageCode = displayLanguageCode {
@@ -1284,9 +1284,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             tableView.dropDelegate = self
         }
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
@@ -1694,7 +1694,7 @@ extension NutrientsTableViewController: UINavigationControllerDelegate, UIImageP
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         newImageSelected(info: info)
         picker.dismiss(animated: true, completion: nil)
         // notify the delegate

@@ -30,7 +30,7 @@ class GKImageCropView: UIView {
         view.showsHorizontalScrollIndicator = false
         view.showsVerticalScrollIndicator = false
         // view.clipsToBounds = true
-        view.decelerationRate = 0.0
+        view.decelerationRate = UIScrollView.DecelerationRate(rawValue:0.0) // 0.0
         view.backgroundColor = UIColor.clear
         view.maximumZoomScale = 20.0
         view.minimumZoomScale = 0.1

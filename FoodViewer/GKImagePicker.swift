@@ -26,7 +26,7 @@ open class GKImagePicker: NSObject {
     
     var delegate: GKImagePickerDelegate? = nil
     
-    var sourceType: UIImagePickerControllerSourceType = .photoLibrary {
+    var sourceType: UIImagePickerController.SourceType = .photoLibrary {
         didSet {
             self.imagePickerController?.sourceType = sourceType
         }
@@ -58,7 +58,7 @@ extension GKImagePicker: UIImagePickerControllerDelegate, UINavigationController
         picker.dismiss(animated: false, completion: nil)
     }
     
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         func setImage(image: UIImage) {
             let cropController = GKImageCropViewController.init()
@@ -72,9 +72,9 @@ extension GKImagePicker: UIImagePickerControllerDelegate, UINavigationController
             picker.pushViewController(cropController, animated: false)
         }
         
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             setImage(image: image)
-        } else if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             setImage(image: image)
         } else {
             print("error in imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])")

@@ -785,7 +785,7 @@ class SupplyChainTableViewController: UITableViewController {
 // MARK: - Notification handlers
 //
     func reloadMapSection(_ notification: Notification) {
-        tableView.reloadRows(at: [IndexPath(row: 0, section: 8)], with: UITableViewRowAnimation.fade)
+        tableView.reloadRows(at: [IndexPath(row: 0, section: 8)], with: UITableView.RowAnimation.fade)
     }
 
     @objc func refreshProduct() {
@@ -822,7 +822,7 @@ class SupplyChainTableViewController: UITableViewController {
                                 let anchorFrame = button.convert(button.bounds, to: self.view)
                                 ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                                 ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 if let validName = productPair?.localProduct?.expirationDate {
                                     let formatter = DateFormatter()
                                     formatter.dateStyle = .medium
@@ -891,7 +891,7 @@ class SupplyChainTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         tableView.allowsSelection = false
 

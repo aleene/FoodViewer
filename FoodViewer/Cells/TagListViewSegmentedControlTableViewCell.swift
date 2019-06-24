@@ -46,7 +46,7 @@ class TagListViewSegmentedControlTableViewCell: UITableViewCell {
     
     @IBOutlet weak var tagListView: TagListView! {
         didSet {
-            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+            tagListView.textFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
             tagListView.alignment = .center
             tagListView.normalColorScheme = scheme
             tagListView.removableColorScheme = ColorSchemes.removable

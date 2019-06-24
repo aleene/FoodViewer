@@ -95,7 +95,7 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
             sortedLanguages = []
             let allLanguages: [Language] = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
             for code in languageCodes {
-                if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+                if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
                     s.code == code
                 }){
                     sortedLanguages.append(allLanguages[validIndex])

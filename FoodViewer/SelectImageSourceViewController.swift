@@ -39,10 +39,10 @@ class SelectImageSourceViewController: UIViewController, UINavigationControllerD
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var userInfo = info
         if delegate as? IdentificationTableViewController != nil {
-            userInfo[Notification.ImageTypeKey] = Notification.FrontValue
+            userInfo[UIImagePickerController.InfoKey.originalImage] = Notification.FrontValue
         }
         picker.dismiss(animated: true, completion: nil)
         // notify the delegate

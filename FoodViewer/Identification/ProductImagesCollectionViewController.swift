@@ -87,8 +87,8 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     // MARK: - public variables
     
     private var productPair: ProductPair? {
-        return delegate?.productPair
         collectionView?.reloadData()
+        return delegate?.productPair
     }
 
     // Needed to show or hide buttons
@@ -395,7 +395,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         //1
         switch kind {
         //2
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             var newTitle = tableStructure[indexPath.section].header
             switch productVersion {
             case .new:
@@ -484,7 +484,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
                             ppc.sourceRect = anchorFrame // bottomCenter(anchorFrame)
                             ppc.delegate = self
                             
-                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                             vc.languageCodes = productPair!.remoteProduct!.languageCodes
                             vc.key = cell.imageKey
                         }
@@ -572,11 +572,11 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     }
     
     
-    fileprivate func newImageSelected(info: [String : Any]) {
+    fileprivate func newImageSelected(info: [UIImagePickerController.InfoKey : Any]) {
         var image: UIImage? = nil
-        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if image == nil {
-            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
     }
 

@@ -65,7 +65,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
         if editMode {
             if unAttributedIngredients.count > 0 {
                 // needed to reset the color of the text. It is not actually shown.
-                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedStringKey.foregroundColor : UIColor.black,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
+                textView?.attributedText = NSMutableAttributedString(string: "fake text", attributes: [NSAttributedString.Key.foregroundColor : UIColor.black,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: (textView.font?.pointSize)!)])
                 textView?.text = unAttributedIngredients
             } else {
                 textView?.text = ""
@@ -74,7 +74,7 @@ class IngredientsFullTableViewCell: UITableViewCell {
             // let fixedWidth = self.frame.size.width - 20.0 - 32.0
             // let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
             // textView.frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-            print(textView?.text, self.frame.size, textView.frame.size)
+            // print(textView?.text, self.frame.size, textView.frame.size)
             // textView?.sizeToFit() this allows for incompatible widths
             // textView?.removeGestureRecognizer(tapGestureRecognizer)
         } else {
@@ -119,8 +119,8 @@ class IngredientsFullTableViewCell: UITableViewCell {
                     // let currentFont = (textView.font?.fontName)!
                     // textView.font = UIFont(name: ()!, size: fontSize)!
 
-                    let allergenAttributes = [NSAttributedStringKey.foregroundColor : UIColor.red, NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)]
-                    let noAttributes = [NSAttributedStringKey.foregroundColor : UIColor.black,  NSAttributedStringKey.font: UIFont.systemFont(ofSize: fontSize)]
+                    let allergenAttributes = [NSAttributedString.Key.foregroundColor : UIColor.red, NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
+                    let noAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black,  NSAttributedString.Key.font: UIFont.systemFont(ofSize: fontSize)]
                     // create a attributable string
                     let myString = NSMutableAttributedString(string: "", attributes: noAttributes)
                     let components = text.components(separatedBy: "_")

@@ -686,7 +686,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     fileprivate func nextLanguageCode() -> String {
         if let product = productPair?.remoteProduct {
             if let validLanguageCode = displayLanguageCode,
-                let currentIndex = product.languageCodes.index(of: validLanguageCode) {
+                let currentIndex = product.languageCodes.firstIndex(of: validLanguageCode) {
                 let nextIndex = currentIndex == ( product.languageCodes.count - 1 ) ? 0 : currentIndex + 1
                 return product.languageCodes[nextIndex]
             } else {
@@ -792,7 +792,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
                                 //let anchorFrame = button.convert(button.bounds, to: self.view)
                                 //ppc.sourceRect = anchorFrame // leftMiddle(anchorFrame)
                                 //ppc.delegate = self
-                                vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+                            vc.preferredContentSize = vc.view.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
                                 
                                 vc.currentLanguageCode = displayLanguageCode
                                 vc.languageCodes = productPair!.remoteProduct!.languageCodes
@@ -901,7 +901,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
             currentLanguageCode = nextLanguageCode()
             // reload the first row
             let indexPaths = [IndexPath.init(row: 0, section: 0)]
-            tableView.reloadRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+            tableView.reloadRows(at: indexPaths, with: UITableView.RowAnimation.fade)
             tableView.deselectRow(at: indexPaths.first!, animated: true)
         }
     }
@@ -949,11 +949,11 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     }()
 
 
-    fileprivate func newImageSelected(info: [String : Any]) {
+    fileprivate func newImageSelected(info: [UIImagePickerController.InfoKey : Any]) {
         var image: UIImage? = nil
-        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if image == nil {
-            image = info[UIImagePickerControllerOriginalImage] as? UIImage
+            image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
         if image != nil,
             let validLanguageCode = displayLanguageCode {
@@ -998,7 +998,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 44.0
         
         if #available(iOS 11.0, *) {
@@ -1007,7 +1007,7 @@ class IngredientsTableViewController: UITableViewController, UIPopoverPresentati
         }
         
         // For custom tableView headers
-        tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.register(UINib(nibName: "LanguageHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "LanguageHeaderView")
         
@@ -1418,7 +1418,7 @@ extension IngredientsTableViewController: UINavigationControllerDelegate, UIImag
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         newImageSelected(info: info)
         picker.dismiss(animated: true, completion: nil)
         // notify the delegate

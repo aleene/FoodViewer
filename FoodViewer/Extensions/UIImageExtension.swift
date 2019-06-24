@@ -37,43 +37,43 @@ extension UIImage {
     func setOrientationToLeftUpCorner() -> UIImage {
         
         // up images should not be fixed
-        guard self.imageOrientation != UIImageOrientation.up else { return self }
+        guard self.imageOrientation != UIImage.Orientation.up else { return self }
         
         // We need to calculate the proper transformation to make the image upright.
         // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
         // Rotate image clockwise by 90 degree
         
         var transform = CGAffineTransform.identity
-        if (self.imageOrientation == UIImageOrientation.down
-            || self.imageOrientation == UIImageOrientation.downMirrored) {
+        if (self.imageOrientation == UIImage.Orientation.down
+            || self.imageOrientation == UIImage.Orientation.downMirrored) {
             
             transform = transform.translatedBy(x: self.size.width, y: self.size.height)
             transform = transform.rotated(by: CGFloat(Double.pi/2))
         }
         
-        if (self.imageOrientation == UIImageOrientation.left
-            || self.imageOrientation == UIImageOrientation.leftMirrored) {
+        if (self.imageOrientation == UIImage.Orientation.left
+            || self.imageOrientation == UIImage.Orientation.leftMirrored) {
             
             transform = transform.translatedBy(x: self.size.width, y: 0)
             transform = transform.rotated(by: CGFloat(Double.pi/2))
         }
         
-        if (self.imageOrientation == UIImageOrientation.right
-            || self.imageOrientation == UIImageOrientation.rightMirrored) {
+        if (self.imageOrientation == UIImage.Orientation.right
+            || self.imageOrientation == UIImage.Orientation.rightMirrored) {
             
             transform = transform.translatedBy(x: 0, y: self.size.height)
             transform = transform.rotated(by: CGFloat(-Double.pi/2))
         }
         
-        if (self.imageOrientation == UIImageOrientation.upMirrored
-            || self.imageOrientation == UIImageOrientation.downMirrored) {
+        if (self.imageOrientation == UIImage.Orientation.upMirrored
+            || self.imageOrientation == UIImage.Orientation.downMirrored) {
             
             transform = transform.translatedBy(x: self.size.width, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
         }
         
-        if (self.imageOrientation == UIImageOrientation.leftMirrored
-            || self.imageOrientation == UIImageOrientation.rightMirrored) {
+        if (self.imageOrientation == UIImage.Orientation.leftMirrored
+            || self.imageOrientation == UIImage.Orientation.rightMirrored) {
             
             transform = transform.translatedBy(x: self.size.height, y: 0)
             transform = transform.scaledBy(x: -1, y: 1)
@@ -93,11 +93,11 @@ extension UIImage {
         ctx.concatenate(transform)
         
         
-        if (self.imageOrientation == UIImageOrientation.left
-            || self.imageOrientation == UIImageOrientation.leftMirrored
-            || self.imageOrientation == UIImageOrientation.right
-            || self.imageOrientation == UIImageOrientation.rightMirrored
-            || self.imageOrientation == UIImageOrientation.up
+        if (self.imageOrientation == UIImage.Orientation.left
+            || self.imageOrientation == UIImage.Orientation.leftMirrored
+            || self.imageOrientation == UIImage.Orientation.right
+            || self.imageOrientation == UIImage.Orientation.rightMirrored
+            || self.imageOrientation == UIImage.Orientation.up
             ) {
             
             ctx.draw(self.cgImage!, in: CGRect.init(x: 0, y: 0, width: self.size.height, height: self.size.width))

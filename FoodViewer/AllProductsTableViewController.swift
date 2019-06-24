@@ -326,6 +326,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
                 startInterface(at: 0)
             }
         }
+        /////
     }
     
 // MARK: - Viewcontroller lifecycle
@@ -334,7 +335,7 @@ class AllProductsTableViewController: UITableViewController, UITextFieldDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
 

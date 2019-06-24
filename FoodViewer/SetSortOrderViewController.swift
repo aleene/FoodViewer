@@ -20,11 +20,10 @@ class SetSortOrderViewController: UIViewController, UIPickerViewDelegate, UIPick
     
     var currentSortOrder: SearchSortOrder? = nil {
         didSet {
-            if let validCurrentSortOrder = currentSortOrder,
-                let selectedRow = SearchSortOrder.all.index(where: { $0 == validCurrentSortOrder } ) {
+            //if let validCurrentSortOrder = currentSortOrder,
+              //  let selectedRow = SearchSortOrder.all.index(where: { $0 == validCurrentSortOrder } ) {
                 //pickerView.selectRow(selectedRow + Constant.RowOffset, inComponent: 0, animated: false)
             } 
-        }
     }
     
     //  MARK : Interface elements

@@ -145,7 +145,7 @@ class SingleSearchProductTableViewController: UITableViewController {
               //  if let pppVC = ppVC.parent as? UINavigationController {
             if let parentParentVC = pVC.parent as? UISplitViewController {
             if let detailVC = parentParentVC.viewControllers.last as? UINavigationController,
-            let ppvc = detailVC.childViewControllers.first as? ProductPageViewController {
+                let ppvc = detailVC.children.first as? ProductPageViewController {
             ppvc.productPair = selectedProductPair
             if let validSelectedRowType = selectedRowType,
                 let validProductPair = selectedProductPair {
@@ -539,7 +539,7 @@ class SingleSearchProductTableViewController: UITableViewController {
     @objc func showAlertAddFrontImage(forProductWith index:Int) {
         let alert = UIAlertController(
             title: TranslatableStrings.AddFrontImage,
-            message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertControllerStyle.alert)
+            message: TranslatableStrings.AddFrontImageMessage, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "What to put?", style: .cancel) { (action: UIAlertAction) -> Void in
             // the user cancels to add image
         })
@@ -690,7 +690,7 @@ class SingleSearchProductTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.allowsSelection = true
     }
@@ -737,7 +737,7 @@ class SingleSearchProductTableViewController: UITableViewController {
 extension SingleSearchProductTableViewController: GKImagePickerDelegate {
     
     func imagePicker(_ imagePicker: GKImagePicker, cropped image: UIImage) {
-        guard let validIndex = productIndexForMainImage else { return }
+        //guard let validIndex = productIndexForMainImage else { return }
         guard let validLanguageCode =  selectedProductPair?.primaryLanguageCode else { return }
         selectedProductPair?.update(frontImage: image, for: validLanguageCode)
         imagePicker.dismiss(animated: true, completion: nil)

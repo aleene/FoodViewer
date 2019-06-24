@@ -131,20 +131,20 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         if !filteredLanguages.isEmpty && row > 0 {
             // is this the primary language?
             if (filteredLanguages[row].code == currentLanguageCode) {
-                attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
+                attributedRowText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.blue, range: NSRange(location: 0, length: attributedRowText.length))
             } else {
-                attributedRowText.addAttribute(NSAttributedStringKey.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
+                attributedRowText.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: NSRange(location: 0, length: attributedRowText.length))
             }
         }
         
-        attributedRowText.addAttribute(NSAttributedStringKey.font, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
+        attributedRowText.addAttribute(NSAttributedString.Key.font, value: UIFont(name: "Helvetica", size: 16.0)!, range: NSRange(location: 0 ,length:attributedRowText.length))
         myLabel!.attributedText = attributedRowText
         return myLabel!
     }
     
     private func positionPickerView() {
         if let validCurrentLanguageCode = selectedLanguageCode {
-            if let validIndex = filteredLanguages.index(where: { (s: Language) -> Bool in
+            if let validIndex = filteredLanguages.firstIndex(where: { (s: Language) -> Bool in
                 s.code == validCurrentLanguageCode
             }){
                 languagesPickerView.selectRow(validIndex, inComponent: 0, animated: true)
@@ -237,7 +237,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.textChanged(notification:)),
-            name: Notification.Name.UITextFieldTextDidChange,
+            name: UITextField.textDidChangeNotification,
             object: nil)
     }
 
@@ -264,7 +264,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
             sortedLanguages = []
             let allLanguages: [Language] = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
             for code in languageCodesToUse {
-                if let validIndex = allLanguages.index(where: { (s: Language) -> Bool in
+                if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
                     s.code == code
                 }){
                     sortedLanguages.append(allLanguages[validIndex])
