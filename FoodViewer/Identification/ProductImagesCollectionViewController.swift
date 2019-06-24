@@ -19,6 +19,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     var delegate: ProductPageViewController? = nil {
         didSet {
             delegate?.productPageViewControllerdelegate = self
+            collectionView.reloadData()
         }
     }
     
@@ -661,13 +662,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         doubleTapGestureRecognizer.cancelsTouchesInView = false
         doubleTapGestureRecognizer.delaysTouchesBegan = true      //Important to add
         collectionView?.addGestureRecognizer(doubleTapGestureRecognizer)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        collectionView?.reloadData()
 
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ImageSet, object:nil)
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadImages), name:.ProductUpdateSucceeded, object:nil)
@@ -676,6 +674,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
         NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct), name:.ProductPairImageUploadSuccess, object:nil)
         //NotificationCenter.default.addObserver(self, selector:#selector(ProductImagesCollectionViewController.reloadProduct(_:)), name:.OFFUpdateImageDeleteSuccess, object:nil)
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -926,7 +928,7 @@ extension ProductImagesCollectionViewController: ProductPageViewControllerDelega
     }
     
     func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        // collectionView?.reloadData()
+        collectionView?.setNeedsLayout()
     }
 
     func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
