@@ -87,7 +87,7 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     // MARK: - public variables
     
     private var productPair: ProductPair? {
-        collectionView?.reloadData()
+        // collectionView?.reloadData()
         return delegate?.productPair
     }
 

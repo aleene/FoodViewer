@@ -86,7 +86,7 @@ class MainLanguageViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
 
     private func setupLanguages() {
-        allLanguages = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
+        allLanguages = OFFplists.manager.allLanguages
         purgeLanguageCodes()
         sortedLanguages = allLanguages.sorted(by: forward)
     }

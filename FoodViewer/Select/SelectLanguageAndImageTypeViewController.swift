@@ -93,7 +93,7 @@ class SelectLanguageAndImageTypeViewController: UIViewController, UIPickerViewDe
     private func buildLanguagesToUse() {
         if !languageCodes.isEmpty {
             sortedLanguages = []
-            let allLanguages: [Language] = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
+            let allLanguages = OFFplists.manager.allLanguages
             for code in languageCodes {
                 if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
                     s.code == code

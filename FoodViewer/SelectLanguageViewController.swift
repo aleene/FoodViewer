@@ -262,7 +262,7 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     private func buildLanguagesToUse() {
         if !languageCodesToUse.isEmpty {
             sortedLanguages = []
-            let allLanguages: [Language] = OFFplists.manager.allLanguages(Locale.preferredLanguages[0])
+            let allLanguages: [Language] = OFFplists.manager.allLanguages
             for code in languageCodesToUse {
                 if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
                     s.code == code

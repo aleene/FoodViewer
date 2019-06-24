@@ -68,6 +68,9 @@ class OFFplists {
         OFFnutrients = readPlist(Constants.NutrientsFileName)
         OFFlanguages = readPlist(Constants.LanguagesFileName)
         nutrients = localNutrients()
+        if allLanguages.count == 0 {
+            allLanguages = setupAllLanguages(Locale.preferredLanguages[0])
+        }
     }
     
     // MARK: - Translate functions
@@ -306,8 +309,10 @@ class OFFplists {
             return nil
         }
     }
-
-    func allLanguages(_ localeLanguage: String) -> [Language] {
+    
+    var allLanguages: [Language] = []
+    
+    private func setupAllLanguages(_ localeLanguage: String) -> [Language] {
         var languages: [Language] = []
         guard OFFlanguages != nil else { return languages }
         let firstSplit = localeLanguage.split(separator:"-").map(String.init)
@@ -324,14 +329,16 @@ class OFFplists {
             language.name = values != nil ? values![0] : localeLanguage
             languages.append(language)
         }
-        languages.sort(by: { (s1: Language, s2: Language) -> Bool in return s1.name < s2.name } )
+        if languages.count > 1 {
+            languages.sort(by: { (s1: Language, s2: Language) -> Bool in return s1.name < s2.name } )
+        }
         return languages
     }
     
     func languageName(for languageCode:String?) -> String {
         var language: Language? = nil
         guard languageCode != nil else { return TextConstants.NoLanguage }
-        let allLanguages: [Language] = self.allLanguages(Locale.preferredLanguages[0])
+        let allLanguages: [Language] = self.allLanguages
         if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
             s.code == languageCode!
         }){
@@ -344,7 +351,6 @@ class OFFplists {
     func languageCode(for languageString:String?) -> String {
         var language: Language? = nil
         guard languageString != nil else { return TextConstants.NoLanguage }
-        let allLanguages: [Language] = self.allLanguages(Locale.preferredLanguages[0])
         if let validIndex = allLanguages.firstIndex(where: { (s: Language) -> Bool in
             s.name == languageString!
         }){
