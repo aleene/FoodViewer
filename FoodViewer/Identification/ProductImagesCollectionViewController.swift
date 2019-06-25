@@ -18,8 +18,10 @@ class ProductImagesCollectionViewController: UICollectionViewController {
     
     var delegate: ProductPageViewController? = nil {
         didSet {
-            delegate?.productPageViewControllerdelegate = self
-            collectionView.reloadData()
+            if delegate != oldValue {
+                delegate?.productPageViewControllerdelegate = self
+                collectionView.reloadData()
+            }
         }
     }
     
