@@ -16,7 +16,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
         didSet {
             if delegate != oldValue {
                 delegate?.productPageViewControllerdelegate = self
-                tableView.reloadData()
+                refreshProduct()
             }
         }
     }
@@ -340,8 +340,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
             return cell
             
         case .nutritionFacts:
-            if indexPath.row == 0 && editMode {
-                // This cell should only be added when in editMode and as the first row
+            if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
+                // This cell should only be added when in editMode and as the last row
                 let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
                 cell.delegate = self
                 cell.buttonText = TranslatableStrings.AddNutrient
@@ -370,21 +370,21 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 } else {
                     let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.NutritionFact, for: indexPath) as? NutrientsTableViewCell
                     // warning set FIRST the saltOrSodium
-                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[nutritionFactRow]
+                    cell?.nutritionDisplayFactItem = adaptedNutritionFacts[indexPath.row]
                     cell?.delegate = self
                     cell?.tag = indexPath.section * 100 + indexPath.row
                     // only add taps gestures when NOT in editMode
                     if !editMode {
-                        if  (adaptedNutritionFacts[nutritionFactRow].nutrient.rawValue ==   NatriumChloride.salt.key) ||
-                            (adaptedNutritionFacts[nutritionFactRow].nutrient.rawValue == NatriumChloride.sodium.key) {
+                        if  (adaptedNutritionFacts[indexPath.row].nutrient.rawValue ==   NatriumChloride.salt.key) ||
+                            (adaptedNutritionFacts[indexPath.row].nutrient.rawValue == NatriumChloride.sodium.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:  #selector(NutrientsTableViewController.doubleTapOnSaltSodiumTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
-                        } else if  (adaptedNutritionFacts[nutritionFactRow].nutrient.key == LocalizedEnergy.key) ||
-                            (adaptedNutritionFacts[nutritionFactRow].nutrient.key == LocalizedEnergy.key) {
+                        } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
+                            (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
                             doubleTapGestureRecognizer.numberOfTapsRequired = 2
                             doubleTapGestureRecognizer.numberOfTouchesRequired = 1
@@ -397,40 +397,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                     return cell!
                 }
             }
-            /*
-        case .nutritionFactsSearch:
-            if query!.type != .simple {
-                let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as! TagListViewTableViewCell
-                cell.width = tableView.frame.size.width
-                cell.datasource = self
-                cell.editMode = false
-                cell.tag = indexPath.section
-                return cell
-            } else {
-                if indexPath.row == tableStructure[indexPath.section].numberOfRows && editMode {
-                    // This cell should only be added when in editMode and as the last row
-                    // and allows the user to add a nutrient
-                    let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.AddNutrient, for: indexPath) as! AddNutrientTableViewCell
-                    cell.buttonText = TranslatableStrings.AddNutrient
-                    return cell
-                } else {
-                    if query!.allNutrimentsSearch.isEmpty {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.TagListView, for: indexPath) as? TagListViewTableViewCell
-                        cell?.tag = indexPath.section
-                        cell?.width = tableView.frame.size.width
-                        cell?.datasource = self
-                        return cell!
-                    } else {
-                        let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.SearchNutritionFact, for: indexPath) as! SearchNutrientsTableViewCell
-                        cell.searchNutrition = query!.allNutrimentsSearch[indexPath.row]
-                        cell.delegate = self
-                        cell.tag = indexPath.section * 100 + indexPath.row
-                        cell.editMode = editMode
-                        return cell
-                    }
-                }
-            }
-*/
+
         case .servingSize:
             let cell = tableView.dequeueReusableCell(withIdentifier: Storyboard.CellIdentifier.ServingSize, for: indexPath) as! ServingSizeTableViewCell
             cell.servingSizeTextField.delegate = self
@@ -1007,7 +974,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         break
                     }
                     productPair?.update(fact: newNutrient)
-                    refreshProductWithNewNutritionFacts()
+                    refreshProduct()
                 //}
             }
         }
@@ -1034,7 +1001,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         break
                     }
                     productPair?.update(fact: editedNutritionFact)
-                    refreshProductWithNewNutritionFacts()
+                    refreshProduct()
                     /*
                 } else if query != nil {
                     if let validUnit = vc.selectedNutritionUnit {
@@ -1069,7 +1036,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                         }
                     }
                 }
-                refreshProductWithNewNutritionFacts()
+                refreshProduct()
             }
         }
     }
@@ -1183,12 +1150,11 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
 
     func refreshProductWithNewNutritionFacts() {
-        if productPair != nil {
-            // recalculate the nutritionfacts that must be shown
-            mergeNutritionFacts()
-            tableStructure = setupTableSections()
-            tableView.reloadData()
-        }
+        guard productPair != nil else { return }
+        // recalculate the nutritionfacts that must be shown
+        mergeNutritionFacts()
+        tableStructure = setupTableSections()
+        tableView.reloadData()
     }
     
     fileprivate lazy var imagePicker: GKImagePicker = {
@@ -1316,9 +1282,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                 default: break
                 }
             }
-            tableView.reloadData()
         }
-        refreshProductWithNewNutritionFacts()
+        refreshProduct()
 
         NotificationCenter.default.addObserver(
             self,
@@ -1390,7 +1355,7 @@ extension NutrientsTableViewController:  AddNutrientCellDelegate {
         if !productPair!.remoteProduct!.nutritionFactsContain(.salt) {
             productPair?.update(fact: NutritionFactItem.init(nutrient: .salt, unit: .Gram))
         }
-        refreshProductWithNewNutritionFacts()
+        refreshProduct()
     }
     
     // function to let the delegate know that the switch changed
@@ -1495,7 +1460,7 @@ extension NutrientsTableViewController: NutrimentsAvailableCellDelegate {
         guard productPair?.remoteProduct != nil else { return }
         // change the updated product
         productPair?.update(availability: mySwitch.isOn)
-        refreshProductWithNewNutritionFacts()
+        refreshProduct()
     }
 }
 
@@ -1869,14 +1834,17 @@ extension NutrientsTableViewController: GKImageCropControllerDelegate {
 extension NutrientsTableViewController: ProductPageViewControllerDelegate {
     
     func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
+        guard delegate != nil else { return }
         tableView.reloadData()
     }
     
     func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
+        guard delegate != nil else { return }
         tableView.reloadData()
     }
 
     func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
+        guard delegate != nil else { return }
         tableView.reloadData()
     }
 }
