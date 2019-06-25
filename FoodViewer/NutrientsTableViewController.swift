@@ -773,6 +773,8 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     private var hasNutritionFacts: Bool {
+        print(productPair?.localProduct?.hasNutritionFacts ??
+            productPair?.remoteProduct?.hasNutritionFacts)
         // If the local product has been set, use that value
         return  productPair?.localProduct?.hasNutritionFacts ??
                 productPair?.remoteProduct?.hasNutritionFacts ??
@@ -1835,17 +1837,17 @@ extension NutrientsTableViewController: ProductPageViewControllerDelegate {
     
     func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
         guard delegate != nil else { return }
-        tableView.reloadData()
+        refreshProduct()
     }
     
     func productPageViewControllerProductPairChanged(_ sender: ProductPageViewController) {
         guard delegate != nil else { return }
-        tableView.reloadData()
+        refreshProduct()
     }
 
     func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
         guard delegate != nil else { return }
-        tableView.reloadData()
+        refreshProduct()
     }
 }
 
