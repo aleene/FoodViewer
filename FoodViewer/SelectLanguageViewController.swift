@@ -182,24 +182,22 @@ class SelectLanguageViewController: UIViewController, UIPickerViewDelegate, UIPi
     }
     
     @IBAction func unwindAddLanguageForDone(_ segue:UIStoryboardSegue) {
-        if let vc = segue.source as? MainLanguageViewController {
-            if let newLanguageCode = vc.selectedLanguageCode {
-                // the languageCodes have been edited, so with have now an updated product
-                productPair?.update(addLanguageCode: newLanguageCode)
-                if updatedLanguageCodes.isEmpty {
-                    updatedLanguageCodes = languageCodes
-                }
-                updatedLanguageCodes.append(newLanguageCode)
-                
-                // recreate the language list
-                sortedLanguages = []
-                setupLanguages()
-                textFilter = ""
-                languagesPickerView.reloadComponent(0)
-                selectedLanguageCode = newLanguageCode
-                positionPickerView()
-            }
+        guard let vc = segue.source as? AddLanguageViewController else { return }
+        guard let newLanguageCode = vc.selectedLanguageCode else { return }
+        // the languageCodes have been edited, so with have now an updated product
+        productPair?.update(addLanguageCode: newLanguageCode)
+        if updatedLanguageCodes.isEmpty {
+            updatedLanguageCodes = languageCodes
         }
+        updatedLanguageCodes.append(newLanguageCode)
+        
+        // recreate the language list
+        sortedLanguages = []
+        setupLanguages()
+        textFilter = ""
+        languagesPickerView.reloadComponent(0)
+        selectedLanguageCode = newLanguageCode
+        positionPickerView()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
