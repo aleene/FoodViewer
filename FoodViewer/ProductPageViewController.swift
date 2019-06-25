@@ -254,6 +254,7 @@ class ProductPageViewController: UIPageViewController, UIPageViewControllerDataS
             pages = [.notSet]
             pageIndex = .notSet
         } else {
+            pageIndex = .identification
             // define the pages (and order), which will be shown
             switch currentProductType {
             case .food:
