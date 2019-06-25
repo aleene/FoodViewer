@@ -773,12 +773,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
     }
     
     private var hasNutritionFacts: Bool {
-        print(productPair?.localProduct?.hasNutritionFacts ??
-            productPair?.remoteProduct?.hasNutritionFacts)
-        // If the local product has been set, use that value
-        return  productPair?.localProduct?.hasNutritionFacts ??
-                productPair?.remoteProduct?.hasNutritionFacts ??
-                true
+        return productPair?.hasNutritionFacts ?? true
     }
 
     // MARK: - Segue functions
