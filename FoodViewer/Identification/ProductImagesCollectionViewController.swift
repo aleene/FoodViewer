@@ -928,7 +928,7 @@ extension ProductImagesCollectionViewController: ProductPageViewControllerDelega
     }
     
     func productPageViewControllerEditModeChanged(_ sender: ProductPageViewController) {
-        collectionView?.setNeedsLayout()
+        collectionView?.reloadData()
     }
 
     func productPageViewControllerCurrentLanguageCodeChanged(_ sender: ProductPageViewController) {
