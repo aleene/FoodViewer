@@ -305,6 +305,7 @@ class BarcodeScanViewController: RSCodeReaderViewController, UITextFieldDelegate
                             }
                         }
                     }
+                    self.frontImageView.image = nil
                     if let language = scannedProductPair?.remoteProduct?.primaryLanguageCode,
                         let frontImages = scannedProductPair?.remoteProduct?.frontImages ?? scannedProductPair?.localProduct?.frontImages,
                         !frontImages.isEmpty,
