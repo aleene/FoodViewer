@@ -383,6 +383,7 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                            cell?.tripleTapIndicator.isHidden = false
                         } else if  (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) ||
                             (adaptedNutritionFacts[indexPath.row].nutrient.key == LocalizedEnergy.key) {
                             let doubleTapGestureRecognizer = UITapGestureRecognizer.init(target: self, action:#selector(NutrientsTableViewController.doubleTapOnEnergyTableViewCell))
@@ -391,6 +392,9 @@ class NutrientsTableViewController: UITableViewController, UIPopoverPresentation
                             doubleTapGestureRecognizer.cancelsTouchesInView = false
                             doubleTapGestureRecognizer.delaysTouchesBegan = true;      //Important to add
                             cell?.addGestureRecognizer(doubleTapGestureRecognizer)
+                            cell?.tripleTapIndicator.isHidden = false
+                        } else {
+                            cell?.tripleTapIndicator.isHidden = true
                         }
                     }
                     cell?.editMode = editMode

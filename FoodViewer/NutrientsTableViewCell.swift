@@ -31,6 +31,8 @@ class NutrientsTableViewCell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var tripleTapIndicator: UIImageView!
+    
     var nutritionDisplayFactItem: NutrientsTableViewController.DisplayFact? = nil {
         didSet {
             if let item = nutritionDisplayFactItem {

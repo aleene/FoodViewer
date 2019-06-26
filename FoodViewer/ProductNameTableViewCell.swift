@@ -30,14 +30,17 @@ class ProductNameTableViewCell: UITableViewCell {
         name = ""
     }
     
+    @IBOutlet weak var doubleTapIndicator: UIImageView! {
+        didSet {
+            doubleTapIndicator.isHidden = true
+        }
+    }
+    
     private func setTextViewStyle() {
         nameTextView.layer.borderWidth = 0.5
         nameTextView?.delegate = delegate as? UITextViewDelegate
         nameTextView?.tag = tag
         nameTextView?.isEditable = editMode
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
-        tapGestureRecognizer.numberOfTapsRequired = 2
-        nameTextView?.addGestureRecognizer(tapGestureRecognizer)
         nameTextView?.isScrollEnabled = editMode
         nameTextView.backgroundColor = editMode ? UIColor.groupTableViewBackground : UIColor.white
         
@@ -46,11 +49,16 @@ class ProductNameTableViewCell: UITableViewCell {
             nameTextView?.layer.cornerRadius = 5
             nameTextView?.layer.borderColor = UIColor.gray.withAlphaComponent(0.5).cgColor
             nameTextView?.clipsToBounds = true
+            doubleTapIndicator.isHidden = true
             // nameTextField.removeGestureRecognizer(tapGestureRecognizer)
         } else {
+            let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ProductNameTableViewCell.nameTapped))
+            tapGestureRecognizer.numberOfTapsRequired = 2
+            nameTextView?.addGestureRecognizer(tapGestureRecognizer)
             nameTextView?.layer.borderColor = UIColor.white.cgColor
+            doubleTapIndicator.isHidden = !isMultilingual
         }
-        print ("setTextView", self.frame)
+        print ("ProductNameTableViewCell: setTextView", self.frame)
         //if nameTextView?.text != nil && !nameTextView!.text!.isEmpty {
         //    nameTextView?.sizeToFit()
         //}
@@ -74,6 +82,12 @@ class ProductNameTableViewCell: UITableViewCell {
     var delegate: ProductNameCellDelegate? = nil {
         didSet {
             nameTextView?.delegate = delegate as? UITextViewDelegate
+        }
+    }
+    
+    var isMultilingual = false {
+        didSet {
+            doubleTapIndicator.isHidden = !isMultilingual
         }
     }
     

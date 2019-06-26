@@ -369,6 +369,9 @@ class IdentificationTableViewController: UITableViewController {
             cell.editMode = editMode // currentLanguageCode == product!.primaryLanguageCode ? editMode : false
             cell.name = editMode ? TranslatableStrings.PlaceholderProductName : nil
             cell.nameTextView.textColor = .gray
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+                cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
+            }
             switch nameToDisplay {
             case .available(let array):
                 if !array.isEmpty && !array.first!.isEmpty {
@@ -395,6 +398,9 @@ class IdentificationTableViewController: UITableViewController {
                 }
             default:
                 break
+            }
+            if let validNumberOfProductLanguages = productPair?.remoteProduct?.languageCodes.count {
+                cell.isMultilingual = validNumberOfProductLanguages > 1 ? true : false
             }
             return cell
 
